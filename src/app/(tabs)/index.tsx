@@ -8,8 +8,6 @@ import {
   Pressable,
   ActivityIndicator,
   Dimensions,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -20,7 +18,8 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
   withTiming,
-  interpolate,
+  withSequence,
+  withDelay,
   FadeIn,
   FadeInDown,
 } from 'react-native-reanimated';
@@ -29,13 +28,10 @@ import {
   BookOpen,
   Heart,
   ChevronDown,
-  ChevronUp,
-  Play,
-  Pause,
-  Volume2,
   Check,
   Flame,
   Star,
+  Trophy,
 } from 'lucide-react-native';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import {
@@ -51,6 +47,209 @@ import type { Devotional } from '@/lib/types';
 import { cn } from '@/lib/cn';
 
 const { width, height } = Dimensions.get('window');
+
+// Confetti colors
+const CONFETTI_COLORS = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'];
+
+// Individual confetti piece component
+function ConfettiPiece({ delay, color, startX }: { delay: number; color: string; startX: number }) {
+  const translateY = useSharedValue(-50);
+  const translateX = useSharedValue(startX);
+  const rotate = useSharedValue(0);
+  const opacity = useSharedValue(1);
+  const scale = useSharedValue(1);
+
+  useEffect(() => {
+    const randomX = (Math.random() - 0.5) * 200;
+    const duration = 2500 + Math.random() * 1000;
+
+    translateY.value = withDelay(
+      delay,
+      withTiming(height + 100, { duration })
+    );
+    translateX.value = withDelay(
+      delay,
+      withSequence(
+        withTiming(startX + randomX * 0.5, { duration: duration * 0.3 }),
+        withTiming(startX + randomX, { duration: duration * 0.7 })
+      )
+    );
+    rotate.value = withDelay(
+      delay,
+      withTiming(360 * (2 + Math.random() * 3), { duration })
+    );
+    opacity.value = withDelay(
+      delay + duration * 0.7,
+      withTiming(0, { duration: duration * 0.3 })
+    );
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: translateX.value },
+      { translateY: translateY.value },
+      { rotate: `${rotate.value}deg` },
+      { scale: scale.value },
+    ],
+    opacity: opacity.value,
+  }));
+
+  const pieceSize = 8 + Math.random() * 8;
+  const isCircle = Math.random() > 0.5;
+
+  return (
+    <Animated.View
+      style={[
+        {
+          position: 'absolute',
+          top: 0,
+          width: pieceSize,
+          height: isCircle ? pieceSize : pieceSize * 2,
+          backgroundColor: color,
+          borderRadius: isCircle ? pieceSize / 2 : 2,
+        },
+        animatedStyle,
+      ]}
+    />
+  );
+}
+
+// Confetti explosion component
+function ConfettiCelebration({ visible }: { visible: boolean }) {
+  if (!visible) return null;
+
+  const pieces = Array.from({ length: 50 }, (_, i) => ({
+    id: i,
+    delay: Math.random() * 300,
+    color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+    startX: Math.random() * width,
+  }));
+
+  return (
+    <View
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 1000,
+        pointerEvents: 'none',
+      }}
+    >
+      {pieces.map((piece) => (
+        <ConfettiPiece
+          key={piece.id}
+          delay={piece.delay}
+          color={piece.color}
+          startX={piece.startX}
+        />
+      ))}
+    </View>
+  );
+}
+
+// Achievement popup component
+function AchievementPopup({
+  visible,
+  points,
+  colors,
+  language,
+}: {
+  visible: boolean;
+  points: number;
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+}) {
+  const scale = useSharedValue(0);
+  const opacity = useSharedValue(0);
+
+  useEffect(() => {
+    if (visible) {
+      scale.value = withSequence(
+        withSpring(1.1, { damping: 8 }),
+        withSpring(1, { damping: 12 })
+      );
+      opacity.value = withTiming(1, { duration: 300 });
+    }
+  }, [visible]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+  }));
+
+  if (!visible) return null;
+
+  return (
+    <View
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 999,
+        pointerEvents: 'none',
+      }}
+    >
+      <Animated.View
+        style={[
+          {
+            backgroundColor: colors.surface,
+            borderRadius: 24,
+            padding: 32,
+            alignItems: 'center',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 8 },
+            shadowOpacity: 0.3,
+            shadowRadius: 16,
+            elevation: 10,
+            borderWidth: 3,
+            borderColor: '#FFD700',
+          },
+          animatedStyle,
+        ]}
+      >
+        <View
+          style={{
+            width: 80,
+            height: 80,
+            borderRadius: 40,
+            backgroundColor: '#FFD700',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: 16,
+          }}
+        >
+          <Trophy size={40} color="#FFFFFF" />
+        </View>
+        <Text
+          style={{
+            color: colors.text,
+            fontSize: 24,
+            fontWeight: 'bold',
+            marginBottom: 8,
+            textAlign: 'center',
+          }}
+        >
+          {language === 'es' ? '¡Devocional Completado!' : 'Devotional Complete!'}
+        </Text>
+        <Text
+          style={{
+            color: colors.primary,
+            fontSize: 28,
+            fontWeight: 'bold',
+          }}
+        >
+          +{points} {language === 'es' ? 'puntos' : 'points'}
+        </Text>
+      </Animated.View>
+    </View>
+  );
+}
 
 interface SectionProps {
   title: string;
@@ -128,9 +327,11 @@ export default function HomeScreen() {
   const updateUser = useAppStore((s) => s.updateUser);
   const incrementStreak = useAppStore((s) => s.incrementStreak);
 
+  // Hidden timer for internal tracking (not shown to user)
   const [timeSpent, setTimeSpent] = useState(0);
-  const [scrolledToBottom, setScrolledToBottom] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [showAchievement, setShowAchievement] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const { data: devotional, isLoading } = useQuery({
@@ -141,7 +342,7 @@ export default function HomeScreen() {
   const today = getTodayDate();
   const isFavorite = favorites.includes(today);
 
-  // Time tracking
+  // Time tracking (hidden from user - internal control only)
   useEffect(() => {
     timerRef.current = setInterval(() => {
       setTimeSpent((prev) => prev + 1);
@@ -152,21 +353,26 @@ export default function HomeScreen() {
     };
   }, []);
 
-  // Check completion
+  // Auto-complete when 3 minutes have passed
   useEffect(() => {
     if (
       !isCompleted &&
-      scrolledToBottom &&
       timeSpent >= COMPLETION_REQUIREMENTS.MIN_TIME_SECONDS
     ) {
       handleComplete();
     }
-  }, [scrolledToBottom, timeSpent, isCompleted]);
+  }, [timeSpent, isCompleted]);
 
   const handleComplete = useCallback(() => {
     if (isCompleted) return;
 
     setIsCompleted(true);
+
+    // Show celebration
+    setShowCelebration(true);
+    setShowAchievement(true);
+
+    // Haptic feedback
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
 
     // Award points
@@ -191,16 +397,20 @@ export default function HomeScreen() {
         lastActiveDate: today,
       });
     }
+
+    // Hide achievement popup after 3 seconds
+    setTimeout(() => {
+      setShowAchievement(false);
+    }, 3000);
+
+    // Hide confetti after 4 seconds
+    setTimeout(() => {
+      setShowCelebration(false);
+    }, 4000);
   }, [isCompleted, user, today, addPoints, incrementStreak, updateUser]);
 
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
-    const isAtBottom =
-      layoutMeasurement.height + contentOffset.y >= contentSize.height - 100;
-
-    if (isAtBottom && !scrolledToBottom) {
-      setScrolledToBottom(true);
-    }
+  const handleScroll = () => {
+    // Scroll tracking removed - completion is now time-based only (3 minutes)
   };
 
   const toggleFavorite = () => {
@@ -214,17 +424,6 @@ export default function HomeScreen() {
       }
     }
   };
-
-  const formatTime = (seconds: number): string => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const timeRemaining = Math.max(
-    0,
-    COMPLETION_REQUIREMENTS.MIN_TIME_SECONDS - timeSpent
-  );
 
   if (isLoading) {
     return (
@@ -258,6 +457,17 @@ export default function HomeScreen() {
 
   return (
     <View className="flex-1" style={{ backgroundColor: colors.background }}>
+      {/* Confetti celebration overlay */}
+      <ConfettiCelebration visible={showCelebration} />
+
+      {/* Achievement popup */}
+      <AchievementPopup
+        visible={showAchievement}
+        points={POINTS.COMPLETE_DEVOTIONAL}
+        colors={colors}
+        language={language}
+      />
+
       <ScrollView
         onScroll={handleScroll}
         scrollEventThrottle={16}
@@ -352,36 +562,7 @@ export default function HomeScreen() {
             </Text>
           </Animated.View>
 
-          {/* Progress indicator */}
-          {!isCompleted && (
-            <Animated.View
-              entering={FadeIn.duration(300)}
-              className="rounded-2xl p-4 mb-6 flex-row items-center"
-              style={{ backgroundColor: colors.primary + '15' }}
-            >
-              {timeRemaining > 0 ? (
-                <>
-                  <View className="w-8 h-8 rounded-full items-center justify-center mr-3" style={{ backgroundColor: colors.primary }}>
-                    <Text className="text-white text-xs font-bold">
-                      {formatTime(timeRemaining)}
-                    </Text>
-                  </View>
-                  <Text style={{ color: colors.text }} className="flex-1">
-                    {t.time_remaining.replace('{time}', formatTime(timeRemaining))}
-                  </Text>
-                </>
-              ) : !scrolledToBottom ? (
-                <>
-                  <ChevronDown size={20} color={colors.primary} />
-                  <Text style={{ color: colors.text }} className="ml-2">
-                    {t.scroll_to_complete}
-                  </Text>
-                </>
-              ) : null}
-            </Animated.View>
-          )}
-
-          {/* Completed badge */}
+          {/* Completed badge - only shown after 3 minutes */}
           {isCompleted && (
             <Animated.View
               entering={FadeIn.duration(300)}
