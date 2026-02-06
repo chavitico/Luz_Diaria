@@ -8,30 +8,45 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - One unique devotional per day for all users worldwide
 - Beautiful hero image with devotional-style imagery
 - Bible verse with citation
-- Expandable sections: Reflection, Story, Biblical Character, Application, Prayer
-- Completion tracking (3-minute read time + scroll to bottom)
+- **Continuous reading format** - all sections displayed without collapse
+- Completion tracking (3-minute read time - timer hidden from user)
 - Favorite devotionals with heart icon
+- **Text-to-Speech (TTS)** - reads devotional aloud with section highlighting
+  - Adjustable reading speed (0.5x - 2.0x)
+  - Bible references spoken correctly ("1 Pedro" → "Primera de Pedro")
+- **Background music controls** - 5 instrumental Christian tracks
+  - Piano Worship, Harp of Peace, Gentle Strings, Morning Prayer, Heavenly Piano
+  - Volume control, track selection
+  - Connected to global settings
 
 ### Library Tab
 - Historical devotionals archive
 - Filter by All or Favorites
 - Thumbnail previews with dates and topics
 - Tap to view full devotional
+- **Continuous reading format** with collapsible overflow
+- Full audio controls (TTS + Background Music)
 
 ### Store Tab
 - Points balance display
 - Redeem points for:
-  - Avatar unlocks
+  - Avatar unlocks (premium avatars)
   - Nickname change tickets
 - Visual feedback for purchases
+- **All purchased items can be equipped** in Settings
 
 ### Settings Tab
 - User profile with stats (streak, completed, time)
+- **Avatar selection** - tap profile to change avatar
+  - Free avatars: Dove, Sun, Star, Heart, Cross, Candle, Book, Praying
+  - Premium avatars: Rainbow, Crown, Angel, Olive, Lamb, Fish (unlock in Store)
 - Theme selection (Dawn, Dusk, Ocean, Forest, Rose)
 - Dark mode toggle
 - Language (English / Spanish)
 - Notification preferences
-- Background music settings
+- **Background music global settings**
+  - Enable/disable
+  - Volume control (default: low)
 
 ### Gamification
 - Points earned for:
@@ -42,6 +57,17 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - Total devotionals completed
 - Total time spent in app
 
+### Audio Features
+- **Text-to-Speech (TTS)**
+  - Play/Pause/Stop controls
+  - Speed adjustment (0.5x - 2.0x)
+  - Section highlighting during playback
+  - Bible-optimized speech (converts "1 Pedro" to "Primera de Pedro")
+- **Background Music**
+  - 5 instrumental Christian tracks
+  - Volume control (synced with Settings)
+  - Track selection
+
 ## Tech Stack
 
 - **Framework**: Expo SDK 53 + React Native
@@ -51,6 +77,7 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Styling**: NativeWind (Tailwind CSS)
 - **Animations**: React Native Reanimated
 - **Icons**: Lucide React Native
+- **Audio**: expo-speech (TTS), expo-av (Background Music)
 
 ## Project Structure
 
@@ -68,7 +95,8 @@ src/
 │   └── _layout.tsx        # Root layout
 ├── components/
 │   ├── SplashScreen.tsx   # App splash
-│   └── OnboardingScreen.tsx # First-time setup
+│   ├── OnboardingScreen.tsx # First-time setup
+│   └── BackgroundMusicProvider.tsx # Music context
 └── lib/
     ├── constants.ts       # Themes, translations, avatars
     ├── firestore.ts       # Data services (mock)
@@ -101,7 +129,7 @@ src/
 - streakCurrent, streakBest
 - totalTime, devotionalsCompleted
 - favorites[], purchasedItems[]
-- settings (theme, language, music, notifications)
+- settings (theme, language, music, notifications, ttsSpeed, ttsVoice)
 
 ### Devotionals Collection
 - date, title, imageUrl
@@ -112,9 +140,10 @@ src/
 
 ## Future Enhancements
 
+- [x] Text-to-Speech with section highlighting
+- [x] Background music player UI
 - [ ] Firebase Firestore integration
 - [ ] AI devotional generation (daily)
-- [ ] Text-to-Speech with word highlighting
-- [ ] Background music player
+- [ ] Actual background music audio files (upload via SOUNDS tab)
 - [ ] Push notifications
 - [ ] Real image generation for devotionals

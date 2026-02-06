@@ -1,4 +1,4 @@
-// Settings Screen
+// Settings Screen - With Avatar Selection
 
 import React, { useState } from 'react';
 import {
@@ -29,6 +29,8 @@ import {
   X,
   Sun,
   Moon,
+  User,
+  Lock,
 } from 'lucide-react-native';
 import {
   useThemeColors,
@@ -123,9 +125,11 @@ export default function SettingsScreen() {
   const setTheme = useAppStore((s) => s.setTheme);
   const setDarkMode = useAppStore((s) => s.setDarkMode);
   const updateSettings = useAppStore((s) => s.updateSettings);
+  const updateUser = useAppStore((s) => s.updateUser);
 
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [showLanguageModal, setShowLanguageModal] = useState(false);
+  const [showAvatarModal, setShowAvatarModal] = useState(false);
 
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
@@ -137,6 +141,23 @@ export default function SettingsScreen() {
   };
 
   const currentAvatar = DEFAULT_AVATARS.find((a) => a.id === user?.avatar);
+  const purchasedItems = user?.purchasedItems ?? [];
+
+  // Check if avatar is available (free or purchased)
+  const isAvatarAvailable = (avatar: typeof DEFAULT_AVATARS[number]) => {
+    if ('unlocked' in avatar && avatar.unlocked) return true;
+    if ('price' in avatar && purchasedItems.includes(avatar.id)) return true;
+    return false;
+  };
+
+  const handleAvatarSelect = (avatarId: string) => {
+    const avatar = DEFAULT_AVATARS.find((a) => a.id === avatarId);
+    if (!avatar || !isAvatarAvailable(avatar)) return;
+
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    updateUser({ avatar: avatarId });
+    setShowAvatarModal(false);
+  };
 
   return (
     <View className="flex-1" style={{ backgroundColor: colors.background }}>
@@ -157,7 +178,13 @@ export default function SettingsScreen() {
               className="rounded-2xl p-5 mb-6"
               style={{ backgroundColor: colors.surface }}
             >
-              <View className="flex-row items-center mb-4">
+              <Pressable
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  setShowAvatarModal(true);
+                }}
+                className="flex-row items-center mb-4"
+              >
                 <View
                   className="w-16 h-16 rounded-full items-center justify-center mr-4"
                   style={{ backgroundColor: colors.primary + '15' }}
@@ -175,7 +202,15 @@ export default function SettingsScreen() {
                     </Text>
                   </View>
                 </View>
-              </View>
+                <View
+                  className="px-3 py-1.5 rounded-full"
+                  style={{ backgroundColor: colors.primary + '20' }}
+                >
+                  <Text className="text-xs font-semibold" style={{ color: colors.primary }}>
+                    {language === 'es' ? 'Cambiar' : 'Change'}
+                  </Text>
+                </View>
+              </Pressable>
 
               {/* Stats Grid */}
               <View className="flex-row gap-3">
@@ -201,9 +236,22 @@ export default function SettingsScreen() {
             </Animated.View>
           )}
 
-          {/* Appearance Section */}
+          {/* Profile Section */}
           <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1" style={{ color: colors.textMuted }}>
-            Appearance
+            {language === 'es' ? 'Perfil' : 'Profile'}
+          </Text>
+
+          <SettingRow
+            icon={<User size={20} color={colors.primary} />}
+            title={language === 'es' ? 'Avatar' : 'Avatar'}
+            subtitle={currentAvatar?.name ?? 'Default'}
+            colors={colors}
+            onPress={() => setShowAvatarModal(true)}
+          />
+
+          {/* Appearance Section */}
+          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
+            {language === 'es' ? 'Apariencia' : 'Appearance'}
           </Text>
 
           <SettingRow
@@ -241,7 +289,7 @@ export default function SettingsScreen() {
 
           {/* Notifications Section */}
           <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
-            Notifications
+            {language === 'es' ? 'Notificaciones' : 'Notifications'}
           </Text>
 
           <SettingRow
@@ -321,6 +369,111 @@ export default function SettingsScreen() {
           )}
         </View>
       </ScrollView>
+
+      {/* Avatar Selection Modal */}
+      <Modal
+        visible={showAvatarModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowAvatarModal(false)}
+      >
+        <View className="flex-1 bg-black/50 items-center justify-center px-6">
+          <View className="w-full rounded-3xl p-6" style={{ backgroundColor: colors.surface, maxHeight: '80%' }}>
+            <View className="flex-row items-center justify-between mb-6">
+              <Text className="text-xl font-bold" style={{ color: colors.text }}>
+                {language === 'es' ? 'Seleccionar Avatar' : 'Select Avatar'}
+              </Text>
+              <Pressable
+                onPress={() => setShowAvatarModal(false)}
+                className="w-8 h-8 rounded-full items-center justify-center"
+                style={{ backgroundColor: colors.textMuted + '20' }}
+              >
+                <X size={18} color={colors.textMuted} />
+              </Pressable>
+            </View>
+
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View className="flex-row flex-wrap justify-between">
+                {DEFAULT_AVATARS.map((avatar) => {
+                  const isAvailable = isAvatarAvailable(avatar);
+                  const isSelected = user?.avatar === avatar.id;
+                  const isPremium = 'price' in avatar;
+
+                  return (
+                    <Pressable
+                      key={avatar.id}
+                      onPress={() => isAvailable && handleAvatarSelect(avatar.id)}
+                      className="mb-4"
+                      style={{ width: '30%' }}
+                    >
+                      <View
+                        className="items-center p-3 rounded-2xl"
+                        style={{
+                          backgroundColor: isSelected
+                            ? colors.primary + '20'
+                            : isAvailable
+                            ? colors.textMuted + '10'
+                            : colors.textMuted + '05',
+                          borderWidth: isSelected ? 2 : 0,
+                          borderColor: isSelected ? colors.primary : 'transparent',
+                          opacity: isAvailable ? 1 : 0.5,
+                        }}
+                      >
+                        <View className="relative">
+                          <Text style={{ fontSize: 36 }}>{avatar.emoji}</Text>
+                          {!isAvailable && isPremium && (
+                            <View
+                              className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full items-center justify-center"
+                              style={{ backgroundColor: colors.textMuted }}
+                            >
+                              <Lock size={10} color="#FFFFFF" />
+                            </View>
+                          )}
+                          {isSelected && (
+                            <View
+                              className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full items-center justify-center"
+                              style={{ backgroundColor: colors.primary }}
+                            >
+                              <Check size={10} color="#FFFFFF" strokeWidth={3} />
+                            </View>
+                          )}
+                        </View>
+                        <Text
+                          className="text-xs font-medium mt-2 text-center"
+                          style={{ color: isAvailable ? colors.text : colors.textMuted }}
+                          numberOfLines={1}
+                        >
+                          {avatar.name}
+                        </Text>
+                        {isPremium && !isAvailable && (
+                          <View className="flex-row items-center mt-1">
+                            <Coins size={10} color={colors.textMuted} />
+                            <Text
+                              className="text-xs ml-0.5"
+                              style={{ color: colors.textMuted }}
+                            >
+                              {(avatar as { price: number }).price}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+                    </Pressable>
+                  );
+                })}
+              </View>
+
+              <Text
+                className="text-sm text-center mt-4 px-4"
+                style={{ color: colors.textMuted }}
+              >
+                {language === 'es'
+                  ? 'Los avatares bloqueados se pueden desbloquear en la Tienda'
+                  : 'Locked avatars can be unlocked in the Store'}
+              </Text>
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
 
       {/* Theme Selection Modal */}
       <Modal
