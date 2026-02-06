@@ -4,39 +4,37 @@ import React, { createContext, useContext, useState, useEffect, useRef, useCallb
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import { useUserSettings, useAppStore } from '@/lib/store';
 
-// Music tracks - These would ideally be hosted URLs or local assets
-// For now using placeholder structure - you can upload actual audio files via SOUNDS tab
+// Music tracks - Local instrumental Christian music files
 const MUSIC_TRACKS = [
   {
-    id: 'piano_worship',
-    name: 'Piano Worship',
-    nameEs: 'Adoración Piano',
-    // Placeholder URL - replace with actual hosted audio files
-    url: null,
+    id: 'christian_piano',
+    name: 'Christian Piano',
+    nameEs: 'Piano Cristiano',
+    source: require('@/assets/audio/christian-piano.mp3'),
   },
   {
-    id: 'harp_peace',
-    name: 'Harp of Peace',
-    nameEs: 'Arpa de Paz',
-    url: null,
+    id: 'the_mountain',
+    name: 'The Mountain',
+    nameEs: 'La Montaña',
+    source: require('@/assets/audio/the-mountain.mp3'),
   },
   {
-    id: 'gentle_strings',
-    name: 'Gentle Strings',
-    nameEs: 'Cuerdas Suaves',
-    url: null,
+    id: 'guitar_worship',
+    name: 'Guitar Worship',
+    nameEs: 'Guitarra de Adoración',
+    source: require('@/assets/audio/guitar-worship.mp3'),
   },
   {
-    id: 'morning_prayer',
-    name: 'Morning Prayer',
-    nameEs: 'Oración Matutina',
-    url: null,
+    id: 'faith_song',
+    name: 'Faith Song',
+    nameEs: 'Canción de Fe',
+    source: require('@/assets/audio/faith-song.mp3'),
   },
   {
-    id: 'heavenly_piano',
-    name: 'Heavenly Piano',
-    nameEs: 'Piano Celestial',
-    url: null,
+    id: 'genesis',
+    name: 'Genesis',
+    nameEs: 'Génesis',
+    source: require('@/assets/audio/genesis.mp3'),
   },
 ];
 
@@ -74,7 +72,7 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
   const updateSettings = useAppStore((s) => s.updateSettings);
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState('piano_worship');
+  const [currentTrack, setCurrentTrack] = useState('christian_piano');
   const [volume, setVolumeState] = useState(settings.musicVolume ?? 0.2);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -125,8 +123,8 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
 
   const loadTrack = useCallback(async (trackId: string) => {
     const track = MUSIC_TRACKS.find((t) => t.id === trackId);
-    if (!track || !track.url) {
-      console.log('Track not found or no URL:', trackId);
+    if (!track || !track.source) {
+      console.log('Track not found or no source:', trackId);
       return false;
     }
 
@@ -139,9 +137,9 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
         soundRef.current = null;
       }
 
-      // Load new sound
+      // Load new sound from local asset
       const { sound } = await Audio.Sound.createAsync(
-        { uri: track.url },
+        track.source,
         {
           shouldPlay: false,
           isLooping: true,
