@@ -25,6 +25,7 @@ export interface UserSettings {
   streakReminders: boolean;
   ttsVoice: string;
   ttsSpeed: number;
+  ttsVolume: number;
 }
 
 export type ThemeOption = 'dawn' | 'dusk' | 'ocean' | 'forest' | 'rose';

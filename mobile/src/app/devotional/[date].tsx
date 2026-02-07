@@ -60,12 +60,111 @@ import { useMusicPlayer, MUSIC_TRACKS } from '@/components/BackgroundMusicProvid
 
 const { height, width } = Dimensions.get('window');
 
-// TTS Voices available
+// TTS Voices available - expanded options
 const TTS_VOICES = [
-  { id: 'default', name: 'Default', nameEs: 'Predeterminada' },
-  { id: 'male', name: 'Male Voice', nameEs: 'Voz Masculina' },
-  { id: 'female', name: 'Female Voice', nameEs: 'Voz Femenina' },
+  { id: 'default', name: 'System Default', nameEs: 'Predeterminada del Sistema' },
+  { id: 'com.apple.ttsbundle.Samantha-compact', name: 'Samantha (Female)', nameEs: 'Samantha (Femenina)' },
+  { id: 'com.apple.ttsbundle.Daniel-compact', name: 'Daniel (Male)', nameEs: 'Daniel (Masculino)' },
+  { id: 'com.apple.ttsbundle.Karen-compact', name: 'Karen (Female)', nameEs: 'Karen (Femenina)' },
+  { id: 'com.apple.ttsbundle.Moira-compact', name: 'Moira (Female)', nameEs: 'Moira (Femenina)' },
+  { id: 'com.apple.speech.synthesis.voice.Alex', name: 'Alex (Male)', nameEs: 'Alex (Masculino)' },
 ];
+
+// Spanish TTS Voices
+const TTS_VOICES_ES = [
+  { id: 'default', name: 'System Default', nameEs: 'Predeterminada del Sistema' },
+  { id: 'com.apple.ttsbundle.Monica-compact', name: 'Monica (Female)', nameEs: 'Mónica (Femenina)' },
+  { id: 'com.apple.ttsbundle.Paulina-compact', name: 'Paulina (Female)', nameEs: 'Paulina (Femenina)' },
+  { id: 'com.apple.ttsbundle.Jorge-compact', name: 'Jorge (Male)', nameEs: 'Jorge (Masculino)' },
+  { id: 'com.apple.ttsbundle.Juan-compact', name: 'Juan (Male)', nameEs: 'Juan (Masculino)' },
+  { id: 'com.apple.ttsbundle.Diego-compact', name: 'Diego (Male)', nameEs: 'Diego (Masculino)' },
+];
+
+// Bible book translations from English to Spanish
+const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
+  'Genesis': 'Génesis',
+  'Exodus': 'Éxodo',
+  'Leviticus': 'Levítico',
+  'Numbers': 'Números',
+  'Deuteronomy': 'Deuteronomio',
+  'Joshua': 'Josué',
+  'Judges': 'Jueces',
+  'Ruth': 'Rut',
+  '1 Samuel': '1 Samuel',
+  '2 Samuel': '2 Samuel',
+  '1 Kings': '1 Reyes',
+  '2 Kings': '2 Reyes',
+  '1 Chronicles': '1 Crónicas',
+  '2 Chronicles': '2 Crónicas',
+  'Ezra': 'Esdras',
+  'Nehemiah': 'Nehemías',
+  'Esther': 'Ester',
+  'Job': 'Job',
+  'Psalm': 'Salmo',
+  'Psalms': 'Salmos',
+  'Proverbs': 'Proverbios',
+  'Ecclesiastes': 'Eclesiastés',
+  'Song of Solomon': 'Cantares',
+  'Song of Songs': 'Cantares',
+  'Isaiah': 'Isaías',
+  'Jeremiah': 'Jeremías',
+  'Lamentations': 'Lamentaciones',
+  'Ezekiel': 'Ezequiel',
+  'Daniel': 'Daniel',
+  'Hosea': 'Oseas',
+  'Joel': 'Joel',
+  'Amos': 'Amós',
+  'Obadiah': 'Abdías',
+  'Jonah': 'Jonás',
+  'Micah': 'Miqueas',
+  'Nahum': 'Nahúm',
+  'Habakkuk': 'Habacuc',
+  'Zephaniah': 'Sofonías',
+  'Haggai': 'Hageo',
+  'Zechariah': 'Zacarías',
+  'Malachi': 'Malaquías',
+  'Matthew': 'Mateo',
+  'Mark': 'Marcos',
+  'Luke': 'Lucas',
+  'John': 'Juan',
+  'Acts': 'Hechos',
+  'Romans': 'Romanos',
+  '1 Corinthians': '1 Corintios',
+  '2 Corinthians': '2 Corintios',
+  'Galatians': 'Gálatas',
+  'Ephesians': 'Efesios',
+  'Philippians': 'Filipenses',
+  'Colossians': 'Colosenses',
+  '1 Thessalonians': '1 Tesalonicenses',
+  '2 Thessalonians': '2 Tesalonicenses',
+  '1 Timothy': '1 Timoteo',
+  '2 Timothy': '2 Timoteo',
+  'Titus': 'Tito',
+  'Philemon': 'Filemón',
+  'Hebrews': 'Hebreos',
+  'James': 'Santiago',
+  '1 Peter': '1 Pedro',
+  '2 Peter': '2 Pedro',
+  '1 John': '1 Juan',
+  '2 John': '2 Juan',
+  '3 John': '3 Juan',
+  'Jude': 'Judas',
+  'Revelation': 'Apocalipsis',
+};
+
+// Translate Bible reference from English to Spanish
+function translateBibleReference(reference: string): string {
+  let result = reference;
+  // Sort by length descending to match longer names first
+  const sortedEntries = Object.entries(BIBLE_BOOK_TRANSLATIONS).sort((a, b) => b[0].length - a[0].length);
+  for (const [english, spanish] of sortedEntries) {
+    if (result.includes(english)) {
+      result = result.replace(english, spanish);
+      break;
+    }
+  }
+  return result;
+}
 
 // Helper to convert Bible references to spoken form
 function formatBibleReferenceForSpeech(reference: string, language: 'en' | 'es'): string {
@@ -266,6 +365,8 @@ function AudioControls({
   isTTSPlaying,
   ttsSpeed,
   onTTSSpeedChange,
+  ttsVoice,
+  onTTSVoiceChange,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
@@ -281,10 +382,15 @@ function AudioControls({
   isTTSPlaying: boolean;
   ttsSpeed: number;
   onTTSSpeedChange: (value: number) => void;
+  ttsVoice: string;
+  onTTSVoiceChange: (voiceId: string) => void;
 }) {
   const [showMusicSettings, setShowMusicSettings] = useState(false);
   const [showTTSSettings, setShowTTSSettings] = useState(false);
   const t = TRANSLATIONS[language];
+
+  // Select appropriate voice list based on language
+  const voiceOptions = language === 'es' ? TTS_VOICES_ES : TTS_VOICES;
 
   return (
     <View className="mb-6">
@@ -363,6 +469,7 @@ function AudioControls({
           className="mt-3 p-4 rounded-2xl"
           style={{ backgroundColor: colors.surface }}
         >
+          {/* Speed Control */}
           <Text className="text-sm font-semibold mb-3" style={{ color: colors.text }}>
             {t.tts_speed}: {ttsSpeed.toFixed(1)}x
           </Text>
@@ -376,6 +483,33 @@ function AudioControls({
             maximumTrackTintColor={colors.textMuted + '40'}
             thumbTintColor={colors.primary}
           />
+
+          {/* Voice Selection */}
+          <Text className="text-sm font-semibold mt-4 mb-3" style={{ color: colors.text }}>
+            {language === 'es' ? 'Voz' : 'Voice'}
+          </Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }}>
+            {voiceOptions.map((voice) => (
+              <Pressable
+                key={voice.id}
+                onPress={() => {
+                  onTTSVoiceChange(voice.id);
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                }}
+                className="mr-2 px-4 py-2 rounded-full"
+                style={{
+                  backgroundColor: ttsVoice === voice.id ? colors.primary : colors.textMuted + '20',
+                }}
+              >
+                <Text
+                  className="text-sm font-medium"
+                  style={{ color: ttsVoice === voice.id ? '#FFFFFF' : colors.text }}
+                >
+                  {language === 'es' ? voice.nameEs : voice.name}
+                </Text>
+              </Pressable>
+            ))}
+          </ScrollView>
         </Animated.View>
       )}
 
@@ -452,6 +586,8 @@ export default function DevotionalDetailScreen() {
   const [isTTSPlaying, setIsTTSPlaying] = useState(false);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(-1);
   const [ttsSpeed, setTTSSpeed] = useState(settings.ttsSpeed ?? 1.0);
+  const isTTSPlayingRef = useRef(false);
+  const currentSectionIndexRef = useRef(-1);
   const scrollViewRef = useRef<ScrollView>(null);
 
   const { data: devotional, isLoading } = useQuery({
@@ -477,7 +613,7 @@ export default function DevotionalDetailScreen() {
     const character = language === 'es' ? devotional.biblicalCharacterEs : devotional.biblicalCharacter;
     const application = language === 'es' ? devotional.applicationEs : devotional.application;
     const prayer = language === 'es' ? devotional.prayerEs : devotional.prayer;
-    const bibleRef = language === 'es' ? (devotional.bibleReferenceEs || devotional.bibleReference) : devotional.bibleReference;
+    const bibleRef = language === 'es' ? (devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference)) : devotional.bibleReference;
 
     const formattedReference = formatBibleReferenceForSpeech(bibleRef, language);
 
@@ -492,13 +628,21 @@ export default function DevotionalDetailScreen() {
   }, [devotional, language]);
 
   const speakSection = useCallback(async (index: number, sections: { key: string; text: string }[]) => {
+    // Check if TTS was stopped
+    if (!isTTSPlayingRef.current) {
+      return;
+    }
+
     if (index >= sections.length) {
       setIsTTSPlaying(false);
+      isTTSPlayingRef.current = false;
       setCurrentSectionIndex(-1);
+      currentSectionIndexRef.current = -1;
       return;
     }
 
     setCurrentSectionIndex(index);
+    currentSectionIndexRef.current = index;
     const section = sections[index];
 
     return new Promise<void>((resolve) => {
@@ -507,11 +651,17 @@ export default function DevotionalDetailScreen() {
         rate: ttsSpeed,
         onDone: () => {
           resolve();
-          speakSection(index + 1, sections);
+          // Only continue if TTS is still playing
+          if (isTTSPlayingRef.current) {
+            speakSection(index + 1, sections);
+          }
         },
         onError: () => {
           resolve();
-          speakSection(index + 1, sections);
+          // Only continue if TTS is still playing
+          if (isTTSPlayingRef.current) {
+            speakSection(index + 1, sections);
+          }
         },
       });
     });
@@ -524,15 +674,19 @@ export default function DevotionalDetailScreen() {
     if (sections.length === 0) return;
 
     setIsTTSPlaying(true);
+    isTTSPlayingRef.current = true;
     await speakSection(0, sections);
   }, [isTTSPlaying, buildDevotionalText, speakSection]);
 
   const handleTTSPause = useCallback(async () => {
+    isTTSPlayingRef.current = false;
     await Speech.stop();
     setIsTTSPlaying(false);
   }, []);
 
   const handleTTSStop = useCallback(async () => {
+    isTTSPlayingRef.current = false;
+    currentSectionIndexRef.current = -1;
     await Speech.stop();
     setIsTTSPlaying(false);
     setCurrentSectionIndex(-1);
@@ -571,6 +725,10 @@ export default function DevotionalDetailScreen() {
   const handleTTSSpeedChange = (value: number) => {
     setTTSSpeed(value);
     updateSettings({ ttsSpeed: value });
+  };
+
+  const handleTTSVoiceChange = (voiceId: string) => {
+    updateSettings({ ttsVoice: voiceId });
   };
 
   const formatDate = (dateStr: string) => {
@@ -692,6 +850,8 @@ export default function DevotionalDetailScreen() {
             isTTSPlaying={isTTSPlaying}
             ttsSpeed={ttsSpeed}
             onTTSSpeedChange={handleTTSSpeedChange}
+            ttsVoice={settings.ttsVoice ?? 'default'}
+            onTTSVoiceChange={handleTTSVoiceChange}
           />
 
           {/* Collapsible content wrapper */}
@@ -725,7 +885,7 @@ export default function DevotionalDetailScreen() {
                 className="text-sm font-medium"
                 style={{ color: colors.textMuted }}
               >
-                — {language === 'es' ? (devotional.bibleReferenceEs || devotional.bibleReference) : devotional.bibleReference}
+                — {language === 'es' ? (devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference)) : devotional.bibleReference}
               </Text>
             </Animated.View>
 

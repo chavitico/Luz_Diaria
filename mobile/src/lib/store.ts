@@ -47,6 +47,7 @@ const initialUserSettings: UserSettings = {
   streakReminders: true,
   ttsVoice: 'default',
   ttsSpeed: 1.0,
+  ttsVolume: 1.0,
 };
 
 export const useAppStore = create<AppState>()(

@@ -78,6 +78,7 @@ export const firestoreService = {
         streakReminders: true,
         ttsVoice: 'default',
         ttsSpeed: 1.0,
+        ttsVolume: 1.0,
       },
     };
 
