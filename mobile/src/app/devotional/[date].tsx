@@ -477,8 +477,9 @@ export default function DevotionalDetailScreen() {
     const character = language === 'es' ? devotional.biblicalCharacterEs : devotional.biblicalCharacter;
     const application = language === 'es' ? devotional.applicationEs : devotional.application;
     const prayer = language === 'es' ? devotional.prayerEs : devotional.prayer;
+    const bibleRef = language === 'es' ? (devotional.bibleReferenceEs || devotional.bibleReference) : devotional.bibleReference;
 
-    const formattedReference = formatBibleReferenceForSpeech(devotional.bibleReference, language);
+    const formattedReference = formatBibleReferenceForSpeech(bibleRef, language);
 
     return [
       { key: 'verse', text: `${verse}. ${formattedReference}` },
@@ -724,7 +725,7 @@ export default function DevotionalDetailScreen() {
                 className="text-sm font-medium"
                 style={{ color: colors.textMuted }}
               >
-                — {devotional.bibleReference}
+                — {language === 'es' ? (devotional.bibleReferenceEs || devotional.bibleReference) : devotional.bibleReference}
               </Text>
             </Animated.View>
 

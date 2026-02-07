@@ -38,6 +38,7 @@ export interface Devotional {
   bibleVerse: string;
   bibleVerseEs: string;
   bibleReference: string;
+  bibleReferenceEs: string;
   reflection: string;
   reflectionEs: string;
   story: string;

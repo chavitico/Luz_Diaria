@@ -56,17 +56,9 @@ import { TRANSLATIONS } from '@/lib/constants';
 import { COMPLETION_REQUIREMENTS, POINTS } from '@/lib/types';
 import type { Devotional } from '@/lib/types';
 import { cn } from '@/lib/cn';
+import { useMusicPlayer, MUSIC_TRACKS } from '@/components/BackgroundMusicProvider';
 
 const { width, height } = Dimensions.get('window');
-
-// Background music tracks
-const MUSIC_TRACKS = [
-  { id: 'piano_worship', name: 'Piano Worship', nameEs: 'Adoración Piano' },
-  { id: 'harp_peace', name: 'Harp of Peace', nameEs: 'Arpa de Paz' },
-  { id: 'gentle_strings', name: 'Gentle Strings', nameEs: 'Cuerdas Suaves' },
-  { id: 'morning_prayer', name: 'Morning Prayer', nameEs: 'Oración Matutina' },
-  { id: 'heavenly_piano', name: 'Heavenly Piano', nameEs: 'Piano Celestial' },
-];
 
 // Confetti colors
 const CONFETTI_COLORS = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'];
@@ -644,6 +636,9 @@ export default function HomeScreen() {
   const incrementStreak = useAppStore((s) => s.incrementStreak);
   const updateSettings = useAppStore((s) => s.updateSettings);
 
+  // Background music from provider
+  const musicPlayer = useMusicPlayer();
+
   // Hidden timer for internal tracking (not shown to user)
   const [timeSpent, setTimeSpent] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -651,10 +646,7 @@ export default function HomeScreen() {
   const [showAchievement, setShowAchievement] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Audio state
-  const [musicEnabled, setMusicEnabled] = useState(settings.musicEnabled);
-  const [musicVolume, setMusicVolume] = useState(settings.musicVolume ?? 0.2);
-  const [currentTrack, setCurrentTrack] = useState('piano_worship');
+  // TTS state
   const [isTTSPlaying, setIsTTSPlaying] = useState(false);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(-1);
   const [ttsSpeed, setTTSSpeed] = useState(settings.ttsSpeed ?? 1.0);
@@ -667,12 +659,10 @@ export default function HomeScreen() {
   const today = getTodayDate();
   const isFavorite = favorites.includes(today);
 
-  // Sync with global settings
+  // Sync TTS speed with settings
   useEffect(() => {
-    setMusicEnabled(settings.musicEnabled);
-    setMusicVolume(settings.musicVolume ?? 0.2);
     setTTSSpeed(settings.ttsSpeed ?? 1.0);
-  }, [settings]);
+  }, [settings.ttsSpeed]);
 
   // Time tracking (hidden from user - internal control only)
   useEffect(() => {
@@ -744,8 +734,9 @@ export default function HomeScreen() {
     const character = language === 'es' ? devotional.biblicalCharacterEs : devotional.biblicalCharacter;
     const application = language === 'es' ? devotional.applicationEs : devotional.application;
     const prayer = language === 'es' ? devotional.prayerEs : devotional.prayer;
+    const bibleRef = language === 'es' ? (devotional.bibleReferenceEs || devotional.bibleReference) : devotional.bibleReference;
 
-    const formattedReference = formatBibleReferenceForSpeech(devotional.bibleReference, language);
+    const formattedReference = formatBibleReferenceForSpeech(bibleRef, language);
 
     return [
       { key: 'verse', text: `${verse}. ${formattedReference}` },
@@ -817,14 +808,15 @@ export default function HomeScreen() {
   };
 
   const handleMusicToggle = () => {
-    const newValue = !musicEnabled;
-    setMusicEnabled(newValue);
-    updateSettings({ musicEnabled: newValue });
+    musicPlayer.togglePlayback();
   };
 
   const handleMusicVolumeChange = (value: number) => {
-    setMusicVolume(value);
-    updateSettings({ musicVolume: value });
+    musicPlayer.setVolume(value);
+  };
+
+  const handleTrackChange = async (trackId: string) => {
+    await musicPlayer.setTrack(trackId);
   };
 
   const handleTTSSpeedChange = (value: number) => {
@@ -940,10 +932,10 @@ export default function HomeScreen() {
             language={language}
             onMusicToggle={handleMusicToggle}
             onMusicVolumeChange={handleMusicVolumeChange}
-            musicEnabled={musicEnabled}
-            musicVolume={musicVolume}
-            currentTrack={currentTrack}
-            onTrackChange={setCurrentTrack}
+            musicEnabled={musicPlayer.isPlaying}
+            musicVolume={musicPlayer.volume}
+            currentTrack={musicPlayer.currentTrack}
+            onTrackChange={handleTrackChange}
             onTTSPlay={handleTTSPlay}
             onTTSPause={handleTTSPause}
             onTTSStop={handleTTSStop}
@@ -999,7 +991,7 @@ export default function HomeScreen() {
                 className="text-sm font-medium"
                 style={{ color: colors.textMuted }}
               >
-                — {devotional.bibleReference}
+                — {language === 'es' ? (devotional.bibleReferenceEs || devotional.bibleReference) : devotional.bibleReference}
               </Text>
             </Animated.View>
 

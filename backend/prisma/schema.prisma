@@ -25,6 +25,7 @@ model Devotional {
   // Spanish content
   titleEs               String
   bibleVerseEs          String
+  bibleReferenceEs      String   @default("")
   reflectionEs          String
   storyEs               String
   biblicalCharacterEs   String

@@ -81,6 +81,7 @@ interface DevotionalContent {
   bibleVerse: string;
   bibleVerseEs: string;
   bibleReference: string;
+  bibleReferenceEs: string;
   reflection: string;
   reflectionEs: string;
   story: string;
@@ -103,7 +104,8 @@ Return ONLY a valid JSON object with this exact structure (no markdown, no code 
   "titleEs": "Same title in Spanish",
   "bibleVerse": "A relevant Bible verse in English with quotes around it",
   "bibleVerseEs": "Same verse in Spanish with quotes",
-  "bibleReference": "Book Chapter:Verse (e.g., 'Psalm 23:1' or '1 Corinthians 13:4-7')",
+  "bibleReference": "Book Chapter:Verse in English (e.g., 'Psalm 23:1' or '1 Corinthians 13:4-7')",
+  "bibleReferenceEs": "Same reference in Spanish with translated book name (e.g., 'Salmo 23:1' or '1 Corintios 13:4-7')",
   "reflection": "A deep, thoughtful reflection on the theme (3-4 paragraphs, about 200-250 words). Connect the Bible verse to daily life.",
   "reflectionEs": "Same reflection in Spanish",
   "story": "An inspiring fictional story that illustrates the theme (3-4 paragraphs, about 200-250 words). Use a relatable modern character facing a challenge that connects to the spiritual theme.",

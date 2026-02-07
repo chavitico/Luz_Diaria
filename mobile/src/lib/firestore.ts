@@ -26,6 +26,7 @@ const FALLBACK_DEVOTIONAL: Devotional = {
   bibleVerse: '"For we walk by faith, not by sight."',
   bibleVerseEs: '"Porque por fe andamos, no por vista."',
   bibleReference: '2 Corinthians 5:7',
+  bibleReferenceEs: '2 Corintios 5:7',
   reflection: 'Faith is not the absence of doubt, but the courage to move forward despite uncertainty. When we cannot see the path ahead, we trust in the One who lights our way. Every step taken in faith brings us closer to understanding God\'s perfect plan for our lives.',
   reflectionEs: 'La fe no es la ausencia de duda, sino el coraje de avanzar a pesar de la incertidumbre. Cuando no podemos ver el camino por delante, confiamos en Aquel que ilumina nuestro camino. Cada paso dado con fe nos acerca más a comprender el plan perfecto de Dios para nuestras vidas.',
   story: 'A young woman named Sarah faced a crossroads in her life. She had been offered a job in a distant city, far from her family and everything she knew. The salary was modest, but she felt a calling to serve in that community. Her friends advised against it, pointing out the risks. But Sarah remembered how Abraham left his homeland, not knowing where he was going, trusting only in God\'s promise. She took the leap of faith. Years later, that decision led her to her life\'s purpose - founding a shelter that has helped hundreds of families in need.',
