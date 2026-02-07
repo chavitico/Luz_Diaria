@@ -3,6 +3,8 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import "./env";
 import { sampleRouter } from "./routes/sample";
+import { devotionalRouter } from "./routes/devotional";
+import { startDevotionalCron } from "./cron";
 import { logger } from "hono/logger";
 
 const app = new Hono();
@@ -31,6 +33,10 @@ app.get("/health", (c) => c.json({ status: "ok" }));
 
 // Routes
 app.route("/api/sample", sampleRouter);
+app.route("/api/devotional", devotionalRouter);
+
+// Start cron job for daily devotional generation
+startDevotionalCron();
 
 const port = Number(process.env.PORT) || 3000;
 

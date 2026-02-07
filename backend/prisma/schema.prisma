@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Devotional {
+  id                    String   @id @default(cuid())
+  date                  String   @unique // YYYY-MM-DD format
+
+  // English content
+  title                 String
+  bibleVerse            String
+  bibleReference        String
+  reflection            String
+  story                 String
+  biblicalCharacter     String
+  application           String
+  prayer                String
+  topic                 String
+
+  // Spanish content
+  titleEs               String
+  bibleVerseEs          String
+  reflectionEs          String
+  storyEs               String
+  biblicalCharacterEs   String
+  applicationEs         String
+  prayerEs              String
+  topicEs               String
+
+  // Image
+  imageUrl              String
+
+  // Metadata
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}

@@ -142,8 +142,24 @@ src/
 
 - [x] Text-to-Speech with section highlighting
 - [x] Background music player UI
-- [ ] Firebase Firestore integration
-- [ ] AI devotional generation (daily)
+- [x] AI devotional generation (daily) - **GPT-4o generates new devotional every day at 4 AM Costa Rica**
+- [ ] Firebase Firestore integration (user data)
 - [ ] Actual background music audio files (upload via SOUNDS tab)
 - [ ] Push notifications
 - [ ] Real image generation for devotionals
+
+## Backend API
+
+The app connects to a Hono backend with:
+
+### Devotional Endpoints
+- `GET /api/devotional/today` - Get today's devotional (generates if not exists)
+- `GET /api/devotional/date/:date` - Get devotional by date
+- `GET /api/devotional/all` - Get all devotionals for library
+- `POST /api/devotional/generate/today` - Manually trigger generation
+
+### Daily Generation Cron
+- Runs automatically at **4:00 AM Costa Rica time (10:00 AM UTC)**
+- Uses OpenAI GPT-4o to generate bilingual content (EN/ES)
+- Topics cycle through 31 spiritual themes (Faith, Love, Hope, Peace, etc.)
+- Stores in SQLite database via Prisma
