@@ -13,6 +13,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useAppStore, useIsOnboarded, useIsDarkMode, useThemeColors } from '@/lib/store';
 import { SplashScreen } from '@/components/SplashScreen';
 import { OnboardingScreen } from '@/components/OnboardingScreen';
+import { BackgroundMusicProvider } from '@/components/BackgroundMusicProvider';
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -103,7 +104,9 @@ function AppContent() {
   return (
     <>
       <StatusBar style={isDarkMode ? 'light' : 'dark'} />
-      <RootLayoutNav />
+      <BackgroundMusicProvider>
+        <RootLayoutNav />
+      </BackgroundMusicProvider>
     </>
   );
 }

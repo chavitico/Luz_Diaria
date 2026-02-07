@@ -56,17 +56,9 @@ import {
 } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
 import { POINTS } from '@/lib/types';
+import { useMusicPlayer, MUSIC_TRACKS } from '@/components/BackgroundMusicProvider';
 
 const { height, width } = Dimensions.get('window');
-
-// Background music tracks (instrumental Christian music)
-const MUSIC_TRACKS = [
-  { id: 'piano_worship', name: 'Piano Worship', nameEs: 'Adoración Piano' },
-  { id: 'harp_peace', name: 'Harp of Peace', nameEs: 'Arpa de Paz' },
-  { id: 'gentle_strings', name: 'Gentle Strings', nameEs: 'Cuerdas Suaves' },
-  { id: 'morning_prayer', name: 'Morning Prayer', nameEs: 'Oración Matutina' },
-  { id: 'heavenly_piano', name: 'Heavenly Piano', nameEs: 'Piano Celestial' },
-];
 
 // TTS Voices available
 const TTS_VOICES = [
@@ -453,10 +445,8 @@ export default function DevotionalDetailScreen() {
   const addPoints = useAppStore((s) => s.addPoints);
   const updateSettings = useAppStore((s) => s.updateSettings);
 
-  // Audio state
-  const [musicEnabled, setMusicEnabled] = useState(settings.musicEnabled);
-  const [musicVolume, setMusicVolume] = useState(settings.musicVolume ?? 0.2);
-  const [currentTrack, setCurrentTrack] = useState('piano_worship');
+  // Use the global music player from BackgroundMusicProvider
+  const musicPlayer = useMusicPlayer();
 
   // TTS state
   const [isTTSPlaying, setIsTTSPlaying] = useState(false);
@@ -472,12 +462,10 @@ export default function DevotionalDetailScreen() {
 
   const isFavorite = date ? favorites.includes(date) : false;
 
-  // Sync with global settings
+  // Sync TTS speed with global settings
   useEffect(() => {
-    setMusicEnabled(settings.musicEnabled);
-    setMusicVolume(settings.musicVolume ?? 0.2);
     setTTSSpeed(settings.ttsSpeed ?? 1.0);
-  }, [settings]);
+  }, [settings.ttsSpeed]);
 
   // TTS functions
   const buildDevotionalText = useCallback(() => {
@@ -568,14 +556,15 @@ export default function DevotionalDetailScreen() {
   };
 
   const handleMusicToggle = () => {
-    const newValue = !musicEnabled;
-    setMusicEnabled(newValue);
-    updateSettings({ musicEnabled: newValue });
+    musicPlayer.togglePlayback();
   };
 
   const handleMusicVolumeChange = (value: number) => {
-    setMusicVolume(value);
-    updateSettings({ musicVolume: value });
+    musicPlayer.setVolume(value);
+  };
+
+  const handleTrackChange = (trackId: string) => {
+    musicPlayer.setTrack(trackId);
   };
 
   const handleTTSSpeedChange = (value: number) => {
@@ -692,10 +681,10 @@ export default function DevotionalDetailScreen() {
             language={language}
             onMusicToggle={handleMusicToggle}
             onMusicVolumeChange={handleMusicVolumeChange}
-            musicEnabled={musicEnabled}
-            musicVolume={musicVolume}
-            currentTrack={currentTrack}
-            onTrackChange={setCurrentTrack}
+            musicEnabled={musicPlayer.isPlaying}
+            musicVolume={musicPlayer.volume}
+            currentTrack={musicPlayer.currentTrack}
+            onTrackChange={handleTrackChange}
             onTTSPlay={handleTTSPlay}
             onTTSPause={handleTTSPause}
             onTTSStop={handleTTSStop}

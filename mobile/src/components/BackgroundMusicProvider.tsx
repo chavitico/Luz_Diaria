@@ -1,7 +1,7 @@
 // Background Music Provider - Instrumental Christian music for devotional reading
 
 import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
-import { Audio, AVPlaybackStatus } from 'expo-av';
+import { Audio, AVPlaybackStatus, InterruptionModeIOS, InterruptionModeAndroid } from 'expo-av';
 import { useUserSettings, useAppStore } from '@/lib/store';
 
 // Music tracks - Local instrumental Christian music files
@@ -10,31 +10,31 @@ const MUSIC_TRACKS = [
     id: 'christian_piano',
     name: 'Christian Piano',
     nameEs: 'Piano Cristiano',
-    source: require('@/assets/audio/christian-piano.mp3'),
+    source: require('../../assets/audio/christian-piano.mp3'),
   },
   {
     id: 'the_mountain',
     name: 'The Mountain',
     nameEs: 'La Montaña',
-    source: require('@/assets/audio/the-mountain.mp3'),
+    source: require('../../assets/audio/the-mountain.mp3'),
   },
   {
     id: 'guitar_worship',
     name: 'Guitar Worship',
     nameEs: 'Guitarra de Adoración',
-    source: require('@/assets/audio/guitar-worship.mp3'),
+    source: require('../../assets/audio/guitar-worship.mp3'),
   },
   {
     id: 'faith_song',
     name: 'Faith Song',
     nameEs: 'Canción de Fe',
-    source: require('@/assets/audio/faith-song.mp3'),
+    source: require('../../assets/audio/faith-song.mp3'),
   },
   {
     id: 'genesis',
     name: 'Genesis',
     nameEs: 'Génesis',
-    source: require('@/assets/audio/genesis.mp3'),
+    source: require('../../assets/audio/genesis.mp3'),
   },
 ];
 
@@ -86,7 +86,11 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
           playsInSilentModeIOS: true,
           staysActiveInBackground: true,
           shouldDuckAndroid: true,
+          // Allow mixing with other audio (like TTS)
+          interruptionModeIOS: InterruptionModeIOS.MixWithOthers,
+          interruptionModeAndroid: InterruptionModeAndroid.DuckOthers,
         });
+        console.log('Audio mode initialized successfully');
       } catch (error) {
         console.log('Error initializing audio mode:', error);
       }
@@ -130,6 +134,7 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
 
     try {
       setIsLoading(true);
+      console.log('Loading track:', trackId);
 
       // Unload current sound if exists
       if (soundRef.current) {
@@ -151,6 +156,7 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
       soundRef.current = sound;
       setCurrentTrack(trackId);
       setIsLoading(false);
+      console.log('Track loaded successfully:', trackId);
       return true;
     } catch (error) {
       console.log('Error loading track:', error);
@@ -166,16 +172,22 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
   };
 
   const play = useCallback(async () => {
+    console.log('Play called, soundRef.current:', !!soundRef.current);
     if (!soundRef.current) {
       // Try to load the current track first
       const loaded = await loadTrack(currentTrack);
-      if (!loaded) return;
+      if (!loaded) {
+        console.log('Failed to load track for playback');
+        return;
+      }
     }
 
     try {
+      console.log('Starting playback...');
       await soundRef.current?.playAsync();
       setIsPlaying(true);
       updateSettings({ musicEnabled: true });
+      console.log('Playback started successfully');
     } catch (error) {
       console.log('Error playing:', error);
     }
