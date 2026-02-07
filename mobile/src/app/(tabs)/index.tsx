@@ -488,8 +488,11 @@ function AudioControls({
   isTTSPlaying,
   ttsSpeed,
   onTTSSpeedChange,
+  ttsVolume,
+  onTTSVolumeChange,
   ttsVoice,
   onTTSVoiceChange,
+  availableVoices,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
@@ -505,15 +508,25 @@ function AudioControls({
   isTTSPlaying: boolean;
   ttsSpeed: number;
   onTTSSpeedChange: (value: number) => void;
+  ttsVolume: number;
+  onTTSVolumeChange: (value: number) => void;
   ttsVoice: string;
   onTTSVoiceChange: (voiceId: string) => void;
+  availableVoices: Speech.Voice[];
 }) {
   const [showMusicSettings, setShowMusicSettings] = useState(false);
   const [showTTSSettings, setShowTTSSettings] = useState(false);
   const t = TRANSLATIONS[language];
 
-  // Select appropriate voice list based on language
-  const voiceOptions = language === 'es' ? TTS_VOICES_ES : TTS_VOICES;
+  // Filter voices by current language
+  const langCode = language === 'es' ? 'es' : 'en';
+  const filteredVoices = availableVoices.filter(v => v.language.startsWith(langCode));
+
+  // Add default option
+  const voiceOptions = [
+    { identifier: 'default', name: language === 'es' ? 'Predeterminada del Sistema' : 'System Default' },
+    ...filteredVoices.map(v => ({ identifier: v.identifier, name: v.name || v.identifier })),
+  ];
 
   return (
     <View className="mb-6">
@@ -591,8 +604,23 @@ function AudioControls({
           className="mt-3 p-4 rounded-2xl"
           style={{ backgroundColor: colors.surface }}
         >
-          {/* Speed Control */}
+          {/* Volume Control */}
           <Text className="text-sm font-semibold mb-3" style={{ color: colors.text }}>
+            {language === 'es' ? 'Volumen' : 'Volume'}: {Math.round(ttsVolume * 100)}%
+          </Text>
+          <Slider
+            value={ttsVolume}
+            onValueChange={onTTSVolumeChange}
+            minimumValue={0}
+            maximumValue={1}
+            step={0.1}
+            minimumTrackTintColor={colors.primary}
+            maximumTrackTintColor={colors.textMuted + '40'}
+            thumbTintColor={colors.primary}
+          />
+
+          {/* Speed Control */}
+          <Text className="text-sm font-semibold mt-4 mb-3" style={{ color: colors.text }}>
             {t.tts_speed}: {ttsSpeed.toFixed(1)}x
           </Text>
           <Slider
@@ -613,21 +641,21 @@ function AudioControls({
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }}>
             {voiceOptions.map((voice) => (
               <Pressable
-                key={voice.id}
+                key={voice.identifier}
                 onPress={() => {
-                  onTTSVoiceChange(voice.id);
+                  onTTSVoiceChange(voice.identifier);
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 }}
                 className="mr-2 px-4 py-2 rounded-full"
                 style={{
-                  backgroundColor: ttsVoice === voice.id ? colors.primary : colors.textMuted + '20',
+                  backgroundColor: ttsVoice === voice.identifier ? colors.primary : colors.textMuted + '20',
                 }}
               >
                 <Text
                   className="text-sm font-medium"
-                  style={{ color: ttsVoice === voice.id ? '#FFFFFF' : colors.text }}
+                  style={{ color: ttsVoice === voice.identifier ? '#FFFFFF' : colors.text }}
                 >
-                  {language === 'es' ? voice.nameEs : voice.name}
+                  {voice.name}
                 </Text>
               </Pressable>
             ))}
@@ -792,8 +820,14 @@ export default function HomeScreen() {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(-1);
   const [ttsSpeed, setTTSSpeed] = useState(settings.ttsSpeed ?? 1.0);
   const [ttsVolume, setTTSVolume] = useState(settings.ttsVolume ?? 1.0);
+  const [ttsVoice, setTTSVoice] = useState(settings.ttsVoice ?? 'default');
+  const [availableVoices, setAvailableVoices] = useState<Speech.Voice[]>([]);
   const isTTSPlayingRef = useRef(false);
   const currentSectionIndexRef = useRef(-1);
+  const ttsSpeedRef = useRef(settings.ttsSpeed ?? 1.0);
+  const ttsVolumeRef = useRef(settings.ttsVolume ?? 1.0);
+  const ttsVoiceRef = useRef(settings.ttsVoice ?? 'default');
+  const currentSectionsRef = useRef<{ key: string; text: string }[]>([]);
 
   const { data: devotional, isLoading } = useQuery({
     queryKey: ['todayDevotional'],
@@ -806,7 +840,34 @@ export default function HomeScreen() {
   // Sync TTS speed with settings
   useEffect(() => {
     setTTSSpeed(settings.ttsSpeed ?? 1.0);
+    ttsSpeedRef.current = settings.ttsSpeed ?? 1.0;
   }, [settings.ttsSpeed]);
+
+  // Sync TTS volume with settings
+  useEffect(() => {
+    setTTSVolume(settings.ttsVolume ?? 1.0);
+    ttsVolumeRef.current = settings.ttsVolume ?? 1.0;
+  }, [settings.ttsVolume]);
+
+  // Sync TTS voice with settings
+  useEffect(() => {
+    setTTSVoice(settings.ttsVoice ?? 'default');
+    ttsVoiceRef.current = settings.ttsVoice ?? 'default';
+  }, [settings.ttsVoice]);
+
+  // Load available voices on mount
+  useEffect(() => {
+    const loadVoices = async () => {
+      try {
+        const voices = await Speech.getAvailableVoicesAsync();
+        setAvailableVoices(voices);
+        console.log('[TTS] Available voices:', voices.length);
+      } catch (error) {
+        console.error('[TTS] Failed to load voices:', error);
+      }
+    };
+    loadVoices();
+  }, []);
 
   // Time tracking (hidden from user - internal control only)
   useEffect(() => {
@@ -892,6 +953,23 @@ export default function HomeScreen() {
     ];
   }, [devotional, language]);
 
+  // Get the best matching voice for current language
+  const getVoiceIdentifier = useCallback(() => {
+    const currentVoice = ttsVoiceRef.current;
+    if (currentVoice === 'default' || !availableVoices.length) {
+      return undefined; // Use system default
+    }
+
+    // Find voice by identifier
+    const voice = availableVoices.find(v => v.identifier === currentVoice);
+    if (voice) return voice.identifier;
+
+    // Fallback: find a voice for the current language
+    const langCode = language === 'es' ? 'es' : 'en';
+    const langVoice = availableVoices.find(v => v.language.startsWith(langCode));
+    return langVoice?.identifier;
+  }, [availableVoices, language]);
+
   const speakSection = useCallback(async (index: number, sections: { key: string; text: string }[]) => {
     // Check if TTS was stopped
     if (!isTTSPlayingRef.current) {
@@ -903,34 +981,42 @@ export default function HomeScreen() {
       isTTSPlayingRef.current = false;
       setCurrentSectionIndex(-1);
       currentSectionIndexRef.current = -1;
+      currentSectionsRef.current = [];
       return;
     }
 
     setCurrentSectionIndex(index);
     currentSectionIndexRef.current = index;
+    currentSectionsRef.current = sections;
     const section = sections[index];
 
-    return new Promise<void>((resolve) => {
-      Speech.speak(section.text, {
-        language: language === 'es' ? 'es-ES' : 'en-US',
-        rate: ttsSpeed,
-        onDone: () => {
-          resolve();
-          // Only continue if TTS is still playing
-          if (isTTSPlayingRef.current) {
-            speakSection(index + 1, sections);
-          }
-        },
-        onError: () => {
-          resolve();
-          // Only continue if TTS is still playing
-          if (isTTSPlayingRef.current) {
-            speakSection(index + 1, sections);
-          }
-        },
-      });
-    });
-  }, [language, ttsSpeed]);
+    // Get current settings from refs for real-time updates
+    const voiceId = getVoiceIdentifier();
+    const speechOptions: Speech.SpeechOptions = {
+      language: language === 'es' ? 'es-ES' : 'en-US',
+      rate: ttsSpeedRef.current,
+      volume: ttsVolumeRef.current,
+      onDone: () => {
+        // Only continue if TTS is still playing
+        if (isTTSPlayingRef.current) {
+          speakSection(index + 1, sections);
+        }
+      },
+      onError: () => {
+        // Only continue if TTS is still playing
+        if (isTTSPlayingRef.current) {
+          speakSection(index + 1, sections);
+        }
+      },
+    };
+
+    // Only add voice if we have a valid identifier
+    if (voiceId) {
+      speechOptions.voice = voiceId;
+    }
+
+    Speech.speak(section.text, speechOptions);
+  }, [language, getVoiceIdentifier]);
 
   const handleTTSPlay = useCallback(async () => {
     if (isTTSPlaying) return;
@@ -940,6 +1026,7 @@ export default function HomeScreen() {
 
     setIsTTSPlaying(true);
     isTTSPlayingRef.current = true;
+    currentSectionsRef.current = sections;
     await speakSection(0, sections);
   }, [isTTSPlaying, buildDevotionalText, speakSection]);
 
@@ -952,10 +1039,25 @@ export default function HomeScreen() {
   const handleTTSStop = useCallback(async () => {
     isTTSPlayingRef.current = false;
     currentSectionIndexRef.current = -1;
+    currentSectionsRef.current = [];
     await Speech.stop();
     setIsTTSPlaying(false);
     setCurrentSectionIndex(-1);
   }, []);
+
+  // Restart current section with new settings (speed/volume/voice change while playing)
+  const restartCurrentSection = useCallback(async () => {
+    if (!isTTSPlayingRef.current || currentSectionIndexRef.current < 0) return;
+
+    const sections = currentSectionsRef.current;
+    const currentIndex = currentSectionIndexRef.current;
+
+    if (sections.length === 0 || currentIndex >= sections.length) return;
+
+    // Stop current speech and restart with new settings
+    await Speech.stop();
+    speakSection(currentIndex, sections);
+  }, [speakSection]);
 
   const toggleFavorite = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -981,14 +1083,35 @@ export default function HomeScreen() {
     await musicPlayer.setTrack(trackId);
   };
 
-  const handleTTSSpeedChange = (value: number) => {
+  const handleTTSSpeedChange = useCallback((value: number) => {
     setTTSSpeed(value);
+    ttsSpeedRef.current = value;
     updateSettings({ ttsSpeed: value });
-  };
+    // Restart current section with new speed if playing
+    if (isTTSPlayingRef.current) {
+      restartCurrentSection();
+    }
+  }, [updateSettings, restartCurrentSection]);
 
-  const handleTTSVoiceChange = (voiceId: string) => {
+  const handleTTSVolumeChange = useCallback((value: number) => {
+    setTTSVolume(value);
+    ttsVolumeRef.current = value;
+    updateSettings({ ttsVolume: value });
+    // Restart current section with new volume if playing
+    if (isTTSPlayingRef.current) {
+      restartCurrentSection();
+    }
+  }, [updateSettings, restartCurrentSection]);
+
+  const handleTTSVoiceChange = useCallback((voiceId: string) => {
+    setTTSVoice(voiceId);
+    ttsVoiceRef.current = voiceId;
     updateSettings({ ttsVoice: voiceId });
-  };
+    // Restart current section with new voice if playing
+    if (isTTSPlayingRef.current) {
+      restartCurrentSection();
+    }
+  }, [updateSettings, restartCurrentSection]);
 
   if (isLoading) {
     return (
@@ -1108,8 +1231,11 @@ export default function HomeScreen() {
             isTTSPlaying={isTTSPlaying}
             ttsSpeed={ttsSpeed}
             onTTSSpeedChange={handleTTSSpeedChange}
-            ttsVoice={settings.ttsVoice ?? 'default'}
+            ttsVolume={ttsVolume}
+            onTTSVolumeChange={handleTTSVolumeChange}
+            ttsVoice={ttsVoice}
             onTTSVoiceChange={handleTTSVoiceChange}
+            availableVoices={availableVoices}
           />
 
           {/* Completed badge - only shown after 3 minutes */}
