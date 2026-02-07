@@ -43,4 +43,5 @@ const port = Number(process.env.PORT) || 3000;
 export default {
   port,
   fetch: app.fetch,
+  idleTimeout: 120, // 2 minutes timeout for long requests like AI generation
 };

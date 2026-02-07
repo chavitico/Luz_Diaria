@@ -1,9 +1,12 @@
-import { generateTodayDevotional } from "./devotional-service";
+import { generateTodayDevotional, generateDevotionalForDate } from "./devotional-service";
 
 // Costa Rica timezone is UTC-6
 // 4:00 AM Costa Rica = 10:00 AM UTC
 const CRON_HOUR_UTC = 10;
 const CRON_MINUTE = 0;
+
+// Number of historical days to seed on startup
+const SEED_DAYS = 7;
 
 let cronInterval: ReturnType<typeof setInterval> | null = null;
 
@@ -57,6 +60,28 @@ export function startDevotionalCron(): void {
   // Also run immediately on startup if no devotional exists for today
   console.log(`[Cron] Checking if today's devotional exists...`);
   runCronJob();
+
+  // Seed historical devotionals in the background
+  seedHistoricalDevotionals();
+}
+
+async function seedHistoricalDevotionals(): Promise<void> {
+  console.log(`[Seed] Starting to seed ${SEED_DAYS} days of historical devotionals...`);
+
+  for (let i = 1; i <= SEED_DAYS; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toISOString().split("T")[0]!;
+
+    try {
+      console.log(`[Seed] Generating devotional for ${dateStr}...`);
+      await generateDevotionalForDate(dateStr);
+    } catch (error) {
+      console.error(`[Seed] Failed to generate devotional for ${dateStr}:`, error);
+    }
+  }
+
+  console.log(`[Seed] Historical devotional seeding completed`);
 }
 
 export function stopDevotionalCron(): void {

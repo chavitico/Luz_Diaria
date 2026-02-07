@@ -80,3 +80,32 @@ devotionalRouter.post("/generate/:date", async (c) => {
     return c.json({ error: "Failed to generate devotional" }, 500);
   }
 });
+
+// Seed historical devotionals (generate for past N days)
+devotionalRouter.post("/seed/:days", async (c) => {
+  try {
+    const days = parseInt(c.req.param("days"), 10);
+    if (isNaN(days) || days < 1 || days > 30) {
+      return c.json({ error: "Days must be between 1 and 30" }, 400);
+    }
+
+    const results: string[] = [];
+    for (let i = 1; i <= days; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toISOString().split("T")[0]!;
+
+      try {
+        await generateDevotionalForDate(dateStr);
+        results.push(`${dateStr}: Generated`);
+      } catch (err) {
+        results.push(`${dateStr}: Failed - ${err instanceof Error ? err.message : "Unknown error"}`);
+      }
+    }
+
+    return c.json({ success: true, results });
+  } catch (error) {
+    console.error("[API] Error seeding devotionals:", error);
+    return c.json({ error: "Failed to seed devotionals" }, 500);
+  }
+});
