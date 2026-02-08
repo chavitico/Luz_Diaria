@@ -31,7 +31,11 @@ import {
   Moon,
   User,
   Lock,
+  Crown,
+  Circle,
+  Sparkles,
 } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
 import {
   useThemeColors,
   useLanguage,
@@ -41,7 +45,7 @@ import {
   useUserSettings,
   useAppStore,
 } from '@/lib/store';
-import { TRANSLATIONS, THEMES, DEFAULT_AVATARS } from '@/lib/constants';
+import { TRANSLATIONS, THEMES, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES, PURCHASABLE_THEMES } from '@/lib/constants';
 import type { ThemeOption, Language } from '@/lib/types';
 import { cn } from '@/lib/cn';
 
@@ -112,6 +116,35 @@ function StatCard({ icon, value, label, colors }: StatCardProps) {
   );
 }
 
+// Avatar with Frame component
+function AvatarWithFrame({
+  emoji,
+  frameId,
+  size = 64
+}: {
+  emoji: string;
+  frameId?: string | null;
+  size?: number
+}) {
+  const colors = useThemeColors();
+  const frameColor = frameId ? AVATAR_FRAMES[frameId]?.color : null;
+
+  return (
+    <View
+      className="items-center justify-center rounded-full"
+      style={{
+        width: size,
+        height: size,
+        borderWidth: frameColor ? 3 : 0,
+        borderColor: frameColor || 'transparent',
+        backgroundColor: colors.primary + '15',
+      }}
+    >
+      <Text style={{ fontSize: size * 0.5 }}>{emoji}</Text>
+    </View>
+  );
+}
+
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const colors = useThemeColors();
@@ -120,6 +153,7 @@ export default function SettingsScreen() {
   const currentTheme = useCurrentTheme();
   const isDarkMode = useIsDarkMode();
   const settings = useUserSettings();
+  const router = useRouter();
   const t = TRANSLATIONS[language];
 
   const setTheme = useAppStore((s) => s.setTheme);
@@ -142,6 +176,12 @@ export default function SettingsScreen() {
 
   const currentAvatar = DEFAULT_AVATARS.find((a) => a.id === user?.avatar);
   const purchasedItems = user?.purchasedItems ?? [];
+
+  // Get equipped title info
+  const equippedTitle = user?.titleId ? SPIRITUAL_TITLES[user.titleId] : null;
+  const titleDisplay = equippedTitle
+    ? (language === 'es' ? equippedTitle.nameEs : equippedTitle.name)
+    : t.no_title;
 
   // Check if avatar is available (free or purchased)
   const isAvatarAvailable = (avatar: typeof DEFAULT_AVATARS[number]) => {
@@ -178,22 +218,22 @@ export default function SettingsScreen() {
               className="rounded-2xl p-5 mb-6"
               style={{ backgroundColor: colors.surface }}
             >
-              <Pressable
-                onPress={() => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  setShowAvatarModal(true);
-                }}
-                className="flex-row items-center mb-4"
-              >
-                <View
-                  className="w-16 h-16 rounded-full items-center justify-center mr-4"
-                  style={{ backgroundColor: colors.primary + '15' }}
-                >
-                  <Text style={{ fontSize: 32 }}>{currentAvatar?.emoji ?? '😊'}</Text>
-                </View>
-                <View className="flex-1">
+              {/* Profile Header with Avatar, Name, Title */}
+              <View className="flex-row items-center mb-4">
+                <AvatarWithFrame
+                  emoji={currentAvatar?.emoji ?? '😊'}
+                  frameId={user.frameId}
+                  size={64}
+                />
+                <View className="flex-1 ml-4">
                   <Text className="text-xl font-bold" style={{ color: colors.text }}>
                     {user.nickname}
+                  </Text>
+                  <Text
+                    className="text-sm mt-0.5"
+                    style={{ color: equippedTitle ? colors.secondary : colors.textMuted }}
+                  >
+                    {titleDisplay}
                   </Text>
                   <View className="flex-row items-center mt-1">
                     <Coins size={14} color={colors.primary} />
@@ -202,36 +242,80 @@ export default function SettingsScreen() {
                     </Text>
                   </View>
                 </View>
-                <View
-                  className="px-3 py-1.5 rounded-full"
-                  style={{ backgroundColor: colors.primary + '20' }}
-                >
-                  <Text className="text-xs font-semibold" style={{ color: colors.primary }}>
-                    {language === 'es' ? 'Cambiar' : 'Change'}
+              </View>
+
+              {/* Quick Stats Row */}
+              <View className="flex-row gap-3 mb-4">
+                <View className="flex-1 items-center p-3 rounded-xl" style={{ backgroundColor: colors.background }}>
+                  <Flame size={18} color={colors.primary} />
+                  <Text className="text-lg font-bold mt-1" style={{ color: colors.text }}>
+                    {user.streakCurrent}
+                  </Text>
+                  <Text className="text-xs" style={{ color: colors.textMuted }}>
+                    {t.current_streak}
                   </Text>
                 </View>
-              </Pressable>
+                <View className="flex-1 items-center p-3 rounded-xl" style={{ backgroundColor: colors.background }}>
+                  <BookOpen size={18} color={colors.secondary} />
+                  <Text className="text-lg font-bold mt-1" style={{ color: colors.text }}>
+                    {user.devotionalsCompleted}
+                  </Text>
+                  <Text className="text-xs" style={{ color: colors.textMuted }}>
+                    {t.total_completed}
+                  </Text>
+                </View>
+                <View className="flex-1 items-center p-3 rounded-xl" style={{ backgroundColor: colors.background }}>
+                  <Clock size={18} color={colors.accent} />
+                  <Text className="text-lg font-bold mt-1" style={{ color: colors.text }}>
+                    {formatTime(user.totalTime)}
+                  </Text>
+                  <Text className="text-xs" style={{ color: colors.textMuted }}>
+                    {t.total_time}
+                  </Text>
+                </View>
+              </View>
 
-              {/* Stats Grid */}
-              <View className="flex-row gap-3">
-                <StatCard
-                  icon={<Flame size={20} color={colors.primary} />}
-                  value={user.streakCurrent}
-                  label={t.current_streak}
-                  colors={colors}
-                />
-                <StatCard
-                  icon={<BookOpen size={20} color={colors.secondary} />}
-                  value={user.devotionalsCompleted}
-                  label={t.total_completed}
-                  colors={colors}
-                />
-                <StatCard
-                  icon={<Clock size={20} color={colors.accent} />}
-                  value={formatTime(user.totalTime)}
-                  label={t.total_time}
-                  colors={colors}
-                />
+              {/* Quick Navigation to Store */}
+              <View className="flex-row gap-2">
+                <Pressable
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    router.push('/store?tab=avatars');
+                  }}
+                  className="flex-1 flex-row items-center justify-center py-2.5 rounded-xl"
+                  style={{ backgroundColor: colors.primary + '15' }}
+                >
+                  <User size={14} color={colors.primary} />
+                  <Text className="text-xs font-medium ml-1.5" style={{ color: colors.primary }}>
+                    {language === 'es' ? 'Avatar' : 'Avatar'}
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    router.push('/store?tab=frames');
+                  }}
+                  className="flex-1 flex-row items-center justify-center py-2.5 rounded-xl"
+                  style={{ backgroundColor: colors.secondary + '15' }}
+                >
+                  <Circle size={14} color={colors.secondary} />
+                  <Text className="text-xs font-medium ml-1.5" style={{ color: colors.secondary }}>
+                    {t.frames}
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    router.push('/store?tab=titles');
+                  }}
+                  className="flex-1 flex-row items-center justify-center py-2.5 rounded-xl"
+                  style={{ backgroundColor: colors.accent + '15' }}
+                >
+                  <Sparkles size={14} color={colors.accent} />
+                  <Text className="text-xs font-medium ml-1.5" style={{ color: colors.accent }}>
+                    {t.titles}
+                  </Text>
+                </Pressable>
               </View>
             </Animated.View>
           )}

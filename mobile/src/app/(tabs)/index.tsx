@@ -8,6 +8,7 @@ import {
   Pressable,
   ActivityIndicator,
   Dimensions,
+  Share,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -42,6 +43,7 @@ import {
   VolumeX,
   Music,
   Settings2,
+  Share2,
 } from 'lucide-react-native';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import {
@@ -54,14 +56,21 @@ import {
 } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
 import { COMPLETION_REQUIREMENTS, POINTS } from '@/lib/types';
-import type { Devotional } from '@/lib/types';
+import type { Devotional, DailyActions } from '@/lib/types';
 import { cn } from '@/lib/cn';
 import { useMusicPlayer, MUSIC_TRACKS } from '@/components/BackgroundMusicProvider';
+import { PointsToast, usePointsToast } from '@/components/PointsToast';
+import { gamificationApi } from '@/lib/gamification-api';
 
 const { width, height } = Dimensions.get('window');
 
 // Confetti colors
 const CONFETTI_COLORS = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'];
+
+// Daily action limits
+const DAILY_LIMITS = {
+  SHARE_MAX: 2,
+};
 
 // TTS Voices available - expanded options
 const TTS_VOICES = [
@@ -76,7 +85,7 @@ const TTS_VOICES = [
 // Spanish TTS Voices
 const TTS_VOICES_ES = [
   { id: 'default', name: 'System Default', nameEs: 'Predeterminada del Sistema' },
-  { id: 'com.apple.ttsbundle.Monica-compact', name: 'Monica (Female)', nameEs: 'Mónica (Femenina)' },
+  { id: 'com.apple.ttsbundle.Monica-compact', name: 'Monica (Female)', nameEs: 'Monica (Femenina)' },
   { id: 'com.apple.ttsbundle.Paulina-compact', name: 'Paulina (Female)', nameEs: 'Paulina (Femenina)' },
   { id: 'com.apple.ttsbundle.Jorge-compact', name: 'Jorge (Male)', nameEs: 'Jorge (Masculino)' },
   { id: 'com.apple.ttsbundle.Juan-compact', name: 'Juan (Male)', nameEs: 'Juan (Masculino)' },
@@ -85,47 +94,47 @@ const TTS_VOICES_ES = [
 
 // Bible book translations from English to Spanish
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
-  'Genesis': 'Génesis',
-  'Exodus': 'Éxodo',
-  'Leviticus': 'Levítico',
-  'Numbers': 'Números',
+  'Genesis': 'Genesis',
+  'Exodus': 'Exodo',
+  'Leviticus': 'Levitico',
+  'Numbers': 'Numeros',
   'Deuteronomy': 'Deuteronomio',
-  'Joshua': 'Josué',
+  'Joshua': 'Josue',
   'Judges': 'Jueces',
   'Ruth': 'Rut',
   '1 Samuel': '1 Samuel',
   '2 Samuel': '2 Samuel',
   '1 Kings': '1 Reyes',
   '2 Kings': '2 Reyes',
-  '1 Chronicles': '1 Crónicas',
-  '2 Chronicles': '2 Crónicas',
+  '1 Chronicles': '1 Cronicas',
+  '2 Chronicles': '2 Cronicas',
   'Ezra': 'Esdras',
-  'Nehemiah': 'Nehemías',
+  'Nehemiah': 'Nehemias',
   'Esther': 'Ester',
   'Job': 'Job',
   'Psalm': 'Salmo',
   'Psalms': 'Salmos',
   'Proverbs': 'Proverbios',
-  'Ecclesiastes': 'Eclesiastés',
+  'Ecclesiastes': 'Eclesiastes',
   'Song of Solomon': 'Cantares',
   'Song of Songs': 'Cantares',
-  'Isaiah': 'Isaías',
-  'Jeremiah': 'Jeremías',
+  'Isaiah': 'Isaias',
+  'Jeremiah': 'Jeremias',
   'Lamentations': 'Lamentaciones',
   'Ezekiel': 'Ezequiel',
   'Daniel': 'Daniel',
   'Hosea': 'Oseas',
   'Joel': 'Joel',
-  'Amos': 'Amós',
-  'Obadiah': 'Abdías',
-  'Jonah': 'Jonás',
+  'Amos': 'Amos',
+  'Obadiah': 'Abdias',
+  'Jonah': 'Jonas',
   'Micah': 'Miqueas',
-  'Nahum': 'Nahúm',
+  'Nahum': 'Nahum',
   'Habakkuk': 'Habacuc',
-  'Zephaniah': 'Sofonías',
+  'Zephaniah': 'Sofonias',
   'Haggai': 'Hageo',
-  'Zechariah': 'Zacarías',
-  'Malachi': 'Malaquías',
+  'Zechariah': 'Zacarias',
+  'Malachi': 'Malaquias',
   'Matthew': 'Mateo',
   'Mark': 'Marcos',
   'Luke': 'Lucas',
@@ -134,7 +143,7 @@ const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
   'Romans': 'Romanos',
   '1 Corinthians': '1 Corintios',
   '2 Corinthians': '2 Corintios',
-  'Galatians': 'Gálatas',
+  'Galatians': 'Galatas',
   'Ephesians': 'Efesios',
   'Philippians': 'Filipenses',
   'Colossians': 'Colosenses',
@@ -143,7 +152,7 @@ const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
   '1 Timothy': '1 Timoteo',
   '2 Timothy': '2 Timoteo',
   'Titus': 'Tito',
-  'Philemon': 'Filemón',
+  'Philemon': 'Filemon',
   'Hebrews': 'Hebreos',
   'James': 'Santiago',
   '1 Peter': '1 Pedro',
@@ -187,8 +196,8 @@ function formatBibleReferenceForSpeech(reference: string, language: 'en' | 'es')
     '2 Reyes': 'Segundo de Reyes',
     '1 Samuel': 'Primero de Samuel',
     '2 Samuel': 'Segundo de Samuel',
-    '1 Crónicas': 'Primero de Crónicas',
-    '2 Crónicas': 'Segundo de Crónicas',
+    '1 Cronicas': 'Primero de Cronicas',
+    '2 Cronicas': 'Segundo de Cronicas',
   };
 
   const englishConversions: Record<string, string> = {
@@ -220,6 +229,33 @@ function formatBibleReferenceForSpeech(reference: string, language: 'en' | 'es')
     }
   }
   return result;
+}
+
+// Helper to check if a daily action is available
+function isDailyActionAvailable(
+  actionDate: string | undefined,
+  actionCount: number | undefined,
+  maxCount: number,
+  today: string
+): { available: boolean; count: number } {
+  if (!actionDate || actionDate !== today) {
+    // New day, reset count
+    return { available: true, count: 0 };
+  }
+  const currentCount = actionCount ?? 0;
+  return { available: currentCount < maxCount, count: currentCount };
+}
+
+// Helper to check if a one-time daily action is done
+function isDailyActionDone(
+  actionDate: string | undefined,
+  actionDone: boolean | undefined,
+  today: string
+): boolean {
+  if (!actionDate || actionDate !== today) {
+    return false;
+  }
+  return actionDone ?? false;
 }
 
 // Individual confetti piece component
@@ -406,7 +442,7 @@ function AchievementPopup({
             textAlign: 'center',
           }}
         >
-          {language === 'es' ? '¡Devocional Completado!' : 'Devotional Complete!'}
+          {language === 'es' ? 'Devocional Completado!' : 'Devotional Complete!'}
         </Text>
         <Text
           style={{
@@ -468,6 +504,67 @@ function ContentSection({ title, content, icon, colors, isHighlighted, sectionIn
           {content}
         </Text>
       </View>
+    </Animated.View>
+  );
+}
+
+// Prayer Confirmation Button Component
+function PrayerConfirmButton({
+  colors,
+  language,
+  isPrayerDone,
+  onConfirm,
+}: {
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+  isPrayerDone: boolean;
+  onConfirm: () => void;
+}) {
+  const scale = useSharedValue(1);
+
+  const handlePress = () => {
+    if (isPrayerDone) return;
+
+    scale.value = withSequence(
+      withSpring(0.95, { damping: 10 }),
+      withSpring(1, { damping: 8 })
+    );
+
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    onConfirm();
+  };
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  return (
+    <Animated.View style={animatedStyle} className="mt-4">
+      <Pressable
+        onPress={handlePress}
+        disabled={isPrayerDone}
+        className="flex-row items-center justify-center py-4 px-6 rounded-2xl"
+        style={{
+          backgroundColor: isPrayerDone ? '#22C55E' : colors.primary,
+          opacity: isPrayerDone ? 0.9 : 1,
+        }}
+      >
+        {isPrayerDone ? (
+          <>
+            <Check size={22} color="#FFFFFF" strokeWidth={3} />
+            <Text className="ml-3 text-white font-bold text-base">
+              {language === 'es' ? 'Completado' : 'Completed'}
+            </Text>
+          </>
+        ) : (
+          <>
+            <Heart size={22} color="#FFFFFF" />
+            <Text className="ml-3 text-white font-bold text-base">
+              {language === 'es' ? 'Hoy hice esta oracion' : 'I prayed today'}
+            </Text>
+          </>
+        )}
+      </Pressable>
     </Animated.View>
   );
 }
@@ -684,7 +781,7 @@ function AudioControls({
           />
 
           <Text className="text-sm font-semibold mt-4 mb-3" style={{ color: colors.text }}>
-            {language === 'es' ? 'Pista de Música' : 'Music Track'}
+            {language === 'es' ? 'Pista de Musica' : 'Music Track'}
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }}>
             {MUSIC_TRACKS.map((track) => (
@@ -778,7 +875,7 @@ function CollapsibleContent({
               <>
                 <ChevronDown size={18} color={colors.primary} />
                 <Text className="ml-2 font-semibold" style={{ color: colors.primary }}>
-                  {language === 'es' ? 'Ver más' : 'Show more'}
+                  {language === 'es' ? 'Ver mas' : 'Show more'}
                 </Text>
               </>
             )}
@@ -808,6 +905,9 @@ export default function HomeScreen() {
   // Background music from provider
   const musicPlayer = useMusicPlayer();
 
+  // Points toast
+  const { currentToast, showToast, hideToast } = usePointsToast();
+
   // Hidden timer for internal tracking (not shown to user)
   const [timeSpent, setTimeSpent] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -828,6 +928,7 @@ export default function HomeScreen() {
   const ttsVolumeRef = useRef(settings.ttsVolume ?? 1.0);
   const ttsVoiceRef = useRef(settings.ttsVoice ?? 'default');
   const currentSectionsRef = useRef<{ key: string; text: string }[]>([]);
+  const ttsCompletedTodayRef = useRef(false);
 
   const { data: devotional, isLoading } = useQuery({
     queryKey: ['todayDevotional'],
@@ -836,6 +937,17 @@ export default function HomeScreen() {
 
   const today = getTodayDate();
   const isFavorite = favorites.includes(today);
+
+  // Daily actions state derived from user
+  const dailyActions = user?.dailyActions ?? {};
+  const isPrayerDone = isDailyActionDone(dailyActions.prayerDate, dailyActions.prayerDone, today);
+  const isTTSDone = isDailyActionDone(dailyActions.ttsDate, dailyActions.ttsDone, today);
+  const shareStatus = isDailyActionAvailable(dailyActions.shareDate, dailyActions.shareCount, DAILY_LIMITS.SHARE_MAX, today);
+
+  // Initialize TTS completion tracking
+  useEffect(() => {
+    ttsCompletedTodayRef.current = isTTSDone;
+  }, [isTTSDone]);
 
   // Sync TTS speed with settings
   useEffect(() => {
@@ -897,7 +1009,43 @@ export default function HomeScreen() {
     };
   }, []);
 
-  const handleComplete = useCallback(() => {
+  // Handle TTS completion - award points when TTS finishes the last section (prayer)
+  const handleTTSComplete = useCallback(async () => {
+    if (!user || ttsCompletedTodayRef.current) return;
+
+    ttsCompletedTodayRef.current = true;
+
+    // Update daily actions
+    updateUser({
+      dailyActions: {
+        ...dailyActions,
+        ttsDate: today,
+        ttsDone: true,
+      },
+    });
+
+    // Award points via API
+    try {
+      const result = await gamificationApi.awardPoints(user.id, 'tts_complete');
+      if (result.success) {
+        addPoints(result.pointsAwarded);
+        showToast(
+          result.pointsAwarded,
+          language === 'es' ? 'puntos (Audio)' : 'points (Audio)'
+        );
+      }
+    } catch (error) {
+      console.error('[TTS] Failed to award points:', error);
+      // Still award points locally as fallback
+      addPoints(POINTS.TTS_COMPLETE);
+      showToast(
+        POINTS.TTS_COMPLETE,
+        language === 'es' ? 'puntos (Audio)' : 'points (Audio)'
+      );
+    }
+  }, [user, dailyActions, today, updateUser, addPoints, showToast, language]);
+
+  const handleComplete = useCallback(async () => {
     if (isCompleted) return;
 
     setIsCompleted(true);
@@ -923,11 +1071,124 @@ export default function HomeScreen() {
         devotionalsCompleted: user.devotionalsCompleted + 1,
         lastActiveDate: today,
       });
+
+      // Update challenge progress for devotional completion
+      try {
+        await gamificationApi.updateChallengeProgress(user.id, 'devotional_complete');
+      } catch (error) {
+        console.error('[Gamification] Failed to update challenge progress:', error);
+      }
     }
 
     setTimeout(() => setShowAchievement(false), 3000);
     setTimeout(() => setShowCelebration(false), 4000);
   }, [isCompleted, user, today, addPoints, incrementStreak, updateUser]);
+
+  // Handle share action
+  const handleShare = useCallback(async () => {
+    if (!user || !devotional) return;
+
+    const title = language === 'es' ? devotional.titleEs : devotional.title;
+    const verse = language === 'es' ? devotional.bibleVerseEs : devotional.bibleVerse;
+    const bibleRef = language === 'es'
+      ? (devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference))
+      : devotional.bibleReference;
+
+    const message = language === 'es'
+      ? `"${verse}" - ${bibleRef}\n\nDevocional de hoy: ${title}\n\nDescarga Daily Light para tu devocional diario.`
+      : `"${verse}" - ${bibleRef}\n\nToday's devotional: ${title}\n\nDownload Daily Light for your daily devotional.`;
+
+    try {
+      const result = await Share.share({
+        message,
+        title: language === 'es' ? 'Devocional del dia' : "Today's Devotional",
+      });
+
+      if (result.action === Share.sharedAction) {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+
+        // Check if share limit reached
+        if (!shareStatus.available) {
+          showToast(
+            0,
+            language === 'es' ? 'Limite diario alcanzado' : 'Daily limit reached',
+            'warning'
+          );
+          return;
+        }
+
+        // Update daily actions
+        const newShareCount = (dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0) + 1;
+        updateUser({
+          dailyActions: {
+            ...dailyActions,
+            shareDate: today,
+            shareCount: newShareCount,
+          },
+        });
+
+        // Award points via API
+        try {
+          const pointsResult = await gamificationApi.awardPoints(user.id, 'share');
+          if (pointsResult.success) {
+            addPoints(pointsResult.pointsAwarded);
+            showToast(
+              pointsResult.pointsAwarded,
+              language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
+            );
+          }
+          // Update challenge progress
+          await gamificationApi.updateChallengeProgress(user.id, 'share');
+        } catch (error) {
+          console.error('[Share] Failed to award points:', error);
+          // Still award points locally as fallback
+          addPoints(POINTS.SHARE_DEVOTIONAL);
+          showToast(
+            POINTS.SHARE_DEVOTIONAL,
+            language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
+          );
+        }
+      }
+    } catch (error) {
+      console.error('[Share] Failed to share:', error);
+    }
+  }, [user, devotional, language, shareStatus, dailyActions, today, updateUser, addPoints, showToast]);
+
+  // Handle prayer confirmation
+  const handlePrayerConfirm = useCallback(async () => {
+    if (!user || isPrayerDone) return;
+
+    // Update daily actions
+    updateUser({
+      dailyActions: {
+        ...dailyActions,
+        prayerDate: today,
+        prayerDone: true,
+      },
+    });
+
+    // Award points via API
+    try {
+      const result = await gamificationApi.awardPoints(user.id, 'prayer');
+      if (result.success) {
+        addPoints(result.pointsAwarded);
+        showToast(
+          result.pointsAwarded,
+          language === 'es' ? 'puntos (Oracion)' : 'points (Prayer)'
+        );
+      }
+      // Update challenge progress
+      await gamificationApi.updateChallengeProgress(user.id, 'prayer');
+    } catch (error) {
+      console.error('[Prayer] Failed to award points:', error);
+      // Still award points locally as fallback
+      addPoints(POINTS.PRAYER_CONFIRM);
+      showToast(
+        POINTS.PRAYER_CONFIRM,
+        language === 'es' ? 'puntos (Oracion)' : 'points (Prayer)'
+      );
+    }
+  }, [user, isPrayerDone, dailyActions, today, updateUser, addPoints, showToast, language]);
 
   // TTS functions
   const buildDevotionalText = useCallback(() => {
@@ -977,6 +1238,9 @@ export default function HomeScreen() {
     }
 
     if (index >= sections.length) {
+      // TTS completed all sections - award points for completion
+      handleTTSComplete();
+
       setIsTTSPlaying(false);
       isTTSPlayingRef.current = false;
       setCurrentSectionIndex(-1);
@@ -1016,7 +1280,7 @@ export default function HomeScreen() {
     }
 
     Speech.speak(section.text, speechOptions);
-  }, [language, getVoiceIdentifier]);
+  }, [language, getVoiceIdentifier, handleTTSComplete]);
 
   const handleTTSPlay = useCallback(async () => {
     if (isTTSPlaying) return;
@@ -1145,6 +1409,13 @@ export default function HomeScreen() {
 
   return (
     <View className="flex-1" style={{ backgroundColor: colors.background }}>
+      {/* Points Toast */}
+      <PointsToast
+        message={currentToast}
+        onHide={hideToast}
+        primaryColor={colors.primary}
+      />
+
       <ConfettiCelebration visible={showCelebration} />
       <AchievementPopup
         visible={showAchievement}
@@ -1192,6 +1463,15 @@ export default function HomeScreen() {
             )}
             <View className="flex-1" />
 
+            {/* Share Button */}
+            <Pressable
+              onPress={handleShare}
+              className="w-10 h-10 rounded-full items-center justify-center bg-white/20 mr-2"
+            >
+              <Share2 size={20} color="#FFFFFF" />
+            </Pressable>
+
+            {/* Favorite Button */}
             <Pressable
               onPress={toggleFavorite}
               className="w-10 h-10 rounded-full items-center justify-center bg-white/20"
@@ -1249,7 +1529,7 @@ export default function HomeScreen() {
                 <Check size={18} color="#FFFFFF" strokeWidth={3} />
               </View>
               <Text className="text-green-700 font-semibold flex-1">
-                {t.completed} • +{POINTS.COMPLETE_DEVOTIONAL} {t.points}
+                {t.completed} - +{POINTS.COMPLETE_DEVOTIONAL} {t.points}
               </Text>
             </Animated.View>
           )}
@@ -1285,7 +1565,7 @@ export default function HomeScreen() {
                 className="text-sm font-medium"
                 style={{ color: colors.textMuted }}
               >
-                — {language === 'es' ? (devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference)) : devotional.bibleReference}
+                - {language === 'es' ? (devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference)) : devotional.bibleReference}
               </Text>
             </Animated.View>
 
@@ -1333,6 +1613,14 @@ export default function HomeScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 5}
               sectionIndex={5}
+            />
+
+            {/* Prayer Confirmation Button */}
+            <PrayerConfirmButton
+              colors={colors}
+              language={language}
+              isPrayerDone={isPrayerDone}
+              onConfirm={handlePrayerConfirm}
             />
           </CollapsibleContent>
         </View>

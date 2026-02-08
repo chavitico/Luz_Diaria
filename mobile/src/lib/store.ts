@@ -3,8 +3,8 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { User, UserSettings, ThemeOption, Language, UserProgress } from './types';
-import { THEMES, DEFAULT_AVATARS } from './constants';
+import type { User, UserSettings, ThemeOption, Language, UserProgress, DailyActions } from './types';
+import { THEMES, DEFAULT_AVATARS, PURCHASABLE_THEMES } from './constants';
 
 interface AppState {
   // User state
@@ -18,6 +18,13 @@ interface AppState {
   // Progress tracking
   todayProgress: UserProgress | null;
   sessionStartTime: number | null;
+
+  // Gamification state
+  inventoryItems: string[]; // List of owned item IDs (cached from backend)
+  equippedTheme: string; // Currently equipped theme ID
+  equippedFrame: string | null;
+  equippedTitle: string | null;
+  equippedMusic: string;
 
   // Actions
   setUser: (user: User) => void;
@@ -36,6 +43,15 @@ interface AppState {
   removeFavorite: (devotionalDate: string) => void;
   purchaseItem: (itemId: string, price: number) => boolean;
   reset: () => void;
+
+  // Gamification actions
+  setInventory: (items: string[]) => void;
+  addToInventory: (itemId: string) => void;
+  equipTheme: (themeId: string) => void;
+  equipFrame: (frameId: string | null) => void;
+  equipTitle: (titleId: string | null) => void;
+  equipMusic: (musicId: string) => void;
+  updateDailyActions: (actions: Partial<DailyActions>) => void;
 }
 
 const initialUserSettings: UserSettings = {
@@ -59,6 +75,13 @@ export const useAppStore = create<AppState>()(
       isDarkMode: false,
       todayProgress: null,
       sessionStartTime: null,
+
+      // Gamification initial state
+      inventoryItems: [],
+      equippedTheme: 'theme_amanecer',
+      equippedFrame: null,
+      equippedTitle: null,
+      equippedMusic: 'music_free_1',
 
       setUser: (user) => set({ user }),
 
@@ -148,6 +171,35 @@ export const useAppStore = create<AppState>()(
         return true;
       },
 
+      // Gamification actions
+      setInventory: (items) => set({ inventoryItems: items }),
+
+      addToInventory: (itemId) => set((state) => ({
+        inventoryItems: [...state.inventoryItems, itemId],
+      })),
+
+      equipTheme: (themeId) => set((state) => ({
+        user: state.user ? { ...state.user, themeId } : null,
+      })),
+
+      equipFrame: (frameId) => set((state) => ({
+        user: state.user ? { ...state.user, frameId } : null,
+      })),
+
+      equipTitle: (titleId) => set((state) => ({
+        user: state.user ? { ...state.user, titleId } : null,
+      })),
+
+      equipMusic: (musicId) => set((state) => ({
+        user: state.user ? { ...state.user, selectedMusicId: musicId } : null,
+      })),
+
+      updateDailyActions: (actions) => set((state) => ({
+        user: state.user
+          ? { ...state.user, dailyActions: { ...state.user.dailyActions, ...actions } }
+          : null,
+      })),
+
       reset: () => set({
         user: null,
         isOnboarded: false,
@@ -155,6 +207,7 @@ export const useAppStore = create<AppState>()(
         isDarkMode: false,
         todayProgress: null,
         sessionStartTime: null,
+        inventoryItems: [],
       }),
     }),
     {
@@ -165,6 +218,7 @@ export const useAppStore = create<AppState>()(
         isOnboarded: state.isOnboarded,
         currentTheme: state.currentTheme,
         isDarkMode: state.isDarkMode,
+        inventoryItems: state.inventoryItems,
       }),
     }
   )
@@ -181,19 +235,30 @@ export const useUserFavorites = () => useAppStore((s) => s.user?.favorites ?? []
 export const useUserSettings = () => useAppStore((s) => s.user?.settings ?? initialUserSettings);
 export const useLanguage = () => useAppStore((s) => s.user?.settings?.language ?? 'en');
 
+// Gamification selector hooks
+export const useEquippedTheme = () => useAppStore((s) => s.user?.themeId ?? 'theme_amanecer');
+export const useEquippedFrame = () => useAppStore((s) => s.user?.frameId ?? null);
+export const useEquippedTitle = () => useAppStore((s) => s.user?.titleId ?? null);
+export const useEquippedMusic = () => useAppStore((s) => s.user?.selectedMusicId ?? 'music_free_1');
+export const useUserDailyActions = () => useAppStore((s) => s.user?.dailyActions ?? {});
+export const useInventory = () => useAppStore((s) => s.inventoryItems);
+
 // Helper to get theme colors
 export const useThemeColors = () => {
-  const theme = useCurrentTheme();
+  const user = useUser();
   const isDark = useIsDarkMode();
-  const colors = THEMES[theme];
+
+  // Use equipped theme from user, fallback to 'theme_amanecer'
+  const themeId = user?.themeId || 'theme_amanecer';
+  const theme = PURCHASABLE_THEMES[themeId] || PURCHASABLE_THEMES['theme_amanecer'];
 
   return {
-    primary: colors.primary,
-    secondary: colors.secondary,
-    accent: colors.accent,
-    background: isDark ? colors.backgroundDark : colors.background,
-    surface: isDark ? colors.surfaceDark : colors.surface,
-    text: isDark ? colors.textDark : colors.text,
-    textMuted: isDark ? colors.textMutedDark : colors.textMuted,
+    primary: theme.colors.primary,
+    secondary: theme.colors.secondary,
+    accent: theme.colors.accent,
+    background: isDark ? theme.colors.backgroundDark : theme.colors.background,
+    surface: isDark ? theme.colors.surfaceDark : theme.colors.surface,
+    text: isDark ? theme.colors.textDark : theme.colors.text,
+    textMuted: isDark ? theme.colors.textMutedDark : theme.colors.textMuted,
   };
 };

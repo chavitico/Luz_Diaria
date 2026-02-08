@@ -1,6 +1,6 @@
 // Onboarding Screen - Nickname and Avatar Selection
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -25,9 +25,10 @@ import Animated, {
   FadeInUp,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Sun, ArrowRight, Check, AlertCircle } from 'lucide-react-native';
+import { Sun, ArrowRight, Check, AlertCircle, X, Loader2 } from 'lucide-react-native';
 import { useAppStore } from '@/lib/store';
 import { firestoreService } from '@/lib/firestore';
+import { gamificationApi } from '@/lib/gamification-api';
 import { DEFAULT_AVATARS } from '@/lib/constants';
 import { cn } from '@/lib/cn';
 
@@ -52,7 +53,58 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
   const [error, setError] = useState<string | null>(null);
   const [nicknameValid, setNicknameValid] = useState(false);
 
+  // Nickname availability checking state
+  const [isCheckingNickname, setIsCheckingNickname] = useState(false);
+  const [nicknameAvailable, setNicknameAvailable] = useState<boolean | null>(null);
+  const [nicknameError, setNicknameError] = useState<string | null>(null);
+
   const buttonScale = useSharedValue(1);
+
+  // Check nickname availability with the gamification API
+  const checkNicknameAvailability = useCallback(async (nicknameToCheck: string) => {
+    if (nicknameToCheck.length < 3) {
+      setNicknameAvailable(null);
+      setNicknameError(null);
+      return;
+    }
+
+    setIsCheckingNickname(true);
+    try {
+      const result = await gamificationApi.checkNickname(nicknameToCheck);
+      setNicknameAvailable(result.available);
+      if (!result.available) {
+        setNicknameError('This nickname is already taken');
+      } else {
+        setNicknameError(null);
+      }
+    } catch (err) {
+      // If API fails, allow proceeding (offline mode)
+      setNicknameAvailable(true);
+      setNicknameError(null);
+      console.log('Nickname check failed, allowing offline mode:', err);
+    } finally {
+      setIsCheckingNickname(false);
+    }
+  }, []);
+
+  // Debounced nickname check effect
+  useEffect(() => {
+    const trimmed = nickname.trim();
+
+    // Reset availability when nickname changes
+    setNicknameAvailable(null);
+    setNicknameError(null);
+
+    if (trimmed.length < 3) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      checkNicknameAvailability(trimmed);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [nickname, checkNicknameAvailability]);
 
   const handleCheckNickname = useCallback(async () => {
     const trimmed = nickname.trim();
@@ -99,6 +151,23 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     try {
+      // Try to register with backend gamification API first
+      try {
+        await gamificationApi.registerUser(nickname.trim(), selectedAvatar);
+      } catch (err) {
+        // If registration fails (e.g., nickname taken), show error
+        const errorMessage = err instanceof Error ? err.message : 'Registration failed';
+        if (errorMessage.includes('already taken') || errorMessage.includes('Nickname')) {
+          setNicknameError('This nickname is already taken');
+          setNicknameAvailable(false);
+          setStep('nickname'); // Go back to nickname step
+          setIsCreating(false);
+          return;
+        }
+        // Otherwise proceed with local-only mode
+        console.log('Backend registration failed, continuing locally:', err);
+      }
+
       const user = await firestoreService.createUser(nickname.trim(), selectedAvatar);
       setUser(user);
       setOnboarded(true);
@@ -170,7 +239,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                   <Text className="text-lg font-semibold text-gray-700 mb-3">
                     Choose Your Nickname
                   </Text>
-                  <View className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                  <View className="bg-white rounded-2xl shadow-sm overflow-hidden flex-row items-center">
                     <TextInput
                       value={nickname}
                       onChangeText={(text) => {
@@ -183,9 +252,25 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                       autoCapitalize="none"
                       autoCorrect={false}
                       maxLength={15}
-                      className="px-5 py-4 text-lg text-gray-800"
+                      className="px-5 py-4 text-lg text-gray-800 flex-1"
                       style={{ fontSize: 18 }}
                     />
+                    {/* Nickname availability indicator */}
+                    <View className="pr-4">
+                      {isCheckingNickname && (
+                        <ActivityIndicator size="small" color="#9CA3AF" />
+                      )}
+                      {!isCheckingNickname && nicknameAvailable === true && nickname.trim().length >= 3 && (
+                        <View className="w-6 h-6 bg-green-500 rounded-full items-center justify-center">
+                          <Check size={14} color="#FFFFFF" strokeWidth={3} />
+                        </View>
+                      )}
+                      {!isCheckingNickname && nicknameAvailable === false && nickname.trim().length >= 3 && (
+                        <View className="w-6 h-6 bg-red-500 rounded-full items-center justify-center">
+                          <X size={14} color="#FFFFFF" strokeWidth={3} />
+                        </View>
+                      )}
+                    </View>
                   </View>
 
                   {/* Character count */}
@@ -194,13 +279,13 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                   </Text>
 
                   {/* Error message */}
-                  {error && (
+                  {(error || nicknameError) && (
                     <Animated.View
                       entering={FadeIn.duration(200)}
                       className="flex-row items-center mt-3"
                     >
                       <AlertCircle size={16} color="#EF4444" />
-                      <Text className="text-red-500 ml-2">{error}</Text>
+                      <Text className="text-red-500 ml-2">{error || nicknameError}</Text>
                     </Animated.View>
                   )}
                 </View>
@@ -211,10 +296,10 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                     onPress={handleCheckNickname}
                     onPressIn={handleButtonPressIn}
                     onPressOut={handleButtonPressOut}
-                    disabled={nickname.trim().length < 3 || isChecking}
+                    disabled={nickname.trim().length < 3 || isChecking || isCheckingNickname || nicknameAvailable === false}
                     className={cn(
                       'rounded-2xl overflow-hidden',
-                      nickname.trim().length < 3 && 'opacity-50'
+                      (nickname.trim().length < 3 || isCheckingNickname || nicknameAvailable === false) && 'opacity-50'
                     )}
                   >
                     <LinearGradient

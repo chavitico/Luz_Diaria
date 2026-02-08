@@ -40,3 +40,122 @@ model Devotional {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 }
+
+// ============================================
+// GAMIFICATION SYSTEM MODELS
+// ============================================
+
+model User {
+  id                    String   @id @default(cuid())
+  nickname              String   @unique
+  nicknameLower         String   @unique // For case-insensitive uniqueness
+  avatarId              String   @default("avatar_dove")
+  frameId               String?  // Selected avatar frame
+  titleId               String?  // Selected spiritual title
+  themeId               String   @default("theme_amanecer")
+  selectedMusicId       String   @default("music_free_1")
+  points                Int      @default(0)
+  streakCurrent         Int      @default(0)
+  streakBest            Int      @default(0)
+  devotionalsCompleted  Int      @default(0)
+  totalTimeSeconds      Int      @default(0)
+  lastActiveAt          DateTime?
+
+  // Daily action tracking (JSON field for simplicity)
+  dailyActions          String   @default("{}")  // JSON: {shareDate, shareCount, prayerDate, prayerDone, ttsDate, ttsDone}
+
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  // Relations
+  inventory             UserInventory[]
+  weeklyProgress        WeeklyProgress[]
+  favorites             UserFavorite[]
+}
+
+model StoreItem {
+  id            String   @id @default(cuid())
+  type          String   // theme, frame, music, title, avatar
+  nameEn        String
+  nameEs        String
+  descriptionEn String   @default("")
+  descriptionEs String   @default("")
+  pricePoints   Int
+  assetRef      String   @default("") // Reference to asset file/color
+  rarity        String   @default("common") // common, rare, epic
+  sortOrder     Int      @default(0)
+  available     Boolean  @default(true)
+
+  // For themes: JSON with color palette
+  metadata      String   @default("{}")
+
+  createdAt     DateTime @default(now())
+
+  inventory     UserInventory[]
+}
+
+model UserInventory {
+  id          String   @id @default(cuid())
+  userId      String
+  itemId      String
+  acquiredAt  DateTime @default(now())
+  source      String   @default("store") // store, challenge, milestone, free
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item        StoreItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, itemId])
+}
+
+model WeeklyChallenge {
+  id              String   @id @default(cuid())
+  weekId          String   // Format: "2026-W06" (ISO week)
+  challengeIndex  Int      // 0 or 1 for the week
+
+  type            String   // devotional_complete, share, prayer
+  goalCount       Int
+  rewardPoints    Int
+  rewardItemId    String?  // Optional item reward
+
+  titleEn         String
+  titleEs         String
+  descriptionEn   String
+  descriptionEs   String
+
+  startDate       DateTime
+  endDate         DateTime
+
+  createdAt       DateTime @default(now())
+
+  progress        WeeklyProgress[]
+
+  @@unique([weekId, challengeIndex])
+}
+
+model WeeklyProgress {
+  id            String   @id @default(cuid())
+  userId        String
+  challengeId   String
+
+  currentCount  Int      @default(0)
+  completed     Boolean  @default(false)
+  claimed       Boolean  @default(false)
+
+  updatedAt     DateTime @updatedAt
+
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge     WeeklyChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, challengeId])
+}
+
+model UserFavorite {
+  id              String   @id @default(cuid())
+  userId          String
+  devotionalDate  String   // YYYY-MM-DD
+  createdAt       DateTime @default(now())
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, devotionalDate])
+}

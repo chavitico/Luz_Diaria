@@ -4,7 +4,9 @@ import { cors } from "hono/cors";
 import "./env";
 import { sampleRouter } from "./routes/sample";
 import { devotionalRouter } from "./routes/devotional";
+import { gamificationRouter } from "./routes/gamification";
 import { startDevotionalCron } from "./cron";
+import { initializeWeeklyChallenges } from "./weekly-challenges";
 import { logger } from "hono/logger";
 
 const app = new Hono();
@@ -34,9 +36,13 @@ app.get("/health", (c) => c.json({ status: "ok" }));
 // Routes
 app.route("/api/sample", sampleRouter);
 app.route("/api/devotional", devotionalRouter);
+app.route("/api/gamification", gamificationRouter);
 
 // Start cron job for daily devotional generation
 startDevotionalCron();
+
+// Initialize weekly challenges
+initializeWeeklyChallenges();
 
 const port = Number(process.env.PORT) || 3000;
 
