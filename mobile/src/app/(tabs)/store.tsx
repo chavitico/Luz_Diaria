@@ -521,12 +521,12 @@ function FramePreviewCard({
   const rarityColor = RARITY_COLORS[frameData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
 
   return (
-    <Animated.View style={animatedStyle} className="w-[48%] mb-4">
+    <Animated.View style={animatedStyle} className="w-[31%] mb-3">
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.96); }}
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
-        className="rounded-2xl p-4 items-center"
+        className="rounded-xl p-3 items-center"
         style={{
           backgroundColor: colors.surface,
           shadowColor: '#000',
@@ -535,39 +535,40 @@ function FramePreviewCard({
           shadowRadius: 6,
           elevation: 2,
           opacity: !canAfford && !isOwned ? 0.6 : 1,
+          aspectRatio: 0.85,
         }}
       >
         {/* Frame Preview Circle */}
-        <View className="relative mb-3">
+        <View className="relative mb-2">
           <View
-            className="w-16 h-16 rounded-full items-center justify-center"
+            className="w-14 h-14 rounded-full items-center justify-center"
             style={{
               backgroundColor: colors.background,
-              borderWidth: 4,
+              borderWidth: 3,
               borderColor: frameData.color,
             }}
           >
-            <Text style={{ fontSize: 24 }}>🕊️</Text>
+            <Text style={{ fontSize: 20 }}>🕊️</Text>
           </View>
 
           {/* Lock Overlay */}
           {!canAfford && !isOwned && (
             <View className="absolute inset-0 items-center justify-center bg-black/30 rounded-full">
-              <Lock size={20} color="#FFFFFF" />
+              <Lock size={16} color="#FFFFFF" />
             </View>
           )}
         </View>
 
-        <View className="flex-row items-center mb-1">
+        <View className="flex-row items-center mb-0.5">
           <Text
-            className="text-sm font-semibold"
-            style={{ color: colors.text }}
+            className="text-xs font-semibold"
+            style={{ color: colors.text, maxWidth: 60 }}
             numberOfLines={1}
           >
             {language === 'es' ? frameData.nameEs : frameData.name}
           </Text>
           <View
-            className="w-2 h-2 rounded-full ml-2"
+            className="w-1.5 h-1.5 rounded-full ml-1"
             style={{ backgroundColor: rarityColor }}
           />
         </View>
@@ -575,10 +576,7 @@ function FramePreviewCard({
         {/* Price or Status */}
         {isEquipped ? (
           <View className="flex-row items-center">
-            <Check size={12} color="#22C55E" strokeWidth={3} />
-            <Text className="text-xs font-semibold text-green-600 ml-1">
-              {t.equipped}
-            </Text>
+            <Check size={10} color="#22C55E" strokeWidth={3} />
           </View>
         ) : isOwned ? (
           <Text className="text-xs font-medium" style={{ color: colors.primary }}>
@@ -586,9 +584,9 @@ function FramePreviewCard({
           </Text>
         ) : (
           <View className="flex-row items-center">
-            <Coins size={12} color={canAfford ? colors.primary : colors.textMuted} />
+            <Coins size={10} color={canAfford ? colors.primary : colors.textMuted} />
             <Text
-              className="text-xs font-semibold ml-1"
+              className="text-xs font-semibold ml-0.5"
               style={{ color: canAfford ? colors.primary : colors.textMuted }}
             >
               {frameData.price}
