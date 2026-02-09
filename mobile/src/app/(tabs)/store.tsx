@@ -415,14 +415,15 @@ function ThemePreviewCard({
   const rarityColor = RARITY_COLORS[themeData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
 
   return (
-    <Animated.View style={animatedStyle} className="w-[48%] mb-4">
+    <Animated.View style={[animatedStyle, { width: '48%', marginBottom: 12 }]}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.96); }}
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
-        className="rounded-2xl overflow-hidden"
         style={{
           backgroundColor: colors.surface,
+          borderRadius: 16,
+          overflow: 'hidden',
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.06,
@@ -431,57 +432,54 @@ function ThemePreviewCard({
           opacity: !canAfford && !isOwned ? 0.6 : 1,
         }}
       >
-        {/* Color Preview */}
-        <View className="h-20 flex-row">
-          <View className="flex-1" style={{ backgroundColor: themeData.colors.primary }} />
-          <View className="flex-1" style={{ backgroundColor: themeData.colors.secondary }} />
-          <View className="flex-1" style={{ backgroundColor: themeData.colors.accent }} />
+        {/* Color Preview - fixed height */}
+        <View style={{ height: 56, flexDirection: 'row' }}>
+          <View style={{ flex: 1, backgroundColor: themeData.colors.primary }} />
+          <View style={{ flex: 1, backgroundColor: themeData.colors.secondary }} />
+          <View style={{ flex: 1, backgroundColor: themeData.colors.accent }} />
         </View>
 
         {/* Lock Overlay */}
         {!canAfford && !isOwned && (
-          <View className="absolute top-0 left-0 right-0 h-20 items-center justify-center bg-black/30">
-            <Lock size={24} color="#FFFFFF" />
+          <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 56, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)' }}>
+            <Lock size={20} color="#FFFFFF" />
           </View>
         )}
 
-        <View className="p-3">
-          <View className="flex-row items-center justify-between mb-1">
+        <View style={{ padding: 10 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
             <Text
-              className="text-sm font-semibold flex-1"
-              style={{ color: colors.text }}
+              style={{ fontSize: 13, fontWeight: '600', color: colors.text, flex: 1 }}
               numberOfLines={1}
             >
               {language === 'es' ? themeData.nameEs : themeData.name}
             </Text>
             <View
-              className="w-2 h-2 rounded-full ml-2"
-              style={{ backgroundColor: rarityColor }}
+              style={{ width: 6, height: 6, borderRadius: 3, marginLeft: 6, backgroundColor: rarityColor }}
             />
           </View>
 
           {/* Price or Status */}
           {isEquipped ? (
-            <View className="flex-row items-center">
-              <Check size={12} color="#22C55E" strokeWidth={3} />
-              <Text className="text-xs font-semibold text-green-600 ml-1">
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Check size={11} color="#22C55E" strokeWidth={3} />
+              <Text style={{ fontSize: 11, fontWeight: '600', color: '#22C55E', marginLeft: 4 }}>
                 {t.equipped}
               </Text>
             </View>
           ) : isOwned ? (
-            <Text className="text-xs font-medium" style={{ color: colors.primary }}>
+            <Text style={{ fontSize: 11, fontWeight: '500', color: colors.primary }}>
               {t.equip}
             </Text>
           ) : themeData.price === 0 ? (
-            <Text className="text-xs font-medium" style={{ color: '#22C55E' }}>
+            <Text style={{ fontSize: 11, fontWeight: '500', color: '#22C55E' }}>
               Free
             </Text>
           ) : (
-            <View className="flex-row items-center">
-              <Coins size={12} color={canAfford ? colors.primary : colors.textMuted} />
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Coins size={11} color={canAfford ? colors.primary : colors.textMuted} />
               <Text
-                className="text-xs font-semibold ml-1"
-                style={{ color: canAfford ? colors.primary : colors.textMuted }}
+                style={{ fontSize: 11, fontWeight: '600', marginLeft: 4, color: canAfford ? colors.primary : colors.textMuted }}
               >
                 {themeData.price}
               </Text>
@@ -521,73 +519,75 @@ function FramePreviewCard({
   const rarityColor = RARITY_COLORS[frameData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
 
   return (
-    <Animated.View style={animatedStyle} className="w-[31%] mb-3">
+    <Animated.View style={[animatedStyle, { width: '31%', marginBottom: 10 }]}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.96); }}
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
-        className="rounded-xl p-3 items-center"
         style={{
           backgroundColor: colors.surface,
+          borderRadius: 12,
+          padding: 10,
+          alignItems: 'center',
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.06,
           shadowRadius: 6,
           elevation: 2,
           opacity: !canAfford && !isOwned ? 0.6 : 1,
-          aspectRatio: 0.85,
         }}
       >
         {/* Frame Preview Circle */}
-        <View className="relative mb-2">
+        <View style={{ position: 'relative', marginBottom: 6 }}>
           <View
-            className="w-14 h-14 rounded-full items-center justify-center"
             style={{
+              width: 48,
+              height: 48,
+              borderRadius: 24,
+              alignItems: 'center',
+              justifyContent: 'center',
               backgroundColor: colors.background,
               borderWidth: 3,
               borderColor: frameData.color,
             }}
           >
-            <Text style={{ fontSize: 20 }}>🕊️</Text>
+            <Text style={{ fontSize: 18 }}>🕊️</Text>
           </View>
 
           {/* Lock Overlay */}
           {!canAfford && !isOwned && (
-            <View className="absolute inset-0 items-center justify-center bg-black/30 rounded-full">
-              <Lock size={16} color="#FFFFFF" />
+            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: 24 }}>
+              <Lock size={14} color="#FFFFFF" />
             </View>
           )}
         </View>
 
-        <View className="flex-row items-center mb-0.5">
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 2 }}>
           <Text
-            className="text-xs font-semibold"
-            style={{ color: colors.text, maxWidth: 60 }}
+            style={{ fontSize: 10, fontWeight: '600', color: colors.text, maxWidth: 55 }}
             numberOfLines={1}
           >
             {language === 'es' ? frameData.nameEs : frameData.name}
           </Text>
           <View
-            className="w-1.5 h-1.5 rounded-full ml-1"
-            style={{ backgroundColor: rarityColor }}
+            style={{ width: 5, height: 5, borderRadius: 2.5, marginLeft: 3, backgroundColor: rarityColor }}
           />
         </View>
 
         {/* Price or Status */}
         {isEquipped ? (
-          <View className="flex-row items-center">
-            <Check size={10} color="#22C55E" strokeWidth={3} />
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Check size={9} color="#22C55E" strokeWidth={3} />
           </View>
         ) : isOwned ? (
-          <Text className="text-xs font-medium" style={{ color: colors.primary }}>
+          <Text style={{ fontSize: 10, fontWeight: '500', color: colors.primary }}>
             {t.equip}
           </Text>
         ) : (
-          <View className="flex-row items-center">
-            <Coins size={10} color={canAfford ? colors.primary : colors.textMuted} />
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Coins size={9} color={canAfford ? colors.primary : colors.textMuted} />
             <Text
-              className="text-xs font-semibold ml-0.5"
-              style={{ color: canAfford ? colors.primary : colors.textMuted }}
+              style={{ fontSize: 10, fontWeight: '600', marginLeft: 2, color: canAfford ? colors.primary : colors.textMuted }}
             >
               {frameData.price}
             </Text>
@@ -728,7 +728,6 @@ function AvatarCard({
   language: 'en' | 'es';
   onPress: () => void;
 }) {
-  const t = TRANSLATIONS[language];
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -738,14 +737,16 @@ function AvatarCard({
   const hasCost = avatar.price !== undefined && avatar.price > 0;
 
   return (
-    <Animated.View style={animatedStyle} className="w-[30%] mb-4">
+    <Animated.View style={[animatedStyle, { width: '31%', marginBottom: 10 }]}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.94); }}
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
-        className="rounded-2xl p-3 items-center"
         style={{
           backgroundColor: colors.surface,
+          borderRadius: 12,
+          padding: 10,
+          alignItems: 'center',
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.06,
@@ -757,25 +758,30 @@ function AvatarCard({
         }}
       >
         {/* Avatar Emoji */}
-        <View className="relative mb-2">
+        <View style={{ position: 'relative', marginBottom: 6 }}>
           <View
-            className="w-12 h-12 rounded-full items-center justify-center"
-            style={{ backgroundColor: colors.primary + '15' }}
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 22,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: colors.primary + '15',
+            }}
           >
-            <Text style={{ fontSize: 24 }}>{avatar.emoji}</Text>
+            <Text style={{ fontSize: 22 }}>{avatar.emoji}</Text>
           </View>
 
           {/* Lock Overlay */}
           {!canAfford && !isOwned && hasCost && (
-            <View className="absolute inset-0 items-center justify-center bg-black/30 rounded-full">
-              <Lock size={16} color="#FFFFFF" />
+            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: 22 }}>
+              <Lock size={14} color="#FFFFFF" />
             </View>
           )}
         </View>
 
         <Text
-          className="text-xs font-medium mb-1 text-center"
-          style={{ color: colors.text }}
+          style={{ fontSize: 10, fontWeight: '500', color: colors.text, textAlign: 'center', marginBottom: 2 }}
           numberOfLines={1}
         >
           {avatar.name}
@@ -783,19 +789,18 @@ function AvatarCard({
 
         {/* Price or Status */}
         {isEquipped ? (
-          <View className="flex-row items-center">
-            <Check size={10} color="#22C55E" strokeWidth={3} />
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Check size={9} color="#22C55E" strokeWidth={3} />
           </View>
         ) : !hasCost || isOwned ? (
-          <Text className="text-xs" style={{ color: '#22C55E' }}>
+          <Text style={{ fontSize: 10, color: '#22C55E' }}>
             Free
           </Text>
         ) : (
-          <View className="flex-row items-center">
-            <Coins size={10} color={canAfford ? colors.primary : colors.textMuted} />
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Coins size={9} color={canAfford ? colors.primary : colors.textMuted} />
             <Text
-              className="text-xs font-semibold ml-0.5"
-              style={{ color: canAfford ? colors.primary : colors.textMuted }}
+              style={{ fontSize: 10, fontWeight: '600', marginLeft: 2, color: canAfford ? colors.primary : colors.textMuted }}
             >
               {avatar.price}
             </Text>
@@ -1035,7 +1040,7 @@ export default function StoreScreen() {
     switch (activeCategory) {
       case 'themes':
         return (
-          <View className="flex-row flex-wrap justify-between px-5">
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'flex-start' }}>
             {Object.values(PURCHASABLE_THEMES).map((theme, index) => {
               const isOwned = purchasedItems.includes(theme.id) || theme.price === 0;
               const isEquipped = user?.themeId === theme.id;
@@ -1045,6 +1050,7 @@ export default function StoreScreen() {
                 <Animated.View
                   key={theme.id}
                   entering={FadeInRight.delay(index * 50).duration(300)}
+                  style={{ width: '48%' }}
                 >
                   <ThemePreviewCard
                     themeData={theme}
@@ -1070,7 +1076,7 @@ export default function StoreScreen() {
 
       case 'frames':
         return (
-          <View className="flex-row flex-wrap justify-between px-5">
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 20, gap: 8 }}>
             {Object.values(AVATAR_FRAMES).map((frame, index) => {
               const isOwned = purchasedItems.includes(frame.id);
               const isEquipped = user?.frameId === frame.id;
@@ -1080,6 +1086,7 @@ export default function StoreScreen() {
                 <Animated.View
                   key={frame.id}
                   entering={FadeInRight.delay(index * 50).duration(300)}
+                  style={{ width: '31%' }}
                 >
                   <FramePreviewCard
                     frameData={frame}
@@ -1140,7 +1147,7 @@ export default function StoreScreen() {
 
       case 'avatars':
         return (
-          <View className="flex-row flex-wrap justify-between px-5">
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 20, gap: 8 }}>
             {DEFAULT_AVATARS.map((avatar, index) => {
               const hasCost = 'price' in avatar && (avatar as { price: number }).price > 0;
               const isOwned = purchasedItems.includes(avatar.id) || !hasCost;
@@ -1152,6 +1159,7 @@ export default function StoreScreen() {
                 <Animated.View
                   key={avatar.id}
                   entering={FadeInRight.delay(index * 30).duration(250)}
+                  style={{ width: '31%' }}
                 >
                   <AvatarCard
                     avatar={{ ...avatar, price: hasCost ? price : undefined }}
