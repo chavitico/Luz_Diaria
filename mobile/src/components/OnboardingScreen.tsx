@@ -151,9 +151,13 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     try {
+      let backendUserId: string | null = null;
+
       // Try to register with backend gamification API first
       try {
-        await gamificationApi.registerUser(nickname.trim(), selectedAvatar);
+        const backendUser = await gamificationApi.registerUser(nickname.trim(), selectedAvatar);
+        backendUserId = backendUser.id; // Save the backend user ID
+        console.log('[Onboarding] Backend user registered with ID:', backendUserId);
       } catch (err) {
         // If registration fails (e.g., nickname taken), show error
         const errorMessage = err instanceof Error ? err.message : 'Registration failed';
@@ -165,10 +169,11 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
           return;
         }
         // Otherwise proceed with local-only mode
-        console.log('Backend registration failed, continuing locally:', err);
+        console.log('[Onboarding] Backend registration failed, continuing locally:', err);
       }
 
-      const user = await firestoreService.createUser(nickname.trim(), selectedAvatar);
+      // Create local user, using backend ID if available
+      const user = await firestoreService.createUser(nickname.trim(), selectedAvatar, backendUserId);
       setUser(user);
       setOnboarded(true);
 

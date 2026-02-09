@@ -53,11 +53,11 @@ export const firestoreService = {
   },
 
   // Create new user
-  async createUser(nickname: string, avatar: string): Promise<User> {
+  async createUser(nickname: string, avatar: string, backendUserId?: string | null): Promise<User> {
     await new Promise(resolve => setTimeout(resolve, 300));
 
     const user: User = {
-      id: generateUserId(),
+      id: backendUserId || generateUserId(), // Use backend ID if available
       nickname,
       avatar,
       points: 100, // Welcome bonus
