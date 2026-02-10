@@ -198,6 +198,11 @@ export const gamificationApi = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, type }),
     });
+    // If user not found (404), return empty result instead of throwing
+    // This handles users created in offline mode who aren't registered with backend
+    if (res.status === 404) {
+      return { updated: [], completed: [] };
+    }
     if (!res.ok) throw new Error('Failed to update challenge progress');
     return res.json();
   },
