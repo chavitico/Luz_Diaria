@@ -214,8 +214,11 @@ export async function generateTodayDevotional(): Promise<void> {
   try {
     const content = await generateDevotionalWithAI(topic);
 
-    await prisma.devotional.create({
-      data: {
+    // Use upsert to avoid race conditions on server restart
+    await prisma.devotional.upsert({
+      where: { date: today },
+      update: {}, // Don't update if exists
+      create: {
         date: today,
         topic: topic.en,
         topicEs: topic.es,
@@ -226,6 +229,11 @@ export async function generateTodayDevotional(): Promise<void> {
 
     console.log(`[Devotional] Successfully created devotional for ${today}: "${content.title}"`);
   } catch (error) {
+    // Ignore unique constraint errors (race condition from server restart)
+    if (error instanceof Error && error.message.includes("Unique constraint")) {
+      console.log(`[Devotional] Devotional for ${today} was created by another process`);
+      return;
+    }
     console.error(`[Devotional] Failed to generate devotional for ${today}:`, error);
     throw error;
   }

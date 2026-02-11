@@ -12,13 +12,21 @@ export const devotionalRouter = new Hono();
 // Get today's devotional
 devotionalRouter.get("/today", async (c) => {
   try {
-    const devotional = await getTodayDevotional();
+    let devotional = await getTodayDevotional();
 
     if (!devotional) {
       // Generate if not exists
-      await generateTodayDevotional();
-      const newDevotional = await getTodayDevotional();
-      return c.json(newDevotional);
+      try {
+        await generateTodayDevotional();
+      } catch (genError) {
+        // If generation failed, try to fetch again in case another request created it
+        console.log("[API] Generation failed, checking if devotional was created by another request");
+      }
+      devotional = await getTodayDevotional();
+    }
+
+    if (!devotional) {
+      return c.json({ error: "Failed to get or generate devotional" }, 500);
     }
 
     return c.json(devotional);
