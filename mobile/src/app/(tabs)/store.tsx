@@ -520,7 +520,7 @@ function FramePreviewCard({
   const rarityColor = RARITY_COLORS[frameData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
 
   return (
-    <Animated.View style={[animatedStyle, { width: '31%', marginBottom: 10 }]}>
+    <Animated.View style={animatedStyle}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.96); }}
         onPressOut={() => { scale.value = withSpring(1); }}
@@ -738,7 +738,7 @@ function AvatarCard({
   const hasCost = avatar.price !== undefined && avatar.price > 0;
 
   return (
-    <Animated.View style={[animatedStyle, { width: '31%', marginBottom: 10 }]}>
+    <Animated.View style={animatedStyle}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.94); }}
         onPressOut={() => { scale.value = withSpring(1); }}
@@ -775,7 +775,7 @@ function AvatarCard({
 
           {/* Lock Overlay */}
           {!canAfford && !isOwned && hasCost && (
-            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: 22 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: 22, position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
               <Lock size={14} color="#FFFFFF" />
             </View>
           )}
@@ -1104,16 +1104,15 @@ export default function StoreScreen() {
         const itemWidth = (screenWidth - horizontalPadding - (gap * (numColumns - 1))) / numColumns;
 
         return (
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
             {Object.values(AVATAR_FRAMES).map((frame, index) => {
               const isOwned = purchasedItems.includes(frame.id);
               const isEquipped = user?.frameId === frame.id;
               const canAfford = points >= frame.price;
 
               return (
-                <Animated.View
+                <View
                   key={frame.id}
-                  entering={FadeInRight.delay(index * 50).duration(300)}
                   style={{ width: itemWidth }}
                 >
                   <FramePreviewCard
@@ -1132,7 +1131,7 @@ export default function StoreScreen() {
                       })
                     }
                   />
-                </Animated.View>
+                </View>
               );
             })}
           </View>
@@ -1182,7 +1181,7 @@ export default function StoreScreen() {
         const itemWidth = (screenWidth - horizontalPadding - (gap * (numColumns - 1))) / numColumns;
 
         return (
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
             {DEFAULT_AVATARS.map((avatar, index) => {
               const hasCost = 'price' in avatar && (avatar as { price: number }).price > 0;
               const isOwned = purchasedItems.includes(avatar.id) || !hasCost;
@@ -1191,9 +1190,8 @@ export default function StoreScreen() {
               const canAfford = points >= price;
 
               return (
-                <Animated.View
+                <View
                   key={avatar.id}
-                  entering={FadeInRight.delay(index * 30).duration(250)}
                   style={{ width: itemWidth }}
                 >
                   <AvatarCard
@@ -1212,7 +1210,7 @@ export default function StoreScreen() {
                       })
                     }
                   />
-                </Animated.View>
+                </View>
               );
             })}
           </View>
