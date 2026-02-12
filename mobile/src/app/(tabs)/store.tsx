@@ -9,6 +9,7 @@ import {
   Modal,
   ActivityIndicator,
   Image,
+  Dimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, {
@@ -1095,9 +1096,15 @@ export default function StoreScreen() {
           </View>
         );
 
-      case 'frames':
+      case 'frames': {
+        const screenWidth = Dimensions.get('window').width;
+        const horizontalPadding = 40; // 20px on each side
+        const gap = 10;
+        const numColumns = 3;
+        const itemWidth = (screenWidth - horizontalPadding - (gap * (numColumns - 1))) / numColumns;
+
         return (
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 20, gap: 8 }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap }}>
             {Object.values(AVATAR_FRAMES).map((frame, index) => {
               const isOwned = purchasedItems.includes(frame.id);
               const isEquipped = user?.frameId === frame.id;
@@ -1107,7 +1114,7 @@ export default function StoreScreen() {
                 <Animated.View
                   key={frame.id}
                   entering={FadeInRight.delay(index * 50).duration(300)}
-                  style={{ width: '31%' }}
+                  style={{ width: itemWidth }}
                 >
                   <FramePreviewCard
                     frameData={frame}
@@ -1130,6 +1137,7 @@ export default function StoreScreen() {
             })}
           </View>
         );
+      }
 
       case 'titles':
         return (
@@ -1166,9 +1174,15 @@ export default function StoreScreen() {
           </View>
         );
 
-      case 'avatars':
+      case 'avatars': {
+        const screenWidth = Dimensions.get('window').width;
+        const horizontalPadding = 40; // 20px on each side
+        const gap = 10;
+        const numColumns = 3;
+        const itemWidth = (screenWidth - horizontalPadding - (gap * (numColumns - 1))) / numColumns;
+
         return (
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 20, gap: 8 }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap }}>
             {DEFAULT_AVATARS.map((avatar, index) => {
               const hasCost = 'price' in avatar && (avatar as { price: number }).price > 0;
               const isOwned = purchasedItems.includes(avatar.id) || !hasCost;
@@ -1180,7 +1194,7 @@ export default function StoreScreen() {
                 <Animated.View
                   key={avatar.id}
                   entering={FadeInRight.delay(index * 30).duration(250)}
-                  style={{ width: '31%' }}
+                  style={{ width: itemWidth }}
                 >
                   <AvatarCard
                     avatar={{ ...avatar, price: hasCost ? price : undefined }}
@@ -1203,6 +1217,7 @@ export default function StoreScreen() {
             })}
           </View>
         );
+      }
 
       case 'music':
         return (
