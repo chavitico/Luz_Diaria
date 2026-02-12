@@ -929,6 +929,23 @@ export default function StoreScreen() {
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
 
+  // Sync points from backend on mount
+  const { data: backendUser } = useQuery({
+    queryKey: ['backendUser', userId],
+    queryFn: () => gamificationApi.getUser(userId),
+    enabled: !!userId,
+    staleTime: 30 * 1000, // 30 seconds
+    retry: 1,
+  });
+
+  // Update local points when backend data loads
+  React.useEffect(() => {
+    if (backendUser && backendUser.points !== points) {
+      console.log('[Store] Syncing points from backend:', backendUser.points);
+      updateUser({ points: backendUser.points });
+    }
+  }, [backendUser?.points]);
+
   // Purchase mutation
   const purchaseMutation = useMutation({
     mutationFn: ({ itemId }: { itemId: string }) =>
@@ -994,6 +1011,10 @@ export default function StoreScreen() {
     },
   });
 
+  // Destructure mutation functions for stable references
+  const { mutate: equipMutate } = equipMutation;
+  const { mutate: purchaseMutate } = purchaseMutation;
+
   // Handle item press
   const handleItemPress = useCallback(
     (item: {
@@ -1009,7 +1030,7 @@ export default function StoreScreen() {
 
       if (isOwned && item.type !== 'avatar') {
         // Equip the item
-        equipMutation.mutate({
+        equipMutate({
           type: item.type as 'theme' | 'frame' | 'title' | 'music',
           itemId: item.id,
         });
@@ -1026,14 +1047,14 @@ export default function StoreScreen() {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       }
     },
-    [purchasedItems, points, equipMutation, updateUser]
+    [purchasedItems, points, equipMutate, updateUser]
   );
 
   const handleConfirmPurchase = useCallback(() => {
     if (!selectedItem) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-    purchaseMutation.mutate({ itemId: selectedItem.id });
-  }, [selectedItem, purchaseMutation]);
+    purchaseMutate({ itemId: selectedItem.id });
+  }, [selectedItem, purchaseMutate]);
 
   // Render category content
   const renderCategoryContent = () => {
