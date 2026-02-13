@@ -176,6 +176,78 @@ function translateBibleReference(reference: string): string {
   return result;
 }
 
+// Normalize Bible references for TTS to speak chapter:verse correctly
+// Converts "Génesis 3:28" → "Génesis, capítulo 3, versículo 28"
+// Converts "1 Reyes 3:28" → "Primera de Reyes, capítulo 3, versículo 28"
+function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
+  if (language !== 'es') {
+    // For English, just convert chapter:verse to "chapter X verse Y"
+    return text.replace(/(\d+):(\d+)/g, 'chapter $1 verse $2');
+  }
+
+  // Spanish ordinal expansions for numbered Bible books
+  const spanishOrdinals: Record<string, string> = {
+    '1': 'Primera de',
+    '2': 'Segunda de',
+    '3': 'Tercera de',
+  };
+
+  // Masculine ordinals for certain books (Reyes, Samuel, Crónicas)
+  const masculineBooks = ['Reyes', 'Samuel', 'Crónicas', 'Cronicas'];
+
+  // List of Bible book names in Spanish (to identify Bible references vs regular numbers)
+  const spanishBibleBooks = [
+    'Génesis', 'Genesis', 'Éxodo', 'Exodo', 'Levítico', 'Levitico', 'Números', 'Numeros',
+    'Deuteronomio', 'Josué', 'Josue', 'Jueces', 'Rut', 'Samuel', 'Reyes', 'Crónicas', 'Cronicas',
+    'Esdras', 'Nehemías', 'Nehemias', 'Ester', 'Job', 'Salmos', 'Salmo', 'Proverbios',
+    'Eclesiastés', 'Eclesiastes', 'Cantares', 'Isaías', 'Isaias', 'Jeremías', 'Jeremias',
+    'Lamentaciones', 'Ezequiel', 'Daniel', 'Oseas', 'Joel', 'Amós', 'Amos', 'Abdías', 'Abdias',
+    'Jonás', 'Jonas', 'Miqueas', 'Nahúm', 'Nahum', 'Habacuc', 'Sofonías', 'Sofonias',
+    'Hageo', 'Zacarías', 'Zacarias', 'Malaquías', 'Malaquias',
+    'Mateo', 'Marcos', 'Lucas', 'Juan', 'Hechos', 'Romanos', 'Corintios', 'Gálatas', 'Galatas',
+    'Efesios', 'Filipenses', 'Colosenses', 'Tesalonicenses', 'Timoteo', 'Tito', 'Filemón', 'Filemon',
+    'Hebreos', 'Santiago', 'Pedro', 'Judas', 'Apocalipsis'
+  ];
+
+  let result = text;
+
+  // Pattern to match Bible references: optional number + book name + chapter:verse
+  // Matches: "1 Reyes 3:28", "Génesis 3:28", "2 Corintios 5:17", etc.
+  const bibleRefPattern = new RegExp(
+    `(^|[\\s,;.("'])` + // Word boundary or start
+    `([123])?\\s*` + // Optional leading number (1, 2, or 3)
+    `(${spanishBibleBooks.join('|')})` + // Book name
+    `\\s+(\\d+):(\\d+)` + // Chapter:verse
+    `(?:-\\d+)?` + // Optional verse range (e.g., 3:28-30)
+    `([\\s,;.)"']|$)`, // Word boundary or end
+    'gi'
+  );
+
+  result = result.replace(bibleRefPattern, (match, prefix, num, book, chapter, verse, suffix) => {
+    let expandedBook = book;
+
+    // If there's a leading number, expand it to ordinal
+    if (num) {
+      const isMasculine = masculineBooks.some(mb => book.toLowerCase().includes(mb.toLowerCase()));
+      if (isMasculine) {
+        // Use masculine ordinals for Reyes, Samuel, Crónicas
+        const masculineOrdinals: Record<string, string> = {
+          '1': 'Primero de',
+          '2': 'Segundo de',
+          '3': 'Tercero de',
+        };
+        expandedBook = `${masculineOrdinals[num]} ${book}`;
+      } else {
+        expandedBook = `${spanishOrdinals[num]} ${book}`;
+      }
+    }
+
+    return `${prefix}${expandedBook}, capítulo ${chapter}, versículo ${verse}${suffix}`;
+  });
+
+  return result;
+}
+
 // Helper to convert Bible references to spoken form
 function formatBibleReferenceForSpeech(reference: string, language: 'en' | 'es'): string {
   // Spanish conversions
@@ -229,6 +301,9 @@ function formatBibleReferenceForSpeech(reference: string, language: 'en' | 'es')
       break;
     }
   }
+
+  // Apply chapter:verse normalization for TTS
+  result = normalizeBibleRefForTTS(result, language);
 
   return result;
 }
