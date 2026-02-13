@@ -1318,13 +1318,14 @@ export default function HomeScreen() {
 
     const formattedReference = formatBibleReferenceForSpeech(bibleRef, language);
 
+    // Apply Bible reference normalization to ALL sections for proper TTS pronunciation
     return [
       { key: 'verse', text: `${verse}. ${formattedReference}` },
-      { key: 'reflection', text: reflection },
-      { key: 'story', text: story },
-      { key: 'character', text: character },
-      { key: 'application', text: application },
-      { key: 'prayer', text: prayer },
+      { key: 'reflection', text: normalizeBibleRefForTTS(reflection, language) },
+      { key: 'story', text: normalizeBibleRefForTTS(story, language) },
+      { key: 'character', text: normalizeBibleRefForTTS(character, language) },
+      { key: 'application', text: normalizeBibleRefForTTS(application, language) },
+      { key: 'prayer', text: normalizeBibleRefForTTS(prayer, language) },
     ];
   }, [devotional, language]);
 
