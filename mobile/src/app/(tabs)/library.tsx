@@ -209,7 +209,6 @@ export default function LibraryScreen() {
         format: 'png',
         quality: 1,
         result: 'tmpfile',
-        snapshotContentContainer: true,
       });
 
       if (!uri) {
@@ -471,7 +470,6 @@ export default function LibraryScreen() {
                   format: 'png',
                   quality: 1,
                   result: 'tmpfile',
-                  snapshotContentContainer: true,
                 }}
                 style={{ transform: [{ scale: 1 }] }}
               >
