@@ -9,7 +9,10 @@ import { BookOpen, Star, Heart, Check } from 'lucide-react-native';
 import type { Devotional } from '@/lib/types';
 
 const { width } = Dimensions.get('window');
+// Use a larger base width for better image quality when captured
+// The captured image will be scaled up for sharper text
 const IMAGE_WIDTH = width - 40; // Padding on sides
+const CAPTURE_SCALE = 2; // Scale factor for high-quality capture
 
 interface ShareableDevotionalImageProps {
   devotional: Devotional;
@@ -126,24 +129,24 @@ interface ContentSectionProps {
 
 function ContentSection({ title, content, icon, colors }: ContentSectionProps) {
   return (
-    <View style={{ marginBottom: 20 }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+    <View style={{ marginBottom: 24 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
         <View
           style={{
-            width: 28,
-            height: 28,
-            borderRadius: 14,
+            width: 32,
+            height: 32,
+            borderRadius: 16,
             backgroundColor: colors.primary + '20',
             alignItems: 'center',
             justifyContent: 'center',
-            marginRight: 10,
+            marginRight: 12,
           }}
         >
           {icon}
         </View>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: '700',
             color: colors.primary,
           }}
@@ -154,14 +157,14 @@ function ContentSection({ title, content, icon, colors }: ContentSectionProps) {
       <View
         style={{
           backgroundColor: colors.surface,
-          borderRadius: 16,
-          padding: 16,
+          borderRadius: 18,
+          padding: 18,
         }}
       >
         <Text
           style={{
-            fontSize: 14,
-            lineHeight: 22,
+            fontSize: 16,
+            lineHeight: 26,
             color: colors.text,
           }}
         >
@@ -207,7 +210,7 @@ export const ShareableDevotionalImage = forwardRef<View, ShareableDevotionalImag
         collapsable={false}
       >
         {/* Hero Image */}
-        <View style={{ height: 200, width: '100%' }}>
+        <View style={{ height: 220, width: '100%' }}>
           <Image
             source={{ uri: devotional.imageUrl }}
             style={{ width: '100%', height: '100%' }}
@@ -230,15 +233,15 @@ export const ShareableDevotionalImage = forwardRef<View, ShareableDevotionalImag
               bottom: 0,
               left: 0,
               right: 0,
-              padding: 16,
+              padding: 18,
             }}
           >
             <Text
               style={{
-                color: 'rgba(255,255,255,0.8)',
-                fontSize: 12,
-                fontWeight: '500',
-                marginBottom: 6,
+                color: 'rgba(255,255,255,0.85)',
+                fontSize: 14,
+                fontWeight: '600',
+                marginBottom: 8,
               }}
             >
               {formatDate(devotional.date)}
@@ -246,8 +249,9 @@ export const ShareableDevotionalImage = forwardRef<View, ShareableDevotionalImag
             <Text
               style={{
                 color: '#FFFFFF',
-                fontSize: 22,
+                fontSize: 26,
                 fontWeight: '700',
+                lineHeight: 32,
               }}
             >
               {title}
@@ -256,24 +260,24 @@ export const ShareableDevotionalImage = forwardRef<View, ShareableDevotionalImag
         </View>
 
         {/* Content */}
-        <View style={{ padding: 16 }}>
+        <View style={{ padding: 18 }}>
           {/* Bible Verse Card */}
           <View
             style={{
               backgroundColor: colors.surface,
-              borderRadius: 20,
-              padding: 20,
-              marginBottom: 20,
+              borderRadius: 22,
+              padding: 22,
+              marginBottom: 24,
             }}
           >
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-              <BookOpen size={18} color={colors.primary} />
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
+              <BookOpen size={20} color={colors.primary} />
               <Text
                 style={{
-                  marginLeft: 8,
+                  marginLeft: 10,
                   fontWeight: '600',
                   color: colors.primary,
-                  fontSize: 14,
+                  fontSize: 16,
                 }}
               >
                 {translations.bible_verse}
@@ -281,18 +285,18 @@ export const ShareableDevotionalImage = forwardRef<View, ShareableDevotionalImag
             </View>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 20,
                 fontStyle: 'italic',
-                lineHeight: 28,
+                lineHeight: 32,
                 color: colors.text,
-                marginBottom: 10,
+                marginBottom: 12,
               }}
             >
               "{verse}"
             </Text>
             <Text
               style={{
-                fontSize: 13,
+                fontSize: 15,
                 fontWeight: '500',
                 color: colors.textMuted,
               }}
@@ -305,35 +309,35 @@ export const ShareableDevotionalImage = forwardRef<View, ShareableDevotionalImag
           <ContentSection
             title={translations.reflection}
             content={reflection}
-            icon={<Star size={14} color={colors.primary} />}
+            icon={<Star size={16} color={colors.primary} />}
             colors={colors}
           />
 
           <ContentSection
             title={translations.story}
             content={story}
-            icon={<BookOpen size={14} color={colors.secondary} />}
+            icon={<BookOpen size={16} color={colors.secondary} />}
             colors={colors}
           />
 
           <ContentSection
             title={translations.biblical_character}
             content={character}
-            icon={<Star size={14} color={colors.accent} />}
+            icon={<Star size={16} color={colors.accent} />}
             colors={colors}
           />
 
           <ContentSection
             title={translations.application}
             content={application}
-            icon={<Check size={14} color={colors.primary} />}
+            icon={<Check size={16} color={colors.primary} />}
             colors={colors}
           />
 
           <ContentSection
             title={translations.prayer}
             content={prayer}
-            icon={<Heart size={14} color={colors.secondary} />}
+            icon={<Heart size={16} color={colors.secondary} />}
             colors={colors}
           />
 
@@ -341,27 +345,27 @@ export const ShareableDevotionalImage = forwardRef<View, ShareableDevotionalImag
           <View
             style={{
               alignItems: 'center',
-              paddingTop: 16,
-              paddingBottom: 8,
+              paddingTop: 20,
+              paddingBottom: 12,
               borderTopWidth: 1,
               borderTopColor: colors.textMuted + '20',
-              marginTop: 10,
+              marginTop: 12,
             }}
           >
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 14,
                 color: colors.textMuted,
-                fontWeight: '500',
+                fontWeight: '600',
               }}
             >
               Daily Light
             </Text>
             <Text
               style={{
-                fontSize: 10,
+                fontSize: 12,
                 color: colors.textMuted + '80',
-                marginTop: 2,
+                marginTop: 4,
               }}
             >
               {language === 'es' ? 'Tu devocional diario' : 'Your daily devotional'}
@@ -374,3 +378,5 @@ export const ShareableDevotionalImage = forwardRef<View, ShareableDevotionalImag
 );
 
 ShareableDevotionalImage.displayName = 'ShareableDevotionalImage';
+
+export { CAPTURE_SCALE };

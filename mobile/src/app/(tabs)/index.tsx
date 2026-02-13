@@ -29,7 +29,7 @@ import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
-import ViewShot from 'react-native-view-shot';
+import ViewShot, { captureRef } from 'react-native-view-shot';
 import Slider from '@react-native-community/slider';
 import {
   BookOpen,
@@ -51,7 +51,7 @@ import {
   X,
   Download,
 } from 'lucide-react-native';
-import { ShareableDevotionalImage } from '@/components/ShareableDevotionalImage';
+import { ShareableDevotionalImage, CAPTURE_SCALE } from '@/components/ShareableDevotionalImage';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import {
   useThemeColors,
@@ -1111,8 +1111,14 @@ export default function HomeScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     try {
-      // Capture the view as image
-      const uri = await viewShotRef.current.capture?.();
+      // Capture the view as image with higher pixel ratio for better quality
+      const uri = await captureRef(viewShotRef, {
+        format: 'png',
+        quality: 1,
+        result: 'tmpfile',
+        snapshotContentContainer: true,
+      });
+
       if (!uri) {
         console.error('[Share] Failed to capture image');
         setIsCapturing(false);
@@ -1713,7 +1719,9 @@ export default function HomeScreen() {
                 format: 'png',
                 quality: 1,
                 result: 'tmpfile',
+                snapshotContentContainer: true,
               }}
+              style={{ transform: [{ scale: 1 }] }}
             >
               <ShareableDevotionalImage
                 devotional={devotional}

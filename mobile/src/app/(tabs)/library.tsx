@@ -1,12 +1,14 @@
 // Library Screen - Historical Devotionals
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
   View,
   Text,
   Pressable,
   ActivityIndicator,
   Dimensions,
+  Modal,
+  ScrollView,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { FlashList } from '@shopify/flash-list';
@@ -15,12 +17,18 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Heart, Calendar, Tag, BookOpen } from 'lucide-react-native';
-import { firestoreService } from '@/lib/firestore';
-import { useThemeColors, useLanguage, useUserFavorites } from '@/lib/store';
+import * as Sharing from 'expo-sharing';
+import ViewShot, { captureRef } from 'react-native-view-shot';
+import { Heart, Calendar, Tag, BookOpen, Share2, X } from 'lucide-react-native';
+import { ShareableDevotionalImage } from '@/components/ShareableDevotionalImage';
+import { firestoreService, getTodayDate } from '@/lib/firestore';
+import { useThemeColors, useLanguage, useUserFavorites, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
+import { POINTS } from '@/lib/types';
 import type { Devotional } from '@/lib/types';
 import { cn } from '@/lib/cn';
+import { PointsToast, usePointsToast } from '@/components/PointsToast';
+import { gamificationApi } from '@/lib/gamification-api';
 
 const { width } = Dimensions.get('window');
 
@@ -32,9 +40,10 @@ interface DevotionalCardProps {
   language: 'en' | 'es';
   colors: ReturnType<typeof useThemeColors>;
   onPress: () => void;
+  onShare: () => void;
 }
 
-function DevotionalCard({ devotional, isFavorite, language, colors, onPress }: DevotionalCardProps) {
+function DevotionalCard({ devotional, isFavorite, language, colors, onPress, onShare }: DevotionalCardProps) {
   const title = language === 'es' ? devotional.titleEs : devotional.title;
   const topic = language === 'es' ? devotional.topicEs : devotional.topic;
 
@@ -87,9 +96,24 @@ function DevotionalCard({ devotional, isFavorite, language, colors, onPress }: D
                   {formatDate(devotional.date)}
                 </Text>
               </View>
-              {isFavorite && (
-                <Heart size={14} color="#EF4444" fill="#EF4444" />
-              )}
+              <View className="flex-row items-center">
+                {/* Share Button */}
+                <Pressable
+                  onPress={(e) => {
+                    e.stopPropagation();
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    onShare();
+                  }}
+                  className="w-7 h-7 rounded-full items-center justify-center mr-2"
+                  style={{ backgroundColor: colors.primary + '15' }}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                >
+                  <Share2 size={14} color={colors.primary} />
+                </Pressable>
+                {isFavorite && (
+                  <Heart size={14} color="#EF4444" fill="#EF4444" />
+                )}
+              </View>
             </View>
 
             <Text
@@ -126,7 +150,20 @@ export default function LibraryScreen() {
   const colors = useThemeColors();
   const language = useLanguage();
   const favorites = useUserFavorites();
+  const user = useUser();
   const t = TRANSLATIONS[language];
+
+  const addPoints = useAppStore((s) => s.addPoints);
+  const updateUser = useAppStore((s) => s.updateUser);
+
+  // Points toast
+  const { currentToast, showToast, hideToast } = usePointsToast();
+
+  // Share modal state
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [selectedDevotional, setSelectedDevotional] = useState<Devotional | null>(null);
+  const [isCapturing, setIsCapturing] = useState(false);
+  const viewShotRef = useRef<ViewShot>(null);
 
   const [filter, setFilter] = useState<FilterType>('all');
 
@@ -149,6 +186,93 @@ export default function LibraryScreen() {
     });
   }, [router]);
 
+  // Open share modal for a devotional
+  const handleOpenShareModal = useCallback((devotional: Devotional) => {
+    setSelectedDevotional(devotional);
+    setShowShareModal(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  }, []);
+
+  // Capture and share image
+  const handleShareImage = useCallback(async () => {
+    if (!user || !selectedDevotional || !viewShotRef.current) return;
+
+    setIsCapturing(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
+    const today = getTodayDate();
+    const dailyActions = user?.dailyActions ?? {};
+
+    try {
+      // Capture the view as image with higher pixel ratio for better quality
+      const uri = await captureRef(viewShotRef, {
+        format: 'png',
+        quality: 1,
+        result: 'tmpfile',
+        snapshotContentContainer: true,
+      });
+
+      if (!uri) {
+        console.error('[Share] Failed to capture image');
+        setIsCapturing(false);
+        return;
+      }
+
+      // Check if sharing is available
+      const isAvailable = await Sharing.isAvailableAsync();
+      if (!isAvailable) {
+        console.error('[Share] Sharing not available');
+        setIsCapturing(false);
+        return;
+      }
+
+      // Share the image
+      await Sharing.shareAsync(uri, {
+        mimeType: 'image/png',
+        dialogTitle: language === 'es' ? 'Compartir Devocional' : 'Share Devotional',
+      });
+
+      setIsCapturing(false);
+      setShowShareModal(false);
+      setSelectedDevotional(null);
+
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+
+      // Update daily actions
+      const newShareCount = (dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0) + 1;
+      updateUser({
+        dailyActions: {
+          ...dailyActions,
+          shareDate: today,
+          shareCount: newShareCount,
+        },
+      });
+
+      // Award points via API
+      try {
+        const pointsResult = await gamificationApi.awardPoints(user.id, 'share');
+        if (pointsResult.success) {
+          addPoints(pointsResult.pointsAwarded);
+          showToast(
+            pointsResult.pointsAwarded,
+            language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
+          );
+        }
+        await gamificationApi.updateChallengeProgress(user.id, 'share');
+      } catch (error) {
+        console.error('[Share] Failed to award points:', error);
+        addPoints(POINTS.SHARE_DEVOTIONAL);
+        showToast(
+          POINTS.SHARE_DEVOTIONAL,
+          language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
+        );
+      }
+    } catch (error) {
+      console.error('[Share] Failed to share image:', error);
+      setIsCapturing(false);
+    }
+  }, [user, selectedDevotional, language, updateUser, addPoints, showToast]);
+
   const renderItem = useCallback(
     ({ item }: { item: Devotional }) => (
       <DevotionalCard
@@ -157,9 +281,10 @@ export default function LibraryScreen() {
         language={language}
         colors={colors}
         onPress={() => handleDevotionalPress(item)}
+        onShare={() => handleOpenShareModal(item)}
       />
     ),
-    [favorites, language, colors, handleDevotionalPress]
+    [favorites, language, colors, handleDevotionalPress, handleOpenShareModal]
   );
 
   return (
@@ -273,6 +398,140 @@ export default function LibraryScreen() {
           </Text>
         </Animated.View>
       )}
+
+      {/* Points Toast */}
+      <PointsToast
+        message={currentToast}
+        onHide={hideToast}
+        primaryColor={colors.primary}
+      />
+
+      {/* Share Modal */}
+      <Modal
+        visible={showShareModal}
+        transparent
+        animationType="slide"
+        onRequestClose={() => {
+          setShowShareModal(false);
+          setSelectedDevotional(null);
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.8)',
+          }}
+        >
+          {/* Header */}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingTop: insets.top + 10,
+              paddingHorizontal: 20,
+              paddingBottom: 16,
+            }}
+          >
+            <Pressable
+              onPress={() => {
+                setShowShareModal(false);
+                setSelectedDevotional(null);
+              }}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 20,
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <X size={22} color="#FFFFFF" />
+            </Pressable>
+            <Text style={{ color: '#FFFFFF', fontSize: 18, fontWeight: '600' }}>
+              {language === 'es' ? 'Compartir Devocional' : 'Share Devotional'}
+            </Text>
+            <View style={{ width: 40 }} />
+          </View>
+
+          {/* Preview */}
+          {selectedDevotional && (
+            <ScrollView
+              style={{ flex: 1 }}
+              contentContainerStyle={{
+                paddingHorizontal: 20,
+                paddingBottom: 120,
+              }}
+              showsVerticalScrollIndicator={false}
+            >
+              <ViewShot
+                ref={viewShotRef}
+                options={{
+                  format: 'png',
+                  quality: 1,
+                  result: 'tmpfile',
+                  snapshotContentContainer: true,
+                }}
+                style={{ transform: [{ scale: 1 }] }}
+              >
+                <ShareableDevotionalImage
+                  devotional={selectedDevotional}
+                  language={language}
+                  colors={colors}
+                  translations={{
+                    bible_verse: t.bible_verse,
+                    reflection: t.reflection,
+                    story: t.story,
+                    biblical_character: t.biblical_character,
+                    application: t.application,
+                    prayer: t.prayer,
+                  }}
+                />
+              </ViewShot>
+            </ScrollView>
+          )}
+
+          {/* Share Button */}
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              paddingHorizontal: 20,
+              paddingBottom: insets.bottom + 20,
+              paddingTop: 16,
+              backgroundColor: 'rgba(0,0,0,0.9)',
+            }}
+          >
+            <Pressable
+              onPress={handleShareImage}
+              disabled={isCapturing}
+              style={{
+                backgroundColor: colors.primary,
+                borderRadius: 16,
+                paddingVertical: 16,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: isCapturing ? 0.7 : 1,
+              }}
+            >
+              {isCapturing ? (
+                <ActivityIndicator color="#FFFFFF" />
+              ) : (
+                <>
+                  <Share2 size={20} color="#FFFFFF" />
+                  <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '600', marginLeft: 10 }}>
+                    {language === 'es' ? 'Compartir Imagen' : 'Share Image'}
+                  </Text>
+                </>
+              )}
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
