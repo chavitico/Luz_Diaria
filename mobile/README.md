@@ -11,6 +11,7 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Continuous reading format** - all sections displayed without collapse
 - Completion tracking (3-minute read time - timer hidden from user)
 - Favorite devotionals with heart icon
+- **Share as Image** - generates a beautiful long image of the full devotional including header image for sharing on social media
 - **Text-to-Speech (TTS)** - reads devotional aloud with section highlighting
   - Adjustable reading speed (0.5x - 2.0x)
   - Bible references spoken correctly ("1 Pedro" → "Primera de Pedro")
