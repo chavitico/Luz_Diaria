@@ -204,11 +204,15 @@ export default function LibraryScreen() {
     const dailyActions = user?.dailyActions ?? {};
 
     try {
+      // Wait a moment for the view to be fully rendered
+      await new Promise(resolve => setTimeout(resolve, 100));
+
       // Capture the view as image with higher pixel ratio for better quality
       const uri = await captureRef(viewShotRef, {
         format: 'png',
         quality: 1,
         result: 'tmpfile',
+        useRenderInContext: true,
       });
 
       if (!uri) {
@@ -471,21 +475,23 @@ export default function LibraryScreen() {
                   quality: 1,
                   result: 'tmpfile',
                 }}
-                style={{ transform: [{ scale: 1 }] }}
+                style={{ backgroundColor: '#000000' }}
               >
-                <ShareableDevotionalImage
-                  devotional={selectedDevotional}
-                  language={language}
-                  colors={colors}
-                  translations={{
-                    bible_verse: t.bible_verse,
-                    reflection: t.reflection,
-                    story: t.story,
-                    biblical_character: t.biblical_character,
-                    application: t.application,
-                    prayer: t.prayer,
-                  }}
-                />
+                <View collapsable={false}>
+                  <ShareableDevotionalImage
+                    devotional={selectedDevotional}
+                    language={language}
+                    colors={colors}
+                    translations={{
+                      bible_verse: t.bible_verse,
+                      reflection: t.reflection,
+                      story: t.story,
+                      biblical_character: t.biblical_character,
+                      application: t.application,
+                      prayer: t.prayer,
+                    }}
+                  />
+                </View>
               </ViewShot>
             </ScrollView>
           )}
