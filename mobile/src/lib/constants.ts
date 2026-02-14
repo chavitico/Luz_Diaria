@@ -333,7 +333,7 @@ export const TRANSLATIONS = {
     // Tabs
     tab_home: 'Today',
     tab_library: 'Library',
-    tab_store: 'Store',
+    tab_store: 'Customize',
     tab_settings: 'Settings',
 
     // Onboarding
@@ -375,6 +375,10 @@ export const TRANSLATIONS = {
     all_devotionals: 'All',
     favorites: 'Favorites',
     no_favorites: 'No favorites yet',
+    search_placeholder: 'Search devotionals...',
+    filter_category: 'Category',
+    all_categories: 'All Categories',
+    no_results: 'No results found',
 
     // Store
     store: 'Store',
@@ -437,7 +441,7 @@ export const TRANSLATIONS = {
     // Tabs
     tab_home: 'Hoy',
     tab_library: 'Biblioteca',
-    tab_store: 'Tienda',
+    tab_store: 'Personalizar',
     tab_settings: 'Ajustes',
 
     // Onboarding
@@ -479,6 +483,10 @@ export const TRANSLATIONS = {
     all_devotionals: 'Todos',
     favorites: 'Favoritos',
     no_favorites: 'Sin favoritos aun',
+    search_placeholder: 'Buscar devocionales...',
+    filter_category: 'Categoria',
+    all_categories: 'Todas las Categorias',
+    no_results: 'Sin resultados',
 
     // Store
     store: 'Tienda',

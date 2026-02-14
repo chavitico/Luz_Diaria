@@ -1,6 +1,6 @@
 // Library Screen - Historical Devotionals
 
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useMemo } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Dimensions,
   Modal,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { FlashList } from '@shopify/flash-list';
@@ -19,7 +20,7 @@ import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import * as Sharing from 'expo-sharing';
 import ViewShot, { captureRef } from 'react-native-view-shot';
-import { Heart, Calendar, Tag, BookOpen, Share2, X } from 'lucide-react-native';
+import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check } from 'lucide-react-native';
 import { ShareableDevotionalImage } from '@/components/ShareableDevotionalImage';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import { useThemeColors, useLanguage, useUserFavorites, useUser, useAppStore } from '@/lib/store';
@@ -166,18 +167,56 @@ export default function LibraryScreen() {
   const viewShotRef = useRef<ViewShot>(null);
 
   const [filter, setFilter] = useState<FilterType>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
 
   const { data: devotionals, isLoading } = useQuery({
     queryKey: ['allDevotionals'],
     queryFn: () => firestoreService.getAllDevotionals(),
   });
 
-  const filteredDevotionals = devotionals?.filter((d) => {
-    if (filter === 'favorites') {
-      return favorites.includes(d.date);
-    }
-    return true;
-  });
+  // Extract unique categories from devotionals
+  const categories = useMemo(() => {
+    if (!devotionals) return [];
+    const topicSet = new Set<string>();
+    devotionals.forEach((d) => {
+      const topic = language === 'es' ? d.topicEs : d.topic;
+      if (topic) topicSet.add(topic);
+    });
+    return Array.from(topicSet).sort();
+  }, [devotionals, language]);
+
+  const filteredDevotionals = useMemo(() => {
+    if (!devotionals) return [];
+
+    return devotionals.filter((d) => {
+      // Filter by favorites
+      if (filter === 'favorites' && !favorites.includes(d.date)) {
+        return false;
+      }
+
+      // Filter by category
+      if (selectedCategory !== 'all') {
+        const topic = language === 'es' ? d.topicEs : d.topic;
+        if (topic !== selectedCategory) {
+          return false;
+        }
+      }
+
+      // Filter by search query
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase().trim();
+        const title = (language === 'es' ? d.titleEs : d.title)?.toLowerCase() ?? '';
+        const topic = (language === 'es' ? d.topicEs : d.topic)?.toLowerCase() ?? '';
+        const reflection = (language === 'es' ? d.reflectionEs : d.reflection)?.toLowerCase() ?? '';
+
+        return title.includes(query) || topic.includes(query) || reflection.includes(query);
+      }
+
+      return true;
+    });
+  }, [devotionals, filter, favorites, selectedCategory, searchQuery, language]);
 
   const handleDevotionalPress = useCallback((devotional: Devotional) => {
     router.push({
@@ -304,58 +343,108 @@ export default function LibraryScreen() {
           {t.library}
         </Text>
 
-        {/* Filter Tabs */}
-        <View className="flex-row">
-          <Pressable
-            onPress={() => {
-              setFilter('all');
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        {/* Search Bar */}
+        <View
+          className="flex-row items-center rounded-xl px-4 mb-4"
+          style={{ backgroundColor: colors.surface, height: 44 }}
+        >
+          <Search size={18} color={colors.textMuted} />
+          <TextInput
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            placeholder={t.search_placeholder}
+            placeholderTextColor={colors.textMuted}
+            style={{
+              flex: 1,
+              marginLeft: 10,
+              fontSize: 15,
+              color: colors.text,
             }}
-            className={cn(
-              'px-4 py-2 rounded-full mr-2',
-              filter === 'all' ? '' : 'bg-transparent'
-            )}
-            style={
-              filter === 'all'
-                ? { backgroundColor: colors.primary }
-                : { backgroundColor: colors.surface }
-            }
-          >
-            <Text
-              className="font-semibold"
-              style={{
-                color: filter === 'all' ? '#FFFFFF' : colors.textMuted,
-              }}
+          />
+          {searchQuery.length > 0 && (
+            <Pressable
+              onPress={() => setSearchQuery('')}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             >
-              {t.all_devotionals}
-            </Text>
-          </Pressable>
+              <X size={18} color={colors.textMuted} />
+            </Pressable>
+          )}
+        </View>
 
+        {/* Filter Row: Tabs + Category Dropdown */}
+        <View className="flex-row items-center justify-between">
+          {/* Filter Tabs */}
+          <View className="flex-row flex-1">
+            <Pressable
+              onPress={() => {
+                setFilter('all');
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              }}
+              className={cn(
+                'px-4 py-2 rounded-full mr-2',
+                filter === 'all' ? '' : 'bg-transparent'
+              )}
+              style={
+                filter === 'all'
+                  ? { backgroundColor: colors.primary }
+                  : { backgroundColor: colors.surface }
+              }
+            >
+              <Text
+                className="font-semibold"
+                style={{
+                  color: filter === 'all' ? '#FFFFFF' : colors.textMuted,
+                }}
+              >
+                {t.all_devotionals}
+              </Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => {
+                setFilter('favorites');
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              }}
+              className="px-4 py-2 rounded-full flex-row items-center"
+              style={
+                filter === 'favorites'
+                  ? { backgroundColor: colors.primary }
+                  : { backgroundColor: colors.surface }
+              }
+            >
+              <Heart
+                size={14}
+                color={filter === 'favorites' ? '#FFFFFF' : colors.textMuted}
+                fill={filter === 'favorites' ? '#FFFFFF' : 'transparent'}
+              />
+              <Text
+                className="font-semibold ml-1"
+                style={{
+                  color: filter === 'favorites' ? '#FFFFFF' : colors.textMuted,
+                }}
+              >
+                {t.favorites}
+              </Text>
+            </Pressable>
+          </View>
+
+          {/* Category Dropdown */}
           <Pressable
             onPress={() => {
-              setFilter('favorites');
+              setShowCategoryDropdown(true);
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             }}
-            className="px-4 py-2 rounded-full flex-row items-center"
-            style={
-              filter === 'favorites'
-                ? { backgroundColor: colors.primary }
-                : { backgroundColor: colors.surface }
-            }
+            className="flex-row items-center px-3 py-2 rounded-full"
+            style={{ backgroundColor: colors.surface }}
           >
-            <Heart
-              size={14}
-              color={filter === 'favorites' ? '#FFFFFF' : colors.textMuted}
-              fill={filter === 'favorites' ? '#FFFFFF' : 'transparent'}
-            />
             <Text
-              className="font-semibold ml-1"
-              style={{
-                color: filter === 'favorites' ? '#FFFFFF' : colors.textMuted,
-              }}
+              className="text-sm font-medium mr-1"
+              style={{ color: selectedCategory === 'all' ? colors.textMuted : colors.primary }}
+              numberOfLines={1}
             >
-              {t.favorites}
+              {selectedCategory === 'all' ? t.filter_category : selectedCategory}
             </Text>
+            <ChevronDown size={16} color={selectedCategory === 'all' ? colors.textMuted : colors.primary} />
           </Pressable>
         </View>
       </View>
@@ -383,20 +472,36 @@ export default function LibraryScreen() {
             className="w-20 h-20 rounded-full items-center justify-center mb-4"
             style={{ backgroundColor: colors.primary + '15' }}
           >
-            <BookOpen size={32} color={colors.primary} />
+            {searchQuery || selectedCategory !== 'all' ? (
+              <Search size={32} color={colors.primary} />
+            ) : (
+              <BookOpen size={32} color={colors.primary} />
+            )}
           </View>
           <Text
             className="text-lg font-semibold text-center mb-2"
             style={{ color: colors.text }}
           >
-            {filter === 'favorites' ? t.no_favorites : 'No devotionals yet'}
+            {searchQuery || selectedCategory !== 'all'
+              ? t.no_results
+              : filter === 'favorites'
+              ? t.no_favorites
+              : 'No devotionals yet'}
           </Text>
           <Text
             className="text-center"
             style={{ color: colors.textMuted }}
           >
-            {filter === 'favorites'
-              ? 'Tap the heart icon on a devotional to save it here'
+            {searchQuery || selectedCategory !== 'all'
+              ? language === 'es'
+                ? 'Intenta con otros terminos de busqueda'
+                : 'Try different search terms'
+              : filter === 'favorites'
+              ? language === 'es'
+                ? 'Toca el corazon en un devocional para guardarlo aqui'
+                : 'Tap the heart icon on a devotional to save it here'
+              : language === 'es'
+              ? 'Los devocionales apareceran aqui cuando esten disponibles'
               : 'Devotionals will appear here as they become available'}
           </Text>
         </Animated.View>
@@ -535,6 +640,111 @@ export default function LibraryScreen() {
             </Pressable>
           </View>
         </View>
+      </Modal>
+
+      {/* Category Dropdown Modal */}
+      <Modal
+        visible={showCategoryDropdown}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowCategoryDropdown(false)}
+      >
+        <Pressable
+          style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}
+          onPress={() => setShowCategoryDropdown(false)}
+        >
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              backgroundColor: colors.background,
+              borderTopLeftRadius: 24,
+              borderTopRightRadius: 24,
+              paddingBottom: insets.bottom + 20,
+              maxHeight: '60%',
+            }}
+          >
+            {/* Handle */}
+            <View className="items-center pt-3 pb-2">
+              <View
+                style={{
+                  width: 40,
+                  height: 4,
+                  backgroundColor: colors.textMuted,
+                  borderRadius: 2,
+                  opacity: 0.3,
+                }}
+              />
+            </View>
+
+            {/* Title */}
+            <Text
+              className="text-lg font-semibold px-5 pb-3"
+              style={{ color: colors.text }}
+            >
+              {t.filter_category}
+            </Text>
+
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {/* All Categories Option */}
+              <Pressable
+                onPress={() => {
+                  setSelectedCategory('all');
+                  setShowCategoryDropdown(false);
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                }}
+                className="flex-row items-center justify-between px-5 py-3"
+                style={{
+                  backgroundColor: selectedCategory === 'all' ? colors.primary + '15' : 'transparent',
+                }}
+              >
+                <Text
+                  className="text-base"
+                  style={{
+                    color: selectedCategory === 'all' ? colors.primary : colors.text,
+                    fontWeight: selectedCategory === 'all' ? '600' : '400',
+                  }}
+                >
+                  {t.all_categories}
+                </Text>
+                {selectedCategory === 'all' && (
+                  <Check size={20} color={colors.primary} />
+                )}
+              </Pressable>
+
+              {/* Category Options */}
+              {categories.map((category) => (
+                <Pressable
+                  key={category}
+                  onPress={() => {
+                    setSelectedCategory(category);
+                    setShowCategoryDropdown(false);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                  className="flex-row items-center justify-between px-5 py-3"
+                  style={{
+                    backgroundColor: selectedCategory === category ? colors.primary + '15' : 'transparent',
+                  }}
+                >
+                  <Text
+                    className="text-base"
+                    style={{
+                      color: selectedCategory === category ? colors.primary : colors.text,
+                      fontWeight: selectedCategory === category ? '600' : '400',
+                    }}
+                  >
+                    {category}
+                  </Text>
+                  {selectedCategory === category && (
+                    <Check size={20} color={colors.primary} />
+                  )}
+                </Pressable>
+              ))}
+            </ScrollView>
+          </View>
+        </Pressable>
       </Modal>
     </View>
   );
