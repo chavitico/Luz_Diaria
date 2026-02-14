@@ -50,9 +50,9 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Enhanced Profile Card** with avatar + frame overlay
   - Equipped title display under nickname
   - Points balance and streak
+  - Total shares count
   - Quick navigation to Store sections
-- Theme selection (6 purchasable themes)
-- Dark mode toggle
+- Dark mode toggle (themes managed via Personalizar/Store)
 - Language (English / Spanish)
 - **Daily Notification Reminders**
   - Enable/disable push notifications
@@ -77,7 +77,8 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
   - Rewards: Points + optional exclusive items
 - Streak tracking (current and best)
 - Total devotionals completed
-- Total time spent in app
+- Total shares count
+- **Points awarded only once per devotional** (no duplicate points)
 - **Daily Action Tracking** with caps to prevent farming
 
 ### Audio Features
@@ -154,7 +155,7 @@ src/
 ### Users Collection
 - nickname, avatar, points
 - streakCurrent, streakBest
-- totalTime, devotionalsCompleted
+- totalTime, totalShares, devotionalsCompleted
 - favorites[], purchasedItems[]
 - settings (theme, language, music, notifications, ttsSpeed, ttsVoice)
 

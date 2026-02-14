@@ -17,13 +17,13 @@ import Slider from '@react-native-community/slider';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {
   Settings as SettingsIcon,
-  Palette,
   Globe,
   Bell,
   Volume2,
   Flame,
   BookOpen,
   Clock,
+  Share2,
   Heart,
   Coins,
   ChevronRight,
@@ -44,13 +44,12 @@ import {
   useThemeColors,
   useLanguage,
   useUser,
-  useCurrentTheme,
   useIsDarkMode,
   useUserSettings,
   useAppStore,
 } from '@/lib/store';
-import { TRANSLATIONS, THEMES, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES, PURCHASABLE_THEMES } from '@/lib/constants';
-import type { ThemeOption, Language } from '@/lib/types';
+import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
+import type { Language } from '@/lib/types';
 import { cn } from '@/lib/cn';
 import {
   requestNotificationPermissions,
@@ -163,18 +162,15 @@ export default function SettingsScreen() {
   const colors = useThemeColors();
   const language = useLanguage();
   const user = useUser();
-  const currentTheme = useCurrentTheme();
   const isDarkMode = useIsDarkMode();
   const settings = useUserSettings();
   const router = useRouter();
   const t = TRANSLATIONS[language];
 
-  const setTheme = useAppStore((s) => s.setTheme);
   const setDarkMode = useAppStore((s) => s.setDarkMode);
   const updateSettings = useAppStore((s) => s.updateSettings);
   const updateUser = useAppStore((s) => s.updateUser);
 
-  const [showThemeModal, setShowThemeModal] = useState(false);
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [showTimePickerModal, setShowTimePickerModal] = useState(false);
@@ -278,15 +274,6 @@ export default function SettingsScreen() {
     );
   };
 
-  const formatTime = (seconds: number): string => {
-    const hours = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    if (hours > 0) {
-      return `${hours}h ${mins}m`;
-    }
-    return `${mins}m`;
-  };
-
   const currentAvatar = DEFAULT_AVATARS.find((a) => a.id === user?.avatar);
   const purchasedItems = user?.purchasedItems ?? [];
 
@@ -378,12 +365,12 @@ export default function SettingsScreen() {
                   </Text>
                 </View>
                 <View className="flex-1 items-center p-3 rounded-xl" style={{ backgroundColor: colors.background }}>
-                  <Clock size={18} color={colors.accent} />
+                  <Share2 size={18} color={colors.accent} />
                   <Text className="text-lg font-bold mt-1" style={{ color: colors.text }}>
-                    {formatTime(user.totalTime)}
+                    {user.totalShares ?? 0}
                   </Text>
                   <Text className="text-xs" style={{ color: colors.textMuted }}>
-                    {t.total_time}
+                    {language === 'es' ? 'Compartidos' : 'Shared'}
                   </Text>
                 </View>
               </View>
@@ -450,14 +437,6 @@ export default function SettingsScreen() {
           <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
             {language === 'es' ? 'Apariencia' : 'Appearance'}
           </Text>
-
-          <SettingRow
-            icon={<Palette size={20} color={colors.primary} />}
-            title={t.theme}
-            subtitle={THEMES[currentTheme].name}
-            colors={colors}
-            onPress={() => setShowThemeModal(true)}
-          />
 
           <SettingRow
             icon={isDarkMode ? <Moon size={20} color={colors.primary} /> : <Sun size={20} color={colors.primary} />}
@@ -690,55 +669,6 @@ export default function SettingsScreen() {
                   : 'Locked avatars can be unlocked in the Store'}
               </Text>
             </ScrollView>
-          </View>
-        </View>
-      </Modal>
-
-      {/* Theme Selection Modal */}
-      <Modal
-        visible={showThemeModal}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setShowThemeModal(false)}
-      >
-        <View className="flex-1 bg-black/50 items-center justify-center px-8">
-          <View className="w-full rounded-3xl p-6" style={{ backgroundColor: colors.surface }}>
-            <View className="flex-row items-center justify-between mb-6">
-              <Text className="text-xl font-bold" style={{ color: colors.text }}>
-                {t.theme}
-              </Text>
-              <Pressable
-                onPress={() => setShowThemeModal(false)}
-                className="w-8 h-8 rounded-full items-center justify-center"
-                style={{ backgroundColor: colors.textMuted + '20' }}
-              >
-                <X size={18} color={colors.textMuted} />
-              </Pressable>
-            </View>
-
-            {(Object.keys(THEMES) as ThemeOption[]).map((theme) => (
-              <Pressable
-                key={theme}
-                onPress={() => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  setTheme(theme);
-                  setShowThemeModal(false);
-                }}
-                className="flex-row items-center py-4 border-b"
-                style={{ borderBottomColor: colors.textMuted + '20' }}
-              >
-                <View
-                  className="w-10 h-10 rounded-full mr-4"
-                  style={{ backgroundColor: THEMES[theme].primary }}
-                />
-                <Text className="flex-1 text-base font-medium" style={{ color: colors.text }}>
-                  {language === 'es' ? THEMES[theme].nameEs : THEMES[theme].name}
-                </Text>
-                {currentTheme === theme && (
-                  <Check size={20} color={colors.primary} strokeWidth={3} />
-                )}
-              </Pressable>
-            ))}
           </View>
         </View>
       </Modal>

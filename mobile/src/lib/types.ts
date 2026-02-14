@@ -137,6 +137,7 @@ export interface User {
   streakCurrent: number;
   streakBest: number;
   totalTime: number; // in seconds
+  totalShares: number; // total devotionals shared
   devotionalsCompleted: number;
   favorites: string[]; // devotional dates
   createdAt: number;

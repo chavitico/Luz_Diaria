@@ -287,9 +287,10 @@ export default function LibraryScreen() {
 
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
 
-      // Update daily actions
+      // Update daily actions and total shares count
       const newShareCount = (dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0) + 1;
       updateUser({
+        totalShares: (user.totalShares ?? 0) + 1,
         dailyActions: {
           ...dailyActions,
           shareDate: today,

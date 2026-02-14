@@ -64,6 +64,7 @@ export const firestoreService = {
       streakCurrent: 0,
       streakBest: 0,
       totalTime: 0,
+      totalShares: 0,
       devotionalsCompleted: 0,
       favorites: [],
       createdAt: Date.now(),

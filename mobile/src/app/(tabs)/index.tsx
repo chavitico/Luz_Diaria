@@ -1042,6 +1042,13 @@ export default function HomeScreen() {
   const isTTSDone = isDailyActionDone(dailyActions.ttsDate, dailyActions.ttsDone, today);
   const shareStatus = isDailyActionAvailable(dailyActions.shareDate, dailyActions.shareCount, DAILY_LIMITS.SHARE_MAX, today);
 
+  // Initialize completion state based on whether user already completed today's devotional
+  useEffect(() => {
+    if (user?.lastActiveDate === today) {
+      setIsCompleted(true);
+    }
+  }, [user?.lastActiveDate, today]);
+
   // Initialize TTS completion tracking
   useEffect(() => {
     ttsCompletedTodayRef.current = isTTSDone;
@@ -1243,9 +1250,10 @@ export default function HomeScreen() {
         return;
       }
 
-      // Update daily actions
+      // Update daily actions and total shares count
       const newShareCount = (dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0) + 1;
       updateUser({
+        totalShares: (user.totalShares ?? 0) + 1,
         dailyActions: {
           ...dailyActions,
           shareDate: today,

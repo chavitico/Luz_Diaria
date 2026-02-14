@@ -900,8 +900,11 @@ export default function DevotionalDetailScreen() {
     if (isFavorite) {
       removeFavorite(date);
     } else {
+      // Only award points if not already a favorite (prevents duplicate points)
+      if (!favorites.includes(date)) {
+        addPoints(POINTS.FAVORITE_DEVOTIONAL);
+      }
       addFavorite(date);
-      addPoints(POINTS.FAVORITE_DEVOTIONAL);
     }
   };
 
@@ -963,9 +966,10 @@ export default function DevotionalDetailScreen() {
 
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
 
-      // Update daily actions
+      // Update daily actions and total shares count
       const newShareCount = (dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0) + 1;
       updateUser({
+        totalShares: (user.totalShares ?? 0) + 1,
         dailyActions: {
           ...dailyActions,
           shareDate: today,
