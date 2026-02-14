@@ -85,20 +85,20 @@ export const THEMES = {
 } as const;
 
 export const DEFAULT_AVATARS = [
-  { id: 'avatar_dove', name: 'Dove', emoji: '🕊️', unlocked: true },
-  { id: 'avatar_sun', name: 'Sun', emoji: '☀️', unlocked: true },
-  { id: 'avatar_star', name: 'Star', emoji: '⭐', unlocked: true },
-  { id: 'avatar_heart', name: 'Heart', emoji: '❤️', unlocked: true },
-  { id: 'avatar_cross', name: 'Cross', emoji: '✝️', unlocked: true },
-  { id: 'avatar_candle', name: 'Candle', emoji: '🕯️', unlocked: true },
-  { id: 'avatar_book', name: 'Book', emoji: '📖', unlocked: true },
-  { id: 'avatar_praying', name: 'Praying', emoji: '🙏', unlocked: true },
-  { id: 'avatar_rainbow', name: 'Rainbow', emoji: '🌈', price: 200 },
-  { id: 'avatar_crown', name: 'Crown', emoji: '👑', price: 500 },
-  { id: 'avatar_angel', name: 'Angel', emoji: '😇', price: 300 },
-  { id: 'avatar_olive', name: 'Olive Branch', emoji: '🫒', price: 250 },
-  { id: 'avatar_lamb', name: 'Lamb', emoji: '🐑', price: 400 },
-  { id: 'avatar_fish', name: 'Fish', emoji: '🐟', price: 150 },
+  { id: 'avatar_dove', name: 'Dove', nameEs: 'Paloma', emoji: '🕊️', description: 'Peace of the Spirit', descriptionEs: 'Paz del Espiritu', unlocked: true, rarity: 'common' },
+  { id: 'avatar_sun', name: 'Sun', nameEs: 'Sol', emoji: '☀️', description: 'Light of the world', descriptionEs: 'Luz del mundo', unlocked: true, rarity: 'common' },
+  { id: 'avatar_star', name: 'Star', nameEs: 'Estrella', emoji: '⭐', description: 'Guiding light', descriptionEs: 'Luz que guia', unlocked: true, rarity: 'common' },
+  { id: 'avatar_heart', name: 'Heart', nameEs: 'Corazon', emoji: '❤️', description: 'Love without end', descriptionEs: 'Amor sin fin', unlocked: true, rarity: 'common' },
+  { id: 'avatar_cross', name: 'Cross', nameEs: 'Cruz', emoji: '✝️', description: 'Symbol of salvation', descriptionEs: 'Simbolo de salvacion', unlocked: true, rarity: 'common' },
+  { id: 'avatar_candle', name: 'Candle', nameEs: 'Vela', emoji: '🕯️', description: 'Illuminating faith', descriptionEs: 'Fe que ilumina', unlocked: true, rarity: 'common' },
+  { id: 'avatar_book', name: 'Book', nameEs: 'Libro', emoji: '📖', description: 'The living Word', descriptionEs: 'La Palabra viva', unlocked: true, rarity: 'common' },
+  { id: 'avatar_praying', name: 'Praying', nameEs: 'Orando', emoji: '🙏', description: 'Hands of devotion', descriptionEs: 'Manos de devocion', unlocked: true, rarity: 'common' },
+  { id: 'avatar_rainbow', name: 'Rainbow', nameEs: 'Arcoiris', emoji: '🌈', description: 'Promise of God', descriptionEs: 'Promesa de Dios', price: 200, rarity: 'rare' },
+  { id: 'avatar_crown', name: 'Crown', nameEs: 'Corona', emoji: '👑', description: 'Crown of glory', descriptionEs: 'Corona de gloria', price: 500, rarity: 'epic' },
+  { id: 'avatar_angel', name: 'Angel', nameEs: 'Angel', emoji: '😇', description: 'Heavenly messenger', descriptionEs: 'Mensajero celestial', price: 300, rarity: 'rare' },
+  { id: 'avatar_olive', name: 'Olive Branch', nameEs: 'Rama de Olivo', emoji: '🫒', description: 'Sign of peace', descriptionEs: 'Signo de paz', price: 250, rarity: 'rare' },
+  { id: 'avatar_lamb', name: 'Lamb', nameEs: 'Cordero', emoji: '🐑', description: 'Gentle and pure', descriptionEs: 'Gentil y puro', price: 400, rarity: 'rare' },
+  { id: 'avatar_fish', name: 'Fish', nameEs: 'Pez', emoji: '🐟', description: 'Early Christian symbol', descriptionEs: 'Simbolo cristiano primitivo', price: 150, rarity: 'common' },
 ] as const;
 
 export const STORE_ITEMS = [
@@ -131,6 +131,8 @@ export const PURCHASABLE_THEMES: Record<string, {
   id: string;
   name: string;
   nameEs: string;
+  description: string;
+  descriptionEs: string;
   colors: {
     primary: string;
     secondary: string;
@@ -151,6 +153,8 @@ export const PURCHASABLE_THEMES: Record<string, {
     id: 'theme_amanecer',
     name: 'Sunrise',
     nameEs: 'Amanecer',
+    description: 'Warm tones of a new day',
+    descriptionEs: 'Tonos calidos de un nuevo dia',
     colors: {
       primary: '#E8A87C',
       secondary: '#C38D9E',
@@ -171,6 +175,8 @@ export const PURCHASABLE_THEMES: Record<string, {
     id: 'theme_noche_paz',
     name: 'Peaceful Night',
     nameEs: 'Noche de Paz',
+    description: 'Calm serenity under the stars',
+    descriptionEs: 'Serenidad bajo las estrellas',
     colors: {
       primary: '#5C6BC0',
       secondary: '#7986CB',
@@ -191,6 +197,8 @@ export const PURCHASABLE_THEMES: Record<string, {
     id: 'theme_bosque',
     name: 'Forest',
     nameEs: 'Bosque',
+    description: 'Refreshing green sanctuary',
+    descriptionEs: 'Santuario verde refrescante',
     colors: {
       primary: '#2D6A4F',
       secondary: '#40916C',
@@ -211,6 +219,8 @@ export const PURCHASABLE_THEMES: Record<string, {
     id: 'theme_desierto',
     name: 'Desert',
     nameEs: 'Desierto',
+    description: 'Warm sands of contemplation',
+    descriptionEs: 'Arenas calidas de contemplacion',
     colors: {
       primary: '#D4A373',
       secondary: '#CCD5AE',
@@ -231,6 +241,8 @@ export const PURCHASABLE_THEMES: Record<string, {
     id: 'theme_promesa',
     name: 'Promise',
     nameEs: 'Promesa',
+    description: 'Royal hues of divine covenant',
+    descriptionEs: 'Tonos reales del pacto divino',
     colors: {
       primary: '#7B2CBF',
       secondary: '#9D4EDD',
@@ -251,6 +263,8 @@ export const PURCHASABLE_THEMES: Record<string, {
     id: 'theme_minimal',
     name: 'Minimal Light',
     nameEs: 'Minimal Claro',
+    description: 'Clean simplicity for focus',
+    descriptionEs: 'Simplicidad limpia para el enfoque',
     colors: {
       primary: '#374151',
       secondary: '#6B7280',
@@ -274,20 +288,22 @@ export const AVATAR_FRAMES: Record<string, {
   id: string;
   name: string;
   nameEs: string;
+  description: string;
+  descriptionEs: string;
   color: string;
   price: number;
   rarity: string;
 }> = {
-  frame_dorado: { id: 'frame_dorado', name: 'Golden', nameEs: 'Dorado', color: '#FFD700', price: 300, rarity: 'rare' },
-  frame_plata: { id: 'frame_plata', name: 'Silver', nameEs: 'Plata', color: '#C0C0C0', price: 200, rarity: 'common' },
-  frame_azul: { id: 'frame_azul', name: 'Blue Hope', nameEs: 'Azul Esperanza', color: '#4A90D9', price: 250, rarity: 'common' },
-  frame_verde: { id: 'frame_verde', name: 'Green Life', nameEs: 'Verde Vida', color: '#4CAF50', price: 250, rarity: 'common' },
-  frame_luz: { id: 'frame_luz', name: 'Soft Light', nameEs: 'Luz Suave', color: '#FFF8DC', price: 350, rarity: 'rare' },
-  frame_corona: { id: 'frame_corona', name: 'Leaf Crown', nameEs: 'Corona Hojas', color: '#228B22', price: 400, rarity: 'rare' },
-  frame_estrellas: { id: 'frame_estrellas', name: 'Stars', nameEs: 'Estrellas', color: '#E6E6FA', price: 500, rarity: 'epic' },
-  frame_pergamino: { id: 'frame_pergamino', name: 'Parchment', nameEs: 'Pergamino', color: '#D4B896', price: 300, rarity: 'common' },
-  frame_fuego: { id: 'frame_fuego', name: 'Soft Fire', nameEs: 'Fuego Suave', color: '#FF6B35', price: 450, rarity: 'rare' },
-  frame_cielo: { id: 'frame_cielo', name: 'Heaven', nameEs: 'Cielo', color: '#87CEEB', price: 600, rarity: 'epic' },
+  frame_dorado: { id: 'frame_dorado', name: 'Golden', nameEs: 'Dorado', description: 'Precious as refined gold', descriptionEs: 'Precioso como oro refinado', color: '#FFD700', price: 300, rarity: 'rare' },
+  frame_plata: { id: 'frame_plata', name: 'Silver', nameEs: 'Plata', description: 'Pure and elegant', descriptionEs: 'Puro y elegante', color: '#C0C0C0', price: 200, rarity: 'common' },
+  frame_azul: { id: 'frame_azul', name: 'Blue Hope', nameEs: 'Azul Esperanza', description: 'Color of heavenly hope', descriptionEs: 'Color de esperanza celestial', color: '#4A90D9', price: 250, rarity: 'common' },
+  frame_verde: { id: 'frame_verde', name: 'Green Life', nameEs: 'Verde Vida', description: 'Growth and renewal', descriptionEs: 'Crecimiento y renovacion', color: '#4CAF50', price: 250, rarity: 'common' },
+  frame_luz: { id: 'frame_luz', name: 'Soft Light', nameEs: 'Luz Suave', description: 'Gentle divine radiance', descriptionEs: 'Suave resplandor divino', color: '#FFF8DC', price: 350, rarity: 'rare' },
+  frame_corona: { id: 'frame_corona', name: 'Leaf Crown', nameEs: 'Corona Hojas', description: 'Crown of righteousness', descriptionEs: 'Corona de justicia', color: '#228B22', price: 400, rarity: 'rare' },
+  frame_estrellas: { id: 'frame_estrellas', name: 'Stars', nameEs: 'Estrellas', description: 'Like stars in the heavens', descriptionEs: 'Como estrellas en el cielo', color: '#E6E6FA', price: 500, rarity: 'epic' },
+  frame_pergamino: { id: 'frame_pergamino', name: 'Parchment', nameEs: 'Pergamino', description: 'Ancient wisdom scroll', descriptionEs: 'Pergamino de sabiduria antigua', color: '#D4B896', price: 300, rarity: 'common' },
+  frame_fuego: { id: 'frame_fuego', name: 'Soft Fire', nameEs: 'Fuego Suave', description: 'Holy Spirit flame', descriptionEs: 'Llama del Espiritu Santo', color: '#FF6B35', price: 450, rarity: 'rare' },
+  frame_cielo: { id: 'frame_cielo', name: 'Heaven', nameEs: 'Cielo', description: 'Gateway to eternity', descriptionEs: 'Puerta a la eternidad', color: '#87CEEB', price: 600, rarity: 'epic' },
 };
 
 // Spiritual Titles
@@ -295,21 +311,23 @@ export const SPIRITUAL_TITLES: Record<string, {
   id: string;
   name: string;
   nameEs: string;
+  description: string;
+  descriptionEs: string;
   price: number;
   rarity: string;
 }> = {
-  title_buscador: { id: 'title_buscador', name: 'Seeker of Light', nameEs: 'Buscador de Luz', price: 200, rarity: 'common' },
-  title_corazon: { id: 'title_corazon', name: 'Grateful Heart', nameEs: 'Corazon Agradecido', price: 250, rarity: 'common' },
-  title_caminando: { id: 'title_caminando', name: 'Walking in Faith', nameEs: 'Caminando en Fe', price: 300, rarity: 'common' },
-  title_siervo: { id: 'title_siervo', name: 'Faithful Servant', nameEs: 'Siervo Fiel', price: 400, rarity: 'rare' },
-  title_portador: { id: 'title_portador', name: 'Hope Bearer', nameEs: 'Portador de Esperanza', price: 350, rarity: 'rare' },
-  title_amigo: { id: 'title_amigo', name: 'Friend of the Master', nameEs: 'Amigo del Maestro', price: 500, rarity: 'rare' },
-  title_valiente: { id: 'title_valiente', name: 'Kingdom Warrior', nameEs: 'Valiente del Reino', price: 600, rarity: 'epic' },
-  title_sembrador: { id: 'title_sembrador', name: 'Peace Sower', nameEs: 'Sembrador de Paz', price: 450, rarity: 'rare' },
-  title_luz: { id: 'title_luz', name: 'Light in the Storm', nameEs: 'Luz en la Tormenta', price: 550, rarity: 'rare' },
-  title_guardian: { id: 'title_guardian', name: 'Guardian of the Word', nameEs: 'Guardian de la Palabra', price: 700, rarity: 'epic' },
-  title_constructor: { id: 'title_constructor', name: 'Altar Builder', nameEs: 'Constructor de Altar', price: 500, rarity: 'rare' },
-  title_peregrino: { id: 'title_peregrino', name: 'Pilgrim of Grace', nameEs: 'Peregrino de Gracia', price: 400, rarity: 'rare' },
+  title_buscador: { id: 'title_buscador', name: 'Seeker of Light', nameEs: 'Buscador de Luz', description: 'One who seeks divine truth', descriptionEs: 'Quien busca la verdad divina', price: 200, rarity: 'common' },
+  title_corazon: { id: 'title_corazon', name: 'Grateful Heart', nameEs: 'Corazon Agradecido', description: 'Living in thankfulness', descriptionEs: 'Viviendo en gratitud', price: 250, rarity: 'common' },
+  title_caminando: { id: 'title_caminando', name: 'Walking in Faith', nameEs: 'Caminando en Fe', description: 'Steps guided by trust', descriptionEs: 'Pasos guiados por confianza', price: 300, rarity: 'common' },
+  title_siervo: { id: 'title_siervo', name: 'Faithful Servant', nameEs: 'Siervo Fiel', description: 'Devoted to the mission', descriptionEs: 'Dedicado a la mision', price: 400, rarity: 'rare' },
+  title_portador: { id: 'title_portador', name: 'Hope Bearer', nameEs: 'Portador de Esperanza', description: 'Bringing light to darkness', descriptionEs: 'Trayendo luz a la oscuridad', price: 350, rarity: 'rare' },
+  title_amigo: { id: 'title_amigo', name: 'Friend of the Master', nameEs: 'Amigo del Maestro', description: 'Walking closely with Him', descriptionEs: 'Caminando cerca de El', price: 500, rarity: 'rare' },
+  title_valiente: { id: 'title_valiente', name: 'Kingdom Warrior', nameEs: 'Valiente del Reino', description: 'Fighting the good fight', descriptionEs: 'Peleando la buena batalla', price: 600, rarity: 'epic' },
+  title_sembrador: { id: 'title_sembrador', name: 'Peace Sower', nameEs: 'Sembrador de Paz', description: 'Planting seeds of harmony', descriptionEs: 'Sembrando semillas de armonia', price: 450, rarity: 'rare' },
+  title_luz: { id: 'title_luz', name: 'Light in the Storm', nameEs: 'Luz en la Tormenta', description: 'Steady through trials', descriptionEs: 'Firme en las pruebas', price: 550, rarity: 'rare' },
+  title_guardian: { id: 'title_guardian', name: 'Guardian of the Word', nameEs: 'Guardian de la Palabra', description: 'Keeper of sacred truth', descriptionEs: 'Protector de la verdad sagrada', price: 700, rarity: 'epic' },
+  title_constructor: { id: 'title_constructor', name: 'Altar Builder', nameEs: 'Constructor de Altar', description: 'Creating sacred spaces', descriptionEs: 'Creando espacios sagrados', price: 500, rarity: 'rare' },
+  title_peregrino: { id: 'title_peregrino', name: 'Pilgrim of Grace', nameEs: 'Peregrino de Gracia', description: 'Journey of faith', descriptionEs: 'Viaje de fe', price: 400, rarity: 'rare' },
 };
 
 // Rarity colors for UI
@@ -317,6 +335,125 @@ export const RARITY_COLORS = {
   common: '#9CA3AF',
   rare: '#3B82F6',
   epic: '#A855F7',
+} as const;
+
+// Rarity gradient backgrounds for premium card styling
+export const RARITY_GRADIENTS = {
+  common: ['#F3F4F6', '#E5E7EB'],
+  rare: ['#EFF6FF', '#DBEAFE'],
+  epic: ['#FAF5FF', '#F3E8FF'],
+} as const;
+
+// Item Collections - group related items for completion bonuses
+export const ITEM_COLLECTIONS: Record<string, {
+  id: string;
+  name: string;
+  nameEs: string;
+  description: string;
+  descriptionEs: string;
+  icon: string;
+  items: string[];
+  rewardPoints: number;
+}> = {
+  collection_simbolos_fe: {
+    id: 'collection_simbolos_fe',
+    name: 'Symbols of Faith',
+    nameEs: 'Simbolos de Fe',
+    description: 'Sacred symbols representing faith',
+    descriptionEs: 'Simbolos sagrados de la fe',
+    icon: '✝️',
+    items: ['avatar_dove', 'avatar_cross', 'avatar_candle', 'avatar_crown'],
+    rewardPoints: 200,
+  },
+  collection_naturaleza: {
+    id: 'collection_naturaleza',
+    name: 'Biblical Nature',
+    nameEs: 'Naturaleza Biblica',
+    description: 'Nature symbols from Scripture',
+    descriptionEs: 'Simbolos de la naturaleza en las Escrituras',
+    icon: '🌿',
+    items: ['avatar_olive', 'avatar_fish', 'avatar_lamb', 'avatar_rainbow'],
+    rewardPoints: 250,
+  },
+  collection_marcos_luz: {
+    id: 'collection_marcos_luz',
+    name: 'Frames of Light',
+    nameEs: 'Marcos de Luz',
+    description: 'Radiant frame collection',
+    descriptionEs: 'Coleccion de marcos radiantes',
+    icon: '✨',
+    items: ['frame_dorado', 'frame_luz', 'frame_estrellas', 'frame_cielo'],
+    rewardPoints: 300,
+  },
+  collection_titulos_servicio: {
+    id: 'collection_titulos_servicio',
+    name: 'Titles of Service',
+    nameEs: 'Titulos de Servicio',
+    description: 'Titles for faithful servants',
+    descriptionEs: 'Titulos para siervos fieles',
+    icon: '👑',
+    items: ['title_siervo', 'title_portador', 'title_sembrador', 'title_guardian'],
+    rewardPoints: 350,
+  },
+};
+
+// Store Bundles - discounted item packages
+export const STORE_BUNDLES: Record<string, {
+  id: string;
+  name: string;
+  nameEs: string;
+  description: string;
+  descriptionEs: string;
+  items: string[];
+  originalPrice: number;
+  bundlePrice: number;
+  rarity: string;
+}> = {
+  bundle_gratitud: {
+    id: 'bundle_gratitud',
+    name: 'Gratitude Kit',
+    nameEs: 'Kit Gratitud',
+    description: 'Start your journey with thankfulness',
+    descriptionEs: 'Comienza tu viaje con gratitud',
+    items: ['theme_bosque', 'frame_verde', 'title_corazon'],
+    originalPrice: 800,
+    bundlePrice: 550,
+    rarity: 'rare',
+  },
+  bundle_luz_divina: {
+    id: 'bundle_luz_divina',
+    name: 'Divine Light Bundle',
+    nameEs: 'Paquete Luz Divina',
+    description: 'Illuminate your spiritual path',
+    descriptionEs: 'Ilumina tu camino espiritual',
+    items: ['theme_noche_paz', 'frame_luz', 'title_buscador'],
+    originalPrice: 950,
+    bundlePrice: 650,
+    rarity: 'rare',
+  },
+  bundle_peregrino: {
+    id: 'bundle_peregrino',
+    name: 'Pilgrim Collection',
+    nameEs: 'Coleccion Peregrino',
+    description: 'For those walking in faith',
+    descriptionEs: 'Para quienes caminan en fe',
+    items: ['theme_desierto', 'frame_pergamino', 'title_peregrino', 'avatar_lamb'],
+    originalPrice: 1450,
+    bundlePrice: 950,
+    rarity: 'epic',
+  },
+};
+
+// Weekly Chest rewards configuration
+export const WEEKLY_CHEST_CONFIG = {
+  possibleRewards: [
+    { type: 'points', value: 100, weight: 40, rarity: 'common' },
+    { type: 'points', value: 200, weight: 25, rarity: 'rare' },
+    { type: 'points', value: 350, weight: 10, rarity: 'epic' },
+    { type: 'item', itemId: 'avatar_fish', weight: 15, rarity: 'common' },
+    { type: 'item', itemId: 'frame_plata', weight: 8, rarity: 'common' },
+    { type: 'item', itemId: 'title_buscador', weight: 2, rarity: 'common' },
+  ],
 } as const;
 
 export const TRANSLATIONS = {
@@ -427,6 +564,26 @@ export const TRANSLATIONS = {
     profile: 'Profile',
     your_title: 'Your Title',
     no_title: 'No title selected',
+
+    // Transfer Code
+    account_transfer: 'Account Transfer',
+    account_transfer_desc: 'Move your progress to another device',
+    generate_code: 'Generate Transfer Code',
+    enter_code: 'Enter Transfer Code',
+    transfer_code: 'Transfer Code',
+    code_expires_in: 'Code expires in {minutes} minutes',
+    code_expired: 'Code expired',
+    copy_code: 'Copy Code',
+    code_copied: 'Code copied!',
+    enter_code_placeholder: 'Enter 8-character code',
+    restore: 'Restore',
+    restoring: 'Restoring...',
+    restore_success: 'Account restored successfully!',
+    restore_success_desc: 'Your progress has been transferred to this device.',
+    invalid_code: 'Invalid or expired code',
+    transfer_warning: 'This code expires in 15 minutes. Enter it on your new device.',
+    generating: 'Generating...',
+    user_id: 'User ID',
   },
   es: {
     // General
@@ -535,5 +692,25 @@ export const TRANSLATIONS = {
     profile: 'Perfil',
     your_title: 'Tu Titulo',
     no_title: 'Sin titulo seleccionado',
+
+    // Transfer Code
+    account_transfer: 'Transferir Cuenta',
+    account_transfer_desc: 'Mueve tu progreso a otro dispositivo',
+    generate_code: 'Generar Codigo de Transferencia',
+    enter_code: 'Ingresar Codigo de Transferencia',
+    transfer_code: 'Codigo de Transferencia',
+    code_expires_in: 'El codigo expira en {minutes} minutos',
+    code_expired: 'Codigo expirado',
+    copy_code: 'Copiar Codigo',
+    code_copied: 'Codigo copiado!',
+    enter_code_placeholder: 'Ingresa codigo de 8 caracteres',
+    restore: 'Restaurar',
+    restoring: 'Restaurando...',
+    restore_success: 'Cuenta restaurada exitosamente!',
+    restore_success_desc: 'Tu progreso ha sido transferido a este dispositivo.',
+    invalid_code: 'Codigo invalido o expirado',
+    transfer_warning: 'Este codigo expira en 15 minutos. Ingresalo en tu nuevo dispositivo.',
+    generating: 'Generando...',
+    user_id: 'ID de Usuario',
   },
 } as const;

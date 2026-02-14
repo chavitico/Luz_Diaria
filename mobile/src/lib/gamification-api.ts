@@ -223,4 +223,50 @@ export const gamificationApi = {
     }
     return res.json();
   },
+
+  // Transfer Code Methods
+  async generateTransferCode(userId: string): Promise<{ code: string; expiresAt: string }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/transfer/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
+    if (!res.ok) throw new Error('Failed to generate transfer code');
+    return res.json();
+  },
+
+  async restoreWithCode(code: string, targetUserId: string): Promise<{ success: boolean; user: UserProfile }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/transfer/restore`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, targetUserId }),
+    });
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || 'Failed to restore');
+    }
+    return res.json();
+  },
+
+  async getActiveTransferCode(userId: string): Promise<{ hasActiveCode: boolean; code?: string; expiresAt?: string }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/transfer/active/${userId}`);
+    if (!res.ok) throw new Error('Failed to check transfer code');
+    return res.json();
+  },
+
+  async getUserByDeviceId(deviceId: string): Promise<UserProfile | null> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/user/by-device/${deviceId}`);
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error('Failed to find user');
+    return res.json();
+  },
+
+  async updateDeviceId(userId: string, deviceId: string): Promise<void> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/device`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ deviceId }),
+    });
+    if (!res.ok) throw new Error('Failed to update device ID');
+  },
 };

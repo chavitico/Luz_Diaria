@@ -144,6 +144,7 @@ export interface User {
   lastActiveDate: string;
   purchasedItems: string[];
   dailyActions?: DailyActions; // daily action tracking
+  lastWeeklyChestClaimed?: string; // week ID when chest was last claimed (e.g., "2025-W07")
   settings: UserSettings;
 }
 

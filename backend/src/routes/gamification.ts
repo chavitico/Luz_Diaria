@@ -43,6 +43,7 @@ const STREAK_MILESTONES: Record<number, number> = {
 const registerUserSchema = z.object({
   nickname: z.string().min(3).max(20).regex(/^[a-zA-Z0-9_]+$/, "Nickname must contain only alphanumeric characters and underscores"),
   avatarId: z.string().optional(),
+  deviceId: z.string().optional(),
 });
 
 const syncUserSchema = z.object({
@@ -80,6 +81,21 @@ const claimChallengeSchema = z.object({
   challengeId: z.string(),
 });
 
+// Transfer code schemas
+const generateTransferCodeSchema = z.object({
+  userId: z.string(),
+});
+
+const restoreTransferCodeSchema = z.object({
+  code: z.string().length(8),
+  targetUserId: z.string(),
+});
+
+// Device ID schemas
+const updateDeviceIdSchema = z.object({
+  deviceId: z.string(),
+});
+
 // ============================================
 // HELPER FUNCTIONS
 // ============================================
@@ -104,6 +120,48 @@ function parseDailyActions(jsonStr: string): DailyActions {
   }
 }
 
+// Generate a random 8-character alphanumeric code
+function generateTransferCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Exclude confusing chars like 0/O, 1/I/L
+  let code = '';
+  for (let i = 0; i < 8; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
+// Compute deterministic ledger IDs for idempotent point tracking
+function computeLedgerId(
+  action: ActionType,
+  dateId: string,
+  metadata?: Record<string, unknown>
+): string {
+  switch (action) {
+    case 'devotional_complete': {
+      const devotionalDate = (metadata?.devotionalDate as string) ?? dateId;
+      return `devotional_${devotionalDate}`;
+    }
+    case 'streak_bonus': {
+      const streakDays = metadata?.streakDays as number;
+      return `streak_bonus_${streakDays}_${dateId}`;
+    }
+    case 'share': {
+      const count = metadata?.shareCount as number ?? 1;
+      return `share_${dateId}_${count}`;
+    }
+    case 'prayer':
+      return `prayer_${dateId}`;
+    case 'tts_complete':
+      return `tts_${dateId}`;
+    case 'favorite': {
+      const favoriteDate = (metadata?.devotionalDate as string) ?? dateId;
+      return `favorite_${favoriteDate}`;
+    }
+    default:
+      return `${action}_${dateId}`;
+  }
+}
+
 // ============================================
 // USER MANAGEMENT ENDPOINTS
 // ============================================
@@ -114,7 +172,7 @@ gamificationRouter.post(
   zValidator("json", registerUserSchema),
   async (c) => {
     try {
-      const { nickname, avatarId } = c.req.valid("json");
+      const { nickname, avatarId, deviceId } = c.req.valid("json");
       const nicknameLower = nickname.toLowerCase();
 
       // Check for existing nickname (case-insensitive)
@@ -131,6 +189,7 @@ gamificationRouter.post(
           nickname,
           nicknameLower,
           avatarId: avatarId ?? "avatar_dove",
+          deviceId: deviceId ?? null,
         },
         include: {
           inventory: {
@@ -228,7 +287,7 @@ gamificationRouter.post(
 // POINTS SYSTEM ENDPOINTS
 // ============================================
 
-// POST /points/award - Award points with daily cap checking
+// POST /points/award - Award points with ledger-based idempotent tracking
 gamificationRouter.post(
   "/points/award",
   zValidator("json", awardPointsSchema),
@@ -248,7 +307,10 @@ gamificationRouter.post(
       const dailyActions = parseDailyActions(user.dailyActions);
       let pointsAwarded = 0;
       let message: string | undefined;
+      let ledgerId: string;
+      let shareCountForLedger = 1;
 
+      // Determine points and validate action-specific rules
       switch (action) {
         case "share": {
           // Reset count if new day
@@ -265,7 +327,8 @@ gamificationRouter.post(
               message: "Daily share limit reached (2/day)",
             });
           }
-          dailyActions.shareCount = currentCount + 1;
+          shareCountForLedger = currentCount + 1;
+          dailyActions.shareCount = shareCountForLedger;
           pointsAwarded = POINTS_CONFIG.share.points;
           break;
         }
@@ -301,7 +364,6 @@ gamificationRouter.post(
         }
 
         case "devotional_complete": {
-          // Check if this specific devotional was already completed
           const devotionalDate = (metadata?.devotionalDate as string) ?? today;
           const completedDates = dailyActions.devotionalDates ?? [];
 
@@ -343,22 +405,94 @@ gamificationRouter.post(
         }
       }
 
-      const newTotal = user.points + pointsAwarded;
+      // Compute deterministic ledger ID
+      const metadataForLedger = {
+        ...metadata,
+        shareCount: shareCountForLedger,
+      };
+      ledgerId = computeLedgerId(action, today, metadataForLedger);
 
-      await prisma.user.update({
-        where: { id: userId },
-        data: {
-          points: newTotal,
-          dailyActions: JSON.stringify(dailyActions),
-        },
-      });
+      // Use transaction for atomic ledger entry + points update
+      try {
+        const result = await prisma.$transaction(async (tx) => {
+          // Check if ledger entry already exists (idempotency check)
+          const existingEntry = await tx.pointLedger.findUnique({
+            where: {
+              userId_ledgerId: { userId, ledgerId },
+            },
+          });
 
-      return c.json({
-        success: true,
-        pointsAwarded,
-        newTotal,
-        message,
-      });
+          if (existingEntry) {
+            // Already awarded - return current state
+            const currentUser = await tx.user.findUnique({
+              where: { id: userId },
+            });
+            return {
+              alreadyAwarded: true,
+              newTotal: currentUser?.points ?? user.points,
+            };
+          }
+
+          // Create ledger entry
+          await tx.pointLedger.create({
+            data: {
+              userId,
+              ledgerId,
+              type: action,
+              dateId: today,
+              amount: pointsAwarded,
+              metadata: JSON.stringify(metadata ?? {}),
+            },
+          });
+
+          // Atomic increment of points
+          const updatedUser = await tx.user.update({
+            where: { id: userId },
+            data: {
+              points: { increment: pointsAwarded },
+              dailyActions: JSON.stringify(dailyActions),
+            },
+          });
+
+          return {
+            alreadyAwarded: false,
+            newTotal: updatedUser.points,
+          };
+        });
+
+        if (result.alreadyAwarded) {
+          return c.json({
+            success: false,
+            pointsAwarded: 0,
+            newTotal: result.newTotal,
+            message: "Points already awarded for this action",
+            ledgerId,
+          });
+        }
+
+        return c.json({
+          success: true,
+          pointsAwarded,
+          newTotal: result.newTotal,
+          message,
+          ledgerId,
+        });
+      } catch (txError) {
+        // Handle unique constraint violation (race condition)
+        if (txError instanceof Error && txError.message.includes('Unique constraint')) {
+          const currentUser = await prisma.user.findUnique({
+            where: { id: userId },
+          });
+          return c.json({
+            success: false,
+            pointsAwarded: 0,
+            newTotal: currentUser?.points ?? user.points,
+            message: "Points already awarded for this action",
+            ledgerId,
+          });
+        }
+        throw txError;
+      }
     } catch (error) {
       console.error("[Gamification] Error awarding points:", error);
       return c.json({ error: "Failed to award points" }, 500);
@@ -868,5 +1002,416 @@ gamificationRouter.get("/nickname/check/:nickname", async (c) => {
   } catch (error) {
     console.error("[Gamification] Error checking nickname:", error);
     return c.json({ error: "Failed to check nickname" }, 500);
+  }
+});
+
+// ============================================
+// TRANSFER CODE ENDPOINTS
+// ============================================
+
+// POST /transfer/generate - Generate a transfer code for account restoration
+gamificationRouter.post(
+  "/transfer/generate",
+  zValidator("json", generateTransferCodeSchema),
+  async (c) => {
+    try {
+      const { userId } = c.req.valid("json");
+
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+      });
+
+      if (!user) {
+        return c.json({ error: "User not found" }, 404);
+      }
+
+      // Check if user already has an active (unexpired, unused) transfer code
+      const existingActiveCode = await prisma.transferCode.findFirst({
+        where: {
+          sourceUserId: userId,
+          used: false,
+          expiresAt: { gt: new Date() },
+        },
+      });
+
+      if (existingActiveCode) {
+        return c.json({
+          code: existingActiveCode.code,
+          expiresAt: existingActiveCode.expiresAt.toISOString(),
+          message: "Existing active code returned",
+        });
+      }
+
+      // Generate new code with 15-minute expiry
+      const code = generateTransferCode();
+      const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+
+      const transferCode = await prisma.transferCode.create({
+        data: {
+          code,
+          sourceUserId: userId,
+          expiresAt,
+        },
+      });
+
+      return c.json({
+        code: transferCode.code,
+        expiresAt: transferCode.expiresAt.toISOString(),
+      });
+    } catch (error) {
+      console.error("[Gamification] Error generating transfer code:", error);
+      return c.json({ error: "Failed to generate transfer code" }, 500);
+    }
+  }
+);
+
+// POST /transfer/restore - Restore account using transfer code
+gamificationRouter.post(
+  "/transfer/restore",
+  zValidator("json", restoreTransferCodeSchema),
+  async (c) => {
+    try {
+      const { code, targetUserId } = c.req.valid("json");
+
+      const result = await prisma.$transaction(async (tx) => {
+        // Find the transfer code
+        const transferCode = await tx.transferCode.findUnique({
+          where: { code: code.toUpperCase() },
+        });
+
+        if (!transferCode) {
+          throw new Error("INVALID_CODE");
+        }
+
+        if (transferCode.used) {
+          throw new Error("CODE_ALREADY_USED");
+        }
+
+        if (transferCode.expiresAt < new Date()) {
+          throw new Error("CODE_EXPIRED");
+        }
+
+        // Get source user data
+        const sourceUser = await tx.user.findUnique({
+          where: { id: transferCode.sourceUserId },
+          include: {
+            inventory: true,
+            favorites: true,
+            weeklyProgress: true,
+            pointLedger: true,
+          },
+        });
+
+        if (!sourceUser) {
+          throw new Error("SOURCE_USER_NOT_FOUND");
+        }
+
+        // Get or create target user
+        let targetUser = await tx.user.findUnique({
+          where: { id: targetUserId },
+        });
+
+        if (!targetUser) {
+          throw new Error("TARGET_USER_NOT_FOUND");
+        }
+
+        // Prevent self-transfer
+        if (sourceUser.id === targetUserId) {
+          throw new Error("CANNOT_TRANSFER_TO_SELF");
+        }
+
+        // Copy all data from source to target user
+        targetUser = await tx.user.update({
+          where: { id: targetUserId },
+          data: {
+            points: sourceUser.points,
+            streakCurrent: sourceUser.streakCurrent,
+            streakBest: sourceUser.streakBest,
+            devotionalsCompleted: sourceUser.devotionalsCompleted,
+            totalTimeSeconds: sourceUser.totalTimeSeconds,
+            lastActiveAt: sourceUser.lastActiveAt,
+            dailyActions: sourceUser.dailyActions,
+            themeId: sourceUser.themeId,
+            frameId: sourceUser.frameId,
+            titleId: sourceUser.titleId,
+            selectedMusicId: sourceUser.selectedMusicId,
+            avatarId: sourceUser.avatarId,
+            migratedFromUserId: sourceUser.id,
+          },
+        });
+
+        // Copy inventory items (skip if already owned)
+        for (const item of sourceUser.inventory) {
+          const existingItem = await tx.userInventory.findUnique({
+            where: {
+              userId_itemId: { userId: targetUserId, itemId: item.itemId },
+            },
+          });
+
+          if (!existingItem) {
+            await tx.userInventory.create({
+              data: {
+                userId: targetUserId,
+                itemId: item.itemId,
+                source: "transfer",
+              },
+            });
+          }
+        }
+
+        // Copy favorites (skip if already exists)
+        for (const favorite of sourceUser.favorites) {
+          const existingFavorite = await tx.userFavorite.findUnique({
+            where: {
+              userId_devotionalDate: {
+                userId: targetUserId,
+                devotionalDate: favorite.devotionalDate,
+              },
+            },
+          });
+
+          if (!existingFavorite) {
+            await tx.userFavorite.create({
+              data: {
+                userId: targetUserId,
+                devotionalDate: favorite.devotionalDate,
+              },
+            });
+          }
+        }
+
+        // Copy point ledger entries (update userId, skip if ledgerId already exists)
+        for (const ledgerEntry of sourceUser.pointLedger) {
+          const existingEntry = await tx.pointLedger.findUnique({
+            where: {
+              userId_ledgerId: {
+                userId: targetUserId,
+                ledgerId: ledgerEntry.ledgerId,
+              },
+            },
+          });
+
+          if (!existingEntry) {
+            await tx.pointLedger.create({
+              data: {
+                userId: targetUserId,
+                ledgerId: ledgerEntry.ledgerId,
+                type: ledgerEntry.type,
+                dateId: ledgerEntry.dateId,
+                amount: ledgerEntry.amount,
+                metadata: ledgerEntry.metadata,
+              },
+            });
+          }
+        }
+
+        // Mark transfer code as used
+        await tx.transferCode.update({
+          where: { id: transferCode.id },
+          data: {
+            used: true,
+            usedByUserId: targetUserId,
+            usedAt: new Date(),
+          },
+        });
+
+        // Get updated target user with all relations
+        const restoredUser = await tx.user.findUnique({
+          where: { id: targetUserId },
+          include: {
+            inventory: { include: { item: true } },
+            favorites: true,
+          },
+        });
+
+        return restoredUser;
+      });
+
+      return c.json({
+        success: true,
+        user: result,
+        message: "Account data restored successfully",
+      });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+
+      if (errorMessage === "INVALID_CODE") {
+        return c.json({ error: "Invalid transfer code" }, 400);
+      }
+      if (errorMessage === "CODE_ALREADY_USED") {
+        return c.json({ error: "Transfer code has already been used" }, 400);
+      }
+      if (errorMessage === "CODE_EXPIRED") {
+        return c.json({ error: "Transfer code has expired" }, 400);
+      }
+      if (errorMessage === "SOURCE_USER_NOT_FOUND") {
+        return c.json({ error: "Source account not found" }, 404);
+      }
+      if (errorMessage === "TARGET_USER_NOT_FOUND") {
+        return c.json({ error: "Target user not found" }, 404);
+      }
+      if (errorMessage === "CANNOT_TRANSFER_TO_SELF") {
+        return c.json({ error: "Cannot transfer to the same account" }, 400);
+      }
+
+      console.error("[Gamification] Error restoring account:", error);
+      return c.json({ error: "Failed to restore account" }, 500);
+    }
+  }
+);
+
+// GET /transfer/active/:userId - Check if user has an active transfer code
+gamificationRouter.get("/transfer/active/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      return c.json({ error: "User not found" }, 404);
+    }
+
+    const activeCode = await prisma.transferCode.findFirst({
+      where: {
+        sourceUserId: userId,
+        used: false,
+        expiresAt: { gt: new Date() },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (activeCode) {
+      return c.json({
+        hasActiveCode: true,
+        code: activeCode.code,
+        expiresAt: activeCode.expiresAt.toISOString(),
+      });
+    }
+
+    return c.json({
+      hasActiveCode: false,
+    });
+  } catch (error) {
+    console.error("[Gamification] Error checking active transfer code:", error);
+    return c.json({ error: "Failed to check transfer code" }, 500);
+  }
+});
+
+// ============================================
+// DEVICE ID ENDPOINTS
+// ============================================
+
+// GET /user/by-device/:deviceId - Find user by device ID
+gamificationRouter.get("/user/by-device/:deviceId", async (c) => {
+  try {
+    const deviceId = c.req.param("deviceId");
+
+    const user = await prisma.user.findFirst({
+      where: { deviceId },
+      include: {
+        inventory: {
+          include: { item: true },
+        },
+      },
+    });
+
+    if (!user) {
+      return c.json({ found: false });
+    }
+
+    const equippedItems = {
+      theme: user.themeId,
+      frame: user.frameId,
+      title: user.titleId,
+      music: user.selectedMusicId,
+    };
+
+    return c.json({
+      found: true,
+      user: { ...user, equippedItems },
+    });
+  } catch (error) {
+    console.error("[Gamification] Error finding user by device:", error);
+    return c.json({ error: "Failed to find user" }, 500);
+  }
+});
+
+// PATCH /user/:userId/device - Update user's device ID
+gamificationRouter.patch(
+  "/user/:userId/device",
+  zValidator("json", updateDeviceIdSchema),
+  async (c) => {
+    try {
+      const userId = c.req.param("userId");
+      const { deviceId } = c.req.valid("json");
+
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+      });
+
+      if (!user) {
+        return c.json({ error: "User not found" }, 404);
+      }
+
+      const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: { deviceId },
+        include: {
+          inventory: {
+            include: { item: true },
+          },
+        },
+      });
+
+      return c.json(updatedUser);
+    } catch (error) {
+      console.error("[Gamification] Error updating device ID:", error);
+      return c.json({ error: "Failed to update device ID" }, 500);
+    }
+  }
+);
+
+// ============================================
+// POINTS LEDGER ENDPOINTS
+// ============================================
+
+// GET /points/ledger/:userId - Get user's point ledger history
+gamificationRouter.get("/points/ledger/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const limit = parseInt(c.req.query("limit") ?? "50", 10);
+    const offset = parseInt(c.req.query("offset") ?? "0", 10);
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      return c.json({ error: "User not found" }, 404);
+    }
+
+    const [entries, total] = await Promise.all([
+      prisma.pointLedger.findMany({
+        where: { userId },
+        orderBy: { createdAt: "desc" },
+        take: limit,
+        skip: offset,
+      }),
+      prisma.pointLedger.count({
+        where: { userId },
+      }),
+    ]);
+
+    return c.json({
+      entries,
+      total,
+      limit,
+      offset,
+    });
+  } catch (error) {
+    console.error("[Gamification] Error getting points ledger:", error);
+    return c.json({ error: "Failed to get points ledger" }, 500);
   }
 });

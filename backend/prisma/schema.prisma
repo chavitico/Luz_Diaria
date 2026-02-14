@@ -64,6 +64,10 @@ model User {
   // Daily action tracking (JSON field for simplicity)
   dailyActions          String   @default("{}")  // JSON: {shareDate, shareCount, prayerDate, prayerDone, ttsDate, ttsDone}
 
+  // Device and migration tracking
+  deviceId              String?  // Optional stable device identifier
+  migratedFromUserId    String?  // Track account migrations
+
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 
@@ -71,6 +75,8 @@ model User {
   inventory             UserInventory[]
   weeklyProgress        WeeklyProgress[]
   favorites             UserFavorite[]
+  pointLedger           PointLedger[]
+  transferCodesGenerated TransferCode[] @relation("TransferCodeSource")
 }
 
 model StoreItem {
@@ -183,4 +189,41 @@ model BiblePassage {
 
   @@unique([refKey, lang])
   @@index([lang])
+}
+
+// ============================================
+// POINTS LEDGER - Idempotent Point Tracking
+// ============================================
+
+model PointLedger {
+  id          String   @id @default(cuid())
+  userId      String
+  ledgerId    String   // Deterministic ID like "devotional_2026-02-14"
+  type        String   // devotional_complete, streak_bonus, share, prayer, tts, challenge_reward
+  dateId      String   // Date for the action (YYYY-MM-DD)
+  amount      Int
+  metadata    String   @default("{}")  // JSON for extra data
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, ledgerId])
+  @@index([userId])
+}
+
+// ============================================
+// TRANSFER CODES - Cross-device Restore
+// ============================================
+
+model TransferCode {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  sourceUserId  String
+  expiresAt     DateTime
+  used          Boolean   @default(false)
+  usedByUserId  String?
+  usedAt        DateTime?
+  createdAt     DateTime  @default(now())
+
+  sourceUser    User      @relation("TransferCodeSource", fields: [sourceUserId], references: [id], onDelete: Cascade)
 }

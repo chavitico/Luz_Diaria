@@ -1,6 +1,6 @@
 // Settings Screen - With Avatar Selection and Notification Settings
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -9,10 +9,13 @@ import {
   Switch,
   Modal,
   Alert,
+  TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
+import * as Clipboard from 'expo-clipboard';
 import Slider from '@react-native-community/slider';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {
@@ -38,6 +41,10 @@ import {
   Sparkles,
   BellRing,
   TestTube,
+  Smartphone,
+  Copy,
+  Download,
+  Key,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import {
@@ -60,6 +67,7 @@ import {
   sendTestNotification,
   type NotificationSettings,
 } from '@/lib/notifications';
+import { gamificationApi } from '@/lib/gamification-api';
 
 interface SettingRowProps {
   icon: React.ReactNode;
@@ -174,6 +182,18 @@ export default function SettingsScreen() {
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [showTimePickerModal, setShowTimePickerModal] = useState(false);
+  const [showGenerateCodeModal, setShowGenerateCodeModal] = useState(false);
+  const [showEnterCodeModal, setShowEnterCodeModal] = useState(false);
+
+  // Transfer code state
+  const [transferCode, setTransferCode] = useState<string | null>(null);
+  const [transferCodeExpiry, setTransferCodeExpiry] = useState<Date | null>(null);
+  const [isGeneratingCode, setIsGeneratingCode] = useState(false);
+  const [enteredCode, setEnteredCode] = useState('');
+  const [isRestoring, setIsRestoring] = useState(false);
+  const [restoreError, setRestoreError] = useState<string | null>(null);
+  const [codeCopied, setCodeCopied] = useState(false);
+  const [expiryCountdown, setExpiryCountdown] = useState<number>(0);
 
   // Notification state
   const [notificationSettings, setNotificationSettingsState] = useState<NotificationSettings>({
@@ -195,6 +215,125 @@ export default function SettingsScreen() {
     const date = new Date();
     date.setHours(saved.hour, saved.minute, 0, 0);
     setSelectedTime(date);
+  };
+
+  // Countdown timer for transfer code expiry
+  useEffect(() => {
+    if (!transferCodeExpiry) {
+      setExpiryCountdown(0);
+      return;
+    }
+
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = Math.max(0, Math.floor((transferCodeExpiry.getTime() - now.getTime()) / 1000));
+      setExpiryCountdown(diff);
+
+      if (diff <= 0) {
+        setTransferCode(null);
+        setTransferCodeExpiry(null);
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, [transferCodeExpiry]);
+
+  // Format code with space in middle (XXXX XXXX)
+  const formatTransferCode = (code: string): string => {
+    if (code.length <= 4) return code.toUpperCase();
+    return `${code.slice(0, 4)} ${code.slice(4)}`.toUpperCase();
+  };
+
+  // Format countdown time
+  const formatCountdown = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Generate transfer code
+  const handleGenerateCode = async () => {
+    if (!user?.id) return;
+
+    setIsGeneratingCode(true);
+    try {
+      const result = await gamificationApi.generateTransferCode(user.id);
+      setTransferCode(result.code);
+      setTransferCodeExpiry(new Date(result.expiresAt));
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    } catch (error) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      Alert.alert(
+        language === 'es' ? 'Error' : 'Error',
+        language === 'es'
+          ? 'No se pudo generar el codigo. Intenta de nuevo.'
+          : 'Failed to generate code. Please try again.'
+      );
+    } finally {
+      setIsGeneratingCode(false);
+    }
+  };
+
+  // Copy code to clipboard
+  const handleCopyCode = async () => {
+    if (!transferCode) return;
+
+    await Clipboard.setStringAsync(transferCode);
+    setCodeCopied(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+    setTimeout(() => setCodeCopied(false), 2000);
+  };
+
+  // Handle code input - auto format
+  const handleCodeInput = (text: string) => {
+    // Remove spaces and non-alphanumeric chars, limit to 8 chars
+    const cleaned = text.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 8);
+    setEnteredCode(cleaned);
+    setRestoreError(null);
+  };
+
+  // Restore account with code
+  const handleRestore = async () => {
+    if (!user?.id || enteredCode.length !== 8) return;
+
+    setIsRestoring(true);
+    setRestoreError(null);
+
+    try {
+      const result = await gamificationApi.restoreWithCode(enteredCode, user.id);
+
+      if (result.success && result.user) {
+        // Update local user state with restored data
+        updateUser({
+          points: result.user.points,
+          streakCurrent: result.user.streakCurrent,
+          streakBest: result.user.streakBest,
+          devotionalsCompleted: result.user.devotionalsCompleted,
+          totalTime: result.user.totalTimeSeconds,
+          frameId: result.user.frameId,
+          titleId: result.user.titleId,
+          themeId: result.user.themeId,
+          selectedMusicId: result.user.selectedMusicId,
+        });
+
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        setShowEnterCodeModal(false);
+        setEnteredCode('');
+
+        Alert.alert(
+          t.restore_success,
+          t.restore_success_desc
+        );
+      }
+    } catch (error: any) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      setRestoreError(error.message || t.invalid_code);
+    } finally {
+      setIsRestoring(false);
+    }
   };
 
   const handleNotificationToggle = async (enabled: boolean) => {
@@ -565,6 +704,67 @@ export default function SettingsScreen() {
               />
             </View>
           )}
+
+          {/* Account Transfer Section */}
+          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
+            {t.account_transfer}
+          </Text>
+
+          <View
+            className="rounded-2xl p-5 mb-2"
+            style={{ backgroundColor: colors.surface }}
+          >
+            <View className="flex-row items-center mb-3">
+              <Smartphone size={20} color={colors.primary} />
+              <Text className="text-base font-medium ml-3" style={{ color: colors.text }}>
+                {t.account_transfer}
+              </Text>
+            </View>
+            <Text className="text-sm mb-4" style={{ color: colors.textMuted }}>
+              {t.account_transfer_desc}
+            </Text>
+
+            <View className="flex-row gap-3">
+              <Pressable
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  setShowGenerateCodeModal(true);
+                }}
+                className="flex-1 flex-row items-center justify-center py-3 rounded-xl"
+                style={{ backgroundColor: colors.primary }}
+              >
+                <Key size={16} color="#FFFFFF" />
+                <Text className="text-sm font-semibold text-white ml-2">
+                  {t.generate_code}
+                </Text>
+              </Pressable>
+            </View>
+
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setEnteredCode('');
+                setRestoreError(null);
+                setShowEnterCodeModal(true);
+              }}
+              className="flex-row items-center justify-center py-3 mt-3 rounded-xl"
+              style={{ backgroundColor: colors.primary + '15' }}
+            >
+              <Download size={16} color={colors.primary} />
+              <Text className="text-sm font-semibold ml-2" style={{ color: colors.primary }}>
+                {t.enter_code}
+              </Text>
+            </Pressable>
+          </View>
+
+          {/* Debug Info - User ID */}
+          {user?.id && (
+            <View className="mt-6 mb-4 px-2">
+              <Text className="text-xs" style={{ color: colors.textMuted + '80' }}>
+                {t.user_id}: {user.id.slice(0, 8)}...
+              </Text>
+            </View>
+          )}
         </View>
       </ScrollView>
 
@@ -782,6 +982,231 @@ export default function SettingsScreen() {
               </Pressable>
             </View>
           </View>
+        </View>
+      </Modal>
+
+      {/* Generate Transfer Code Modal */}
+      <Modal
+        visible={showGenerateCodeModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowGenerateCodeModal(false)}
+      >
+        <View className="flex-1 bg-black/50 items-center justify-center px-6">
+          <Animated.View
+            entering={FadeInUp.duration(300)}
+            className="w-full rounded-3xl p-6"
+            style={{ backgroundColor: colors.surface }}
+          >
+            <View className="flex-row items-center justify-between mb-4">
+              <Text className="text-xl font-bold" style={{ color: colors.text }}>
+                {t.transfer_code}
+              </Text>
+              <Pressable
+                onPress={() => {
+                  setShowGenerateCodeModal(false);
+                  setTransferCode(null);
+                  setTransferCodeExpiry(null);
+                }}
+                className="w-8 h-8 rounded-full items-center justify-center"
+                style={{ backgroundColor: colors.textMuted + '20' }}
+              >
+                <X size={18} color={colors.textMuted} />
+              </Pressable>
+            </View>
+
+            {!transferCode ? (
+              <>
+                <Text className="text-sm mb-6" style={{ color: colors.textMuted }}>
+                  {t.account_transfer_desc}
+                </Text>
+
+                <Pressable
+                  onPress={handleGenerateCode}
+                  disabled={isGeneratingCode}
+                  className="py-4 rounded-xl items-center justify-center"
+                  style={{
+                    backgroundColor: isGeneratingCode ? colors.textMuted + '40' : colors.primary,
+                  }}
+                >
+                  {isGeneratingCode ? (
+                    <View className="flex-row items-center">
+                      <ActivityIndicator color="#FFFFFF" size="small" />
+                      <Text className="text-base font-semibold text-white ml-2">
+                        {t.generating}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View className="flex-row items-center">
+                      <Key size={20} color="#FFFFFF" />
+                      <Text className="text-base font-semibold text-white ml-2">
+                        {t.generate_code}
+                      </Text>
+                    </View>
+                  )}
+                </Pressable>
+              </>
+            ) : (
+              <>
+                {/* Generated Code Display */}
+                <View
+                  className="py-6 px-4 rounded-2xl items-center mb-4"
+                  style={{ backgroundColor: colors.background }}
+                >
+                  <Text
+                    className="text-3xl font-bold tracking-widest"
+                    style={{ color: colors.primary, letterSpacing: 8 }}
+                  >
+                    {formatTransferCode(transferCode)}
+                  </Text>
+                </View>
+
+                {/* Countdown Timer */}
+                <View className="flex-row items-center justify-center mb-4">
+                  <Clock size={16} color={expiryCountdown < 120 ? '#EF4444' : colors.textMuted} />
+                  <Text
+                    className="text-sm ml-2 font-medium"
+                    style={{ color: expiryCountdown < 120 ? '#EF4444' : colors.textMuted }}
+                  >
+                    {expiryCountdown > 0
+                      ? t.code_expires_in.replace('{minutes}', formatCountdown(expiryCountdown))
+                      : t.code_expired}
+                  </Text>
+                </View>
+
+                {/* Warning Text */}
+                <View
+                  className="p-3 rounded-xl mb-4"
+                  style={{ backgroundColor: colors.primary + '10' }}
+                >
+                  <Text className="text-sm text-center" style={{ color: colors.primary }}>
+                    {t.transfer_warning}
+                  </Text>
+                </View>
+
+                {/* Copy Button */}
+                <Pressable
+                  onPress={handleCopyCode}
+                  className="py-3 rounded-xl flex-row items-center justify-center"
+                  style={{ backgroundColor: codeCopied ? '#22C55E' : colors.primary }}
+                >
+                  {codeCopied ? (
+                    <>
+                      <Check size={18} color="#FFFFFF" strokeWidth={3} />
+                      <Text className="text-base font-semibold text-white ml-2">
+                        {t.code_copied}
+                      </Text>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={18} color="#FFFFFF" />
+                      <Text className="text-base font-semibold text-white ml-2">
+                        {t.copy_code}
+                      </Text>
+                    </>
+                  )}
+                </Pressable>
+              </>
+            )}
+          </Animated.View>
+        </View>
+      </Modal>
+
+      {/* Enter Transfer Code Modal */}
+      <Modal
+        visible={showEnterCodeModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowEnterCodeModal(false)}
+      >
+        <View className="flex-1 bg-black/50 items-center justify-center px-6">
+          <Animated.View
+            entering={FadeInUp.duration(300)}
+            className="w-full rounded-3xl p-6"
+            style={{ backgroundColor: colors.surface }}
+          >
+            <View className="flex-row items-center justify-between mb-4">
+              <Text className="text-xl font-bold" style={{ color: colors.text }}>
+                {t.enter_code}
+              </Text>
+              <Pressable
+                onPress={() => setShowEnterCodeModal(false)}
+                className="w-8 h-8 rounded-full items-center justify-center"
+                style={{ backgroundColor: colors.textMuted + '20' }}
+              >
+                <X size={18} color={colors.textMuted} />
+              </Pressable>
+            </View>
+
+            <Text className="text-sm mb-4" style={{ color: colors.textMuted }}>
+              {language === 'es'
+                ? 'Ingresa el codigo de 8 caracteres generado en tu otro dispositivo.'
+                : 'Enter the 8-character code generated on your other device.'}
+            </Text>
+
+            {/* Code Input */}
+            <View
+              className="rounded-xl mb-4 overflow-hidden"
+              style={{
+                backgroundColor: colors.background,
+                borderWidth: restoreError ? 2 : 0,
+                borderColor: restoreError ? '#EF4444' : 'transparent',
+              }}
+            >
+              <TextInput
+                value={formatTransferCode(enteredCode).trim()}
+                onChangeText={handleCodeInput}
+                placeholder={t.enter_code_placeholder}
+                placeholderTextColor={colors.textMuted}
+                autoCapitalize="characters"
+                autoCorrect={false}
+                maxLength={9} // 8 chars + 1 space
+                className="text-center text-2xl font-bold py-4 px-4"
+                style={{
+                  color: colors.text,
+                  letterSpacing: 4,
+                }}
+              />
+            </View>
+
+            {/* Error Message */}
+            {restoreError && (
+              <View className="mb-4">
+                <Text className="text-sm text-center" style={{ color: '#EF4444' }}>
+                  {restoreError}
+                </Text>
+              </View>
+            )}
+
+            {/* Restore Button */}
+            <Pressable
+              onPress={handleRestore}
+              disabled={isRestoring || enteredCode.length !== 8}
+              className="py-4 rounded-xl items-center justify-center"
+              style={{
+                backgroundColor:
+                  isRestoring || enteredCode.length !== 8
+                    ? colors.textMuted + '40'
+                    : colors.primary,
+              }}
+            >
+              {isRestoring ? (
+                <View className="flex-row items-center">
+                  <ActivityIndicator color="#FFFFFF" size="small" />
+                  <Text className="text-base font-semibold text-white ml-2">
+                    {t.restoring}
+                  </Text>
+                </View>
+              ) : (
+                <View className="flex-row items-center">
+                  <Download size={20} color="#FFFFFF" />
+                  <Text className="text-base font-semibold text-white ml-2">
+                    {t.restore}
+                  </Text>
+                </View>
+              )}
+            </Pressable>
+          </Animated.View>
         </View>
       </Modal>
     </View>

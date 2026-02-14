@@ -34,17 +34,23 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Continuous reading format** with collapsible overflow
 - Full audio controls (TTS + Background Music)
 
-### Store Tab
-- **Profile Header** with avatar + frame overlay, nickname, equipped title, points balance
+### Store Tab (Premium UI)
+- **Profile Header** with avatar (72px) + frame overlay, nickname, equipped title, points balance, gradient background
 - **Weekly Challenges** - 2 rotating challenges per week with progress tracking and rewards
-- **5 Reward Categories**:
+- **Weekly Chest** - Claim deterministic reward when all weekly challenges completed (random item or bonus points)
+- **6 Reward Categories**:
   - **Themes** (6 visual palettes): Sunrise, Peaceful Night, Forest, Desert, Promise, Minimal
   - **Avatar Frames** (10 overlays): Golden, Silver, Blue Hope, Green Life, Soft Light, Leaf Crown, Stars, Parchment, Soft Fire, Heaven
-  - **Music Tracks** (5 free + 8 premium): Piano Gratitud, Arpa Paz, Cuerdas Esperanza, etc.
-  - **Spiritual Titles** (12 titles): Buscador de Luz, Corazón Agradecido, Siervo Fiel, etc.
+  - **Spiritual Titles** (12 titles): Buscador de Luz, Corazon Agradecido, Siervo Fiel, etc.
   - **Avatars** (8 free + 6 premium)
-- Purchase confirmation and equip system
-- Rarity indicators (common/rare/epic)
+  - **Bundles** (3 discounted packs): Gratitude Kit, Serenity Pack, Pilgrim Bundle
+  - **Collections** (4 themed groups): Symbols of Faith, Biblical Nature, Light Path, Spiritual Journey
+- **Item Detail Modal** with large preview (96-120px), rarity badge, description, purchase/equip actions
+- Rarity system with visual indicators:
+  - **Common**: Gray tones, subtle border
+  - **Rare**: Blue glow, star icon
+  - **Epic**: Purple glow, gem icon
+- Gradient backgrounds based on item rarity
 
 ### Settings Tab
 - **Enhanced Profile Card** with avatar + frame overlay
@@ -63,6 +69,10 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Background music global settings**
   - Enable/disable
   - Volume control (default: low)
+- **Account Transfer** (Cross-Device Restore)
+  - Generate Transfer Code: 8-character code, 15-minute expiry
+  - Enter Transfer Code: Restore full account (points, inventory, progress) from another device
+  - Debug User ID display for troubleshooting
 
 ### Gamification System
 - **Points earned for**:
@@ -80,6 +90,10 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - Total shares count
 - **Points awarded only once per devotional** (no duplicate points)
 - **Daily Action Tracking** with caps to prevent farming
+- **Points Ledger System** - Idempotent point tracking with deterministic ledger IDs ensures:
+  - Points are awarded exactly once per action per user
+  - Cross-device consistency (same user sees same points on phone/tablet)
+  - No duplicate awards even with network retries
 
 ### Audio Features
 - **Text-to-Speech (TTS)**
@@ -177,7 +191,9 @@ src/
 - [x] Prayer confirmation with daily tracking
 - [x] **Local push notifications** - Daily reminder with customizable time
 - [x] **Tappable Bible references** - View passage text on tap with caching
-- [ ] Firebase Firestore integration (user data sync across devices)
+- [x] **Premium Store UI** - Collections, bundles, weekly chest, rarity system
+- [x] **Cross-Device Account Transfer** - Transfer code flow for restoring progress
+- [x] **Points Ledger** - Idempotent point tracking prevents duplicates
 - [ ] Actual background music audio files (upload via SOUNDS tab)
 - [ ] Real image generation for devotionals
 
@@ -205,6 +221,16 @@ The app connects to a Hono backend with:
 - `GET /api/gamification/challenges/progress/:userId` - Get user's challenge progress
 - `POST /api/gamification/challenges/update` - Update challenge progress
 - `POST /api/gamification/challenges/claim` - Claim challenge reward
+- `GET /api/gamification/points/ledger/:userId` - Get point history with pagination
+
+### Transfer Code Endpoints (Cross-Device)
+- `POST /api/gamification/transfer/generate` - Generate 8-char transfer code (15-min expiry)
+- `POST /api/gamification/transfer/restore` - Restore account using transfer code
+- `GET /api/gamification/transfer/active/:userId` - Check for active transfer code
+
+### Device ID Endpoints
+- `GET /api/gamification/user/by-device/:deviceId` - Find user by device ID
+- `PATCH /api/gamification/user/:userId/device` - Update user's device ID
 
 ### Daily Generation Cron
 - Runs automatically at **4:00 AM Costa Rica time (10:00 AM UTC)**
