@@ -99,8 +99,15 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Text-to-Speech (TTS)**
   - Play/Pause/Stop controls
   - Speed adjustment (0.5x - 2.0x)
+  - Volume adjustment
   - Section highlighting during playback
   - Bible-optimized speech (converts "1 Pedro" to "Primera de Pedro")
+  - **Curated Voice Selection** - 3 high-quality voices optimized for devotional content:
+    - **System Default** (Recommended) - Your device's default voice
+    - **Meditacion Suave** - Warm, gentle voice for prayer and night reading
+    - **Narrador Devocional** - Deep, peaceful voice for stories and reflections
+  - Voice preview button to test each voice before selecting
+  - Voice selection persists across sessions
 - **Background Music**
   - 5 instrumental Christian tracks
   - Volume control (synced with Settings)

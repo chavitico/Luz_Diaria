@@ -71,25 +71,14 @@ import { getTodayDate } from '@/lib/firestore';
 
 const { height, width } = Dimensions.get('window');
 
-// TTS Voices available - expanded options
-const TTS_VOICES = [
-  { id: 'default', name: 'System Default', nameEs: 'Predeterminada del Sistema' },
-  { id: 'com.apple.ttsbundle.Samantha-compact', name: 'Samantha (Female)', nameEs: 'Samantha (Femenina)' },
-  { id: 'com.apple.ttsbundle.Daniel-compact', name: 'Daniel (Male)', nameEs: 'Daniel (Masculino)' },
-  { id: 'com.apple.ttsbundle.Karen-compact', name: 'Karen (Female)', nameEs: 'Karen (Femenina)' },
-  { id: 'com.apple.ttsbundle.Moira-compact', name: 'Moira (Female)', nameEs: 'Moira (Femenina)' },
-  { id: 'com.apple.speech.synthesis.voice.Alex', name: 'Alex (Male)', nameEs: 'Alex (Masculino)' },
-];
-
-// Spanish TTS Voices
-const TTS_VOICES_ES = [
-  { id: 'default', name: 'System Default', nameEs: 'Predeterminada del Sistema' },
-  { id: 'com.apple.ttsbundle.Monica-compact', name: 'Monica (Female)', nameEs: 'Mónica (Femenina)' },
-  { id: 'com.apple.ttsbundle.Paulina-compact', name: 'Paulina (Female)', nameEs: 'Paulina (Femenina)' },
-  { id: 'com.apple.ttsbundle.Jorge-compact', name: 'Jorge (Male)', nameEs: 'Jorge (Masculino)' },
-  { id: 'com.apple.ttsbundle.Juan-compact', name: 'Juan (Male)', nameEs: 'Juan (Masculino)' },
-  { id: 'com.apple.ttsbundle.Diego-compact', name: 'Diego (Male)', nameEs: 'Diego (Masculino)' },
-];
+// Import curated TTS voices
+import {
+  getCuratedVoices,
+  findMatchingDeviceVoice,
+  getDeviceVoiceIdentifier,
+  getPreviewText,
+  type CuratedVoice,
+} from '@/lib/tts-voices';
 
 // Bible book translations from English to Spanish
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
@@ -444,6 +433,31 @@ function CollapsibleDevotional({
   );
 }
 
+// Voice Preview Button Component
+function VoicePreviewButton({
+  onPreview,
+  isPlaying,
+  colors,
+}: {
+  onPreview: () => void;
+  isPlaying: boolean;
+  colors: ReturnType<typeof useThemeColors>;
+}) {
+  return (
+    <Pressable
+      onPress={onPreview}
+      className="w-8 h-8 rounded-full items-center justify-center"
+      style={{ backgroundColor: colors.primary + '20' }}
+    >
+      {isPlaying ? (
+        <Square size={12} color={colors.primary} fill={colors.primary} />
+      ) : (
+        <Play size={12} color={colors.primary} fill={colors.primary} />
+      )}
+    </Pressable>
+  );
+}
+
 // Audio Controls Component
 function AudioControls({
   colors,
@@ -488,17 +502,48 @@ function AudioControls({
 }) {
   const [showMusicSettings, setShowMusicSettings] = useState(false);
   const [showTTSSettings, setShowTTSSettings] = useState(false);
+  const [previewingVoice, setPreviewingVoice] = useState<string | null>(null);
   const t = TRANSLATIONS[language];
 
-  // Filter voices by current language
-  const langCode = language === 'es' ? 'es' : 'en';
-  const filteredVoices = availableVoices.filter(v => v.language.startsWith(langCode));
+  // Get curated voices for current language
+  const curatedVoices = getCuratedVoices(language);
 
-  // Add default option
-  const voiceOptions = [
-    { identifier: 'default', name: language === 'es' ? 'Predeterminada del Sistema' : 'System Default' },
-    ...filteredVoices.map(v => ({ identifier: v.identifier, name: v.name || v.identifier })),
-  ];
+  // Preview text for voice testing
+  const previewText = language === 'es'
+    ? 'El Señor es mi pastor, nada me faltara.'
+    : 'The Lord is my shepherd, I shall not want.';
+
+  // Handle voice preview
+  const handleVoicePreview = async (curatedVoice: CuratedVoice) => {
+    if (previewingVoice === curatedVoice.id) {
+      // Stop preview
+      await Speech.stop();
+      setPreviewingVoice(null);
+      return;
+    }
+
+    // Stop any current preview
+    await Speech.stop();
+    setPreviewingVoice(curatedVoice.id);
+
+    // Find matching device voice
+    const deviceVoice = findMatchingDeviceVoice(curatedVoice, availableVoices, language);
+
+    const speechOptions: Speech.SpeechOptions = {
+      language: language === 'es' ? 'es-ES' : 'en-US',
+      rate: ttsSpeed,
+      volume: ttsVolume,
+      onDone: () => setPreviewingVoice(null),
+      onError: () => setPreviewingVoice(null),
+    };
+
+    if (deviceVoice) {
+      speechOptions.voice = deviceVoice.identifier;
+    }
+
+    Speech.speak(previewText, speechOptions);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  };
 
   return (
     <View className="mb-6">
@@ -607,32 +652,70 @@ function AudioControls({
             thumbTintColor={colors.primary}
           />
 
-          {/* Voice Selection */}
+          {/* Curated Voice Selection */}
           <Text className="text-sm font-semibold mt-4 mb-3" style={{ color: colors.text }}>
             {language === 'es' ? 'Voz' : 'Voice'}
           </Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }}>
-            {voiceOptions.map((voice) => (
-              <Pressable
-                key={voice.identifier}
-                onPress={() => {
-                  onTTSVoiceChange(voice.identifier);
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                }}
-                className="mr-2 px-4 py-2 rounded-full"
-                style={{
-                  backgroundColor: ttsVoice === voice.identifier ? colors.primary : colors.textMuted + '20',
-                }}
-              >
-                <Text
-                  className="text-sm font-medium"
-                  style={{ color: ttsVoice === voice.identifier ? '#FFFFFF' : colors.text }}
+          <View>
+            {curatedVoices.map((voice: CuratedVoice) => {
+              const isSelected = ttsVoice === voice.id;
+              const isPreviewing = previewingVoice === voice.id;
+
+              return (
+                <Pressable
+                  key={voice.id}
+                  onPress={() => {
+                    onTTSVoiceChange(voice.id);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                  className="mb-3 p-4 rounded-xl"
+                  style={{
+                    backgroundColor: isSelected ? colors.primary + '15' : colors.background,
+                    borderWidth: isSelected ? 2 : 1,
+                    borderColor: isSelected ? colors.primary : colors.textMuted + '30',
+                  }}
                 >
-                  {voice.name}
-                </Text>
-              </Pressable>
-            ))}
-          </ScrollView>
+                  <View className="flex-row items-center justify-between">
+                    <View className="flex-1 mr-3">
+                      <View className="flex-row items-center mb-1">
+                        <Text
+                          className="text-base font-semibold"
+                          style={{ color: isSelected ? colors.primary : colors.text }}
+                        >
+                          {language === 'es' ? voice.nameEs : voice.name}
+                        </Text>
+                        {voice.isDefault && (
+                          <View
+                            className="ml-2 px-2 py-0.5 rounded"
+                            style={{ backgroundColor: colors.primary + '20' }}
+                          >
+                            <Text
+                              className="text-xs font-medium"
+                              style={{ color: colors.primary }}
+                            >
+                              {language === 'es' ? 'Recomendada' : 'Recommended'}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+                      <Text
+                        className="text-sm"
+                        style={{ color: colors.textMuted }}
+                        numberOfLines={2}
+                      >
+                        {language === 'es' ? voice.descriptionEs : voice.description}
+                      </Text>
+                    </View>
+                    <VoicePreviewButton
+                      onPreview={() => handleVoicePreview(voice)}
+                      isPlaying={isPreviewing}
+                      colors={colors}
+                    />
+                  </View>
+                </Pressable>
+              );
+            })}
+          </View>
         </Animated.View>
       )}
 
@@ -769,17 +852,25 @@ export default function DevotionalDetailScreen() {
     loadVoices();
   }, []);
 
-  // Get the best matching voice for current language
+  // Get the best matching voice for current language using curated voice system
   const getVoiceIdentifier = useCallback(() => {
-    const currentVoice = ttsVoiceRef.current;
-    if (currentVoice === 'default' || !availableVoices.length) {
+    const currentVoiceId = ttsVoiceRef.current;
+    if (currentVoiceId === 'default' || !availableVoices.length) {
       return undefined;
     }
-    const voice = availableVoices.find(v => v.identifier === currentVoice);
-    if (voice) return voice.identifier;
-    const langCode = language === 'es' ? 'es' : 'en';
-    const langVoice = availableVoices.find(v => v.language.startsWith(langCode));
-    return langVoice?.identifier;
+
+    // Find the curated voice by ID
+    const curatedVoices = getCuratedVoices(language);
+    const curatedVoice = curatedVoices.find((v: CuratedVoice) => v.id === currentVoiceId);
+
+    if (!curatedVoice) {
+      // Fallback to default behavior
+      return undefined;
+    }
+
+    // Find matching device voice for the curated voice
+    const deviceVoice = findMatchingDeviceVoice(curatedVoice, availableVoices, language);
+    return deviceVoice?.identifier;
   }, [availableVoices, language]);
 
   // TTS functions
