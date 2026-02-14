@@ -182,8 +182,13 @@ function translateBibleReference(reference: string): string {
 // Converts "1 Reyes 3:28" → "Primera de Reyes, capítulo 3, versículo 28"
 function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
   if (language !== 'es') {
-    // For English, just convert chapter:verse to "chapter X verse Y"
-    return text.replace(/(\d+):(\d+)/g, 'chapter $1 verse $2');
+    // For English, convert chapter:verse to "chapter X verse Y" or "chapter X verses Y through Z"
+    return text.replace(/(\d+):(\d+)(?:[-–](\d+))?/g, (match, chapter, verseStart, verseEnd) => {
+      if (verseEnd) {
+        return `chapter ${chapter} verses ${verseStart} through ${verseEnd}`;
+      }
+      return `chapter ${chapter} verse ${verseStart}`;
+    });
   }
 
   // Spanish ordinal expansions for numbered Bible books
@@ -212,19 +217,19 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
 
   let result = text;
 
-  // Pattern to match Bible references: optional number + book name + chapter:verse
-  // Matches: "1 Reyes 3:28", "Génesis 3:28", "2 Corintios 5:17", etc.
+  // Pattern to match Bible references: optional number + book name + chapter:verse(-verseEnd)
+  // Matches: "1 Reyes 3:28", "Génesis 3:28", "2 Corintios 5:17", "Lucas 10:25-37", etc.
   const bibleRefPattern = new RegExp(
     `(^|[\\s,;.("'])` + // Word boundary or start
     `([123])?\\s*` + // Optional leading number (1, 2, or 3)
     `(${spanishBibleBooks.join('|')})` + // Book name
     `\\s+(\\d+):(\\d+)` + // Chapter:verse
-    `(?:-\\d+)?` + // Optional verse range (e.g., 3:28-30)
+    `(?:[-–](\\d+))?` + // Optional verse range end (e.g., 3:28-30) - now captured!
     `([\\s,;.)"']|$)`, // Word boundary or end
     'gi'
   );
 
-  result = result.replace(bibleRefPattern, (match, prefix, num, book, chapter, verse, suffix) => {
+  result = result.replace(bibleRefPattern, (match, prefix, num, book, chapter, verseStart, verseEnd, suffix) => {
     let expandedBook = book;
 
     // If there's a leading number, expand it to ordinal
@@ -243,7 +248,12 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
       }
     }
 
-    return `${prefix}${expandedBook}, capítulo ${chapter}, versículo ${verse}${suffix}`;
+    // Format verse(s) - singular vs plural for ranges
+    const verseText = verseEnd
+      ? `versículos del ${verseStart} al ${verseEnd}`
+      : `versículo ${verseStart}`;
+
+    return `${prefix}${expandedBook}, capítulo ${chapter}, ${verseText}${suffix}`;
   });
 
   return result;
