@@ -38,6 +38,11 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Profile Header** with avatar (72px) + frame overlay, nickname, equipped title, points balance, gradient background
 - **Weekly Challenges** - 2 rotating challenges per week with progress tracking and rewards
 - **Weekly Chest** - Claim deterministic reward when all weekly challenges completed (random item or bonus points)
+- **Promo Code Redemption** - "Canjear Codigo" expandable card
+  - Text input for code entry
+  - Server-validated redemption (one-time per user)
+  - Success/error feedback with toast notification
+  - Points instantly added to balance
 - **6 Reward Categories**:
   - **Themes** (6 visual palettes): Sunrise, Peaceful Night, Forest, Desert, Promise, Minimal
   - **Avatar Frames** (10 overlays): Golden, Silver, Blue Hope, Green Life, Soft Light, Leaf Crown, Stars, Parchment, Soft Fire, Heaven
@@ -201,6 +206,7 @@ src/
 - [x] **Premium Store UI** - Collections, bundles, weekly chest, rarity system
 - [x] **Cross-Device Account Transfer** - Transfer code flow for restoring progress
 - [x] **Points Ledger** - Idempotent point tracking prevents duplicates
+- [x] **Promo Code Redemption** - "Canjear Codigo" section in Store with server validation
 - [ ] Actual background music audio files (upload via SOUNDS tab)
 - [ ] Real image generation for devotionals
 
@@ -238,6 +244,20 @@ The app connects to a Hono backend with:
 ### Device ID Endpoints
 - `GET /api/gamification/user/by-device/:deviceId` - Find user by device ID
 - `PATCH /api/gamification/user/:userId/device` - Update user's device ID
+
+### Promo Code Endpoints
+- `POST /api/gamification/promo/redeem` - Redeem a promo code (server-validated, one-time per user)
+- `GET /api/gamification/promo/user/:userId` - Get user's redemption history
+
+### Promo Code System
+- **Server-authoritative validation** - All redemptions validated via Prisma transaction
+- **One-time per user enforcement** - Each code can only be redeemed once per user
+- **Idempotent ledger tracking** - Prevents duplicate point awards
+- **Input normalization** - Accepts codes with accents, spaces, and any case
+- **Initial codes**:
+  - `Fe` - 250 points
+  - `Amor` - 300 points
+  - `Cristo` - 5000 points
 
 ### Daily Generation Cron
 - Runs automatically at **4:00 AM Costa Rica time (10:00 AM UTC)**

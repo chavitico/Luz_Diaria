@@ -77,6 +77,7 @@ model User {
   favorites             UserFavorite[]
   pointLedger           PointLedger[]
   transferCodesGenerated TransferCode[] @relation("TransferCodeSource")
+  promoRedemptions      PromoRedemption[]
 }
 
 model StoreItem {
@@ -226,4 +227,33 @@ model TransferCode {
   createdAt     DateTime  @default(now())
 
   sourceUser    User      @relation("TransferCodeSource", fields: [sourceUserId], references: [id], onDelete: Cascade)
+}
+
+// ============================================
+// PROMO CODES - Redeemable Point Codes
+// ============================================
+
+model PromoCode {
+  id            String    @id // Normalized code (lowercase, trimmed)
+  displayCode   String    // Original display format (e.g., "Fe", "Amor", "Cristo")
+  points        Int       // Points awarded on redemption
+  isActive      Boolean   @default(true)
+  maxUses       Int?      // null = unlimited uses
+  totalUses     Int       @default(0)
+  createdAt     DateTime  @default(now())
+
+  redemptions   PromoRedemption[]
+}
+
+model PromoRedemption {
+  id            String    @id @default(cuid())
+  userId        String
+  codeId        String    // References PromoCode.id (normalized code)
+  pointsAwarded Int
+  redeemedAt    DateTime  @default(now())
+
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  promoCode     PromoCode @relation(fields: [codeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, codeId]) // Each user can redeem each code only once
 }

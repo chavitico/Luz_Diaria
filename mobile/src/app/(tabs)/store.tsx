@@ -44,7 +44,9 @@ import {
   Star,
   Gem,
   ShoppingBag,
+  Ticket,
 } from 'lucide-react-native';
+import { TextInput } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import {
@@ -507,6 +509,193 @@ function WeeklyChallengesCard({
           );
         })}
       </View>
+    </Animated.View>
+  );
+}
+
+// Promo Code Card Component
+function PromoCodeCard({
+  colors,
+  language,
+  userId,
+  onSuccess,
+}: {
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+  userId: string;
+  onSuccess: (points: number) => void;
+}) {
+  const [code, setCode] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isRedeeming, setIsRedeeming] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  const handleRedeem = async () => {
+    if (!code.trim() || isRedeeming) return;
+
+    setIsRedeeming(true);
+    setMessage(null);
+
+    try {
+      const result = await gamificationApi.redeemPromoCode(userId, code.trim());
+
+      if (result.success && result.pointsAwarded) {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        setMessage({
+          type: 'success',
+          text: `${language === 'es' ? 'Codigo aplicado' : 'Code applied'}: +${result.pointsAwarded} ${language === 'es' ? 'puntos' : 'points'}`,
+        });
+        setCode('');
+        onSuccess(result.pointsAwarded);
+        // Close card after success
+        setTimeout(() => {
+          setIsExpanded(false);
+          setMessage(null);
+        }, 2000);
+      } else {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        let errorText = result.error || (language === 'es' ? 'Error al canjear' : 'Redemption error');
+        setMessage({ type: 'error', text: errorText });
+      }
+    } catch (error) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      setMessage({
+        type: 'error',
+        text: language === 'es' ? 'Error de conexion' : 'Connection error',
+      });
+    } finally {
+      setIsRedeeming(false);
+    }
+  };
+
+  return (
+    <Animated.View
+      entering={FadeInDown.delay(200).duration(400)}
+      className="mx-5 mb-5 rounded-2xl overflow-hidden"
+      style={{
+        backgroundColor: colors.surface,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 8,
+        elevation: 3,
+      }}
+    >
+      <Pressable
+        onPress={() => {
+          Haptics.selectionAsync();
+          setIsExpanded(!isExpanded);
+          setMessage(null);
+        }}
+        style={{ padding: 20 }}
+      >
+        <View className="flex-row items-center">
+          <View
+            className="w-12 h-12 rounded-xl items-center justify-center mr-4"
+            style={{ backgroundColor: colors.primary + '20' }}
+          >
+            <Ticket size={24} color={colors.primary} />
+          </View>
+          <View className="flex-1">
+            <Text
+              className="text-base font-bold"
+              style={{ color: colors.text }}
+            >
+              {language === 'es' ? 'Canjear Codigo' : 'Redeem Code'}
+            </Text>
+            <Text
+              className="text-xs"
+              style={{ color: colors.textMuted }}
+            >
+              {language === 'es' ? 'Ingresa tu codigo promocional' : 'Enter your promo code'}
+            </Text>
+          </View>
+          <View
+            style={{
+              transform: [{ rotate: isExpanded ? '90deg' : '0deg' }],
+            }}
+          >
+            <ChevronRight size={20} color={colors.textMuted} />
+          </View>
+        </View>
+      </Pressable>
+
+      {isExpanded && (
+        <Animated.View
+          entering={FadeIn.duration(200)}
+          style={{ paddingHorizontal: 20, paddingBottom: 20 }}
+        >
+          {/* Input Field */}
+          <View
+            className="flex-row items-center rounded-xl overflow-hidden mb-3"
+            style={{ backgroundColor: colors.background }}
+          >
+            <TextInput
+              value={code}
+              onChangeText={setCode}
+              placeholder={language === 'es' ? 'Codigo...' : 'Code...'}
+              placeholderTextColor={colors.textMuted}
+              autoCapitalize="none"
+              autoCorrect={false}
+              style={{
+                flex: 1,
+                paddingHorizontal: 16,
+                paddingVertical: 14,
+                fontSize: 16,
+                color: colors.text,
+                fontWeight: '600',
+              }}
+              editable={!isRedeeming}
+            />
+            <Pressable
+              onPress={handleRedeem}
+              disabled={!code.trim() || isRedeeming}
+              style={{
+                paddingHorizontal: 20,
+                paddingVertical: 14,
+                backgroundColor: code.trim() && !isRedeeming ? colors.primary : colors.textMuted + '30',
+              }}
+            >
+              {isRedeeming ? (
+                <ActivityIndicator size="small" color="#FFFFFF" />
+              ) : (
+                <Text
+                  style={{
+                    color: code.trim() ? '#FFFFFF' : colors.textMuted,
+                    fontWeight: '700',
+                    fontSize: 14,
+                  }}
+                >
+                  {language === 'es' ? 'Canjear' : 'Redeem'}
+                </Text>
+              )}
+            </Pressable>
+          </View>
+
+          {/* Message */}
+          {message && (
+            <Animated.View
+              entering={FadeIn.duration(150)}
+              className="flex-row items-center rounded-lg px-4 py-3"
+              style={{
+                backgroundColor: message.type === 'success' ? '#22C55E20' : '#EF444420',
+              }}
+            >
+              {message.type === 'success' ? (
+                <Check size={16} color="#22C55E" strokeWidth={3} />
+              ) : (
+                <X size={16} color="#EF4444" strokeWidth={3} />
+              )}
+              <Text
+                className="text-sm font-medium ml-2 flex-1"
+                style={{ color: message.type === 'success' ? '#22C55E' : '#EF4444' }}
+              >
+                {message.text}
+              </Text>
+            </Animated.View>
+          )}
+        </Animated.View>
+      )}
     </Animated.View>
   );
 }
@@ -2291,6 +2480,21 @@ export default function StoreScreen() {
             language={language}
             userId={effectiveUserId}
             onAllComplete={setAllChallengesComplete}
+          />
+        )}
+
+        {/* Promo Code Redemption */}
+        {effectiveUserId && (
+          <PromoCodeCard
+            colors={colors}
+            language={language}
+            userId={effectiveUserId}
+            onSuccess={(pointsAwarded) => {
+              updateUser({ points: points + pointsAwarded });
+              setToastAmount(pointsAwarded);
+              setToastPositive(true);
+              setShowPointsToast(true);
+            }}
           />
         )}
 

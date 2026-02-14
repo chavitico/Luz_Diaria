@@ -364,4 +364,38 @@ export const gamificationApi = {
     });
     if (!res.ok) throw new Error('Failed to update device ID');
   },
+
+  // Promo Code Methods
+  async redeemPromoCode(userId: string, code: string): Promise<{
+    success: boolean;
+    pointsAwarded?: number;
+    displayCode?: string;
+    newTotal?: number;
+    message?: string;
+    error?: string;
+    errorCode?: string;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/promo/redeem`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, code }),
+    });
+    return res.json();
+  },
+
+  async getUserPromoRedemptions(userId: string): Promise<Array<{
+    id: string;
+    codeId: string;
+    pointsAwarded: number;
+    redeemedAt: string;
+    promoCode: {
+      id: string;
+      displayCode: string;
+      points: number;
+    };
+  }>> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/promo/user/${userId}`);
+    if (!res.ok) throw new Error('Failed to fetch redemptions');
+    return res.json();
+  },
 };

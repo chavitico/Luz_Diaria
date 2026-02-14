@@ -8,6 +8,7 @@ import { gamificationRouter } from "./routes/gamification";
 import { bibleRouter } from "./routes/bible";
 import { startDevotionalCron } from "./cron";
 import { initializeWeeklyChallenges } from "./weekly-challenges";
+import { seedPromoCodes } from "./seed-promo-codes";
 import { logger } from "hono/logger";
 
 const app = new Hono();
@@ -45,6 +46,9 @@ startDevotionalCron();
 
 // Initialize weekly challenges
 initializeWeeklyChallenges();
+
+// Seed promo codes
+seedPromoCodes();
 
 const port = Number(process.env.PORT) || 3000;
 

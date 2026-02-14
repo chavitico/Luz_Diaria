@@ -1513,3 +1513,219 @@ gamificationRouter.get("/points/ledger/:userId", async (c) => {
     return c.json({ error: "Failed to get points ledger" }, 500);
   }
 });
+
+// ============================================
+// PROMO CODE ENDPOINTS
+// ============================================
+
+// Validation schema for promo code redemption
+const redeemPromoCodeSchema = z.object({
+  userId: z.string(),
+  code: z.string().min(1).max(50),
+});
+
+// Helper function to normalize promo code input
+// Removes accents, trims whitespace, converts to lowercase
+function normalizePromoCode(rawCode: string): string {
+  // Remove accents/diacritics
+  const normalized = rawCode
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ""); // Remove all whitespace
+  return normalized;
+}
+
+// POST /promo/redeem - Redeem a promo code
+gamificationRouter.post(
+  "/promo/redeem",
+  zValidator("json", redeemPromoCodeSchema),
+  async (c) => {
+    try {
+      const { userId, code: rawCode } = c.req.valid("json");
+      const codeId = normalizePromoCode(rawCode);
+      const today = getTodayDateString();
+
+      console.log(`[PromoCode] User ${userId} attempting to redeem: "${rawCode}" -> normalized: "${codeId}"`);
+
+      const result = await prisma.$transaction(async (tx) => {
+        // 1. Check if promo code exists
+        const promoCode = await tx.promoCode.findUnique({
+          where: { id: codeId },
+        });
+
+        if (!promoCode) {
+          console.log(`[PromoCode] Code not found: ${codeId}`);
+          throw new Error("INVALID_CODE");
+        }
+
+        // 2. Check if code is active
+        if (!promoCode.isActive) {
+          console.log(`[PromoCode] Code not active: ${codeId}`);
+          throw new Error("CODE_UNAVAILABLE");
+        }
+
+        // 3. Check max uses if applicable
+        if (promoCode.maxUses !== null && promoCode.totalUses >= promoCode.maxUses) {
+          console.log(`[PromoCode] Code max uses reached: ${codeId} (${promoCode.totalUses}/${promoCode.maxUses})`);
+          throw new Error("CODE_UNAVAILABLE");
+        }
+
+        // 4. Check if user exists
+        const user = await tx.user.findUnique({
+          where: { id: userId },
+        });
+
+        if (!user) {
+          throw new Error("USER_NOT_FOUND");
+        }
+
+        // 5. Check if user already redeemed this code
+        const existingRedemption = await tx.promoRedemption.findUnique({
+          where: {
+            userId_codeId: { userId, codeId },
+          },
+        });
+
+        if (existingRedemption) {
+          console.log(`[PromoCode] User ${userId} already redeemed: ${codeId}`);
+          throw new Error("ALREADY_REDEEMED");
+        }
+
+        // 6. Check if ledger entry already exists (idempotency check)
+        const ledgerId = `promo_${codeId}`;
+        const existingLedger = await tx.pointLedger.findUnique({
+          where: {
+            userId_ledgerId: { userId, ledgerId },
+          },
+        });
+
+        if (existingLedger) {
+          console.log(`[PromoCode] Ledger entry already exists for user ${userId}: ${ledgerId}`);
+          throw new Error("ALREADY_REDEEMED");
+        }
+
+        // 7. Create redemption record
+        await tx.promoRedemption.create({
+          data: {
+            userId,
+            codeId,
+            pointsAwarded: promoCode.points,
+          },
+        });
+
+        // 8. Create ledger entry (idempotent tracking)
+        await tx.pointLedger.create({
+          data: {
+            userId,
+            ledgerId,
+            type: "promo",
+            dateId: today,
+            amount: promoCode.points,
+            metadata: JSON.stringify({
+              codeId,
+              displayCode: promoCode.displayCode,
+            }),
+          },
+        });
+
+        // 9. Increment user points
+        const updatedUser = await tx.user.update({
+          where: { id: userId },
+          data: {
+            points: { increment: promoCode.points },
+          },
+        });
+
+        // 10. Increment promo code total uses
+        await tx.promoCode.update({
+          where: { id: codeId },
+          data: {
+            totalUses: { increment: 1 },
+          },
+        });
+
+        console.log(`[PromoCode] Successfully redeemed! User ${userId} received ${promoCode.points} points for code "${promoCode.displayCode}"`);
+
+        return {
+          pointsAwarded: promoCode.points,
+          displayCode: promoCode.displayCode,
+          newTotal: updatedUser.points,
+        };
+      });
+
+      return c.json({
+        success: true,
+        pointsAwarded: result.pointsAwarded,
+        displayCode: result.displayCode,
+        newTotal: result.newTotal,
+        message: `Código aplicado: +${result.pointsAwarded} puntos`,
+      });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+
+      if (errorMessage === "INVALID_CODE") {
+        return c.json({
+          success: false,
+          error: "Código inválido",
+          errorCode: "INVALID_CODE"
+        }, 400);
+      }
+      if (errorMessage === "CODE_UNAVAILABLE") {
+        return c.json({
+          success: false,
+          error: "Este código ya no está disponible",
+          errorCode: "CODE_UNAVAILABLE"
+        }, 400);
+      }
+      if (errorMessage === "USER_NOT_FOUND") {
+        return c.json({
+          success: false,
+          error: "Usuario no encontrado",
+          errorCode: "USER_NOT_FOUND"
+        }, 404);
+      }
+      if (errorMessage === "ALREADY_REDEEMED") {
+        return c.json({
+          success: false,
+          error: "Ya canjeaste este código",
+          errorCode: "ALREADY_REDEEMED"
+        }, 400);
+      }
+
+      console.error("[PromoCode] Error redeeming promo code:", error);
+      return c.json({
+        success: false,
+        error: "Error al canjear el código",
+        errorCode: "UNKNOWN_ERROR"
+      }, 500);
+    }
+  }
+);
+
+// GET /promo/user/:userId - Get user's redemption history
+gamificationRouter.get("/promo/user/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      return c.json({ error: "User not found" }, 404);
+    }
+
+    const redemptions = await prisma.promoRedemption.findMany({
+      where: { userId },
+      include: { promoCode: true },
+      orderBy: { redeemedAt: "desc" },
+    });
+
+    return c.json(redemptions);
+  } catch (error) {
+    console.error("[PromoCode] Error getting user redemptions:", error);
+    return c.json({ error: "Failed to get redemptions" }, 500);
+  }
+});
