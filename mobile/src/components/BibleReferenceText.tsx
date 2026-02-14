@@ -1,8 +1,9 @@
 // Bible Reference Text Component
 // Renders text with tappable Bible references that open the passage modal
 
-import React, { useState, useMemo } from 'react';
-import { Text, Pressable, StyleProp, TextStyle } from 'react-native';
+import React, { useState, useMemo, useCallback } from 'react';
+import { Text, StyleProp, TextStyle } from 'react-native';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { useThemeColors } from '@/lib/store';
 import { findReferencesInText } from '@/lib/bible-service';
@@ -18,6 +19,43 @@ interface TextSegment {
   type: 'text' | 'reference';
   content: string;
   key: string;
+}
+
+// Animated reference text component with press state
+function AnimatedReferenceText({
+  content,
+  style,
+  onPress,
+}: {
+  content: string;
+  style: TextStyle;
+  onPress: () => void;
+}) {
+  const opacity = useSharedValue(1);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
+
+  const handlePressIn = useCallback(() => {
+    opacity.value = withTiming(0.6, { duration: 100 });
+  }, []);
+
+  const handlePressOut = useCallback(() => {
+    opacity.value = withTiming(1, { duration: 150 });
+  }, []);
+
+  return (
+    <Animated.Text
+      style={[style, animatedStyle]}
+      onPress={onPress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      suppressHighlighting={false}
+    >
+      {content}
+    </Animated.Text>
+  );
 }
 
 /**
@@ -101,11 +139,15 @@ export function BibleReferenceText({
     setSelectedReference(null);
   };
 
-  // Default reference styling
+  // Enhanced reference styling - highly visible and interactive-looking
   const defaultReferenceStyle: TextStyle = {
-    color: colors.primary,
+    color: colors.secondary,
+    fontWeight: '600',
     textDecorationLine: 'underline',
-    textDecorationStyle: 'dotted',
+    textDecorationStyle: 'solid',
+    backgroundColor: colors.secondary + '12', // 12% opacity background pill
+    borderRadius: 4,
+    paddingHorizontal: 2,
   };
 
   return (
@@ -114,14 +156,12 @@ export function BibleReferenceText({
         {segments.map((segment) => {
           if (segment.type === 'reference') {
             return (
-              <Text
+              <AnimatedReferenceText
                 key={segment.key}
-                style={[defaultReferenceStyle, referenceStyle]}
+                content={segment.content}
+                style={{ ...defaultReferenceStyle, ...(referenceStyle as TextStyle) }}
                 onPress={() => handleReferencePress(segment.content)}
-                suppressHighlighting={false}
-              >
-                {segment.content}
-              </Text>
+              />
             );
           }
 
