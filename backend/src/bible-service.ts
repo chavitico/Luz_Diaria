@@ -200,12 +200,26 @@ export interface ParsedReference {
 }
 
 /**
+ * Clean a Bible reference by removing prepositions and extra text
+ */
+function cleanBibleReference(reference: string): string {
+  let cleaned = reference.trim();
+
+  // Remove common prepositions at the start (Spanish and English)
+  // "En Efesios 4:32" -> "Efesios 4:32"
+  // "In John 3:16" -> "John 3:16"
+  cleaned = cleaned.replace(/^(en|in|from|de|según|segun|see|ver)\s+/i, "");
+
+  return cleaned.trim();
+}
+
+/**
  * Parse a Bible reference string into structured data
  * Examples: "Lucas 10:25-37", "Juan 3:16", "1 Reyes 3:28", "Salmos 23:1-6"
  */
 export function parseReference(reference: string): ParsedReference | null {
-  // Clean up the reference
-  const cleaned = reference.trim();
+  // Clean up the reference (remove prepositions, etc.)
+  const cleaned = cleanBibleReference(reference);
 
   // Regex to match Bible references
   // Supports: "Book Chapter:Verse" or "Book Chapter:VerseStart-VerseEnd"

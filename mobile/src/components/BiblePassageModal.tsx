@@ -1,5 +1,5 @@
 // Bible Passage Modal - Shows Bible passage text when reference is tapped
-// Uses a bottom sheet style modal for mobile-friendly interaction
+// Centered modal design for better visibility
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -16,8 +16,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, {
   FadeIn,
   FadeOut,
-  SlideInDown,
-  SlideOutDown,
+  ZoomIn,
+  ZoomOut,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import * as Clipboard from 'expo-clipboard';
@@ -33,7 +33,7 @@ import {
 import { useThemeColors, useLanguage } from '@/lib/store';
 import { fetchBiblePassage, type BiblePassage } from '@/lib/bible-service';
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
 interface BiblePassageModalProps {
   visible: boolean;
@@ -49,7 +49,7 @@ export function BiblePassageModal({ visible, reference, onClose }: BiblePassageM
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [passage, setPassage] = useState<BiblePassage | null>(null);
-  const [fontSize, setFontSize] = useState(16);
+  const [fontSize, setFontSize] = useState(15);
   const [copied, setCopied] = useState(false);
 
   // Fetch passage when modal opens with a new reference
@@ -105,7 +105,7 @@ export function BiblePassageModal({ visible, reference, onClose }: BiblePassageM
 
   const handleFontSizeChange = (delta: number) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    setFontSize((prev) => Math.max(12, Math.min(24, prev + delta)));
+    setFontSize((prev) => Math.max(12, Math.min(22, prev + delta)));
   };
 
   const handleClose = () => {
@@ -126,90 +126,87 @@ export function BiblePassageModal({ visible, reference, onClose }: BiblePassageM
       {/* Backdrop */}
       <Animated.View
         entering={FadeIn.duration(200)}
-        exiting={FadeOut.duration(200)}
-        className="flex-1 bg-black/60"
+        exiting={FadeOut.duration(150)}
+        className="flex-1 bg-black/50 items-center justify-center"
+        style={{ paddingHorizontal: 20, paddingTop: insets.top, paddingBottom: insets.bottom }}
       >
-        <Pressable className="flex-1" onPress={handleClose} />
+        <Pressable
+          className="absolute inset-0"
+          onPress={handleClose}
+        />
 
-        {/* Bottom Sheet */}
+        {/* Centered Card */}
         <Animated.View
-          entering={SlideInDown.duration(300).springify()}
-          exiting={SlideOutDown.duration(200)}
-          className="rounded-t-3xl"
+          entering={ZoomIn.duration(250).springify()}
+          exiting={ZoomOut.duration(150)}
+          className="w-full rounded-2xl overflow-hidden"
           style={{
             backgroundColor: colors.surface,
-            maxHeight: SCREEN_HEIGHT * 0.75,
-            paddingBottom: insets.bottom + 16,
+            maxHeight: SCREEN_HEIGHT * 0.65,
+            maxWidth: SCREEN_WIDTH - 40,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 8 },
+            shadowOpacity: 0.25,
+            shadowRadius: 16,
+            elevation: 10,
           }}
         >
-          {/* Handle bar */}
-          <View className="items-center pt-3 pb-2">
-            <View
-              className="w-10 h-1 rounded-full"
-              style={{ backgroundColor: colors.textMuted + '40' }}
-            />
-          </View>
-
           {/* Header */}
-          <View className="flex-row items-center justify-between px-5 pb-3">
-            <View className="flex-row items-center flex-1">
+          <View
+            className="flex-row items-center justify-between px-4 py-3"
+            style={{ backgroundColor: colors.primary + '10' }}
+          >
+            <View className="flex-row items-center flex-1 mr-2">
               <View
-                className="w-10 h-10 rounded-xl items-center justify-center mr-3"
-                style={{ backgroundColor: colors.primary + '15' }}
+                className="w-8 h-8 rounded-lg items-center justify-center mr-2"
+                style={{ backgroundColor: colors.primary + '20' }}
               >
-                <BookOpen size={20} color={colors.primary} />
+                <BookOpen size={16} color={colors.primary} />
               </View>
-              <View className="flex-1">
-                <Text
-                  className="text-lg font-bold"
-                  style={{ color: colors.text }}
-                  numberOfLines={1}
-                >
-                  {passage?.referenceDisplay || reference}
-                </Text>
-                {passage?.book && (
-                  <Text className="text-sm" style={{ color: colors.textMuted }}>
-                    {passage.book}
-                  </Text>
-                )}
-              </View>
+              <Text
+                className="text-base font-bold flex-1"
+                style={{ color: colors.text }}
+                numberOfLines={1}
+              >
+                {passage?.referenceDisplay || reference}
+              </Text>
             </View>
 
             <Pressable
               onPress={handleClose}
-              className="w-9 h-9 rounded-full items-center justify-center"
+              className="w-8 h-8 rounded-full items-center justify-center"
               style={{ backgroundColor: colors.textMuted + '20' }}
             >
-              <X size={18} color={colors.textMuted} />
+              <X size={16} color={colors.textMuted} />
             </Pressable>
           </View>
 
           {/* Content */}
-          <View className="flex-1 px-5">
+          <View className="px-4 py-3">
             {loading && (
-              <View className="flex-1 items-center justify-center py-12">
-                <ActivityIndicator size="large" color={colors.primary} />
-                <Text className="mt-4 text-base" style={{ color: colors.textMuted }}>
+              <View className="items-center justify-center py-8">
+                <ActivityIndicator size="small" color={colors.primary} />
+                <Text className="mt-3 text-sm" style={{ color: colors.textMuted }}>
                   {language === 'es' ? 'Cargando pasaje...' : 'Loading passage...'}
                 </Text>
               </View>
             )}
 
             {error && !loading && (
-              <View className="flex-1 items-center justify-center py-12">
+              <View className="items-center justify-center py-6">
                 <Text
-                  className="text-base text-center mb-4"
+                  className="text-sm text-center mb-3"
                   style={{ color: colors.textMuted }}
                 >
                   {error}
                 </Text>
                 <Pressable
                   onPress={handleRetry}
-                  className="flex-row items-center px-5 py-3 rounded-xl"
+                  className="flex-row items-center px-4 py-2 rounded-lg"
                   style={{ backgroundColor: colors.primary }}
                 >
-                  <RefreshCw size={18} color="#FFFFFF" />
-                  <Text className="ml-2 font-semibold text-white">
+                  <RefreshCw size={14} color="#FFFFFF" />
+                  <Text className="ml-2 font-medium text-white text-sm">
                     {language === 'es' ? 'Reintentar' : 'Retry'}
                   </Text>
                 </Pressable>
@@ -218,55 +215,65 @@ export function BiblePassageModal({ visible, reference, onClose }: BiblePassageM
 
             {passage && !loading && (
               <>
-                {/* Font size controls */}
-                <View className="flex-row items-center justify-end mb-3">
-                  <Pressable
-                    onPress={() => handleFontSizeChange(-2)}
-                    className="w-8 h-8 rounded-lg items-center justify-center"
-                    style={{ backgroundColor: colors.textMuted + '15' }}
-                  >
-                    <Minus size={16} color={colors.textMuted} />
-                  </Pressable>
-                  <Text className="mx-3 text-sm" style={{ color: colors.textMuted }}>
-                    {fontSize}
+                {/* Font size controls - compact */}
+                <View className="flex-row items-center justify-between mb-2">
+                  <Text className="text-xs" style={{ color: colors.textMuted }}>
+                    {language === 'es' ? 'Tamaño de texto' : 'Text size'}
                   </Text>
-                  <Pressable
-                    onPress={() => handleFontSizeChange(2)}
-                    className="w-8 h-8 rounded-lg items-center justify-center"
-                    style={{ backgroundColor: colors.textMuted + '15' }}
-                  >
-                    <Plus size={16} color={colors.textMuted} />
-                  </Pressable>
+                  <View className="flex-row items-center">
+                    <Pressable
+                      onPress={() => handleFontSizeChange(-1)}
+                      className="w-7 h-7 rounded-md items-center justify-center"
+                      style={{ backgroundColor: colors.textMuted + '15' }}
+                    >
+                      <Minus size={14} color={colors.textMuted} />
+                    </Pressable>
+                    <Text className="mx-2 text-xs w-6 text-center" style={{ color: colors.textMuted }}>
+                      {fontSize}
+                    </Text>
+                    <Pressable
+                      onPress={() => handleFontSizeChange(1)}
+                      className="w-7 h-7 rounded-md items-center justify-center"
+                      style={{ backgroundColor: colors.textMuted + '15' }}
+                    >
+                      <Plus size={14} color={colors.textMuted} />
+                    </Pressable>
+                  </View>
                 </View>
 
                 {/* Passage text */}
                 <ScrollView
-                  className="flex-1"
-                  showsVerticalScrollIndicator={false}
-                  style={{ maxHeight: SCREEN_HEIGHT * 0.4 }}
+                  showsVerticalScrollIndicator={true}
+                  style={{ maxHeight: SCREEN_HEIGHT * 0.35 }}
+                  className="rounded-lg p-3 mb-3"
+                  contentContainerStyle={{ paddingBottom: 8 }}
                 >
-                  <Text
-                    className="leading-relaxed"
-                    style={{
-                      color: colors.text,
-                      fontSize,
-                      lineHeight: fontSize * 1.6,
-                    }}
+                  <View
+                    className="rounded-lg p-3"
+                    style={{ backgroundColor: colors.background }}
                   >
-                    {formatPassageText(passage.text)}
-                  </Text>
+                    <Text
+                      style={{
+                        color: colors.text,
+                        fontSize,
+                        lineHeight: fontSize * 1.5,
+                      }}
+                    >
+                      {formatPassageText(passage.text)}
+                    </Text>
+                  </View>
                 </ScrollView>
 
-                {/* Action buttons */}
-                <View className="flex-row gap-3 mt-4 pt-4 border-t" style={{ borderTopColor: colors.textMuted + '20' }}>
+                {/* Action buttons - compact */}
+                <View className="flex-row gap-2">
                   <Pressable
                     onPress={handleCopy}
-                    className="flex-1 flex-row items-center justify-center py-3 rounded-xl"
-                    style={{ backgroundColor: copied ? colors.accent + '20' : colors.textMuted + '15' }}
+                    className="flex-1 flex-row items-center justify-center py-2.5 rounded-lg"
+                    style={{ backgroundColor: copied ? colors.accent + '20' : colors.textMuted + '12' }}
                   >
-                    <Copy size={18} color={copied ? colors.accent : colors.text} />
+                    <Copy size={14} color={copied ? colors.accent : colors.text} />
                     <Text
-                      className="ml-2 font-medium"
+                      className="ml-1.5 font-medium text-sm"
                       style={{ color: copied ? colors.accent : colors.text }}
                     >
                       {copied
@@ -277,11 +284,11 @@ export function BiblePassageModal({ visible, reference, onClose }: BiblePassageM
 
                   <Pressable
                     onPress={handleShare}
-                    className="flex-1 flex-row items-center justify-center py-3 rounded-xl"
+                    className="flex-1 flex-row items-center justify-center py-2.5 rounded-lg"
                     style={{ backgroundColor: colors.primary }}
                   >
-                    <ShareIcon size={18} color="#FFFFFF" />
-                    <Text className="ml-2 font-medium text-white">
+                    <ShareIcon size={14} color="#FFFFFF" />
+                    <Text className="ml-1.5 font-medium text-white text-sm">
                       {language === 'es' ? 'Compartir' : 'Share'}
                     </Text>
                   </Pressable>
@@ -300,11 +307,9 @@ export function BiblePassageModal({ visible, reference, onClose }: BiblePassageM
  * Handles verse numbers like [25] and formats them nicely
  */
 function formatPassageText(text: string): string {
-  // Format verse numbers: [25] -> superscript style indicator
-  // Since React Native Text doesn't support true superscript easily,
-  // we'll just clean up the brackets and add some spacing
+  // Format verse numbers: [25] -> bold number with space
   return text
-    .replace(/\[(\d+)\]/g, '\n$1 ') // New line before each verse number
-    .replace(/^\n/, '') // Remove leading newline
+    .replace(/\[(\d+)\]/g, '$1 ') // Just the number with space
+    .replace(/\s+/g, ' ') // Normalize whitespace
     .trim();
 }

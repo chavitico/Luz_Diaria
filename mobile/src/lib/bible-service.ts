@@ -35,11 +35,26 @@ export interface ParsedReference {
 const BIBLE_REFERENCE_REGEX = /(?:\()?(\d?\s*[A-Za-záéíóúñÁÉÍÓÚÑ]+(?:\s+[A-Za-záéíóúñÁÉÍÓÚÑ]+)?)\s+(\d+):(\d+)(?:[-–](\d+))?(?:\))?/g;
 
 /**
+ * Clean a Bible reference by removing prepositions and extra text
+ */
+function cleanBibleReference(reference: string): string {
+  // Remove parentheses
+  let cleaned = reference.replace(/[()]/g, '').trim();
+
+  // Remove common prepositions at the start (Spanish and English)
+  // "En Efesios 4:32" -> "Efesios 4:32"
+  // "In John 3:16" -> "John 3:16"
+  cleaned = cleaned.replace(/^(en|in|from|de|según|segun|see|ver)\s+/i, '');
+
+  return cleaned.trim();
+}
+
+/**
  * Parse a single Bible reference string
  */
 export function parseReference(reference: string): ParsedReference | null {
-  // Remove parentheses if present
-  const cleaned = reference.replace(/[()]/g, '').trim();
+  // Clean the reference
+  const cleaned = cleanBibleReference(reference);
 
   const regex = /^(\d?\s*[A-Za-záéíóúñÁÉÍÓÚÑ]+(?:\s+[A-Za-záéíóúñÁÉÍÓÚÑ]+)?)\s+(\d+):(\d+)(?:[-–](\d+))?$/i;
   const match = cleaned.match(regex);
@@ -91,9 +106,9 @@ export function findReferencesInText(text: string): Array<{ reference: string; s
  * Create a cache key for a reference
  */
 function getCacheKey(reference: string, lang: 'en' | 'es'): string {
-  const normalized = reference
+  const cleaned = cleanBibleReference(reference);
+  const normalized = cleaned
     .toLowerCase()
-    .replace(/[()]/g, '')
     .replace(/\s+/g, '_')
     .replace(/[-–]/g, '-')
     .replace(/:/g, '_');
