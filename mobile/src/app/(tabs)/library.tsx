@@ -21,7 +21,7 @@ import * as Haptics from 'expo-haptics';
 import * as Sharing from 'expo-sharing';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check } from 'lucide-react-native';
-import { ShareableDevotionalImage } from '@/components/ShareableDevotionalImage';
+import { WhatsAppShareCard, generateWhatsAppText, WHATSAPP_CARD_SIZE, PREVIEW_SIZE } from '@/components/WhatsAppShareCard';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import { useThemeColors, useLanguage, useUserFavorites, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
@@ -232,7 +232,7 @@ export default function LibraryScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   }, []);
 
-  // Capture and share image
+  // Capture and share WhatsApp optimized image + text
   const handleShareImage = useCallback(async () => {
     if (!user || !selectedDevotional || !viewShotRef.current) return;
 
@@ -246,12 +246,13 @@ export default function LibraryScreen() {
       // Wait a moment for the view to be fully rendered
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      // Capture the view as image with higher pixel ratio for better quality
+      // Capture the WhatsApp card at full 1080x1080 resolution
       const uri = await captureRef(viewShotRef, {
         format: 'png',
         quality: 1,
         result: 'tmpfile',
-        useRenderInContext: true,
+        width: WHATSAPP_CARD_SIZE,
+        height: WHATSAPP_CARD_SIZE,
       });
 
       if (!uri) {
@@ -268,11 +269,17 @@ export default function LibraryScreen() {
         return;
       }
 
-      // Share the image
+      // Generate WhatsApp text message
+      const whatsappText = generateWhatsAppText(selectedDevotional, language);
+
+      // Share the image with WhatsApp-optimized text
       await Sharing.shareAsync(uri, {
         mimeType: 'image/png',
-        dialogTitle: language === 'es' ? 'Compartir Devocional' : 'Share Devotional',
+        dialogTitle: language === 'es' ? 'Compartir en WhatsApp' : 'Share to WhatsApp',
       });
+
+      // Log the text for clipboard (user can copy separately if needed)
+      console.log('[Share] WhatsApp text:', whatsappText);
 
       setIsCapturing(false);
       setShowShareModal(false);
@@ -563,15 +570,15 @@ export default function LibraryScreen() {
             <View style={{ width: 40 }} />
           </View>
 
-          {/* Preview */}
+          {/* Preview - WhatsApp optimized square card */}
           {selectedDevotional && (
-            <ScrollView
-              style={{ flex: 1 }}
-              contentContainerStyle={{
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
                 paddingHorizontal: 20,
-                paddingBottom: 120,
               }}
-              showsVerticalScrollIndicator={false}
             >
               <ViewShot
                 ref={viewShotRef}
@@ -579,26 +586,31 @@ export default function LibraryScreen() {
                   format: 'png',
                   quality: 1,
                   result: 'tmpfile',
+                  width: WHATSAPP_CARD_SIZE,
+                  height: WHATSAPP_CARD_SIZE,
                 }}
-                style={{ backgroundColor: '#000000' }}
               >
-                <View collapsable={false}>
-                  <ShareableDevotionalImage
-                    devotional={selectedDevotional}
-                    language={language}
-                    colors={colors}
-                    translations={{
-                      bible_verse: t.bible_verse,
-                      reflection: t.reflection,
-                      story: t.story,
-                      biblical_character: t.biblical_character,
-                      application: t.application,
-                      prayer: t.prayer,
-                    }}
-                  />
-                </View>
+                <WhatsAppShareCard
+                  devotional={selectedDevotional}
+                  language={language}
+                  size={PREVIEW_SIZE}
+                />
               </ViewShot>
-            </ScrollView>
+
+              {/* Preview label */}
+              <Text
+                style={{
+                  color: 'rgba(255,255,255,0.6)',
+                  fontSize: 13,
+                  marginTop: 16,
+                  textAlign: 'center',
+                }}
+              >
+                {language === 'es'
+                  ? 'Vista previa - Se compartira en alta calidad'
+                  : 'Preview - Will share in high quality'}
+              </Text>
+            </View>
           )}
 
           {/* Share Button */}
@@ -618,7 +630,7 @@ export default function LibraryScreen() {
               onPress={handleShareImage}
               disabled={isCapturing}
               style={{
-                backgroundColor: colors.primary,
+                backgroundColor: '#25D366', // WhatsApp green
                 borderRadius: 16,
                 paddingVertical: 16,
                 flexDirection: 'row',
@@ -633,7 +645,7 @@ export default function LibraryScreen() {
                 <>
                   <Share2 size={20} color="#FFFFFF" />
                   <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '600', marginLeft: 10 }}>
-                    {language === 'es' ? 'Compartir Imagen' : 'Share Image'}
+                    {language === 'es' ? 'Compartir' : 'Share'}
                   </Text>
                 </>
               )}
