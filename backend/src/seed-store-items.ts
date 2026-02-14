@@ -184,6 +184,18 @@ const TITLES = [
 ];
 
 // ============================================
+// PREMIUM AVATARS (6 items - the ones with price)
+// ============================================
+const AVATARS = [
+  { id: 'avatar_rainbow', type: 'avatar', nameEn: 'Rainbow', nameEs: 'Arcoiris', descriptionEn: 'Promise of God', descriptionEs: 'Promesa de Dios', pricePoints: 200, rarity: 'rare', assetRef: '🌈' },
+  { id: 'avatar_crown', type: 'avatar', nameEn: 'Crown', nameEs: 'Corona', descriptionEn: 'Crown of glory', descriptionEs: 'Corona de gloria', pricePoints: 500, rarity: 'epic', assetRef: '👑' },
+  { id: 'avatar_angel', type: 'avatar', nameEn: 'Angel', nameEs: 'Angel', descriptionEn: 'Heavenly messenger', descriptionEs: 'Mensajero celestial', pricePoints: 300, rarity: 'rare', assetRef: '😇' },
+  { id: 'avatar_olive', type: 'avatar', nameEn: 'Olive Branch', nameEs: 'Rama de Olivo', descriptionEn: 'Sign of peace', descriptionEs: 'Signo de paz', pricePoints: 250, rarity: 'rare', assetRef: '🫒' },
+  { id: 'avatar_lamb', type: 'avatar', nameEn: 'Lamb', nameEs: 'Cordero', descriptionEn: 'Gentle and pure', descriptionEs: 'Gentil y puro', pricePoints: 400, rarity: 'rare', assetRef: '🐑' },
+  { id: 'avatar_fish', type: 'avatar', nameEn: 'Fish', nameEs: 'Pez', descriptionEn: 'Early Christian symbol', descriptionEs: 'Simbolo cristiano primitivo', pricePoints: 150, rarity: 'common', assetRef: '🐟' },
+];
+
+// ============================================
 // TYPE DEFINITIONS
 // ============================================
 interface StoreItemInput {
@@ -266,8 +278,15 @@ async function seedStoreItems() {
   }
   console.log(`  Spiritual titles: ${TITLES.length} processed`);
 
+  // Seed avatars
+  console.log('Seeding premium avatars...');
+  for (const avatar of AVATARS) {
+    await upsertItem(avatar, sortOrder++);
+  }
+  console.log(`  Premium avatars: ${AVATARS.length} processed`);
+
   // Summary
-  const totalItems = THEMES.length + FRAMES.length + MUSIC_TRACKS.length + TITLES.length;
+  const totalItems = THEMES.length + FRAMES.length + MUSIC_TRACKS.length + TITLES.length + AVATARS.length;
   console.log('\n========================================');
   console.log('Store items seed completed!');
   console.log('========================================');
@@ -276,6 +295,7 @@ async function seedStoreItems() {
   console.log(`  - Avatar frames: ${FRAMES.length}`);
   console.log(`  - Music tracks: ${MUSIC_TRACKS.length}`);
   console.log(`  - Spiritual titles: ${TITLES.length}`);
+  console.log(`  - Premium avatars: ${AVATARS.length}`);
   console.log('----------------------------------------');
 
   // Verify counts in database
