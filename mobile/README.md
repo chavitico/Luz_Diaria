@@ -48,7 +48,12 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - Theme selection (6 purchasable themes)
 - Dark mode toggle
 - Language (English / Spanish)
-- Notification preferences
+- **Daily Notification Reminders**
+  - Enable/disable push notifications
+  - Customizable reminder time (time picker)
+  - Test notification button
+  - Notifications scheduled locally on device
+- Streak reminders toggle
 - **Background music global settings**
   - Enable/disable
   - Volume control (default: low)
@@ -114,6 +119,7 @@ src/
     ├── firestore.ts       # Data services (mock)
     ├── store.ts           # Zustand state management
     ├── types.ts           # TypeScript definitions
+    ├── notifications.ts   # Push notification service (expo-notifications)
     └── cn.ts              # Class name utility
 ```
 
@@ -159,9 +165,9 @@ src/
 - [x] Weekly challenges with progress tracking
 - [x] Share devotional feature with points
 - [x] Prayer confirmation with daily tracking
+- [x] **Local push notifications** - Daily reminder with customizable time
 - [ ] Firebase Firestore integration (user data sync across devices)
 - [ ] Actual background music audio files (upload via SOUNDS tab)
-- [ ] Push notifications
 - [ ] Real image generation for devotionals
 
 ## Backend API

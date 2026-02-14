@@ -10,10 +10,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useAppStore, useIsOnboarded, useIsDarkMode, useThemeColors } from '@/lib/store';
+import { useAppStore, useIsOnboarded, useIsDarkMode, useThemeColors, useLanguage } from '@/lib/store';
 import { SplashScreen } from '@/components/SplashScreen';
 import { OnboardingScreen } from '@/components/OnboardingScreen';
 import { BackgroundMusicProvider } from '@/components/BackgroundMusicProvider';
+import { initializeNotifications } from '@/lib/notifications';
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -69,6 +70,7 @@ function RootLayoutNav() {
 function AppContent() {
   const isOnboarded = useIsOnboarded();
   const isDarkMode = useIsDarkMode();
+  const language = useLanguage();
   const [showSplash, setShowSplash] = useState(true);
   const [appReady, setAppReady] = useState(false);
 
@@ -80,6 +82,13 @@ function AppContent() {
     };
     prepare();
   }, []);
+
+  // Initialize notifications when app is ready and user is onboarded
+  useEffect(() => {
+    if (appReady && isOnboarded) {
+      initializeNotifications(language);
+    }
+  }, [appReady, isOnboarded, language]);
 
   const handleSplashFinish = useCallback(() => {
     setShowSplash(false);

@@ -1,6 +1,6 @@
-// Settings Screen - With Avatar Selection
+// Settings Screen - With Avatar Selection and Notification Settings
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,13 @@ import {
   Pressable,
   Switch,
   Modal,
+  Alert,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import Slider from '@react-native-community/slider';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {
   Settings as SettingsIcon,
   Palette,
@@ -34,6 +36,8 @@ import {
   Crown,
   Circle,
   Sparkles,
+  BellRing,
+  TestTube,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import {
@@ -48,6 +52,15 @@ import {
 import { TRANSLATIONS, THEMES, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES, PURCHASABLE_THEMES } from '@/lib/constants';
 import type { ThemeOption, Language } from '@/lib/types';
 import { cn } from '@/lib/cn';
+import {
+  requestNotificationPermissions,
+  scheduleDailyNotification,
+  cancelAllScheduledNotifications,
+  getNotificationSettings,
+  formatNotificationTime,
+  sendTestNotification,
+  type NotificationSettings,
+} from '@/lib/notifications';
 
 interface SettingRowProps {
   icon: React.ReactNode;
@@ -164,6 +177,106 @@ export default function SettingsScreen() {
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
+  const [showTimePickerModal, setShowTimePickerModal] = useState(false);
+
+  // Notification state
+  const [notificationSettings, setNotificationSettingsState] = useState<NotificationSettings>({
+    enabled: false,
+    hour: 6,
+    minute: 0,
+  });
+  const [selectedTime, setSelectedTime] = useState(new Date());
+
+  // Load notification settings on mount
+  useEffect(() => {
+    loadNotificationSettings();
+  }, []);
+
+  const loadNotificationSettings = async () => {
+    const saved = await getNotificationSettings();
+    setNotificationSettingsState(saved);
+    // Set the time picker to the saved time
+    const date = new Date();
+    date.setHours(saved.hour, saved.minute, 0, 0);
+    setSelectedTime(date);
+  };
+
+  const handleNotificationToggle = async (enabled: boolean) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+    if (enabled) {
+      const hasPermission = await requestNotificationPermissions();
+      if (!hasPermission) {
+        Alert.alert(
+          language === 'es' ? 'Permisos necesarios' : 'Permissions Required',
+          language === 'es'
+            ? 'Por favor habilita las notificaciones en la configuración de tu dispositivo.'
+            : 'Please enable notifications in your device settings.',
+          [{ text: 'OK' }]
+        );
+        return;
+      }
+
+      // Schedule with current time settings
+      const identifier = await scheduleDailyNotification(
+        notificationSettings.hour,
+        notificationSettings.minute,
+        language
+      );
+
+      if (identifier) {
+        setNotificationSettingsState((prev) => ({ ...prev, enabled: true, scheduledIdentifier: identifier }));
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      }
+    } else {
+      await cancelAllScheduledNotifications();
+      setNotificationSettingsState((prev) => ({ ...prev, enabled: false }));
+    }
+  };
+
+  const handleTimeChange = (event: any, date?: Date) => {
+    if (date) {
+      setSelectedTime(date);
+    }
+  };
+
+  const handleTimeSave = async () => {
+    const hour = selectedTime.getHours();
+    const minute = selectedTime.getMinutes();
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
+    // Update state
+    setNotificationSettingsState((prev) => ({ ...prev, hour, minute }));
+
+    // If notifications are enabled, reschedule with new time
+    if (notificationSettings.enabled) {
+      await scheduleDailyNotification(hour, minute, language);
+    }
+
+    setShowTimePickerModal(false);
+
+    // Show confirmation
+    Alert.alert(
+      language === 'es' ? 'Hora actualizada' : 'Time Updated',
+      language === 'es'
+        ? `Recibirás tu recordatorio a las ${formatNotificationTime(hour, minute)}`
+        : `You'll receive your reminder at ${formatNotificationTime(hour, minute)}`,
+      [{ text: 'OK' }]
+    );
+  };
+
+  const handleTestNotification = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    await sendTestNotification(language);
+    Alert.alert(
+      language === 'es' ? 'Notificación enviada' : 'Notification Sent',
+      language === 'es'
+        ? 'Deberías recibir una notificación de prueba en unos segundos.'
+        : 'You should receive a test notification in a few seconds.',
+      [{ text: 'OK' }]
+    );
+  };
 
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
@@ -378,20 +491,42 @@ export default function SettingsScreen() {
 
           <SettingRow
             icon={<Bell size={20} color={colors.primary} />}
-            title={t.notifications}
+            title={language === 'es' ? 'Recordatorio diario' : 'Daily Reminder'}
+            subtitle={
+              notificationSettings.enabled
+                ? `${language === 'es' ? 'Activo' : 'Active'} - ${formatNotificationTime(notificationSettings.hour, notificationSettings.minute)}`
+                : language === 'es' ? 'Desactivado' : 'Disabled'
+            }
             colors={colors}
             right={
               <Switch
-                value={settings.notificationsEnabled}
-                onValueChange={(value) => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  updateSettings({ notificationsEnabled: value });
-                }}
+                value={notificationSettings.enabled}
+                onValueChange={handleNotificationToggle}
                 trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                thumbColor={settings.notificationsEnabled ? colors.primary : '#FFFFFF'}
+                thumbColor={notificationSettings.enabled ? colors.primary : '#FFFFFF'}
               />
             }
           />
+
+          {notificationSettings.enabled && (
+            <>
+              <SettingRow
+                icon={<Clock size={20} color={colors.primary} />}
+                title={language === 'es' ? 'Hora del recordatorio' : 'Reminder Time'}
+                subtitle={formatNotificationTime(notificationSettings.hour, notificationSettings.minute)}
+                colors={colors}
+                onPress={() => setShowTimePickerModal(true)}
+              />
+
+              <SettingRow
+                icon={<TestTube size={20} color={colors.secondary} />}
+                title={language === 'es' ? 'Probar notificación' : 'Test Notification'}
+                subtitle={language === 'es' ? 'Enviar una notificación de prueba' : 'Send a test notification'}
+                colors={colors}
+                onPress={handleTestNotification}
+              />
+            </>
+          )}
 
           <SettingRow
             icon={<Flame size={20} color={colors.primary} />}
@@ -652,6 +787,70 @@ export default function SettingsScreen() {
                 )}
               </Pressable>
             ))}
+          </View>
+        </View>
+      </Modal>
+
+      {/* Time Picker Modal */}
+      <Modal
+        visible={showTimePickerModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowTimePickerModal(false)}
+      >
+        <View className="flex-1 bg-black/50 items-center justify-center px-8">
+          <View className="w-full rounded-3xl p-6" style={{ backgroundColor: colors.surface }}>
+            <View className="flex-row items-center justify-between mb-4">
+              <Text className="text-xl font-bold" style={{ color: colors.text }}>
+                {language === 'es' ? 'Hora del recordatorio' : 'Reminder Time'}
+              </Text>
+              <Pressable
+                onPress={() => setShowTimePickerModal(false)}
+                className="w-8 h-8 rounded-full items-center justify-center"
+                style={{ backgroundColor: colors.textMuted + '20' }}
+              >
+                <X size={18} color={colors.textMuted} />
+              </Pressable>
+            </View>
+
+            <Text className="text-sm mb-4" style={{ color: colors.textMuted }}>
+              {language === 'es'
+                ? 'Selecciona la hora a la que deseas recibir tu recordatorio diario.'
+                : 'Select the time you want to receive your daily reminder.'}
+            </Text>
+
+            <View className="items-center py-4">
+              <DateTimePicker
+                value={selectedTime}
+                mode="time"
+                display="spinner"
+                onChange={handleTimeChange}
+                textColor={colors.text}
+                themeVariant={isDarkMode ? 'dark' : 'light'}
+                style={{ height: 150, width: '100%' }}
+              />
+            </View>
+
+            <View className="flex-row gap-3 mt-4">
+              <Pressable
+                onPress={() => setShowTimePickerModal(false)}
+                className="flex-1 py-3 rounded-xl items-center justify-center"
+                style={{ backgroundColor: colors.textMuted + '20' }}
+              >
+                <Text className="font-semibold" style={{ color: colors.text }}>
+                  {language === 'es' ? 'Cancelar' : 'Cancel'}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={handleTimeSave}
+                className="flex-1 py-3 rounded-xl items-center justify-center"
+                style={{ backgroundColor: colors.primary }}
+              >
+                <Text className="font-semibold text-white">
+                  {language === 'es' ? 'Guardar' : 'Save'}
+                </Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </Modal>
