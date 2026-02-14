@@ -1787,25 +1787,60 @@ export default function StoreScreen() {
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
 
-  // Sync points from backend on mount
-  const { data: backendUser } = useQuery({
-    queryKey: ['backendUser', userId],
-    queryFn: () => gamificationApi.getUser(userId),
-    enabled: !!userId,
-    staleTime: 30 * 1000,
+  // State for synced backend user ID (might be different from local if user was created offline)
+  const [syncedBackendUserId, setSyncedBackendUserId] = useState<string | null>(null);
+  const effectiveUserId = syncedBackendUserId || userId;
+
+  // Memoize user data for backend sync to avoid unnecessary re-fetches
+  const userDataForSync = useMemo(() => {
+    if (!user) return null;
+    return {
+      id: user.id,
+      nickname: user.nickname,
+      avatar: user.avatar,
+      points: user.points,
+      streakCurrent: user.streakCurrent,
+      streakBest: user.streakBest,
+      devotionalsCompleted: user.devotionalsCompleted,
+      totalTime: user.totalTime,
+    };
+  }, [user?.id, user?.nickname, user?.avatar]);
+
+  // Sync/create user in backend on mount
+  const { data: backendUser, isLoading: isLoadingBackendUser } = useQuery({
+    queryKey: ['backendUser', userDataForSync],
+    queryFn: async () => {
+      if (!userDataForSync) return null;
+      // Try to ensure user exists in backend, creating if necessary
+      const result = await gamificationApi.ensureUserExists(userDataForSync);
+      return result;
+    },
+    enabled: !!userId && !!user?.nickname,
+    staleTime: 60 * 1000,
     retry: 1,
   });
 
+  // Update local user with backend data if synced
   React.useEffect(() => {
-    if (backendUser && backendUser.points !== points) {
-      updateUser({ points: backendUser.points });
+    if (backendUser) {
+      // If backend user has different ID, save it for API calls
+      if (backendUser.id !== userId) {
+        console.log('[Store] Backend user ID differs, using:', backendUser.id);
+        setSyncedBackendUserId(backendUser.id);
+        // Optionally update local user ID to match backend
+        updateUser({ id: backendUser.id });
+      }
+      // Sync points from backend
+      if (backendUser.points !== points) {
+        updateUser({ points: backendUser.points });
+      }
     }
-  }, [backendUser?.points]);
+  }, [backendUser?.id, backendUser?.points]);
 
   // Purchase mutation
   const purchaseMutation = useMutation({
     mutationFn: ({ itemId }: { itemId: string }) =>
-      gamificationApi.purchaseItem(userId, itemId),
+      gamificationApi.purchaseItem(effectiveUserId, itemId),
     onSuccess: (data) => {
       if (data.success && data.newPoints !== undefined && selectedDetailItem) {
         updateUser({
@@ -1842,7 +1877,7 @@ export default function StoreScreen() {
     }: {
       type: 'theme' | 'frame' | 'title' | 'music';
       itemId: string | null;
-    }) => gamificationApi.equipItem(userId, type, itemId),
+    }) => gamificationApi.equipItem(effectiveUserId, type, itemId),
     onSuccess: (data, variables) => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       const updates: Partial<typeof user> = {};
@@ -2203,22 +2238,22 @@ export default function StoreScreen() {
         />
 
         {/* Weekly Chest */}
-        {userId && (
+        {effectiveUserId && (
           <WeeklyChestCard
             colors={colors}
             language={language}
-            userId={userId}
+            userId={effectiveUserId}
             allChallengesComplete={allChallengesComplete}
             onClaim={handleChestClaim}
           />
         )}
 
         {/* Weekly Challenges */}
-        {userId && (
+        {effectiveUserId && (
           <WeeklyChallengesCard
             colors={colors}
             language={language}
-            userId={userId}
+            userId={effectiveUserId}
             onAllComplete={setAllChallengesComplete}
           />
         )}

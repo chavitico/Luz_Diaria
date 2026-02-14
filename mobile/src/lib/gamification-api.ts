@@ -97,6 +97,83 @@ export const gamificationApi = {
     return res.json();
   },
 
+  /**
+   * Ensures user exists in backend. Creates if not found.
+   * Used for users created in offline mode who need to sync with backend.
+   */
+  async ensureUserExists(user: {
+    id: string;
+    nickname: string;
+    avatar?: string;
+    points?: number;
+    streakCurrent?: number;
+    streakBest?: number;
+    devotionalsCompleted?: number;
+    totalTime?: number;
+  }): Promise<UserProfile | null> {
+    try {
+      // First, try to get the user
+      const res = await fetch(`${BACKEND_URL}/api/gamification/user/${user.id}`);
+
+      if (res.ok) {
+        // User exists, return profile
+        return res.json();
+      }
+
+      if (res.status === 404) {
+        // User doesn't exist, create them
+        console.log('[Gamification] User not found, registering:', user.id);
+
+        // Register with the user's existing ID by directly inserting (we need a special endpoint)
+        // For now, we'll create a new user and they'll need to use that ID
+        // Actually, let's try registering with their nickname
+        const registerRes = await fetch(`${BACKEND_URL}/api/gamification/user/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nickname: user.nickname,
+            avatarId: user.avatar || 'avatar_dove',
+          }),
+        });
+
+        if (registerRes.ok) {
+          const newUser = await registerRes.json() as UserProfile;
+          console.log('[Gamification] Created new backend user:', newUser.id);
+          return newUser;
+        }
+
+        // If nickname is taken, try with a suffix
+        if (registerRes.status === 409) {
+          const suffix = Math.random().toString(36).substring(2, 6);
+          const newNickname = `${user.nickname.slice(0, 12)}_${suffix}`;
+
+          const retryRes = await fetch(`${BACKEND_URL}/api/gamification/user/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              nickname: newNickname,
+              avatarId: user.avatar || 'avatar_dove',
+            }),
+          });
+
+          if (retryRes.ok) {
+            const newUser = await retryRes.json() as UserProfile;
+            console.log('[Gamification] Created backend user with new nickname:', newUser.id);
+            return newUser;
+          }
+        }
+
+        console.error('[Gamification] Failed to create backend user');
+        return null;
+      }
+
+      throw new Error('Failed to fetch user');
+    } catch (error) {
+      console.error('[Gamification] Error ensuring user exists:', error);
+      return null;
+    }
+  },
+
   async syncUser(userId: string, data: {
     points?: number;
     streakCurrent?: number;
