@@ -5,6 +5,7 @@ import "./env";
 import { sampleRouter } from "./routes/sample";
 import { devotionalRouter } from "./routes/devotional";
 import { gamificationRouter } from "./routes/gamification";
+import { bibleRouter } from "./routes/bible";
 import { startDevotionalCron } from "./cron";
 import { initializeWeeklyChallenges } from "./weekly-challenges";
 import { logger } from "hono/logger";
@@ -37,6 +38,7 @@ app.get("/health", (c) => c.json({ status: "ok" }));
 app.route("/api/sample", sampleRouter);
 app.route("/api/devotional", devotionalRouter);
 app.route("/api/gamification", gamificationRouter);
+app.route("/api/bible", bibleRouter);
 
 // Start cron job for daily devotional generation
 startDevotionalCron();

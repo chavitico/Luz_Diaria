@@ -9,6 +9,12 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - Beautiful hero image with devotional-style imagery
 - Bible verse with citation
 - **Continuous reading format** - all sections displayed without collapse
+- **Tappable Bible References** - tap any reference like "(Lucas 10:25-37)" to view the full passage
+  - Bottom sheet modal with passage text
+  - Font size controls (+/-)
+  - Copy and Share buttons
+  - On-demand API fetch with local + persistent caching
+  - Works offline for cached passages
 - Completion tracking (3-minute read time - timer hidden from user)
 - Favorite devotionals with heart icon
 - **Share as Image** - generates a beautiful long image of the full devotional including header image for sharing on social media
@@ -113,13 +119,16 @@ src/
 ├── components/
 │   ├── SplashScreen.tsx   # App splash
 │   ├── OnboardingScreen.tsx # First-time setup
-│   └── BackgroundMusicProvider.tsx # Music context
+│   ├── BackgroundMusicProvider.tsx # Music context
+│   ├── BibleReferenceText.tsx # Tappable Bible references in text
+│   └── BiblePassageModal.tsx # Bottom sheet modal for Bible passages
 └── lib/
     ├── constants.ts       # Themes, translations, avatars
     ├── firestore.ts       # Data services (mock)
     ├── store.ts           # Zustand state management
     ├── types.ts           # TypeScript definitions
     ├── notifications.ts   # Push notification service (expo-notifications)
+    ├── bible-service.ts   # Bible passage fetching + caching
     └── cn.ts              # Class name utility
 ```
 
@@ -166,6 +175,7 @@ src/
 - [x] Share devotional feature with points
 - [x] Prayer confirmation with daily tracking
 - [x] **Local push notifications** - Daily reminder with customizable time
+- [x] **Tappable Bible references** - View passage text on tap with caching
 - [ ] Firebase Firestore integration (user data sync across devices)
 - [ ] Actual background music audio files (upload via SOUNDS tab)
 - [ ] Real image generation for devotionals
@@ -205,3 +215,9 @@ The app connects to a Hono backend with:
 - Challenges generated at server startup and weekly on Mondays
 - 2 challenges per week (different types when possible)
 - Types: devotional_complete, share, prayer
+
+### Bible Passage Endpoints
+- `GET /api/bible/passage?reference=Lucas+10:25-37&lang=es` - Get Bible passage text
+- Supports both Spanish and English Bibles (Reina Valera 1960, KJV)
+- Server-side caching in SQLite database
+- Fetches from Bible API on demand, caches for future requests

@@ -52,6 +52,7 @@ import {
   Download,
 } from 'lucide-react-native';
 import { ShareableDevotionalImage, CAPTURE_SCALE } from '@/components/ShareableDevotionalImage';
+import { BibleReferenceText } from '@/components/BibleReferenceText';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import {
   useThemeColors,
@@ -580,12 +581,11 @@ function ContentSection({ title, content, icon, colors, isHighlighted, sectionIn
           borderColor: isHighlighted ? colors.primary : 'transparent',
         }}
       >
-        <Text
-          className="text-base leading-7"
-          style={{ color: colors.text, lineHeight: 28 }}
+        <BibleReferenceText
+          style={{ color: colors.text, fontSize: 16, lineHeight: 28 }}
         >
           {content}
-        </Text>
+        </BibleReferenceText>
       </View>
     </Animated.View>
   );

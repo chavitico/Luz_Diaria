@@ -159,3 +159,28 @@ model UserFavorite {
 
   @@unique([userId, devotionalDate])
 }
+
+// ============================================
+// BIBLE PASSAGE CACHE
+// ============================================
+
+model BiblePassage {
+  id                String   @id @default(cuid())
+  refKey            String   // Normalized key: "lucas_10_25-37", "juan_3_16"
+  lang              String   // "es" or "en"
+
+  book              String   // "Lucas", "Luke"
+  chapterStart      Int
+  verseStart        Int
+  chapterEnd        Int?     // For ranges
+  verseEnd          Int?     // For ranges
+
+  referenceDisplay  String   // "Lucas 10:25-37" (human readable)
+  text              String   // Full passage text
+
+  source            String   @default("api") // "api" or "manual"
+  createdAt         DateTime @default(now())
+
+  @@unique([refKey, lang])
+  @@index([lang])
+}
