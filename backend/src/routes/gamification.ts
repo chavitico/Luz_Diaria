@@ -647,6 +647,104 @@ gamificationRouter.post(
   }
 );
 
+// POST /store/purchase-bundle - Purchase a bundle of items
+gamificationRouter.post(
+  "/store/purchase-bundle",
+  zValidator("json", z.object({
+    userId: z.string(),
+    bundleId: z.string(),
+    itemIds: z.array(z.string()),
+    bundlePrice: z.number(),
+  })),
+  async (c) => {
+    try {
+      const { userId, bundleId, itemIds, bundlePrice } = c.req.valid("json");
+
+      const result = await prisma.$transaction(async (tx) => {
+        const user = await tx.user.findUnique({
+          where: { id: userId },
+        });
+
+        if (!user) {
+          throw new Error("USER_NOT_FOUND");
+        }
+
+        // Check if user has enough points
+        if (user.points < bundlePrice) {
+          throw new Error("INSUFFICIENT_POINTS");
+        }
+
+        // Find all items in the bundle
+        const items = await tx.storeItem.findMany({
+          where: { id: { in: itemIds } },
+        });
+
+        // Check which items user already owns
+        const existingInventory = await tx.userInventory.findMany({
+          where: {
+            userId,
+            itemId: { in: itemIds },
+          },
+        });
+
+        const ownedItemIds = new Set(existingInventory.map(inv => inv.itemId));
+        const itemsToAdd = items.filter(item => !ownedItemIds.has(item.id));
+
+        if (itemsToAdd.length === 0) {
+          throw new Error("ALL_ITEMS_OWNED");
+        }
+
+        // Deduct points
+        const newPoints = user.points - bundlePrice;
+
+        await tx.user.update({
+          where: { id: userId },
+          data: { points: newPoints },
+        });
+
+        // Add all new items to inventory
+        for (const item of itemsToAdd) {
+          await tx.userInventory.create({
+            data: {
+              userId,
+              itemId: item.id,
+              source: `bundle:${bundleId}`,
+            },
+          });
+        }
+
+        return {
+          itemsAdded: itemsToAdd,
+          newPoints,
+          alreadyOwned: items.length - itemsToAdd.length,
+        };
+      });
+
+      return c.json({
+        success: true,
+        itemsAdded: result.itemsAdded,
+        newPoints: result.newPoints,
+        alreadyOwned: result.alreadyOwned,
+      });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+
+      if (errorMessage === "USER_NOT_FOUND") {
+        return c.json({ error: "User not found" }, 404);
+      }
+      if (errorMessage === "INSUFFICIENT_POINTS") {
+        return c.json({ error: "Insufficient points" }, 400);
+      }
+      if (errorMessage === "ALL_ITEMS_OWNED") {
+        return c.json({ error: "You already own all items in this bundle" }, 400);
+      }
+
+      console.error("[Gamification] Error purchasing bundle:", error);
+      return c.json({ error: "Failed to purchase bundle" }, 500);
+    }
+  }
+);
+
 // POST /user/:userId/equip - Equip item
 gamificationRouter.post(
   "/user/:userId/equip",

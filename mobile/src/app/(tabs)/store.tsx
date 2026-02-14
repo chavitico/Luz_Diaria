@@ -1363,6 +1363,7 @@ function BundleCard({
   colors,
   language,
   onPress,
+  isPurchasing = false,
 }: {
   bundle: typeof STORE_BUNDLES[string];
   purchasedItems: string[];
@@ -1370,6 +1371,7 @@ function BundleCard({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
   onPress: () => void;
+  isPurchasing?: boolean;
 }) {
   const scale = useSharedValue(1);
   const rarityColor = RARITY_COLORS[bundle.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
@@ -1409,7 +1411,7 @@ function BundleCard({
         onPressIn={() => { scale.value = withSpring(0.98); }}
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
-        disabled={allOwned}
+        disabled={allOwned || isPurchasing || !canAfford}
         className="rounded-2xl overflow-hidden"
         style={{
           backgroundColor: colors.surface,
@@ -1534,11 +1536,15 @@ function BundleCard({
             ) : canAfford ? (
               <View
                 className="px-4 py-2 rounded-xl"
-                style={{ backgroundColor: colors.primary }}
+                style={{ backgroundColor: isPurchasing ? colors.primary + '80' : colors.primary }}
               >
-                <Text className="text-sm font-semibold text-white">
-                  {language === 'es' ? 'Comprar' : 'Buy'}
-                </Text>
+                {isPurchasing ? (
+                  <ActivityIndicator size="small" color="#FFFFFF" />
+                ) : (
+                  <Text className="text-sm font-semibold text-white">
+                    {language === 'es' ? 'Comprar' : 'Buy'}
+                  </Text>
+                )}
               </View>
             ) : (
               <View
@@ -1900,6 +1906,28 @@ export default function StoreScreen() {
     },
   });
 
+  // Bundle purchase mutation
+  const bundlePurchaseMutation = useMutation({
+    mutationFn: ({ bundleId, itemIds, bundlePrice }: { bundleId: string; itemIds: string[]; bundlePrice: number }) =>
+      gamificationApi.purchaseBundle(effectiveUserId, bundleId, itemIds, bundlePrice),
+    onSuccess: (data) => {
+      if (data.success && data.newPoints !== undefined && data.itemsAdded) {
+        const newPurchasedItems = [...purchasedItems, ...data.itemsAdded.map(item => item.id)];
+        updateUser({
+          points: data.newPoints,
+          purchasedItems: newPurchasedItems,
+        });
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        setToastAmount(points - data.newPoints);
+        setToastPositive(false);
+        setShowPointsToast(true);
+      }
+    },
+    onError: () => {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+    },
+  });
+
   // Handle item press - open detail modal
   const handleItemPress = useCallback((item: typeof selectedDetailItem) => {
     if (!item) return;
@@ -1911,6 +1939,17 @@ export default function StoreScreen() {
   // Destructure mutation functions for stable references (eslint requirement)
   const { mutate: purchaseMutate } = purchaseMutation;
   const { mutate: equipMutate } = equipMutation;
+  const { mutate: bundlePurchaseMutate } = bundlePurchaseMutation;
+
+  // Handle bundle purchase
+  const handleBundlePurchase = useCallback((bundle: typeof STORE_BUNDLES[string]) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    bundlePurchaseMutate({
+      bundleId: bundle.id,
+      itemIds: bundle.items,
+      bundlePrice: bundle.bundlePrice,
+    });
+  }, [bundlePurchaseMutate]);
 
   // Handle purchase from modal
   const handlePurchase = useCallback(() => {
@@ -2162,11 +2201,8 @@ export default function StoreScreen() {
                   points={points}
                   colors={colors}
                   language={language}
-                  onPress={() => {
-                    // For now, just show haptic feedback
-                    // Bundle purchase can be implemented later
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-                  }}
+                  onPress={() => handleBundlePurchase(bundle)}
+                  isPurchasing={bundlePurchaseMutation.isPending}
                 />
               </Animated.View>
             ))}

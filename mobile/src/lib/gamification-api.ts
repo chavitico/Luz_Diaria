@@ -240,6 +240,24 @@ export const gamificationApi = {
     return data;
   },
 
+  async purchaseBundle(
+    userId: string,
+    bundleId: string,
+    itemIds: string[],
+    bundlePrice: number
+  ): Promise<{ success: boolean; itemsAdded?: StoreItem[]; newPoints?: number; alreadyOwned?: number; error?: string }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/store/purchase-bundle`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, bundleId, itemIds, bundlePrice }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      return { success: false, error: data.error };
+    }
+    return data;
+  },
+
   async equipItem(userId: string, type: 'theme' | 'frame' | 'title' | 'music', itemId: string | null): Promise<UserProfile> {
     const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/equip`, {
       method: 'POST',
