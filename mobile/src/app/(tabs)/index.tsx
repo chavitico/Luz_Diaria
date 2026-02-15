@@ -8,8 +8,6 @@ import {
   Pressable,
   ActivityIndicator,
   Dimensions,
-  Share,
-  Modal,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -27,9 +25,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
-import * as Sharing from 'expo-sharing';
-import * as FileSystem from 'expo-file-system';
-import ViewShot, { captureRef } from 'react-native-view-shot';
 import Slider from '@react-native-community/slider';
 import {
   BookOpen,
@@ -51,7 +46,7 @@ import {
   X,
   Download,
 } from 'lucide-react-native';
-import { ShareableDevotionalImage, CAPTURE_SCALE } from '@/components/ShareableDevotionalImage';
+import { ShareOptionsSheet, type ShareOption } from '@/components/ShareOptionsSheet';
 import { BibleReferenceText } from '@/components/BibleReferenceText';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import {
@@ -1107,8 +1102,6 @@ export default function HomeScreen() {
 
   // Share modal state
   const [showShareModal, setShowShareModal] = useState(false);
-  const [isCapturing, setIsCapturing] = useState(false);
-  const viewShotRef = useRef<ViewShot>(null);
 
   const { data: devotional, isLoading } = useQuery({
     queryKey: ['todayDevotional'],
@@ -1278,95 +1271,51 @@ export default function HomeScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   }, [devotional]);
 
-  // Capture and share image
-  const handleShareImage = useCallback(async () => {
-    if (!user || !devotional || !viewShotRef.current) return;
+  // Handle share completion (called from ShareOptionsSheet)
+  const handleShareComplete = useCallback(async (option: ShareOption) => {
+    if (!user) return;
 
-    setIsCapturing(true);
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    // Check if share limit reached
+    if (!shareStatus.available) {
+      showToast(
+        0,
+        language === 'es' ? 'Limite diario alcanzado' : 'Daily limit reached',
+        'warning'
+      );
+      return;
+    }
 
+    // Update daily actions and total shares count
+    const newShareCount = (dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0) + 1;
+    updateUser({
+      totalShares: (user.totalShares ?? 0) + 1,
+      dailyActions: {
+        ...dailyActions,
+        shareDate: today,
+        shareCount: newShareCount,
+      },
+    });
+
+    // Award points via API
     try {
-      // Wait a moment for the view to be fully rendered
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // Capture the view as image with higher pixel ratio for better quality
-      const uri = await captureRef(viewShotRef, {
-        format: 'png',
-        quality: 1,
-        result: 'tmpfile',
-        useRenderInContext: true,
-      });
-
-      if (!uri) {
-        console.error('[Share] Failed to capture image');
-        setIsCapturing(false);
-        return;
-      }
-
-      // Check if sharing is available
-      const isAvailable = await Sharing.isAvailableAsync();
-      if (!isAvailable) {
-        console.error('[Share] Sharing not available');
-        setIsCapturing(false);
-        return;
-      }
-
-      // Share the image
-      await Sharing.shareAsync(uri, {
-        mimeType: 'image/png',
-        dialogTitle: language === 'es' ? 'Compartir Devocional' : 'Share Devotional',
-      });
-
-      setIsCapturing(false);
-      setShowShareModal(false);
-
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-
-      // Check if share limit reached
-      if (!shareStatus.available) {
+      const pointsResult = await gamificationApi.awardPoints(user.id, 'share');
+      if (pointsResult.success) {
+        addPoints(pointsResult.pointsAwarded);
         showToast(
-          0,
-          language === 'es' ? 'Limite diario alcanzado' : 'Daily limit reached',
-          'warning'
-        );
-        return;
-      }
-
-      // Update daily actions and total shares count
-      const newShareCount = (dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0) + 1;
-      updateUser({
-        totalShares: (user.totalShares ?? 0) + 1,
-        dailyActions: {
-          ...dailyActions,
-          shareDate: today,
-          shareCount: newShareCount,
-        },
-      });
-
-      // Award points via API
-      try {
-        const pointsResult = await gamificationApi.awardPoints(user.id, 'share');
-        if (pointsResult.success) {
-          addPoints(pointsResult.pointsAwarded);
-          showToast(
-            pointsResult.pointsAwarded,
-            language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
-          );
-        }
-        await gamificationApi.updateChallengeProgress(user.id, 'share');
-      } catch (error) {
-        console.error('[Share] Failed to award points:', error);
-        addPoints(POINTS.SHARE_DEVOTIONAL);
-        showToast(
-          POINTS.SHARE_DEVOTIONAL,
+          pointsResult.pointsAwarded,
           language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
         );
       }
+      await gamificationApi.updateChallengeProgress(user.id, 'share');
     } catch (error) {
-      console.error('[Share] Failed to share image:', error);
-      setIsCapturing(false);
+      console.error('[Share] Failed to award points:', error);
+      addPoints(POINTS.SHARE_DEVOTIONAL);
+      showToast(
+        POINTS.SHARE_DEVOTIONAL,
+        language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
+      );
     }
-  }, [user, devotional, language, shareStatus, dailyActions, today, updateUser, addPoints, showToast]);
+  }, [user, language, shareStatus, dailyActions, today, updateUser, addPoints, showToast]);
 
   // Handle prayer confirmation
   const handlePrayerConfirm = useCallback(async () => {
@@ -1832,125 +1781,23 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
 
-      {/* Share Modal */}
-      <Modal
+      {/* Share Options Sheet */}
+      <ShareOptionsSheet
         visible={showShareModal}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setShowShareModal(false)}
-      >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(0,0,0,0.8)',
-          }}
-        >
-          {/* Header */}
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              paddingTop: insets.top + 10,
-              paddingHorizontal: 20,
-              paddingBottom: 16,
-            }}
-          >
-            <Pressable
-              onPress={() => setShowShareModal(false)}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 20,
-                backgroundColor: 'rgba(255,255,255,0.2)',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <X size={22} color="#FFFFFF" />
-            </Pressable>
-            <Text style={{ color: '#FFFFFF', fontSize: 18, fontWeight: '600' }}>
-              {language === 'es' ? 'Compartir Devocional' : 'Share Devotional'}
-            </Text>
-            <View style={{ width: 40 }} />
-          </View>
-
-          {/* Preview */}
-          <ScrollView
-            style={{ flex: 1 }}
-            contentContainerStyle={{
-              paddingHorizontal: 20,
-              paddingBottom: 120,
-            }}
-            showsVerticalScrollIndicator={false}
-          >
-            <ViewShot
-              ref={viewShotRef}
-              options={{
-                format: 'png',
-                quality: 1,
-                result: 'tmpfile',
-              }}
-              style={{ backgroundColor: '#000000' }}
-            >
-              <View collapsable={false}>
-                <ShareableDevotionalImage
-                  devotional={devotional}
-                  language={language}
-                  colors={colors}
-                  translations={{
-                    bible_verse: t.bible_verse,
-                    reflection: t.reflection,
-                    story: t.story,
-                    biblical_character: t.biblical_character,
-                    application: t.application,
-                    prayer: t.prayer,
-                  }}
-                />
-              </View>
-            </ViewShot>
-          </ScrollView>
-
-          {/* Share Button */}
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              paddingHorizontal: 20,
-              paddingBottom: insets.bottom + 20,
-              paddingTop: 16,
-              backgroundColor: 'rgba(0,0,0,0.9)',
-            }}
-          >
-            <Pressable
-              onPress={handleShareImage}
-              disabled={isCapturing}
-              style={{
-                backgroundColor: colors.primary,
-                borderRadius: 16,
-                paddingVertical: 16,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: isCapturing ? 0.7 : 1,
-              }}
-            >
-              {isCapturing ? (
-                <ActivityIndicator color="#FFFFFF" />
-              ) : (
-                <>
-                  <Share2 size={20} color="#FFFFFF" />
-                  <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '600', marginLeft: 10 }}>
-                    {language === 'es' ? 'Compartir Imagen' : 'Share Image'}
-                  </Text>
-                </>
-              )}
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+        onClose={() => setShowShareModal(false)}
+        devotional={devotional}
+        language={language}
+        colors={colors}
+        translations={{
+          bible_verse: t.bible_verse,
+          reflection: t.reflection,
+          story: t.story,
+          biblical_character: t.biblical_character,
+          application: t.application,
+          prayer: t.prayer,
+        }}
+        onShareComplete={handleShareComplete}
+      />
     </View>
   );
 }

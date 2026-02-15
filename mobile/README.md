@@ -17,7 +17,10 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
   - Works offline for cached passages
 - Completion tracking (3-minute read time - timer hidden from user)
 - Favorite devotionals with heart icon
-- **Share as Image** - generates a beautiful long image of the full devotional including header image for sharing on social media
+- **Share Options** - unified share system with 3 options across all screens (Today, Library, Devotional Detail):
+  1. **Imagen completa (larga)** - full devotional as one long image
+  2. **Imagen corta (versiculo)** - 1080x1080 square card with verse and thought of the day
+  3. **5 imagenes (secciones)** - 5 separate 1080x1350 images, one per section (Cover, Verse, Reflection, Story, Application+Prayer)
 - **Text-to-Speech (TTS)** - reads devotional aloud with section highlighting
   - Adjustable reading speed (0.5x - 2.0x)
   - Bible references spoken correctly ("1 Pedro" → "Primera de Pedro")

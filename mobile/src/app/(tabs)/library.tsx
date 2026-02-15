@@ -1,12 +1,11 @@
 // Library Screen - Historical Devotionals
 
-import React, { useState, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import {
   View,
   Text,
   Pressable,
   ActivityIndicator,
-  Dimensions,
   Modal,
   ScrollView,
   TextInput,
@@ -16,12 +15,10 @@ import { FlashList } from '@shopify/flash-list';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeIn } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import * as Sharing from 'expo-sharing';
-import ViewShot, { captureRef } from 'react-native-view-shot';
 import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check } from 'lucide-react-native';
-import { WhatsAppShareCard, generateWhatsAppText, WHATSAPP_CARD_SIZE, PREVIEW_SIZE } from '@/components/WhatsAppShareCard';
+import { ShareOptionsSheet, type ShareOption } from '@/components/ShareOptionsSheet';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import { useThemeColors, useLanguage, useUserFavorites, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
@@ -30,8 +27,6 @@ import type { Devotional } from '@/lib/types';
 import { cn } from '@/lib/cn';
 import { PointsToast, usePointsToast } from '@/components/PointsToast';
 import { gamificationApi } from '@/lib/gamification-api';
-
-const { width } = Dimensions.get('window');
 
 type FilterType = 'all' | 'favorites';
 
@@ -163,8 +158,6 @@ export default function LibraryScreen() {
   // Share modal state
   const [showShareModal, setShowShareModal] = useState(false);
   const [selectedDevotional, setSelectedDevotional] = useState<Devotional | null>(null);
-  const [isCapturing, setIsCapturing] = useState(false);
-  const viewShotRef = useRef<ViewShot>(null);
 
   const [filter, setFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -232,96 +225,46 @@ export default function LibraryScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   }, []);
 
-  // Capture and share WhatsApp optimized image + text
-  const handleShareImage = useCallback(async () => {
-    if (!user || !selectedDevotional || !viewShotRef.current) return;
-
-    setIsCapturing(true);
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  // Handle share completion (called from ShareOptionsSheet)
+  const handleShareComplete = useCallback(async (option: ShareOption) => {
+    if (!user) return;
 
     const today = getTodayDate();
     const dailyActions = user?.dailyActions ?? {};
 
+    // Update daily actions and total shares count
+    const newShareCount = (dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0) + 1;
+    updateUser({
+      totalShares: (user.totalShares ?? 0) + 1,
+      dailyActions: {
+        ...dailyActions,
+        shareDate: today,
+        shareCount: newShareCount,
+      },
+    });
+
+    // Award points via API
     try {
-      // Wait a moment for the view to be fully rendered
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // Capture the WhatsApp card at full 1080x1080 resolution
-      const uri = await captureRef(viewShotRef, {
-        format: 'png',
-        quality: 1,
-        result: 'tmpfile',
-        width: WHATSAPP_CARD_SIZE,
-        height: WHATSAPP_CARD_SIZE,
-      });
-
-      if (!uri) {
-        console.error('[Share] Failed to capture image');
-        setIsCapturing(false);
-        return;
-      }
-
-      // Check if sharing is available
-      const isAvailable = await Sharing.isAvailableAsync();
-      if (!isAvailable) {
-        console.error('[Share] Sharing not available');
-        setIsCapturing(false);
-        return;
-      }
-
-      // Generate WhatsApp text message
-      const whatsappText = generateWhatsAppText(selectedDevotional, language);
-
-      // Share the image with WhatsApp-optimized text
-      await Sharing.shareAsync(uri, {
-        mimeType: 'image/png',
-        dialogTitle: language === 'es' ? 'Compartir en WhatsApp' : 'Share to WhatsApp',
-      });
-
-      // Log the text for clipboard (user can copy separately if needed)
-      console.log('[Share] WhatsApp text:', whatsappText);
-
-      setIsCapturing(false);
-      setShowShareModal(false);
-      setSelectedDevotional(null);
-
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-
-      // Update daily actions and total shares count
-      const newShareCount = (dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0) + 1;
-      updateUser({
-        totalShares: (user.totalShares ?? 0) + 1,
-        dailyActions: {
-          ...dailyActions,
-          shareDate: today,
-          shareCount: newShareCount,
-        },
-      });
-
-      // Award points via API
-      try {
-        const pointsResult = await gamificationApi.awardPoints(user.id, 'share');
-        if (pointsResult.success) {
-          addPoints(pointsResult.pointsAwarded);
-          showToast(
-            pointsResult.pointsAwarded,
-            language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
-          );
-        }
-        await gamificationApi.updateChallengeProgress(user.id, 'share');
-      } catch (error) {
-        console.error('[Share] Failed to award points:', error);
-        addPoints(POINTS.SHARE_DEVOTIONAL);
+      const pointsResult = await gamificationApi.awardPoints(user.id, 'share');
+      if (pointsResult.success) {
+        addPoints(pointsResult.pointsAwarded);
         showToast(
-          POINTS.SHARE_DEVOTIONAL,
+          pointsResult.pointsAwarded,
           language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
         );
       }
+      await gamificationApi.updateChallengeProgress(user.id, 'share');
     } catch (error) {
-      console.error('[Share] Failed to share image:', error);
-      setIsCapturing(false);
+      console.error('[Share] Failed to award points:', error);
+      addPoints(POINTS.SHARE_DEVOTIONAL);
+      showToast(
+        POINTS.SHARE_DEVOTIONAL,
+        language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
+      );
     }
-  }, [user, selectedDevotional, language, updateUser, addPoints, showToast]);
+
+    setSelectedDevotional(null);
+  }, [user, language, updateUser, addPoints, showToast]);
 
   const renderItem = useCallback(
     ({ item }: { item: Devotional }) => (
@@ -522,138 +465,26 @@ export default function LibraryScreen() {
         primaryColor={colors.primary}
       />
 
-      {/* Share Modal */}
-      <Modal
+      {/* Share Options Sheet */}
+      <ShareOptionsSheet
         visible={showShareModal}
-        transparent
-        animationType="slide"
-        onRequestClose={() => {
+        onClose={() => {
           setShowShareModal(false);
           setSelectedDevotional(null);
         }}
-      >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(0,0,0,0.8)',
-          }}
-        >
-          {/* Header */}
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              paddingTop: insets.top + 10,
-              paddingHorizontal: 20,
-              paddingBottom: 16,
-            }}
-          >
-            <Pressable
-              onPress={() => {
-                setShowShareModal(false);
-                setSelectedDevotional(null);
-              }}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 20,
-                backgroundColor: 'rgba(255,255,255,0.2)',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <X size={22} color="#FFFFFF" />
-            </Pressable>
-            <Text style={{ color: '#FFFFFF', fontSize: 18, fontWeight: '600' }}>
-              {language === 'es' ? 'Compartir Devocional' : 'Share Devotional'}
-            </Text>
-            <View style={{ width: 40 }} />
-          </View>
-
-          {/* Preview - WhatsApp optimized square card */}
-          {selectedDevotional && (
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingHorizontal: 20,
-              }}
-            >
-              <ViewShot
-                ref={viewShotRef}
-                options={{
-                  format: 'png',
-                  quality: 1,
-                  result: 'tmpfile',
-                  width: WHATSAPP_CARD_SIZE,
-                  height: WHATSAPP_CARD_SIZE,
-                }}
-              >
-                <WhatsAppShareCard
-                  devotional={selectedDevotional}
-                  language={language}
-                  size={PREVIEW_SIZE}
-                />
-              </ViewShot>
-
-              {/* Preview label */}
-              <Text
-                style={{
-                  color: 'rgba(255,255,255,0.6)',
-                  fontSize: 13,
-                  marginTop: 16,
-                  textAlign: 'center',
-                }}
-              >
-                {language === 'es'
-                  ? 'Vista previa - Se compartira en alta calidad'
-                  : 'Preview - Will share in high quality'}
-              </Text>
-            </View>
-          )}
-
-          {/* Share Button */}
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              paddingHorizontal: 20,
-              paddingBottom: insets.bottom + 20,
-              paddingTop: 16,
-              backgroundColor: 'rgba(0,0,0,0.9)',
-            }}
-          >
-            <Pressable
-              onPress={handleShareImage}
-              disabled={isCapturing}
-              style={{
-                backgroundColor: '#25D366', // WhatsApp green
-                borderRadius: 16,
-                paddingVertical: 16,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: isCapturing ? 0.7 : 1,
-              }}
-            >
-              {isCapturing ? (
-                <ActivityIndicator color="#FFFFFF" />
-              ) : (
-                <>
-                  <Share2 size={20} color="#FFFFFF" />
-                  <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '600', marginLeft: 10 }}>
-                    {language === 'es' ? 'Compartir' : 'Share'}
-                  </Text>
-                </>
-              )}
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+        devotional={selectedDevotional}
+        language={language}
+        colors={colors}
+        translations={{
+          bible_verse: t.bible_verse,
+          reflection: t.reflection,
+          story: t.story,
+          biblical_character: t.biblical_character,
+          application: t.application,
+          prayer: t.prayer,
+        }}
+        onShareComplete={handleShareComplete}
+      />
 
       {/* Category Dropdown Modal */}
       <Modal
