@@ -175,3 +175,16 @@ export function getPreviewText(language: 'en' | 'es'): string {
     ? 'El Señor es mi pastor, nada me faltara.'
     : 'The Lord is my shepherd, I shall not want.';
 }
+
+/**
+ * Adds natural pauses after numbered points in text for better TTS readability.
+ * Converts "1. First point. 2. Second point." to "1. First point. ... 2. Second point."
+ * The ellipsis creates a natural pause when spoken by TTS engines.
+ */
+export function addTTSPausesForNumberedPoints(text: string): string {
+  // Pattern matches:
+  // - End of a sentence (. or !) followed by whitespace
+  // - Then a number followed by a period (e.g., "2.", "3.")
+  // We insert a pause (ellipsis) before the number
+  return text.replace(/([.!])\s+(\d+\.)/g, '$1 ... $2');
+}

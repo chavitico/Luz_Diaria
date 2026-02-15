@@ -77,6 +77,7 @@ import {
   findMatchingDeviceVoice,
   getDeviceVoiceIdentifier,
   getPreviewText,
+  addTTSPausesForNumberedPoints,
   type CuratedVoice,
 } from '@/lib/tts-voices';
 
@@ -888,12 +889,13 @@ export default function DevotionalDetailScreen() {
     const formattedReference = formatBibleReferenceForSpeech(bibleRef, language);
 
     // Apply Bible reference normalization to ALL sections for proper TTS pronunciation
+    // Also add pauses between numbered points for better readability
     return [
       { key: 'verse', text: `${verse}. ${formattedReference}` },
-      { key: 'reflection', text: normalizeBibleRefForTTS(reflection, language) },
-      { key: 'story', text: normalizeBibleRefForTTS(story, language) },
-      { key: 'character', text: normalizeBibleRefForTTS(character, language) },
-      { key: 'application', text: normalizeBibleRefForTTS(application, language) },
+      { key: 'reflection', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(reflection, language)) },
+      { key: 'story', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(story, language)) },
+      { key: 'character', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(character, language)) },
+      { key: 'application', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(application, language)) },
       { key: 'prayer', text: normalizeBibleRefForTTS(prayer, language) },
     ];
   }, [devotional, language]);
