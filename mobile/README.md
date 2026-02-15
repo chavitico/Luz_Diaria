@@ -44,17 +44,39 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
   - Success/error feedback with toast notification
   - Points instantly added to balance
 - **6 Reward Categories**:
-  - **Themes** (6 visual palettes): Sunrise, Peaceful Night, Forest, Desert, Promise, Minimal
+  - **Themes** (20 total: 6 original + 14 V2 premium):
+    - Original: Sunrise, Peaceful Night, Forest, Desert, Promise, Minimal
+    - V2 Premium: Amanecer Dorado, Noche de Paz Profunda, Bosque Sereno, Desierto Suave, Promesa Violeta, Cielo de Gloria, Mar de Misericordia, Fuego del Espiritu, Jardin de Gracia, Olivo y Paz, Trono Azul, Lampara Encendida, Pergamino Antiguo, Luz Celestial
+    - V2 themes have 5-color swatch preview + sample text "Aa"
   - **Avatar Frames** (10 overlays): Golden, Silver, Blue Hope, Green Life, Soft Light, Leaf Crown, Stars, Parchment, Soft Fire, Heaven
   - **Spiritual Titles** (12 titles): Buscador de Luz, Corazon Agradecido, Siervo Fiel, etc.
-  - **Avatars** (8 free + 6 premium)
-  - **Bundles** (3 discounted packs): Gratitude Kit, Serenity Pack, Pilgrim Bundle
-  - **Collections** (4 themed groups): Symbols of Faith, Biblical Nature, Light Path, Spiritual Journey
+  - **Avatars** (38 total: 8 free + 6 premium + 24 V2 premium):
+    - Free: Dove, Sun, Star, Heart, Cross, Candle, Book, Praying
+    - Premium V1: Rainbow, Crown, Angel, Olive, Lamb, Fish
+    - **V2 Premium Collections** (4 mini-collections with 24 illustrated avatars):
+      - **Simbolos de Fe** (8): Paloma de Paz, Cruz Radiante, Lampara de Aceite, Corona de Vida (epic), Biblia Abierta, Caliz, Ancla de Esperanza, Pan y Uvas
+      - **Naturaleza Biblica** (6): Rama de Olivo, Pez Ichthys, Cordero, Leon de Juda (epic), Semilla de Mostaza, Vid y Racimos
+      - **Virtudes** (6): Gratitud, Fe, Amor, Paz, Gozo, Valentia (epic)
+      - **Kids Friendly** (4): Estrellita, Arcoiris Suave, Nube Feliz, Angelito
+    - V2 avatars have special glow, "V2" badge, and enhanced border styling
+  - **Bundles** (9 total: 3 original + 6 V2):
+    - Original: Gratitude Kit, Divine Light Bundle, Pilgrim Collection
+    - V2: Kit Gratitud V2, Kit Paz V2, Kit Fe V2, Kit Promesa V2, Kit Infantil, Paquete Naturaleza V2
+    - V2 bundles show "V2" badge and include V2 items
+  - **Collections** (8 total: 4 original + 4 V2):
+    - Original: Symbols of Faith, Biblical Nature, Frames of Light, Titles of Service
+    - V2: Simbolos de Fe V2, Naturaleza Biblica V2, Coleccion de Virtudes, Kids Friendly
+    - V2 collections have enhanced rewards (500-600 points)
 - **Item Detail Modal** with large preview (96-120px), rarity badge, description, purchase/equip actions
+- **V2 Premium Features**:
+  - V2 items marked with badge in cards
+  - Enhanced visual styling (glow, borders, shadows)
+  - 5-color preview for V2 themes
+  - Locked items show blur overlay
 - Rarity system with visual indicators:
-  - **Common**: Gray tones, subtle border
-  - **Rare**: Blue glow, star icon
-  - **Epic**: Purple glow, gem icon
+  - **Common**: Gray tones, subtle border (150-400 pts)
+  - **Rare**: Blue glow, star icon (400-900 pts)
+  - **Epic**: Purple glow, gem icon (1200-5000 pts)
 - Gradient backgrounds based on item rarity
 
 ### Settings Tab

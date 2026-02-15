@@ -1027,7 +1027,7 @@ function ItemDetailModal({
   );
 }
 
-// Premium Theme Card
+// Premium Theme Card with V2 enhanced preview
 function PremiumThemeCard({
   themeData,
   isOwned,
@@ -1048,6 +1048,7 @@ function PremiumThemeCard({
   const t = TRANSLATIONS[language];
   const scale = useSharedValue(1);
   const rarityColor = RARITY_COLORS[themeData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
+  const isV2Theme = themeData.id.includes('_v2_') || themeData.id.includes('amanecer_dorado') || themeData.id.includes('noche_profunda') || themeData.id.includes('bosque_sereno') || themeData.id.includes('desierto_suave') || themeData.id.includes('promesa_violeta') || themeData.id.includes('cielo_gloria') || themeData.id.includes('mar_misericordia') || themeData.id.includes('fuego_espiritu') || themeData.id.includes('jardin_gracia') || themeData.id.includes('olivo_paz') || themeData.id.includes('trono_azul') || themeData.id.includes('lampara_encendida') || themeData.id.includes('pergamino_antiguo') || themeData.id.includes('luz_celestial');
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -1073,11 +1074,45 @@ function PremiumThemeCard({
           opacity: !canAfford && !isOwned ? 0.7 : 1,
         }}
       >
-        {/* Color Preview */}
-        <View style={{ height: 72, flexDirection: 'row' }}>
-          <View style={{ flex: 1, backgroundColor: themeData.colors.primary }} />
-          <View style={{ flex: 1, backgroundColor: themeData.colors.secondary }} />
-          <View style={{ flex: 1, backgroundColor: themeData.colors.accent }} />
+        {/* Enhanced Color Preview with 5 swatches + sample text for V2 */}
+        <View style={{ height: isV2Theme ? 90 : 72, backgroundColor: themeData.colors.background }}>
+          {/* Color swatches row */}
+          <View style={{ flexDirection: 'row', height: isV2Theme ? 50 : 72 }}>
+            <View style={{ flex: 1, backgroundColor: themeData.colors.primary }} />
+            <View style={{ flex: 1, backgroundColor: themeData.colors.secondary }} />
+            <View style={{ flex: 1, backgroundColor: themeData.colors.accent }} />
+            {isV2Theme && (
+              <>
+                <View style={{ flex: 1, backgroundColor: themeData.colors.surface }} />
+                <View style={{ flex: 1, backgroundColor: themeData.colors.text }} />
+              </>
+            )}
+          </View>
+          {/* Sample text preview for V2 themes */}
+          {isV2Theme && (
+            <View style={{
+              paddingHorizontal: 8,
+              paddingVertical: 6,
+              backgroundColor: themeData.colors.background,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+              <Text style={{
+                fontSize: 16,
+                fontWeight: '700',
+                color: themeData.colors.text,
+              }}>Aa</Text>
+              <View style={{
+                paddingHorizontal: 6,
+                paddingVertical: 2,
+                borderRadius: 4,
+                backgroundColor: themeData.colors.primary + '20',
+              }}>
+                <Text style={{ fontSize: 10, fontWeight: '600', color: themeData.colors.primary }}>V2</Text>
+              </View>
+            </View>
+          )}
         </View>
 
         {/* Rarity glow overlay */}
@@ -1088,7 +1123,7 @@ function PremiumThemeCard({
               top: 0,
               left: 0,
               right: 0,
-              height: 72,
+              height: isV2Theme ? 90 : 72,
               borderBottomWidth: 2,
               borderBottomColor: rarityColor + '50',
             }}
@@ -1102,7 +1137,7 @@ function PremiumThemeCard({
             top: 0,
             left: 0,
             right: 0,
-            height: 72,
+            height: isV2Theme ? 90 : 72,
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: 'rgba(0,0,0,0.35)',
@@ -1402,7 +1437,7 @@ function PremiumTitleCard({
   );
 }
 
-// Premium Avatar Card
+// Premium Avatar Card with V2 enhanced styling
 function PremiumAvatarCard({
   avatar,
   isOwned,
@@ -1425,6 +1460,7 @@ function PremiumAvatarCard({
   const price = hasCost ? (avatar as { price: number }).price : 0;
   const rarity = avatar.rarity || 'common';
   const rarityColor = RARITY_COLORS[rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
+  const isV2Avatar = 'isV2' in avatar && (avatar as { isV2?: boolean }).isV2 === true;
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -1442,33 +1478,55 @@ function PremiumAvatarCard({
           backgroundColor: colors.surface,
           shadowColor: isEquipped ? colors.primary : rarityColor,
           shadowOffset: { width: 0, height: isEquipped ? 6 : 3 },
-          shadowOpacity: isEquipped ? 0.35 : 0.15,
-          shadowRadius: 8,
-          elevation: isEquipped ? 5 : 3,
-          borderWidth: isEquipped ? 2 : 0,
-          borderColor: colors.primary,
+          shadowOpacity: isEquipped ? 0.35 : (isV2Avatar ? 0.25 : 0.15),
+          shadowRadius: isV2Avatar ? 10 : 8,
+          elevation: isEquipped ? 5 : (isV2Avatar ? 4 : 3),
+          borderWidth: isEquipped ? 2 : (isV2Avatar ? 1 : 0),
+          borderColor: isEquipped ? colors.primary : (isV2Avatar ? rarityColor + '40' : 'transparent'),
           opacity: !canAfford && !isOwned && hasCost ? 0.7 : 1,
         }}
       >
         <LinearGradient
-          colors={RARITY_GRADIENTS[rarity as keyof typeof RARITY_GRADIENTS] || RARITY_GRADIENTS.common}
+          colors={isV2Avatar
+            ? [rarityColor + '15', rarityColor + '08']
+            : (RARITY_GRADIENTS[rarity as keyof typeof RARITY_GRADIENTS] || RARITY_GRADIENTS.common)
+          }
           style={{ padding: 12, alignItems: 'center' }}
         >
+          {/* V2 Badge */}
+          {isV2Avatar && (
+            <View style={{
+              position: 'absolute',
+              top: 6,
+              right: 6,
+              paddingHorizontal: 5,
+              paddingVertical: 2,
+              borderRadius: 4,
+              backgroundColor: rarityColor + '20',
+            }}>
+              <Text style={{ fontSize: 8, fontWeight: '700', color: rarityColor }}>V2</Text>
+            </View>
+          )}
+
           {/* Avatar Emoji */}
           <View style={{ position: 'relative', marginBottom: 8 }}>
             <View
               style={{
-                width: 64,
-                height: 64,
-                borderRadius: 32,
+                width: isV2Avatar ? 68 : 64,
+                height: isV2Avatar ? 68 : 64,
+                borderRadius: isV2Avatar ? 34 : 32,
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: colors.primary + '15',
-                borderWidth: rarity !== 'common' ? 2 : 0,
-                borderColor: rarityColor + '40',
+                backgroundColor: isV2Avatar ? colors.surface : colors.primary + '15',
+                borderWidth: isV2Avatar ? 3 : (rarity !== 'common' ? 2 : 0),
+                borderColor: isV2Avatar ? rarityColor + '60' : rarityColor + '40',
+                shadowColor: isV2Avatar ? rarityColor : 'transparent',
+                shadowOffset: { width: 0, height: 0 },
+                shadowOpacity: isV2Avatar ? 0.4 : 0,
+                shadowRadius: isV2Avatar ? 8 : 0,
               }}
             >
-              <Text style={{ fontSize: 32 }}>{avatar.emoji}</Text>
+              <Text style={{ fontSize: isV2Avatar ? 34 : 32 }}>{avatar.emoji}</Text>
             </View>
 
             {/* Rarity indicator */}
@@ -1494,7 +1552,7 @@ function PremiumAvatarCard({
               </View>
             )}
 
-            {/* Lock Overlay */}
+            {/* Lock Overlay with blur effect for V2 */}
             {!canAfford && !isOwned && hasCost && (
               <View style={{
                 position: 'absolute',
@@ -1504,8 +1562,8 @@ function PremiumAvatarCard({
                 bottom: 0,
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: 'rgba(0,0,0,0.35)',
-                borderRadius: 32,
+                backgroundColor: isV2Avatar ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.35)',
+                borderRadius: isV2Avatar ? 34 : 32,
               }}>
                 <Lock size={18} color="#FFFFFF" />
               </View>
@@ -1513,7 +1571,7 @@ function PremiumAvatarCard({
           </View>
 
           <Text
-            style={{ fontSize: 11, fontWeight: '600', color: colors.text, textAlign: 'center', marginBottom: 4 }}
+            style={{ fontSize: 11, fontWeight: isV2Avatar ? '700' : '600', color: colors.text, textAlign: 'center', marginBottom: 4 }}
             numberOfLines={1}
           >
             {language === 'es' && avatar.nameEs ? avatar.nameEs : avatar.name}
@@ -1544,7 +1602,7 @@ function PremiumAvatarCard({
   );
 }
 
-// Bundle Card
+// Bundle Card with V2 support
 function BundleCard({
   bundle,
   purchasedItems,
@@ -1566,6 +1624,7 @@ function BundleCard({
   const rarityColor = RARITY_COLORS[bundle.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
   const canAfford = points >= bundle.bundlePrice;
   const savings = bundle.originalPrice - bundle.bundlePrice;
+  const isV2Bundle = 'isV2' in bundle && bundle.isV2 === true;
 
   // Check if all items in bundle are already owned
   const allOwned = bundle.items.every(itemId => purchasedItems.includes(itemId));
@@ -1627,12 +1686,24 @@ function BundleCard({
               <ShoppingBag size={24} color={rarityColor} />
             </View>
             <View className="flex-1">
-              <Text
-                className="text-base font-bold"
-                style={{ color: colors.text }}
-              >
-                {language === 'es' ? bundle.nameEs : bundle.name}
-              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                <Text
+                  className="text-base font-bold"
+                  style={{ color: colors.text }}
+                >
+                  {language === 'es' ? bundle.nameEs : bundle.name}
+                </Text>
+                {isV2Bundle && (
+                  <View style={{
+                    paddingHorizontal: 5,
+                    paddingVertical: 2,
+                    borderRadius: 4,
+                    backgroundColor: rarityColor + '20',
+                  }}>
+                    <Text style={{ fontSize: 9, fontWeight: '700', color: rarityColor }}>V2</Text>
+                  </View>
+                )}
+              </View>
               <Text
                 className="text-xs"
                 style={{ color: colors.textMuted }}
@@ -1750,7 +1821,7 @@ function BundleCard({
   );
 }
 
-// Collection Card
+// Collection Card with V2 support
 function CollectionCard({
   collection,
   purchasedItems,
@@ -1765,6 +1836,7 @@ function CollectionCard({
   onPress: () => void;
 }) {
   const scale = useSharedValue(1);
+  const isV2Collection = 'isV2' in collection && collection.isV2 === true;
 
   // Calculate owned items
   const ownedCount = collection.items.filter(itemId => {
@@ -1807,17 +1879,29 @@ function CollectionCard({
           <View className="flex-row items-center mb-3">
             <View
               className="w-12 h-12 rounded-xl items-center justify-center mr-3"
-              style={{ backgroundColor: isComplete ? '#22C55E20' : colors.primary + '15' }}
+              style={{ backgroundColor: isComplete ? '#22C55E20' : (isV2Collection ? colors.primary + '20' : colors.primary + '15') }}
             >
               <Text style={{ fontSize: 24 }}>{collection.icon}</Text>
             </View>
             <View className="flex-1">
-              <Text
-                className="text-base font-bold"
-                style={{ color: colors.text }}
-              >
-                {language === 'es' ? collection.nameEs : collection.name}
-              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                <Text
+                  className="text-base font-bold"
+                  style={{ color: colors.text }}
+                >
+                  {language === 'es' ? collection.nameEs : collection.name}
+                </Text>
+                {isV2Collection && (
+                  <View style={{
+                    paddingHorizontal: 5,
+                    paddingVertical: 2,
+                    borderRadius: 4,
+                    backgroundColor: colors.primary + '20',
+                  }}>
+                    <Text style={{ fontSize: 9, fontWeight: '700', color: colors.primary }}>V2</Text>
+                  </View>
+                )}
+              </View>
               <Text
                 className="text-xs"
                 style={{ color: colors.textMuted }}

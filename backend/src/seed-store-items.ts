@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // ============================================
-// THEMES (6 items)
+// THEMES (6 items - Original)
 // ============================================
 const THEMES = [
   {
@@ -129,6 +129,236 @@ const THEMES = [
 ];
 
 // ============================================
+// THEMES V2 (14 items - Premium Palettes)
+// ============================================
+const THEMES_V2 = [
+  {
+    id: 'theme_amanecer_dorado',
+    type: 'theme',
+    nameEn: 'Golden Dawn',
+    nameEs: 'Amanecer Dorado',
+    descriptionEn: 'Radiant gold hues of a new beginning',
+    descriptionEs: 'Tonos dorados radiantes de un nuevo comienzo',
+    pricePoints: 500,
+    rarity: 'rare',
+    assetRef: 'amanecer_dorado',
+    metadata: JSON.stringify({
+      primary: '#D97706', secondary: '#F59E0B', accent: '#FCD34D',
+      background: '#FFFBEB', backgroundDark: '#1C1917',
+      surface: '#FFFFFF', surfaceDark: '#292524',
+    }),
+  },
+  {
+    id: 'theme_noche_profunda',
+    type: 'theme',
+    nameEn: 'Deep Night Peace',
+    nameEs: 'Noche de Paz Profunda',
+    descriptionEn: 'Serene darkness with celestial stars',
+    descriptionEs: 'Oscuridad serena con estrellas celestiales',
+    pricePoints: 550,
+    rarity: 'rare',
+    assetRef: 'noche_profunda',
+    metadata: JSON.stringify({
+      primary: '#4338CA', secondary: '#6366F1', accent: '#A5B4FC',
+      background: '#0F0D1A', backgroundDark: '#0F0D1A',
+      surface: '#1E1B2E', surfaceDark: '#1E1B2E',
+    }),
+  },
+  {
+    id: 'theme_bosque_sereno',
+    type: 'theme',
+    nameEn: 'Serene Forest',
+    nameEs: 'Bosque Sereno',
+    descriptionEn: 'Peaceful green sanctuary of nature',
+    descriptionEs: 'Santuario verde y pacifico de la naturaleza',
+    pricePoints: 300,
+    rarity: 'common',
+    assetRef: 'bosque_sereno',
+    metadata: JSON.stringify({
+      primary: '#059669', secondary: '#10B981', accent: '#6EE7B7',
+      background: '#ECFDF5', backgroundDark: '#022C22',
+      surface: '#FFFFFF', surfaceDark: '#064E3B',
+    }),
+  },
+  {
+    id: 'theme_desierto_suave',
+    type: 'theme',
+    nameEn: 'Soft Desert',
+    nameEs: 'Desierto Suave',
+    descriptionEn: 'Warm sand tones of contemplation',
+    descriptionEs: 'Tonos arena calidos de contemplacion',
+    pricePoints: 280,
+    rarity: 'common',
+    assetRef: 'desierto_suave',
+    metadata: JSON.stringify({
+      primary: '#C2410C', secondary: '#EA580C', accent: '#FED7AA',
+      background: '#FFF7ED', backgroundDark: '#1C1410',
+      surface: '#FFFFFF', surfaceDark: '#292018',
+    }),
+  },
+  {
+    id: 'theme_promesa_violeta',
+    type: 'theme',
+    nameEn: 'Violet Promise',
+    nameEs: 'Promesa Violeta',
+    descriptionEn: 'Royal purple of divine covenant',
+    descriptionEs: 'Purpura real del pacto divino',
+    pricePoints: 650,
+    rarity: 'rare',
+    assetRef: 'promesa_violeta',
+    metadata: JSON.stringify({
+      primary: '#7C3AED', secondary: '#8B5CF6', accent: '#C4B5FD',
+      background: '#F5F3FF', backgroundDark: '#1E1033',
+      surface: '#FFFFFF', surfaceDark: '#2E1B4B',
+    }),
+  },
+  {
+    id: 'theme_cielo_gloria',
+    type: 'theme',
+    nameEn: 'Sky of Glory',
+    nameEs: 'Cielo de Gloria',
+    descriptionEn: 'Majestic sky blue of heavenly realms',
+    descriptionEs: 'Azul cielo majestuoso de reinos celestiales',
+    pricePoints: 550,
+    rarity: 'rare',
+    assetRef: 'cielo_gloria',
+    metadata: JSON.stringify({
+      primary: '#0284C7', secondary: '#0EA5E9', accent: '#7DD3FC',
+      background: '#F0F9FF', backgroundDark: '#082F49',
+      surface: '#FFFFFF', surfaceDark: '#0C4A6E',
+    }),
+  },
+  {
+    id: 'theme_mar_misericordia',
+    type: 'theme',
+    nameEn: 'Sea of Mercy',
+    nameEs: 'Mar de Misericordia',
+    descriptionEn: 'Teal depths of endless grace',
+    descriptionEs: 'Profundidades aguamarina de gracia infinita',
+    pricePoints: 320,
+    rarity: 'common',
+    assetRef: 'mar_misericordia',
+    metadata: JSON.stringify({
+      primary: '#0D9488', secondary: '#14B8A6', accent: '#5EEAD4',
+      background: '#F0FDFA', backgroundDark: '#042F2E',
+      surface: '#FFFFFF', surfaceDark: '#134E4A',
+    }),
+  },
+  {
+    id: 'theme_fuego_espiritu',
+    type: 'theme',
+    nameEn: 'Fire of the Spirit',
+    nameEs: 'Fuego del Espiritu',
+    descriptionEn: 'Holy flames of divine presence',
+    descriptionEs: 'Llamas santas de la presencia divina',
+    pricePoints: 1500,
+    rarity: 'epic',
+    assetRef: 'fuego_espiritu',
+    metadata: JSON.stringify({
+      primary: '#DC2626', secondary: '#F97316', accent: '#FDE68A',
+      background: '#FEF2F2', backgroundDark: '#1C1410',
+      surface: '#FFFFFF', surfaceDark: '#2A1810',
+    }),
+  },
+  {
+    id: 'theme_jardin_gracia',
+    type: 'theme',
+    nameEn: 'Garden of Grace',
+    nameEs: 'Jardin de Gracia',
+    descriptionEn: 'Blooming garden of divine favor',
+    descriptionEs: 'Jardin florido del favor divino',
+    pricePoints: 380,
+    rarity: 'common',
+    assetRef: 'jardin_gracia',
+    metadata: JSON.stringify({
+      primary: '#DB2777', secondary: '#EC4899', accent: '#FBCFE8',
+      background: '#FDF2F8', backgroundDark: '#1A0D14',
+      surface: '#FFFFFF', surfaceDark: '#2D1520',
+    }),
+  },
+  {
+    id: 'theme_olivo_paz',
+    type: 'theme',
+    nameEn: 'Olive and Peace',
+    nameEs: 'Olivo y Paz',
+    descriptionEn: 'Ancient olive hues of harmony',
+    descriptionEs: 'Tonos antiguos de olivo y armonia',
+    pricePoints: 300,
+    rarity: 'common',
+    assetRef: 'olivo_paz',
+    metadata: JSON.stringify({
+      primary: '#65A30D', secondary: '#84CC16', accent: '#BEF264',
+      background: '#F7FEE7', backgroundDark: '#1A2E05',
+      surface: '#FFFFFF', surfaceDark: '#3F6212',
+    }),
+  },
+  {
+    id: 'theme_trono_azul',
+    type: 'theme',
+    nameEn: 'Blue Throne',
+    nameEs: 'Trono Azul',
+    descriptionEn: 'Royal blue of the heavenly throne',
+    descriptionEs: 'Azul real del trono celestial',
+    pricePoints: 600,
+    rarity: 'rare',
+    assetRef: 'trono_azul',
+    metadata: JSON.stringify({
+      primary: '#1D4ED8', secondary: '#3B82F6', accent: '#93C5FD',
+      background: '#EFF6FF', backgroundDark: '#0F172A',
+      surface: '#FFFFFF', surfaceDark: '#1E3A5F',
+    }),
+  },
+  {
+    id: 'theme_lampara_encendida',
+    type: 'theme',
+    nameEn: 'Burning Lamp',
+    nameEs: 'Lampara Encendida',
+    descriptionEn: 'Warm glow of the ever-burning lamp',
+    descriptionEs: 'Resplandor calido de la lampara ardiente',
+    pricePoints: 520,
+    rarity: 'rare',
+    assetRef: 'lampara_encendida',
+    metadata: JSON.stringify({
+      primary: '#B45309', secondary: '#D97706', accent: '#FDE68A',
+      background: '#FFFBEB', backgroundDark: '#1C1712',
+      surface: '#FFFFFF', surfaceDark: '#292418',
+    }),
+  },
+  {
+    id: 'theme_pergamino_antiguo',
+    type: 'theme',
+    nameEn: 'Ancient Parchment',
+    nameEs: 'Pergamino Antiguo',
+    descriptionEn: 'Timeless sepia of sacred scrolls',
+    descriptionEs: 'Sepia atemporal de pergaminos sagrados',
+    pricePoints: 350,
+    rarity: 'common',
+    assetRef: 'pergamino_antiguo',
+    metadata: JSON.stringify({
+      primary: '#A16207', secondary: '#CA8A04', accent: '#FEF08A',
+      background: '#FEFCE8', backgroundDark: '#1A1608',
+      surface: '#FFFFFF', surfaceDark: '#2E2810',
+    }),
+  },
+  {
+    id: 'theme_luz_celestial',
+    type: 'theme',
+    nameEn: 'Celestial Light',
+    nameEs: 'Luz Celestial',
+    descriptionEn: 'Ethereal glow from heavenly realms',
+    descriptionEs: 'Resplandor etereo de los cielos',
+    pricePoints: 1800,
+    rarity: 'epic',
+    assetRef: 'luz_celestial',
+    metadata: JSON.stringify({
+      primary: '#7C3AED', secondary: '#60A5FA', accent: '#FDE68A',
+      background: '#FAFAFA', backgroundDark: '#0F0A1A',
+      surface: '#FFFFFF', surfaceDark: '#1A1028',
+    }),
+  },
+];
+
+// ============================================
 // AVATAR FRAMES (10 items)
 // ============================================
 const FRAMES = [
@@ -184,7 +414,7 @@ const TITLES = [
 ];
 
 // ============================================
-// PREMIUM AVATARS (6 items - the ones with price)
+// PREMIUM AVATARS (6 items - Original with price)
 // ============================================
 const AVATARS = [
   { id: 'avatar_rainbow', type: 'avatar', nameEn: 'Rainbow', nameEs: 'Arcoiris', descriptionEn: 'Promise of God', descriptionEs: 'Promesa de Dios', pricePoints: 200, rarity: 'rare', assetRef: '🌈' },
@@ -193,6 +423,40 @@ const AVATARS = [
   { id: 'avatar_olive', type: 'avatar', nameEn: 'Olive Branch', nameEs: 'Rama de Olivo', descriptionEn: 'Sign of peace', descriptionEs: 'Signo de paz', pricePoints: 250, rarity: 'rare', assetRef: '🫒' },
   { id: 'avatar_lamb', type: 'avatar', nameEn: 'Lamb', nameEs: 'Cordero', descriptionEn: 'Gentle and pure', descriptionEs: 'Gentil y puro', pricePoints: 400, rarity: 'rare', assetRef: '🐑' },
   { id: 'avatar_fish', type: 'avatar', nameEn: 'Fish', nameEs: 'Pez', descriptionEn: 'Early Christian symbol', descriptionEs: 'Simbolo cristiano primitivo', pricePoints: 150, rarity: 'common', assetRef: '🐟' },
+];
+
+// ============================================
+// AVATARS V2 - Premium Illustrated Collection (24 items)
+// ============================================
+const AVATARS_V2 = [
+  // Collection 1: Simbolos de Fe (8 items)
+  { id: 'avatar_v2_paloma_paz', type: 'avatar', nameEn: 'Dove of Peace', nameEs: 'Paloma de Paz', descriptionEn: 'Premium illustrated dove with olive branch', descriptionEs: 'Paloma ilustrada premium con rama de olivo', pricePoints: 450, rarity: 'rare', assetRef: '🕊️', metadata: JSON.stringify({ collectionId: 'collection_v2_simbolos_fe', isV2: true }) },
+  { id: 'avatar_v2_cruz_radiante', type: 'avatar', nameEn: 'Radiant Cross', nameEs: 'Cruz Radiante', descriptionEn: 'Glowing cross with divine rays', descriptionEs: 'Cruz resplandeciente con rayos divinos', pricePoints: 500, rarity: 'rare', assetRef: '✝️', metadata: JSON.stringify({ collectionId: 'collection_v2_simbolos_fe', isV2: true }) },
+  { id: 'avatar_v2_lampara_aceite', type: 'avatar', nameEn: 'Oil Lamp', nameEs: 'Lampara de Aceite', descriptionEn: 'Ancient oil lamp burning bright', descriptionEs: 'Lampara de aceite antigua ardiendo brillante', pricePoints: 280, rarity: 'common', assetRef: '🪔', metadata: JSON.stringify({ collectionId: 'collection_v2_simbolos_fe', isV2: true }) },
+  { id: 'avatar_v2_corona_vida', type: 'avatar', nameEn: 'Crown of Life', nameEs: 'Corona de Vida', descriptionEn: 'Majestic crown adorned with jewels', descriptionEs: 'Corona majestuosa adornada con joyas', pricePoints: 2500, rarity: 'epic', assetRef: '👑', metadata: JSON.stringify({ collectionId: 'collection_v2_simbolos_fe', isV2: true }) },
+  { id: 'avatar_v2_biblia_abierta', type: 'avatar', nameEn: 'Open Bible', nameEs: 'Biblia Abierta', descriptionEn: 'Holy scriptures with radiant glow', descriptionEs: 'Escrituras santas con resplandor radiante', pricePoints: 320, rarity: 'common', assetRef: '📖', metadata: JSON.stringify({ collectionId: 'collection_v2_simbolos_fe', isV2: true }) },
+  { id: 'avatar_v2_caliz', type: 'avatar', nameEn: 'Holy Chalice', nameEs: 'Caliz Sagrado', descriptionEn: 'Sacred cup of communion', descriptionEs: 'Copa sagrada de la comunion', pricePoints: 550, rarity: 'rare', assetRef: '🏆', metadata: JSON.stringify({ collectionId: 'collection_v2_simbolos_fe', isV2: true }) },
+  { id: 'avatar_v2_ancla_esperanza', type: 'avatar', nameEn: 'Anchor of Hope', nameEs: 'Ancla de Esperanza', descriptionEn: 'Steadfast anchor representing hope', descriptionEs: 'Ancla firme representando esperanza', pricePoints: 480, rarity: 'rare', assetRef: '⚓', metadata: JSON.stringify({ collectionId: 'collection_v2_simbolos_fe', isV2: true }) },
+  { id: 'avatar_v2_pan_uvas', type: 'avatar', nameEn: 'Bread and Grapes', nameEs: 'Pan y Uvas', descriptionEn: 'Communion bread with grapes', descriptionEs: 'Pan de comunion con uvas', pricePoints: 350, rarity: 'common', assetRef: '🍇', metadata: JSON.stringify({ collectionId: 'collection_v2_simbolos_fe', isV2: true }) },
+  // Collection 2: Naturaleza Biblica (6 items)
+  { id: 'avatar_v2_rama_olivo', type: 'avatar', nameEn: 'Olive Branch', nameEs: 'Rama de Olivo', descriptionEn: 'Lush olive branch of peace', descriptionEs: 'Exuberante rama de olivo de paz', pricePoints: 260, rarity: 'common', assetRef: '🌿', metadata: JSON.stringify({ collectionId: 'collection_v2_naturaleza', isV2: true }) },
+  { id: 'avatar_v2_pez_ichthys', type: 'avatar', nameEn: 'Ichthys Fish', nameEs: 'Pez Ichthys', descriptionEn: 'Ornate Christian fish symbol', descriptionEs: 'Simbolo del pez cristiano ornamentado', pricePoints: 300, rarity: 'common', assetRef: '🐠', metadata: JSON.stringify({ collectionId: 'collection_v2_naturaleza', isV2: true }) },
+  { id: 'avatar_v2_cordero', type: 'avatar', nameEn: 'Lamb of God', nameEs: 'Cordero de Dios', descriptionEn: 'Pure white lamb with halo', descriptionEs: 'Cordero blanco puro con aureola', pricePoints: 600, rarity: 'rare', assetRef: '🐑', metadata: JSON.stringify({ collectionId: 'collection_v2_naturaleza', isV2: true }) },
+  { id: 'avatar_v2_leon', type: 'avatar', nameEn: 'Lion of Judah', nameEs: 'Leon de Juda', descriptionEn: 'Majestic lion with golden mane', descriptionEs: 'Leon majestuoso con melena dorada', pricePoints: 3500, rarity: 'epic', assetRef: '🦁', metadata: JSON.stringify({ collectionId: 'collection_v2_naturaleza', isV2: true }) },
+  { id: 'avatar_v2_semilla_mostaza', type: 'avatar', nameEn: 'Mustard Seed', nameEs: 'Semilla de Mostaza', descriptionEn: 'Tiny seed growing into faith', descriptionEs: 'Pequena semilla creciendo en fe', pricePoints: 520, rarity: 'rare', assetRef: '🌱', metadata: JSON.stringify({ collectionId: 'collection_v2_naturaleza', isV2: true }) },
+  { id: 'avatar_v2_vid_racimos', type: 'avatar', nameEn: 'Vine and Grapes', nameEs: 'Vid y Racimos', descriptionEn: 'Abundant vine with clusters', descriptionEs: 'Vid abundante con racimos', pricePoints: 340, rarity: 'common', assetRef: '🍇', metadata: JSON.stringify({ collectionId: 'collection_v2_naturaleza', isV2: true }) },
+  // Collection 3: Virtudes (6 items)
+  { id: 'avatar_v2_gratitud', type: 'avatar', nameEn: 'Gratitude', nameEs: 'Gratitud', descriptionEn: 'Heart radiating thankful light', descriptionEs: 'Corazon irradiando luz de agradecimiento', pricePoints: 320, rarity: 'common', assetRef: '💖', metadata: JSON.stringify({ collectionId: 'collection_v2_virtudes', isV2: true }) },
+  { id: 'avatar_v2_fe', type: 'avatar', nameEn: 'Faith', nameEs: 'Fe', descriptionEn: 'Shield of unwavering faith', descriptionEs: 'Escudo de fe inquebrantable', pricePoints: 580, rarity: 'rare', assetRef: '🛡️', metadata: JSON.stringify({ collectionId: 'collection_v2_virtudes', isV2: true }) },
+  { id: 'avatar_v2_amor', type: 'avatar', nameEn: 'Love', nameEs: 'Amor', descriptionEn: 'Hands reaching with compassion', descriptionEs: 'Manos extendidas con compasion', pricePoints: 550, rarity: 'rare', assetRef: '🤲', metadata: JSON.stringify({ collectionId: 'collection_v2_virtudes', isV2: true }) },
+  { id: 'avatar_v2_paz', type: 'avatar', nameEn: 'Peace', nameEs: 'Paz', descriptionEn: 'Dove with olive in serene sky', descriptionEs: 'Paloma con olivo en cielo sereno', pricePoints: 500, rarity: 'rare', assetRef: '☮️', metadata: JSON.stringify({ collectionId: 'collection_v2_virtudes', isV2: true }) },
+  { id: 'avatar_v2_gozo', type: 'avatar', nameEn: 'Joy', nameEs: 'Gozo', descriptionEn: 'Radiant sun with sparkles', descriptionEs: 'Sol radiante con destellos', pricePoints: 350, rarity: 'common', assetRef: '✨', metadata: JSON.stringify({ collectionId: 'collection_v2_virtudes', isV2: true }) },
+  { id: 'avatar_v2_valentia', type: 'avatar', nameEn: 'Courage', nameEs: 'Valentia', descriptionEn: 'Sword of light conquering darkness', descriptionEs: 'Espada de luz conquistando oscuridad', pricePoints: 1800, rarity: 'epic', assetRef: '⚔️', metadata: JSON.stringify({ collectionId: 'collection_v2_virtudes', isV2: true }) },
+  // Collection 4: Kids Friendly (4 items)
+  { id: 'avatar_v2_estrellita', type: 'avatar', nameEn: 'Little Star', nameEs: 'Estrellita', descriptionEn: 'Cute twinkling star with smile', descriptionEs: 'Linda estrella parpadeante con sonrisa', pricePoints: 200, rarity: 'common', assetRef: '🌟', metadata: JSON.stringify({ collectionId: 'collection_v2_kids', isV2: true }) },
+  { id: 'avatar_v2_arcoiris', type: 'avatar', nameEn: 'Soft Rainbow', nameEs: 'Arcoiris Suave', descriptionEn: 'Gentle pastel rainbow arc', descriptionEs: 'Suave arco iris en tonos pastel', pricePoints: 240, rarity: 'common', assetRef: '🌈', metadata: JSON.stringify({ collectionId: 'collection_v2_kids', isV2: true }) },
+  { id: 'avatar_v2_nube', type: 'avatar', nameEn: 'Happy Cloud', nameEs: 'Nube Feliz', descriptionEn: 'Fluffy cloud with happy face', descriptionEs: 'Nube esponjosa con cara feliz', pricePoints: 450, rarity: 'rare', assetRef: '☁️', metadata: JSON.stringify({ collectionId: 'collection_v2_kids', isV2: true }) },
+  { id: 'avatar_v2_angelito', type: 'avatar', nameEn: 'Little Angel', nameEs: 'Angelito', descriptionEn: 'Adorable cherub with wings', descriptionEs: 'Adorable querubin con alas', pricePoints: 550, rarity: 'rare', assetRef: '👼', metadata: JSON.stringify({ collectionId: 'collection_v2_kids', isV2: true }) },
 ];
 
 // ============================================
@@ -250,12 +514,19 @@ async function seedStoreItems() {
 
   let sortOrder = 0;
 
-  // Seed themes
+  // Seed themes (original)
   console.log('Seeding themes...');
   for (const theme of THEMES) {
     await upsertItem(theme, sortOrder++);
   }
   console.log(`  Themes: ${THEMES.length} processed`);
+
+  // Seed themes V2 (premium)
+  console.log('Seeding themes V2...');
+  for (const theme of THEMES_V2) {
+    await upsertItem(theme, sortOrder++);
+  }
+  console.log(`  Themes V2: ${THEMES_V2.length} processed`);
 
   // Seed frames
   console.log('Seeding avatar frames...');
@@ -278,24 +549,33 @@ async function seedStoreItems() {
   }
   console.log(`  Spiritual titles: ${TITLES.length} processed`);
 
-  // Seed avatars
+  // Seed avatars (original)
   console.log('Seeding premium avatars...');
   for (const avatar of AVATARS) {
     await upsertItem(avatar, sortOrder++);
   }
   console.log(`  Premium avatars: ${AVATARS.length} processed`);
 
+  // Seed avatars V2 (premium illustrated)
+  console.log('Seeding avatars V2...');
+  for (const avatar of AVATARS_V2) {
+    await upsertItem(avatar, sortOrder++);
+  }
+  console.log(`  Avatars V2: ${AVATARS_V2.length} processed`);
+
   // Summary
-  const totalItems = THEMES.length + FRAMES.length + MUSIC_TRACKS.length + TITLES.length + AVATARS.length;
+  const totalItems = THEMES.length + THEMES_V2.length + FRAMES.length + MUSIC_TRACKS.length + TITLES.length + AVATARS.length + AVATARS_V2.length;
   console.log('\n========================================');
   console.log('Store items seed completed!');
   console.log('========================================');
   console.log(`Total items processed: ${totalItems}`);
-  console.log(`  - Themes: ${THEMES.length}`);
+  console.log(`  - Themes (original): ${THEMES.length}`);
+  console.log(`  - Themes V2: ${THEMES_V2.length}`);
   console.log(`  - Avatar frames: ${FRAMES.length}`);
   console.log(`  - Music tracks: ${MUSIC_TRACKS.length}`);
   console.log(`  - Spiritual titles: ${TITLES.length}`);
   console.log(`  - Premium avatars: ${AVATARS.length}`);
+  console.log(`  - Avatars V2: ${AVATARS_V2.length}`);
   console.log('----------------------------------------');
 
   // Verify counts in database
