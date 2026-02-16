@@ -943,7 +943,20 @@ export const TRANSLATIONS = {
     tab_home: 'Today',
     tab_library: 'Library',
     tab_store: 'Customize',
+    tab_community: 'Community',
     tab_settings: 'Settings',
+
+    // Community
+    community_title: 'Community',
+    community_subtitle: 'We walk together',
+    community_empty: 'No community members yet. Be the first to join!',
+    community_you: 'You',
+    community_devotionals: 'Devotionals',
+    community_streak: 'Streak',
+    community_opt_in: 'Show me in Community',
+    community_opt_in_desc: 'Allow others to see your progress',
+    community_walking_together: 'Walking together in faith',
+    community_god_works: 'God works in His people',
 
     // Onboarding
     welcome: 'Welcome to Daily Light',
@@ -1071,7 +1084,20 @@ export const TRANSLATIONS = {
     tab_home: 'Hoy',
     tab_library: 'Biblioteca',
     tab_store: 'Personalizar',
+    tab_community: 'Comunidad',
     tab_settings: 'Ajustes',
+
+    // Community
+    community_title: 'Comunidad',
+    community_subtitle: 'Caminamos juntos',
+    community_empty: 'Aun no hay usuarios en Comunidad. Se el primero en activarlo.',
+    community_you: 'Tu',
+    community_devotionals: 'Devocionales',
+    community_streak: 'Racha',
+    community_opt_in: 'Mostrarme en Comunidad',
+    community_opt_in_desc: 'Permite que otros vean tu progreso',
+    community_walking_together: 'Caminando juntos en fe',
+    community_god_works: 'Dios obra en Su pueblo',
 
     // Onboarding
     welcome: 'Bienvenido a Luz Diaria',

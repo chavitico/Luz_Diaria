@@ -1729,3 +1729,151 @@ gamificationRouter.get("/promo/user/:userId", async (c) => {
     return c.json({ error: "Failed to get redemptions" }, 500);
   }
 });
+
+// ============================================
+// COMMUNITY ENDPOINTS
+// ============================================
+
+// Schema for updating community opt-in
+const updateCommunityOptInSchema = z.object({
+  optIn: z.boolean(),
+});
+
+// GET /community/members - Get community members list with non-toxic ordering
+gamificationRouter.get("/community/members", async (c) => {
+  try {
+    const limit = parseInt(c.req.query("limit") ?? "20", 10);
+    const offset = parseInt(c.req.query("offset") ?? "0", 10);
+
+    // Get today's date to determine ordering strategy
+    const today = new Date();
+    const dayOfYear = Math.floor(
+      (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    // Rotate ordering strategy based on day:
+    // Day 0, 3, 6... = by recent activity
+    // Day 1, 4, 7... = by streak
+    // Day 2, 5, 8... = randomized (using day as seed)
+    const orderingStrategy = dayOfYear % 3;
+
+    let orderBy: Record<string, unknown>[] = [];
+
+    switch (orderingStrategy) {
+      case 0: // Recent activity first
+        orderBy = [{ lastActiveAt: "desc" }, { createdAt: "desc" }];
+        break;
+      case 1: // Current streak (mixed direction to avoid pure ranking)
+        orderBy = [{ streakCurrent: "desc" }, { lastActiveAt: "desc" }];
+        break;
+      case 2: // We'll shuffle client-side for this case
+      default:
+        orderBy = [{ createdAt: "asc" }];
+        break;
+    }
+
+    // Fetch all opted-in users
+    const [members, total] = await Promise.all([
+      prisma.user.findMany({
+        where: { communityOptIn: true },
+        select: {
+          id: true,
+          nickname: true,
+          avatarId: true,
+          frameId: true,
+          titleId: true,
+          points: true,
+          streakCurrent: true,
+          devotionalsCompleted: true,
+          lastActiveAt: true,
+          createdAt: true,
+        },
+        orderBy,
+        take: limit,
+        skip: offset,
+      }),
+      prisma.user.count({
+        where: { communityOptIn: true },
+      }),
+    ]);
+
+    // If it's randomized day, shuffle the results using the day as seed
+    let finalMembers = members;
+    if (orderingStrategy === 2) {
+      // Simple seeded shuffle
+      const seed = dayOfYear;
+      finalMembers = [...members].sort(() => {
+        // Use a simple hash based on seed for pseudo-random ordering
+        const hash = Math.sin(seed) * 10000;
+        return hash - Math.floor(hash) - 0.5;
+      });
+    }
+
+    return c.json({
+      members: finalMembers,
+      total,
+      limit,
+      offset,
+      orderingStrategy: ["recent", "streak", "random"][orderingStrategy],
+    });
+  } catch (error) {
+    console.error("[Community] Error getting community members:", error);
+    return c.json({ error: "Failed to get community members" }, 500);
+  }
+});
+
+// PATCH /community/opt-in/:userId - Update user's community opt-in status
+gamificationRouter.patch(
+  "/community/opt-in/:userId",
+  zValidator("json", updateCommunityOptInSchema),
+  async (c) => {
+    try {
+      const userId = c.req.param("userId");
+      const { optIn } = c.req.valid("json");
+
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+      });
+
+      if (!user) {
+        return c.json({ error: "User not found" }, 404);
+      }
+
+      const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: { communityOptIn: optIn },
+      });
+
+      console.log(`[Community] User ${userId} set communityOptIn to ${optIn}`);
+
+      return c.json({
+        success: true,
+        communityOptIn: updatedUser.communityOptIn,
+      });
+    } catch (error) {
+      console.error("[Community] Error updating opt-in:", error);
+      return c.json({ error: "Failed to update community opt-in" }, 500);
+    }
+  }
+);
+
+// GET /community/opt-in/:userId - Get user's community opt-in status
+gamificationRouter.get("/community/opt-in/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { communityOptIn: true },
+    });
+
+    if (!user) {
+      return c.json({ error: "User not found" }, 404);
+    }
+
+    return c.json({ communityOptIn: user.communityOptIn });
+  } catch (error) {
+    console.error("[Community] Error getting opt-in status:", error);
+    return c.json({ error: "Failed to get opt-in status" }, 500);
+  }
+});

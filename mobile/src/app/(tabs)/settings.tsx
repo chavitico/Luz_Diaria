@@ -45,6 +45,7 @@ import {
   Copy,
   Download,
   Key,
+  Users,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import {
@@ -68,6 +69,7 @@ import {
   type NotificationSettings,
 } from '@/lib/notifications';
 import { gamificationApi } from '@/lib/gamification-api';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface SettingRowProps {
   icon: React.ReactNode;
@@ -178,6 +180,7 @@ export default function SettingsScreen() {
   const setDarkMode = useAppStore((s) => s.setDarkMode);
   const updateSettings = useAppStore((s) => s.updateSettings);
   const updateUser = useAppStore((s) => s.updateUser);
+  const queryClient = useQueryClient();
 
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
@@ -203,10 +206,59 @@ export default function SettingsScreen() {
   });
   const [selectedTime, setSelectedTime] = useState(new Date());
 
-  // Load notification settings on mount
+  // Community opt-in state
+  const [communityOptIn, setCommunityOptIn] = useState(false);
+  const [isLoadingCommunityOptIn, setIsLoadingCommunityOptIn] = useState(true);
+
+  // Load notification settings and community opt-in on mount
   useEffect(() => {
     loadNotificationSettings();
-  }, []);
+    loadCommunityOptIn();
+  }, [user?.id]);
+
+  const loadCommunityOptIn = async () => {
+    if (!user?.id) {
+      setIsLoadingCommunityOptIn(false);
+      return;
+    }
+    try {
+      const result = await gamificationApi.getCommunityOptIn(user.id);
+      setCommunityOptIn(result.communityOptIn);
+    } catch (error) {
+      console.error('[Settings] Error loading community opt-in:', error);
+    } finally {
+      setIsLoadingCommunityOptIn(false);
+    }
+  };
+
+  const handleCommunityOptInToggle = async (value: boolean) => {
+    if (!user?.id) return;
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+    // Optimistic update
+    setCommunityOptIn(value);
+
+    try {
+      await gamificationApi.updateCommunityOptIn(user.id, value);
+      // Invalidate community members query to refresh the list
+      queryClient.invalidateQueries({ queryKey: ['community-members'] });
+
+      if (value) {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      }
+    } catch (error) {
+      // Revert on error
+      setCommunityOptIn(!value);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      Alert.alert(
+        language === 'es' ? 'Error' : 'Error',
+        language === 'es'
+          ? 'No se pudo actualizar la configuracion. Intenta de nuevo.'
+          : 'Failed to update setting. Please try again.'
+      );
+    }
+  };
 
   const loadNotificationSettings = async () => {
     const saved = await getNotificationSettings();
@@ -570,6 +622,30 @@ export default function SettingsScreen() {
             subtitle={currentAvatar?.name ?? 'Default'}
             colors={colors}
             onPress={() => setShowAvatarModal(true)}
+          />
+
+          {/* Community Section */}
+          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
+            {language === 'es' ? 'Comunidad' : 'Community'}
+          </Text>
+
+          <SettingRow
+            icon={<Users size={20} color={colors.primary} />}
+            title={language === 'es' ? 'Mostrarme en Comunidad' : 'Show me in Community'}
+            subtitle={language === 'es' ? 'Permite que otros vean tu progreso' : 'Allow others to see your progress'}
+            colors={colors}
+            right={
+              isLoadingCommunityOptIn ? (
+                <ActivityIndicator size="small" color={colors.primary} />
+              ) : (
+                <Switch
+                  value={communityOptIn}
+                  onValueChange={handleCommunityOptInToggle}
+                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                  thumbColor={communityOptIn ? colors.primary : '#FFFFFF'}
+                />
+              )
+            }
           />
 
           {/* Appearance Section */}

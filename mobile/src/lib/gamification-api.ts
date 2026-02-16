@@ -74,6 +74,19 @@ export interface PointsResult {
 
 export type PointAction = 'devotional_complete' | 'share' | 'prayer' | 'tts_complete' | 'streak_bonus' | 'favorite';
 
+export interface CommunityMember {
+  id: string;
+  nickname: string;
+  avatarId: string;
+  frameId: string | null;
+  titleId: string | null;
+  points: number;
+  streakCurrent: number;
+  devotionalsCompleted: number;
+  lastActiveAt: string | null;
+  createdAt: string;
+}
+
 // API Functions
 
 export const gamificationApi = {
@@ -396,6 +409,35 @@ export const gamificationApi = {
   }>> {
     const res = await fetch(`${BACKEND_URL}/api/gamification/promo/user/${userId}`);
     if (!res.ok) throw new Error('Failed to fetch redemptions');
+    return res.json();
+  },
+
+  // Community methods
+  async getCommunityMembers(limit: number = 20, offset: number = 0): Promise<{
+    members: CommunityMember[];
+    total: number;
+    limit: number;
+    offset: number;
+    orderingStrategy: 'recent' | 'streak' | 'random';
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/community/members?limit=${limit}&offset=${offset}`);
+    if (!res.ok) throw new Error('Failed to fetch community members');
+    return res.json();
+  },
+
+  async updateCommunityOptIn(userId: string, optIn: boolean): Promise<{ success: boolean; communityOptIn: boolean }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/community/opt-in/${userId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ optIn }),
+    });
+    if (!res.ok) throw new Error('Failed to update community opt-in');
+    return res.json();
+  },
+
+  async getCommunityOptIn(userId: string): Promise<{ communityOptIn: boolean }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/community/opt-in/${userId}`);
+    if (!res.ok) throw new Error('Failed to get community opt-in status');
     return res.json();
   },
 };

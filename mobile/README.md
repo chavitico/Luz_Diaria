@@ -82,12 +82,31 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
   - **Epic**: Purple glow, gem icon (1200-5000 pts)
 - Gradient backgrounds based on item rarity
 
+### Community Tab
+- **Respectful community progress display** - NOT a competitive leaderboard
+- **Community header** with encouraging message: "Caminamos juntos" / "We walk together"
+- **Member list** showing opted-in users:
+  - Avatar with equipped frame
+  - Nickname with optional spiritual title
+  - Key metrics (devotionals completed, current streak)
+  - Current user highlighted with "Tu" / "You" badge
+- **Non-toxic ordering** - Rotates daily between:
+  - Recent activity (who's been active)
+  - Current streak
+  - Random shuffle (prevents fixed rankings)
+- **Privacy-first**: Users must opt-in via Settings to appear
+- **Empty state**: Encouraging message when no users have opted in
+- **Pull-to-refresh** for latest community data
+
 ### Settings Tab
 - **Enhanced Profile Card** with avatar + frame overlay
   - Equipped title display under nickname
   - Points balance and streak
   - Total shares count
   - Quick navigation to Store sections
+- **Community visibility toggle** - "Mostrarme en Comunidad" / "Show me in Community"
+  - When enabled, user appears in Community tab
+  - Shows nickname, avatar, frame, title, and progress stats
 - Dark mode toggle (themes managed via Personalizar/Store)
 - Language (English / Spanish)
 - **Daily Notification Reminders**
@@ -164,6 +183,7 @@ src/
 │   │   ├── index.tsx      # Home (Daily Devotional)
 │   │   ├── library.tsx    # Library
 │   │   ├── store.tsx      # Store
+│   │   ├── community.tsx  # Community
 │   │   └── settings.tsx   # Settings
 │   ├── devotional/
 │   │   └── [date].tsx     # Devotional detail page
@@ -232,6 +252,7 @@ src/
 - [x] **Cross-Device Account Transfer** - Transfer code flow for restoring progress
 - [x] **Points Ledger** - Idempotent point tracking prevents duplicates
 - [x] **Promo Code Redemption** - "Canjear Codigo" section in Store with server validation
+- [x] **Community Tab** - Non-competitive community progress display with rotating order and opt-in privacy
 - [ ] Actual background music audio files (upload via SOUNDS tab)
 - [ ] Real image generation for devotionals
 
@@ -273,6 +294,11 @@ The app connects to a Hono backend with:
 ### Promo Code Endpoints
 - `POST /api/gamification/promo/redeem` - Redeem a promo code (server-validated, one-time per user)
 - `GET /api/gamification/promo/user/:userId` - Get user's redemption history
+
+### Community Endpoints
+- `GET /api/gamification/community/members` - Get opted-in community members (paginated)
+- `PATCH /api/gamification/community/opt-in/:userId` - Update user's community visibility
+- `GET /api/gamification/community/opt-in/:userId` - Get user's community opt-in status
 
 ### Promo Code System
 - **Server-authoritative validation** - All redemptions validated via Prisma transaction
