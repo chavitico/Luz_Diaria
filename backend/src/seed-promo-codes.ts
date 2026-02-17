@@ -5,6 +5,7 @@ const INITIAL_PROMO_CODES = [
   { id: "fe", displayCode: "Fe", points: 250 },
   { id: "amor", displayCode: "Amor", points: 300 },
   { id: "cristo", displayCode: "Cristo", points: 5000 },
+  { id: "cielo", displayCode: "Cielo", points: 10000 },
 ];
 
 export async function seedPromoCodes(): Promise<void> {
