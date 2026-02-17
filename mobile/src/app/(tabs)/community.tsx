@@ -278,13 +278,22 @@ export default function CommunityScreen() {
       });
 
       try {
+        // Validate lastActiveDate before converting to ISO string
+        let lastActiveAt: string | undefined;
+        if (user.lastActiveDate) {
+          const date = new Date(user.lastActiveDate + 'T12:00:00');
+          if (!isNaN(date.getTime())) {
+            lastActiveAt = date.toISOString();
+          }
+        }
+
         await gamificationApi.syncUser(user.id, {
           points: user.points,
           streakCurrent: user.streakCurrent,
           streakBest: user.streakBest,
           devotionalsCompleted: user.devotionalsCompleted,
           totalTimeSeconds: user.totalTime,
-          lastActiveAt: user.lastActiveDate ? new Date(user.lastActiveDate).toISOString() : undefined,
+          lastActiveAt,
         });
         console.log('[Community] User data synced to backend successfully');
         // Refetch community members after sync
