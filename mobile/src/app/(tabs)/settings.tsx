@@ -210,10 +210,15 @@ export default function SettingsScreen() {
   const [communityOptIn, setCommunityOptIn] = useState(false);
   const [isLoadingCommunityOptIn, setIsLoadingCommunityOptIn] = useState(true);
 
+  // Prayer display opt-in state
+  const [prayerDisplayOptIn, setPrayerDisplayOptIn] = useState(true);
+  const [isLoadingPrayerOptIn, setIsLoadingPrayerOptIn] = useState(true);
+
   // Load notification settings and community opt-in on mount
   useEffect(() => {
     loadNotificationSettings();
     loadCommunityOptIn();
+    loadPrayerDisplayOptIn();
   }, [user?.id]);
 
   const loadCommunityOptIn = async () => {
@@ -250,6 +255,50 @@ export default function SettingsScreen() {
     } catch (error) {
       // Revert on error
       setCommunityOptIn(!value);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      Alert.alert(
+        language === 'es' ? 'Error' : 'Error',
+        language === 'es'
+          ? 'No se pudo actualizar la configuracion. Intenta de nuevo.'
+          : 'Failed to update setting. Please try again.'
+      );
+    }
+  };
+
+  const loadPrayerDisplayOptIn = async () => {
+    if (!user?.id) {
+      setIsLoadingPrayerOptIn(false);
+      return;
+    }
+    try {
+      const result = await gamificationApi.getPrayerDisplayOptIn(user.id);
+      setPrayerDisplayOptIn(result.prayerDisplayOptIn);
+    } catch (error) {
+      console.error('[Settings] Error loading prayer display opt-in:', error);
+    } finally {
+      setIsLoadingPrayerOptIn(false);
+    }
+  };
+
+  const handlePrayerDisplayOptInToggle = async (value: boolean) => {
+    if (!user?.id) return;
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+    // Optimistic update
+    setPrayerDisplayOptIn(value);
+
+    try {
+      await gamificationApi.updatePrayerDisplayOptIn(user.id, value);
+      // Invalidate prayer requests to refresh
+      queryClient.invalidateQueries({ queryKey: ['community-prayer-requests'] });
+
+      if (value) {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      }
+    } catch (error) {
+      // Revert on error
+      setPrayerDisplayOptIn(!value);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       Alert.alert(
         language === 'es' ? 'Error' : 'Error',
@@ -643,6 +692,25 @@ export default function SettingsScreen() {
                   onValueChange={handleCommunityOptInToggle}
                   trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
                   thumbColor={communityOptIn ? colors.primary : '#FFFFFF'}
+                />
+              )
+            }
+          />
+
+          <SettingRow
+            icon={<Heart size={20} color={colors.primary} />}
+            title={t.prayer_display_opt_in}
+            subtitle={t.prayer_display_opt_in_desc}
+            colors={colors}
+            right={
+              isLoadingPrayerOptIn ? (
+                <ActivityIndicator size="small" color={colors.primary} />
+              ) : (
+                <Switch
+                  value={prayerDisplayOptIn}
+                  onValueChange={handlePrayerDisplayOptInToggle}
+                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                  thumbColor={prayerDisplayOptIn ? colors.primary : '#FFFFFF'}
                 />
               )
             }

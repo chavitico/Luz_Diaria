@@ -928,6 +928,22 @@ export const WEEKLY_CHEST_CONFIG = {
   ],
 } as const;
 
+// Prayer Request Categories
+export const PRAYER_CATEGORIES = [
+  { key: 'work', labelEn: 'Work / Provision', labelEs: 'Trabajo / Provisión', icon: 'Briefcase' },
+  { key: 'health', labelEn: 'Health', labelEs: 'Salud', icon: 'Heart' },
+  { key: 'family', labelEn: 'Family', labelEs: 'Familia', icon: 'Users' },
+  { key: 'peace', labelEn: 'Peace / Anxiety', labelEs: 'Paz / Ansiedad', icon: 'Cloud' },
+  { key: 'wisdom', labelEn: 'Wisdom / Direction', labelEs: 'Sabiduría / Dirección', icon: 'Compass' },
+  { key: 'studies', labelEn: 'Studies', labelEs: 'Estudios', icon: 'BookOpen' },
+  { key: 'restoration', labelEn: 'Restoration', labelEs: 'Restauración', icon: 'RefreshCw' },
+  { key: 'gratitude', labelEn: 'Gratitude', labelEs: 'Gratitud', icon: 'Sparkles' },
+  { key: 'salvation', labelEn: 'Salvation (for someone)', labelEs: 'Salvación (por alguien)', icon: 'HandHeart' },
+  { key: 'strength', labelEn: 'Strength', labelEs: 'Fortaleza', icon: 'Shield' },
+] as const;
+
+export type PrayerCategoryKey = typeof PRAYER_CATEGORIES[number]['key'];
+
 export const TRANSLATIONS = {
   en: {
     // General
@@ -1069,6 +1085,32 @@ export const TRANSLATIONS = {
     transfer_warning: 'This code expires in 15 minutes. Enter it on your new device.',
     generating: 'Generating...',
     user_id: 'User ID',
+
+    // Prayer Tab
+    tab_prayer: 'Prayer',
+    prayer_title: 'Prayer',
+    prayer_subtitle: 'We lift up our community',
+    prayer_my_request: 'My Request',
+    prayer_select_category: 'Select a category',
+    prayer_mode_daily: 'Today',
+    prayer_mode_weekly: 'This Week',
+    prayer_save: 'Save',
+    prayer_current_request: 'Current request',
+    prayer_expires: 'Expires',
+    prayer_community_requests: 'Community Requests',
+    prayer_community_empty: 'No prayer requests yet. Be the first!',
+    prayer_summary: 'Summary',
+    prayer_anonymous: 'A brother/sister',
+    prayer_today_badge: 'Today',
+    prayer_week_badge: 'Week',
+    prayer_request_saved: 'Prayer request saved',
+    prayer_already_submitted: 'Already submitted for this period',
+    prayer_of_the_day: 'Prayer of the Day',
+    prayer_of_the_day_empty: 'No prayer of the day yet',
+    prayer_prayed_for_community: 'I prayed for the community',
+    prayer_prayed_today: 'You already prayed today',
+    prayer_display_opt_in: 'Show my nickname in prayers',
+    prayer_display_opt_in_desc: 'If off, you appear as "A brother/sister"',
   },
   es: {
     // General
@@ -1210,5 +1252,31 @@ export const TRANSLATIONS = {
     transfer_warning: 'Este codigo expira en 15 minutos. Ingresalo en tu nuevo dispositivo.',
     generating: 'Generando...',
     user_id: 'ID de Usuario',
+
+    // Prayer Tab
+    tab_prayer: 'Oración',
+    prayer_title: 'Oración',
+    prayer_subtitle: 'Elevamos a nuestra comunidad',
+    prayer_my_request: 'Mi Petición',
+    prayer_select_category: 'Selecciona una categoría',
+    prayer_mode_daily: 'Hoy',
+    prayer_mode_weekly: 'Esta Semana',
+    prayer_save: 'Guardar',
+    prayer_current_request: 'Petición actual',
+    prayer_expires: 'Expira',
+    prayer_community_requests: 'Peticiones de la Comunidad',
+    prayer_community_empty: 'Aún no hay peticiones. ¡Sé el primero!',
+    prayer_summary: 'Resumen',
+    prayer_anonymous: 'Un hermano/a',
+    prayer_today_badge: 'Hoy',
+    prayer_week_badge: 'Semana',
+    prayer_request_saved: 'Petición guardada',
+    prayer_already_submitted: 'Ya enviaste para este período',
+    prayer_of_the_day: 'Oración del Día',
+    prayer_of_the_day_empty: 'Aún no hay oración del día',
+    prayer_prayed_for_community: 'Oré por la comunidad',
+    prayer_prayed_today: 'Ya oraste hoy',
+    prayer_display_opt_in: 'Mostrar mi nombre en oraciones',
+    prayer_display_opt_in_desc: 'Si está desactivado, aparecerás como "Un hermano/a"',
   },
 } as const;

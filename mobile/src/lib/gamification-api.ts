@@ -87,6 +87,49 @@ export interface CommunityMember {
   createdAt: string;
 }
 
+// Prayer types
+export interface PrayerRequest {
+  id: string;
+  userId: string;
+  periodId: string;
+  mode: 'daily' | 'weekly';
+  categoryKey: string;
+  nickname: string | null;
+  avatarId: string | null;
+  frameId: string | null;
+  titleId: string | null;
+  displayNameOptIn: boolean;
+  expiresAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PrayerRequestDisplay {
+  id: string;
+  categoryKey: string;
+  mode: 'daily' | 'weekly';
+  nickname: string | null;
+  avatarId: string | null;
+  frameId: string | null;
+  titleId: string | null;
+  displayNameOptIn: boolean;
+  createdAt: string;
+  expiresAt: string;
+}
+
+export interface DailyPrayer {
+  id: string;
+  dateId: string;
+  title: string;
+  titleEs: string;
+  prayerText: string;
+  prayerTextEs: string;
+  includedCategories: string[];
+  categoryStats: Record<string, number>;
+  totalRequests: number;
+  createdAt: string;
+}
+
 // API Functions
 
 export const gamificationApi = {
@@ -438,6 +481,107 @@ export const gamificationApi = {
   async getCommunityOptIn(userId: string): Promise<{ communityOptIn: boolean }> {
     const res = await fetch(`${BACKEND_URL}/api/gamification/community/opt-in/${userId}`);
     if (!res.ok) throw new Error('Failed to get community opt-in status');
+    return res.json();
+  },
+
+  // Prayer API methods
+  async submitPrayerRequest(
+    userId: string,
+    categoryKey: string,
+    mode: 'daily' | 'weekly'
+  ): Promise<{
+    success: boolean;
+    prayerRequest?: PrayerRequest;
+    pointsAwarded: number;
+    error?: string;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/request`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, categoryKey, mode }),
+    });
+    return res.json();
+  },
+
+  async getUserPrayerRequests(userId: string): Promise<{ requests: PrayerRequest[] }> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/request/${userId}`);
+    if (!res.ok) throw new Error('Failed to fetch user prayer requests');
+    return res.json();
+  },
+
+  async deletePrayerRequest(userId: string, mode: 'daily' | 'weekly'): Promise<{ success: boolean }> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/request/${userId}/${mode}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) throw new Error('Failed to delete prayer request');
+    return res.json();
+  },
+
+  async getCommunityPrayerRequests(limit: number = 50, offset: number = 0): Promise<{
+    requests: PrayerRequestDisplay[];
+    total: number;
+    limit: number;
+    offset: number;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/community?limit=${limit}&offset=${offset}`);
+    if (!res.ok) throw new Error('Failed to fetch community prayer requests');
+    return res.json();
+  },
+
+  async getPrayerSummary(): Promise<{ summary: Record<string, number>; total: number }> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/summary`);
+    if (!res.ok) throw new Error('Failed to fetch prayer summary');
+    return res.json();
+  },
+
+  async getTodayDailyPrayer(): Promise<DailyPrayer | null> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/daily/today`);
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error('Failed to fetch today\'s daily prayer');
+    return res.json();
+  },
+
+  async getDailyPrayerByDate(dateId: string): Promise<DailyPrayer | null> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/daily/${dateId}`);
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error('Failed to fetch daily prayer');
+    return res.json();
+  },
+
+  async prayedForCommunity(userId: string): Promise<{
+    success: boolean;
+    alreadyPrayed?: boolean;
+    pointsAwarded: number;
+    message?: string;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/prayed-for-community`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
+    if (!res.ok) throw new Error('Failed to record community prayer');
+    return res.json();
+  },
+
+  async checkPrayedForCommunity(userId: string): Promise<{ prayedToday: boolean }> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/prayed-for-community/${userId}`);
+    if (!res.ok) throw new Error('Failed to check prayer status');
+    return res.json();
+  },
+
+  async updatePrayerDisplayOptIn(userId: string, optIn: boolean): Promise<{ success: boolean; prayerDisplayOptIn: boolean }> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ optIn }),
+    });
+    if (!res.ok) throw new Error('Failed to update prayer display opt-in');
+    return res.json();
+  },
+
+  async getPrayerDisplayOptIn(userId: string): Promise<{ prayerDisplayOptIn: boolean }> {
+    const res = await fetch(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`);
+    if (!res.ok) throw new Error('Failed to get prayer display opt-in status');
     return res.json();
   },
 };

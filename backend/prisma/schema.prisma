@@ -70,6 +70,7 @@ model User {
 
   // Community visibility
   communityOptIn        Boolean  @default(false) // Whether user appears in community list
+  prayerDisplayOptIn    Boolean  @default(true)  // Whether to show nickname in prayer requests
 
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
@@ -81,6 +82,7 @@ model User {
   pointLedger           PointLedger[]
   transferCodesGenerated TransferCode[] @relation("TransferCodeSource")
   promoRedemptions      PromoRedemption[]
+  prayerRequests        PrayerRequest[]
 }
 
 model StoreItem {
@@ -259,4 +261,53 @@ model PromoRedemption {
   promoCode     PromoCode @relation(fields: [codeId], references: [id], onDelete: Cascade)
 
   @@unique([userId, codeId]) // Each user can redeem each code only once
+}
+
+// ============================================
+// PRAYER REQUEST SYSTEM
+// ============================================
+
+model PrayerRequest {
+  id              String   @id @default(cuid())
+  userId          String
+  periodId        String   // YYYY-MM-DD for daily, YYYY-WXX for weekly
+  mode            String   // "daily" or "weekly"
+  categoryKey     String   // e.g., "work", "health", "family"
+
+  // Cached display data
+  nickname        String?  // Optional cache for display
+  avatarId        String?
+  frameId         String?
+  titleId         String?
+  displayNameOptIn Boolean @default(true) // If false, show "Un hermano/a"
+
+  expiresAt       DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, periodId, mode]) // One request per user per period per mode
+  @@index([periodId, mode])
+  @@index([expiresAt])
+}
+
+model DailyPrayer {
+  id              String   @id @default(cuid())
+  dateId          String   @unique // YYYY-MM-DD
+
+  // English content
+  title           String
+  prayerText      String
+  includedCategories String @default("[]") // JSON array of category keys
+
+  // Spanish content
+  titleEs         String
+  prayerTextEs    String
+
+  // Stats
+  totalRequests   Int      @default(0)
+  categoryStats   String   @default("{}") // JSON: {work: 5, health: 3}
+
+  createdAt       DateTime @default(now())
 }

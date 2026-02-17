@@ -4,7 +4,7 @@ import React from 'react';
 import { View, Text, Platform } from 'react-native';
 import { Tabs } from 'expo-router';
 import { BlurView } from 'expo-blur';
-import { Sun, BookOpen, Palette, Users, Settings } from 'lucide-react-native';
+import { Sun, BookOpen, Palette, Users, Settings, HandHeart } from 'lucide-react-native';
 import { useThemeColors, useLanguage } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
 
@@ -89,6 +89,17 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <View className={focused ? 'scale-110' : ''}>
               <Users size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="prayer"
+        options={{
+          title: t.tab_prayer,
+          tabBarIcon: ({ color, focused }) => (
+            <View className={focused ? 'scale-110' : ''}>
+              <HandHeart size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
             </View>
           ),
         }}

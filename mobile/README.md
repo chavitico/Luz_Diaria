@@ -98,6 +98,39 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Empty state**: Encouraging message when no users have opted in
 - **Pull-to-refresh** for latest community data
 
+### Prayer Tab (Oración)
+- **Privacy-safe community prayer requests** - No free text, category-based only
+- **My Request Section**:
+  - Dropdown category selector (10 categories)
+  - Toggle: Daily (Hoy) / Weekly (Esta Semana)
+  - Current active request display with expiration
+  - +10 points for submitting (once per day max)
+- **Prayer Categories**:
+  - Trabajo / Provisión (Work / Provision)
+  - Salud (Health)
+  - Familia (Family)
+  - Paz / Ansiedad (Peace / Anxiety)
+  - Sabiduría / Dirección (Wisdom / Direction)
+  - Estudios (Studies)
+  - Restauración (Restoration)
+  - Gratitud (Gratitude)
+  - Salvación (Salvation)
+  - Fortaleza (Strength)
+- **Community Requests**: View active requests from other users
+  - Avatar + optional nickname (privacy setting)
+  - Category chip with icon
+  - Mode badge (Hoy / Semana)
+- **Summary**: Aggregated category counts
+- **"Oré por la comunidad"** button: +5 points (once per day)
+- **Privacy Setting**: "Mostrar mi nombre en oraciones" in Settings
+
+### Prayer of the Day (Oración del Día)
+- **AI-generated daily prayer** at 4:00 AM Costa Rica time
+- Includes categories submitted by community
+- Displayed on Home screen after devotional content
+- May mention up to 10 nicknames (with opt-in)
+- Bilingual (Spanish + English)
+
 ### Settings Tab
 - **Enhanced Profile Card** with avatar + frame overlay
   - Equipped title display under nickname
@@ -184,6 +217,7 @@ src/
 │   │   ├── library.tsx    # Library
 │   │   ├── store.tsx      # Store
 │   │   ├── community.tsx  # Community
+│   │   ├── prayer.tsx     # Prayer Requests
 │   │   └── settings.tsx   # Settings
 │   ├── devotional/
 │   │   └── [date].tsx     # Devotional detail page
@@ -195,12 +229,13 @@ src/
 │   ├── BibleReferenceText.tsx # Tappable Bible references in text
 │   └── BiblePassageModal.tsx # Bottom sheet modal for Bible passages
 └── lib/
-    ├── constants.ts       # Themes, translations, avatars
+    ├── constants.ts       # Themes, translations, avatars, prayer categories
     ├── firestore.ts       # Data services (mock)
     ├── store.ts           # Zustand state management
     ├── types.ts           # TypeScript definitions
     ├── notifications.ts   # Push notification service (expo-notifications)
     ├── bible-service.ts   # Bible passage fetching + caching
+    ├── gamification-api.ts # Backend API client
     └── cn.ts              # Class name utility
 ```
 
@@ -253,6 +288,7 @@ src/
 - [x] **Points Ledger** - Idempotent point tracking prevents duplicates
 - [x] **Promo Code Redemption** - "Canjear Codigo" section in Store with server validation
 - [x] **Community Tab** - Non-competitive community progress display with rotating order and opt-in privacy
+- [x] **Prayer Tab** - Community prayer requests with privacy-safe categories, daily/weekly mode, and AI-generated daily prayer
 - [ ] Actual background music audio files (upload via SOUNDS tab)
 - [ ] Real image generation for devotionals
 
@@ -299,6 +335,19 @@ The app connects to a Hono backend with:
 - `GET /api/gamification/community/members` - Get opted-in community members (paginated)
 - `PATCH /api/gamification/community/opt-in/:userId` - Update user's community visibility
 - `GET /api/gamification/community/opt-in/:userId` - Get user's community opt-in status
+
+### Prayer Endpoints
+- `POST /api/prayer/request` - Submit or update a prayer request (category + mode)
+- `GET /api/prayer/request/:userId` - Get user's active prayer requests
+- `DELETE /api/prayer/request/:userId/:mode` - Delete user's prayer request
+- `GET /api/prayer/community` - Get all active community prayer requests (paginated)
+- `GET /api/prayer/summary` - Get aggregated category counts
+- `GET /api/prayer/daily/today` - Get today's AI-generated prayer
+- `GET /api/prayer/daily/:dateId` - Get daily prayer by date
+- `POST /api/prayer/prayed-for-community` - Record "I prayed for community" action (+5 pts)
+- `GET /api/prayer/prayed-for-community/:userId` - Check if user prayed today
+- `PATCH /api/prayer/display-opt-in/:userId` - Update prayer display privacy setting
+- `GET /api/prayer/display-opt-in/:userId` - Get prayer display privacy setting
 
 ### Promo Code System
 - **Server-authoritative validation** - All redemptions validated via Prisma transaction

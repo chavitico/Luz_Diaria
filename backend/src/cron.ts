@@ -1,5 +1,6 @@
 import { generateTodayDevotional, generateDevotionalForDate } from "./devotional-service";
 import { generateWeeklyChallenges } from "./weekly-challenges";
+import { generateTodayDailyPrayer } from "./prayer-service";
 
 // Costa Rica timezone is UTC-6
 // 4:00 AM Costa Rica = 10:00 AM UTC
@@ -37,6 +38,14 @@ async function runCronJob(): Promise<void> {
     console.log(`[Cron] Devotional generation completed successfully`);
   } catch (error) {
     console.error(`[Cron] Failed to generate devotional:`, error);
+  }
+
+  // Generate daily prayer (includes community prayer requests)
+  try {
+    await generateTodayDailyPrayer();
+    console.log(`[Cron] Daily prayer generation completed successfully`);
+  } catch (error) {
+    console.error(`[Cron] Failed to generate daily prayer:`, error);
   }
 
   // Check for new week challenges at midnight UTC on Mondays
