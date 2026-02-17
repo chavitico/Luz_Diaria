@@ -587,7 +587,7 @@ function PrayedForCommunityButton() {
               {hasPrayed ? t.prayer_prayed_today : t.prayer_prayed_for_community}
             </Text>
             {hasPrayed && (
-              <Check size={18} color={colors.primary} className="ml-2" />
+              <Check size={18} color={colors.primary} style={{ marginLeft: 8 }} />
             )}
           </>
         )}
@@ -630,7 +630,7 @@ function CommunityRequestsSection() {
           <Text className="text-lg font-semibold ml-2" style={{ color: colors.text }}>
             {t.prayer_community_requests}
           </Text>
-          {data?.total && (
+          {data?.total != null && data.total > 0 && (
             <Text className="text-sm ml-2" style={{ color: colors.textMuted }}>
               ({data.total})
             </Text>
