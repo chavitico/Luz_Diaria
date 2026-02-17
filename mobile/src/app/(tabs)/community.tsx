@@ -1,6 +1,6 @@
 // Community Screen - Respectful, non-competitive community progress display
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -264,6 +264,38 @@ export default function CommunityScreen() {
   const t = TRANSLATIONS[language];
 
   const [refreshing, setRefreshing] = useState(false);
+
+  // Sync current user's data to backend before fetching community members
+  useEffect(() => {
+    const syncCurrentUser = async () => {
+      if (!user?.id) return;
+
+      console.log('[Community] Syncing user data:', {
+        points: user.points,
+        streakCurrent: user.streakCurrent,
+        streakBest: user.streakBest,
+        devotionalsCompleted: user.devotionalsCompleted,
+      });
+
+      try {
+        await gamificationApi.syncUser(user.id, {
+          points: user.points,
+          streakCurrent: user.streakCurrent,
+          streakBest: user.streakBest,
+          devotionalsCompleted: user.devotionalsCompleted,
+          totalTimeSeconds: user.totalTime,
+          lastActiveAt: user.lastActiveDate ? new Date(user.lastActiveDate).toISOString() : undefined,
+        });
+        console.log('[Community] User data synced to backend successfully');
+        // Refetch community members after sync
+        queryClient.invalidateQueries({ queryKey: ['community-members'] });
+      } catch (error) {
+        console.error('[Community] Failed to sync user data:', error);
+      }
+    };
+
+    syncCurrentUser();
+  }, [user?.id, user?.points, user?.streakCurrent, user?.devotionalsCompleted, queryClient]);
 
   // Fetch community members
   const {

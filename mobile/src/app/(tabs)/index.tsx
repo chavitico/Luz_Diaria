@@ -1241,16 +1241,36 @@ export default function HomeScreen() {
       yesterday.setDate(yesterday.getDate() - 1);
       const yesterdayStr = yesterday.toISOString().split('T')[0];
 
+      let newStreakCurrent = user.streakCurrent;
+      let newStreakBest = user.streakBest;
+
       if (lastActive === yesterdayStr) {
+        newStreakCurrent = user.streakCurrent + 1;
+        newStreakBest = Math.max(newStreakCurrent, user.streakBest);
         incrementStreak();
       } else if (lastActive !== today) {
+        newStreakCurrent = 1;
         updateUser({ streakCurrent: 1 });
       }
 
+      const newDevotionalsCompleted = user.devotionalsCompleted + 1;
+
       updateUser({
-        devotionalsCompleted: user.devotionalsCompleted + 1,
+        devotionalsCompleted: newDevotionalsCompleted,
         lastActiveDate: today,
       });
+
+      // Sync user data to backend for community display
+      try {
+        await gamificationApi.syncUser(user.id, {
+          streakCurrent: newStreakCurrent,
+          streakBest: newStreakBest,
+          devotionalsCompleted: newDevotionalsCompleted,
+          lastActiveAt: new Date().toISOString(),
+        });
+      } catch (error) {
+        console.error('[Gamification] Failed to sync user data:', error);
+      }
 
       // Update challenge progress for devotional completion
       try {
