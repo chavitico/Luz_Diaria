@@ -615,63 +615,8 @@ export default function SettingsScreen() {
                 </View>
               </View>
 
-              {/* Quick Navigation to Store */}
-              <View className="flex-row gap-2">
-                <Pressable
-                  onPress={() => {
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    router.push('/store?tab=avatars');
-                  }}
-                  className="flex-1 flex-row items-center justify-center py-2.5 rounded-xl"
-                  style={{ backgroundColor: colors.primary + '15' }}
-                >
-                  <User size={14} color={colors.primary} />
-                  <Text className="text-xs font-medium ml-1.5" style={{ color: colors.primary }}>
-                    {language === 'es' ? 'Avatar' : 'Avatar'}
-                  </Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    router.push('/store?tab=frames');
-                  }}
-                  className="flex-1 flex-row items-center justify-center py-2.5 rounded-xl"
-                  style={{ backgroundColor: colors.secondary + '15' }}
-                >
-                  <Circle size={14} color={colors.secondary} />
-                  <Text className="text-xs font-medium ml-1.5" style={{ color: colors.secondary }}>
-                    {t.frames}
-                  </Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    router.push('/store?tab=titles');
-                  }}
-                  className="flex-1 flex-row items-center justify-center py-2.5 rounded-xl"
-                  style={{ backgroundColor: colors.accent + '15' }}
-                >
-                  <Sparkles size={14} color={colors.accent} />
-                  <Text className="text-xs font-medium ml-1.5" style={{ color: colors.accent }}>
-                    {t.titles}
-                  </Text>
-                </Pressable>
-              </View>
             </Animated.View>
           )}
-
-          {/* Profile Section */}
-          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1" style={{ color: colors.textMuted }}>
-            {language === 'es' ? 'Perfil' : 'Profile'}
-          </Text>
-
-          <SettingRow
-            icon={<User size={20} color={colors.primary} />}
-            title={language === 'es' ? 'Avatar' : 'Avatar'}
-            subtitle={currentAvatar?.name ?? 'Default'}
-            colors={colors}
-            onPress={() => setShowAvatarModal(true)}
-          />
 
           {/* Community Section */}
           <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>

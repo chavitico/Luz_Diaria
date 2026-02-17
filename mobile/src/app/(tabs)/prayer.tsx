@@ -17,6 +17,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {
   Heart,
   ChevronDown,
+  ChevronUp,
   Check,
   Clock,
   Users,
@@ -606,6 +607,7 @@ function CommunityRequestsSection() {
   const colors = useThemeColors();
   const language = useLanguage();
   const t = TRANSLATIONS[language];
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ['community-prayer-requests'],
@@ -614,10 +616,18 @@ function CommunityRequestsSection() {
   });
 
   const requests = data?.requests ?? [];
+  const hasRequests = requests.length > 0;
+
+  const toggleExpanded = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <Animated.View entering={FadeInUp.delay(100).duration(400)} className="mx-5 mb-4">
-      <View
+      <Pressable
+        onPress={hasRequests ? toggleExpanded : undefined}
+        disabled={!hasRequests}
         className="rounded-2xl p-4"
         style={{
           backgroundColor: colors.surface,
@@ -625,32 +635,50 @@ function CommunityRequestsSection() {
           borderColor: colors.primary + '15',
         }}
       >
-        <View className="flex-row items-center mb-4">
-          <Users size={18} color={colors.primary} />
-          <Text className="text-lg font-semibold ml-2" style={{ color: colors.text }}>
-            {t.prayer_community_requests}
-          </Text>
-          {data?.total != null && data.total > 0 && (
-            <Text className="text-sm ml-2" style={{ color: colors.textMuted }}>
-              ({data.total})
+        <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center flex-1">
+            <Users size={18} color={colors.primary} />
+            <Text className="text-lg font-semibold ml-2" style={{ color: colors.text }}>
+              {t.prayer_community_requests}
             </Text>
+            {data?.total != null && data.total > 0 && (
+              <Text className="text-sm ml-2" style={{ color: colors.textMuted }}>
+                ({data.total})
+              </Text>
+            )}
+          </View>
+          {hasRequests && (
+            <View
+              className="w-8 h-8 rounded-full items-center justify-center"
+              style={{ backgroundColor: colors.primary + '10' }}
+            >
+              {isExpanded ? (
+                <ChevronUp size={18} color={colors.primary} />
+              ) : (
+                <ChevronDown size={18} color={colors.primary} />
+              )}
+            </View>
           )}
         </View>
 
         {isLoading ? (
-          <ActivityIndicator size="small" color={colors.primary} />
-        ) : requests.length === 0 ? (
+          <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: 16 }} />
+        ) : !hasRequests ? (
           <Text className="text-sm text-center py-4" style={{ color: colors.textMuted }}>
             {t.prayer_community_empty}
           </Text>
-        ) : (
-          <View>
+        ) : isExpanded ? (
+          <View className="mt-4">
             {requests.slice(0, 10).map((request, index) => (
               <RequestCard key={request.id} request={request} index={index} />
             ))}
           </View>
+        ) : (
+          <Text className="text-sm mt-3" style={{ color: colors.textMuted }}>
+            {language === 'es' ? 'Toca para ver las peticiones' : 'Tap to see requests'}
+          </Text>
         )}
-      </View>
+      </Pressable>
     </Animated.View>
   );
 }

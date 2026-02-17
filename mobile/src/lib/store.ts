@@ -56,7 +56,7 @@ interface AppState {
 
 const initialUserSettings: UserSettings = {
   theme: 'dawn',
-  language: 'en',
+  language: 'es',
   musicEnabled: true,
   musicVolume: 0.5,
   notificationsEnabled: true,

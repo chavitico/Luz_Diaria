@@ -8,306 +8,233 @@ datasource db {
 }
 
 model Devotional {
-  id                    String   @id @default(cuid())
-  date                  String   @unique // YYYY-MM-DD format
-
-  // English content
-  title                 String
-  bibleVerse            String
-  bibleReference        String
-  reflection            String
-  story                 String
-  biblicalCharacter     String
-  application           String
-  prayer                String
-  topic                 String
-
-  // Spanish content
-  titleEs               String
-  bibleVerseEs          String
-  bibleReferenceEs      String   @default("")
-  reflectionEs          String
-  storyEs               String
-  biblicalCharacterEs   String
-  applicationEs         String
-  prayerEs              String
-  topicEs               String
-
-  // Image
-  imageUrl              String
-
-  // Metadata
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  id                  String   @id @default(cuid())
+  date                String   @unique
+  title               String
+  bibleVerse          String
+  bibleReference      String
+  reflection          String
+  story               String
+  biblicalCharacter   String
+  application         String
+  prayer              String
+  topic               String
+  titleEs             String
+  bibleVerseEs        String
+  bibleReferenceEs    String   @default("")
+  reflectionEs        String
+  storyEs             String
+  biblicalCharacterEs String
+  applicationEs       String
+  prayerEs            String
+  topicEs             String
+  imageUrl            String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 }
 
-// ============================================
-// GAMIFICATION SYSTEM MODELS
-// ============================================
-
 model User {
-  id                    String   @id @default(cuid())
-  nickname              String   @unique
-  nicknameLower         String   @unique // For case-insensitive uniqueness
-  avatarId              String   @default("avatar_dove")
-  frameId               String?  // Selected avatar frame
-  titleId               String?  // Selected spiritual title
-  themeId               String   @default("theme_amanecer")
-  selectedMusicId       String   @default("music_free_1")
-  points                Int      @default(0)
-  streakCurrent         Int      @default(0)
-  streakBest            Int      @default(0)
-  devotionalsCompleted  Int      @default(0)
-  totalTimeSeconds      Int      @default(0)
-  lastActiveAt          DateTime?
-
-  // Daily action tracking (JSON field for simplicity)
-  dailyActions          String   @default("{}")  // JSON: {shareDate, shareCount, prayerDate, prayerDone, ttsDate, ttsDone}
-
-  // Device and migration tracking
-  deviceId              String?  // Optional stable device identifier
-  migratedFromUserId    String?  // Track account migrations
-
-  // Community visibility
-  communityOptIn        Boolean  @default(false) // Whether user appears in community list
-  prayerDisplayOptIn    Boolean  @default(true)  // Whether to show nickname in prayer requests
-
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-
-  // Relations
-  inventory             UserInventory[]
-  weeklyProgress        WeeklyProgress[]
-  favorites             UserFavorite[]
-  pointLedger           PointLedger[]
-  transferCodesGenerated TransferCode[] @relation("TransferCodeSource")
-  promoRedemptions      PromoRedemption[]
-  prayerRequests        PrayerRequest[]
+  id                     String            @id @default(cuid())
+  nickname               String            @unique
+  nicknameLower          String            @unique
+  avatarId               String            @default("avatar_dove")
+  frameId                String?
+  titleId                String?
+  themeId                String            @default("theme_amanecer")
+  selectedMusicId        String            @default("music_free_1")
+  points                 Int               @default(0)
+  streakCurrent          Int               @default(0)
+  streakBest             Int               @default(0)
+  devotionalsCompleted   Int               @default(0)
+  totalTimeSeconds       Int               @default(0)
+  lastActiveAt           DateTime?
+  dailyActions           String            @default("{}")
+  deviceId               String?
+  migratedFromUserId     String?
+  communityOptIn         Boolean           @default(false)
+  prayerDisplayOptIn     Boolean           @default(true)
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
+  pointLedger            PointLedger[]
+  prayerRequests         PrayerRequest[]
+  promoRedemptions       PromoRedemption[]
+  transferCodesGenerated TransferCode[]    @relation("TransferCodeSource")
+  favorites              UserFavorite[]
+  inventory              UserInventory[]
+  weeklyProgress         WeeklyProgress[]
 }
 
 model StoreItem {
-  id            String   @id @default(cuid())
-  type          String   // theme, frame, music, title, avatar
+  id            String          @id @default(cuid())
+  type          String
   nameEn        String
   nameEs        String
-  descriptionEn String   @default("")
-  descriptionEs String   @default("")
+  descriptionEn String          @default("")
+  descriptionEs String          @default("")
   pricePoints   Int
-  assetRef      String   @default("") // Reference to asset file/color
-  rarity        String   @default("common") // common, rare, epic
-  sortOrder     Int      @default(0)
-  available     Boolean  @default(true)
-
-  // For themes: JSON with color palette
-  metadata      String   @default("{}")
-
-  createdAt     DateTime @default(now())
-
+  assetRef      String          @default("")
+  rarity        String          @default("common")
+  sortOrder     Int             @default(0)
+  available     Boolean         @default(true)
+  metadata      String          @default("{}")
+  createdAt     DateTime        @default(now())
   inventory     UserInventory[]
 }
 
 model UserInventory {
-  id          String   @id @default(cuid())
-  userId      String
-  itemId      String
-  acquiredAt  DateTime @default(now())
-  source      String   @default("store") // store, challenge, milestone, free
-
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  item        StoreItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  id         String    @id @default(cuid())
+  userId     String
+  itemId     String
+  acquiredAt DateTime  @default(now())
+  source     String    @default("store")
+  item       StoreItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, itemId])
 }
 
 model WeeklyChallenge {
-  id              String   @id @default(cuid())
-  weekId          String   // Format: "2026-W06" (ISO week)
-  challengeIndex  Int      // 0 or 1 for the week
-
-  type            String   // devotional_complete, share, prayer
-  goalCount       Int
-  rewardPoints    Int
-  rewardItemId    String?  // Optional item reward
-
-  titleEn         String
-  titleEs         String
-  descriptionEn   String
-  descriptionEs   String
-
-  startDate       DateTime
-  endDate         DateTime
-
-  createdAt       DateTime @default(now())
-
-  progress        WeeklyProgress[]
+  id             String           @id @default(cuid())
+  weekId         String
+  challengeIndex Int
+  type           String
+  goalCount      Int
+  rewardPoints   Int
+  rewardItemId   String?
+  titleEn        String
+  titleEs        String
+  descriptionEn  String
+  descriptionEs  String
+  startDate      DateTime
+  endDate        DateTime
+  createdAt      DateTime         @default(now())
+  progress       WeeklyProgress[]
 
   @@unique([weekId, challengeIndex])
 }
 
 model WeeklyProgress {
-  id            String   @id @default(cuid())
-  userId        String
-  challengeId   String
-
-  currentCount  Int      @default(0)
-  completed     Boolean  @default(false)
-  claimed       Boolean  @default(false)
-
-  updatedAt     DateTime @updatedAt
-
-  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  challenge     WeeklyChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  id           String          @id @default(cuid())
+  userId       String
+  challengeId  String
+  currentCount Int             @default(0)
+  completed    Boolean         @default(false)
+  claimed      Boolean         @default(false)
+  updatedAt    DateTime        @updatedAt
+  challenge    WeeklyChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, challengeId])
 }
 
 model UserFavorite {
-  id              String   @id @default(cuid())
-  userId          String
-  devotionalDate  String   // YYYY-MM-DD
-  createdAt       DateTime @default(now())
-
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id             String   @id @default(cuid())
+  userId         String
+  devotionalDate String
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, devotionalDate])
 }
 
-// ============================================
-// BIBLE PASSAGE CACHE
-// ============================================
-
 model BiblePassage {
-  id                String   @id @default(cuid())
-  refKey            String   // Normalized key: "lucas_10_25-37", "juan_3_16"
-  lang              String   // "es" or "en"
-
-  book              String   // "Lucas", "Luke"
-  chapterStart      Int
-  verseStart        Int
-  chapterEnd        Int?     // For ranges
-  verseEnd          Int?     // For ranges
-
-  referenceDisplay  String   // "Lucas 10:25-37" (human readable)
-  text              String   // Full passage text
-
-  source            String   @default("api") // "api" or "manual"
-  createdAt         DateTime @default(now())
+  id               String   @id @default(cuid())
+  refKey           String
+  lang             String
+  book             String
+  chapterStart     Int
+  verseStart       Int
+  chapterEnd       Int?
+  verseEnd         Int?
+  referenceDisplay String
+  text             String
+  source           String   @default("api")
+  createdAt        DateTime @default(now())
 
   @@unique([refKey, lang])
   @@index([lang])
 }
 
-// ============================================
-// POINTS LEDGER - Idempotent Point Tracking
-// ============================================
-
 model PointLedger {
-  id          String   @id @default(cuid())
-  userId      String
-  ledgerId    String   // Deterministic ID like "devotional_2026-02-14"
-  type        String   // devotional_complete, streak_bonus, share, prayer, tts, challenge_reward
-  dateId      String   // Date for the action (YYYY-MM-DD)
-  amount      Int
-  metadata    String   @default("{}")  // JSON for extra data
-  createdAt   DateTime @default(now())
-
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  ledgerId  String
+  type      String
+  dateId    String
+  amount    Int
+  metadata  String   @default("{}")
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, ledgerId])
   @@index([userId])
 }
 
-// ============================================
-// TRANSFER CODES - Cross-device Restore
-// ============================================
-
 model TransferCode {
-  id            String    @id @default(cuid())
-  code          String    @unique
-  sourceUserId  String
-  expiresAt     DateTime
-  used          Boolean   @default(false)
-  usedByUserId  String?
-  usedAt        DateTime?
-  createdAt     DateTime  @default(now())
-
-  sourceUser    User      @relation("TransferCodeSource", fields: [sourceUserId], references: [id], onDelete: Cascade)
+  id           String    @id @default(cuid())
+  code         String    @unique
+  sourceUserId String
+  expiresAt    DateTime
+  used         Boolean   @default(false)
+  usedByUserId String?
+  usedAt       DateTime?
+  createdAt    DateTime  @default(now())
+  sourceUser   User      @relation("TransferCodeSource", fields: [sourceUserId], references: [id], onDelete: Cascade)
 }
 
-// ============================================
-// PROMO CODES - Redeemable Point Codes
-// ============================================
-
 model PromoCode {
-  id            String    @id // Normalized code (lowercase, trimmed)
-  displayCode   String    // Original display format (e.g., "Fe", "Amor", "Cristo")
-  points        Int       // Points awarded on redemption
-  isActive      Boolean   @default(true)
-  maxUses       Int?      // null = unlimited uses
-  totalUses     Int       @default(0)
-  createdAt     DateTime  @default(now())
-
-  redemptions   PromoRedemption[]
+  id          String            @id
+  displayCode String
+  points      Int
+  isActive    Boolean           @default(true)
+  maxUses     Int?
+  totalUses   Int               @default(0)
+  createdAt   DateTime          @default(now())
+  redemptions PromoRedemption[]
 }
 
 model PromoRedemption {
   id            String    @id @default(cuid())
   userId        String
-  codeId        String    // References PromoCode.id (normalized code)
+  codeId        String
   pointsAwarded Int
   redeemedAt    DateTime  @default(now())
-
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   promoCode     PromoCode @relation(fields: [codeId], references: [id], onDelete: Cascade)
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, codeId]) // Each user can redeem each code only once
+  @@unique([userId, codeId])
 }
 
-// ============================================
-// PRAYER REQUEST SYSTEM
-// ============================================
-
 model PrayerRequest {
-  id              String   @id @default(cuid())
-  userId          String
-  periodId        String   // YYYY-MM-DD for daily, YYYY-WXX for weekly
-  mode            String   // "daily" or "weekly"
-  categoryKey     String   // e.g., "work", "health", "family"
+  id               String   @id @default(cuid())
+  userId           String
+  periodId         String
+  mode             String
+  categoryKey      String
+  nickname         String?
+  avatarId         String?
+  frameId          String?
+  titleId          String?
+  displayNameOptIn Boolean  @default(true)
+  expiresAt        DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  // Cached display data
-  nickname        String?  // Optional cache for display
-  avatarId        String?
-  frameId         String?
-  titleId         String?
-  displayNameOptIn Boolean @default(true) // If false, show "Un hermano/a"
-
-  expiresAt       DateTime
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, periodId, mode]) // One request per user per period per mode
+  @@unique([userId, periodId, mode])
   @@index([periodId, mode])
   @@index([expiresAt])
 }
 
 model DailyPrayer {
-  id              String   @id @default(cuid())
-  dateId          String   @unique // YYYY-MM-DD
-
-  // English content
-  title           String
-  prayerText      String
-  includedCategories String @default("[]") // JSON array of category keys
-
-  // Spanish content
-  titleEs         String
-  prayerTextEs    String
-
-  // Stats
-  totalRequests   Int      @default(0)
-  categoryStats   String   @default("{}") // JSON: {work: 5, health: 3}
-
-  createdAt       DateTime @default(now())
+  id                 String   @id @default(cuid())
+  dateId             String   @unique
+  title              String
+  prayerText         String
+  includedCategories String   @default("[]")
+  titleEs            String
+  prayerTextEs       String
+  totalRequests      Int      @default(0)
+  categoryStats      String   @default("{}")
+  createdAt          DateTime @default(now())
 }
