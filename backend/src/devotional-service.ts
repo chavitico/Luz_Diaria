@@ -53,8 +53,13 @@ const IMAGES = [
 ];
 
 function getTodayDate(): string {
-  const dateStr = new Date().toISOString().split("T")[0];
-  return dateStr!;
+  // Use Costa Rica timezone (UTC-6) to get today's date
+  const now = new Date();
+  const costaRicaDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Costa_Rica" }));
+  const year = costaRicaDate.getFullYear();
+  const month = String(costaRicaDate.getMonth() + 1).padStart(2, "0");
+  const day = String(costaRicaDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 function getTopicForDate(date: string): { en: string; es: string } {
