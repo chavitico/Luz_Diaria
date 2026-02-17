@@ -189,7 +189,8 @@ export const ShareableDevotionalImage = forwardRef<View, ShareableDevotionalImag
       : devotional.bibleReference;
 
     const formatDate = (dateStr: string) => {
-      const dateObj = new Date(dateStr);
+      // Add T12:00:00 to avoid timezone issues when parsing date-only strings
+      const dateObj = new Date(dateStr + 'T12:00:00');
       return dateObj.toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', {
         weekday: 'long',
         month: 'long',

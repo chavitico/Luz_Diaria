@@ -10,11 +10,15 @@ export function generateUserId(): string {
   return 'user_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
 }
 
-// Get today's date in YYYY-MM-DD format
+// Get today's date in YYYY-MM-DD format using Costa Rica timezone
 export function getTodayDate(): string {
   const now = new Date();
-  const dateStr = now.toISOString().split('T')[0];
-  return dateStr ?? '';
+  // Use Costa Rica timezone (UTC-6) to match the backend
+  const costaRicaDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Costa_Rica" }));
+  const year = costaRicaDate.getFullYear();
+  const month = String(costaRicaDate.getMonth() + 1).padStart(2, "0");
+  const day = String(costaRicaDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 // Fallback devotional when API is unavailable

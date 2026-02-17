@@ -44,7 +44,9 @@ function DevotionalCard({ devotional, isFavorite, language, colors, onPress, onS
   const topic = language === 'es' ? devotional.topicEs : devotional.topic;
 
   const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
+    // Add T12:00:00 to avoid timezone issues when parsing date-only strings
+    // This ensures the date is interpreted as noon, preventing day shifts across timezones
+    const date = new Date(dateStr + 'T12:00:00');
     return date.toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', {
       month: 'short',
       day: 'numeric',
