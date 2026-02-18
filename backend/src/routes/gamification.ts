@@ -253,8 +253,18 @@ gamificationRouter.post(
       });
 
       if (!existingUser) {
+        console.log(`[Sync] User not found: ${userId}`);
         return c.json({ error: "User not found" }, 404);
       }
+
+      console.log(`[Sync] User ${existingUser.nickname} (${userId}):`, {
+        before: {
+          points: existingUser.points,
+          streakCurrent: existingUser.streakCurrent,
+          devotionalsCompleted: existingUser.devotionalsCompleted,
+        },
+        incoming: data,
+      });
 
       const updateData: Record<string, unknown> = {};
 
@@ -273,6 +283,12 @@ gamificationRouter.post(
             include: { item: true },
           },
         },
+      });
+
+      console.log(`[Sync] User ${existingUser.nickname} updated:`, {
+        points: user.points,
+        streakCurrent: user.streakCurrent,
+        devotionalsCompleted: user.devotionalsCompleted,
       });
 
       return c.json(user);

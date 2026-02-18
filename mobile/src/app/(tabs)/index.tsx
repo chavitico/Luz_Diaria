@@ -1315,20 +1315,38 @@ export default function HomeScreen() {
 
     if (user) {
       const lastActive = user.lastActiveDate;
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+      // Calculate yesterday using the same timezone as getTodayDate (Costa Rica)
+      const getYesterdayDate = (): string => {
+        const now = new Date();
+        const costaRicaDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Costa_Rica" }));
+        costaRicaDate.setDate(costaRicaDate.getDate() - 1);
+        const year = costaRicaDate.getFullYear();
+        const month = String(costaRicaDate.getMonth() + 1).padStart(2, "0");
+        const day = String(costaRicaDate.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      };
+      const yesterdayStr = getYesterdayDate();
 
       let newStreakCurrent = user.streakCurrent;
       let newStreakBest = user.streakBest;
 
+      console.log('[Streak] Checking streak:', { lastActive, yesterdayStr, today, currentStreak: user.streakCurrent });
+
       if (lastActive === yesterdayStr) {
+        // User was active yesterday - increment streak
         newStreakCurrent = user.streakCurrent + 1;
         newStreakBest = Math.max(newStreakCurrent, user.streakBest);
         incrementStreak();
-      } else if (lastActive !== today) {
+        console.log('[Streak] Incrementing streak to:', newStreakCurrent);
+      } else if (lastActive === today) {
+        // User already completed today - keep current streak
+        console.log('[Streak] Already active today, keeping streak:', newStreakCurrent);
+      } else {
+        // User missed a day or first time - reset to 1
         newStreakCurrent = 1;
         updateUser({ streakCurrent: 1 });
+        console.log('[Streak] Resetting streak to 1 (lastActive was:', lastActive, ')');
       }
 
       const newDevotionalsCompleted = user.devotionalsCompleted + 1;
