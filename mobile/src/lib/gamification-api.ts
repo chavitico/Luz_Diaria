@@ -314,7 +314,7 @@ export const gamificationApi = {
     return data;
   },
 
-  async equipItem(userId: string, type: 'theme' | 'frame' | 'title' | 'music', itemId: string | null): Promise<UserProfile> {
+  async equipItem(userId: string, type: 'theme' | 'frame' | 'title' | 'music' | 'avatar', itemId: string | null): Promise<UserProfile> {
     const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/equip`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

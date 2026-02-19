@@ -2154,7 +2154,7 @@ export default function StoreScreen() {
       type,
       itemId,
     }: {
-      type: 'theme' | 'frame' | 'title' | 'music';
+      type: 'theme' | 'frame' | 'title' | 'music' | 'avatar';
       itemId: string | null;
     }) => gamificationApi.equipItem(effectiveUserId, type, itemId),
     onSuccess: (data, variables) => {
@@ -2164,6 +2164,7 @@ export default function StoreScreen() {
       if (variables.type === 'title') updates.titleId = variables.itemId;
       if (variables.type === 'theme') updates.themeId = variables.itemId || undefined;
       if (variables.type === 'music') updates.selectedMusicId = variables.itemId || undefined;
+      if (variables.type === 'avatar') updates.avatar = variables.itemId || undefined;
       updateUser(updates);
       setShowDetailModal(false);
     },
@@ -2174,6 +2175,7 @@ export default function StoreScreen() {
       if (variables.type === 'title') updates.titleId = variables.itemId;
       if (variables.type === 'theme') updates.themeId = variables.itemId || undefined;
       if (variables.type === 'music') updates.selectedMusicId = variables.itemId || undefined;
+      if (variables.type === 'avatar') updates.avatar = variables.itemId || undefined;
       updateUser(updates);
       setShowDetailModal(false);
     },
@@ -2235,17 +2237,11 @@ export default function StoreScreen() {
   const handleEquip = useCallback(() => {
     if (!selectedDetailItem) return;
 
-    if (selectedDetailItem.type === 'avatar') {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-      updateUser({ avatar: selectedDetailItem.id });
-      setShowDetailModal(false);
-    } else {
-      equipMutate({
-        type: selectedDetailItem.type as 'theme' | 'frame' | 'title',
-        itemId: selectedDetailItem.id,
-      });
-    }
-  }, [selectedDetailItem, equipMutate, updateUser]);
+    equipMutate({
+      type: selectedDetailItem.type as 'theme' | 'frame' | 'title' | 'music' | 'avatar',
+      itemId: selectedDetailItem.id,
+    });
+  }, [selectedDetailItem, equipMutate]);
 
   // Handle weekly chest claim
   const handleChestClaim = useCallback(() => {

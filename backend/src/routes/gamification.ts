@@ -67,7 +67,7 @@ const purchaseSchema = z.object({
 });
 
 const equipSchema = z.object({
-  type: z.enum(['theme', 'frame', 'title', 'music']),
+  type: z.enum(['theme', 'frame', 'title', 'music', 'avatar']),
   itemId: z.string(),
 });
 
@@ -821,6 +821,9 @@ gamificationRouter.post(
           break;
         case "music":
           updateData.selectedMusicId = itemId;
+          break;
+        case "avatar":
+          updateData.avatarId = itemId;
           break;
       }
 
