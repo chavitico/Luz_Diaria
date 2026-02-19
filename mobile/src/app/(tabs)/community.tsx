@@ -21,7 +21,7 @@ import {
   Heart,
   Sparkles,
 } from 'lucide-react-native';
-import { useThemeColors, useLanguage, useUser } from '@/lib/store';
+import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
 import { gamificationApi, CommunityMember } from '@/lib/gamification-api';
 
@@ -287,7 +287,7 @@ export default function CommunityScreen() {
           }
         }
 
-        await gamificationApi.syncUser(user.id, {
+        const syncedUser = await gamificationApi.syncUser(user.id, {
           points: user.points,
           streakCurrent: user.streakCurrent,
           streakBest: user.streakBest,
@@ -295,6 +295,33 @@ export default function CommunityScreen() {
           totalTimeSeconds: user.totalTime,
           lastActiveAt,
         });
+
+        // Update local store with backend values if they're higher (data recovery)
+        // This ensures we don't lose progress if local store was reset
+        const updateUser = useAppStore.getState().updateUser;
+        const updates: Record<string, number> = {};
+
+        if (syncedUser.points > user.points) {
+          updates.points = syncedUser.points;
+        }
+        if (syncedUser.streakCurrent > user.streakCurrent) {
+          updates.streakCurrent = syncedUser.streakCurrent;
+        }
+        if (syncedUser.streakBest > user.streakBest) {
+          updates.streakBest = syncedUser.streakBest;
+        }
+        if (syncedUser.devotionalsCompleted > user.devotionalsCompleted) {
+          updates.devotionalsCompleted = syncedUser.devotionalsCompleted;
+        }
+        if (syncedUser.totalTimeSeconds > user.totalTime) {
+          updates.totalTime = syncedUser.totalTimeSeconds;
+        }
+
+        if (Object.keys(updates).length > 0) {
+          console.log('[Community] Recovering data from backend:', updates);
+          updateUser(updates);
+        }
+
         console.log('[Community] User data synced to backend successfully');
         // Refetch community members after sync
         queryClient.invalidateQueries({ queryKey: ['community-members'] });

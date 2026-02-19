@@ -268,11 +268,23 @@ gamificationRouter.post(
 
       const updateData: Record<string, unknown> = {};
 
-      if (data.points !== undefined) updateData.points = data.points;
-      if (data.streakCurrent !== undefined) updateData.streakCurrent = data.streakCurrent;
-      if (data.streakBest !== undefined) updateData.streakBest = data.streakBest;
-      if (data.devotionalsCompleted !== undefined) updateData.devotionalsCompleted = data.devotionalsCompleted;
-      if (data.totalTimeSeconds !== undefined) updateData.totalTimeSeconds = data.totalTimeSeconds;
+      // Use MAX strategy for cumulative stats to prevent data loss when local store resets
+      // This ensures we never lose progress even if the frontend sends lower values
+      if (data.points !== undefined) {
+        updateData.points = Math.max(data.points, existingUser.points);
+      }
+      if (data.streakCurrent !== undefined) {
+        updateData.streakCurrent = Math.max(data.streakCurrent, existingUser.streakCurrent);
+      }
+      if (data.streakBest !== undefined) {
+        updateData.streakBest = Math.max(data.streakBest, existingUser.streakBest);
+      }
+      if (data.devotionalsCompleted !== undefined) {
+        updateData.devotionalsCompleted = Math.max(data.devotionalsCompleted, existingUser.devotionalsCompleted);
+      }
+      if (data.totalTimeSeconds !== undefined) {
+        updateData.totalTimeSeconds = Math.max(data.totalTimeSeconds, existingUser.totalTimeSeconds);
+      }
       if (data.lastActiveAt !== undefined) updateData.lastActiveAt = new Date(data.lastActiveAt);
 
       const user = await prisma.user.update({
