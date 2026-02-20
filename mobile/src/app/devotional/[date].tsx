@@ -974,15 +974,18 @@ export default function DevotionalDetailScreen() {
 
   const toggleFavorite = () => {
     if (!date) return;
+    console.log('[Favorite] Detail toggle pressed, date:', date, 'isFavorite:', isFavorite, 'user:', !!user, 'favorites:', favorites);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (isFavorite) {
       removeFavorite(date);
+      console.log('[Favorite] Removed from favorites:', date);
     } else {
       // Only award points if not already a favorite (prevents duplicate points)
       if (!favorites.includes(date)) {
         addPoints(POINTS.FAVORITE_DEVOTIONAL);
       }
       addFavorite(date);
+      console.log('[Favorite] Added to favorites:', date);
     }
   };
 

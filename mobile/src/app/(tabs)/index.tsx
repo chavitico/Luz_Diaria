@@ -1595,14 +1595,17 @@ export default function HomeScreen() {
   }, [speakSection]);
 
   const toggleFavorite = () => {
+    console.log('[Favorite] Toggle pressed, today:', today, 'isFavorite:', isFavorite, 'user:', !!user, 'favorites:', favorites);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (isFavorite) {
       removeFavorite(today);
+      console.log('[Favorite] Removed from favorites');
     } else {
-      addFavorite(today);
       if (!favorites.includes(today)) {
         addPoints(POINTS.FAVORITE_DEVOTIONAL);
       }
+      addFavorite(today);
+      console.log('[Favorite] Added to favorites');
     }
   };
 

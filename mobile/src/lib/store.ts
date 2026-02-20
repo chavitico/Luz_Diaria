@@ -147,13 +147,13 @@ export const useAppStore = create<AppState>()(
 
       addFavorite: (devotionalDate) => set((state) => ({
         user: state.user
-          ? { ...state.user, favorites: [...state.user.favorites, devotionalDate] }
+          ? { ...state.user, favorites: [...(state.user.favorites ?? []), devotionalDate] }
           : null,
       })),
 
       removeFavorite: (devotionalDate) => set((state) => ({
         user: state.user
-          ? { ...state.user, favorites: state.user.favorites.filter(d => d !== devotionalDate) }
+          ? { ...state.user, favorites: (state.user.favorites ?? []).filter(d => d !== devotionalDate) }
           : null,
       })),
 
@@ -231,7 +231,7 @@ export const useCurrentTheme = () => useAppStore((s) => s.currentTheme);
 export const useIsDarkMode = () => useAppStore((s) => s.isDarkMode);
 export const useUserPoints = () => useAppStore((s) => s.user?.points ?? 0);
 export const useUserStreak = () => useAppStore((s) => s.user?.streakCurrent ?? 0);
-export const useUserFavorites = () => useAppStore((s) => s.user?.favorites ?? []);
+export const useUserFavorites = () => useAppStore((s) => s.user?.favorites ?? [] as string[]);
 export const useUserSettings = () => useAppStore((s) => s.user?.settings ?? initialUserSettings);
 export const useLanguage = () => useAppStore((s) => s.user?.settings?.language ?? 'en');
 
