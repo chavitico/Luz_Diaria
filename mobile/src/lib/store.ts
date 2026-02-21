@@ -238,8 +238,6 @@ export const useAppStore = create<AppState>()(
         if (state.user.lastActiveDate && !/^\d{4}-\d{2}-\d{2}$/.test(state.user.lastActiveDate)) {
           state.user.lastActiveDate = '';
         }
-        // TEST: Reset weekly chest claim so user can test the new reward modal
-        state.user.lastWeeklyChestClaimed = '';
       },
     }
   )
