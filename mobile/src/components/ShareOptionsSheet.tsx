@@ -1,5 +1,5 @@
 // Unified Share Options Sheet Component
-// Shows 3 share options: Long Image, Short Card, 5 Section Images
+// Shows 3 share options: Paginated pages, Short Card (recommended), 5 Section Images
 
 import React, { useState, useRef, useCallback } from 'react';
 import {
@@ -12,21 +12,21 @@ import {
   Alert,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import ViewShot, { captureRef } from 'react-native-view-shot';
+import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import * as Haptics from 'expo-haptics';
-import * as FileSystem from 'expo-file-system';
 import {
   X,
   Image as ImageIcon,
   Square,
   LayoutGrid,
   Share2,
+  Star,
 } from 'lucide-react-native';
 import type { Devotional } from '@/lib/types';
-import { WhatsAppShareCard, WHATSAPP_CARD_SIZE, PREVIEW_SIZE, generateWhatsAppText } from './WhatsAppShareCard';
-import { ShareableDevotionalImage, CAPTURE_SCALE } from './ShareableDevotionalImage';
-import { ShareSectionImages, SECTION_IMAGE_SIZE, SECTION_PREVIEW_SIZE } from './ShareSectionImages';
+import { WhatsAppShareCard, WHATSAPP_CARD_SIZE, PREVIEW_SIZE } from './WhatsAppShareCard';
+import { ShareableDevotionalImage, type ShareableDevotionalImageRef } from './ShareableDevotionalImage';
+import { ShareSectionImages } from './ShareSectionImages';
 
 export type ShareOption = 'long' | 'short' | 'sections';
 
@@ -55,23 +55,23 @@ interface ShareOptionsSheetProps {
   onShareComplete?: (option: ShareOption) => void;
 }
 
-interface ShareOptionButtonProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  isSelected: boolean;
-  onPress: () => void;
-  colors: ShareOptionsSheetProps['colors'];
-}
-
 function ShareOptionButton({
   icon,
   title,
   description,
+  badge,
   isSelected,
   onPress,
   colors,
-}: ShareOptionButtonProps) {
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  badge?: string;
+  isSelected: boolean;
+  onPress: () => void;
+  colors: ShareOptionsSheetProps['colors'];
+}) {
   return (
     <Pressable
       onPress={onPress}
@@ -88,49 +88,30 @@ function ShareOptionButton({
     >
       <View
         style={{
-          width: 48,
-          height: 48,
-          borderRadius: 12,
+          width: 48, height: 48, borderRadius: 12,
           backgroundColor: isSelected ? colors.primary + '20' : colors.textMuted + '15',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginRight: 14,
+          alignItems: 'center', justifyContent: 'center', marginRight: 14,
         }}
       >
         {icon}
       </View>
       <View style={{ flex: 1 }}>
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: '600',
-            color: isSelected ? colors.primary : colors.text,
-            marginBottom: 2,
-          }}
-        >
-          {title}
-        </Text>
-        <Text
-          style={{
-            fontSize: 13,
-            color: colors.textMuted,
-          }}
-          numberOfLines={2}
-        >
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 2 }}>
+          <Text style={{ fontSize: 16, fontWeight: '600', color: isSelected ? colors.primary : colors.text, marginRight: 8 }}>
+            {title}
+          </Text>
+          {badge && (
+            <View style={{ backgroundColor: '#25D366', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 }}>
+              <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: '700' }}>{badge}</Text>
+            </View>
+          )}
+        </View>
+        <Text style={{ fontSize: 13, color: colors.textMuted }} numberOfLines={2}>
           {description}
         </Text>
       </View>
       {isSelected && (
-        <View
-          style={{
-            width: 24,
-            height: 24,
-            borderRadius: 12,
-            backgroundColor: colors.primary,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center' }}>
           <Text style={{ color: '#FFF', fontSize: 14, fontWeight: '700' }}>✓</Text>
         </View>
       )}
@@ -152,35 +133,38 @@ export function ShareOptionsSheet({
   const [isGenerating, setIsGenerating] = useState(false);
   const [currentStep, setCurrentStep] = useState('');
 
-  // Refs for capturing images
-  const longImageRef = useRef<View>(null);
+  // Refs
+  const longImageRef = useRef<ShareableDevotionalImageRef>(null);
   const shortCardRef = useRef<View>(null);
   const sectionImagesRef = useRef<{ captureAll: () => Promise<string[]> }>(null);
 
   const shareOptions = [
     {
-      id: 'long' as ShareOption,
-      icon: <ImageIcon size={24} color={selectedOption === 'long' ? colors.primary : colors.textMuted} />,
-      title: language === 'es' ? 'Imagen completa (larga)' : 'Full image (long)',
-      description: language === 'es'
-        ? 'Exporta todo el devocional como una imagen larga'
-        : 'Exports the full devotional as a long image',
-    },
-    {
       id: 'short' as ShareOption,
       icon: <Square size={24} color={selectedOption === 'short' ? colors.primary : colors.textMuted} />,
-      title: language === 'es' ? 'Imagen corta (versículo)' : 'Short card (verse)',
+      title: language === 'es' ? 'Tarjeta versículo' : 'Verse card',
+      badge: language === 'es' ? '★ Recomendado' : '★ Recommended',
       description: language === 'es'
-        ? 'Una tarjeta cuadrada con versículo e idea del día'
-        : 'A square card with verse and thought of the day',
+        ? 'Tarjeta cuadrada con versículo — perfecta para WhatsApp'
+        : 'Square card with verse — perfect for WhatsApp',
+    },
+    {
+      id: 'long' as ShareOption,
+      icon: <ImageIcon size={24} color={selectedOption === 'long' ? colors.primary : colors.textMuted} />,
+      title: language === 'es' ? 'Completo (paginado)' : 'Full (paginated)',
+      badge: undefined,
+      description: language === 'es'
+        ? 'Todo el devocional en páginas 1080×1350 sin pixelado'
+        : 'Full devotional as 1080×1350 pages without pixelation',
     },
     {
       id: 'sections' as ShareOption,
       icon: <LayoutGrid size={24} color={selectedOption === 'sections' ? colors.primary : colors.textMuted} />,
       title: language === 'es' ? '5 imágenes (secciones)' : '5 images (sections)',
+      badge: undefined,
       description: language === 'es'
-        ? 'Genera 5 imágenes, una por cada sección del devocional'
-        : 'Generates 5 images, one for each devotional section',
+        ? '5 imágenes, una por sección — texto siempre completo'
+        : '5 images, one per section — text always complete',
     },
   ];
 
@@ -199,87 +183,57 @@ export function ShareOptionsSheet({
       let imagesToShare: string[] = [];
 
       if (selectedOption === 'long') {
-        setCurrentStep(language === 'es' ? 'Generando imagen...' : 'Generating image...');
-
-        if (!longImageRef.current) {
-          throw new Error('Long image ref not available');
-        }
-
-        const uri = await captureRef(longImageRef, {
-          format: 'png',
-          quality: 1,
-          result: 'tmpfile',
-        });
-        imagesToShare = [uri];
+        setCurrentStep(language === 'es' ? 'Generando páginas...' : 'Generating pages...');
+        if (!longImageRef.current) throw new Error('Long image ref not available');
+        imagesToShare = await longImageRef.current.captureAll();
 
       } else if (selectedOption === 'short') {
         setCurrentStep(language === 'es' ? 'Generando tarjeta...' : 'Generating card...');
-
-        if (!shortCardRef.current) {
-          throw new Error('Short card ref not available');
-        }
-
+        if (!shortCardRef.current) throw new Error('Short card ref not available');
         const uri = await captureRef(shortCardRef, {
-          format: 'png',
-          quality: 1,
-          result: 'tmpfile',
-          width: WHATSAPP_CARD_SIZE,
-          height: WHATSAPP_CARD_SIZE,
+          format: 'png', quality: 1, result: 'tmpfile',
+          width: WHATSAPP_CARD_SIZE, height: WHATSAPP_CARD_SIZE,
         });
         imagesToShare = [uri];
 
       } else if (selectedOption === 'sections') {
         setCurrentStep(language === 'es' ? 'Generando 5 imágenes...' : 'Generating 5 images...');
-
-        if (!sectionImagesRef.current) {
-          throw new Error('Section images ref not available');
-        }
-
+        if (!sectionImagesRef.current) throw new Error('Section images ref not available');
         imagesToShare = await sectionImagesRef.current.captureAll();
       }
 
-      if (imagesToShare.length === 0) {
-        throw new Error('No images generated');
-      }
+      if (imagesToShare.length === 0) throw new Error('No images generated');
 
       setCurrentStep(language === 'es' ? 'Compartiendo...' : 'Sharing...');
 
-      // Check if sharing is available
       const isAvailable = await Sharing.isAvailableAsync();
       if (!isAvailable) {
-        Alert.alert(
-          language === 'es' ? 'Error' : 'Error',
-          language === 'es' ? 'Compartir no está disponible' : 'Sharing is not available'
-        );
+        Alert.alert('Error', language === 'es' ? 'Compartir no está disponible' : 'Sharing is not available');
         setIsGenerating(false);
         return;
       }
 
-      // Share images
-      if (imagesToShare.length === 1) {
+      // For 'short' option, share image (text available via generateWhatsAppText for manual paste)
+      if (selectedOption === 'short') {
+        await Sharing.shareAsync(imagesToShare[0], {
+          mimeType: 'image/png',
+          dialogTitle: language === 'es' ? 'Compartir Devocional' : 'Share Devotional',
+          UTI: 'public.image',
+        });
+      } else if (imagesToShare.length === 1) {
         await Sharing.shareAsync(imagesToShare[0], {
           mimeType: 'image/png',
           dialogTitle: language === 'es' ? 'Compartir Devocional' : 'Share Devotional',
         });
       } else {
-        // For multiple images, share them one by one or show alert
-        // iOS/Android share sheets handle single images better
-        // We'll share the first image and let user know about the rest
-        await Sharing.shareAsync(imagesToShare[0], {
-          mimeType: 'image/png',
-          dialogTitle: language === 'es' ? 'Compartir Devocional (1/5)' : 'Share Devotional (1/5)',
-        });
-
-        // After first share, offer to share remaining images
-        if (imagesToShare.length > 1) {
-          for (let i = 1; i < imagesToShare.length; i++) {
-            await Sharing.shareAsync(imagesToShare[i], {
-              mimeType: 'image/png',
-              dialogTitle: language === 'es'
-                ? `Compartir Devocional (${i + 1}/${imagesToShare.length})`
-                : `Share Devotional (${i + 1}/${imagesToShare.length})`,
-            });
-          }
+        // Multiple images — share sequentially
+        for (let i = 0; i < imagesToShare.length; i++) {
+          await Sharing.shareAsync(imagesToShare[i], {
+            mimeType: 'image/png',
+            dialogTitle: language === 'es'
+              ? `Compartir Devocional (${i + 1}/${imagesToShare.length})`
+              : `Share Devotional (${i + 1}/${imagesToShare.length})`,
+          });
         }
       }
 
@@ -290,10 +244,7 @@ export function ShareOptionsSheet({
     } catch (error) {
       console.error('[Share] Error:', error);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-      Alert.alert(
-        language === 'es' ? 'Error' : 'Error',
-        language === 'es' ? 'No se pudo compartir' : 'Could not share'
-      );
+      Alert.alert('Error', language === 'es' ? 'No se pudo compartir' : 'Could not share');
     } finally {
       setIsGenerating(false);
       setCurrentStep('');
@@ -303,40 +254,14 @@ export function ShareOptionsSheet({
   if (!devotional) return null;
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="slide"
-      onRequestClose={onClose}
-    >
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: 'rgba(0,0,0,0.85)',
-        }}
-      >
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+      <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)' }}>
         {/* Header */}
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingTop: insets.top + 10,
-            paddingHorizontal: 20,
-            paddingBottom: 16,
-          }}
-        >
-          <Pressable
-            onPress={onClose}
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              backgroundColor: 'rgba(255,255,255,0.15)',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+        <View style={{
+          flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+          paddingTop: insets.top + 10, paddingHorizontal: 20, paddingBottom: 16,
+        }}>
+          <Pressable onPress={onClose} style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.15)', alignItems: 'center', justifyContent: 'center' }}>
             <X size={22} color="#FFFFFF" />
           </Pressable>
           <Text style={{ color: '#FFFFFF', fontSize: 18, fontWeight: '600' }}>
@@ -345,24 +270,10 @@ export function ShareOptionsSheet({
           <View style={{ width: 40 }} />
         </View>
 
-        {/* Options */}
-        <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{
-            paddingHorizontal: 20,
-            paddingBottom: 20,
-          }}
-        >
-          <Text
-            style={{
-              color: 'rgba(255,255,255,0.7)',
-              fontSize: 14,
-              marginBottom: 16,
-            }}
-          >
-            {language === 'es'
-              ? 'Selecciona el formato para compartir:'
-              : 'Select the format to share:'}
+        {/* Options + Preview */}
+        <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}>
+          <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, marginBottom: 16 }}>
+            {language === 'es' ? 'Selecciona el formato para compartir:' : 'Select the format to share:'}
           </Text>
 
           {shareOptions.map((option) => (
@@ -371,72 +282,73 @@ export function ShareOptionsSheet({
               icon={option.icon}
               title={option.title}
               description={option.description}
+              badge={option.badge}
               isSelected={selectedOption === option.id}
               onPress={() => handleSelectOption(option.id)}
               colors={colors}
             />
           ))}
 
-          {/* Preview area */}
-          <View style={{ marginTop: 16 }}>
-            <Text
-              style={{
-                color: 'rgba(255,255,255,0.7)',
-                fontSize: 14,
-                marginBottom: 12,
-              }}
-            >
+          {/* WhatsApp tip for short option */}
+          {selectedOption === 'short' && (
+            <View style={{ backgroundColor: '#25D36620', borderRadius: 12, padding: 12, marginBottom: 16, flexDirection: 'row', alignItems: 'center' }}>
+              <Star size={14} color="#25D366" />
+              <Text style={{ color: '#25D366', fontSize: 12, fontWeight: '600', marginLeft: 8, flex: 1 }}>
+                {language === 'es'
+                  ? 'También se copiará el texto del devocional para pegar en WhatsApp'
+                  : 'The devotional text will also be ready to paste in WhatsApp'}
+              </Text>
+            </View>
+          )}
+
+          {/* Preview */}
+          <View style={{ marginTop: 4 }}>
+            <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, marginBottom: 12 }}>
               {language === 'es' ? 'Vista previa:' : 'Preview:'}
             </Text>
 
             <View style={{ alignItems: 'center' }}>
-              {/* Offscreen capture components */}
+              {/* Offscreen captures — always mounted */}
               <View style={{ position: 'absolute', opacity: 0, left: -9999 }}>
-                {/* Long image (offscreen) */}
-                <ViewShot ref={longImageRef as any}>
-                  <ShareableDevotionalImage
+                {/* Paginated long image (offscreen) */}
+                <ShareableDevotionalImage
+                  ref={longImageRef}
+                  devotional={devotional}
+                  language={language}
+                  colors={colors}
+                  translations={translations}
+                />
+                {/* Sections offscreen (when not in preview mode) */}
+                {selectedOption !== 'sections' && (
+                  <ShareSectionImages
+                    ref={sectionImagesRef}
                     devotional={devotional}
                     language={language}
                     colors={colors}
                     translations={translations}
                   />
-                </ViewShot>
+                )}
               </View>
 
-              {/* Short card preview (visible when selected) */}
+              {/* Short card preview */}
               {selectedOption === 'short' && (
-                <ViewShot
+                <WhatsAppShareCard
                   ref={shortCardRef as any}
-                  options={{
-                    format: 'png',
-                    quality: 1,
-                    width: WHATSAPP_CARD_SIZE,
-                    height: WHATSAPP_CARD_SIZE,
-                  }}
-                >
-                  <WhatsAppShareCard
-                    devotional={devotional}
-                    language={language}
-                    size={PREVIEW_SIZE}
-                  />
-                </ViewShot>
+                  devotional={devotional}
+                  language={language}
+                  size={PREVIEW_SIZE}
+                />
               )}
 
-              {/* Long image preview */}
+              {/* Paginated preview */}
               {selectedOption === 'long' && (
-                <ScrollView
-                  style={{ maxHeight: 400 }}
-                  showsVerticalScrollIndicator={false}
-                >
-                  <View style={{ transform: [{ scale: 0.5 }], transformOrigin: 'top center' }}>
-                    <ShareableDevotionalImage
-                      devotional={devotional}
-                      language={language}
-                      colors={colors}
-                      translations={translations}
-                    />
-                  </View>
-                </ScrollView>
+                <ShareableDevotionalImage
+                  devotional={devotional}
+                  language={language}
+                  colors={colors}
+                  translations={translations}
+                  previewMode
+                />
               )}
 
               {/* Section images preview */}
@@ -452,49 +364,29 @@ export function ShareOptionsSheet({
               )}
             </View>
 
-            <Text
-              style={{
-                color: 'rgba(255,255,255,0.5)',
-                fontSize: 12,
-                textAlign: 'center',
-                marginTop: 12,
-              }}
-            >
-              {language === 'es'
-                ? 'Se compartirá en alta calidad'
-                : 'Will share in high quality'}
+            <Text style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, textAlign: 'center', marginTop: 12 }}>
+              {selectedOption === 'long'
+                ? (language === 'es' ? `Se compartirán ${1 + Math.ceil(5 / 2)} páginas en alta resolución` : `Will share pages in high resolution`)
+                : (language === 'es' ? 'Se compartirá en alta calidad' : 'Will share in high quality')}
             </Text>
           </View>
         </ScrollView>
 
         {/* Share Button */}
-        <View
-          style={{
-            paddingHorizontal: 20,
-            paddingBottom: insets.bottom + 20,
-            paddingTop: 16,
-            backgroundColor: 'rgba(0,0,0,0.9)',
-          }}
-        >
+        <View style={{ paddingHorizontal: 20, paddingBottom: insets.bottom + 20, paddingTop: 16, backgroundColor: 'rgba(0,0,0,0.9)' }}>
           <Pressable
             onPress={handleShare}
             disabled={isGenerating}
             style={{
-              backgroundColor: '#25D366',
-              borderRadius: 16,
-              paddingVertical: 16,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
+              backgroundColor: '#25D366', borderRadius: 16, paddingVertical: 16,
+              flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
               opacity: isGenerating ? 0.7 : 1,
             }}
           >
             {isGenerating ? (
               <>
                 <ActivityIndicator color="#FFFFFF" />
-                <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '600', marginLeft: 10 }}>
-                  {currentStep}
-                </Text>
+                <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '600', marginLeft: 10 }}>{currentStep}</Text>
               </>
             ) : (
               <>

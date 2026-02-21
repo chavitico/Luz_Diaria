@@ -298,7 +298,8 @@ function SectionCard({
                 lineHeight: fontSize(52),
                 fontWeight: '400',
               }}
-              numberOfLines={8}
+              adjustsFontSizeToFit
+              minimumFontScale={0.6}
             >
               {content}
             </Text>
@@ -648,7 +649,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
     }));
 
     // Combine application and prayer for the last card
-    const applicationAndPrayer = `${truncateText(application, 150)}\n\n${language === 'es' ? 'Oración' : 'Prayer'}: ${truncateText(prayer, 100)}`;
+    const applicationAndPrayer = `${truncateText(application, 200)}\n\n${language === 'es' ? 'Oración' : 'Prayer'}: ${truncateText(prayer, 160)}`;
 
     if (previewMode) {
       return (
