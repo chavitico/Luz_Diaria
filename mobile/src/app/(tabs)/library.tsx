@@ -413,6 +413,7 @@ export default function LibraryScreen() {
           renderItem={renderItem}
           estimatedItemSize={116}
           keyExtractor={(item) => item.date}
+          extraData={favorites}
           contentContainerStyle={{ paddingTop: 8, paddingBottom: 120 }}
           showsVerticalScrollIndicator={false}
         />
