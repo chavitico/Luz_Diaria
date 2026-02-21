@@ -55,12 +55,24 @@ interface MusicContextType {
 
 const MusicContext = createContext<MusicContextType | null>(null);
 
+const noopAsync = async () => {};
+
+const FALLBACK_CONTEXT: MusicContextType = {
+  isPlaying: false,
+  currentTrack: '',
+  volume: 0.5,
+  isLoading: false,
+  play: noopAsync,
+  pause: noopAsync,
+  stop: noopAsync,
+  setTrack: noopAsync,
+  setVolume: noopAsync,
+  togglePlayback: noopAsync,
+};
+
 export function useMusicPlayer() {
   const context = useContext(MusicContext);
-  if (!context) {
-    throw new Error('useMusicPlayer must be used within BackgroundMusicProvider');
-  }
-  return context;
+  return context ?? FALLBACK_CONTEXT;
 }
 
 interface BackgroundMusicProviderProps {
