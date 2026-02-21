@@ -225,6 +225,15 @@ export const useAppStore = create<AppState>()(
         isDarkMode: state.isDarkMode,
         inventoryItems: state.inventoryItems,
       }),
+      onRehydrateStorage: () => (state) => {
+        // Clean up any invalid (NaN-NaN-NaN) favorites after store rehydration
+        if (state?.user?.favorites) {
+          const clean = state.user.favorites.filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d));
+          if (clean.length !== state.user.favorites.length) {
+            state.user.favorites = clean;
+          }
+        }
+      },
     }
   )
 );
@@ -236,7 +245,7 @@ export const useCurrentTheme = () => useAppStore((s) => s.currentTheme);
 export const useIsDarkMode = () => useAppStore((s) => s.isDarkMode);
 export const useUserPoints = () => useAppStore((s) => s.user?.points ?? 0);
 export const useUserStreak = () => useAppStore((s) => s.user?.streakCurrent ?? 0);
-export const useUserFavorites = () => useAppStore((s) => (s.user?.favorites ?? [] as string[]).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d)));
+export const useUserFavorites = () => useAppStore((s) => s.user?.favorites ?? [] as string[]);
 export const useUserSettings = () => useAppStore((s) => s.user?.settings ?? initialUserSettings);
 export const useLanguage = () => useAppStore((s) => s.user?.settings?.language ?? 'en');
 
