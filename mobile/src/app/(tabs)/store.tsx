@@ -1,6 +1,6 @@
 // Store Screen - Premium Gamification Hub with Collections, Bundles & Weekly Chest
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -235,6 +235,208 @@ function ProfileHeader({
         </View>
       </LinearGradient>
     </Animated.View>
+  );
+}
+
+// Chest Reward Modal - confetti splash + prize reveal
+function ChestRewardModal({
+  visible,
+  reward,
+  language,
+  colors,
+  onClose,
+}: {
+  visible: boolean;
+  reward: {
+    type: 'points' | 'item';
+    value?: number;
+    itemId?: string;
+    itemName?: string;
+    itemNameEs?: string;
+    itemEmoji?: string;
+    itemColor?: string;
+    rarity: string;
+  } | null;
+  language: 'en' | 'es';
+  colors: ReturnType<typeof useThemeColors>;
+  onClose: () => void;
+}) {
+  const scale = useSharedValue(0);
+  const opacity = useSharedValue(0);
+  const chestScale = useSharedValue(1);
+  const shimmer = useSharedValue(0);
+  const [particles, setParticles] = useState<{ x: number; y: number; color: string; angle: number; id: number }[]>([]);
+  const particleRefs = useRef<ReturnType<typeof useSharedValue>[]>([]);
+
+  // Particle animation values (fixed array of 20)
+  const p0 = useSharedValue(0); const p1 = useSharedValue(0); const p2 = useSharedValue(0);
+  const p3 = useSharedValue(0); const p4 = useSharedValue(0); const p5 = useSharedValue(0);
+  const p6 = useSharedValue(0); const p7 = useSharedValue(0); const p8 = useSharedValue(0);
+  const p9 = useSharedValue(0); const p10 = useSharedValue(0); const p11 = useSharedValue(0);
+  const p12 = useSharedValue(0); const p13 = useSharedValue(0); const p14 = useSharedValue(0);
+  const p15 = useSharedValue(0); const p16 = useSharedValue(0); const p17 = useSharedValue(0);
+  const p18 = useSharedValue(0); const p19 = useSharedValue(0);
+  const pValues = [p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19];
+
+  const rarityGrad: [string, string] = reward?.rarity === 'epic'
+    ? ['#4C1D95', '#7C3AED']
+    : reward?.rarity === 'rare'
+    ? ['#1E3A5F', '#2563EB']
+    : ['#1A3A1A', '#15803D'];
+
+  const rarityColor = reward?.rarity === 'epic' ? '#A855F7' : reward?.rarity === 'rare' ? '#3B82F6' : '#22C55E';
+  const confettiColors = ['#F59E0B', '#EF4444', '#8B5CF6', '#10B981', '#3B82F6', '#F97316', '#EC4899', '#FCD34D'];
+
+  useEffect(() => {
+    if (visible) {
+      // Generate particles
+      const pts = Array.from({ length: 20 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 300 - 150,
+        y: Math.random() * 300 - 150,
+        color: confettiColors[i % confettiColors.length],
+        angle: (i / 20) * Math.PI * 2,
+      }));
+      setParticles(pts);
+
+      // Animate in
+      opacity.value = withTiming(1, { duration: 300 });
+      scale.value = withSequence(
+        withSpring(1.1, { damping: 10, stiffness: 200 }),
+        withSpring(1, { damping: 12, stiffness: 180 })
+      );
+      // Chest bounce
+      chestScale.value = withSequence(
+        withTiming(1, { duration: 100 }),
+        withSpring(1.3, { damping: 6, stiffness: 300 }),
+        withSpring(1, { damping: 8, stiffness: 200 })
+      );
+      // Shimmer loop
+      shimmer.value = withSequence(
+        withTiming(1, { duration: 800 }),
+        withTiming(0, { duration: 800 })
+      );
+      // Burst particles
+      pValues.forEach((p, i) => {
+        p.value = 0;
+        p.value = withSequence(
+          withTiming(0, { duration: i * 30 }),
+          withSpring(1, { damping: 8, stiffness: 120 })
+        );
+      });
+    } else {
+      opacity.value = withTiming(0, { duration: 200 });
+      scale.value = withTiming(0.8, { duration: 200 });
+      pValues.forEach(p => { p.value = 0; });
+    }
+  }, [visible]);
+
+  const containerStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [{ scale: scale.value }],
+  }));
+  const chestStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: chestScale.value }],
+  }));
+
+  const isExclusive = reward?.itemId?.includes('_chest_');
+  const displayName = language === 'es' ? (reward?.itemNameEs ?? reward?.itemName ?? '') : (reward?.itemName ?? '');
+
+  return (
+    <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
+      <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', alignItems: 'center', justifyContent: 'center' }}>
+        {/* Confetti particles */}
+        {particles.map((pt, i) => {
+          const pv = pValues[i];
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const pStyle = useAnimatedStyle(() => ({
+            opacity: pv.value,
+            transform: [
+              { translateX: pt.x * pv.value },
+              { translateY: pt.y * pv.value },
+              { scale: pv.value },
+              { rotate: `${pt.angle * 180 / Math.PI * pv.value}deg` },
+            ],
+          }));
+          return (
+            <Animated.View
+              key={pt.id}
+              style={[{
+                position: 'absolute',
+                width: 10 + (i % 4) * 4,
+                height: 10 + (i % 4) * 4,
+                borderRadius: i % 3 === 0 ? 99 : 2,
+                backgroundColor: pt.color,
+              }, pStyle]}
+            />
+          );
+        })}
+
+        <Animated.View style={[{ width: 320, borderRadius: 28, overflow: 'hidden' }, containerStyle]}>
+          <LinearGradient colors={rarityGrad} style={{ padding: 32, alignItems: 'center' }}>
+            {/* Rarity badge */}
+            {isExclusive && (
+              <View style={{ backgroundColor: rarityColor + '30', borderWidth: 1, borderColor: rarityColor, borderRadius: 99, paddingHorizontal: 12, paddingVertical: 4, marginBottom: 16 }}>
+                <Text style={{ color: rarityColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5 }}>
+                  {language === 'es' ? '✦ EXCLUSIVO DEL COFRE ✦' : '✦ CHEST EXCLUSIVE ✦'}
+                </Text>
+              </View>
+            )}
+
+            {/* Chest icon */}
+            <Animated.View style={[{ marginBottom: 20 }, chestStyle]}>
+              <View style={{ width: 96, height: 96, borderRadius: 48, backgroundColor: rarityColor + '25', alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: rarityColor + '60' }}>
+                <Text style={{ fontSize: 52 }}>🎁</Text>
+              </View>
+            </Animated.View>
+
+            {/* Prize */}
+            {reward?.type === 'item' ? (
+              <>
+                <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 8 }}>
+                  {language === 'es' ? 'Has obtenido' : 'You received'}
+                </Text>
+                {reward.itemEmoji ? (
+                  <Text style={{ fontSize: 56, marginBottom: 12 }}>{reward.itemEmoji}</Text>
+                ) : reward.itemColor ? (
+                  <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: reward.itemColor, marginBottom: 12, borderWidth: 3, borderColor: 'rgba(255,255,255,0.4)' }} />
+                ) : null}
+                <Text style={{ color: '#FFFFFF', fontSize: 22, fontWeight: '800', textAlign: 'center', marginBottom: 6 }}>
+                  {displayName}
+                </Text>
+                <View style={{ backgroundColor: rarityColor + '30', borderRadius: 99, paddingHorizontal: 14, paddingVertical: 5, marginBottom: 4 }}>
+                  <Text style={{ color: rarityColor, fontSize: 12, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 }}>
+                    {reward.rarity}
+                  </Text>
+                </View>
+              </>
+            ) : (
+              <>
+                <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 8 }}>
+                  {language === 'es' ? 'Has ganado' : 'You earned'}
+                </Text>
+                <Text style={{ color: '#FCD34D', fontSize: 52, fontWeight: '900', marginBottom: 8 }}>
+                  +{reward?.value}
+                </Text>
+                <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 18, fontWeight: '600' }}>
+                  {language === 'es' ? 'puntos' : 'points'}
+                </Text>
+              </>
+            )}
+
+            {/* Close button */}
+            <Pressable
+              onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); onClose(); }}
+              style={{ marginTop: 28, backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 16, paddingHorizontal: 40, paddingVertical: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.25)' }}
+            >
+              <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '700' }}>
+                {language === 'es' ? '¡Genial!' : 'Awesome!'}
+              </Text>
+            </Pressable>
+          </LinearGradient>
+        </Animated.View>
+      </View>
+    </Modal>
   );
 }
 
@@ -2046,6 +2248,17 @@ export default function StoreScreen() {
   const [toastAmount, setToastAmount] = useState(0);
   const [toastPositive, setToastPositive] = useState(false);
   const [allChallengesComplete, setAllChallengesComplete] = useState(false);
+  const [showChestModal, setShowChestModal] = useState(false);
+  const [chestReward, setChestReward] = useState<{
+    type: 'points' | 'item';
+    value?: number;
+    itemId?: string;
+    itemName?: string;
+    itemNameEs?: string;
+    itemEmoji?: string;
+    itemColor?: string;
+    rarity: string;
+  } | null>(null);
 
   // Item detail modal state
   const [selectedDetailItem, setSelectedDetailItem] = useState<{
@@ -2251,26 +2464,72 @@ export default function StoreScreen() {
     const weekNumber = Math.ceil(((now.getTime() - startOfYear.getTime()) / 86400000 + startOfYear.getDay() + 1) / 7);
     const currentWeekId = `${now.getFullYear()}-W${weekNumber}`;
 
-    // Simple deterministic "random" based on seed
+    // Weighted random selection
+    const totalWeight = WEEKLY_CHEST_CONFIG.possibleRewards.reduce((sum, r) => sum + r.weight, 0);
     const seed = userId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + weekNumber;
-    const rewardIndex = seed % WEEKLY_CHEST_CONFIG.possibleRewards.length;
-    const reward = WEEKLY_CHEST_CONFIG.possibleRewards[rewardIndex];
-
-    if (reward.type === 'points') {
-      updateUser({
-        points: points + reward.value,
-        lastWeeklyChestClaimed: currentWeekId,
-      });
-      setToastAmount(reward.value);
-      setToastPositive(true);
-      setShowPointsToast(true);
-    } else if (reward.type === 'item' && reward.itemId) {
-      updateUser({
-        purchasedItems: [...purchasedItems, reward.itemId],
-        lastWeeklyChestClaimed: currentWeekId,
-      });
+    // Use seeded value but pick from weighted pool
+    let pick = (seed * 1664525 + 1013904223) % totalWeight;
+    let reward = WEEKLY_CHEST_CONFIG.possibleRewards[0];
+    for (const r of WEEKLY_CHEST_CONFIG.possibleRewards) {
+      pick -= r.weight;
+      if (pick <= 0) { reward = r; break; }
     }
-  }, [userId, points, purchasedItems, updateUser]);
+
+    // Skip already-owned items - find next unowned one
+    if (reward.type === 'item' && reward.itemId) {
+      const itemRewards = WEEKLY_CHEST_CONFIG.possibleRewards.filter(
+        r => r.type === 'item' && r.itemId && !purchasedItems.includes(r.itemId)
+      );
+      if (itemRewards.length > 0) {
+        reward = itemRewards[seed % itemRewards.length];
+      } else {
+        // All items owned, give points instead
+        reward = { type: 'points', value: 250, weight: 0, rarity: 'rare' };
+      }
+    }
+
+    // Resolve item details for modal display
+    let rewardInfo: typeof chestReward = null;
+    if (reward.type === 'points' && 'value' in reward) {
+      rewardInfo = { type: 'points', value: reward.value, rarity: reward.rarity };
+      updateUser({ points: points + reward.value, lastWeeklyChestClaimed: currentWeekId });
+    } else if (reward.type === 'item' && 'itemId' in reward && reward.itemId) {
+      const itemId = reward.itemId;
+      // Find item details from all catalogs
+      let itemName = itemId;
+      let itemNameEs = itemId;
+      let itemEmoji: string | undefined;
+      let itemColor: string | undefined;
+
+      if (itemId.startsWith('avatar_')) {
+        const av = DEFAULT_AVATARS.find(a => a.id === itemId);
+        if (av) { itemName = av.name; itemNameEs = av.nameEs; itemEmoji = av.emoji; }
+      } else if (itemId.startsWith('frame_')) {
+        const fr = AVATAR_FRAMES[itemId];
+        if (fr) { itemName = fr.name; itemNameEs = fr.nameEs; itemColor = fr.color; }
+      } else if (itemId.startsWith('title_')) {
+        const ti = SPIRITUAL_TITLES[itemId];
+        if (ti) { itemName = ti.name; itemNameEs = ti.nameEs; }
+      } else if (itemId.startsWith('theme_')) {
+        const th = PURCHASABLE_THEMES[itemId];
+        if (th) { itemName = th.name; itemNameEs = th.nameEs; itemColor = th.colors.primary; }
+      }
+
+      rewardInfo = {
+        type: 'item',
+        itemId,
+        itemName,
+        itemNameEs,
+        itemEmoji,
+        itemColor,
+        rarity: reward.rarity,
+      };
+      updateUser({ purchasedItems: [...purchasedItems, itemId], lastWeeklyChestClaimed: currentWeekId });
+    }
+
+    setChestReward(rewardInfo);
+    setShowChestModal(true);
+  }, [userId, points, purchasedItems, updateUser, chestReward]);
 
   // Check item ownership and equipped status
   const getItemStatus = useCallback((itemId: string, type: string, price: number) => {
@@ -2300,7 +2559,7 @@ export default function StoreScreen() {
         return (
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'flex-start' }}>
             {Object.values(PURCHASABLE_THEMES).map((theme, index) => {
-              const { isOwned, isEquipped, canAfford } = getItemStatus(theme.id, 'theme', theme.price);
+              const { isOwned, isEquipped, canAfford } = getItemStatus(theme.id, 'theme', theme.price ?? 0);
 
               return (
                 <Animated.View
@@ -2322,7 +2581,7 @@ export default function StoreScreen() {
                       nameEs: theme.nameEs,
                       description: theme.description,
                       descriptionEs: theme.descriptionEs,
-                      price: theme.price,
+                      price: theme.price ?? 0,
                       rarity: theme.rarity,
                       colors: theme.colors,
                     })}
@@ -2380,7 +2639,7 @@ export default function StoreScreen() {
         return (
           <View className="px-5">
             {Object.values(SPIRITUAL_TITLES).map((title, index) => {
-              const { isOwned, isEquipped, canAfford } = getItemStatus(title.id, 'title', title.price);
+              const { isOwned, isEquipped, canAfford } = getItemStatus(title.id, 'title', title.price ?? 0);
 
               return (
                 <Animated.View
@@ -2401,7 +2660,7 @@ export default function StoreScreen() {
                       nameEs: title.nameEs,
                       description: title.description,
                       descriptionEs: title.descriptionEs,
-                      price: title.price,
+                      price: title.price ?? 0,
                       rarity: title.rarity,
                     })}
                   />
@@ -2619,6 +2878,15 @@ export default function StoreScreen() {
         onPurchase={handlePurchase}
         onEquip={handleEquip}
         isPurchasing={purchaseMutation.isPending}
+      />
+
+      {/* Chest Reward Modal */}
+      <ChestRewardModal
+        visible={showChestModal}
+        reward={chestReward}
+        language={language}
+        colors={colors}
+        onClose={() => setShowChestModal(false)}
       />
     </View>
   );

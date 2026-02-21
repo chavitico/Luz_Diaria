@@ -191,8 +191,9 @@ export const PURCHASABLE_THEMES: Record<string, {
     textMuted: string;
     textMutedDark: string;
   };
-  price: number;
+  price?: number;
   rarity: string;
+  chestOnly?: boolean;
 }> = {
   theme_amanecer: {
     id: 'theme_amanecer',
@@ -637,6 +638,117 @@ export const PURCHASABLE_THEMES: Record<string, {
     price: 1800,
     rarity: 'epic',
   },
+  // Exclusive chest-only themes
+  theme_chest_gloria: {
+    id: 'theme_chest_gloria',
+    name: 'Glory',
+    nameEs: 'Gloria',
+    description: 'The overwhelming brightness of His presence',
+    descriptionEs: 'El brillo abrumador de Su presencia',
+    colors: {
+      primary: '#F59E0B',
+      secondary: '#FCD34D',
+      accent: '#FBBF24',
+      background: '#FFFBEB',
+      backgroundDark: '#1C1400',
+      surface: '#FFFFFF',
+      surfaceDark: '#2D2000',
+      text: '#1C1400',
+      textDark: '#FEF3C7',
+      textMuted: '#92400E',
+      textMutedDark: '#FCD34D',
+    },
+    rarity: 'epic',
+    chestOnly: true,
+  },
+  theme_chest_desierto: {
+    id: 'theme_chest_desierto',
+    name: 'Desert Wandering',
+    nameEs: 'Desierto',
+    description: 'Forty years in the wilderness, formed by God',
+    descriptionEs: 'Cuarenta años en el desierto, formado por Dios',
+    colors: {
+      primary: '#B45309',
+      secondary: '#D97706',
+      accent: '#78350F',
+      background: '#FDF4E7',
+      backgroundDark: '#1A0F00',
+      surface: '#FEF3C7',
+      surfaceDark: '#2C1A00',
+      text: '#1C0F00',
+      textDark: '#FEF3C7',
+      textMuted: '#92400E',
+      textMutedDark: '#FCD34D',
+    },
+    rarity: 'rare',
+    chestOnly: true,
+  },
+  theme_chest_trono: {
+    id: 'theme_chest_trono',
+    name: 'Throne Room',
+    nameEs: 'Sala del Trono',
+    description: 'Deep purple and sapphire — the courts of heaven',
+    descriptionEs: 'Purpura profundo y zafiro — los atrios del cielo',
+    colors: {
+      primary: '#6D28D9',
+      secondary: '#4C1D95',
+      accent: '#7C3AED',
+      background: '#0D0520',
+      backgroundDark: '#0D0520',
+      surface: '#1A0B38',
+      surfaceDark: '#1A0B38',
+      text: '#EDE9FE',
+      textDark: '#EDE9FE',
+      textMuted: '#A78BFA',
+      textMutedDark: '#A78BFA',
+    },
+    rarity: 'epic',
+    chestOnly: true,
+  },
+  theme_chest_lluvia: {
+    id: 'theme_chest_lluvia',
+    name: 'Latter Rain',
+    nameEs: 'Lluvia Tardía',
+    description: 'The refreshing latter rain of the Spirit',
+    descriptionEs: 'La refrescante lluvia tardía del Espíritu',
+    colors: {
+      primary: '#0369A1',
+      secondary: '#0284C7',
+      accent: '#38BDF8',
+      background: '#F0F9FF',
+      backgroundDark: '#001824',
+      surface: '#FFFFFF',
+      surfaceDark: '#002233',
+      text: '#0C1A20',
+      textDark: '#E0F2FE',
+      textMuted: '#0369A1',
+      textMutedDark: '#7DD3FC',
+    },
+    rarity: 'rare',
+    chestOnly: true,
+  },
+  theme_chest_mar_rojo: {
+    id: 'theme_chest_mar_rojo',
+    name: 'Red Sea',
+    nameEs: 'Mar Rojo',
+    description: 'The miraculous parting — impossible made possible',
+    descriptionEs: 'La apertura milagrosa — lo imposible hecho posible',
+    colors: {
+      primary: '#BE123C',
+      secondary: '#E11D48',
+      accent: '#FB7185',
+      background: '#FFF1F2',
+      backgroundDark: '#1A0008',
+      surface: '#FFFFFF',
+      surfaceDark: '#2D0010',
+      text: '#1A0008',
+      textDark: '#FFE4E6',
+      textMuted: '#9F1239',
+      textMutedDark: '#FDA4AF',
+    },
+    rarity: 'epic',
+    chestOnly: true,
+  },
 };
 
 // Avatar Frames
@@ -676,8 +788,9 @@ export const SPIRITUAL_TITLES: Record<string, {
   nameEs: string;
   description: string;
   descriptionEs: string;
-  price: number;
+  price?: number;
   rarity: string;
+  chestOnly?: boolean;
 }> = {
   title_buscador: { id: 'title_buscador', name: 'Seeker of Light', nameEs: 'Buscador de Luz', description: 'One who seeks divine truth', descriptionEs: 'Quien busca la verdad divina', price: 200, rarity: 'common' },
   title_corazon: { id: 'title_corazon', name: 'Grateful Heart', nameEs: 'Corazon Agradecido', description: 'Living in thankfulness', descriptionEs: 'Viviendo en gratitud', price: 250, rarity: 'common' },
@@ -691,6 +804,12 @@ export const SPIRITUAL_TITLES: Record<string, {
   title_guardian: { id: 'title_guardian', name: 'Guardian of the Word', nameEs: 'Guardian de la Palabra', description: 'Keeper of sacred truth', descriptionEs: 'Protector de la verdad sagrada', price: 700, rarity: 'epic' },
   title_constructor: { id: 'title_constructor', name: 'Altar Builder', nameEs: 'Constructor de Altar', description: 'Creating sacred spaces', descriptionEs: 'Creando espacios sagrados', price: 500, rarity: 'rare' },
   title_peregrino: { id: 'title_peregrino', name: 'Pilgrim of Grace', nameEs: 'Peregrino de Gracia', description: 'Journey of faith', descriptionEs: 'Viaje de fe', price: 400, rarity: 'rare' },
+  // Exclusive chest-only titles
+  title_chest_ungido: { id: 'title_chest_ungido', name: 'The Anointed', nameEs: 'El Ungido', description: 'Set apart by the Spirit — chest exclusive', descriptionEs: 'Apartado por el Espiritu — exclusivo del cofre', chestOnly: true, rarity: 'epic' },
+  title_chest_columna: { id: 'title_chest_columna', name: 'Pillar of Fire', nameEs: 'Columna de Fuego', description: 'Guiding light through the wilderness — chest exclusive', descriptionEs: 'Luz guiadora en el desierto — exclusivo del cofre', chestOnly: true, rarity: 'epic' },
+  title_chest_profeta: { id: 'title_chest_profeta', name: 'Voice of the Prophet', nameEs: 'Voz del Profeta', description: 'Speaks what heaven declares — chest exclusive', descriptionEs: 'Proclama lo que el cielo declara — exclusivo del cofre', chestOnly: true, rarity: 'epic' },
+  title_chest_escogido: { id: 'title_chest_escogido', name: 'The Chosen', nameEs: 'El Escogido', description: 'Called before the foundation of the world — chest exclusive', descriptionEs: 'Llamado antes de la fundacion del mundo — exclusivo del cofre', chestOnly: true, rarity: 'rare' },
+  title_chest_intercesor: { id: 'title_chest_intercesor', name: 'Intercessor', nameEs: 'Intercesor', description: 'Stands in the gap for others — chest exclusive', descriptionEs: 'Se para en la brecha por los demas — exclusivo del cofre', chestOnly: true, rarity: 'rare' },
 };
 
 // Rarity colors for UI
@@ -932,7 +1051,11 @@ export const STORE_BUNDLES: Record<string, {
 };
 
 // Weekly Chest rewards configuration
-export const WEEKLY_CHEST_CONFIG = {
+export type ChestReward =
+  | { type: 'points'; value: number; weight: number; rarity: string }
+  | { type: 'item'; itemId: string; weight: number; rarity: string };
+
+export const WEEKLY_CHEST_CONFIG: { possibleRewards: ChestReward[] } = {
   possibleRewards: [
     { type: 'points', value: 100, weight: 30, rarity: 'common' },
     { type: 'points', value: 200, weight: 20, rarity: 'rare' },
@@ -962,7 +1085,7 @@ export const WEEKLY_CHEST_CONFIG = {
     { type: 'item', itemId: 'theme_chest_lluvia', weight: 5, rarity: 'rare' },
     { type: 'item', itemId: 'theme_chest_mar_rojo', weight: 4, rarity: 'epic' },
   ],
-} as const;
+};
 
 // Prayer Request Categories
 export const PRAYER_CATEGORIES = [
