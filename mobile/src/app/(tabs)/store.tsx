@@ -1731,7 +1731,7 @@ function PremiumAvatarCard({
           elevation: isEquipped ? 5 : (isV2Avatar ? 4 : 3),
           borderWidth: isEquipped ? 2 : (isV2Avatar ? 1 : 0),
           borderColor: isEquipped ? colors.primary : (isV2Avatar ? rarityColor + '40' : 'transparent'),
-          opacity: !canAfford && !isOwned && hasCost ? 0.7 : 1,
+          opacity: !canAfford && !isOwned && (hasCost || (avatar as { chestOnly?: boolean }).chestOnly) ? 0.7 : 1,
         }}
       >
         <LinearGradient
@@ -1801,7 +1801,7 @@ function PremiumAvatarCard({
             )}
 
             {/* Lock Overlay with blur effect for V2 */}
-            {!canAfford && !isOwned && hasCost && (
+            {!isOwned && (hasCost || (avatar as { chestOnly?: boolean }).chestOnly) && !canAfford && (
               <View style={{
                 position: 'absolute',
                 top: 0,
@@ -1833,9 +1833,9 @@ function PremiumAvatarCard({
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Check size={10} color="#22C55E" strokeWidth={3} />
             </View>
-          ) : !hasCost || isOwned ? (
-            <Text style={{ fontSize: 10, color: '#22C55E', fontWeight: '600' }}>
-              {hasCost ? (language === 'es' ? 'Equipar' : 'Equip') : (language === 'es' ? 'Gratis' : 'Free')}
+          ) : isOwned && !isEquipped && hasCost ? (
+            <Text style={{ fontSize: 10, color: colors.primary, fontWeight: '600' }}>
+              {language === 'es' ? 'Equipar' : 'Equip'}
             </Text>
           ) : (avatar as { chestOnly?: boolean }).chestOnly ? (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -1844,6 +1844,10 @@ function PremiumAvatarCard({
                 {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
               </Text>
             </View>
+          ) : !hasCost || isOwned ? (
+            <Text style={{ fontSize: 10, color: '#22C55E', fontWeight: '600' }}>
+              {language === 'es' ? 'Gratis' : 'Free'}
+            </Text>
           ) : (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Coins size={10} color={canAfford ? colors.primary : colors.textMuted} />

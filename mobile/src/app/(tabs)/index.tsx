@@ -890,28 +890,6 @@ function AudioControls({
             >
               <Music size={18} color={showMusicSettings ? colors.primary : colors.textMuted} />
             </Pressable>
-            {/* Completed check badge */}
-            {isCompleted && (
-              <Animated.View
-                entering={FadeIn.duration(400)}
-                style={{
-                  position: 'absolute',
-                  top: -6,
-                  right: -22,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  backgroundColor: '#22C55E',
-                  borderRadius: 99,
-                  paddingHorizontal: 5,
-                  paddingVertical: 2,
-                }}
-              >
-                <Check size={9} color="#FFFFFF" strokeWidth={3} />
-                <Text style={{ color: '#FFFFFF', fontSize: 8, fontWeight: '700', marginLeft: 2 }}>
-                  +{POINTS.COMPLETE_DEVOTIONAL}
-                </Text>
-              </Animated.View>
-            )}
           </View>
           <Pressable
             onPress={() => {
@@ -1776,6 +1754,27 @@ export default function HomeScreen() {
               </View>
             )}
             <View className="flex-1" />
+
+            {/* Completed check badge */}
+            {isCompleted && (
+              <Animated.View
+                entering={FadeIn.duration(400)}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  backgroundColor: '#22C55E',
+                  borderRadius: 99,
+                  paddingHorizontal: 7,
+                  paddingVertical: 4,
+                  marginRight: 8,
+                }}
+              >
+                <Check size={10} color="#FFFFFF" strokeWidth={3} />
+                <Text style={{ color: '#FFFFFF', fontSize: 9, fontWeight: '700', marginLeft: 3 }}>
+                  +{POINTS.COMPLETE_DEVOTIONAL}
+                </Text>
+              </Animated.View>
+            )}
 
             {/* Share Button */}
             <Pressable
