@@ -6,6 +6,16 @@ export const APP_CONFIG = {
   splashDuration: 2000,
 } as const;
 
+// Centralized branding — single source of truth for all share images and UI.
+// App name is fixed regardless of language; only tagline is localized.
+export const APP_BRANDING = {
+  appName: 'Luz Diaria',
+  tagline: {
+    es: 'Tu devocional diario',
+    en: 'Your daily devotional',
+  },
+} as const;
+
 export const THEMES = {
   dawn: {
     name: 'Dawn',
@@ -1106,7 +1116,7 @@ export type PrayerCategoryKey = typeof PRAYER_CATEGORIES[number]['key'];
 export const TRANSLATIONS = {
   en: {
     // General
-    app_name: 'Daily Light',
+    app_name: 'Luz Diaria',
     loading: 'Loading...',
     save: 'Save',
     cancel: 'Cancel',

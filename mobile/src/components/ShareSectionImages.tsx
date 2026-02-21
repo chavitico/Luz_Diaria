@@ -8,6 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import { BookOpen, Star, Heart, Check, Sparkles } from 'lucide-react-native';
 import type { Devotional } from '@/lib/types';
+import { APP_BRANDING } from '@/lib/constants';
 
 // Section image dimensions (portrait format for stories)
 export const SECTION_IMAGE_SIZE = { width: 1080, height: 1350 };
@@ -99,11 +100,6 @@ function translateBibleReference(reference: string): string {
   return result;
 }
 
-function truncateText(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength - 3).trim() + '...';
-}
-
 interface ShareSectionImagesProps {
   devotional: Devotional;
   language: 'en' | 'es';
@@ -152,7 +148,6 @@ function SectionCard({
   icon,
   pageNumber,
   totalPages,
-  language,
   size,
   accentColor = '#FFD700',
 }: SectionCardProps) {
@@ -245,10 +240,11 @@ function SectionCard({
           </Text>
         </View>
 
-        {/* Middle: Section content */}
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        {/* Middle: Section content — flex:1, text scales to fill */}
+        <View style={{ flex: 1, justifyContent: 'center', marginVertical: spacing(24) }}>
           <View
             style={{
+              flex: 1,
               backgroundColor: 'rgba(255,255,255,0.12)',
               borderRadius: spacing(28),
               padding: spacing(40),
@@ -290,33 +286,34 @@ function SectionCard({
               </Text>
             </View>
 
-            {/* Content */}
+            {/* Content — no truncation, scales to fit */}
             <Text
               style={{
                 color: '#FFFFFF',
                 fontSize: fontSize(36),
                 lineHeight: fontSize(52),
                 fontWeight: '400',
+                flex: 1,
               }}
               adjustsFontSizeToFit
-              minimumFontScale={0.6}
+              minimumFontScale={0.45}
             >
               {content}
             </Text>
           </View>
         </View>
 
-        {/* Bottom: Branding */}
+        {/* Bottom: Branding — small, centered */}
         <View style={{ alignItems: 'center' }}>
           <Text
             style={{
               color: 'rgba(255,255,255,0.7)',
-              fontSize: fontSize(28),
+              fontSize: fontSize(26),
               fontWeight: '700',
               letterSpacing: 2,
             }}
           >
-            {language === 'es' ? 'LUZ DIARIA' : 'DAILY LIGHT'}
+            {APP_BRANDING.appName}
           </Text>
         </View>
       </View>
@@ -339,7 +336,6 @@ function CoverCard({ imageUrl, title, date, language, size }: CoverCardProps) {
   const spacing = (base: number) => Math.round(base * scale);
 
   const formatDate = (dateStr: string) => {
-    // Add T12:00:00 to avoid timezone issues when parsing date-only strings
     const dateObj = new Date(dateStr + 'T12:00:00');
     return dateObj.toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', {
       weekday: 'long',
@@ -438,6 +434,8 @@ function CoverCard({ imageUrl, title, date, language, size }: CoverCardProps) {
               textShadowOffset: { width: 0, height: 3 },
               textShadowRadius: 12,
             }}
+            adjustsFontSizeToFit
+            minimumFontScale={0.5}
             numberOfLines={4}
           >
             {title}
@@ -454,7 +452,7 @@ function CoverCard({ imageUrl, title, date, language, size }: CoverCardProps) {
               letterSpacing: 3,
             }}
           >
-            {language === 'es' ? 'LUZ DIARIA' : 'DAILY LIGHT'}
+            {APP_BRANDING.appName}
           </Text>
           <Text
             style={{
@@ -463,7 +461,7 @@ function CoverCard({ imageUrl, title, date, language, size }: CoverCardProps) {
               marginTop: spacing(10),
             }}
           >
-            {language === 'es' ? 'Tu devocional diario' : 'Your daily devotional'}
+            {APP_BRANDING.tagline[language]}
           </Text>
         </View>
       </View>
@@ -554,14 +552,17 @@ function VerseCard({ imageUrl, title, verse, reference, language, size }: VerseC
           </Text>
         </View>
 
-        {/* Center: Verse */}
+        {/* Center: Verse — flex:1 so text scales to fill */}
         <View
           style={{
+            flex: 1,
             backgroundColor: 'rgba(255,255,255,0.12)',
             borderRadius: spacing(28),
             padding: spacing(48),
             borderLeftWidth: spacing(6),
             borderLeftColor: '#FFD700',
+            marginVertical: spacing(32),
+            justifyContent: 'center',
           }}
         >
           <BookOpen size={fontSize(48)} color="#FFD700" style={{ marginBottom: spacing(24) }} />
@@ -572,10 +573,12 @@ function VerseCard({ imageUrl, title, verse, reference, language, size }: VerseC
               fontStyle: 'italic',
               lineHeight: fontSize(64),
               marginBottom: spacing(32),
+              flex: 1,
             }}
-            numberOfLines={6}
+            adjustsFontSizeToFit
+            minimumFontScale={0.45}
           >
-            "{truncateText(verse, 250)}"
+            "{verse}"
           </Text>
           <Text
             style={{
@@ -593,12 +596,12 @@ function VerseCard({ imageUrl, title, verse, reference, language, size }: VerseC
           <Text
             style={{
               color: 'rgba(255,255,255,0.7)',
-              fontSize: fontSize(28),
+              fontSize: fontSize(26),
               fontWeight: '700',
               letterSpacing: 2,
             }}
           >
-            {language === 'es' ? 'LUZ DIARIA' : 'DAILY LIGHT'}
+            {APP_BRANDING.appName}
           </Text>
         </View>
       </View>
@@ -648,8 +651,8 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
       },
     }));
 
-    // Combine application and prayer for the last card
-    const applicationAndPrayer = `${truncateText(application, 200)}\n\n${language === 'es' ? 'Oración' : 'Prayer'}: ${truncateText(prayer, 160)}`;
+    // Combine application and prayer for the last card — no truncation
+    const applicationAndPrayer = `${application ?? ''}\n\n${language === 'es' ? 'Oración' : 'Prayer'}: ${prayer ?? ''}`;
 
     if (previewMode) {
       return (
@@ -689,7 +692,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
                 imageUrl={devotional.imageUrl}
                 title={title}
                 sectionTitle={translations.reflection}
-                content={truncateText(reflection, 220)}
+                content={reflection ?? ''}
                 icon={<Star size={displaySize.width * 0.12} color="#FFD700" />}
                 pageNumber={3}
                 totalPages={5}
@@ -706,7 +709,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
                 imageUrl={devotional.imageUrl}
                 title={title}
                 sectionTitle={translations.story}
-                content={truncateText(story, 220)}
+                content={story ?? ''}
                 icon={<BookOpen size={displaySize.width * 0.12} color="#4ECDC4" />}
                 pageNumber={4}
                 totalPages={5}
@@ -766,7 +769,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
             imageUrl={devotional.imageUrl}
             title={title}
             sectionTitle={translations.reflection}
-            content={truncateText(reflection, 220)}
+            content={reflection ?? ''}
             icon={<Star size={48} color="#FFD700" />}
             pageNumber={3}
             totalPages={5}
@@ -781,7 +784,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
             imageUrl={devotional.imageUrl}
             title={title}
             sectionTitle={translations.story}
-            content={truncateText(story, 220)}
+            content={story ?? ''}
             icon={<BookOpen size={48} color="#4ECDC4" />}
             pageNumber={4}
             totalPages={5}

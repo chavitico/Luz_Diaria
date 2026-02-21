@@ -1,6 +1,6 @@
 // Shareable Devotional Image Component — Paginated 1080x1350 pages
 // Page 1: cover + verse
-// Pages 2+: remaining sections (reflection, story, character, application, prayer)
+// Pages 2+: ONE section per page (prevents any text clipping)
 
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { View, Text } from 'react-native';
@@ -9,11 +9,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { BookOpen, Star, Heart, Check, User } from 'lucide-react-native';
 import { captureRef } from 'react-native-view-shot';
 import type { Devotional } from '@/lib/types';
+import { APP_BRANDING } from '@/lib/constants';
 
 // Fixed page dimensions — WhatsApp-friendly portrait ratio
 export const PAGE_WIDTH = 1080;
 export const PAGE_HEIGHT = 1350;
-export const CAPTURE_SCALE = 1; // Already full resolution
 
 // Bible book translations
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
@@ -68,58 +68,17 @@ function PageBackground({ imageUrl }: { imageUrl: string }) {
 
 // ─── Page Footer ────────────────────────────────────────────────────────────
 
-function PageFooter({ pageNum, totalPages, language }: { pageNum: number; totalPages: number; language: string }) {
+function PageFooter({ pageNum, totalPages }: { pageNum: number; totalPages: number }) {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
       <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 28, fontWeight: '700', letterSpacing: 2 }}>
-        {language === 'es' ? 'LUZ DIARIA' : 'DAILY LIGHT'}
+        {APP_BRANDING.appName}
       </Text>
       <View style={{ backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 20, paddingHorizontal: 20, paddingVertical: 8 }}>
         <Text style={{ color: '#FFFFFF', fontSize: 26, fontWeight: '700' }}>
           {pageNum}/{totalPages}
         </Text>
       </View>
-    </View>
-  );
-}
-
-// ─── Section Block (used on pages 2+) ───────────────────────────────────────
-
-function SectionBlock({
-  label,
-  content,
-  accentColor,
-  icon,
-}: {
-  label: string;
-  content: string;
-  accentColor: string;
-  icon: React.ReactNode;
-}) {
-  return (
-    <View style={{
-      backgroundColor: 'rgba(255,255,255,0.10)',
-      borderRadius: 24,
-      padding: 44,
-      borderLeftWidth: 6,
-      borderLeftColor: accentColor,
-      marginBottom: 32,
-    }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-        <View style={{
-          width: 48, height: 48, borderRadius: 24,
-          backgroundColor: accentColor + '30',
-          alignItems: 'center', justifyContent: 'center', marginRight: 16,
-        }}>
-          {icon}
-        </View>
-        <Text style={{ color: accentColor, fontSize: 28, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 }}>
-          {label}
-        </Text>
-      </View>
-      <Text style={{ color: '#FFFFFF', fontSize: 34, lineHeight: 50, fontWeight: '400' }} adjustsFontSizeToFit minimumFontScale={0.7}>
-        {content}
-      </Text>
     </View>
   );
 }
@@ -150,23 +109,37 @@ function Page1({ imageUrl, title, date, verse, bibleRef, language, pageNum, tota
       <PageBackground imageUrl={imageUrl} />
       <View style={{ flex: 1, padding: 60, justifyContent: 'space-between' }}>
         {/* Top: date + title */}
-        <View>
+        <View style={{ flex: 0 }}>
           <Text style={{ color: 'rgba(255,255,255,0.65)', fontSize: 28, fontWeight: '500', marginBottom: 16 }}>
             {formatDate(date)}
           </Text>
-          <Text style={{ color: '#FFFFFF', fontSize: 72, fontWeight: '800', lineHeight: 86, textShadowColor: 'rgba(0,0,0,0.5)', textShadowOffset: { width: 0, height: 2 }, textShadowRadius: 10 }} numberOfLines={3} adjustsFontSizeToFit minimumFontScale={0.6}>
+          <Text
+            style={{ color: '#FFFFFF', fontSize: 72, fontWeight: '800', lineHeight: 86, textShadowColor: 'rgba(0,0,0,0.5)', textShadowOffset: { width: 0, height: 2 }, textShadowRadius: 10 }}
+            adjustsFontSizeToFit
+            minimumFontScale={0.5}
+            numberOfLines={4}
+          >
             {title}
           </Text>
         </View>
 
-        {/* Middle: verse */}
+        {/* Middle: verse — flex:1 so it fills remaining space, text scales to fit */}
         <View style={{
+          flex: 1,
           backgroundColor: 'rgba(255,255,255,0.13)',
-          borderRadius: 28, padding: 48,
-          borderLeftWidth: 6, borderLeftColor: '#FFD700',
+          borderRadius: 28,
+          padding: 48,
+          borderLeftWidth: 6,
+          borderLeftColor: '#FFD700',
+          marginVertical: 40,
+          justifyContent: 'center',
         }}>
           <BookOpen size={44} color="#FFD700" style={{ marginBottom: 20 }} />
-          <Text style={{ color: '#FFFFFF', fontSize: 40, fontStyle: 'italic', lineHeight: 58, marginBottom: 24 }} adjustsFontSizeToFit minimumFontScale={0.65} numberOfLines={7}>
+          <Text
+            style={{ color: '#FFFFFF', fontSize: 40, fontStyle: 'italic', lineHeight: 58, marginBottom: 24 }}
+            adjustsFontSizeToFit
+            minimumFontScale={0.5}
+          >
             "{verse}"
           </Text>
           <Text style={{ color: '#FFD700', fontSize: 32, fontWeight: '700' }}>
@@ -175,42 +148,72 @@ function Page1({ imageUrl, title, date, verse, bibleRef, language, pageNum, tota
         </View>
 
         {/* Footer */}
-        <PageFooter pageNum={pageNum} totalPages={totalPages} language={language} />
+        <PageFooter pageNum={pageNum} totalPages={totalPages} />
       </View>
     </View>
   );
 }
 
-// ─── Page 2+: Sections ───────────────────────────────────────────────────────
+// ─── Section Page: ONE section per page ─────────────────────────────────────
 
-interface SectionsPageProps {
+interface SectionPageProps {
   imageUrl: string;
   title: string;
-  sections: { label: string; content: string; accentColor: string; icon: React.ReactNode }[];
-  language: string;
+  label: string;
+  content: string;
+  accentColor: string;
+  icon: React.ReactNode;
   pageNum: number;
   totalPages: number;
 }
 
-function SectionsPage({ imageUrl, title, sections, language, pageNum, totalPages }: SectionsPageProps) {
+function SectionPage({ imageUrl, title, label, content, accentColor, icon, pageNum, totalPages }: SectionPageProps) {
   return (
     <View style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT, backgroundColor: '#000', overflow: 'hidden' }} collapsable={false}>
       <PageBackground imageUrl={imageUrl} />
       <View style={{ flex: 1, padding: 60, justifyContent: 'space-between' }}>
         {/* Top: small title */}
-        <Text style={{ color: 'rgba(255,255,255,0.55)', fontSize: 30, fontWeight: '600', marginBottom: 20 }} numberOfLines={1}>
+        <Text style={{ color: 'rgba(255,255,255,0.55)', fontSize: 30, fontWeight: '600' }} numberOfLines={1}>
           {title}
         </Text>
 
-        {/* Sections */}
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          {sections.map((s, i) => (
-            <SectionBlock key={i} label={s.label} content={s.content} accentColor={s.accentColor} icon={s.icon} />
-          ))}
+        {/* Section block — fills all available space so text can scale down */}
+        <View style={{
+          flex: 1,
+          backgroundColor: 'rgba(255,255,255,0.10)',
+          borderRadius: 24,
+          padding: 48,
+          borderLeftWidth: 6,
+          borderLeftColor: accentColor,
+          marginVertical: 40,
+          justifyContent: 'flex-start',
+        }}>
+          {/* Section header */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 28 }}>
+            <View style={{
+              width: 56, height: 56, borderRadius: 28,
+              backgroundColor: accentColor + '30',
+              alignItems: 'center', justifyContent: 'center', marginRight: 20,
+            }}>
+              {icon}
+            </View>
+            <Text style={{ color: accentColor, fontSize: 32, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 }}>
+              {label}
+            </Text>
+          </View>
+
+          {/* Content — adjustsFontSizeToFit ensures no clipping */}
+          <Text
+            style={{ color: '#FFFFFF', fontSize: 36, lineHeight: 54, fontWeight: '400', flex: 1 }}
+            adjustsFontSizeToFit
+            minimumFontScale={0.45}
+          >
+            {content}
+          </Text>
         </View>
 
         {/* Footer */}
-        <PageFooter pageNum={pageNum} totalPages={totalPages} language={language} />
+        <PageFooter pageNum={pageNum} totalPages={totalPages} />
       </View>
     </View>
   );
@@ -236,14 +239,6 @@ export interface ShareableDevotionalImageProps {
   previewMode?: boolean;
 }
 
-// Trim text to a max character count, ending at a word boundary
-function safeTrim(text: string, max: number): string {
-  if (!text || text.length <= max) return text ?? '';
-  const cut = text.slice(0, max);
-  const lastSpace = cut.lastIndexOf(' ');
-  return (lastSpace > max * 0.7 ? cut.slice(0, lastSpace) : cut).trimEnd() + '…';
-}
-
 export const ShareableDevotionalImage = forwardRef<ShareableDevotionalImageRef, ShareableDevotionalImageProps>(
   ({ devotional, language, translations, previewMode = false }, ref) => {
     const title = language === 'es' ? devotional.titleEs : devotional.title;
@@ -257,35 +252,28 @@ export const ShareableDevotionalImage = forwardRef<ShareableDevotionalImageRef, 
       ? (devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference))
       : devotional.bibleReference;
 
-    // Group sections into pages: 2 sections per page max
+    // ONE section per page — no truncation, no clipping
     const allSections: { label: string; content: string; accentColor: string; icon: React.ReactNode }[] = [
-      { label: translations.reflection, content: safeTrim(reflection, 320), accentColor: '#FFD700', icon: <Star size={28} color="#FFD700" /> },
-      { label: translations.story, content: safeTrim(story, 320), accentColor: '#4ECDC4', icon: <BookOpen size={28} color="#4ECDC4" /> },
-      { label: translations.biblical_character, content: safeTrim(character, 320), accentColor: '#A78BFA', icon: <User size={28} color="#A78BFA" /> },
-      { label: translations.application, content: safeTrim(application, 300), accentColor: '#34D399', icon: <Check size={28} color="#34D399" /> },
-      { label: translations.prayer, content: safeTrim(prayer, 240), accentColor: '#FB923C', icon: <Heart size={28} color="#FB923C" /> },
-    ];
+      { label: translations.reflection, content: reflection ?? '', accentColor: '#FFD700', icon: <Star size={32} color="#FFD700" /> },
+      { label: translations.story, content: story ?? '', accentColor: '#4ECDC4', icon: <BookOpen size={32} color="#4ECDC4" /> },
+      { label: translations.biblical_character, content: character ?? '', accentColor: '#A78BFA', icon: <User size={32} color="#A78BFA" /> },
+      { label: translations.application, content: application ?? '', accentColor: '#34D399', icon: <Check size={32} color="#34D399" /> },
+      { label: translations.prayer, content: prayer ?? '', accentColor: '#FB923C', icon: <Heart size={32} color="#FB923C" /> },
+    ].filter(s => s.content.trim().length > 0);
 
-    // Page 1 = cover+verse. Then 2 sections per page.
-    const sectionPages: typeof allSections[] = [];
-    for (let i = 0; i < allSections.length; i += 2) {
-      sectionPages.push(allSections.slice(i, i + 2));
-    }
-    const totalPages = 1 + sectionPages.length;
+    const totalPages = 1 + allSections.length;
 
-    // Refs for each page
+    // Refs
     const page1Ref = useRef<View>(null);
     const pageRefs = useRef<(View | null)[]>([]);
 
     useImperativeHandle(ref, () => ({
       captureAll: async () => {
         const uris: string[] = [];
-        // Capture page 1
         if (page1Ref.current) {
           const uri = await captureRef(page1Ref, { format: 'png', quality: 1, result: 'tmpfile', width: PAGE_WIDTH, height: PAGE_HEIGHT });
           uris.push(uri);
         }
-        // Capture section pages
         for (let i = 0; i < pageRefs.current.length; i++) {
           const r = pageRefs.current[i];
           if (r) {
@@ -319,15 +307,17 @@ export const ShareableDevotionalImage = forwardRef<ShareableDevotionalImageRef, 
               />
             </View>
           </View>
-          {/* Section pages previews */}
-          {sectionPages.slice(0, 2).map((sections, i) => (
+          {/* Section page previews (first 2) */}
+          {allSections.slice(0, 2).map((s, i) => (
             <View key={i} style={{ width: PREVIEW_W, height: PREVIEW_H, overflow: 'hidden', marginRight: 8, borderRadius: 8 }}>
               <View style={{ transform: [{ scale: previewScale }], transformOrigin: 'top left' as any }}>
-                <SectionsPage
+                <SectionPage
                   imageUrl={devotional.imageUrl}
                   title={title}
-                  sections={sections}
-                  language={language}
+                  label={s.label}
+                  content={s.content}
+                  accentColor={s.accentColor}
+                  icon={s.icon}
                   pageNum={i + 2}
                   totalPages={totalPages}
                 />
@@ -358,17 +348,19 @@ export const ShareableDevotionalImage = forwardRef<ShareableDevotionalImageRef, 
             totalPages={totalPages}
           />
         </View>
-        {sectionPages.map((sections, i) => (
+        {allSections.map((s, i) => (
           <View
             key={i}
             ref={(r) => { pageRefs.current[i] = r; }}
             collapsable={false}
           >
-            <SectionsPage
+            <SectionPage
               imageUrl={devotional.imageUrl}
               title={title}
-              sections={sections}
-              language={language}
+              label={s.label}
+              content={s.content}
+              accentColor={s.accentColor}
+              icon={s.icon}
               pageNum={i + 2}
               totalPages={totalPages}
             />

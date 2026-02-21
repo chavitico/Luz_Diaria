@@ -7,6 +7,7 @@ import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BookOpen } from 'lucide-react-native';
 import type { Devotional } from '@/lib/types';
+import { APP_BRANDING } from '@/lib/constants';
 
 // WhatsApp optimized square dimensions
 export const WHATSAPP_CARD_SIZE = 1080;
@@ -99,20 +100,10 @@ function translateBibleReference(reference: string): string {
   return result;
 }
 
-// Truncate text with ellipsis
-function truncateText(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength - 3).trim() + '...';
-}
-
-// Extract a short "idea of the day" from reflection
-function extractIdeaOfDay(reflection: string, maxLength: number = 90): string {
-  // Take first sentence or truncate
+// Extract a short "idea of the day" — first sentence only, no truncation
+function extractIdeaOfDay(reflection: string): string {
   const firstSentence = reflection.split(/[.!?]/)[0]?.trim() ?? '';
-  if (firstSentence.length <= maxLength) {
-    return firstSentence + (firstSentence.endsWith('.') ? '' : '.');
-  }
-  return truncateText(firstSentence, maxLength);
+  return firstSentence + (firstSentence.endsWith('.') ? '' : '.');
 }
 
 interface WhatsAppShareCardProps {
@@ -123,20 +114,14 @@ interface WhatsAppShareCardProps {
 
 export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
   ({ devotional, language, size = PREVIEW_SIZE }, ref) => {
-    const title = truncateText(
-      language === 'es' ? devotional.titleEs : devotional.title,
-      60
-    );
-    const verse = truncateText(
-      language === 'es' ? devotional.bibleVerseEs : devotional.bibleVerse,
-      200
-    );
+    const title = language === 'es' ? devotional.titleEs : devotional.title;
+    const verse = language === 'es' ? devotional.bibleVerseEs : devotional.bibleVerse;
     const bibleRef =
       language === 'es'
         ? devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference)
         : devotional.bibleReference;
     const reflection = language === 'es' ? devotional.reflectionEs : devotional.reflection;
-    const ideaOfDay = extractIdeaOfDay(reflection, 90);
+    const ideaOfDay = extractIdeaOfDay(reflection);
 
     // Scale factor for fonts based on display size
     const scale = size / WHATSAPP_CARD_SIZE;
@@ -185,8 +170,8 @@ export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
             justifyContent: 'space-between',
           }}
         >
-          {/* Top: Title */}
-          <View>
+          {/* Top: Title — scales to fit, no clipping */}
+          <View style={{ flex: 0 }}>
             <Text
               style={{
                 color: '#FFFFFF',
@@ -197,20 +182,25 @@ export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
                 textShadowOffset: { width: 0, height: 2 },
                 textShadowRadius: 8,
               }}
-              numberOfLines={2}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+              numberOfLines={3}
             >
               {title}
             </Text>
           </View>
 
-          {/* Middle: Bible Verse */}
+          {/* Middle: Bible Verse — flex:1 so text scales to fill */}
           <View
             style={{
+              flex: 1,
               backgroundColor: 'rgba(255,255,255,0.15)',
               borderRadius: spacing(24),
               padding: spacing(48),
               borderLeftWidth: spacing(6),
               borderLeftColor: 'rgba(255,255,255,0.8)',
+              marginVertical: spacing(32),
+              justifyContent: 'center',
             }}
           >
             <Text
@@ -223,8 +213,10 @@ export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
                 textShadowColor: 'rgba(0,0,0,0.3)',
                 textShadowOffset: { width: 0, height: 1 },
                 textShadowRadius: 4,
+                flex: 1,
               }}
-              numberOfLines={4}
+              adjustsFontSizeToFit
+              minimumFontScale={0.45}
             >
               "{verse}"
             </Text>
@@ -244,7 +236,7 @@ export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
           </View>
 
           {/* Bottom: Idea of the Day + Branding */}
-          <View>
+          <View style={{ flex: 0 }}>
             {/* Idea of the Day */}
             <View
               style={{
@@ -252,7 +244,7 @@ export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
                 borderRadius: spacing(16),
                 paddingHorizontal: spacing(32),
                 paddingVertical: spacing(24),
-                marginBottom: spacing(40),
+                marginBottom: spacing(32),
               }}
             >
               <Text
@@ -274,32 +266,34 @@ export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
                   lineHeight: fontSize(48),
                   fontWeight: '500',
                 }}
-                numberOfLines={2}
+                adjustsFontSizeToFit
+                minimumFontScale={0.5}
+                numberOfLines={3}
               >
                 {ideaOfDay}
               </Text>
             </View>
 
-            {/* Branding */}
+            {/* Branding — small, centered */}
             <View style={{ alignItems: 'center' }}>
               <Text
                 style={{
                   color: 'rgba(255,255,255,0.8)',
-                  fontSize: fontSize(32),
+                  fontSize: fontSize(28),
                   fontWeight: '700',
                   letterSpacing: 2,
                 }}
               >
-                {language === 'es' ? 'LUZ DIARIA' : 'DAILY LIGHT'}
+                {APP_BRANDING.appName}
               </Text>
               <Text
                 style={{
                   color: 'rgba(255,255,255,0.5)',
-                  fontSize: fontSize(24),
-                  marginTop: spacing(8),
+                  fontSize: fontSize(22),
+                  marginTop: spacing(6),
                 }}
               >
-                {language === 'es' ? 'Tu devocional diario' : 'Your daily devotional'}
+                {APP_BRANDING.tagline[language]}
               </Text>
             </View>
           </View>
@@ -325,33 +319,20 @@ export function generateWhatsAppText(
   const reflection = language === 'es' ? devotional.reflectionEs : devotional.reflection;
   const prayer = language === 'es' ? devotional.prayerEs : devotional.prayer;
 
-  // Truncate reflection to ~300 chars
-  const shortReflection = truncateText(reflection, 300);
-
-  // Get first line of prayer or truncate
+  // First line of prayer
   const shortPrayer = prayer.split(/[.!?]/)[0]?.trim() ?? '';
 
-  if (language === 'es') {
-    return `*${title}*
-
-${bibleRef}
-"${truncateText(verse, 200)}"
-
-${shortReflection}
-
-${shortPrayer}.
-
-_Luz Diaria - Tu devocional diario_`;
-  }
+  const tagline = APP_BRANDING.tagline[language];
+  const appName = APP_BRANDING.appName;
 
   return `*${title}*
 
 ${bibleRef}
-"${truncateText(verse, 200)}"
+"${verse}"
 
-${shortReflection}
+${reflection}
 
 ${shortPrayer}.
 
-_Daily Light - Your daily devotional_`;
+_${appName} - ${tagline}_`;
 }

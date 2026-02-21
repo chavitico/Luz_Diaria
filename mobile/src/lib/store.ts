@@ -252,7 +252,7 @@ export const useUserPoints = () => useAppStore((s) => s.user?.points ?? 0);
 export const useUserStreak = () => useAppStore((s) => s.user?.streakCurrent ?? 0);
 export const useUserFavorites = () => useAppStore((s) => s.user?.favorites ?? [] as string[]);
 export const useUserSettings = () => useAppStore((s) => s.user?.settings ?? initialUserSettings);
-export const useLanguage = () => useAppStore((s) => s.user?.settings?.language ?? 'en');
+export const useLanguage = () => useAppStore((s) => s.user?.settings?.language ?? 'es');
 
 // Gamification selector hooks
 export const useEquippedTheme = () => useAppStore((s) => s.user?.themeId ?? 'theme_amanecer');
