@@ -145,17 +145,22 @@ export const useAppStore = create<AppState>()(
           : null,
       })),
 
-      addFavorite: (devotionalDate) => set((state) => ({
-        user: state.user
-          ? { ...state.user, favorites: [...(state.user.favorites ?? []), devotionalDate] }
-          : null,
-      })),
+      addFavorite: (devotionalDate) => set((state) => {
+        if (!state.user) return { user: null };
+        // Only add valid YYYY-MM-DD dates, clean any invalid entries
+        const validDate = /^\d{4}-\d{2}-\d{2}$/.test(devotionalDate) ? devotionalDate : null;
+        if (!validDate) return { user: state.user };
+        const cleanFavorites = (state.user.favorites ?? []).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d));
+        if (cleanFavorites.includes(validDate)) return { user: { ...state.user, favorites: cleanFavorites } };
+        return { user: { ...state.user, favorites: [...cleanFavorites, validDate] } };
+      }),
 
-      removeFavorite: (devotionalDate) => set((state) => ({
-        user: state.user
-          ? { ...state.user, favorites: (state.user.favorites ?? []).filter(d => d !== devotionalDate) }
-          : null,
-      })),
+      removeFavorite: (devotionalDate) => set((state) => {
+        if (!state.user) return { user: null };
+        // Clean any invalid entries while removing
+        const cleanFavorites = (state.user.favorites ?? []).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d) && d !== devotionalDate);
+        return { user: { ...state.user, favorites: cleanFavorites } };
+      }),
 
       purchaseItem: (itemId, price) => {
         const { user } = get();
@@ -231,7 +236,7 @@ export const useCurrentTheme = () => useAppStore((s) => s.currentTheme);
 export const useIsDarkMode = () => useAppStore((s) => s.isDarkMode);
 export const useUserPoints = () => useAppStore((s) => s.user?.points ?? 0);
 export const useUserStreak = () => useAppStore((s) => s.user?.streakCurrent ?? 0);
-export const useUserFavorites = () => useAppStore((s) => s.user?.favorites ?? [] as string[]);
+export const useUserFavorites = () => useAppStore((s) => (s.user?.favorites ?? [] as string[]).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d)));
 export const useUserSettings = () => useAppStore((s) => s.user?.settings ?? initialUserSettings);
 export const useLanguage = () => useAppStore((s) => s.user?.settings?.language ?? 'en');
 

@@ -12,13 +12,36 @@ export function generateUserId(): string {
 
 // Get today's date in YYYY-MM-DD format using Costa Rica timezone
 export function getTodayDate(): string {
-  const now = new Date();
-  // Use Costa Rica timezone (UTC-6) to match the backend
-  const costaRicaDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Costa_Rica" }));
-  const year = costaRicaDate.getFullYear();
-  const month = String(costaRicaDate.getMonth() + 1).padStart(2, "0");
-  const day = String(costaRicaDate.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
+  try {
+    const now = new Date();
+    // Use Intl.DateTimeFormat for reliable timezone conversion (more robust than toLocaleString parsing)
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Costa_Rica',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    // en-CA locale returns YYYY-MM-DD format directly
+    const formatted = formatter.format(now);
+    // Validate the result looks like a date
+    if (/^\d{4}-\d{2}-\d{2}$/.test(formatted)) {
+      return formatted;
+    }
+    // Fallback: manual UTC-6 offset calculation
+    const utcMs = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+    const crDate = new Date(utcMs - (6 * 60 * 60 * 1000));
+    const year = crDate.getUTCFullYear();
+    const month = String(crDate.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(crDate.getUTCDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  } catch {
+    // Last resort: use local date
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 }
 
 // Fallback devotional when API is unavailable

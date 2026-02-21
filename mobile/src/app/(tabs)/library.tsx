@@ -37,9 +37,10 @@ interface DevotionalCardProps {
   colors: ReturnType<typeof useThemeColors>;
   onPress: () => void;
   onShare: () => void;
+  onToggleFavorite: () => void;
 }
 
-function DevotionalCard({ devotional, isFavorite, language, colors, onPress, onShare }: DevotionalCardProps) {
+function DevotionalCard({ devotional, isFavorite, language, colors, onPress, onShare, onToggleFavorite }: DevotionalCardProps) {
   const title = language === 'es' ? devotional.titleEs : devotional.title;
   const topic = language === 'es' ? devotional.topicEs : devotional.topic;
 
@@ -108,9 +109,18 @@ function DevotionalCard({ devotional, isFavorite, language, colors, onPress, onS
                 >
                   <Share2 size={14} color={colors.primary} />
                 </Pressable>
-                {isFavorite && (
-                  <Heart size={14} color="#EF4444" fill="#EF4444" />
-                )}
+                {/* Favorite Button */}
+                <Pressable
+                  onPress={(e) => {
+                    e.stopPropagation();
+                    onToggleFavorite();
+                  }}
+                  className="w-7 h-7 rounded-full items-center justify-center"
+                  style={{ backgroundColor: isFavorite ? '#EF444415' : colors.primary + '10' }}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                >
+                  <Heart size={14} color={isFavorite ? '#EF4444' : colors.textMuted} fill={isFavorite ? '#EF4444' : 'transparent'} />
+                </Pressable>
               </View>
             </View>
 
@@ -153,6 +163,20 @@ export default function LibraryScreen() {
 
   const addPoints = useAppStore((s) => s.addPoints);
   const updateUser = useAppStore((s) => s.updateUser);
+  const addFavorite = useAppStore((s) => s.addFavorite);
+  const removeFavorite = useAppStore((s) => s.removeFavorite);
+
+  const handleToggleFavorite = useCallback((devotional: Devotional) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    if (favorites.includes(devotional.date)) {
+      removeFavorite(devotional.date);
+    } else {
+      if (!favorites.includes(devotional.date)) {
+        addPoints(POINTS.FAVORITE_DEVOTIONAL);
+      }
+      addFavorite(devotional.date);
+    }
+  }, [favorites, addFavorite, removeFavorite, addPoints]);
 
   // Points toast
   const { currentToast, showToast, hideToast } = usePointsToast();
@@ -277,9 +301,10 @@ export default function LibraryScreen() {
         colors={colors}
         onPress={() => handleDevotionalPress(item)}
         onShare={() => handleOpenShareModal(item)}
+        onToggleFavorite={() => handleToggleFavorite(item)}
       />
     ),
-    [favorites, language, colors, handleDevotionalPress, handleOpenShareModal]
+    [favorites, language, colors, handleDevotionalPress, handleOpenShareModal, handleToggleFavorite]
   );
 
   return (
