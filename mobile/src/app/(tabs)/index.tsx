@@ -771,6 +771,7 @@ function AudioControls({
   ttsVoice,
   onTTSVoiceChange,
   availableVoices,
+  isCompleted,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
@@ -791,6 +792,7 @@ function AudioControls({
   ttsVoice: string;
   onTTSVoiceChange: (voiceId: string) => void;
   availableVoices: Speech.Voice[];
+  isCompleted: boolean;
 }) {
   const [showMusicSettings, setShowMusicSettings] = useState(false);
   const [showTTSSettings, setShowTTSSettings] = useState(false);
@@ -876,17 +878,41 @@ function AudioControls({
 
         {/* Music Controls */}
         <View className="flex-row items-center">
-          <Pressable
-            onPress={() => {
-              setShowMusicSettings(!showMusicSettings);
-              setShowTTSSettings(false);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            }}
-            className="w-10 h-10 rounded-full items-center justify-center mr-2"
-            style={{ backgroundColor: showMusicSettings ? colors.primary + '30' : colors.textMuted + '30' }}
-          >
-            <Music size={18} color={showMusicSettings ? colors.primary : colors.textMuted} />
-          </Pressable>
+          <View className="relative mr-2">
+            <Pressable
+              onPress={() => {
+                setShowMusicSettings(!showMusicSettings);
+                setShowTTSSettings(false);
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              }}
+              className="w-10 h-10 rounded-full items-center justify-center"
+              style={{ backgroundColor: showMusicSettings ? colors.primary + '30' : colors.textMuted + '30' }}
+            >
+              <Music size={18} color={showMusicSettings ? colors.primary : colors.textMuted} />
+            </Pressable>
+            {/* Completed check badge */}
+            {isCompleted && (
+              <Animated.View
+                entering={FadeIn.duration(400)}
+                style={{
+                  position: 'absolute',
+                  top: -6,
+                  right: -22,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  backgroundColor: '#22C55E',
+                  borderRadius: 99,
+                  paddingHorizontal: 5,
+                  paddingVertical: 2,
+                }}
+              >
+                <Check size={9} color="#FFFFFF" strokeWidth={3} />
+                <Text style={{ color: '#FFFFFF', fontSize: 8, fontWeight: '700', marginLeft: 2 }}>
+                  +{POINTS.COMPLETE_DEVOTIONAL}
+                </Text>
+              </Animated.View>
+            )}
+          </View>
           <Pressable
             onPress={() => {
               onMusicToggle();
@@ -1804,23 +1830,8 @@ export default function HomeScreen() {
             ttsVoice={ttsVoice}
             onTTSVoiceChange={handleTTSVoiceChange}
             availableVoices={availableVoices}
+            isCompleted={isCompleted}
           />
-
-          {/* Completed badge - only shown after 3 minutes */}
-          {isCompleted && (
-            <Animated.View
-              entering={FadeIn.duration(300)}
-              className="rounded-2xl p-4 mb-6 flex-row items-center"
-              style={{ backgroundColor: '#22C55E20' }}
-            >
-              <View className="w-8 h-8 rounded-full items-center justify-center mr-3 bg-green-500">
-                <Check size={18} color="#FFFFFF" strokeWidth={3} />
-              </View>
-              <Text className="text-green-700 font-semibold flex-1">
-                {t.completed} - +{POINTS.COMPLETE_DEVOTIONAL} {t.points}
-              </Text>
-            </Animated.View>
-          )}
 
           {/* Collapsible content wrapper */}
           <CollapsibleContent colors={colors} language={language}>

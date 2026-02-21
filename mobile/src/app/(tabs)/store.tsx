@@ -996,6 +996,7 @@ function ItemDetailModal({
     emoji?: string;
     color?: string;
     colors?: { primary: string; secondary: string; accent: string };
+    chestOnly?: boolean;
   } | null;
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
@@ -1184,6 +1185,19 @@ function ItemDetailModal({
                     {t.equip}
                   </Text>
                 </Pressable>
+              ) : item.chestOnly ? (
+                <View
+                  className="py-4 rounded-xl flex-row items-center justify-center"
+                  style={{ backgroundColor: '#F59E0B20' }}
+                >
+                  <Gift size={18} color="#F59E0B" />
+                  <Text
+                    className="text-base font-semibold ml-2"
+                    style={{ color: '#F59E0B' }}
+                  >
+                    {language === 'es' ? 'Solo disponible en Cofres' : 'Only from Chests'}
+                  </Text>
+                </View>
               ) : item.price === 0 ? (
                 <Pressable
                   onPress={onPurchase}
@@ -1256,7 +1270,8 @@ function PremiumThemeCard({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
   onPress: () => void;
-}) {
+})
+ {
   const t = TRANSLATIONS[language];
   const scale = useSharedValue(1);
   const rarityColor = RARITY_COLORS[themeData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
@@ -1354,7 +1369,7 @@ function PremiumThemeCard({
             justifyContent: 'center',
             backgroundColor: 'rgba(0,0,0,0.35)',
           }}>
-            <Lock size={24} color="#FFFFFF" />
+            {themeData.chestOnly ? <Gift size={22} color="#F59E0B" /> : <Lock size={24} color="#FFFFFF" />}
           </View>
         )}
 
@@ -1381,6 +1396,13 @@ function PremiumThemeCard({
             <Text style={{ fontSize: 12, fontWeight: '600', color: colors.primary }}>
               {t.equip}
             </Text>
+          ) : themeData.chestOnly ? (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Gift size={11} color="#F59E0B" />
+              <Text style={{ fontSize: 10, fontWeight: '700', marginLeft: 3, color: '#F59E0B' }}>
+                {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
+              </Text>
+            </View>
           ) : themeData.price === 0 ? (
             <Text style={{ fontSize: 12, fontWeight: '600', color: '#22C55E' }}>
               {language === 'es' ? 'Gratis' : 'Free'}
@@ -1486,7 +1508,7 @@ function PremiumFrameCard({
                 backgroundColor: 'rgba(0,0,0,0.35)',
                 borderRadius: 36,
               }}>
-                <Lock size={20} color="#FFFFFF" />
+                {frameData.chestOnly ? <Gift size={18} color="#F59E0B" /> : <Lock size={20} color="#FFFFFF" />}
               </View>
             )}
           </View>
@@ -1515,6 +1537,13 @@ function PremiumFrameCard({
             <Text style={{ fontSize: 11, fontWeight: '600', color: colors.primary }}>
               {t.equip}
             </Text>
+          ) : frameData.chestOnly ? (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Gift size={10} color="#F59E0B" />
+              <Text style={{ fontSize: 9, fontWeight: '700', marginLeft: 2, color: '#F59E0B' }}>
+                {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
+              </Text>
+            </View>
           ) : (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Coins size={11} color={canAfford ? colors.primary : colors.textMuted} />
@@ -1588,7 +1617,7 @@ function PremiumTitleCard({
             style={{ backgroundColor: rarityColor + '25' }}
           >
             {!canAfford && !isOwned ? (
-              <Lock size={22} color={colors.textMuted} />
+              titleData.chestOnly ? <Gift size={22} color="#F59E0B" /> : <Lock size={22} color={colors.textMuted} />
             ) : (
               <Award size={22} color={rarityColor} />
             )}
@@ -1630,6 +1659,13 @@ function PremiumTitleCard({
             >
               <Text className="text-xs font-semibold" style={{ color: colors.primary }}>
                 {t.equip}
+              </Text>
+            </View>
+          ) : titleData.chestOnly ? (
+            <View className="flex-row items-center px-3 py-2 rounded-xl" style={{ backgroundColor: '#F59E0B20' }}>
+              <Gift size={13} color="#F59E0B" />
+              <Text className="text-xs font-bold ml-1" style={{ color: '#F59E0B' }}>
+                {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
               </Text>
             </View>
           ) : (
@@ -1777,7 +1813,10 @@ function PremiumAvatarCard({
                 backgroundColor: isV2Avatar ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.35)',
                 borderRadius: isV2Avatar ? 34 : 32,
               }}>
-                <Lock size={18} color="#FFFFFF" />
+                {(avatar as { chestOnly?: boolean }).chestOnly
+                  ? <Gift size={16} color="#F59E0B" />
+                  : <Lock size={18} color="#FFFFFF" />
+                }
               </View>
             )}
           </View>
@@ -1796,8 +1835,15 @@ function PremiumAvatarCard({
             </View>
           ) : !hasCost || isOwned ? (
             <Text style={{ fontSize: 10, color: '#22C55E', fontWeight: '600' }}>
-              {language === 'es' ? 'Gratis' : 'Free'}
+              {hasCost ? (language === 'es' ? 'Equipar' : 'Equip') : (language === 'es' ? 'Gratis' : 'Free')}
             </Text>
+          ) : (avatar as { chestOnly?: boolean }).chestOnly ? (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Gift size={10} color="#F59E0B" />
+              <Text style={{ fontSize: 9, fontWeight: '700', marginLeft: 2, color: '#F59E0B' }}>
+                {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
+              </Text>
+            </View>
           ) : (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Coins size={10} color={canAfford ? colors.primary : colors.textMuted} />
@@ -2283,6 +2329,7 @@ export default function StoreScreen() {
     emoji?: string;
     color?: string;
     colors?: { primary: string; secondary: string; accent: string };
+    chestOnly?: boolean;
   } | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
@@ -2543,10 +2590,22 @@ export default function StoreScreen() {
 
   // Check item ownership and equipped status
   const getItemStatus = useCallback((itemId: string, type: string, price: number) => {
-    let isOwned = purchasedItems.includes(itemId) || price === 0;
+    // Check if item is chest-only (cannot be purchased, only from weekly chests)
+    let isChestOnly = false;
+    if (type === 'theme') isChestOnly = Boolean(PURCHASABLE_THEMES[itemId]?.chestOnly);
+    if (type === 'frame') isChestOnly = Boolean(AVATAR_FRAMES[itemId]?.chestOnly);
+    if (type === 'title') isChestOnly = Boolean(SPIRITUAL_TITLES[itemId]?.chestOnly);
+    if (type === 'avatar') {
+      const av = DEFAULT_AVATARS.find(a => a.id === itemId);
+      isChestOnly = Boolean(av && (av as { chestOnly?: boolean }).chestOnly);
+    }
+
+    // Chest-only items are owned only if explicitly in purchasedItems (granted by chest)
+    // Regular items are owned if in purchasedItems OR if price is 0
+    let isOwned = purchasedItems.includes(itemId) || (!isChestOnly && price === 0);
     if (type === 'avatar') {
       const avatar = DEFAULT_AVATARS.find(a => a.id === itemId);
-      isOwned = isOwned || Boolean(avatar && !('price' in avatar));
+      isOwned = isOwned || Boolean(avatar && !('price' in avatar) && !isChestOnly);
     }
 
     let isEquipped = false;
@@ -2555,7 +2614,7 @@ export default function StoreScreen() {
     if (type === 'title') isEquipped = user?.titleId === itemId;
     if (type === 'avatar') isEquipped = user?.avatar === itemId;
 
-    const canAfford = points >= price;
+    const canAfford = isChestOnly ? false : points >= price;
 
     return { isOwned, isEquipped, canAfford };
   }, [purchasedItems, user, points]);
@@ -2594,6 +2653,7 @@ export default function StoreScreen() {
                       price: theme.price ?? 0,
                       rarity: theme.rarity,
                       colors: theme.colors,
+                      chestOnly: theme.chestOnly,
                     })}
                   />
                 </Animated.View>
@@ -2636,6 +2696,7 @@ export default function StoreScreen() {
                       price: frame.price ?? 0,
                       rarity: frame.rarity,
                       color: frame.color,
+                      chestOnly: frame.chestOnly,
                     })}
                   />
                 </Animated.View>
@@ -2672,6 +2733,7 @@ export default function StoreScreen() {
                       descriptionEs: title.descriptionEs,
                       price: title.price ?? 0,
                       rarity: title.rarity,
+                      chestOnly: title.chestOnly,
                     })}
                   />
                 </Animated.View>
@@ -2716,6 +2778,7 @@ export default function StoreScreen() {
                       price: price,
                       rarity: avatar.rarity,
                       emoji: avatar.emoji,
+                      chestOnly: (avatar as { chestOnly?: boolean }).chestOnly,
                     })}
                   />
                 </Animated.View>
