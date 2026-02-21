@@ -286,6 +286,7 @@ function ChestRewardModal({
     type: 'points' | 'item';
     value?: number;
     itemId?: string;
+    itemType?: 'avatar' | 'frame' | 'title' | 'theme';
     itemName?: string;
     itemNameEs?: string;
     itemEmoji?: string;
@@ -403,8 +404,20 @@ function ChestRewardModal({
             {/* Prize */}
             {reward?.type === 'item' ? (
               <>
-                <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 8 }}>
-                  {language === 'es' ? 'Has obtenido' : 'You received'}
+                {/* Item type label */}
+                <Text style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11, fontWeight: '600', letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 10 }}>
+                  {language === 'es'
+                    ? reward.itemType === 'avatar' ? 'Nuevo avatar desbloqueado'
+                      : reward.itemType === 'frame' ? 'Nuevo marco desbloqueado'
+                      : reward.itemType === 'title' ? 'Nuevo título desbloqueado'
+                      : reward.itemType === 'theme' ? 'Nuevo tema desbloqueado'
+                      : 'Has obtenido'
+                    : reward.itemType === 'avatar' ? 'New avatar unlocked'
+                      : reward.itemType === 'frame' ? 'New frame unlocked'
+                      : reward.itemType === 'title' ? 'New title unlocked'
+                      : reward.itemType === 'theme' ? 'New theme unlocked'
+                      : 'You received'
+                  }
                 </Text>
                 {reward.itemEmoji ? (
                   <Text style={{ fontSize: 56, marginBottom: 12 }}>{reward.itemEmoji}</Text>
@@ -2313,6 +2326,7 @@ export default function StoreScreen() {
     type: 'points' | 'item';
     value?: number;
     itemId?: string;
+    itemType?: 'avatar' | 'frame' | 'title' | 'theme';
     itemName?: string;
     itemNameEs?: string;
     itemEmoji?: string;
@@ -2561,17 +2575,22 @@ export default function StoreScreen() {
       let itemNameEs = itemId;
       let itemEmoji: string | undefined;
       let itemColor: string | undefined;
+      let itemType: 'avatar' | 'frame' | 'title' | 'theme' | undefined;
 
       if (itemId.startsWith('avatar_')) {
+        itemType = 'avatar';
         const av = DEFAULT_AVATARS.find(a => a.id === itemId);
         if (av) { itemName = av.name; itemNameEs = av.nameEs; itemEmoji = av.emoji; }
       } else if (itemId.startsWith('frame_')) {
+        itemType = 'frame';
         const fr = AVATAR_FRAMES[itemId];
         if (fr) { itemName = fr.name; itemNameEs = fr.nameEs; itemColor = fr.color; }
       } else if (itemId.startsWith('title_')) {
+        itemType = 'title';
         const ti = SPIRITUAL_TITLES[itemId];
         if (ti) { itemName = ti.name; itemNameEs = ti.nameEs; }
       } else if (itemId.startsWith('theme_')) {
+        itemType = 'theme';
         const th = PURCHASABLE_THEMES[itemId];
         if (th) { itemName = th.name; itemNameEs = th.nameEs; itemColor = th.colors.primary; }
       }
@@ -2579,6 +2598,7 @@ export default function StoreScreen() {
       rewardInfo = {
         type: 'item',
         itemId,
+        itemType,
         itemName,
         itemNameEs,
         itemEmoji,
