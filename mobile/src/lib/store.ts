@@ -226,12 +226,17 @@ export const useAppStore = create<AppState>()(
         inventoryItems: state.inventoryItems,
       }),
       onRehydrateStorage: () => (state) => {
+        if (!state?.user) return;
         // Clean up any invalid (NaN-NaN-NaN) favorites after store rehydration
-        if (state?.user?.favorites) {
+        if (state.user.favorites) {
           const clean = state.user.favorites.filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d));
           if (clean.length !== state.user.favorites.length) {
             state.user.favorites = clean;
           }
+        }
+        // Clean up invalid lastActiveDate (NaN-NaN-NaN) so streak logic works correctly
+        if (state.user.lastActiveDate && !/^\d{4}-\d{2}-\d{2}$/.test(state.user.lastActiveDate)) {
+          state.user.lastActiveDate = '';
         }
       },
     }

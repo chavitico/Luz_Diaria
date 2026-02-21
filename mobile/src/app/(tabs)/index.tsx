@@ -1316,15 +1316,29 @@ export default function HomeScreen() {
     if (user) {
       const lastActive = user.lastActiveDate;
 
-      // Calculate yesterday using the same timezone as getTodayDate (Costa Rica)
+      // Calculate yesterday using the same robust method as getTodayDate (Costa Rica timezone)
       const getYesterdayDate = (): string => {
-        const now = new Date();
-        const costaRicaDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Costa_Rica" }));
-        costaRicaDate.setDate(costaRicaDate.getDate() - 1);
-        const year = costaRicaDate.getFullYear();
-        const month = String(costaRicaDate.getMonth() + 1).padStart(2, "0");
-        const day = String(costaRicaDate.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
+        try {
+          const now = new Date();
+          const formatter = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'America/Costa_Rica',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          });
+          const todayFormatted = formatter.format(now);
+          // Parse today and subtract 1 day
+          const [y, m, d] = todayFormatted.split('-').map(Number);
+          const yesterday = new Date(Date.UTC(y, m - 1, d - 1));
+          const yy = yesterday.getUTCFullYear();
+          const mm = String(yesterday.getUTCMonth() + 1).padStart(2, '0');
+          const dd = String(yesterday.getUTCDate()).padStart(2, '0');
+          return `${yy}-${mm}-${dd}`;
+        } catch {
+          const d = new Date();
+          d.setDate(d.getDate() - 1);
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
       };
       const yesterdayStr = getYesterdayDate();
 
