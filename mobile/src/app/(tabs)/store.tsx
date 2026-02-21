@@ -2342,7 +2342,7 @@ export default function StoreScreen() {
         return (
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
             {Object.values(AVATAR_FRAMES).map((frame, index) => {
-              const { isOwned, isEquipped, canAfford } = getItemStatus(frame.id, 'frame', frame.price);
+              const { isOwned, isEquipped, canAfford } = getItemStatus(frame.id, 'frame', frame.price ?? 0);
 
               return (
                 <Animated.View
@@ -2364,7 +2364,7 @@ export default function StoreScreen() {
                       nameEs: frame.nameEs,
                       description: frame.description,
                       descriptionEs: frame.descriptionEs,
-                      price: frame.price,
+                      price: frame.price ?? 0,
                       rarity: frame.rarity,
                       color: frame.color,
                     })}

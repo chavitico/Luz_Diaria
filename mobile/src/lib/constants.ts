@@ -136,6 +136,14 @@ export const DEFAULT_AVATARS = [
   { id: 'avatar_v2_arcoiris', name: 'Soft Rainbow', nameEs: 'Arcoiris Suave', emoji: '🌈', description: 'Gentle pastel rainbow arc', descriptionEs: 'Suave arco iris en tonos pastel', price: 240, rarity: 'common', collectionId: 'collection_v2_kids', isV2: true },
   { id: 'avatar_v2_nube', name: 'Happy Cloud', nameEs: 'Nube Feliz', emoji: '☁️', description: 'Fluffy cloud with happy face', descriptionEs: 'Nube esponjosa con cara feliz', price: 450, rarity: 'rare', collectionId: 'collection_v2_kids', isV2: true },
   { id: 'avatar_v2_angelito', name: 'Little Angel', nameEs: 'Angelito', emoji: '👼', description: 'Adorable cherub with wings', descriptionEs: 'Adorable querubin con alas', price: 550, rarity: 'rare', collectionId: 'collection_v2_kids', isV2: true },
+  // ============================================
+  // EXCLUSIVE CHEST AVATARS - Solo del Cofre Semanal
+  // ============================================
+  { id: 'avatar_chest_serafin', name: 'Seraph', nameEs: 'Serafin', emoji: '🔥', description: 'Six-winged heavenly being of fire', descriptionEs: 'Ser celestial de fuego con seis alas', chestOnly: true, rarity: 'epic' },
+  { id: 'avatar_chest_zarza', name: 'Burning Bush', nameEs: 'Zarza Ardiente', emoji: '🌳', description: 'The holy fire of divine encounter', descriptionEs: 'El fuego sagrado del encuentro divino', chestOnly: true, rarity: 'epic' },
+  { id: 'avatar_chest_mana', name: 'Manna', nameEs: 'Mana del Cielo', emoji: '❄️', description: 'Bread from heaven, daily provision', descriptionEs: 'Pan del cielo, provision diaria', chestOnly: true, rarity: 'rare' },
+  { id: 'avatar_chest_trompeta', name: 'Shofar', nameEs: 'Shofar', emoji: '📯', description: 'Horn of proclamation and glory', descriptionEs: 'Cuerno de proclamacion y gloria', chestOnly: true, rarity: 'epic' },
+  { id: 'avatar_chest_palacio', name: 'Heavenly Gate', nameEs: 'Puerta Celestial', emoji: '🏛️', description: 'Gateway to the eternal kingdom', descriptionEs: 'Puerta al reino eterno', chestOnly: true, rarity: 'epic' },
 ] as const;
 
 export const STORE_ITEMS = [
@@ -639,8 +647,9 @@ export const AVATAR_FRAMES: Record<string, {
   description: string;
   descriptionEs: string;
   color: string;
-  price: number;
+  price?: number;
   rarity: string;
+  chestOnly?: boolean;
 }> = {
   frame_dorado: { id: 'frame_dorado', name: 'Golden', nameEs: 'Dorado', description: 'Precious as refined gold', descriptionEs: 'Precioso como oro refinado', color: '#FFD700', price: 300, rarity: 'rare' },
   frame_plata: { id: 'frame_plata', name: 'Silver', nameEs: 'Plata', description: 'Pure and elegant', descriptionEs: 'Puro y elegante', color: '#C0C0C0', price: 200, rarity: 'common' },
@@ -652,6 +661,12 @@ export const AVATAR_FRAMES: Record<string, {
   frame_pergamino: { id: 'frame_pergamino', name: 'Parchment', nameEs: 'Pergamino', description: 'Ancient wisdom scroll', descriptionEs: 'Pergamino de sabiduria antigua', color: '#D4B896', price: 300, rarity: 'common' },
   frame_fuego: { id: 'frame_fuego', name: 'Soft Fire', nameEs: 'Fuego Suave', description: 'Holy Spirit flame', descriptionEs: 'Llama del Espiritu Santo', color: '#FF6B35', price: 450, rarity: 'rare' },
   frame_cielo: { id: 'frame_cielo', name: 'Heaven', nameEs: 'Cielo', description: 'Gateway to eternity', descriptionEs: 'Puerta a la eternidad', color: '#87CEEB', price: 600, rarity: 'epic' },
+  // Exclusive chest-only frames
+  frame_chest_celestial: { id: 'frame_chest_celestial', name: 'Celestial', nameEs: 'Celestial', description: 'Frame of heavenly light — chest exclusive', descriptionEs: 'Marco de luz celestial — exclusivo del cofre', color: '#C9B8FF', chestOnly: true, rarity: 'epic' },
+  frame_chest_profecia: { id: 'frame_chest_profecia', name: 'Prophecy', nameEs: 'Profecia', description: 'Ancient words fulfilled — chest exclusive', descriptionEs: 'Palabras antiguas cumplidas — exclusivo del cofre', color: '#8B4513', chestOnly: true, rarity: 'epic' },
+  frame_chest_zafiro: { id: 'frame_chest_zafiro', name: 'Sapphire Throne', nameEs: 'Trono de Zafiro', description: 'Like the sapphire pavement of God — chest exclusive', descriptionEs: 'Como el pavimento de zafiro de Dios — exclusivo del cofre', color: '#1E3A5F', chestOnly: true, rarity: 'rare' },
+  frame_chest_santo: { id: 'frame_chest_santo', name: 'Holy of Holies', nameEs: 'Santo de los Santos', description: 'Reserved for the consecrated — chest exclusive', descriptionEs: 'Reservado para los consagrados — exclusivo del cofre', color: '#F5D78E', chestOnly: true, rarity: 'epic' },
+  frame_chest_nuevo_dia: { id: 'frame_chest_nuevo_dia', name: 'New Dawn', nameEs: 'Nuevo Dia', description: 'His mercies are new every morning — chest exclusive', descriptionEs: 'Sus misericordias son nuevas cada manana — exclusivo del cofre', color: '#FF9A5C', chestOnly: true, rarity: 'rare' },
 };
 
 // Spiritual Titles
@@ -919,12 +934,33 @@ export const STORE_BUNDLES: Record<string, {
 // Weekly Chest rewards configuration
 export const WEEKLY_CHEST_CONFIG = {
   possibleRewards: [
-    { type: 'points', value: 100, weight: 40, rarity: 'common' },
-    { type: 'points', value: 200, weight: 25, rarity: 'rare' },
+    { type: 'points', value: 100, weight: 30, rarity: 'common' },
+    { type: 'points', value: 200, weight: 20, rarity: 'rare' },
     { type: 'points', value: 350, weight: 10, rarity: 'epic' },
-    { type: 'item', itemId: 'avatar_fish', weight: 15, rarity: 'common' },
-    { type: 'item', itemId: 'frame_plata', weight: 8, rarity: 'common' },
-    { type: 'item', itemId: 'title_buscador', weight: 2, rarity: 'common' },
+    { type: 'item', itemId: 'avatar_fish', weight: 10, rarity: 'common' },
+    { type: 'item', itemId: 'frame_plata', weight: 6, rarity: 'common' },
+    { type: 'item', itemId: 'title_buscador', weight: 4, rarity: 'common' },
+    // Exclusive chest-only items
+    { type: 'item', itemId: 'avatar_chest_serafin', weight: 8, rarity: 'epic' },
+    { type: 'item', itemId: 'avatar_chest_zarza', weight: 6, rarity: 'epic' },
+    { type: 'item', itemId: 'avatar_chest_mana', weight: 6, rarity: 'rare' },
+    { type: 'item', itemId: 'avatar_chest_trompeta', weight: 5, rarity: 'epic' },
+    { type: 'item', itemId: 'avatar_chest_palacio', weight: 5, rarity: 'epic' },
+    { type: 'item', itemId: 'frame_chest_celestial', weight: 6, rarity: 'epic' },
+    { type: 'item', itemId: 'frame_chest_profecia', weight: 5, rarity: 'epic' },
+    { type: 'item', itemId: 'frame_chest_zafiro', weight: 5, rarity: 'rare' },
+    { type: 'item', itemId: 'frame_chest_santo', weight: 4, rarity: 'epic' },
+    { type: 'item', itemId: 'frame_chest_nuevo_dia', weight: 4, rarity: 'rare' },
+    { type: 'item', itemId: 'title_chest_ungido', weight: 5, rarity: 'epic' },
+    { type: 'item', itemId: 'title_chest_columna', weight: 4, rarity: 'epic' },
+    { type: 'item', itemId: 'title_chest_profeta', weight: 4, rarity: 'epic' },
+    { type: 'item', itemId: 'title_chest_escogido', weight: 6, rarity: 'rare' },
+    { type: 'item', itemId: 'title_chest_intercesor', weight: 5, rarity: 'rare' },
+    { type: 'item', itemId: 'theme_chest_gloria', weight: 4, rarity: 'epic' },
+    { type: 'item', itemId: 'theme_chest_desierto', weight: 5, rarity: 'rare' },
+    { type: 'item', itemId: 'theme_chest_trono', weight: 3, rarity: 'epic' },
+    { type: 'item', itemId: 'theme_chest_lluvia', weight: 5, rarity: 'rare' },
+    { type: 'item', itemId: 'theme_chest_mar_rojo', weight: 4, rarity: 'epic' },
   ],
 } as const;
 
