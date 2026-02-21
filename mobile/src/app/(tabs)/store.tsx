@@ -23,6 +23,7 @@ import Animated, {
   withSequence,
   withTiming,
   runOnJS,
+  type SharedValue,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import {
@@ -238,6 +239,40 @@ function ProfileHeader({
   );
 }
 
+// Single confetti particle - needs its own component to use hooks legally
+function ConfettiParticle({
+  pv,
+  x,
+  y,
+  angle,
+  size,
+  borderRadius,
+  color,
+}: {
+  pv: SharedValue<number>;
+  x: number;
+  y: number;
+  angle: number;
+  size: number;
+  borderRadius: number;
+  color: string;
+}) {
+  const pStyle = useAnimatedStyle<{ opacity: number; transform: { translateX: number }[] | { translateY: number }[] | { scale: number }[] | { rotate: string }[] }>(() => ({
+    opacity: pv.value,
+    transform: [
+      { translateX: x * pv.value },
+      { translateY: y * pv.value },
+      { scale: pv.value },
+      { rotate: `${angle * 180 / Math.PI * pv.value}deg` },
+    ] as any,
+  }));
+  return (
+    <Animated.View
+      style={[{ position: 'absolute' as const, width: size, height: size, borderRadius, backgroundColor: color }, pStyle as any]}
+    />
+  );
+}
+
 // Chest Reward Modal - confetti splash + prize reveal
 function ChestRewardModal({
   visible,
@@ -264,11 +299,8 @@ function ChestRewardModal({
   const scale = useSharedValue(0);
   const opacity = useSharedValue(0);
   const chestScale = useSharedValue(1);
-  const shimmer = useSharedValue(0);
-  const [particles, setParticles] = useState<{ x: number; y: number; color: string; angle: number; id: number }[]>([]);
-  const particleRefs = useRef<ReturnType<typeof useSharedValue>[]>([]);
 
-  // Particle animation values (fixed array of 20)
+  // Fixed 20 shared values — always created, never in a loop
   const p0 = useSharedValue(0); const p1 = useSharedValue(0); const p2 = useSharedValue(0);
   const p3 = useSharedValue(0); const p4 = useSharedValue(0); const p5 = useSharedValue(0);
   const p6 = useSharedValue(0); const p7 = useSharedValue(0); const p8 = useSharedValue(0);
@@ -278,45 +310,36 @@ function ChestRewardModal({
   const p18 = useSharedValue(0); const p19 = useSharedValue(0);
   const pValues = [p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19];
 
+  const confettiColors = ['#F59E0B', '#EF4444', '#8B5CF6', '#10B981', '#3B82F6', '#F97316', '#EC4899', '#FCD34D'];
+  // Fixed particle positions (stable — no random on render)
+  const particleData = React.useMemo(() => Array.from({ length: 20 }, (_, i) => ({
+    x: Math.cos((i / 20) * Math.PI * 2) * (80 + (i % 4) * 30),
+    y: Math.sin((i / 20) * Math.PI * 2) * (80 + (i % 4) * 30),
+    color: confettiColors[i % confettiColors.length],
+    angle: (i / 20) * Math.PI * 2,
+    size: 10 + (i % 4) * 4,
+    borderRadius: i % 3 === 0 ? 99 : 2,
+  })), []);
+
   const rarityGrad: [string, string] = reward?.rarity === 'epic'
     ? ['#4C1D95', '#7C3AED']
     : reward?.rarity === 'rare'
     ? ['#1E3A5F', '#2563EB']
     : ['#1A3A1A', '#15803D'];
-
   const rarityColor = reward?.rarity === 'epic' ? '#A855F7' : reward?.rarity === 'rare' ? '#3B82F6' : '#22C55E';
-  const confettiColors = ['#F59E0B', '#EF4444', '#8B5CF6', '#10B981', '#3B82F6', '#F97316', '#EC4899', '#FCD34D'];
 
   useEffect(() => {
     if (visible) {
-      // Generate particles
-      const pts = Array.from({ length: 20 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 300 - 150,
-        y: Math.random() * 300 - 150,
-        color: confettiColors[i % confettiColors.length],
-        angle: (i / 20) * Math.PI * 2,
-      }));
-      setParticles(pts);
-
-      // Animate in
       opacity.value = withTiming(1, { duration: 300 });
       scale.value = withSequence(
         withSpring(1.1, { damping: 10, stiffness: 200 }),
         withSpring(1, { damping: 12, stiffness: 180 })
       );
-      // Chest bounce
       chestScale.value = withSequence(
         withTiming(1, { duration: 100 }),
         withSpring(1.3, { damping: 6, stiffness: 300 }),
         withSpring(1, { damping: 8, stiffness: 200 })
       );
-      // Shimmer loop
-      shimmer.value = withSequence(
-        withTiming(1, { duration: 800 }),
-        withTiming(0, { duration: 800 })
-      );
-      // Burst particles
       pValues.forEach((p, i) => {
         p.value = 0;
         p.value = withSequence(
@@ -345,32 +368,19 @@ function ChestRewardModal({
   return (
     <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
       <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', alignItems: 'center', justifyContent: 'center' }}>
-        {/* Confetti particles */}
-        {particles.map((pt, i) => {
-          const pv = pValues[i];
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const pStyle = useAnimatedStyle(() => ({
-            opacity: pv.value,
-            transform: [
-              { translateX: pt.x * pv.value },
-              { translateY: pt.y * pv.value },
-              { scale: pv.value },
-              { rotate: `${pt.angle * 180 / Math.PI * pv.value}deg` },
-            ],
-          }));
-          return (
-            <Animated.View
-              key={pt.id}
-              style={[{
-                position: 'absolute',
-                width: 10 + (i % 4) * 4,
-                height: 10 + (i % 4) * 4,
-                borderRadius: i % 3 === 0 ? 99 : 2,
-                backgroundColor: pt.color,
-              }, pStyle]}
-            />
-          );
-        })}
+        {/* Confetti particles — each is its own component with its own hooks */}
+        {particleData.map((pt, i) => (
+          <ConfettiParticle
+            key={i}
+            pv={pValues[i] as SharedValue<number>}
+            x={pt.x}
+            y={pt.y}
+            angle={pt.angle}
+            size={pt.size}
+            borderRadius={pt.borderRadius}
+            color={pt.color}
+          />
+        ))}
 
         <Animated.View style={[{ width: 320, borderRadius: 28, overflow: 'hidden' }, containerStyle]}>
           <LinearGradient colors={rarityGrad} style={{ padding: 32, alignItems: 'center' }}>
