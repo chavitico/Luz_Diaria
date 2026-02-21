@@ -12,6 +12,7 @@ import {
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import Animated, {
   useSharedValue,
@@ -1140,6 +1141,7 @@ function CollapsibleContent({
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   const colors = useThemeColors();
   const language = useLanguage();
   const t = TRANSLATIONS[language];
@@ -1745,15 +1747,28 @@ export default function HomeScreen() {
             className="absolute top-0 left-0 right-0 flex-row items-center justify-between px-5"
             style={{ paddingTop: insets.top + 10 }}
           >
+            {/* Settings gear - left side */}
+            <Pressable
+              onPress={() => {
+                router.push('/settings');
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              }}
+              className="w-10 h-10 rounded-full items-center justify-center bg-black/20"
+            >
+              <Settings2 size={20} color="#FFFFFF" />
+            </Pressable>
+
+            <View className="flex-1" />
+
+            {/* Streak fire - right side, left of check badge */}
             {user && user.streakCurrent > 0 && (
-              <View className="flex-row items-center bg-orange-500/90 px-3 py-2 rounded-full">
-                <Flame size={16} color="#FFFFFF" />
-                <Text className="text-white font-bold ml-1">
+              <View className="flex-row items-center bg-orange-500/90 px-3 py-2 rounded-full mr-2">
+                <Flame size={14} color="#FFFFFF" />
+                <Text className="text-white font-bold ml-1" style={{ fontSize: 13 }}>
                   {user.streakCurrent}
                 </Text>
               </View>
             )}
-            <View className="flex-1" />
 
             {/* Completed check badge */}
             {isCompleted && (
