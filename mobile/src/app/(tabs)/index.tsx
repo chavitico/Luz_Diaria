@@ -877,22 +877,21 @@ function SpiritualIntro({
 
   return (
     <Animated.View
-      style={[{ alignItems: 'center', paddingVertical: 16, paddingHorizontal: 8 }, animatedStyle]}
+      style={[{ alignItems: 'center', paddingVertical: 12, paddingHorizontal: 8 }, animatedStyle]}
       pointerEvents="none"
     >
       <Text
+        numberOfLines={1}
         style={{
-          fontSize: 13,
+          fontSize: 12,
           color: colors.textMuted,
           textAlign: 'center',
-          lineHeight: 20,
-          letterSpacing: 0.2,
-          fontStyle: 'italic',
+          letterSpacing: 0.4,
         }}
       >
         {language === 'es'
-          ? 'Detente un momento. Respira. Dios quiere hablarte hoy.'
-          : 'Pause for a moment. Breathe. God wants to speak to you today.'}
+          ? 'Respira. Este momento es para ti.'
+          : 'Breathe. This moment is for you.'}
       </Text>
     </Animated.View>
   );
@@ -1934,20 +1933,10 @@ export default function HomeScreen() {
             className="absolute top-0 left-0 right-0 flex-row items-center justify-between px-5"
             style={{ paddingTop: insets.top + 10 }}
           >
-            {/* Settings gear - left side */}
-            <Pressable
-              onPress={() => {
-                router.push('/settings');
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              }}
-              className="w-10 h-10 rounded-full items-center justify-center bg-black/20"
-            >
-              <Settings2 size={20} color="#FFFFFF" />
-            </Pressable>
-
+            {/* Left spacer */}
             <View className="flex-1" />
 
-            {/* Streak fire - right side, left of check badge */}
+            {/* Streak fire */}
             {user && user.streakCurrent > 0 && (
               <View className="flex-row items-center bg-orange-500/90 px-3 py-2 rounded-full mr-2">
                 <Flame size={14} color="#FFFFFF" />
@@ -1986,13 +1975,33 @@ export default function HomeScreen() {
             {/* Favorite Button */}
             <Pressable
               onPress={toggleFavorite}
-              className="w-10 h-10 rounded-full items-center justify-center bg-white/20"
+              className="w-10 h-10 rounded-full items-center justify-center bg-white/20 mr-2"
             >
               <Heart
                 size={22}
                 color="#FFFFFF"
                 fill={isFavorite ? '#EF4444' : 'transparent'}
               />
+            </Pressable>
+
+            {/* Settings gear — rightmost, prominent */}
+            <Pressable
+              onPress={() => {
+                router.push('/settings');
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              }}
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 22,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(255,255,255,0.18)',
+                borderWidth: 1.5,
+                borderColor: 'rgba(255,255,255,0.45)',
+              }}
+            >
+              <Settings2 size={22} color="#FFFFFF" />
             </Pressable>
           </View>
 
