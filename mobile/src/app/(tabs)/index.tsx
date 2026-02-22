@@ -877,7 +877,7 @@ function SpiritualIntro({
 
   return (
     <Animated.View
-      style={[{ alignItems: 'center', paddingVertical: 12, paddingHorizontal: 8 }, animatedStyle]}
+      style={[{ alignItems: 'center', paddingTop: 22, paddingBottom: 12, paddingHorizontal: 8 }, animatedStyle]}
       pointerEvents="none"
     >
       <Text
