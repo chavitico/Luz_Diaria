@@ -1,6 +1,6 @@
 // Settings Screen - With Avatar Selection and Notification Settings
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   View,
   Text,
@@ -48,6 +48,7 @@ import {
   Users,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   useThemeColors,
   useLanguage,
@@ -71,6 +72,18 @@ import {
 import { gamificationApi } from '@/lib/gamification-api';
 import { useQueryClient } from '@tanstack/react-query';
 import { ShareableProfileCard } from '@/components/ShareableProfileCard';
+import { getLedgerEntries, relativeTime, type LedgerEntry } from '@/lib/points-ledger';
+import {
+  BookOpen as LedgerBookOpen,
+  Tag,
+  ShoppingBag,
+  Trophy,
+  Zap,
+  Gift,
+  Target,
+  TrendingUp,
+  TrendingDown,
+} from 'lucide-react-native';
 
 interface SettingRowProps {
   icon: React.ReactNode;
@@ -216,6 +229,22 @@ export default function SettingsScreen() {
   // Prayer display opt-in state
   const [prayerDisplayOptIn, setPrayerDisplayOptIn] = useState(true);
   const [isLoadingPrayerOptIn, setIsLoadingPrayerOptIn] = useState(true);
+
+  // Points ledger state
+  const [ledgerEntries, setLedgerEntries] = useState<LedgerEntry[]>([]);
+  const [showFullLedger, setShowFullLedger] = useState(false);
+
+  const loadLedger = useCallback(async () => {
+    const entries = await getLedgerEntries();
+    setLedgerEntries(entries);
+  }, []);
+
+  // Reload ledger whenever screen is focused
+  useFocusEffect(
+    useCallback(() => {
+      loadLedger();
+    }, [loadLedger])
+  );
 
   // Load notification settings and community opt-in on mount
   useEffect(() => {
@@ -584,6 +613,9 @@ export default function SettingsScreen() {
                       {user.points} {t.points}
                     </Text>
                   </View>
+                  <Text className="text-xs mt-0.5" style={{ color: colors.textMuted }}>
+                    {language === 'es' ? 'Se actualiza automáticamente' : 'Updates automatically'}
+                  </Text>
                 </View>
               </View>
 
@@ -634,6 +666,84 @@ export default function SettingsScreen() {
               </Pressable>
 
             </Animated.View>
+          )}
+
+          {/* Points History Section */}
+          {ledgerEntries.length > 0 && (
+            <>
+              <View className="flex-row items-center justify-between mb-3 ml-1 mt-6">
+                <Text className="text-sm font-semibold uppercase tracking-wider" style={{ color: colors.textMuted }}>
+                  {language === 'es' ? 'Historial de Puntos' : 'Points History'}
+                </Text>
+                {ledgerEntries.length > 5 && (
+                  <Pressable
+                    onPress={() => {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                      setShowFullLedger((v) => !v);
+                    }}
+                  >
+                    <Text className="text-sm font-medium" style={{ color: colors.primary }}>
+                      {showFullLedger
+                        ? (language === 'es' ? 'Ver menos' : 'Show less')
+                        : (language === 'es' ? 'Ver más' : 'Show more')}
+                    </Text>
+                  </Pressable>
+                )}
+              </View>
+
+              <Animated.View entering={FadeInDown.duration(300)} className="rounded-2xl overflow-hidden" style={{ backgroundColor: colors.surface }}>
+                {(showFullLedger ? ledgerEntries.slice(0, 10) : ledgerEntries.slice(0, 5)).map((entry, idx, arr) => {
+                  const isPositive = entry.delta > 0;
+                  const LedgerIcon = (() => {
+                    switch (entry.kind) {
+                      case 'devotional': return LedgerBookOpen;
+                      case 'promo_code': return Tag;
+                      case 'purchase': return ShoppingBag;
+                      case 'claim': return Trophy;
+                      case 'challenge': return Zap;
+                      case 'chest': return Gift;
+                      case 'mission': return Target;
+                      default: return Coins;
+                    }
+                  })();
+                  const iconColor = isPositive ? '#22c55e' : '#ef4444';
+                  const deltaText = isPositive ? `+${entry.delta}` : `${entry.delta}`;
+
+                  return (
+                    <View
+                      key={entry.id}
+                      className="flex-row items-center px-4 py-3"
+                      style={idx < arr.length - 1 ? { borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '25' } : {}}
+                    >
+                      <View
+                        className="w-9 h-9 rounded-full items-center justify-center mr-3"
+                        style={{ backgroundColor: (isPositive ? '#22c55e' : '#ef4444') + '18' }}
+                      >
+                        <LedgerIcon size={16} color={iconColor} />
+                      </View>
+                      <View className="flex-1">
+                        <Text className="text-sm font-semibold" style={{ color: colors.text }} numberOfLines={1}>
+                          {entry.title}
+                        </Text>
+                        {entry.detail ? (
+                          <Text className="text-xs mt-0.5" style={{ color: colors.textMuted }} numberOfLines={1}>
+                            {entry.detail}
+                          </Text>
+                        ) : null}
+                      </View>
+                      <View className="items-end ml-3">
+                        <Text className="text-sm font-bold" style={{ color: iconColor }}>
+                          {deltaText}
+                        </Text>
+                        <Text className="text-xs mt-0.5" style={{ color: colors.textMuted }}>
+                          {relativeTime(entry.ts, language)}
+                        </Text>
+                      </View>
+                    </View>
+                  );
+                })}
+              </Animated.View>
+            </>
           )}
 
           {/* Community Section */}

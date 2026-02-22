@@ -69,6 +69,7 @@ import { cn } from '@/lib/cn';
 import { useMusicPlayer, MUSIC_TRACKS } from '@/components/BackgroundMusicProvider';
 import { PointsToast, usePointsToast } from '@/components/PointsToast';
 import { gamificationApi } from '@/lib/gamification-api';
+import { addLedgerEntry } from '@/lib/points-ledger';
 
 const { width, height } = Dimensions.get('window');
 
@@ -1371,6 +1372,7 @@ export default function HomeScreen() {
       const result = await gamificationApi.awardPoints(user.id, 'tts_complete');
       if (result.success) {
         addPoints(result.pointsAwarded);
+        addLedgerEntry({ delta: result.pointsAwarded, kind: 'devotional', title: language === 'es' ? 'Audio escuchado' : 'Audio listened', detail: '' });
         showToast(
           result.pointsAwarded,
           language === 'es' ? 'puntos (Audio)' : 'points (Audio)'
@@ -1380,6 +1382,7 @@ export default function HomeScreen() {
       console.error('[TTS] Failed to award points:', error);
       // Still award points locally as fallback
       addPoints(POINTS.TTS_COMPLETE);
+      addLedgerEntry({ delta: POINTS.TTS_COMPLETE, kind: 'devotional', title: language === 'es' ? 'Audio escuchado' : 'Audio listened', detail: '' });
       showToast(
         POINTS.TTS_COMPLETE,
         language === 'es' ? 'puntos (Audio)' : 'points (Audio)'
@@ -1403,6 +1406,12 @@ export default function HomeScreen() {
 
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     addPoints(POINTS.COMPLETE_DEVOTIONAL);
+    addLedgerEntry({
+      delta: POINTS.COMPLETE_DEVOTIONAL,
+      kind: 'devotional',
+      title: language === 'es' ? 'Devocional completado' : 'Devotional completed',
+      detail: '',
+    });
 
     if (user) {
       const lastActive = user.lastActiveDate;
@@ -1530,6 +1539,7 @@ export default function HomeScreen() {
       const pointsResult = await gamificationApi.awardPoints(user.id, 'share');
       if (pointsResult.success) {
         addPoints(pointsResult.pointsAwarded);
+        addLedgerEntry({ delta: pointsResult.pointsAwarded, kind: 'devotional', title: language === 'es' ? 'Devocional compartido' : 'Devotional shared', detail: '' });
         showToast(
           pointsResult.pointsAwarded,
           language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
@@ -1539,6 +1549,7 @@ export default function HomeScreen() {
     } catch (error) {
       console.error('[Share] Failed to award points:', error);
       addPoints(POINTS.SHARE_DEVOTIONAL);
+      addLedgerEntry({ delta: POINTS.SHARE_DEVOTIONAL, kind: 'devotional', title: language === 'es' ? 'Devocional compartido' : 'Devotional shared', detail: '' });
       showToast(
         POINTS.SHARE_DEVOTIONAL,
         language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
@@ -1564,6 +1575,7 @@ export default function HomeScreen() {
       const result = await gamificationApi.awardPoints(user.id, 'prayer');
       if (result.success) {
         addPoints(result.pointsAwarded);
+        addLedgerEntry({ delta: result.pointsAwarded, kind: 'devotional', title: language === 'es' ? 'Oración confirmada' : 'Prayer confirmed', detail: '' });
         showToast(
           result.pointsAwarded,
           language === 'es' ? 'puntos (Oracion)' : 'points (Prayer)'
@@ -1575,6 +1587,7 @@ export default function HomeScreen() {
       console.error('[Prayer] Failed to award points:', error);
       // Still award points locally as fallback
       addPoints(POINTS.PRAYER_CONFIRM);
+      addLedgerEntry({ delta: POINTS.PRAYER_CONFIRM, kind: 'devotional', title: language === 'es' ? 'Oración confirmada' : 'Prayer confirmed', detail: '' });
       showToast(
         POINTS.PRAYER_CONFIRM,
         language === 'es' ? 'puntos (Oracion)' : 'points (Prayer)'

@@ -71,6 +71,7 @@ import {
   type CollectionChapter,
 } from '@/lib/constants';
 import { cn } from '@/lib/cn';
+import { addLedgerEntry } from '@/lib/points-ledger';
 
 // ─── Premium Category Icons ───────────────────────────────────────────────────
 // Each icon is a 28×28 React Native component using View + LinearGradient shapes.
@@ -752,6 +753,12 @@ function WeeklyChallengesCard({
       queryClient.invalidateQueries({ queryKey: ['challengeProgress', userId] });
       if (data.pointsAwarded) {
         updateUser({ points: (useAppStore.getState().user?.points || 0) + data.pointsAwarded });
+        addLedgerEntry({
+          delta: data.pointsAwarded,
+          kind: 'challenge',
+          title: language === 'es' ? 'Desafío completado' : 'Challenge completed',
+          detail: '',
+        });
       }
     },
   });
@@ -4466,9 +4473,16 @@ export default function StoreScreen() {
       gamificationApi.purchaseItem(effectiveUserId, itemId),
     onSuccess: (data) => {
       if (data.success && data.newPoints !== undefined && selectedDetailItem) {
+        const delta = -(selectedDetailItem.price);
         updateUser({
           points: data.newPoints,
           purchasedItems: [...purchasedItems, selectedDetailItem.id],
+        });
+        addLedgerEntry({
+          delta,
+          kind: 'purchase',
+          title: language === 'es' ? 'Compra en Tienda' : 'Store Purchase',
+          detail: language === 'es' ? (selectedDetailItem.nameEs ?? selectedDetailItem.name) : selectedDetailItem.name,
         });
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         setShowDetailModal(false);
@@ -4482,6 +4496,12 @@ export default function StoreScreen() {
       if (selectedDetailItem) {
         const localSuccess = useAppStore.getState().purchaseItem(selectedDetailItem.id, selectedDetailItem.price);
         if (localSuccess) {
+          addLedgerEntry({
+            delta: -(selectedDetailItem.price),
+            kind: 'purchase',
+            title: language === 'es' ? 'Compra en Tienda' : 'Store Purchase',
+            detail: language === 'es' ? (selectedDetailItem.nameEs ?? selectedDetailItem.name) : selectedDetailItem.name,
+          });
           Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           setShowDetailModal(false);
           setToastAmount(selectedDetailItem.price);
@@ -4557,6 +4577,12 @@ export default function StoreScreen() {
       }),
     onSuccess: (data) => {
       updateUser({ points: data.newPoints });
+      addLedgerEntry({
+        delta: data.pointsAwarded,
+        kind: 'claim',
+        title: language === 'es' ? 'Colección completada' : 'Collection completed',
+        detail: '',
+      });
       refetchCollectionClaims();
       setToastAmount(data.pointsAwarded);
       setToastPositive(true);
@@ -4645,6 +4671,12 @@ export default function StoreScreen() {
     if (reward.type === 'points' && 'value' in reward) {
       rewardInfo = { type: 'points', value: reward.value, rarity: reward.rarity };
       updateUser({ points: points + reward.value, lastWeeklyChestClaimed: currentWeekId });
+      addLedgerEntry({
+        delta: reward.value,
+        kind: 'chest',
+        title: language === 'es' ? 'Cofre Semanal' : 'Weekly Chest',
+        detail: '',
+      });
     } else if (reward.type === 'item' && 'itemId' in reward && reward.itemId) {
       const itemId = reward.itemId;
       // Find item details from all catalogs
@@ -5297,6 +5329,12 @@ export default function StoreScreen() {
             userId={effectiveUserId}
             onSuccess={(pointsAwarded) => {
               updateUser({ points: points + pointsAwarded });
+              addLedgerEntry({
+                delta: pointsAwarded,
+                kind: 'promo_code',
+                title: language === 'es' ? 'Código promocional' : 'Promo code',
+                detail: '',
+              });
               setToastAmount(pointsAwarded);
               setToastPositive(true);
               setShowPointsToast(true);
@@ -5401,6 +5439,14 @@ export default function StoreScreen() {
           Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           await claimChapter(chapterId, selectedChapterCollection?.collectionId ?? '');
           updateUser({ points: (user?.points ?? 0) + points });
+          addLedgerEntry({
+            delta: points,
+            kind: 'claim',
+            title: language === 'es' ? 'Capítulo completado' : 'Chapter completed',
+            detail: selectedChapterCollection
+              ? (language === 'es' ? selectedChapterCollection.nameEs : selectedChapterCollection.nameEn)
+              : '',
+          });
           setToastAmount(points);
           setToastPositive(true);
           setToastMessage(language === 'es' ? '¡Capítulo completado! Has avanzado en tu camino espiritual.' : 'Chapter completed! You have advanced on your spiritual path.');
