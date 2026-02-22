@@ -43,8 +43,15 @@ import {
   Lock,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
-import { TRANSLATIONS, PRAYER_CATEGORIES } from '@/lib/constants';
+import { TRANSLATIONS, PRAYER_CATEGORIES, AVATAR_FRAMES, SPIRITUAL_TITLES, DEFAULT_AVATARS } from '@/lib/constants';
 import { gamificationApi, PrayerRequestDisplay } from '@/lib/gamification-api';
+import { IllustratedAvatar } from '@/components/IllustratedAvatar';
+
+// ── Helpers for profile rendering ──────────────────────────────────────────
+function getAvatarEmoji(avatarId: string): string {
+  const found = DEFAULT_AVATARS.find((a) => a.id === avatarId);
+  return found?.emoji ?? '🕊️';
+}
 
 // ── Category icons ─────────────────────────────────────────────────────────
 const CATEGORY_ICONS: Record<string, React.ComponentType<any>> = {
@@ -500,10 +507,50 @@ function CategoryDrilldownSheet({
           ) : (
             <View style={{ gap: 10 }}>
               {filtered.map((req, index) => {
-                const displayName = req.displayNameOptIn && req.nickname
-                  ? req.nickname
-                  : (language === 'es' ? 'Un hermano/a' : 'A brother/sister');
-                const isAnon = !req.displayNameOptIn || !req.nickname;
+                const showProfile = req.displayNameOptIn && !!req.nickname;
+
+                if (!showProfile) {
+                  // Anonymous row
+                  return (
+                    <Animated.View
+                      key={req.id}
+                      entering={FadeInDown.delay(index * 30).duration(200)}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingVertical: 12,
+                        paddingHorizontal: 14,
+                        borderRadius: 14,
+                        backgroundColor: colors.background,
+                      }}
+                    >
+                      <View style={{
+                        width: 44, height: 44, borderRadius: 22,
+                        backgroundColor: colors.textMuted + '18',
+                        alignItems: 'center', justifyContent: 'center',
+                        marginRight: 12,
+                      }}>
+                        <Text style={{ fontSize: 22 }}>🙏</Text>
+                      </View>
+                      <Text style={{
+                        fontSize: 15,
+                        color: colors.textMuted,
+                        fontStyle: 'italic',
+                        flex: 1,
+                      }}>
+                        {language === 'es' ? 'Un hermano/a' : 'A brother/sister'}
+                      </Text>
+                    </Animated.View>
+                  );
+                }
+
+                // Full profile row for opted-in users
+                const avatarEmoji = getAvatarEmoji(req.avatarId ?? 'avatar_dove');
+                const frameColor = req.frameId ? AVATAR_FRAMES[req.frameId]?.color : null;
+                const titleData = req.titleId ? SPIRITUAL_TITLES[req.titleId] : null;
+                const titleLabel = titleData
+                  ? (language === 'es' ? titleData.nameEs : titleData.name)
+                  : null;
 
                 return (
                   <Animated.View
@@ -518,26 +565,54 @@ function CategoryDrilldownSheet({
                       backgroundColor: colors.background,
                     }}
                   >
-                    {/* Avatar placeholder */}
+                    {/* Avatar with frame */}
                     <View style={{
-                      width: 36, height: 36, borderRadius: 18,
-                      backgroundColor: isAnon ? colors.textMuted + '20' : colors.primary + '18',
+                      width: 48, height: 48, borderRadius: 24,
+                      borderWidth: frameColor ? 2.5 : 0,
+                      borderColor: frameColor ?? 'transparent',
                       alignItems: 'center', justifyContent: 'center',
                       marginRight: 12,
+                      backgroundColor: colors.background,
                     }}>
-                      <Text style={{ fontSize: 16 }}>
-                        {isAnon ? '🙏' : displayName.charAt(0).toUpperCase()}
-                      </Text>
+                      <IllustratedAvatar
+                        avatarId={req.avatarId ?? 'avatar_dove'}
+                        size={40}
+                        emoji={avatarEmoji}
+                      />
                     </View>
-                    <Text style={{
-                      fontSize: 15,
-                      color: isAnon ? colors.textMuted : colors.text,
-                      fontWeight: isAnon ? '400' : '500',
-                      fontStyle: isAnon ? 'italic' : 'normal',
-                      flex: 1,
-                    }}>
-                      {displayName}
-                    </Text>
+
+                    {/* Name + title */}
+                    <View style={{ flex: 1 }}>
+                      <Text style={{
+                        fontSize: 15,
+                        fontWeight: '600',
+                        color: colors.text,
+                      }}>
+                        {req.nickname}
+                      </Text>
+                      {titleLabel && (
+                        <View style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          marginTop: 3,
+                        }}>
+                          <View style={{
+                            backgroundColor: colors.primary + '18',
+                            borderRadius: 6,
+                            paddingHorizontal: 7,
+                            paddingVertical: 2,
+                          }}>
+                            <Text style={{
+                              fontSize: 11,
+                              color: colors.primary,
+                              fontWeight: '500',
+                            }}>
+                              {titleLabel}
+                            </Text>
+                          </View>
+                        </View>
+                      )}
+                    </View>
                   </Animated.View>
                 );
               })}
