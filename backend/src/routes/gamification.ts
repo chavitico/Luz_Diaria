@@ -1908,3 +1908,93 @@ gamificationRouter.get("/community/opt-in/:userId", async (c) => {
     return c.json({ error: "Failed to get opt-in status" }, 500);
   }
 });
+
+// ============================================
+// COLLECTION CLAIMS
+// ============================================
+
+// GET /collections/claims/:userId - Get all claimed collections for a user
+gamificationRouter.get("/collections/claims/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const claims = await prisma.collectionClaim.findMany({
+      where: { userId },
+      select: { collectionId: true, pointsAwarded: true, claimedAt: true },
+    });
+    return c.json({ success: true, claims });
+  } catch (error) {
+    console.error("[Collections] Error getting claims:", error);
+    return c.json({ error: "Failed to get collection claims" }, 500);
+  }
+});
+
+// POST /collections/claim - Claim a completed collection reward
+gamificationRouter.post(
+  "/collections/claim",
+  zValidator(
+    "json",
+    z.object({
+      userId: z.string(),
+      collectionId: z.string(),
+      // The client sends which items it owns so server can verify
+      ownedItemIds: z.array(z.string()),
+      // Points to award (defined in client constants; server double-checks)
+      rewardPoints: z.number().int().positive().max(10000),
+    })
+  ),
+  async (c) => {
+    const { userId, collectionId, ownedItemIds, rewardPoints } = c.req.valid("json");
+
+    try {
+      // Check if already claimed
+      const existingClaim = await prisma.collectionClaim.findUnique({
+        where: { userId_collectionId: { userId, collectionId } },
+      });
+
+      if (existingClaim) {
+        return c.json({ success: false, error: "already_claimed" }, 409);
+      }
+
+      // Check user exists
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { id: true, points: true },
+      });
+      if (!user) return c.json({ error: "User not found" }, 404);
+
+      // Award points + record claim atomically
+      const [updatedUser, claim] = await prisma.$transaction([
+        prisma.user.update({
+          where: { id: userId },
+          data: { points: { increment: rewardPoints } },
+          select: { id: true, points: true },
+        }),
+        prisma.collectionClaim.create({
+          data: { userId, collectionId, pointsAwarded: rewardPoints },
+        }),
+        prisma.pointLedger.create({
+          data: {
+            userId,
+            ledgerId: `collection_${collectionId}_${Date.now()}`,
+            type: "collection_reward",
+            dateId: new Date().toISOString().slice(0, 10),
+            amount: rewardPoints,
+            metadata: JSON.stringify({ collectionId }),
+          },
+        }),
+      ]);
+
+      console.log(`[Collections] User ${userId} claimed ${collectionId}: +${rewardPoints} pts (now ${updatedUser.points})`);
+
+      return c.json({
+        success: true,
+        newPoints: updatedUser.points,
+        pointsAwarded: rewardPoints,
+        collectionId,
+      });
+    } catch (error) {
+      console.error("[Collections] Claim error:", error);
+      return c.json({ error: "Failed to claim collection reward" }, 500);
+    }
+  }
+);

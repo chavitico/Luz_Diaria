@@ -248,3 +248,14 @@ model AppBranding {
   shareWatermarkPosition String  @default("bottom-left")
   updatedAt             DateTime @updatedAt
 }
+
+model CollectionClaim {
+  id           String   @id @default(cuid())
+  userId       String
+  collectionId String
+  pointsAwarded Int
+  claimedAt    DateTime @default(now())
+
+  @@unique([userId, collectionId])
+  @@index([userId])
+}

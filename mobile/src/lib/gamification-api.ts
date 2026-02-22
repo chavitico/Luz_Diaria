@@ -584,4 +584,30 @@ export const gamificationApi = {
     if (!res.ok) throw new Error('Failed to get prayer display opt-in status');
     return res.json();
   },
+
+  // ─── Collection Claims ──────────────────────────────────────────────────────
+
+  async getCollectionClaims(userId: string): Promise<{ claims: Array<{ collectionId: string; pointsAwarded: number; claimedAt: string }> }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/collections/claims/${userId}`);
+    if (!res.ok) throw new Error('Failed to fetch collection claims');
+    return res.json();
+  },
+
+  async claimCollection(params: {
+    userId: string;
+    collectionId: string;
+    ownedItemIds: string[];
+    rewardPoints: number;
+  }): Promise<{ success: boolean; newPoints: number; pointsAwarded: number; collectionId: string }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/collections/claim`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({})) as { error?: string };
+      throw new Error(err.error || 'Failed to claim collection reward');
+    }
+    return res.json();
+  },
 };

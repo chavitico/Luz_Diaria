@@ -1,6 +1,7 @@
 // Store Screen - Premium Gamification Hub with Collections, Bundles & Weekly Chest
 
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import {
   View,
   Text,
@@ -1030,6 +1031,23 @@ function ItemDetailModal({
   // Render preview based on type
   const renderPreview = () => {
     if (item.type === 'avatar' && item.emoji) {
+      const isV2 = item.id.startsWith('avatar_v2_');
+      if (isV2) {
+        return (
+          <View
+            style={{
+              width: 120,
+              height: 120,
+              borderRadius: 60,
+              borderWidth: 4,
+              borderColor: rarityColor + '40',
+              overflow: 'hidden',
+            }}
+          >
+            <IllustratedAvatar avatarId={item.id} size={120} emoji={item.emoji} />
+          </View>
+        );
+      }
       return (
         <View
           style={{
@@ -1101,23 +1119,58 @@ function ItemDetailModal({
     }
 
     if (item.type === 'theme' && item.colors) {
+      const tc = item.colors;
       return (
         <View
           style={{
-            width: 140,
-            height: 100,
-            borderRadius: 16,
+            width: 200,
+            height: 155,
+            borderRadius: 18,
             overflow: 'hidden',
-            flexDirection: 'row',
-            shadowColor: '#000',
+            shadowColor: tc.primary,
             shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.15,
-            shadowRadius: 8,
+            shadowOpacity: 0.22,
+            shadowRadius: 10,
+            elevation: 6,
+            backgroundColor: '#F7F3EE',
           }}
         >
-          <View style={{ flex: 1, backgroundColor: item.colors.primary }} />
-          <View style={{ flex: 1, backgroundColor: item.colors.secondary }} />
-          <View style={{ flex: 1, backgroundColor: item.colors.accent }} />
+          {/* Mini app header */}
+          <View style={{ backgroundColor: tc.primary, paddingHorizontal: 14, paddingTop: 10, paddingBottom: 8 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+              <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: 'rgba(255,255,255,0.35)' }} />
+              <View>
+                <View style={{ width: 60, height: 5, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.9)', marginBottom: 2 }} />
+                <View style={{ width: 40, height: 3, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.55)' }} />
+              </View>
+            </View>
+          </View>
+
+          {/* Mini verse card */}
+          <View style={{ backgroundColor: '#F7F3EE', flex: 1, padding: 10, gap: 6 }}>
+            <View style={{ backgroundColor: '#FFFFFF', borderRadius: 10, padding: 8, gap: 4 }}>
+              {/* Verse text lines */}
+              <View style={{ width: '80%', height: 4, borderRadius: 2, backgroundColor: tc.primary + 'CC' }} />
+              <View style={{ width: '65%', height: 4, borderRadius: 2, backgroundColor: tc.primary + '88' }} />
+              <View style={{ width: '50%', height: 3, borderRadius: 2, backgroundColor: tc.secondary + 'AA', marginTop: 2 }} />
+              {/* Divider */}
+              <View style={{ height: 1, backgroundColor: tc.primary + '22', marginVertical: 2 }} />
+              {/* Reference pill */}
+              <View style={{ alignSelf: 'flex-start', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, backgroundColor: tc.accent + '25' }}>
+                <View style={{ width: 30, height: 3, borderRadius: 1, backgroundColor: tc.accent }} />
+              </View>
+            </View>
+
+            {/* Action button row */}
+            <View style={{ flexDirection: 'row', gap: 5 }}>
+              <View style={{ flex: 1, height: 18, borderRadius: 9, backgroundColor: tc.primary, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ width: 30, height: 3, borderRadius: 1, backgroundColor: 'rgba(255,255,255,0.9)' }} />
+              </View>
+              <View style={{ width: 18, height: 18, borderRadius: 9, backgroundColor: tc.secondary + '40', alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: tc.secondary }} />
+              </View>
+            </View>
+          </View>
         </View>
       );
     }
@@ -1885,7 +1938,11 @@ function PremiumAvatarCard({
                 shadowRadius: isV2Avatar ? 8 : 0,
               }}
             >
-              <Text style={{ fontSize: isV2Avatar ? 38 : 32 }}>{avatar.emoji}</Text>
+              {isV2Avatar ? (
+                <IllustratedAvatar avatarId={avatar.id} size={60} emoji={avatar.emoji} />
+              ) : (
+                <Text style={{ fontSize: 32 }}>{avatar.emoji}</Text>
+              )}
             </View>
 
             {/* Rarity indicator */}
@@ -2194,36 +2251,41 @@ function BundleCard({
   );
 }
 
-// Collection Card with V2 support
+// Collection Card with claim support
 function CollectionCard({
   collection,
   purchasedItems,
   colors,
   language,
+  isClaimed,
+  isClaiming,
+  onClaim,
   onPress,
 }: {
   collection: typeof ITEM_COLLECTIONS[string];
   purchasedItems: string[];
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
+  isClaimed: boolean;
+  isClaiming: boolean;
+  onClaim: (ownedItemIds: string[]) => void;
   onPress: () => void;
 }) {
   const scale = useSharedValue(1);
-  const isV2Collection = 'isV2' in collection && collection.isV2 === true;
+  const isV2Collection = 'isV2' in collection && (collection as any).isV2 === true;
 
-  // Calculate owned items
-  const ownedCount = collection.items.filter(itemId => {
-    // Check if item is owned (either purchased or free)
+  const ownedItemIds = collection.items.filter(itemId => {
     if (purchasedItems.includes(itemId)) return true;
-    // Check if it's a free avatar
     const avatar = DEFAULT_AVATARS.find(a => a.id === itemId);
     if (avatar && !('price' in avatar)) return true;
     return false;
-  }).length;
+  });
 
+  const ownedCount = ownedItemIds.length;
   const totalCount = collection.items.length;
   const isComplete = ownedCount === totalCount;
   const progressPercent = (ownedCount / totalCount) * 100;
+  const canClaim = isComplete && !isClaimed;
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -2238,13 +2300,13 @@ function CollectionCard({
         className="rounded-2xl overflow-hidden"
         style={{
           backgroundColor: colors.surface,
-          shadowColor: isComplete ? '#22C55E' : '#000',
-          shadowOffset: { width: 0, height: isComplete ? 4 : 2 },
-          shadowOpacity: isComplete ? 0.2 : 0.08,
-          shadowRadius: isComplete ? 12 : 6,
-          elevation: isComplete ? 4 : 2,
-          borderWidth: isComplete ? 2 : 0,
-          borderColor: '#22C55E',
+          shadowColor: isClaimed ? '#22C55E' : isComplete ? colors.primary : '#000',
+          shadowOffset: { width: 0, height: isClaimed || isComplete ? 4 : 2 },
+          shadowOpacity: isClaimed || isComplete ? 0.18 : 0.08,
+          shadowRadius: isClaimed || isComplete ? 12 : 6,
+          elevation: isClaimed || isComplete ? 4 : 2,
+          borderWidth: isClaimed || isComplete ? 1.5 : 0,
+          borderColor: isClaimed ? '#22C55E' : colors.primary,
         }}
       >
         <View style={{ padding: 16 }}>
@@ -2252,16 +2314,21 @@ function CollectionCard({
           <View className="flex-row items-center mb-3">
             <View
               className="w-12 h-12 rounded-xl items-center justify-center mr-3"
-              style={{ backgroundColor: isComplete ? '#22C55E20' : (isV2Collection ? colors.primary + '20' : colors.primary + '15') }}
+              style={{
+                backgroundColor: isClaimed
+                  ? '#22C55E20'
+                  : isComplete
+                  ? colors.primary + '25'
+                  : isV2Collection
+                  ? colors.primary + '20'
+                  : colors.primary + '15',
+              }}
             >
               <Text style={{ fontSize: 24 }}>{collection.icon}</Text>
             </View>
             <View className="flex-1">
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <Text
-                  className="text-base font-bold"
-                  style={{ color: colors.text }}
-                >
+                <Text className="text-base font-bold" style={{ color: colors.text }}>
                   {language === 'es' ? collection.nameEs : collection.name}
                 </Text>
                 {isV2Collection && (
@@ -2275,20 +2342,17 @@ function CollectionCard({
                   </View>
                 )}
               </View>
-              <Text
-                className="text-xs"
-                style={{ color: colors.textMuted }}
-              >
+              <Text className="text-xs" style={{ color: colors.textMuted }}>
                 {language === 'es' ? collection.descriptionEs : collection.description}
               </Text>
             </View>
             <View
               className="px-3 py-1.5 rounded-full"
-              style={{ backgroundColor: isComplete ? '#22C55E20' : colors.textMuted + '15' }}
+              style={{ backgroundColor: isComplete ? colors.primary + '20' : colors.textMuted + '15' }}
             >
               <Text
                 className="text-sm font-bold"
-                style={{ color: isComplete ? '#22C55E' : colors.textMuted }}
+                style={{ color: isComplete ? colors.primary : colors.textMuted }}
               >
                 {ownedCount}/{totalCount}
               </Text>
@@ -2304,31 +2368,58 @@ function CollectionCard({
               className="h-full rounded-full"
               style={{
                 width: `${progressPercent}%`,
-                backgroundColor: isComplete ? '#22C55E' : colors.primary,
+                backgroundColor: isClaimed ? '#22C55E' : colors.primary,
               }}
             />
           </View>
 
-          {/* Reward */}
+          {/* Reward + Claim Row */}
           <View className="flex-row items-center justify-between">
             <View className="flex-row items-center">
-              <Sparkles size={14} color={isComplete ? '#22C55E' : colors.primary} />
+              <Sparkles size={14} color={isClaimed ? '#22C55E' : colors.primary} />
               <Text
                 className="text-xs font-semibold ml-1"
-                style={{ color: isComplete ? '#22C55E' : colors.primary }}
+                style={{ color: isClaimed ? '#22C55E' : colors.primary }}
               >
-                {language === 'es' ? 'Premio' : 'Reward'}: +{collection.rewardPoints} {language === 'es' ? 'puntos' : 'points'}
+                {language === 'es' ? 'Premio' : 'Reward'}: +{collection.rewardPoints}{' '}
+                {language === 'es' ? 'pts' : 'pts'}
               </Text>
             </View>
 
-            {isComplete && (
+            {isClaimed ? (
               <View className="flex-row items-center px-3 py-1 rounded-lg" style={{ backgroundColor: '#22C55E20' }}>
                 <Check size={12} color="#22C55E" strokeWidth={3} />
-                <Text className="text-xs font-semibold text-green-600 ml-1">
-                  {language === 'es' ? 'Completada' : 'Complete'}
+                <Text className="text-xs font-bold ml-1" style={{ color: '#22C55E' }}>
+                  {language === 'es' ? 'Reclamado' : 'Claimed'}
                 </Text>
               </View>
-            )}
+            ) : canClaim ? (
+              <Pressable
+                onPress={(e) => {
+                  e.stopPropagation();
+                  onClaim(ownedItemIds);
+                }}
+                disabled={isClaiming}
+                style={{
+                  paddingHorizontal: 14,
+                  paddingVertical: 7,
+                  borderRadius: 10,
+                  backgroundColor: isClaiming ? colors.primary + '60' : colors.primary,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 5,
+                }}
+              >
+                {isClaiming ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <Gift size={13} color="#fff" />
+                )}
+                <Text style={{ color: '#fff', fontWeight: '700', fontSize: 12 }}>
+                  {language === 'es' ? 'Reclamar' : 'Claim'}
+                </Text>
+              </Pressable>
+            ) : null}
           </View>
         </View>
       </Pressable>
@@ -2503,6 +2594,16 @@ export default function StoreScreen() {
     }
   }, [backendUser?.id, backendUser?.points]);
 
+  const { data: collectionClaimsData, refetch: refetchCollectionClaims } = useQuery({
+    queryKey: ['collectionClaims', effectiveUserId],
+    queryFn: () => gamificationApi.getCollectionClaims(effectiveUserId),
+    enabled: !!effectiveUserId,
+  });
+  const claimedCollectionIds = useMemo(
+    () => new Set((collectionClaimsData?.claims ?? []).map(c => c.collectionId)),
+    [collectionClaimsData]
+  );
+
   // Purchase mutation
   const purchaseMutation = useMutation({
     mutationFn: ({ itemId }: { itemId: string }) =>
@@ -2587,6 +2688,27 @@ export default function StoreScreen() {
     },
     onError: () => {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+    },
+  });
+
+  const claimCollectionMutation = useMutation({
+    mutationFn: (params: { collectionId: string; rewardPoints: number; ownedItemIds: string[] }) =>
+      gamificationApi.claimCollection({
+        userId: effectiveUserId,
+        collectionId: params.collectionId,
+        ownedItemIds: params.ownedItemIds,
+        rewardPoints: params.rewardPoints,
+      }),
+    onSuccess: (data) => {
+      updateUser({ points: data.newPoints });
+      refetchCollectionClaims();
+      setToastAmount(data.pointsAwarded);
+      setToastPositive(true);
+      setShowPointsToast(true);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    },
+    onError: (err: Error) => {
+      console.error('[Collections] Claim failed:', err.message);
     },
   });
 
@@ -3029,6 +3151,16 @@ export default function StoreScreen() {
                   purchasedItems={purchasedItems}
                   colors={colors}
                   language={language}
+                  isClaimed={claimedCollectionIds.has(collection.id)}
+                  isClaiming={claimCollectionMutation.isPending && claimCollectionMutation.variables?.collectionId === collection.id}
+                  onClaim={(ownedItemIds) => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                    claimCollectionMutation.mutate({
+                      collectionId: collection.id,
+                      rewardPoints: collection.rewardPoints,
+                      ownedItemIds,
+                    });
+                  }}
                   onPress={() => {
                     Haptics.selectionAsync();
                   }}

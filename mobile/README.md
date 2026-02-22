@@ -77,7 +77,12 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
       - **Naturaleza Biblica** (6): Rama de Olivo, Pez Ichthys, Cordero, Leon de Juda (epic), Semilla de Mostaza, Vid y Racimos
       - **Virtudes** (6): Gratitud, Fe, Amor, Paz, Gozo, Valentia (epic)
       - **Kids Friendly** (4): Estrellita, Arcoiris Suave, Nube Feliz, Angelito
-    - V2 avatars have special glow, "V2" badge, and enhanced border styling
+    - V2 avatars have special glow, "V2" badge, enhanced border styling, and **illustrated art rendering**
+  - **Illustrated Avatars** (`src/components/IllustratedAvatar.tsx`):
+    - All 24 V2 avatars render with unique `LinearGradient` backgrounds and geometric accent layers
+    - 8 accent shape types: rays, stars, dots, rings, cross, waves, crown, none
+    - Used in store grid cards, item detail modal, and anywhere `PremiumAvatarCard` renders
+    - Non-V2 avatars fall back to plain emoji rendering
   - **Bundles** (9 total: 3 original + 6 V2):
     - Original: Gratitude Kit, Divine Light Bundle, Pilgrim Collection
     - V2: Kit Gratitud V2, Kit Paz V2, Kit Fe V2, Kit Promesa V2, Kit Infantil, Paquete Naturaleza V2
@@ -86,7 +91,14 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
     - Original: Symbols of Faith, Biblical Nature, Frames of Light, Titles of Service
     - V2: Simbolos de Fe V2, Naturaleza Biblica V2, Coleccion de Virtudes, Kids Friendly
     - V2 collections have enhanced rewards (500-600 points)
-- **Item Detail Modal** with large preview (96-120px), rarity badge, description, purchase/equip actions
+    - **Server-authoritative claim system**: once complete, a "Reclamar / Claim" button appears
+    - Claims stored in `CollectionClaim` table (unique per user+collection) — prevents double-claiming
+    - Claiming triggers atomic Prisma transaction: points + ledger entry + claim record
+    - Claimed state persists via `GET /api/gamification/collections/claims/:userId`
+- **Item Detail Modal** with large preview:
+  - Avatars: 120px illustrated preview (V2) or emoji circle
+  - Frames: layered ring preview with hex color label
+  - Themes: **mini app UI mockup** (200×155px) showing header, verse card, action button styled in the theme's colors
 - **V2 Premium Features**:
   - V2 items marked with badge in cards
   - Enhanced visual styling (glow, borders, shadows)
@@ -351,6 +363,10 @@ The app connects to a Hono backend with:
 - `GET /api/gamification/community/members` - Get opted-in community members (paginated)
 - `PATCH /api/gamification/community/opt-in/:userId` - Update user's community visibility
 - `GET /api/gamification/community/opt-in/:userId` - Get user's community opt-in status
+
+### Collection Claim Endpoints
+- `GET /api/gamification/collections/claims/:userId` - Get all claimed collections for user
+- `POST /api/gamification/collections/claim` - Claim a completed collection reward (server-authoritative, one-time per user+collection)
 
 ### Prayer Endpoints
 - `POST /api/prayer/request` - Submit or update a prayer request (category + mode)
