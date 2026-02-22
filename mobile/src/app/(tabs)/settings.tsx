@@ -966,8 +966,8 @@ export default function SettingsScreen() {
                 style={{ color: colors.textMuted }}
               >
                 {language === 'es'
-                  ? 'Los avatares bloqueados se pueden desbloquear en la Tienda'
-                  : 'Locked avatars can be unlocked in the Store'}
+                  ? 'Los avatares bloqueados se pueden desbloquear en Personalizar'
+                  : 'Locked avatars can be unlocked in Customize'}
               </Text>
             </ScrollView>
           </View>

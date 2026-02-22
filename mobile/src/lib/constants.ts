@@ -1266,7 +1266,7 @@ export const TRANSLATIONS = {
     no_results: 'No results found',
 
     // Store
-    store: 'Store',
+    store: 'Customize',
     points: 'Points',
     purchase: 'Purchase',
     purchased: 'Owned',
@@ -1433,7 +1433,7 @@ export const TRANSLATIONS = {
     no_results: 'Sin resultados',
 
     // Store
-    store: 'Tienda',
+    store: 'Personalizar',
     points: 'Puntos',
     purchase: 'Comprar',
     purchased: 'Adquirido',
