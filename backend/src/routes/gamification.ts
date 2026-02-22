@@ -2022,3 +2022,65 @@ gamificationRouter.post(
     }
   }
 );
+
+// ============================================
+// CHAPTER COLLECTION PROGRESS (Spiritual Paths)
+// ============================================
+
+// GET /collections/chapters/progress/:userId
+// Returns all claimed chapter IDs per collectionId for a user.
+gamificationRouter.get("/collections/chapters/progress/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const rows = await prisma.userChapterProgress.findMany({
+      where: { userId },
+      select: { collectionId: true, claimedChapterIds: true, updatedAt: true },
+    });
+    // Parse JSON arrays from DB
+    const progress = rows.map(r => ({
+      collectionId: r.collectionId,
+      claimedChapterIds: JSON.parse(r.claimedChapterIds) as string[],
+      updatedAt: r.updatedAt.toISOString(),
+    }));
+    return c.json({ progress });
+  } catch (error) {
+    console.error("[ChapterProgress] GET error:", error);
+    return c.json({ error: "Failed to fetch chapter progress" }, 500);
+  }
+});
+
+// POST /collections/chapters/progress
+// Upserts chapter progress for a user+collection. Merge strategy: keep the union (most claimed).
+gamificationRouter.post(
+  "/collections/chapters/progress",
+  zValidator("json", z.object({
+    userId: z.string(),
+    collectionId: z.string(),
+    claimedChapterIds: z.array(z.string()),
+  })),
+  async (c) => {
+    try {
+      const { userId, collectionId, claimedChapterIds } = c.req.valid("json");
+
+      // Merge with existing (union — never lose claims)
+      const existing = await prisma.userChapterProgress.findUnique({
+        where: { userId_collectionId: { userId, collectionId } },
+        select: { claimedChapterIds: true },
+      });
+      const existingIds: string[] = existing ? JSON.parse(existing.claimedChapterIds) : [];
+      const merged = Array.from(new Set([...existingIds, ...claimedChapterIds]));
+
+      await prisma.userChapterProgress.upsert({
+        where: { userId_collectionId: { userId, collectionId } },
+        create: { userId, collectionId, claimedChapterIds: JSON.stringify(merged) },
+        update: { claimedChapterIds: JSON.stringify(merged) },
+      });
+
+      console.log(`[ChapterProgress] User ${userId} / ${collectionId}: claimed=${JSON.stringify(merged)}`);
+      return c.json({ success: true, claimedChapterIds: merged });
+    } catch (error) {
+      console.error("[ChapterProgress] POST error:", error);
+      return c.json({ error: "Failed to save chapter progress" }, 500);
+    }
+  }
+);

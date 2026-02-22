@@ -2606,50 +2606,106 @@ function BundleCard({
 // ─── Chapter Collection Progress Hook ────────────────────────────────────────
 const CHAPTER_PROGRESS_KEY = 'chapter_collection_progress_v1';
 
-// Returns which chapterIds have been claimed (reward collected)
-function useChapterCollectionProgress(): {
+// Sync strategy:
+//  1. On mount: load AsyncStorage (instant), then fetch backend.
+//  2. Merge = union of both (never lose claims).
+//  3. On claim: update memory + AsyncStorage immediately, then push to backend async.
+function useChapterCollectionProgress(userId?: string): {
   claimedChapterIds: Set<string>;
-  claimChapter: (chapterId: string) => Promise<void>;
+  claimChapter: (chapterId: string, collectionId: string) => Promise<void>;
+  isLoaded: boolean;
 } {
   const [claimedChapterIds, setClaimedChapterIds] = useState<Set<string>>(new Set());
+  const [isLoaded, setIsLoaded] = useState(false);
 
+  // Load from AsyncStorage + backend on mount
   useEffect(() => {
-    AsyncStorage.getItem(CHAPTER_PROGRESS_KEY).then(raw => {
-      if (raw) {
-        try {
-          const arr: string[] = JSON.parse(raw);
-          const s = new Set(arr);
-          setClaimedChapterIds(s);
-        } catch { /* ignore */ }
-      }
-    });
-  }, []);
+    let cancelled = false;
+    async function load() {
+      // 1. Local cache first
+      let localIds: string[] = [];
+      try {
+        const raw = await AsyncStorage.getItem(CHAPTER_PROGRESS_KEY);
+        if (raw) localIds = JSON.parse(raw);
+      } catch { /* ignore */ }
 
-  const claimChapter = useCallback(async (chapterId: string) => {
+      if (!cancelled) {
+        setClaimedChapterIds(new Set(localIds));
+        setIsLoaded(true);
+      }
+
+      // 2. Backend merge (if logged in)
+      if (!userId) return;
+      try {
+        const { progress } = await gamificationApi.getChapterProgress(userId);
+        const backendIds: string[] = [];
+        for (const row of progress) {
+          backendIds.push(...row.claimedChapterIds);
+        }
+        if (backendIds.length === 0) return;
+
+        // Merge: union of local + backend
+        const merged = Array.from(new Set([...localIds, ...backendIds]));
+        if (!cancelled && merged.length > localIds.length) {
+          setClaimedChapterIds(new Set(merged));
+          await AsyncStorage.setItem(CHAPTER_PROGRESS_KEY, JSON.stringify(merged));
+          console.debug('[ChapterProgress] Merged from backend:', merged.length, 'chapters');
+        }
+      } catch (e) {
+        console.debug('[ChapterProgress] Backend load failed (offline?):', e);
+      }
+    }
+    load();
+    return () => { cancelled = true; };
+  }, [userId]);
+
+  const claimChapter = useCallback(async (chapterId: string, collectionId: string) => {
+    // 1. Optimistic update in memory
+    let merged: string[] = [];
     setClaimedChapterIds(prev => {
       const next = new Set(prev);
       next.add(chapterId);
-      AsyncStorage.setItem(CHAPTER_PROGRESS_KEY, JSON.stringify([...next]));
+      merged = [...next];
       return next;
     });
-  }, []);
 
-  return { claimedChapterIds, claimChapter };
+    // 2. Persist locally
+    try {
+      const raw = await AsyncStorage.getItem(CHAPTER_PROGRESS_KEY);
+      const existing: string[] = raw ? JSON.parse(raw) : [];
+      const updated = Array.from(new Set([...existing, chapterId]));
+      await AsyncStorage.setItem(CHAPTER_PROGRESS_KEY, JSON.stringify(updated));
+      merged = updated;
+    } catch (e) {
+      console.debug('[ChapterProgress] AsyncStorage save failed:', e);
+    }
+
+    // 3. Push to backend async (non-blocking)
+    if (userId) {
+      gamificationApi.saveChapterProgress({ userId, collectionId, claimedChapterIds: merged })
+        .then(() => console.debug('[ChapterProgress] Backend sync ok for', collectionId))
+        .catch(e => console.debug('[ChapterProgress] Backend sync failed:', e));
+    }
+  }, [userId]);
+
+  return { claimedChapterIds, claimChapter, isLoaded };
 }
 
 // ─── ChapterCollectionModal ───────────────────────────────────────────────────
 // Simple, reliable claim button — no Reanimated wrapper to avoid touch-target issues
 // inside the Reanimated sheet. Uses TouchableOpacity which reliably fires inside transforms.
-function ClaimChapterButton({ onClaim, points, language, colors }: {
+function ClaimChapterButton({ onClaim, points, language, colors, isLoading }: {
   onClaim: () => void;
   points: number;
   language: 'en' | 'es';
   colors: ReturnType<typeof useThemeColors>;
+  isLoading?: boolean;
 }) {
   const [pressed, setPressed] = useState(false);
   return (
     <TouchableOpacity
       activeOpacity={0.75}
+      disabled={isLoading}
       onPress={() => {
         console.debug('[ClaimChapterButton] tapped, points=', points);
         onClaim();
@@ -2662,16 +2718,20 @@ function ClaimChapterButton({ onClaim, points, language, colors }: {
         alignItems: 'center',
         justifyContent: 'center',
         gap: 8,
-        backgroundColor: pressed ? colors.primary + 'DD' : colors.primary,
+        backgroundColor: isLoading ? colors.primary + '99' : pressed ? colors.primary + 'DD' : colors.primary,
         borderRadius: 16,
         paddingVertical: 17,
         paddingHorizontal: 20,
-        transform: [{ scale: pressed ? 0.97 : 1 }],
+        transform: [{ scale: pressed && !isLoading ? 0.97 : 1 }],
       }}
     >
-      <Text style={{ color: '#fff', fontWeight: '900', fontSize: 16, letterSpacing: 0.3 }}>
-        {language === 'es' ? `🎁 Reclamar Capítulo +${points} pts` : `🎁 Claim Chapter +${points} pts`}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator size="small" color="#fff" />
+      ) : (
+        <Text style={{ color: '#fff', fontWeight: '900', fontSize: 16, letterSpacing: 0.3 }}>
+          {language === 'es' ? `🎁 Reclamar Capítulo +${points} pts` : `🎁 Claim Chapter +${points} pts`}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 }
@@ -2693,7 +2753,7 @@ function ChapterCollectionModal({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
   claimedChapterIds: Set<string>;
-  onClaimChapter: (chapterId: string, points: number) => void;
+  onClaimChapter: (chapterId: string, points: number) => Promise<void>;
   onClose: () => void;
   onNavigateToItem: (itemId: string, itemType: 'avatar' | 'frame' | 'title' | 'theme') => void;
 }) {
@@ -2701,6 +2761,8 @@ function ChapterCollectionModal({
   const opacity = useSharedValue(0);
   // Track which chapterId was just claimed so we can show "new chapter" message
   const [justClaimedId, setJustClaimedId] = useState<string | null>(null);
+  // Track which chapter is currently being claimed (for loading state)
+  const [claimingChapterId, setClaimingChapterId] = useState<string | null>(null);
 
   React.useEffect(() => {
     if (visible) {
@@ -2710,6 +2772,7 @@ function ChapterCollectionModal({
       opacity.value = withTiming(0, { duration: 200 });
       translateY.value = withTiming(600, { duration: 250 });
       setJustClaimedId(null);
+      setClaimingChapterId(null);
     }
   }, [visible]);
 
@@ -3207,13 +3270,16 @@ function ChapterCollectionModal({
                         </Text>
                       </View>
                       <ClaimChapterButton
-                        onClaim={() => {
+                        onClaim={async () => {
+                          setClaimingChapterId(chapter.chapterId);
                           setJustClaimedId(chapter.chapterId);
-                          onClaimChapter(chapter.chapterId, chapter.rewardPoints);
+                          await onClaimChapter(chapter.chapterId, chapter.rewardPoints);
+                          setClaimingChapterId(null);
                         }}
                         points={chapter.rewardPoints}
                         language={language}
                         colors={colors}
+                        isLoading={claimingChapterId === chapter.chapterId}
                       />
                     </View>
                   )}
@@ -3695,15 +3761,23 @@ function ChapterCollectionCard({
         <View style={{
           flexDirection: 'row', alignItems: 'center',
           paddingHorizontal: 12, paddingVertical: 6,
-          backgroundColor: allDone ? '#22C55E12' : colors.primary + '0C',
+          backgroundColor: allDone ? '#22C55E12' : activeChapterReady ? colors.primary + '12' : colors.primary + '0C',
         }}>
           <Text style={{ fontSize: 10, fontWeight: '700', color: allDone ? '#22C55E' : colors.primary, letterSpacing: 0.5 }}>
             {language === 'es' ? '✦ CAMINO ESPIRITUAL' : '✦ SPIRITUAL PATH'}
           </Text>
           <View style={{ flex: 1 }} />
-          <Text style={{ fontSize: 10, fontWeight: '600', color: allDone ? '#22C55E' : colors.textMuted }}>
-            {completedCount}/{totalChapters} {language === 'es' ? 'cap.' : 'ch.'}
-          </Text>
+          {activeChapterReady && !allDone ? (
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: colors.primary, borderRadius: 6, paddingHorizontal: 7, paddingVertical: 3 }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', color: '#fff' }}>
+                🎁 {language === 'es' ? '¡Listo!' : 'Ready!'}
+              </Text>
+            </View>
+          ) : (
+            <Text style={{ fontSize: 10, fontWeight: '600', color: allDone ? '#22C55E' : colors.textMuted }}>
+              {completedCount}/{totalChapters} {language === 'es' ? 'cap.' : 'ch.'}
+            </Text>
+          )}
         </View>
 
         <View style={{ padding: 14 }}>
@@ -4092,8 +4166,6 @@ export default function StoreScreen() {
   const [showChapterCollectionModal, setShowChapterCollectionModal] = useState(false);
   const [selectedChapterCollection, setSelectedChapterCollection] = useState<ChapterCollection | null>(null);
 
-  // Chapter collection progress (local AsyncStorage)
-  const { claimedChapterIds, claimChapter } = useChapterCollectionProgress();
   const [selectedCollection, setSelectedCollection] = useState<typeof ITEM_COLLECTIONS[string] | null>(null);
   const [chestReward, setChestReward] = useState<{
     type: 'points' | 'item';
@@ -4134,6 +4206,9 @@ export default function StoreScreen() {
   // State for synced backend user ID (might be different from local if user was created offline)
   const [syncedBackendUserId, setSyncedBackendUserId] = useState<string | null>(null);
   const effectiveUserId = syncedBackendUserId || userId;
+
+  // Chapter collection progress (AsyncStorage + backend sync)
+  const { claimedChapterIds, claimChapter } = useChapterCollectionProgress(effectiveUserId);
 
   // Memoize user data for backend sync to avoid unnecessary re-fetches
   const userDataForSync = useMemo(() => {
@@ -4197,6 +4272,29 @@ export default function StoreScreen() {
     purchasedItems,
     claimedCollectionIds
   );
+
+  // Count chapter collections with at least 1 chapter ready to claim (canClaimChapter)
+  const chapterPendingCount = useMemo(() => {
+    const isItemOwned = (itemId: string) => {
+      if (purchasedItems.includes(itemId)) return true;
+      const av = DEFAULT_AVATARS.find(a => a.id === itemId);
+      return !!(av && !('price' in av));
+    };
+    let count = 0;
+    for (const col of Object.values(CHAPTER_COLLECTIONS)) {
+      for (let i = 0; i < col.chapters.length; i++) {
+        const ch = col.chapters[i];
+        if (claimedChapterIds.has(ch.chapterId)) continue;
+        // Chapter is active only if all previous are claimed
+        const allPrevClaimed = col.chapters.slice(0, i).every(c => claimedChapterIds.has(c.chapterId));
+        if (!allPrevClaimed) continue;
+        // Active and all items owned = ready to claim
+        const allOwned = ch.items.every(ci => isItemOwned(ci.itemId));
+        if (allOwned) count++;
+      }
+    }
+    return count;
+  }, [claimedChapterIds, purchasedItems]);
 
   // Purchase mutation
   const purchaseMutation = useMutation({
@@ -4815,8 +4913,11 @@ export default function StoreScreen() {
 
   // Navigate to the right category when user taps a pending item in the collection modal
   const handleNavigateToCollectionItem = useCallback((itemId: string, itemType: 'avatar' | 'frame' | 'title' | 'theme') => {
+    // Close both collection modals
     setShowCollectionDetailModal(false);
     setSelectedCollection(null);
+    setShowChapterCollectionModal(false);
+    setSelectedChapterCollection(null);
     const categoryMap: Record<string, CategoryType> = {
       avatar: 'avatars',
       frame: 'frames',
@@ -4826,6 +4927,7 @@ export default function StoreScreen() {
     const targetCategory = categoryMap[itemType] ?? 'avatars';
     setActiveCategory(targetCategory);
     Haptics.selectionAsync();
+    console.debug('[Navigation] Navigating to', targetCategory, 'for item', itemId);
   }, []);
 
   return (
@@ -4911,7 +5013,7 @@ export default function StoreScreen() {
                 isActive={activeCategory === category.key}
                 colors={colors}
                 language={language}
-                badgeCount={category.key === 'collections' ? pendingClaimsCount : 0}
+                badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
                 onPress={() => {
                   Haptics.selectionAsync();
                   setActiveCategory(category.key);
@@ -4991,7 +5093,7 @@ export default function StoreScreen() {
         claimedChapterIds={claimedChapterIds}
         onClaimChapter={async (chapterId, points) => {
           Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-          await claimChapter(chapterId);
+          await claimChapter(chapterId, selectedChapterCollection?.collectionId ?? '');
           updateUser({ points: (user?.points ?? 0) + points });
           setToastAmount(points);
           setToastPositive(true);
@@ -5002,11 +5104,7 @@ export default function StoreScreen() {
           setShowChapterCollectionModal(false);
           setSelectedChapterCollection(null);
         }}
-        onNavigateToItem={(itemId, itemType) => {
-          setShowChapterCollectionModal(false);
-          setSelectedChapterCollection(null);
-          handleNavigateToCollectionItem(itemId, itemType);
-        }}
+        onNavigateToItem={handleNavigateToCollectionItem}
       />
     </View>
   );

@@ -260,6 +260,19 @@ model CollectionClaim {
   @@index([userId])
 }
 
+// Tracks claimed chapters for chapter-based spiritual path collections.
+// claimedChapterIds is a JSON array of chapterId strings.
+model UserChapterProgress {
+  id                 String   @id @default(cuid())
+  userId             String
+  collectionId       String
+  claimedChapterIds  String   @default("[]") // JSON array of chapterId strings
+  updatedAt          DateTime @updatedAt
+
+  @@unique([userId, collectionId])
+  @@index([userId])
+}
+
 // Tracks which specific devotionals a user has completed (one row per unique date).
 // This is the authoritative source for the unique devotionals counter.
 model DevotionalCompletion {

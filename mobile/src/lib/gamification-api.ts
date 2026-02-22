@@ -611,4 +611,28 @@ export const gamificationApi = {
     }
     return res.json();
   },
+
+  // ─── Chapter Collection Progress ────────────────────────────────────────────
+
+  async getChapterProgress(userId: string): Promise<{
+    progress: Array<{ collectionId: string; claimedChapterIds: string[]; updatedAt: string }>;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/collections/chapters/progress/${userId}`);
+    if (!res.ok) throw new Error('Failed to fetch chapter progress');
+    return res.json();
+  },
+
+  async saveChapterProgress(params: {
+    userId: string;
+    collectionId: string;
+    claimedChapterIds: string[];
+  }): Promise<{ success: boolean; claimedChapterIds: string[] }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/collections/chapters/progress`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+    });
+    if (!res.ok) throw new Error('Failed to save chapter progress');
+    return res.json();
+  },
 };
