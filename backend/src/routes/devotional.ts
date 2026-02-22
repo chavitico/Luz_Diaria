@@ -6,6 +6,66 @@ import {
   getDevotionalByDate,
   getAllDevotionals,
 } from "../devotional-service";
+import { prisma } from "../prisma";
+
+// Category labels for the community prayer paragraph
+const CATEGORY_LABELS: Record<string, { en: string; es: string }> = {
+  work:        { en: "Work and Provision", es: "Trabajo y Provisión" },
+  health:      { en: "Health",              es: "Salud" },
+  family:      { en: "Family",              es: "Familia" },
+  peace:       { en: "Peace",               es: "Paz" },
+  wisdom:      { en: "Wisdom",              es: "Sabiduría" },
+  studies:     { en: "Studies",             es: "Estudios" },
+  restoration: { en: "Restoration",         es: "Restauración" },
+  gratitude:   { en: "Gratitude",           es: "Gratitud" },
+  salvation:   { en: "Salvation",           es: "Salvación" },
+  strength:    { en: "Strength",            es: "Fortaleza" },
+};
+
+/**
+ * Fetch the distinct active prayer categories (non-expired petitions)
+ * and build a pastoral sentence to append to the devotional prayer.
+ * Returns { en, es } or null if no active petitions.
+ */
+async function buildCommunityPrayerSentence(): Promise<{ en: string; es: string } | null> {
+  try {
+    const now = new Date();
+    const activeRequests = await prisma.prayerRequest.findMany({
+      where: { expiresAt: { gt: now } },
+      select: { categoryKey: true },
+    });
+
+    if (activeRequests.length === 0) return null;
+
+    // Deduplicate and sort deterministically
+    const uniqueKeys = [...new Set(activeRequests.map((r) => r.categoryKey))].sort();
+    if (uniqueKeys.length === 0) return null;
+
+    const labelsEs = uniqueKeys
+      .map((k) => CATEGORY_LABELS[k]?.es ?? k)
+      .filter(Boolean);
+    const labelsEn = uniqueKeys
+      .map((k) => CATEGORY_LABELS[k]?.en ?? k)
+      .filter(Boolean);
+
+    // Build a natural list (Oxford-style)
+    const joinEs = labelsEs.length === 1
+      ? labelsEs[0]!
+      : labelsEs.slice(0, -1).join(", ") + " y " + labelsEs[labelsEs.length - 1];
+    const joinEn = labelsEn.length === 1
+      ? labelsEn[0]!
+      : labelsEn.slice(0, -1).join(", ") + " and " + labelsEn[labelsEn.length - 1];
+
+    const es = `Hoy elevamos en oración a nuestra comunidad, presentando ante Dios las peticiones por ${joinEs}, confiando en que Él escucha y obra en cada corazón.`;
+    const en = `Today we lift our community in prayer, presenting before God the petitions for ${joinEn}, trusting that He hears and works in every heart.`;
+
+    return { en, es };
+  } catch (err) {
+    // Non-blocking — if this fails, we still return the devotional normally
+    console.error("[API] Could not build community prayer sentence:", err);
+    return null;
+  }
+}
 
 export const devotionalRouter = new Hono();
 
@@ -27,6 +87,16 @@ devotionalRouter.get("/today", async (c) => {
 
     if (!devotional) {
       return c.json({ error: "Failed to get or generate devotional" }, 500);
+    }
+
+    // Enrich prayer fields with a community prayer sentence (non-blocking)
+    const communityPrayer = await buildCommunityPrayerSentence();
+    if (communityPrayer) {
+      return c.json({
+        ...devotional,
+        prayer: devotional.prayer + "\n\n" + communityPrayer.en,
+        prayerEs: devotional.prayerEs + "\n\n" + communityPrayer.es,
+      });
     }
 
     return c.json(devotional);

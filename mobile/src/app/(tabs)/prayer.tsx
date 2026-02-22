@@ -17,6 +17,8 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
   withSequence,
+  withTiming,
+  interpolate,
 } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
@@ -373,8 +375,8 @@ function MyPetitionSection() {
                 <Text style={{ fontSize: 15, fontWeight: '700', color: selectedCategory ? '#fff' : colors.textMuted, letterSpacing: 0.3 }}>
                   {activePetition
                     ? language === 'es'
-                      ? 'Actualizar petición'
-                      : 'Update petition'
+                      ? 'Cambiar mi petición'
+                      : 'Change my petition'
                     : language === 'es'
                     ? 'Guardar petición'
                     : 'Save petition'}
@@ -405,8 +407,13 @@ function PrayedTodayButton() {
   const addPoints = useAppStore((s) => s.addPoints);
 
   const scale = useSharedValue(1);
+  const glow = useSharedValue(0);
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
+  }));
+  const glowStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(glow.value, [0, 1], [0, 0.35]),
+    transform: [{ scale: interpolate(glow.value, [0, 1], [0.85, 1.12]) }],
   }));
 
   const { data: prayedData } = useQuery({
@@ -430,6 +437,10 @@ function PrayedTodayButton() {
   const handlePress = () => {
     if (hasPrayed || !user?.id) return;
     scale.value = withSequence(withSpring(0.94), withSpring(1));
+    glow.value = withSequence(
+      withTiming(1, { duration: 300 }),
+      withTiming(0, { duration: 400 })
+    );
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     prayedMutation.mutate();
   };
@@ -437,6 +448,22 @@ function PrayedTodayButton() {
   return (
     <Animated.View entering={FadeInUp.delay(80).duration(400)} style={{ marginHorizontal: 20, marginBottom: 16 }}>
       <Animated.View style={animatedStyle}>
+        {/* Glow layer */}
+        <Animated.View
+          style={[
+            {
+              position: 'absolute',
+              top: -8,
+              left: -8,
+              right: -8,
+              bottom: -8,
+              borderRadius: 26,
+              backgroundColor: colors.primary,
+            },
+            glowStyle,
+          ]}
+          pointerEvents="none"
+        />
         <Pressable
           onPress={handlePress}
           disabled={hasPrayed || prayedMutation.isPending}
@@ -824,9 +851,30 @@ function CommunityOpenList() {
           {sections.map((section) => (
             <View key={section.categoryKey}>
               <CommunitySectionHeader section={section} />
-              {section.data.map((item, index) => (
-                <CommunityUserRow key={item.id} item={item} index={index} />
-              ))}
+              {section.data.length === 0 ? (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingVertical: 12,
+                    paddingHorizontal: 20,
+                    marginHorizontal: 20,
+                    marginBottom: 4,
+                    gap: 8,
+                  }}
+                >
+                  <Text style={{ fontSize: 14 }}>🙏</Text>
+                  <Text style={{ fontSize: 13, color: colors.textMuted, fontStyle: 'italic', flex: 1, lineHeight: 18 }}>
+                    {language === 'es'
+                      ? 'Aún nadie ha levantado esta petición. Sé el primero en hacerlo.'
+                      : 'No one has lifted this petition yet. Be the first.'}
+                  </Text>
+                </View>
+              ) : (
+                section.data.map((item, index) => (
+                  <CommunityUserRow key={item.id} item={item} index={index} />
+                ))
+              )}
             </View>
           ))}
 
