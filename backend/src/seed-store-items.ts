@@ -503,6 +503,108 @@ const FRAMES_V2 = [
   { id: 'frame_v2_rosa_gracia', type: 'frame', nameEn: 'Rose of Grace', nameEs: 'Rosa de Gracia', descriptionEn: 'Blush rose petal frame of tender grace', descriptionEs: 'Marco de petalo de rosa del amor tierno', pricePoints: 420, rarity: 'rare', assetRef: '#E8829A', metadata: JSON.stringify({ isV2: true }) },
   { id: 'frame_v2_tierra_santa', type: 'frame', nameEn: 'Holy Land', nameEs: 'Tierra Santa', descriptionEn: 'Warm desert sand of ancient holy ground', descriptionEs: 'Arena calida del desierto de tierra santa', pricePoints: 340, rarity: 'common', assetRef: '#C8956C', metadata: JSON.stringify({ isV2: true }) },
 ];
+
+// ============================================
+// CHAPTER COLLECTIONS — New Themes (4)
+// ============================================
+const THEMES_CHAPTER = [
+  {
+    id: 'theme_covenant_rainbow',
+    type: 'theme',
+    nameEn: 'Covenant Rainbow',
+    nameEs: 'Arcoiris del Pacto',
+    descriptionEn: 'Rainbow hues of the eternal covenant',
+    descriptionEs: 'Tonos arcoiris del pacto eterno',
+    pricePoints: 500,
+    rarity: 'rare',
+    assetRef: 'covenant_rainbow',
+    metadata: JSON.stringify({
+      primary: '#6D28D9', secondary: '#F59E0B', accent: '#10B981',
+      background: '#FDFBFF', backgroundDark: '#150B2E',
+      surface: '#FFFFFF', surfaceDark: '#22153F',
+    }),
+  },
+  {
+    id: 'theme_hope_dawn',
+    type: 'theme',
+    nameEn: 'Hope Dawn',
+    nameEs: 'Amanecer de Esperanza',
+    descriptionEn: 'Warm first light of a new beginning',
+    descriptionEs: 'Primera luz calida de un nuevo comienzo',
+    pricePoints: 420,
+    rarity: 'rare',
+    assetRef: 'hope_dawn',
+    metadata: JSON.stringify({
+      primary: '#F97316', secondary: '#FB923C', accent: '#FDE68A',
+      background: '#FFF7ED', backgroundDark: '#1C0F00',
+      surface: '#FFFFFF', surfaceDark: '#2D1A08',
+    }),
+  },
+  {
+    id: 'theme_calm_river',
+    type: 'theme',
+    nameEn: 'Calm River',
+    nameEs: 'Rio Tranquilo',
+    descriptionEn: 'Still waters flowing with peace',
+    descriptionEs: 'Aguas quietas fluyendo en paz',
+    pricePoints: 380,
+    rarity: 'common',
+    assetRef: 'calm_river',
+    metadata: JSON.stringify({
+      primary: '#0891B2', secondary: '#06B6D4', accent: '#A5F3FC',
+      background: '#F0FDFF', backgroundDark: '#042830',
+      surface: '#FFFFFF', surfaceDark: '#083344',
+    }),
+  },
+  {
+    id: 'theme_unshakable_rock',
+    type: 'theme',
+    nameEn: 'Unshakable Rock',
+    nameEs: 'Roca Inquebrantable',
+    descriptionEn: 'Solid as a rock, firm in truth',
+    descriptionEs: 'Solido como roca, firme en la verdad',
+    pricePoints: 460,
+    rarity: 'rare',
+    assetRef: 'unshakable_rock',
+    metadata: JSON.stringify({
+      primary: '#78350F', secondary: '#92400E', accent: '#FDE68A',
+      background: '#FFFBEB', backgroundDark: '#1A0E00',
+      surface: '#FFFFFF', surfaceDark: '#2A1A08',
+    }),
+  },
+];
+
+// ============================================
+// CHAPTER COLLECTIONS — New Frames (4)
+// ============================================
+const FRAMES_CHAPTER = [
+  { id: 'frame_faithful_seal', type: 'frame', nameEn: 'Faithful Seal', nameEs: 'Sello Fiel', descriptionEn: 'Sealed by the promise of the Faithful One', descriptionEs: 'Sellado por la promesa del Fiel', pricePoints: 350, rarity: 'rare', assetRef: '#4F46E5' },
+  { id: 'frame_gentle_breeze', type: 'frame', nameEn: 'Gentle Breeze', nameEs: 'Brisa Suave', descriptionEn: 'Soft breath of the Spirit', descriptionEs: 'Suave soplo del Espiritu', pricePoints: 300, rarity: 'common', assetRef: '#10B981' },
+  { id: 'frame_serene_crown', type: 'frame', nameEn: 'Serene Crown', nameEs: 'Corona Serena', descriptionEn: 'A crown of self-control and peace', descriptionEs: 'Una corona de dominio propio y paz', pricePoints: 450, rarity: 'rare', assetRef: '#8B5CF6' },
+  { id: 'frame_shield_faith', type: 'frame', nameEn: 'Shield of Faith', nameEs: 'Escudo de Fe', descriptionEn: 'Extinguishes the flaming arrows of the evil one', descriptionEs: 'Apaga los dardos encendidos del maligno', pricePoints: 500, rarity: 'epic', assetRef: '#DC2626' },
+];
+
+// ============================================
+// CHAPTER COLLECTIONS — New Titles (4)
+// ============================================
+const TITLES_CHAPTER = [
+  { id: 'title_heir_promises', type: 'title', nameEn: 'Heir of Promises', nameEs: 'Heredero de Promesas', descriptionEn: 'Recipient of every divine promise', descriptionEs: 'Receptor de cada promesa divina', pricePoints: 450, rarity: 'rare', assetRef: '' },
+  { id: 'title_patient_wait', type: 'title', nameEn: 'Patient in Waiting', nameEs: 'Paciente en la Espera', descriptionEn: 'Enduring with joyful hope', descriptionEs: 'Perseverando con esperanza gozosa', pricePoints: 400, rarity: 'rare', assetRef: '' },
+  { id: 'title_belt_truth', type: 'title', nameEn: 'Belt of Truth', nameEs: 'Cinturon de Verdad', descriptionEn: 'Girded with the truth of God', descriptionEs: 'Cenido con la verdad de Dios', pricePoints: 400, rarity: 'rare', assetRef: '' },
+  { id: 'title_guard_word', type: 'title', nameEn: 'Guard of the Word', nameEs: 'Guardia de la Palabra', descriptionEn: 'Defender of sacred scripture', descriptionEs: 'Defensor de las sagradas escrituras', pricePoints: 500, rarity: 'epic', assetRef: '' },
+];
+
+// ============================================
+// CHAPTER COLLECTIONS — New Avatars (6)
+// ============================================
+const AVATARS_CHAPTER = [
+  { id: 'avatar_promise_scroll', type: 'avatar', nameEn: 'Promise Scroll', nameEs: 'Pergamino de Promesa', descriptionEn: 'Ancient scroll bearing divine promises', descriptionEs: 'Pergamino antiguo con promesas divinas', pricePoints: 350, rarity: 'rare', assetRef: '📜' },
+  { id: 'avatar_guiding_star', type: 'avatar', nameEn: 'Guiding Star', nameEs: 'Estrella Guia', descriptionEn: 'Star that guides toward fulfillment', descriptionEs: 'Estrella que guia hacia el cumplimiento', pricePoints: 400, rarity: 'rare', assetRef: '🌟' },
+  { id: 'avatar_joyful_heart', type: 'avatar', nameEn: 'Joyful Heart', nameEs: 'Corazon Alegre', descriptionEn: 'Heart overflowing with the fruit of joy', descriptionEs: 'Corazon desbordando el fruto del gozo', pricePoints: 300, rarity: 'common', assetRef: '💛' },
+  { id: 'avatar_serving_hands', type: 'avatar', nameEn: 'Serving Hands', nameEs: 'Manos Serviciales', descriptionEn: 'Hands of goodness and service', descriptionEs: 'Manos de bondad en servicio', pricePoints: 350, rarity: 'rare', assetRef: '🤲' },
+  { id: 'avatar_lamp_lit', type: 'avatar', nameEn: 'Lamp of Truth', nameEs: 'Lampara de la Verdad', descriptionEn: 'Lamp of truth lighting the path', descriptionEs: 'Lampara de verdad iluminando el camino', pricePoints: 350, rarity: 'rare', assetRef: '🪔' },
+  { id: 'avatar_sword_spirit', type: 'avatar', nameEn: 'Sword of the Spirit', nameEs: 'Espada del Espiritu', descriptionEn: 'Living Word as a spiritual weapon', descriptionEs: 'Palabra viva como arma espiritual', pricePoints: 500, rarity: 'epic', assetRef: '⚔️' },
+];
 interface StoreItemInput {
   id: string;
   type: string;
@@ -618,20 +720,51 @@ async function seedStoreItems() {
   }
   console.log(`  Avatars L2: ${AVATARS_L2.length} processed`);
 
+  // Seed chapter collection themes
+  console.log('Seeding chapter collection themes...');
+  for (const theme of THEMES_CHAPTER) {
+    await upsertItem(theme, sortOrder++);
+  }
+  console.log(`  Chapter themes: ${THEMES_CHAPTER.length} processed`);
+
+  // Seed chapter collection frames
+  console.log('Seeding chapter collection frames...');
+  for (const frame of FRAMES_CHAPTER) {
+    await upsertItem(frame, sortOrder++);
+  }
+  console.log(`  Chapter frames: ${FRAMES_CHAPTER.length} processed`);
+
+  // Seed chapter collection titles
+  console.log('Seeding chapter collection titles...');
+  for (const title of TITLES_CHAPTER) {
+    await upsertItem(title, sortOrder++);
+  }
+  console.log(`  Chapter titles: ${TITLES_CHAPTER.length} processed`);
+
+  // Seed chapter collection avatars
+  console.log('Seeding chapter collection avatars...');
+  for (const avatar of AVATARS_CHAPTER) {
+    await upsertItem(avatar, sortOrder++);
+  }
+  console.log(`  Chapter avatars: ${AVATARS_CHAPTER.length} processed`);
+
   // Summary
-  const totalItems = THEMES.length + THEMES_V2.length + FRAMES.length + FRAMES_V2.length + MUSIC_TRACKS.length + TITLES.length + AVATARS.length + AVATARS_V2.length + AVATARS_L2.length;
+  const totalItems = THEMES.length + THEMES_V2.length + THEMES_CHAPTER.length + FRAMES.length + FRAMES_V2.length + FRAMES_CHAPTER.length + MUSIC_TRACKS.length + TITLES.length + TITLES_CHAPTER.length + AVATARS.length + AVATARS_V2.length + AVATARS_L2.length + AVATARS_CHAPTER.length;
   console.log('\n========================================');
   console.log('Store items seed completed!');
   console.log('========================================');
   console.log(`Total items processed: ${totalItems}`);
   console.log(`  - Themes (original): ${THEMES.length}`);
   console.log(`  - Themes V2: ${THEMES_V2.length}`);
+  console.log(`  - Themes Chapter: ${THEMES_CHAPTER.length}`);
   console.log(`  - Avatar frames: ${FRAMES.length}`);
   console.log(`  - Music tracks: ${MUSIC_TRACKS.length}`);
   console.log(`  - Spiritual titles: ${TITLES.length}`);
+  console.log(`  - Titles Chapter: ${TITLES_CHAPTER.length}`);
   console.log(`  - Premium avatars: ${AVATARS.length}`);
   console.log(`  - Avatars V2: ${AVATARS_V2.length}`);
   console.log(`  - Avatars L2: ${AVATARS_L2.length}`);
+  console.log(`  - Avatars Chapter: ${AVATARS_CHAPTER.length}`);
   console.log('----------------------------------------');
 
   // Verify counts in database
