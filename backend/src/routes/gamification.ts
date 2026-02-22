@@ -288,12 +288,17 @@ gamificationRouter.post(
         });
       }
 
-      // Always derive devotionalsCompleted from the authoritative table
-      // This corrects any inflated counts that existed before this system
+      // Derive devotionalsCompleted from the authoritative DevotionalCompletion table,
+      // but never go lower than what already exists in the DB or what the client sends.
+      // This preserves historical data for users who completed before this system was introduced.
       const authoritativeCount = await prisma.devotionalCompletion.count({
         where: { userId },
       });
-      updateData.devotionalsCompleted = authoritativeCount;
+      updateData.devotionalsCompleted = Math.max(
+        authoritativeCount,
+        existingUser.devotionalsCompleted,
+        data.devotionalsCompleted ?? 0
+      );
 
       // Use MAX strategy for cumulative stats to prevent data loss when local store resets
       // This ensures we never lose progress even if the frontend sends lower values

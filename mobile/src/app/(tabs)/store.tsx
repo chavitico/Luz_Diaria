@@ -4417,15 +4417,42 @@ export default function StoreScreen() {
       if (backendUser.id !== userId) {
         console.log('[Store] Backend user ID differs, using:', backendUser.id);
         setSyncedBackendUserId(backendUser.id);
-        // Optionally update local user ID to match backend
         updateUser({ id: backendUser.id });
       }
-      // Sync points from backend
-      if (backendUser.points !== points) {
-        updateUser({ points: backendUser.points });
+
+      // Build a partial update with any backend values that are higher than local
+      const localUser = useAppStore.getState().user;
+      const updates: Record<string, unknown> = {};
+
+      // Always take the higher points value
+      if (backendUser.points !== (localUser?.points ?? 0)) {
+        updates.points = Math.max(backendUser.points, localUser?.points ?? 0);
+      }
+      // Take the higher streak
+      if (backendUser.streakCurrent > (localUser?.streakCurrent ?? 0)) {
+        updates.streakCurrent = backendUser.streakCurrent;
+      }
+      if (backendUser.streakBest > (localUser?.streakBest ?? 0)) {
+        updates.streakBest = backendUser.streakBest;
+      }
+      // Take the higher devotionals count
+      if (backendUser.devotionalsCompleted > (localUser?.devotionalsCompleted ?? 0)) {
+        updates.devotionalsCompleted = backendUser.devotionalsCompleted;
+      }
+      // Sync lastActiveDate from backend if local is empty or older
+      if (backendUser.lastActiveAt) {
+        const backendDate = backendUser.lastActiveAt.slice(0, 10);
+        if (!localUser?.lastActiveDate || backendDate > localUser.lastActiveDate) {
+          updates.lastActiveDate = backendDate;
+        }
+      }
+
+      if (Object.keys(updates).length > 0) {
+        console.log('[Store] Syncing from backend:', updates);
+        updateUser(updates as Parameters<typeof updateUser>[0]);
       }
     }
-  }, [backendUser?.id, backendUser?.points]);
+  }, [backendUser?.id, backendUser?.points, backendUser?.streakCurrent, backendUser?.devotionalsCompleted]);
 
   const { data: collectionClaimsData, refetch: refetchCollectionClaims } = useQuery({
     queryKey: ['collectionClaims', effectiveUserId],
