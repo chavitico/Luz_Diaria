@@ -1709,6 +1709,8 @@ function PremiumThemeCard({
   colors,
   language,
   onPress,
+  isHighlighted = false,
+  viewRef,
 }: {
   themeData: typeof PURCHASABLE_THEMES[string];
   isOwned: boolean;
@@ -1717,19 +1719,39 @@ function PremiumThemeCard({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
   onPress: () => void;
+  isHighlighted?: boolean;
+  viewRef?: (ref: View | null) => void;
 })
  {
   const t = TRANSLATIONS[language];
   const scale = useSharedValue(1);
+  const highlightOpacity = useSharedValue(0);
   const rarityColor = RARITY_COLORS[themeData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
   const isV2Theme = themeData.id.includes('_v2_') || themeData.id.includes('amanecer_dorado') || themeData.id.includes('noche_profunda') || themeData.id.includes('bosque_sereno') || themeData.id.includes('desierto_suave') || themeData.id.includes('promesa_violeta') || themeData.id.includes('cielo_gloria') || themeData.id.includes('mar_misericordia') || themeData.id.includes('fuego_espiritu') || themeData.id.includes('jardin_gracia') || themeData.id.includes('olivo_paz') || themeData.id.includes('trono_azul') || themeData.id.includes('lampara_encendida') || themeData.id.includes('pergamino_antiguo') || themeData.id.includes('luz_celestial');
+
+  // Pulse the highlight border when isHighlighted changes
+  useEffect(() => {
+    if (isHighlighted) {
+      highlightOpacity.value = withSequence(
+        withTiming(1, { duration: 200 }),
+        withTiming(0.4, { duration: 400 }),
+        withTiming(1, { duration: 400 }),
+        withTiming(0, { duration: 400 }),
+      );
+      scale.value = withSequence(withSpring(1.04), withSpring(1));
+    }
+  }, [isHighlighted]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
 
+  const highlightStyle = useAnimatedStyle(() => ({
+    opacity: highlightOpacity.value,
+  }));
+
   return (
-    <Animated.View style={[animatedStyle, { width: '48%', marginBottom: 14 }]}>
+    <Animated.View ref={viewRef as any} style={[animatedStyle, { width: '48%', marginBottom: 14 }]}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.96); }}
         onPressOut={() => { scale.value = withSpring(1); }}
@@ -1748,6 +1770,19 @@ function PremiumThemeCard({
           opacity: !canAfford && !isOwned ? 0.7 : 1,
         }}
       >
+        {/* Highlight glow overlay — appears when navigated from chapter requirement */}
+        <Animated.View
+          pointerEvents="none"
+          style={[highlightStyle, {
+            position: 'absolute', inset: 0, zIndex: 20,
+            borderRadius: 20, borderWidth: 2.5,
+            borderColor: colors.primary,
+            shadowColor: colors.primary,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.8,
+            shadowRadius: 10,
+          }]}
+        />
         {/* Enhanced Color Preview with 5 swatches + sample text for V2 */}
         <View style={{ height: isV2Theme ? 90 : 72, backgroundColor: themeData.colors.background }}>
           {/* Color swatches row */}
@@ -1898,6 +1933,8 @@ function PremiumFrameCard({
   colors,
   language,
   onPress,
+  isHighlighted = false,
+  viewRef,
 }: {
   frameData: typeof AVATAR_FRAMES[string];
   isOwned: boolean;
@@ -1906,22 +1943,41 @@ function PremiumFrameCard({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
   onPress: () => void;
+  isHighlighted?: boolean;
+  viewRef?: (ref: View | null) => void;
 }) {
   const t = TRANSLATIONS[language];
   const scale = useSharedValue(1);
+  const highlightOpacity = useSharedValue(0);
   const rarityColor = RARITY_COLORS[frameData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
   const gradientColors = RARITY_GRADIENTS[frameData.rarity as keyof typeof RARITY_GRADIENTS] || RARITY_GRADIENTS.common;
   const isV2Frame = 'isV2' in frameData && (frameData as any).isV2 === true;
 
+  useEffect(() => {
+    if (isHighlighted) {
+      highlightOpacity.value = withSequence(
+        withTiming(1, { duration: 200 }),
+        withTiming(0.4, { duration: 400 }),
+        withTiming(1, { duration: 400 }),
+        withTiming(0, { duration: 400 }),
+      );
+      scale.value = withSequence(withSpring(1.06), withSpring(1));
+    }
+  }, [isHighlighted]);
+
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
+  }));
+
+  const highlightStyle = useAnimatedStyle(() => ({
+    opacity: highlightOpacity.value,
   }));
 
   const circleSize = isV2Frame ? 84 : 72;
   const circleRadius = circleSize / 2;
 
   return (
-    <Animated.View style={animatedStyle}>
+    <Animated.View ref={viewRef as any} style={animatedStyle}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.94); }}
         onPressOut={() => { scale.value = withSpring(1); }}
@@ -1940,6 +1996,19 @@ function PremiumFrameCard({
           opacity: !canAfford && !isOwned ? 0.7 : 1,
         }}
       >
+        {/* Highlight overlay */}
+        <Animated.View
+          pointerEvents="none"
+          style={[highlightStyle, {
+            position: 'absolute', inset: 0, zIndex: 20,
+            borderRadius: 16, borderWidth: 2.5,
+            borderColor: colors.primary,
+            shadowColor: colors.primary,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.8,
+            shadowRadius: 10,
+          }]}
+        />
         <LinearGradient
           colors={gradientColors}
           style={{ padding: 14, alignItems: 'center' }}
@@ -2082,6 +2151,8 @@ function PremiumTitleCard({
   colors,
   language,
   onPress,
+  isHighlighted = false,
+  viewRef,
 }: {
   titleData: typeof SPIRITUAL_TITLES[string];
   isOwned: boolean;
@@ -2090,17 +2161,36 @@ function PremiumTitleCard({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
   onPress: () => void;
+  isHighlighted?: boolean;
+  viewRef?: (ref: View | null) => void;
 }) {
   const t = TRANSLATIONS[language];
   const scale = useSharedValue(1);
+  const highlightOpacity = useSharedValue(0);
   const rarityColor = RARITY_COLORS[titleData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
+
+  useEffect(() => {
+    if (isHighlighted) {
+      highlightOpacity.value = withSequence(
+        withTiming(1, { duration: 200 }),
+        withTiming(0.4, { duration: 400 }),
+        withTiming(1, { duration: 400 }),
+        withTiming(0, { duration: 400 }),
+      );
+      scale.value = withSequence(withSpring(1.03), withSpring(1));
+    }
+  }, [isHighlighted]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
 
+  const highlightStyle = useAnimatedStyle(() => ({
+    opacity: highlightOpacity.value,
+  }));
+
   return (
-    <Animated.View style={animatedStyle} className="mb-3">
+    <Animated.View ref={viewRef as any} style={animatedStyle} className="mb-3">
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.98); }}
         onPressOut={() => { scale.value = withSpring(1); }}
@@ -2118,6 +2208,19 @@ function PremiumTitleCard({
           opacity: !canAfford && !isOwned ? 0.7 : 1,
         }}
       >
+        {/* Highlight overlay */}
+        <Animated.View
+          pointerEvents="none"
+          style={[highlightStyle, {
+            position: 'absolute', inset: 0, zIndex: 20,
+            borderRadius: 16, borderWidth: 2.5,
+            borderColor: colors.primary,
+            shadowColor: colors.primary,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.8,
+            shadowRadius: 10,
+          }]}
+        />
         <LinearGradient
           colors={RARITY_GRADIENTS[titleData.rarity as keyof typeof RARITY_GRADIENTS] || RARITY_GRADIENTS.common}
           start={{ x: 0, y: 0 }}
@@ -2207,6 +2310,8 @@ function PremiumAvatarCard({
   colors,
   language,
   onPress,
+  isHighlighted = false,
+  viewRef,
 }: {
   avatar: typeof DEFAULT_AVATARS[number];
   isOwned: boolean;
@@ -2215,20 +2320,39 @@ function PremiumAvatarCard({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
   onPress: () => void;
+  isHighlighted?: boolean;
+  viewRef?: (ref: View | null) => void;
 }) {
   const scale = useSharedValue(1);
+  const highlightOpacity = useSharedValue(0);
   const hasCost = 'price' in avatar && (avatar as { price: number }).price > 0;
   const price = hasCost ? (avatar as { price: number }).price : 0;
   const rarity = avatar.rarity || 'common';
   const rarityColor = RARITY_COLORS[rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
   const isV2Avatar = 'isV2' in avatar && (avatar as { isV2?: boolean }).isV2 === true;
 
+  useEffect(() => {
+    if (isHighlighted) {
+      highlightOpacity.value = withSequence(
+        withTiming(1, { duration: 200 }),
+        withTiming(0.4, { duration: 400 }),
+        withTiming(1, { duration: 400 }),
+        withTiming(0, { duration: 400 }),
+      );
+      scale.value = withSequence(withSpring(1.06), withSpring(1));
+    }
+  }, [isHighlighted]);
+
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
 
+  const highlightStyle = useAnimatedStyle(() => ({
+    opacity: highlightOpacity.value,
+  }));
+
   return (
-    <Animated.View style={animatedStyle}>
+    <Animated.View ref={viewRef as any} style={animatedStyle}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.92); }}
         onPressOut={() => { scale.value = withSpring(1); }}
@@ -2247,6 +2371,19 @@ function PremiumAvatarCard({
           opacity: !canAfford && !isOwned && (hasCost || (avatar as { chestOnly?: boolean }).chestOnly) ? 0.7 : 1,
         }}
       >
+        {/* Highlight overlay */}
+        <Animated.View
+          pointerEvents="none"
+          style={[highlightStyle, {
+            position: 'absolute', inset: 0, zIndex: 20,
+            borderRadius: 16, borderWidth: 2.5,
+            borderColor: colors.primary,
+            shadowColor: colors.primary,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.8,
+            shadowRadius: 10,
+          }]}
+        />
         <LinearGradient
           colors={isV2Avatar
             ? [rarityColor + '15', rarityColor + '08']
@@ -4220,8 +4357,10 @@ export default function StoreScreen() {
 
   // ScrollView ref for programmatic scrolling
   const mainScrollViewRef = useRef<ScrollView>(null);
-  // Inner content View ref (needed for measureLayout)
-  const mainScrollContentRef = useRef<View>(null);
+  // Track current scroll offset so we can compute absolute item positions
+  const scrollOffsetY = useRef(0);
+  // Track the ScrollView's on-screen Y position (for measureInWindow math)
+  const scrollViewPageY = useRef(0);
   // Map of itemId → View ref for highlight + scroll-to
   const itemViewRefs = useRef<Map<string, View>>(new Map());
 
@@ -4645,6 +4784,10 @@ export default function StoreScreen() {
                       canAfford={canAfford}
                       colors={colors}
                       language={language}
+                      isHighlighted={pendingNavTarget?.itemId === theme.id}
+                      viewRef={(ref) => {
+                        if (ref) itemViewRefs.current.set(theme.id, ref as unknown as View);
+                      }}
                       onPress={() => handleItemPress({
                         id: theme.id,
                         type: 'theme',
@@ -4730,6 +4873,10 @@ export default function StoreScreen() {
                       canAfford={canAfford}
                       colors={colors}
                       language={language}
+                      isHighlighted={pendingNavTarget?.itemId === frame.id}
+                      viewRef={(ref) => {
+                        if (ref) itemViewRefs.current.set(frame.id, ref as unknown as View);
+                      }}
                       onPress={() => handleItemPress({
                         id: frame.id,
                         type: 'frame',
@@ -4769,6 +4916,10 @@ export default function StoreScreen() {
                     canAfford={canAfford}
                     colors={colors}
                     language={language}
+                    isHighlighted={pendingNavTarget?.itemId === title.id}
+                    viewRef={(ref) => {
+                      if (ref) itemViewRefs.current.set(title.id, ref as unknown as View);
+                    }}
                     onPress={() => handleItemPress({
                       id: title.id,
                       type: 'title',
@@ -4813,6 +4964,10 @@ export default function StoreScreen() {
                     canAfford={canAfford}
                     colors={colors}
                     language={language}
+                    isHighlighted={pendingNavTarget?.itemId === avatar.id}
+                    viewRef={(ref) => {
+                      if (ref) itemViewRefs.current.set(avatar.id, ref as unknown as View);
+                    }}
                     onPress={() => handleItemPress({
                       id: avatar.id,
                       type: 'avatar',
@@ -4968,47 +5123,48 @@ export default function StoreScreen() {
 
     const { itemId, itemType } = pendingNavTarget;
 
-    // Wait two frames for the category grid to mount/render
+    // Wait for the category grid to mount/render (two frames)
     const timer = setTimeout(() => {
       const itemView = itemViewRefs.current.get(itemId);
 
-      if (!itemView || !mainScrollContentRef.current) {
-        // Fallback: item not found — show toast, stay on correct tab
+      if (!itemView) {
+        // Fallback: item not found in rendered list — show friendly toast
+        console.log('[Navigation] Item not found in rendered list:', itemId);
         setToastMessage(
           language === 'es'
-            ? 'No encontré ese ítem. Te dejé en la sección correcta.'
-            : "Couldn't find that item. Left you in the right section."
+            ? 'Te dejé en la sección correcta 😊'
+            : 'Left you in the right section 😊'
         );
         setToastAmount(0);
-        setToastPositive(false);
+        setToastPositive(true);
         setShowPointsToast(true);
         setPendingNavTarget(null);
         return;
       }
 
-      // Measure item relative to the scroll content view
-      itemView.measureLayout(
-        mainScrollContentRef.current as any,
-        (_x, y) => {
-          // Scroll so the item is centered (~100px padding above)
-          mainScrollViewRef.current?.scrollTo({ y: Math.max(0, y - 120), animated: true });
+      // Use measureInWindow to get the item's screen-absolute position,
+      // then convert to scroll offset using the tracked scrollView pageY and current offset.
+      itemView.measureInWindow((_x, screenY) => {
+        // scrollViewPageY is the screen Y of the ScrollView's top edge
+        // scrollOffsetY.current is how far we've already scrolled
+        const itemScrollY = screenY - scrollViewPageY.current + scrollOffsetY.current;
+        const targetY = Math.max(0, itemScrollY - 140); // 140px breathing room above
+        mainScrollViewRef.current?.scrollTo({ y: targetY, animated: true });
+        console.log('[Navigation] Scrolled to item', itemId, 'at y=', targetY);
 
-          // Auto-open item detail modal
-          const detail = buildDetailFromId(itemId, itemType);
-          if (detail) {
+        // Auto-open item detail modal after scroll settles
+        const detail = buildDetailFromId(itemId, itemType);
+        if (detail) {
+          setTimeout(() => {
             setSelectedDetailItem(detail);
             setShowDetailModal(true);
-          }
-
-          // Clear target after a short delay (highlight will have faded by then)
-          setTimeout(() => setPendingNavTarget(null), 1600);
-        },
-        () => {
-          // measureLayout failed — clear silently
-          setPendingNavTarget(null);
+          }, 320);
         }
-      );
-    }, 350);
+
+        // Clear target after highlight animation completes
+        setTimeout(() => setPendingNavTarget(null), 1800);
+      });
+    }, 380);
 
     return () => clearTimeout(timer);
   }, [pendingNavTarget, language]);
@@ -5082,8 +5238,17 @@ export default function StoreScreen() {
       />
 
       <ScrollView
+        ref={mainScrollViewRef}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 120 }}
+        scrollEventThrottle={16}
+        onScroll={(e) => { scrollOffsetY.current = e.nativeEvent.contentOffset.y; }}
+        onLayout={() => {
+          // Capture the ScrollView's screen-Y once it's laid out
+          (mainScrollViewRef.current as any)?.measureInWindow(
+            (_x: number, y: number) => { scrollViewPageY.current = y; }
+          );
+        }}
       >
         {/* Header */}
         <View className="px-5 pb-4" style={{ paddingTop: insets.top + 16 }}>
