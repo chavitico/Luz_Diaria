@@ -9,7 +9,6 @@ export const prayerRouter = new Hono();
 // TYPES & CONSTANTS
 // ============================================
 
-// Prayer categories (must match frontend constants)
 const PRAYER_CATEGORIES = [
   'work', 'health', 'family', 'peace', 'wisdom',
   'studies', 'restoration', 'gratitude', 'salvation', 'strength'
@@ -17,66 +16,28 @@ const PRAYER_CATEGORIES = [
 
 type PrayerCategoryKey = typeof PRAYER_CATEGORIES[number];
 
-// Points configuration
 const PRAYER_POINTS = {
-  SUBMIT_REQUEST: 10,    // Once per day max
-  PRAYED_FOR_COMMUNITY: 5, // Once per day max
-  VISIT_TAB: 5,          // Once per day max
+  SUBMIT_REQUEST: 10,       // Once per day max
+  PRAYED_FOR_COMMUNITY: 5,  // Once per day max
 };
 
 // ============================================
 // HELPER FUNCTIONS
 // ============================================
 
-// Get today's date string in Costa Rica timezone (UTC-6)
 function getCostaRicaDateString(): string {
   const now = new Date();
-  // Costa Rica is UTC-6
   const costaRicaTime = new Date(now.getTime() - (6 * 60 * 60 * 1000));
   return costaRicaTime.toISOString().split('T')[0]!;
 }
 
-// Get current ISO week number in Costa Rica timezone
-function getCostaRicaWeekId(): string {
-  const now = new Date();
-  const costaRicaTime = new Date(now.getTime() - (6 * 60 * 60 * 1000));
-  const startOfYear = new Date(costaRicaTime.getFullYear(), 0, 1);
-  const days = Math.floor((costaRicaTime.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000));
-  const weekNumber = Math.ceil((days + startOfYear.getDay() + 1) / 7);
-  return `${costaRicaTime.getFullYear()}-W${weekNumber.toString().padStart(2, '0')}`;
+// Fixed 48-hour expiration from now
+function get48HourExpiration(): Date {
+  return new Date(Date.now() + 48 * 60 * 60 * 1000);
 }
 
-// Get expiration date for a prayer request
-function getExpirationDate(mode: 'daily' | 'weekly'): Date {
-  const now = new Date();
-  const costaRicaTime = new Date(now.getTime() - (6 * 60 * 60 * 1000));
-
-  if (mode === 'daily') {
-    // Expires at next 4:00 AM Costa Rica time
-    const nextMorning = new Date(costaRicaTime);
-    nextMorning.setDate(nextMorning.getDate() + 1);
-    nextMorning.setHours(4, 0, 0, 0);
-    // Convert back to UTC
-    return new Date(nextMorning.getTime() + (6 * 60 * 60 * 1000));
-  } else {
-    // Expires next Monday at 4:00 AM Costa Rica time
-    const nextMonday = new Date(costaRicaTime);
-    const dayOfWeek = nextMonday.getDay();
-    const daysUntilMonday = dayOfWeek === 0 ? 1 : 8 - dayOfWeek;
-    nextMonday.setDate(nextMonday.getDate() + daysUntilMonday);
-    nextMonday.setHours(4, 0, 0, 0);
-    // Convert back to UTC
-    return new Date(nextMonday.getTime() + (6 * 60 * 60 * 1000));
-  }
-}
-
-// Get period ID based on mode
-function getPeriodId(mode: 'daily' | 'weekly'): string {
-  if (mode === 'daily') {
-    return getCostaRicaDateString();
-  }
-  return getCostaRicaWeekId();
-}
+// Period ID is a fixed constant — one slot per user at all times
+const SINGLE_PERIOD_ID = "active";
 
 // ============================================
 // VALIDATION SCHEMAS
@@ -85,7 +46,6 @@ function getPeriodId(mode: 'daily' | 'weekly'): string {
 const submitPrayerRequestSchema = z.object({
   userId: z.string(),
   categoryKey: z.enum(PRAYER_CATEGORIES),
-  mode: z.enum(['daily', 'weekly']),
 });
 
 const prayedForCommunitySchema = z.object({
@@ -100,45 +60,30 @@ const updatePrayerDisplayOptInSchema = z.object({
 // PRAYER REQUEST ENDPOINTS
 // ============================================
 
-// POST /request - Submit or update a prayer request
+// POST /request — Submit or replace the user's single active petition
 prayerRouter.post(
   "/request",
   zValidator("json", submitPrayerRequestSchema),
   async (c) => {
     try {
-      const { userId, categoryKey, mode } = c.req.valid("json");
-      const periodId = getPeriodId(mode);
-      const expiresAt = getExpirationDate(mode);
+      const { userId, categoryKey } = c.req.valid("json");
+      const expiresAt = get48HourExpiration();
       const today = getCostaRicaDateString();
+      // Use 'daily' as the mode value to keep schema compatibility
+      const mode = "daily";
 
       const result = await prisma.$transaction(async (tx) => {
-        // Get user data
-        const user = await tx.user.findUnique({
-          where: { id: userId },
-        });
+        const user = await tx.user.findUnique({ where: { id: userId } });
+        if (!user) throw new Error("USER_NOT_FOUND");
 
-        if (!user) {
-          throw new Error("USER_NOT_FOUND");
-        }
+        // Delete any existing petition for this user (single-petition model)
+        await tx.prayerRequest.deleteMany({ where: { userId } });
 
-        // Upsert prayer request (one per user per period per mode)
-        const prayerRequest = await tx.prayerRequest.upsert({
-          where: {
-            userId_periodId_mode: { userId, periodId, mode },
-          },
-          update: {
-            categoryKey,
-            expiresAt,
-            nickname: user.prayerDisplayOptIn ? user.nickname : null,
-            avatarId: user.avatarId,
-            frameId: user.frameId,
-            titleId: user.titleId,
-            displayNameOptIn: user.prayerDisplayOptIn,
-            updatedAt: new Date(),
-          },
-          create: {
+        // Create the new petition
+        const prayerRequest = await tx.prayerRequest.create({
+          data: {
             userId,
-            periodId,
+            periodId: SINGLE_PERIOD_ID,
             mode,
             categoryKey,
             expiresAt,
@@ -153,9 +98,7 @@ prayerRouter.post(
         // Award points for submitting (once per day max)
         const ledgerId = `prayer_request_${today}`;
         const existingLedger = await tx.pointLedger.findUnique({
-          where: {
-            userId_ledgerId: { userId, ledgerId },
-          },
+          where: { userId_ledgerId: { userId, ledgerId } },
         });
 
         let pointsAwarded = 0;
@@ -167,15 +110,13 @@ prayerRouter.post(
               type: "prayer_request",
               dateId: today,
               amount: PRAYER_POINTS.SUBMIT_REQUEST,
-              metadata: JSON.stringify({ categoryKey, mode, periodId }),
+              metadata: JSON.stringify({ categoryKey }),
             },
           });
-
           await tx.user.update({
             where: { id: userId },
             data: { points: { increment: PRAYER_POINTS.SUBMIT_REQUEST } },
           });
-
           pointsAwarded = PRAYER_POINTS.SUBMIT_REQUEST;
         }
 
@@ -188,30 +129,24 @@ prayerRouter.post(
         pointsAwarded: result.pointsAwarded,
       });
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Unknown error";
-
-      if (errorMessage === "USER_NOT_FOUND") {
-        return c.json({ error: "User not found" }, 404);
-      }
-
+      const msg = error instanceof Error ? error.message : "Unknown error";
+      if (msg === "USER_NOT_FOUND") return c.json({ error: "User not found" }, 404);
       console.error("[Prayer] Error submitting prayer request:", error);
       return c.json({ error: "Failed to submit prayer request" }, 500);
     }
   }
 );
 
-// GET /request/:userId - Get user's active prayer requests
+// GET /request/:userId — Get user's single active petition (if not expired)
 prayerRouter.get("/request/:userId", async (c) => {
   try {
     const userId = c.req.param("userId");
     const now = new Date();
 
     const requests = await prisma.prayerRequest.findMany({
-      where: {
-        userId,
-        expiresAt: { gt: now },
-      },
+      where: { userId, expiresAt: { gt: now } },
       orderBy: { createdAt: "desc" },
+      take: 1,
     });
 
     return c.json({ requests });
@@ -221,17 +156,11 @@ prayerRouter.get("/request/:userId", async (c) => {
   }
 });
 
-// DELETE /request/:userId/:mode - Delete user's prayer request for current period
+// DELETE /request/:userId — Delete user's active petition
 prayerRouter.delete("/request/:userId/:mode", async (c) => {
   try {
     const userId = c.req.param("userId");
-    const mode = c.req.param("mode") as 'daily' | 'weekly';
-    const periodId = getPeriodId(mode);
-
-    await prisma.prayerRequest.deleteMany({
-      where: { userId, periodId, mode },
-    });
-
+    await prisma.prayerRequest.deleteMany({ where: { userId } });
     return c.json({ success: true });
   } catch (error) {
     console.error("[Prayer] Error deleting prayer request:", error);
@@ -243,71 +172,48 @@ prayerRouter.delete("/request/:userId/:mode", async (c) => {
 // COMMUNITY PRAYER REQUESTS ENDPOINTS
 // ============================================
 
-// GET /community - Get all active prayer requests for the community
+// GET /community — All active petitions (used for category count aggregation)
 prayerRouter.get("/community", async (c) => {
   try {
-    const limit = parseInt(c.req.query("limit") ?? "50", 10);
-    const offset = parseInt(c.req.query("offset") ?? "0", 10);
     const now = new Date();
 
-    const [requests, total] = await Promise.all([
-      prisma.prayerRequest.findMany({
-        where: {
-          expiresAt: { gt: now },
-        },
-        orderBy: { createdAt: "desc" },
-        take: limit,
-        skip: offset,
-        select: {
-          id: true,
-          categoryKey: true,
-          mode: true,
-          nickname: true,
-          avatarId: true,
-          frameId: true,
-          titleId: true,
-          displayNameOptIn: true,
-          createdAt: true,
-          expiresAt: true,
-        },
-      }),
-      prisma.prayerRequest.count({
-        where: {
-          expiresAt: { gt: now },
-        },
-      }),
-    ]);
-
-    return c.json({
-      requests,
-      total,
-      limit,
-      offset,
+    const requests = await prisma.prayerRequest.findMany({
+      where: { expiresAt: { gt: now } },
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        categoryKey: true,
+        mode: true,
+        nickname: true,
+        avatarId: true,
+        frameId: true,
+        titleId: true,
+        displayNameOptIn: true,
+        createdAt: true,
+        expiresAt: true,
+      },
     });
+
+    return c.json({ requests, total: requests.length, limit: requests.length, offset: 0 });
   } catch (error) {
     console.error("[Prayer] Error getting community prayer requests:", error);
     return c.json({ error: "Failed to get community prayer requests" }, 500);
   }
 });
 
-// GET /summary - Get aggregated category counts for active requests
+// GET /summary — Aggregated category counts for active petitions
 prayerRouter.get("/summary", async (c) => {
   try {
     const now = new Date();
 
     const requests = await prisma.prayerRequest.findMany({
-      where: {
-        expiresAt: { gt: now },
-      },
-      select: {
-        categoryKey: true,
-      },
+      where: { expiresAt: { gt: now } },
+      select: { categoryKey: true },
     });
 
-    // Aggregate counts by category
     const summary: Record<string, number> = {};
-    for (const request of requests) {
-      summary[request.categoryKey] = (summary[request.categoryKey] ?? 0) + 1;
+    for (const r of requests) {
+      summary[r.categoryKey] = (summary[r.categoryKey] ?? 0) + 1;
     }
 
     return c.json({ summary, total: requests.length });
@@ -321,19 +227,11 @@ prayerRouter.get("/summary", async (c) => {
 // DAILY PRAYER ENDPOINTS
 // ============================================
 
-// GET /daily/:dateId - Get daily prayer for a specific date
 prayerRouter.get("/daily/:dateId", async (c) => {
   try {
     const dateId = c.req.param("dateId");
-
-    const dailyPrayer = await prisma.dailyPrayer.findUnique({
-      where: { dateId },
-    });
-
-    if (!dailyPrayer) {
-      return c.json({ error: "Daily prayer not found" }, 404);
-    }
-
+    const dailyPrayer = await prisma.dailyPrayer.findUnique({ where: { dateId } });
+    if (!dailyPrayer) return c.json({ error: "Daily prayer not found" }, 404);
     return c.json({
       ...dailyPrayer,
       includedCategories: JSON.parse(dailyPrayer.includedCategories),
@@ -345,19 +243,11 @@ prayerRouter.get("/daily/:dateId", async (c) => {
   }
 });
 
-// GET /daily/today - Get today's daily prayer
 prayerRouter.get("/daily/today", async (c) => {
   try {
     const today = getCostaRicaDateString();
-
-    const dailyPrayer = await prisma.dailyPrayer.findUnique({
-      where: { dateId: today },
-    });
-
-    if (!dailyPrayer) {
-      return c.json({ error: "Today's prayer not found", dateId: today }, 404);
-    }
-
+    const dailyPrayer = await prisma.dailyPrayer.findUnique({ where: { dateId: today } });
+    if (!dailyPrayer) return c.json({ error: "Today's prayer not found", dateId: today }, 404);
     return c.json({
       ...dailyPrayer,
       includedCategories: JSON.parse(dailyPrayer.includedCategories),
@@ -370,10 +260,9 @@ prayerRouter.get("/daily/today", async (c) => {
 });
 
 // ============================================
-// "I PRAYED FOR THE COMMUNITY" ENDPOINT
+// "YA ORÉ HOY" ENDPOINT
 // ============================================
 
-// POST /prayed-for-community - Award points for praying for the community
 prayerRouter.post(
   "/prayed-for-community",
   zValidator("json", prayedForCommunitySchema),
@@ -383,27 +272,16 @@ prayerRouter.post(
       const today = getCostaRicaDateString();
 
       const result = await prisma.$transaction(async (tx) => {
-        const user = await tx.user.findUnique({
-          where: { id: userId },
-        });
+        const user = await tx.user.findUnique({ where: { id: userId } });
+        if (!user) throw new Error("USER_NOT_FOUND");
 
-        if (!user) {
-          throw new Error("USER_NOT_FOUND");
-        }
-
-        // Check if already prayed today
         const ledgerId = `prayed_community_${today}`;
         const existingLedger = await tx.pointLedger.findUnique({
-          where: {
-            userId_ledgerId: { userId, ledgerId },
-          },
+          where: { userId_ledgerId: { userId, ledgerId } },
         });
 
-        if (existingLedger) {
-          return { alreadyPrayed: true, pointsAwarded: 0 };
-        }
+        if (existingLedger) return { alreadyPrayed: true, pointsAwarded: 0 };
 
-        // Award points
         await tx.pointLedger.create({
           data: {
             userId,
@@ -424,44 +302,28 @@ prayerRouter.post(
       });
 
       if (result.alreadyPrayed) {
-        return c.json({
-          success: false,
-          alreadyPrayed: true,
-          message: "Already prayed for the community today",
-        });
+        return c.json({ success: false, alreadyPrayed: true });
       }
 
-      return c.json({
-        success: true,
-        pointsAwarded: result.pointsAwarded,
-      });
+      return c.json({ success: true, pointsAwarded: result.pointsAwarded });
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Unknown error";
-
-      if (errorMessage === "USER_NOT_FOUND") {
-        return c.json({ error: "User not found" }, 404);
-      }
-
+      const msg = error instanceof Error ? error.message : "Unknown error";
+      if (msg === "USER_NOT_FOUND") return c.json({ error: "User not found" }, 404);
       console.error("[Prayer] Error recording community prayer:", error);
       return c.json({ error: "Failed to record community prayer" }, 500);
     }
   }
 );
 
-// GET /prayed-for-community/:userId - Check if user prayed today
 prayerRouter.get("/prayed-for-community/:userId", async (c) => {
   try {
     const userId = c.req.param("userId");
     const today = getCostaRicaDateString();
-
     const ledgerId = `prayed_community_${today}`;
-    const existingLedger = await prisma.pointLedger.findUnique({
-      where: {
-        userId_ledgerId: { userId, ledgerId },
-      },
+    const existing = await prisma.pointLedger.findUnique({
+      where: { userId_ledgerId: { userId, ledgerId } },
     });
-
-    return c.json({ prayedToday: !!existingLedger });
+    return c.json({ prayedToday: !!existing });
   } catch (error) {
     console.error("[Prayer] Error checking community prayer status:", error);
     return c.json({ error: "Failed to check status" }, 500);
@@ -472,7 +334,6 @@ prayerRouter.get("/prayed-for-community/:userId", async (c) => {
 // PRAYER DISPLAY OPT-IN ENDPOINTS
 // ============================================
 
-// PATCH /display-opt-in/:userId - Update user's prayer display opt-in status
 prayerRouter.patch(
   "/display-opt-in/:userId",
   zValidator("json", updatePrayerDisplayOptInSchema),
@@ -480,26 +341,13 @@ prayerRouter.patch(
     try {
       const userId = c.req.param("userId");
       const { optIn } = c.req.valid("json");
-
-      const user = await prisma.user.findUnique({
-        where: { id: userId },
-      });
-
-      if (!user) {
-        return c.json({ error: "User not found" }, 404);
-      }
-
-      const updatedUser = await prisma.user.update({
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      if (!user) return c.json({ error: "User not found" }, 404);
+      const updated = await prisma.user.update({
         where: { id: userId },
         data: { prayerDisplayOptIn: optIn },
       });
-
-      console.log(`[Prayer] User ${userId} set prayerDisplayOptIn to ${optIn}`);
-
-      return c.json({
-        success: true,
-        prayerDisplayOptIn: updatedUser.prayerDisplayOptIn,
-      });
+      return c.json({ success: true, prayerDisplayOptIn: updated.prayerDisplayOptIn });
     } catch (error) {
       console.error("[Prayer] Error updating display opt-in:", error);
       return c.json({ error: "Failed to update prayer display opt-in" }, 500);
@@ -507,20 +355,14 @@ prayerRouter.patch(
   }
 );
 
-// GET /display-opt-in/:userId - Get user's prayer display opt-in status
 prayerRouter.get("/display-opt-in/:userId", async (c) => {
   try {
     const userId = c.req.param("userId");
-
     const user = await prisma.user.findUnique({
       where: { id: userId },
       select: { prayerDisplayOptIn: true },
     });
-
-    if (!user) {
-      return c.json({ error: "User not found" }, 404);
-    }
-
+    if (!user) return c.json({ error: "User not found" }, 404);
     return c.json({ prayerDisplayOptIn: user.prayerDisplayOptIn });
   } catch (error) {
     console.error("[Prayer] Error getting display opt-in status:", error);

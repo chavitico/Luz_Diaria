@@ -15,29 +15,10 @@ const PRAYER_CATEGORIES: Record<string, { en: string; es: string }> = {
   strength: { en: "Strength", es: "Fortaleza" },
 };
 
-// Get today's date in Costa Rica timezone
 function getCostaRicaDateString(): string {
   const now = new Date();
   const costaRicaTime = new Date(now.getTime() - (6 * 60 * 60 * 1000));
   return costaRicaTime.toISOString().split('T')[0]!;
-}
-
-// Get yesterday's date in Costa Rica timezone
-function getYesterdayCostaRicaDateString(): string {
-  const now = new Date();
-  const costaRicaTime = new Date(now.getTime() - (6 * 60 * 60 * 1000));
-  costaRicaTime.setDate(costaRicaTime.getDate() - 1);
-  return costaRicaTime.toISOString().split('T')[0]!;
-}
-
-// Get current week ID
-function getCostaRicaWeekId(): string {
-  const now = new Date();
-  const costaRicaTime = new Date(now.getTime() - (6 * 60 * 60 * 1000));
-  const startOfYear = new Date(costaRicaTime.getFullYear(), 0, 1);
-  const days = Math.floor((costaRicaTime.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000));
-  const weekNumber = Math.ceil((days + startOfYear.getDay() + 1) / 7);
-  return `${costaRicaTime.getFullYear()}-W${weekNumber.toString().padStart(2, '0')}`;
 }
 
 interface PrayerContent {
@@ -48,56 +29,47 @@ interface PrayerContent {
 }
 
 async function generateDailyPrayerWithAI(
-  categoryStats: Record<string, number>,
-  nicknames: string[]
+  categoryStats: Record<string, number>
 ): Promise<PrayerContent> {
-  // Build category list with counts
   const categoryList = Object.entries(categoryStats)
+    .sort((a, b) => b[1] - a[1])
     .map(([key, count]) => {
       const cat = PRAYER_CATEGORIES[key];
-      return cat ? `${cat.en} (${count} requests)` : null;
+      return cat ? `${cat.en} (${count})` : null;
     })
     .filter(Boolean)
     .join(", ");
 
   const categoryListEs = Object.entries(categoryStats)
+    .sort((a, b) => b[1] - a[1])
     .map(([key, count]) => {
       const cat = PRAYER_CATEGORIES[key];
-      return cat ? `${cat.es} (${count} peticiones)` : null;
+      return cat ? `${cat.es} (${count})` : null;
     })
     .filter(Boolean)
     .join(", ");
 
-  // Limit nicknames to 10
-  const limitedNicknames = nicknames.slice(0, 10);
-  const nicknameList = limitedNicknames.length > 0
-    ? limitedNicknames.join(", ")
-    : null;
+  const prompt = `You are a Christian prayer writer for a Spanish-speaking community devotional app called "Luz Diaria".
+Generate a warm, brief community prayer that covers the active prayer needs of the congregation today.
 
-  const prompt = `You are a Christian prayer writer. Generate a community prayer for today that includes the prayer needs of the congregation.
+${categoryList ? `Active prayer categories from the community: ${categoryList}` : "No specific prayer requests today."}
 
-${categoryList ? `Today's prayer categories from the community: ${categoryList}` : "No specific prayer requests were submitted today."}
-${categoryListEs ? `(Spanish: ${categoryListEs})` : ""}
-${nicknameList ? `Some community members who submitted requests: ${nicknameList}` : ""}
-
-Return ONLY a valid JSON object with this exact structure (no markdown, no code blocks, just pure JSON):
+Return ONLY a valid JSON object with this exact structure (no markdown, no code blocks):
 
 {
-  "title": "A compelling prayer title in English (4-7 words)",
+  "title": "A brief prayer title in English (3-6 words)",
   "titleEs": "Same title in Spanish",
-  "prayerText": "A heartfelt community prayer in English (150-220 words). Address each prayer category mentioned naturally within the prayer. Make it personal, warm, and spiritually encouraging. Reference Bible verses where appropriate. End with 'Amén.'",
-  "prayerTextEs": "Same prayer in Spanish, naturally translated (not literal). End with 'Amén.'"
+  "prayerText": "A heartfelt community prayer in English (100-160 words). Weave each category naturally. Warm, pastoral tone. End with 'Amen.'",
+  "prayerTextEs": "Same prayer in natural Latin American Spanish (not formal Castilian). End with 'Amén.'"
 }
 
-Important guidelines:
-- The prayer should feel like a pastor or spiritual leader praying over their congregation
-- Include each prayer category naturally woven into the prayer
-- If nicknames are provided, you may mention 1-3 of them naturally (e.g., "Lord, we lift up Maria and Juan...")
-- The tone should be warm, intimate, and full of faith
-- If no categories were submitted, generate a generic prayer of gratitude and guidance
-- Spanish should be natural Latin American Spanish, not formal Castilian`;
+Guidelines:
+- Do NOT mention any user names or nicknames
+- The prayer should feel like a pastor praying over their congregation
+- If no categories, write a prayer of gratitude and trust
+- Keep it simple, reverent, and personal`;
 
-  console.log(`[DailyPrayer] Generating daily prayer with categories: ${categoryList || 'none'}`);
+  console.log(`[DailyPrayer] Generating prayer with categories: ${categoryList || 'none'}`);
 
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
@@ -124,7 +96,6 @@ Important guidelines:
     }>;
   };
 
-  // Extract the text content from the response
   let textContent = "";
   if (data.output && Array.isArray(data.output)) {
     for (const item of data.output) {
@@ -140,79 +111,50 @@ Important guidelines:
   }
 
   if (!textContent) {
-    console.error(`[DailyPrayer] No text content in response:`, JSON.stringify(data, null, 2));
     throw new Error("No text content in OpenAI response");
   }
 
-  // Clean the response
-  let cleanedContent = textContent.trim();
-  if (cleanedContent.startsWith("```json")) {
-    cleanedContent = cleanedContent.slice(7);
-  } else if (cleanedContent.startsWith("```")) {
-    cleanedContent = cleanedContent.slice(3);
-  }
-  if (cleanedContent.endsWith("```")) {
-    cleanedContent = cleanedContent.slice(0, -3);
-  }
-  cleanedContent = cleanedContent.trim();
+  let cleaned = textContent.trim();
+  if (cleaned.startsWith("```json")) cleaned = cleaned.slice(7);
+  else if (cleaned.startsWith("```")) cleaned = cleaned.slice(3);
+  if (cleaned.endsWith("```")) cleaned = cleaned.slice(0, -3);
+  cleaned = cleaned.trim();
 
   try {
-    const prayerContent = JSON.parse(cleanedContent) as PrayerContent;
-    console.log(`[DailyPrayer] Successfully generated daily prayer: "${prayerContent.title}"`);
-    return prayerContent;
+    const content = JSON.parse(cleaned) as PrayerContent;
+    console.log(`[DailyPrayer] Generated: "${content.titleEs}"`);
+    return content;
   } catch (parseError) {
-    console.error(`[DailyPrayer] Failed to parse JSON:`, cleanedContent.substring(0, 500));
+    console.error(`[DailyPrayer] Failed to parse JSON:`, cleaned.substring(0, 500));
     throw new Error("Failed to parse daily prayer content as JSON");
   }
 }
 
 export async function generateTodayDailyPrayer(): Promise<void> {
   const today = getCostaRicaDateString();
-  const yesterday = getYesterdayCostaRicaDateString();
-  const currentWeekId = getCostaRicaWeekId();
 
-  // Check if we already have today's daily prayer
-  const existing = await prisma.dailyPrayer.findUnique({
-    where: { dateId: today },
-  });
-
+  const existing = await prisma.dailyPrayer.findUnique({ where: { dateId: today } });
   if (existing) {
-    console.log(`[DailyPrayer] Daily prayer for ${today} already exists: "${existing.title}"`);
+    console.log(`[DailyPrayer] Prayer for ${today} already exists: "${existing.titleEs}"`);
     return;
   }
 
-  // Fetch prayer requests from:
-  // 1. Yesterday's daily requests (periodId = yesterday)
-  // 2. Current week's weekly requests (periodId = currentWeekId)
+  // Aggregate ALL currently active petition categories (not expired)
+  const now = new Date();
   const requests = await prisma.prayerRequest.findMany({
-    where: {
-      OR: [
-        { periodId: yesterday, mode: "daily" },
-        { periodId: currentWeekId, mode: "weekly" },
-      ],
-    },
-    select: {
-      categoryKey: true,
-      nickname: true,
-      displayNameOptIn: true,
-    },
+    where: { expiresAt: { gt: now } },
+    select: { categoryKey: true },
   });
 
-  // Aggregate category stats
   const categoryStats: Record<string, number> = {};
-  const nicknames: string[] = [];
-
-  for (const request of requests) {
-    categoryStats[request.categoryKey] = (categoryStats[request.categoryKey] ?? 0) + 1;
-    if (request.displayNameOptIn && request.nickname) {
-      nicknames.push(request.nickname);
-    }
+  for (const r of requests) {
+    categoryStats[r.categoryKey] = (categoryStats[r.categoryKey] ?? 0) + 1;
   }
 
   const includedCategories = Object.keys(categoryStats);
 
   try {
-    const content = await generateDailyPrayerWithAI(categoryStats, nicknames);
+    const content = await generateDailyPrayerWithAI(categoryStats);
 
     await prisma.dailyPrayer.upsert({
       where: { dateId: today },
@@ -229,25 +171,21 @@ export async function generateTodayDailyPrayer(): Promise<void> {
       },
     });
 
-    console.log(`[DailyPrayer] Successfully created daily prayer for ${today}: "${content.title}" (${requests.length} requests)`);
+    console.log(`[DailyPrayer] Created prayer for ${today}: "${content.titleEs}" (${requests.length} petitions)`);
   } catch (error) {
     if (error instanceof Error && error.message.includes("Unique constraint")) {
-      console.log(`[DailyPrayer] Daily prayer for ${today} was created by another process`);
+      console.log(`[DailyPrayer] Prayer for ${today} was created by another process`);
       return;
     }
-    console.error(`[DailyPrayer] Failed to generate daily prayer for ${today}:`, error);
+    console.error(`[DailyPrayer] Failed to generate prayer for ${today}:`, error);
     throw error;
   }
 }
 
 export async function getTodayDailyPrayer() {
   const today = getCostaRicaDateString();
-  const prayer = await prisma.dailyPrayer.findUnique({
-    where: { dateId: today },
-  });
-
+  const prayer = await prisma.dailyPrayer.findUnique({ where: { dateId: today } });
   if (!prayer) return null;
-
   return {
     ...prayer,
     includedCategories: JSON.parse(prayer.includedCategories),
@@ -256,12 +194,8 @@ export async function getTodayDailyPrayer() {
 }
 
 export async function getDailyPrayerByDate(dateId: string) {
-  const prayer = await prisma.dailyPrayer.findUnique({
-    where: { dateId },
-  });
-
+  const prayer = await prisma.dailyPrayer.findUnique({ where: { dateId } });
   if (!prayer) return null;
-
   return {
     ...prayer,
     includedCategories: JSON.parse(prayer.includedCategories),

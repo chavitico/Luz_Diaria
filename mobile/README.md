@@ -141,12 +141,15 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Pull-to-refresh** for latest community data
 
 ### Prayer Tab (Oración)
-- **Privacy-safe community prayer requests** - No free text, category-based only
-- **My Request Section**:
-  - Dropdown category selector (10 categories)
-  - Toggle: Daily (Hoy) / Weekly (Esta Semana)
-  - Current active request display with expiration
+- **Simplified single-petition model** — one active petition per user at a time, no weekly concept
+- **Mi Petición** section:
+  - Dropdown category selector (10 categories), no free text
+  - Saving replaces any existing petition atomically
+  - Fixed 48-hour expiration from save time (live countdown shown)
+  - Guardar disabled unless a category is selected
   - +10 points for submitting (once per day max)
+- **"Ya oré hoy"** button: single daily prayer action, checkmark + spring animation on confirm (+5 pts)
+- **Community display**: aggregated category counts with proportional bar chart — no usernames
 - **Prayer Categories**:
   - Trabajo / Provisión (Work / Provision)
   - Salud (Health)
@@ -163,14 +166,14 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
   - Category chip with icon
   - Mode badge (Hoy / Semana)
 - **Summary**: Aggregated category counts
-- **"Oré por la comunidad"** button: +5 points (once per day)
+- **"Ya oré hoy"** button: single action, checkmark + spring animation on confirm (+5 pts, once/day)
 - **Privacy Setting**: "Mostrar mi nombre en oraciones" in Settings
 
 ### Prayer of the Day (Oración del Día)
 - **AI-generated daily prayer** at 4:00 AM Costa Rica time
-- Includes categories submitted by community
+- Aggregates ALL currently active petition categories (no weekly split)
+- Category-only input to AI — no usernames for privacy
 - Displayed on Home screen after devotional content
-- May mention up to 10 nicknames (with opt-in)
 - Bilingual (Spanish + English)
 
 ### Settings Tab
