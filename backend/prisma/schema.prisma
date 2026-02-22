@@ -238,3 +238,13 @@ model DailyPrayer {
   categoryStats      String   @default("{}")
   createdAt          DateTime @default(now())
 }
+
+model AppBranding {
+  id                    String   @id @default("app")
+  appName               String   @default("Luz Diaria")
+  taglineEs             String   @default("Tu devocional diario")
+  taglineEn             String   @default("Your daily devotional")
+  shareWatermarkEnabled Boolean  @default(true)
+  shareWatermarkPosition String  @default("bottom-left")
+  updatedAt             DateTime @updatedAt
+}

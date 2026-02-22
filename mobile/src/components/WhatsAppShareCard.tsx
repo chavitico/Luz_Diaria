@@ -8,6 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { BookOpen } from 'lucide-react-native';
 import type { Devotional } from '@/lib/types';
 import { APP_BRANDING } from '@/lib/constants';
+import { useBranding, DEFAULT_BRANDING, type AppBranding } from '@/lib/branding-service';
 
 // WhatsApp optimized square dimensions
 export const WHATSAPP_CARD_SIZE = 1080;
@@ -110,10 +111,13 @@ interface WhatsAppShareCardProps {
   devotional: Devotional;
   language: 'en' | 'es';
   size?: number; // Display size (default PREVIEW_SIZE)
+  branding?: AppBranding; // Optional override (for captured images)
 }
 
 export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
-  ({ devotional, language, size = PREVIEW_SIZE }, ref) => {
+  ({ devotional, language, size = PREVIEW_SIZE, branding: brandingProp }, ref) => {
+    const liveBranding = useBranding();
+    const branding = brandingProp ?? liveBranding;
     const title = language === 'es' ? devotional.titleEs : devotional.title;
     const verse = language === 'es' ? devotional.bibleVerseEs : devotional.bibleVerse;
     const bibleRef =
@@ -284,7 +288,7 @@ export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
                   letterSpacing: 2,
                 }}
               >
-                {APP_BRANDING.appName}
+                {branding.appName}
               </Text>
               <Text
                 style={{
@@ -293,7 +297,7 @@ export const WhatsAppShareCard = forwardRef<View, WhatsAppShareCardProps>(
                   marginTop: spacing(6),
                 }}
               >
-                {APP_BRANDING.tagline[language]}
+                {language === 'es' ? branding.taglineEs : branding.taglineEn}
               </Text>
             </View>
           </View>
@@ -308,7 +312,8 @@ WhatsAppShareCard.displayName = 'WhatsAppShareCard';
 // Generate plain text message for WhatsApp
 export function generateWhatsAppText(
   devotional: Devotional,
-  language: 'en' | 'es'
+  language: 'en' | 'es',
+  branding: AppBranding = DEFAULT_BRANDING
 ): string {
   const title = language === 'es' ? devotional.titleEs : devotional.title;
   const verse = language === 'es' ? devotional.bibleVerseEs : devotional.bibleVerse;
@@ -322,8 +327,8 @@ export function generateWhatsAppText(
   // First line of prayer
   const shortPrayer = prayer.split(/[.!?]/)[0]?.trim() ?? '';
 
-  const tagline = APP_BRANDING.tagline[language];
-  const appName = APP_BRANDING.appName;
+  const tagline = language === 'es' ? branding.taglineEs : branding.taglineEn;
+  const appName = branding.appName;
 
   return `*${title}*
 

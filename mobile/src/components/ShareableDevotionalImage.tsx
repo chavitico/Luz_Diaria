@@ -10,6 +10,7 @@ import { BookOpen, Star, Heart, Check, User } from 'lucide-react-native';
 import { captureRef } from 'react-native-view-shot';
 import type { Devotional } from '@/lib/types';
 import { APP_BRANDING } from '@/lib/constants';
+import { useBranding, type AppBranding } from '@/lib/branding-service';
 
 // Fixed page dimensions — WhatsApp-friendly portrait ratio
 export const PAGE_WIDTH = 1080;
@@ -68,11 +69,11 @@ function PageBackground({ imageUrl }: { imageUrl: string }) {
 
 // ─── Page Footer ────────────────────────────────────────────────────────────
 
-function PageFooter({ pageNum, totalPages }: { pageNum: number; totalPages: number }) {
+function PageFooter({ pageNum, totalPages, appName }: { pageNum: number; totalPages: number; appName: string }) {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
       <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 28, fontWeight: '700', letterSpacing: 2 }}>
-        {APP_BRANDING.appName}
+        {appName}
       </Text>
       <View style={{ backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 20, paddingHorizontal: 20, paddingVertical: 8 }}>
         <Text style={{ color: '#FFFFFF', fontSize: 26, fontWeight: '700' }}>
@@ -94,9 +95,10 @@ interface Page1Props {
   language: string;
   pageNum: number;
   totalPages: number;
+  appName: string;
 }
 
-function Page1({ imageUrl, title, date, verse, bibleRef, language, pageNum, totalPages }: Page1Props) {
+function Page1({ imageUrl, title, date, verse, bibleRef, language, pageNum, totalPages, appName }: Page1Props) {
   const formatDate = (d: string) => {
     const obj = new Date(d + 'T12:00:00');
     return obj.toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', {
@@ -148,7 +150,7 @@ function Page1({ imageUrl, title, date, verse, bibleRef, language, pageNum, tota
         </View>
 
         {/* Footer */}
-        <PageFooter pageNum={pageNum} totalPages={totalPages} />
+        <PageFooter pageNum={pageNum} totalPages={totalPages} appName={appName} />
       </View>
     </View>
   );
@@ -165,9 +167,10 @@ interface SectionPageProps {
   icon: React.ReactNode;
   pageNum: number;
   totalPages: number;
+  appName: string;
 }
 
-function SectionPage({ imageUrl, title, label, content, accentColor, icon, pageNum, totalPages }: SectionPageProps) {
+function SectionPage({ imageUrl, title, label, content, accentColor, icon, pageNum, totalPages, appName }: SectionPageProps) {
   return (
     <View style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT, backgroundColor: '#000', overflow: 'hidden' }} collapsable={false}>
       <PageBackground imageUrl={imageUrl} />
@@ -213,7 +216,7 @@ function SectionPage({ imageUrl, title, label, content, accentColor, icon, pageN
         </View>
 
         {/* Footer */}
-        <PageFooter pageNum={pageNum} totalPages={totalPages} />
+        <PageFooter pageNum={pageNum} totalPages={totalPages} appName={appName} />
       </View>
     </View>
   );
@@ -241,6 +244,8 @@ export interface ShareableDevotionalImageProps {
 
 export const ShareableDevotionalImage = forwardRef<ShareableDevotionalImageRef, ShareableDevotionalImageProps>(
   ({ devotional, language, translations, previewMode = false }, ref) => {
+    const branding = useBranding();
+    const appName = branding.appName;
     const title = language === 'es' ? devotional.titleEs : devotional.title;
     const verse = language === 'es' ? devotional.bibleVerseEs : devotional.bibleVerse;
     const reflection = language === 'es' ? devotional.reflectionEs : devotional.reflection;
@@ -304,6 +309,7 @@ export const ShareableDevotionalImage = forwardRef<ShareableDevotionalImageRef, 
                 language={language}
                 pageNum={1}
                 totalPages={totalPages}
+                appName={appName}
               />
             </View>
           </View>
@@ -320,6 +326,7 @@ export const ShareableDevotionalImage = forwardRef<ShareableDevotionalImageRef, 
                   icon={s.icon}
                   pageNum={i + 2}
                   totalPages={totalPages}
+                  appName={appName}
                 />
               </View>
             </View>
@@ -346,6 +353,7 @@ export const ShareableDevotionalImage = forwardRef<ShareableDevotionalImageRef, 
             language={language}
             pageNum={1}
             totalPages={totalPages}
+            appName={appName}
           />
         </View>
         {allSections.map((s, i) => (
@@ -363,6 +371,7 @@ export const ShareableDevotionalImage = forwardRef<ShareableDevotionalImageRef, 
               icon={s.icon}
               pageNum={i + 2}
               totalPages={totalPages}
+              appName={appName}
             />
           </View>
         ))}

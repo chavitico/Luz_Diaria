@@ -15,6 +15,7 @@ import { SplashScreen } from '@/components/SplashScreen';
 import { OnboardingScreen } from '@/components/OnboardingScreen';
 import { BackgroundMusicProvider } from '@/components/BackgroundMusicProvider';
 import { initializeNotifications } from '@/lib/notifications';
+import { useBrandingStore } from '@/lib/branding-service';
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -73,6 +74,7 @@ function AppContent() {
   const language = useLanguage();
   const [showSplash, setShowSplash] = useState(true);
   const [appReady, setAppReady] = useState(false);
+  const fetchBranding = useBrandingStore(s => s.fetchBranding);
 
   useEffect(() => {
     // Hide native splash screen once we're ready
@@ -81,6 +83,8 @@ function AppContent() {
       setAppReady(true);
     };
     prepare();
+    // Kick off branding fetch immediately on startup
+    fetchBranding();
   }, []);
 
   // Initialize notifications when app is ready and user is onboarded
