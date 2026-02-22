@@ -10,6 +10,7 @@ import {
   Modal,
   ActivityIndicator,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -2637,45 +2638,41 @@ function useChapterCollectionProgress(): {
 }
 
 // ─── ChapterCollectionModal ───────────────────────────────────────────────────
-// Per-chapter animated claim button — must be a top-level component (not nested inside render)
-// so that Reanimated hooks work correctly.
+// Simple, reliable claim button — no Reanimated wrapper to avoid touch-target issues
+// inside the Reanimated sheet. Uses TouchableOpacity which reliably fires inside transforms.
 function ClaimChapterButton({ onClaim, points, language, colors }: {
   onClaim: () => void;
   points: number;
   language: 'en' | 'es';
   colors: ReturnType<typeof useThemeColors>;
 }) {
-  const scale = useSharedValue(1);
-  const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
-
+  const [pressed, setPressed] = useState(false);
   return (
-    <Animated.View style={[animatedStyle, { marginTop: 10, marginBottom: 4 }]}>
-      <Pressable
-        onPressIn={() => { scale.value = withSpring(0.96, { damping: 15, stiffness: 300 }); }}
-        onPressOut={() => { scale.value = withSpring(1, { damping: 15, stiffness: 300 }); }}
-        onPress={() => {
-          scale.value = withSequence(
-            withSpring(1.05, { damping: 10, stiffness: 400 }),
-            withSpring(1, { damping: 12, stiffness: 300 })
-          );
-          onClaim();
-        }}
-        style={({ pressed }) => ({
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 8,
-          backgroundColor: pressed ? colors.primary + 'CC' : colors.primary,
-          borderRadius: 16,
-          paddingVertical: 16,
-          paddingHorizontal: 20,
-        })}
-      >
-        <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15, letterSpacing: 0.2 }}>
-          {language === 'es' ? `🎁 Reclamar Capítulo +${points} pts` : `🎁 Claim Chapter +${points} pts`}
-        </Text>
-      </Pressable>
-    </Animated.View>
+    <TouchableOpacity
+      activeOpacity={0.75}
+      onPress={() => {
+        console.debug('[ClaimChapterButton] tapped, points=', points);
+        onClaim();
+      }}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+      style={{
+        marginTop: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+        backgroundColor: pressed ? colors.primary + 'DD' : colors.primary,
+        borderRadius: 16,
+        paddingVertical: 17,
+        paddingHorizontal: 20,
+        transform: [{ scale: pressed ? 0.97 : 1 }],
+      }}
+    >
+      <Text style={{ color: '#fff', fontWeight: '900', fontSize: 16, letterSpacing: 0.3 }}>
+        {language === 'es' ? `🎁 Reclamar Capítulo +${points} pts` : `🎁 Claim Chapter +${points} pts`}
+      </Text>
+    </TouchableOpacity>
   );
 }
 
