@@ -25,6 +25,7 @@ import {
   Sparkles,
   WifiOff,
   Shield,
+  Coins,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
@@ -175,13 +176,22 @@ function MemberCard({
                 {member.devotionalsCompleted}
               </Text>
             </View>
-            <View className="flex-row items-center">
+            <View className="flex-row items-center mb-1">
               <Flame size={14} color={colors.accent} />
               <Text
                 className="text-sm font-medium ml-1"
                 style={{ color: colors.text }}
               >
                 {member.streakCurrent}
+              </Text>
+            </View>
+            <View className="flex-row items-center">
+              <Coins size={13} color={colors.primary} />
+              <Text
+                className="text-xs font-medium ml-1"
+                style={{ color: colors.primary }}
+              >
+                {member.points.toLocaleString()}
               </Text>
             </View>
           </View>

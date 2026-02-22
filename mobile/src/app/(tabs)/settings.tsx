@@ -30,6 +30,7 @@ import {
   Heart,
   Coins,
   ChevronRight,
+  ChevronLeft,
   Check,
   X,
   Sun,
@@ -579,9 +580,28 @@ export default function SettingsScreen() {
       >
         {/* Header */}
         <View className="px-5" style={{ paddingTop: insets.top + 16 }}>
-          <Text className="text-3xl font-bold mb-6" style={{ color: colors.text }}>
-            {t.settings}
-          </Text>
+          <View className="flex-row items-center mb-6">
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                router.back();
+              }}
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 18,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: colors.surface,
+                marginRight: 12,
+              }}
+            >
+              <ChevronLeft size={22} color={colors.text} />
+            </Pressable>
+            <Text className="text-3xl font-bold" style={{ color: colors.text }}>
+              {t.settings}
+            </Text>
+          </View>
 
           {/* User Profile Card */}
           {user && (
@@ -669,30 +689,39 @@ export default function SettingsScreen() {
           )}
 
           {/* Points History Section */}
-          {ledgerEntries.length > 0 && (
-            <>
-              <View className="flex-row items-center justify-between mb-3 ml-1 mt-6">
-                <Text className="text-sm font-semibold uppercase tracking-wider" style={{ color: colors.textMuted }}>
-                  {language === 'es' ? 'Historial de Puntos' : 'Points History'}
-                </Text>
-                {ledgerEntries.length > 5 && (
-                  <Pressable
-                    onPress={() => {
-                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                      setShowFullLedger((v) => !v);
-                    }}
-                  >
-                    <Text className="text-sm font-medium" style={{ color: colors.primary }}>
-                      {showFullLedger
-                        ? (language === 'es' ? 'Ver menos' : 'Show less')
-                        : (language === 'es' ? 'Ver más' : 'Show more')}
-                    </Text>
-                  </Pressable>
-                )}
-              </View>
+          <>
+            <View className="flex-row items-center justify-between mb-3 ml-1 mt-6">
+              <Text className="text-sm font-semibold uppercase tracking-wider" style={{ color: colors.textMuted }}>
+                {language === 'es' ? 'Historial de Puntos' : 'Points History'}
+              </Text>
+              {ledgerEntries.length > 5 && (
+                <Pressable
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    setShowFullLedger((v) => !v);
+                  }}
+                >
+                  <Text className="text-sm font-medium" style={{ color: colors.primary }}>
+                    {showFullLedger
+                      ? (language === 'es' ? 'Ver menos' : 'Show less')
+                      : (language === 'es' ? 'Ver más' : 'Show more')}
+                  </Text>
+                </Pressable>
+              )}
+            </View>
 
-              <Animated.View entering={FadeInDown.duration(300)} className="rounded-2xl overflow-hidden" style={{ backgroundColor: colors.surface }}>
-                {(showFullLedger ? ledgerEntries.slice(0, 10) : ledgerEntries.slice(0, 5)).map((entry, idx, arr) => {
+            <Animated.View entering={FadeInDown.duration(300)} className="rounded-2xl overflow-hidden" style={{ backgroundColor: colors.surface }}>
+              {ledgerEntries.length === 0 ? (
+                <View className="px-4 py-5 items-center">
+                  <Coins size={28} color={colors.textMuted} />
+                  <Text className="text-sm text-center mt-2" style={{ color: colors.textMuted }}>
+                    {language === 'es'
+                      ? 'Aún no hay movimientos.\nCompleta un devocional, canjea un código o reclama una colección.'
+                      : 'No movements yet.\nComplete a devotional, redeem a code, or claim a collection.'}
+                  </Text>
+                </View>
+              ) : (
+                (showFullLedger ? ledgerEntries.slice(0, 10) : ledgerEntries.slice(0, 5)).map((entry, idx, arr) => {
                   const isPositive = entry.delta > 0;
                   const LedgerIcon = (() => {
                     switch (entry.kind) {
@@ -741,10 +770,10 @@ export default function SettingsScreen() {
                       </View>
                     </View>
                   );
-                })}
-              </Animated.View>
-            </>
-          )}
+                })
+              )}
+            </Animated.View>
+          </>
 
           {/* Community Section */}
           <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
