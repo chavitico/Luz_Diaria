@@ -53,6 +53,8 @@ const syncUserSchema = z.object({
   devotionalsCompleted: z.number().int().nonnegative().optional(),
   totalTimeSeconds: z.number().int().nonnegative().optional(),
   lastActiveAt: z.string().datetime().optional(),
+  // When a new devotional is completed, pass the date (YYYY-MM-DD) to record it authoritatively
+  completedDevotionalDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
 });
 
 const awardPointsSchema = z.object({
@@ -268,6 +270,33 @@ gamificationRouter.post(
 
       const updateData: Record<string, unknown> = {};
 
+      // If a new devotional was completed, upsert a DevotionalCompletion row (unique per date)
+      // then derive the authoritative count from the table
+      if (data.completedDevotionalDate) {
+        await prisma.devotionalCompletion.upsert({
+          where: {
+            userId_devotionalDate: {
+              userId,
+              devotionalDate: data.completedDevotionalDate,
+            },
+          },
+          update: {}, // already recorded — no-op
+          create: {
+            userId,
+            devotionalDate: data.completedDevotionalDate,
+          },
+        });
+
+        // Count is now authoritative from the table
+        const authoritativeCount = await prisma.devotionalCompletion.count({
+          where: { userId },
+        });
+        updateData.devotionalsCompleted = authoritativeCount;
+      } else if (data.devotionalsCompleted !== undefined) {
+        // Fallback MAX strategy when no specific date is provided (legacy sync calls)
+        updateData.devotionalsCompleted = Math.max(data.devotionalsCompleted, existingUser.devotionalsCompleted);
+      }
+
       // Use MAX strategy for cumulative stats to prevent data loss when local store resets
       // This ensures we never lose progress even if the frontend sends lower values
       if (data.points !== undefined) {
@@ -278,9 +307,6 @@ gamificationRouter.post(
       }
       if (data.streakBest !== undefined) {
         updateData.streakBest = Math.max(data.streakBest, existingUser.streakBest);
-      }
-      if (data.devotionalsCompleted !== undefined) {
-        updateData.devotionalsCompleted = Math.max(data.devotionalsCompleted, existingUser.devotionalsCompleted);
       }
       if (data.totalTimeSeconds !== undefined) {
         updateData.totalTimeSeconds = Math.max(data.totalTimeSeconds, existingUser.totalTimeSeconds);

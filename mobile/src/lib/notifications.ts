@@ -16,16 +16,40 @@ export interface NotificationSettings {
 }
 
 const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettings = {
-  enabled: false,
-  hour: 6, // 6:00 AM default
+  enabled: true,
+  hour: 7, // 7:00 AM default
   minute: 0,
 };
+
+// Rotating spiritual copy — deterministic by day-of-year
+const SPIRITUAL_MESSAGES_ES = [
+  { title: '🕊️ Luz Diaria', body: 'Detente un momento. Dios quiere hablarte hoy.' },
+  { title: '🌅 Luz Diaria', body: 'Un nuevo día. Una nueva luz para tu camino.' },
+  { title: '📖 Luz Diaria', body: 'Aparta un momento. La Palabra te espera.' },
+  { title: '🌿 Luz Diaria', body: 'No es prisa. Es encuentro. Hoy hay una luz para ti.' },
+];
+
+const SPIRITUAL_MESSAGES_EN = [
+  { title: '🕊️ Daily Light', body: 'Pause for a moment. God wants to speak to you today.' },
+  { title: '🌅 Daily Light', body: 'A new day. A new light for your path.' },
+  { title: '📖 Daily Light', body: 'Set aside a moment. The Word is waiting for you.' },
+  { title: '🌿 Daily Light', body: "It's not hurry. It's encounter. Today there's a light for you." },
+];
+
+function getDailyMessageIndex(): number {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now.getTime() - start.getTime();
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+  return dayOfYear % SPIRITUAL_MESSAGES_ES.length;
+}
 
 // Configure notification handler for foreground notifications
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: true,
+    shouldPlaySound: false,
     shouldSetBadge: false,
     shouldShowBanner: true,
     shouldShowList: true,
@@ -57,11 +81,11 @@ export async function requestNotificationPermissions(): Promise<boolean> {
   // Configure for Android
   if (Platform.OS === 'android') {
     await Notifications.setNotificationChannelAsync('devotional-reminders', {
-      name: 'Devotional Reminders',
-      importance: Notifications.AndroidImportance.HIGH,
-      vibrationPattern: [0, 250, 250, 250],
+      name: 'Luz Diaria',
+      importance: Notifications.AndroidImportance.DEFAULT,
+      vibrationPattern: [0, 150],
       lightColor: '#E8A87C',
-      sound: 'default',
+      sound: undefined,
     });
   }
 
@@ -97,7 +121,8 @@ export async function saveNotificationSettings(settings: NotificationSettings): 
 }
 
 /**
- * Schedule a daily notification for the devotional
+ * Schedule a daily notification for the devotional.
+ * Uses rotating spiritual copy — one message per day-of-year.
  */
 export async function scheduleDailyNotification(
   hour: number,
@@ -105,17 +130,10 @@ export async function scheduleDailyNotification(
   language: 'en' | 'es' = 'es'
 ): Promise<string | null> {
   try {
-    // Cancel any existing scheduled notifications first
-    await cancelAllScheduledNotifications();
+    await cancelAllScheduledNotificationsOnly();
 
-    const notificationContent = {
-      title: language === 'es' ? '🕊️ Tu devocional te espera' : '🕊️ Your devotional awaits',
-      body: language === 'es'
-        ? 'Es hora de tu momento de reflexión diaria. ¡Abre la app y nutre tu espíritu!'
-        : 'Time for your daily reflection. Open the app and nourish your spirit!',
-      sound: 'default' as const,
-      priority: Notifications.AndroidNotificationPriority.HIGH,
-    };
+    const idx = getDailyMessageIndex();
+    const msg = language === 'es' ? SPIRITUAL_MESSAGES_ES[idx]! : SPIRITUAL_MESSAGES_EN[idx]!;
 
     const trigger: Notifications.DailyTriggerInput = {
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
@@ -124,13 +142,17 @@ export async function scheduleDailyNotification(
     };
 
     const identifier = await Notifications.scheduleNotificationAsync({
-      content: notificationContent,
+      content: {
+        title: msg.title,
+        body: msg.body,
+        sound: undefined as any,
+        data: { screen: 'home' },
+      },
       trigger,
     });
 
     console.log(`[Notifications] Scheduled daily notification at ${hour}:${minute.toString().padStart(2, '0')}, ID: ${identifier}`);
 
-    // Save settings
     await saveNotificationSettings({
       enabled: true,
       hour,
@@ -145,15 +167,23 @@ export async function scheduleDailyNotification(
   }
 }
 
+// Internal helper — cancels OS notifications without touching settings
+async function cancelAllScheduledNotificationsOnly(): Promise<void> {
+  try {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+  } catch (error) {
+    console.error('[Notifications] Error cancelling notifications:', error);
+  }
+}
+
 /**
- * Cancel all scheduled notifications
+ * Cancel all scheduled notifications and mark as disabled in settings
  */
 export async function cancelAllScheduledNotifications(): Promise<void> {
   try {
     await Notifications.cancelAllScheduledNotificationsAsync();
     console.log('[Notifications] All scheduled notifications cancelled');
 
-    // Update settings
     const settings = await getNotificationSettings();
     await saveNotificationSettings({
       ...settings,
@@ -173,32 +203,46 @@ export async function getScheduledNotifications(): Promise<Notifications.Notific
 }
 
 /**
- * Format time for display (e.g., "6:00 AM" or "06:00")
+ * Format time for display (e.g., "7:00 AM" or "07:00")
  */
 export function formatNotificationTime(hour: number, minute: number, use24Hour: boolean = false): string {
   if (use24Hour) {
     return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
   }
-
   const period = hour >= 12 ? 'PM' : 'AM';
   const displayHour = hour % 12 || 12;
   return `${displayHour}:${minute.toString().padStart(2, '0')} ${period}`;
 }
 
 /**
- * Initialize notifications on app start
- * Reschedules notification if enabled in settings
+ * Initialize notifications on app start.
+ * - First run: auto-schedules at 7:00 AM.
+ * - Subsequent runs: reschedules if still enabled (keeps message fresh).
+ * - Silently skips if permissions are denied by the user.
  */
 export async function initializeNotifications(language: 'en' | 'es' = 'es'): Promise<void> {
   try {
-    const settings = await getNotificationSettings();
+    const stored = await AsyncStorage.getItem(NOTIFICATION_STORAGE_KEY);
+    const settings: NotificationSettings = stored
+      ? JSON.parse(stored)
+      : DEFAULT_NOTIFICATION_SETTINGS;
 
     if (settings.enabled) {
       const hasPermission = await requestNotificationPermissions();
       if (hasPermission) {
-        // Reschedule the notification to ensure it's active
         await scheduleDailyNotification(settings.hour, settings.minute, language);
         console.log('[Notifications] Reinitialized daily notification');
+      }
+    } else if (!stored) {
+      // Brand-new install: auto-request and schedule at 7:00 AM
+      const hasPermission = await requestNotificationPermissions();
+      if (hasPermission) {
+        await scheduleDailyNotification(
+          DEFAULT_NOTIFICATION_SETTINGS.hour,
+          DEFAULT_NOTIFICATION_SETTINGS.minute,
+          language
+        );
+        console.log('[Notifications] Auto-scheduled first-time notification at 7:00 AM');
       }
     }
   } catch (error) {
@@ -211,15 +255,17 @@ export async function initializeNotifications(language: 'en' | 'es' = 'es'): Pro
  */
 export async function sendTestNotification(language: 'en' | 'es' = 'es'): Promise<void> {
   try {
+    const idx = getDailyMessageIndex();
+    const msg = language === 'es' ? SPIRITUAL_MESSAGES_ES[idx]! : SPIRITUAL_MESSAGES_EN[idx]!;
+
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: language === 'es' ? '🔔 Notificación de prueba' : '🔔 Test Notification',
-        body: language === 'es'
-          ? '¡Las notificaciones están funcionando correctamente!'
-          : 'Notifications are working correctly!',
-        sound: 'default',
+        title: msg.title,
+        body: msg.body,
+        sound: undefined as any,
+        data: { screen: 'home' },
       },
-      trigger: null, // Immediately
+      trigger: null,
     });
     console.log('[Notifications] Test notification sent');
   } catch (error) {

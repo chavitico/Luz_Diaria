@@ -1533,7 +1533,7 @@ export default function HomeScreen() {
         incrementStreak();
         console.log('[Streak] Incrementing streak to:', newStreakCurrent);
       } else if (lastActive === today) {
-        // User already completed today - keep current streak
+        // User already completed today - keep current streak, don't re-count
         console.log('[Streak] Already active today, keeping streak:', newStreakCurrent);
       } else {
         // User missed a day or first time - reset to 1
@@ -1542,7 +1542,11 @@ export default function HomeScreen() {
         console.log('[Streak] Resetting streak to 1 (lastActive was:', lastActive, ')');
       }
 
-      const newDevotionalsCompleted = user.devotionalsCompleted + 1;
+      // Only increment the devotionals counter once per calendar day
+      const alreadyCountedToday = lastActive === today;
+      const newDevotionalsCompleted = alreadyCountedToday
+        ? user.devotionalsCompleted
+        : user.devotionalsCompleted + 1;
 
       updateUser({
         devotionalsCompleted: newDevotionalsCompleted,
@@ -1550,22 +1554,26 @@ export default function HomeScreen() {
       });
 
       // Sync user data to backend for community display
+      // Pass completedDevotionalDate only on fresh completion — backend records it and derives count
       try {
         await gamificationApi.syncUser(user.id, {
           streakCurrent: newStreakCurrent,
           streakBest: newStreakBest,
           devotionalsCompleted: newDevotionalsCompleted,
           lastActiveAt: new Date().toISOString(),
+          ...(alreadyCountedToday ? {} : { completedDevotionalDate: today }),
         });
       } catch (error) {
         console.error('[Gamification] Failed to sync user data:', error);
       }
 
-      // Update challenge progress for devotional completion
-      try {
-        await gamificationApi.updateChallengeProgress(user.id, 'devotional_complete');
-      } catch (error) {
-        console.error('[Gamification] Failed to update challenge progress:', error);
+      // Update challenge progress only on a fresh completion (not a re-open)
+      if (!alreadyCountedToday) {
+        try {
+          await gamificationApi.updateChallengeProgress(user.id, 'devotional_complete');
+        } catch (error) {
+          console.error('[Gamification] Failed to update challenge progress:', error);
+        }
       }
     }
 

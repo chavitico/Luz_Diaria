@@ -237,6 +237,7 @@ export const gamificationApi = {
     devotionalsCompleted?: number;
     totalTimeSeconds?: number;
     lastActiveAt?: string;
+    completedDevotionalDate?: string; // YYYY-MM-DD — triggers authoritative counter update
   }): Promise<UserProfile> {
     const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/sync`, {
       method: 'POST',
