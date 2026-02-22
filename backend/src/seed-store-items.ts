@@ -460,8 +460,22 @@ const AVATARS_V2 = [
 ];
 
 // ============================================
-// TYPE DEFINITIONS
+// AVATAR FRAMES V2 (12 premium frames)
 // ============================================
+const FRAMES_V2 = [
+  { id: 'frame_v2_hoja_oro', type: 'frame', nameEn: 'Gold Leaf', nameEs: 'Hoja de Oro', descriptionEn: 'Fine gold leaf edge with warm radiance', descriptionEs: 'Borde de hoja de oro fino con calidez', pricePoints: 450, rarity: 'rare', assetRef: '#D4A017', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_plata_brillo', type: 'frame', nameEn: 'Silver Glow', nameEs: 'Brillo de Plata', descriptionEn: 'Shimmering silver ring of purity', descriptionEs: 'Anillo de plata refulgente de pureza', pricePoints: 350, rarity: 'common', assetRef: '#B8C8D8', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_olivo', type: 'frame', nameEn: 'Olive Wreath', nameEs: 'Corona de Olivo', descriptionEn: 'Ancient olive branch wreath of peace', descriptionEs: 'Corona antigua de olivo de la paz', pricePoints: 400, rarity: 'rare', assetRef: '#6B8F47', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_amanecer', type: 'frame', nameEn: 'Sunrise Ring', nameEs: 'Anillo Amanecer', descriptionEn: 'Soft dawn gradient circling with hope', descriptionEs: 'Degradado suave del amanecer con esperanza', pricePoints: 380, rarity: 'common', assetRef: '#F4A261', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_pergamino', type: 'frame', nameEn: 'Parchment Edge', nameEs: 'Borde Pergamino', descriptionEn: 'Aged scripture scroll border', descriptionEs: 'Borde de pergamino de escrituras antiguas', pricePoints: 320, rarity: 'common', assetRef: '#C9A96E', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_halo_azul', type: 'frame', nameEn: 'Calm Blue Halo', nameEs: 'Halo Azul Sereno', descriptionEn: 'Tranquil blue celestial halo', descriptionEs: 'Halo celestial azul tranquilo', pricePoints: 420, rarity: 'rare', assetRef: '#4A90D9', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_fuego_sagrado', type: 'frame', nameEn: 'Sacred Fire', nameEs: 'Fuego Sagrado', descriptionEn: 'Holy Spirit fire ring of power', descriptionEs: 'Anillo de fuego del Espiritu Santo', pricePoints: 600, rarity: 'epic', assetRef: '#E85D04', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_luna_plata', type: 'frame', nameEn: 'Silver Moon', nameEs: 'Luna de Plata', descriptionEn: 'Moonlit silver glow for the night watchman', descriptionEs: 'Resplandor plateado lunar para el vigilante', pricePoints: 480, rarity: 'rare', assetRef: '#8EABD4', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_jade', type: 'frame', nameEn: 'Jade Garden', nameEs: 'Jardin Jade', descriptionEn: 'Deep green jade ring of life', descriptionEs: 'Anillo verde jade profundo de vida', pricePoints: 360, rarity: 'common', assetRef: '#00A878', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_zafiro', type: 'frame', nameEn: 'Sapphire Crown', nameEs: 'Corona Zafiro', descriptionEn: 'Royal sapphire crown frame', descriptionEs: 'Marco de corona de zafiro real', pricePoints: 750, rarity: 'epic', assetRef: '#1E6EBE', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_rosa_gracia', type: 'frame', nameEn: 'Rose of Grace', nameEs: 'Rosa de Gracia', descriptionEn: 'Blush rose petal frame of tender grace', descriptionEs: 'Marco de petalo de rosa del amor tierno', pricePoints: 420, rarity: 'rare', assetRef: '#E8829A', metadata: JSON.stringify({ isV2: true }) },
+  { id: 'frame_v2_tierra_santa', type: 'frame', nameEn: 'Holy Land', nameEs: 'Tierra Santa', descriptionEn: 'Warm desert sand of ancient holy ground', descriptionEs: 'Arena calida del desierto de tierra santa', pricePoints: 340, rarity: 'common', assetRef: '#C8956C', metadata: JSON.stringify({ isV2: true }) },
+];
 interface StoreItemInput {
   id: string;
   type: string;
@@ -535,6 +549,13 @@ async function seedStoreItems() {
   }
   console.log(`  Avatar frames: ${FRAMES.length} processed`);
 
+  // Seed frames V2
+  console.log('Seeding avatar frames V2...');
+  for (const frame of FRAMES_V2) {
+    await upsertItem(frame, sortOrder++);
+  }
+  console.log(`  Avatar frames V2: ${FRAMES_V2.length} processed`);
+
   // Seed music tracks
   console.log('Seeding music tracks...');
   for (const track of MUSIC_TRACKS) {
@@ -564,7 +585,7 @@ async function seedStoreItems() {
   console.log(`  Avatars V2: ${AVATARS_V2.length} processed`);
 
   // Summary
-  const totalItems = THEMES.length + THEMES_V2.length + FRAMES.length + MUSIC_TRACKS.length + TITLES.length + AVATARS.length + AVATARS_V2.length;
+  const totalItems = THEMES.length + THEMES_V2.length + FRAMES.length + FRAMES_V2.length + MUSIC_TRACKS.length + TITLES.length + AVATARS.length + AVATARS_V2.length;
   console.log('\n========================================');
   console.log('Store items seed completed!');
   console.log('========================================');

@@ -1050,23 +1050,52 @@ function ItemDetailModal({
 
     if (item.type === 'frame' && item.color) {
       return (
-        <View
-          style={{
-            width: 120,
-            height: 120,
-            borderRadius: 60,
-            backgroundColor: colors.background,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderWidth: 6,
-            borderColor: item.color,
-            shadowColor: item.color,
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.5,
-            shadowRadius: 12,
-          }}
-        >
-          <Text style={{ fontSize: 40 }}>🕊️</Text>
+        <View style={{ alignItems: 'center' }}>
+          {/* Multi-layer frame: outer ring */}
+          <View
+            style={{
+              width: 132,
+              height: 132,
+              borderRadius: 66,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderWidth: 6,
+              borderColor: item.color,
+              shadowColor: item.color,
+              shadowOffset: { width: 0, height: 0 },
+              shadowOpacity: 0.7,
+              shadowRadius: 16,
+              elevation: 12,
+              backgroundColor: colors.background,
+            }}
+          >
+            {/* Inner glow layer */}
+            <View
+              style={{
+                position: 'absolute',
+                top: 6,
+                left: 6,
+                right: 6,
+                bottom: 6,
+                borderRadius: 60,
+                borderWidth: 1,
+                borderColor: item.color + '50',
+              }}
+            />
+            {/* Avatar emoji */}
+            <Text style={{ fontSize: 44 }}>🕊️</Text>
+          </View>
+          {/* Hex color label */}
+          <Text style={{
+            marginTop: 10,
+            fontSize: 11,
+            fontWeight: '600',
+            color: colors.textMuted,
+            letterSpacing: 0.8,
+            textTransform: 'uppercase',
+          }}>
+            {item.color}
+          </Text>
         </View>
       );
     }
@@ -1328,28 +1357,35 @@ function PremiumThemeCard({
               </>
             )}
           </View>
-          {/* Sample text preview for V2 themes */}
+          {/* Mini-card mock preview for V2 themes */}
           {isV2Theme && (
             <View style={{
               paddingHorizontal: 8,
               paddingVertical: 6,
               backgroundColor: themeData.colors.background,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
             }}>
+              {/* Row 1: Bold "Aa" heading text */}
               <Text style={{
-                fontSize: 16,
-                fontWeight: '700',
+                fontSize: 15,
+                fontWeight: '800',
                 color: themeData.colors.text,
+                marginBottom: 4,
               }}>Aa</Text>
+              {/* Row 2: Thin horizontal rule colored with textMuted */}
               <View style={{
-                paddingHorizontal: 6,
+                height: 1,
+                backgroundColor: themeData.colors.text + '25',
+                marginBottom: 5,
+              }} />
+              {/* Row 3: Small rounded pill using primary color */}
+              <View style={{
+                alignSelf: 'flex-start',
+                paddingHorizontal: 7,
                 paddingVertical: 2,
-                borderRadius: 4,
-                backgroundColor: themeData.colors.primary + '20',
+                borderRadius: 99,
+                backgroundColor: themeData.colors.primary,
               }}>
-                <Text style={{ fontSize: 10, fontWeight: '600', color: themeData.colors.primary }}>V2</Text>
+                <Text style={{ fontSize: 8, fontWeight: '700', color: '#FFFFFF' }}>V2</Text>
               </View>
             </View>
           )}
@@ -1458,10 +1494,14 @@ function PremiumFrameCard({
   const scale = useSharedValue(1);
   const rarityColor = RARITY_COLORS[frameData.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
   const gradientColors = RARITY_GRADIENTS[frameData.rarity as keyof typeof RARITY_GRADIENTS] || RARITY_GRADIENTS.common;
+  const isV2Frame = 'isV2' in frameData && (frameData as any).isV2 === true;
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
+
+  const circleSize = isV2Frame ? 84 : 72;
+  const circleRadius = circleSize / 2;
 
   return (
     <Animated.View style={animatedStyle}>
@@ -1475,11 +1515,11 @@ function PremiumFrameCard({
           backgroundColor: colors.surface,
           shadowColor: isEquipped ? colors.primary : frameData.color,
           shadowOffset: { width: 0, height: isEquipped ? 6 : 4 },
-          shadowOpacity: isEquipped ? 0.35 : 0.2,
-          shadowRadius: 10,
-          elevation: isEquipped ? 5 : 3,
-          borderWidth: isEquipped ? 2 : 0,
-          borderColor: colors.primary,
+          shadowOpacity: isEquipped ? 0.35 : (isV2Frame ? 0.28 : 0.2),
+          shadowRadius: isV2Frame ? 14 : 10,
+          elevation: isEquipped ? 5 : (isV2Frame ? 4 : 3),
+          borderWidth: isEquipped ? 2 : (isV2Frame ? 1 : 0),
+          borderColor: isEquipped ? colors.primary : (isV2Frame ? frameData.color + '50' : 'transparent'),
           opacity: !canAfford && !isOwned ? 0.7 : 1,
         }}
       >
@@ -1487,25 +1527,56 @@ function PremiumFrameCard({
           colors={gradientColors}
           style={{ padding: 14, alignItems: 'center' }}
         >
+          {/* V2 Badge */}
+          {isV2Frame && (
+            <View style={{
+              position: 'absolute',
+              top: 8,
+              right: 8,
+              paddingHorizontal: 5,
+              paddingVertical: 2,
+              borderRadius: 5,
+              backgroundColor: frameData.color + '30',
+              borderWidth: 1,
+              borderColor: frameData.color + '60',
+            }}>
+              <Text style={{ fontSize: 8, fontWeight: '800', color: frameData.color, letterSpacing: 0.5 }}>V2</Text>
+            </View>
+          )}
+
           {/* Frame Preview Circle */}
           <View style={{ position: 'relative', marginBottom: 10 }}>
+            {/* Radial glow for V2 */}
+            {isV2Frame && (
+              <View
+                style={{
+                  position: 'absolute',
+                  top: -8,
+                  left: -8,
+                  right: -8,
+                  bottom: -8,
+                  borderRadius: circleRadius + 8,
+                  backgroundColor: frameData.color + '18',
+                }}
+              />
+            )}
             <View
               style={{
-                width: 72,
-                height: 72,
-                borderRadius: 36,
+                width: circleSize,
+                height: circleSize,
+                borderRadius: circleRadius,
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: colors.background,
-                borderWidth: 5,
+                borderWidth: isV2Frame ? 6 : 5,
                 borderColor: frameData.color,
                 shadowColor: frameData.color,
                 shadowOffset: { width: 0, height: 0 },
-                shadowOpacity: 0.4,
-                shadowRadius: 8,
+                shadowOpacity: isV2Frame ? 0.6 : 0.4,
+                shadowRadius: isV2Frame ? 12 : 8,
               }}
             >
-              <Text style={{ fontSize: 28 }}>🕊️</Text>
+              <Text style={{ fontSize: isV2Frame ? 32 : 28 }}>🕊️</Text>
             </View>
 
             {/* Lock Overlay */}
@@ -1519,16 +1590,16 @@ function PremiumFrameCard({
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: 'rgba(0,0,0,0.35)',
-                borderRadius: 36,
+                borderRadius: circleRadius,
               }}>
                 {frameData.chestOnly ? <Gift size={18} color="#F59E0B" /> : <Lock size={20} color="#FFFFFF" />}
               </View>
             )}
           </View>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: isV2Frame ? 2 : 4 }}>
             <Text
-              style={{ fontSize: 12, fontWeight: '700', color: colors.text, maxWidth: 70 }}
+              style={{ fontSize: 12, fontWeight: '700', color: colors.text, maxWidth: isV2Frame ? 80 : 70 }}
               numberOfLines={1}
             >
               {language === 'es' ? frameData.nameEs : frameData.name}
@@ -1537,6 +1608,18 @@ function PremiumFrameCard({
               <RarityIcon rarity={frameData.rarity} size={12} />
             </View>
           </View>
+
+          {/* V2 subtitle description */}
+          {isV2Frame && (
+            <Text
+              style={{ fontSize: 9, color: colors.textMuted, textAlign: 'center', marginBottom: 4, maxWidth: 80 }}
+              numberOfLines={1}
+            >
+              {language === 'es'
+                ? (frameData.descriptionEs || frameData.description || '').slice(0, 22)
+                : (frameData.description || '').slice(0, 22)}
+            </Text>
+          )}
 
           {/* Price or Status */}
           {isEquipped ? (
@@ -1771,11 +1854,26 @@ function PremiumAvatarCard({
 
           {/* Avatar Emoji */}
           <View style={{ position: 'relative', marginBottom: 8 }}>
+            {/* Static glow ring for V2 avatars */}
+            {isV2Avatar && (
+              <View
+                style={{
+                  position: 'absolute',
+                  top: -5,
+                  left: -5,
+                  width: 76 + 10,
+                  height: 76 + 10,
+                  borderRadius: (76 + 10) / 2,
+                  borderWidth: 1,
+                  borderColor: rarityColor + '70',
+                }}
+              />
+            )}
             <View
               style={{
-                width: isV2Avatar ? 68 : 64,
-                height: isV2Avatar ? 68 : 64,
-                borderRadius: isV2Avatar ? 34 : 32,
+                width: isV2Avatar ? 76 : 64,
+                height: isV2Avatar ? 76 : 64,
+                borderRadius: isV2Avatar ? 38 : 32,
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: isV2Avatar ? colors.surface : colors.primary + '15',
@@ -1787,7 +1885,7 @@ function PremiumAvatarCard({
                 shadowRadius: isV2Avatar ? 8 : 0,
               }}
             >
-              <Text style={{ fontSize: isV2Avatar ? 34 : 32 }}>{avatar.emoji}</Text>
+              <Text style={{ fontSize: isV2Avatar ? 38 : 32 }}>{avatar.emoji}</Text>
             </View>
 
             {/* Rarity indicator */}
@@ -1824,7 +1922,7 @@ function PremiumAvatarCard({
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: isV2Avatar ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.35)',
-                borderRadius: isV2Avatar ? 34 : 32,
+                borderRadius: isV2Avatar ? 38 : 32,
               }}>
                 {(avatar as { chestOnly?: boolean }).chestOnly
                   ? <Gift size={16} color="#F59E0B" />
@@ -2317,6 +2415,7 @@ export default function StoreScreen() {
   const queryClient = useQueryClient();
 
   const [activeCategory, setActiveCategory] = useState<CategoryType>('themes');
+  const [showV2Only, setShowV2Only] = useState(false);
   const [showPointsToast, setShowPointsToast] = useState(false);
   const [toastAmount, setToastAmount] = useState(0);
   const [toastPositive, setToastPositive] = useState(false);
@@ -2648,43 +2747,85 @@ export default function StoreScreen() {
     const screenWidth = Dimensions.get('window').width;
 
     switch (activeCategory) {
-      case 'themes':
-        return (
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'flex-start' }}>
-            {Object.values(PURCHASABLE_THEMES).map((theme, index) => {
-              const { isOwned, isEquipped, canAfford } = getItemStatus(theme.id, 'theme', theme.price ?? 0);
+      case 'themes': {
+        const allThemes = Object.values(PURCHASABLE_THEMES);
+        const filteredThemes = showV2Only
+          ? allThemes.filter(t => t.id.includes('_v2_') || t.id.includes('amanecer_dorado') || t.id.includes('noche_profunda') || t.id.includes('bosque_sereno') || t.id.includes('desierto_suave') || t.id.includes('promesa_violeta') || t.id.includes('cielo_gloria') || t.id.includes('mar_misericordia') || t.id.includes('fuego_espiritu') || t.id.includes('jardin_gracia') || t.id.includes('olivo_paz') || t.id.includes('trono_azul') || t.id.includes('lampara_encendida') || t.id.includes('pergamino_antiguo') || t.id.includes('luz_celestial'))
+          : allThemes;
 
-              return (
-                <Animated.View
-                  key={theme.id}
-                  entering={FadeInRight.delay(index * 50).duration(300)}
-                  style={{ width: '48%' }}
-                >
-                  <PremiumThemeCard
-                    themeData={theme}
-                    isOwned={isOwned}
-                    isEquipped={isEquipped}
-                    canAfford={canAfford}
-                    colors={colors}
-                    language={language}
-                    onPress={() => handleItemPress({
-                      id: theme.id,
-                      type: 'theme',
-                      name: theme.name,
-                      nameEs: theme.nameEs,
-                      description: theme.description,
-                      descriptionEs: theme.descriptionEs,
-                      price: theme.price ?? 0,
-                      rarity: theme.rarity,
-                      colors: theme.colors,
-                      chestOnly: theme.chestOnly,
-                    })}
-                  />
-                </Animated.View>
-              );
-            })}
+        return (
+          <View>
+            {/* V2 filter row */}
+            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+              <Pressable
+                onPress={() => { Haptics.selectionAsync(); setShowV2Only(false); }}
+                style={{
+                  paddingHorizontal: 16,
+                  paddingVertical: 7,
+                  borderRadius: 99,
+                  backgroundColor: !showV2Only ? colors.primary : colors.surface,
+                  borderWidth: 1,
+                  borderColor: !showV2Only ? colors.primary : colors.textMuted + '30',
+                }}
+              >
+                <Text style={{ fontSize: 13, fontWeight: '600', color: !showV2Only ? '#FFFFFF' : colors.textMuted }}>
+                  {language === 'es' ? 'Todos' : 'All'}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => { Haptics.selectionAsync(); setShowV2Only(true); }}
+                style={{
+                  paddingHorizontal: 16,
+                  paddingVertical: 7,
+                  borderRadius: 99,
+                  backgroundColor: showV2Only ? colors.primary : colors.surface,
+                  borderWidth: 1,
+                  borderColor: showV2Only ? colors.primary : colors.textMuted + '30',
+                }}
+              >
+                <Text style={{ fontSize: 13, fontWeight: '600', color: showV2Only ? '#FFFFFF' : colors.textMuted }}>
+                  V2 Premium
+                </Text>
+              </Pressable>
+            </View>
+
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'flex-start' }}>
+              {filteredThemes.map((theme, index) => {
+                const { isOwned, isEquipped, canAfford } = getItemStatus(theme.id, 'theme', theme.price ?? 0);
+
+                return (
+                  <Animated.View
+                    key={theme.id}
+                    entering={FadeInRight.delay(index * 50).duration(300)}
+                    style={{ width: '48%' }}
+                  >
+                    <PremiumThemeCard
+                      themeData={theme}
+                      isOwned={isOwned}
+                      isEquipped={isEquipped}
+                      canAfford={canAfford}
+                      colors={colors}
+                      language={language}
+                      onPress={() => handleItemPress({
+                        id: theme.id,
+                        type: 'theme',
+                        name: theme.name,
+                        nameEs: theme.nameEs,
+                        description: theme.description,
+                        descriptionEs: theme.descriptionEs,
+                        price: theme.price ?? 0,
+                        rarity: theme.rarity,
+                        colors: theme.colors,
+                        chestOnly: theme.chestOnly,
+                      })}
+                    />
+                  </Animated.View>
+                );
+              })}
+            </View>
           </View>
         );
+      }
 
       case 'frames': {
         const horizontalPadding = 40;
@@ -2692,40 +2833,81 @@ export default function StoreScreen() {
         const numColumns = 3;
         const itemWidth = (screenWidth - horizontalPadding - (gap * (numColumns - 1))) / numColumns;
 
-        return (
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
-            {Object.values(AVATAR_FRAMES).map((frame, index) => {
-              const { isOwned, isEquipped, canAfford } = getItemStatus(frame.id, 'frame', frame.price ?? 0);
+        const allFrames = Object.values(AVATAR_FRAMES);
+        const filteredFrames = showV2Only
+          ? allFrames.filter(f => 'isV2' in f && (f as any).isV2 === true || f.id.includes('_v2_'))
+          : allFrames;
 
-              return (
-                <Animated.View
-                  key={frame.id}
-                  entering={FadeInRight.delay(index * 40).duration(300)}
-                  style={{ width: itemWidth }}
-                >
-                  <PremiumFrameCard
-                    frameData={frame}
-                    isOwned={isOwned}
-                    isEquipped={isEquipped}
-                    canAfford={canAfford}
-                    colors={colors}
-                    language={language}
-                    onPress={() => handleItemPress({
-                      id: frame.id,
-                      type: 'frame',
-                      name: frame.name,
-                      nameEs: frame.nameEs,
-                      description: frame.description,
-                      descriptionEs: frame.descriptionEs,
-                      price: frame.price ?? 0,
-                      rarity: frame.rarity,
-                      color: frame.color,
-                      chestOnly: frame.chestOnly,
-                    })}
-                  />
-                </Animated.View>
-              );
-            })}
+        return (
+          <View>
+            {/* V2 filter row */}
+            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+              <Pressable
+                onPress={() => { Haptics.selectionAsync(); setShowV2Only(false); }}
+                style={{
+                  paddingHorizontal: 16,
+                  paddingVertical: 7,
+                  borderRadius: 99,
+                  backgroundColor: !showV2Only ? colors.primary : colors.surface,
+                  borderWidth: 1,
+                  borderColor: !showV2Only ? colors.primary : colors.textMuted + '30',
+                }}
+              >
+                <Text style={{ fontSize: 13, fontWeight: '600', color: !showV2Only ? '#FFFFFF' : colors.textMuted }}>
+                  {language === 'es' ? 'Todos' : 'All'}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => { Haptics.selectionAsync(); setShowV2Only(true); }}
+                style={{
+                  paddingHorizontal: 16,
+                  paddingVertical: 7,
+                  borderRadius: 99,
+                  backgroundColor: showV2Only ? colors.primary : colors.surface,
+                  borderWidth: 1,
+                  borderColor: showV2Only ? colors.primary : colors.textMuted + '30',
+                }}
+              >
+                <Text style={{ fontSize: 13, fontWeight: '600', color: showV2Only ? '#FFFFFF' : colors.textMuted }}>
+                  V2 Premium
+                </Text>
+              </Pressable>
+            </View>
+
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
+              {filteredFrames.map((frame, index) => {
+                const { isOwned, isEquipped, canAfford } = getItemStatus(frame.id, 'frame', frame.price ?? 0);
+
+                return (
+                  <Animated.View
+                    key={frame.id}
+                    entering={FadeInRight.delay(index * 40).duration(300)}
+                    style={{ width: itemWidth }}
+                  >
+                    <PremiumFrameCard
+                      frameData={frame}
+                      isOwned={isOwned}
+                      isEquipped={isEquipped}
+                      canAfford={canAfford}
+                      colors={colors}
+                      language={language}
+                      onPress={() => handleItemPress({
+                        id: frame.id,
+                        type: 'frame',
+                        name: frame.name,
+                        nameEs: frame.nameEs,
+                        description: frame.description,
+                        descriptionEs: frame.descriptionEs,
+                        price: frame.price ?? 0,
+                        rarity: frame.rarity,
+                        color: frame.color,
+                        chestOnly: frame.chestOnly,
+                      })}
+                    />
+                  </Animated.View>
+                );
+              })}
+            </View>
           </View>
         );
       }
@@ -2952,6 +3134,7 @@ export default function StoreScreen() {
                 onPress={() => {
                   Haptics.selectionAsync();
                   setActiveCategory(category.key);
+                  setShowV2Only(false);
                 }}
               />
             ))}

@@ -772,6 +772,7 @@ export const AVATAR_FRAMES: Record<string, {
   price?: number;
   rarity: string;
   chestOnly?: boolean;
+  isV2?: boolean;
 }> = {
   frame_dorado: { id: 'frame_dorado', name: 'Golden', nameEs: 'Dorado', description: 'Precious as refined gold', descriptionEs: 'Precioso como oro refinado', color: '#FFD700', price: 300, rarity: 'rare' },
   frame_plata: { id: 'frame_plata', name: 'Silver', nameEs: 'Plata', description: 'Pure and elegant', descriptionEs: 'Puro y elegante', color: '#C0C0C0', price: 200, rarity: 'common' },
@@ -789,6 +790,19 @@ export const AVATAR_FRAMES: Record<string, {
   frame_chest_zafiro: { id: 'frame_chest_zafiro', name: 'Sapphire Throne', nameEs: 'Trono de Zafiro', description: 'Like the sapphire pavement of God — chest exclusive', descriptionEs: 'Como el pavimento de zafiro de Dios — exclusivo del cofre', color: '#1E3A5F', chestOnly: true, rarity: 'rare' },
   frame_chest_santo: { id: 'frame_chest_santo', name: 'Holy of Holies', nameEs: 'Santo de los Santos', description: 'Reserved for the consecrated — chest exclusive', descriptionEs: 'Reservado para los consagrados — exclusivo del cofre', color: '#F5D78E', chestOnly: true, rarity: 'epic' },
   frame_chest_nuevo_dia: { id: 'frame_chest_nuevo_dia', name: 'New Dawn', nameEs: 'Nuevo Dia', description: 'His mercies are new every morning — chest exclusive', descriptionEs: 'Sus misericordias son nuevas cada manana — exclusivo del cofre', color: '#FF9A5C', chestOnly: true, rarity: 'rare' },
+  // ── V2 Premium Frames ───────────────────────────────────────────────────────
+  frame_v2_hoja_oro: { id: 'frame_v2_hoja_oro', name: 'Gold Leaf', nameEs: 'Hoja de Oro', description: 'Fine gold leaf edge with warm warmth', descriptionEs: 'Borde de hoja de oro fino con calidez', color: '#D4A017', price: 450, rarity: 'rare', isV2: true },
+  frame_v2_plata_brillo: { id: 'frame_v2_plata_brillo', name: 'Silver Glow', nameEs: 'Brillo de Plata', description: 'Shimmering silver ring of purity', descriptionEs: 'Anillo de plata refulgente de pureza', color: '#B8C8D8', price: 350, rarity: 'common', isV2: true },
+  frame_v2_olivo: { id: 'frame_v2_olivo', name: 'Olive Wreath', nameEs: 'Corona de Olivo', description: 'Ancient olive branch wreath of peace', descriptionEs: 'Corona antigua de olivo de la paz', color: '#6B8F47', price: 400, rarity: 'rare', isV2: true },
+  frame_v2_amanecer: { id: 'frame_v2_amanecer', name: 'Sunrise Ring', nameEs: 'Anillo Amanecer', description: 'Soft dawn gradient circling with hope', descriptionEs: 'Degradado suave del amanecer rodeando con esperanza', color: '#F4A261', price: 380, rarity: 'common', isV2: true },
+  frame_v2_pergamino: { id: 'frame_v2_pergamino', name: 'Parchment Edge', nameEs: 'Borde Pergamino', description: 'Aged scripture scroll border', descriptionEs: 'Borde de pergamino de escrituras antiguas', color: '#C9A96E', price: 320, rarity: 'common', isV2: true },
+  frame_v2_halo_azul: { id: 'frame_v2_halo_azul', name: 'Calm Blue Halo', nameEs: 'Halo Azul Sereno', description: 'Tranquil blue celestial halo', descriptionEs: 'Halo celestial azul tranquilo', color: '#4A90D9', price: 420, rarity: 'rare', isV2: true },
+  frame_v2_fuego_sagrado: { id: 'frame_v2_fuego_sagrado', name: 'Sacred Fire', nameEs: 'Fuego Sagrado', description: 'Holy Spirit fire ring of power', descriptionEs: 'Anillo de fuego del Espiritu Santo', color: '#E85D04', price: 600, rarity: 'epic', isV2: true },
+  frame_v2_luna_plata: { id: 'frame_v2_luna_plata', name: 'Silver Moon', nameEs: 'Luna de Plata', description: 'Moonlit silver glow for the night watchman', descriptionEs: 'Resplandor plateado lunar para el vigilante nocturno', color: '#8EABD4', price: 480, rarity: 'rare', isV2: true },
+  frame_v2_jade: { id: 'frame_v2_jade', name: 'Jade Garden', nameEs: 'Jardin Jade', description: 'Deep green jade ring of life', descriptionEs: 'Anillo verde jade profundo de vida', color: '#00A878', price: 360, rarity: 'common', isV2: true },
+  frame_v2_zafiro: { id: 'frame_v2_zafiro', name: 'Sapphire Crown', nameEs: 'Corona Zafiro', description: 'Royal sapphire crown frame', descriptionEs: 'Marco de corona de zafiro real', color: '#1E6EBE', price: 750, rarity: 'epic', isV2: true },
+  frame_v2_rosa_gracia: { id: 'frame_v2_rosa_gracia', name: 'Rose of Grace', nameEs: 'Rosa de Gracia', description: 'Blush rose petal frame of tender grace', descriptionEs: 'Marco de petalo de rosa del amor tierno', color: '#E8829A', price: 420, rarity: 'rare', isV2: true },
+  frame_v2_tierra_santa: { id: 'frame_v2_tierra_santa', name: 'Holy Land', nameEs: 'Tierra Santa', description: 'Warm desert sand of ancient holy ground', descriptionEs: 'Arena calida del desierto de tierra santa antigua', color: '#C8956C', price: 340, rarity: 'common', isV2: true },
 };
 
 // Spiritual Titles

@@ -108,7 +108,14 @@ export const useBrandingStore = create<BrandingState>((set, get) => ({
 
 async function _fetchFromServer(set: (s: Partial<BrandingState>) => void) {
   try {
-    const res = await fetch(`${BACKEND_URL}/api/branding`, { signal: AbortSignal.timeout(5000) });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    let res: Response;
+    try {
+      res = await fetch(`${BACKEND_URL}/api/branding`, { signal: controller.signal });
+    } finally {
+      clearTimeout(timeoutId);
+    }
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json() as { success: boolean; branding: AppBranding };
     if (json.success && json.branding) {
