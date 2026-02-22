@@ -21,8 +21,8 @@ export interface AppBranding {
 
 export const DEFAULT_BRANDING: AppBranding = {
   appName: 'Luz Diaria',
-  taglineEs: 'Tu devocional diario',
-  taglineEn: 'Your daily devotional',
+  taglineEs: 'Un devocional para cada día',
+  taglineEn: 'A devotional for every day',
   shareWatermarkEnabled: true,
   shareWatermarkPosition: 'bottom-left',
 };

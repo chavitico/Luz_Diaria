@@ -13,6 +13,7 @@ import Animated, {
   interpolate,
 } from 'react-native-reanimated';
 import { Sun } from 'lucide-react-native';
+import { APP_BRANDING } from '@/lib/constants';
 
 const { width, height } = Dimensions.get('window');
 
@@ -119,10 +120,10 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
         {/* App Name */}
         <Animated.View style={[textAnimatedStyle]} className="mt-8 items-center">
           <Text className="text-4xl font-bold text-white" style={{ textShadowColor: 'rgba(0,0,0,0.2)', textShadowOffset: { width: 0, height: 2 }, textShadowRadius: 4 }}>
-            Daily Light
+            {APP_BRANDING.appName}
           </Text>
           <Text className="text-lg text-white/80 mt-2 font-medium">
-            Faith • Hope • Love
+            {APP_BRANDING.tagline.es}
           </Text>
         </Animated.View>
 

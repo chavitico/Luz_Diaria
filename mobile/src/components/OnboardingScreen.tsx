@@ -29,7 +29,7 @@ import { Sun, ArrowRight, Check, AlertCircle, X, Loader2 } from 'lucide-react-na
 import { useAppStore } from '@/lib/store';
 import { firestoreService } from '@/lib/firestore';
 import { gamificationApi } from '@/lib/gamification-api';
-import { DEFAULT_AVATARS } from '@/lib/constants';
+import { DEFAULT_AVATARS, APP_BRANDING } from '@/lib/constants';
 import { cn } from '@/lib/cn';
 
 const { width } = Dimensions.get('window');
@@ -227,10 +227,10 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                 <Sun size={40} color="#E8A87C" strokeWidth={1.5} />
               </View>
               <Text className="text-3xl font-bold text-gray-800 text-center">
-                Welcome to Daily Light
+                {APP_BRANDING.appName}
               </Text>
               <Text className="text-base text-gray-500 mt-2 text-center">
-                Your daily companion for faith, hope, and love
+                {APP_BRANDING.tagline.es}
               </Text>
             </Animated.View>
 

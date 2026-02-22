@@ -1,18 +1,18 @@
 // App constants and theme configuration
 
 export const APP_CONFIG = {
-  name: 'Daily Light',
+  name: 'Luz Diaria',
   company: 'ChaViTico Games',
   splashDuration: 2000,
 } as const;
 
 // Centralized branding — single source of truth for all share images and UI.
-// App name is fixed regardless of language; only tagline is localized.
+// appName is FIXED and non-translatable. Only tagline is localized.
 export const APP_BRANDING = {
   appName: 'Luz Diaria',
   tagline: {
-    es: 'Tu devocional diario',
-    en: 'Your daily devotional',
+    es: 'Un devocional para cada día',
+    en: 'A devotional for every day',
   },
 } as const;
 

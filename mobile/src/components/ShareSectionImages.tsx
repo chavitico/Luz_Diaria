@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import { BookOpen, Star, Heart, Check, Sparkles } from 'lucide-react-native';
 import type { Devotional } from '@/lib/types';
-import { APP_BRANDING } from '@/lib/constants';
+import { useBranding } from '@/lib/branding-service';
 
 // Section image dimensions (portrait format for stories)
 export const SECTION_IMAGE_SIZE = { width: 1080, height: 1350 };
@@ -138,6 +138,7 @@ interface SectionCardProps {
   language: 'en' | 'es';
   size: { width: number; height: number };
   accentColor?: string;
+  appName: string;
 }
 
 function SectionCard({
@@ -150,6 +151,7 @@ function SectionCard({
   totalPages,
   size,
   accentColor = '#FFD700',
+  appName,
 }: SectionCardProps) {
   const scale = size.width / SECTION_IMAGE_SIZE.width;
   const fontSize = (base: number) => Math.round(base * scale);
@@ -313,7 +315,7 @@ function SectionCard({
               letterSpacing: 2,
             }}
           >
-            {APP_BRANDING.appName}
+            {appName}
           </Text>
         </View>
       </View>
@@ -328,9 +330,11 @@ interface CoverCardProps {
   date: string;
   language: 'en' | 'es';
   size: { width: number; height: number };
+  appName: string;
+  tagline: string;
 }
 
-function CoverCard({ imageUrl, title, date, language, size }: CoverCardProps) {
+function CoverCard({ imageUrl, title, date, language, size, appName, tagline }: CoverCardProps) {
   const scale = size.width / SECTION_IMAGE_SIZE.width;
   const fontSize = (base: number) => Math.round(base * scale);
   const spacing = (base: number) => Math.round(base * scale);
@@ -452,7 +456,7 @@ function CoverCard({ imageUrl, title, date, language, size }: CoverCardProps) {
               letterSpacing: 3,
             }}
           >
-            {APP_BRANDING.appName}
+            {appName}
           </Text>
           <Text
             style={{
@@ -461,7 +465,7 @@ function CoverCard({ imageUrl, title, date, language, size }: CoverCardProps) {
               marginTop: spacing(10),
             }}
           >
-            {APP_BRANDING.tagline[language]}
+            {tagline}
           </Text>
         </View>
       </View>
@@ -477,9 +481,10 @@ interface VerseCardProps {
   reference: string;
   language: 'en' | 'es';
   size: { width: number; height: number };
+  appName: string;
 }
 
-function VerseCard({ imageUrl, title, verse, reference, language, size }: VerseCardProps) {
+function VerseCard({ imageUrl, title, verse, reference, language, size, appName }: VerseCardProps) {
   const scale = size.width / SECTION_IMAGE_SIZE.width;
   const fontSize = (base: number) => Math.round(base * scale);
   const spacing = (base: number) => Math.round(base * scale);
@@ -601,7 +606,7 @@ function VerseCard({ imageUrl, title, verse, reference, language, size }: VerseC
               letterSpacing: 2,
             }}
           >
-            {APP_BRANDING.appName}
+            {appName}
           </Text>
         </View>
       </View>
@@ -611,6 +616,8 @@ function VerseCard({ imageUrl, title, verse, reference, language, size }: VerseC
 
 export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSectionImagesProps>(
   ({ devotional, language, colors, translations, previewMode = false }, ref) => {
+    const branding = useBranding();
+    const appName = branding.appName;
     const coverRef = useRef<View>(null);
     const verseRef = useRef<View>(null);
     const reflectionRef = useRef<View>(null);
@@ -669,6 +676,8 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
                 date={devotional.date}
                 language={language}
                 size={displaySize}
+                appName={appName}
+                tagline={language === 'es' ? branding.taglineEs : branding.taglineEn}
               />
             </ViewShot>
           </View>
@@ -682,6 +691,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
                 reference={bibleRef}
                 language={language}
                 size={displaySize}
+                appName={appName}
               />
             </ViewShot>
           </View>
@@ -699,6 +709,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
                 language={language}
                 size={displaySize}
                 accentColor="#FFD700"
+                appName={appName}
               />
             </ViewShot>
           </View>
@@ -716,6 +727,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
                 language={language}
                 size={displaySize}
                 accentColor="#4ECDC4"
+                appName={appName}
               />
             </ViewShot>
           </View>
@@ -733,6 +745,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
                 language={language}
                 size={displaySize}
                 accentColor="#FF6B6B"
+                appName={appName}
               />
             </ViewShot>
           </View>
@@ -750,6 +763,8 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
             date={devotional.date}
             language={language}
             size={SECTION_IMAGE_SIZE}
+            appName={appName}
+            tagline={language === 'es' ? branding.taglineEs : branding.taglineEn}
           />
         </ViewShot>
 
@@ -761,6 +776,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
             reference={bibleRef}
             language={language}
             size={SECTION_IMAGE_SIZE}
+            appName={appName}
           />
         </ViewShot>
 
@@ -776,6 +792,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
             language={language}
             size={SECTION_IMAGE_SIZE}
             accentColor="#FFD700"
+            appName={appName}
           />
         </ViewShot>
 
@@ -791,6 +808,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
             language={language}
             size={SECTION_IMAGE_SIZE}
             accentColor="#4ECDC4"
+            appName={appName}
           />
         </ViewShot>
 
@@ -806,6 +824,7 @@ export const ShareSectionImages = forwardRef<ShareSectionImagesRef, ShareSection
             language={language}
             size={SECTION_IMAGE_SIZE}
             accentColor="#FF6B6B"
+            appName={appName}
           />
         </ViewShot>
       </View>

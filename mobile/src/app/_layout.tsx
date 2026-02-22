@@ -63,6 +63,13 @@ function RootLayoutNav() {
             headerTintColor: '#FFFFFF',
           }}
         />
+        <Stack.Screen
+          name="admin/branding"
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

@@ -1,6 +1,22 @@
-# Daily Light - Christian Daily Devotional App
+# Luz Diaria - Christian Daily Devotional App
 
 A beautiful, cross-platform mobile app delivering daily Christian devotionals with faith, hope, and love messages.
+
+## Branding
+
+**App name:** `Luz Diaria` (fixed, non-translatable across all languages)
+
+**Taglines:**
+- Spanish (default): *Un devocional para cada día*
+- English: *A devotional for every day*
+
+### Branding Architecture
+
+- **Source of truth:** Backend SQLite (`AppBranding` table, row `id="app"`) — fetched at startup via `GET /api/branding`
+- **Mobile service:** `src/lib/branding-service.ts` — Zustand store with 10-min AsyncStorage cache and automatic fallback to `DEFAULT_BRANDING`
+- **Fallback constants:** `APP_BRANDING` in `src/lib/constants.ts` — used by SplashScreen and OnboardingScreen (no async needed)
+- **Admin UI:** `/admin/branding` — tap the User ID line in Settings 5 times to access. Edits write back to `PUT /api/branding`
+- **Share images:** All 3 modes (long, WhatsApp card, 5-section) read from branding service; changes reflect without app restart
 
 ## Features
 

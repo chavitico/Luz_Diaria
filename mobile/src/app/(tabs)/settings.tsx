@@ -192,6 +192,7 @@ export default function SettingsScreen() {
   const [transferCode, setTransferCode] = useState<string | null>(null);
   const [transferCodeExpiry, setTransferCodeExpiry] = useState<Date | null>(null);
   const [isGeneratingCode, setIsGeneratingCode] = useState(false);
+  const [adminPressCount, setAdminPressCount] = useState(0);
   const [enteredCode, setEnteredCode] = useState('');
   const [isRestoring, setIsRestoring] = useState(false);
   const [restoreError, setRestoreError] = useState<string | null>(null);
@@ -849,9 +850,20 @@ export default function SettingsScreen() {
           {/* Debug Info - User ID */}
           {user?.id && (
             <View className="mt-6 mb-4 px-2">
-              <Text className="text-xs" style={{ color: colors.textMuted + '80' }}>
-                {t.user_id}: {user.id.slice(0, 8)}...
-              </Text>
+              <Pressable
+                onPress={() => {
+                  const next = adminPressCount + 1;
+                  setAdminPressCount(next);
+                  if (next >= 5) {
+                    setAdminPressCount(0);
+                    router.push('/admin/branding');
+                  }
+                }}
+              >
+                <Text className="text-xs" style={{ color: colors.textMuted + '80' }}>
+                  {t.user_id}: {user.id.slice(0, 8)}...
+                </Text>
+              </Pressable>
             </View>
           )}
         </View>
