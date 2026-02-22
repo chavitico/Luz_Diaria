@@ -2637,7 +2637,8 @@ function useChapterCollectionProgress(): {
 }
 
 // ─── ChapterCollectionModal ───────────────────────────────────────────────────
-// Per-chapter animated claim button
+// Per-chapter animated claim button — must be a top-level component (not nested inside render)
+// so that Reanimated hooks work correctly.
 function ClaimChapterButton({ onClaim, points, language, colors }: {
   onClaim: () => void;
   points: number;
@@ -2648,13 +2649,13 @@ function ClaimChapterButton({ onClaim, points, language, colors }: {
   const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
   return (
-    <Animated.View style={[animatedStyle, { marginTop: 8 }]}>
+    <Animated.View style={[animatedStyle, { marginTop: 10, marginBottom: 4 }]}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.96, { damping: 15, stiffness: 300 }); }}
         onPressOut={() => { scale.value = withSpring(1, { damping: 15, stiffness: 300 }); }}
         onPress={() => {
           scale.value = withSequence(
-            withSpring(1.06, { damping: 10, stiffness: 400 }),
+            withSpring(1.05, { damping: 10, stiffness: 400 }),
             withSpring(1, { damping: 12, stiffness: 300 })
           );
           onClaim();
@@ -2666,15 +2667,10 @@ function ClaimChapterButton({ onClaim, points, language, colors }: {
           gap: 8,
           backgroundColor: pressed ? colors.primary + 'CC' : colors.primary,
           borderRadius: 16,
-          paddingVertical: 15,
-          shadowColor: colors.primary,
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.35,
-          shadowRadius: 12,
-          elevation: 6,
+          paddingVertical: 16,
+          paddingHorizontal: 20,
         })}
       >
-        <Gift size={18} color="#fff" />
         <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15, letterSpacing: 0.2 }}>
           {language === 'es' ? `🎁 Reclamar Capítulo +${points} pts` : `🎁 Claim Chapter +${points} pts`}
         </Text>
@@ -2874,9 +2870,19 @@ function ChapterCollectionModal({
               const ownedCount = chapterItemsOwned.length;
               const totalCount = chapter.items.length;
               const chapterComplete = ownedCount === totalCount;
-              const canClaimChapter = isActive && chapterComplete;
+              const canClaimChapter = isActive && !isCompleted && chapterComplete;
               const pendingCount = totalCount - ownedCount;
               const progressPct = totalCount > 0 ? ownedCount / totalCount : 0;
+
+              // Debug log
+              console.debug('[ChapterModal]', chapter.chapterId, {
+                state,
+                ownedCount,
+                totalCount,
+                chapterComplete,
+                canClaimChapter,
+                isClaimed: claimedChapterIds.has(chapter.chapterId),
+              });
 
               // Determine if this chapter was just activated (previous chapter was justClaimed)
               const prevChapter = index > 0 ? collection.chapters[index - 1] : null;
@@ -2891,10 +2897,9 @@ function ChapterCollectionModal({
                   entering={FadeInDown.delay(index * 80).duration(350)}
                   style={{ marginBottom: 16 }}
                 >
-                  {/* Chapter card */}
+                  {/* Chapter card — NO overflow:hidden so CTA button is never clipped */}
                   <View style={{
                     borderRadius: 20,
-                    overflow: 'hidden',
                     backgroundColor: isLocked ? colors.background : colors.surface,
                     borderWidth: 1.5,
                     borderColor,
@@ -3139,63 +3144,31 @@ function ChapterCollectionModal({
                           );
                         })}
 
-                        {/* CTA section */}
-                        {isActive && (
+                        {/* CTA section — inside card for pending state */}
+                        {isActive && !canClaimChapter && (
                           <View style={{ marginTop: 4 }}>
-                            {canClaimChapter ? (
-                              <>
-                                {/* Ready to claim copy */}
-                                <View style={{
-                                  backgroundColor: colors.primary + '0C',
-                                  borderRadius: 10,
-                                  paddingVertical: 10,
-                                  paddingHorizontal: 14,
-                                  marginBottom: 10,
-                                  borderWidth: 1,
-                                  borderColor: colors.primary + '20',
-                                }}>
-                                  <Text style={{ fontSize: 12, color: colors.primary, fontWeight: '600', textAlign: 'center', lineHeight: 18 }}>
-                                    {language === 'es'
-                                      ? 'Capítulo completo. Reclámalo para avanzar al siguiente nivel.'
-                                      : 'Chapter complete. Claim it to advance to the next level.'}
-                                  </Text>
-                                </View>
-                                <ClaimChapterButton
-                                  onClaim={() => {
-                                    setJustClaimedId(chapter.chapterId);
-                                    onClaimChapter(chapter.chapterId, chapter.rewardPoints);
-                                  }}
-                                  points={chapter.rewardPoints}
-                                  language={language}
-                                  colors={colors}
-                                />
-                              </>
-                            ) : (
-                              <>
-                                {/* Pending items copy */}
-                                <View style={{
-                                  borderRadius: 13,
-                                  paddingVertical: 14,
-                                  paddingHorizontal: 16,
-                                  alignItems: 'center',
-                                  backgroundColor: colors.textMuted + '08',
-                                  borderWidth: 1,
-                                  borderColor: colors.textMuted + '18',
-                                  gap: 4,
-                                }}>
-                                  <Text style={{ color: colors.text, fontSize: 13, fontWeight: '700' }}>
-                                    {language === 'es'
-                                      ? `${pendingCount} ítem${pendingCount !== 1 ? 's' : ''} pendiente${pendingCount !== 1 ? 's' : ''}`
-                                      : `${pendingCount} item${pendingCount !== 1 ? 's' : ''} remaining`}
-                                  </Text>
-                                  <Text style={{ color: colors.textMuted, fontSize: 11, textAlign: 'center', lineHeight: 17 }}>
-                                    {language === 'es'
-                                      ? 'Completa todos los ítems de este capítulo para continuar tu camino espiritual.'
-                                      : 'Complete all items in this chapter to continue your spiritual path.'}
-                                  </Text>
-                                </View>
-                              </>
-                            )}
+                            {/* Pending items copy */}
+                            <View style={{
+                              borderRadius: 13,
+                              paddingVertical: 14,
+                              paddingHorizontal: 16,
+                              alignItems: 'center',
+                              backgroundColor: colors.textMuted + '08',
+                              borderWidth: 1,
+                              borderColor: colors.textMuted + '18',
+                              gap: 4,
+                            }}>
+                              <Text style={{ color: colors.text, fontSize: 13, fontWeight: '700' }}>
+                                {language === 'es'
+                                  ? `${pendingCount} ítem${pendingCount !== 1 ? 's' : ''} pendiente${pendingCount !== 1 ? 's' : ''}`
+                                  : `${pendingCount} item${pendingCount !== 1 ? 's' : ''} remaining`}
+                              </Text>
+                              <Text style={{ color: colors.textMuted, fontSize: 11, textAlign: 'center', lineHeight: 17 }}>
+                                {language === 'es'
+                                  ? 'Completa todos los ítems de este capítulo para continuar tu camino espiritual.'
+                                  : 'Complete all items in this chapter to continue your spiritual path.'}
+                              </Text>
+                            </View>
                           </View>
                         )}
 
@@ -3216,6 +3189,37 @@ function ChapterCollectionModal({
                       </View>
                     )}
                   </View>
+
+                  {/* CTA Claim button — rendered OUTSIDE the card View so it's never clipped */}
+                  {canClaimChapter && (
+                    <View style={{ paddingHorizontal: 2 }}>
+                      {/* Ready to claim copy */}
+                      <View style={{
+                        backgroundColor: colors.primary + '0C',
+                        borderRadius: 10,
+                        paddingVertical: 10,
+                        paddingHorizontal: 14,
+                        marginTop: 10,
+                        borderWidth: 1,
+                        borderColor: colors.primary + '20',
+                      }}>
+                        <Text style={{ fontSize: 12, color: colors.primary, fontWeight: '600', textAlign: 'center', lineHeight: 18 }}>
+                          {language === 'es'
+                            ? 'Capítulo completo. Reclámalo para avanzar al siguiente nivel.'
+                            : 'Chapter complete. Claim it to advance to the next level.'}
+                        </Text>
+                      </View>
+                      <ClaimChapterButton
+                        onClaim={() => {
+                          setJustClaimedId(chapter.chapterId);
+                          onClaimChapter(chapter.chapterId, chapter.rewardPoints);
+                        }}
+                        points={chapter.rewardPoints}
+                        language={language}
+                        colors={colors}
+                      />
+                    </View>
+                  )}
 
                   {/* Connector line between chapters */}
                   {index < collection.chapters.length - 1 && (
