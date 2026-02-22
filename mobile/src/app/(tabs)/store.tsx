@@ -1011,6 +1011,10 @@ function ItemDetailModal({
     color?: string;
     colors?: { primary: string; secondary: string; accent: string };
     chestOnly?: boolean;
+    meaning?: string;
+    meaningEn?: string;
+    unlockType?: 'streak' | 'devotionals' | 'share' | 'store';
+    unlockValue?: number;
   } | null;
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
@@ -1031,7 +1035,7 @@ function ItemDetailModal({
   // Render preview based on type
   const renderPreview = () => {
     if (item.type === 'avatar' && item.emoji) {
-      const isV2 = item.id.startsWith('avatar_v2_');
+      const isV2 = item.id.startsWith('avatar_v2_') || item.id.startsWith('avatar_l2_');
       if (isV2) {
         return (
           <View
@@ -1253,11 +1257,106 @@ function ItemDetailModal({
 
               {/* Description */}
               <Text
-                className="text-sm text-center mb-6"
+                className="text-sm text-center mb-4"
                 style={{ color: colors.textMuted }}
               >
                 {displayDesc}
               </Text>
+
+              {/* Spiritual meaning — only for L2 avatars */}
+              {item.meaning && item.type === 'avatar' && (
+                <View
+                  style={{
+                    backgroundColor: rarityColor + '10',
+                    borderLeftWidth: 3,
+                    borderLeftColor: rarityColor,
+                    borderRadius: 8,
+                    paddingHorizontal: 12,
+                    paddingVertical: 10,
+                    marginBottom: 12,
+                  }}
+                >
+                  <Text style={{ fontSize: 11, fontWeight: '700', color: rarityColor, marginBottom: 3, letterSpacing: 0.5 }}>
+                    {language === 'es' ? 'SIGNIFICADO' : 'MEANING'}
+                  </Text>
+                  <Text style={{ fontSize: 12, color: colors.text, lineHeight: 18, fontStyle: 'italic' }}>
+                    {language === 'es' ? item.meaning : (item.meaningEn ?? item.meaning)}
+                  </Text>
+                </View>
+              )}
+
+              {/* Unlock type badge */}
+              {item.unlockType && !item.chestOnly && (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 6,
+                    backgroundColor: colors.textMuted + '12',
+                    borderRadius: 8,
+                    paddingHorizontal: 12,
+                    paddingVertical: 8,
+                    marginBottom: 12,
+                  }}
+                >
+                  <Text style={{ fontSize: 13 }}>
+                    {item.unlockType === 'streak' ? '🔥' : item.unlockType === 'devotionals' ? '📖' : item.unlockType === 'share' ? '💌' : '🏪'}
+                  </Text>
+                  <Text style={{ fontSize: 12, fontWeight: '600', color: colors.textMuted }}>
+                    {language === 'es'
+                      ? item.unlockType === 'streak'
+                        ? `Racha de ${item.unlockValue} días`
+                        : item.unlockType === 'devotionals'
+                        ? `Completa ${item.unlockValue} devocionales`
+                        : item.unlockType === 'share'
+                        ? `Comparte ${item.unlockValue} veces`
+                        : 'Disponible en tienda'
+                      : item.unlockType === 'streak'
+                        ? `${item.unlockValue}-day streak`
+                        : item.unlockType === 'devotionals'
+                        ? `Complete ${item.unlockValue} devotionals`
+                        : item.unlockType === 'share'
+                        ? `Share ${item.unlockValue} times`
+                        : 'Available in store'}
+                  </Text>
+                </View>
+              )}
+
+              {/* Access type label: Free / Premium / Reward-only */}
+              {item.type === 'avatar' && (
+                <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 14 }}>
+                  <View style={{
+                    paddingHorizontal: 10,
+                    paddingVertical: 4,
+                    borderRadius: 99,
+                    backgroundColor: item.chestOnly
+                      ? '#F59E0B20'
+                      : item.price === 0
+                      ? '#22C55E20'
+                      : rarityColor + '18',
+                    borderWidth: 1,
+                    borderColor: item.chestOnly
+                      ? '#F59E0B50'
+                      : item.price === 0
+                      ? '#22C55E50'
+                      : rarityColor + '40',
+                  }}>
+                    <Text style={{
+                      fontSize: 11,
+                      fontWeight: '700',
+                      letterSpacing: 0.5,
+                      color: item.chestOnly ? '#F59E0B' : item.price === 0 ? '#22C55E' : rarityColor,
+                    }}>
+                      {item.chestOnly
+                        ? (language === 'es' ? 'SOLO COFRE' : 'CHEST ONLY')
+                        : item.price === 0
+                        ? (language === 'es' ? 'GRATIS' : 'FREE')
+                        : (language === 'es' ? 'PREMIUM' : 'PREMIUM')}
+                    </Text>
+                  </View>
+                </View>
+              )}
 
               {/* Action button */}
               {isEquipped ? (
@@ -2538,6 +2637,10 @@ export default function StoreScreen() {
     color?: string;
     colors?: { primary: string; secondary: string; accent: string };
     chestOnly?: boolean;
+    meaning?: string;
+    meaningEn?: string;
+    unlockType?: 'streak' | 'devotionals' | 'share' | 'store';
+    unlockValue?: number;
   } | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
@@ -3107,6 +3210,10 @@ export default function StoreScreen() {
                       rarity: avatar.rarity,
                       emoji: avatar.emoji,
                       chestOnly: (avatar as { chestOnly?: boolean }).chestOnly,
+                      meaning: (avatar as { meaning?: string }).meaning,
+                      meaningEn: (avatar as { meaningEn?: string }).meaningEn,
+                      unlockType: (avatar as { unlockType?: 'streak' | 'devotionals' | 'share' | 'store' }).unlockType,
+                      unlockValue: (avatar as { unlockValue?: number }).unlockValue,
                     })}
                   />
                 </Animated.View>

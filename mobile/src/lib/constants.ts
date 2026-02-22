@@ -147,6 +147,34 @@ export const DEFAULT_AVATARS = [
   { id: 'avatar_v2_nube', name: 'Happy Cloud', nameEs: 'Nube Feliz', emoji: '☁️', description: 'Fluffy cloud with happy face', descriptionEs: 'Nube esponjosa con cara feliz', price: 450, rarity: 'rare', collectionId: 'collection_v2_kids', isV2: true },
   { id: 'avatar_v2_angelito', name: 'Little Angel', nameEs: 'Angelito', emoji: '👼', description: 'Adorable cherub with wings', descriptionEs: 'Adorable querubin con alas', price: 550, rarity: 'rare', collectionId: 'collection_v2_kids', isV2: true },
   // ============================================
+  // AVATARS V2 LEVEL 2 — Identity & Calling
+  // Collection A: Virtudes del Reino (Kingdom Virtues)
+  // ============================================
+  { id: 'avatar_l2_corazon_agradecido', name: 'Grateful Heart', nameEs: 'Corazon Agradecido', emoji: '🫀', description: 'A heart overflowing with gratitude toward God.', descriptionEs: 'Un corazon que desborda gratitud hacia Dios.', price: 480, rarity: 'rare', collectionId: 'collection_l2_virtudes_reino', isV2: true, meaning: 'Representa una vida marcada por el agradecimiento constante a Dios en cada circunstancia.', meaningEn: 'Represents a life marked by constant thankfulness to God in every circumstance.' },
+  { id: 'avatar_l2_espiritu_humilde', name: 'Humble Spirit', nameEs: 'Espiritu Humilde', emoji: '🌾', description: 'Bowing low before God and others.', descriptionEs: 'Inclinandose ante Dios y los demas.', price: 420, rarity: 'rare', collectionId: 'collection_l2_virtudes_reino', isV2: true, meaning: 'Representa la humildad del que sirve en silencio, sin buscar reconocimiento.', meaningEn: 'Represents the humility of one who serves quietly, without seeking recognition.' },
+  { id: 'avatar_l2_gozo_constante', name: 'Constant Joy', nameEs: 'Gozo Constante', emoji: '☀️', description: 'Joy that endures through every season.', descriptionEs: 'Gozo que persiste en toda temporada.', price: 350, rarity: 'common', collectionId: 'collection_l2_virtudes_reino', isV2: true, meaning: 'Representa el gozo profundo que no depende de las circunstancias sino de la presencia de Dios.', meaningEn: 'Represents the deep joy that does not depend on circumstances but on God\'s presence.' },
+  { id: 'avatar_l2_fe_inquebrantable', name: 'Unshakeable Faith', nameEs: 'Fe Inquebrantable', emoji: '⛰️', description: 'Faith that stands firm like a mountain.', descriptionEs: 'Fe que se mantiene firme como una montana.', price: 1200, rarity: 'epic', collectionId: 'collection_l2_virtudes_reino', isV2: true, meaning: 'Representa una fe solida, probada en la tormenta y firme ante cualquier desafio.', meaningEn: 'Represents a solid faith, tested in the storm and firm before any challenge.' },
+  { id: 'avatar_l2_amor_sacrificial', name: 'Sacrificial Love', nameEs: 'Amor Sacrificial', emoji: '❤️‍🔥', description: 'Love that gives without counting the cost.', descriptionEs: 'Amor que da sin contar el costo.', price: 650, rarity: 'rare', collectionId: 'collection_l2_virtudes_reino', isV2: true, meaning: 'Representa el amor que se entrega por completo, siguiendo el ejemplo de Cristo.', meaningEn: 'Represents love that gives itself completely, following the example of Christ.' },
+  { id: 'avatar_l2_paz_permanece', name: 'Peace That Remains', nameEs: 'Paz que Permanece', emoji: '🌊', description: 'Still waters amid life\'s storms.', descriptionEs: 'Aguas tranquilas en medio de las tormentas.', price: 520, rarity: 'rare', collectionId: 'collection_l2_virtudes_reino', isV2: true, meaning: 'Representa la paz sobrenatural que guarda el corazon en medio de toda adversidad.', meaningEn: 'Represents the supernatural peace that guards the heart amid all adversity.' },
+  // ============================================
+  // Collection B: Llamados (Callings)
+  // ============================================
+  { id: 'avatar_l2_siervo_fiel', name: 'Faithful Servant', nameEs: 'Siervo Fiel', emoji: '🪴', description: 'One who tends faithfully what God has entrusted.', descriptionEs: 'Quien cuida fielmente lo que Dios ha confiado.', price: 400, rarity: 'rare', collectionId: 'collection_l2_llamados', isV2: true, meaning: 'Representa al creyente que sirve con fidelidad, sin importar si es visto o reconocido.', meaningEn: 'Represents the believer who serves faithfully, regardless of whether seen or recognized.', unlockType: 'streak', unlockValue: 7 },
+  { id: 'avatar_l2_guerrero_oracion', name: 'Prayer Warrior', nameEs: 'Guerrero de Oracion', emoji: '🛡️', description: 'One who intercedes fiercely on behalf of others.', descriptionEs: 'Quien intercede fervientemente por los demas.', price: 800, rarity: 'epic', collectionId: 'collection_l2_llamados', isV2: true, meaning: 'Representa la vida de intercesion que mueve el corazon de Dios y cambia la realidad.', meaningEn: 'Represents the life of intercession that moves the heart of God and changes reality.', unlockType: 'streak', unlockValue: 14 },
+  { id: 'avatar_l2_portador_luz', name: 'Light Bearer', nameEs: 'Portador de Luz', emoji: '🕯️', description: 'One who carries the light into dark places.', descriptionEs: 'Quien lleva la luz a los lugares oscuros.', price: 580, rarity: 'rare', collectionId: 'collection_l2_llamados', isV2: true, meaning: 'Representa la mision de ser luz en el mundo, reflejo de la gloria de Dios.', meaningEn: 'Represents the mission of being light in the world, a reflection of God\'s glory.', unlockType: 'devotionals', unlockValue: 30 },
+  { id: 'avatar_l2_atalaya', name: 'Watchman', nameEs: 'Atalaya', emoji: '🔭', description: 'One who watches, prays, and stands guard.', descriptionEs: 'Quien vigila, ora y monta guardia.', price: 1500, rarity: 'epic', collectionId: 'collection_l2_llamados', isV2: true, meaning: 'Representa al creyente llamado a la oracion de guardia, protegiendo con su intercesion.', meaningEn: 'Represents the believer called to watchful prayer, protecting through intercession.', unlockType: 'devotionals', unlockValue: 50 },
+  { id: 'avatar_l2_sembrador', name: 'Sower', nameEs: 'Sembrador', emoji: '🌱', description: 'One who plants seeds of faith and hope.', descriptionEs: 'Quien siembra semillas de fe y esperanza.', price: 450, rarity: 'rare', collectionId: 'collection_l2_llamados', isV2: true, meaning: 'Representa la vocacion de sembrar la Palabra con paciencia, confiando en la cosecha de Dios.', meaningEn: 'Represents the calling to sow the Word patiently, trusting in God\'s harvest.', unlockType: 'share', unlockValue: 5 },
+  { id: 'avatar_l2_testigo', name: 'Witness', nameEs: 'Testigo', emoji: '📣', description: 'One who declares what they have seen and heard.', descriptionEs: 'Quien declara lo que ha visto y oido.', price: 600, rarity: 'rare', collectionId: 'collection_l2_llamados', isV2: true, meaning: 'Representa la identidad del creyente como testigo fiel de la gracia de Dios en su vida.', meaningEn: 'Represents the believer\'s identity as faithful witness to God\'s grace in their life.', unlockType: 'share', unlockValue: 10 },
+  // ============================================
+  // Collection C: Simbolos Profundos (Deep Symbols)
+  // ============================================
+  { id: 'avatar_l2_lampara_encendida', name: 'Lit Lamp', nameEs: 'Lampara Encendida', emoji: '🔦', description: 'The lamp that never goes out.', descriptionEs: 'La lampara que nunca se apaga.', price: 380, rarity: 'common', collectionId: 'collection_l2_simbolos_profundos', isV2: true, meaning: 'Representa la Palabra de Dios como lampara a los pies y lumbrera al camino del creyente.', meaningEn: 'Represents God\'s Word as a lamp to the believer\'s feet and a light to their path.' },
+  { id: 'avatar_l2_corona_vida', name: 'Crown of Life', nameEs: 'Corona de Vida', emoji: '👑', description: 'The reward promised to those who endure.', descriptionEs: 'La recompensa prometida a quienes perseveran.', price: 2800, rarity: 'epic', collectionId: 'collection_l2_simbolos_profundos', isV2: true, meaning: 'Representa la corona prometida al fiel que persevera hasta el fin con amor a Dios.', meaningEn: 'Represents the crown promised to the faithful who persevere to the end with love for God.', unlockType: 'streak', unlockValue: 30 },
+  { id: 'avatar_l2_espada_espiritu', name: 'Sword of the Spirit', nameEs: 'Espada del Espiritu', emoji: '⚡', description: 'The Word of God as a living, active weapon.', descriptionEs: 'La Palabra de Dios como arma viva y activa.', price: 1800, rarity: 'epic', collectionId: 'collection_l2_simbolos_profundos', isV2: true, meaning: 'Representa la Palabra de Dios que es viva, eficaz y mas cortante que toda espada.', meaningEn: 'Represents the Word of God that is living, active, and sharper than any double-edged sword.' },
+  { id: 'avatar_l2_ancla_alma', name: 'Soul Anchor', nameEs: 'Ancla del Alma', emoji: '⚓', description: 'Hope as an anchor for the soul.', descriptionEs: 'La esperanza como ancla del alma.', price: 700, rarity: 'rare', collectionId: 'collection_l2_simbolos_profundos', isV2: true, meaning: 'Representa la esperanza en Cristo como ancla firme que sostiene el alma en toda tormenta.', meaningEn: 'Represents hope in Christ as a firm anchor that holds the soul through every storm.' },
+  { id: 'avatar_l2_pergamino_vivo', name: 'Living Scroll', nameEs: 'Pergamino Vivo', emoji: '📜', description: 'A life written by God\'s own hand.', descriptionEs: 'Una vida escrita por la propia mano de Dios.', price: 560, rarity: 'rare', collectionId: 'collection_l2_simbolos_profundos', isV2: true, meaning: 'Representa al creyente como carta viva de Cristo, escrita no con tinta sino con el Espiritu.', meaningEn: 'Represents the believer as a living letter from Christ, written not with ink but with the Spirit.', unlockType: 'devotionals', unlockValue: 21 },
+  { id: 'avatar_l2_fuente_agua', name: 'Living Water', nameEs: 'Fuente de Agua Viva', emoji: '💧', description: 'The spring of living water that never runs dry.', descriptionEs: 'El manantial de agua viva que nunca se agota.', price: 900, rarity: 'epic', collectionId: 'collection_l2_simbolos_profundos', isV2: true, meaning: 'Representa a Cristo como la unica fuente de agua viva que sacia la sed del alma para siempre.', meaningEn: 'Represents Christ as the only source of living water that forever satisfies the soul\'s thirst.' },
+  // ============================================
   // EXCLUSIVE CHEST AVATARS - Solo del Cofre Semanal
   // ============================================
   { id: 'avatar_chest_serafin', name: 'Seraph', nameEs: 'Serafin', emoji: '🔥', description: 'Six-winged heavenly being of fire', descriptionEs: 'Ser celestial de fuego con seis alas', chestOnly: true, rarity: 'epic' },
@@ -947,6 +975,42 @@ export const ITEM_COLLECTIONS: Record<string, {
     icon: '🌟',
     items: ['avatar_v2_estrellita', 'avatar_v2_arcoiris', 'avatar_v2_nube', 'avatar_v2_angelito'],
     rewardPoints: 300,
+    isV2: true,
+  },
+  // ============================================
+  // LEVEL 2 COLLECTIONS — Identity & Calling
+  // ============================================
+  collection_l2_virtudes_reino: {
+    id: 'collection_l2_virtudes_reino',
+    name: 'Kingdom Virtues',
+    nameEs: 'Virtudes del Reino',
+    description: 'Avatars representing deep spiritual virtues',
+    descriptionEs: 'Avatares que representan virtudes espirituales profundas',
+    icon: '💛',
+    items: ['avatar_l2_corazon_agradecido', 'avatar_l2_espiritu_humilde', 'avatar_l2_gozo_constante', 'avatar_l2_fe_inquebrantable', 'avatar_l2_amor_sacrificial', 'avatar_l2_paz_permanece'],
+    rewardPoints: 700,
+    isV2: true,
+  },
+  collection_l2_llamados: {
+    id: 'collection_l2_llamados',
+    name: 'The Called',
+    nameEs: 'Los Llamados',
+    description: 'Avatars for those walking in their calling',
+    descriptionEs: 'Avatares para los que caminan en su llamado',
+    icon: '📣',
+    items: ['avatar_l2_siervo_fiel', 'avatar_l2_guerrero_oracion', 'avatar_l2_portador_luz', 'avatar_l2_atalaya', 'avatar_l2_sembrador', 'avatar_l2_testigo'],
+    rewardPoints: 800,
+    isV2: true,
+  },
+  collection_l2_simbolos_profundos: {
+    id: 'collection_l2_simbolos_profundos',
+    name: 'Deep Symbols',
+    nameEs: 'Simbolos Profundos',
+    description: 'Sacred symbols with rich theological meaning',
+    descriptionEs: 'Simbolos sagrados con significado teologico profundo',
+    icon: '✨',
+    items: ['avatar_l2_lampara_encendida', 'avatar_l2_corona_vida', 'avatar_l2_espada_espiritu', 'avatar_l2_ancla_alma', 'avatar_l2_pergamino_vivo', 'avatar_l2_fuente_agua'],
+    rewardPoints: 900,
     isV2: true,
   },
 };

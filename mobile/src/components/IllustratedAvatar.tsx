@@ -16,7 +16,7 @@ export interface IllustratedAvatarProps {
 interface V2Style {
   gradientColors: [string, string, ...string[]];
   glowColor: string;
-  accentShape?: 'rays' | 'stars' | 'dots' | 'rings' | 'cross' | 'waves' | 'crown' | 'none';
+  accentShape?: 'rays' | 'stars' | 'dots' | 'rings' | 'cross' | 'waves' | 'crown' | 'flame' | 'scroll' | 'none';
   accentColor?: string;
   emojiSize: number;
 }
@@ -195,6 +195,138 @@ const V2_STYLES: Record<string, V2Style> = {
     accentShape: 'rays',
     accentColor: '#FFFDE7',
     emojiSize: 0.52,
+  },
+
+  // ─── Level 2: Virtudes del Reino ─────────────────────────────────────────
+  avatar_l2_corazon_agradecido: {
+    gradientColors: ['#FFF0F5', '#FFB3C8', '#E91E63'],
+    glowColor: '#E91E63',
+    accentShape: 'rays',
+    accentColor: '#FFD6E3',
+    emojiSize: 0.5,
+  },
+  avatar_l2_espiritu_humilde: {
+    gradientColors: ['#F5F0E8', '#D4C5A9', '#8D7B68'],
+    glowColor: '#8D7B68',
+    accentShape: 'dots',
+    accentColor: '#EDE3D4',
+    emojiSize: 0.5,
+  },
+  avatar_l2_gozo_constante: {
+    gradientColors: ['#FFFDE7', '#FFE57F', '#FF6F00'],
+    glowColor: '#FF6F00',
+    accentShape: 'rays',
+    accentColor: '#FFF9C4',
+    emojiSize: 0.52,
+  },
+  avatar_l2_fe_inquebrantable: {
+    gradientColors: ['#ECEFF1', '#90A4AE', '#263238'],
+    glowColor: '#455A64',
+    accentShape: 'rings',
+    accentColor: '#B0BEC5',
+    emojiSize: 0.48,
+  },
+  avatar_l2_amor_sacrificial: {
+    gradientColors: ['#FFF3E0', '#FF8A65', '#BF360C'],
+    glowColor: '#BF360C',
+    accentShape: 'flame',
+    accentColor: '#FFCCBC',
+    emojiSize: 0.5,
+  },
+  avatar_l2_paz_permanece: {
+    gradientColors: ['#E0F7FA', '#4DD0E1', '#006064'],
+    glowColor: '#006064',
+    accentShape: 'waves',
+    accentColor: '#B2EBF2',
+    emojiSize: 0.5,
+  },
+
+  // ─── Level 2: Los Llamados ────────────────────────────────────────────────
+  avatar_l2_siervo_fiel: {
+    gradientColors: ['#E8F5E9', '#81C784', '#2E7D32'],
+    glowColor: '#2E7D32',
+    accentShape: 'dots',
+    accentColor: '#C8E6C9',
+    emojiSize: 0.5,
+  },
+  avatar_l2_guerrero_oracion: {
+    gradientColors: ['#EDE7F6', '#9575CD', '#311B92'],
+    glowColor: '#311B92',
+    accentShape: 'cross',
+    accentColor: '#D1C4E9',
+    emojiSize: 0.5,
+  },
+  avatar_l2_portador_luz: {
+    gradientColors: ['#FFFDE7', '#FFF176', '#F9A825'],
+    glowColor: '#F9A825',
+    accentShape: 'rays',
+    accentColor: '#FFF9C4',
+    emojiSize: 0.5,
+  },
+  avatar_l2_atalaya: {
+    gradientColors: ['#E3F2FD', '#64B5F6', '#0D47A1'],
+    glowColor: '#0D47A1',
+    accentShape: 'rings',
+    accentColor: '#BBDEFB',
+    emojiSize: 0.48,
+  },
+  avatar_l2_sembrador: {
+    gradientColors: ['#F1F8E9', '#AED581', '#33691E'],
+    glowColor: '#33691E',
+    accentShape: 'stars',
+    accentColor: '#DCEDC8',
+    emojiSize: 0.5,
+  },
+  avatar_l2_testigo: {
+    gradientColors: ['#FCE4EC', '#EF9A9A', '#B71C1C'],
+    glowColor: '#B71C1C',
+    accentShape: 'rays',
+    accentColor: '#FFCDD2',
+    emojiSize: 0.5,
+  },
+
+  // ─── Level 2: Simbolos Profundos ─────────────────────────────────────────
+  avatar_l2_lampara_encendida: {
+    gradientColors: ['#FFF8E1', '#FFD54F', '#E65100'],
+    glowColor: '#E65100',
+    accentShape: 'flame',
+    accentColor: '#FFE0B2',
+    emojiSize: 0.5,
+  },
+  avatar_l2_corona_vida: {
+    gradientColors: ['#FFF9C4', '#FFEE58', '#F57F17'],
+    glowColor: '#F57F17',
+    accentShape: 'crown',
+    accentColor: '#FFF9C4',
+    emojiSize: 0.5,
+  },
+  avatar_l2_espada_espiritu: {
+    gradientColors: ['#E8EAF6', '#7986CB', '#1A237E'],
+    glowColor: '#3949AB',
+    accentShape: 'cross',
+    accentColor: '#C5CAE9',
+    emojiSize: 0.52,
+  },
+  avatar_l2_ancla_alma: {
+    gradientColors: ['#E3F2FD', '#42A5F5', '#0D47A1'],
+    glowColor: '#1565C0',
+    accentShape: 'waves',
+    accentColor: '#BBDEFB',
+    emojiSize: 0.5,
+  },
+  avatar_l2_pergamino_vivo: {
+    gradientColors: ['#FDF6E3', '#DEB887', '#8B6914'],
+    glowColor: '#8B6914',
+    accentShape: 'scroll',
+    accentColor: '#F5E6C8',
+    emojiSize: 0.5,
+  },
+  avatar_l2_fuente_agua: {
+    gradientColors: ['#E0F4FF', '#29B6F6', '#01579B'],
+    glowColor: '#0277BD',
+    accentShape: 'waves',
+    accentColor: '#B3E5FC',
+    emojiSize: 0.5,
   },
 };
 
@@ -381,6 +513,39 @@ function AccentShape({
             />
           ))}
         </View>
+      </View>
+    );
+  }
+
+  if (shape === 'flame') {
+    // Three rising vertical tapers at base — suggest a flame silhouette
+    return (
+      <View style={{ position: 'absolute', width: size, height: size, alignItems: 'center', justifyContent: 'flex-end' }}>
+        <View style={{ flexDirection: 'row', gap: 3, position: 'absolute', bottom: size * 0.06 }}>
+          {[size * 0.22, size * 0.32, size * 0.22].map((h, i) => (
+            <View
+              key={i}
+              style={{
+                width: 4,
+                height: h,
+                borderRadius: 3,
+                backgroundColor: color,
+                opacity: i === 1 ? 0.5 : 0.3,
+              }}
+            />
+          ))}
+        </View>
+      </View>
+    );
+  }
+
+  if (shape === 'scroll') {
+    // Two horizontal lines suggesting a rolled parchment
+    return (
+      <View style={{ position: 'absolute', width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ position: 'absolute', top: size * 0.14, width: size * 0.6, height: 3, borderRadius: 2, backgroundColor: color, opacity: 0.4 }} />
+        <View style={{ position: 'absolute', bottom: size * 0.14, width: size * 0.6, height: 3, borderRadius: 2, backgroundColor: color, opacity: 0.4 }} />
+        <View style={{ position: 'absolute', top: size * 0.22, width: size * 0.4, height: 2, borderRadius: 1, backgroundColor: color, opacity: 0.2 }} />
       </View>
     );
   }
