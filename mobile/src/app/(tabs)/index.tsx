@@ -17,10 +17,13 @@ import { useQuery } from '@tanstack/react-query';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
+  useAnimatedScrollHandler,
   withSpring,
   withTiming,
   withSequence,
   withDelay,
+  interpolate,
+  Extrapolation,
   FadeIn,
   FadeInDown,
 } from 'react-native-reanimated';
@@ -726,6 +729,46 @@ function DailyPrayerSection({
   );
 }
 
+// Spiritual intro text — fades as user scrolls down
+function SpiritualIntro({
+  scrollY,
+  colors,
+  language,
+}: {
+  scrollY: ReturnType<typeof useSharedValue<number>>;
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+}) {
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(scrollY.value, [0, 80], [1, 0], Extrapolation.CLAMP),
+    transform: [
+      { translateY: interpolate(scrollY.value, [0, 80], [0, -8], Extrapolation.CLAMP) },
+    ],
+  }));
+
+  return (
+    <Animated.View
+      style={[{ alignItems: 'center', paddingVertical: 16, paddingHorizontal: 8 }, animatedStyle]}
+      pointerEvents="none"
+    >
+      <Text
+        style={{
+          fontSize: 13,
+          color: colors.textMuted,
+          textAlign: 'center',
+          lineHeight: 20,
+          letterSpacing: 0.2,
+          fontStyle: 'italic',
+        }}
+      >
+        {language === 'es'
+          ? 'Detente un momento. Respira. Dios quiere hablarte hoy.'
+          : 'Pause for a moment. Breathe. God wants to speak to you today.'}
+      </Text>
+    </Animated.View>
+  );
+}
+
 // Voice Preview Button Component
 function VoicePreviewButton({
   onPreview,
@@ -1168,6 +1211,12 @@ export default function HomeScreen() {
   const [showCelebration, setShowCelebration] = useState(false);
   const [showAchievement, setShowAchievement] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Scroll tracking for intro text fade
+  const scrollY = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    scrollY.value = event.contentOffset.y;
+  });
 
   // TTS state
   const [isTTSPlaying, setIsTTSPlaying] = useState(false);
@@ -1718,10 +1767,11 @@ export default function HomeScreen() {
         language={language}
       />
 
-      <ScrollView
+      <Animated.ScrollView
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 120 }}
+        onScroll={scrollHandler}
       >
         {/* Hero Image */}
         <View style={{ height: height * 0.4 }}>
@@ -1823,6 +1873,9 @@ export default function HomeScreen() {
 
         {/* Content */}
         <View className="px-5 -mt-4">
+          {/* Spiritual intro text — fades as user scrolls */}
+          <SpiritualIntro scrollY={scrollY} colors={colors} language={language} />
+
           {/* Audio Controls */}
           <AudioControls
             colors={colors}
@@ -1943,7 +1996,7 @@ export default function HomeScreen() {
             />
           </CollapsibleContent>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
 
       {/* Share Options Sheet */}
       <ShareOptionsSheet
