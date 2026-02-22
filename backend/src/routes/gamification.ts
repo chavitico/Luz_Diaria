@@ -1800,6 +1800,12 @@ gamificationRouter.get("/community/members", async (c) => {
     const limit = parseInt(c.req.query("limit") ?? "20", 10);
     const offset = parseInt(c.req.query("offset") ?? "0", 10);
 
+    // Admin user IDs (comma-separated in ADMIN_USER_IDS env var)
+    const adminUserIds = (process.env.ADMIN_USER_IDS ?? "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
     // Get today's date to determine ordering strategy
     const today = new Date();
     const dayOfYear = Math.floor(
@@ -1864,8 +1870,14 @@ gamificationRouter.get("/community/members", async (c) => {
       });
     }
 
+    // Annotate each member with isAdmin flag
+    const annotatedMembers = finalMembers.map((m) => ({
+      ...m,
+      isAdmin: adminUserIds.length > 0 ? adminUserIds.includes(m.id) : false,
+    }));
+
     return c.json({
-      members: finalMembers,
+      members: annotatedMembers,
       total,
       limit,
       offset,

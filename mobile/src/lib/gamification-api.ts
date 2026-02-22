@@ -85,6 +85,7 @@ export interface CommunityMember {
   devotionalsCompleted: number;
   lastActiveAt: string | null;
   createdAt: string;
+  isAdmin?: boolean;
 }
 
 // Prayer types
