@@ -4212,6 +4212,19 @@ export default function StoreScreen() {
   } | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
+  // Pending navigation target: set when user taps "Ir →" from a collection modal
+  const [pendingNavTarget, setPendingNavTarget] = useState<{
+    itemId: string;
+    itemType: 'avatar' | 'frame' | 'title' | 'theme';
+  } | null>(null);
+
+  // ScrollView ref for programmatic scrolling
+  const mainScrollViewRef = useRef<ScrollView>(null);
+  // Inner content View ref (needed for measureLayout)
+  const mainScrollContentRef = useRef<View>(null);
+  // Map of itemId → View ref for highlight + scroll-to
+  const itemViewRefs = useRef<Map<string, View>>(new Map());
+
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
 
@@ -4923,13 +4936,14 @@ export default function StoreScreen() {
     return getItemStatus(selectedDetailItem.id, selectedDetailItem.type, selectedDetailItem.price);
   }, [selectedDetailItem, getItemStatus]);
 
-  // Navigate to the right category when user taps a pending item in the collection modal
+  // Navigate to the right category AND focus the exact item
   const handleNavigateToCollectionItem = useCallback((itemId: string, itemType: 'avatar' | 'frame' | 'title' | 'theme') => {
     // Close both collection modals
     setShowCollectionDetailModal(false);
     setSelectedCollection(null);
     setShowChapterCollectionModal(false);
     setSelectedChapterCollection(null);
+
     const categoryMap: Record<string, CategoryType> = {
       avatar: 'avatars',
       frame: 'frames',
@@ -4937,9 +4951,124 @@ export default function StoreScreen() {
       theme: 'themes',
     };
     const targetCategory = categoryMap[itemType] ?? 'avatars';
+
+    // V2-filter: disable it so the target item is always visible
+    setShowV2Only(false);
     setActiveCategory(targetCategory);
-    Haptics.selectionAsync();
-    console.debug('[Navigation] Navigating to', targetCategory, 'for item', itemId);
+    setPendingNavTarget({ itemId, itemType });
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    console.debug('[Navigation] Targeting item', itemId, 'in', targetCategory);
+  }, []);
+
+  // Effect: once pendingNavTarget is set and the grid has rendered, scroll to the item
+  // and auto-open its detail modal
+  useEffect(() => {
+    if (!pendingNavTarget) return;
+
+    const { itemId, itemType } = pendingNavTarget;
+
+    // Wait two frames for the category grid to mount/render
+    const timer = setTimeout(() => {
+      const itemView = itemViewRefs.current.get(itemId);
+
+      if (!itemView || !mainScrollContentRef.current) {
+        // Fallback: item not found — show toast, stay on correct tab
+        setToastMessage(
+          language === 'es'
+            ? 'No encontré ese ítem. Te dejé en la sección correcta.'
+            : "Couldn't find that item. Left you in the right section."
+        );
+        setToastAmount(0);
+        setToastPositive(false);
+        setShowPointsToast(true);
+        setPendingNavTarget(null);
+        return;
+      }
+
+      // Measure item relative to the scroll content view
+      itemView.measureLayout(
+        mainScrollContentRef.current as any,
+        (_x, y) => {
+          // Scroll so the item is centered (~100px padding above)
+          mainScrollViewRef.current?.scrollTo({ y: Math.max(0, y - 120), animated: true });
+
+          // Auto-open item detail modal
+          const detail = buildDetailFromId(itemId, itemType);
+          if (detail) {
+            setSelectedDetailItem(detail);
+            setShowDetailModal(true);
+          }
+
+          // Clear target after a short delay (highlight will have faded by then)
+          setTimeout(() => setPendingNavTarget(null), 1600);
+        },
+        () => {
+          // measureLayout failed — clear silently
+          setPendingNavTarget(null);
+        }
+      );
+    }, 350);
+
+    return () => clearTimeout(timer);
+  }, [pendingNavTarget, language]);
+
+  // Build a detail item object from an itemId + itemType (used for auto-open)
+  const buildDetailFromId = useCallback((
+    itemId: string,
+    itemType: 'avatar' | 'frame' | 'title' | 'theme'
+  ) => {
+    if (itemType === 'theme') {
+      const th = PURCHASABLE_THEMES[itemId];
+      if (!th) return null;
+      return {
+        id: th.id, type: 'theme' as const,
+        name: th.name, nameEs: th.nameEs,
+        description: th.description, descriptionEs: th.descriptionEs,
+        price: th.price ?? 0, rarity: th.rarity,
+        colors: th.colors, chestOnly: th.chestOnly,
+      };
+    }
+    if (itemType === 'frame') {
+      const fr = AVATAR_FRAMES[itemId];
+      if (!fr) return null;
+      return {
+        id: fr.id, type: 'frame' as const,
+        name: fr.name, nameEs: fr.nameEs,
+        description: fr.description, descriptionEs: fr.descriptionEs,
+        price: fr.price ?? 0, rarity: fr.rarity,
+        color: fr.color, chestOnly: fr.chestOnly,
+      };
+    }
+    if (itemType === 'title') {
+      const ti = SPIRITUAL_TITLES[itemId];
+      if (!ti) return null;
+      return {
+        id: ti.id, type: 'title' as const,
+        name: ti.name, nameEs: ti.nameEs,
+        description: ti.description, descriptionEs: ti.descriptionEs,
+        price: ti.price ?? 0, rarity: ti.rarity,
+        chestOnly: ti.chestOnly,
+      };
+    }
+    if (itemType === 'avatar') {
+      const av = DEFAULT_AVATARS.find(a => a.id === itemId);
+      if (!av) return null;
+      const price = 'price' in av ? (av as { price: number }).price : 0;
+      return {
+        id: av.id, type: 'avatar' as const,
+        name: av.name, nameEs: av.nameEs,
+        description: av.description, descriptionEs: av.descriptionEs,
+        price, rarity: av.rarity,
+        emoji: av.emoji,
+        chestOnly: (av as { chestOnly?: boolean }).chestOnly,
+        meaning: (av as { meaning?: string }).meaning,
+        meaningEn: (av as { meaningEn?: string }).meaningEn,
+        unlockType: (av as { unlockType?: 'streak' | 'devotionals' | 'share' | 'store' }).unlockType,
+        unlockValue: (av as { unlockValue?: number }).unlockValue,
+      };
+    }
+    return null;
   }, []);
 
   return (
