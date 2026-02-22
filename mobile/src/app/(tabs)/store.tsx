@@ -1827,15 +1827,27 @@ function PremiumThemeCard({
           </View>
         )}
 
+        {/* Rarity badge — top-right corner overlay, outside text block */}
+        <View style={{ position: 'absolute', top: 8, right: 8, zIndex: 10 }}>
+          <View style={{
+            backgroundColor: 'rgba(0,0,0,0.55)',
+            borderRadius: 99,
+            padding: 4,
+          }}>
+            <RarityIcon rarity={themeData.rarity} size={13} />
+          </View>
+        </View>
+
         <View style={{ padding: 12 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+          {/* Name: up to 2 lines, fixed minHeight so all cards align in the grid */}
+          <View style={{ minHeight: 40, justifyContent: 'flex-start', marginBottom: 6 }}>
             <Text
-              style={{ fontSize: 14, fontWeight: '700', color: colors.text, flex: 1 }}
-              numberOfLines={1}
+              style={{ fontSize: 13, fontWeight: '700', color: colors.text, lineHeight: 19 }}
+              numberOfLines={2}
+              ellipsizeMode="tail"
             >
               {language === 'es' ? themeData.nameEs : themeData.name}
             </Text>
-            <RarityIcon rarity={themeData.rarity} size={14} />
           </View>
 
           {/* Price or Status */}
