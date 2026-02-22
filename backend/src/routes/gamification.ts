@@ -286,16 +286,14 @@ gamificationRouter.post(
             devotionalDate: data.completedDevotionalDate,
           },
         });
-
-        // Count is now authoritative from the table
-        const authoritativeCount = await prisma.devotionalCompletion.count({
-          where: { userId },
-        });
-        updateData.devotionalsCompleted = authoritativeCount;
-      } else if (data.devotionalsCompleted !== undefined) {
-        // Fallback MAX strategy when no specific date is provided (legacy sync calls)
-        updateData.devotionalsCompleted = Math.max(data.devotionalsCompleted, existingUser.devotionalsCompleted);
       }
+
+      // Always derive devotionalsCompleted from the authoritative table
+      // This corrects any inflated counts that existed before this system
+      const authoritativeCount = await prisma.devotionalCompletion.count({
+        where: { userId },
+      });
+      updateData.devotionalsCompleted = authoritativeCount;
 
       // Use MAX strategy for cumulative stats to prevent data loss when local store resets
       // This ensures we never lose progress even if the frontend sends lower values
