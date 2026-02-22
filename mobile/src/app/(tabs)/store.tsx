@@ -45,6 +45,7 @@ import {
 } from 'lucide-react-native';
 import { TextInput } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   useThemeColors,
@@ -1056,18 +1057,97 @@ function PromoCodeCard({
 }
 
 // Category Tab with premium glow active state
+
+// ─── useCollectionClaimBadges hook ───────────────────────────────────────────
+const SEEN_STORAGE_KEY = 'seen_claimable_collections_v1';
+
+function useCollectionClaimBadges(
+  collections: typeof ITEM_COLLECTIONS,
+  purchasedItems: string[],
+  claimedCollectionIds: Set<string>
+) {
+  // seenMap: collectionId → timestamp when user last marked it as seen
+  const [seenMap, setSeenMap] = useState<Record<string, number>>({});
+  // claimableSince: collectionId → timestamp when we first detected it became claimable
+  const [claimableSince, setClaimableSince] = useState<Record<string, number>>({});
+
+  // Load persisted seen map on mount
+  useEffect(() => {
+    AsyncStorage.getItem(SEEN_STORAGE_KEY).then(raw => {
+      if (raw) {
+        try { setSeenMap(JSON.parse(raw)); } catch { /* ignore */ }
+      }
+    });
+  }, []);
+
+  // Derive claimable collection IDs
+  const claimableIds = useMemo(() => {
+    return Object.values(collections)
+      .filter(col => {
+        const owned = col.items.filter(itemId => {
+          if (purchasedItems.includes(itemId)) return true;
+          const av = DEFAULT_AVATARS.find(a => a.id === itemId);
+          return av && !('price' in av);
+        });
+        return owned.length === col.items.length && !claimedCollectionIds.has(col.id);
+      })
+      .map(col => col.id);
+  }, [collections, purchasedItems, claimedCollectionIds]);
+
+  // When a new collection becomes claimable, record the timestamp if not already tracked
+  useEffect(() => {
+    const now = Date.now();
+    setClaimableSince(prev => {
+      const next = { ...prev };
+      let changed = false;
+      for (const id of claimableIds) {
+        if (!next[id]) { next[id] = now; changed = true; }
+      }
+      return changed ? next : prev;
+    });
+  }, [claimableIds]);
+
+  // newClaimableIds: claimable AND (never seen OR seen before it became claimable)
+  const newClaimableIds = useMemo(() => {
+    const result = new Set<string>();
+    for (const id of claimableIds) {
+      const seen = seenMap[id] ?? 0;
+      const since = claimableSince[id] ?? Date.now();
+      if (seen < since) result.add(id);
+    }
+    return result;
+  }, [claimableIds, seenMap, claimableSince]);
+
+  const pendingClaimsCount = claimableIds.length;
+
+  // Call this when the user enters the Collections tab
+  const markClaimablesSeen = useCallback(async () => {
+    const now = Date.now();
+    const next: Record<string, number> = { ...seenMap };
+    for (const id of claimableIds) {
+      next[id] = now;
+    }
+    setSeenMap(next);
+    await AsyncStorage.setItem(SEEN_STORAGE_KEY, JSON.stringify(next));
+  }, [seenMap, claimableIds]);
+
+  return { pendingClaimsCount, newClaimableIds, markClaimablesSeen };
+}
+
 function CategoryTab({
   category,
   isActive,
   colors,
   language,
   onPress,
+  badgeCount = 0,
 }: {
   category: typeof CATEGORIES[0];
   isActive: boolean;
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
   onPress: () => void;
+  badgeCount?: number;
 }) {
   const { IconComponent } = category;
   const scale = useSharedValue(1);
@@ -1084,30 +1164,57 @@ function CategoryTab({
         onPress={onPress}
         style={{ alignItems: 'center', marginRight: 12 }}
       >
-        <View
-          style={{
-            width: 58,
-            height: 58,
-            borderRadius: 18,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 6,
-            backgroundColor: isActive ? colors.primary : colors.surface,
-            // Active: soft glow shadow; inactive: subtle card shadow
-            shadowColor: isActive ? colors.primary : '#000',
-            shadowOffset: { width: 0, height: isActive ? 6 : 2 },
-            shadowOpacity: isActive ? 0.38 : 0.07,
-            shadowRadius: isActive ? 12 : 5,
-            elevation: isActive ? 6 : 2,
-            // Subtle border for inactive state
-            borderWidth: isActive ? 0 : 1,
-            borderColor: colors.textMuted + '18',
-          }}
-        >
-          <IconComponent
-            color={isActive ? '#FFFFFF' : colors.textMuted}
-            active={isActive}
-          />
+        <View style={{ position: 'relative' }}>
+          <View
+            style={{
+              width: 58,
+              height: 58,
+              borderRadius: 18,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 6,
+              backgroundColor: isActive ? colors.primary : colors.surface,
+              shadowColor: isActive ? colors.primary : '#000',
+              shadowOffset: { width: 0, height: isActive ? 6 : 2 },
+              shadowOpacity: isActive ? 0.38 : 0.07,
+              shadowRadius: isActive ? 12 : 5,
+              elevation: isActive ? 6 : 2,
+              borderWidth: isActive ? 0 : 1,
+              borderColor: colors.textMuted + '18',
+            }}
+          >
+            <IconComponent
+              color={isActive ? '#FFFFFF' : colors.textMuted}
+              active={isActive}
+            />
+          </View>
+          {badgeCount > 0 && (
+            <View
+              style={{
+                position: 'absolute',
+                top: -4,
+                right: -4,
+                minWidth: 18,
+                height: 18,
+                borderRadius: 9,
+                backgroundColor: '#EF4444',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingHorizontal: 4,
+                borderWidth: 2,
+                borderColor: colors.background,
+                shadowColor: '#EF4444',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.5,
+                shadowRadius: 4,
+                elevation: 4,
+              }}
+            >
+              <Text style={{ color: '#fff', fontSize: 10, fontWeight: '800', lineHeight: 14 }}>
+                {badgeCount > 9 ? '9+' : String(badgeCount)}
+              </Text>
+            </View>
+          )}
         </View>
         <Text
           style={{
@@ -2895,6 +3002,7 @@ function CollectionCard({
   language,
   isClaimed,
   isClaiming,
+  isNew,
   onClaim,
   onPress,
 }: {
@@ -2904,6 +3012,7 @@ function CollectionCard({
   language: 'en' | 'es';
   isClaimed: boolean;
   isClaiming: boolean;
+  isNew: boolean;
   onClaim: (ownedItemIds: string[]) => void;
   onPress: () => void;
 }) {
@@ -2975,6 +3084,23 @@ function CollectionCard({
                     backgroundColor: colors.primary + '20',
                   }}>
                     <Text style={{ fontSize: 9, fontWeight: '700', color: colors.primary }}>V2</Text>
+                  </View>
+                )}
+                {isNew && (
+                  <View style={{
+                    paddingHorizontal: 6,
+                    paddingVertical: 2,
+                    borderRadius: 4,
+                    backgroundColor: '#EF4444',
+                    shadowColor: '#EF4444',
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.4,
+                    shadowRadius: 4,
+                    elevation: 3,
+                  }}>
+                    <Text style={{ fontSize: 9, fontWeight: '800', color: '#fff' }}>
+                      {language === 'es' ? 'NUEVO' : 'NEW'}
+                    </Text>
                   </View>
                 )}
               </View>
@@ -3244,6 +3370,13 @@ export default function StoreScreen() {
   const claimedCollectionIds = useMemo(
     () => new Set((collectionClaimsData?.claims ?? []).map(c => c.collectionId)),
     [collectionClaimsData]
+  );
+
+  // Badge + "Nuevo" state for collections
+  const { pendingClaimsCount, newClaimableIds, markClaimablesSeen } = useCollectionClaimBadges(
+    ITEM_COLLECTIONS,
+    purchasedItems,
+    claimedCollectionIds
   );
 
   // Purchase mutation
@@ -3799,6 +3932,7 @@ export default function StoreScreen() {
                   language={language}
                   isClaimed={claimedCollectionIds.has(collection.id)}
                   isClaiming={claimCollectionMutation.isPending && claimCollectionMutation.variables?.collectionId === collection.id}
+                  isNew={newClaimableIds.has(collection.id)}
                   onClaim={(ownedItemIds) => {
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                     claimCollectionMutation.mutate({
@@ -3926,10 +4060,14 @@ export default function StoreScreen() {
                 isActive={activeCategory === category.key}
                 colors={colors}
                 language={language}
+                badgeCount={category.key === 'collections' ? pendingClaimsCount : 0}
                 onPress={() => {
                   Haptics.selectionAsync();
                   setActiveCategory(category.key);
                   setShowV2Only(false);
+                  if (category.key === 'collections') {
+                    markClaimablesSeen();
+                  }
                 }}
               />
             ))}
