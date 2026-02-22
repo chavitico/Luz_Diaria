@@ -65,6 +65,9 @@ import {
   ITEM_COLLECTIONS,
   STORE_BUNDLES,
   WEEKLY_CHEST_CONFIG,
+  CHAPTER_COLLECTIONS,
+  type ChapterCollection,
+  type CollectionChapter,
 } from '@/lib/constants';
 import { cn } from '@/lib/cn';
 
@@ -2599,6 +2602,492 @@ function BundleCard({
   );
 }
 
+// ─── Chapter Collection Progress Hook ────────────────────────────────────────
+const CHAPTER_PROGRESS_KEY = 'chapter_collection_progress_v1';
+
+// Returns which chapterIds have been claimed (reward collected)
+function useChapterCollectionProgress(): {
+  claimedChapterIds: Set<string>;
+  claimChapter: (chapterId: string) => Promise<void>;
+} {
+  const [claimedChapterIds, setClaimedChapterIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    AsyncStorage.getItem(CHAPTER_PROGRESS_KEY).then(raw => {
+      if (raw) {
+        try {
+          const arr: string[] = JSON.parse(raw);
+          setClaimedChapterIds(new Set(arr));
+        } catch { /* ignore */ }
+      }
+    });
+  }, []);
+
+  const claimChapter = useCallback(async (chapterId: string) => {
+    setClaimedChapterIds(prev => {
+      const next = new Set(prev);
+      next.add(chapterId);
+      AsyncStorage.setItem(CHAPTER_PROGRESS_KEY, JSON.stringify([...next]));
+      return next;
+    });
+  }, []);
+
+  return { claimedChapterIds, claimChapter };
+}
+
+// ─── ChapterCollectionModal ───────────────────────────────────────────────────
+function ChapterCollectionModal({
+  visible,
+  collection,
+  purchasedItems,
+  colors,
+  language,
+  claimedChapterIds,
+  onClaimChapter,
+  onClose,
+  onNavigateToItem,
+}: {
+  visible: boolean;
+  collection: ChapterCollection | null;
+  purchasedItems: string[];
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+  claimedChapterIds: Set<string>;
+  onClaimChapter: (chapterId: string, points: number) => void;
+  onClose: () => void;
+  onNavigateToItem: (itemId: string, itemType: 'avatar' | 'frame' | 'title' | 'theme') => void;
+}) {
+  const translateY = useSharedValue(600);
+  const opacity = useSharedValue(0);
+
+  React.useEffect(() => {
+    if (visible) {
+      opacity.value = withTiming(1, { duration: 250 });
+      translateY.value = withSpring(0, { damping: 20, stiffness: 200 });
+    } else {
+      opacity.value = withTiming(0, { duration: 200 });
+      translateY.value = withTiming(600, { duration: 250 });
+    }
+  }, [visible]);
+
+  const backdropStyle = useAnimatedStyle(() => ({ opacity: opacity.value }));
+  const sheetStyle = useAnimatedStyle(() => ({ transform: [{ translateY: translateY.value }] }));
+
+  if (!collection) return null;
+
+  // Resolve item metadata
+  const resolveItem = (itemId: string, itemType: 'avatar' | 'frame' | 'title' | 'theme') => {
+    return resolveCollectionItem(itemId);
+  };
+
+  // Check if an item is owned
+  const isItemOwned = (itemId: string) => {
+    if (purchasedItems.includes(itemId)) return true;
+    const av = DEFAULT_AVATARS.find(a => a.id === itemId);
+    return !!(av && !('price' in av));
+  };
+
+  // Derive chapter states
+  const getChapterState = (chapter: CollectionChapter, index: number): 'completed' | 'active' | 'locked' => {
+    if (claimedChapterIds.has(chapter.chapterId)) return 'completed';
+    // Active = all previous chapters are completed AND current not claimed
+    const prevChapters = collection.chapters.slice(0, index);
+    const allPrevCompleted = prevChapters.every(c => claimedChapterIds.has(c.chapterId));
+    if (allPrevCompleted) return 'active';
+    return 'locked';
+  };
+
+  const typeLabel = (type: 'avatar' | 'frame' | 'title' | 'theme') => {
+    const labels = { avatar: { en: 'Avatar', es: 'Avatar' }, frame: { en: 'Frame', es: 'Marco' }, title: { en: 'Title', es: 'Titulo' }, theme: { en: 'Theme', es: 'Tema' } };
+    return language === 'es' ? labels[type].es : labels[type].en;
+  };
+
+  const totalChapters = collection.chapters.length;
+  const completedCount = collection.chapters.filter(c => claimedChapterIds.has(c.chapterId)).length;
+  const allDone = completedCount === totalChapters;
+
+  const stateColors = {
+    completed: '#22C55E',
+    active: colors.primary,
+    locked: colors.textMuted,
+  };
+
+  const stateIcons: Record<string, React.ReactNode> = {
+    completed: <Check size={16} color="#22C55E" strokeWidth={2.5} />,
+    active: <Sparkles size={16} color={colors.primary} />,
+    locked: <Lock size={14} color={colors.textMuted} />,
+  };
+
+  return (
+    <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
+      {/* Backdrop */}
+      <Animated.View
+        style={[
+          { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)' },
+          backdropStyle,
+        ]}
+      >
+        <Pressable style={{ flex: 1 }} onPress={onClose} />
+      </Animated.View>
+
+      {/* Sheet */}
+      <Animated.View
+        style={[
+          {
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            borderTopLeftRadius: 28,
+            borderTopRightRadius: 28,
+            backgroundColor: colors.surface,
+            maxHeight: '92%',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: -6 },
+            shadowOpacity: 0.2,
+            shadowRadius: 24,
+            elevation: 24,
+          },
+          sheetStyle,
+        ]}
+      >
+        {/* Handle */}
+        <View style={{ alignItems: 'center', paddingTop: 12, paddingBottom: 2 }}>
+          <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40' }} />
+        </View>
+
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 56 }}>
+          <View style={{ paddingHorizontal: 24, paddingTop: 12 }}>
+            {/* Close */}
+            <Pressable onPress={onClose} style={{ position: 'absolute', top: 6, right: 16, padding: 10, zIndex: 10 }}>
+              <X size={20} color={colors.textMuted} />
+            </Pressable>
+
+            {/* Header */}
+            <View style={{ alignItems: 'center', marginBottom: 20 }}>
+              <View style={{
+                width: 80, height: 80, borderRadius: 24,
+                alignItems: 'center', justifyContent: 'center',
+                backgroundColor: allDone ? '#22C55E15' : colors.primary + '15',
+                borderWidth: 2,
+                borderColor: allDone ? '#22C55E40' : colors.primary + '30',
+                marginBottom: 12,
+              }}>
+                <Text style={{ fontSize: 40 }}>{collection.icon}</Text>
+              </View>
+              <Text style={{ fontSize: 22, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 6 }}>
+                {language === 'es' ? collection.nameEs : collection.nameEn}
+              </Text>
+              <Text style={{ fontSize: 13, color: colors.textMuted, textAlign: 'center', lineHeight: 20, paddingHorizontal: 8 }}>
+                {language === 'es' ? collection.descriptionEs : collection.descriptionEn}
+              </Text>
+            </View>
+
+            {/* Overall progress pills */}
+            <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 6, marginBottom: 24 }}>
+              {collection.chapters.map((ch, i) => {
+                const state = getChapterState(ch, i);
+                return (
+                  <View key={ch.chapterId} style={{
+                    height: 6, flex: 1, borderRadius: 3,
+                    backgroundColor: state === 'completed' ? '#22C55E' : state === 'active' ? colors.primary : colors.textMuted + '25',
+                  }} />
+                );
+              })}
+            </View>
+
+            {/* All done banner */}
+            {allDone && (
+              <Animated.View
+                entering={FadeInDown.duration(400)}
+                style={{
+                  backgroundColor: '#22C55E12',
+                  borderRadius: 16,
+                  padding: 18,
+                  marginBottom: 24,
+                  alignItems: 'center',
+                  borderWidth: 1.5,
+                  borderColor: '#22C55E40',
+                }}
+              >
+                <Text style={{ fontSize: 32, marginBottom: 6 }}>🏆</Text>
+                <Text style={{ fontSize: 16, fontWeight: '800', color: '#22C55E', marginBottom: 4 }}>
+                  {language === 'es' ? '¡Camino completado!' : 'Path completed!'}
+                </Text>
+                <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center' }}>
+                  {language === 'es'
+                    ? 'Has completado todos los capitulos. Gracias por avanzar con fidelidad.'
+                    : 'You have completed all chapters. Thank you for advancing with faithfulness.'}
+                </Text>
+              </Animated.View>
+            )}
+
+            {/* Chapter list */}
+            {collection.chapters.map((chapter, index) => {
+              const state = getChapterState(chapter, index);
+              const isLocked = state === 'locked';
+              const isActive = state === 'active';
+              const isCompleted = state === 'completed';
+              const sc = stateColors[state];
+
+              // Check chapter item ownership
+              const chapterItemsOwned = chapter.items.filter(ci => isItemOwned(ci.itemId));
+              const chapterComplete = chapterItemsOwned.length === chapter.items.length;
+              const canClaimChapter = isActive && chapterComplete;
+
+              return (
+                <Animated.View
+                  key={chapter.chapterId}
+                  entering={FadeInDown.delay(index * 80).duration(350)}
+                  style={{ marginBottom: 16 }}
+                >
+                  {/* Chapter card */}
+                  <View style={{
+                    borderRadius: 18,
+                    overflow: 'hidden',
+                    backgroundColor: isLocked ? colors.background : colors.surface,
+                    borderWidth: 1.5,
+                    borderColor: isCompleted ? '#22C55E30' : isActive ? colors.primary + '40' : colors.textMuted + '18',
+                    shadowColor: isActive ? colors.primary : '#000',
+                    shadowOffset: { width: 0, height: isActive ? 4 : 1 },
+                    shadowOpacity: isActive ? 0.12 : 0.04,
+                    shadowRadius: isActive ? 12 : 4,
+                    elevation: isActive ? 4 : 1,
+                    opacity: isLocked ? 0.55 : 1,
+                  }}>
+                    {/* Chapter header bar */}
+                    <View style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingHorizontal: 16,
+                      paddingVertical: 12,
+                      backgroundColor: isCompleted ? '#22C55E08' : isActive ? colors.primary + '0A' : 'transparent',
+                      borderBottomWidth: 1,
+                      borderBottomColor: colors.textMuted + '12',
+                    }}>
+                      {/* Chapter number badge */}
+                      <View style={{
+                        width: 32, height: 32, borderRadius: 10,
+                        alignItems: 'center', justifyContent: 'center',
+                        backgroundColor: isCompleted ? '#22C55E20' : isActive ? colors.primary + '20' : colors.textMuted + '15',
+                        marginRight: 12,
+                      }}>
+                        {isCompleted
+                          ? <Check size={16} color="#22C55E" strokeWidth={2.5} />
+                          : isActive
+                          ? <Text style={{ fontSize: 13, fontWeight: '800', color: colors.primary }}>{chapter.number}</Text>
+                          : <Lock size={13} color={colors.textMuted} />
+                        }
+                      </View>
+
+                      <View style={{ flex: 1 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                          <Text style={{ fontSize: 8, fontWeight: '700', color: sc, textTransform: 'uppercase', letterSpacing: 0.8 }}>
+                            {language === 'es' ? `Capítulo ${chapter.number}` : `Chapter ${chapter.number}`}
+                          </Text>
+                          {isActive && (
+                            <View style={{ paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4, backgroundColor: colors.primary + '20' }}>
+                              <Text style={{ fontSize: 8, fontWeight: '800', color: colors.primary }}>
+                                {language === 'es' ? 'ACTIVO' : 'ACTIVE'}
+                              </Text>
+                            </View>
+                          )}
+                        </View>
+                        <Text style={{ fontSize: 15, fontWeight: '800', color: isLocked ? colors.textMuted : colors.text, marginTop: 1 }}>
+                          {language === 'es' ? chapter.titleEs : chapter.titleEn}
+                        </Text>
+                      </View>
+
+                      {/* Reward badge */}
+                      <View style={{
+                        paddingHorizontal: 8, paddingVertical: 4,
+                        borderRadius: 8,
+                        backgroundColor: isCompleted ? '#22C55E15' : colors.textMuted + '12',
+                        flexDirection: 'row', alignItems: 'center', gap: 3,
+                      }}>
+                        <Sparkles size={11} color={isCompleted ? '#22C55E' : colors.textMuted} />
+                        <Text style={{ fontSize: 11, fontWeight: '700', color: isCompleted ? '#22C55E' : colors.textMuted }}>
+                          +{chapter.rewardPoints}
+                        </Text>
+                      </View>
+                    </View>
+
+                    {/* Chapter body — only show if not locked */}
+                    {!isLocked && (
+                      <View style={{ padding: 16 }}>
+                        {/* Verse reference */}
+                        {chapter.verseEn && (
+                          <Text style={{ fontSize: 10, fontWeight: '600', color: colors.primary, marginBottom: 4, letterSpacing: 0.3 }}>
+                            {language === 'es' ? chapter.verseEs : chapter.verseEn}
+                          </Text>
+                        )}
+
+                        {/* Spiritual text */}
+                        <View style={{
+                          backgroundColor: colors.primary + '0C',
+                          borderRadius: 10,
+                          padding: 12,
+                          borderLeftWidth: 3,
+                          borderLeftColor: colors.primary + '50',
+                          marginBottom: 16,
+                        }}>
+                          <Text style={{ fontSize: 13, lineHeight: 20, color: colors.text + 'DD', fontStyle: 'italic' }}>
+                            {language === 'es' ? chapter.spiritualTextEs : chapter.spiritualTextEn}
+                          </Text>
+                        </View>
+
+                        {/* Items checklist */}
+                        <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 10 }}>
+                          {language === 'es' ? 'Ítems requeridos' : 'Required items'}
+                        </Text>
+                        {chapter.items.map((ci, ciIdx) => {
+                          const owned = isItemOwned(ci.itemId);
+                          const meta = resolveCollectionItem(ci.itemId);
+                          return (
+                            <Pressable
+                              key={ci.itemId}
+                              onPress={() => { if (!owned && isActive) onNavigateToItem(ci.itemId, ci.itemType); }}
+                              disabled={owned || !isActive}
+                              style={({ pressed }) => ({
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                paddingVertical: 10,
+                                paddingHorizontal: 12,
+                                marginBottom: 8,
+                                borderRadius: 12,
+                                backgroundColor: owned
+                                  ? colors.textMuted + '08'
+                                  : pressed
+                                  ? colors.primary + '15'
+                                  : colors.primary + '08',
+                                borderWidth: 1,
+                                borderColor: owned ? colors.textMuted + '18' : colors.primary + '25',
+                              })}
+                            >
+                              {/* Icon */}
+                              <View style={{
+                                width: 36, height: 36, borderRadius: 10,
+                                alignItems: 'center', justifyContent: 'center',
+                                backgroundColor: owned ? colors.textMuted + '12' : colors.primary + '18',
+                                marginRight: 10,
+                              }}>
+                                {meta.emoji
+                                  ? <Text style={{ fontSize: 18 }}>{meta.emoji}</Text>
+                                  : meta.color
+                                  ? <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: meta.color }} />
+                                  : <Text style={{ fontSize: 16 }}>{collection.icon}</Text>
+                                }
+                              </View>
+
+                              {/* Info */}
+                              <View style={{ flex: 1 }}>
+                                <Text style={{ fontSize: 13, fontWeight: '700', color: owned ? colors.textMuted : colors.text }}>
+                                  {language === 'es' ? meta.nameEs : meta.name}
+                                </Text>
+                                <Text style={{ fontSize: 10, color: colors.textMuted }}>
+                                  {typeLabel(ci.itemType)}
+                                </Text>
+                              </View>
+
+                              {/* Status */}
+                              {owned ? (
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                                  <Check size={13} color="#22C55E" strokeWidth={2.5} />
+                                  <Text style={{ fontSize: 11, fontWeight: '600', color: '#22C55E' }}>
+                                    {language === 'es' ? 'Adquirido' : 'Acquired'}
+                                  </Text>
+                                </View>
+                              ) : isActive ? (
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, paddingHorizontal: 8, paddingVertical: 5, borderRadius: 8, backgroundColor: colors.primary + '15' }}>
+                                  <Text style={{ fontSize: 11, fontWeight: '700', color: colors.primary }}>
+                                    {language === 'es' ? 'Ir' : 'Go'}
+                                  </Text>
+                                  <ChevronRight size={13} color={colors.primary} />
+                                </View>
+                              ) : (
+                                <Lock size={14} color={colors.textMuted} />
+                              )}
+                            </Pressable>
+                          );
+                        })}
+
+                        {/* CTA — claim or waiting */}
+                        {isActive && (
+                          <View style={{ marginTop: 4 }}>
+                            {canClaimChapter ? (
+                              <Pressable
+                                onPress={() => onClaimChapter(chapter.chapterId, chapter.rewardPoints)}
+                                style={({ pressed }) => ({
+                                  flexDirection: 'row',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  gap: 8,
+                                  backgroundColor: pressed ? colors.primary + 'CC' : colors.primary,
+                                  borderRadius: 14,
+                                  paddingVertical: 14,
+                                })}
+                              >
+                                <Gift size={17} color="#fff" />
+                                <Text style={{ color: '#fff', fontWeight: '800', fontSize: 14 }}>
+                                  {language === 'es' ? 'Reclamar capítulo' : 'Claim chapter'} • +{chapter.rewardPoints} pts
+                                </Text>
+                              </Pressable>
+                            ) : (
+                              <View style={{
+                                borderRadius: 12,
+                                paddingVertical: 12,
+                                alignItems: 'center',
+                                backgroundColor: colors.textMuted + '0A',
+                                borderWidth: 1,
+                                borderColor: colors.textMuted + '20',
+                              }}>
+                                <Text style={{ color: colors.textMuted, fontSize: 12, fontWeight: '600' }}>
+                                  {language === 'es'
+                                    ? `${chapter.items.length - chapterItemsOwned.length} ítem${chapter.items.length - chapterItemsOwned.length !== 1 ? 's' : ''} pendiente${chapter.items.length - chapterItemsOwned.length !== 1 ? 's' : ''}`
+                                    : `${chapter.items.length - chapterItemsOwned.length} item${chapter.items.length - chapterItemsOwned.length !== 1 ? 's' : ''} remaining`}
+                                </Text>
+                              </View>
+                            )}
+                          </View>
+                        )}
+
+                        {/* Completed state inside card */}
+                        {isCompleted && (
+                          <View style={{
+                            flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+                            gap: 6, paddingVertical: 10,
+                            backgroundColor: '#22C55E10', borderRadius: 12,
+                          }}>
+                            <Check size={14} color="#22C55E" strokeWidth={2.5} />
+                            <Text style={{ fontSize: 12, fontWeight: '700', color: '#22C55E' }}>
+                              {language === 'es' ? 'Capítulo completado' : 'Chapter completed'}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+                    )}
+                  </View>
+
+                  {/* Connector line between chapters */}
+                  {index < collection.chapters.length - 1 && (
+                    <View style={{ alignItems: 'center', paddingVertical: 4 }}>
+                      <View style={{
+                        width: 2, height: 16,
+                        backgroundColor: isCompleted ? '#22C55E40' : colors.textMuted + '25',
+                        borderRadius: 1,
+                      }} />
+                    </View>
+                  )}
+                </Animated.View>
+              );
+            })}
+          </View>
+        </ScrollView>
+      </Animated.View>
+    </Modal>
+  );
+}
+
 // ─── Helpers to resolve item metadata from any item type ─────────────────────
 function resolveCollectionItem(itemId: string): {
   name: string;
@@ -2994,6 +3483,159 @@ function CollectionDetailModal({
   );
 }
 
+// ─── Chapter Collection Card ──────────────────────────────────────────────────
+function ChapterCollectionCard({
+  collection,
+  purchasedItems,
+  colors,
+  language,
+  claimedChapterIds,
+  onPress,
+}: {
+  collection: ChapterCollection;
+  purchasedItems: string[];
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+  claimedChapterIds: Set<string>;
+  onPress: () => void;
+}) {
+  const scale = useSharedValue(1);
+  const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  const isItemOwned = (itemId: string) => {
+    if (purchasedItems.includes(itemId)) return true;
+    const av = DEFAULT_AVATARS.find(a => a.id === itemId);
+    return !!(av && !('price' in av));
+  };
+
+  const totalChapters = collection.chapters.length;
+  const completedCount = collection.chapters.filter(c => claimedChapterIds.has(c.chapterId)).length;
+  const allDone = completedCount === totalChapters;
+
+  const activeChapterIdx = collection.chapters.findIndex(c => !claimedChapterIds.has(c.chapterId));
+  const activeChapter = activeChapterIdx >= 0 ? collection.chapters[activeChapterIdx] : null;
+
+  const activeChapterOwnedCount = activeChapter
+    ? activeChapter.items.filter(ci => isItemOwned(ci.itemId)).length
+    : 0;
+  const activeChapterReady = activeChapter
+    ? activeChapterOwnedCount === activeChapter.items.length
+    : false;
+
+  return (
+    <Animated.View style={animatedStyle} className="mb-4">
+      <Pressable
+        onPressIn={() => { scale.value = withSpring(0.98); }}
+        onPressOut={() => { scale.value = withSpring(1); }}
+        onPress={onPress}
+        style={{
+          borderRadius: 18,
+          overflow: 'hidden',
+          backgroundColor: colors.surface,
+          borderWidth: 1.5,
+          borderColor: allDone ? '#22C55E40' : activeChapterReady ? colors.primary + '50' : colors.textMuted + '18',
+          shadowColor: allDone ? '#22C55E' : activeChapterReady ? colors.primary : '#000',
+          shadowOffset: { width: 0, height: allDone || activeChapterReady ? 4 : 2 },
+          shadowOpacity: allDone || activeChapterReady ? 0.14 : 0.06,
+          shadowRadius: allDone || activeChapterReady ? 12 : 5,
+          elevation: allDone || activeChapterReady ? 4 : 2,
+        }}
+      >
+        {/* Top banner */}
+        <View style={{
+          flexDirection: 'row', alignItems: 'center',
+          paddingHorizontal: 12, paddingVertical: 6,
+          backgroundColor: allDone ? '#22C55E12' : colors.primary + '0C',
+        }}>
+          <Text style={{ fontSize: 10, fontWeight: '700', color: allDone ? '#22C55E' : colors.primary, letterSpacing: 0.5 }}>
+            {language === 'es' ? '✦ CAMINO ESPIRITUAL' : '✦ SPIRITUAL PATH'}
+          </Text>
+          <View style={{ flex: 1 }} />
+          <Text style={{ fontSize: 10, fontWeight: '600', color: allDone ? '#22C55E' : colors.textMuted }}>
+            {completedCount}/{totalChapters} {language === 'es' ? 'cap.' : 'ch.'}
+          </Text>
+        </View>
+
+        <View style={{ padding: 14 }}>
+          {/* Header */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
+            <View style={{
+              width: 48, height: 48, borderRadius: 14,
+              alignItems: 'center', justifyContent: 'center',
+              backgroundColor: allDone ? '#22C55E18' : colors.primary + '18',
+              marginRight: 12,
+            }}>
+              <Text style={{ fontSize: 26 }}>{collection.icon}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontSize: 15, fontWeight: '800', color: colors.text, marginBottom: 2 }}>
+                {language === 'es' ? collection.nameEs : collection.nameEn}
+              </Text>
+              {activeChapter && !allDone ? (
+                <Text style={{ fontSize: 11, color: colors.primary, fontWeight: '600' }}>
+                  {language === 'es' ? `Capítulo ${activeChapter.number}: ` : `Chapter ${activeChapter.number}: `}
+                  <Text style={{ fontWeight: '400', color: colors.textMuted }}>
+                    {language === 'es' ? activeChapter.titleEs : activeChapter.titleEn}
+                  </Text>
+                </Text>
+              ) : (
+                <Text style={{ fontSize: 11, color: '#22C55E', fontWeight: '600' }}>
+                  {language === 'es' ? 'Camino completado' : 'Path completed'}
+                </Text>
+              )}
+            </View>
+            <ChevronRight size={18} color={colors.textMuted} />
+          </View>
+
+          {/* Chapter progress bars */}
+          <View style={{ flexDirection: 'row', gap: 6, marginBottom: 12 }}>
+            {collection.chapters.map((ch, i) => {
+              const done = claimedChapterIds.has(ch.chapterId);
+              const active = !done && i === activeChapterIdx;
+              return (
+                <View key={ch.chapterId} style={{ flex: 1, gap: 4 }}>
+                  <View style={{
+                    height: 5, borderRadius: 3,
+                    backgroundColor: done ? '#22C55E' : active ? colors.primary : colors.textMuted + '22',
+                  }} />
+                  <Text style={{ fontSize: 9, fontWeight: '600', color: done ? '#22C55E' : active ? colors.primary : colors.textMuted + '80', textAlign: 'center' }}>
+                    {language === 'es' ? ch.titleEs : ch.titleEn}
+                  </Text>
+                </View>
+              );
+            })}
+          </View>
+
+          {/* Active chapter item status */}
+          {activeChapter && !allDone && (
+            <View style={{
+              flexDirection: 'row', alignItems: 'center', gap: 6,
+              backgroundColor: activeChapterReady ? colors.primary + '0C' : colors.textMuted + '08',
+              borderRadius: 10, padding: 8,
+            }}>
+              <Text style={{ fontSize: 11, color: colors.textMuted, flex: 1 }}>
+                {activeChapterOwnedCount}/{activeChapter.items.length} {language === 'es' ? 'ítems del capítulo activo' : 'items in active chapter'}
+              </Text>
+              {activeChapterReady ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8, backgroundColor: colors.primary }}>
+                  <Gift size={12} color="#fff" />
+                  <Text style={{ fontSize: 11, fontWeight: '800', color: '#fff' }}>
+                    {language === 'es' ? 'Listo' : 'Ready'}
+                  </Text>
+                </View>
+              ) : (
+                <Text style={{ fontSize: 11, fontWeight: '600', color: colors.primary }}>
+                  +{activeChapter.rewardPoints} pts
+                </Text>
+              )}
+            </View>
+          )}
+        </View>
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 // Collection Card with claim support
 function CollectionCard({
   collection,
@@ -3275,6 +3917,11 @@ export default function StoreScreen() {
   const [allChallengesComplete, setAllChallengesComplete] = useState(false);
   const [showChestModal, setShowChestModal] = useState(false);
   const [showCollectionDetailModal, setShowCollectionDetailModal] = useState(false);
+  const [showChapterCollectionModal, setShowChapterCollectionModal] = useState(false);
+  const [selectedChapterCollection, setSelectedChapterCollection] = useState<ChapterCollection | null>(null);
+
+  // Chapter collection progress (local AsyncStorage)
+  const { claimedChapterIds, claimChapter } = useChapterCollectionProgress();
   const [selectedCollection, setSelectedCollection] = useState<typeof ITEM_COLLECTIONS[string] | null>(null);
   const [chestReward, setChestReward] = useState<{
     type: 'points' | 'item';
@@ -3920,10 +4567,41 @@ export default function StoreScreen() {
       case 'collections':
         return (
           <View className="px-5">
+            {/* ── Chapter Collections (Spiritual Paths) ── */}
+            {Object.values(CHAPTER_COLLECTIONS).map((chCol, index) => (
+              <Animated.View
+                key={chCol.collectionId}
+                entering={FadeInDown.delay(index * 60).duration(400)}
+              >
+                <ChapterCollectionCard
+                  collection={chCol}
+                  purchasedItems={purchasedItems}
+                  colors={colors}
+                  language={language}
+                  claimedChapterIds={claimedChapterIds}
+                  onPress={() => {
+                    Haptics.selectionAsync();
+                    setSelectedChapterCollection(chCol);
+                    setShowChapterCollectionModal(true);
+                  }}
+                />
+              </Animated.View>
+            ))}
+
+            {/* Divider */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 8, marginBottom: 16 }}>
+              <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '20' }} />
+              <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, paddingHorizontal: 12, letterSpacing: 0.5 }}>
+                {language === 'es' ? 'COLECCIONES LIBRES' : 'FREE COLLECTIONS'}
+              </Text>
+              <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '20' }} />
+            </View>
+
+            {/* ── Standard Collections ── */}
             {Object.values(ITEM_COLLECTIONS).map((collection, index) => (
               <Animated.View
                 key={collection.id}
-                entering={FadeInDown.delay(index * 60).duration(400)}
+                entering={FadeInDown.delay((index + Object.values(CHAPTER_COLLECTIONS).length) * 60).duration(400)}
               >
                 <CollectionCard
                   collection={collection}
@@ -4128,6 +4806,33 @@ export default function StoreScreen() {
           setSelectedCollection(null);
         }}
         onNavigateToItem={handleNavigateToCollectionItem}
+      />
+
+      {/* Chapter Collection Modal */}
+      <ChapterCollectionModal
+        visible={showChapterCollectionModal}
+        collection={selectedChapterCollection}
+        purchasedItems={purchasedItems}
+        colors={colors}
+        language={language}
+        claimedChapterIds={claimedChapterIds}
+        onClaimChapter={async (chapterId, points) => {
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+          await claimChapter(chapterId);
+          updateUser({ points: (user?.points ?? 0) + points });
+          setToastAmount(points);
+          setToastPositive(true);
+          setShowPointsToast(true);
+        }}
+        onClose={() => {
+          setShowChapterCollectionModal(false);
+          setSelectedChapterCollection(null);
+        }}
+        onNavigateToItem={(itemId, itemType) => {
+          setShowChapterCollectionModal(false);
+          setSelectedChapterCollection(null);
+          handleNavigateToCollectionItem(itemId, itemType);
+        }}
       />
     </View>
   );

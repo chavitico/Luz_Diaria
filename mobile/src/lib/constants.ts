@@ -1186,7 +1186,141 @@ export const STORE_BUNDLES: Record<string, {
   },
 };
 
-// Weekly Chest rewards configuration
+// ─── Chapter Collections ──────────────────────────────────────────────────────
+// Two special collections with a chapter/path structure.
+// Each chapter must be completed in order.
+// Items map to existing store items.
+
+export interface CollectionChapterItem {
+  itemId: string;
+  itemType: 'avatar' | 'frame' | 'title' | 'theme';
+}
+
+export interface CollectionChapter {
+  chapterId: string;
+  number: number;
+  titleEn: string;
+  titleEs: string;
+  verseEn?: string;
+  verseEs?: string;
+  spiritualTextEn: string;
+  spiritualTextEs: string;
+  items: CollectionChapterItem[];
+  rewardPoints: number;
+}
+
+export interface ChapterCollection {
+  collectionId: string;
+  nameEn: string;
+  nameEs: string;
+  descriptionEn: string;
+  descriptionEs: string;
+  icon: string;
+  chapters: CollectionChapter[];
+}
+
+export const CHAPTER_COLLECTIONS: Record<string, ChapterCollection> = {
+  chapter_naturaleza_biblica: {
+    collectionId: 'chapter_naturaleza_biblica',
+    nameEn: 'Biblical Nature',
+    nameEs: 'Naturaleza Biblica',
+    descriptionEn: 'Creation reflects the character of God. Each stage teaches us to grow, bear fruit, and remain.',
+    descriptionEs: 'La creacion refleja el caracter de Dios. Cada etapa nos ensena a crecer, dar fruto y permanecer.',
+    icon: '🌿',
+    chapters: [
+      {
+        chapterId: 'chapter_naturaleza_biblica_1',
+        number: 1,
+        titleEn: 'The Seed',
+        titleEs: 'La Semilla',
+        verseEn: 'Mark 4:30–32',
+        verseEs: 'Marcos 4:30–32',
+        spiritualTextEn: 'Everything God does begins small, but full of life.',
+        spiritualTextEs: 'Todo lo que Dios hace comienza pequeno, pero lleno de vida.',
+        items: [
+          { itemId: 'theme_bosque', itemType: 'theme' },
+          { itemId: 'avatar_v2_semilla_mostaza', itemType: 'avatar' },
+        ],
+        rewardPoints: 100,
+      },
+      {
+        chapterId: 'chapter_naturaleza_biblica_2',
+        number: 2,
+        titleEn: 'The Growth',
+        titleEs: 'El Crecimiento',
+        spiritualTextEn: 'Faith is strengthened when we remain in the process.',
+        spiritualTextEs: 'La fe se fortalece cuando permanecemos en el proceso.',
+        items: [
+          { itemId: 'theme_promesa', itemType: 'theme' },
+          { itemId: 'frame_verde', itemType: 'frame' },
+        ],
+        rewardPoints: 150,
+      },
+      {
+        chapterId: 'chapter_naturaleza_biblica_3',
+        number: 3,
+        titleEn: 'The Fruit',
+        titleEs: 'El Fruto',
+        spiritualTextEn: 'A life rooted in God will always bear fruit.',
+        spiritualTextEs: 'Una vida arraigada en Dios siempre dara fruto.',
+        items: [
+          { itemId: 'title_sembrador', itemType: 'title' },
+        ],
+        rewardPoints: 250,
+      },
+    ],
+  },
+  chapter_simbolos_fe: {
+    collectionId: 'chapter_simbolos_fe',
+    nameEn: 'Symbols of Faith',
+    nameEs: 'Simbolos de Fe',
+    descriptionEn: 'Symbols remind us of eternal truths that sustain our faith.',
+    descriptionEs: 'Los simbolos nos recuerdan verdades eternas que sostienen nuestra fe.',
+    icon: '✝️',
+    chapters: [
+      {
+        chapterId: 'chapter_simbolos_fe_1',
+        number: 1,
+        titleEn: 'The Cross',
+        titleEs: 'La Cruz',
+        spiritualTextEn: 'In the cross we find forgiveness, love and hope.',
+        spiritualTextEs: 'En la cruz encontramos perdon, amor y esperanza.',
+        items: [
+          { itemId: 'avatar_cross', itemType: 'avatar' },
+          { itemId: 'frame_dorado', itemType: 'frame' },
+        ],
+        rewardPoints: 150,
+      },
+      {
+        chapterId: 'chapter_simbolos_fe_2',
+        number: 2,
+        titleEn: 'The Spirit',
+        titleEs: 'El Espiritu',
+        spiritualTextEn: 'We do not walk alone. The Spirit guides us.',
+        spiritualTextEs: 'No caminamos solos. El Espiritu nos guia.',
+        items: [
+          { itemId: 'theme_noche_paz', itemType: 'theme' },
+          { itemId: 'avatar_dove', itemType: 'avatar' },
+        ],
+        rewardPoints: 200,
+      },
+      {
+        chapterId: 'chapter_simbolos_fe_3',
+        number: 3,
+        titleEn: 'The Crown',
+        titleEs: 'La Corona',
+        spiritualTextEn: 'Perseverance has its reward.',
+        spiritualTextEs: 'La perseverancia tiene recompensa.',
+        items: [
+          { itemId: 'title_guardian', itemType: 'title' },
+        ],
+        rewardPoints: 300,
+      },
+    ],
+  },
+};
+
+
 export type ChestReward =
   | { type: 'points'; value: number; weight: number; rarity: string }
   | { type: 'item'; itemId: string; weight: number; rarity: string };
