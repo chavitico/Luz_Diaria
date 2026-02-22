@@ -729,6 +729,130 @@ function DailyPrayerSection({
   );
 }
 
+// Pastoral Closure — shown after the devotional is completed
+function PastoralClosure({
+  colors,
+  language,
+  isFavorite,
+  onFavorite,
+  onPrayerTab,
+}: {
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+  isFavorite: boolean;
+  onFavorite: () => void;
+  onPrayerTab: () => void;
+}) {
+  return (
+    <Animated.View
+      entering={FadeInDown.delay(200).duration(500)}
+      style={{ marginTop: 28, marginBottom: 8 }}
+    >
+      {/* Divider line */}
+      <View style={{ alignItems: 'center', marginBottom: 24 }}>
+        <View style={{ width: 40, height: 1, backgroundColor: colors.primary + '40' }} />
+      </View>
+
+      {/* Closing message */}
+      <View style={{ alignItems: 'center', marginBottom: 28, paddingHorizontal: 8 }}>
+        <Text style={{ fontSize: 18, marginBottom: 12 }}>🕊️</Text>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: '600',
+            color: colors.text,
+            textAlign: 'center',
+            lineHeight: 24,
+            marginBottom: 8,
+          }}
+        >
+          {language === 'es'
+            ? 'Gracias por apartar este tiempo.'
+            : 'Thank you for setting aside this time.'}
+        </Text>
+        <Text
+          style={{
+            fontSize: 14,
+            color: colors.textMuted,
+            textAlign: 'center',
+            lineHeight: 21,
+            fontStyle: 'italic',
+          }}
+        >
+          {language === 'es'
+            ? 'Dios honra un corazón que le busca.'
+            : 'God honors a heart that seeks Him.'}
+        </Text>
+      </View>
+
+      {/* Two actions */}
+      <View style={{ gap: 10 }}>
+        {/* Primary — Pray for community */}
+        <Pressable
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            onPrayerTab();
+          }}
+          style={({ pressed }) => ({
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingVertical: 15,
+            paddingHorizontal: 20,
+            borderRadius: 16,
+            backgroundColor: colors.primary,
+            opacity: pressed ? 0.88 : 1,
+            gap: 10,
+          })}
+        >
+          <Text style={{ fontSize: 18 }}>🤲</Text>
+          <Text style={{ fontSize: 15, fontWeight: '700', color: '#fff', letterSpacing: 0.2 }}>
+            {language === 'es' ? 'Orar por la comunidad' : 'Pray for the community'}
+          </Text>
+        </Pressable>
+
+        {/* Secondary — Save for later */}
+        <Pressable
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            onFavorite();
+          }}
+          style={({ pressed }) => ({
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingVertical: 14,
+            paddingHorizontal: 20,
+            borderRadius: 16,
+            backgroundColor: isFavorite ? colors.primary + '14' : colors.surface,
+            borderWidth: 1.5,
+            borderColor: isFavorite ? colors.primary + '50' : colors.primary + '25',
+            opacity: pressed ? 0.85 : 1,
+            gap: 10,
+          })}
+        >
+          <Heart
+            size={18}
+            color={isFavorite ? colors.primary : colors.textMuted}
+            fill={isFavorite ? colors.primary : 'transparent'}
+          />
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: '600',
+              color: isFavorite ? colors.primary : colors.text,
+            }}
+          >
+            {isFavorite
+              ? language === 'es' ? 'Guardado para reflexionar' : 'Saved for reflection'
+              : language === 'es' ? 'Guardar para reflexionar luego' : 'Save for later reflection'}
+          </Text>
+        </Pressable>
+      </View>
+    </Animated.View>
+  );
+}
+
 // Spiritual intro text — fades as user scrolls down
 function SpiritualIntro({
   scrollY,
@@ -1825,19 +1949,16 @@ export default function HomeScreen() {
               <Animated.View
                 entering={FadeIn.duration(400)}
                 style={{
-                  flexDirection: 'row',
+                  width: 32,
+                  height: 32,
+                  borderRadius: 16,
                   alignItems: 'center',
-                  backgroundColor: '#22C55E',
-                  borderRadius: 99,
-                  paddingHorizontal: 7,
-                  paddingVertical: 4,
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(34,197,94,0.85)',
                   marginRight: 8,
                 }}
               >
-                <Check size={10} color="#FFFFFF" strokeWidth={3} />
-                <Text style={{ color: '#FFFFFF', fontSize: 9, fontWeight: '700', marginLeft: 3 }}>
-                  +{POINTS.COMPLETE_DEVOTIONAL}
-                </Text>
+                <Check size={16} color="#FFFFFF" strokeWidth={2.5} />
               </Animated.View>
             )}
 
@@ -1994,6 +2115,17 @@ export default function HomeScreen() {
               colors={colors}
               language={language}
             />
+
+            {/* Pastoral Closure — only visible after completion */}
+            {isCompleted && (
+              <PastoralClosure
+                colors={colors}
+                language={language}
+                isFavorite={isFavorite}
+                onFavorite={toggleFavorite}
+                onPrayerTab={() => router.push('/(tabs)/prayer')}
+              />
+            )}
           </CollapsibleContent>
         </View>
       </Animated.ScrollView>
