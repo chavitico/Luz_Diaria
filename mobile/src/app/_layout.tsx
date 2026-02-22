@@ -59,6 +59,7 @@ function RootLayoutNav() {
             presentation: 'card',
             headerShown: true,
             headerTitle: '',
+            headerBackTitle: '',
             headerTransparent: true,
             headerTintColor: '#FFFFFF',
           }}
