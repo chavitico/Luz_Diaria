@@ -786,7 +786,7 @@ function PastoralClosure({
       </View>
 
       {/* Two actions */}
-      <View style={{ gap: 10 }}>
+      <View style={{ gap: 12 }}>
         {/* Primary — Pray for community */}
         <Pressable
           onPress={() => {
@@ -797,16 +797,21 @@ function PastoralClosure({
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingVertical: 15,
+            paddingVertical: 16,
             paddingHorizontal: 20,
             borderRadius: 16,
             backgroundColor: colors.primary,
             opacity: pressed ? 0.88 : 1,
             gap: 10,
+            shadowColor: colors.primary,
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.35,
+            shadowRadius: 10,
+            elevation: 6,
           })}
         >
           <Text style={{ fontSize: 18 }}>🤲</Text>
-          <Text style={{ fontSize: 15, fontWeight: '700', color: '#fff', letterSpacing: 0.2 }}>
+          <Text style={{ fontSize: 15, fontWeight: '700', color: '#ffffff', letterSpacing: 0.2 }}>
             {language === 'es' ? 'Orar por la comunidad' : 'Pray for the community'}
           </Text>
         </Pressable>
@@ -821,26 +826,26 @@ function PastoralClosure({
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingVertical: 14,
+            paddingVertical: 15,
             paddingHorizontal: 20,
             borderRadius: 16,
-            backgroundColor: isFavorite ? colors.primary + '14' : colors.surface,
-            borderWidth: 1.5,
-            borderColor: isFavorite ? colors.primary + '50' : colors.primary + '25',
+            backgroundColor: isFavorite ? colors.primary + '18' : 'transparent',
+            borderWidth: 2,
+            borderColor: isFavorite ? colors.primary : colors.primary + '60',
             opacity: pressed ? 0.85 : 1,
             gap: 10,
           })}
         >
           <Heart
             size={18}
-            color={isFavorite ? colors.primary : colors.textMuted}
+            color={colors.primary}
             fill={isFavorite ? colors.primary : 'transparent'}
           />
           <Text
             style={{
               fontSize: 15,
-              fontWeight: '600',
-              color: isFavorite ? colors.primary : colors.text,
+              fontWeight: '700',
+              color: colors.primary,
             }}
           >
             {isFavorite
