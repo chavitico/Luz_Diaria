@@ -2617,7 +2617,8 @@ function useChapterCollectionProgress(): {
       if (raw) {
         try {
           const arr: string[] = JSON.parse(raw);
-          setClaimedChapterIds(new Set(arr));
+          const s = new Set(arr);
+          setClaimedChapterIds(s);
         } catch { /* ignore */ }
       }
     });
@@ -2636,6 +2637,52 @@ function useChapterCollectionProgress(): {
 }
 
 // ─── ChapterCollectionModal ───────────────────────────────────────────────────
+// Per-chapter animated claim button
+function ClaimChapterButton({ onClaim, points, language, colors }: {
+  onClaim: () => void;
+  points: number;
+  language: 'en' | 'es';
+  colors: ReturnType<typeof useThemeColors>;
+}) {
+  const scale = useSharedValue(1);
+  const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  return (
+    <Animated.View style={[animatedStyle, { marginTop: 8 }]}>
+      <Pressable
+        onPressIn={() => { scale.value = withSpring(0.96, { damping: 15, stiffness: 300 }); }}
+        onPressOut={() => { scale.value = withSpring(1, { damping: 15, stiffness: 300 }); }}
+        onPress={() => {
+          scale.value = withSequence(
+            withSpring(1.06, { damping: 10, stiffness: 400 }),
+            withSpring(1, { damping: 12, stiffness: 300 })
+          );
+          onClaim();
+        }}
+        style={({ pressed }) => ({
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 8,
+          backgroundColor: pressed ? colors.primary + 'CC' : colors.primary,
+          borderRadius: 16,
+          paddingVertical: 15,
+          shadowColor: colors.primary,
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.35,
+          shadowRadius: 12,
+          elevation: 6,
+        })}
+      >
+        <Gift size={18} color="#fff" />
+        <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15, letterSpacing: 0.2 }}>
+          {language === 'es' ? `🎁 Reclamar Capítulo +${points} pts` : `🎁 Claim Chapter +${points} pts`}
+        </Text>
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 function ChapterCollectionModal({
   visible,
   collection,
@@ -2659,6 +2706,8 @@ function ChapterCollectionModal({
 }) {
   const translateY = useSharedValue(600);
   const opacity = useSharedValue(0);
+  // Track which chapterId was just claimed so we can show "new chapter" message
+  const [justClaimedId, setJustClaimedId] = useState<string | null>(null);
 
   React.useEffect(() => {
     if (visible) {
@@ -2667,6 +2716,7 @@ function ChapterCollectionModal({
     } else {
       opacity.value = withTiming(0, { duration: 200 });
       translateY.value = withTiming(600, { duration: 250 });
+      setJustClaimedId(null);
     }
   }, [visible]);
 
@@ -2674,11 +2724,6 @@ function ChapterCollectionModal({
   const sheetStyle = useAnimatedStyle(() => ({ transform: [{ translateY: translateY.value }] }));
 
   if (!collection) return null;
-
-  // Resolve item metadata
-  const resolveItem = (itemId: string, itemType: 'avatar' | 'frame' | 'title' | 'theme') => {
-    return resolveCollectionItem(itemId);
-  };
 
   // Check if an item is owned
   const isItemOwned = (itemId: string) => {
@@ -2690,7 +2735,6 @@ function ChapterCollectionModal({
   // Derive chapter states
   const getChapterState = (chapter: CollectionChapter, index: number): 'completed' | 'active' | 'locked' => {
     if (claimedChapterIds.has(chapter.chapterId)) return 'completed';
-    // Active = all previous chapters are completed AND current not claimed
     const prevChapters = collection.chapters.slice(0, index);
     const allPrevCompleted = prevChapters.every(c => claimedChapterIds.has(c.chapterId));
     if (allPrevCompleted) return 'active';
@@ -2698,7 +2742,7 @@ function ChapterCollectionModal({
   };
 
   const typeLabel = (type: 'avatar' | 'frame' | 'title' | 'theme') => {
-    const labels = { avatar: { en: 'Avatar', es: 'Avatar' }, frame: { en: 'Frame', es: 'Marco' }, title: { en: 'Title', es: 'Titulo' }, theme: { en: 'Theme', es: 'Tema' } };
+    const labels = { avatar: { en: 'Avatar', es: 'Avatar' }, frame: { en: 'Frame', es: 'Marco' }, title: { en: 'Title', es: 'Título' }, theme: { en: 'Theme', es: 'Tema' } };
     return language === 'es' ? labels[type].es : labels[type].en;
   };
 
@@ -2706,24 +2750,12 @@ function ChapterCollectionModal({
   const completedCount = collection.chapters.filter(c => claimedChapterIds.has(c.chapterId)).length;
   const allDone = completedCount === totalChapters;
 
-  const stateColors = {
-    completed: '#22C55E',
-    active: colors.primary,
-    locked: colors.textMuted,
-  };
-
-  const stateIcons: Record<string, React.ReactNode> = {
-    completed: <Check size={16} color="#22C55E" strokeWidth={2.5} />,
-    active: <Sparkles size={16} color={colors.primary} />,
-    locked: <Lock size={14} color={colors.textMuted} />,
-  };
-
   return (
     <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
       {/* Backdrop */}
       <Animated.View
         style={[
-          { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)' },
+          { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.65)' },
           backdropStyle,
         ]}
       >
@@ -2741,10 +2773,10 @@ function ChapterCollectionModal({
             borderTopLeftRadius: 28,
             borderTopRightRadius: 28,
             backgroundColor: colors.surface,
-            maxHeight: '92%',
+            maxHeight: '93%',
             shadowColor: '#000',
             shadowOffset: { width: 0, height: -6 },
-            shadowOpacity: 0.2,
+            shadowOpacity: 0.22,
             shadowRadius: 24,
             elevation: 24,
           },
@@ -2756,7 +2788,7 @@ function ChapterCollectionModal({
           <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40' }} />
         </View>
 
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 56 }}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 60 }}>
           <View style={{ paddingHorizontal: 24, paddingTop: 12 }}>
             {/* Close */}
             <Pressable onPress={onClose} style={{ position: 'absolute', top: 6, right: 16, padding: 10, zIndex: 10 }}>
@@ -2783,15 +2815,23 @@ function ChapterCollectionModal({
               </Text>
             </View>
 
-            {/* Overall progress pills */}
+            {/* Overall progress pills with labels */}
             <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 6, marginBottom: 24 }}>
               {collection.chapters.map((ch, i) => {
                 const state = getChapterState(ch, i);
                 return (
-                  <View key={ch.chapterId} style={{
-                    height: 6, flex: 1, borderRadius: 3,
-                    backgroundColor: state === 'completed' ? '#22C55E' : state === 'active' ? colors.primary : colors.textMuted + '25',
-                  }} />
+                  <View key={ch.chapterId} style={{ flex: 1, gap: 4 }}>
+                    <View style={{
+                      height: 7, borderRadius: 4,
+                      backgroundColor: state === 'completed' ? '#22C55E' : state === 'active' ? colors.primary : colors.textMuted + '25',
+                    }} />
+                    <Text style={{
+                      fontSize: 9, fontWeight: '600', textAlign: 'center',
+                      color: state === 'completed' ? '#22C55E' : state === 'active' ? colors.primary : colors.textMuted + '60',
+                    }}>
+                      {language === 'es' ? ch.titleEs : ch.titleEn}
+                    </Text>
+                  </View>
                 );
               })}
             </View>
@@ -2814,9 +2854,9 @@ function ChapterCollectionModal({
                 <Text style={{ fontSize: 16, fontWeight: '800', color: '#22C55E', marginBottom: 4 }}>
                   {language === 'es' ? '¡Camino completado!' : 'Path completed!'}
                 </Text>
-                <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center' }}>
+                <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center', lineHeight: 18 }}>
                   {language === 'es'
-                    ? 'Has completado todos los capitulos. Gracias por avanzar con fidelidad.'
+                    ? 'Has completado todos los capítulos. Gracias por avanzar con fidelidad.'
                     : 'You have completed all chapters. Thank you for advancing with faithfulness.'}
                 </Text>
               </Animated.View>
@@ -2828,12 +2868,22 @@ function ChapterCollectionModal({
               const isLocked = state === 'locked';
               const isActive = state === 'active';
               const isCompleted = state === 'completed';
-              const sc = stateColors[state];
 
               // Check chapter item ownership
               const chapterItemsOwned = chapter.items.filter(ci => isItemOwned(ci.itemId));
-              const chapterComplete = chapterItemsOwned.length === chapter.items.length;
+              const ownedCount = chapterItemsOwned.length;
+              const totalCount = chapter.items.length;
+              const chapterComplete = ownedCount === totalCount;
               const canClaimChapter = isActive && chapterComplete;
+              const pendingCount = totalCount - ownedCount;
+              const progressPct = totalCount > 0 ? ownedCount / totalCount : 0;
+
+              // Determine if this chapter was just activated (previous chapter was justClaimed)
+              const prevChapter = index > 0 ? collection.chapters[index - 1] : null;
+              const isNewlyActivated = isActive && prevChapter?.chapterId === justClaimedId;
+
+              const borderColor = isCompleted ? '#22C55E30' : isActive ? colors.primary + '40' : colors.textMuted + '18';
+              const headerBg = isCompleted ? '#22C55E08' : isActive ? colors.primary + '0A' : 'transparent';
 
               return (
                 <Animated.View
@@ -2843,81 +2893,137 @@ function ChapterCollectionModal({
                 >
                   {/* Chapter card */}
                   <View style={{
-                    borderRadius: 18,
+                    borderRadius: 20,
                     overflow: 'hidden',
                     backgroundColor: isLocked ? colors.background : colors.surface,
                     borderWidth: 1.5,
-                    borderColor: isCompleted ? '#22C55E30' : isActive ? colors.primary + '40' : colors.textMuted + '18',
+                    borderColor,
                     shadowColor: isActive ? colors.primary : '#000',
-                    shadowOffset: { width: 0, height: isActive ? 4 : 1 },
-                    shadowOpacity: isActive ? 0.12 : 0.04,
-                    shadowRadius: isActive ? 12 : 4,
-                    elevation: isActive ? 4 : 1,
-                    opacity: isLocked ? 0.55 : 1,
+                    shadowOffset: { width: 0, height: isActive ? 5 : 1 },
+                    shadowOpacity: isActive ? 0.14 : 0.04,
+                    shadowRadius: isActive ? 14 : 4,
+                    elevation: isActive ? 5 : 1,
+                    opacity: isLocked ? 0.5 : 1,
                   }}>
                     {/* Chapter header bar */}
                     <View style={{
                       flexDirection: 'row',
                       alignItems: 'center',
                       paddingHorizontal: 16,
-                      paddingVertical: 12,
-                      backgroundColor: isCompleted ? '#22C55E08' : isActive ? colors.primary + '0A' : 'transparent',
+                      paddingVertical: 13,
+                      backgroundColor: headerBg,
                       borderBottomWidth: 1,
                       borderBottomColor: colors.textMuted + '12',
                     }}>
                       {/* Chapter number badge */}
                       <View style={{
-                        width: 32, height: 32, borderRadius: 10,
+                        width: 34, height: 34, borderRadius: 11,
                         alignItems: 'center', justifyContent: 'center',
                         backgroundColor: isCompleted ? '#22C55E20' : isActive ? colors.primary + '20' : colors.textMuted + '15',
                         marginRight: 12,
                       }}>
                         {isCompleted
-                          ? <Check size={16} color="#22C55E" strokeWidth={2.5} />
+                          ? <Check size={17} color="#22C55E" strokeWidth={2.5} />
                           : isActive
-                          ? <Text style={{ fontSize: 13, fontWeight: '800', color: colors.primary }}>{chapter.number}</Text>
-                          : <Lock size={13} color={colors.textMuted} />
+                          ? <Text style={{ fontSize: 14, fontWeight: '800', color: colors.primary }}>{chapter.number}</Text>
+                          : <Lock size={14} color={colors.textMuted} />
                         }
                       </View>
 
                       <View style={{ flex: 1 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                          <Text style={{ fontSize: 8, fontWeight: '700', color: sc, textTransform: 'uppercase', letterSpacing: 0.8 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 1 }}>
+                          <Text style={{ fontSize: 9, fontWeight: '700', color: isCompleted ? '#22C55E' : isActive ? colors.primary : colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.8 }}>
                             {language === 'es' ? `Capítulo ${chapter.number}` : `Chapter ${chapter.number}`}
                           </Text>
-                          {isActive && (
-                            <View style={{ paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4, backgroundColor: colors.primary + '20' }}>
-                              <Text style={{ fontSize: 8, fontWeight: '800', color: colors.primary }}>
+                          {isActive && !isCompleted && (
+                            <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 5, backgroundColor: colors.primary + '20' }}>
+                              <Text style={{ fontSize: 8, fontWeight: '800', color: colors.primary, letterSpacing: 0.5 }}>
                                 {language === 'es' ? 'ACTIVO' : 'ACTIVE'}
                               </Text>
                             </View>
                           )}
+                          {isCompleted && (
+                            <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 5, backgroundColor: '#22C55E20' }}>
+                              <Text style={{ fontSize: 8, fontWeight: '800', color: '#22C55E', letterSpacing: 0.5 }}>
+                                {language === 'es' ? 'COMPLETADO' : 'COMPLETED'}
+                              </Text>
+                            </View>
+                          )}
                         </View>
-                        <Text style={{ fontSize: 15, fontWeight: '800', color: isLocked ? colors.textMuted : colors.text, marginTop: 1 }}>
+                        <Text style={{ fontSize: 16, fontWeight: '800', color: isLocked ? colors.textMuted : colors.text }}>
                           {language === 'es' ? chapter.titleEs : chapter.titleEn}
                         </Text>
                       </View>
 
                       {/* Reward badge */}
                       <View style={{
-                        paddingHorizontal: 8, paddingVertical: 4,
-                        borderRadius: 8,
-                        backgroundColor: isCompleted ? '#22C55E15' : colors.textMuted + '12',
+                        paddingHorizontal: 9, paddingVertical: 5,
+                        borderRadius: 9,
+                        backgroundColor: isCompleted ? '#22C55E15' : isActive ? colors.primary + '15' : colors.textMuted + '10',
                         flexDirection: 'row', alignItems: 'center', gap: 3,
                       }}>
-                        <Sparkles size={11} color={isCompleted ? '#22C55E' : colors.textMuted} />
-                        <Text style={{ fontSize: 11, fontWeight: '700', color: isCompleted ? '#22C55E' : colors.textMuted }}>
+                        <Sparkles size={11} color={isCompleted ? '#22C55E' : isActive ? colors.primary : colors.textMuted} />
+                        <Text style={{ fontSize: 12, fontWeight: '700', color: isCompleted ? '#22C55E' : isActive ? colors.primary : colors.textMuted }}>
                           +{chapter.rewardPoints}
                         </Text>
                       </View>
                     </View>
 
-                    {/* Chapter body — only show if not locked */}
+                    {/* Locked state body */}
+                    {isLocked && (
+                      <View style={{
+                        padding: 16,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 10,
+                      }}>
+                        <View style={{
+                          width: 36, height: 36, borderRadius: 10,
+                          alignItems: 'center', justifyContent: 'center',
+                          backgroundColor: colors.textMuted + '12',
+                        }}>
+                          <Lock size={16} color={colors.textMuted} />
+                        </View>
+                        <Text style={{ flex: 1, fontSize: 13, color: colors.textMuted, lineHeight: 18 }}>
+                          {language === 'es'
+                            ? 'Completa el capítulo anterior para desbloquearlo.'
+                            : 'Complete the previous chapter to unlock this one.'}
+                        </Text>
+                      </View>
+                    )}
+
+                    {/* Active or Completed chapter body */}
                     {!isLocked && (
                       <View style={{ padding: 16 }}>
+
+                        {/* "Newly activated" message */}
+                        {isNewlyActivated && (
+                          <Animated.View
+                            entering={FadeInDown.duration(350)}
+                            style={{
+                              backgroundColor: colors.primary + '10',
+                              borderRadius: 12,
+                              padding: 12,
+                              marginBottom: 14,
+                              borderWidth: 1,
+                              borderColor: colors.primary + '25',
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              gap: 8,
+                            }}
+                          >
+                            <Text style={{ fontSize: 18 }}>✨</Text>
+                            <Text style={{ flex: 1, fontSize: 13, color: colors.primary, fontWeight: '600', lineHeight: 18 }}>
+                              {language === 'es'
+                                ? 'Ahora es tiempo de crecer y fortalecerte.'
+                                : 'Now is the time to grow and strengthen yourself.'}
+                            </Text>
+                          </Animated.View>
+                        )}
+
                         {/* Verse reference */}
                         {chapter.verseEn && (
-                          <Text style={{ fontSize: 10, fontWeight: '600', color: colors.primary, marginBottom: 4, letterSpacing: 0.3 }}>
+                          <Text style={{ fontSize: 10, fontWeight: '700', color: colors.primary, marginBottom: 6, letterSpacing: 0.5, textTransform: 'uppercase' }}>
                             {language === 'es' ? chapter.verseEs : chapter.verseEn}
                           </Text>
                         )}
@@ -2925,22 +3031,44 @@ function ChapterCollectionModal({
                         {/* Spiritual text */}
                         <View style={{
                           backgroundColor: colors.primary + '0C',
-                          borderRadius: 10,
-                          padding: 12,
+                          borderRadius: 12,
+                          padding: 14,
                           borderLeftWidth: 3,
                           borderLeftColor: colors.primary + '50',
-                          marginBottom: 16,
+                          marginBottom: 18,
                         }}>
-                          <Text style={{ fontSize: 13, lineHeight: 20, color: colors.text + 'DD', fontStyle: 'italic' }}>
+                          <Text style={{ fontSize: 13, lineHeight: 21, color: colors.text + 'DD', fontStyle: 'italic' }}>
                             {language === 'es' ? chapter.spiritualTextEs : chapter.spiritualTextEn}
                           </Text>
                         </View>
 
+                        {/* Items progress header */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 8 }}>
+                          <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.6, flex: 1 }}>
+                            {language === 'es' ? 'Ítems requeridos' : 'Required items'}
+                          </Text>
+                          <Text style={{ fontSize: 11, fontWeight: '700', color: chapterComplete ? '#22C55E' : colors.primary }}>
+                            {ownedCount}/{totalCount}
+                          </Text>
+                        </View>
+
+                        {/* Per-chapter progress bar */}
+                        <View style={{
+                          height: 5, borderRadius: 3,
+                          backgroundColor: colors.textMuted + '20',
+                          marginBottom: 14,
+                          overflow: 'hidden',
+                        }}>
+                          <View style={{
+                            height: '100%',
+                            width: `${Math.round(progressPct * 100)}%`,
+                            backgroundColor: chapterComplete ? '#22C55E' : colors.primary,
+                            borderRadius: 3,
+                          }} />
+                        </View>
+
                         {/* Items checklist */}
-                        <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 10 }}>
-                          {language === 'es' ? 'Ítems requeridos' : 'Required items'}
-                        </Text>
-                        {chapter.items.map((ci, ciIdx) => {
+                        {chapter.items.map((ci) => {
                           const owned = isItemOwned(ci.itemId);
                           const meta = resolveCollectionItem(ci.itemId);
                           return (
@@ -2951,31 +3079,31 @@ function ChapterCollectionModal({
                               style={({ pressed }) => ({
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                paddingVertical: 10,
-                                paddingHorizontal: 12,
+                                paddingVertical: 11,
+                                paddingHorizontal: 13,
                                 marginBottom: 8,
-                                borderRadius: 12,
+                                borderRadius: 13,
                                 backgroundColor: owned
                                   ? colors.textMuted + '08'
                                   : pressed
-                                  ? colors.primary + '15'
-                                  : colors.primary + '08',
+                                  ? colors.primary + '18'
+                                  : colors.primary + '09',
                                 borderWidth: 1,
-                                borderColor: owned ? colors.textMuted + '18' : colors.primary + '25',
+                                borderColor: owned ? colors.textMuted + '18' : colors.primary + '28',
                               })}
                             >
                               {/* Icon */}
                               <View style={{
-                                width: 36, height: 36, borderRadius: 10,
+                                width: 38, height: 38, borderRadius: 11,
                                 alignItems: 'center', justifyContent: 'center',
-                                backgroundColor: owned ? colors.textMuted + '12' : colors.primary + '18',
-                                marginRight: 10,
+                                backgroundColor: owned ? '#22C55E15' : colors.primary + '18',
+                                marginRight: 11,
                               }}>
                                 {meta.emoji
-                                  ? <Text style={{ fontSize: 18 }}>{meta.emoji}</Text>
+                                  ? <Text style={{ fontSize: 19 }}>{meta.emoji}</Text>
                                   : meta.color
-                                  ? <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: meta.color }} />
-                                  : <Text style={{ fontSize: 16 }}>{collection.icon}</Text>
+                                  ? <View style={{ width: 22, height: 22, borderRadius: 11, backgroundColor: meta.color }} />
+                                  : <Text style={{ fontSize: 17 }}>{collection.icon}</Text>
                                 }
                               </View>
 
@@ -2992,8 +3120,8 @@ function ChapterCollectionModal({
                               {/* Status */}
                               {owned ? (
                                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                                  <Check size={13} color="#22C55E" strokeWidth={2.5} />
-                                  <Text style={{ fontSize: 11, fontWeight: '600', color: '#22C55E' }}>
+                                  <Check size={14} color="#22C55E" strokeWidth={2.5} />
+                                  <Text style={{ fontSize: 11, fontWeight: '700', color: '#22C55E' }}>
                                     {language === 'es' ? 'Adquirido' : 'Acquired'}
                                   </Text>
                                 </View>
@@ -3011,42 +3139,62 @@ function ChapterCollectionModal({
                           );
                         })}
 
-                        {/* CTA — claim or waiting */}
+                        {/* CTA section */}
                         {isActive && (
                           <View style={{ marginTop: 4 }}>
                             {canClaimChapter ? (
-                              <Pressable
-                                onPress={() => onClaimChapter(chapter.chapterId, chapter.rewardPoints)}
-                                style={({ pressed }) => ({
-                                  flexDirection: 'row',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  gap: 8,
-                                  backgroundColor: pressed ? colors.primary + 'CC' : colors.primary,
-                                  borderRadius: 14,
-                                  paddingVertical: 14,
-                                })}
-                              >
-                                <Gift size={17} color="#fff" />
-                                <Text style={{ color: '#fff', fontWeight: '800', fontSize: 14 }}>
-                                  {language === 'es' ? 'Reclamar capítulo' : 'Claim chapter'} • +{chapter.rewardPoints} pts
-                                </Text>
-                              </Pressable>
+                              <>
+                                {/* Ready to claim copy */}
+                                <View style={{
+                                  backgroundColor: colors.primary + '0C',
+                                  borderRadius: 10,
+                                  paddingVertical: 10,
+                                  paddingHorizontal: 14,
+                                  marginBottom: 10,
+                                  borderWidth: 1,
+                                  borderColor: colors.primary + '20',
+                                }}>
+                                  <Text style={{ fontSize: 12, color: colors.primary, fontWeight: '600', textAlign: 'center', lineHeight: 18 }}>
+                                    {language === 'es'
+                                      ? 'Capítulo completo. Reclámalo para avanzar al siguiente nivel.'
+                                      : 'Chapter complete. Claim it to advance to the next level.'}
+                                  </Text>
+                                </View>
+                                <ClaimChapterButton
+                                  onClaim={() => {
+                                    setJustClaimedId(chapter.chapterId);
+                                    onClaimChapter(chapter.chapterId, chapter.rewardPoints);
+                                  }}
+                                  points={chapter.rewardPoints}
+                                  language={language}
+                                  colors={colors}
+                                />
+                              </>
                             ) : (
-                              <View style={{
-                                borderRadius: 12,
-                                paddingVertical: 12,
-                                alignItems: 'center',
-                                backgroundColor: colors.textMuted + '0A',
-                                borderWidth: 1,
-                                borderColor: colors.textMuted + '20',
-                              }}>
-                                <Text style={{ color: colors.textMuted, fontSize: 12, fontWeight: '600' }}>
-                                  {language === 'es'
-                                    ? `${chapter.items.length - chapterItemsOwned.length} ítem${chapter.items.length - chapterItemsOwned.length !== 1 ? 's' : ''} pendiente${chapter.items.length - chapterItemsOwned.length !== 1 ? 's' : ''}`
-                                    : `${chapter.items.length - chapterItemsOwned.length} item${chapter.items.length - chapterItemsOwned.length !== 1 ? 's' : ''} remaining`}
-                                </Text>
-                              </View>
+                              <>
+                                {/* Pending items copy */}
+                                <View style={{
+                                  borderRadius: 13,
+                                  paddingVertical: 14,
+                                  paddingHorizontal: 16,
+                                  alignItems: 'center',
+                                  backgroundColor: colors.textMuted + '08',
+                                  borderWidth: 1,
+                                  borderColor: colors.textMuted + '18',
+                                  gap: 4,
+                                }}>
+                                  <Text style={{ color: colors.text, fontSize: 13, fontWeight: '700' }}>
+                                    {language === 'es'
+                                      ? `${pendingCount} ítem${pendingCount !== 1 ? 's' : ''} pendiente${pendingCount !== 1 ? 's' : ''}`
+                                      : `${pendingCount} item${pendingCount !== 1 ? 's' : ''} remaining`}
+                                  </Text>
+                                  <Text style={{ color: colors.textMuted, fontSize: 11, textAlign: 'center', lineHeight: 17 }}>
+                                    {language === 'es'
+                                      ? 'Completa todos los ítems de este capítulo para continuar tu camino espiritual.'
+                                      : 'Complete all items in this chapter to continue your spiritual path.'}
+                                  </Text>
+                                </View>
+                              </>
                             )}
                           </View>
                         )}
@@ -3055,8 +3203,9 @@ function ChapterCollectionModal({
                         {isCompleted && (
                           <View style={{
                             flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                            gap: 6, paddingVertical: 10,
+                            gap: 6, paddingVertical: 11,
                             backgroundColor: '#22C55E10', borderRadius: 12,
+                            borderWidth: 1, borderColor: '#22C55E25',
                           }}>
                             <Check size={14} color="#22C55E" strokeWidth={2.5} />
                             <Text style={{ fontSize: 12, fontWeight: '700', color: '#22C55E' }}>
@@ -3070,10 +3219,10 @@ function ChapterCollectionModal({
 
                   {/* Connector line between chapters */}
                   {index < collection.chapters.length - 1 && (
-                    <View style={{ alignItems: 'center', paddingVertical: 4 }}>
+                    <View style={{ alignItems: 'center', paddingVertical: 6 }}>
                       <View style={{
-                        width: 2, height: 16,
-                        backgroundColor: isCompleted ? '#22C55E40' : colors.textMuted + '25',
+                        width: 2, height: 18,
+                        backgroundColor: isCompleted ? '#22C55E50' : colors.textMuted + '25',
                         borderRadius: 1,
                       }} />
                     </View>
@@ -3837,11 +3986,13 @@ function PointsToast({
   visible,
   onHide,
   isPositive = false,
+  message,
 }: {
   amount: number;
   visible: boolean;
   onHide: () => void;
   isPositive?: boolean;
+  message?: string;
 }) {
   const translateY = useSharedValue(50);
   const opacity = useSharedValue(0);
@@ -3877,8 +4028,8 @@ function PointsToast({
         {
           position: 'absolute',
           top: 100,
-          left: 0,
-          right: 0,
+          left: 16,
+          right: 16,
           alignItems: 'center',
           zIndex: 1000,
         },
@@ -3886,13 +4037,32 @@ function PointsToast({
       ]}
     >
       <View
-        className="px-5 py-3 rounded-full flex-row items-center"
-        style={{ backgroundColor: isPositive ? '#22C55E' : '#EF4444' }}
+        style={{
+          backgroundColor: isPositive ? '#22C55E' : '#EF4444',
+          paddingHorizontal: 20,
+          paddingVertical: 12,
+          borderRadius: 16,
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 2,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.2,
+          shadowRadius: 12,
+          elevation: 8,
+        }}
       >
-        <Sparkles size={18} color="#FFFFFF" />
-        <Text className="text-white font-bold ml-2 text-base">
-          {isPositive ? '+' : '-'}{amount} points
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          <Sparkles size={16} color="#FFFFFF" />
+          <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15 }}>
+            {isPositive ? '+' : '-'}{amount} pts
+          </Text>
+        </View>
+        {message ? (
+          <Text style={{ color: '#ffffffCC', fontSize: 12, fontWeight: '500', textAlign: 'center' }}>
+            {message}
+          </Text>
+        ) : null}
       </View>
     </Animated.View>
   );
@@ -3914,6 +4084,7 @@ export default function StoreScreen() {
   const [showPointsToast, setShowPointsToast] = useState(false);
   const [toastAmount, setToastAmount] = useState(0);
   const [toastPositive, setToastPositive] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | undefined>(undefined);
   const [allChallengesComplete, setAllChallengesComplete] = useState(false);
   const [showChestModal, setShowChestModal] = useState(false);
   const [showCollectionDetailModal, setShowCollectionDetailModal] = useState(false);
@@ -4661,8 +4832,9 @@ export default function StoreScreen() {
       <PointsToast
         amount={toastAmount}
         visible={showPointsToast}
-        onHide={() => setShowPointsToast(false)}
+        onHide={() => { setShowPointsToast(false); setToastMessage(undefined); }}
         isPositive={toastPositive}
+        message={toastMessage}
       />
 
       <ScrollView
@@ -4822,6 +4994,7 @@ export default function StoreScreen() {
           updateUser({ points: (user?.points ?? 0) + points });
           setToastAmount(points);
           setToastPositive(true);
+          setToastMessage(language === 'es' ? '¡Capítulo completado! Has avanzado en tu camino espiritual.' : 'Chapter completed! You have advanced on your spiritual path.');
           setShowPointsToast(true);
         }}
         onClose={() => {
