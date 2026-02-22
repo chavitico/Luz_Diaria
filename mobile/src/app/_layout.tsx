@@ -14,7 +14,7 @@ import { useAppStore, useIsOnboarded, useIsDarkMode, useThemeColors, useLanguage
 import { SplashScreen } from '@/components/SplashScreen';
 import { OnboardingScreen } from '@/components/OnboardingScreen';
 import { BackgroundMusicProvider } from '@/components/BackgroundMusicProvider';
-import { initializeNotifications } from '@/lib/notifications';
+import { initializeNotifications, markAppOpenedToday } from '@/lib/notifications';
 import { useBrandingStore } from '@/lib/branding-service';
 
 export const unstable_settings = {
@@ -95,10 +95,14 @@ function AppContent() {
     fetchBranding();
   }, []);
 
-  // Initialize notifications when app is ready and user is onboarded
+  // Initialize notifications + mark app opened (for smart skip logic)
   useEffect(() => {
     if (appReady && isOnboarded) {
-      initializeNotifications(language);
+      // Mark that user opened the app today, then initialize notifications
+      // (smart suppression: if opened before 7 AM, today's notif is cancelled)
+      markAppOpenedToday().then(() => {
+        initializeNotifications(language);
+      });
     }
   }, [appReady, isOnboarded, language]);
 

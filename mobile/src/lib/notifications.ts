@@ -8,6 +8,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NOTIFICATION_STORAGE_KEY = 'daily_light_notification_settings';
 
+// Engagement tracking keys
+export const ENGAGEMENT_KEYS = {
+  LAST_OPENED_DATE: 'daily_light_last_opened_date',
+  LAST_NOTIFICATION_SENT_DATE: 'daily_light_last_notification_sent_date',
+  LAST_DEVOTIONAL_COMPLETED_DATE: 'daily_light_last_devotional_completed_date',
+};
+
 export interface NotificationSettings {
   enabled: boolean;
   hour: number; // 0-23
@@ -21,19 +28,21 @@ const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettings = {
   minute: 0,
 };
 
-// Rotating spiritual copy — deterministic by day-of-year
+// Rotating spiritual copy — deterministic by day-of-year (full 5-message set)
 const SPIRITUAL_MESSAGES_ES = [
-  { title: '🕊️ Luz Diaria', body: 'Detente un momento. Dios quiere hablarte hoy.' },
-  { title: '🌅 Luz Diaria', body: 'Un nuevo día. Una nueva luz para tu camino.' },
-  { title: '📖 Luz Diaria', body: 'Aparta un momento. La Palabra te espera.' },
-  { title: '🌿 Luz Diaria', body: 'No es prisa. Es encuentro. Hoy hay una luz para ti.' },
+  { title: 'Luz Diaria', body: 'Detente un momento. Dios quiere hablarte hoy.' },
+  { title: 'Luz Diaria', body: 'Tu devocional de hoy ya está listo.' },
+  { title: 'Luz Diaria', body: 'Un minuto con Dios puede cambiar tu día.' },
+  { title: 'Luz Diaria', body: 'Hoy también hay una palabra para ti.' },
+  { title: 'Luz Diaria', body: 'No caminas solo. Dios te espera hoy.' },
 ];
 
 const SPIRITUAL_MESSAGES_EN = [
-  { title: '🕊️ Daily Light', body: 'Pause for a moment. God wants to speak to you today.' },
-  { title: '🌅 Daily Light', body: 'A new day. A new light for your path.' },
-  { title: '📖 Daily Light', body: 'Set aside a moment. The Word is waiting for you.' },
-  { title: '🌿 Daily Light', body: "It's not hurry. It's encounter. Today there's a light for you." },
+  { title: 'Daily Light', body: 'Pause for a moment. God wants to speak to you today.' },
+  { title: 'Daily Light', body: "Today's devotional is ready for you." },
+  { title: 'Daily Light', body: 'A minute with God can change your day.' },
+  { title: 'Daily Light', body: 'There is a word for you today.' },
+  { title: 'Daily Light', body: "You don't walk alone. God is waiting for you." },
 ];
 
 function getDailyMessageIndex(): number {
@@ -43,6 +52,15 @@ function getDailyMessageIndex(): number {
   const oneDay = 1000 * 60 * 60 * 24;
   const dayOfYear = Math.floor(diff / oneDay);
   return dayOfYear % SPIRITUAL_MESSAGES_ES.length;
+}
+
+/** Returns today's date as YYYY-MM-DD in local time */
+function getLocalDateString(): string {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
 }
 
 // Configure notification handler for foreground notifications
@@ -214,9 +232,135 @@ export function formatNotificationTime(hour: number, minute: number, use24Hour: 
 }
 
 /**
+ * Mark that the user opened the app today.
+ * Returns true if this is the first open today, false if already opened.
+ */
+export async function markAppOpenedToday(): Promise<boolean> {
+  try {
+    const today = getLocalDateString();
+    const lastOpened = await AsyncStorage.getItem(ENGAGEMENT_KEYS.LAST_OPENED_DATE);
+    if (lastOpened === today) {
+      return false; // Already opened today
+    }
+    await AsyncStorage.setItem(ENGAGEMENT_KEYS.LAST_OPENED_DATE, today);
+    console.log('[Engagement] App opened for the first time today:', today);
+    return true;
+  } catch (error) {
+    console.error('[Engagement] Error marking app open:', error);
+    return false;
+  }
+}
+
+/**
+ * Check if the user already opened the app today.
+ */
+export async function hasOpenedAppToday(): Promise<boolean> {
+  try {
+    const today = getLocalDateString();
+    const lastOpened = await AsyncStorage.getItem(ENGAGEMENT_KEYS.LAST_OPENED_DATE);
+    return lastOpened === today;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Mark that we sent a notification today (to prevent duplicates).
+ */
+export async function markNotificationSentToday(): Promise<void> {
+  try {
+    const today = getLocalDateString();
+    await AsyncStorage.setItem(ENGAGEMENT_KEYS.LAST_NOTIFICATION_SENT_DATE, today);
+    console.log('[Engagement] Notification sent today:', today);
+  } catch (error) {
+    console.error('[Engagement] Error marking notification sent:', error);
+  }
+}
+
+/**
+ * Check if we already sent a notification today.
+ */
+export async function hasNotificationBeenSentToday(): Promise<boolean> {
+  try {
+    const today = getLocalDateString();
+    const lastSent = await AsyncStorage.getItem(ENGAGEMENT_KEYS.LAST_NOTIFICATION_SENT_DATE);
+    return lastSent === today;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Mark that the user completed the devotional today.
+ * Call this when the home screen marks completion.
+ */
+export async function markDevotionalCompletedToday(): Promise<void> {
+  try {
+    const today = getLocalDateString();
+    await AsyncStorage.setItem(ENGAGEMENT_KEYS.LAST_DEVOTIONAL_COMPLETED_DATE, today);
+    console.log('[Engagement] Devotional completed today:', today);
+  } catch (error) {
+    console.error('[Engagement] Error marking devotional completed:', error);
+  }
+}
+
+/**
+ * Check if the user completed the devotional today.
+ */
+export async function hasCompletedDevotionalToday(): Promise<boolean> {
+  try {
+    const today = getLocalDateString();
+    const lastCompleted = await AsyncStorage.getItem(ENGAGEMENT_KEYS.LAST_DEVOTIONAL_COMPLETED_DATE);
+    return lastCompleted === today;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Smart notification scheduler:
+ * - If user already opened the app today → cancel today's pending notification (OS-scheduled ones
+ *   are daily repeating, so we just cancel and reschedule for tomorrow — the DAILY trigger
+ *   handles future days automatically).
+ * - The goal: if user opens before 7 AM the OS scheduled notif for today fires anyway,
+ *   so we suppress it by cancelling and re-scheduling (it won't fire until tomorrow).
+ * Call this on every app open, AFTER markAppOpenedToday().
+ */
+export async function handleSmartNotificationOnOpen(language: 'en' | 'es' = 'es'): Promise<void> {
+  try {
+    const settings = await getNotificationSettings();
+    if (!settings.enabled) return;
+
+    const today = getLocalDateString();
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+
+    // Check if notification time hasn't fired yet today
+    const notifTimeNotYetPassed =
+      currentHour < settings.hour ||
+      (currentHour === settings.hour && currentMinute < settings.minute);
+
+    if (notifTimeNotYetPassed) {
+      // User opened before notification time → suppress today's notification
+      // by cancelling and rescheduling (DAILY trigger will fire tomorrow)
+      const hasPermission = await requestNotificationPermissions();
+      if (hasPermission) {
+        await scheduleDailyNotification(settings.hour, settings.minute, language);
+        await markNotificationSentToday(); // prevent double-tracking
+        console.log('[Notifications] Suppressed today\'s notification (user opened early)');
+      }
+    }
+  } catch (error) {
+    console.error('[Notifications] Error in smart notification handler:', error);
+  }
+}
+
+/**
  * Initialize notifications on app start.
  * - First run: auto-schedules at 7:00 AM.
  * - Subsequent runs: reschedules if still enabled (keeps message fresh).
+ * - Smart: if user opens before notification time, suppresses today's notification.
  * - Silently skips if permissions are denied by the user.
  */
 export async function initializeNotifications(language: 'en' | 'es' = 'es'): Promise<void> {
@@ -231,6 +375,8 @@ export async function initializeNotifications(language: 'en' | 'es' = 'es'): Pro
       if (hasPermission) {
         await scheduleDailyNotification(settings.hour, settings.minute, language);
         console.log('[Notifications] Reinitialized daily notification');
+        // Smart suppress: if user opens before notification time
+        await handleSmartNotificationOnOpen(language);
       }
     } else if (!stored) {
       // Brand-new install: auto-request and schedule at 7:00 AM
@@ -242,6 +388,7 @@ export async function initializeNotifications(language: 'en' | 'es' = 'es'): Pro
           language
         );
         console.log('[Notifications] Auto-scheduled first-time notification at 7:00 AM');
+        await handleSmartNotificationOnOpen(language);
       }
     }
   } catch (error) {

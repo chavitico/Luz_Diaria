@@ -53,6 +53,7 @@ import {
 import { ShareOptionsSheet, type ShareOption } from '@/components/ShareOptionsSheet';
 import { BibleReferenceText } from '@/components/BibleReferenceText';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
+import { markDevotionalCompletedToday } from '@/lib/notifications';
 import {
   useThemeColors,
   useLanguage,
@@ -1310,6 +1311,126 @@ function CollapsibleContent({
   );
 }
 
+// Daily engagement micro-feedback banner
+function DailyEngagementBanner({
+  isCompleted,
+  showCompletionThankYou,
+  colors,
+  language,
+}: {
+  isCompleted: boolean;
+  showCompletionThankYou: boolean;
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'es' | 'en';
+}) {
+  const opacity = useSharedValue(0);
+  const translateY = useSharedValue(8);
+
+  useEffect(() => {
+    opacity.value = withDelay(200, withTiming(1, { duration: 400 }));
+    translateY.value = withDelay(200, withSpring(0, { damping: 18, stiffness: 120 }));
+  }, [isCompleted, showCompletionThankYou]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [{ translateY: translateY.value }],
+  }));
+
+  if (showCompletionThankYou) {
+    return (
+      <Animated.View
+        style={[
+          animatedStyle,
+          {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingVertical: 10,
+            paddingHorizontal: 16,
+            marginHorizontal: 0,
+            marginBottom: 12,
+            borderRadius: 14,
+            backgroundColor: colors.primary + '18',
+            gap: 8,
+          },
+        ]}
+      >
+        <Text style={{ fontSize: 16 }}>🙏</Text>
+        <Text
+          style={{
+            fontSize: 14,
+            color: colors.primary,
+            fontWeight: '500',
+            flexShrink: 1,
+          }}
+        >
+          {language === 'es'
+            ? 'Gracias por apartar este momento con Dios'
+            : 'Thank you for setting aside this moment with God'}
+        </Text>
+      </Animated.View>
+    );
+  }
+
+  if (isCompleted) {
+    return (
+      <Animated.View
+        style={[
+          animatedStyle,
+          {
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 8,
+            paddingHorizontal: 14,
+            marginBottom: 12,
+            borderRadius: 20,
+            alignSelf: 'flex-start',
+            backgroundColor: 'rgba(34,197,94,0.12)',
+            gap: 6,
+          },
+        ]}
+      >
+        <Check size={13} color="rgb(34,197,94)" strokeWidth={2.5} />
+        <Text
+          style={{
+            fontSize: 13,
+            color: 'rgb(34,197,94)',
+            fontWeight: '500',
+          }}
+        >
+          {language === 'es' ? 'Devocional de hoy completado' : "Today's devotional completed"}
+        </Text>
+      </Animated.View>
+    );
+  }
+
+  // Not completed yet — soft pastoral nudge
+  return (
+    <Animated.View
+      style={[
+        animatedStyle,
+        {
+          paddingBottom: 8,
+          marginBottom: 4,
+        },
+      ]}
+    >
+      <Text
+        style={{
+          fontSize: 14,
+          color: colors.textMuted,
+          fontStyle: 'italic',
+          letterSpacing: 0.1,
+        }}
+      >
+        {language === 'es'
+          ? 'Tómate un momento para Dios hoy.'
+          : 'Take a moment for God today.'}
+      </Text>
+    </Animated.View>
+  );
+}
+
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
@@ -1338,6 +1459,7 @@ export default function HomeScreen() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
   const [showAchievement, setShowAchievement] = useState(false);
+  const [showCompletionThankYou, setShowCompletionThankYou] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Scroll tracking for intro text fade
@@ -1492,6 +1614,13 @@ export default function HomeScreen() {
     setIsCompleted(true);
     setShowCelebration(true);
     setShowAchievement(true);
+
+    // Persist engagement date for notification smart-skip
+    markDevotionalCompletedToday().catch(() => {});
+
+    // Show "thank you" micro-feedback briefly, then switch to badge
+    setShowCompletionThankYou(true);
+    setTimeout(() => setShowCompletionThankYou(false), 4500);
 
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     addPoints(POINTS.COMPLETE_DEVOTIONAL);
@@ -2018,6 +2147,14 @@ export default function HomeScreen() {
         <View className="px-5 -mt-4">
           {/* Spiritual intro text — fades as user scrolls */}
           <SpiritualIntro scrollY={scrollY} colors={colors} language={language} />
+
+          {/* Daily engagement micro-feedback */}
+          <DailyEngagementBanner
+            isCompleted={isCompleted}
+            showCompletionThankYou={showCompletionThankYou}
+            colors={colors}
+            language={language}
+          />
 
           {/* Audio Controls */}
           <AudioControls
