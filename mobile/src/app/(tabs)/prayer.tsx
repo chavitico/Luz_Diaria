@@ -9,6 +9,7 @@ import {
   Pressable,
   ActivityIndicator,
   RefreshControl,
+  Modal,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -37,10 +38,13 @@ import {
   RefreshCw,
   Shield,
   Flame,
+  ChevronRight,
+  X,
+  Lock,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS, PRAYER_CATEGORIES } from '@/lib/constants';
-import { gamificationApi } from '@/lib/gamification-api';
+import { gamificationApi, PrayerRequestDisplay } from '@/lib/gamification-api';
 
 // ── Category icons ─────────────────────────────────────────────────────────
 const CATEGORY_ICONS: Record<string, React.ComponentType<any>> = {
@@ -403,18 +407,184 @@ function PrayedTodayButton() {
   );
 }
 
+// ── Category Drilldown Sheet ───────────────────────────────────────────────
+function CategoryDrilldownSheet({
+  categoryKey,
+  requests,
+  onClose,
+}: {
+  categoryKey: string | null;
+  requests: PrayerRequestDisplay[];
+  onClose: () => void;
+}) {
+  const colors = useThemeColors();
+  const language = useLanguage();
+  const insets = useSafeAreaInsets();
+
+  if (!categoryKey) return null;
+
+  const cat = PRAYER_CATEGORIES.find((c) => c.key === categoryKey);
+  const catLabel = cat ? (language === 'es' ? cat.labelEs : cat.labelEn) : categoryKey;
+  const CatIcon = CATEGORY_ICONS[categoryKey] ?? Heart;
+
+  const filtered = requests.filter((r) => r.categoryKey === categoryKey);
+
+  return (
+    <Modal
+      visible={!!categoryKey}
+      transparent
+      animationType="slide"
+      onRequestClose={onClose}
+    >
+      <Pressable
+        style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.45)' }}
+        onPress={onClose}
+      />
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: colors.surface,
+          borderTopLeftRadius: 24,
+          borderTopRightRadius: 24,
+          paddingBottom: insets.bottom + 24,
+          paddingTop: 8,
+          maxHeight: '70%',
+        }}
+      >
+        {/* Drag handle */}
+        <View style={{ alignItems: 'center', marginBottom: 16 }}>
+          <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40' }} />
+        </View>
+
+        {/* Header */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginBottom: 20 }}>
+          <View style={{
+            width: 40, height: 40, borderRadius: 20,
+            backgroundColor: colors.primary + '15',
+            alignItems: 'center', justifyContent: 'center', marginRight: 12,
+          }}>
+            <CatIcon size={20} color={colors.primary} />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 12, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 2 }}>
+              {language === 'es' ? 'Peticiones por' : 'Petitions for'}
+            </Text>
+            <Text style={{ fontSize: 18, fontWeight: '700', color: colors.text }}>
+              {catLabel}
+            </Text>
+          </View>
+          <Pressable
+            onPress={onClose}
+            style={{
+              width: 32, height: 32, borderRadius: 16,
+              backgroundColor: colors.background,
+              alignItems: 'center', justifyContent: 'center',
+            }}
+          >
+            <X size={16} color={colors.textMuted} />
+          </Pressable>
+        </View>
+
+        {/* List */}
+        <ScrollView
+          style={{ paddingHorizontal: 20 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {filtered.length === 0 ? (
+            <Text style={{ fontSize: 14, color: colors.textMuted, textAlign: 'center', paddingVertical: 24 }}>
+              {language === 'es' ? 'Sin peticiones activas' : 'No active petitions'}
+            </Text>
+          ) : (
+            <View style={{ gap: 10 }}>
+              {filtered.map((req, index) => {
+                const displayName = req.displayNameOptIn && req.nickname
+                  ? req.nickname
+                  : (language === 'es' ? 'Un hermano/a' : 'A brother/sister');
+                const isAnon = !req.displayNameOptIn || !req.nickname;
+
+                return (
+                  <Animated.View
+                    key={req.id}
+                    entering={FadeInDown.delay(index * 30).duration(200)}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingVertical: 12,
+                      paddingHorizontal: 14,
+                      borderRadius: 14,
+                      backgroundColor: colors.background,
+                    }}
+                  >
+                    {/* Avatar placeholder */}
+                    <View style={{
+                      width: 36, height: 36, borderRadius: 18,
+                      backgroundColor: isAnon ? colors.textMuted + '20' : colors.primary + '18',
+                      alignItems: 'center', justifyContent: 'center',
+                      marginRight: 12,
+                    }}>
+                      <Text style={{ fontSize: 16 }}>
+                        {isAnon ? '🙏' : displayName.charAt(0).toUpperCase()}
+                      </Text>
+                    </View>
+                    <Text style={{
+                      fontSize: 15,
+                      color: isAnon ? colors.textMuted : colors.text,
+                      fontWeight: isAnon ? '400' : '500',
+                      fontStyle: isAnon ? 'italic' : 'normal',
+                      flex: 1,
+                    }}>
+                      {displayName}
+                    </Text>
+                  </Animated.View>
+                );
+              })}
+            </View>
+          )}
+
+          {/* Privacy footer */}
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            marginTop: 20,
+            marginBottom: 4,
+            paddingHorizontal: 4,
+            gap: 8,
+          }}>
+            <Lock size={12} color={colors.textMuted} style={{ marginTop: 1 }} />
+            <Text style={{ fontSize: 12, color: colors.textMuted, lineHeight: 17, flex: 1 }}>
+              {language === 'es'
+                ? 'Nombres solo aparecen si la persona lo permite.'
+                : 'Names only appear if the person allows it.'}
+            </Text>
+          </View>
+        </ScrollView>
+      </View>
+    </Modal>
+  );
+}
+
 // ── Community Category Summary ─────────────────────────────────────────────
 function CommunitySummary() {
   const colors = useThemeColors();
   const language = useLanguage();
+  const [drillCategory, setDrillCategory] = useState<string | null>(null);
 
-  const { data: summaryData, isLoading } = useQuery({
+  const { data: summaryData, isLoading: summaryLoading } = useQuery({
     queryKey: ['prayer-summary'],
     queryFn: () => gamificationApi.getPrayerSummary(),
     staleTime: 60000,
   });
 
-  if (isLoading) {
+  const { data: communityData } = useQuery({
+    queryKey: ['prayer-community'],
+    queryFn: () => gamificationApi.getCommunityPrayerRequests(200),
+    staleTime: 60000,
+  });
+
+  if (summaryLoading) {
     return (
       <View style={{ marginHorizontal: 20, marginBottom: 16, padding: 20, borderRadius: 20, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.primary + '15', alignItems: 'center' }}>
         <ActivityIndicator size="small" color={colors.primary} />
@@ -424,77 +594,94 @@ function CommunitySummary() {
 
   const entries = Object.entries(summaryData?.summary ?? {}).sort((a, b) => b[1] - a[1]);
   const total = summaryData?.total ?? 0;
+  const communityRequests = communityData?.requests ?? [];
 
   return (
-    <Animated.View entering={FadeInUp.delay(200).duration(400)} style={{ marginHorizontal: 20, marginBottom: 16 }}>
-      <View
-        style={{
-          borderRadius: 20,
-          padding: 20,
-          backgroundColor: colors.surface,
-          borderWidth: 1,
-          borderColor: colors.primary + '15',
-        }}
-      >
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
-          <Users size={17} color={colors.primary} />
-          <Text style={{ fontSize: 16, fontWeight: '600', color: colors.text, marginLeft: 8, flex: 1 }}>
-            {language === 'es' ? 'La comunidad ora por' : 'Community is praying for'}
-          </Text>
-          {total > 0 && (
-            <View style={{ backgroundColor: colors.primary + '15', borderRadius: 20, paddingHorizontal: 10, paddingVertical: 4 }}>
-              <Text style={{ fontSize: 12, fontWeight: '600', color: colors.primary }}>
-                {total} {language === 'es' ? 'personas' : 'people'}
-              </Text>
+    <>
+      <Animated.View entering={FadeInUp.delay(200).duration(400)} style={{ marginHorizontal: 20, marginBottom: 16 }}>
+        <View
+          style={{
+            borderRadius: 20,
+            padding: 20,
+            backgroundColor: colors.surface,
+            borderWidth: 1,
+            borderColor: colors.primary + '15',
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+            <Users size={17} color={colors.primary} />
+            <Text style={{ fontSize: 16, fontWeight: '600', color: colors.text, marginLeft: 8, flex: 1 }}>
+              {language === 'es' ? 'La comunidad ora por' : 'Community is praying for'}
+            </Text>
+            {total > 0 && (
+              <View style={{ backgroundColor: colors.primary + '15', borderRadius: 20, paddingHorizontal: 10, paddingVertical: 4 }}>
+                <Text style={{ fontSize: 12, fontWeight: '600', color: colors.primary }}>
+                  {total} {language === 'es' ? 'personas' : 'people'}
+                </Text>
+              </View>
+            )}
+          </View>
+
+          {entries.length === 0 ? (
+            <Text style={{ fontSize: 14, color: colors.textMuted, textAlign: 'center', paddingVertical: 12, lineHeight: 20 }}>
+              {language === 'es'
+                ? 'Sé el primero en elevar una petición hoy.'
+                : 'Be the first to lift a petition today.'}
+            </Text>
+          ) : (
+            <View style={{ gap: 8 }}>
+              {entries.map(([key, count], index) => {
+                const cat = PRAYER_CATEGORIES.find((c) => c.key === key);
+                const label = cat ? (language === 'es' ? cat.labelEs : cat.labelEn) : key;
+                const CatIcon = CATEGORY_ICONS[key] ?? Heart;
+                const barWidth = entries[0] ? (count / entries[0][1]) * 100 : 0;
+
+                return (
+                  <Animated.View
+                    key={key}
+                    entering={FadeInDown.delay(index * 40).duration(200)}
+                  >
+                    <Pressable
+                      onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                        setDrillCategory(key);
+                      }}
+                      style={({ pressed }) => ({
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingVertical: 10,
+                        paddingHorizontal: 14,
+                        borderRadius: 12,
+                        backgroundColor: pressed ? colors.primary + '08' : colors.background,
+                      })}
+                    >
+                      <CatIcon size={16} color={colors.primary} />
+                      <Text style={{ fontSize: 14, color: colors.text, marginLeft: 10, flex: 1 }} numberOfLines={1}>
+                        {label}
+                      </Text>
+                      {/* Bar */}
+                      <View style={{ width: 60, height: 4, borderRadius: 2, backgroundColor: colors.primary + '20', marginRight: 10 }}>
+                        <View style={{ width: `${barWidth}%` as any, height: 4, borderRadius: 2, backgroundColor: colors.primary }} />
+                      </View>
+                      <Text style={{ fontSize: 14, fontWeight: '700', color: colors.primary, minWidth: 20, textAlign: 'right' }}>
+                        {count}
+                      </Text>
+                      <ChevronRight size={14} color={colors.textMuted} style={{ marginLeft: 6 }} />
+                    </Pressable>
+                  </Animated.View>
+                );
+              })}
             </View>
           )}
         </View>
+      </Animated.View>
 
-        {entries.length === 0 ? (
-          <Text style={{ fontSize: 14, color: colors.textMuted, textAlign: 'center', paddingVertical: 12, lineHeight: 20 }}>
-            {language === 'es'
-              ? 'Sé el primero en elevar una petición hoy.'
-              : 'Be the first to lift a petition today.'}
-          </Text>
-        ) : (
-          <View style={{ gap: 8 }}>
-            {entries.map(([key, count], index) => {
-              const cat = PRAYER_CATEGORIES.find((c) => c.key === key);
-              const label = cat ? (language === 'es' ? cat.labelEs : cat.labelEn) : key;
-              const CatIcon = CATEGORY_ICONS[key] ?? Heart;
-              const barWidth = entries[0] ? (count / entries[0][1]) * 100 : 0;
-
-              return (
-                <Animated.View
-                  key={key}
-                  entering={FadeInDown.delay(index * 40).duration(200)}
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    paddingVertical: 10,
-                    paddingHorizontal: 14,
-                    borderRadius: 12,
-                    backgroundColor: colors.background,
-                  }}
-                >
-                  <CatIcon size={16} color={colors.primary} />
-                  <Text style={{ fontSize: 14, color: colors.text, marginLeft: 10, flex: 1 }} numberOfLines={1}>
-                    {label}
-                  </Text>
-                  {/* Bar */}
-                  <View style={{ width: 60, height: 4, borderRadius: 2, backgroundColor: colors.primary + '20', marginRight: 10 }}>
-                    <View style={{ width: `${barWidth}%` as any, height: 4, borderRadius: 2, backgroundColor: colors.primary }} />
-                  </View>
-                  <Text style={{ fontSize: 14, fontWeight: '700', color: colors.primary, minWidth: 20, textAlign: 'right' }}>
-                    {count}
-                  </Text>
-                </Animated.View>
-              );
-            })}
-          </View>
-        )}
-      </View>
-    </Animated.View>
+      <CategoryDrilldownSheet
+        categoryKey={drillCategory}
+        requests={communityRequests}
+        onClose={() => setDrillCategory(null)}
+      />
+    </>
   );
 }
 
@@ -512,6 +699,7 @@ export default function PrayerScreen() {
     await Promise.all([
       queryClient.invalidateQueries({ queryKey: ['user-prayer-requests'] }),
       queryClient.invalidateQueries({ queryKey: ['prayer-summary'] }),
+      queryClient.invalidateQueries({ queryKey: ['prayer-community'] }),
       queryClient.invalidateQueries({ queryKey: ['prayed-for-community'] }),
     ]);
     setRefreshing(false);
