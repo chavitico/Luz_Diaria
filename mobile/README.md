@@ -179,6 +179,12 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
   - Points balance and streak
   - Total shares count
   - Quick navigation to Store sections
+  - **"Compartir mi progreso" button** — opens `ShareableProfileCard` modal
+    - Generates a 1080×1350 (4:5) PNG card with: avatar (with frame ring), nickname, title badge, streak + devotionals stats, app branding, footer
+    - Card background uses the user's equipped theme colors (gradient)
+    - Captured offscreen with `react-native-view-shot`, shared via `expo-sharing`
+    - Live scaled preview shown inside the bottom sheet before sharing
+    - File: `src/components/ShareableProfileCard.tsx`
 - **Community visibility toggle** - "Mostrarme en Comunidad" / "Show me in Community"
   - When enabled, user appears in Community tab
   - Shows nickname, avatar, frame, title, and progress stats

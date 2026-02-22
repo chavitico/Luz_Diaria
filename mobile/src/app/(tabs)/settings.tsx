@@ -70,6 +70,7 @@ import {
 } from '@/lib/notifications';
 import { gamificationApi } from '@/lib/gamification-api';
 import { useQueryClient } from '@tanstack/react-query';
+import { ShareableProfileCard } from '@/components/ShareableProfileCard';
 
 interface SettingRowProps {
   icon: React.ReactNode;
@@ -187,6 +188,7 @@ export default function SettingsScreen() {
   const [showTimePickerModal, setShowTimePickerModal] = useState(false);
   const [showGenerateCodeModal, setShowGenerateCodeModal] = useState(false);
   const [showEnterCodeModal, setShowEnterCodeModal] = useState(false);
+  const [showProfileShare, setShowProfileShare] = useState(false);
 
   // Transfer code state
   const [transferCode, setTransferCode] = useState<string | null>(null);
@@ -616,6 +618,21 @@ export default function SettingsScreen() {
                 </View>
               </View>
 
+              {/* Share progress button */}
+              <Pressable
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  setShowProfileShare(true);
+                }}
+                className="flex-row items-center justify-center py-3 rounded-xl mt-1"
+                style={{ backgroundColor: colors.primary + '18', borderWidth: 1, borderColor: colors.primary + '30' }}
+              >
+                <Share2 size={16} color={colors.primary} />
+                <Text className="ml-2 font-semibold text-sm" style={{ color: colors.primary }}>
+                  {language === 'es' ? 'Compartir mi progreso' : 'Share my progress'}
+                </Text>
+              </Pressable>
+
             </Animated.View>
           )}
 
@@ -868,6 +885,12 @@ export default function SettingsScreen() {
           )}
         </View>
       </ScrollView>
+
+      {/* Profile Share Card */}
+      <ShareableProfileCard
+        visible={showProfileShare}
+        onClose={() => setShowProfileShare(false)}
+      />
 
       {/* Avatar Selection Modal */}
       <Modal
