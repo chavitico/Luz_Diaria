@@ -145,7 +145,6 @@ export async function scheduleDailyNotification(
       content: {
         title: msg.title,
         body: msg.body,
-        sound: undefined as any,
         data: { screen: 'home' },
       },
       trigger,
@@ -262,7 +261,6 @@ export async function sendTestNotification(language: 'en' | 'es' = 'es'): Promis
       content: {
         title: msg.title,
         body: msg.body,
-        sound: undefined as any,
         data: { screen: 'home' },
       },
       trigger: null,
