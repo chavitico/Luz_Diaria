@@ -53,6 +53,7 @@ model User {
   migratedFromUserId     String?
   communityOptIn         Boolean           @default(false)
   prayerDisplayOptIn     Boolean           @default(true)
+  supportCount           Int               @default(0)
   createdAt              DateTime          @default(now())
   updatedAt              DateTime          @updatedAt
   pointLedger            PointLedger[]
@@ -62,6 +63,23 @@ model User {
   favorites              UserFavorite[]
   inventory              UserInventory[]
   weeklyProgress         WeeklyProgress[]
+  supportReceived        UserSupport[]     @relation("SupportReceived")
+  supportGiven           UserSupport[]     @relation("SupportGiven")
+}
+
+// Tracks daily "Acompañar" spiritual support gestures
+model UserSupport {
+  id           String   @id @default(cuid())
+  fromUserId   String
+  toUserId     String
+  dateId       String   // YYYY-MM-DD, limits 1 per viewer per day
+  createdAt    DateTime @default(now())
+  fromUser     User     @relation("SupportGiven", fields: [fromUserId], references: [id], onDelete: Cascade)
+  toUser       User     @relation("SupportReceived", fields: [toUserId], references: [id], onDelete: Cascade)
+
+  @@unique([fromUserId, toUserId, dateId])
+  @@index([toUserId])
+  @@index([fromUserId])
 }
 
 model StoreItem {

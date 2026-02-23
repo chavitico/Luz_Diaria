@@ -39,7 +39,12 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
   3. **5 imagenes (secciones)** - 5 separate 1080x1350 images, one per section (Cover, Verse, Reflection, Story, Application+Prayer)
 - **Text-to-Speech (TTS)** - reads devotional aloud with section highlighting
   - Adjustable reading speed (0.5x - 2.0x)
-  - Bible references spoken correctly ("1 Pedro" → "Primera de Pedro")
+  - Bible references spoken correctly — ALL numbered books use FEMININE form in Spanish:
+    - `1 Samuel 3:4-5` → "Primera de Samuel, capítulo 3, versículos del 4 al 5"
+    - `2 Reyes 5` → "Segunda de Reyes, capítulo 5" (never "Segundo/Primero")
+    - `Salmo 51` → "Salmo, capítulo 51"
+  - Handles dirty formats like `1 Samuel:3:4` (pre-sanitized before pattern matching)
+  - Guard/log for unknown ordinals to prevent phonetic errors
 - **Background music controls** - 5 instrumental Christian tracks
   - Piano Worship, Harp of Peace, Gentle Strings, Morning Prayer, Heavenly Piano
   - Volume control, track selection
@@ -132,6 +137,13 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
   - Nickname with optional spiritual title
   - Key metrics (devotionals completed, current streak)
   - Current user highlighted with "Tu" / "You" badge
+- **"🙏 Acompañar" spiritual support gesture** (non-social, non-competitive):
+  - Tap to send a silent prayer support to any community member
+  - Limit: 1 tap per viewer per day per member (enforced server-side via `UserSupport` table)
+  - Displays cumulative `supportCount` on each card
+  - Optimistic UI update + haptic feedback + scale/spring micro-animation
+  - Disabled on own card; active state shown when already supported today
+  - Backend: `POST /api/gamification/community/support` + `GET /api/gamification/community/support/status`
 - **Non-toxic ordering** - Rotates daily between:
   - Recent activity (who's been active)
   - Current streak

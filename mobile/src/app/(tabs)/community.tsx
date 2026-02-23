@@ -11,9 +11,17 @@ import {
   AppState,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { useFocusEffect } from 'expo-router';
-import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  useSharedValue,
+  useAnimatedStyle,
+  withSequence,
+  withTiming,
+  withSpring,
+} from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import NetInfo from '@react-native-community/netinfo';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -74,15 +82,96 @@ function AvatarWithFrame({
   );
 }
 
+// Acompañar button with animation
+function AcompanarButton({
+  memberId,
+  supportCount,
+  alreadySupported,
+  onPress,
+  isCurrentUser,
+}: {
+  memberId: string;
+  supportCount: number;
+  alreadySupported: boolean;
+  onPress: () => void;
+  isCurrentUser: boolean;
+}) {
+  const colors = useThemeColors();
+  const scale = useSharedValue(1);
+  const opacity = useSharedValue(1);
+
+  const animStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+  }));
+
+  const handlePress = () => {
+    if (alreadySupported || isCurrentUser) return;
+    // Micro animation: pop then settle
+    scale.value = withSequence(
+      withTiming(1.3, { duration: 100 }),
+      withSpring(1, { damping: 8, stiffness: 200 })
+    );
+    opacity.value = withSequence(
+      withTiming(0.7, { duration: 80 }),
+      withTiming(1, { duration: 150 })
+    );
+    onPress();
+  };
+
+  const active = alreadySupported;
+  const disabled = alreadySupported || isCurrentUser;
+
+  return (
+    <Animated.View style={animStyle}>
+      <Pressable
+        onPress={handlePress}
+        disabled={disabled}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingHorizontal: 10,
+          paddingVertical: 5,
+          borderRadius: 20,
+          backgroundColor: active
+            ? colors.primary + '20'
+            : isCurrentUser
+            ? 'transparent'
+            : colors.primary + '10',
+          borderWidth: 1,
+          borderColor: active ? colors.primary + '50' : colors.primary + '25',
+          opacity: isCurrentUser ? 0.3 : 1,
+        }}
+      >
+        <Text style={{ fontSize: 13 }}>🙏</Text>
+        <Text
+          style={{
+            fontSize: 11,
+            fontWeight: '600',
+            color: active ? colors.primary : colors.secondary,
+            marginLeft: 4,
+          }}
+        >
+          {supportCount > 0 ? supportCount : ''}
+        </Text>
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 // Community Member Card
 function MemberCard({
   member,
   isCurrentUser,
   index,
+  alreadySupported,
+  onSupport,
 }: {
   member: CommunityMember;
   isCurrentUser: boolean;
   index: number;
+  alreadySupported: boolean;
+  onSupport: (memberId: string) => void;
 }) {
   const colors = useThemeColors();
   const language = useLanguage();
@@ -110,8 +199,7 @@ function MemberCard({
       entering={FadeInDown.delay(index * 50).duration(300)}
       className="mx-5 mb-3"
     >
-      <Pressable
-        onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
+      <View
         className="rounded-2xl overflow-hidden"
         style={{
           backgroundColor: isCurrentUser ? colors.primary + '08' : colors.surface,
@@ -119,7 +207,7 @@ function MemberCard({
           borderColor: isCurrentUser ? colors.primary + '40' : 'transparent',
         }}
       >
-        <View className="flex-row items-center p-4">
+        <View className="flex-row items-center px-4 pt-4 pb-3">
           {/* Avatar */}
           <AvatarWithFrame
             avatarId={member.avatarId}
@@ -196,7 +284,24 @@ function MemberCard({
             </View>
           </View>
         </View>
-      </Pressable>
+
+        {/* Acompañar row */}
+        <View
+          className="flex-row items-center justify-between px-4 pb-3"
+          style={{ borderTopWidth: 1, borderTopColor: colors.primary + '10', paddingTop: 8 }}
+        >
+          <Text className="text-xs" style={{ color: colors.textMuted }}>
+            {language === 'es' ? 'Acompañar en oración' : 'Pray alongside'}
+          </Text>
+          <AcompanarButton
+            memberId={member.id}
+            supportCount={member.supportCount ?? 0}
+            alreadySupported={alreadySupported}
+            onPress={() => onSupport(member.id)}
+            isCurrentUser={isCurrentUser}
+          />
+        </View>
+      </View>
     </Animated.View>
   );
 }
@@ -344,6 +449,9 @@ export default function CommunityScreen() {
   const [isOffline, setIsOffline] = useState(false);
   const syncedRef = useRef(false);
 
+  // Local optimistic support state: memberId → { count, supported }
+  const [localSupport, setLocalSupport] = useState<Record<string, { count: number; supported: boolean }>>({});
+
   // Monitor network status
   useEffect(() => {
     const unsub = NetInfo.addEventListener((state) => {
@@ -442,14 +550,70 @@ export default function CommunityScreen() {
     retry: 2,
   });
 
+  const members = data?.members ?? [];
+
+  // Fetch support status for all members once we have them
+  const memberIds = members.map((m) => m.id);
+  const { data: supportStatusData } = useQuery({
+    queryKey: ['community-support-status', user?.id, memberIds],
+    queryFn: async () => {
+      if (!user?.id || !memberIds.length) return { status: {}, dateId: '' };
+      return gamificationApi.getSupportStatus(user.id, memberIds);
+    },
+    enabled: !!user?.id && memberIds.length > 0,
+    staleTime: 60000,
+  });
+
+  // Merge server support status with local optimistic updates
+  const getSupportState = useCallback((memberId: string, serverCount: number): { count: number; supported: boolean } => {
+    const local = localSupport[memberId];
+    if (local !== undefined) return local;
+    const serverSupported = supportStatusData?.status?.[memberId] ?? false;
+    return { count: serverCount, supported: serverSupported };
+  }, [localSupport, supportStatusData]);
+
+  // Send support mutation
+  const { mutate: mutateSendSupport } = useMutation({
+    mutationFn: ({ fromUserId, toUserId }: { fromUserId: string; toUserId: string }) =>
+      gamificationApi.sendSupport(fromUserId, toUserId),
+    onSuccess: (result, variables) => {
+      // Sync local state with server response
+      setLocalSupport((prev) => ({
+        ...prev,
+        [variables.toUserId]: {
+          count: result.supportCount,
+          supported: true,
+        },
+      }));
+    },
+  });
+
+  const handleSupport = useCallback((memberId: string) => {
+    if (!user?.id) return;
+    const current = getSupportState(memberId, members.find((m) => m.id === memberId)?.supportCount ?? 0);
+    if (current.supported) return;
+
+    // Optimistic update
+    setLocalSupport((prev) => ({
+      ...prev,
+      [memberId]: {
+        count: current.count + 1,
+        supported: true,
+      },
+    }));
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    mutateSendSupport({ fromUserId: user.id, toUserId: memberId });
+  }, [user?.id, getSupportState, members, mutateSendSupport]);
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setLocalSupport({}); // reset optimistic on refresh
     await refetch();
     setRefreshing(false);
   }, [refetch]);
 
-  const members = data?.members ?? [];
   const total = data?.total ?? 0;
 
   // Sort: Admin first → active today → rest; current user always at top within their tier
@@ -479,14 +643,20 @@ export default function CommunityScreen() {
   }, [members, user?.id]);
 
   const renderItem = useCallback(
-    ({ item, index }: { item: CommunityMember; index: number }) => (
-      <MemberCard
-        member={item}
-        isCurrentUser={item.id === user?.id}
-        index={index}
-      />
-    ),
-    [user?.id]
+    ({ item, index }: { item: CommunityMember; index: number }) => {
+      const { count, supported } = getSupportState(item.id, item.supportCount ?? 0);
+      const memberWithCount = { ...item, supportCount: count };
+      return (
+        <MemberCard
+          member={memberWithCount}
+          isCurrentUser={item.id === user?.id}
+          index={index}
+          alreadySupported={supported}
+          onSupport={handleSupport}
+        />
+      );
+    },
+    [user?.id, getSupportState, handleSupport]
   );
 
   const keyExtractor = useCallback((item: CommunityMember) => item.id, []);

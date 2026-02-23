@@ -85,6 +85,7 @@ export interface CommunityMember {
   devotionalsCompleted: number;
   lastActiveAt: string | null;
   createdAt: string;
+  supportCount: number;
   isAdmin?: boolean;
 }
 
@@ -634,6 +635,36 @@ export const gamificationApi = {
       body: JSON.stringify(params),
     });
     if (!res.ok) throw new Error('Failed to save chapter progress');
+    return res.json();
+  },
+
+  // ─── Community Support (Acompañar) ─────────────────────────────────────────
+
+  async sendSupport(fromUserId: string, toUserId: string): Promise<{
+    success: boolean;
+    alreadySupported: boolean;
+    supportCount: number;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/community/support`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fromUserId, toUserId }),
+    });
+    if (!res.ok) throw new Error('Failed to send support');
+    return res.json();
+  },
+
+  async getSupportStatus(fromUserId: string, toUserIds: string[]): Promise<{
+    status: Record<string, boolean>;
+    dateId: string;
+  }> {
+    if (!toUserIds.length) return { status: {}, dateId: '' };
+    const params = new URLSearchParams({
+      fromUserId,
+      toUserIds: toUserIds.join(','),
+    });
+    const res = await fetch(`${BACKEND_URL}/api/gamification/community/support/status?${params}`);
+    if (!res.ok) throw new Error('Failed to get support status');
     return res.json();
   },
 };

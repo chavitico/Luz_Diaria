@@ -1853,6 +1853,7 @@ gamificationRouter.get("/community/members", async (c) => {
           devotionalsCompleted: true,
           lastActiveAt: true,
           createdAt: true,
+          supportCount: true,
         },
         orderBy,
         take: limit,
@@ -2101,3 +2102,101 @@ gamificationRouter.post(
     }
   }
 );
+
+// POST /community/support - Send "Acompañar" gesture (1 per viewer per day per target)
+gamificationRouter.post(
+  "/community/support",
+  zValidator("json", z.object({
+    fromUserId: z.string(),
+    toUserId: z.string(),
+  })),
+  async (c) => {
+    try {
+      const { fromUserId, toUserId } = c.req.valid("json");
+
+      if (fromUserId === toUserId) {
+        return c.json({ error: "Cannot support yourself" }, 400);
+      }
+
+      const dateId = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+      // Try to create support record (unique constraint prevents duplicates)
+      const existing = await prisma.userSupport.findUnique({
+        where: {
+          fromUserId_toUserId_dateId: { fromUserId, toUserId, dateId },
+        },
+      });
+
+      if (existing) {
+        // Already supported today — return current count without error
+        const target = await prisma.user.findUnique({
+          where: { id: toUserId },
+          select: { supportCount: true },
+        });
+        return c.json({
+          success: false,
+          alreadySupported: true,
+          supportCount: target?.supportCount ?? 0,
+        });
+      }
+
+      // Create record and increment supportCount atomically
+      const [, updatedUser] = await prisma.$transaction([
+        prisma.userSupport.create({
+          data: { fromUserId, toUserId, dateId },
+        }),
+        prisma.user.update({
+          where: { id: toUserId },
+          data: { supportCount: { increment: 1 } },
+          select: { supportCount: true },
+        }),
+      ]);
+
+      console.log(`[Support] ${fromUserId} → ${toUserId} on ${dateId}`);
+      return c.json({
+        success: true,
+        alreadySupported: false,
+        supportCount: updatedUser.supportCount,
+      });
+    } catch (error) {
+      console.error("[Support] POST error:", error);
+      return c.json({ error: "Failed to send support" }, 500);
+    }
+  }
+);
+
+// GET /community/support/status - Check if viewer already supported a list of members today
+// Query: fromUserId=xxx&toUserIds=id1,id2,id3
+gamificationRouter.get("/community/support/status", async (c) => {
+  try {
+    const fromUserId = c.req.query("fromUserId");
+    const toUserIdsRaw = c.req.query("toUserIds");
+
+    if (!fromUserId || !toUserIdsRaw) {
+      return c.json({ error: "Missing params" }, 400);
+    }
+
+    const toUserIds = toUserIdsRaw.split(",").filter(Boolean).slice(0, 100);
+    const dateId = new Date().toISOString().slice(0, 10);
+
+    const records = await prisma.userSupport.findMany({
+      where: {
+        fromUserId,
+        toUserId: { in: toUserIds },
+        dateId,
+      },
+      select: { toUserId: true },
+    });
+
+    const supportedToday = new Set(records.map((r) => r.toUserId));
+    const status: Record<string, boolean> = {};
+    for (const id of toUserIds) {
+      status[id] = supportedToday.has(id);
+    }
+
+    return c.json({ status, dateId });
+  } catch (error) {
+    console.error("[Support] GET status error:", error);
+    return c.json({ error: "Failed to get support status" }, 500);
+  }
+});

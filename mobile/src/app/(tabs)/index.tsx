@@ -180,9 +180,10 @@ function translateBibleReference(reference: string): string {
 
 // Normalize Bible references for TTS to speak chapter:verse correctly
 // Converts "Génesis 3:28" → "Génesis, capítulo 3, versículo 28"
-// Converts "1 Reyes 3:28" → "Primero de Reyes, capítulo 3, versículo 28"
-// Converts "2 Samuel 11" → "Segundo de Samuel, capítulo 11"
-// Converts "Salmo 51" → "Salmo, capítulo 51"  (chapter-only)
+// Converts "1 Samuel 3:4-5" → "Primera de Samuel, capítulo 3, versículos del 4 al 5"
+// Converts "2 Samuel 11"    → "Segunda de Samuel, capítulo 11"
+// Converts "Salmo 51"       → "Salmo, capítulo 51"
+// RULE: ALL numbered books use feminine form (Primera/Segunda/Tercera — never Primero/Segundo)
 function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
   if (language !== 'es') {
     // For English, convert chapter:verse to "chapter X verse Y" or "chapter X verses Y through Z"
@@ -211,21 +212,12 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
     return result;
   }
 
-  // Spanish ordinal expansions for numbered Bible books
+  // SPANISH — ALL numbered Bible books use feminine ordinals (no exceptions)
+  // Guard: 1 → Primera de, 2 → Segunda de, 3 → Tercera de
   const spanishOrdinals: Record<string, string> = {
     '1': 'Primera de',
     '2': 'Segunda de',
     '3': 'Tercera de',
-  };
-
-  // Masculine ordinals for certain books (Reyes, Samuel, Crónicas)
-  const masculineBooks = ['Reyes', 'Samuel', 'Crónicas', 'Cronicas'];
-
-  // Masculine ordinals map
-  const masculineOrdinals: Record<string, string> = {
-    '1': 'Primero de',
-    '2': 'Segundo de',
-    '3': 'Tercero de',
   };
 
   // List of Bible book names in Spanish (to identify Bible references vs regular numbers)
@@ -242,7 +234,14 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
     'Hebreos', 'Santiago', 'Pedro', 'Judas', 'Apocalipsis'
   ];
 
-  let result = text;
+  // Pre-sanitize dirty formats like "1 Samuel:3:4" → "1 Samuel 3:4"
+  let result = text.replace(
+    new RegExp(
+      `([123])?\\s*(${spanishBibleBooks.join('|')}):(\\d+)`,
+      'gi'
+    ),
+    (_m, num, book, chap) => num ? `${num} ${book} ${chap}` : `${book} ${chap}`
+  );
 
   // Pattern for chapter:verse references (with optional verse range)
   const bibleRefWithVersePattern = new RegExp(
@@ -258,8 +257,7 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
   result = result.replace(bibleRefWithVersePattern, (_match, prefix, num, book, chapter, verseStart, verseEnd, suffix) => {
     let expandedBook = book;
     if (num) {
-      const isMasculine = masculineBooks.some(mb => book.toLowerCase().includes(mb.toLowerCase()));
-      expandedBook = `${isMasculine ? masculineOrdinals[num] : spanishOrdinals[num]} ${book}`;
+      expandedBook = `${spanishOrdinals[num] ?? `${num}ª de`} ${book}`;
     }
     const verseText = verseEnd
       ? `versículos del ${verseStart} al ${verseEnd}`
@@ -282,8 +280,7 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
   result = result.replace(bibleRefChapterOnlyPattern, (_match, prefix, num, book, chapter, suffix) => {
     let expandedBook = book;
     if (num) {
-      const isMasculine = masculineBooks.some(mb => book.toLowerCase().includes(mb.toLowerCase()));
-      expandedBook = `${isMasculine ? masculineOrdinals[num] : spanishOrdinals[num]} ${book}`;
+      expandedBook = `${spanishOrdinals[num] ?? `${num}ª de`} ${book}`;
     }
     return `${prefix}${expandedBook}, capítulo ${chapter}${suffix}`;
   });
@@ -305,12 +302,12 @@ function formatBibleReferenceForSpeech(reference: string, language: 'en' | 'es')
     '2 Tesalonicenses': 'Segunda de Tesalonicenses',
     '1 Timoteo': 'Primera de Timoteo',
     '2 Timoteo': 'Segunda de Timoteo',
-    '1 Reyes': 'Primero de Reyes',
-    '2 Reyes': 'Segundo de Reyes',
-    '1 Samuel': 'Primero de Samuel',
-    '2 Samuel': 'Segundo de Samuel',
-    '1 Cronicas': 'Primero de Cronicas',
-    '2 Cronicas': 'Segundo de Cronicas',
+    '1 Reyes': 'Primera de Reyes',
+    '2 Reyes': 'Segunda de Reyes',
+    '1 Samuel': 'Primera de Samuel',
+    '2 Samuel': 'Segunda de Samuel',
+    '1 Cronicas': 'Primera de Cronicas',
+    '2 Cronicas': 'Segunda de Cronicas',
   };
 
   const englishConversions: Record<string, string> = {

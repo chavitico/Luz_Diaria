@@ -156,10 +156,11 @@ function translateBibleReference(reference: string): string {
 }
 
 // Normalize Bible references for TTS to speak chapter:verse correctly
-// Converts "Génesis 3:28" → "Génesis, capítulo 3, versículo 28"
-// Converts "1 Reyes 3:28" → "Primero de Reyes, capítulo 3, versículo 28"
-// Converts "2 Samuel 11" → "Segundo de Samuel, capítulo 11"
-// Converts "Salmo 51" → "Salmo, capítulo 51"  (chapter-only)
+// RULE: In Spanish, ALL numbered Bible books use the FEMININE form:
+//   1 → Primera de, 2 → Segunda de, 3 → Tercera de  (never Primero/Segundo)
+// Converts "1 Samuel 3:4-5"  → "Primera de Samuel, capítulo 3, versículos del 4 al 5"
+// Converts "2 Samuel 11"     → "Segunda de Samuel, capítulo 11"
+// Converts "Salmo 51"        → "Salmo, capítulo 51"
 function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
   if (language !== 'es') {
     // For English, convert chapter:verse to "chapter X verse Y" or "chapter X verses Y through Z"
@@ -188,21 +189,12 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
     return result;
   }
 
-  // Spanish ordinal expansions for numbered Bible books
+  // SPANISH — ALL numbered Bible books use feminine ordinals (no exceptions)
+  // Guard: 1 → Primera de, 2 → Segunda de, 3 → Tercera de
   const spanishOrdinals: Record<string, string> = {
     '1': 'Primera de',
     '2': 'Segunda de',
     '3': 'Tercera de',
-  };
-
-  // Masculine ordinals for certain books (Reyes, Samuel, Crónicas)
-  const masculineBooks = ['Reyes', 'Samuel', 'Crónicas', 'Cronicas'];
-
-  // Masculine ordinals map
-  const masculineOrdinals: Record<string, string> = {
-    '1': 'Primero de',
-    '2': 'Segundo de',
-    '3': 'Tercero de',
   };
 
   // List of Bible book names in Spanish (to identify Bible references vs regular numbers)
@@ -219,7 +211,15 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
     'Hebreos', 'Santiago', 'Pedro', 'Judas', 'Apocalipsis'
   ];
 
-  let result = text;
+  // Pre-sanitize dirty formats like "1 Samuel:3:4" → "1 Samuel 3:4"
+  // This handles the case where there's no space between book name and chapter
+  let result = text.replace(
+    new RegExp(
+      `([123])?\\s*(${spanishBibleBooks.join('|')}):(\\d+)`,
+      'gi'
+    ),
+    (_m, num, book, chap) => num ? `${num} ${book} ${chap}` : `${book} ${chap}`
+  );
 
   // Pattern to match Bible references with chapter:verse (and optional verse range)
   // Matches: "1 Reyes 3:28", "Génesis 3:28", "2 Corintios 5:17", "Lucas 10:25-37", etc.
@@ -236,8 +236,13 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
   result = result.replace(bibleRefWithVersePattern, (_match, prefix, num, book, chapter, verseStart, verseEnd, suffix) => {
     let expandedBook = book;
     if (num) {
-      const isMasculine = masculineBooks.some(mb => book.toLowerCase().includes(mb.toLowerCase()));
-      expandedBook = `${isMasculine ? masculineOrdinals[num] : spanishOrdinals[num]} ${book}`;
+      const ordinal = spanishOrdinals[num];
+      if (!ordinal) {
+        // Unknown number — read only book + chapter, skip verse to avoid phonetic errors
+        console.log(`[TTS] Unknown ordinal "${num}" for book "${book}" — skipping verse`);
+        return `${prefix}${book}, capítulo ${chapter}${suffix}`;
+      }
+      expandedBook = `${ordinal} ${book}`;
     }
     const verseText = verseEnd
       ? `versículos del ${verseStart} al ${verseEnd}`
@@ -261,8 +266,12 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
   result = result.replace(bibleRefChapterOnlyPattern, (_match, prefix, num, book, chapter, suffix) => {
     let expandedBook = book;
     if (num) {
-      const isMasculine = masculineBooks.some(mb => book.toLowerCase().includes(mb.toLowerCase()));
-      expandedBook = `${isMasculine ? masculineOrdinals[num] : spanishOrdinals[num]} ${book}`;
+      const ordinal = spanishOrdinals[num];
+      if (!ordinal) {
+        console.log(`[TTS] Unknown ordinal "${num}" for book "${book}"`);
+        return `${prefix}${book}, capítulo ${chapter}${suffix}`;
+      }
+      expandedBook = `${ordinal} ${book}`;
     }
     return `${prefix}${expandedBook}, capítulo ${chapter}${suffix}`;
   });
@@ -272,7 +281,7 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
 
 // Helper to convert Bible references to spoken form
 function formatBibleReferenceForSpeech(reference: string, language: 'en' | 'es'): string {
-  // Spanish conversions
+  // Spanish conversions — ALL use feminine form (Primera/Segunda/Tercera)
   const spanishConversions: Record<string, string> = {
     '1 Pedro': 'Primera de Pedro',
     '2 Pedro': 'Segunda de Pedro',
@@ -285,12 +294,12 @@ function formatBibleReferenceForSpeech(reference: string, language: 'en' | 'es')
     '2 Tesalonicenses': 'Segunda de Tesalonicenses',
     '1 Timoteo': 'Primera de Timoteo',
     '2 Timoteo': 'Segunda de Timoteo',
-    '1 Reyes': 'Primero de Reyes',
-    '2 Reyes': 'Segundo de Reyes',
-    '1 Samuel': 'Primero de Samuel',
-    '2 Samuel': 'Segundo de Samuel',
-    '1 Crónicas': 'Primero de Crónicas',
-    '2 Crónicas': 'Segundo de Crónicas',
+    '1 Reyes': 'Primera de Reyes',
+    '2 Reyes': 'Segunda de Reyes',
+    '1 Samuel': 'Primera de Samuel',
+    '2 Samuel': 'Segunda de Samuel',
+    '1 Crónicas': 'Primera de Crónicas',
+    '2 Crónicas': 'Segunda de Crónicas',
   };
 
   // English conversions
