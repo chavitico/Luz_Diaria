@@ -188,3 +188,41 @@ export function addTTSPausesForNumberedPoints(text: string): string {
   // We insert a pause (ellipsis) before the number
   return text.replace(/([.!])\s+(\d+\.)/g, '$1 ... $2');
 }
+
+/**
+ * Sanitizes text before sending to TTS engine.
+ * Removes cross-reference garbage injected by Bible APIs/scrapers and
+ * other annotations that should not be read aloud.
+ *
+ * Examples of garbage removed:
+ * - "(A)" — footnote markers from Bible Gateway
+ * - "Read full chapter" — Bible Gateway UI text
+ * - "Cross references" — Bible Gateway UI text
+ * - "in all Spanish translations" — Bible Gateway UI text
+ * - "in all English translations" — Bible Gateway UI text
+ * - Parenthetical letter markers like "(B)", "(C)", etc.
+ */
+export function sanitizeForTTS(text: string): string {
+  let result = text;
+
+  // Remove footnote/cross-reference markers like (A), (B), (C), ...
+  result = result.replace(/\([A-Z]\)/g, '');
+
+  // Remove common BibleGateway UI strings that leak into passage text
+  result = result.replace(/Read full chapter/gi, '');
+  result = result.replace(/Cross references/gi, '');
+  result = result.replace(/in all (Spanish|English|Portuguese|French|German) translations/gi, '');
+  result = result.replace(/New International Version/gi, '');
+  result = result.replace(/King James Version/gi, '');
+  result = result.replace(/Reina[- ]Valera/gi, '');
+  result = result.replace(/Nueva Versión Internacional/gi, '');
+
+  // Remove dangling square-bracket verse numbers that TTS might read oddly: [25] → ""
+  // (The modal formats them as "25 " but TTS might receive them raw)
+  result = result.replace(/\[\d+\]\s?/g, '');
+
+  // Collapse multiple spaces / newlines
+  result = result.replace(/\s{2,}/g, ' ').trim();
+
+  return result;
+}

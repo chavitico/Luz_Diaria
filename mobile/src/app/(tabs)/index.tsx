@@ -88,6 +88,7 @@ import {
   getDeviceVoiceIdentifier,
   getPreviewText,
   addTTSPausesForNumberedPoints,
+  sanitizeForTTS,
   type CuratedVoice,
 } from '@/lib/tts-voices';
 
@@ -179,16 +180,35 @@ function translateBibleReference(reference: string): string {
 
 // Normalize Bible references for TTS to speak chapter:verse correctly
 // Converts "Génesis 3:28" → "Génesis, capítulo 3, versículo 28"
-// Converts "1 Reyes 3:28" → "Primera de Reyes, capítulo 3, versículo 28"
+// Converts "1 Reyes 3:28" → "Primero de Reyes, capítulo 3, versículo 28"
+// Converts "2 Samuel 11" → "Segundo de Samuel, capítulo 11"
+// Converts "Salmo 51" → "Salmo, capítulo 51"  (chapter-only)
 function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
   if (language !== 'es') {
     // For English, convert chapter:verse to "chapter X verse Y" or "chapter X verses Y through Z"
-    return text.replace(/(\d+):(\d+)(?:[-–](\d+))?/g, (match, chapter, verseStart, verseEnd) => {
-      if (verseEnd) {
-        return `chapter ${chapter} verses ${verseStart} through ${verseEnd}`;
+    // Also handle numbered books: "2 Samuel 11" → "Second Samuel, chapter 11"
+    const enNumberedBooks = ['Samuel', 'Kings', 'Chronicles', 'Corinthians', 'Thessalonians', 'Timothy', 'Peter', 'John'];
+    const enOrdinals: Record<string, string> = { '1': 'First', '2': 'Second', '3': 'Third' };
+    let result = text;
+    // Numbered book + chapter + optional :verse
+    const enBookPattern = new RegExp(
+      `(^|[\\s,;.("'])([123])\\s+(${enNumberedBooks.join('|')})\\s+(\\d+)(?::(\\d+)(?:[-–](\\d+))?)?([\\s,;.)"']|$)`,
+      'g'
+    );
+    result = result.replace(enBookPattern, (_m, pre, num, book, chap, vs, vsEnd, suf) => {
+      const ord = enOrdinals[num] ?? num;
+      if (vs) {
+        const verseText = vsEnd ? `verses ${vs} through ${vsEnd}` : `verse ${vs}`;
+        return `${pre}${ord} ${book}, chapter ${chap}, ${verseText}${suf}`;
       }
+      return `${pre}${ord} ${book}, chapter ${chap}${suf}`;
+    });
+    // Plain chapter:verse
+    result = result.replace(/(\d+):(\d+)(?:[-–](\d+))?/g, (_m, chapter, verseStart, verseEnd) => {
+      if (verseEnd) return `chapter ${chapter} verses ${verseStart} through ${verseEnd}`;
       return `chapter ${chapter} verse ${verseStart}`;
     });
+    return result;
   }
 
   // Spanish ordinal expansions for numbered Bible books
@@ -200,6 +220,13 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
 
   // Masculine ordinals for certain books (Reyes, Samuel, Crónicas)
   const masculineBooks = ['Reyes', 'Samuel', 'Crónicas', 'Cronicas'];
+
+  // Masculine ordinals map
+  const masculineOrdinals: Record<string, string> = {
+    '1': 'Primero de',
+    '2': 'Segundo de',
+    '3': 'Tercero de',
+  };
 
   // List of Bible book names in Spanish (to identify Bible references vs regular numbers)
   const spanishBibleBooks = [
@@ -217,43 +244,48 @@ function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
 
   let result = text;
 
-  // Pattern to match Bible references: optional number + book name + chapter:verse(-verseEnd)
-  // Matches: "1 Reyes 3:28", "Génesis 3:28", "2 Corintios 5:17", "Lucas 10:25-37", etc.
-  const bibleRefPattern = new RegExp(
+  // Pattern for chapter:verse references (with optional verse range)
+  const bibleRefWithVersePattern = new RegExp(
     `(^|[\\s,;.("'])` + // Word boundary or start
     `([123])?\\s*` + // Optional leading number (1, 2, or 3)
     `(${spanishBibleBooks.join('|')})` + // Book name
     `\\s+(\\d+):(\\d+)` + // Chapter:verse
-    `(?:[-–](\\d+))?` + // Optional verse range end (e.g., 3:28-30) - now captured!
+    `(?:[-–](\\d+))?` + // Optional verse range end
     `([\\s,;.)"']|$)`, // Word boundary or end
     'gi'
   );
 
-  result = result.replace(bibleRefPattern, (match, prefix, num, book, chapter, verseStart, verseEnd, suffix) => {
+  result = result.replace(bibleRefWithVersePattern, (_match, prefix, num, book, chapter, verseStart, verseEnd, suffix) => {
     let expandedBook = book;
-
-    // If there's a leading number, expand it to ordinal
     if (num) {
       const isMasculine = masculineBooks.some(mb => book.toLowerCase().includes(mb.toLowerCase()));
-      if (isMasculine) {
-        // Use masculine ordinals for Reyes, Samuel, Crónicas
-        const masculineOrdinals: Record<string, string> = {
-          '1': 'Primero de',
-          '2': 'Segundo de',
-          '3': 'Tercero de',
-        };
-        expandedBook = `${masculineOrdinals[num]} ${book}`;
-      } else {
-        expandedBook = `${spanishOrdinals[num]} ${book}`;
-      }
+      expandedBook = `${isMasculine ? masculineOrdinals[num] : spanishOrdinals[num]} ${book}`;
     }
-
-    // Format verse(s) - singular vs plural for ranges
     const verseText = verseEnd
       ? `versículos del ${verseStart} al ${verseEnd}`
       : `versículo ${verseStart}`;
-
     return `${prefix}${expandedBook}, capítulo ${chapter}, ${verseText}${suffix}`;
+  });
+
+  // Pattern for chapter-only references (no :verse part)
+  // Matches: "2 Samuel 11", "Salmo 51", "Génesis 37"
+  const bibleRefChapterOnlyPattern = new RegExp(
+    `(^|[\\s,;.("'])` + // Word boundary or start
+    `([123])?\\s*` + // Optional leading number (1, 2, or 3)
+    `(${spanishBibleBooks.join('|')})` + // Book name
+    `\\s+(\\d+)` + // Chapter number
+    `(?![:\\d])` + // NOT followed by : or digit (avoid double-matching chapter:verse)
+    `([\\s,;.)"']|$)`, // Word boundary or end
+    'gi'
+  );
+
+  result = result.replace(bibleRefChapterOnlyPattern, (_match, prefix, num, book, chapter, suffix) => {
+    let expandedBook = book;
+    if (num) {
+      const isMasculine = masculineBooks.some(mb => book.toLowerCase().includes(mb.toLowerCase()));
+      expandedBook = `${isMasculine ? masculineOrdinals[num] : spanishOrdinals[num]} ${book}`;
+    }
+    return `${prefix}${expandedBook}, capítulo ${chapter}${suffix}`;
   });
 
   return result;
@@ -1610,14 +1642,14 @@ export default function HomeScreen() {
     const formattedReference = formatBibleReferenceForSpeech(bibleRef, language);
 
     // Apply Bible reference normalization to ALL sections for proper TTS pronunciation
-    // Also add pauses between numbered points for better readability
+    // Sanitize garbage text from cross-reference annotations, then add pauses
     return [
-      { key: 'verse', text: `${verse}. ${formattedReference}` },
-      { key: 'reflection', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(reflection, language)) },
-      { key: 'story', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(story, language)) },
-      { key: 'character', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(character, language)) },
-      { key: 'application', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(application, language)) },
-      { key: 'prayer', text: normalizeBibleRefForTTS(prayer, language) },
+      { key: 'verse', text: sanitizeForTTS(`${verse}. ${formattedReference}`) },
+      { key: 'reflection', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(reflection), language)) },
+      { key: 'story', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(story), language)) },
+      { key: 'character', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(character), language)) },
+      { key: 'application', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(application), language)) },
+      { key: 'prayer', text: normalizeBibleRefForTTS(sanitizeForTTS(prayer), language) },
     ];
   }, [devotional, language]);
 

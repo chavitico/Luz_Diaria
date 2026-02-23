@@ -25,14 +25,67 @@ export interface ParsedReference {
 }
 
 /**
- * Regex pattern to match Bible references in text
+ * Known Bible book names (Spanish + English) used to anchor reference detection.
+ * Ordered from longest to shortest to avoid partial matches.
+ */
+const BIBLE_BOOK_NAMES_ES = [
+  'Génesis', 'Genesis', 'Éxodo', 'Exodo', 'Levítico', 'Levitico', 'Números', 'Numeros',
+  'Deuteronomio', 'Josué', 'Josue', 'Jueces', 'Rut', 'Esdras', 'Nehemías', 'Nehemias',
+  'Ester', 'Job', 'Salmos', 'Salmo', 'Proverbios', 'Eclesiastés', 'Eclesiastes',
+  'Cantares', 'Isaías', 'Isaias', 'Jeremías', 'Jeremias', 'Lamentaciones',
+  'Ezequiel', 'Daniel', 'Oseas', 'Joel', 'Amós', 'Amos', 'Abdías', 'Abdias',
+  'Jonás', 'Jonas', 'Miqueas', 'Nahúm', 'Nahum', 'Habacuc', 'Sofonías', 'Sofonias',
+  'Hageo', 'Zacarías', 'Zacarias', 'Malaquías', 'Malaquias',
+  'Mateo', 'Marcos', 'Lucas', 'Juan', 'Hechos', 'Romanos',
+  'Corintios', 'Gálatas', 'Galatas', 'Efesios', 'Filipenses', 'Colosenses',
+  'Tesalonicenses', 'Timoteo', 'Tito', 'Filemón', 'Filemon',
+  'Hebreos', 'Santiago', 'Pedro', 'Judas', 'Apocalipsis',
+  // Numbered books (book part only, number handled separately)
+  'Samuel', 'Reyes', 'Crónicas', 'Cronicas',
+];
+
+const BIBLE_BOOK_NAMES_EN = [
+  'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges',
+  'Ruth', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Psalm', 'Proverbs',
+  'Ecclesiastes', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel',
+  'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk',
+  'Zephaniah', 'Haggai', 'Zechariah', 'Malachi', 'Matthew', 'Mark', 'Luke',
+  'John', 'Acts', 'Romans', 'Corinthians', 'Galatians', 'Ephesians',
+  'Philippians', 'Colossians', 'Thessalonians', 'Timothy', 'Titus', 'Philemon',
+  'Hebrews', 'James', 'Peter', 'Jude', 'Revelation',
+  'Samuel', 'Kings', 'Chronicles',
+];
+
+const ALL_BOOK_NAMES = [...new Set([...BIBLE_BOOK_NAMES_ES, ...BIBLE_BOOK_NAMES_EN])]
+  .sort((a, b) => b.length - a.length); // longest first to prevent partial matches
+
+/**
+ * Build a regex pattern to match Bible references in text.
  * Supports:
  * - "Lucas 10:25-37" or "Lucas 10:25–37" (dash or en-dash)
  * - "Juan 3:16"
  * - "1 Reyes 3:28", "2 Corintios 5:17"
  * - References in parentheses: "(Lucas 10:25-37)"
+ * - Chapter-only references: "Salmo 51", "2 Samuel 11", "Génesis 37"
+ * - Ranges with en-dash: "Marcos 4:30–32"
  */
-const BIBLE_REFERENCE_REGEX = /(?:\()?(\d?\s*[A-Za-záéíóúñÁÉÍÓÚÑ]+(?:\s+[A-Za-záéíóúñÁÉÍÓÚÑ]+)?)\s+(\d+):(\d+)(?:[-–](\d+))?(?:\))?/g;
+function buildBibleReferenceRegex(): RegExp {
+  const bookPattern = ALL_BOOK_NAMES.join('|');
+  // Matches: optional (  optional leading digit+space  bookName  chapter  optional :verse(-verseEnd)  optional )
+  return new RegExp(
+    `\\(?` +                                    // optional opening paren
+    `([123]\\s+)?` +                            // optional number prefix: "1 ", "2 ", "3 "
+    `(${bookPattern})` +                         // book name
+    `\\s+(\\d+)` +                              // chapter number
+    `(?::(\\d+)(?:[-–](\\d+))?)?` +            // optional :verse(-verseEnd)
+    `\\)?`,                                     // optional closing paren
+    'g'
+  );
+}
+
+const BIBLE_REFERENCE_REGEX = buildBibleReferenceRegex();
+// Note: BIBLE_REFERENCE_REGEX is defined here for potential external use.
+// findReferencesInText() rebuilds a fresh regex each call to avoid stale lastIndex state.
 
 /**
  * Clean a Bible reference by removing prepositions and extra text
@@ -88,10 +141,24 @@ export function parseReference(reference: string): ParsedReference | null {
 export function findReferencesInText(text: string): Array<{ reference: string; startIndex: number; endIndex: number }> {
   const references: Array<{ reference: string; startIndex: number; endIndex: number }> = [];
 
-  let match;
-  const regex = new RegExp(BIBLE_REFERENCE_REGEX.source, 'g');
+  // We need to rebuild the regex each call to reset lastIndex
+  const regex = buildBibleReferenceRegex();
 
+  let match;
   while ((match = regex.exec(text)) !== null) {
+    // Avoid matching things like "Juan 3 años" — require the match to be followed by
+    // a non-word character (or end of string) to reduce false positives on chapter-only refs
+    const afterMatch = text[match.index + match[0].length];
+    if (afterMatch && /[a-záéíóúñA-ZÁÉÍÓÚÑ]/.test(afterMatch)) {
+      // Likely a false positive — part of a larger word
+      continue;
+    }
+
+    // Also skip if the character before is a letter (partial word match)
+    if (match.index > 0 && /[a-záéíóúñA-ZÁÉÍÓÚÑ]/.test(text[match.index - 1]!)) {
+      continue;
+    }
+
     references.push({
       reference: match[0],
       startIndex: match.index,
