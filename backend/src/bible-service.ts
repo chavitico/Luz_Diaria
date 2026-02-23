@@ -216,28 +216,33 @@ function cleanBibleReference(reference: string): string {
 /**
  * Parse a Bible reference string into structured data
  * Examples: "Lucas 10:25-37", "Juan 3:16", "1 Reyes 3:28", "Salmos 23:1-6"
+ * Also supports chapter-only: "2 Samuel 11", "Salmo 51", "Génesis 37"
  */
 export function parseReference(reference: string): ParsedReference | null {
   // Clean up the reference (remove prepositions, etc.)
   const cleaned = cleanBibleReference(reference);
 
-  // Regex to match Bible references
-  // Supports: "Book Chapter:Verse" or "Book Chapter:VerseStart-VerseEnd"
-  // Also supports numbered books like "1 Reyes", "2 Corintios"
-  const regex = /^(\d?\s*[A-Za-záéíóúñÁÉÍÓÚÑ]+(?:\s+[A-Za-záéíóúñÁÉÍÓÚÑ]+)?)\s+(\d+):(\d+)(?:[-–](\d+))?$/i;
+  // Try full format first: "Book Chapter:Verse(-VerseEnd)"
+  const fullRegex = /^(\d?\s*[A-Za-záéíóúñÁÉÍÓÚÑ]+(?:\s+[A-Za-záéíóúñÁÉÍÓÚÑ]+)?)\s+(\d+):(\d+)(?:[-–](\d+))?$/i;
+  const fullMatch = cleaned.match(fullRegex);
 
-  const match = cleaned.match(regex);
+  // Fallback: chapter-only format "Book Chapter" (no verse)
+  const chapterOnlyRegex = /^(\d?\s*[A-Za-záéíóúñÁÉÍÓÚÑ]+(?:\s+[A-Za-záéíóúñÁÉÍÓÚÑ]+)?)\s+(\d+)$/i;
+  const chapterMatch = !fullMatch ? cleaned.match(chapterOnlyRegex) : null;
+
+  const match = fullMatch || chapterMatch;
   if (!match) {
     console.log(`[Bible] Could not parse reference: "${reference}"`);
     return null;
   }
 
+  const isChapterOnly = !fullMatch && !!chapterMatch;
   const bookPart = match[1];
   const chapterStr = match[2];
-  const verseStartStr = match[3];
-  const verseEndStr = match[4];
+  const verseStartStr = fullMatch ? match[3] : undefined;
+  const verseEndStr = fullMatch ? match[4] : undefined;
 
-  if (!bookPart || !chapterStr || !verseStartStr) {
+  if (!bookPart || !chapterStr) {
     console.log(`[Bible] Missing required parts in reference: "${reference}"`);
     return null;
   }
@@ -252,18 +257,21 @@ export function parseReference(reference: string): ParsedReference | null {
   }
 
   const chapterStart = parseInt(chapterStr, 10);
-  const verseStart = parseInt(verseStartStr, 10);
+  // For chapter-only refs, default to verse 1 (will fetch full chapter beginning)
+  const verseStart = verseStartStr ? parseInt(verseStartStr, 10) : 1;
   const verseEnd = verseEndStr ? parseInt(verseEndStr, 10) : null;
 
-  // Create normalized refKey
-  const refKey = createRefKey(bookInfo.apiKey, chapterStart, verseStart, verseEnd);
+  // For chapter-only refs, use a special refKey that won't collide with verse refs
+  const refKey = isChapterOnly
+    ? `${bookInfo.apiKey.toLowerCase()}_${chapterStart}_chapter`
+    : createRefKey(bookInfo.apiKey, chapterStart, verseStart, verseEnd);
 
   return {
     book: bookPart.trim(),
     bookKey: bookInfo.apiKey,
     chapterStart,
     verseStart,
-    chapterEnd: verseEnd ? chapterStart : null, // Same chapter for verse ranges
+    chapterEnd: verseEnd ? chapterStart : null,
     verseEnd,
     referenceDisplay: cleaned,
     refKey,
@@ -472,11 +480,15 @@ export async function getBiblePassage(
 
     // Fetch from API
     console.log(`[Bible] Cache miss, fetching ${parsed.refKey} (${lang})`);
+    // For chapter-only references, fetch a reasonable span (verses 1–30) to give context
+    const isChapterOnlyFetch = parsed.refKey.endsWith('_chapter');
+    const fetchVerseStart = parsed.verseStart;
+    const fetchVerseEnd = isChapterOnlyFetch ? 30 : parsed.verseEnd;
     const text = await fetchFromBibleAPI(
       parsed.bookKey,
       parsed.chapterStart,
-      parsed.verseStart,
-      parsed.verseEnd,
+      fetchVerseStart,
+      fetchVerseEnd,
       lang
     );
 
@@ -491,9 +503,13 @@ export async function getBiblePassage(
     const bookName = getBookName(parsed.bookKey, lang);
 
     // Build display reference
-    const displayRef = parsed.verseEnd
-      ? `${bookName} ${parsed.chapterStart}:${parsed.verseStart}-${parsed.verseEnd}`
-      : `${bookName} ${parsed.chapterStart}:${parsed.verseStart}`;
+    // For chapter-only refs (refKey ends with _chapter), show "Book Chapter"
+    const isChapterOnly = parsed.refKey.endsWith('_chapter');
+    const displayRef = isChapterOnly
+      ? `${bookName} ${parsed.chapterStart}`
+      : parsed.verseEnd
+        ? `${bookName} ${parsed.chapterStart}:${parsed.verseStart}-${parsed.verseEnd}`
+        : `${bookName} ${parsed.chapterStart}:${parsed.verseStart}`;
 
     // Cache in database
     await prisma.biblePassage.create({

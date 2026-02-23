@@ -710,14 +710,22 @@ export default function SettingsScreen() {
               )}
             </View>
 
-            <Animated.View entering={FadeInDown.duration(300)} className="rounded-2xl overflow-hidden" style={{ backgroundColor: colors.surface }}>
+            <View className="rounded-2xl overflow-hidden" style={{ backgroundColor: colors.surface }}>
               {ledgerEntries.length === 0 ? (
-                <View className="px-4 py-5 items-center">
-                  <Coins size={28} color={colors.textMuted} />
-                  <Text className="text-sm text-center mt-2" style={{ color: colors.textMuted }}>
+                <View className="px-4 py-6 items-center">
+                  <View
+                    className="w-12 h-12 rounded-full items-center justify-center mb-3"
+                    style={{ backgroundColor: colors.primary + '18' }}
+                  >
+                    <Coins size={24} color={colors.primary} />
+                  </View>
+                  <Text className="text-sm font-semibold mb-1" style={{ color: colors.text }}>
+                    {language === 'es' ? 'Aún no hay movimientos' : 'No movements yet'}
+                  </Text>
+                  <Text className="text-xs text-center" style={{ color: colors.textMuted }}>
                     {language === 'es'
-                      ? 'Aún no hay movimientos.\nCompleta un devocional, canjea un código o reclama una colección.'
-                      : 'No movements yet.\nComplete a devotional, redeem a code, or claim a collection.'}
+                      ? 'Completa un devocional, canjea un código\no reclama una colección.'
+                      : 'Complete a devotional, redeem a code,\nor claim a collection.'}
                   </Text>
                 </View>
               ) : (
@@ -772,7 +780,7 @@ export default function SettingsScreen() {
                   );
                 })
               )}
-            </Animated.View>
+            </View>
           </>
 
           {/* Community Section */}
