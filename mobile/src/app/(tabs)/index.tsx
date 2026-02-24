@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
+import { useFocusEffect } from 'expo-router';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { LuzDiariaIconWhite } from '@/components/LuzDiariaIcon';
@@ -1298,6 +1299,21 @@ export default function HomeScreen() {
   const [showCompletionThankYou, setShowCompletionThankYou] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // Passive metrics: track time spent on Home screen (internal, no UI)
+  const homeScreenEntryRef = useRef<number | null>(null);
+  useFocusEffect(
+    useCallback(() => {
+      homeScreenEntryRef.current = Date.now();
+      return () => {
+        if (homeScreenEntryRef.current) {
+          const secs = Math.floor((Date.now() - homeScreenEntryRef.current) / 1000);
+          console.log(`[Metrics] Home screen time: ${secs}s`);
+          homeScreenEntryRef.current = null;
+        }
+      };
+    }, [])
+  );
+
   // Scroll tracking for intro text fade
   const scrollY = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler((event) => {
@@ -1935,8 +1951,11 @@ export default function HomeScreen() {
 
           {/* Title overlay */}
           <View className="absolute bottom-0 left-0 right-0 p-6">
-            <Text className="text-white/80 text-sm font-medium mb-2 uppercase tracking-wider">
+            <Text className="text-white/80 text-sm font-medium mb-1 uppercase tracking-wider">
               {t.todays_devotional}
+            </Text>
+            <Text className="text-white/60 text-xs font-medium mb-2 capitalize">
+              {new Date(today + 'T12:00:00').toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
             </Text>
             <Text className="text-white text-3xl font-bold">{title}</Text>
           </View>

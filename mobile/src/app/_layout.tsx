@@ -57,11 +57,7 @@ function RootLayoutNav() {
           name="devotional/[date]"
           options={{
             presentation: 'card',
-            headerShown: true,
-            headerTitle: '',
-            headerBackTitle: '',
-            headerTransparent: true,
-            headerTintColor: '#FFFFFF',
+            headerShown: false,
           }}
         />
         <Stack.Screen

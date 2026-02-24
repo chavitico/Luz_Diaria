@@ -57,8 +57,8 @@ interface AppState {
 const initialUserSettings: UserSettings = {
   theme: 'dawn',
   language: 'es',
-  musicEnabled: true,
-  musicVolume: 0.5,
+  musicEnabled: false,
+  musicVolume: 0.18,
   notificationsEnabled: true,
   streakReminders: true,
   ttsVoice: 'default',

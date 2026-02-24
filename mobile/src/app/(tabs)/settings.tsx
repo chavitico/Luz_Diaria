@@ -48,6 +48,7 @@ import {
   Download,
   Key,
   Users,
+  ChevronDown,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
@@ -205,6 +206,7 @@ export default function SettingsScreen() {
   const [showTimePickerModal, setShowTimePickerModal] = useState(false);
   const [showGenerateCodeModal, setShowGenerateCodeModal] = useState(false);
   const [showEnterCodeModal, setShowEnterCodeModal] = useState(false);
+  const [transferExpanded, setTransferExpanded] = useState(false);
   const [showProfileShare, setShowProfileShare] = useState(false);
 
   // Transfer code state
@@ -962,57 +964,74 @@ export default function SettingsScreen() {
             </View>
           )}
 
-          {/* Account Transfer Section */}
+          {/* Account Transfer Section - accordion */}
           <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
             {t.account_transfer}
           </Text>
 
-          <View
+          <Pressable
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              setTransferExpanded((v) => !v);
+            }}
             className="rounded-2xl p-5 mb-2"
             style={{ backgroundColor: colors.surface }}
           >
-            <View className="flex-row items-center mb-3">
-              <Smartphone size={20} color={colors.primary} />
-              <Text className="text-base font-medium ml-3" style={{ color: colors.text }}>
-                {t.account_transfer}
-              </Text>
-            </View>
-            <Text className="text-sm mb-4" style={{ color: colors.textMuted }}>
-              {t.account_transfer_desc}
-            </Text>
-
-            <View className="flex-row gap-3">
-              <Pressable
-                onPress={() => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  setShowGenerateCodeModal(true);
-                }}
-                className="flex-1 flex-row items-center justify-center py-3 rounded-xl"
-                style={{ backgroundColor: colors.primary }}
-              >
-                <Key size={16} color="#FFFFFF" />
-                <Text className="text-sm font-semibold text-white ml-2">
-                  {t.generate_code}
-                </Text>
-              </Pressable>
+            <View className="flex-row items-center justify-between">
+              <View className="flex-row items-center flex-1 mr-3">
+                <Smartphone size={20} color={colors.primary} />
+                <View className="ml-3 flex-1">
+                  <Text className="text-base font-medium" style={{ color: colors.text }}>
+                    {t.account_transfer}
+                  </Text>
+                  <Text className="text-sm mt-0.5" style={{ color: colors.textMuted }}>
+                    {t.account_transfer_desc}
+                  </Text>
+                </View>
+              </View>
+              <ChevronDown
+                size={18}
+                color={colors.textMuted}
+                style={{ transform: [{ rotate: transferExpanded ? '180deg' : '0deg' }] }}
+              />
             </View>
 
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                setEnteredCode('');
-                setRestoreError(null);
-                setShowEnterCodeModal(true);
-              }}
-              className="flex-row items-center justify-center py-3 mt-3 rounded-xl"
-              style={{ backgroundColor: colors.primary + '15' }}
-            >
-              <Download size={16} color={colors.primary} />
-              <Text className="text-sm font-semibold ml-2" style={{ color: colors.primary }}>
-                {t.enter_code}
-              </Text>
-            </Pressable>
-          </View>
+            {transferExpanded && (
+              <Animated.View entering={FadeInDown.duration(200)} className="mt-4">
+                <View className="flex-row gap-3">
+                  <Pressable
+                    onPress={() => {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                      setShowGenerateCodeModal(true);
+                    }}
+                    className="flex-1 flex-row items-center justify-center py-3 rounded-xl"
+                    style={{ backgroundColor: colors.primary }}
+                  >
+                    <Key size={16} color="#FFFFFF" />
+                    <Text className="text-sm font-semibold text-white ml-2">
+                      {t.generate_code}
+                    </Text>
+                  </Pressable>
+                </View>
+
+                <Pressable
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    setEnteredCode('');
+                    setRestoreError(null);
+                    setShowEnterCodeModal(true);
+                  }}
+                  className="flex-row items-center justify-center py-3 mt-3 rounded-xl"
+                  style={{ backgroundColor: colors.primary + '15' }}
+                >
+                  <Download size={16} color={colors.primary} />
+                  <Text className="text-sm font-semibold ml-2" style={{ color: colors.primary }}>
+                    {t.enter_code}
+                  </Text>
+                </Pressable>
+              </Animated.View>
+            )}
+          </Pressable>
 
           {/* About / Branding */}
           <Animated.View entering={FadeInDown.delay(300).springify()} className="mt-6 mb-4">
@@ -1027,11 +1046,8 @@ export default function SettingsScreen() {
                 }
               }}
               style={{
-                borderRadius: 24,
-                overflow: 'hidden',
-                backgroundColor: colors.surface,
-                padding: 24,
                 alignItems: 'center',
+                paddingVertical: 24,
               }}
             >
               <RNImage

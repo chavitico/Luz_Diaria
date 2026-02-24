@@ -100,8 +100,8 @@ export const firestoreService = {
       settings: {
         theme: 'dawn',
         language: 'en',
-        musicEnabled: true,
-        musicVolume: 0.5,
+        musicEnabled: false,
+        musicVolume: 0.18,
         notificationsEnabled: true,
         streakReminders: true,
         ttsVoice: 'default',

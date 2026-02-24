@@ -489,7 +489,8 @@ function VoicePreviewButton({
   );
 }
 
-// Audio Controls Component
+// Audio Controls Component — simplified to match Home: Play/Pause TTS + Music toggle only
+// Speed fixed at 0.9x, default voice, no sliders/voice selection.
 function AudioControls({
   colors,
   language,
@@ -501,15 +502,7 @@ function AudioControls({
   onTrackChange,
   onTTSPlay,
   onTTSPause,
-  onTTSStop,
   isTTSPlaying,
-  ttsSpeed,
-  onTTSSpeedChange,
-  ttsVolume,
-  onTTSVolumeChange,
-  ttsVoice,
-  onTTSVoiceChange,
-  availableVoices,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
@@ -521,74 +514,23 @@ function AudioControls({
   onTrackChange: (trackId: string) => void;
   onTTSPlay: () => void;
   onTTSPause: () => void;
-  onTTSStop: () => void;
   isTTSPlaying: boolean;
-  ttsSpeed: number;
-  onTTSSpeedChange: (value: number) => void;
-  ttsVolume: number;
-  onTTSVolumeChange: (value: number) => void;
-  ttsVoice: string;
-  onTTSVoiceChange: (voiceId: string) => void;
-  availableVoices: Speech.Voice[];
 }) {
   const [showMusicSettings, setShowMusicSettings] = useState(false);
-  const [showTTSSettings, setShowTTSSettings] = useState(false);
-  const [previewingVoice, setPreviewingVoice] = useState<string | null>(null);
-  const t = TRANSLATIONS[language];
-
-  // Get curated voices for current language
-  const curatedVoices = getCuratedVoices(language);
-
-  // Preview text for voice testing
-  const previewText = language === 'es'
-    ? 'El Señor es mi pastor, nada me faltara.'
-    : 'The Lord is my shepherd, I shall not want.';
-
-  // Handle voice preview
-  const handleVoicePreview = async (curatedVoice: CuratedVoice) => {
-    if (previewingVoice === curatedVoice.id) {
-      // Stop preview
-      await Speech.stop();
-      setPreviewingVoice(null);
-      return;
-    }
-
-    // Stop any current preview
-    await Speech.stop();
-    setPreviewingVoice(curatedVoice.id);
-
-    // Find matching device voice
-    const deviceVoice = findMatchingDeviceVoice(curatedVoice, availableVoices, language);
-
-    const speechOptions: Speech.SpeechOptions = {
-      language: language === 'es' ? 'es-ES' : 'en-US',
-      rate: ttsSpeed,
-      volume: ttsVolume,
-      onDone: () => setPreviewingVoice(null),
-      onError: () => setPreviewingVoice(null),
-    };
-
-    if (deviceVoice) {
-      speechOptions.voice = deviceVoice.identifier;
-    }
-
-    Speech.speak(previewText, speechOptions);
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-  };
 
   return (
     <View className="mb-6">
-      {/* Main Controls Bar */}
       <View
-        className="flex-row items-center justify-between p-4 rounded-2xl"
+        className="flex-row items-center justify-between px-4 py-3 rounded-2xl"
         style={{ backgroundColor: colors.surface }}
       >
-        {/* TTS Controls */}
-        <View className="flex-row items-center">
+        {/* Left: TTS Play/Pause */}
+        <View className="flex-row items-center gap-2">
           <Pressable
             onPress={isTTSPlaying ? onTTSPause : onTTSPlay}
-            className="w-12 h-12 rounded-full items-center justify-center mr-2"
+            className="w-12 h-12 rounded-full items-center justify-center"
             style={{ backgroundColor: colors.primary }}
+            onPressIn={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
           >
             {isTTSPlaying ? (
               <Pause size={20} color="#FFFFFF" fill="#FFFFFF" />
@@ -596,161 +538,44 @@ function AudioControls({
               <Play size={20} color="#FFFFFF" fill="#FFFFFF" />
             )}
           </Pressable>
-          <Pressable
-            onPress={onTTSStop}
-            className="w-10 h-10 rounded-full items-center justify-center mr-2"
-            style={{ backgroundColor: colors.textMuted + '30' }}
-          >
-            <Square size={16} color={colors.textMuted} fill={colors.textMuted} />
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setShowTTSSettings(!showTTSSettings);
-              setShowMusicSettings(false);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            }}
-            className="w-10 h-10 rounded-full items-center justify-center"
-            style={{ backgroundColor: showTTSSettings ? colors.primary + '30' : colors.textMuted + '30' }}
-          >
-            <Settings2 size={18} color={showTTSSettings ? colors.primary : colors.textMuted} />
-          </Pressable>
+          <Text className="text-xs" style={{ color: colors.textMuted }}>
+            {language === 'es' ? 'Narración' : 'Narration'}
+          </Text>
         </View>
 
-        {/* Music Controls */}
-        <View className="flex-row items-center">
-          <Pressable
-            onPress={() => {
-              setShowMusicSettings(!showMusicSettings);
-              setShowTTSSettings(false);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            }}
-            className="w-10 h-10 rounded-full items-center justify-center mr-2"
-            style={{ backgroundColor: showMusicSettings ? colors.primary + '30' : colors.textMuted + '30' }}
-          >
-            <Music size={18} color={showMusicSettings ? colors.primary : colors.textMuted} />
-          </Pressable>
+        {/* Right: Music toggle + music settings gear */}
+        <View className="flex-row items-center gap-2">
+          <Text className="text-xs" style={{ color: colors.textMuted }}>
+            {language === 'es' ? 'Música' : 'Music'}
+          </Text>
           <Pressable
             onPress={() => {
               onMusicToggle();
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             }}
-            className="w-10 h-10 rounded-full items-center justify-center"
-            style={{ backgroundColor: musicEnabled ? colors.primary + '30' : colors.textMuted + '30' }}
+            className="w-12 h-12 rounded-full items-center justify-center"
+            style={{ backgroundColor: musicEnabled ? colors.primary : colors.textMuted + '30' }}
           >
             {musicEnabled ? (
-              <Volume2 size={18} color={colors.primary} />
+              <Volume2 size={20} color="#FFFFFF" />
             ) : (
-              <VolumeX size={18} color={colors.textMuted} />
+              <VolumeX size={20} color={colors.textMuted} />
             )}
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setShowMusicSettings((v) => !v);
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            }}
+            className="w-10 h-10 rounded-full items-center justify-center"
+            style={{ backgroundColor: showMusicSettings ? colors.primary + '30' : colors.textMuted + '20' }}
+          >
+            <Settings2 size={18} color={showMusicSettings ? colors.primary : colors.textMuted} />
           </Pressable>
         </View>
       </View>
 
-      {/* TTS Settings Panel */}
-      {showTTSSettings && (
-        <Animated.View
-          entering={FadeIn.duration(200)}
-          className="mt-3 p-4 rounded-2xl"
-          style={{ backgroundColor: colors.surface }}
-        >
-          {/* Volume Control */}
-          <Text className="text-sm font-semibold mb-3" style={{ color: colors.text }}>
-            {language === 'es' ? 'Volumen' : 'Volume'}: {Math.round(ttsVolume * 100)}%
-          </Text>
-          <Slider
-            value={ttsVolume}
-            onValueChange={onTTSVolumeChange}
-            minimumValue={0}
-            maximumValue={1}
-            step={0.1}
-            minimumTrackTintColor={colors.primary}
-            maximumTrackTintColor={colors.textMuted + '40'}
-            thumbTintColor={colors.primary}
-          />
-
-          {/* Speed Control */}
-          <Text className="text-sm font-semibold mt-4 mb-3" style={{ color: colors.text }}>
-            {t.tts_speed}: {ttsSpeed.toFixed(1)}x
-          </Text>
-          <Slider
-            value={ttsSpeed}
-            onValueChange={onTTSSpeedChange}
-            minimumValue={0.5}
-            maximumValue={2.0}
-            step={0.1}
-            minimumTrackTintColor={colors.primary}
-            maximumTrackTintColor={colors.textMuted + '40'}
-            thumbTintColor={colors.primary}
-          />
-
-          {/* Curated Voice Selection */}
-          <Text className="text-sm font-semibold mt-4 mb-3" style={{ color: colors.text }}>
-            {language === 'es' ? 'Voz' : 'Voice'}
-          </Text>
-          <View>
-            {curatedVoices.map((voice: CuratedVoice) => {
-              const isSelected = ttsVoice === voice.id;
-              const isPreviewing = previewingVoice === voice.id;
-
-              return (
-                <Pressable
-                  key={voice.id}
-                  onPress={() => {
-                    onTTSVoiceChange(voice.id);
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  }}
-                  className="mb-3 p-4 rounded-xl"
-                  style={{
-                    backgroundColor: isSelected ? colors.primary + '15' : colors.background,
-                    borderWidth: isSelected ? 2 : 1,
-                    borderColor: isSelected ? colors.primary : colors.textMuted + '30',
-                  }}
-                >
-                  <View className="flex-row items-center justify-between">
-                    <View className="flex-1 mr-3">
-                      <View className="flex-row items-center mb-1">
-                        <Text
-                          className="text-base font-semibold"
-                          style={{ color: isSelected ? colors.primary : colors.text }}
-                        >
-                          {language === 'es' ? voice.nameEs : voice.name}
-                        </Text>
-                        {voice.isDefault && (
-                          <View
-                            className="ml-2 px-2 py-0.5 rounded"
-                            style={{ backgroundColor: colors.primary + '20' }}
-                          >
-                            <Text
-                              className="text-xs font-medium"
-                              style={{ color: colors.primary }}
-                            >
-                              {language === 'es' ? 'Recomendada' : 'Recommended'}
-                            </Text>
-                          </View>
-                        )}
-                      </View>
-                      <Text
-                        className="text-sm"
-                        style={{ color: colors.textMuted }}
-                        numberOfLines={2}
-                      >
-                        {language === 'es' ? voice.descriptionEs : voice.description}
-                      </Text>
-                    </View>
-                    <VoicePreviewButton
-                      onPreview={() => handleVoicePreview(voice)}
-                      isPlaying={isPreviewing}
-                      colors={colors}
-                    />
-                  </View>
-                </Pressable>
-              );
-            })}
-          </View>
-        </Animated.View>
-      )}
-
-      {/* Music Settings Panel */}
+      {/* Music track selector */}
       {showMusicSettings && (
         <Animated.View
           entering={FadeIn.duration(200)}
@@ -758,19 +583,6 @@ function AudioControls({
           style={{ backgroundColor: colors.surface }}
         >
           <Text className="text-sm font-semibold mb-3" style={{ color: colors.text }}>
-            {t.volume}
-          </Text>
-          <Slider
-            value={musicVolume}
-            onValueChange={onMusicVolumeChange}
-            minimumValue={0}
-            maximumValue={1}
-            minimumTrackTintColor={colors.primary}
-            maximumTrackTintColor={colors.textMuted + '40'}
-            thumbTintColor={colors.primary}
-          />
-
-          <Text className="text-sm font-semibold mt-4 mb-3" style={{ color: colors.text }}>
             {language === 'es' ? 'Pista de Música' : 'Music Track'}
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }}>
@@ -823,6 +635,17 @@ export default function DevotionalDetailScreen() {
 
   // Points toast
   const { currentToast, showToast, hideToast } = usePointsToast();
+
+  // Passive metrics: track time reading this devotional (internal, no UI)
+  const readingEntryRef = useRef<number>(Date.now());
+  useEffect(() => {
+    readingEntryRef.current = Date.now();
+    return () => {
+      const secs = Math.floor((Date.now() - readingEntryRef.current) / 1000);
+      console.log(`[Metrics] Devotional reading time (${date}): ${secs}s`);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Share modal state
   const [showShareModal, setShowShareModal] = useState(false);
@@ -1244,15 +1067,7 @@ export default function DevotionalDetailScreen() {
             onTrackChange={handleTrackChange}
             onTTSPlay={handleTTSPlay}
             onTTSPause={handleTTSPause}
-            onTTSStop={handleTTSStop}
             isTTSPlaying={isTTSPlaying}
-            ttsSpeed={ttsSpeed}
-            onTTSSpeedChange={handleTTSSpeedChange}
-            ttsVolume={ttsVolume}
-            onTTSVolumeChange={handleTTSVolumeChange}
-            ttsVoice={ttsVoice}
-            onTTSVoiceChange={handleTTSVoiceChange}
-            availableVoices={availableVoices}
           />
 
           {/* Collapsible content wrapper */}
