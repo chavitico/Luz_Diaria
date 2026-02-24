@@ -74,20 +74,21 @@ function PageBackground({ imageUrl }: { imageUrl: string }) {
 function PageFooter({ pageNum, totalPages, appName }: { pageNum: number; totalPages: number; appName: string }) {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-      {/* Logo como firma discreta — pequeño, no invasivo */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-        <RNImage
-          source={LOGO_PNG}
-          style={{ width: 52, height: 52, opacity: 0.88 }}
-          resizeMode="contain"
-        />
-        <Text style={{ color: 'rgba(255,255,255,0.75)', fontSize: 26, fontWeight: '600', letterSpacing: 1.5 }}>
-          {appName}
-        </Text>
-      </View>
+      {/* Page counter */}
       <View style={{ backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 20, paddingHorizontal: 20, paddingVertical: 8 }}>
         <Text style={{ color: '#FFFFFF', fontSize: 26, fontWeight: '700' }}>
           {pageNum}/{totalPages}
+        </Text>
+      </View>
+      {/* Logo watermark bottom-right — white, discreta */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+        <RNImage
+          source={LOGO_PNG}
+          style={{ width: 60, height: 60, opacity: 0.75, tintColor: '#FFFFFF' }}
+          resizeMode="contain"
+        />
+        <Text style={{ color: 'rgba(255,255,255,0.75)', fontSize: 28, fontWeight: '600', letterSpacing: 1 }}>
+          {appName}
         </Text>
       </View>
     </View>

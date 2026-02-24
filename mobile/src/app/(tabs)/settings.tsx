@@ -11,6 +11,7 @@ import {
   Alert,
   TextInput,
   ActivityIndicator,
+  Image as RNImage,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
@@ -58,7 +59,9 @@ import {
   useUserSettings,
   useAppStore,
 } from '@/lib/store';
-import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
+import { APP_BRANDING, TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
+
+const LOGO_PNG = require('../../../assets/logo/luz-diaria-logo.png');
 import type { Language } from '@/lib/types';
 import { cn } from '@/lib/cn';
 import {
@@ -1011,29 +1014,52 @@ export default function SettingsScreen() {
             </Pressable>
           </View>
 
+          {/* About / Branding */}
+          <Animated.View entering={FadeInDown.delay(300).springify()} className="mt-6 mb-4">
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                const next = adminPressCount + 1;
+                setAdminPressCount(next);
+                if (next >= 7) {
+                  setAdminPressCount(0);
+                  router.push('/admin/branding');
+                }
+              }}
+              style={{
+                borderRadius: 24,
+                overflow: 'hidden',
+                backgroundColor: colors.surface,
+                padding: 24,
+                alignItems: 'center',
+              }}
+            >
+              <RNImage
+                source={LOGO_PNG}
+                style={{ width: 72, height: 72, marginBottom: 12 }}
+                resizeMode="contain"
+              />
+              <Text style={{ fontSize: 22, fontWeight: '700', color: colors.text, letterSpacing: -0.3 }}>
+                {APP_BRANDING.appName}
+              </Text>
+              <Text style={{ fontSize: 11, color: colors.textMuted, letterSpacing: 2, marginTop: 4, textTransform: 'uppercase' }}>
+                {APP_BRANDING.tagline.es}
+              </Text>
+              <View style={{ marginTop: 14, height: 1, width: '40%', backgroundColor: colors.textMuted + '25' }} />
+              <Text style={{ fontSize: 12, color: colors.textMuted + 'AA', marginTop: 12 }}>
+                © {new Date().getFullYear()} ChaViTico Games
+              </Text>
+            </Pressable>
+          </Animated.View>
+
           {/* Debug Info - User ID */}
           {user?.id && (
-            <View className="mt-6 mb-4 px-2">
+            <View className="mb-4 px-2">
               <Pressable
-                onPress={() => {
-                  const next = adminPressCount + 1;
-                  setAdminPressCount(next);
-                  if (next >= 5) {
-                    setAdminPressCount(0);
-                    router.push('/admin/branding');
-                  }
-                }}
-              >
-                <Text className="text-xs" style={{ color: colors.textMuted + '80' }}>
-                  {t.user_id}: {user.id.slice(0, 8)}...
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={() => router.push('/logo-preview')}
-                className="mt-2"
+                onPress={() => {}}
               >
                 <Text className="text-xs" style={{ color: colors.textMuted + '60' }}>
-                  Identidad visual
+                  {t.user_id}: {user.id.slice(0, 8)}...
                 </Text>
               </Pressable>
             </View>

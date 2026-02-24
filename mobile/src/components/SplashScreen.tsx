@@ -1,7 +1,7 @@
 // Custom Splash Screen Component — v3 con logo oficial PNG
 
 import React, { useEffect } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
   useSharedValue,
@@ -13,6 +13,8 @@ import Animated, {
 import { APP_BRANDING } from '@/lib/constants';
 
 const LOGO_PNG = require('../../assets/logo/luz-diaria-logo.png');
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const LOGO_SIZE = Math.round(SCREEN_WIDTH * 0.42);
 
 interface SplashScreenProps {
   onFinish: () => void;
@@ -72,7 +74,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
         <Animated.View style={[logoAnimStyle, { alignItems: 'center' }]}>
           <Image
             source={LOGO_PNG}
-            style={{ width: 190, height: 190 }}
+            style={{ width: LOGO_SIZE, height: LOGO_SIZE }}
             resizeMode="contain"
           />
         </Animated.View>

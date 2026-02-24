@@ -1916,7 +1916,7 @@ export default function HomeScreen() {
             {/* Logo centrado — identidad sutil */}
             <RNImage
               source={LOGO_PNG}
-              style={{ width: 36, height: 36, opacity: 0.92 }}
+              style={{ width: 52, height: 52, opacity: 0.95 }}
               resizeMode="contain"
             />
 
