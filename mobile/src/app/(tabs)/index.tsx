@@ -8,12 +8,10 @@ import {
   Pressable,
   ActivityIndicator,
   Dimensions,
-  Image as RNImage,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-
-const LOGO_PNG = require('../../../assets/logo/luz-diaria-logo.png');
+import { LuzDiariaIconWhite } from '@/components/LuzDiariaIcon';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -1914,11 +1912,7 @@ export default function HomeScreen() {
             )}
 
             {/* Logo centrado — identidad sutil */}
-            <RNImage
-              source={LOGO_PNG}
-              style={{ width: 52, height: 52, opacity: 0.95 }}
-              resizeMode="contain"
-            />
+            <LuzDiariaIconWhite size={44} />
 
             {/* Right actions: Share only */}
             <View className="flex-row items-center" style={{ gap: 8 }}>

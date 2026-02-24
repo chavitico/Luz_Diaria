@@ -12,6 +12,7 @@
 import React, { forwardRef } from 'react';
 import { View, Text } from 'react-native';
 import { Image } from 'expo-image';
+import { LuzDiariaIconWhite } from '@/components/LuzDiariaIcon';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { Devotional } from '@/lib/types';
 import { useBranding, DEFAULT_BRANDING, type AppBranding } from '@/lib/branding-service';
@@ -285,17 +286,21 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
             }}
           />
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: s(8) }}>
-            <Text
-              numberOfLines={1}
-              style={{
-                color: 'rgba(255,255,255,0.80)',
-                fontSize: s(26),
-                fontWeight: '700',
-                letterSpacing: 1.5,
-              }}
-            >
-              {branding.appName}
-            </Text>
+            {/* Logo icon — bottom left, white, no box */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: s(14) }}>
+              <LuzDiariaIconWhite size={s(52)} />
+              <Text
+                numberOfLines={1}
+                style={{
+                  color: 'rgba(255,255,255,0.80)',
+                  fontSize: s(26),
+                  fontWeight: '700',
+                  letterSpacing: 1.5,
+                }}
+              >
+                {branding.appName}
+              </Text>
+            </View>
             <Text
               numberOfLines={1}
               style={{

@@ -3,10 +3,9 @@
 // Pages 2+: ONE section per page (prevents any text clipping)
 
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
-import { View, Text, Image as RNImage } from 'react-native';
+import { View, Text } from 'react-native';
 import { Image } from 'expo-image';
-
-const LOGO_PNG = require('../../assets/logo/luz-diaria-logo.png');
+import { LuzDiariaIconWhite } from '@/components/LuzDiariaIcon';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BookOpen, Star, Heart, Check, User } from 'lucide-react-native';
 import { captureRef } from 'react-native-view-shot';
@@ -80,13 +79,9 @@ function PageFooter({ pageNum, totalPages, appName }: { pageNum: number; totalPa
           {pageNum}/{totalPages}
         </Text>
       </View>
-      {/* Logo watermark bottom-right — white, discreta */}
+      {/* Logo watermark bottom-right — white SVG, no box */}
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
-        <RNImage
-          source={LOGO_PNG}
-          style={{ width: 60, height: 60, opacity: 0.75, tintColor: '#FFFFFF' }}
-          resizeMode="contain"
-        />
+        <LuzDiariaIconWhite size={60} />
         <Text style={{ color: 'rgba(255,255,255,0.75)', fontSize: 28, fontWeight: '600', letterSpacing: 1 }}>
           {appName}
         </Text>
