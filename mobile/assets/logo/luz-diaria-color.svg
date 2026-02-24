@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Luz Diaria — Logotipo color (isotipo + texto)
+  480×160 — v2: llama espiritual + sendero asimétrico + texto
+-->
 <svg width="480" height="160" viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Path light glow gradient -->
-    <radialGradient id="lightGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#F5D77A" stop-opacity="1"/>
-      <stop offset="60%" stop-color="#E8B84B" stop-opacity="0.7"/>
-      <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
-    </radialGradient>
-
-    <!-- Path fill gradient (green tones) -->
-    <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#5A8F6F"/>
-      <stop offset="100%" stop-color="#7BAE8A"/>
-    </linearGradient>
-
-    <!-- Icon background gradient -->
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F7F4EE"/>
-      <stop offset="100%" stop-color="#EDE9DF"/>
-    </linearGradient>
-
-    <!-- Golden light spot gradient -->
-    <radialGradient id="goldenLight" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#F5D77A" stop-opacity="1"/>
-      <stop offset="40%" stop-color="#E8B84B" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
-    </radialGradient>
-
-    <!-- Sky gradient inside icon -->
-    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+    <!-- Icon background -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#EAF3EE"/>
       <stop offset="100%" stop-color="#F7F4EE"/>
     </linearGradient>
 
-    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+    <!-- Flame gradient -->
+    <linearGradient id="flameGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#E8A020" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#F5C842" stop-opacity="1"/>
+      <stop offset="75%" stop-color="#FFF0A0" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.65"/>
+    </linearGradient>
+
+    <!-- Flame core -->
+    <linearGradient id="flameCoreGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FFD84A"/>
+      <stop offset="55%" stop-color="#FFFBE0"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Outer glow radial -->
+    <radialGradient id="flameGlow" cx="50%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#F5D77A" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Path gradient -->
+    <linearGradient id="pathGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#4A7D5E"/>
+      <stop offset="100%" stop-color="#7BAE8A"/>
+    </linearGradient>
+
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -42,74 +47,97 @@
     </filter>
   </defs>
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!--  ICON (80×80, centered at 40,80)            -->
-  <!-- ═══════════════════════════════════════════ -->
-  <g transform="translate(0, 0)">
+  <!-- ═══ ICON (140×140, at origin) ═══ -->
+  <g>
     <!-- Rounded square background -->
-    <rect x="0" y="0" width="140" height="140" rx="32" ry="32" fill="url(#bgGradient)"/>
-    <rect x="0" y="0" width="140" height="140" rx="32" ry="32" fill="url(#skyGrad)"/>
+    <rect x="0" y="0" width="140" height="140" rx="30" ry="30" fill="url(#bgGradient)"/>
 
-    <!-- Horizon line (subtle) -->
-    <line x1="14" y1="84" x2="126" y2="84" stroke="#D8E8DC" stroke-width="1" opacity="0.8"/>
+    <!-- Sky atmosphere -->
+    <rect x="0" y="0" width="140" height="86" rx="0" fill="#D6EDE0" fill-opacity="0.22"/>
 
-    <!-- Distant light burst at horizon (golden glow) -->
-    <ellipse cx="70" cy="84" rx="28" ry="16" fill="url(#goldenLight)" opacity="0.85"/>
+    <!-- Horizon line -->
+    <line x1="12" y1="86" x2="128" y2="86" stroke="#C8DDD0" stroke-width="1" opacity="0.6"/>
 
-    <!-- Light rays (fine, subtle) -->
-    <g opacity="0.35" stroke="#E8B84B" stroke-width="1" stroke-linecap="round">
-      <line x1="70" y1="84" x2="70" y2="54"/>
-      <line x1="70" y1="84" x2="88" y2="58"/>
-      <line x1="70" y1="84" x2="52" y2="58"/>
-      <line x1="70" y1="84" x2="100" y2="66"/>
-      <line x1="70" y1="84" x2="40" y2="66"/>
-    </g>
-
-    <!-- Core light dot -->
-    <circle cx="70" cy="84" r="5" fill="#F5D77A" filter="url(#softGlow)"/>
-    <circle cx="70" cy="84" r="2.5" fill="#FFFBE0"/>
-
-    <!-- Left path edge (curves from bottom-left to light point) -->
+    <!-- Ground -->
     <path
-      d="M 18 130 C 28 118 42 104 70 84"
-      fill="none"
-      stroke="url(#pathGradient)"
-      stroke-width="4.5"
-      stroke-linecap="round"
+      d="M 12 86 Q 70 80 128 86 L 128 134 L 12 134 Z"
+      fill="#C8E0CE"
+      fill-opacity="0.20"
     />
 
-    <!-- Right path edge (curves from bottom-right to light point) -->
-    <path
-      d="M 122 130 C 112 118 98 104 70 84"
-      fill="none"
-      stroke="url(#pathGradient)"
-      stroke-width="4.5"
-      stroke-linecap="round"
-    />
+    <!-- Outer flame glow -->
+    <ellipse cx="70" cy="72" rx="22" ry="26" fill="url(#flameGlow)" fill-opacity="0.55"/>
 
-    <!-- Path fill (the road between the two edges) -->
+    <!-- Path fill -->
     <path
-      d="M 18 130 C 28 118 42 104 70 84 C 98 104 112 118 122 130 Z"
+      d="M 14 136 C 26 122 42 106 69 86 C 96 106 112 122 124 136 Z"
       fill="#5A8F6F"
-      opacity="0.10"
+      fill-opacity="0.11"
     />
 
-    <!-- Subtle terrain/ground below horizon -->
+    <!-- Left path edge — asymmetric start -->
     <path
-      d="M 14 84 Q 40 80 70 84 Q 100 88 126 84 L 126 130 L 14 130 Z"
-      fill="#D6EAD9"
-      opacity="0.28"
+      d="M 14 136 C 26 122 42 106 69 86"
+      fill="none"
+      stroke="url(#pathGradient)"
+      stroke-width="5"
+      stroke-linecap="round"
     />
+
+    <!-- Right path edge -->
+    <path
+      d="M 124 136 C 112 122 96 106 71 86"
+      fill="none"
+      stroke="url(#pathGradient)"
+      stroke-width="5"
+      stroke-linecap="round"
+    />
+
+    <!-- Outer flame shape -->
+    <path
+      d="M 70 86
+         C 59 80 53 68 54 57
+         C 55 46 61 39 65 31
+         C 67 26 69 21 70 17
+         C 71 21 73 26 75 31
+         C 79 39 84 47 84 58
+         C 84 69 78 80 70 86 Z"
+      fill="url(#flameGrad)"
+      fill-opacity="0.72"
+    />
+
+    <!-- Inner flame core -->
+    <path
+      d="M 70 84
+         C 63 78 59 68 60 58
+         C 61 49 65 43 68 36
+         C 69 33 70 30 70 28
+         C 71 30 72 33 73 36
+         C 76 43 79 49 79 58
+         C 79 67 76 77 70 84 Z"
+      fill="url(#flameCoreGrad)"
+      fill-opacity="0.92"
+      filter="url(#softGlow)"
+    />
+
+    <!-- Negative-space cross (vertical) -->
+    <rect x="69.5" y="32" width="1.5" height="36" rx="0.75" fill="#FFFBE8" fill-opacity="0.60"/>
+    <!-- Negative-space cross (horizontal) -->
+    <rect x="62" y="52" width="16" height="1.8" rx="0.9" fill="#FFFBE8" fill-opacity="0.55"/>
+
+    <!-- Flame base glow -->
+    <ellipse cx="70" cy="86" rx="8" ry="3" fill="#F5D77A" fill-opacity="0.88"/>
+
+    <!-- Flame tip sparkle -->
+    <circle cx="70" cy="20" r="1.8" fill="#FFFFFF" fill-opacity="0.85"/>
   </g>
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!--  LOGOTYPE (text, starts at x=160)           -->
-  <!-- ═══════════════════════════════════════════ -->
-  <g transform="translate(160, 0)">
-    <!-- App name "Luz Diaria" -->
+  <!-- ═══ LOGOTYPE TEXT ═══ -->
+  <g transform="translate(158, 0)">
+    <!-- App name -->
     <text
       x="0"
-      y="88"
+      y="90"
       font-family="'Inter', 'SF Pro Display', -apple-system, 'Helvetica Neue', Arial, sans-serif"
       font-size="52"
       font-weight="600"
@@ -120,7 +148,7 @@
     <!-- Tagline -->
     <text
       x="2"
-      y="116"
+      y="118"
       font-family="'Inter', 'SF Pro Text', -apple-system, 'Helvetica Neue', Arial, sans-serif"
       font-size="18"
       font-weight="400"

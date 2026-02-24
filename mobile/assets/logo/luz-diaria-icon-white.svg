@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Luz Diaria — White Icon (para usar sobre imágenes/fondos oscuros)
-  1024×1024
+  1024×1024 — v2: llama espiritual + sendero asimétrico + cruz negativa
 -->
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="whiteGlow" cx="50%" cy="50%" r="50%">
+    <radialGradient id="flameWhiteGlow" cx="50%" cy="70%" r="50%">
       <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
       <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
     </radialGradient>
-    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="18" result="blur"/>
+    <linearGradient id="flameWhiteGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.6"/>
+    </linearGradient>
+    <filter id="glow" x="-80%" y="-60%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="22" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <filter id="rayGlow" x="-40%" y="-40%" width="180%" height="180%">
+    <filter id="pathGlowW" x="-10%" y="-10%" width="120%" height="120%">
       <feGaussianBlur stdDeviation="5" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
@@ -25,55 +30,114 @@
     </filter>
   </defs>
 
-  <!-- No background (fully transparent for overlay use) -->
+  <!-- No background (transparent for overlay use) -->
 
-  <!-- Horizon line -->
-  <line x1="80" y1="590" x2="944" y2="590" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+  <!-- Subtle horizon line -->
+  <line x1="80" y1="620" x2="944" y2="620" stroke="#FFFFFF" stroke-width="1.5" opacity="0.35"/>
 
-  <!-- Light halo at horizon -->
-  <ellipse cx="512" cy="590" rx="200" ry="100" fill="url(#whiteGlow)" opacity="0.5"/>
+  <!-- Outer flame glow halo -->
+  <ellipse cx="512" cy="520" rx="200" ry="190" fill="url(#flameWhiteGlow)" opacity="0.30"/>
 
-  <!-- Light rays -->
-  <g filter="url(#rayGlow)" opacity="0.5">
-    <line x1="512" y1="590" x2="512" y2="220" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="368" y2="248" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="656" y2="248" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="240" y2="320" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="784" y2="320" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="152" y2="428" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="872" y2="428" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
-  </g>
-
-  <!-- Left path edge -->
+  <!-- ═══════════════ PATH / SENDERO ═══════════════ -->
+  <!-- Path fill -->
   <path
-    d="M 110 940 C 160 880 280 760 512 590"
-    fill="none"
-    stroke="#FFFFFF"
-    stroke-width="28"
-    stroke-linecap="round"
-    opacity="0.92"
-  />
-
-  <!-- Right path edge -->
-  <path
-    d="M 914 940 C 864 880 744 760 512 590"
-    fill="none"
-    stroke="#FFFFFF"
-    stroke-width="28"
-    stroke-linecap="round"
-    opacity="0.92"
-  />
-
-  <!-- Path fill area -->
-  <path
-    d="M 110 940 C 160 880 280 760 512 590 C 744 760 864 880 914 940 Z"
+    d="M 105 960
+       C 170 880 300 750 510 620
+       C 720 750 840 875 900 960
+       Z"
     fill="#FFFFFF"
     opacity="0.10"
   />
 
-  <!-- Core light dot -->
-  <circle cx="512" cy="590" r="55" fill="#FFFFFF" opacity="0.4" filter="url(#glow)"/>
-  <circle cx="512" cy="590" r="24" fill="#FFFFFF" opacity="0.95"/>
-  <circle cx="512" cy="590" r="10" fill="#FFFFFF"/>
-  <circle cx="507" cy="584" r="4.5" fill="#FFFFFF" opacity="0.6"/>
+  <!-- Left path edge -->
+  <path
+    d="M 105 960
+       C 170 880 300 750 510 620"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="30"
+    stroke-linecap="round"
+    filter="url(#pathGlowW)"
+    opacity="0.90"
+  />
+
+  <!-- Right path edge -->
+  <path
+    d="M 900 960
+       C 840 875 720 750 514 620"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="30"
+    stroke-linecap="round"
+    filter="url(#pathGlowW)"
+    opacity="0.90"
+  />
+
+  <!-- ═══════════════ FLAME SHAPE ═══════════════ -->
+
+  <!-- Outer flame glow layer -->
+  <path
+    d="M 512 620
+       C 465 590 436 535 440 480
+       C 444 425 468 388 488 340
+       C 498 316 505 290 508 262
+       C 510 248 514 238 516 260
+       C 520 292 527 320 540 348
+       C 558 388 576 428 578 476
+       C 580 528 554 590 512 620 Z"
+    fill="url(#flameWhiteGrad)"
+    opacity="0.28"
+    filter="url(#glow)"
+  />
+
+  <!-- Mid flame -->
+  <path
+    d="M 512 618
+       C 474 592 452 548 455 500
+       C 458 452 476 415 494 372
+       C 502 351 508 328 510 305
+       C 512 330 518 353 528 375
+       C 546 417 562 454 564 502
+       C 566 550 546 592 512 618 Z"
+    fill="#FFFFFF"
+    opacity="0.68"
+  />
+
+  <!-- Inner bright flame core -->
+  <path
+    d="M 512 614
+       C 487 592 472 556 474 518
+       C 476 480 490 450 500 420
+       C 506 404 510 386 511 368
+       C 513 388 518 406 526 422
+       C 537 450 548 480 548 518
+       C 548 556 534 592 512 614 Z"
+    fill="#FFFFFF"
+    opacity="0.94"
+  />
+
+  <!-- ═══════════════ NEGATIVE-SPACE CROSS (subtle) ═══════════════ -->
+  <!-- Vertical bar — slightly darker/transparent gap in flame -->
+  <rect
+    x="509" y="350" width="6" height="160"
+    rx="3" ry="3"
+    fill="#FFFFFF"
+    opacity="0.22"
+  />
+  <!-- Horizontal bar -->
+  <rect
+    x="482" y="438" width="60" height="7"
+    rx="3.5" ry="3.5"
+    fill="#FFFFFF"
+    opacity="0.20"
+  />
+
+  <!-- ═══════════════ FLAME BASE GLOW ═══════════════ -->
+  <ellipse cx="512" cy="618" rx="60" ry="20" fill="#FFFFFF" opacity="0.40" filter="url(#glow)"/>
+  <ellipse cx="512" cy="620" rx="26" ry="8" fill="#FFFFFF" opacity="0.85"/>
+
+  <!-- Flame tip sparkle -->
+  <circle cx="512" cy="292" r="5" fill="#FFFFFF" opacity="0.80"/>
+  <circle cx="511" cy="289" r="2.5" fill="#FFFFFF" opacity="0.70"/>
+
 </svg>

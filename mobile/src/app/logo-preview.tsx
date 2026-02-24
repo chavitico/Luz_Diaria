@@ -2,6 +2,7 @@
  * LogoPreview Screen
  * Shows all logo variants: color, white, icon-only
  * Access: navigate to /logo-preview (for admin/design review only)
+ * v2: llama espiritual + sendero asimétrico + cruz negativa
  */
 import React from 'react';
 import {
@@ -21,7 +22,6 @@ import Svg, {
   Ellipse,
   Path,
   Line,
-  Text as SvgText,
   Defs,
   LinearGradient as SvgLinearGradient,
   RadialGradient,
@@ -34,92 +34,135 @@ import Svg, {
 } from 'react-native-svg';
 
 // ─────────────────────────────────────────────
-// Sub-components: the actual logo shapes
+// Core flame path helpers (scaled to viewBox 140×140)
+// Flame base at y=86, tip at y≈17
 // ─────────────────────────────────────────────
 
-/** Color icon (sendero + luz dorada) */
+/** Color icon (llama espiritual + sendero asimétrico) */
 function LuzDiariaIcon({ size = 140 }: { size?: number }) {
-  const s = size / 140; // scale factor
   return (
     <Svg width={size} height={size} viewBox="0 0 140 140">
       <Defs>
         {/* Background */}
-        <SvgLinearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+        <SvgLinearGradient id="bgG2" x1="0" y1="0" x2="0" y2="1">
           <Stop offset="0" stopColor="#EAF3EE" />
           <Stop offset="1" stopColor="#F7F4EE" />
         </SvgLinearGradient>
         {/* Path gradient */}
-        <SvgLinearGradient id="pgG" x1="0" y1="1" x2="1" y2="0">
+        <SvgLinearGradient id="pgG2" x1="0" y1="1" x2="0" y2="0">
           <Stop offset="0" stopColor="#4A7D5E" />
           <Stop offset="1" stopColor="#7BAE8A" />
         </SvgLinearGradient>
-        {/* Golden burst */}
-        <RadialGradient id="gbG" cx="50%" cy="50%" rx="50%" ry="50%">
-          <Stop offset="0" stopColor="#FFF4C2" stopOpacity={1} />
-          <Stop offset="0.4" stopColor="#F5D77A" stopOpacity={0.9} />
+        {/* Flame gradient — amber base → bright tip */}
+        <SvgLinearGradient id="flameG2" x1="0" y1="1" x2="0" y2="0">
+          <Stop offset="0" stopColor="#E8A020" stopOpacity={1} />
+          <Stop offset="0.4" stopColor="#F5C842" stopOpacity={1} />
+          <Stop offset="0.75" stopColor="#FFF0A0" stopOpacity={0.95} />
+          <Stop offset="1" stopColor="#FFFFFF" stopOpacity={0.65} />
+        </SvgLinearGradient>
+        {/* Flame core gradient */}
+        <SvgLinearGradient id="flameCoreG2" x1="0" y1="1" x2="0" y2="0">
+          <Stop offset="0" stopColor="#FFD84A" />
+          <Stop offset="0.55" stopColor="#FFFBE0" />
+          <Stop offset="1" stopColor="#FFFFFF" stopOpacity={0.9} />
+        </SvgLinearGradient>
+        {/* Flame outer glow radial */}
+        <RadialGradient id="flameGlowG2" cx="50%" cy="70%" rx="50%" ry="50%">
+          <Stop offset="0" stopColor="#F5D77A" stopOpacity={0.85} />
           <Stop offset="1" stopColor="#E8B84B" stopOpacity={0} />
         </RadialGradient>
       </Defs>
 
       {/* Background rounded square */}
-      <Rect x={0} y={0} width={140} height={140} rx={30} ry={30} fill="url(#bgG)" />
+      <Rect x={0} y={0} width={140} height={140} rx={30} ry={30} fill="url(#bgG2)" />
 
       {/* Sky atmosphere */}
-      <Rect x={0} y={0} width={140} height={84} rx={0} fill="#D6EDE0" fillOpacity={0.25} />
+      <Rect x={0} y={0} width={140} height={86} rx={0} fill="#D6EDE0" fillOpacity={0.22} />
 
       {/* Horizon */}
-      <Line x1={12} y1={84} x2={128} y2={84} stroke="#C8DDD0" strokeWidth={1} opacity={0.7} />
+      <Line x1={12} y1={86} x2={128} y2={86} stroke="#C8DDD0" strokeWidth={1} opacity={0.6} />
 
       {/* Ground */}
       <Path
-        d="M 12 84 Q 70 78 128 84 L 128 132 L 12 132 Z"
+        d="M 12 86 Q 70 80 128 86 L 128 134 L 12 134 Z"
         fill="#C8E0CE"
-        fillOpacity={0.25}
+        fillOpacity={0.20}
       />
 
-      {/* Light burst (golden radial) */}
-      <Ellipse cx={70} cy={84} rx={36} ry={18} fill="url(#gbG)" fillOpacity={0.7} />
-      <Ellipse cx={70} cy={84} rx={14} ry={7} fill="#F5D77A" fillOpacity={0.6} />
+      {/* Outer flame glow halo */}
+      <Ellipse cx={70} cy={72} rx={22} ry={26} fill="url(#flameGlowG2)" fillOpacity={0.55} />
 
-      {/* Rays */}
-      <G opacity={0.3} stroke="#E8B84B" strokeWidth={1} strokeLinecap="round">
-        <Line x1={70} y1={84} x2={70} y2={48} />
-        <Line x1={70} y1={84} x2={88} y2={52} />
-        <Line x1={70} y1={84} x2={52} y2={52} />
-        <Line x1={70} y1={84} x2={104} y2={62} />
-        <Line x1={70} y1={84} x2={36} y2={62} />
-      </G>
-
-      {/* Path (road) fill */}
+      {/* PATH fill (between edges) */}
       <Path
-        d="M 16 134 C 28 118 44 102 70 84 C 96 102 112 118 124 134 Z"
+        d="M 14 136 C 26 122 42 106 69 86 C 96 106 112 122 124 136 Z"
         fill="#5A8F6F"
-        fillOpacity={0.12}
+        fillOpacity={0.11}
       />
 
-      {/* Left edge */}
+      {/* Left path edge — asymmetric start (x=14) */}
       <Path
-        d="M 16 134 C 28 118 44 102 70 84"
+        d="M 14 136 C 26 122 42 106 69 86"
         fill="none"
-        stroke="url(#pgG)"
+        stroke="url(#pgG2)"
         strokeWidth={5}
         strokeLinecap="round"
       />
 
-      {/* Right edge */}
+      {/* Right path edge — slight asymmetry (x=124, converges at x=71) */}
       <Path
-        d="M 124 134 C 112 118 96 102 70 84"
+        d="M 124 136 C 112 122 96 106 71 86"
         fill="none"
-        stroke="url(#pgG)"
+        stroke="url(#pgG2)"
         strokeWidth={5}
         strokeLinecap="round"
       />
 
-      {/* Core light */}
-      <Circle cx={70} cy={84} r={7} fill="#F5D77A" fillOpacity={0.7} />
-      <Circle cx={70} cy={84} r={4} fill="#F5D77A" />
-      <Circle cx={70} cy={84} r={2} fill="#FFFBE0" />
-      <Circle cx={68} cy={82} r={1} fill="#FFFFFF" fillOpacity={0.9} />
+      {/* FLAME — outer shape */}
+      <Path
+        d="M 70 86
+           C 59 80 53 68 54 57
+           C 55 46 61 39 65 31
+           C 67 26 69 21 70 17
+           C 71 21 73 26 75 31
+           C 79 39 84 47 84 58
+           C 84 69 78 80 70 86 Z"
+        fill="url(#flameG2)"
+        fillOpacity={0.72}
+      />
+
+      {/* FLAME — inner bright core */}
+      <Path
+        d="M 70 84
+           C 63 78 59 68 60 58
+           C 61 49 65 43 68 36
+           C 69 33 70 30 70 28
+           C 71 30 72 33 73 36
+           C 76 43 79 49 79 58
+           C 79 67 76 77 70 84 Z"
+        fill="url(#flameCoreG2)"
+        fillOpacity={0.92}
+      />
+
+      {/* NEGATIVE-SPACE CROSS — vertical sliver */}
+      <Rect
+        x={69.5} y={32} width={1.5} height={36}
+        rx={0.75}
+        fill="#FFFBE8"
+        fillOpacity={0.60}
+      />
+      {/* NEGATIVE-SPACE CROSS — horizontal sliver */}
+      <Rect
+        x={62} y={52} width={16} height={1.8}
+        rx={0.9}
+        fill="#FFFBE8"
+        fillOpacity={0.55}
+      />
+
+      {/* Flame base glow */}
+      <Ellipse cx={70} cy={86} rx={8} ry={3} fill="#F5D77A" fillOpacity={0.88} />
+
+      {/* Flame tip sparkle */}
+      <Circle cx={70} cy={20} r={1.8} fill="#FFFFFF" fillOpacity={0.85} />
     </Svg>
   );
 }
@@ -129,58 +172,91 @@ function LuzDiariaIconWhite({ size = 140 }: { size?: number }) {
   return (
     <Svg width={size} height={size} viewBox="0 0 140 140">
       <Defs>
-        <RadialGradient id="wgG" cx="50%" cy="50%" rx="50%" ry="50%">
+        <RadialGradient id="wFlameGlow" cx="50%" cy="70%" rx="50%" ry="50%">
           <Stop offset="0" stopColor="#FFFFFF" stopOpacity={1} />
           <Stop offset="1" stopColor="#FFFFFF" stopOpacity={0} />
         </RadialGradient>
       </Defs>
 
       {/* Horizon */}
-      <Line x1={12} y1={84} x2={128} y2={84} stroke="#FFFFFF" strokeWidth={1} opacity={0.45} />
+      <Line x1={12} y1={86} x2={128} y2={86} stroke="#FFFFFF" strokeWidth={1} opacity={0.38} />
 
-      {/* Light halo */}
-      <Ellipse cx={70} cy={84} rx={34} ry={17} fill="url(#wgG)" fillOpacity={0.55} />
+      {/* Flame outer glow */}
+      <Ellipse cx={70} cy={70} rx={20} ry={24} fill="url(#wFlameGlow)" fillOpacity={0.28} />
 
-      {/* Rays */}
-      <G opacity={0.45} stroke="#FFFFFF" strokeWidth={1} strokeLinecap="round">
-        <Line x1={70} y1={84} x2={70} y2={50} />
-        <Line x1={70} y1={84} x2={88} y2={54} />
-        <Line x1={70} y1={84} x2={52} y2={54} />
-        <Line x1={70} y1={84} x2={104} y2={64} />
-        <Line x1={70} y1={84} x2={36} y2={64} />
-      </G>
-
-      {/* Path fill */}
+      {/* PATH fill */}
       <Path
-        d="M 16 134 C 28 118 44 102 70 84 C 96 102 112 118 124 134 Z"
+        d="M 14 136 C 26 122 42 106 69 86 C 96 106 112 122 124 136 Z"
         fill="#FFFFFF"
-        fillOpacity={0.1}
+        fillOpacity={0.10}
       />
 
-      {/* Left edge */}
+      {/* Left path edge */}
       <Path
-        d="M 16 134 C 28 118 44 102 70 84"
+        d="M 14 136 C 26 122 42 106 69 86"
         fill="none"
         stroke="#FFFFFF"
         strokeWidth={5}
         strokeLinecap="round"
-        strokeOpacity={0.95}
+        strokeOpacity={0.92}
       />
 
-      {/* Right edge */}
+      {/* Right path edge */}
       <Path
-        d="M 124 134 C 112 118 96 102 70 84"
+        d="M 124 136 C 112 122 96 106 71 86"
         fill="none"
         stroke="#FFFFFF"
         strokeWidth={5}
         strokeLinecap="round"
-        strokeOpacity={0.95}
+        strokeOpacity={0.92}
       />
 
-      {/* Core light */}
-      <Circle cx={70} cy={84} r={7} fill="#FFFFFF" fillOpacity={0.5} />
-      <Circle cx={70} cy={84} r={4} fill="#FFFFFF" fillOpacity={0.95} />
-      <Circle cx={70} cy={84} r={2} fill="#FFFFFF" />
+      {/* FLAME — outer */}
+      <Path
+        d="M 70 86
+           C 59 80 53 68 54 57
+           C 55 46 61 39 65 31
+           C 67 26 69 21 70 17
+           C 71 21 73 26 75 31
+           C 79 39 84 47 84 58
+           C 84 69 78 80 70 86 Z"
+        fill="#FFFFFF"
+        fillOpacity={0.52}
+      />
+
+      {/* FLAME — inner core */}
+      <Path
+        d="M 70 84
+           C 63 78 59 68 60 58
+           C 61 49 65 43 68 36
+           C 69 33 70 30 70 28
+           C 71 30 72 33 73 36
+           C 76 43 79 49 79 58
+           C 79 67 76 77 70 84 Z"
+        fill="#FFFFFF"
+        fillOpacity={0.92}
+      />
+
+      {/* NEGATIVE-SPACE CROSS — vertical */}
+      <Rect
+        x={69.5} y={32} width={1.5} height={36}
+        rx={0.75}
+        fill="#FFFFFF"
+        fillOpacity={0.22}
+      />
+      {/* NEGATIVE-SPACE CROSS — horizontal */}
+      <Rect
+        x={62} y={52} width={16} height={1.8}
+        rx={0.9}
+        fill="#FFFFFF"
+        fillOpacity={0.20}
+      />
+
+      {/* Flame base */}
+      <Ellipse cx={70} cy={86} rx={8} ry={3} fill="#FFFFFF" fillOpacity={0.75} />
+
+      {/* Flame tip sparkle */}
+      <Circle cx={70} cy={20} r={1.8} fill="#FFFFFF" fillOpacity={0.80} />
     </Svg>
   );
 }
@@ -392,7 +468,7 @@ export default function LogoPreviewScreen() {
           <Text style={{ fontSize: 18, fontWeight: '700', color: '#1C2B22', letterSpacing: -0.4 }}>
             Identidad Visual
           </Text>
-          <Text style={{ fontSize: 12, color: '#7BAE8A', marginTop: 1 }}>Luz Diaria</Text>
+          <Text style={{ fontSize: 12, color: '#7BAE8A', marginTop: 1 }}>Luz Diaria · v2</Text>
         </View>
         <TouchableOpacity
           onPress={() => router.back()}

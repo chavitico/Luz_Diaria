@@ -2,34 +2,49 @@
 <!--
   Luz Diaria — App Icon (solo isotipo)
   1024×1024 — apto para App Store icon
+  v2: llama espiritual + sendero asimétrico + cruz por espacio negativo
 -->
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- Background gradient — amanecer suave -->
     <linearGradient id="bgMain" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#E8F5EC"/>
-      <stop offset="55%" stop-color="#F2EFE6"/>
+      <stop offset="50%" stop-color="#F2EFE6"/>
       <stop offset="100%" stop-color="#EDE3CC"/>
     </linearGradient>
 
-    <!-- Sky layer -->
+    <!-- Sky atmosphere -->
     <linearGradient id="skyLayer" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#D6EDE0" stop-opacity="0.7"/>
+      <stop offset="0%" stop-color="#D6EDE0" stop-opacity="0.6"/>
       <stop offset="100%" stop-color="#F2EFE6" stop-opacity="0"/>
     </linearGradient>
 
-    <!-- Golden light burst radial -->
-    <radialGradient id="goldenBurst" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FFF4C2" stop-opacity="1"/>
-      <stop offset="25%" stop-color="#F5D77A" stop-opacity="1"/>
-      <stop offset="60%" stop-color="#E8B84B" stop-opacity="0.6"/>
+    <!-- Flame golden gradient (base warm, tip bright) -->
+    <linearGradient id="flameGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#E8A020" stop-opacity="1"/>
+      <stop offset="35%" stop-color="#F5C842" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#FFF0A0" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.7"/>
+    </linearGradient>
+
+    <!-- Flame inner core — brighter center -->
+    <linearGradient id="flameCoreGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FFD84A" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#FFFBE0" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Outer golden glow radial -->
+    <radialGradient id="flameGlow" cx="50%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#F5D77A" stop-opacity="0.9"/>
+      <stop offset="45%" stop-color="#E8B84B" stop-opacity="0.45"/>
       <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
     </radialGradient>
 
-    <!-- Path gradient -->
+    <!-- Path gradient green -->
     <linearGradient id="pathGrad" x1="0%" y1="100%" x2="0%" y2="0%">
       <stop offset="0%" stop-color="#4A7D5E"/>
-      <stop offset="100%" stop-color="#6EA87E"/>
+      <stop offset="100%" stop-color="#7BAE8A"/>
     </linearGradient>
 
     <!-- Ground gradient -->
@@ -38,27 +53,27 @@
       <stop offset="100%" stop-color="#B8D4BD"/>
     </linearGradient>
 
-    <!-- Soft glow filter for the core light -->
-    <filter id="coreGlow" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="22" result="blur"/>
+    <!-- Core glow filter -->
+    <filter id="coreGlow" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="28" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Ray glow filter -->
-    <filter id="rayGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
+    <!-- Flame glow filter (softer) -->
+    <filter id="flameGlowFilter" x="-60%" y="-40%" width="220%" height="200%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
 
-    <!-- Path edge glow -->
+    <!-- Path glow filter -->
     <filter id="pathGlow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -68,82 +83,150 @@
 
   <!-- ═══════════════ BACKGROUND ═══════════════ -->
   <rect width="1024" height="1024" rx="220" ry="220" fill="url(#bgMain)"/>
-  <!-- Sky atmosphere -->
-  <rect width="1024" height="620" rx="0" fill="url(#skyLayer)"/>
+  <rect width="1024" height="640" rx="0" fill="url(#skyLayer)"/>
 
-  <!-- ═══════════════ HORIZON LINE ═══════════════ -->
-  <!-- Subtle horizon -->
-  <line x1="80" y1="590" x2="944" y2="590" stroke="#C8DDD0" stroke-width="2" opacity="0.8"/>
-
-  <!-- Ground / earth area below horizon -->
+  <!-- ═══════════════ GROUND ═══════════════ -->
+  <!-- Horizon line (very subtle) -->
+  <line x1="80" y1="620" x2="944" y2="620" stroke="#C8DDD0" stroke-width="1.5" opacity="0.6"/>
+  <!-- Ground fill -->
   <path
-    d="M 80 590 Q 240 575 512 590 Q 784 605 944 590 L 944 920 Q 512 900 80 920 Z"
+    d="M 80 620 Q 260 605 512 620 Q 764 635 944 620 L 944 930 Q 512 912 80 930 Z"
     fill="url(#groundGrad)"
-    opacity="0.30"
+    opacity="0.22"
   />
 
-  <!-- ═══════════════ GOLDEN LIGHT (horizon) ═══════════════ -->
-  <!-- Outer halo -->
-  <ellipse cx="512" cy="590" rx="240" ry="120" fill="url(#goldenBurst)" opacity="0.55"/>
-  <!-- Inner halo -->
-  <ellipse cx="512" cy="590" rx="110" ry="55" fill="#F5D77A" opacity="0.55"/>
-
-  <!-- ═══════════════ LIGHT RAYS ═══════════════ -->
-  <g filter="url(#rayGlow)" opacity="0.38">
-    <!-- Center ray up -->
-    <line x1="512" y1="590" x2="512" y2="210" stroke="#F0CC5A" stroke-width="3" stroke-linecap="round"/>
-    <!-- Left rays -->
-    <line x1="512" y1="590" x2="360" y2="240" stroke="#F0CC5A" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="224" y2="310" stroke="#F0CC5A" stroke-width="2" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="140" y2="410" stroke="#F0CC5A" stroke-width="1.5" stroke-linecap="round"/>
-    <!-- Right rays -->
-    <line x1="512" y1="590" x2="664" y2="240" stroke="#F0CC5A" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="800" y2="310" stroke="#F0CC5A" stroke-width="2" stroke-linecap="round"/>
-    <line x1="512" y1="590" x2="884" y2="410" stroke="#F0CC5A" stroke-width="1.5" stroke-linecap="round"/>
-  </g>
+  <!-- ═══════════════ OUTER GLOW around flame ═══════════════ -->
+  <ellipse cx="512" cy="530" rx="210" ry="200" fill="url(#flameGlow)" opacity="0.55"/>
 
   <!-- ═══════════════ PATH / SENDERO ═══════════════ -->
-  <!-- Path fill (between the two curves) -->
+  <!--
+    Path starts clearly at base (bottom edge).
+    Slight asymmetry: left curve starts at ~x=105 (more left),
+    right starts at ~x=890 (slightly less right) giving human feel.
+    Both converge at the flame base ~(512, 620).
+  -->
+
+  <!-- Path fill between edges -->
   <path
-    d="M 110 940
-       C 160 880 280 760 512 590
-       C 744 760 864 880 914 940
+    d="M 105 960
+       C 170 880 300 750 510 620
+       C 720 750 840 875 900 960
        Z"
     fill="#5A8F6F"
-    opacity="0.13"
+    opacity="0.11"
   />
 
-  <!-- Left path border -->
+  <!-- Left path edge — starts lower-left, slight inward curve -->
   <path
-    d="M 110 940
-       C 160 880 280 760 512 590"
+    d="M 105 960
+       C 170 880 300 750 510 620"
     fill="none"
     stroke="url(#pathGrad)"
-    stroke-width="28"
+    stroke-width="30"
     stroke-linecap="round"
     filter="url(#pathGlow)"
-    opacity="0.9"
+    opacity="0.92"
   />
 
-  <!-- Right path border -->
+  <!-- Right path edge — starts lower-right, slightly different rhythm -->
   <path
-    d="M 914 940
-       C 864 880 744 760 512 590"
+    d="M 900 960
+       C 840 875 720 750 514 620"
     fill="none"
     stroke="url(#pathGrad)"
-    stroke-width="28"
+    stroke-width="30"
     stroke-linecap="round"
     filter="url(#pathGlow)"
-    opacity="0.9"
+    opacity="0.92"
   />
 
-  <!-- ═══════════════ LIGHT CORE (punto de luz) ═══════════════ -->
-  <!-- Outer glow circle -->
-  <circle cx="512" cy="590" r="58" fill="#F5D77A" opacity="0.45" filter="url(#coreGlow)"/>
-  <!-- Mid circle -->
-  <circle cx="512" cy="590" r="26" fill="#F5D77A" opacity="0.95"/>
-  <!-- Inner bright dot -->
-  <circle cx="512" cy="590" r="11" fill="#FFFBE0"/>
-  <!-- Specular highlight -->
-  <circle cx="507" cy="584" r="5" fill="#FFFFFF" opacity="0.85"/>
+  <!-- ═══════════════ FLAME SHAPE ═══════════════ -->
+  <!--
+    Flame: vertical, elongated teardrop / candle flame form.
+    Base at ~y=620, tip reaches ~y=260.
+    Width ~90 at base, tapers to a fine point.
+    Slight rightward lean for organic feel.
+
+    Negative-space cross:
+    Achieved by two thin semi-transparent rectangles crossing
+    near the upper-middle of the flame (not at tip, not at base).
+    They are lighter than the flame fill, creating a suggestion of a cross
+    WITHOUT being an explicit cross symbol.
+  -->
+
+  <!-- Outer flame (ambient glow layer) -->
+  <path
+    d="M 512 620
+       C 465 590 436 535 440 480
+       C 444 425 468 388 488 340
+       C 498 316 505 290 508 262
+       C 510 248 514 238 516 260
+       C 520 292 527 320 540 348
+       C 558 388 576 428 578 476
+       C 580 528 554 590 512 620 Z"
+    fill="url(#flameGrad)"
+    opacity="0.35"
+    filter="url(#flameGlowFilter)"
+  />
+
+  <!-- Mid flame -->
+  <path
+    d="M 512 618
+       C 474 592 452 548 455 500
+       C 458 452 476 415 494 372
+       C 502 351 508 328 510 305
+       C 512 330 518 353 528 375
+       C 546 417 562 454 564 502
+       C 566 550 546 592 512 618 Z"
+    fill="url(#flameGrad)"
+    opacity="0.75"
+  />
+
+  <!-- Inner bright flame core -->
+  <path
+    d="M 512 614
+       C 487 592 472 556 474 518
+       C 476 480 490 450 500 420
+       C 506 404 510 386 511 368
+       C 513 388 518 406 526 422
+       C 537 450 548 480 548 518
+       C 548 556 534 592 512 614 Z"
+    fill="url(#flameCoreGrad)"
+    opacity="0.92"
+  />
+
+  <!-- ═══════════════ NEGATIVE-SPACE CROSS (subtle) ═══════════════ -->
+  <!--
+    Not a literal cross. Two thin, semi-transparent white/light shapes
+    that interrupt the flame at the vertical and horizontal axis
+    of the upper-middle section (~y=430 to 490, x=498 to 526).
+    This creates an implied cross form readable only at second glance.
+  -->
+
+  <!-- Vertical gap (vertical bar of the "cross" — a sliver of lighter color through the flame center) -->
+  <rect
+    x="509" y="350" width="6" height="160"
+    rx="3" ry="3"
+    fill="#FFFBE8"
+    opacity="0.55"
+  />
+
+  <!-- Horizontal gap (horizontal bar of the "cross" — wider, shorter) -->
+  <rect
+    x="482" y="438" width="60" height="7"
+    rx="3.5" ry="3.5"
+    fill="#FFFBE8"
+    opacity="0.50"
+  />
+
+  <!-- ═══════════════ FLAME BASE GLOW ═══════════════ -->
+  <!-- Small warm glow where flame meets path/ground -->
+  <ellipse cx="512" cy="618" rx="64" ry="22" fill="#F5D77A" opacity="0.50" filter="url(#coreGlow)"/>
+  <ellipse cx="512" cy="620" rx="28" ry="9" fill="#F5D77A" opacity="0.90"/>
+
+  <!-- ═══════════════ FLAME TIP SPARKLE ═══════════════ -->
+  <!-- Tiny bright dot at flame tip -->
+  <circle cx="512" cy="292" r="6" fill="#FFFBE0" opacity="0.88"/>
+  <circle cx="511" cy="289" r="3" fill="#FFFFFF" opacity="0.80"/>
+
 </svg>
