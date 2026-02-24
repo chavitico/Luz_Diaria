@@ -50,7 +50,7 @@ import {
   X,
   Download,
 } from 'lucide-react-native';
-import { ShareOptionsSheet, type ShareOption } from '@/components/ShareOptionsSheet';
+import { ShareSheet } from '@/components/ShareSheet';
 import { BibleReferenceText } from '@/components/BibleReferenceText';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import { markDevotionalCompletedToday } from '@/lib/notifications';
@@ -1538,8 +1538,8 @@ export default function HomeScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   }, [devotional]);
 
-  // Handle share completion (called from ShareOptionsSheet)
-  const handleShareComplete = useCallback(async (option: ShareOption) => {
+  // Handle share completion
+  const handleShareComplete = useCallback(async () => {
     if (!user) return;
 
     // Check if share limit reached
@@ -2101,21 +2101,13 @@ export default function HomeScreen() {
         </View>
       </Animated.ScrollView>
 
-      {/* Share Options Sheet */}
-      <ShareOptionsSheet
+      {/* Share Sheet */}
+      <ShareSheet
         visible={showShareModal}
         onClose={() => setShowShareModal(false)}
         devotional={devotional}
         language={language}
         colors={colors}
-        translations={{
-          bible_verse: t.bible_verse,
-          reflection: t.reflection,
-          story: t.story,
-          biblical_character: t.biblical_character,
-          application: t.application,
-          prayer: t.prayer,
-        }}
         onShareComplete={handleShareComplete}
       />
     </View>
