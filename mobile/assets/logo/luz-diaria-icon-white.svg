@@ -1,143 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Luz Diaria — White Icon (para usar sobre imágenes/fondos oscuros)
-  1024×1024 — v2: llama espiritual + sendero asimétrico + cruz negativa
+  Luz Diaria — White Icon — v3
+  1024×1024 — Camino + libro abierto + llama (white, transparent bg)
 -->
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="flameWhiteGlow" cx="50%" cy="70%" r="50%">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+    <radialGradient id="wGlow" cx="50%" cy="55%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.5"/>
       <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="flameWhiteGrad" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.85"/>
-      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.6"/>
-    </linearGradient>
-    <filter id="glow" x="-80%" y="-60%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="22" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="pathGlowW" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
 
-  <!-- No background (transparent for overlay use) -->
-
-  <!-- Subtle horizon line -->
-  <line x1="80" y1="620" x2="944" y2="620" stroke="#FFFFFF" stroke-width="1.5" opacity="0.35"/>
-
-  <!-- Outer flame glow halo -->
-  <ellipse cx="512" cy="520" rx="200" ry="190" fill="url(#flameWhiteGlow)" opacity="0.30"/>
-
-  <!-- ═══════════════ PATH / SENDERO ═══════════════ -->
-  <!-- Path fill -->
+  <!-- ROAD -->
   <path
-    d="M 105 960
-       C 170 880 300 750 510 620
-       C 720 750 840 875 900 960
-       Z"
-    fill="#FFFFFF"
-    opacity="0.10"
+    d="M 366 1008 C 366 950 394 878 424 806 C 446 748 468 710 482 680
+       L 542 680 C 556 710 578 748 600 806 C 630 878 658 950 658 1008 Z"
+    fill="#FFFFFF" opacity="0.78"
   />
-
-  <!-- Left path edge -->
   <path
-    d="M 105 960
-       C 170 880 300 750 510 620"
-    fill="none"
-    stroke="#FFFFFF"
-    stroke-width="30"
-    stroke-linecap="round"
-    filter="url(#pathGlowW)"
-    opacity="0.90"
+    d="M 482 680 C 484 628 492 570 499 526 L 525 526 C 532 570 540 628 542 680 Z"
+    fill="#FFFFFF" opacity="0.55"
   />
 
-  <!-- Right path edge -->
+  <!-- BOOK — Left cover -->
   <path
-    d="M 900 960
-       C 840 875 720 750 514 620"
-    fill="none"
-    stroke="#FFFFFF"
-    stroke-width="30"
-    stroke-linecap="round"
-    filter="url(#pathGlowW)"
-    opacity="0.90"
+    d="M 512 680 C 454 665 366 658 264 672 C 220 678 192 694 176 710
+       C 162 724 162 744 176 758 C 192 772 220 786 264 792
+       C 366 806 454 800 512 785 Z"
+    fill="#FFFFFF" opacity="0.60"
   />
-
-  <!-- ═══════════════ FLAME SHAPE ═══════════════ -->
-
-  <!-- Outer flame glow layer -->
+  <!-- BOOK — Right cover -->
   <path
-    d="M 512 620
-       C 465 590 436 535 440 480
-       C 444 425 468 388 488 340
-       C 498 316 505 290 508 262
-       C 510 248 514 238 516 260
-       C 520 292 527 320 540 348
-       C 558 388 576 428 578 476
-       C 580 528 554 590 512 620 Z"
-    fill="url(#flameWhiteGrad)"
-    opacity="0.28"
-    filter="url(#glow)"
+    d="M 512 680 C 570 665 658 658 760 672 C 804 678 832 694 848 710
+       C 862 724 862 744 848 758 C 832 772 804 786 760 792
+       C 658 806 570 800 512 785 Z"
+    fill="#FFFFFF" opacity="0.60"
   />
-
-  <!-- Mid flame -->
+  <!-- Left pages (brighter white) -->
   <path
-    d="M 512 618
-       C 474 592 452 548 455 500
-       C 458 452 476 415 494 372
-       C 502 351 508 328 510 305
-       C 512 330 518 353 528 375
-       C 546 417 562 454 564 502
-       C 566 550 546 592 512 618 Z"
-    fill="#FFFFFF"
-    opacity="0.68"
+    d="M 512 685 C 460 672 378 670 278 684 C 234 690 206 706 200 720
+       C 194 734 200 750 212 762 C 226 772 252 780 306 786
+       C 388 796 460 796 512 781 Z"
+    fill="#FFFFFF" opacity="0.85"
   />
-
-  <!-- Inner bright flame core -->
+  <!-- Right pages -->
   <path
-    d="M 512 614
-       C 487 592 472 556 474 518
-       C 476 480 490 450 500 420
-       C 506 404 510 386 511 368
-       C 513 388 518 406 526 422
-       C 537 450 548 480 548 518
-       C 548 556 534 592 512 614 Z"
-    fill="#FFFFFF"
-    opacity="0.94"
+    d="M 512 685 C 564 672 646 670 746 684 C 790 690 818 706 824 720
+       C 830 734 824 750 812 762 C 798 772 772 780 718 786
+       C 636 796 564 796 512 781 Z"
+    fill="#FFFFFF" opacity="0.85"
   />
 
-  <!-- ═══════════════ NEGATIVE-SPACE CROSS (subtle) ═══════════════ -->
-  <!-- Vertical bar — slightly darker/transparent gap in flame -->
-  <rect
-    x="509" y="350" width="6" height="160"
-    rx="3" ry="3"
-    fill="#FFFFFF"
-    opacity="0.22"
+  <!-- Glow -->
+  <ellipse cx="512" cy="380" rx="278" ry="308" fill="url(#wGlow)"/>
+
+  <!-- FLAME — outer -->
+  <path
+    d="M 512 526 C 454 496 410 438 418 366 C 424 308 462 264 482 214
+       C 494 184 504 156 508 132 C 510 114 514 100 516 124
+       C 520 158 530 188 550 214 C 566 264 606 308 612 366
+       C 618 438 576 496 512 526 Z"
+    fill="#FFFFFF" opacity="0.52"
   />
-  <!-- Horizontal bar -->
-  <rect
-    x="482" y="438" width="60" height="7"
-    rx="3.5" ry="3.5"
-    fill="#FFFFFF"
-    opacity="0.20"
+  <!-- FLAME — inner core -->
+  <path
+    d="M 512 518 C 468 490 438 434 444 368 C 450 308 476 270 492 230
+       C 500 210 508 190 510 174 C 512 190 520 210 528 230
+       C 544 270 570 308 576 368 C 582 434 554 490 512 518 Z"
+    fill="#FFFFFF" opacity="0.92"
   />
 
-  <!-- ═══════════════ FLAME BASE GLOW ═══════════════ -->
-  <ellipse cx="512" cy="618" rx="60" ry="20" fill="#FFFFFF" opacity="0.40" filter="url(#glow)"/>
-  <ellipse cx="512" cy="620" rx="26" ry="8" fill="#FFFFFF" opacity="0.85"/>
+  <!-- Cross negative space -->
+  <rect x="508" y="186" width="8" height="234" rx="4" fill="#FFFFFF" opacity="0.22"/>
+  <rect x="462" y="336" width="100" height="10" rx="5" fill="#FFFFFF" opacity="0.20"/>
 
-  <!-- Flame tip sparkle -->
-  <circle cx="512" cy="292" r="5" fill="#FFFFFF" opacity="0.80"/>
-  <circle cx="511" cy="289" r="2.5" fill="#FFFFFF" opacity="0.70"/>
+  <!-- Flame base glow -->
+  <ellipse cx="512" cy="526" rx="52" ry="18" fill="#FFFFFF" opacity="0.72"/>
+  <circle cx="512" cy="140" r="10" fill="#FFFFFF" opacity="0.82"/>
 
 </svg>

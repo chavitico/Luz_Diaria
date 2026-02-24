@@ -1,232 +1,215 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Luz Diaria — App Icon (solo isotipo)
-  1024×1024 — apto para App Store icon
-  v2: llama espiritual + sendero asimétrico + cruz por espacio negativo
+  Luz Diaria — App Icon (solo isotipo) — v3
+  1024×1024 — Camino + libro abierto + llama con cruz sutil
 -->
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Background gradient — amanecer suave -->
-    <linearGradient id="bgMain" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#E8F5EC"/>
-      <stop offset="50%" stop-color="#F2EFE6"/>
-      <stop offset="100%" stop-color="#EDE3CC"/>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F0F7F2"/>
+      <stop offset="100%" stop-color="#F7F4EE"/>
     </linearGradient>
-
-    <!-- Sky atmosphere -->
-    <linearGradient id="skyLayer" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#D6EDE0" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#F2EFE6" stop-opacity="0"/>
+    <linearGradient id="road" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#4A7D5E" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#5A9070" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#7BAE8A" stop-opacity="0.6"/>
     </linearGradient>
-
-    <!-- Flame golden gradient (base warm, tip bright) -->
-    <linearGradient id="flameGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+    <linearGradient id="book" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4A7D5E"/>
+      <stop offset="100%" stop-color="#2D5440"/>
+    </linearGradient>
+    <linearGradient id="pages" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDF8EE"/>
+      <stop offset="100%" stop-color="#F0EAD8"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0%" y1="100%" x2="0%" y2="0%">
       <stop offset="0%" stop-color="#E8A020" stop-opacity="1"/>
-      <stop offset="35%" stop-color="#F5C842" stop-opacity="1"/>
-      <stop offset="70%" stop-color="#FFF0A0" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#F5C842" stop-opacity="1"/>
+      <stop offset="80%" stop-color="#FFF0A0" stop-opacity="0.95"/>
       <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.7"/>
     </linearGradient>
-
-    <!-- Flame inner core — brighter center -->
-    <linearGradient id="flameCoreGrad" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#FFD84A" stop-opacity="1"/>
-      <stop offset="60%" stop-color="#FFFBE0" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+    <linearGradient id="flameCore" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FFD84A"/>
+      <stop offset="60%" stop-color="#FFFBE0"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.85"/>
     </linearGradient>
-
-    <!-- Outer golden glow radial -->
-    <radialGradient id="flameGlow" cx="50%" cy="70%" r="50%">
+    <radialGradient id="glow" cx="50%" cy="80%" r="50%">
       <stop offset="0%" stop-color="#F5D77A" stop-opacity="0.9"/>
-      <stop offset="45%" stop-color="#E8B84B" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#F5C842" stop-opacity="0.3"/>
       <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
     </radialGradient>
-
-    <!-- Path gradient green -->
-    <linearGradient id="pathGrad" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#4A7D5E"/>
-      <stop offset="100%" stop-color="#7BAE8A"/>
-    </linearGradient>
-
-    <!-- Ground gradient -->
-    <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#C8E0CE"/>
-      <stop offset="100%" stop-color="#B8D4BD"/>
-    </linearGradient>
-
-    <!-- Core glow filter -->
-    <filter id="coreGlow" x="-120%" y="-120%" width="340%" height="340%">
-      <feGaussianBlur stdDeviation="28" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Flame glow filter (softer) -->
-    <filter id="flameGlowFilter" x="-60%" y="-40%" width="220%" height="200%">
-      <feGaussianBlur stdDeviation="14" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Path glow filter -->
-    <filter id="pathGlow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
+    <radialGradient id="glowBig" cx="50%" cy="55%" r="50%">
+      <stop offset="0%" stop-color="#FFF4C2" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FFF4C2" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
-  <!-- ═══════════════ BACKGROUND ═══════════════ -->
-  <rect width="1024" height="1024" rx="220" ry="220" fill="url(#bgMain)"/>
-  <rect width="1024" height="640" rx="0" fill="url(#skyLayer)"/>
+  <!-- BACKGROUND -->
+  <rect width="1024" height="1024" rx="205" ry="205" fill="url(#bg)"/>
 
-  <!-- ═══════════════ GROUND ═══════════════ -->
-  <!-- Horizon line (very subtle) -->
-  <line x1="80" y1="620" x2="944" y2="620" stroke="#C8DDD0" stroke-width="1.5" opacity="0.6"/>
-  <!-- Ground fill -->
+  <!-- BIG GLOW behind flame -->
+  <ellipse cx="512" cy="380" rx="278" ry="308" fill="url(#glowBig)"/>
+
+  <!-- ═══ ROAD / CAMINO ═══
+       Starts wide at bottom, narrows toward book spine.
+       Perspective convergence.
+  ═══ -->
   <path
-    d="M 80 620 Q 260 605 512 620 Q 764 635 944 620 L 944 930 Q 512 912 80 930 Z"
-    fill="url(#groundGrad)"
-    opacity="0.22"
-  />
-
-  <!-- ═══════════════ OUTER GLOW around flame ═══════════════ -->
-  <ellipse cx="512" cy="530" rx="210" ry="200" fill="url(#flameGlow)" opacity="0.55"/>
-
-  <!-- ═══════════════ PATH / SENDERO ═══════════════ -->
-  <!--
-    Path starts clearly at base (bottom edge).
-    Slight asymmetry: left curve starts at ~x=105 (more left),
-    right starts at ~x=890 (slightly less right) giving human feel.
-    Both converge at the flame base ~(512, 620).
-  -->
-
-  <!-- Path fill between edges -->
-  <path
-    d="M 105 960
-       C 170 880 300 750 510 620
-       C 720 750 840 875 900 960
+    d="M 366 1008
+       C 366 950 394 878 424 806
+       C 446 748 468 710 482 680
+       L 542 680
+       C 556 710 578 748 600 806
+       C 630 878 658 950 658 1008
        Z"
-    fill="#5A8F6F"
-    opacity="0.11"
+    fill="url(#road)"
+    opacity="0.88"
   />
-
-  <!-- Left path edge — starts lower-left, slight inward curve -->
+  <!-- Center highlight strip -->
   <path
-    d="M 105 960
-       C 170 880 300 750 510 620"
-    fill="none"
-    stroke="url(#pathGrad)"
-    stroke-width="30"
-    stroke-linecap="round"
-    filter="url(#pathGlow)"
-    opacity="0.92"
+    d="M 497 1008 C 497 950 504 862 512 768 C 520 862 527 950 527 1008 Z"
+    fill="#FFFFFF"
+    opacity="0.12"
   />
-
-  <!-- Right path edge — starts lower-right, slightly different rhythm -->
+  <!-- Upper road segment — book to flame base -->
   <path
-    d="M 900 960
-       C 840 875 720 750 514 620"
-    fill="none"
-    stroke="url(#pathGrad)"
-    stroke-width="30"
-    stroke-linecap="round"
-    filter="url(#pathGlow)"
-    opacity="0.92"
+    d="M 482 680 C 484 628 492 570 499 526 L 525 526 C 532 570 540 628 542 680 Z"
+    fill="url(#road)"
+    opacity="0.62"
   />
 
-  <!-- ═══════════════ FLAME SHAPE ═══════════════ -->
-  <!--
-    Flame: vertical, elongated teardrop / candle flame form.
-    Base at ~y=620, tip reaches ~y=260.
-    Width ~90 at base, tapers to a fine point.
-    Slight rightward lean for organic feel.
+  <!-- ═══ OPEN BOOK ═══
+       Center at x=512, y≈630-806.
+       Wings open left and right.
+  ═══ -->
 
-    Negative-space cross:
-    Achieved by two thin semi-transparent rectangles crossing
-    near the upper-middle of the flame (not at tip, not at base).
-    They are lighter than the flame fill, creating a suggestion of a cross
-    WITHOUT being an explicit cross symbol.
-  -->
-
-  <!-- Outer flame (ambient glow layer) -->
+  <!-- Left cover (green) -->
   <path
-    d="M 512 620
-       C 465 590 436 535 440 480
-       C 444 425 468 388 488 340
-       C 498 316 505 290 508 262
-       C 510 248 514 238 516 260
-       C 520 292 527 320 540 348
-       C 558 388 576 428 578 476
-       C 580 528 554 590 512 620 Z"
-    fill="url(#flameGrad)"
-    opacity="0.35"
-    filter="url(#flameGlowFilter)"
+    d="M 512 680
+       C 454 665 366 658 264 672
+       C 220 678 192 694 176 710
+       C 162 724 162 744 176 758
+       C 192 772 220 786 264 792
+       C 366 806 454 800 512 785
+       Z"
+    fill="url(#book)"
   />
 
-  <!-- Mid flame -->
+  <!-- Right cover (green) -->
   <path
-    d="M 512 618
-       C 474 592 452 548 455 500
-       C 458 452 476 415 494 372
-       C 502 351 508 328 510 305
-       C 512 330 518 353 528 375
-       C 546 417 562 454 564 502
-       C 566 550 546 592 512 618 Z"
-    fill="url(#flameGrad)"
-    opacity="0.75"
+    d="M 512 680
+       C 570 665 658 658 760 672
+       C 804 678 832 694 848 710
+       C 862 724 862 744 848 758
+       C 832 772 804 786 760 792
+       C 658 806 570 800 512 785
+       Z"
+    fill="url(#book)"
   />
 
-  <!-- Inner bright flame core -->
+  <!-- Left pages (cream) -->
   <path
-    d="M 512 614
-       C 487 592 472 556 474 518
-       C 476 480 490 450 500 420
-       C 506 404 510 386 511 368
-       C 513 388 518 406 526 422
-       C 537 450 548 480 548 518
-       C 548 556 534 592 512 614 Z"
-    fill="url(#flameCoreGrad)"
-    opacity="0.92"
+    d="M 512 685
+       C 460 672 378 670 278 684
+       C 234 690 206 706 200 720
+       C 194 734 200 750 212 762
+       C 226 772 252 780 306 786
+       C 388 796 460 796 512 781
+       Z"
+    fill="url(#pages)"
   />
 
-  <!-- ═══════════════ NEGATIVE-SPACE CROSS (subtle) ═══════════════ -->
-  <!--
-    Not a literal cross. Two thin, semi-transparent white/light shapes
-    that interrupt the flame at the vertical and horizontal axis
-    of the upper-middle section (~y=430 to 490, x=498 to 526).
-    This creates an implied cross form readable only at second glance.
-  -->
+  <!-- Right pages (cream) -->
+  <path
+    d="M 512 685
+       C 564 672 646 670 746 684
+       C 790 690 818 706 824 720
+       C 830 734 824 750 812 762
+       C 798 772 772 780 718 786
+       C 636 796 564 796 512 781
+       Z"
+    fill="url(#pages)"
+  />
 
-  <!-- Vertical gap (vertical bar of the "cross" — a sliver of lighter color through the flame center) -->
-  <rect
-    x="509" y="350" width="6" height="160"
-    rx="3" ry="3"
-    fill="#FFFBE8"
+  <!-- Page lines left (subtle) -->
+  <g opacity="0.16" stroke="#4A7D5E" stroke-width="4" stroke-linecap="round">
+    <line x1="278" y1="706" x2="494" y2="700"/>
+    <line x1="258" y1="726" x2="492" y2="720"/>
+    <line x1="256" y1="746" x2="492" y2="740"/>
+    <line x1="260" y1="766" x2="492" y2="760"/>
+    <line x1="266" y1="784" x2="492" y2="778"/>
+  </g>
+
+  <!-- Page lines right (subtle) -->
+  <g opacity="0.16" stroke="#4A7D5E" stroke-width="4" stroke-linecap="round">
+    <line x1="530" y1="700" x2="746" y2="706"/>
+    <line x1="532" y1="720" x2="766" y2="726"/>
+    <line x1="532" y1="740" x2="768" y2="746"/>
+    <line x1="532" y1="760" x2="764" y2="766"/>
+    <line x1="532" y1="778" x2="758" y2="784"/>
+  </g>
+
+  <!-- Book spine -->
+  <path
+    d="M 500 680 C 504 782 506 790 512 790 C 518 790 520 782 524 680 Z"
+    fill="#2D5440"
     opacity="0.55"
   />
 
-  <!-- Horizontal gap (horizontal bar of the "cross" — wider, shorter) -->
-  <rect
-    x="482" y="438" width="60" height="7"
-    rx="3.5" ry="3.5"
-    fill="#FFFBE8"
-    opacity="0.50"
+  <!-- ═══ GOLDEN GLOW ═══ -->
+  <ellipse cx="512" cy="412" rx="146" ry="160" fill="url(#glow)"/>
+
+  <!-- ═══ FLAME ═══
+       Base y=526, tip y=148.
+  ═══ -->
+
+  <!-- Outer flame -->
+  <path
+    d="M 512 526
+       C 454 496 410 438 418 366
+       C 424 308 462 264 482 214
+       C 494 184 504 156 508 132
+       C 510 114 514 100 516 124
+       C 520 158 530 188 550 214
+       C 566 264 606 308 612 366
+       C 618 438 576 496 512 526 Z"
+    fill="url(#flame)"
+    opacity="0.77"
   />
 
-  <!-- ═══════════════ FLAME BASE GLOW ═══════════════ -->
-  <!-- Small warm glow where flame meets path/ground -->
-  <ellipse cx="512" cy="618" rx="64" ry="22" fill="#F5D77A" opacity="0.50" filter="url(#coreGlow)"/>
-  <ellipse cx="512" cy="620" rx="28" ry="9" fill="#F5D77A" opacity="0.90"/>
+  <!-- Inner flame core -->
+  <path
+    d="M 512 518
+       C 468 490 438 434 444 368
+       C 450 308 476 270 492 230
+       C 500 210 508 190 510 174
+       C 512 190 520 210 528 230
+       C 544 270 570 308 576 368
+       C 582 434 554 490 512 518 Z"
+    fill="url(#flameCore)"
+    opacity="0.92"
+  />
 
-  <!-- ═══════════════ FLAME TIP SPARKLE ═══════════════ -->
-  <!-- Tiny bright dot at flame tip -->
-  <circle cx="512" cy="292" r="6" fill="#FFFBE0" opacity="0.88"/>
-  <circle cx="511" cy="289" r="3" fill="#FFFFFF" opacity="0.80"/>
+  <!-- SUBTLE CROSS (negative space) -->
+  <!-- Vertical -->
+  <rect x="508" y="186" width="8" height="234" rx="4" fill="#FFFBE8" opacity="0.52"/>
+  <!-- Horizontal -->
+  <rect x="462" y="336" width="100" height="10" rx="5" fill="#FFFBE8" opacity="0.48"/>
+
+  <!-- Flame base glow -->
+  <ellipse cx="512" cy="526" rx="52" ry="18" fill="#F5D77A" opacity="0.82"/>
+
+  <!-- Light rays around flame tip -->
+  <g opacity="0.32" stroke="#F5D77A" stroke-width="5" stroke-linecap="round">
+    <line x1="512" y1="124" x2="512" y2="96"/>
+    <line x1="440" y1="204" x2="418" y2="183"/>
+    <line x1="584" y1="204" x2="606" y2="183"/>
+    <line x1="410" y1="330" x2="382" y2="320"/>
+    <line x1="614" y1="330" x2="642" y2="320"/>
+  </g>
+
+  <!-- Flame tip sparkle -->
+  <circle cx="512" cy="140" r="10" fill="#FFFFFF" opacity="0.88"/>
+  <circle cx="511" cy="136" r="5" fill="#FFFFFF" opacity="0.75"/>
 
 </svg>
