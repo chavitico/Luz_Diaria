@@ -3,8 +3,10 @@
 // Pages 2+: ONE section per page (prevents any text clipping)
 
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image as RNImage } from 'react-native';
 import { Image } from 'expo-image';
+
+const LOGO_PNG = require('../../assets/logo/luz-diaria-logo.png');
 import { LinearGradient } from 'expo-linear-gradient';
 import { BookOpen, Star, Heart, Check, User } from 'lucide-react-native';
 import { captureRef } from 'react-native-view-shot';
@@ -72,9 +74,17 @@ function PageBackground({ imageUrl }: { imageUrl: string }) {
 function PageFooter({ pageNum, totalPages, appName }: { pageNum: number; totalPages: number; appName: string }) {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-      <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 28, fontWeight: '700', letterSpacing: 2 }}>
-        {appName}
-      </Text>
+      {/* Logo como firma discreta — pequeño, no invasivo */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <RNImage
+          source={LOGO_PNG}
+          style={{ width: 52, height: 52, opacity: 0.88 }}
+          resizeMode="contain"
+        />
+        <Text style={{ color: 'rgba(255,255,255,0.75)', fontSize: 26, fontWeight: '600', letterSpacing: 1.5 }}>
+          {appName}
+        </Text>
+      </View>
       <View style={{ backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 20, paddingHorizontal: 20, paddingVertical: 8 }}>
         <Text style={{ color: '#FFFFFF', fontSize: 26, fontWeight: '700' }}>
           {pageNum}/{totalPages}
