@@ -5,9 +5,9 @@
 //   - All text blocks have explicit numberOfLines + lineHeight
 //   - No adjustsFontSizeToFit (causes unpredictable layout)
 //   - Verse: max 4 lines, ellipsizeMode tail
-//   - Thought: max 6 lines, ellipsizeMode tail (full paragraph)
+//   - Thought: max 5 lines, ellipsizeMode tail (full paragraph, ~3–4 rendered lines)
 //   - Reference: 1 line
-//   - Branding: footer, always visible
+//   - Branding: footer, integrated close to reflection
 
 import React, { forwardRef } from 'react';
 import { View, Text } from 'react-native';
@@ -62,17 +62,19 @@ function translateBibleReference(reference: string): string {
   return reference;
 }
 
-// Extract a full paragraph (2–3 sentences, max ~320 chars) from reflection
+// Extract a complete paragraph (3–4 sentences, max ~420 chars) for a mini-meditation feel.
+// Accumulates sentences until the character budget is consumed or 4 sentences are reached.
 function extractThought(reflection: string): string {
   const sentences = reflection.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(Boolean);
   let result = '';
-  for (const sentence of sentences) {
-    const next = result ? result + ' ' + sentence : sentence;
-    if (next.length > 320) break;
+  for (let i = 0; i < sentences.length; i++) {
+    const next = result ? result + ' ' + sentences[i] : sentences[i];
+    if (next.length > 420) break;
     result = next;
-    if (result.length >= 160 && sentences.indexOf(sentence) >= 1) break;
+    // Stop after 4 sentences — enough for 3–4 rendered lines at s(32) font
+    if (i >= 3) break;
   }
-  return result || reflection.slice(0, 320).trim();
+  return result || reflection.slice(0, 420).trim();
 }
 
 interface DevotionalShareCardProps {
@@ -121,119 +123,134 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
           contentFit="cover"
         />
 
-        {/* Gradient overlay — heavier at bottom for text readability */}
+        {/* Gradient overlay — starts earlier so content area is darker and richer */}
         <LinearGradient
           colors={[
-            'rgba(0,0,0,0.15)',
-            'rgba(0,0,0,0.30)',
-            'rgba(0,0,0,0.72)',
-            'rgba(0,0,0,0.92)',
+            'rgba(0,0,0,0.05)',
+            'rgba(0,0,0,0.25)',
+            'rgba(0,0,0,0.68)',
+            'rgba(0,0,0,0.90)',
           ]}
-          locations={[0, 0.35, 0.65, 1]}
+          locations={[0, 0.30, 0.60, 1]}
           style={{ position: 'absolute', width: displayWidth, height: displayHeight }}
         />
 
-        {/* Content container — fixed padding, no flex grow tricks */}
+        {/* Content container — tighter paddingBottom, content closer to edge for integration */}
         <View
           style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
             right: 0,
-            paddingHorizontal: s(72),
-            paddingBottom: s(72),
+            paddingHorizontal: s(68),
+            paddingBottom: s(60),
           }}
         >
-          {/* Verse block — max 4 lines */}
+          {/* Verse block — anchor visual, slightly larger, compact vertical padding */}
           <View
             style={{
               backgroundColor: 'rgba(255,255,255,0.10)',
-              borderRadius: s(20),
+              borderRadius: s(18),
               borderLeftWidth: s(5),
-              borderLeftColor: 'rgba(255,255,255,0.75)',
+              borderLeftColor: 'rgba(255,255,255,0.80)',
               paddingHorizontal: s(44),
-              paddingVertical: s(36),
-              marginBottom: s(28),
+              paddingVertical: s(30),
+              marginBottom: s(20),
             }}
           >
-            {/* Verse text — strictly 4 lines max */}
+            {/* Verse text — 4 lines max, slightly larger as visual anchor */}
             <Text
               numberOfLines={4}
               ellipsizeMode="tail"
               style={{
                 color: '#FFFFFF',
-                fontSize: s(48),
+                fontSize: s(50),
                 fontStyle: 'italic',
-                lineHeight: s(64),
+                lineHeight: s(66),
                 fontWeight: '400',
-                marginBottom: s(20),
-                textShadowColor: 'rgba(0,0,0,0.4)',
+                marginBottom: s(16),
+                textShadowColor: 'rgba(0,0,0,0.5)',
                 textShadowOffset: { width: 0, height: s(2) },
-                textShadowRadius: s(6),
+                textShadowRadius: s(8),
               }}
             >
               "{verse}"
             </Text>
 
-            {/* Reference — always 1 line */}
+            {/* Reference — 1 line */}
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
               style={{
-                color: 'rgba(255,255,255,0.88)',
-                fontSize: s(36),
+                color: 'rgba(255,255,255,0.85)',
+                fontSize: s(34),
                 fontWeight: '600',
-                lineHeight: s(44),
+                lineHeight: s(42),
               }}
             >
               — {bibleRef}
             </Text>
           </View>
 
-          {/* Thought block — max 6 lines (full paragraph) */}
+          {/* Subtle divider between verse and reflection */}
           <View
             style={{
-              backgroundColor: 'rgba(255,255,255,0.08)',
-              borderRadius: s(16),
-              paddingHorizontal: s(36),
-              paddingVertical: s(32),
-              marginBottom: s(40),
+              height: s(1),
+              backgroundColor: 'rgba(255,255,255,0.12)',
+              marginHorizontal: s(8),
+              marginBottom: s(20),
+            }}
+          />
+
+          {/* Thought block — full paragraph, 5 lines max, no background box to feel integrated */}
+          <View
+            style={{
+              paddingHorizontal: s(8),
+              marginBottom: s(28),
             }}
           >
             <Text
               style={{
-                color: 'rgba(255,255,255,0.55)',
-                fontSize: s(24),
+                color: 'rgba(255,255,255,0.50)',
+                fontSize: s(22),
                 fontWeight: '700',
-                lineHeight: s(30),
-                letterSpacing: 1.5,
+                lineHeight: s(28),
+                letterSpacing: 2,
                 textTransform: 'uppercase',
-                marginBottom: s(14),
+                marginBottom: s(12),
               }}
             >
               {language === 'es' ? 'Reflexión' : 'Reflection'}
             </Text>
             <Text
-              numberOfLines={6}
+              numberOfLines={5}
               ellipsizeMode="tail"
               style={{
-                color: 'rgba(255,255,255,0.92)',
-                fontSize: s(33),
+                color: 'rgba(255,255,255,0.90)',
+                fontSize: s(32),
                 fontWeight: '400',
-                lineHeight: s(48),
+                lineHeight: s(46),
               }}
             >
               {thought}
             </Text>
           </View>
 
-          {/* Branding footer — fixed, always visible */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          {/* Footer — separated by another thin rule, feels integrated not floating */}
+          <View
+            style={{
+              height: s(1),
+              backgroundColor: 'rgba(255,255,255,0.10)',
+              marginHorizontal: s(8),
+              marginBottom: s(18),
+            }}
+          />
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: s(8) }}>
             <Text
               numberOfLines={1}
               style={{
-                color: 'rgba(255,255,255,0.85)',
-                fontSize: s(28),
+                color: 'rgba(255,255,255,0.80)',
+                fontSize: s(26),
                 fontWeight: '700',
                 letterSpacing: 1.5,
               }}
@@ -243,8 +260,8 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
             <Text
               numberOfLines={1}
               style={{
-                color: 'rgba(255,255,255,0.45)',
-                fontSize: s(24),
+                color: 'rgba(255,255,255,0.40)',
+                fontSize: s(22),
                 fontStyle: 'italic',
               }}
             >
