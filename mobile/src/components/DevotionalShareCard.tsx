@@ -4,8 +4,8 @@
 //   - Fixed width + height, never auto-sizes
 //   - All text blocks have explicit numberOfLines + lineHeight
 //   - No adjustsFontSizeToFit (causes unpredictable layout)
-//   - Verse: max 4 lines, ellipsizeMode tail
-//   - Thought: max 5 lines, ellipsizeMode tail (full paragraph, ~3–4 rendered lines)
+//   - Verse: max 4 lines, ellipsizeMode tail (verse is always short)
+//   - Thought: NO numberOfLines — text is pre-trimmed to fit exactly, no ellipsis ever
 //   - Reference: 1 line
 //   - Branding: footer, integrated close to reflection
 
@@ -62,19 +62,47 @@ function translateBibleReference(reference: string): string {
   return reference;
 }
 
-// Extract a complete paragraph (3–4 sentences, max ~420 chars) for a mini-meditation feel.
-// Accumulates sentences until the character budget is consumed or 4 sentences are reached.
-function extractThought(reflection: string): string {
+/**
+ * Estimate rendered line count for a text at a given font size inside a container width.
+ * Uses average character width ≈ 0.55 × fontSize for typical Latin text.
+ * Returns estimated number of lines.
+ */
+function estimateLineCount(text: string, fontSize: number, containerWidth: number): number {
+  const avgCharWidth = fontSize * 0.52;
+  const charsPerLine = Math.floor(containerWidth / avgCharWidth);
+  if (charsPerLine <= 0) return text.length;
+  let lines = 0;
+  const paragraphs = text.split('\n');
+  for (const para of paragraphs) {
+    lines += Math.max(1, Math.ceil(para.length / charsPerLine));
+  }
+  return lines;
+}
+
+/**
+ * Build a closed reflection paragraph that fits within maxLines rendered lines.
+ * Adds sentences one by one. Stops before a sentence that would overflow.
+ * NEVER appends "…" — the last included sentence always ends the paragraph cleanly.
+ */
+function buildClosedParagraph(
+  reflection: string,
+  fontSize: number,
+  containerWidth: number,
+  maxLines: number
+): string {
   const sentences = reflection.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(Boolean);
   let result = '';
-  for (let i = 0; i < sentences.length; i++) {
-    const next = result ? result + ' ' + sentences[i] : sentences[i];
-    if (next.length > 420) break;
-    result = next;
-    // Stop after 4 sentences — enough for 3–4 rendered lines at s(32) font
-    if (i >= 3) break;
+  for (const sentence of sentences) {
+    const candidate = result ? result + ' ' + sentence : sentence;
+    const lines = estimateLineCount(candidate, fontSize, containerWidth);
+    if (lines > maxLines) break;
+    result = candidate;
   }
-  return result || reflection.slice(0, 420).trim();
+  // If not even one sentence fits, take the first sentence regardless (short verse refs, etc.)
+  if (!result && sentences.length > 0) {
+    result = sentences[0];
+  }
+  return result || reflection;
 }
 
 interface DevotionalShareCardProps {
@@ -96,13 +124,25 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
         ? devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference)
         : devotional.bibleReference;
     const reflection = language === 'es' ? devotional.reflectionEs : devotional.reflection;
-    const thought = extractThought(reflection);
 
     // All layout values scale proportionally from the canonical CARD_WIDTH
     const scale = displayWidth / CARD_WIDTH;
     const displayHeight = Math.round(CARD_HEIGHT * scale);
-
     const s = (v: number) => Math.max(1, Math.round(v * scale));
+
+    // Reflection text metrics (canonical scale)
+    const reflectionFontSize = s(32);
+    // Inner text width: displayWidth - 2×paddingHorizontal(68) - 2×innerPaddingH(8)
+    const reflectionContainerWidth = displayWidth - s(68) * 2 - s(8) * 2;
+    const MAX_REFLECTION_LINES = 5;
+
+    // Pre-trim to closed paragraph — zero ellipsis, zero overflow
+    const thought = buildClosedParagraph(
+      reflection,
+      reflectionFontSize,
+      reflectionContainerWidth,
+      MAX_REFLECTION_LINES
+    );
 
     return (
       <View
@@ -123,19 +163,19 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
           contentFit="cover"
         />
 
-        {/* Gradient overlay — starts earlier so content area is darker and richer */}
+        {/* Gradient overlay */}
         <LinearGradient
           colors={[
             'rgba(0,0,0,0.05)',
             'rgba(0,0,0,0.25)',
             'rgba(0,0,0,0.68)',
-            'rgba(0,0,0,0.90)',
+            'rgba(0,0,0,0.92)',
           ]}
           locations={[0, 0.30, 0.60, 1]}
           style={{ position: 'absolute', width: displayWidth, height: displayHeight }}
         />
 
-        {/* Content container — tighter paddingBottom, content closer to edge for integration */}
+        {/* Content container */}
         <View
           style={{
             position: 'absolute',
@@ -146,7 +186,7 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
             paddingBottom: s(60),
           }}
         >
-          {/* Verse block — anchor visual, slightly larger, compact vertical padding */}
+          {/* Verse block — anchor visual */}
           <View
             style={{
               backgroundColor: 'rgba(255,255,255,0.10)',
@@ -158,7 +198,7 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
               marginBottom: s(20),
             }}
           >
-            {/* Verse text — 4 lines max, slightly larger as visual anchor */}
+            {/* Verse text — 4 lines max (verses are always short) */}
             <Text
               numberOfLines={4}
               ellipsizeMode="tail"
@@ -192,7 +232,7 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
             </Text>
           </View>
 
-          {/* Subtle divider between verse and reflection */}
+          {/* Divider */}
           <View
             style={{
               height: s(1),
@@ -202,7 +242,7 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
             }}
           />
 
-          {/* Thought block — full paragraph, 5 lines max, no background box to feel integrated */}
+          {/* Reflection block — NO numberOfLines, text is pre-trimmed to never overflow */}
           <View
             style={{
               paddingHorizontal: s(8),
@@ -222,12 +262,11 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
             >
               {language === 'es' ? 'Reflexión' : 'Reflection'}
             </Text>
+            {/* No numberOfLines — the closed paragraph is already the right length */}
             <Text
-              numberOfLines={5}
-              ellipsizeMode="tail"
               style={{
                 color: 'rgba(255,255,255,0.90)',
-                fontSize: s(32),
+                fontSize: reflectionFontSize,
                 fontWeight: '400',
                 lineHeight: s(46),
               }}
@@ -236,7 +275,7 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
             </Text>
           </View>
 
-          {/* Footer — separated by another thin rule, feels integrated not floating */}
+          {/* Footer rule + branding */}
           <View
             style={{
               height: s(1),
