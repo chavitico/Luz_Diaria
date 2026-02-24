@@ -5,7 +5,7 @@
 //   - All text blocks have explicit numberOfLines + lineHeight
 //   - No adjustsFontSizeToFit (causes unpredictable layout)
 //   - Verse: max 4 lines, ellipsizeMode tail
-//   - Thought: max 3 lines, ellipsizeMode tail
+//   - Thought: max 6 lines, ellipsizeMode tail (full paragraph)
 //   - Reference: 1 line
 //   - Branding: footer, always visible
 
@@ -62,10 +62,17 @@ function translateBibleReference(reference: string): string {
   return reference;
 }
 
-// Extract first sentence from reflection for the "thought" block
+// Extract a full paragraph (2–3 sentences, max ~320 chars) from reflection
 function extractThought(reflection: string): string {
-  const firstSentence = reflection.split(/(?<=[.!?])\s/)[0]?.trim() ?? '';
-  return firstSentence;
+  const sentences = reflection.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(Boolean);
+  let result = '';
+  for (const sentence of sentences) {
+    const next = result ? result + ' ' + sentence : sentence;
+    if (next.length > 320) break;
+    result = next;
+    if (result.length >= 160 && sentences.indexOf(sentence) >= 1) break;
+  }
+  return result || reflection.slice(0, 320).trim();
 }
 
 interface DevotionalShareCardProps {
@@ -145,8 +152,8 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
               borderLeftWidth: s(5),
               borderLeftColor: 'rgba(255,255,255,0.75)',
               paddingHorizontal: s(44),
-              paddingVertical: s(40),
-              marginBottom: s(36),
+              paddingVertical: s(36),
+              marginBottom: s(28),
             }}
           >
             {/* Verse text — strictly 4 lines max */}
@@ -183,37 +190,37 @@ export const DevotionalShareCard = forwardRef<View, DevotionalShareCardProps>(
             </Text>
           </View>
 
-          {/* Thought block — max 3 lines */}
+          {/* Thought block — max 6 lines (full paragraph) */}
           <View
             style={{
               backgroundColor: 'rgba(255,255,255,0.08)',
               borderRadius: s(16),
               paddingHorizontal: s(36),
-              paddingVertical: s(28),
+              paddingVertical: s(32),
               marginBottom: s(40),
             }}
           >
             <Text
               style={{
                 color: 'rgba(255,255,255,0.55)',
-                fontSize: s(26),
+                fontSize: s(24),
                 fontWeight: '700',
-                lineHeight: s(32),
+                lineHeight: s(30),
                 letterSpacing: 1.5,
                 textTransform: 'uppercase',
-                marginBottom: s(10),
+                marginBottom: s(14),
               }}
             >
               {language === 'es' ? 'Reflexión' : 'Reflection'}
             </Text>
             <Text
-              numberOfLines={3}
+              numberOfLines={6}
               ellipsizeMode="tail"
               style={{
                 color: 'rgba(255,255,255,0.92)',
-                fontSize: s(36),
+                fontSize: s(33),
                 fontWeight: '400',
-                lineHeight: s(50),
+                lineHeight: s(48),
               }}
             >
               {thought}
