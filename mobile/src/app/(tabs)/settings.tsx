@@ -1028,6 +1028,14 @@ export default function SettingsScreen() {
                   {t.user_id}: {user.id.slice(0, 8)}...
                 </Text>
               </Pressable>
+              <Pressable
+                onPress={() => router.push('/logo-preview')}
+                className="mt-2"
+              >
+                <Text className="text-xs" style={{ color: colors.textMuted + '60' }}>
+                  Identidad visual
+                </Text>
+              </Pressable>
             </View>
           )}
         </View>

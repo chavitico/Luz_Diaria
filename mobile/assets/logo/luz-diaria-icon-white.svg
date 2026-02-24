@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Luz Diaria — White Icon (para usar sobre imágenes/fondos oscuros)
+  1024×1024
+-->
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="whiteGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="rayGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- No background (fully transparent for overlay use) -->
+
+  <!-- Horizon line -->
+  <line x1="80" y1="590" x2="944" y2="590" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+
+  <!-- Light halo at horizon -->
+  <ellipse cx="512" cy="590" rx="200" ry="100" fill="url(#whiteGlow)" opacity="0.5"/>
+
+  <!-- Light rays -->
+  <g filter="url(#rayGlow)" opacity="0.5">
+    <line x1="512" y1="590" x2="512" y2="220" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <line x1="512" y1="590" x2="368" y2="248" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="512" y1="590" x2="656" y2="248" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="512" y1="590" x2="240" y2="320" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    <line x1="512" y1="590" x2="784" y2="320" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    <line x1="512" y1="590" x2="152" y2="428" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="512" y1="590" x2="872" y2="428" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Left path edge -->
+  <path
+    d="M 110 940 C 160 880 280 760 512 590"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="28"
+    stroke-linecap="round"
+    opacity="0.92"
+  />
+
+  <!-- Right path edge -->
+  <path
+    d="M 914 940 C 864 880 744 760 512 590"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="28"
+    stroke-linecap="round"
+    opacity="0.92"
+  />
+
+  <!-- Path fill area -->
+  <path
+    d="M 110 940 C 160 880 280 760 512 590 C 744 760 864 880 914 940 Z"
+    fill="#FFFFFF"
+    opacity="0.10"
+  />
+
+  <!-- Core light dot -->
+  <circle cx="512" cy="590" r="55" fill="#FFFFFF" opacity="0.4" filter="url(#glow)"/>
+  <circle cx="512" cy="590" r="24" fill="#FFFFFF" opacity="0.95"/>
+  <circle cx="512" cy="590" r="10" fill="#FFFFFF"/>
+  <circle cx="507" cy="584" r="4.5" fill="#FFFFFF" opacity="0.6"/>
+</svg>

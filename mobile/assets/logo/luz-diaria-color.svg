@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="480" height="160" viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Path light glow gradient -->
+    <radialGradient id="lightGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5D77A" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#E8B84B" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Path fill gradient (green tones) -->
+    <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5A8F6F"/>
+      <stop offset="100%" stop-color="#7BAE8A"/>
+    </linearGradient>
+
+    <!-- Icon background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7F4EE"/>
+      <stop offset="100%" stop-color="#EDE9DF"/>
+    </linearGradient>
+
+    <!-- Golden light spot gradient -->
+    <radialGradient id="goldenLight" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5D77A" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#E8B84B" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Sky gradient inside icon -->
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EAF3EE"/>
+      <stop offset="100%" stop-color="#F7F4EE"/>
+    </linearGradient>
+
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  ICON (80×80, centered at 40,80)            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <g transform="translate(0, 0)">
+    <!-- Rounded square background -->
+    <rect x="0" y="0" width="140" height="140" rx="32" ry="32" fill="url(#bgGradient)"/>
+    <rect x="0" y="0" width="140" height="140" rx="32" ry="32" fill="url(#skyGrad)"/>
+
+    <!-- Horizon line (subtle) -->
+    <line x1="14" y1="84" x2="126" y2="84" stroke="#D8E8DC" stroke-width="1" opacity="0.8"/>
+
+    <!-- Distant light burst at horizon (golden glow) -->
+    <ellipse cx="70" cy="84" rx="28" ry="16" fill="url(#goldenLight)" opacity="0.85"/>
+
+    <!-- Light rays (fine, subtle) -->
+    <g opacity="0.35" stroke="#E8B84B" stroke-width="1" stroke-linecap="round">
+      <line x1="70" y1="84" x2="70" y2="54"/>
+      <line x1="70" y1="84" x2="88" y2="58"/>
+      <line x1="70" y1="84" x2="52" y2="58"/>
+      <line x1="70" y1="84" x2="100" y2="66"/>
+      <line x1="70" y1="84" x2="40" y2="66"/>
+    </g>
+
+    <!-- Core light dot -->
+    <circle cx="70" cy="84" r="5" fill="#F5D77A" filter="url(#softGlow)"/>
+    <circle cx="70" cy="84" r="2.5" fill="#FFFBE0"/>
+
+    <!-- Left path edge (curves from bottom-left to light point) -->
+    <path
+      d="M 18 130 C 28 118 42 104 70 84"
+      fill="none"
+      stroke="url(#pathGradient)"
+      stroke-width="4.5"
+      stroke-linecap="round"
+    />
+
+    <!-- Right path edge (curves from bottom-right to light point) -->
+    <path
+      d="M 122 130 C 112 118 98 104 70 84"
+      fill="none"
+      stroke="url(#pathGradient)"
+      stroke-width="4.5"
+      stroke-linecap="round"
+    />
+
+    <!-- Path fill (the road between the two edges) -->
+    <path
+      d="M 18 130 C 28 118 42 104 70 84 C 98 104 112 118 122 130 Z"
+      fill="#5A8F6F"
+      opacity="0.10"
+    />
+
+    <!-- Subtle terrain/ground below horizon -->
+    <path
+      d="M 14 84 Q 40 80 70 84 Q 100 88 126 84 L 126 130 L 14 130 Z"
+      fill="#D6EAD9"
+      opacity="0.28"
+    />
+  </g>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  LOGOTYPE (text, starts at x=160)           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <g transform="translate(160, 0)">
+    <!-- App name "Luz Diaria" -->
+    <text
+      x="0"
+      y="88"
+      font-family="'Inter', 'SF Pro Display', -apple-system, 'Helvetica Neue', Arial, sans-serif"
+      font-size="52"
+      font-weight="600"
+      letter-spacing="-1.5"
+      fill="#2D4A38"
+    >Luz Diaria</text>
+
+    <!-- Tagline -->
+    <text
+      x="2"
+      y="116"
+      font-family="'Inter', 'SF Pro Text', -apple-system, 'Helvetica Neue', Arial, sans-serif"
+      font-size="18"
+      font-weight="400"
+      letter-spacing="2.5"
+      fill="#7BAE8A"
+    >UN DEVOCIONAL PARA CADA DÍA</text>
+  </g>
+</svg>

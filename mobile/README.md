@@ -10,6 +10,35 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - Spanish (default): *Un devocional para cada día*
 - English: *A devotional for every day*
 
+### Visual Identity
+
+**Concept:** A curved path converging toward a light point at the horizon — symbolizing walking daily with God, constancy, hope, and progressive restoration.
+
+**Logo files:** `mobile/assets/logo/`
+- `luz-diaria-icon.svg` — App icon (1024×1024, full color, suitable for App Store)
+- `luz-diaria-icon-white.svg` — White-only icon (for dark/image backgrounds)
+- `luz-diaria-color.svg` — Full logotype (isotipo + text, color)
+- `luz-diaria-white.svg` — Full logotype (white version)
+
+**Preview:** In the app, go to Settings → tap "Identidad visual" link at the bottom
+
+**Color palette:**
+| Name | Hex | Use |
+|------|-----|-----|
+| Verde Oscuro | `#2D4A38` | Primary text, dark accents |
+| Verde Principal | `#4A7D5E` | Path, borders, primary |
+| Verde Claro | `#7BAE8A` | Tagline, muted elements |
+| Verde Suave | `#C8E0CE` | Ground, soft backgrounds |
+| Dorado Cálido | `#F5D77A` | Light core, highlights |
+| Ámbar | `#E8B84B` | Glow rays, warm accents |
+| Fondo Claro | `#EAF3EE` | App backgrounds |
+
+**Logo SVG component:** Implemented inline via `react-native-svg` in `src/app/logo-preview.tsx`
+- `LuzDiariaIcon` — color isotipo
+- `LuzDiariaIconWhite` — white isotipo
+- `LuzDiariaLogotype` — color isotipo + text
+- `LuzDiariaLogotypeWhite` — white isotipo + text
+
 ### Branding Architecture
 
 - **Source of truth:** Backend SQLite (`AppBranding` table, row `id="app"`) — fetched at startup via `GET /api/branding`
