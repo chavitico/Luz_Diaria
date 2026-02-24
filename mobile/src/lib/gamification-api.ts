@@ -246,7 +246,10 @@ export const gamificationApi = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    if (!res.ok) throw new Error('Failed to sync user');
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error((body as any)?.error || `Failed to sync user (${res.status})`);
+    }
     return res.json();
   },
 

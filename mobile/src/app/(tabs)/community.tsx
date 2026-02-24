@@ -471,6 +471,26 @@ export default function CommunityScreen() {
     if (!user?.id) return;
 
     try {
+      // Ensure the user exists in the backend first (creates if needed, returns backend ID)
+      const backendUser = await gamificationApi.ensureUserExists({
+        id: user.id,
+        nickname: user.nickname,
+        avatar: user.avatar,
+        points: user.points,
+        streakCurrent: user.streakCurrent,
+        streakBest: user.streakBest,
+        devotionalsCompleted: user.devotionalsCompleted,
+        totalTime: user.totalTime,
+      });
+
+      if (!backendUser) return;
+
+      // If the backend assigned a different ID, update local store
+      const effectiveId = backendUser.id;
+      if (effectiveId !== user.id) {
+        useAppStore.getState().updateUser({ id: effectiveId });
+      }
+
       let lastActiveAt: string | undefined;
       if (user.lastActiveDate) {
         const date = new Date(user.lastActiveDate + 'T12:00:00');
@@ -479,7 +499,7 @@ export default function CommunityScreen() {
         }
       }
 
-      const syncedUser = await gamificationApi.syncUser(user.id, {
+      const syncedUser = await gamificationApi.syncUser(effectiveId, {
         points: user.points,
         streakCurrent: user.streakCurrent,
         streakBest: user.streakBest,
