@@ -4,7 +4,7 @@ import React from 'react';
 import { View, Text, Platform } from 'react-native';
 import { Tabs } from 'expo-router';
 import { BlurView } from 'expo-blur';
-import { Sun, BookOpen, Palette, Users, HandHeart } from 'lucide-react-native';
+import { Sun, BookOpen, Palette, Users, HandHeart, Settings2 } from 'lucide-react-native';
 import { useThemeColors, useLanguage } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
 
@@ -106,7 +106,14 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="settings"
-        options={{ href: null }}
+        options={{
+          title: t.tab_settings,
+          tabBarIcon: ({ color, focused }) => (
+            <View className={focused ? 'scale-110' : ''}>
+              <Settings2 size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
+            </View>
+          ),
+        }}
       />
     </Tabs>
   );

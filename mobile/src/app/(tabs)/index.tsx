@@ -1137,11 +1137,15 @@ function DailyEngagementBanner({
   showCompletionThankYou,
   colors,
   language,
+  isFavorite,
+  onToggleFavorite,
 }: {
   isCompleted: boolean;
   showCompletionThankYou: boolean;
   colors: ReturnType<typeof useThemeColors>;
   language: 'es' | 'en';
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
 }) {
   const opacity = useSharedValue(0);
   const translateY = useSharedValue(8);
@@ -1220,6 +1224,17 @@ function DailyEngagementBanner({
         >
           {language === 'es' ? 'Devocional de hoy completado' : "Today's devotional completed"}
         </Text>
+        <Pressable
+          onPress={onToggleFavorite}
+          style={{ marginLeft: 4, padding: 2 }}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        >
+          <Heart
+            size={15}
+            color={isFavorite ? '#EF4444' : 'rgba(34,197,94,0.7)'}
+            fill={isFavorite ? '#EF4444' : 'transparent'}
+          />
+        </Pressable>
       </Animated.View>
     );
   }
@@ -1883,76 +1898,35 @@ export default function HomeScreen() {
             className="absolute top-0 left-0 right-0 flex-row items-center justify-between px-5"
             style={{ paddingTop: insets.top + 10 }}
           >
-            {/* Left spacer */}
-            <View className="flex-1" />
-
-            {/* Streak fire */}
-            {user && user.streakCurrent > 0 && (
-              <View className="flex-row items-center bg-orange-500/90 px-3 py-2 rounded-full mr-2">
+            {/* Streak fire — top-left, always visible */}
+            {user && user.streakCurrent > 0 ? (
+              <View className="flex-row items-center bg-orange-500/90 px-3 py-2 rounded-full">
                 <Flame size={14} color="#FFFFFF" />
                 <Text className="text-white font-bold ml-1" style={{ fontSize: 13 }}>
                   {user.streakCurrent}
                 </Text>
               </View>
+            ) : (
+              <View />
             )}
 
-            {/* Completed check badge */}
-            {isCompleted && (
-              <Animated.View
-                entering={FadeIn.duration(400)}
+            {/* Right actions: Share only */}
+            <View className="flex-row items-center" style={{ gap: 8 }}>
+              {/* Share Button — top-right */}
+              <Pressable
+                onPress={handleOpenShareModal}
                 style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 16,
+                  width: 40,
+                  height: 40,
+                  borderRadius: 20,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: 'rgba(34,197,94,0.85)',
-                  marginRight: 8,
+                  backgroundColor: 'rgba(255,255,255,0.20)',
                 }}
               >
-                <Check size={16} color="#FFFFFF" strokeWidth={2.5} />
-              </Animated.View>
-            )}
-
-            {/* Share Button */}
-            <Pressable
-              onPress={handleOpenShareModal}
-              className="w-10 h-10 rounded-full items-center justify-center bg-white/20 mr-2"
-            >
-              <Share2 size={20} color="#FFFFFF" />
-            </Pressable>
-
-            {/* Favorite Button */}
-            <Pressable
-              onPress={toggleFavorite}
-              className="w-10 h-10 rounded-full items-center justify-center bg-white/20 mr-2"
-            >
-              <Heart
-                size={22}
-                color="#FFFFFF"
-                fill={isFavorite ? '#EF4444' : 'transparent'}
-              />
-            </Pressable>
-
-            {/* Settings gear — rightmost, prominent */}
-            <Pressable
-              onPress={() => {
-                router.push('/settings');
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              }}
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 22,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'rgba(255,255,255,0.18)',
-                borderWidth: 1.5,
-                borderColor: 'rgba(255,255,255,0.45)',
-              }}
-            >
-              <Settings2 size={22} color="#FFFFFF" />
-            </Pressable>
+                <Share2 size={20} color="#FFFFFF" />
+              </Pressable>
+            </View>
           </View>
 
           {/* Title overlay */}
@@ -1975,6 +1949,8 @@ export default function HomeScreen() {
             showCompletionThankYou={showCompletionThankYou}
             colors={colors}
             language={language}
+            isFavorite={isFavorite}
+            onToggleFavorite={toggleFavorite}
           />
 
           {/* Audio Controls */}
