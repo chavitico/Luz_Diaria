@@ -28,30 +28,32 @@ const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettings = {
   minute: 0,
 };
 
-// Rotating spiritual copy — deterministic by day-of-year (full 5-message set)
-const SPIRITUAL_MESSAGES_ES = [
-  { title: 'Luz Diaria', body: 'Detente un momento. Dios quiere hablarte hoy.' },
-  { title: 'Luz Diaria', body: 'Tu devocional de hoy ya está listo.' },
-  { title: 'Luz Diaria', body: 'Un minuto con Dios puede cambiar tu día.' },
-  { title: 'Luz Diaria', body: 'Hoy también hay una palabra para ti.' },
-  { title: 'Luz Diaria', body: 'No caminas solo. Dios te espera hoy.' },
-];
-
-const SPIRITUAL_MESSAGES_EN = [
-  { title: 'Daily Light', body: 'Pause for a moment. God wants to speak to you today.' },
-  { title: 'Daily Light', body: "Today's devotional is ready for you." },
-  { title: 'Daily Light', body: 'A minute with God can change your day.' },
-  { title: 'Daily Light', body: 'There is a word for you today.' },
-  { title: 'Daily Light', body: "You don't walk alone. God is waiting for you." },
-];
-
-function getDailyMessageIndex(): number {
+// Pastoral daily reminder variants — no pressure, no streaks, calm tone
+function getSpiritualMessages(language: 'en' | 'es'): { title: string; body: string }[] {
   const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 0);
-  const diff = now.getTime() - start.getTime();
-  const oneDay = 1000 * 60 * 60 * 24;
-  const dayOfYear = Math.floor(diff / oneDay);
-  return dayOfYear % SPIRITUAL_MESSAGES_ES.length;
+  const day = now.getDate();
+  const monthNames = language === 'es'
+    ? ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']
+    : ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const fecha = `${day} de ${monthNames[now.getMonth()]}`;
+
+  if (language === 'es') {
+    return [
+      { title: 'Luz Diaria', body: `Tu devocional de hoy — ${fecha} — está listo para acompañarte.` },
+      { title: 'Luz Diaria', body: 'Dios tiene una palabra para ti hoy. Cuando quieras, aquí está.' },
+      { title: 'Luz Diaria', body: 'Tu devocional de hoy ya está disponible. Caminamos juntos.' },
+    ];
+  } else {
+    return [
+      { title: 'Daily Light', body: `Today's devotional — ${fecha} — is ready to accompany you.` },
+      { title: 'Daily Light', body: 'God has a word for you today. Whenever you are ready, it is here.' },
+      { title: 'Daily Light', body: "Today's devotional is available. We walk together." },
+    ];
+  }
+}
+
+function getRandomMessageIndex(length: number): number {
+  return Math.floor(Math.random() * length);
 }
 
 /** Returns today's date as YYYY-MM-DD in local time */
@@ -150,8 +152,8 @@ export async function scheduleDailyNotification(
   try {
     await cancelAllScheduledNotificationsOnly();
 
-    const idx = getDailyMessageIndex();
-    const msg = language === 'es' ? SPIRITUAL_MESSAGES_ES[idx]! : SPIRITUAL_MESSAGES_EN[idx]!;
+    const messages = getSpiritualMessages(language);
+    const msg = messages[getRandomMessageIndex(messages.length)]!;
 
     const trigger: Notifications.DailyTriggerInput = {
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
@@ -401,8 +403,8 @@ export async function initializeNotifications(language: 'en' | 'es' = 'es'): Pro
  */
 export async function sendTestNotification(language: 'en' | 'es' = 'es'): Promise<void> {
   try {
-    const idx = getDailyMessageIndex();
-    const msg = language === 'es' ? SPIRITUAL_MESSAGES_ES[idx]! : SPIRITUAL_MESSAGES_EN[idx]!;
+    const messages = getSpiritualMessages(language);
+    const msg = messages[getRandomMessageIndex(messages.length)]!;
 
     await Notifications.scheduleNotificationAsync({
       content: {
