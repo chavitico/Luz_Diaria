@@ -152,14 +152,10 @@ function MemberCard({
   member,
   isCurrentUser,
   index,
-  alreadySupported,
-  onSupport,
 }: {
   member: CommunityMember;
   isCurrentUser: boolean;
   index: number;
-  alreadySupported: boolean;
-  onSupport: (memberId: string) => void;
 }) {
   const colors = useThemeColors();
   const language = useLanguage();
@@ -181,9 +177,6 @@ function MemberCard({
   const chipBg = member.isAdmin ? colors.accent + '25' : colors.primary + '20';
   const chipColor = member.isAdmin ? colors.accent : colors.primary;
 
-  // descriptor: chip label or title (short)
-  const descriptor = chipLabel ?? titleDisplay;
-
   return (
     <Animated.View
       entering={FadeInDown.delay(index * 40).duration(280)}
@@ -193,7 +186,7 @@ function MemberCard({
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          paddingVertical: 8,
+          paddingVertical: 9,
           paddingHorizontal: 12,
           borderRadius: 14,
           backgroundColor: isCurrentUser ? colors.primary + '0A' : colors.surface,
@@ -202,7 +195,7 @@ function MemberCard({
         }}
       >
         {/* Avatar with optional country flag badge */}
-        <View style={{ position: 'relative' }}>
+        <View style={{ position: 'relative', marginRight: 10, flexShrink: 0 }}>
           <AvatarWithFrame
             avatarId={member.avatarId}
             frameId={member.frameId}
@@ -231,63 +224,78 @@ function MemberCard({
           )}
         </View>
 
-        {/* Name + descriptor */}
-        <View style={{ flex: 1, marginLeft: 10, flexDirection: 'row', alignItems: 'center', minWidth: 0 }}>
-          <Text
-            style={{ fontSize: 14, fontWeight: '600', color: colors.text }}
-            numberOfLines={1}
-          >
-            {member.nickname}
-          </Text>
-          {descriptor && (
-            <View
-              style={{
-                marginLeft: 6,
-                paddingHorizontal: 6,
-                paddingVertical: 2,
-                borderRadius: 8,
-                backgroundColor: chipBg,
-                flexDirection: 'row',
-                alignItems: 'center',
-                flexShrink: 1,
-              }}
+        {/* Name + title — takes all available horizontal space */}
+        <View style={{ flex: 1, minWidth: 0 }}>
+          {/* Row 1: nickname + chip (Admin / Tú) */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'nowrap', gap: 5 }}>
+            <Text
+              style={{ fontSize: 14, fontWeight: '600', color: colors.text, flexShrink: 1 }}
+              numberOfLines={1}
             >
-              {member.isAdmin && chipLabel === 'Admin' && (
-                <Shield size={9} color={chipColor} style={{ marginRight: 2 }} />
-              )}
+              {member.nickname}
+            </Text>
+            {chipLabel && (
+              <View
+                style={{
+                  paddingHorizontal: 6,
+                  paddingVertical: 2,
+                  borderRadius: 8,
+                  backgroundColor: chipBg,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                {member.isAdmin && (
+                  <Shield size={9} color={chipColor} style={{ marginRight: 2 }} />
+                )}
+                <Text style={{ fontSize: 10, fontWeight: '600', color: chipColor }}>
+                  {chipLabel}
+                </Text>
+              </View>
+            )}
+          </View>
+
+          {/* Row 2: title (full, no truncation) + stats inline */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 3, flexWrap: 'nowrap', gap: 6 }}>
+            {titleDisplay && (
               <Text
-                style={{ fontSize: 10, fontWeight: '600', color: chipColor }}
+                style={{
+                  fontSize: 11,
+                  fontWeight: '500',
+                  color: colors.primary,
+                  flexShrink: 1,
+                }}
                 numberOfLines={1}
               >
-                {descriptor}
+                {titleDisplay}
               </Text>
+            )}
+            {/* Stats: only shown if there is room (they can shrink to nothing) */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexShrink: 0, marginLeft: titleDisplay ? 2 : 0 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                <BookOpen size={11} color={colors.textMuted} />
+                <Text style={{ fontSize: 10, fontWeight: '500', color: colors.textMuted }}>{member.devotionalsCompleted}</Text>
+              </View>
+              {member.streakCurrent > 0 && (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                  <Flame size={11} color={colors.accent} />
+                  <Text style={{ fontSize: 10, fontWeight: '500', color: colors.textMuted }}>{member.streakCurrent}</Text>
+                </View>
+              )}
             </View>
-          )}
+          </View>
         </View>
 
-        {/* Stats row — inline */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginRight: 4 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
-            <BookOpen size={12} color={colors.primary} />
-            <Text style={{ fontSize: 11, fontWeight: '600', color: colors.text }}>{member.devotionalsCompleted}</Text>
-          </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
-            <Flame size={12} color={colors.accent} />
-            <Text style={{ fontSize: 11, fontWeight: '600', color: colors.text }}>{member.streakCurrent}</Text>
-          </View>
+        {/* Points — right-aligned, compact */}
+        <View style={{ flexShrink: 0, alignItems: 'flex-end', marginLeft: 8 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
             <Coins size={11} color={colors.primary} />
-            <Text style={{ fontSize: 10, fontWeight: '600', color: colors.primary }}>{member.points.toLocaleString()}</Text>
+            <Text style={{ fontSize: 10, fontWeight: '600', color: colors.primary }}>
+              {member.points.toLocaleString()}
+            </Text>
           </View>
         </View>
-
-        {/* Prayer icon */}
-        <PrayerIconButton
-          supportCount={member.supportCount ?? 0}
-          alreadySupported={alreadySupported}
-          onPress={() => onSupport(member.id)}
-          isCurrentUser={isCurrentUser}
-        />
       </View>
     </Animated.View>
   );
@@ -658,8 +666,6 @@ export default function CommunityScreen() {
           member={memberWithCount}
           isCurrentUser={item.id === user?.id}
           index={index}
-          alreadySupported={supported}
-          onSupport={handleSupport}
         />
       );
     },
