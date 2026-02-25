@@ -190,17 +190,36 @@ export function addTTSPausesForNumberedPoints(text: string): string {
 }
 
 /**
+ * Preprocesses text to ensure TTS engines pronounce numbers naturally,
+ * with pauses before and after them so they don't run together with adjacent words.
+ *
+ * Examples:
+ *   "liberación2"  → "liberación, 2,"
+ *   "ora por 2 razones" → "ora por, 2, razones"
+ *   standalone "2" → "2,"
+ */
+export function preprocessNumbersForTTS(text: string): string {
+  let result = text;
+
+  // Insert ", " between a word character directly followed by a digit (no space between them)
+  // e.g. "liberación2" → "liberación, 2"
+  result = result.replace(/([a-zA-ZáéíóúüñÁÉÍÓÚÜÑ])(\d)/g, '$1, $2');
+
+  // Insert ", " between a digit directly followed by a word character (no space)
+  // e.g. "2da" → "2, da" (edge case)
+  result = result.replace(/(\d)([a-zA-ZáéíóúüñÁÉÍÓÚÜÑ])/g, '$1, $2');
+
+  // Wrap standalone numbers (surrounded by spaces or at start/end) with commas
+  // so TTS pauses before and after: " 2 " → " 2, "
+  result = result.replace(/(^|\s)(\d+)(\s|$)/g, '$1$2,$3');
+
+  return result;
+}
+
+/**
  * Sanitizes text before sending to TTS engine.
  * Removes cross-reference garbage injected by Bible APIs/scrapers and
  * other annotations that should not be read aloud.
- *
- * Examples of garbage removed:
- * - "(A)" — footnote markers from Bible Gateway
- * - "Read full chapter" — Bible Gateway UI text
- * - "Cross references" — Bible Gateway UI text
- * - "in all Spanish translations" — Bible Gateway UI text
- * - "in all English translations" — Bible Gateway UI text
- * - Parenthetical letter markers like "(B)", "(C)", etc.
  */
 export function sanitizeForTTS(text: string): string {
   let result = text;

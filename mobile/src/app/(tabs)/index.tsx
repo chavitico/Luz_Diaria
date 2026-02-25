@@ -91,6 +91,7 @@ import {
   getPreviewText,
   addTTSPausesForNumberedPoints,
   sanitizeForTTS,
+  preprocessNumbersForTTS,
   type CuratedVoice,
 } from '@/lib/tts-voices';
 
@@ -1673,12 +1674,12 @@ export default function HomeScreen() {
     // Apply Bible reference normalization to ALL sections for proper TTS pronunciation
     // Sanitize garbage text from cross-reference annotations, then add pauses
     return [
-      { key: 'verse', text: sanitizeForTTS(`${verse}. ${formattedReference}`) },
-      { key: 'reflection', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(reflection), language)) },
-      { key: 'story', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(story), language)) },
-      { key: 'character', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(character), language)) },
-      { key: 'application', text: addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(application), language)) },
-      { key: 'prayer', text: normalizeBibleRefForTTS(sanitizeForTTS(prayer), language) },
+      { key: 'verse', text: preprocessNumbersForTTS(sanitizeForTTS(`${verse}. ${formattedReference}`)) },
+      { key: 'reflection', text: preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(reflection), language))) },
+      { key: 'story', text: preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(story), language))) },
+      { key: 'character', text: preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(character), language))) },
+      { key: 'application', text: preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(application), language))) },
+      { key: 'prayer', text: preprocessNumbersForTTS(normalizeBibleRefForTTS(sanitizeForTTS(prayer), language)) },
     ];
   }, [devotional, language]);
 
