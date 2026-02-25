@@ -253,33 +253,38 @@ export function BadgeInfoModal({ badgeId, visible, variant = 'community', onClos
             borderTopLeftRadius: 28,
             borderTopRightRadius: 28,
             paddingBottom: 40,
-            // subtle top border matching badge color
             borderTopWidth: 2,
             borderTopColor: badgeColor + '40',
           }}
         >
-          {/* Pull handle */}
-          <View style={{ alignItems: 'center', paddingTop: 12, paddingBottom: 4 }}>
+          {/* Header row: handle + close button */}
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: 12,
+            paddingHorizontal: 16,
+            paddingBottom: 4,
+          }}>
+            <View style={{ flex: 1 }} />
             <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40' }} />
+            <View style={{ flex: 1, alignItems: 'flex-end' }}>
+              <Pressable
+                onPress={handleClose}
+                hitSlop={12}
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 16,
+                  backgroundColor: colors.textMuted + '18',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <X size={16} color={colors.textMuted} />
+              </Pressable>
+            </View>
           </View>
-
-          {/* Close button */}
-          <Pressable
-            onPress={handleClose}
-            style={{
-              position: 'absolute',
-              top: 16,
-              right: 16,
-              width: 32,
-              height: 32,
-              borderRadius: 16,
-              backgroundColor: colors.textMuted + '18',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <X size={16} color={colors.textMuted} />
-          </Pressable>
 
           <ScrollView
             showsVerticalScrollIndicator={false}
