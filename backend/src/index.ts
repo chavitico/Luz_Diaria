@@ -11,6 +11,7 @@ import { brandingRouter } from "./routes/branding";
 import { startDevotionalCron } from "./cron";
 import { initializeWeeklyChallenges } from "./weekly-challenges";
 import { seedPromoCodes } from "./seed-promo-codes";
+import { seedBadges } from "./seed-badges";
 import { logger } from "hono/logger";
 
 const app = new Hono();
@@ -53,6 +54,9 @@ initializeWeeklyChallenges();
 
 // Seed promo codes
 seedPromoCodes();
+
+// Seed badges and auto-award to users
+seedBadges();
 
 const port = Number(process.env.PORT) || 3000;
 

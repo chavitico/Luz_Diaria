@@ -972,6 +972,117 @@ export const SPIRITUAL_TITLES: Record<string, {
   title_guard_word: { id: 'title_guard_word', name: 'Guard of the Word', nameEs: 'Guardia de la Palabra', description: 'Defender of sacred scripture', descriptionEs: 'Defensor de las sagradas escrituras', price: 500, rarity: 'epic' },
 };
 
+// ── Badges — achievement-based items auto-awarded by milestones ───────────────
+// Each badge has an emoji icon, short localized label, description, rarity,
+// and a milestone condition (used for auto-awarding on the backend).
+export const BADGES: Record<string, {
+  id: string;
+  icon: string;         // emoji
+  name: string;         // EN display
+  nameEs: string;       // ES display
+  description: string;
+  descriptionEs: string;
+  rarity: 'common' | 'rare' | 'epic';
+  milestone: {          // condition for auto-award
+    type: 'devotionals' | 'streak' | 'points' | 'days_active';
+    value: number;
+  };
+}> = {
+  // ── First steps ──────────────────────────────────────────────────────────────
+  badge_primer_paso: {
+    id: 'badge_primer_paso',
+    icon: '🌱',
+    name: 'First Step',
+    nameEs: 'Primer Paso',
+    description: 'Completed your first devotional',
+    descriptionEs: 'Completaste tu primer devocional',
+    rarity: 'common',
+    milestone: { type: 'devotionals', value: 1 },
+  },
+  badge_semana: {
+    id: 'badge_semana',
+    icon: '📖',
+    name: 'Week of Light',
+    nameEs: 'Semana de Luz',
+    description: '7 devotionals completed',
+    descriptionEs: '7 devocionales completados',
+    rarity: 'common',
+    milestone: { type: 'devotionals', value: 7 },
+  },
+  badge_30_dias: {
+    id: 'badge_30_dias',
+    icon: '🕯️',
+    name: 'Flame Keeper',
+    nameEs: 'Guardián de la Llama',
+    description: '30 devotionals completed',
+    descriptionEs: '30 devocionales completados',
+    rarity: 'rare',
+    milestone: { type: 'devotionals', value: 30 },
+  },
+  badge_100_dias: {
+    id: 'badge_100_dias',
+    icon: '✨',
+    name: 'Centurion of Faith',
+    nameEs: 'Centurión de Fe',
+    description: '100 devotionals completed',
+    descriptionEs: '100 devocionales completados',
+    rarity: 'epic',
+    milestone: { type: 'devotionals', value: 100 },
+  },
+  // ── Streak badges ─────────────────────────────────────────────────────────────
+  badge_racha_7: {
+    id: 'badge_racha_7',
+    icon: '🔥',
+    name: 'On Fire',
+    nameEs: 'En Llamas',
+    description: '7-day streak',
+    descriptionEs: 'Racha de 7 días',
+    rarity: 'common',
+    milestone: { type: 'streak', value: 7 },
+  },
+  badge_racha_30: {
+    id: 'badge_racha_30',
+    icon: '⚡',
+    name: 'Unstoppable',
+    nameEs: 'Imparable',
+    description: '30-day streak',
+    descriptionEs: 'Racha de 30 días',
+    rarity: 'rare',
+    milestone: { type: 'streak', value: 30 },
+  },
+  // ── Points badges ─────────────────────────────────────────────────────────────
+  badge_1000_pts: {
+    id: 'badge_1000_pts',
+    icon: '🪙',
+    name: 'Silver Seeker',
+    nameEs: 'Buscador de Plata',
+    description: 'Reached 1,000 points',
+    descriptionEs: 'Alcanzaste 1,000 puntos',
+    rarity: 'common',
+    milestone: { type: 'points', value: 1000 },
+  },
+  badge_10000_pts: {
+    id: 'badge_10000_pts',
+    icon: '👑',
+    name: 'Gold Pilgrim',
+    nameEs: 'Peregrino de Oro',
+    description: 'Reached 10,000 points',
+    descriptionEs: 'Alcanzaste 10,000 puntos',
+    rarity: 'rare',
+    milestone: { type: 'points', value: 10000 },
+  },
+  badge_50000_pts: {
+    id: 'badge_50000_pts',
+    icon: '💎',
+    name: 'Diamond Faithful',
+    nameEs: 'Fiel de Diamante',
+    description: 'Reached 50,000 points',
+    descriptionEs: 'Alcanzaste 50,000 puntos',
+    rarity: 'epic',
+    milestone: { type: 'points', value: 50000 },
+  },
+};
+
 // Rarity colors for UI
 export const RARITY_COLORS = {
   common: '#9CA3AF',

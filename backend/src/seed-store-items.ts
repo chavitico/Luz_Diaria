@@ -748,6 +748,41 @@ async function seedStoreItems() {
   }
   console.log(`  Chapter avatars: ${AVATARS_CHAPTER.length} processed`);
 
+  // Seed badges
+  console.log('Seeding badges...');
+  const BADGES = [
+    { id: 'badge_primer_paso', nameEn: 'First Step',        nameEs: 'Primer Paso',             descriptionEn: 'Completed your first devotional', descriptionEs: 'Completaste tu primer devocional',  rarity: 'common', metadata: JSON.stringify({ icon: '🌱', milestoneType: 'devotionals', milestoneValue: 1     }) },
+    { id: 'badge_semana',      nameEn: 'Week of Light',     nameEs: 'Semana de Luz',            descriptionEn: '7 devotionals completed',          descriptionEs: '7 devocionales completados',         rarity: 'common', metadata: JSON.stringify({ icon: '📖', milestoneType: 'devotionals', milestoneValue: 7     }) },
+    { id: 'badge_30_dias',     nameEn: 'Flame Keeper',      nameEs: 'Guardián de la Llama',     descriptionEn: '30 devotionals completed',         descriptionEs: '30 devocionales completados',        rarity: 'rare',   metadata: JSON.stringify({ icon: '🕯️', milestoneType: 'devotionals', milestoneValue: 30    }) },
+    { id: 'badge_100_dias',    nameEn: 'Centurion of Faith',nameEs: 'Centurión de Fe',          descriptionEn: '100 devotionals completed',        descriptionEs: '100 devocionales completados',       rarity: 'epic',   metadata: JSON.stringify({ icon: '✨',  milestoneType: 'devotionals', milestoneValue: 100   }) },
+    { id: 'badge_racha_7',     nameEn: 'On Fire',           nameEs: 'En Llamas',                descriptionEn: '7-day streak',                     descriptionEs: 'Racha de 7 días',                    rarity: 'common', metadata: JSON.stringify({ icon: '🔥', milestoneType: 'streak',      milestoneValue: 7     }) },
+    { id: 'badge_racha_30',    nameEn: 'Unstoppable',       nameEs: 'Imparable',                descriptionEn: '30-day streak',                    descriptionEs: 'Racha de 30 días',                   rarity: 'rare',   metadata: JSON.stringify({ icon: '⚡', milestoneType: 'streak',      milestoneValue: 30    }) },
+    { id: 'badge_1000_pts',    nameEn: 'Silver Seeker',     nameEs: 'Buscador de Plata',        descriptionEn: 'Reached 1,000 points',             descriptionEs: 'Alcanzaste 1,000 puntos',            rarity: 'common', metadata: JSON.stringify({ icon: '🪙', milestoneType: 'points',      milestoneValue: 1000  }) },
+    { id: 'badge_10000_pts',   nameEn: 'Gold Pilgrim',      nameEs: 'Peregrino de Oro',         descriptionEn: 'Reached 10,000 points',            descriptionEs: 'Alcanzaste 10,000 puntos',           rarity: 'rare',   metadata: JSON.stringify({ icon: '👑', milestoneType: 'points',      milestoneValue: 10000 }) },
+    { id: 'badge_50000_pts',   nameEn: 'Diamond Faithful',  nameEs: 'Fiel de Diamante',         descriptionEn: 'Reached 50,000 points',            descriptionEs: 'Alcanzaste 50,000 puntos',           rarity: 'epic',   metadata: JSON.stringify({ icon: '💎', milestoneType: 'points',      milestoneValue: 50000 }) },
+  ];
+  for (const badge of BADGES) {
+    await prisma.storeItem.upsert({
+      where: { id: badge.id },
+      update: {},
+      create: {
+        id: badge.id,
+        type: 'badge',
+        nameEn: badge.nameEn,
+        nameEs: badge.nameEs,
+        descriptionEn: badge.descriptionEn,
+        descriptionEs: badge.descriptionEs,
+        pricePoints: 0,
+        rarity: badge.rarity,
+        assetRef: badge.id,
+        metadata: badge.metadata,
+        sortOrder: sortOrder++,
+        available: true,
+      },
+    });
+  }
+  console.log(`  Badges: ${BADGES.length} processed`);
+
   // Summary
   const totalItems = THEMES.length + THEMES_V2.length + THEMES_CHAPTER.length + FRAMES.length + FRAMES_V2.length + FRAMES_CHAPTER.length + MUSIC_TRACKS.length + TITLES.length + TITLES_CHAPTER.length + AVATARS.length + AVATARS_V2.length + AVATARS_L2.length + AVATARS_CHAPTER.length;
   console.log('\n========================================');

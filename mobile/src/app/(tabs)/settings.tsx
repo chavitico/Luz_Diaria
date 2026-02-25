@@ -60,7 +60,7 @@ import {
   useUserSettings,
   useAppStore,
 } from '@/lib/store';
-import { APP_BRANDING, TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
+import { APP_BRANDING, TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES, BADGES, RARITY_COLORS } from '@/lib/constants';
 
 const LOGO_PNG = require('../../../assets/logo/luz-diaria-logo.png');
 import type { Language } from '@/lib/types';
@@ -79,6 +79,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { ShareableProfileCard } from '@/components/ShareableProfileCard';
 import { getLedgerEntries, relativeTime, type LedgerEntry } from '@/lib/points-ledger';
 import { CountryPickerModal, getCountryByCode, type Country } from '@/components/CountryPicker';
+import { BadgeChip } from '@/components/BadgeChip';
 import {
   BookOpen as LedgerBookOpen,
   Tag,
@@ -243,6 +244,10 @@ export default function SettingsScreen() {
   const [isLoadingCountry, setIsLoadingCountry] = useState(true);
   const [showCountryPicker, setShowCountryPicker] = useState(false);
 
+  // Active badge state
+  const [activeBadgeId, setActiveBadgeId] = useState<string | null>(null);
+  const [ownedBadgeIds, setOwnedBadgeIds] = useState<string[]>([]);
+
   // Points ledger state
   const [ledgerEntries, setLedgerEntries] = useState<LedgerEntry[]>([]);
   const [showFullLedger, setShowFullLedger] = useState(false);
@@ -265,6 +270,7 @@ export default function SettingsScreen() {
     loadCommunityOptIn();
     loadPrayerDisplayOptIn();
     loadCountry();
+    loadBadgeData();
   }, [user?.id]);
 
   const loadCommunityOptIn = async () => {
@@ -392,6 +398,32 @@ export default function SettingsScreen() {
       queryClient.invalidateQueries({ queryKey: ['community-members'] });
     } catch {
       setShowCountryInCommunity(!value);
+    }
+  };
+
+  const loadBadgeData = async () => {
+    if (!user?.id) return;
+    try {
+      const profile = await gamificationApi.getUser(user.id);
+      const badges = profile.inventory
+        .filter((inv) => inv.item.type === 'badge')
+        .map((inv) => inv.itemId);
+      setOwnedBadgeIds(badges);
+      setActiveBadgeId((profile as any).activeBadgeId ?? null);
+    } catch {
+      // non-critical
+    }
+  };
+
+  const handleEquipBadge = async (badgeId: string | null) => {
+    if (!user?.id) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setActiveBadgeId(badgeId);
+    try {
+      await gamificationApi.equipItem(user.id, 'badge', badgeId);
+      queryClient.invalidateQueries({ queryKey: ['community-members'] });
+    } catch {
+      setActiveBadgeId(activeBadgeId); // revert
     }
   };
 

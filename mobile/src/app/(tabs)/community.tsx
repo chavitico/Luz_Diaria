@@ -39,6 +39,7 @@ import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
 import { gamificationApi, CommunityMember } from '@/lib/gamification-api';
 import { getCountryByCode } from '@/components/CountryPicker';
+import { BadgeChip } from '@/components/BadgeChip';
 
 // Helper: is a member active today?
 function isActiveToday(member: CommunityMember): boolean {
@@ -287,8 +288,11 @@ function MemberCard({
           </View>
         </View>
 
-        {/* Points — right-aligned, compact */}
-        <View style={{ flexShrink: 0, alignItems: 'flex-end', marginLeft: 8 }}>
+        {/* Right: badge + points stacked */}
+        <View style={{ flexShrink: 0, alignItems: 'flex-end', marginLeft: 8, gap: 4 }}>
+          {member.activeBadgeId && (
+            <BadgeChip badgeId={member.activeBadgeId} variant="community" />
+          )}
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
             <Coins size={11} color={colors.primary} />
             <Text style={{ fontSize: 10, fontWeight: '600', color: colors.primary }}>

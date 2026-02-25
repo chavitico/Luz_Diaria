@@ -6,7 +6,7 @@ const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://loca
 // Types
 export interface StoreItem {
   id: string;
-  type: 'theme' | 'frame' | 'music' | 'title' | 'avatar';
+  type: 'theme' | 'frame' | 'music' | 'title' | 'avatar' | 'badge';
   nameEn: string;
   nameEs: string;
   descriptionEn: string;
@@ -89,6 +89,7 @@ export interface CommunityMember {
   isAdmin?: boolean;
   countryCode: string | null;
   showCountry: boolean;
+  activeBadgeId: string | null;
 }
 
 // Prayer types
@@ -322,7 +323,7 @@ export const gamificationApi = {
     return data;
   },
 
-  async equipItem(userId: string, type: 'theme' | 'frame' | 'title' | 'music' | 'avatar', itemId: string | null): Promise<UserProfile> {
+  async equipItem(userId: string, type: 'theme' | 'frame' | 'title' | 'music' | 'avatar' | 'badge', itemId: string | null): Promise<UserProfile> {
     const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/equip`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

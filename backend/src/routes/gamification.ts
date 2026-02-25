@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { prisma } from "../prisma";
+import { checkAndAwardBadges } from "../seed-badges";
 
 export const gamificationRouter = new Hono();
 
@@ -69,8 +70,8 @@ const purchaseSchema = z.object({
 });
 
 const equipSchema = z.object({
-  type: z.enum(['theme', 'frame', 'title', 'music', 'avatar']),
-  itemId: z.string(),
+  type: z.enum(['theme', 'frame', 'title', 'music', 'avatar', 'badge']),
+  itemId: z.string().nullable(),
 });
 
 const updateChallengeSchema = z.object({
@@ -238,6 +239,7 @@ gamificationRouter.get("/user/:userId", async (c) => {
       frame: user.frameId,
       title: user.titleId,
       music: user.selectedMusicId,
+      badge: user.activeBadgeId,
     };
 
     return c.json({ ...user, equippedItems });
@@ -337,6 +339,9 @@ gamificationRouter.post(
         streakCurrent: user.streakCurrent,
         devotionalsCompleted: user.devotionalsCompleted,
       });
+
+      // Auto-award any newly earned badges (non-blocking)
+      checkAndAwardBadges(userId).catch(() => {});
 
       return c.json(user);
     } catch (error) {
@@ -826,11 +831,14 @@ gamificationRouter.post(
       }
 
       // Check if user owns the item (or it's a default/free item)
-      const isDefaultFreeItem = itemId.startsWith("music_free_") ||
-                                itemId === "theme_amanecer" ||
-                                itemId.startsWith("avatar_");
+      // itemId can be null to unequip badge
+      const isDefaultFreeItem = itemId !== null && (
+        itemId.startsWith("music_free_") ||
+        itemId === "theme_amanecer" ||
+        itemId.startsWith("avatar_")
+      );
 
-      if (!isDefaultFreeItem) {
+      if (itemId !== null && !isDefaultFreeItem) {
         const inventoryItem = await prisma.userInventory.findUnique({
           where: {
             userId_itemId: { userId, itemId },
@@ -846,7 +854,7 @@ gamificationRouter.post(
       const updateData: Record<string, string | null> = {};
       switch (type) {
         case "theme":
-          updateData.themeId = itemId;
+          updateData.themeId = itemId ?? "theme_amanecer";
           break;
         case "frame":
           updateData.frameId = itemId;
@@ -855,10 +863,13 @@ gamificationRouter.post(
           updateData.titleId = itemId;
           break;
         case "music":
-          updateData.selectedMusicId = itemId;
+          updateData.selectedMusicId = itemId ?? "music_free_1";
           break;
         case "avatar":
-          updateData.avatarId = itemId;
+          updateData.avatarId = itemId ?? "avatar_dove";
+          break;
+        case "badge":
+          updateData.activeBadgeId = itemId;
           break;
       }
 
@@ -1490,6 +1501,7 @@ gamificationRouter.get("/user/by-device/:deviceId", async (c) => {
       frame: user.frameId,
       title: user.titleId,
       music: user.selectedMusicId,
+      badge: user.activeBadgeId,
     };
 
     return c.json({
@@ -1862,6 +1874,7 @@ gamificationRouter.get("/community/members", async (c) => {
           supportCount: true,
           countryCode: true,
           showCountry: true,
+          activeBadgeId: true,
         },
         orderBy,
         take: limit,
