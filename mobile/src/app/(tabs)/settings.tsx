@@ -409,7 +409,7 @@ export default function SettingsScreen() {
         .filter((inv) => inv.item.type === 'badge')
         .map((inv) => inv.itemId);
       setOwnedBadgeIds(badges);
-      setActiveBadgeId((profile as any).activeBadgeId ?? null);
+      setActiveBadgeId(profile.activeBadgeId ?? null);
     } catch {
       // non-critical
     }
@@ -944,6 +944,82 @@ export default function SettingsScreen() {
               />
             }
           />
+
+          {/* Badge Selection */}
+          {ownedBadgeIds.length > 0 && (
+            <>
+              <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
+                {language === 'es' ? 'Insignia activa' : 'Active Badge'}
+              </Text>
+              <View
+                className="rounded-2xl p-4 mb-2"
+                style={{ backgroundColor: colors.surface }}
+              >
+                <Text className="text-sm mb-3" style={{ color: colors.textMuted }}>
+                  {language === 'es'
+                    ? 'Elige la insignia que aparecerá junto a tu nombre en Comunidad.'
+                    : 'Choose the badge shown next to your name in Community.'}
+                </Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                  {/* "None" option */}
+                  <Pressable
+                    onPress={() => handleEquipBadge(null)}
+                    style={{
+                      paddingVertical: 6,
+                      paddingHorizontal: 12,
+                      borderRadius: 12,
+                      backgroundColor: activeBadgeId === null ? colors.primary + '20' : colors.background,
+                      borderWidth: 1.5,
+                      borderColor: activeBadgeId === null ? colors.primary : colors.textMuted + '30',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Text style={{ fontSize: 11, fontWeight: '600', color: activeBadgeId === null ? colors.primary : colors.textMuted }}>
+                      {language === 'es' ? 'Ninguna' : 'None'}
+                    </Text>
+                  </Pressable>
+
+                  {ownedBadgeIds.map((badgeId) => {
+                    const isActive = activeBadgeId === badgeId;
+                    const badge = BADGES[badgeId];
+                    if (!badge) return null;
+                    return (
+                      <Pressable
+                        key={badgeId}
+                        onPress={() => handleEquipBadge(badgeId)}
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          paddingVertical: 6,
+                          paddingHorizontal: 10,
+                          borderRadius: 12,
+                          backgroundColor: isActive ? badge.color + '20' : colors.background,
+                          borderWidth: 1.5,
+                          borderColor: isActive ? badge.color : colors.textMuted + '30',
+                          gap: 6,
+                        }}
+                      >
+                        <BadgeChip badgeId={badgeId} variant="community" />
+                        <Text style={{ fontSize: 11, fontWeight: '600', color: isActive ? badge.color : colors.textMuted }}>
+                          {badge.nameEs}
+                        </Text>
+                        {isActive && (
+                          <View style={{
+                            width: 14, height: 14, borderRadius: 7,
+                            backgroundColor: badge.color,
+                            alignItems: 'center', justifyContent: 'center',
+                          }}>
+                            <Check size={8} color="#FFFFFF" strokeWidth={3} />
+                          </View>
+                        )}
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              </View>
+            </>
+          )}
 
           {/* Appearance Section */}
           <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>

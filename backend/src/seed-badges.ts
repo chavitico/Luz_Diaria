@@ -4,15 +4,18 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const BADGE_DEFINITIONS = [
-  { id: 'badge_primer_paso', nameEn: 'First Step',        nameEs: 'Primer Paso',          descEn: 'Completed your first devotional', descEs: 'Completaste tu primer devocional',  rarity: 'common', icon: '🌱', milestoneType: 'devotionals', milestoneValue: 1     },
-  { id: 'badge_semana',      nameEn: 'Week of Light',     nameEs: 'Semana de Luz',         descEn: '7 devotionals completed',         descEs: '7 devocionales completados',         rarity: 'common', icon: '📖', milestoneType: 'devotionals', milestoneValue: 7     },
-  { id: 'badge_30_dias',     nameEn: 'Flame Keeper',      nameEs: 'Guardián de la Llama',  descEn: '30 devotionals completed',        descEs: '30 devocionales completados',        rarity: 'rare',   icon: '🕯️', milestoneType: 'devotionals', milestoneValue: 30    },
-  { id: 'badge_100_dias',    nameEn: 'Centurion of Faith',nameEs: 'Centurión de Fe',       descEn: '100 devotionals completed',       descEs: '100 devocionales completados',       rarity: 'epic',   icon: '✨',  milestoneType: 'devotionals', milestoneValue: 100   },
-  { id: 'badge_racha_7',     nameEn: 'On Fire',           nameEs: 'En Llamas',             descEn: '7-day streak',                    descEs: 'Racha de 7 días',                    rarity: 'common', icon: '🔥', milestoneType: 'streak',      milestoneValue: 7     },
-  { id: 'badge_racha_30',    nameEn: 'Unstoppable',       nameEs: 'Imparable',             descEn: '30-day streak',                   descEs: 'Racha de 30 días',                   rarity: 'rare',   icon: '⚡', milestoneType: 'streak',      milestoneValue: 30    },
-  { id: 'badge_1000_pts',    nameEn: 'Silver Seeker',     nameEs: 'Buscador de Plata',     descEn: 'Reached 1,000 points',            descEs: 'Alcanzaste 1,000 puntos',            rarity: 'common', icon: '🪙', milestoneType: 'points',      milestoneValue: 1000  },
-  { id: 'badge_10000_pts',   nameEn: 'Gold Pilgrim',      nameEs: 'Peregrino de Oro',      descEn: 'Reached 10,000 points',           descEs: 'Alcanzaste 10,000 puntos',           rarity: 'rare',   icon: '👑', milestoneType: 'points',      milestoneValue: 10000 },
-  { id: 'badge_50000_pts',   nameEn: 'Diamond Faithful',  nameEs: 'Fiel de Diamante',      descEn: 'Reached 50,000 points',           descEs: 'Alcanzaste 50,000 puntos',           rarity: 'epic',   icon: '💎', milestoneType: 'points',      milestoneValue: 50000 },
+  // Fundacionales
+  { id: 'badge_fundador',           nameEn: 'Founder',              nameEs: 'Fundador',                  descEn: 'Started this community from the beginning',  descEs: 'Inició esta comunidad desde el principio',         rarity: 'unique', icon: 'Flame',       milestoneType: 'special',      milestoneValue: 0     },
+  { id: 'badge_primeros_pasos',     nameEn: 'Early Member',         nameEs: 'Primeros Pasos',            descEn: 'One of the first members',                    descEs: 'Uno de los primeros miembros',                      rarity: 'rare',   icon: 'Footprints',  milestoneType: 'special',      milestoneValue: 1     },
+  // Camino espiritual
+  { id: 'badge_caminando_fe',       nameEn: 'Walking in Faith',     nameEs: 'Caminando en Fe',           descEn: '7 devotionals completed',                     descEs: '7 devocionales completados',                        rarity: 'common', icon: 'MoveUpRight', milestoneType: 'devotionals',  milestoneValue: 7     },
+  { id: 'badge_portador_esperanza', nameEn: 'Hope Bearer',          nameEs: 'Portador de Esperanza',     descEn: '15 devotionals completed',                    descEs: '15 devocionales completados',                       rarity: 'rare',   icon: 'Sun',         milestoneType: 'devotionals',  milestoneValue: 15    },
+  { id: 'badge_sembrador_paz',      nameEn: 'Peace Sower',          nameEs: 'Sembrador de Paz',          descEn: '30 devotionals completed',                    descEs: '30 devocionales completados',                       rarity: 'rare',   icon: 'Leaf',        milestoneType: 'devotionals',  milestoneValue: 30    },
+  { id: 'badge_guardian_palabra',   nameEn: 'Guardian of the Word', nameEs: 'Guardián de la Palabra',    descEn: '100 devotionals completed',                   descEs: '100 devocionales completados',                      rarity: 'epic',   icon: 'BookOpen',    milestoneType: 'devotionals',  milestoneValue: 100   },
+  { id: 'badge_valiente_reino',     nameEn: 'Kingdom Warrior',      nameEs: 'Valiente del Reino',        descEn: '30-day streak',                               descEs: 'Racha de 30 días',                                  rarity: 'epic',   icon: 'Shield',      milestoneType: 'streak',       milestoneValue: 30    },
+  // Comunidad
+  { id: 'badge_companero_oracion',  nameEn: 'Prayer Companion',     nameEs: 'Compañero de Oración',      descEn: 'First devotional completed',                  descEs: 'Primer devocional completado',                      rarity: 'common', icon: 'HandHeart',   milestoneType: 'devotionals',  milestoneValue: 1     },
+  { id: 'badge_columna_comunidad',  nameEn: 'Community Pillar',     nameEs: 'Columna de la Comunidad',   descEn: 'Reached 10,000 points',                       descEs: 'Alcanzaste 10,000 puntos',                          rarity: 'rare',   icon: 'Columns2',    milestoneType: 'points',       milestoneValue: 10000 },
 ] as const;
 
 export async function seedBadges() {

@@ -32,6 +32,7 @@ export interface UserProfile {
   devotionalsCompleted: number;
   totalTimeSeconds: number;
   lastActiveAt: string | null;
+  activeBadgeId: string | null;
   inventory: Array<{
     itemId: string;
     acquiredAt: string;

@@ -973,113 +973,123 @@ export const SPIRITUAL_TITLES: Record<string, {
 };
 
 // ── Badges — achievement-based items auto-awarded by milestones ───────────────
-// Each badge has an emoji icon, short localized label, description, rarity,
-// and a milestone condition (used for auto-awarding on the backend).
+// Each badge has a lucide icon name, short localized label, description, rarity,
+// a color (hex), and a milestone condition (used for auto-awarding on the backend).
 export const BADGES: Record<string, {
   id: string;
-  icon: string;         // emoji
+  icon: string;         // lucide-react-native icon name
+  color: string;        // primary badge color (hex)
   name: string;         // EN display
   nameEs: string;       // ES display
   description: string;
   descriptionEs: string;
-  rarity: 'common' | 'rare' | 'epic';
+  rarity: 'unique' | 'common' | 'rare' | 'epic';
   milestone: {          // condition for auto-award
-    type: 'devotionals' | 'streak' | 'points' | 'days_active';
+    type: 'devotionals' | 'streak' | 'points' | 'days_active' | 'special';
     value: number;
   };
 }> = {
-  // ── First steps ──────────────────────────────────────────────────────────────
-  badge_primer_paso: {
-    id: 'badge_primer_paso',
-    icon: '🌱',
-    name: 'First Step',
-    nameEs: 'Primer Paso',
-    description: 'Completed your first devotional',
-    descriptionEs: 'Completaste tu primer devocional',
-    rarity: 'common',
-    milestone: { type: 'devotionals', value: 1 },
+  // ── Fundacionales ────────────────────────────────────────────────────────────
+  badge_fundador: {
+    id: 'badge_fundador',
+    icon: 'Flame',
+    color: '#D4A017',           // dorado suave
+    name: 'Founder',
+    nameEs: 'Fundador',
+    description: 'Started this community from the very beginning',
+    descriptionEs: 'Inició esta comunidad desde el principio',
+    rarity: 'unique',
+    milestone: { type: 'special', value: 0 },
   },
-  badge_semana: {
-    id: 'badge_semana',
-    icon: '📖',
-    name: 'Week of Light',
-    nameEs: 'Semana de Luz',
-    description: '7 devotionals completed',
-    descriptionEs: '7 devocionales completados',
-    rarity: 'common',
-    milestone: { type: 'devotionals', value: 7 },
+  badge_primeros_pasos: {
+    id: 'badge_primeros_pasos',
+    icon: 'Footprints',
+    color: '#E8A040',           // ámbar claro
+    name: 'Early Member',
+    nameEs: 'Primeros Pasos',
+    description: 'One of the first members of the community',
+    descriptionEs: 'Uno de los primeros miembros de la comunidad',
+    rarity: 'rare',
+    milestone: { type: 'special', value: 1 },
   },
-  badge_30_dias: {
-    id: 'badge_30_dias',
-    icon: '🕯️',
-    name: 'Flame Keeper',
-    nameEs: 'Guardián de la Llama',
-    description: '30 devotionals completed',
-    descriptionEs: '30 devocionales completados',
+  // ── Camino espiritual ────────────────────────────────────────────────────────
+  badge_sembrador_paz: {
+    id: 'badge_sembrador_paz',
+    icon: 'Leaf',
+    color: '#6B8F5E',           // verde oliva
+    name: 'Peace Sower',
+    nameEs: 'Sembrador de Paz',
+    description: 'Planting seeds of harmony every day',
+    descriptionEs: 'Sembrando semillas de paz cada día',
     rarity: 'rare',
     milestone: { type: 'devotionals', value: 30 },
   },
-  badge_100_dias: {
-    id: 'badge_100_dias',
-    icon: '✨',
-    name: 'Centurion of Faith',
-    nameEs: 'Centurión de Fe',
-    description: '100 devotionals completed',
-    descriptionEs: '100 devocionales completados',
+  badge_caminando_fe: {
+    id: 'badge_caminando_fe',
+    icon: 'MoveUpRight',
+    color: '#5BA05B',           // verde claro
+    name: 'Walking in Faith',
+    nameEs: 'Caminando en Fe',
+    description: 'Steps guided by trust in God',
+    descriptionEs: 'Pasos guiados por confianza en Dios',
+    rarity: 'common',
+    milestone: { type: 'devotionals', value: 7 },
+  },
+  badge_portador_esperanza: {
+    id: 'badge_portador_esperanza',
+    icon: 'Sun',
+    color: '#3A8F8F',           // azul verdoso
+    name: 'Hope Bearer',
+    nameEs: 'Portador de Esperanza',
+    description: 'Bringing light into dark places',
+    descriptionEs: 'Llevando luz a los lugares oscuros',
+    rarity: 'rare',
+    milestone: { type: 'devotionals', value: 15 },
+  },
+  badge_guardian_palabra: {
+    id: 'badge_guardian_palabra',
+    icon: 'BookOpen',
+    color: '#7B2D52',           // vino / borgoña
+    name: 'Guardian of the Word',
+    nameEs: 'Guardián de la Palabra',
+    description: 'Keeper of sacred truth',
+    descriptionEs: 'Guardián de la verdad sagrada',
     rarity: 'epic',
     milestone: { type: 'devotionals', value: 100 },
   },
-  // ── Streak badges ─────────────────────────────────────────────────────────────
-  badge_racha_7: {
-    id: 'badge_racha_7',
-    icon: '🔥',
-    name: 'On Fire',
-    nameEs: 'En Llamas',
-    description: '7-day streak',
-    descriptionEs: 'Racha de 7 días',
-    rarity: 'common',
-    milestone: { type: 'streak', value: 7 },
-  },
-  badge_racha_30: {
-    id: 'badge_racha_30',
-    icon: '⚡',
-    name: 'Unstoppable',
-    nameEs: 'Imparable',
-    description: '30-day streak',
-    descriptionEs: 'Racha de 30 días',
-    rarity: 'rare',
+  badge_valiente_reino: {
+    id: 'badge_valiente_reino',
+    icon: 'Shield',
+    color: '#8B2020',           // rojo profundo
+    name: 'Kingdom Warrior',
+    nameEs: 'Valiente del Reino',
+    description: 'Fighting the good fight of faith',
+    descriptionEs: 'Peleando la buena batalla de la fe',
+    rarity: 'epic',
     milestone: { type: 'streak', value: 30 },
   },
-  // ── Points badges ─────────────────────────────────────────────────────────────
-  badge_1000_pts: {
-    id: 'badge_1000_pts',
-    icon: '🪙',
-    name: 'Silver Seeker',
-    nameEs: 'Buscador de Plata',
-    description: 'Reached 1,000 points',
-    descriptionEs: 'Alcanzaste 1,000 puntos',
+  // ── Comunidad ────────────────────────────────────────────────────────────────
+  badge_companero_oracion: {
+    id: 'badge_companero_oracion',
+    icon: 'HandHeart',
+    color: '#7B68A8',           // lavanda / violeta suave
+    name: 'Prayer Companion',
+    nameEs: 'Compañero de Oración',
+    description: 'Standing with others in prayer',
+    descriptionEs: 'Acompañando a otros en oración',
     rarity: 'common',
-    milestone: { type: 'points', value: 1000 },
+    milestone: { type: 'devotionals', value: 1 },
   },
-  badge_10000_pts: {
-    id: 'badge_10000_pts',
-    icon: '👑',
-    name: 'Gold Pilgrim',
-    nameEs: 'Peregrino de Oro',
-    description: 'Reached 10,000 points',
-    descriptionEs: 'Alcanzaste 10,000 puntos',
+  badge_columna_comunidad: {
+    id: 'badge_columna_comunidad',
+    icon: 'Columns2',
+    color: '#8A9AAA',           // gris perla
+    name: 'Community Pillar',
+    nameEs: 'Columna de la Comunidad',
+    description: 'A steady presence in the community',
+    descriptionEs: 'Una presencia firme en la comunidad',
     rarity: 'rare',
     milestone: { type: 'points', value: 10000 },
-  },
-  badge_50000_pts: {
-    id: 'badge_50000_pts',
-    icon: '💎',
-    name: 'Diamond Faithful',
-    nameEs: 'Fiel de Diamante',
-    description: 'Reached 50,000 points',
-    descriptionEs: 'Alcanzaste 50,000 puntos',
-    rarity: 'epic',
-    milestone: { type: 'points', value: 50000 },
   },
 };
 
@@ -1088,6 +1098,7 @@ export const RARITY_COLORS = {
   common: '#9CA3AF',
   rare: '#3B82F6',
   epic: '#A855F7',
+  unique: '#D4A017',
 } as const;
 
 // Rarity gradient backgrounds for premium card styling
