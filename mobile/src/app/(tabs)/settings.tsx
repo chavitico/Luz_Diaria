@@ -80,6 +80,7 @@ import { ShareableProfileCard } from '@/components/ShareableProfileCard';
 import { getLedgerEntries, relativeTime, type LedgerEntry } from '@/lib/points-ledger';
 import { CountryPickerModal, getCountryByCode, type Country } from '@/components/CountryPicker';
 import { BadgeChip } from '@/components/BadgeChip';
+import { BadgeInfoModal } from '@/components/BadgeInfoModal';
 import {
   BookOpen as LedgerBookOpen,
   Tag,
@@ -247,6 +248,7 @@ export default function SettingsScreen() {
   // Active badge state
   const [activeBadgeId, setActiveBadgeId] = useState<string | null>(null);
   const [ownedBadgeIds, setOwnedBadgeIds] = useState<string[]>([]);
+  const [badgeInfoId, setBadgeInfoId] = useState<string | null>(null);
 
   // Points ledger state
   const [ledgerEntries, setLedgerEntries] = useState<LedgerEntry[]>([]);
@@ -1000,7 +1002,17 @@ export default function SettingsScreen() {
                           gap: 6,
                         }}
                       >
-                        <BadgeChip badgeId={badgeId} variant="community" />
+                        {/* Medal — tap to open info */}
+                        <Pressable
+                          onPress={(e) => {
+                            e.stopPropagation();
+                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                            setBadgeInfoId(badgeId);
+                          }}
+                          hitSlop={4}
+                        >
+                          <BadgeChip badgeId={badgeId} variant="community" />
+                        </Pressable>
                         <Text style={{ fontSize: 11, fontWeight: '600', color: isActive ? badge.color : colors.textMuted }}>
                           {badge.nameEs}
                         </Text>
@@ -1723,6 +1735,13 @@ export default function SettingsScreen() {
         selectedCode={countryCode}
         onSelect={handleCountrySelect}
         onClose={() => setShowCountryPicker(false)}
+      />
+
+      <BadgeInfoModal
+        badgeId={badgeInfoId}
+        visible={!!badgeInfoId}
+        variant="settings"
+        onClose={() => setBadgeInfoId(null)}
       />
     </View>
   );

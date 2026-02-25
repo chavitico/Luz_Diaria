@@ -40,6 +40,7 @@ import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '
 import { gamificationApi, CommunityMember } from '@/lib/gamification-api';
 import { getCountryByCode } from '@/components/CountryPicker';
 import { BadgeChip } from '@/components/BadgeChip';
+import { BadgeInfoModal } from '@/components/BadgeInfoModal';
 
 // Helper: is a member active today?
 function isActiveToday(member: CommunityMember): boolean {
@@ -153,10 +154,12 @@ function MemberCard({
   member,
   isCurrentUser,
   index,
+  onBadgePress,
 }: {
   member: CommunityMember;
   isCurrentUser: boolean;
   index: number;
+  onBadgePress?: (badgeId: string) => void;
 }) {
   const colors = useThemeColors();
   const language = useLanguage();
@@ -291,7 +294,17 @@ function MemberCard({
         {/* Right: badge + points stacked */}
         <View style={{ flexShrink: 0, alignItems: 'flex-end', marginLeft: 8, gap: 4 }}>
           {member.activeBadgeId && (
-            <BadgeChip badgeId={member.activeBadgeId} variant="community" />
+            <Pressable
+              onPress={() => {
+                if (member.activeBadgeId) {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  onBadgePress?.(member.activeBadgeId);
+                }
+              }}
+              hitSlop={8}
+            >
+              <BadgeChip badgeId={member.activeBadgeId} variant="community" />
+            </Pressable>
           )}
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
             <Coins size={11} color={colors.primary} />
@@ -447,6 +460,9 @@ export default function CommunityScreen() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isOffline, setIsOffline] = useState(false);
   const syncedRef = useRef(false);
+
+  // Badge info modal state
+  const [badgeModalId, setBadgeModalId] = useState<string | null>(null);
 
   // Local optimistic support state: memberId → { count, supported }
   const [localSupport, setLocalSupport] = useState<Record<string, { count: number; supported: boolean }>>({});
@@ -670,6 +686,7 @@ export default function CommunityScreen() {
           member={memberWithCount}
           isCurrentUser={item.id === user?.id}
           index={index}
+          onBadgePress={(badgeId) => setBadgeModalId(badgeId)}
         />
       );
     },
@@ -748,6 +765,14 @@ export default function CommunityScreen() {
           }
         />
       )}
+
+      {/* Badge info modal */}
+      <BadgeInfoModal
+        badgeId={badgeModalId}
+        visible={!!badgeModalId}
+        variant="community"
+        onClose={() => setBadgeModalId(null)}
+      />
     </View>
   );
 }
