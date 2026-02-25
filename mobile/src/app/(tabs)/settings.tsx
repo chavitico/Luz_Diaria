@@ -1033,8 +1033,8 @@ export default function SettingsScreen() {
             )}
           </Pressable>
 
-          {/* About / Branding */}
-          <Animated.View entering={FadeInDown.delay(300).springify()} className="mt-6 mb-4">
+          {/* Branding closing section */}
+          <Animated.View entering={FadeInDown.delay(300).springify()} style={{ marginTop: 32, marginBottom: 8, alignItems: 'center', paddingVertical: 32 }}>
             <Pressable
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -1045,24 +1045,21 @@ export default function SettingsScreen() {
                   router.push('/admin/branding');
                 }
               }}
-              style={{
-                alignItems: 'center',
-                paddingVertical: 24,
-              }}
+              style={{ alignItems: 'center' }}
             >
               <RNImage
                 source={LOGO_PNG}
-                style={{ width: 72, height: 72, marginBottom: 12 }}
+                style={{ width: 180, height: 180, marginBottom: 16 }}
                 resizeMode="contain"
               />
-              <Text style={{ fontSize: 22, fontWeight: '700', color: colors.text, letterSpacing: -0.3 }}>
+              <Text style={{ fontSize: 26, fontWeight: '800', color: colors.text, letterSpacing: -0.5, textAlign: 'center' }}>
                 {APP_BRANDING.appName}
               </Text>
-              <Text style={{ fontSize: 11, color: colors.textMuted, letterSpacing: 2, marginTop: 4, textTransform: 'uppercase' }}>
+              <Text style={{ fontSize: 13, color: colors.textMuted, letterSpacing: 1.5, marginTop: 6, textTransform: 'uppercase', textAlign: 'center' }}>
                 {APP_BRANDING.tagline.es}
               </Text>
-              <View style={{ marginTop: 14, height: 1, width: '40%', backgroundColor: colors.textMuted + '25' }} />
-              <Text style={{ fontSize: 12, color: colors.textMuted + 'AA', marginTop: 12 }}>
+              <View style={{ marginTop: 20, height: 1, width: '35%', backgroundColor: colors.textMuted + '20' }} />
+              <Text style={{ fontSize: 12, color: colors.textMuted + '80', marginTop: 14, textAlign: 'center' }}>
                 © {new Date().getFullYear()} ChaViTico Games
               </Text>
             </Pressable>

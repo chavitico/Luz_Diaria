@@ -82,15 +82,13 @@ function AvatarWithFrame({
   );
 }
 
-// Acompañar button with animation
-function AcompanarButton({
-  memberId,
+// Inline prayer icon button (compact, no label)
+function PrayerIconButton({
   supportCount,
   alreadySupported,
   onPress,
   isCurrentUser,
 }: {
-  memberId: string;
   supportCount: number;
   alreadySupported: boolean;
   onPress: () => void;
@@ -98,28 +96,21 @@ function AcompanarButton({
 }) {
   const colors = useThemeColors();
   const scale = useSharedValue(1);
-  const opacity = useSharedValue(1);
 
   const animStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
-    opacity: opacity.value,
   }));
 
   const handlePress = () => {
     if (alreadySupported || isCurrentUser) return;
-    // Micro animation: pop then settle
     scale.value = withSequence(
-      withTiming(1.3, { duration: 100 }),
-      withSpring(1, { damping: 8, stiffness: 200 })
+      withTiming(1.4, { duration: 90 }),
+      withSpring(1, { damping: 7, stiffness: 220 })
     );
-    opacity.value = withSequence(
-      withTiming(0.7, { duration: 80 }),
-      withTiming(1, { duration: 150 })
-    );
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     onPress();
   };
 
-  const active = alreadySupported;
   const disabled = alreadySupported || isCurrentUser;
 
   return (
@@ -130,36 +121,32 @@ function AcompanarButton({
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: 10,
-          paddingVertical: 5,
-          borderRadius: 20,
-          backgroundColor: active
-            ? colors.primary + '20'
-            : isCurrentUser
-            ? 'transparent'
-            : colors.primary + '10',
-          borderWidth: 1,
-          borderColor: active ? colors.primary + '50' : colors.primary + '25',
-          opacity: isCurrentUser ? 0.3 : 1,
+          paddingHorizontal: 8,
+          paddingVertical: 4,
+          borderRadius: 14,
+          backgroundColor: alreadySupported ? colors.primary + '18' : 'transparent',
+          opacity: isCurrentUser ? 0.25 : 1,
         }}
       >
-        <Text style={{ fontSize: 13 }}>🙏</Text>
-        <Text
-          style={{
-            fontSize: 11,
-            fontWeight: '600',
-            color: active ? colors.primary : colors.secondary,
-            marginLeft: 4,
-          }}
-        >
-          {supportCount > 0 ? supportCount : ''}
-        </Text>
+        <Text style={{ fontSize: 15 }}>{alreadySupported ? '🙏✨' : '🙏'}</Text>
+        {supportCount > 0 && (
+          <Text
+            style={{
+              fontSize: 11,
+              fontWeight: '600',
+              color: alreadySupported ? colors.primary : colors.textMuted,
+              marginLeft: 3,
+            }}
+          >
+            {supportCount}
+          </Text>
+        )}
       </Pressable>
     </Animated.View>
   );
 }
 
-// Community Member Card
+// Community Member Card — compact single-line row
 function MemberCard({
   member,
   isCurrentUser,
@@ -184,9 +171,8 @@ function MemberCard({
       : title.name
     : null;
 
-  // Chip: Admin > Tú > nothing
   const chipLabel = member.isAdmin
-    ? language === 'es' ? 'Admin' : 'Admin'
+    ? 'Admin'
     : isCurrentUser
     ? t.community_you
     : null;
@@ -194,113 +180,90 @@ function MemberCard({
   const chipBg = member.isAdmin ? colors.accent + '25' : colors.primary + '20';
   const chipColor = member.isAdmin ? colors.accent : colors.primary;
 
+  // descriptor: chip label or title (short)
+  const descriptor = chipLabel ?? titleDisplay;
+
   return (
     <Animated.View
-      entering={FadeInDown.delay(index * 50).duration(300)}
-      className="mx-5 mb-3"
+      entering={FadeInDown.delay(index * 40).duration(280)}
+      style={{ marginHorizontal: 12, marginBottom: 6 }}
     >
       <View
-        className="rounded-2xl overflow-hidden"
         style={{
-          backgroundColor: isCurrentUser ? colors.primary + '08' : colors.surface,
-          borderWidth: isCurrentUser ? 2 : 0,
-          borderColor: isCurrentUser ? colors.primary + '40' : 'transparent',
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingVertical: 8,
+          paddingHorizontal: 12,
+          borderRadius: 14,
+          backgroundColor: isCurrentUser ? colors.primary + '0A' : colors.surface,
+          borderWidth: isCurrentUser ? 1.5 : 0,
+          borderColor: isCurrentUser ? colors.primary + '35' : 'transparent',
         }}
       >
-        <View className="flex-row items-center px-4 pt-4 pb-3">
-          {/* Avatar */}
-          <AvatarWithFrame
-            avatarId={member.avatarId}
-            frameId={member.frameId}
-            size={56}
-          />
+        {/* Avatar */}
+        <AvatarWithFrame
+          avatarId={member.avatarId}
+          frameId={member.frameId}
+          size={36}
+        />
 
-          {/* User Info */}
-          <View className="flex-1 ml-4">
-            <View className="flex-row items-center flex-wrap">
-              <Text
-                className="text-base font-semibold"
-                style={{ color: colors.text }}
-                numberOfLines={1}
-              >
-                {member.nickname}
-              </Text>
-              {chipLabel && (
-                <View
-                  className="ml-2 px-2 py-0.5 rounded-full flex-row items-center"
-                  style={{ backgroundColor: chipBg }}
-                >
-                  {member.isAdmin && (
-                    <Shield size={10} color={chipColor} style={{ marginRight: 3 }} />
-                  )}
-                  <Text
-                    className="text-xs font-medium"
-                    style={{ color: chipColor }}
-                  >
-                    {chipLabel}
-                  </Text>
-                </View>
-              )}
-            </View>
-            {titleDisplay && (
-              <Text
-                className="text-sm mt-0.5"
-                style={{ color: colors.secondary }}
-                numberOfLines={1}
-              >
-                {titleDisplay}
-              </Text>
-            )}
-          </View>
-
-          {/* Stats */}
-          <View className="items-end">
-            <View className="flex-row items-center mb-1">
-              <BookOpen size={14} color={colors.primary} />
-              <Text
-                className="text-sm font-medium ml-1"
-                style={{ color: colors.text }}
-              >
-                {member.devotionalsCompleted}
-              </Text>
-            </View>
-            <View className="flex-row items-center mb-1">
-              <Flame size={14} color={colors.accent} />
-              <Text
-                className="text-sm font-medium ml-1"
-                style={{ color: colors.text }}
-              >
-                {member.streakCurrent}
-              </Text>
-            </View>
-            <View className="flex-row items-center">
-              <Coins size={13} color={colors.primary} />
-              <Text
-                className="text-xs font-medium ml-1"
-                style={{ color: colors.primary }}
-              >
-                {member.points.toLocaleString()}
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Acompañar row */}
-        <View
-          className="flex-row items-center justify-between px-4 pb-3"
-          style={{ borderTopWidth: 1, borderTopColor: colors.primary + '10', paddingTop: 8 }}
-        >
-          <Text className="text-xs" style={{ color: colors.textMuted }}>
-            {language === 'es' ? 'Acompañar en oración' : 'Pray alongside'}
+        {/* Name + descriptor */}
+        <View style={{ flex: 1, marginLeft: 10, flexDirection: 'row', alignItems: 'center', minWidth: 0 }}>
+          <Text
+            style={{ fontSize: 14, fontWeight: '600', color: colors.text }}
+            numberOfLines={1}
+          >
+            {member.nickname}
           </Text>
-          <AcompanarButton
-            memberId={member.id}
-            supportCount={member.supportCount ?? 0}
-            alreadySupported={alreadySupported}
-            onPress={() => onSupport(member.id)}
-            isCurrentUser={isCurrentUser}
-          />
+          {descriptor && (
+            <View
+              style={{
+                marginLeft: 6,
+                paddingHorizontal: 6,
+                paddingVertical: 2,
+                borderRadius: 8,
+                backgroundColor: chipBg,
+                flexDirection: 'row',
+                alignItems: 'center',
+                flexShrink: 1,
+              }}
+            >
+              {member.isAdmin && chipLabel === 'Admin' && (
+                <Shield size={9} color={chipColor} style={{ marginRight: 2 }} />
+              )}
+              <Text
+                style={{ fontSize: 10, fontWeight: '600', color: chipColor }}
+                numberOfLines={1}
+              >
+                {descriptor}
+              </Text>
+            </View>
+          )}
         </View>
+
+        {/* Stats row — inline */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginRight: 4 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+            <BookOpen size={12} color={colors.primary} />
+            <Text style={{ fontSize: 11, fontWeight: '600', color: colors.text }}>{member.devotionalsCompleted}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+            <Flame size={12} color={colors.accent} />
+            <Text style={{ fontSize: 11, fontWeight: '600', color: colors.text }}>{member.streakCurrent}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+            <Coins size={11} color={colors.primary} />
+            <Text style={{ fontSize: 10, fontWeight: '600', color: colors.primary }}>{member.points.toLocaleString()}</Text>
+          </View>
+        </View>
+
+        {/* Prayer icon */}
+        <PrayerIconButton
+          supportCount={member.supportCount ?? 0}
+          alreadySupported={alreadySupported}
+          onPress={() => onSupport(member.id)}
+          isCurrentUser={isCurrentUser}
+        />
       </View>
     </Animated.View>
   );

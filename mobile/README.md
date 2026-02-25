@@ -161,16 +161,19 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 ### Community Tab
 - **Respectful community progress display** - NOT a competitive leaderboard
 - **Community header** with encouraging message: "Caminamos juntos" / "We walk together"
-- **Member list** showing opted-in users:
-  - Avatar with equipped frame
-  - Nickname with optional spiritual title
-  - Key metrics (devotionals completed, current streak)
+- **Member list** showing opted-in users as compact single-line rows:
+  - Avatar (36px) with equipped frame
+  - Nickname + descriptor chip (Admin/Tu/title) on same line
+  - Inline metrics: book icon (devotionals), flame (streak), coin (points)
+  - 🙏 prayer icon at far right (no text label) — tap animates with haptic + shows ✨ active state
   - Current user highlighted with "Tu" / "You" badge
 - **"🙏 Acompañar" spiritual support gesture** (non-social, non-competitive):
+  - Inline icon-only button (no "Acompañar en oración" label row)
   - Tap to send a silent prayer support to any community member
+  - Haptic feedback (Light) on tap; icon transitions to 🙏✨ when active
   - Limit: 1 tap per viewer per day per member (enforced server-side via `UserSupport` table)
-  - Displays cumulative `supportCount` on each card
-  - Optimistic UI update + haptic feedback + scale/spring micro-animation
+  - Displays cumulative `supportCount` next to icon
+  - Optimistic UI update + scale/spring micro-animation
   - Disabled on own card; active state shown when already supported today
   - Backend: `POST /api/gamification/community/support` + `GET /api/gamification/community/support/status`
 - **Non-toxic ordering** - Rotates daily between:
