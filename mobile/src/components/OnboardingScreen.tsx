@@ -21,13 +21,14 @@ import Animated, {
   FadeInUp,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Sun, ArrowRight, Check, AlertCircle, X, Heart, Users, BookOpen } from 'lucide-react-native';
+import { Sun, ArrowRight, Check, AlertCircle, X, Heart, Users, BookOpen, MapPin } from 'lucide-react-native';
 import { useAppStore } from '@/lib/store';
 import { firestoreService } from '@/lib/firestore';
 import { gamificationApi } from '@/lib/gamification-api';
 import { DEFAULT_AVATARS, APP_BRANDING } from '@/lib/constants';
+import { CountryPickerModal, getCountryByCode, type Country } from '@/components/CountryPicker';
 
-type Step = 'welcome' | 'expect' | 'invite' | 'nickname' | 'avatar';
+type Step = 'welcome' | 'expect' | 'invite' | 'nickname' | 'avatar' | 'country';
 
 interface OnboardingScreenProps {
   onComplete: () => void;
@@ -40,6 +41,7 @@ const SLIDE_GRADIENTS: Record<string, [string, string, string]> = {
   invite:  ['#E8F4F0', '#DCF0E8', '#CFE8DF'],
   nickname: ['#FDF6E3', '#F5E6D3', '#E8D5C4'],
   avatar:   ['#FDF6E3', '#F5E6D3', '#E8D5C4'],
+  country:  ['#EAF4F8', '#DCE8F0', '#CFD5E8'],
 };
 
 // ── Slide 1 — Bienvenida ─────────────────────────────────────────────────────
@@ -405,6 +407,8 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
   const [step, setStep] = useState<Step>('welcome');
   const [nickname, setNickname] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+  const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -495,6 +499,13 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
       try {
         const backendUser = await gamificationApi.registerUser(nickname.trim(), selectedAvatar);
         backendUserId = backendUser.id;
+        // Save country if selected
+        if (backendUserId && selectedCountry) {
+          await gamificationApi.updateCountry(backendUserId, {
+            countryCode: selectedCountry.code,
+            showCountry: true,
+          }).catch(() => {/* non-critical */});
+        }
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Registration failed';
         if (errorMessage.includes('already taken') || errorMessage.includes('Nickname')) {
@@ -513,7 +524,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
       setError('No se pudo crear la cuenta. Inténtalo de nuevo.');
       setIsCreating(false);
     }
-  }, [nickname, selectedAvatar, setUser, setOnboarded, onComplete]);
+  }, [nickname, selectedAvatar, selectedCountry, setUser, setOnboarded, onComplete]);
 
   const handleButtonPressIn = () => { buttonScale.value = withSpring(0.95); };
   const handleButtonPressOut = () => { buttonScale.value = withSpring(1); };
@@ -729,10 +740,13 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                   <View style={{ marginTop: 'auto' as any }}>
                     <Animated.View style={buttonAnimatedStyle}>
                       <Pressable
-                        onPress={handleComplete}
+                        onPress={() => {
+                          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                          setStep('country');
+                        }}
                         onPressIn={handleButtonPressIn}
                         onPressOut={handleButtonPressOut}
-                        disabled={!selectedAvatar || isCreating}
+                        disabled={!selectedAvatar}
                         style={{ borderRadius: 16, overflow: 'hidden', opacity: !selectedAvatar ? 0.5 : 1 }}
                       >
                         <LinearGradient
@@ -741,14 +755,8 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                           end={{ x: 1, y: 0 }}
                           style={{ paddingVertical: 17, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10 }}
                         >
-                          {isCreating ? (
-                            <ActivityIndicator color="#fff" />
-                          ) : (
-                            <>
-                              <Text style={{ color: '#fff', fontSize: 16, fontWeight: '700' }}>Comenzar</Text>
-                              <ArrowRight size={18} color="#fff" />
-                            </>
-                          )}
+                          <Text style={{ color: '#fff', fontSize: 16, fontWeight: '700' }}>Continuar</Text>
+                          <ArrowRight size={18} color="#fff" />
                         </LinearGradient>
                       </Pressable>
                     </Animated.View>
@@ -757,6 +765,109 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
               )}
             </ScrollView>
           </KeyboardAvoidingView>
+        )}
+
+        {/* Country step */}
+        {step === 'country' && (
+          <View style={{ flex: 1, paddingHorizontal: 24, paddingTop: insets.top + 40, paddingBottom: insets.bottom + 20 }}>
+            <Animated.View entering={FadeInDown.duration(600)} style={{ alignItems: 'center', marginBottom: 40 }}>
+              <View
+                style={{
+                  width: 72, height: 72,
+                  backgroundColor: 'rgba(255,255,255,0.9)',
+                  borderRadius: 36, alignItems: 'center', justifyContent: 'center',
+                  shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 10,
+                  shadowOffset: { width: 0, height: 3 }, elevation: 4, marginBottom: 20,
+                }}
+              >
+                <MapPin size={32} color="#6B9AC4" strokeWidth={1.5} />
+              </View>
+              <Text style={{ fontSize: 24, fontWeight: '800', color: '#2D2D2D', textAlign: 'center', letterSpacing: -0.3, marginBottom: 8 }}>
+                ¿De dónde eres?
+              </Text>
+              <Text style={{ fontSize: 14, color: '#8C7B70', textAlign: 'center', lineHeight: 20 }}>
+                Opcional · Puedes cambiarlo en cualquier momento
+              </Text>
+            </Animated.View>
+
+            {/* Country selector button */}
+            <Animated.View entering={FadeInDown.delay(150).duration(500)}>
+              <Pressable
+                onPress={() => setShowCountryPicker(true)}
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.9)',
+                  borderRadius: 16,
+                  paddingVertical: 16,
+                  paddingHorizontal: 18,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  shadowColor: '#000', shadowOpacity: 0.06, shadowRadius: 8,
+                  shadowOffset: { width: 0, height: 2 }, elevation: 2,
+                  marginBottom: 28,
+                }}
+              >
+                {selectedCountry ? (
+                  <>
+                    <Text style={{ fontSize: 26, marginRight: 12 }}>{selectedCountry.flag}</Text>
+                    <Text style={{ fontSize: 16, color: '#2D2D2D', fontWeight: '600', flex: 1 }}>{selectedCountry.name}</Text>
+                    <Text style={{ fontSize: 12, color: '#B0A098' }}>Cambiar</Text>
+                  </>
+                ) : (
+                  <>
+                    <MapPin size={20} color="#B0A098" style={{ marginRight: 12 }} />
+                    <Text style={{ fontSize: 16, color: '#B0A098', flex: 1 }}>Selecciona tu país</Text>
+                    <ArrowRight size={16} color="#B0A098" />
+                  </>
+                )}
+              </Pressable>
+            </Animated.View>
+
+            <View style={{ flex: 1 }} />
+
+            {/* Finish button */}
+            <Animated.View entering={FadeInUp.delay(300).duration(500)} style={buttonAnimatedStyle}>
+              <Pressable
+                onPress={handleComplete}
+                onPressIn={handleButtonPressIn}
+                onPressOut={handleButtonPressOut}
+                disabled={isCreating}
+                style={{ borderRadius: 16, overflow: 'hidden' }}
+              >
+                <LinearGradient
+                  colors={['#6B9AC4', '#5C8DB8']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={{ paddingVertical: 17, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10 }}
+                >
+                  {isCreating ? (
+                    <ActivityIndicator color="#fff" />
+                  ) : (
+                    <>
+                      <Text style={{ color: '#fff', fontSize: 16, fontWeight: '700' }}>Comenzar</Text>
+                      <ArrowRight size={18} color="#fff" />
+                    </>
+                  )}
+                </LinearGradient>
+              </Pressable>
+            </Animated.View>
+
+            {/* Skip */}
+            {!isCreating && (
+              <Pressable
+                onPress={handleComplete}
+                style={{ marginTop: 16, alignItems: 'center', paddingVertical: 8 }}
+              >
+                <Text style={{ fontSize: 14, color: '#B0A098' }}>Omitir por ahora</Text>
+              </Pressable>
+            )}
+
+            <CountryPickerModal
+              visible={showCountryPicker}
+              selectedCode={selectedCountry?.code ?? null}
+              onSelect={(c) => { setSelectedCountry(c); setShowCountryPicker(false); }}
+              onClose={() => setShowCountryPicker(false)}
+            />
+          </View>
         )}
       </LinearGradient>
     </View>

@@ -38,6 +38,7 @@ import {
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
 import { gamificationApi, CommunityMember } from '@/lib/gamification-api';
+import { getCountryByCode } from '@/components/CountryPicker';
 
 // Helper: is a member active today?
 function isActiveToday(member: CommunityMember): boolean {
@@ -200,12 +201,35 @@ function MemberCard({
           borderColor: isCurrentUser ? colors.primary + '35' : 'transparent',
         }}
       >
-        {/* Avatar */}
-        <AvatarWithFrame
-          avatarId={member.avatarId}
-          frameId={member.frameId}
-          size={36}
-        />
+        {/* Avatar with optional country flag badge */}
+        <View style={{ position: 'relative' }}>
+          <AvatarWithFrame
+            avatarId={member.avatarId}
+            frameId={member.frameId}
+            size={36}
+          />
+          {member.showCountry && member.countryCode && (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: -2,
+                right: -4,
+                backgroundColor: 'rgba(255,255,255,0.92)',
+                borderRadius: 6,
+                paddingHorizontal: 1,
+                shadowColor: '#000',
+                shadowOpacity: 0.12,
+                shadowRadius: 2,
+                shadowOffset: { width: 0, height: 1 },
+                elevation: 2,
+              }}
+            >
+              <Text style={{ fontSize: 11, lineHeight: 16 }}>
+                {getCountryByCode(member.countryCode)?.flag ?? ''}
+              </Text>
+            </View>
+          )}
+        </View>
 
         {/* Name + descriptor */}
         <View style={{ flex: 1, marginLeft: 10, flexDirection: 'row', alignItems: 'center', minWidth: 0 }}>

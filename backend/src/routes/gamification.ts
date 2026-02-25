@@ -98,6 +98,12 @@ const updateDeviceIdSchema = z.object({
   deviceId: z.string(),
 });
 
+// Country schemas
+const updateCountrySchema = z.object({
+  countryCode: z.string().length(2).toUpperCase().nullable().optional(),
+  showCountry: z.boolean().optional(),
+});
+
 // ============================================
 // HELPER FUNCTIONS
 // ============================================
@@ -1854,6 +1860,8 @@ gamificationRouter.get("/community/members", async (c) => {
           lastActiveAt: true,
           createdAt: true,
           supportCount: true,
+          countryCode: true,
+          showCountry: true,
         },
         orderBy,
         take: limit,
@@ -1948,6 +1956,52 @@ gamificationRouter.get("/community/opt-in/:userId", async (c) => {
   } catch (error) {
     console.error("[Community] Error getting opt-in status:", error);
     return c.json({ error: "Failed to get opt-in status" }, 500);
+  }
+});
+
+// PATCH /user/:userId/country - Update user's country and showCountry preference
+gamificationRouter.patch(
+  "/user/:userId/country",
+  zValidator("json", updateCountrySchema),
+  async (c) => {
+    try {
+      const userId = c.req.param("userId");
+      const { countryCode, showCountry } = c.req.valid("json");
+
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      if (!user) return c.json({ error: "User not found" }, 404);
+
+      const data: Record<string, unknown> = {};
+      if (countryCode !== undefined) data.countryCode = countryCode;
+      if (showCountry !== undefined) data.showCountry = showCountry;
+
+      const updated = await prisma.user.update({ where: { id: userId }, data });
+
+      return c.json({
+        success: true,
+        countryCode: updated.countryCode,
+        showCountry: updated.showCountry,
+      });
+    } catch (error) {
+      console.error("[User] Error updating country:", error);
+      return c.json({ error: "Failed to update country" }, 500);
+    }
+  }
+);
+
+// GET /user/:userId/country - Get user's country settings
+gamificationRouter.get("/user/:userId/country", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { countryCode: true, showCountry: true },
+    });
+    if (!user) return c.json({ error: "User not found" }, 404);
+    return c.json({ countryCode: user.countryCode, showCountry: user.showCountry });
+  } catch (error) {
+    console.error("[User] Error getting country:", error);
+    return c.json({ error: "Failed to get country" }, 500);
   }
 });
 

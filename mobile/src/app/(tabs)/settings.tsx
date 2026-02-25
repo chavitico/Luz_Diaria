@@ -78,6 +78,7 @@ import { gamificationApi } from '@/lib/gamification-api';
 import { useQueryClient } from '@tanstack/react-query';
 import { ShareableProfileCard } from '@/components/ShareableProfileCard';
 import { getLedgerEntries, relativeTime, type LedgerEntry } from '@/lib/points-ledger';
+import { CountryPickerModal, getCountryByCode, type Country } from '@/components/CountryPicker';
 import {
   BookOpen as LedgerBookOpen,
   Tag,
@@ -236,6 +237,12 @@ export default function SettingsScreen() {
   const [prayerDisplayOptIn, setPrayerDisplayOptIn] = useState(true);
   const [isLoadingPrayerOptIn, setIsLoadingPrayerOptIn] = useState(true);
 
+  // Country state
+  const [countryCode, setCountryCode] = useState<string | null>(null);
+  const [showCountryInCommunity, setShowCountryInCommunity] = useState(true);
+  const [isLoadingCountry, setIsLoadingCountry] = useState(true);
+  const [showCountryPicker, setShowCountryPicker] = useState(false);
+
   // Points ledger state
   const [ledgerEntries, setLedgerEntries] = useState<LedgerEntry[]>([]);
   const [showFullLedger, setShowFullLedger] = useState(false);
@@ -257,6 +264,7 @@ export default function SettingsScreen() {
     loadNotificationSettings();
     loadCommunityOptIn();
     loadPrayerDisplayOptIn();
+    loadCountry();
   }, [user?.id]);
 
   const loadCommunityOptIn = async () => {
@@ -344,6 +352,46 @@ export default function SettingsScreen() {
           ? 'No se pudo actualizar la configuracion. Intenta de nuevo.'
           : 'Failed to update setting. Please try again.'
       );
+    }
+  };
+
+  const loadCountry = async () => {
+    if (!user?.id) {
+      setIsLoadingCountry(false);
+      return;
+    }
+    try {
+      const result = await gamificationApi.getCountry(user.id);
+      setCountryCode(result.countryCode);
+      setShowCountryInCommunity(result.showCountry);
+    } catch {
+      // non-critical
+    } finally {
+      setIsLoadingCountry(false);
+    }
+  };
+
+  const handleCountrySelect = async (country: Country) => {
+    if (!user?.id) return;
+    setShowCountryPicker(false);
+    setCountryCode(country.code);
+    try {
+      await gamificationApi.updateCountry(user.id, { countryCode: country.code });
+      queryClient.invalidateQueries({ queryKey: ['community-members'] });
+    } catch {
+      setCountryCode(countryCode); // revert
+    }
+  };
+
+  const handleShowCountryToggle = async (value: boolean) => {
+    if (!user?.id) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setShowCountryInCommunity(value);
+    try {
+      await gamificationApi.updateCountry(user.id, { showCountry: value });
+      queryClient.invalidateQueries({ queryKey: ['community-members'] });
+    } catch {
+      setShowCountryInCommunity(!value);
     }
   };
 
@@ -828,6 +876,40 @@ export default function SettingsScreen() {
                   thumbColor={prayerDisplayOptIn ? colors.primary : '#FFFFFF'}
                 />
               )
+            }
+          />
+
+          {/* Country row */}
+          <SettingRow
+            icon={
+              countryCode
+                ? <Text style={{ fontSize: 20 }}>{getCountryByCode(countryCode)?.flag ?? '🌍'}</Text>
+                : <Globe size={20} color={colors.primary} />
+            }
+            title={language === 'es' ? 'Mi país' : 'My Country'}
+            subtitle={
+              isLoadingCountry
+                ? '...'
+                : countryCode
+                  ? getCountryByCode(countryCode)?.name ?? countryCode
+                  : language === 'es' ? 'No seleccionado' : 'Not selected'
+            }
+            colors={colors}
+            onPress={() => setShowCountryPicker(true)}
+          />
+
+          <SettingRow
+            icon={<Users size={20} color={colors.primary} />}
+            title={language === 'es' ? 'Mostrar mi país en Comunidad' : 'Show my country in Community'}
+            subtitle={language === 'es' ? 'Muestra tu bandera junto a tu nombre' : 'Show your flag next to your name'}
+            colors={colors}
+            right={
+              <Switch
+                value={showCountryInCommunity}
+                onValueChange={handleShowCountryToggle}
+                trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                thumbColor={showCountryInCommunity ? colors.primary : '#FFFFFF'}
+              />
             }
           />
 
@@ -1527,6 +1609,13 @@ export default function SettingsScreen() {
           </Animated.View>
         </View>
       </Modal>
+
+      <CountryPickerModal
+        visible={showCountryPicker}
+        selectedCode={countryCode}
+        onSelect={handleCountrySelect}
+        onClose={() => setShowCountryPicker(false)}
+      />
     </View>
   );
 }

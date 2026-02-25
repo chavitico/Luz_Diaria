@@ -87,6 +87,8 @@ export interface CommunityMember {
   createdAt: string;
   supportCount: number;
   isAdmin?: boolean;
+  countryCode: string | null;
+  showCountry: boolean;
 }
 
 // Prayer types
@@ -588,6 +590,24 @@ export const gamificationApi = {
   async getPrayerDisplayOptIn(userId: string): Promise<{ prayerDisplayOptIn: boolean }> {
     const res = await fetch(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`);
     if (!res.ok) throw new Error('Failed to get prayer display opt-in status');
+    return res.json();
+  },
+
+  // ─── Country ────────────────────────────────────────────────────────────────
+
+  async updateCountry(userId: string, params: { countryCode?: string | null; showCountry?: boolean }): Promise<{ success: boolean; countryCode: string | null; showCountry: boolean }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/country`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+    });
+    if (!res.ok) throw new Error('Failed to update country');
+    return res.json();
+  },
+
+  async getCountry(userId: string): Promise<{ countryCode: string | null; showCountry: boolean }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/country`);
+    if (!res.ok) throw new Error('Failed to get country');
     return res.json();
   },
 
