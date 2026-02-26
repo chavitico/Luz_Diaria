@@ -99,8 +99,25 @@ interface DevotionalContent {
   prayerEs: string;
 }
 
+// Counter to track story style variation (persisted in-memory per server session)
+let storyGenerationCount = 0;
+
 async function generateDevotionalWithAI(topic: { en: string; es: string }): Promise<DevotionalContent> {
-  const prompt = `You are a Christian devotional writer. Generate a complete daily devotional about the topic "${topic.en}" / "${topic.es}".
+  storyGenerationCount++;
+
+  // Determine story style variation based on count
+  const useNoName = storyGenerationCount % 5 === 0; // 1 in 5: no names at all
+  const useFirstPerson = storyGenerationCount % 10 === 0; // 1 in 10: first person "I felt..."
+  const endWithQuestion = storyGenerationCount % 3 === 0; // ~1 in 3: end with a question instead of conclusion
+
+  const storyStyleInstructions = `
+STORY STYLE INSTRUCTIONS (follow these exactly):
+${useNoName ? `- THIS STORY: Do NOT use any names. Only refer to characters as "una mujer", "un joven", "alguien que…", "ella", "él", etc.` : `- THIS STORY: Use uncommon or rare names (avoid overused names like María, Juan, Pedro, Ana). Consider names like Rebeca, Amara, Tadeo, Elías, Noa, Miriam, Isai, Lía, etc. Or mix a name for one character and descriptions for others.`}
+${useFirstPerson ? `- THIS STORY: Write in FIRST PERSON ("Yo sentí…", "Recuerdo cuando…", "Fue una noche que…"). Make it feel like a personal testimony.` : `- THIS STORY: Write in third person, but from deep inside the character's emotional perspective. Prioritize inner emotions over external facts.`}
+${endWithQuestion ? `- THIS STORY: Do NOT end with a conclusion or moral lesson. End with a powerful open question that invites the reader to reflect spiritually.` : `- THIS STORY: End with a moment of quiet encounter with God — not a moral lesson, but a felt truth.`}
+`;
+
+  const prompt = `You are a Christian devotional writer with a gift for deeply moving, spiritually intimate storytelling. Generate a complete daily devotional about the topic "${topic.en}" / "${topic.es}".
 
 Return ONLY a valid JSON object with this exact structure (no markdown, no code blocks, just pure JSON):
 
@@ -113,22 +130,28 @@ Return ONLY a valid JSON object with this exact structure (no markdown, no code 
   "bibleReferenceEs": "Same reference in Spanish with translated book name (e.g., 'Salmo 23:1' or '1 Corintios 13:4-7')",
   "reflection": "A deep, thoughtful reflection on the theme (3-4 paragraphs, about 200-250 words). Connect the Bible verse to daily life.",
   "reflectionEs": "Same reflection in Spanish",
-  "story": "An inspiring fictional story that illustrates the theme (3-4 paragraphs, about 200-250 words). Use a relatable modern character facing a challenge that connects to the spiritual theme.",
-  "storyEs": "Same story in Spanish",
+  "story": "An inspiring story that illustrates the theme (3-4 paragraphs, about 200-250 words). Follow the STORY STYLE INSTRUCTIONS below. Prioritize internal emotions over external events. Write like an intimate testimony, not a documentary. Include at least one powerful phrase that invites spiritual reflection. Make the reader feel accompanied, not instructed. Focus on hope, comfort, living faith, and real encounter with God. Each story must feel unique and memorable.",
+  "storyEs": "Same story in Spanish — translate naturally, preserving the emotional and spiritual tone",
   "biblicalCharacter": "A section about a biblical character who exemplified this virtue (2-3 paragraphs, about 150-200 words). Include specific Bible references.",
   "biblicalCharacterEs": "Same section in Spanish",
   "application": "Practical application steps for today (2-3 specific actions the reader can take). Be concrete and actionable.",
   "applicationEs": "Same application in Spanish",
-  "prayer": "A heartfelt prayer related to the theme (about 100 words). Make it personal and meaningful.",
+  "prayer": "A heartfelt prayer related to the theme (about 100 words). Make it personal and intimate — a real conversation with God, not a formal prayer.",
   "prayerEs": "Same prayer in Spanish"
 }
 
-Important guidelines:
-- The content should be deeply spiritual but accessible
-- Stories should feel real and emotionally engaging
-- The biblical character section should teach through their example
-- Prayers should be intimate conversations with God
-- Spanish translations should be natural, not literal
+${storyStyleInstructions}
+
+GLOBAL STORY GUIDELINES (always apply):
+- Never repeat the same 3-4 common names across stories
+- Prioritize internal emotions and spiritual states over external plot events
+- Write as an intimate testimony, not a documentary chronicle
+- Avoid long moralistic explanations — trust the reader
+- Make the reader feel accompanied, never lectured
+- Each story must feel unique, memorable, and touch the heart
+- Focus on: hope, consolation, living faith, and real encounter with God
+- The reflection and prayer should be deeply spiritual but accessible
+- Spanish translations must be natural and emotionally resonant, not literal
 - All content must be biblically sound and theologically accurate`;
 
   console.log(`[Devotional] Generating devotional for topic: ${topic.en}...`);
