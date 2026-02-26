@@ -54,31 +54,30 @@ model User {
   communityOptIn         Boolean           @default(false)
   prayerDisplayOptIn     Boolean           @default(true)
   supportCount           Int               @default(0)
-  countryCode            String?           // ISO 3166-1 alpha-2 (e.g. "CR", "US")
+  countryCode            String?
   showCountry            Boolean           @default(true)
-  activeBadgeId          String?           // badge item ID currently shown in Community
   createdAt              DateTime          @default(now())
   updatedAt              DateTime          @updatedAt
+  activeBadgeId          String?
   pointLedger            PointLedger[]
   prayerRequests         PrayerRequest[]
   promoRedemptions       PromoRedemption[]
   transferCodesGenerated TransferCode[]    @relation("TransferCodeSource")
   favorites              UserFavorite[]
   inventory              UserInventory[]
-  weeklyProgress         WeeklyProgress[]
   supportReceived        UserSupport[]     @relation("SupportReceived")
   supportGiven           UserSupport[]     @relation("SupportGiven")
+  weeklyProgress         WeeklyProgress[]
 }
 
-// Tracks daily "Acompañar" spiritual support gestures
 model UserSupport {
-  id           String   @id @default(cuid())
-  fromUserId   String
-  toUserId     String
-  dateId       String   // YYYY-MM-DD, limits 1 per viewer per day
-  createdAt    DateTime @default(now())
-  fromUser     User     @relation("SupportGiven", fields: [fromUserId], references: [id], onDelete: Cascade)
-  toUser       User     @relation("SupportReceived", fields: [toUserId], references: [id], onDelete: Cascade)
+  id         String   @id @default(cuid())
+  fromUserId String
+  toUserId   String
+  dateId     String
+  createdAt  DateTime @default(now())
+  toUser     User     @relation("SupportReceived", fields: [toUserId], references: [id], onDelete: Cascade)
+  fromUser   User     @relation("SupportGiven", fields: [fromUserId], references: [id], onDelete: Cascade)
 
   @@unique([fromUserId, toUserId, dateId])
   @@index([toUserId])
@@ -261,45 +260,41 @@ model DailyPrayer {
 }
 
 model AppBranding {
-  id                    String   @id @default("app")
-  appName               String   @default("Luz Diaria")
-  taglineEs             String   @default("Tu devocional diario")
-  taglineEn             String   @default("Your daily devotional")
-  shareWatermarkEnabled Boolean  @default(true)
-  shareWatermarkPosition String  @default("bottom-left")
-  updatedAt             DateTime @updatedAt
+  id                     String   @id @default("app")
+  appName                String   @default("Luz Diaria")
+  taglineEs              String   @default("Tu devocional diario")
+  taglineEn              String   @default("Your daily devotional")
+  shareWatermarkEnabled  Boolean  @default(true)
+  shareWatermarkPosition String   @default("bottom-left")
+  updatedAt              DateTime @updatedAt
 }
 
 model CollectionClaim {
-  id           String   @id @default(cuid())
-  userId       String
-  collectionId String
+  id            String   @id @default(cuid())
+  userId        String
+  collectionId  String
   pointsAwarded Int
-  claimedAt    DateTime @default(now())
+  claimedAt     DateTime @default(now())
 
   @@unique([userId, collectionId])
   @@index([userId])
 }
 
-// Tracks claimed chapters for chapter-based spiritual path collections.
-// claimedChapterIds is a JSON array of chapterId strings.
 model UserChapterProgress {
-  id                 String   @id @default(cuid())
-  userId             String
-  collectionId       String
-  claimedChapterIds  String   @default("[]") // JSON array of chapterId strings
-  updatedAt          DateTime @updatedAt
+  id                String   @id @default(cuid())
+  userId            String
+  collectionId      String
+  claimedChapterIds String   @default("[]")
+  updatedAt         DateTime @updatedAt
 
   @@unique([userId, collectionId])
   @@index([userId])
 }
 
-// Tracks which specific devotionals a user has completed (one row per unique date).
-// This is the authoritative source for the unique devotionals counter.
 model DevotionalCompletion {
   id             String   @id @default(cuid())
   userId         String
-  devotionalDate String   // matches Devotional.date (YYYY-MM-DD)
+  devotionalDate String
   completedAt    DateTime @default(now())
 
   @@unique([userId, devotionalDate])
