@@ -62,7 +62,7 @@ function getTodayDate(): string {
   return `${year}-${month}-${day}`;
 }
 
-function getTopicForDate(date: string): { en: string; es: string } {
+export function getTopicForDate(date: string): { en: string; es: string } {
   const dayOfYear = Math.floor(
     (new Date(date).getTime() - new Date(new Date(date).getFullYear(), 0, 0).getTime()) /
       (1000 * 60 * 60 * 24)
@@ -102,7 +102,7 @@ interface DevotionalContent {
 // Counter to track story style variation (persisted in-memory per server session)
 let storyGenerationCount = 0;
 
-async function generateDevotionalWithAI(topic: { en: string; es: string }): Promise<DevotionalContent> {
+export async function generateDevotionalWithAI(topic: { en: string; es: string }): Promise<DevotionalContent> {
   storyGenerationCount++;
 
   // Determine story style variation based on count

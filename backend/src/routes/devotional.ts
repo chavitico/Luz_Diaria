@@ -5,6 +5,8 @@ import {
   getTodayDevotional,
   getDevotionalByDate,
   getAllDevotionals,
+  generateDevotionalWithAI,
+  getTopicForDate,
 } from "../devotional-service";
 import { prisma } from "../prisma";
 
@@ -186,4 +188,40 @@ devotionalRouter.post("/seed/:days", async (c) => {
     console.error("[API] Error seeding devotionals:", error);
     return c.json({ error: "Failed to seed devotionals" }, 500);
   }
+});
+
+// Preview endpoint — generates N stories without saving to DB
+// GET /api/devotional/preview?count=5
+devotionalRouter.get("/preview", async (c) => {
+  const countParam = c.req.query("count");
+  const count = Math.min(Math.max(parseInt(countParam ?? "1", 10) || 1, 1), 10);
+
+  // Start from tomorrow's date and go forward
+  const results: Array<{ index: number; topic: string; topicEs: string; story: string; storyEs: string; title: string; titleEs: string }> = [];
+  const errors: Array<{ index: number; error: string }> = [];
+
+  for (let i = 0; i < count; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() + 1 + i); // tomorrow, day after, etc.
+    const dateStr = date.toISOString().split("T")[0]!;
+    const topic = getTopicForDate(dateStr);
+
+    try {
+      console.log(`[Preview] Generating preview #${i + 1} — topic: ${topic.es}`);
+      const content = await generateDevotionalWithAI(topic);
+      results.push({
+        index: i + 1,
+        topic: topic.en,
+        topicEs: topic.es,
+        title: content.title,
+        titleEs: content.titleEs,
+        story: content.story,
+        storyEs: content.storyEs,
+      });
+    } catch (err) {
+      errors.push({ index: i + 1, error: err instanceof Error ? err.message : "Unknown error" });
+    }
+  }
+
+  return c.json({ generated: results.length, errors, results });
 });
