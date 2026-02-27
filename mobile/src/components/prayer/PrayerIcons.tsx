@@ -13,7 +13,8 @@ type CategoryKey =
   | 'restoration'
   | 'gratitude'
   | 'salvation'
-  | 'strength';
+  | 'strength'
+  | 'friend_strength';
 
 interface PrayerCategoryIconProps {
   category: string;
@@ -86,6 +87,12 @@ const CATEGORY_CONFIG: Record<
     gradientTo: '#1B5E20',
     symbol: '⛨',
     ringColor: '#A5D6A7',
+  },
+  friend_strength: {
+    gradientFrom: '#F9A8D4',
+    gradientTo: '#BE185D',
+    symbol: '🤝',
+    ringColor: '#F9A8D4',
   },
 };
 

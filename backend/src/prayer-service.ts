@@ -13,6 +13,7 @@ const PRAYER_CATEGORIES: Record<string, { en: string; es: string }> = {
   gratitude: { en: "Gratitude", es: "Gratitud" },
   salvation: { en: "Salvation", es: "Salvación" },
   strength: { en: "Strength", es: "Fortaleza" },
+  friend_strength: { en: "Strength for a Friend", es: "Fortaleza para un amig@" },
 };
 
 function getCostaRicaDateString(): string {

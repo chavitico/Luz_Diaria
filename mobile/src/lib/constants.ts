@@ -1786,6 +1786,7 @@ export const PRAYER_CATEGORIES = [
   { key: 'gratitude', labelEn: 'Gratitude', labelEs: 'Gratitud', icon: 'Sparkles' },
   { key: 'salvation', labelEn: 'Salvation (for someone)', labelEs: 'Salvación (por alguien)', icon: 'HandHeart' },
   { key: 'strength', labelEn: 'Strength', labelEs: 'Fortaleza', icon: 'Shield' },
+  { key: 'friend_strength', labelEn: 'Strength for a Friend', labelEs: 'Fortaleza para un amig@', icon: 'HeartHandshake' },
 ] as const;
 
 export type PrayerCategoryKey = typeof PRAYER_CATEGORIES[number]['key'];

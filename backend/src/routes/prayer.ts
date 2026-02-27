@@ -11,7 +11,7 @@ export const prayerRouter = new Hono();
 
 const PRAYER_CATEGORIES = [
   'work', 'health', 'family', 'peace', 'wisdom',
-  'studies', 'restoration', 'gratitude', 'salvation', 'strength'
+  'studies', 'restoration', 'gratitude', 'salvation', 'strength', 'friend_strength'
 ] as const;
 
 type PrayerCategoryKey = typeof PRAYER_CATEGORIES[number];
