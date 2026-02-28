@@ -1,6 +1,7 @@
 import { generateTodayDevotional, generateDevotionalForDate } from "./devotional-service";
 import { generateWeeklyChallenges } from "./weekly-challenges";
 import { generateTodayDailyPrayer } from "./prayer-service";
+import { generateStreakSnapshots } from "./streak-snapshot-service";
 
 // Costa Rica timezone is UTC-6
 // 4:00 AM Costa Rica = 10:00 AM UTC
@@ -57,6 +58,15 @@ async function runCronJob(): Promise<void> {
     } catch (error) {
       console.error(`[Cron] Failed to generate weekly challenges:`, error);
     }
+  }
+
+  // Generate daily streak snapshots for all users
+  try {
+    const today = new Date().toISOString().split("T")[0]!;
+    await generateStreakSnapshots(today);
+    console.log(`[Cron] Streak snapshots generated successfully`);
+  } catch (error) {
+    console.error(`[Cron] Failed to generate streak snapshots:`, error);
   }
 }
 

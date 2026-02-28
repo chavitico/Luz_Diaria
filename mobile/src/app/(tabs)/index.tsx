@@ -74,6 +74,13 @@ import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
 
 const { width, height } = Dimensions.get('window');
+const IS_TABLET = width >= 768;
+
+// Tablet-responsive scaling helpers
+const ts = (mobile: number) => IS_TABLET ? mobile * 1.25 : mobile;  // title scale +25%
+const ss = (mobile: number) => IS_TABLET ? mobile * 1.20 : mobile;  // subtitle scale +20%
+const bs = (mobile: number) => IS_TABLET ? mobile * 1.15 : mobile;  // body scale +15%
+const ps = (mobile: number) => IS_TABLET ? mobile * 0.75 : mobile;  // padding/margin reduce -25%
 
 // Confetti colors
 const CONFETTI_COLORS = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'];
@@ -589,7 +596,7 @@ function ContentSection({ title, content, icon, colors, isHighlighted, sectionIn
   return (
     <Animated.View
       entering={FadeInDown.delay(100 + sectionIndex * 50).duration(400)}
-      className="mb-6"
+      style={{ marginBottom: IS_TABLET ? 16 : 24 }}
     >
       <View className="flex-row items-center mb-3">
         <View
@@ -599,23 +606,23 @@ function ContentSection({ title, content, icon, colors, isHighlighted, sectionIn
           {icon}
         </View>
         <Text
-          className="text-lg font-bold"
-          style={{ color: colors.primary }}
+          style={{ color: colors.primary, fontSize: ss(18), fontWeight: 'bold' }}
         >
           {title}
         </Text>
       </View>
 
       <View
-        className="rounded-2xl p-5"
         style={{
+          borderRadius: 16,
+          padding: IS_TABLET ? 16 : 20,
           backgroundColor: isHighlighted ? colors.primary + '15' : colors.surface,
           borderWidth: isHighlighted ? 2 : 0,
           borderColor: isHighlighted ? colors.primary : 'transparent',
         }}
       >
         <BibleReferenceText
-          style={{ color: colors.text, fontSize: 16, lineHeight: 28 }}
+          style={{ color: colors.text, fontSize: bs(16), lineHeight: bs(28) }}
         >
           {content}
         </BibleReferenceText>
@@ -1365,6 +1372,8 @@ export default function HomeScreen() {
   const ttsVoiceRef = useRef('default');
   const currentSectionsRef = useRef<{ key: string; text: string }[]>([]);
   const ttsCompletedTodayRef = useRef(false);
+  const speechJobIdRef = useRef(0);
+  const lastSpeakAttemptRef = useRef(0);
 
   // Share modal state
   const [showShareModal, setShowShareModal] = useState(false);
@@ -1719,14 +1728,15 @@ export default function HomeScreen() {
     return getDeviceVoiceIdentifier(currentVoiceId, availableVoices, language);
   }, [availableVoices, language]);
 
-  const speakSection = useCallback(async (index: number, sections: { key: string; text: string }[]) => {
-    // Check if TTS was stopped
-    if (!isTTSPlayingRef.current) {
-      return;
-    }
+  const speakSection = useCallback(async (index: number, sections: { key: string; text: string }[], jobId: number) => {
+    // Guard: abort if this job was superseded
+    if (jobId !== speechJobIdRef.current) return;
+    // Guard: abort if TTS was stopped
+    if (!isTTSPlayingRef.current) return;
 
     if (index >= sections.length) {
       // TTS completed all sections - award points for completion
+      if (jobId !== speechJobIdRef.current) return;
       handleTTSComplete();
 
       setIsTTSPlaying(false);
@@ -1749,15 +1759,15 @@ export default function HomeScreen() {
       rate: ttsSpeedRef.current,
       volume: ttsVolumeRef.current,
       onDone: () => {
-        // Only continue if TTS is still playing
-        if (isTTSPlayingRef.current) {
-          speakSection(index + 1, sections);
+        // Only continue if this job is still active and TTS is still playing
+        if (jobId === speechJobIdRef.current && isTTSPlayingRef.current) {
+          speakSection(index + 1, sections, jobId);
         }
       },
       onError: () => {
-        // Only continue if TTS is still playing
-        if (isTTSPlayingRef.current) {
-          speakSection(index + 1, sections);
+        // Only continue if this job is still active and TTS is still playing
+        if (jobId === speechJobIdRef.current && isTTSPlayingRef.current) {
+          speakSection(index + 1, sections, jobId);
         }
       },
     };
@@ -1773,22 +1783,36 @@ export default function HomeScreen() {
   const handleTTSPlay = useCallback(async () => {
     if (isTTSPlaying) return;
 
+    // 500ms debounce guard
+    const now = Date.now();
+    if (now - lastSpeakAttemptRef.current < 500) return;
+    lastSpeakAttemptRef.current = now;
+
     const sections = buildDevotionalText();
     if (sections.length === 0) return;
+
+    // Stop any active speech before starting new job
+    await Speech.stop();
+
+    // Increment job ID to invalidate any stale callbacks
+    speechJobIdRef.current += 1;
+    const jobId = speechJobIdRef.current;
 
     setIsTTSPlaying(true);
     isTTSPlayingRef.current = true;
     currentSectionsRef.current = sections;
-    await speakSection(0, sections);
+    speakSection(0, sections, jobId);
   }, [isTTSPlaying, buildDevotionalText, speakSection]);
 
   const handleTTSPause = useCallback(async () => {
+    speechJobIdRef.current += 1; // invalidate active job
     isTTSPlayingRef.current = false;
     await Speech.stop();
     setIsTTSPlaying(false);
   }, []);
 
   const handleTTSStop = useCallback(async () => {
+    speechJobIdRef.current += 1; // invalidate active job
     isTTSPlayingRef.current = false;
     currentSectionIndexRef.current = -1;
     currentSectionsRef.current = [];
@@ -1806,9 +1830,11 @@ export default function HomeScreen() {
 
     if (sections.length === 0 || currentIndex >= sections.length) return;
 
-    // Stop current speech and restart with new settings
+    // Stop current speech, create new job, restart with new settings
     await Speech.stop();
-    speakSection(currentIndex, sections);
+    speechJobIdRef.current += 1;
+    const jobId = speechJobIdRef.current;
+    speakSection(currentIndex, sections, jobId);
   }, [speakSection]);
 
   const toggleFavorite = () => {

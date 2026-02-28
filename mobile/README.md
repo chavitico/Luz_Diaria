@@ -473,4 +473,32 @@ The app connects to a Hono backend with:
 - `GET /api/bible/passage?reference=Lucas+10:25-37&lang=es` - Get Bible passage text
 - Supports both Spanish and English Bibles (Reina Valera 1960, KJV)
 - Server-side caching in SQLite database
+
+### Support Ticket System
+- **Streak Snapshots**: Daily cron generates snapshots for ALL users at 4 AM Costa Rica time
+  - Stored in `StreakSnapshot` table: `snapshotDate + userId` (unique), streak, lastDevotionalDate, totalCompleted
+  - Retains last 2 days (yesterday + day before); today's snapshot is never deleted
+- **Support Tickets**: `SupportTicket` table tracks streak/devotional disputes
+  - Types: `streak_missing`, `devotional_not_counted`
+  - Statuses: `open`, `auto_fixed`, `needs_human`, `closed`
+  - Includes `beforeState`/`afterState` JSON for audit trail
+- **Auto-Resolution Rules**:
+  - Finds most recent snapshot (yesterday → day-before-yesterday fallback)
+  - `snapshotStreak >= 1` AND `abs(snapshot - claimed) <= 1` → auto-fix: set streak to max(claimed, current)
+  - Diff > 1 OR no snapshot → `needs_human` (escalation logged)
+- **Endpoints**:
+  - `POST /api/support/ticket` — create ticket with auto-resolution
+  - `GET /api/support/tickets/:userId` — fetch last 20 tickets for user
+
+### TTS No-Repeat Guard (Home Screen)
+- `speechJobIdRef` (number): increments on every new play/pause/stop — all callbacks verify their jobId matches before proceeding
+- `lastSpeakAttemptRef`: 500ms debounce prevents rapid-fire play calls
+- `Speech.stop()` always called before starting a new TTS job
+- Stale `onDone`/`onError` callbacks from previous jobs are silently dropped via jobId check
+
+### Tablet UI Scaling (width >= 768px)
+- `IS_TABLET` constant detected via `Dimensions.get('window').width >= 768`
+- Scaling helpers: `ts()` +25% titles, `ss()` +20% subtitles, `bs()` +15% body, `ps()` -25% padding
+- ContentSection applies tablet-responsive fontSize and reduced vertical margins on tablet
+- Mobile behavior is 100% unchanged (scaling functions return input unchanged when not tablet)
 - Fetches from Bible API on demand, caches for future requests

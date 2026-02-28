@@ -300,3 +300,34 @@ model DevotionalCompletion {
   @@unique([userId, devotionalDate])
   @@index([userId])
 }
+
+model StreakSnapshot {
+  id                          String   @id @default(cuid())
+  snapshotDate                String   // YYYY-MM-DD
+  userId                      String
+  streak                      Int
+  lastDevotionalDateCompleted String?
+  totalDevotionalsCompleted   Int
+  updatedAt                   DateTime @updatedAt
+
+  @@unique([snapshotDate, userId])
+  @@index([snapshotDate])
+  @@index([userId])
+}
+
+model SupportTicket {
+  id             String   @id @default(cuid())
+  userId         String
+  type           String   // "streak_missing" | "devotional_not_counted"
+  claimedStreak  Int
+  claimedDate    String   // YYYY-MM-DD
+  status         String   @default("open") // "open" | "auto_fixed" | "needs_human" | "closed"
+  resolutionNote String?
+  beforeState    String   @default("{}") // JSON audit
+  afterState     String   @default("{}") // JSON audit
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
