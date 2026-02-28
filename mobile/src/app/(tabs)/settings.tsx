@@ -49,6 +49,7 @@ import {
   Key,
   Users,
   ChevronDown,
+  LifeBuoy,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
@@ -217,6 +218,7 @@ export default function SettingsScreen() {
   const [transferCodeExpiry, setTransferCodeExpiry] = useState<Date | null>(null);
   const [isGeneratingCode, setIsGeneratingCode] = useState(false);
   const [adminPressCount, setAdminPressCount] = useState(0);
+  const [adminSupportPressCount, setAdminSupportPressCount] = useState(0);
   const [enteredCode, setEnteredCode] = useState('');
   const [isRestoring, setIsRestoring] = useState(false);
   const [restoreError, setRestoreError] = useState<string | null>(null);
@@ -1063,6 +1065,22 @@ export default function SettingsScreen() {
             onPress={() => setShowLanguageModal(true)}
           />
 
+          {/* Support Section */}
+          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
+            {language === 'es' ? 'Ayuda' : 'Help'}
+          </Text>
+
+          <SettingRow
+            icon={<LifeBuoy size={20} color={colors.primary} />}
+            title={language === 'es' ? 'Soporte' : 'Support'}
+            subtitle={language === 'es' ? 'Reporta problemas de racha o devocional' : 'Report streak or devotional issues'}
+            colors={colors}
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              router.push('/support');
+            }}
+          />
+
           {/* Notifications Section */}
           <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
             {language === 'es' ? 'Notificaciones' : 'Notifications'}
@@ -1266,6 +1284,24 @@ export default function SettingsScreen() {
               </Text>
             </Pressable>
           </Animated.View>
+
+          {/* Hidden admin support access — tap © 7 times */}
+          <Pressable
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              const next = adminSupportPressCount + 1;
+              setAdminSupportPressCount(next);
+              if (next >= 7) {
+                setAdminSupportPressCount(0);
+                router.push('/admin/support');
+              }
+            }}
+            style={{ alignItems: 'center', paddingVertical: 4, marginBottom: 8 }}
+          >
+            <Text style={{ fontSize: 11, color: colors.textMuted + '40' }}>
+              v{adminSupportPressCount > 0 ? '·'.repeat(adminSupportPressCount) : ''}
+            </Text>
+          </Pressable>
 
           {/* Debug Info - User ID */}
           {user?.id && (

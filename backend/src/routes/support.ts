@@ -117,4 +117,26 @@ supportRouter.get("/tickets/:userId", async (c) => {
   return c.json({ tickets });
 });
 
+// GET /api/support/admin/tickets - get all tickets (admin view)
+supportRouter.get("/admin/tickets", async (c) => {
+  const limit = Math.min(parseInt(c.req.query("limit") ?? "50"), 100);
+  const tickets = await prisma.supportTicket.findMany({
+    orderBy: { createdAt: "desc" },
+    take: limit,
+    select: {
+      id: true,
+      userId: true,
+      type: true,
+      claimedStreak: true,
+      claimedDate: true,
+      status: true,
+      resolutionNote: true,
+      beforeState: true,
+      afterState: true,
+      createdAt: true,
+    },
+  });
+  return c.json({ tickets });
+});
+
 export { supportRouter };

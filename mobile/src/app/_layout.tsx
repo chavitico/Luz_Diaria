@@ -61,7 +61,21 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
+          name="support"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="admin/branding"
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="admin/support"
           options={{
             presentation: 'modal',
             headerShown: false,
