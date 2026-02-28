@@ -64,6 +64,29 @@ export const CURATED_VOICES_ES: CuratedVoice[] = [
     language: 'es',
     tone: 'deep',
   },
+  {
+    id: 'latina_pastoral',
+    name: 'Latina Pastoral',
+    nameEs: 'Voz Pastoral Latina',
+    description: 'Warm, pastoral Latin American voice — ideal for biblical narration',
+    descriptionEs: 'Voz cálida y pastoral latinoamericana — ideal para narración bíblica',
+    voicePatterns: [
+      // iOS Latin American (warm, neutral accent)
+      'com.apple.ttsbundle.Paulina-compact',
+      'com.apple.voice.compact.es-MX.Paulina',
+      'com.apple.voice.premium.es-MX.Paulina',
+      'com.apple.eloquence.es-MX.Rocko',
+      'com.apple.eloquence.es-MX.Sandy',
+      // Fallback to any Latin American ES voice
+      'es-MX',
+      'es-419',
+      'Paulina',
+      'Luciana',
+      'es-US',
+    ],
+    language: 'es',
+    tone: 'warm',
+  },
 ];
 
 // Curated English voices for devotional content
@@ -189,29 +212,59 @@ export function addTTSPausesForNumberedPoints(text: string): string {
   return text.replace(/([.!])\s+(\d+\.)/g, '$1 ... $2');
 }
 
+// Map of small numbers to Spanish words for natural TTS reading
+const SPANISH_NUMBERS: Record<number, string> = {
+  1: 'uno', 2: 'dos', 3: 'tres', 4: 'cuatro', 5: 'cinco',
+  6: 'seis', 7: 'siete', 8: 'ocho', 9: 'nueve', 10: 'diez',
+  11: 'once', 12: 'doce', 13: 'trece', 14: 'catorce', 15: 'quince',
+  16: 'dieciséis', 17: 'diecisiete', 18: 'dieciocho', 19: 'diecinueve',
+  20: 'veinte', 21: 'veintiuno', 22: 'veintidós', 23: 'veintitrés',
+  24: 'veinticuatro', 25: 'veinticinco', 26: 'veintiséis', 27: 'veintisiete',
+  28: 'veintiocho', 29: 'veintinueve', 30: 'treinta',
+};
+
+/**
+ * Converts a number to its Spanish spoken form if it's in the small number map.
+ * Falls back to the numeric string for larger numbers.
+ */
+function numberToSpanishWord(n: number): string {
+  return SPANISH_NUMBERS[n] ?? String(n);
+}
+
 /**
  * Preprocesses text to ensure TTS engines pronounce numbers naturally,
- * with pauses before and after them so they don't run together with adjacent words.
+ * inserting pauses and converting small integers to spoken words so they
+ * don't run together with adjacent words.
  *
  * Examples:
- *   "liberación2"  → "liberación, 2,"
- *   "ora por 2 razones" → "ora por, 2, razones"
- *   standalone "2" → "2,"
+ *   "liberaciónDOS" or "liberación2"  → "liberación… dos"
+ *   "Salmo ciento cincuentaDOS"       → "Salmo ciento cincuenta… dos"
+ *   "capítulo 3, versículo 5"         → "capítulo tres, versículo cinco"
+ *   standalone "2"                     → "dos"
+ *
+ * The ellipsis ("…") creates a natural auditory pause on iOS/Android TTS.
  */
 export function preprocessNumbersForTTS(text: string): string {
   let result = text;
 
-  // Insert ", " between a word character directly followed by a digit (no space between them)
-  // e.g. "liberación2" → "liberación, 2"
-  result = result.replace(/([a-zA-ZáéíóúüñÁÉÍÓÚÜÑ])(\d)/g, '$1, $2');
+  // 1. Insert "… " between a letter directly followed by a digit (no space)
+  //    e.g. "liberación2" → "liberación… 2"
+  result = result.replace(/([a-zA-ZáéíóúüñÁÉÍÓÚÜÑ])(\d)/g, '$1… $2');
 
-  // Insert ", " between a digit directly followed by a word character (no space)
-  // e.g. "2da" → "2, da" (edge case)
-  result = result.replace(/(\d)([a-zA-ZáéíóúüñÁÉÍÓÚÜÑ])/g, '$1, $2');
+  // 2. Insert " …" between a digit directly followed by a letter (no space)
+  //    e.g. "2da" → "2 …da" (edge case ordinal suffix)
+  result = result.replace(/(\d)([a-zA-ZáéíóúüñÁÉÍÓÚÜÑ])/g, '$1 …$2');
 
-  // Wrap standalone numbers (surrounded by spaces or at start/end) with commas
-  // so TTS pauses before and after: " 2 " → " 2, "
-  result = result.replace(/(^|\s)(\d+)(\s|$)/g, '$1$2,$3');
+  // 3. Convert standalone small integers to Spanish spoken words with surrounding pauses
+  //    " 2 " → " dos " — this avoids robotic digit-by-digit reading
+  result = result.replace(/(^|\s)(\d{1,2})(\s|[.,;:!?]|$)/g, (_m, pre, numStr, suf) => {
+    const n = parseInt(numStr, 10);
+    const word = numberToSpanishWord(n);
+    return `${pre}${word}${suf}`;
+  });
+
+  // 4. For larger isolated numbers (3+ digits not already converted), wrap with pauses
+  result = result.replace(/(^|\s)(\d{3,})(\s|[.,;:!?]|$)/g, '$1… $2 …$3');
 
   return result;
 }

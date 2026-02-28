@@ -945,6 +945,8 @@ function AudioControls({
   onTTSPlay,
   onTTSPause,
   isTTSPlaying,
+  ttsVoice,
+  onTTSVoiceChange,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
@@ -957,8 +959,11 @@ function AudioControls({
   onTTSPlay: () => void;
   onTTSPause: () => void;
   isTTSPlaying: boolean;
+  ttsVoice: string;
+  onTTSVoiceChange: (voiceId: string) => void;
 }) {
   const [showMusicSettings, setShowMusicSettings] = useState(false);
+  const isLatinaVoice = ttsVoice === 'latina_pastoral';
 
   return (
     <View className="mb-6">
@@ -984,6 +989,30 @@ function AudioControls({
             {language === 'es' ? 'Narración' : 'Narration'}
           </Text>
         </View>
+
+        {/* Center: Voice toggle (default ↔ latina pastoral) — only for Spanish */}
+        {language === 'es' && (
+          <Pressable
+            onPress={() => {
+              onTTSVoiceChange(isLatinaVoice ? 'default' : 'latina_pastoral');
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            }}
+            className="flex-row items-center gap-1 px-3 py-1.5 rounded-full"
+            style={{
+              backgroundColor: isLatinaVoice ? colors.primary + '20' : colors.textMuted + '15',
+              borderWidth: 1,
+              borderColor: isLatinaVoice ? colors.primary + '60' : colors.textMuted + '25',
+            }}
+          >
+            <Text style={{ fontSize: 12 }}>🕊️</Text>
+            <Text
+              className="text-xs font-medium"
+              style={{ color: isLatinaVoice ? colors.primary : colors.textMuted }}
+            >
+              {isLatinaVoice ? 'Pastoral' : 'Estándar'}
+            </Text>
+          </Pressable>
+        )}
 
         {/* Right: Music Play/Pause + Music settings gear */}
         <View className="flex-row items-center gap-2">
@@ -1990,6 +2019,8 @@ export default function HomeScreen() {
             onTTSPlay={handleTTSPlay}
             onTTSPause={handleTTSPause}
             isTTSPlaying={isTTSPlaying}
+            ttsVoice={ttsVoice}
+            onTTSVoiceChange={handleTTSVoiceChange}
           />
 
           {/* Collapsible content wrapper */}
