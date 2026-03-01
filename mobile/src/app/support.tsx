@@ -12,11 +12,11 @@ import {
   Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
-import { ChevronLeft, LifeBuoy, Flame, BookOpen, CheckCircle, Clock, AlertCircle } from 'lucide-react-native';
+import { ChevronLeft, LifeBuoy, Flame, BookOpen, CheckCircle, Clock, AlertCircle, X } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
@@ -484,7 +484,7 @@ export default function SupportScreen() {
         animationType="fade"
         onRequestClose={() => setModalVisible(false)}
       >
-        <View
+        <Pressable
           style={{
             flex: 1,
             backgroundColor: 'rgba(0,0,0,0.55)',
@@ -492,9 +492,10 @@ export default function SupportScreen() {
             justifyContent: 'center',
             paddingHorizontal: 32,
           }}
+          onPress={() => setModalVisible(false)}
         >
-          <Animated.View
-            entering={FadeInUp.duration(300)}
+          <Pressable
+            onPress={() => {}}
             style={{
               backgroundColor: colors.surface,
               borderRadius: 24,
@@ -508,6 +509,29 @@ export default function SupportScreen() {
               elevation: 12,
             }}
           >
+            {/* X close button */}
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setModalVisible(false);
+              }}
+              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+              style={({ pressed }) => ({
+                position: 'absolute',
+                top: 16,
+                right: 16,
+                width: 32,
+                height: 32,
+                borderRadius: 16,
+                backgroundColor: colors.textMuted + '20',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: pressed ? 0.6 : 1,
+              })}
+            >
+              <X size={16} color={colors.textMuted} />
+            </Pressable>
+
             {/* Icon */}
             <View
               style={{
@@ -518,6 +542,7 @@ export default function SupportScreen() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: 16,
+                marginTop: 8,
               }}
             >
               {modalData?.isSuccess
@@ -547,11 +572,11 @@ export default function SupportScreen() {
               })}
             >
               <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFFFFF' }}>
-                {es ? 'OK' : 'OK'}
+                OK
               </Text>
             </Pressable>
-          </Animated.View>
-        </View>
+          </Pressable>
+        </Pressable>
       </Modal>
     </View>
   );
