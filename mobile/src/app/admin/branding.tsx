@@ -32,11 +32,9 @@ export default function BrandingAdminScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const colors = useThemeColors();
-  const { branding, updateBranding, fetchBranding } = useBrandingStore(s => ({
-    branding: s.branding,
-    updateBranding: s.updateBranding,
-    fetchBranding: s.fetchBranding,
-  }));
+  const branding = useBrandingStore(s => s.branding);
+  const updateBranding = useBrandingStore(s => s.updateBranding);
+  const fetchBranding = useBrandingStore(s => s.fetchBranding);
 
   const [appName, setAppName] = useState(branding.appName);
   const [taglineEs, setTaglineEs] = useState(branding.taglineEs);
