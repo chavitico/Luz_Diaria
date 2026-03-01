@@ -43,6 +43,7 @@ import {
   Gem,
   ShoppingBag,
   Ticket,
+  Info,
 } from 'lucide-react-native';
 import { TextInput } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -720,6 +721,11 @@ function WeeklyChallengesCard({
   const t = TRANSLATIONS[language];
   const queryClient = useQueryClient();
   const updateUser = useAppStore((s) => s.updateUser);
+  const [selectedChallenge, setSelectedChallenge] = React.useState<{
+    title: string;
+    description: string;
+    type: string;
+  } | null>(null);
 
   const { data: challenges = [] } = useQuery({
     queryKey: ['weeklyChallenges'],
@@ -763,120 +769,223 @@ function WeeklyChallengesCard({
     },
   });
 
+  const getChallengeTypeHint = (type: string, lang: 'en' | 'es') => {
+    if (lang === 'es') {
+      switch (type) {
+        case 'prayer': return 'Toca el botón "Ya oré" en la pantalla principal para registrar tu oración diaria.';
+        case 'share': return 'Toca el botón de compartir en el devocional y envíalo por WhatsApp u otras apps.';
+        case 'devotional_complete': return 'Lee el devocional completo del día en la pantalla principal.';
+        default: return '';
+      }
+    } else {
+      switch (type) {
+        case 'prayer': return 'Tap the "I prayed" button on the main screen to register your daily prayer.';
+        case 'share': return 'Tap the share button on the devotional and send it via WhatsApp or other apps.';
+        case 'devotional_complete': return 'Read the full daily devotional on the main screen.';
+        default: return '';
+      }
+    }
+  };
+
   if (challenges.length === 0) return null;
 
   return (
-    <Animated.View
-      entering={FadeInDown.delay(100).duration(400)}
-      className="mx-5 mb-5 rounded-2xl overflow-hidden"
-      style={{
-        backgroundColor: colors.surface,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.06,
-        shadowRadius: 8,
-        elevation: 3,
-      }}
-    >
-      <View className="p-5">
-        <View className="flex-row items-center mb-4">
-          <View
-            className="w-10 h-10 rounded-xl items-center justify-center mr-3"
-            style={{ backgroundColor: '#F97316' + '20' }}
-          >
-            <Gift size={20} color="#F97316" />
+    <>
+      <Animated.View
+        entering={FadeInDown.delay(100).duration(400)}
+        className="mx-5 mb-5 rounded-2xl overflow-hidden"
+        style={{
+          backgroundColor: colors.surface,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.06,
+          shadowRadius: 8,
+          elevation: 3,
+        }}
+      >
+        <View className="p-5">
+          <View className="flex-row items-center mb-4">
+            <View
+              className="w-10 h-10 rounded-xl items-center justify-center mr-3"
+              style={{ backgroundColor: '#F97316' + '20' }}
+            >
+              <Gift size={20} color="#F97316" />
+            </View>
+            <Text
+              className="text-base font-bold flex-1"
+              style={{ color: colors.text }}
+            >
+              {t.weekly_challenges}
+            </Text>
           </View>
-          <Text
-            className="text-base font-bold flex-1"
-            style={{ color: colors.text }}
-          >
-            {t.weekly_challenges}
-          </Text>
-        </View>
 
-        {challenges.slice(0, 3).map((challenge, index) => {
-          const progress = progressData.find(p => p.challengeId === challenge.id);
-          const currentCount = progress?.currentCount || 0;
-          const progressPercent = Math.min((currentCount / challenge.goalCount) * 100, 100);
-          const isComplete = progress?.completed || false;
-          const isClaimed = progress?.claimed || false;
+          {challenges.slice(0, 3).map((challenge, index) => {
+            const progress = progressData.find(p => p.challengeId === challenge.id);
+            const currentCount = progress?.currentCount || 0;
+            const progressPercent = Math.min((currentCount / challenge.goalCount) * 100, 100);
+            const isComplete = progress?.completed || false;
+            const isClaimed = progress?.claimed || false;
+            const title = language === 'es' ? challenge.titleEs : challenge.titleEn;
+            const description = language === 'es' ? challenge.descriptionEs : challenge.descriptionEn;
 
-          return (
-            <View key={challenge.id} className={index > 0 ? 'mt-4' : ''}>
-              <View className="flex-row items-center justify-between mb-2">
-                <Text
-                  className="text-sm font-medium flex-1"
-                  style={{ color: colors.text }}
-                  numberOfLines={1}
-                >
-                  {language === 'es' ? challenge.titleEs : challenge.titleEn}
-                </Text>
-                <Text
-                  className="text-xs font-bold ml-2 px-2 py-0.5 rounded-full"
-                  style={{
-                    backgroundColor: isComplete ? '#22C55E20' : colors.textMuted + '15',
-                    color: isComplete ? '#22C55E' : colors.textMuted
-                  }}
-                >
-                  {currentCount}/{challenge.goalCount}
-                </Text>
-              </View>
-
-              <View
-                className="h-2.5 rounded-full overflow-hidden mb-2"
-                style={{ backgroundColor: colors.textMuted + '15' }}
-              >
-                <View
-                  className="h-full rounded-full"
-                  style={{
-                    width: `${progressPercent}%`,
-                    backgroundColor: isComplete ? '#22C55E' : colors.primary,
-                  }}
-                />
-              </View>
-
-              <View className="flex-row items-center justify-between">
-                <View className="flex-row items-center">
-                  <Coins size={14} color={colors.primary} />
-                  <Text
-                    className="text-xs font-semibold ml-1"
-                    style={{ color: colors.primary }}
+            return (
+              <View key={challenge.id} className={index > 0 ? 'mt-4' : ''}>
+                <View className="flex-row items-center justify-between mb-2">
+                  <Pressable
+                    onPress={() => {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                      setSelectedChallenge({ title, description, type: challenge.type });
+                    }}
+                    className="flex-row items-center flex-1 mr-2"
+                    style={{ gap: 6 }}
                   >
-                    +{challenge.rewardPoints}
+                    <Text
+                      className="text-sm font-medium flex-1"
+                      style={{ color: colors.text }}
+                      numberOfLines={1}
+                    >
+                      {title}
+                    </Text>
+                    <Info size={14} color={colors.textMuted} />
+                  </Pressable>
+                  <Text
+                    className="text-xs font-bold ml-2 px-2 py-0.5 rounded-full"
+                    style={{
+                      backgroundColor: isComplete ? '#22C55E20' : colors.textMuted + '15',
+                      color: isComplete ? '#22C55E' : colors.textMuted
+                    }}
+                  >
+                    {currentCount}/{challenge.goalCount}
                   </Text>
                 </View>
 
-                {isComplete && !isClaimed && (
-                  <Pressable
-                    onPress={() => claimMutation.mutate({ challengeId: challenge.id })}
-                    disabled={claimMutation.isPending}
-                    className="px-4 py-1.5 rounded-lg"
-                    style={{ backgroundColor: '#22C55E' }}
-                  >
-                    {claimMutation.isPending ? (
-                      <ActivityIndicator size="small" color="#FFFFFF" />
-                    ) : (
-                      <Text className="text-xs font-semibold text-white">
-                        {t.claim_reward}
-                      </Text>
-                    )}
-                  </Pressable>
-                )}
+                <View
+                  className="h-2.5 rounded-full overflow-hidden mb-2"
+                  style={{ backgroundColor: colors.textMuted + '15' }}
+                >
+                  <View
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${progressPercent}%`,
+                      backgroundColor: isComplete ? '#22C55E' : colors.primary,
+                    }}
+                  />
+                </View>
 
-                {isClaimed && (
-                  <View className="flex-row items-center px-3 py-1.5 rounded-lg" style={{ backgroundColor: '#22C55E20' }}>
-                    <Check size={12} color="#22C55E" strokeWidth={3} />
-                    <Text className="text-xs font-semibold text-green-600 ml-1">
-                      {t.reward_claimed}
+                <View className="flex-row items-center justify-between">
+                  <View className="flex-row items-center">
+                    <Coins size={14} color={colors.primary} />
+                    <Text
+                      className="text-xs font-semibold ml-1"
+                      style={{ color: colors.primary }}
+                    >
+                      +{challenge.rewardPoints}
                     </Text>
                   </View>
-                )}
+
+                  {isComplete && !isClaimed && (
+                    <Pressable
+                      onPress={() => claimMutation.mutate({ challengeId: challenge.id })}
+                      disabled={claimMutation.isPending}
+                      className="px-4 py-1.5 rounded-lg"
+                      style={{ backgroundColor: '#22C55E' }}
+                    >
+                      {claimMutation.isPending ? (
+                        <ActivityIndicator size="small" color="#FFFFFF" />
+                      ) : (
+                        <Text className="text-xs font-semibold text-white">
+                          {t.claim_reward}
+                        </Text>
+                      )}
+                    </Pressable>
+                  )}
+
+                  {isClaimed && (
+                    <View className="flex-row items-center px-3 py-1.5 rounded-lg" style={{ backgroundColor: '#22C55E20' }}>
+                      <Check size={12} color="#22C55E" strokeWidth={3} />
+                      <Text className="text-xs font-semibold text-green-600 ml-1">
+                        {t.reward_claimed}
+                      </Text>
+                    </View>
+                  )}
+                </View>
               </View>
+            );
+          })}
+        </View>
+      </Animated.View>
+
+      {/* Challenge Description Modal */}
+      <Modal
+        visible={!!selectedChallenge}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setSelectedChallenge(null)}
+      >
+        <Pressable
+          style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.55)', justifyContent: 'center', alignItems: 'center', padding: 24 }}
+          onPress={() => setSelectedChallenge(null)}
+        >
+          <Pressable
+            onPress={() => {}}
+            style={{
+              backgroundColor: colors.surface,
+              borderRadius: 20,
+              padding: 24,
+              width: '100%',
+              maxWidth: 360,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 8 },
+              shadowOpacity: 0.18,
+              shadowRadius: 24,
+              elevation: 12,
+            }}
+          >
+            {/* Header */}
+            <View className="flex-row items-start justify-between mb-4">
+              <View
+                className="w-11 h-11 rounded-xl items-center justify-center mr-3"
+                style={{ backgroundColor: '#F97316' + '20' }}
+              >
+                <Gift size={22} color="#F97316" />
+              </View>
+              <View className="flex-1 mr-2">
+                <Text className="text-base font-bold mb-0.5" style={{ color: colors.text }}>
+                  {selectedChallenge?.title}
+                </Text>
+                <Text className="text-xs" style={{ color: colors.textMuted }}>
+                  {language === 'es' ? 'Desafío semanal' : 'Weekly challenge'}
+                </Text>
+              </View>
+              <Pressable
+                onPress={() => setSelectedChallenge(null)}
+                className="w-8 h-8 rounded-full items-center justify-center"
+                style={{ backgroundColor: colors.textMuted + '18' }}
+              >
+                <X size={16} color={colors.textMuted} />
+              </Pressable>
             </View>
-          );
-        })}
-      </View>
-    </Animated.View>
+
+            {/* Description */}
+            <View className="mb-4 p-3 rounded-xl" style={{ backgroundColor: colors.background }}>
+              <Text className="text-sm leading-5" style={{ color: colors.text }}>
+                {selectedChallenge?.description}
+              </Text>
+            </View>
+
+            {/* How to complete */}
+            <View className="p-3 rounded-xl" style={{ backgroundColor: colors.primary + '12' }}>
+              <Text className="text-xs font-semibold mb-1" style={{ color: colors.primary }}>
+                {language === 'es' ? '¿Cómo completarlo?' : 'How to complete it?'}
+              </Text>
+              <Text className="text-xs leading-5" style={{ color: colors.text }}>
+                {selectedChallenge ? getChallengeTypeHint(selectedChallenge.type, language) : ''}
+              </Text>
+            </View>
+          </Pressable>
+        </Pressable>
+      </Modal>
+    </>
   );
 }
 

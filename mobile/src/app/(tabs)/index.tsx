@@ -15,7 +15,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { LuzDiariaIconWhite } from '@/components/LuzDiariaIcon';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -1321,6 +1321,7 @@ export default function HomeScreen() {
   const updateUser = useAppStore((s) => s.updateUser);
   const incrementStreak = useAppStore((s) => s.incrementStreak);
   const updateSettings = useAppStore((s) => s.updateSettings);
+  const queryClient = useQueryClient();
 
   // Background music from provider
   const musicPlayer = useMusicPlayer();
@@ -1646,6 +1647,7 @@ export default function HomeScreen() {
         );
       }
       await gamificationApi.updateChallengeProgress(user.id, 'share');
+      queryClient.invalidateQueries({ queryKey: ['challengeProgress', user.id] });
     } catch (error) {
       console.error('[Share] Failed to award points:', error);
       addPoints(POINTS.SHARE_DEVOTIONAL);
@@ -1655,7 +1657,7 @@ export default function HomeScreen() {
         language === 'es' ? 'puntos (Compartir)' : 'points (Share)'
       );
     }
-  }, [user, language, shareStatus, dailyActions, today, updateUser, addPoints, showToast]);
+  }, [user, language, shareStatus, dailyActions, today, updateUser, addPoints, showToast, queryClient]);
 
   // Handle prayer confirmation
   const handlePrayerConfirm = useCallback(async () => {
@@ -1683,6 +1685,7 @@ export default function HomeScreen() {
       }
       // Update challenge progress
       await gamificationApi.updateChallengeProgress(user.id, 'prayer');
+      queryClient.invalidateQueries({ queryKey: ['challengeProgress', user.id] });
     } catch (error) {
       console.error('[Prayer] Failed to award points:', error);
       // Still award points locally as fallback
@@ -1693,7 +1696,7 @@ export default function HomeScreen() {
         language === 'es' ? 'puntos (Oracion)' : 'points (Prayer)'
       );
     }
-  }, [user, isPrayerDone, dailyActions, today, updateUser, addPoints, showToast, language]);
+  }, [user, isPrayerDone, dailyActions, today, updateUser, addPoints, showToast, language, queryClient]);
 
   // TTS functions
   const buildDevotionalText = useCallback(() => {
