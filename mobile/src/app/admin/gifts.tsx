@@ -30,7 +30,7 @@ import {
   Trash2,
 } from 'lucide-react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { useThemeColors } from '@/lib/store';
+import { useThemeColors, useUser } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 
 type RewardType = 'CHEST' | 'THEME' | 'TITLE' | 'AVATAR' | 'ITEM';
@@ -85,6 +85,8 @@ export default function AdminGiftsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const colors = useThemeColors();
+  const user = useUser();
+  const userId = user?.id ?? '';
 
   const [giftDrops, setGiftDrops] = useState<GiftDrop[]>([]);
   const [storeItems, setStoreItems] = useState<StoreItemOption[]>([]);
@@ -120,8 +122,8 @@ export default function AdminGiftsScreen() {
     setLoading(true);
     try {
       const [drops, items] = await Promise.all([
-        gamificationApi.adminListGiftDrops(),
-        gamificationApi.adminGetStoreItems(),
+        gamificationApi.adminListGiftDrops(userId),
+        gamificationApi.adminGetStoreItems(userId),
       ]);
       setGiftDrops(drops);
       setStoreItems(items);
@@ -162,7 +164,7 @@ export default function AdminGiftsScreen() {
 
     setSaving(true);
     try {
-      const { giftDrop } = await gamificationApi.adminCreateGiftDrop({
+      const { giftDrop } = await gamificationApi.adminCreateGiftDrop(userId, {
         title: form.title.trim(),
         message: form.message.trim(),
         rewardType: form.rewardType,
@@ -174,7 +176,7 @@ export default function AdminGiftsScreen() {
 
       // If active, auto-publish to distribute UserGift records immediately
       if (form.isActive) {
-        const result = await gamificationApi.adminPublishGiftDrop(giftDrop.id);
+        const result = await gamificationApi.adminPublishGiftDrop(userId, giftDrop.id);
         Alert.alert('Regalo creado y enviado', `Distribuido a ${result.created} usuario(s).`);
       }
 
@@ -208,7 +210,7 @@ export default function AdminGiftsScreen() {
           onPress: async () => {
             setPublishing(giftDrop.id);
             try {
-              const result = await gamificationApi.adminPublishGiftDrop(giftDrop.id);
+              const result = await gamificationApi.adminPublishGiftDrop(userId, giftDrop.id);
               Alert.alert('Éxito', `Enviado a ${result.created} usuario(s) (de ${result.total} destinatarios).`);
               await load();
             } catch {
@@ -225,7 +227,7 @@ export default function AdminGiftsScreen() {
   const handleToggleActive = async (giftDrop: GiftDrop) => {
     setToggling(giftDrop.id);
     try {
-      await gamificationApi.adminUpdateGiftDrop(giftDrop.id, { isActive: !giftDrop.isActive });
+      await gamificationApi.adminUpdateGiftDrop(userId, giftDrop.id, { isActive: !giftDrop.isActive });
       await load();
     } catch {
       Alert.alert('Error', 'No se pudo actualizar el estado.');
@@ -246,7 +248,7 @@ export default function AdminGiftsScreen() {
           onPress: async () => {
             setDeleting(giftDrop.id);
             try {
-              await gamificationApi.adminDeleteGiftDrop(giftDrop.id);
+              await gamificationApi.adminDeleteGiftDrop(userId, giftDrop.id);
               await load();
             } catch {
               Alert.alert('Error', 'No se pudo eliminar el regalo.');

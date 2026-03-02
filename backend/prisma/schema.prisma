@@ -37,6 +37,7 @@ model User {
   id                     String            @id @default(cuid())
   nickname               String            @unique
   nicknameLower          String            @unique
+  role                   String            @default("USER") // "USER" | "MODERATOR" | "OWNER"
   avatarId               String            @default("avatar_dove")
   frameId                String?
   titleId                String?

@@ -19,7 +19,7 @@ import { useRouter } from 'expo-router';
 import { X, Palette, Save, RefreshCw, Check } from 'lucide-react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useBrandingStore, DEFAULT_BRANDING, type AppBranding, type WatermarkPosition } from '@/lib/branding-service';
-import { useThemeColors } from '@/lib/store';
+import { useThemeColors, useUser } from '@/lib/store';
 
 const WATERMARK_POSITIONS: { value: WatermarkPosition; label: string }[] = [
   { value: 'bottom-left', label: 'Abajo Izq.' },
@@ -32,6 +32,8 @@ export default function BrandingAdminScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const colors = useThemeColors();
+  const user = useUser();
+  const userId = user?.id ?? '';
   const branding = useBrandingStore(s => s.branding);
   const updateBranding = useBrandingStore(s => s.updateBranding);
   const fetchBranding = useBrandingStore(s => s.fetchBranding);
@@ -75,7 +77,7 @@ export default function BrandingAdminScreen() {
       taglineEn: taglineEn.trim(),
       shareWatermarkEnabled: watermarkEnabled,
       shareWatermarkPosition: watermarkPos,
-    });
+    }, userId);
     setSaving(false);
     if (ok) {
       setSaved(true);

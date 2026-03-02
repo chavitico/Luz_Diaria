@@ -125,10 +125,13 @@ export interface ChallengeProgressType {
 }
 
 // User interface with gamification fields
+export type UserRole = 'USER' | 'MODERATOR' | 'OWNER';
+
 export interface User {
   id: string;
   nickname: string;
   avatar: string;
+  role?: UserRole;
   frameId?: string | null; // equipped frame
   titleId?: string | null; // equipped title
   themeId?: string; // equipped theme (from store)

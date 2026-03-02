@@ -44,8 +44,42 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Source of truth:** Backend SQLite (`AppBranding` table, row `id="app"`) — fetched at startup via `GET /api/branding`
 - **Mobile service:** `src/lib/branding-service.ts` — Zustand store with 10-min AsyncStorage cache and automatic fallback to `DEFAULT_BRANDING`
 - **Fallback constants:** `APP_BRANDING` in `src/lib/constants.ts` — used by SplashScreen and OnboardingScreen (no async needed)
-- **Admin UI:** `/admin/branding` — tap the User ID line in Settings 5 times to access. Edits write back to `PUT /api/branding`
+- **Admin UI:** `/admin/branding` — tap the app logo in Settings 7 times (OWNER role only). Edits write back to `PUT /api/branding` with `X-User-Id` header for RBAC validation
 - **Share images:** All 3 modes (long, WhatsApp card, 5-section) read from branding service; changes reflect without app restart
+
+## Role-Based Access Control (RBAC)
+
+### User Roles
+
+| Role | Value | Description |
+|------|-------|-------------|
+| User | `USER` | Default for all new accounts |
+| Moderator | `MODERATOR` | Can view/respond support tickets |
+| Owner | `OWNER` | Full admin access to all features |
+
+### How to assign OWNER role
+
+Set the `role` field directly in the SQLite database:
+```sql
+UPDATE User SET role = 'OWNER' WHERE nickname = 'YourNickname';
+```
+
+### Protected admin areas
+
+| Feature | Required role | Access method |
+|---------|--------------|---------------|
+| Branding | OWNER | Tap logo 7× in Settings |
+| Drops / Gifts | OWNER | Tap dots 7× in Settings |
+| Support Tickets | MODERATOR+ | Tap version indicator 7× in Settings |
+
+### Backend protection
+
+All admin endpoints require `X-User-Id` header. The `requireRole` middleware in `backend/src/middleware/rbac.ts` looks up the user's role in the database and returns `403 Forbidden` with a log warning if access is denied.
+
+- `PUT /api/branding` — OWNER only
+- `GET/POST/PATCH/DELETE /api/gifts/admin/*` — OWNER only
+- `GET /api/support/admin/tickets` — MODERATOR or OWNER
+
 
 ## Features
 

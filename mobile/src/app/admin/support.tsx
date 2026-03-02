@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { ChevronLeft, CheckCircle, Clock, AlertCircle, LifeBuoy } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
-import { useThemeColors, useLanguage } from '@/lib/store';
+import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -48,6 +48,8 @@ export default function AdminSupportScreen() {
   const router = useRouter();
   const colors = useThemeColors();
   const language = useLanguage();
+  const user = useUser();
+  const userId = user?.id ?? '';
 
   const [tickets, setTickets] = useState<AdminTicket[]>([]);
   const [loading, setLoading] = useState(true);
@@ -62,7 +64,9 @@ export default function AdminSupportScreen() {
     setError(null);
 
     try {
-      const res = await fetch(`${BACKEND_URL}/api/support/admin/tickets?limit=50`);
+      const res = await fetch(`${BACKEND_URL}/api/support/admin/tickets?limit=50`, {
+        headers: { 'X-User-Id': userId },
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json() as { tickets: AdminTicket[] };
       setTickets(data.tickets ?? []);

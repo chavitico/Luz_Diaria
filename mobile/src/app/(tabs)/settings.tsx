@@ -415,6 +415,10 @@ export default function SettingsScreen() {
         .map((inv) => inv.itemId);
       setOwnedBadgeIds(badges);
       setActiveBadgeId(profile.activeBadgeId ?? null);
+      // Sync role from backend into local store
+      if (profile.role && profile.role !== user.role) {
+        updateUser({ role: profile.role as 'USER' | 'MODERATOR' | 'OWNER' });
+      }
     } catch {
       // non-critical
     }
@@ -1259,6 +1263,7 @@ export default function SettingsScreen() {
             <Pressable
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                if (user?.role !== 'OWNER') return;
                 const next = adminPressCount + 1;
                 setAdminPressCount(next);
                 if (next >= 7) {
@@ -1290,6 +1295,7 @@ export default function SettingsScreen() {
           <Pressable
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              if (user?.role !== 'OWNER' && user?.role !== 'MODERATOR') return;
               const next = adminSupportPressCount + 1;
               setAdminSupportPressCount(next);
               if (next >= 7) {
@@ -1307,6 +1313,7 @@ export default function SettingsScreen() {
           <Pressable
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              if (user?.role !== 'OWNER') return;
               const next = adminGiftsPressCount + 1;
               setAdminGiftsPressCount(next);
               if (next >= 7) {

@@ -3,6 +3,7 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { prisma } from "../prisma";
 import { getLatestSnapshotForUser } from "../streak-snapshot-service";
+import { requireRole } from "../middleware/rbac";
 
 const supportRouter = new Hono();
 
@@ -117,8 +118,8 @@ supportRouter.get("/tickets/:userId", async (c) => {
   return c.json({ tickets });
 });
 
-// GET /api/support/admin/tickets - get all tickets (admin view)
-supportRouter.get("/admin/tickets", async (c) => {
+// GET /api/support/admin/tickets - get all tickets (OWNER/MODERATOR view)
+supportRouter.get("/admin/tickets", requireRole("MODERATOR"), async (c) => {
   const limit = Math.min(parseInt(c.req.query("limit") ?? "50"), 100);
   const tickets = await prisma.supportTicket.findMany({
     orderBy: { createdAt: "desc" },

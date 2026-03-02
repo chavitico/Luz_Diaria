@@ -32,7 +32,7 @@ interface BrandingState {
   isLoading: boolean;
   lastFetchedAt: number | null;
   fetchBranding: () => Promise<void>;
-  updateBranding: (updates: Partial<AppBranding>, adminSecret?: string) => Promise<boolean>;
+  updateBranding: (updates: Partial<AppBranding>, userId?: string) => Promise<boolean>;
   getTagline: (language: 'en' | 'es') => string;
 }
 
@@ -73,10 +73,10 @@ export const useBrandingStore = create<BrandingState>((set, get) => ({
     await _fetchFromServer(set);
   },
 
-  updateBranding: async (updates: Partial<AppBranding>, adminSecret?: string): Promise<boolean> => {
+  updateBranding: async (updates: Partial<AppBranding>, userId?: string): Promise<boolean> => {
     try {
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-      if (adminSecret) headers['X-Admin-Secret'] = adminSecret;
+      if (userId) headers['X-User-Id'] = userId;
 
       const res = await fetch(`${BACKEND_URL}/api/branding`, {
         method: 'PUT',

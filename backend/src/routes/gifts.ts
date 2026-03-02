@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { prisma } from "../prisma";
+import { requireRole } from "../middleware/rbac";
 
 export const giftsRouter = new Hono();
 
@@ -142,8 +143,6 @@ giftsRouter.post("/claim", zValidator("json", claimGiftSchema), async (c) => {
       });
 
       if (rewardType === "CHEST") {
-        // For CHEST rewards: add the chest item to inventory if it exists as a StoreItem
-        // or award points as a chest reward
         const chestItem = await tx.storeItem.findUnique({ where: { id: rewardId } });
         if (chestItem) {
           await tx.userInventory.upsert({
@@ -152,7 +151,6 @@ giftsRouter.post("/claim", zValidator("json", claimGiftSchema), async (c) => {
             update: {},
           });
         } else {
-          // rewardId might be points amount for a chest-style reward
           const pointsAmount = parseInt(rewardId, 10);
           if (!isNaN(pointsAmount) && pointsAmount > 0) {
             await tx.user.update({
@@ -162,7 +160,6 @@ giftsRouter.post("/claim", zValidator("json", claimGiftSchema), async (c) => {
           }
         }
       } else {
-        // THEME | TITLE | AVATAR | ITEM: add to inventory as a StoreItem
         const item = await tx.storeItem.findUnique({ where: { id: rewardId } });
         if (item) {
           await tx.userInventory.upsert({
@@ -185,11 +182,11 @@ giftsRouter.post("/claim", zValidator("json", claimGiftSchema), async (c) => {
 });
 
 // ============================================
-// ADMIN ENDPOINTS
+// ADMIN ENDPOINTS (OWNER only)
 // ============================================
 
 // GET /api/gifts/admin/list - List last 20 gift drops
-giftsRouter.get("/admin/list", async (c) => {
+giftsRouter.get("/admin/list", requireRole("OWNER"), async (c) => {
   try {
     const giftDrops = await prisma.giftDrop.findMany({
       orderBy: { createdAt: "desc" },
@@ -223,8 +220,8 @@ giftsRouter.get("/admin/list", async (c) => {
   }
 });
 
-// POST /api/gifts/admin/create - Create a new GiftDrop
-giftsRouter.post("/admin/create", zValidator("json", createGiftDropSchema), async (c) => {
+// POST /api/gifts/admin/create - Create a new GiftDrop (OWNER only)
+giftsRouter.post("/admin/create", requireRole("OWNER"), zValidator("json", createGiftDropSchema), async (c) => {
   try {
     const data = c.req.valid("json");
 
@@ -249,8 +246,8 @@ giftsRouter.post("/admin/create", zValidator("json", createGiftDropSchema), asyn
   }
 });
 
-// PATCH /api/gifts/admin/:id - Update gift drop (toggle active, update fields)
-giftsRouter.patch("/admin/:id", zValidator("json", updateGiftDropSchema), async (c) => {
+// PATCH /api/gifts/admin/:id - Update gift drop (OWNER only)
+giftsRouter.patch("/admin/:id", requireRole("OWNER"), zValidator("json", updateGiftDropSchema), async (c) => {
   try {
     const id = c.req.param("id");
     const data = c.req.valid("json");
@@ -271,8 +268,8 @@ giftsRouter.patch("/admin/:id", zValidator("json", updateGiftDropSchema), async 
   }
 });
 
-// POST /api/gifts/admin/publish - Distribute UserGift records to recipients
-giftsRouter.post("/admin/publish", zValidator("json", publishGiftDropSchema), async (c) => {
+// POST /api/gifts/admin/publish - Distribute UserGift records to recipients (OWNER only)
+giftsRouter.post("/admin/publish", requireRole("OWNER"), zValidator("json", publishGiftDropSchema), async (c) => {
   try {
     const { giftDropId } = c.req.valid("json");
 
@@ -294,10 +291,8 @@ giftsRouter.post("/admin/publish", zValidator("json", publishGiftDropSchema), as
       return c.json({ success: true, created: 0, message: "No recipients found" });
     }
 
-    // Upsert UserGift for each recipient (skip duplicates)
     let created = 0;
     for (const userId of targetUserIds) {
-      // Verify user exists
       const userExists = await prisma.user.findUnique({ where: { id: userId }, select: { id: true } });
       if (!userExists) continue;
 
@@ -313,7 +308,6 @@ giftsRouter.post("/admin/publish", zValidator("json", publishGiftDropSchema), as
       }
     }
 
-    // Activate the gift drop after publishing
     await prisma.giftDrop.update({
       where: { id: giftDropId },
       data: { isActive: true },
@@ -326,8 +320,8 @@ giftsRouter.post("/admin/publish", zValidator("json", publishGiftDropSchema), as
   }
 });
 
-// GET /api/gifts/admin/store-items - List store items for reward picker
-giftsRouter.get("/admin/store-items", async (c) => {
+// GET /api/gifts/admin/store-items - List store items for reward picker (OWNER only)
+giftsRouter.get("/admin/store-items", requireRole("OWNER"), async (c) => {
   try {
     const items = await prisma.storeItem.findMany({
       where: { available: true },
@@ -341,8 +335,8 @@ giftsRouter.get("/admin/store-items", async (c) => {
   }
 });
 
-// DELETE /api/gifts/admin/:id - Delete a gift drop (and all associated UserGifts via cascade)
-giftsRouter.delete("/admin/:id", async (c) => {
+// DELETE /api/gifts/admin/:id - Delete a gift drop (OWNER only)
+giftsRouter.delete("/admin/:id", requireRole("OWNER"), async (c) => {
   try {
     const id = c.req.param("id");
     await prisma.giftDrop.delete({ where: { id } });

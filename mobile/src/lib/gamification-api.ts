@@ -33,6 +33,7 @@ export interface UserProfile {
   totalTimeSeconds: number;
   lastActiveAt: string | null;
   activeBadgeId: string | null;
+  role: string;
   inventory: Array<{
     itemId: string;
     acquiredAt: string;
@@ -726,7 +727,7 @@ export const gamificationApi = {
 
   // ─── Admin Gifts ─────────────────────────────────────────────────────────────
 
-  async adminListGiftDrops(): Promise<Array<{
+  async adminListGiftDrops(userId: string): Promise<Array<{
     id: string;
     title: string;
     message: string;
@@ -740,12 +741,14 @@ export const gamificationApi = {
     createdAt: string;
     totalRecipients: number;
   }>> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/list`);
+    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/list`, {
+      headers: { 'X-User-Id': userId },
+    });
     if (!res.ok) throw new Error('Failed to list gift drops');
     return res.json();
   },
 
-  async adminCreateGiftDrop(data: {
+  async adminCreateGiftDrop(userId: string, data: {
     title: string;
     message: string;
     rewardType: 'CHEST' | 'THEME' | 'TITLE' | 'AVATAR' | 'ITEM';
@@ -756,49 +759,52 @@ export const gamificationApi = {
   }): Promise<{ success: boolean; giftDrop: { id: string } }> {
     const res = await fetch(`${BACKEND_URL}/api/gifts/admin/create`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error('Failed to create gift drop');
     return res.json();
   },
 
-  async adminUpdateGiftDrop(id: string, data: { isActive?: boolean; title?: string; message?: string }): Promise<{ success: boolean }> {
+  async adminUpdateGiftDrop(userId: string, id: string, data: { isActive?: boolean; title?: string; message?: string }): Promise<{ success: boolean }> {
     const res = await fetch(`${BACKEND_URL}/api/gifts/admin/${id}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error('Failed to update gift drop');
     return res.json();
   },
 
-  async adminPublishGiftDrop(giftDropId: string): Promise<{ success: boolean; created: number; total: number; message?: string }> {
+  async adminPublishGiftDrop(userId: string, giftDropId: string): Promise<{ success: boolean; created: number; total: number; message?: string }> {
     const res = await fetch(`${BACKEND_URL}/api/gifts/admin/publish`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
       body: JSON.stringify({ giftDropId }),
     });
     if (!res.ok) throw new Error('Failed to publish gift drop');
     return res.json();
   },
 
-  async adminDeleteGiftDrop(id: string): Promise<{ success: boolean }> {
+  async adminDeleteGiftDrop(userId: string, id: string): Promise<{ success: boolean }> {
     const res = await fetch(`${BACKEND_URL}/api/gifts/admin/${id}`, {
       method: 'DELETE',
+      headers: { 'X-User-Id': userId },
     });
     if (!res.ok) throw new Error('Failed to delete gift drop');
     return res.json();
   },
 
-  async adminGetStoreItems(): Promise<Array<{
+  async adminGetStoreItems(userId: string): Promise<Array<{
     id: string;
     type: string;
     nameEs: string;
     nameEn: string;
     rarity: string;
   }>> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/store-items`);
+    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/store-items`, {
+      headers: { 'X-User-Id': userId },
+    });
     if (!res.ok) throw new Error('Failed to get store items');
     return res.json();
   },

@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { prisma } from "../prisma";
 import { z } from "zod";
+import { requireRole } from "../middleware/rbac";
 
 export const brandingRouter = new Hono();
 
@@ -36,17 +37,8 @@ const UpdateBrandingSchema = z.object({
   shareWatermarkPosition: z.enum(["bottom-left", "bottom-right", "top-left", "top-right"]).optional(),
 });
 
-// PUT /api/branding - Update branding (admin only via secret header)
-brandingRouter.put("/", async (c) => {
-  // Simple admin guard: require X-Admin-Secret header
-  const adminSecret = process.env.ADMIN_SECRET;
-  if (adminSecret) {
-    const providedSecret = c.req.header("X-Admin-Secret");
-    if (providedSecret !== adminSecret) {
-      return c.json({ success: false, error: "Unauthorized" }, 401);
-    }
-  }
-
+// PUT /api/branding - Update branding (OWNER only)
+brandingRouter.put("/", requireRole("OWNER"), async (c) => {
   try {
     const body = await c.req.json();
     const parsed = UpdateBrandingSchema.safeParse(body);
