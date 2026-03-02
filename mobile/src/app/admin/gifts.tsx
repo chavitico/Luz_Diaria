@@ -162,7 +162,7 @@ export default function AdminGiftsScreen() {
 
     setSaving(true);
     try {
-      await gamificationApi.adminCreateGiftDrop({
+      const { giftDrop } = await gamificationApi.adminCreateGiftDrop({
         title: form.title.trim(),
         message: form.message.trim(),
         rewardType: form.rewardType,
@@ -171,6 +171,13 @@ export default function AdminGiftsScreen() {
         audienceUserIds,
         isActive: form.isActive,
       });
+
+      // If active, auto-publish to distribute UserGift records immediately
+      if (form.isActive) {
+        const result = await gamificationApi.adminPublishGiftDrop(giftDrop.id);
+        Alert.alert('Regalo creado y enviado', `Distribuido a ${result.created} usuario(s).`);
+      }
+
       setForm({
         title: '',
         message: '',
@@ -834,6 +841,22 @@ export default function AdminGiftsScreen() {
                     {gd.totalRecipients} enviados
                   </Text>
                 </View>
+                {gd.totalRecipients === 0 && (
+                  <View
+                    style={{
+                      paddingHorizontal: 8,
+                      paddingVertical: 3,
+                      borderRadius: 8,
+                      backgroundColor: '#FEF3C7',
+                      borderWidth: 1,
+                      borderColor: '#F59E0B40',
+                    }}
+                  >
+                    <Text style={{ fontSize: 11, fontWeight: '700', color: '#D97706' }}>
+                      ⚠ Pendiente publicar
+                    </Text>
+                  </View>
+                )}
                 <View
                   style={{
                     paddingHorizontal: 8,
