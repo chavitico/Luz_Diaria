@@ -27,6 +27,7 @@ import {
   RefreshCw,
   Check,
   Package,
+  Trash2,
 } from 'lucide-react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useThemeColors } from '@/lib/store';
@@ -90,6 +91,7 @@ export default function AdminGiftsScreen() {
   const [loading, setLoading] = useState(true);
   const [publishing, setPublishing] = useState<string | null>(null);
   const [toggling, setToggling] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   // Create form state
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -223,6 +225,31 @@ export default function AdminGiftsScreen() {
     } finally {
       setToggling(null);
     }
+  };
+
+  const handleDelete = (giftDrop: GiftDrop) => {
+    Alert.alert(
+      'Eliminar regalo',
+      `¿Eliminar "${giftDrop.title}"? Esto también eliminará todos los registros de usuarios pendientes.`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Eliminar',
+          style: 'destructive',
+          onPress: async () => {
+            setDeleting(giftDrop.id);
+            try {
+              await gamificationApi.adminDeleteGiftDrop(giftDrop.id);
+              await load();
+            } catch {
+              Alert.alert('Error', 'No se pudo eliminar el regalo.');
+            } finally {
+              setDeleting(null);
+            }
+          },
+        },
+      ]
+    );
   };
 
   const formatDate = (dateStr: string) => {
@@ -629,15 +656,50 @@ export default function AdminGiftsScreen() {
             )}
 
             {/* Active toggle */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
-              <Text style={{ color: colors.text, fontSize: 14, fontWeight: '500' }}>Activar al guardar</Text>
-              <Switch
-                value={form.isActive}
-                onValueChange={(v) => setForm((f) => ({ ...f, isActive: v }))}
-                trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                thumbColor={form.isActive ? colors.primary : '#FFFFFF'}
-              />
-            </View>
+            <Pressable
+              onPress={() => setForm((f) => ({ ...f, isActive: !f.isActive }))}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: 20,
+                paddingVertical: 12,
+                paddingHorizontal: 14,
+                borderRadius: 12,
+                backgroundColor: form.isActive ? colors.primary + '15' : colors.textMuted + '10',
+                borderWidth: 1.5,
+                borderColor: form.isActive ? colors.primary + '60' : colors.textMuted + '20',
+              }}
+            >
+              <Text style={{ color: form.isActive ? colors.primary : colors.text, fontSize: 14, fontWeight: '600' }}>
+                Activar al guardar
+              </Text>
+              <View
+                style={{
+                  width: 48,
+                  height: 26,
+                  borderRadius: 13,
+                  backgroundColor: form.isActive ? colors.primary : colors.textMuted + '40',
+                  justifyContent: 'center',
+                  paddingHorizontal: 3,
+                  alignItems: form.isActive ? 'flex-end' : 'flex-start',
+                }}
+              >
+                <View
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: 10,
+                    backgroundColor: '#FFFFFF',
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 2,
+                    elevation: 2,
+                  }}
+                />
+              </View>
+            </Pressable>
 
             {/* Action buttons */}
             <View style={{ flexDirection: 'row', gap: 10 }}>
@@ -808,6 +870,36 @@ export default function AdminGiftsScreen() {
                     <Send size={14} color="#FFFFFF" />
                     <Text style={{ color: '#FFFFFF', fontSize: 13, fontWeight: '700' }}>
                       Publicar / Enviar a destinatarios
+                    </Text>
+                  </>
+                )}
+              </Pressable>
+
+              {/* Delete button */}
+              <Pressable
+                onPress={() => handleDelete(gd)}
+                disabled={deleting === gd.id}
+                style={({ pressed }) => ({
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 6,
+                  paddingVertical: 9,
+                  borderRadius: 12,
+                  marginTop: 6,
+                  backgroundColor: pressed ? '#FEE2E2' : 'transparent',
+                  borderWidth: 1,
+                  borderColor: '#FCA5A5',
+                  opacity: deleting === gd.id ? 0.5 : 1,
+                })}
+              >
+                {deleting === gd.id ? (
+                  <ActivityIndicator color="#EF4444" size="small" />
+                ) : (
+                  <>
+                    <Trash2 size={14} color="#EF4444" />
+                    <Text style={{ color: '#EF4444', fontSize: 13, fontWeight: '600' }}>
+                      Eliminar
                     </Text>
                   </>
                 )}

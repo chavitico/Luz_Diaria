@@ -783,6 +783,14 @@ export const gamificationApi = {
     return res.json();
   },
 
+  async adminDeleteGiftDrop(id: string): Promise<{ success: boolean }> {
+    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/${id}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) throw new Error('Failed to delete gift drop');
+    return res.json();
+  },
+
   async adminGetStoreItems(): Promise<Array<{
     id: string;
     type: string;

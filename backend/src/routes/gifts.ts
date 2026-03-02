@@ -321,3 +321,15 @@ giftsRouter.get("/admin/store-items", async (c) => {
     return c.json({ error: "Failed to get store items" }, 500);
   }
 });
+
+// DELETE /api/gifts/admin/:id - Delete a gift drop (and all associated UserGifts via cascade)
+giftsRouter.delete("/admin/:id", async (c) => {
+  try {
+    const id = c.req.param("id");
+    await prisma.giftDrop.delete({ where: { id } });
+    return c.json({ success: true });
+  } catch (error) {
+    console.error("[Gifts] Error deleting gift drop:", error);
+    return c.json({ error: "Failed to delete gift drop" }, 500);
+  }
+});
