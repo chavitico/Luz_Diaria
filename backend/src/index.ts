@@ -9,6 +9,7 @@ import { bibleRouter } from "./routes/bible";
 import { prayerRouter } from "./routes/prayer";
 import { brandingRouter } from "./routes/branding";
 import { supportRouter } from "./routes/support";
+import { giftsRouter } from "./routes/gifts";
 import { startDevotionalCron } from "./cron";
 import { initializeWeeklyChallenges } from "./weekly-challenges";
 import { seedPromoCodes } from "./seed-promo-codes";
@@ -47,6 +48,7 @@ app.route("/api/bible", bibleRouter);
 app.route("/api/prayer", prayerRouter);
 app.route("/api/branding", brandingRouter);
 app.route("/api/support", supportRouter);
+app.route("/api/gifts", giftsRouter);
 
 // Start cron job for daily devotional generation
 startDevotionalCron();

@@ -219,6 +219,7 @@ export default function SettingsScreen() {
   const [isGeneratingCode, setIsGeneratingCode] = useState(false);
   const [adminPressCount, setAdminPressCount] = useState(0);
   const [adminSupportPressCount, setAdminSupportPressCount] = useState(0);
+  const [adminGiftsPressCount, setAdminGiftsPressCount] = useState(0);
   const [enteredCode, setEnteredCode] = useState('');
   const [isRestoring, setIsRestoring] = useState(false);
   const [restoreError, setRestoreError] = useState<string | null>(null);
@@ -1300,6 +1301,23 @@ export default function SettingsScreen() {
           >
             <Text style={{ fontSize: 11, color: colors.textMuted + '40' }}>
               v{adminSupportPressCount > 0 ? '·'.repeat(adminSupportPressCount) : ''}
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              const next = adminGiftsPressCount + 1;
+              setAdminGiftsPressCount(next);
+              if (next >= 7) {
+                setAdminGiftsPressCount(0);
+                router.push('/admin/gifts');
+              }
+            }}
+            style={{ alignItems: 'center', paddingVertical: 4, marginBottom: 8 }}
+          >
+            <Text style={{ fontSize: 11, color: colors.textMuted + '20' }}>
+              {adminGiftsPressCount > 0 ? '·'.repeat(adminGiftsPressCount) : ' '}
             </Text>
           </Pressable>
 

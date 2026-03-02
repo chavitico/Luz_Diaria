@@ -331,3 +331,33 @@ model SupportTicket {
   @@index([userId])
   @@index([status])
 }
+
+// Gift Drop system - admin-managed premium gifts
+model GiftDrop {
+  id               String     @id @default(cuid())
+  title            String
+  message          String
+  rewardType       String     // "CHEST" | "THEME" | "TITLE" | "AVATAR" | "ITEM"
+  rewardId         String
+  audienceType     String     @default("ALL_USERS") // "ALL_USERS" | "USER_IDS"
+  audienceUserIds  String     @default("[]") // JSON array of user IDs
+  startsAt         DateTime?
+  endsAt           DateTime?
+  isActive         Boolean    @default(false)
+  createdAt        DateTime   @default(now())
+  userGifts        UserGift[]
+}
+
+model UserGift {
+  id         String    @id @default(cuid())
+  userId     String
+  giftDropId String
+  status     String    @default("PENDING") // "PENDING" | "CLAIMED" | "DISMISSED"
+  claimedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  giftDrop   GiftDrop  @relation(fields: [giftDropId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, giftDropId])
+  @@index([userId])
+  @@index([giftDropId])
+}

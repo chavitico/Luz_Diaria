@@ -251,6 +251,36 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
   - Enter Transfer Code: Restore full account (points, inventory, progress) from another device
   - Debug User ID display for troubleshooting
 
+### Gift Drops System
+Admin-managed premium gift distribution to reward users.
+
+**Database Models:**
+- `GiftDrop` — admin-created gift with title, message, rewardType (CHEST/THEME/TITLE/AVATAR/ITEM), rewardId, audienceType (ALL_USERS/USER_IDS), isActive flag
+- `UserGift` — per-user claim record: PENDING → CLAIMED or DISMISSED (unique per userId+giftDropId)
+
+**Backend Endpoints (`/api/gifts/`):**
+- `GET /pending?userId=xxx` — Returns first active PENDING gift for a user
+- `POST /claim` — Claims a gift: marks CLAIMED, upserts item into UserInventory (or awards points for CHEST type)
+- `GET /admin/list` — Last 20 gift drops with recipient counts
+- `POST /admin/create` — Create new gift drop
+- `PATCH /admin/:id` — Toggle active/update fields
+- `POST /admin/publish` — Distribute UserGift PENDING records to audience (skips duplicates)
+- `GET /admin/store-items` — Store items picker for reward selection
+
+**Mobile (auto-popup):**
+- Checks `GET /api/gifts/pending` on app start and every foreground resume
+- `GiftModal` (`src/components/GiftModal.tsx`) — animated bottom sheet with:
+  - Gift icon header + title + message
+  - Animated reward preview (bouncing idle animation per reward type)
+  - "¡Reclamar regalo!" primary CTA (amber, calls POST /claim, refreshes inventory/store queries)
+  - "Más tarde" secondary button (closes modal, status stays PENDING)
+
+**Admin UI:**
+- Access: tap invisible footer in Settings 7 times → opens `/admin/gifts` modal
+- Create form: title, message, reward type dropdown, reward ID picker (from store items list or manual input), audience selector (All/Specific IDs), active toggle
+- List: last 20 drops with recipient count, active toggle, publish button
+- Publish flow: confirms audience count before sending
+
 ### Gamification System
 - **Points earned for**:
   - Completing daily devotional: 50 pts
