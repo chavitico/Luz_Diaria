@@ -12,9 +12,10 @@ import {
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
-import { Gift, X, Package, Palette, Tag, User as UserIcon, Star } from 'lucide-react-native';
+import { Gift, X, Package, Palette, Tag, User as UserIcon, Star, ShoppingBag } from 'lucide-react-native';
 import { useThemeColors, useLanguage } from '@/lib/store';
 import { useQueryClient } from '@tanstack/react-query';
+import { router } from 'expo-router';
 
 export interface PendingGift {
   userGiftId: string;
@@ -23,6 +24,8 @@ export interface PendingGift {
   message: string;
   rewardType: 'CHEST' | 'THEME' | 'TITLE' | 'AVATAR' | 'ITEM';
   rewardId: string;
+  rewardItemNameEs?: string | null;
+  rewardItemNameEn?: string | null;
   createdAt: string;
 }
 
@@ -33,7 +36,7 @@ interface GiftModalProps {
   onLater: () => void;
 }
 
-function RewardPreview({ rewardType, rewardId }: { rewardType: PendingGift['rewardType']; rewardId: string }) {
+function RewardPreview({ rewardType, rewardId, itemName }: { rewardType: PendingGift['rewardType']; rewardId: string; itemName?: string | null }) {
   const colors = useThemeColors();
 
   const config: Record<PendingGift['rewardType'], { icon: React.ReactNode; label: string; color: string; bg: string }> = {
@@ -72,7 +75,7 @@ function RewardPreview({ rewardType, rewardId }: { rewardType: PendingGift['rewa
   const { icon, color, bg } = config[rewardType];
 
   return (
-    <View style={{ alignItems: 'center', gap: 12 }}>
+    <View style={{ alignItems: 'center', gap: 10 }}>
       <View
         style={{
           width: 100,
@@ -87,6 +90,20 @@ function RewardPreview({ rewardType, rewardId }: { rewardType: PendingGift['rewa
       >
         {icon}
       </View>
+      {itemName ? (
+        <Text
+          style={{
+            fontSize: 15,
+            fontWeight: '700',
+            color: color,
+            textAlign: 'center',
+            maxWidth: 220,
+          }}
+          numberOfLines={2}
+        >
+          {itemName}
+        </Text>
+      ) : null}
     </View>
   );
 }
@@ -157,6 +174,22 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
     }
   };
 
+  const handleClaimAndGoToStore = async () => {
+    if (claiming) return;
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    setClaiming(true);
+    try {
+      await onClaim();
+      queryClient.invalidateQueries({ queryKey: ['inventory'] });
+      queryClient.invalidateQueries({ queryKey: ['storeItems'] });
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+      // Navigate to store tab
+      router.push('/(tabs)/store');
+    } finally {
+      setClaiming(false);
+    }
+  };
+
   const handleLater = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     onLater();
@@ -169,6 +202,11 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
     AVATAR: language === 'es' ? 'Avatar exclusivo' : 'Exclusive Avatar',
     ITEM: language === 'es' ? 'Item premium' : 'Premium Item',
   };
+
+  // Resolve item name to display
+  const itemName = language === 'es'
+    ? (gift.rewardItemNameEs ?? null)
+    : (gift.rewardItemNameEn ?? null);
 
   return (
     <Modal
@@ -284,9 +322,9 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                 {gift.message}
               </Text>
 
-              {/* Reward preview */}
+              {/* Reward preview with item name */}
               <Animated.View style={{ transform: [{ translateY: chestBounceAnim }] }}>
-                <RewardPreview rewardType={gift.rewardType} rewardId={gift.rewardId} />
+                <RewardPreview rewardType={gift.rewardType} rewardId={gift.rewardId} itemName={itemName} />
               </Animated.View>
 
               {/* Reward type label */}
@@ -313,8 +351,9 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
 
               {/* CTA buttons */}
               <View style={{ width: '100%', gap: 10, paddingTop: 4 }}>
+                {/* Primary: Claim and go to store */}
                 <Pressable
-                  onPress={handleClaim}
+                  onPress={handleClaimAndGoToStore}
                   disabled={claiming}
                   style={({ pressed }) => ({
                     backgroundColor: pressed ? '#D97706' : '#F59E0B',
@@ -322,6 +361,9 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                     paddingVertical: 16,
                     alignItems: 'center',
                     opacity: claiming ? 0.7 : 1,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    gap: 8,
                     shadowColor: '#F59E0B',
                     shadowOffset: { width: 0, height: 4 },
                     shadowOpacity: 0.4,
@@ -329,23 +371,43 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                     elevation: 6,
                   })}
                 >
+                  <ShoppingBag size={18} color="#FFFFFF" strokeWidth={2.5} />
                   <Text style={{ color: '#FFFFFF', fontSize: 17, fontWeight: '800' }}>
                     {claiming
                       ? (language === 'es' ? 'Reclamando...' : 'Claiming...')
-                      : (language === 'es' ? '¡Reclamar regalo!' : 'Claim Gift!')
+                      : (language === 'es' ? '¡Reclamar y ver en tienda!' : 'Claim & View in Store!')
                     }
+                  </Text>
+                </Pressable>
+
+                {/* Secondary: Just claim */}
+                <Pressable
+                  onPress={handleClaim}
+                  disabled={claiming}
+                  style={({ pressed }) => ({
+                    borderRadius: 14,
+                    paddingVertical: 13,
+                    alignItems: 'center',
+                    opacity: pressed || claiming ? 0.6 : 1,
+                    borderWidth: 1.5,
+                    borderColor: colors.textMuted + '30',
+                    backgroundColor: colors.textMuted + '08',
+                  })}
+                >
+                  <Text style={{ color: colors.text, fontSize: 15, fontWeight: '600' }}>
+                    {language === 'es' ? 'Solo reclamar' : 'Just claim'}
                   </Text>
                 </Pressable>
 
                 <Pressable
                   onPress={handleLater}
                   style={({ pressed }) => ({
-                    paddingVertical: 12,
+                    paddingVertical: 10,
                     alignItems: 'center',
                     opacity: pressed ? 0.5 : 1,
                   })}
                 >
-                  <Text style={{ color: colors.textMuted, fontSize: 15, fontWeight: '500' }}>
+                  <Text style={{ color: colors.textMuted, fontSize: 14, fontWeight: '500' }}>
                     {language === 'es' ? 'Más tarde' : 'Later'}
                   </Text>
                 </Pressable>

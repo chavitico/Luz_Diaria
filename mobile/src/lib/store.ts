@@ -52,6 +52,11 @@ interface AppState {
   equipTitle: (titleId: string | null) => void;
   equipMusic: (musicId: string) => void;
   updateDailyActions: (actions: Partial<DailyActions>) => void;
+
+  // Gift new-item tracking
+  newGiftItemIds: string[];
+  addNewGiftItem: (itemId: string) => void;
+  clearNewGiftItem: (itemId: string) => void;
 }
 
 const initialUserSettings: UserSettings = {
@@ -82,6 +87,9 @@ export const useAppStore = create<AppState>()(
       equippedFrame: null,
       equippedTitle: null,
       equippedMusic: 'music_free_1',
+
+      // Gift new-item tracking
+      newGiftItemIds: [],
 
       setUser: (user) => set({ user }),
 
@@ -205,6 +213,16 @@ export const useAppStore = create<AppState>()(
           : null,
       })),
 
+      addNewGiftItem: (itemId) => set((state) => ({
+        newGiftItemIds: state.newGiftItemIds.includes(itemId)
+          ? state.newGiftItemIds
+          : [...state.newGiftItemIds, itemId],
+      })),
+
+      clearNewGiftItem: (itemId) => set((state) => ({
+        newGiftItemIds: state.newGiftItemIds.filter(id => id !== itemId),
+      })),
+
       reset: () => set({
         user: null,
         isOnboarded: false,
@@ -224,6 +242,7 @@ export const useAppStore = create<AppState>()(
         currentTheme: state.currentTheme,
         isDarkMode: state.isDarkMode,
         inventoryItems: state.inventoryItems,
+        newGiftItemIds: state.newGiftItemIds,
       }),
       onRehydrateStorage: () => (state) => {
         if (!state?.user) return;

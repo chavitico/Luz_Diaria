@@ -70,6 +70,23 @@ giftsRouter.get("/pending", async (c) => {
       return c.json({ gift: null });
     }
 
+    // Try to fetch the item name from StoreItem if rewardId is a store item ID
+    let rewardItemName: string | null = null;
+    const { rewardType, rewardId } = userGift.giftDrop;
+    if (rewardType !== "CHEST") {
+      try {
+        const storeItem = await prisma.storeItem.findUnique({
+          where: { id: rewardId },
+          select: { nameEs: true, nameEn: true },
+        });
+        if (storeItem) {
+          rewardItemName = `${storeItem.nameEs} / ${storeItem.nameEn}`;
+        }
+      } catch {
+        // non-critical
+      }
+    }
+
     return c.json({
       gift: {
         userGiftId: userGift.id,
@@ -78,6 +95,8 @@ giftsRouter.get("/pending", async (c) => {
         message: userGift.giftDrop.message,
         rewardType: userGift.giftDrop.rewardType,
         rewardId: userGift.giftDrop.rewardId,
+        rewardItemNameEs: rewardItemName ? rewardItemName.split(' / ')[0] : null,
+        rewardItemNameEn: rewardItemName ? rewardItemName.split(' / ')[1] : null,
         createdAt: userGift.createdAt,
       },
     });

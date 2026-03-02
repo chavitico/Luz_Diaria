@@ -1826,6 +1826,7 @@ function PremiumThemeCard({
   language,
   onPress,
   isHighlighted = false,
+  isNewGift = false,
   viewRef,
 }: {
   themeData: typeof PURCHASABLE_THEMES[string];
@@ -1836,6 +1837,7 @@ function PremiumThemeCard({
   language: 'en' | 'es';
   onPress: () => void;
   isHighlighted?: boolean;
+  isNewGift?: boolean;
   viewRef?: (ref: View | null) => void;
 })
  {
@@ -1989,6 +1991,22 @@ function PremiumThemeCard({
           </View>
         </View>
 
+        {/* NEW gift badge — top-left corner */}
+        {isNewGift && (
+          <View style={{ position: 'absolute', top: 8, left: 8, zIndex: 10 }}>
+            <View style={{
+              backgroundColor: '#EF4444',
+              borderRadius: 99,
+              paddingHorizontal: 7,
+              paddingVertical: 3,
+            }}>
+              <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                {language === 'es' ? 'NUEVO' : 'NEW'}
+              </Text>
+            </View>
+          </View>
+        )}
+
         <View style={{ padding: 12 }}>
           {/* Name: up to 2 lines, fixed minHeight so all cards align in the grid */}
           <View style={{ minHeight: 40, justifyContent: 'flex-start', marginBottom: 6 }}>
@@ -2050,6 +2068,7 @@ function PremiumFrameCard({
   language,
   onPress,
   isHighlighted = false,
+  isNewGift = false,
   viewRef,
 }: {
   frameData: typeof AVATAR_FRAMES[string];
@@ -2060,6 +2079,7 @@ function PremiumFrameCard({
   language: 'en' | 'es';
   onPress: () => void;
   isHighlighted?: boolean;
+  isNewGift?: boolean;
   viewRef?: (ref: View | null) => void;
 }) {
   const t = TRANSLATIONS[language];
@@ -2143,6 +2163,22 @@ function PremiumFrameCard({
               borderColor: frameData.color + '60',
             }}>
               <Text style={{ fontSize: 8, fontWeight: '800', color: frameData.color, letterSpacing: 0.5 }}>V2</Text>
+            </View>
+          )}
+
+          {/* NEW gift badge */}
+          {isNewGift && (
+            <View style={{ position: 'absolute', top: 8, left: 8, zIndex: 10 }}>
+              <View style={{
+                backgroundColor: '#EF4444',
+                borderRadius: 99,
+                paddingHorizontal: 7,
+                paddingVertical: 3,
+              }}>
+                <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                  {language === 'es' ? 'NUEVO' : 'NEW'}
+                </Text>
+              </View>
             </View>
           )}
 
@@ -2268,6 +2304,7 @@ function PremiumTitleCard({
   language,
   onPress,
   isHighlighted = false,
+  isNewGift = false,
   viewRef,
 }: {
   titleData: typeof SPIRITUAL_TITLES[string];
@@ -2278,6 +2315,7 @@ function PremiumTitleCard({
   language: 'en' | 'es';
   onPress: () => void;
   isHighlighted?: boolean;
+  isNewGift?: boolean;
   viewRef?: (ref: View | null) => void;
 }) {
   const t = TRANSLATIONS[language];
@@ -2366,6 +2404,19 @@ function PremiumTitleCard({
               <View className="ml-2">
                 <RarityBadge rarity={titleData.rarity} language={language} />
               </View>
+              {isNewGift && (
+                <View style={{
+                  marginLeft: 6,
+                  backgroundColor: '#EF4444',
+                  borderRadius: 99,
+                  paddingHorizontal: 7,
+                  paddingVertical: 2,
+                }}>
+                  <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                    {language === 'es' ? 'NUEVO' : 'NEW'}
+                  </Text>
+                </View>
+              )}
             </View>
             <Text
               className="text-xs"
@@ -2427,6 +2478,7 @@ function PremiumAvatarCard({
   language,
   onPress,
   isHighlighted = false,
+  isNewGift = false,
   viewRef,
 }: {
   avatar: typeof DEFAULT_AVATARS[number];
@@ -2437,6 +2489,7 @@ function PremiumAvatarCard({
   language: 'en' | 'es';
   onPress: () => void;
   isHighlighted?: boolean;
+  isNewGift?: boolean;
   viewRef?: (ref: View | null) => void;
 }) {
   const scale = useSharedValue(1);
@@ -2519,6 +2572,22 @@ function PremiumAvatarCard({
               backgroundColor: rarityColor + '20',
             }}>
               <Text style={{ fontSize: 8, fontWeight: '700', color: rarityColor }}>V2</Text>
+            </View>
+          )}
+
+          {/* NEW gift badge */}
+          {isNewGift && (
+            <View style={{ position: 'absolute', top: 6, left: 6, zIndex: 10 }}>
+              <View style={{
+                backgroundColor: '#EF4444',
+                borderRadius: 99,
+                paddingHorizontal: 7,
+                paddingVertical: 3,
+              }}>
+                <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                  {language === 'es' ? 'NUEVO' : 'NEW'}
+                </Text>
+              </View>
             </View>
           )}
 
@@ -4416,6 +4485,8 @@ export default function StoreScreen() {
   const points = useUserPoints();
   const user = useUser();
   const updateUser = useAppStore((s) => s.updateUser);
+  const newGiftItemIds = useAppStore((s) => s.newGiftItemIds);
+  const clearNewGiftItem = useAppStore((s) => s.clearNewGiftItem);
   const t = TRANSLATIONS[language];
   const queryClient = useQueryClient();
 
@@ -4736,7 +4807,9 @@ export default function StoreScreen() {
     setSelectedDetailItem(item);
     setShowDetailModal(true);
     Haptics.selectionAsync();
-  }, []);
+    // Clear new-gift badge when user opens the item
+    if (item.id) clearNewGiftItem(item.id);
+  }, [clearNewGiftItem]);
 
   // Destructure mutation functions for stable references (eslint requirement)
   const { mutate: purchaseMutate } = purchaseMutation;
@@ -4953,6 +5026,7 @@ export default function StoreScreen() {
                       colors={colors}
                       language={language}
                       isHighlighted={pendingNavTarget?.itemId === theme.id}
+                      isNewGift={newGiftItemIds.includes(theme.id)}
                       viewRef={(ref) => {
                         if (ref) itemViewRefs.current.set(theme.id, ref as unknown as View);
                       }}
@@ -5042,6 +5116,7 @@ export default function StoreScreen() {
                       colors={colors}
                       language={language}
                       isHighlighted={pendingNavTarget?.itemId === frame.id}
+                      isNewGift={newGiftItemIds.includes(frame.id)}
                       viewRef={(ref) => {
                         if (ref) itemViewRefs.current.set(frame.id, ref as unknown as View);
                       }}
@@ -5085,6 +5160,7 @@ export default function StoreScreen() {
                     colors={colors}
                     language={language}
                     isHighlighted={pendingNavTarget?.itemId === title.id}
+                    isNewGift={newGiftItemIds.includes(title.id)}
                     viewRef={(ref) => {
                       if (ref) itemViewRefs.current.set(title.id, ref as unknown as View);
                     }}
@@ -5133,6 +5209,7 @@ export default function StoreScreen() {
                     colors={colors}
                     language={language}
                     isHighlighted={pendingNavTarget?.itemId === avatar.id}
+                    isNewGift={newGiftItemIds.includes(avatar.id)}
                     viewRef={(ref) => {
                       if (ref) itemViewRefs.current.set(avatar.id, ref as unknown as View);
                     }}

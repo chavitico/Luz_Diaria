@@ -107,6 +107,7 @@ function AppContent() {
   const isDarkMode = useIsDarkMode();
   const language = useLanguage();
   const user = useAppStore(s => s.user);
+  const addNewGiftItem = useAppStore(s => s.addNewGiftItem);
   const [showSplash, setShowSplash] = useState(true);
   const [appReady, setAppReady] = useState(false);
   const fetchBranding = useBrandingStore(s => s.fetchBranding);
@@ -185,9 +186,13 @@ function AppContent() {
   const handleClaimGift = useCallback(async () => {
     if (!pendingGift || !user?.id) return;
     await gamificationApi.claimGift(user.id, pendingGift.giftDropId);
+    // Mark item as new so the store can show a badge
+    if (pendingGift.rewardId) {
+      addNewGiftItem(pendingGift.rewardId);
+    }
     setShowGiftModal(false);
     setPendingGift(null);
-  }, [pendingGift, user?.id]);
+  }, [pendingGift, user?.id, addNewGiftItem]);
 
   const handleLaterGift = useCallback(() => {
     setShowGiftModal(false);
