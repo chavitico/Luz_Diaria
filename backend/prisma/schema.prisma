@@ -362,3 +362,18 @@ model UserGift {
   @@index([userId])
   @@index([giftDropId])
 }
+
+// Audit log for admin role changes
+model AdminAuditLog {
+  id           String   @id @default(cuid())
+  actorUserId  String   // who performed the action
+  targetUserId String   // who was affected
+  action       String   // e.g. "SET_ROLE"
+  beforeRole   String
+  afterRole    String
+  createdAt    DateTime @default(now())
+
+  @@index([actorUserId])
+  @@index([targetUserId])
+  @@index([createdAt])
+}

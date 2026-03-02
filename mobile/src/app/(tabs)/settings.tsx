@@ -220,6 +220,7 @@ export default function SettingsScreen() {
   const [adminPressCount, setAdminPressCount] = useState(0);
   const [adminSupportPressCount, setAdminSupportPressCount] = useState(0);
   const [adminGiftsPressCount, setAdminGiftsPressCount] = useState(0);
+  const [adminModPressCount, setAdminModPressCount] = useState(0);
   const [enteredCode, setEnteredCode] = useState('');
   const [isRestoring, setIsRestoring] = useState(false);
   const [restoreError, setRestoreError] = useState<string | null>(null);
@@ -1327,6 +1328,21 @@ export default function SettingsScreen() {
               {adminGiftsPressCount > 0 ? '·'.repeat(adminGiftsPressCount) : ' '}
             </Text>
           </Pressable>
+
+          {/* Moderators management — OWNER only, direct tap */}
+          {user?.role === 'OWNER' && (
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                router.push('/admin/moderators');
+              }}
+              style={{ alignItems: 'center', paddingVertical: 4, marginBottom: 4 }}
+            >
+              <Text style={{ fontSize: 10, color: colors.textMuted + '30', letterSpacing: 1 }}>
+                ···
+              </Text>
+            </Pressable>
+          )}
 
           {/* Debug Info - User ID */}
           {user?.id && (

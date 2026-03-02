@@ -91,6 +91,13 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
+          name="admin/moderators"
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="logo-preview"
           options={{
             presentation: 'modal',
