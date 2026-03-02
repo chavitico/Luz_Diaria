@@ -618,11 +618,11 @@ function WeeklyChestCard({
   const user = useUser();
   const lastChestClaimed = user?.lastWeeklyChestClaimed;
 
-  // Get current week ID
+  // Get current week ID — matches backend format (zero-padded, e.g. "2026-W09")
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 1);
   const weekNumber = Math.ceil(((now.getTime() - startOfYear.getTime()) / 86400000 + startOfYear.getDay() + 1) / 7);
-  const currentWeekId = `${now.getFullYear()}-W${weekNumber}`;
+  const currentWeekId = `${now.getFullYear()}-W${weekNumber.toString().padStart(2, '0')}`;
 
   const alreadyClaimed = lastChestClaimed === currentWeekId;
   const canClaim = allChallengesComplete && !alreadyClaimed;
@@ -4849,7 +4849,7 @@ export default function StoreScreen() {
     const now = new Date();
     const startOfYear = new Date(now.getFullYear(), 0, 1);
     const weekNumber = Math.ceil(((now.getTime() - startOfYear.getTime()) / 86400000 + startOfYear.getDay() + 1) / 7);
-    const currentWeekId = `${now.getFullYear()}-W${weekNumber}`;
+    const currentWeekId = `${now.getFullYear()}-W${weekNumber.toString().padStart(2, '0')}`;
 
     // Weighted random selection
     const totalWeight = WEEKLY_CHEST_CONFIG.possibleRewards.reduce((sum, r) => sum + r.weight, 0);
