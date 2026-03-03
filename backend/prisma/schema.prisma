@@ -319,18 +319,21 @@ model StreakSnapshot {
 model SupportTicket {
   id             String   @id @default(cuid())
   userId         String
-  type           String   // "streak_missing" | "devotional_not_counted"
-  claimedStreak  Int
-  claimedDate    String   // YYYY-MM-DD
+  type           String   // "streak_missing" | "devotional_not_counted" | "audio_tts" | "notification" | "reward_drop"
+  claimedStreak  Int      @default(0)
+  claimedDate    String   @default("") // YYYY-MM-DD (used for streak/devotional)
+  clientClaim    String   @default("{}") // JSON: type-specific payload
   status         String   @default("open") // "open" | "auto_fixed" | "needs_human" | "closed"
   resolutionNote String?
   beforeState    String   @default("{}") // JSON audit
   afterState     String   @default("{}") // JSON audit
+  botPreview     String   @default("{}") // JSON: { summary, userMessageEs, userMessageEn, action }
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
   @@index([userId])
   @@index([status])
+  @@index([type])
 }
 
 // Gift Drop system - admin-managed premium gifts
