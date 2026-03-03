@@ -111,48 +111,78 @@ export async function generateDevotionalWithAI(topic: { en: string; es: string }
   const endWithQuestion = storyGenerationCount % 3 === 0; // ~1 in 3: end with a question instead of conclusion
 
   const storyStyleInstructions = `
-STORY STYLE INSTRUCTIONS (follow these exactly):
-${useNoName ? `- THIS STORY: Do NOT use any names. Only refer to characters as "una mujer", "un joven", "alguien que…", "ella", "él", etc.` : `- THIS STORY: Use uncommon or rare names (avoid overused names like María, Juan, Pedro, Ana). Consider names like Rebeca, Amara, Tadeo, Elías, Noa, Miriam, Isai, Lía, etc. Or mix a name for one character and descriptions for others.`}
-${useFirstPerson ? `- THIS STORY: Write in FIRST PERSON ("Yo sentí…", "Recuerdo cuando…", "Fue una noche que…"). Make it feel like a personal testimony.` : `- THIS STORY: Write in third person, but from deep inside the character's emotional perspective. Prioritize inner emotions over external facts.`}
-${endWithQuestion ? `- THIS STORY: Do NOT end with a conclusion or moral lesson. End with a powerful open question that invites the reader to reflect spiritually.` : `- THIS STORY: End with a moment of quiet encounter with God — not a moral lesson, but a felt truth.`}
+=== INSTRUCCIONES ESPECÍFICAS PARA ESTA HISTORIA (seguir al pie de la letra) ===
+${useNoName
+  ? `IDENTIDAD DEL PROTAGONISTA: No uses nombres propios en absoluto. Refiere al protagonista únicamente como "una mujer", "un joven", "alguien que…", "ella", "él", "una madre", "un hombre mayor", etc. Esto hace que cualquier lector sienta que podría ser su propia historia.`
+  : `IDENTIDAD DEL PROTAGONISTA: Usa un nombre POCO COMÚN o INUSUAL para el protagonista — evita absolutamente nombres comunes como María, Juan, Pedro, Ana, Carlos, Laura, José. Considera nombres como: Rebeca, Amara, Tadeo, Elías, Noa, Miriam, Isaí, Lía, Ezra, Celestino, Adara, Simei, Tomás, Hadasa, Naín, Zoe, Caleb, Abner, Débora, Silas, Rufina, Azarías, etc. También puedes mezclar: nombre para el protagonista y descripciones para los demás.`}
+
+${useFirstPerson
+  ? `VOZ NARRATIVA: Escribe en PRIMERA PERSONA — como un testimonio personal íntimo. Usa frases como "Yo sentí…", "Recuerdo cuando…", "Fue una noche que…", "No supe cómo explicarlo, pero…", "Algo dentro de mí se quebró…". Debe sentirse como alguien contando su historia más vulnerable ante Dios.`
+  : `VOZ NARRATIVA: Escribe en tercera persona, pero desde lo MÁS PROFUNDO del mundo interior del protagonista. No narres hechos externos — narra lo que él/ella sentía, temía, esperaba, callaba. El lector debe olvidar que está leyendo una historia y sentir que está dentro del alma de esa persona.`}
+
+${endWithQuestion
+  ? `CIERRE: NO termines con una conclusión, moraleja ni frase esperanzadora directa. Cierra con una PREGUNTA ESPIRITUAL PODEROSA Y ABIERTA que haga al lector detenerse y preguntarse algo sobre su propia fe, su propio corazón o su relación con Dios. La pregunta no debe ser retórica — debe sentirse genuina, profunda, casi incómoda en su honestidad.`
+  : `CIERRE: Termina con UN INSTANTE QUIETO Y SAGRADO — no una lección, sino una verdad sentida. Un momento donde Dios y el protagonista están en silencio juntos, y en ese silencio todo cambia. Cierra con una frase breve, poderosa y esperanzadora que haga al lector sentir que Dios también está cerca de él.`}
 `;
 
-  const prompt = `You are a Christian devotional writer with a gift for deeply moving, spiritually intimate storytelling. Generate a complete daily devotional about the topic "${topic.en}" / "${topic.es}".
+  const prompt = `Eres un escritor devocional cristiano con un don extraordinario para historias profundamente conmovedoras, espiritualmente íntimas y emocionalmente devastadoras en el mejor sentido — historias que hacen llorar, que restauran el alma, que hacen sentir a quien las lee que Dios lo vio, lo conoce y lo ama.
 
-Return ONLY a valid JSON object with this exact structure (no markdown, no code blocks, just pure JSON):
+Genera un devocional diario completo sobre el tema "${topic.en}" / "${topic.es}".
+
+Devuelve ÚNICAMENTE un objeto JSON válido con esta estructura exacta (sin markdown, sin bloques de código, solo JSON puro):
 
 {
-  "title": "A compelling title in English (5-8 words)",
-  "titleEs": "Same title in Spanish",
-  "bibleVerse": "A relevant Bible verse in English with quotes around it",
-  "bibleVerseEs": "Same verse in Spanish with quotes",
-  "bibleReference": "Book Chapter:Verse in English (e.g., 'Psalm 23:1' or '1 Corinthians 13:4-7')",
-  "bibleReferenceEs": "Same reference in Spanish with translated book name (e.g., 'Salmo 23:1' or '1 Corintios 13:4-7')",
-  "reflection": "A deep, thoughtful reflection on the theme (3-4 paragraphs, about 200-250 words). Connect the Bible verse to daily life.",
-  "reflectionEs": "Same reflection in Spanish",
-  "story": "An inspiring story that illustrates the theme (3-4 paragraphs, about 200-250 words). Follow the STORY STYLE INSTRUCTIONS below. Prioritize internal emotions over external events. Write like an intimate testimony, not a documentary. Include at least one powerful phrase that invites spiritual reflection. Make the reader feel accompanied, not instructed. Focus on hope, comfort, living faith, and real encounter with God. Each story must feel unique and memorable.",
-  "storyEs": "Same story in Spanish — translate naturally, preserving the emotional and spiritual tone",
-  "biblicalCharacter": "A section about a biblical character who exemplified this virtue (2-3 paragraphs, about 150-200 words). Include specific Bible references.",
-  "biblicalCharacterEs": "Same section in Spanish",
-  "application": "Practical application steps for today (2-3 specific actions the reader can take). Be concrete and actionable.",
-  "applicationEs": "Same application in Spanish",
-  "prayer": "A heartfelt prayer related to the theme (about 100 words). Make it personal and intimate — a real conversation with God, not a formal prayer.",
-  "prayerEs": "Same prayer in Spanish"
+  "title": "Un título en inglés que capture la esencia emocional y espiritual del devocional (5-8 palabras). Evita títulos genéricos. Que sea memorable.",
+  "titleEs": "Mismo título en español — que suene natural, poético y poderoso, no como traducción literal",
+  "bibleVerse": "Un versículo bíblico relevante en inglés, entre comillas. Elige versículos que sean profundamente consoladores, transformadores o que generen impacto emocional real.",
+  "bibleVerseEs": "Mismo versículo en español — versión Reina-Valera o NVI, entre comillas",
+  "bibleReference": "Referencia bíblica en inglés (ej: 'Psalm 23:1' o '1 Corinthians 13:4-7')",
+  "bibleReferenceEs": "Misma referencia en español con nombre del libro traducido (ej: 'Salmo 23:1' o '1 Corintios 13:4-7')",
+  "reflection": "Una reflexión profunda, espiritual y accesible sobre el tema (3-4 párrafos, aprox. 200-250 palabras). NO expliques el versículo académicamente. Conecta la Escritura con el dolor real de las personas, con sus miedos cotidianos, con esos momentos de las 3am cuando todo parece perdido. Habla como alguien que ha sufrido y ha encontrado a Dios en el sufrimiento.",
+  "reflectionEs": "Misma reflexión en español — que fluya de manera natural y emocionalmente resonante, no como traducción",
+  "story": "UNA HISTORIA DEVOCIONAL INSPIRADORA E IMPACTANTE (3-4 párrafos, aprox. 220-270 palabras). SIGUE LAS INSTRUCCIONES DE ESTILO A CONTINUACIÓN. Esta historia debe sentirse como un TESTIMONIO REAL DE VIDA — no como una parábola ni un ejemplo ilustrativo. Debe tener: (1) un momento de crisis o quiebre genuino con detalles cotidianos concretos como lugar, hora, pequeño gesto; (2) una intervención clara y emocionante de Dios — puede ser a través de una oración, un versículo que llega en el momento justo, un acto de fe, un pequeño milagro o una transformación interior profunda; (3) una transformación visible del antes al después. Prioriza las emociones internas intensas: miedo, dolor, esperanza, culpa, alivio, gozo, fe renovada. Incluye al menos una frase que se quede grabada en el corazón del lector. El lector debe sentir que esto le pudo pasar a alguien como él.",
+  "storyEs": "Misma historia en español — traducida de manera natural, preservando cada matiz emocional y espiritual. La versión en español debe sentirse tan íntima y poderosa como el original.",
+  "biblicalCharacter": "Una sección sobre un personaje bíblico que ejemplificó esta virtud de manera profunda y humana (2-3 párrafos, aprox. 150-200 palabras). No hagas un resumen biográfico — muestra el momento de quiebre y transformación de ese personaje. Incluye referencias bíblicas específicas. Que el lector sienta que ese personaje también fue humano, frágil, y fue sostenido por Dios.",
+  "biblicalCharacterEs": "Misma sección en español",
+  "application": "2-3 aplicaciones prácticas para hoy — concretas, específicas y alcanzables. No ideales abstractos. Acciones reales que una persona puede hacer hoy, ahora, en su vida cotidiana. Escríbelas con calidez, no como mandatos.",
+  "applicationEs": "Mismas aplicaciones en español",
+  "prayer": "Una oración de aprox. 100-120 palabras. Que sea una conversación REAL, íntima y profunda con Dios — no un texto litúrgico formal. Que incluya el peso emocional del tema: nombra el dolor, el miedo o la esperanza. Que el lector sienta que alguien escribió esta oración desde sus propias rodillas, llorando y creyendo al mismo tiempo.",
+  "prayerEs": "Misma oración en español — que fluya con naturalidad, emoción y fe auténtica"
 }
 
 ${storyStyleInstructions}
 
-GLOBAL STORY GUIDELINES (always apply):
-- Never repeat the same 3-4 common names across stories
-- Prioritize internal emotions and spiritual states over external plot events
-- Write as an intimate testimony, not a documentary chronicle
-- Avoid long moralistic explanations — trust the reader
-- Make the reader feel accompanied, never lectured
-- Each story must feel unique, memorable, and touch the heart
-- Focus on: hope, consolation, living faith, and real encounter with God
-- The reflection and prayer should be deeply spiritual but accessible
-- Spanish translations must be natural and emotionally resonant, not literal
-- All content must be biblically sound and theologically accurate`;
+=== LINEAMIENTOS GLOBALES (aplicar siempre, sin excepción) ===
+
+TONO Y VOZ:
+- Escribe como un testimonio íntimo y humano, NUNCA como un texto informativo o documental
+- El lector debe sentir: "esto le pudo pasar a alguien como yo" — o incluso "esto ME pasó a mí"
+- Prioriza emociones internas intensas: miedo real, dolor auténtico, esperanza frágil, culpa que aplasta, alivio que libera, gozo que sorprende, fe renovada contra toda lógica
+- Evita explicaciones largas o moralizantes — la enseñanza debe surgir naturalmente de la historia
+- Nunca "resuelvas" la historia demasiado rápido — deja respirar el dolor antes de la redención
+
+DETALLES CONCRETOS:
+- Incluye detalles cotidianos específicos que hagan la historia sentirse real: el lugar exacto, la hora del día, un gesto pequeño, una frase dicha en voz baja, el olor de algo, la textura de un momento
+- Los detalles específicos son los que hacen llorar — no los conceptos abstractos
+
+AUTENTICIDAD Y VARIEDAD:
+- NUNCA repitas nombres comunes en múltiples historias
+- Cada historia debe iniciar de manera diferente — varía la apertura: a veces con una imagen, a veces con una emoción, a veces con un diálogo, a veces con una pregunta, a veces con un objeto concreto
+- Varía el ritmo: algunas historias pueden ser lentas y contemplativas, otras urgentes y angustiantes
+
+CIERRE ESPIRITUAL:
+- Todas las historias deben cerrar con una frase poderosa, breve y esperanzadora que haga sentir al lector que Dios está presente y cerca — incluso ahora mismo, mientras lee esto
+- Que la última frase sea memorable: algo que el lector repita para sí mismo antes de dormir
+
+OBJETIVO FINAL:
+- Que cada historia se sienta ÚNICA, MEMORABLE e IMPACTANTE
+- Que el lector NO sienta que leyó "otro devocional más", sino un TESTIMONIO QUE TOCÓ SU CORAZÓN
+- Que después de leer, el lector quiera orar — o llorar — o simplemente quedarse en silencio ante Dios
+
+IDIOMA Y CALIDAD:
+- El español debe ser el idioma principal de calidad — natural, emocionalmente resonante, NUNCA traducción literal
+- Todo el contenido debe ser bíblicamente sólido y teológicamente correcto
+- Evita clichés religiosos gastados — busca expresiones frescas y auténticas`;
 
   console.log(`[Devotional] Generating devotional for topic: ${topic.en}...`);
 
