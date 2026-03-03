@@ -355,5 +355,19 @@
     "itemId": "badge_fundador",
     "acquiredAt": "2026-03-03T18:18:55.000Z",
     "source": "achievement"
+  },
+  {
+    "id": "cmmaza56n000vm2e2xw0wst7e",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-03T19:05:43.104Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmazaku6000ym2e2ozoq712r",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-03T19:06:03.390Z",
+    "source": "admin_grant"
   }
 ]

@@ -476,4 +476,49 @@ supportRouter.post(
   }
 );
 
+// PATCH /api/support/admin/tickets/:id/resolve — manually close a ticket
+supportRouter.patch(
+  "/admin/tickets/:id/resolve",
+  requireRole("MODERATOR"),
+  zValidator(
+    "json",
+    z.object({
+      resolution: z.enum(["resolved", "rejected"]),
+      note: z.string().max(500).optional(),
+    })
+  ),
+  async (c) => {
+    const ticketId = c.req.param("id");
+    const { resolution, note } = c.req.valid("json");
+    const adminUserId = c.req.header("X-User-Id") ?? "unknown";
+
+    const ticket = await prisma.supportTicket.findUnique({
+      where: { id: ticketId },
+      select: { id: true, status: true },
+    });
+    if (!ticket) {
+      return c.json({ success: false, error: "Ticket not found" }, 404);
+    }
+    if (ticket.status === "closed") {
+      return c.json({ success: false, error: "Ticket already closed" }, 400);
+    }
+
+    const resolutionNote =
+      resolution === "resolved"
+        ? `Resuelto manualmente por admin ${adminUserId}${note ? ". Nota: " + note : ""}`
+        : `Rechazado por admin ${adminUserId}${note ? ". Motivo: " + note : ""}`;
+
+    await prisma.supportTicket.update({
+      where: { id: ticketId },
+      data: { status: "closed", resolutionNote },
+    });
+
+    console.log(
+      `[Support] Ticket ${ticketId} ${resolution} by admin ${adminUserId}`
+    );
+
+    return c.json({ success: true });
+  }
+);
+
 export { supportRouter };

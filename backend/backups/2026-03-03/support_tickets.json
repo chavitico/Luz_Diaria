@@ -43,5 +43,20 @@
     "botPreview": "{\"summary\":\"Notificación: not_received (habilitado: true)\",\"userMessageEs\":\"Hola, recibimos tu reporte de notificaciones (not_received). 1) Verifica que las notificaciones estén activadas en Ajustes > Notificaciones. 2) Hora programada: 6:00. 3) En iOS, ve a Configuración > Luz Diaria > Notificaciones y confirma que estén habilitadas.\",\"userMessageEn\":\"Hello, we received your notification report (not_received). Please check your device notification settings and make sure notifications are enabled for Luz Diaria.\",\"action\":\"info_only\"}",
     "createdAt": "2026-03-03T01:13:13.939Z",
     "updatedAt": "2026-03-03T01:13:13.939Z"
+  },
+  {
+    "id": "cmmazcol20016m2e264u5cto8",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "type": "devotional_not_counted",
+    "claimedStreak": 25,
+    "claimedDate": "2026-03-03",
+    "clientClaim": "{\"date\":\"2026-03-03\",\"issue\":\"not_counted\"}",
+    "status": "needs_human",
+    "resolutionNote": "No snapshot available for verification. Manual review required.",
+    "beforeState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
+    "afterState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
+    "botPreview": "{\"summary\":\"Devocional no contado — requiere revisión\",\"userMessageEs\":\"Recibimos tu reporte. No encontramos una forma automática de verificar tu devocional del día indicado. Un moderador revisará tu caso. Gracias.\",\"userMessageEn\":\"We received your report. We couldn't automatically verify your devotional for the indicated day. A moderator will review your case. Thank you.\",\"action\":\"needs_human\"}",
+    "createdAt": "2026-03-03T19:07:41.559Z",
+    "updatedAt": "2026-03-03T19:07:41.559Z"
   }
 ]

@@ -34,6 +34,9 @@ import {
   Copy,
   MessageSquare,
   Package,
+  XCircle,
+  Check,
+  X,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
@@ -413,6 +416,157 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
   );
 }
 
+// ─── Resolve / Reject Modal ────────────────────────────────────────────────────
+
+interface ResolveModalProps {
+  ticket: AdminTicket | null;
+  visible: boolean;
+  mode: 'resolved' | 'rejected';
+  onClose: () => void;
+  onSuccess: () => void;
+  userId: string;
+  es: boolean;
+  colors: ReturnType<typeof useThemeColors>;
+}
+
+function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, colors }: ResolveModalProps) {
+  const [note, setNote] = useState('');
+  const [sending, setSending] = useState(false);
+
+  useEffect(() => {
+    if (visible) setNote('');
+  }, [visible]);
+
+  const isResolve = mode === 'resolved';
+  const accentColor = isResolve ? '#22C55E' : '#EF4444';
+
+  const handleSubmit = async () => {
+    if (!ticket) return;
+    setSending(true);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/support/admin/tickets/${ticket.id}/resolve`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
+        body: JSON.stringify({ resolution: mode, note: note.trim() || undefined }),
+      });
+      const data = await res.json() as { success: boolean; error?: string };
+      if (!data.success) throw new Error(data.error ?? 'Error');
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      onSuccess();
+      onClose();
+    } catch (e) {
+      Alert.alert('Error', String(e));
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+      <Pressable
+        style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}
+        onPress={onClose}
+      >
+        <Pressable onPress={() => {}} style={{ width: '100%' }}>
+          <View style={{
+            backgroundColor: colors.surface,
+            borderRadius: 24,
+            padding: 24,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 12 },
+            shadowOpacity: 0.3,
+            shadowRadius: 24,
+            elevation: 16,
+          }}>
+            {/* Icon + title */}
+            <View style={{ alignItems: 'center', marginBottom: 16 }}>
+              <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: accentColor + '18', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+                {isResolve ? <Check size={28} color={accentColor} /> : <X size={28} color={accentColor} />}
+              </View>
+              <Text style={{ fontSize: 18, fontWeight: '800', color: colors.text, textAlign: 'center' }}>
+                {isResolve ? (es ? 'Resolver ticket' : 'Resolve ticket') : (es ? 'Rechazar ticket' : 'Reject ticket')}
+              </Text>
+              <Text style={{ fontSize: 13, color: colors.textMuted, marginTop: 4, textAlign: 'center' }}>
+                {ticket?.systemSnapshot?.nickname}
+              </Text>
+            </View>
+
+            {/* What this does */}
+            <View style={{ backgroundColor: accentColor + '10', borderRadius: 12, padding: 12, marginBottom: 16, borderWidth: 1, borderColor: accentColor + '25' }}>
+              <Text style={{ fontSize: 12, color: accentColor, lineHeight: 18, fontWeight: '500' }}>
+                {isResolve
+                  ? (es ? 'Cierra el ticket indicando que el problema fue atendido sin necesidad de compensación.' : 'Closes the ticket indicating the issue was handled without compensation.')
+                  : (es ? 'Cierra el ticket indicando que no procede la solicitud del usuario.' : 'Closes the ticket indicating the user\'s request does not qualify.')}
+              </Text>
+            </View>
+
+            {/* Optional note */}
+            <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
+              {es ? 'Nota interna (opcional)' : 'Internal note (optional)'}
+            </Text>
+            <TextInput
+              value={note}
+              onChangeText={setNote}
+              placeholder={isResolve
+                ? (es ? 'Ej: Se verificó manualmente y la racha estaba correcta.' : 'E.g.: Manually verified, streak was correct.')
+                : (es ? 'Ej: No hay evidencia suficiente para proceder.' : 'E.g.: Insufficient evidence to proceed.')}
+              placeholderTextColor={colors.textMuted + '70'}
+              multiline
+              numberOfLines={3}
+              style={{
+                backgroundColor: colors.background,
+                borderRadius: 12,
+                padding: 12,
+                color: colors.text,
+                fontSize: 13,
+                borderWidth: 1,
+                borderColor: colors.textMuted + '25',
+                minHeight: 72,
+                textAlignVertical: 'top',
+                marginBottom: 20,
+              }}
+            />
+
+            {/* Buttons */}
+            <View style={{ flexDirection: 'row', gap: 10 }}>
+              <Pressable
+                onPress={onClose}
+                style={({ pressed }) => ({
+                  flex: 1, paddingVertical: 13, borderRadius: 14, alignItems: 'center',
+                  backgroundColor: colors.background, opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted }}>
+                  {es ? 'Cancelar' : 'Cancel'}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={handleSubmit}
+                disabled={sending}
+                style={({ pressed }) => ({
+                  flex: 2, paddingVertical: 13, borderRadius: 14, alignItems: 'center',
+                  flexDirection: 'row', justifyContent: 'center', gap: 8,
+                  backgroundColor: sending ? colors.textMuted + '40' : accentColor,
+                  opacity: pressed ? 0.85 : 1,
+                })}
+              >
+                {sending
+                  ? <ActivityIndicator size="small" color="#FFF" />
+                  : <>
+                      {isResolve ? <Check size={16} color="#FFF" /> : <X size={16} color="#FFF" />}
+                      <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFF' }}>
+                        {isResolve ? (es ? 'Marcar resuelto' : 'Mark resolved') : (es ? 'Rechazar' : 'Reject')}
+                      </Text>
+                    </>}
+              </Pressable>
+            </View>
+          </View>
+        </Pressable>
+      </Pressable>
+    </Modal>
+  );
+}
+
 // ─── Bot Preview Modal ─────────────────────────────────────────────────────────
 
 function BotPreviewModal({
@@ -543,6 +697,8 @@ function TicketCard({
   colors,
   onCompensate,
   onBotPreview,
+  onResolve,
+  onReject,
   userId,
 }: {
   ticket: AdminTicket;
@@ -551,6 +707,8 @@ function TicketCard({
   colors: ReturnType<typeof useThemeColors>;
   onCompensate: (t: AdminTicket) => void;
   onBotPreview: (t: AdminTicket) => void;
+  onResolve: (t: AdminTicket) => void;
+  onReject: (t: AdminTicket) => void;
   userId: string;
 }) {
   const [snapshotExpanded, setSnapshotExpanded] = useState(false);
@@ -638,21 +796,15 @@ function TicketCard({
         ) : null}
 
         {/* Action buttons */}
-        <View style={{ flexDirection: 'row', gap: 8 }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
           {/* Bot preview */}
           <Pressable
             onPress={() => onBotPreview(ticket)}
             style={({ pressed }) => ({
-              flex: 1,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 5,
-              paddingVertical: 9,
-              borderRadius: 12,
-              backgroundColor: '#0EA5E915',
-              borderWidth: 1,
-              borderColor: '#0EA5E930',
+              flex: 1, minWidth: 100,
+              flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5,
+              paddingVertical: 9, borderRadius: 12,
+              backgroundColor: '#0EA5E915', borderWidth: 1, borderColor: '#0EA5E930',
               opacity: pressed ? 0.75 : 1,
             })}
           >
@@ -662,27 +814,59 @@ function TicketCard({
             </Text>
           </Pressable>
 
-          {/* Compensate — show for needs_human, auto_fixed, open (not closed) */}
+          {/* Compensate */}
           {ticket.status !== 'closed' && (
             <Pressable
               onPress={() => onCompensate(ticket)}
               style={({ pressed }) => ({
-                flex: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 5,
-                paddingVertical: 9,
-                borderRadius: 12,
-                backgroundColor: '#22C55E15',
-                borderWidth: 1,
-                borderColor: '#22C55E30',
+                flex: 1, minWidth: 100,
+                flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5,
+                paddingVertical: 9, borderRadius: 12,
+                backgroundColor: '#22C55E15', borderWidth: 1, borderColor: '#22C55E30',
                 opacity: pressed ? 0.75 : 1,
               })}
             >
               <Gift size={13} color="#22C55E" />
               <Text style={{ fontSize: 12, fontWeight: '600', color: '#22C55E' }}>
                 {es ? 'Compensar' : 'Compensate'}
+              </Text>
+            </Pressable>
+          )}
+
+          {/* Resolve */}
+          {ticket.status !== 'closed' && (
+            <Pressable
+              onPress={() => onResolve(ticket)}
+              style={({ pressed }) => ({
+                flex: 1, minWidth: 100,
+                flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5,
+                paddingVertical: 9, borderRadius: 12,
+                backgroundColor: '#10B98115', borderWidth: 1, borderColor: '#10B98130',
+                opacity: pressed ? 0.75 : 1,
+              })}
+            >
+              <Check size={13} color="#10B981" />
+              <Text style={{ fontSize: 12, fontWeight: '600', color: '#10B981' }}>
+                {es ? 'Resolver' : 'Resolve'}
+              </Text>
+            </Pressable>
+          )}
+
+          {/* Reject */}
+          {ticket.status !== 'closed' && (
+            <Pressable
+              onPress={() => onReject(ticket)}
+              style={({ pressed }) => ({
+                flex: 1, minWidth: 100,
+                flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5,
+                paddingVertical: 9, borderRadius: 12,
+                backgroundColor: '#EF444415', borderWidth: 1, borderColor: '#EF444430',
+                opacity: pressed ? 0.75 : 1,
+              })}
+            >
+              <X size={13} color="#EF4444" />
+              <Text style={{ fontSize: 12, fontWeight: '600', color: '#EF4444' }}>
+                {es ? 'Rechazar' : 'Reject'}
               </Text>
             </Pressable>
           )}
@@ -793,6 +977,10 @@ export default function AdminSupportScreen() {
 
   const [botTicket, setBotTicket] = useState<AdminTicket | null>(null);
   const [botVisible, setBotVisible] = useState(false);
+
+  const [resolveTicket, setResolveTicket] = useState<AdminTicket | null>(null);
+  const [resolveMode, setResolveMode] = useState<'resolved' | 'rejected'>('resolved');
+  const [resolveVisible, setResolveVisible] = useState(false);
 
   const fetchTickets = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
@@ -926,14 +1114,10 @@ export default function AdminSupportScreen() {
                 es={es}
                 colors={colors}
                 userId={userId}
-                onCompensate={(t) => {
-                  setCompensateTicket(t);
-                  setCompensateVisible(true);
-                }}
-                onBotPreview={(t) => {
-                  setBotTicket(t);
-                  setBotVisible(true);
-                }}
+                onCompensate={(t) => { setCompensateTicket(t); setCompensateVisible(true); }}
+                onBotPreview={(t) => { setBotTicket(t); setBotVisible(true); }}
+                onResolve={(t) => { setResolveTicket(t); setResolveMode('resolved'); setResolveVisible(true); }}
+                onReject={(t) => { setResolveTicket(t); setResolveMode('rejected'); setResolveVisible(true); }}
               />
             ))
           )}
@@ -956,6 +1140,18 @@ export default function AdminSupportScreen() {
         preview={botTicket?.botPreview ?? null}
         visible={botVisible}
         onClose={() => setBotVisible(false)}
+        es={es}
+        colors={colors}
+      />
+
+      {/* Resolve / Reject Modal */}
+      <ResolveModal
+        ticket={resolveTicket}
+        visible={resolveVisible}
+        mode={resolveMode}
+        onClose={() => setResolveVisible(false)}
+        onSuccess={() => fetchTickets()}
+        userId={userId}
         es={es}
         colors={colors}
       />
