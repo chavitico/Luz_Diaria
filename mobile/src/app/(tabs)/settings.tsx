@@ -1281,7 +1281,6 @@ export default function SettingsScreen() {
           {/* Admin Hub trigger — long-press v1.0 (OWNER / MODERATOR only) */}
           <Pressable
             onLongPress={() => {
-              if (user?.role !== 'OWNER' && user?.role !== 'MODERATOR') return;
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
               setShowAdminHub(true);
             }}
