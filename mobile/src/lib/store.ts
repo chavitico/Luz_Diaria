@@ -281,6 +281,16 @@ export const useEquippedMusic = () => useAppStore((s) => s.user?.selectedMusicId
 export const useUserDailyActions = () => useAppStore((s) => s.user?.dailyActions ?? {});
 export const useInventory = () => useAppStore((s) => s.inventoryItems);
 
+// Helper: returns '#FFFFFF' or '#1A1A1A' depending on which gives better contrast on the given hex bg
+function getContrastText(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  // Perceived luminance (ITU-R BT.709)
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  return luminance > 0.45 ? '#1A1A1A' : '#FFFFFF';
+}
+
 // Helper to get theme colors
 export const useThemeColors = () => {
   const user = useUser();
@@ -292,6 +302,7 @@ export const useThemeColors = () => {
 
   return {
     primary: theme.colors.primary,
+    primaryText: getContrastText(theme.colors.primary), // always-readable text on primary bg
     secondary: theme.colors.secondary,
     accent: theme.colors.accent,
     background: isDark ? theme.colors.backgroundDark : theme.colors.background,

@@ -852,7 +852,7 @@ function PastoralClosure({
           })}
         >
           <Text style={{ fontSize: 18 }}>🤲</Text>
-          <Text style={{ fontSize: 15, fontWeight: '700', color: '#ffffff', letterSpacing: 0.2 }}>
+          <Text style={{ fontSize: 15, fontWeight: '700', color: colors.primaryText, letterSpacing: 0.2 }}>
             {language === 'es' ? 'Orar por la comunidad' : 'Pray for the community'}
           </Text>
         </Pressable>
