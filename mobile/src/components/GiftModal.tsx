@@ -8,6 +8,8 @@ import {
   Pressable,
   Animated,
   Easing,
+  ScrollView,
+  Dimensions,
 } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -208,6 +210,9 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
     ? (gift.rewardItemNameEs ?? null)
     : (gift.rewardItemNameEn ?? null);
 
+  const screenHeight = Dimensions.get('window').height;
+  const maxModalHeight = screenHeight * 0.82;
+
   return (
     <Modal
       visible={visible}
@@ -218,7 +223,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
       <BlurView
         intensity={40}
         tint="dark"
-        style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}
+        style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24, paddingVertical: insets.top + 16 }}
       >
         <Animated.View
           style={{
@@ -226,12 +231,13 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
             transform: [{ scale: scaleAnim }],
             width: '100%',
             maxWidth: 360,
+            maxHeight: maxModalHeight,
           }}
         >
           <View
             style={{
               backgroundColor: colors.surface,
-              borderRadius: 32,
+              borderRadius: 28,
               overflow: 'hidden',
               shadowColor: '#000',
               shadowOffset: { width: 0, height: 20 },
@@ -240,55 +246,36 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
               elevation: 20,
             }}
           >
-            {/* Header gradient strip */}
+            {/* Header with close button */}
             <View
               style={{
-                height: 6,
-                backgroundColor: '#F59E0B',
-              }}
-            />
-
-            {/* Close button */}
-            <Pressable
-              onPress={handleLater}
-              style={{
-                position: 'absolute',
-                top: 18,
-                right: 18,
-                width: 32,
-                height: 32,
-                borderRadius: 16,
-                backgroundColor: colors.textMuted + '20',
+                flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 10,
+                justifyContent: 'space-between',
+                paddingHorizontal: 20,
+                paddingVertical: 14,
+                borderBottomWidth: 3,
+                borderBottomColor: '#F59E0B',
               }}
             >
-              <X size={16} color={colors.textMuted} />
-            </Pressable>
-
-            <View style={{ padding: 28, alignItems: 'center', gap: 20 }}>
-              {/* Gift icon */}
-              <View style={{ alignItems: 'center', gap: 8 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <View
                   style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 20,
+                    width: 32,
+                    height: 32,
+                    borderRadius: 10,
                     backgroundColor: '#FEF3C7',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderWidth: 1.5,
-                    borderColor: '#F59E0B40',
                   }}
                 >
-                  <Gift size={28} color="#F59E0B" strokeWidth={2} />
+                  <Gift size={18} color="#F59E0B" strokeWidth={2} />
                 </View>
                 <Text
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: '700',
-                    letterSpacing: 1.5,
+                    letterSpacing: 1.2,
                     color: '#F59E0B',
                     textTransform: 'uppercase',
                   }}
@@ -297,14 +284,36 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                 </Text>
               </View>
 
+              {/* Close button - prominently in header */}
+              <Pressable
+                onPress={handleLater}
+                hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                style={({ pressed }) => ({
+                  width: 36,
+                  height: 36,
+                  borderRadius: 18,
+                  backgroundColor: pressed ? colors.textMuted + '30' : colors.textMuted + '18',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                })}
+              >
+                <X size={18} color={colors.textMuted} strokeWidth={2.5} />
+              </Pressable>
+            </View>
+
+            <ScrollView
+              bounces={false}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ padding: 20, alignItems: 'center', gap: 16 }}
+            >
               {/* Title */}
               <Text
                 style={{
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: '800',
                   color: colors.text,
                   textAlign: 'center',
-                  lineHeight: 28,
+                  lineHeight: 26,
                 }}
               >
                 {gift.title}
@@ -313,10 +322,10 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
               {/* Message */}
               <Text
                 style={{
-                  fontSize: 15,
+                  fontSize: 14,
                   color: colors.textMuted,
                   textAlign: 'center',
-                  lineHeight: 22,
+                  lineHeight: 20,
                 }}
               >
                 {gift.message}
@@ -330,8 +339,8 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
               {/* Reward type label */}
               <View
                 style={{
-                  paddingHorizontal: 16,
-                  paddingVertical: 6,
+                  paddingHorizontal: 14,
+                  paddingVertical: 5,
                   borderRadius: 20,
                   backgroundColor: colors.primary + '15',
                   borderWidth: 1,
@@ -358,7 +367,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                   style={({ pressed }) => ({
                     backgroundColor: pressed ? '#D97706' : '#F59E0B',
                     borderRadius: 16,
-                    paddingVertical: 16,
+                    paddingVertical: 14,
                     alignItems: 'center',
                     opacity: claiming ? 0.7 : 1,
                     flexDirection: 'row',
@@ -372,7 +381,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                   })}
                 >
                   <ShoppingBag size={18} color="#FFFFFF" strokeWidth={2.5} />
-                  <Text style={{ color: '#FFFFFF', fontSize: 17, fontWeight: '800' }}>
+                  <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '800' }}>
                     {claiming
                       ? (language === 'es' ? 'Reclamando...' : 'Claiming...')
                       : (language === 'es' ? '¡Reclamar y ver en tienda!' : 'Claim & View in Store!')
@@ -386,7 +395,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                   disabled={claiming}
                   style={({ pressed }) => ({
                     borderRadius: 14,
-                    paddingVertical: 13,
+                    paddingVertical: 12,
                     alignItems: 'center',
                     opacity: pressed || claiming ? 0.6 : 1,
                     borderWidth: 1.5,
@@ -412,7 +421,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                   </Text>
                 </Pressable>
               </View>
-            </View>
+            </ScrollView>
           </View>
         </Animated.View>
       </BlurView>
