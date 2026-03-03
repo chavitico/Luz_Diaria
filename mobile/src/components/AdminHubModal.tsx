@@ -173,13 +173,13 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
       accentColor: '#10B981',
     },
     {
-      id: 'moderators',
-      icon: <Users size={22} color="#EF4444" />,
-      label: 'Moderators',
-      description: 'Manage user roles and moderator access',
+      id: 'users',
+      icon: <Users size={22} color="#3B82F6" />,
+      label: 'Usuarios',
+      description: 'Gestión de usuarios, roles, insignias y compensaciones',
       route: '/admin/moderators',
-      roles: ['OWNER'],
-      accentColor: '#EF4444',
+      roles: ['OWNER', 'MODERATOR'],
+      accentColor: '#3B82F6',
     },
   ];
 

@@ -298,5 +298,15 @@
     "amount": 8,
     "metadata": "{}",
     "createdAt": "2026-03-03T15:26:28.299Z"
+  },
+  {
+    "id": "cmmax9lol0011m25vhinxszw0",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "prayed_community_2026-03-03",
+    "type": "prayed_community",
+    "dateId": "2026-03-03",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-03T18:09:18.597Z"
   }
 ]
