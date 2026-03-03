@@ -2,6 +2,7 @@ import { generateTodayDevotional, generateDevotionalForDate } from "./devotional
 import { generateWeeklyChallenges } from "./weekly-challenges";
 import { generateTodayDailyPrayer } from "./prayer-service";
 import { generateStreakSnapshots } from "./streak-snapshot-service";
+import { runDailyBackup } from "./backup-service";
 
 // Costa Rica timezone is UTC-6
 // 4:00 AM Costa Rica = 10:00 AM UTC
@@ -67,6 +68,14 @@ async function runCronJob(): Promise<void> {
     console.log(`[Cron] Streak snapshots generated successfully`);
   } catch (error) {
     console.error(`[Cron] Failed to generate streak snapshots:`, error);
+  }
+
+  // Run daily backup after all other cron tasks
+  try {
+    await runDailyBackup();
+    console.log(`[Cron] Daily backup completed successfully`);
+  } catch (error) {
+    console.error(`[Cron] Failed to run daily backup:`, error);
   }
 }
 

@@ -1344,6 +1344,21 @@ export default function SettingsScreen() {
             </Pressable>
           )}
 
+          {/* Backup management — OWNER only */}
+          {user?.role === 'OWNER' && (
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                router.push('/admin/backup');
+              }}
+              style={{ alignItems: 'center', paddingVertical: 4, marginBottom: 4 }}
+            >
+              <Text style={{ fontSize: 10, color: colors.textMuted + '30', letterSpacing: 1 }}>
+                ···
+              </Text>
+            </Pressable>
+          )}
+
           {/* Debug Info - User ID */}
           {user?.id && (
             <View className="mb-4 px-2">

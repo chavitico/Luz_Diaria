@@ -1,7 +1,7 @@
 // Root Layout - App Entry Point with Splash and Onboarding
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { View, AppState } from 'react-native';
+import { View, AppState, Text } from 'react-native';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import * as ExpoSplashScreen from 'expo-splash-screen';
@@ -22,6 +22,19 @@ import { gamificationApi } from '@/lib/gamification-api';
 export const unstable_settings = {
   initialRouteName: '(tabs)',
 };
+
+const IS_DEV = process.env.EXPO_PUBLIC_APP_ENV === 'dev' || !process.env.EXPO_PUBLIC_APP_ENV;
+
+function DevBanner() {
+  if (!IS_DEV) return null;
+  return (
+    <View style={{ backgroundColor: '#DC2626', paddingVertical: 4, alignItems: 'center', zIndex: 9999 }}>
+      <Text style={{ color: '#FFFFFF', fontSize: 11, fontWeight: '700', letterSpacing: 1.5 }}>
+        ⚠ DEV — ENTORNO DE DESARROLLO ⚠
+      </Text>
+    </View>
+  );
+}
 
 // Prevent the native splash screen from auto-hiding
 ExpoSplashScreen.preventAutoHideAsync();
@@ -92,6 +105,13 @@ function RootLayoutNav() {
         />
         <Stack.Screen
           name="admin/moderators"
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="admin/backup"
           options={{
             presentation: 'modal',
             headerShown: false,
@@ -219,6 +239,7 @@ function AppContent() {
 
   return (
     <>
+      <DevBanner />
       <StatusBar style={isDarkMode ? 'light' : 'dark'} />
       <BackgroundMusicProvider>
         <RootLayoutNav />

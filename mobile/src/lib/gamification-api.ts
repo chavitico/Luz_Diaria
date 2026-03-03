@@ -816,4 +816,41 @@ export const gamificationApi = {
     if (!res.ok) throw new Error('Failed to get store items');
     return res.json();
   },
+
+  // ─── Backups (OWNER only) ───────────────────────────────────────────────────
+
+  async adminListBackups(userId: string): Promise<{
+    backups: Array<{ date: string; manifest: { counts: Record<string, number>; createdAt: string; appEnv: string } }>;
+    count: number;
+    isProd: boolean;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/admin/backups`, {
+      headers: { 'X-User-Id': userId },
+    });
+    if (!res.ok) throw new Error('Failed to list backups');
+    return res.json();
+  },
+
+  async adminTriggerBackup(userId: string): Promise<{ success: boolean; message: string }> {
+    const res = await fetch(`${BACKEND_URL}/api/admin/backups/run`, {
+      method: 'POST',
+      headers: { 'X-User-Id': userId },
+    });
+    if (!res.ok) throw new Error('Failed to trigger backup');
+    return res.json();
+  },
+
+  async adminRestoreBackup(userId: string, date: string): Promise<{
+    success: boolean;
+    message?: string;
+    error?: string;
+    restoredCounts?: Record<string, number>;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/admin/backups/restore`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
+      body: JSON.stringify({ date, confirm: 'RESTORE_DEV_DATA' }),
+    });
+    return res.json();
+  },
 };

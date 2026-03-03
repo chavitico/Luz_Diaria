@@ -1,0 +1,34 @@
+[
+  {
+    "id": "cmma0af220010m2qfu7g8uz20",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "giftDropId": "cmma0aexh000ym2qfv7m4b9ca",
+    "status": "PENDING",
+    "claimedAt": null,
+    "createdAt": "2026-03-03T02:46:09.339Z"
+  },
+  {
+    "id": "cmma0af250012m2qfxrs56ar8",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "giftDropId": "cmma0aexh000ym2qfv7m4b9ca",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-03T04:02:15.049Z",
+    "createdAt": "2026-03-03T02:46:09.341Z"
+  },
+  {
+    "id": "cmma0af270014m2qf0nplxbtu",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "giftDropId": "cmma0aexh000ym2qfv7m4b9ca",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-03T14:07:07.593Z",
+    "createdAt": "2026-03-03T02:46:09.344Z"
+  },
+  {
+    "id": "cmma0af290016m2qfbim2ruf0",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "giftDropId": "cmma0aexh000ym2qfv7m4b9ca",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-03T04:41:59.905Z",
+    "createdAt": "2026-03-03T02:46:09.346Z"
+  }
+]

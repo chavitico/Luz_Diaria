@@ -47,6 +47,87 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - **Admin UI:** `/admin/branding` — tap the app logo in Settings 7 times (OWNER role only). Edits write back to `PUT /api/branding` with `X-User-Id` header for RBAC validation
 - **Share images:** All 3 modes (long, WhatsApp card, 5-section) read from branding service; changes reflect without app restart
 
+## Environment Separation (Dev vs Prod)
+
+### APP_ENV
+
+| Variable | Dev value | Prod value |
+|---|---|---|
+| `APP_ENV` (backend) | `dev` | `prod` |
+| `EXPO_PUBLIC_APP_ENV` (mobile) | `dev` | `prod` |
+
+- Set in `backend/.env` and `mobile/.env` / `mobile/.env.production`
+- Defaults to `"dev"` if missing (safe default — never accidentally treat unknown as prod)
+- `mobile/.env.production` is used by Expo when building production releases
+
+### Dev vs Prod behaviors
+
+| Feature | DEV | PROD |
+|---|---|---|
+| DEV banner (red bar) | Shown | Hidden |
+| Startup sanity check | Warns if tables empty | **Exits** if tables empty |
+| Restore from backup | Allowed | **Blocked** |
+| Destructive reset endpoints | 404 | **403 Blocked** |
+| Backup creation | Yes | Yes |
+
+### How to set up production
+
+1. Add to production environment: `APP_ENV=prod`
+2. Add to `mobile/.env.production`: `EXPO_PUBLIC_APP_ENV=prod`
+3. Ensure `DATABASE_URL` points to a **separate** prod database file
+4. Never run `prisma db push --force-reset` or any destructive migration in prod
+
+---
+
+## Backup System
+
+### How it works
+
+- **Automatic**: runs daily at 4:00 AM Costa Rica time (after the main cron job)
+- **Startup backup**: runs 30 seconds after server startup
+- **Location**: `backend/backups/YYYY-MM-DD/` (one folder per day)
+- **Retention**: 7 rolling daily backups (oldest deleted automatically)
+
+### What's backed up
+
+- Users (profile, points, streaks, settings)
+- Devotionals (full library)
+- Streak snapshots
+- Inventory (owned items)
+- Devotional completions
+- Support tickets
+- Prayer requests
+- Point ledger
+- Collection claims + chapter progress
+- Weekly progress
+- User favorites + gifts
+
+### Admin UI
+
+Go to **Settings → tap "···" below Moderators** (OWNER only) → opens Backup screen.
+
+- **"Crear backup ahora"** — triggers an immediate backup
+- **List of backups** — shows last 7, with record counts
+- **Restore (DEV only)** — tap ↩ to restore from a specific day
+
+### API Endpoints (OWNER only)
+
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/admin/backups` | List all backups |
+| GET | `/api/admin/backups/latest` | Download latest backup JSON |
+| GET | `/api/admin/backups/:date` | Download specific backup |
+| POST | `/api/admin/backups/run` | Trigger immediate backup |
+| POST | `/api/admin/backups/restore` | Restore (DEV only, requires `confirm: "RESTORE_DEV_DATA"`) |
+
+### Manual restore in PROD
+
+1. `GET /api/admin/backups/latest` (with OWNER X-User-Id header) to download JSON
+2. Restore data manually by re-importing or using a dev environment restore
+3. Never use the automated restore in prod
+
+---
+
 ## Role-Based Access Control (RBAC)
 
 ### User Roles
