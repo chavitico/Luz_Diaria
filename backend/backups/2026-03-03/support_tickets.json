@@ -83,5 +83,22 @@
     "snapshotId": "cmm9xoav90001m29qwzjzu5sj",
     "createdAt": "2026-03-03T19:42:26.051Z",
     "updatedAt": "2026-03-03T19:51:46.758Z"
+  },
+  {
+    "id": "cmmb1nezm000um257h98ni2de",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "type": "devotional_not_counted",
+    "claimedStreak": 25,
+    "claimedDate": "2026-03-03",
+    "clientClaim": "{\"date\":\"2026-03-03\",\"issue\":\"not_counted\"}",
+    "status": "auto_fixed",
+    "resolutionNote": "Devocional del 2026-03-03 ya registrado en la base de datos.",
+    "beforeState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
+    "afterState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
+    "botPreview": "{\"summary\":\"Devocional reconocido automáticamente\",\"userMessageEs\":\"Tu devocional fue registrado correctamente. Si el conteo no se refleja de inmediato, cierra y abre la app.\",\"userMessageEn\":\"Your devotional was registered correctly. If the count doesn't show immediately, close and reopen the app.\",\"action\":\"auto_fixed\",\"snapshotComparison\":{\"snapshotDate\":\"2026-03-03\",\"snapshotId\":\"cmm9xoav90001m29qwzjzu5sj\",\"snapshotStreak\":25,\"currentStreak\":25,\"claimedStreak\":25,\"diffDays\":0,\"devotionalTodayCR\":true,\"lastDevotionalDate\":null,\"escalationReason\":\"\"}}",
+    "snapshotDate": "2026-03-03",
+    "snapshotId": "cmm9xoav90001m29qwzjzu5sj",
+    "createdAt": "2026-03-03T20:12:01.571Z",
+    "updatedAt": "2026-03-03T20:12:01.571Z"
   }
 ]
