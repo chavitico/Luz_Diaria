@@ -78,6 +78,7 @@ import {
 import { gamificationApi } from '@/lib/gamification-api';
 import { useQueryClient } from '@tanstack/react-query';
 import { ShareableProfileCard } from '@/components/ShareableProfileCard';
+import { AdminHubModal } from '@/components/AdminHubModal';
 import { getLedgerEntries, relativeTime, type LedgerEntry } from '@/lib/points-ledger';
 import { CountryPickerModal, getCountryByCode, type Country } from '@/components/CountryPicker';
 import { BadgeChip } from '@/components/BadgeChip';
@@ -217,10 +218,7 @@ export default function SettingsScreen() {
   const [transferCode, setTransferCode] = useState<string | null>(null);
   const [transferCodeExpiry, setTransferCodeExpiry] = useState<Date | null>(null);
   const [isGeneratingCode, setIsGeneratingCode] = useState(false);
-  const [adminPressCount, setAdminPressCount] = useState(0);
-  const [adminSupportPressCount, setAdminSupportPressCount] = useState(0);
-  const [adminGiftsPressCount, setAdminGiftsPressCount] = useState(0);
-  const [adminModPressCount, setAdminModPressCount] = useState(0);
+  const [showAdminHub, setShowAdminHub] = useState(false);
   const [enteredCode, setEnteredCode] = useState('');
   const [isRestoring, setIsRestoring] = useState(false);
   const [restoreError, setRestoreError] = useState<string | null>(null);
@@ -1261,19 +1259,7 @@ export default function SettingsScreen() {
 
           {/* Branding closing section */}
           <Animated.View entering={FadeInDown.delay(300).springify()} style={{ marginTop: 32, marginBottom: 8, alignItems: 'center', paddingVertical: 32 }}>
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                if (user?.role !== 'OWNER') return;
-                const next = adminPressCount + 1;
-                setAdminPressCount(next);
-                if (next >= 7) {
-                  setAdminPressCount(0);
-                  router.push('/admin/branding');
-                }
-              }}
-              style={{ alignItems: 'center' }}
-            >
+            <View style={{ alignItems: 'center' }}>
               <RNImage
                 source={LOGO_PNG}
                 style={{ width: 180, height: 180, marginBottom: 16 }}
@@ -1289,75 +1275,23 @@ export default function SettingsScreen() {
               <Text style={{ fontSize: 12, color: colors.textMuted + '80', marginTop: 14, textAlign: 'center' }}>
                 © {new Date().getFullYear()} ChaViTico Games
               </Text>
-            </Pressable>
+            </View>
           </Animated.View>
 
           {/* Hidden admin support access — tap © 7 times */}
           <Pressable
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            onLongPress={() => {
               if (user?.role !== 'OWNER' && user?.role !== 'MODERATOR') return;
-              const next = adminSupportPressCount + 1;
-              setAdminSupportPressCount(next);
-              if (next >= 7) {
-                setAdminSupportPressCount(0);
-                router.push('/admin/support');
-              }
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              setShowAdminHub(true);
             }}
-            style={{ alignItems: 'center', paddingVertical: 4, marginBottom: 8 }}
+            delayLongPress={800}
+            style={{ alignItems: 'center', paddingVertical: 6, marginBottom: 8 }}
           >
             <Text style={{ fontSize: 11, color: colors.textMuted + '40' }}>
-              v{adminSupportPressCount > 0 ? '·'.repeat(adminSupportPressCount) : ''}
+              v1.0
             </Text>
           </Pressable>
-
-          <Pressable
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              if (user?.role !== 'OWNER') return;
-              const next = adminGiftsPressCount + 1;
-              setAdminGiftsPressCount(next);
-              if (next >= 7) {
-                setAdminGiftsPressCount(0);
-                router.push('/admin/gifts');
-              }
-            }}
-            style={{ alignItems: 'center', paddingVertical: 4, marginBottom: 8 }}
-          >
-            <Text style={{ fontSize: 11, color: colors.textMuted + '20' }}>
-              {adminGiftsPressCount > 0 ? '·'.repeat(adminGiftsPressCount) : ' '}
-            </Text>
-          </Pressable>
-
-          {/* Moderators management — OWNER only, direct tap */}
-          {user?.role === 'OWNER' && (
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                router.push('/admin/moderators');
-              }}
-              style={{ alignItems: 'center', paddingVertical: 4, marginBottom: 4 }}
-            >
-              <Text style={{ fontSize: 10, color: colors.textMuted + '30', letterSpacing: 1 }}>
-                ···
-              </Text>
-            </Pressable>
-          )}
-
-          {/* Backup management — OWNER only */}
-          {user?.role === 'OWNER' && (
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                router.push('/admin/backup');
-              }}
-              style={{ alignItems: 'center', paddingVertical: 4, marginBottom: 4 }}
-            >
-              <Text style={{ fontSize: 10, color: colors.textMuted + '30', letterSpacing: 1 }}>
-                ···
-              </Text>
-            </Pressable>
-          )}
 
           {/* Debug Info - User ID */}
           {user?.id && (
@@ -1378,6 +1312,12 @@ export default function SettingsScreen() {
       <ShareableProfileCard
         visible={showProfileShare}
         onClose={() => setShowProfileShare(false)}
+      />
+
+      {/* Admin Hub Modal */}
+      <AdminHubModal
+        visible={showAdminHub}
+        onClose={() => setShowAdminHub(false)}
       />
 
       {/* Avatar Selection Modal */}
