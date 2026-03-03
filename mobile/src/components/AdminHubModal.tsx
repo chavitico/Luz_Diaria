@@ -266,8 +266,8 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
             backgroundColor: colors.background,
             borderTopLeftRadius: 28,
             borderTopRightRadius: 28,
-            maxHeight: height * 0.85,
-            paddingBottom: 40,
+            height: height * 0.75,
+            maxHeight: height * 0.88,
           }}
         >
           {/* Handle bar */}
@@ -381,7 +381,8 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
 
           {/* Sections list */}
           <ScrollView
-            contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 8 }}
+            style={{ flex: 1 }}
+            contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 48 }}
             showsVerticalScrollIndicator={false}
           >
             {checking ? (
