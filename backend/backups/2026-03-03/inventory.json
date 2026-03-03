@@ -397,5 +397,110 @@
     "itemId": "badge_fundador",
     "acquiredAt": "2026-03-03T20:03:07.853Z",
     "source": "admin_grant"
+  },
+  {
+    "id": "cmmb2o70l0013m2q0vql1whua",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_bosque",
+    "acquiredAt": "2026-03-03T20:40:37.509Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb2oevq0015m2q09johd4to",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-03T20:40:47.702Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb2svg8001am2q02bxm5rgo",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "avatar_l2_amor_sacrificial",
+    "acquiredAt": "2026-03-03T20:44:15.800Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmb3onrt001ym2q0g4nnerp0",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-03T21:08:58.842Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmb3ppmv0026m2q07ed94wks",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "title_corazon",
+    "acquiredAt": "2026-03-03T21:09:47.911Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb3rgl4002am2q06ebvvrk5",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "theme_desierto_suave",
+    "acquiredAt": "2026-03-03T21:11:09.496Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb3rzpk002cm2q0ytuy71cy",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "theme_hope_dawn",
+    "acquiredAt": "2026-03-03T21:11:34.280Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb3ufzc002gm2q0e4c0n2g9",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-03T21:13:28.680Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmb46ibi002km2q0i3pzbaat",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-03T21:22:51.583Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmb48v1k002mm2q06ir80m47",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "badge_primer_paso",
+    "acquiredAt": "2026-03-03T21:24:41.384Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmb49eiy002tm2q038v1vweb",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "frame_azul",
+    "acquiredAt": "2026-03-03T21:25:06.634Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb4ckr00039m2q0lpj5snik",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "avatar_v2_paloma_paz",
+    "acquiredAt": "2026-03-03T21:27:34.668Z",
+    "source": "bundle:bundle_v2_paz"
+  },
+  {
+    "id": "cmmb4ckr0003bm2q0u07xxman",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "avatar_v2_paz",
+    "acquiredAt": "2026-03-03T21:27:34.668Z",
+    "source": "bundle:bundle_v2_paz"
+  },
+  {
+    "id": "cmmb4ckr0003dm2q0vy977y4t",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-03T21:27:34.669Z",
+    "source": "bundle:bundle_v2_paz"
+  },
+  {
+    "id": "cmmb4ckr0003fm2q0pdlomftr",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-03T21:27:34.669Z",
+    "source": "bundle:bundle_v2_paz"
   }
 ]

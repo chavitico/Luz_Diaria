@@ -1266,7 +1266,7 @@ export default function AdminUsersScreen() {
                     ))}
                   </ScrollView>
                 )}
-                <TextInput value={compReason} onChangeText={setCompReason} placeholder="Razón (opcional)" placeholderTextColor={colors.textMuted + '70'} style={{ backgroundColor: colors.background, borderRadius: 10, padding: 12, fontSize: 14, color: colors.text, marginBottom: 16 }} />
+                <TextInput value={compReason} onChangeText={setCompReason} placeholder={compType === 'item' ? 'Título del regalo (opcional)' : 'Razón (opcional)'} placeholderTextColor={colors.textMuted + '70'} style={{ backgroundColor: colors.background, borderRadius: 10, padding: 12, fontSize: 14, color: colors.text, marginBottom: 16 }} />
                 <View style={{ flexDirection: 'row', gap: 10 }}>
                   <Pressable onPress={() => setCompensateUser(null)} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.background, alignItems: 'center' }}>
                     <Text style={{ color: colors.textMuted, fontWeight: '600' }}>Cancelar</Text>

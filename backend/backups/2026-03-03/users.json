@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-03T19:54:17.053Z"
+    "updatedAt": "2026-03-03T21:25:15.886Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -58,7 +58,7 @@
     "titleId": "title_constructor",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 6703,
+    "points": 7483,
     "streakCurrent": 4,
     "streakBest": 4,
     "devotionalsCompleted": 5,
@@ -72,7 +72,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-03T01:47:32.826Z",
-    "updatedAt": "2026-03-03T20:04:36.209Z"
+    "updatedAt": "2026-03-03T22:08:33.254Z"
   },
   {
     "id": "cmm9yc1nx000sm29qq8qeoai9",
@@ -148,5 +148,55 @@
     "deviceId": null,
     "createdAt": "2026-03-03T15:05:29.022Z",
     "updatedAt": "2026-03-03T16:15:52.333Z"
+  },
+  {
+    "id": "cmmb3ggjr001jm2q06al9hwcz",
+    "nickname": "Meli",
+    "role": "USER",
+    "avatarId": "avatar_v2_corona_vida",
+    "frameId": "frame_verde",
+    "titleId": "title_corazon",
+    "themeId": "theme_hope_dawn",
+    "selectedMusicId": "music_free_1",
+    "points": 5526,
+    "streakCurrent": 1,
+    "streakBest": 1,
+    "devotionalsCompleted": 1,
+    "totalTimeSeconds": 0,
+    "lastActiveAt": "2026-03-03T18:00:00.000Z",
+    "communityOptIn": true,
+    "prayerDisplayOptIn": true,
+    "supportCount": 0,
+    "countryCode": "CR",
+    "showCountry": true,
+    "activeBadgeId": "badge_companero_oracion",
+    "deviceId": null,
+    "createdAt": "2026-03-03T21:02:36.231Z",
+    "updatedAt": "2026-03-03T22:13:05.172Z"
+  },
+  {
+    "id": "cmmb46i64002im2q08tv0dw6y",
+    "nickname": "Elias",
+    "role": "USER",
+    "avatarId": "avatar_crown",
+    "frameId": "frame_azul",
+    "titleId": "title_guardian",
+    "themeId": "theme_amanecer",
+    "selectedMusicId": "music_free_1",
+    "points": 6409,
+    "streakCurrent": 2,
+    "streakBest": 4,
+    "devotionalsCompleted": 6,
+    "totalTimeSeconds": 0,
+    "lastActiveAt": "2026-03-03T21:25:30.570Z",
+    "communityOptIn": true,
+    "prayerDisplayOptIn": true,
+    "supportCount": 0,
+    "countryCode": "CR",
+    "showCountry": true,
+    "activeBadgeId": "badge_companero_oracion",
+    "deviceId": null,
+    "createdAt": "2026-03-03T21:22:51.389Z",
+    "updatedAt": "2026-03-03T21:27:34.667Z"
   }
 ]

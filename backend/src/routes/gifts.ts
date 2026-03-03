@@ -72,7 +72,8 @@ giftsRouter.get("/pending", async (c) => {
     }
 
     // Try to fetch the item name from StoreItem if rewardId is a store item ID
-    let rewardItemName: string | null = null;
+    let rewardItemNameEs: string | null = null;
+    let rewardItemNameEn: string | null = null;
     const { rewardType, rewardId } = userGift.giftDrop;
     if (rewardType !== "CHEST") {
       try {
@@ -81,7 +82,8 @@ giftsRouter.get("/pending", async (c) => {
           select: { nameEs: true, nameEn: true },
         });
         if (storeItem) {
-          rewardItemName = `${storeItem.nameEs} / ${storeItem.nameEn}`;
+          rewardItemNameEs = storeItem.nameEs;
+          rewardItemNameEn = storeItem.nameEn;
         }
       } catch {
         // non-critical
@@ -96,8 +98,8 @@ giftsRouter.get("/pending", async (c) => {
         message: userGift.giftDrop.message,
         rewardType: userGift.giftDrop.rewardType,
         rewardId: userGift.giftDrop.rewardId,
-        rewardItemNameEs: rewardItemName ? rewardItemName.split(' / ')[0] : null,
-        rewardItemNameEn: rewardItemName ? rewardItemName.split(' / ')[1] : null,
+        rewardItemNameEs,
+        rewardItemNameEn,
         createdAt: userGift.createdAt,
       },
     });

@@ -225,17 +225,39 @@ adminRouter.post(
         const item = await prisma.storeItem.findUnique({ where: { id: itemId } });
         if (!item) return c.json({ success: false, error: "Item not found in catalog" }, 404);
 
-        await prisma.userInventory.upsert({
-          where: { userId_itemId: { userId: targetId, itemId } },
-          update: {},
-          create: { userId: targetId, itemId, source: "admin_grant" },
+        // Map StoreItem.type to GiftDrop.rewardType
+        const rewardTypeMap: Record<string, "THEME" | "TITLE" | "AVATAR" | "ITEM"> = {
+          theme: "THEME",
+          title: "TITLE",
+          avatar: "AVATAR",
+        };
+        const rewardType = rewardTypeMap[item.type] ?? "ITEM";
+
+        // Create a GiftDrop + UserGift so the user sees the gift popup and gets the "NEW" badge
+        const giftTitle = reason?.trim() ? reason.trim() : `¡Un regalo para ti!`;
+        const giftMessage = `${item.nameEs} / ${item.nameEn}`;
+
+        const giftDrop = await prisma.giftDrop.create({
+          data: {
+            title: giftTitle,
+            message: giftMessage,
+            rewardType,
+            rewardId: itemId,
+            audienceType: "USER_IDS",
+            audienceUserIds: JSON.stringify([targetId]),
+            isActive: true,
+          },
+        });
+
+        await prisma.userGift.create({
+          data: { userId: targetId, giftDropId: giftDrop.id, status: "PENDING" },
         });
 
         await prisma.adminAuditLog.create({
           data: { actorUserId: actorId, targetUserId: targetId, action: `GRANT_ITEM:${itemId}`, beforeRole: "", afterRole: "" },
         });
 
-        console.log(`[AdminUsers] Compensate ${target.nickname}: item ${itemId}`);
+        console.log(`[AdminUsers] Compensate ${target.nickname}: item ${itemId} (via gift drop ${giftDrop.id})`);
         return c.json({ success: true, message: `Granted item "${item.nameEs}" to ${target.nickname}` });
       }
 
