@@ -330,3 +330,232 @@ adminRouter.get("/store-items", requireRole("MODERATOR"), async (c) => {
     return c.json({ error: "Failed to fetch store items" }, 500);
   }
 });
+
+// ─── Helper: resolve badges to display objects ────────────────────────────────
+async function resolveUserBadges(userId: string) {
+  const storeItems = await prisma.storeItem.findMany({
+    where: { type: "badge" },
+    select: { id: true, nameEs: true, nameEn: true },
+  });
+  const catalog = new Map(storeItems.map(i => [i.id, i]));
+
+  const inventory = await prisma.userInventory.findMany({
+    where: { userId, item: { type: "badge" } },
+    include: { item: true },
+  });
+
+  return inventory.map(inv => {
+    const cat = catalog.get(inv.itemId);
+    if (cat) return { id: inv.itemId, code: inv.itemId, displayNameEs: cat.nameEs, displayNameEn: cat.nameEn, unknown: false };
+    const remapped = BADGE_REMAP[inv.itemId];
+    const rc = remapped ? catalog.get(remapped) : undefined;
+    if (rc)  return { id: inv.itemId, code: inv.itemId, displayNameEs: rc.nameEs,  displayNameEn: rc.nameEn,  unknown: false };
+    return { id: inv.itemId, code: inv.itemId, displayNameEs: `Desconocido: ${inv.itemId}`, displayNameEn: `Unknown: ${inv.itemId}`, unknown: true };
+  });
+}
+
+// ─── GET /api/admin/users/:id — single user detail (OWNER) ───────────────────
+adminRouter.get("/users/:id", requireRole("OWNER"), async (c) => {
+  try {
+    const userId = c.req.param("id");
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) return c.json({ error: "User not found" }, 404);
+
+    const [badges, completionsLast7] = await Promise.all([
+      resolveUserBadges(userId),
+      prisma.devotionalCompletion.count({ where: { userId, devotionalDate: { gte: sevenDaysAgo } } }),
+    ]);
+
+    return c.json({
+      id: user.id,
+      nickname: user.nickname,
+      role: user.role,
+      countryCode: user.countryCode,
+      streakCurrent: user.streakCurrent,
+      streakBest: user.streakBest,
+      devotionalsCompleted: user.devotionalsCompleted,
+      completionsLast7Days: completionsLast7,
+      points: user.points,
+      lastActiveAt: user.lastActiveAt ? new Date(user.lastActiveAt).toISOString() : null,
+      activeBadgeId: user.activeBadgeId,
+      badges,
+      createdAt: user.createdAt.toISOString(),
+    });
+  } catch (err) {
+    console.error("[AdminUsers] Error fetching user detail:", err);
+    return c.json({ error: "Failed to fetch user" }, 500);
+  }
+});
+
+// ─── PATCH /api/admin/users/:id — partial update (OWNER) ─────────────────────
+const patchUserSchema = z.object({
+  points:        z.number().int().min(0).optional(),
+  countryCode:   z.string().length(2).toUpperCase().optional(),
+  streakCurrent: z.number().int().min(0).optional(),
+  role:          z.enum(["USER", "MODERATOR"]).optional(), // can't set OWNER
+  forceStreakDecrease: z.boolean().optional(), // must be true to allow lowering streak
+});
+
+adminRouter.patch(
+  "/users/:id",
+  requireRole("OWNER"),
+  zValidator("json", patchUserSchema),
+  async (c) => {
+    try {
+      const targetId = c.req.param("id");
+      const actorId  = c.req.header("X-User-Id") as string;
+      const body     = c.req.valid("json");
+
+      const target = await prisma.user.findUnique({ where: { id: targetId } });
+      if (!target) return c.json({ success: false, error: "User not found" }, 404);
+      if (target.role === "OWNER" && body.role) {
+        return c.json({ success: false, error: "Cannot change role of an OWNER" }, 400);
+      }
+      if (targetId === actorId && body.role) {
+        return c.json({ success: false, error: "Cannot change your own role" }, 400);
+      }
+
+      // Streak decrease safeguard
+      if (body.streakCurrent !== undefined && body.streakCurrent < target.streakCurrent) {
+        if (!body.forceStreakDecrease) {
+          return c.json({ success: false, error: "STREAK_DECREASE_REQUIRES_CONFIRM" }, 400);
+        }
+      }
+
+      const before: Record<string, unknown> = {};
+      const after:  Record<string, unknown> = {};
+      const updateData: Record<string, unknown> = {};
+
+      if (body.points !== undefined && body.points !== target.points) {
+        before.points = target.points; after.points = body.points;
+        updateData.points = body.points;
+      }
+      if (body.countryCode !== undefined && body.countryCode !== target.countryCode) {
+        before.countryCode = target.countryCode; after.countryCode = body.countryCode;
+        updateData.countryCode = body.countryCode;
+      }
+      if (body.streakCurrent !== undefined && body.streakCurrent !== target.streakCurrent) {
+        before.streakCurrent = target.streakCurrent; after.streakCurrent = body.streakCurrent;
+        updateData.streakCurrent = body.streakCurrent;
+        // If new streak is higher, also update streakBest
+        if (body.streakCurrent > target.streakBest) updateData.streakBest = body.streakCurrent;
+      }
+      if (body.role && body.role !== target.role) {
+        before.role = target.role; after.role = body.role;
+        updateData.role = body.role;
+      }
+
+      if (Object.keys(updateData).length === 0) {
+        return c.json({ success: true, message: "Nothing changed" });
+      }
+
+      await prisma.user.update({ where: { id: targetId }, data: updateData });
+
+      await prisma.adminAuditLog.create({
+        data: {
+          actorUserId:  actorId,
+          targetUserId: targetId,
+          action:       `PATCH_USER:${JSON.stringify(after)}`.slice(0, 200),
+          beforeRole:   String(before.role ?? target.role),
+          afterRole:    String(after.role  ?? target.role),
+        },
+      });
+
+      console.log(`[AdminUsers] PATCH user ${target.nickname}: before=${JSON.stringify(before)} after=${JSON.stringify(after)}`);
+      return c.json({ success: true, changes: { before, after } });
+    } catch (err) {
+      console.error("[AdminUsers] Error patching user:", err);
+      return c.json({ error: "Failed to update user" }, 500);
+    }
+  }
+);
+
+// ─── GET /api/admin/badges — all available badge items (OWNER) ───────────────
+adminRouter.get("/badges", requireRole("OWNER"), async (c) => {
+  try {
+    const badges = await prisma.storeItem.findMany({
+      where: { type: "badge" },
+      select: { id: true, nameEs: true, nameEn: true, rarity: true },
+      orderBy: { nameEs: "asc" },
+    });
+    return c.json({ badges: badges.map(b => ({
+      id: b.id, code: b.id,
+      displayNameEs: b.nameEs,
+      displayNameEn: b.nameEn,
+      rarity: b.rarity,
+    })) });
+  } catch (err) {
+    console.error("[AdminUsers] Error fetching badges:", err);
+    return c.json({ error: "Failed to fetch badges" }, 500);
+  }
+});
+
+// ─── PUT /api/admin/users/:id/badges — add/remove badges (OWNER) ─────────────
+const badgesSchema = z.object({
+  add:    z.array(z.string()).optional(),
+  remove: z.array(z.string()).optional(),
+});
+
+adminRouter.put(
+  "/users/:id/badges",
+  requireRole("OWNER"),
+  zValidator("json", badgesSchema),
+  async (c) => {
+    try {
+      const targetId = c.req.param("id");
+      const actorId  = c.req.header("X-User-Id") as string;
+      const { add = [], remove = [] } = c.req.valid("json");
+
+      const target = await prisma.user.findUnique({ where: { id: targetId }, select: { id: true, nickname: true } });
+      if (!target) return c.json({ success: false, error: "User not found" }, 404);
+
+      // Validate all add IDs exist in catalog
+      if (add.length > 0) {
+        const found = await prisma.storeItem.findMany({ where: { id: { in: add }, type: "badge" }, select: { id: true } });
+        const foundIds = new Set(found.map(f => f.id));
+        const invalid = add.filter(id => !foundIds.has(id));
+        if (invalid.length > 0) return c.json({ success: false, error: `Unknown badge IDs: ${invalid.join(", ")}` }, 400);
+      }
+
+      const added: string[] = [];
+      const removed: string[] = [];
+
+      for (const itemId of add) {
+        const res = await prisma.userInventory.upsert({
+          where:  { userId_itemId: { userId: targetId, itemId } },
+          update: {},
+          create: { userId: targetId, itemId, source: "admin_grant" },
+        });
+        if (res) added.push(itemId);
+      }
+
+      for (const itemId of remove) {
+        try {
+          await prisma.userInventory.delete({ where: { userId_itemId: { userId: targetId, itemId } } });
+          removed.push(itemId);
+          // Clear activeBadgeId if it was this badge
+          await prisma.user.updateMany({ where: { id: targetId, activeBadgeId: itemId }, data: { activeBadgeId: null } });
+        } catch { /* already gone — ignore */ }
+      }
+
+      if (added.length > 0 || removed.length > 0) {
+        const summary = [
+          added.length   > 0 ? `+[${added.join(",")}]`   : "",
+          removed.length > 0 ? `-[${removed.join(",")}]` : "",
+        ].filter(Boolean).join(" ");
+        await prisma.adminAuditLog.create({
+          data: { actorUserId: actorId, targetUserId: targetId, action: `BADGES:${summary}`.slice(0, 200), beforeRole: "", afterRole: "" },
+        });
+      }
+
+      console.log(`[AdminUsers] badges for ${target.nickname}: added=${added.join(",")} removed=${removed.join(",")}`);
+      return c.json({ success: true, added, removed });
+    } catch (err) {
+      console.error("[AdminUsers] Error updating badges:", err);
+      return c.json({ error: "Failed to update badges" }, 500);
+    }
+  }
+);
+
