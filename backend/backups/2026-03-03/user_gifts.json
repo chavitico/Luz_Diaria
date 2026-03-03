@@ -54,5 +54,13 @@
     "status": "CLAIMED",
     "claimedAt": "2026-03-03T22:29:31.094Z",
     "createdAt": "2026-03-03T22:28:37.061Z"
+  },
+  {
+    "id": "cmmb6r404003dm2y9nwgbvgy4",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "giftDropId": "cmmb6r403003bm2y9q3p08qse",
+    "status": "PENDING",
+    "claimedAt": null,
+    "createdAt": "2026-03-03T22:34:52.036Z"
   }
 ]

@@ -8,13 +8,12 @@ import {
   Pressable,
   Animated,
   Easing,
-  ScrollView,
   Dimensions,
 } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
-import { Gift, X, Package, Palette, Tag, User as UserIcon, Star, ShoppingBag, Coins } from 'lucide-react-native';
+import { Gift, X, Palette, Tag, User as UserIcon, Star, ShoppingBag, Coins } from 'lucide-react-native';
 import { useThemeColors, useLanguage } from '@/lib/store';
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
@@ -310,11 +309,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
               </Pressable>
             </View>
 
-            <ScrollView
-              bounces={false}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ padding: 20, alignItems: 'center', gap: 16 }}
-            >
+            <View style={{ padding: 20, alignItems: 'center', gap: isPointsGift ? 12 : 16 }}>
               {/* Title */}
               <Text
                 style={{
@@ -328,17 +323,19 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                 {gift.title}
               </Text>
 
-              {/* Message */}
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: colors.textMuted,
-                  textAlign: 'center',
-                  lineHeight: 20,
-                }}
-              >
-                {gift.message}
-              </Text>
+              {/* Message — hidden for points gifts since amount is shown in preview */}
+              {!isPointsGift && (
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: colors.textMuted,
+                    textAlign: 'center',
+                    lineHeight: 20,
+                  }}
+                >
+                  {gift.message}
+                </Text>
+              )}
 
               {/* Reward preview with item name */}
               <Animated.View style={{ transform: [{ translateY: chestBounceAnim }] }}>
@@ -437,7 +434,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                   </Text>
                 </Pressable>
               </View>
-            </ScrollView>
+            </View>
           </View>
         </Animated.View>
       </BlurView>
