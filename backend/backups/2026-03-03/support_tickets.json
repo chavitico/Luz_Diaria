@@ -168,5 +168,22 @@
     "snapshotId": null,
     "createdAt": "2026-03-03T21:10:48.349Z",
     "updatedAt": "2026-03-03T22:02:13.729Z"
+  },
+  {
+    "id": "cmmb8047x0010m2mpihwovo7f",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "type": "streak_missing",
+    "claimedStreak": 4,
+    "claimedDate": "2026-03-03",
+    "clientClaim": "{\"claimedStreak\":4}",
+    "status": "auto_fixed",
+    "resolutionNote": "Auto-corregido con snapshot del 2026-03-03. Snapshot=4, claimed=4, aplicado=4.",
+    "beforeState": "{\"streakCurrent\":4,\"devotionalsCompleted\":5}",
+    "afterState": "{\"streakCurrent\":4,\"devotionalsCompleted\":5}",
+    "botPreview": "{\"summary\":\"Racha corregida automáticamente (claimed: 4)\",\"userMessageEs\":\"¡Tu racha fue restaurada! El sistema detectó una pequeña diferencia y la corrigió de forma automática. Tu racha no disminuirá.\",\"userMessageEn\":\"Your streak has been restored! The system detected a small discrepancy and fixed it automatically. Your streak is safe.\",\"action\":\"auto_fixed\",\"snapshotComparison\":{\"snapshotDate\":\"2026-03-03\",\"snapshotId\":\"cmm9zo92q001xm29qr7dto06q\",\"snapshotStreak\":4,\"currentStreak\":4,\"claimedStreak\":4,\"diffDays\":0,\"devotionalTodayCR\":false,\"lastDevotionalDate\":null,\"escalationReason\":\"\"}}",
+    "snapshotDate": "2026-03-03",
+    "snapshotId": "cmm9zo92q001xm29qr7dto06q",
+    "createdAt": "2026-03-03T23:09:51.837Z",
+    "updatedAt": "2026-03-03T23:09:51.837Z"
   }
 ]
