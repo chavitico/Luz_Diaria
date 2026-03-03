@@ -561,6 +561,7 @@ function UserDetailModal({
                 borderTopRightRadius: 24,
                 height: '88%',
                 maxHeight: 700,
+                overflow: 'hidden',
               }}
             >
               {/* Handle */}
@@ -785,104 +786,129 @@ function UserDetailModal({
                   )}
                 </ScrollView>
               )}
+
+              {/* ── Badge picker — inline overlay (nested Modal doesn't work on iOS) ── */}
+              {showBadgePicker && (
+                <Animated.View
+                  entering={FadeIn.duration(150)}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderTopLeftRadius: 24, borderTopRightRadius: 24, overflow: 'hidden' }}
+                >
+                  <Pressable
+                    style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.55)' }}
+                    onPress={() => { setShowBadgePicker(false); setBadgeSearch(''); }}
+                  />
+                  <Animated.View
+                    entering={SlideInDown.springify().damping(22).stiffness(200)}
+                    style={{ backgroundColor: colors.surface, borderTopLeftRadius: 24, borderTopRightRadius: 24, maxHeight: '72%', paddingBottom: insets.bottom + 16 }}
+                  >
+                    <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40', alignSelf: 'center', marginTop: 12, marginBottom: 14 }} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginBottom: 12 }}>
+                      <Text style={{ flex: 1, fontSize: 15, fontWeight: '800', color: colors.text }}>Agregar insignia</Text>
+                      <Pressable
+                        onPress={() => { setShowBadgePicker(false); setBadgeSearch(''); }}
+                        style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center' }}
+                      >
+                        <X size={14} color={colors.textMuted} />
+                      </Pressable>
+                    </View>
+
+                    <View style={{ marginHorizontal: 16, marginBottom: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.background, borderRadius: 12, paddingHorizontal: 10, height: 38, gap: 6, borderWidth: 1, borderColor: colors.textMuted + '20' }}>
+                      <Search size={14} color={colors.textMuted} />
+                      <TextInput
+                        value={badgeSearch}
+                        onChangeText={setBadgeSearch}
+                        placeholder="Buscar insignia…"
+                        placeholderTextColor={colors.textMuted + '70'}
+                        style={{ flex: 1, fontSize: 13, color: colors.text }}
+                        autoFocus
+                      />
+                      {badgeSearch.length > 0 && (
+                        <Pressable onPress={() => setBadgeSearch('')} hitSlop={8}>
+                          <X size={13} color={colors.textMuted} />
+                        </Pressable>
+                      )}
+                    </View>
+
+                    <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 8 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+                      {filteredCatalog.length === 0 && (
+                        <Text style={{ color: colors.textMuted, fontSize: 13, textAlign: 'center', paddingVertical: 20 }}>
+                          {badgeSearch ? 'No encontrado' : 'Todas las insignias ya asignadas'}
+                        </Text>
+                      )}
+                      {filteredCatalog.map(b => {
+                        const rc = RARITY_COLOR[b.rarity] ?? '#6B7280';
+                        return (
+                          <Pressable
+                            key={b.id}
+                            onPress={() => addBadge(b)}
+                            style={({ pressed }) => ({
+                              flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+                              paddingVertical: 11, paddingHorizontal: 12, borderRadius: 12, marginBottom: 6,
+                              backgroundColor: pressed ? colors.background : colors.background,
+                              borderWidth: 1, borderColor: colors.textMuted + '20',
+                            })}
+                          >
+                            <View style={{ flex: 1 }}>
+                              <Text style={{ fontSize: 14, fontWeight: '600', color: colors.text }}>{b.displayNameEs}</Text>
+                              <Text style={{ fontSize: 11, color: colors.textMuted, marginTop: 1 }}>{b.id}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                              <View style={{ paddingHorizontal: 7, paddingVertical: 3, borderRadius: 6, backgroundColor: rc + '20' }}>
+                                <Text style={{ fontSize: 10, fontWeight: '700', color: rc }}>{b.rarity}</Text>
+                              </View>
+                              <Plus size={16} color={colors.primary} />
+                            </View>
+                          </Pressable>
+                        );
+                      })}
+                    </ScrollView>
+                  </Animated.View>
+                </Animated.View>
+              )}
+
+              {/* ── Streak decrease confirmation — inline overlay ── */}
+              {showStreakConfirm && (
+                <Animated.View
+                  entering={FadeIn.duration(150)}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderTopLeftRadius: 24, borderTopRightRadius: 24, overflow: 'hidden', justifyContent: 'center', padding: 24, backgroundColor: 'rgba(0,0,0,0.55)' }}
+                >
+                  <Pressable style={{ flex: 1, position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} onPress={() => setShowStreakConfirm(false)} />
+                  <Animated.View entering={FadeIn.duration(200)} style={{ backgroundColor: colors.surface, borderRadius: 20, padding: 24 }}>
+                    <Text style={{ fontSize: 17, fontWeight: '800', color: '#EF4444', marginBottom: 8 }}>⚠ Bajar racha</Text>
+                    <Text style={{ fontSize: 13, color: colors.textMuted, lineHeight: 19, marginBottom: 16 }}>
+                      Estás bajando la racha de <Text style={{ fontWeight: '700', color: colors.text }}>{detail?.streakCurrent}</Text> a <Text style={{ fontWeight: '700', color: '#EF4444' }}>{editStreak}</Text> días.{'\n\n'}Escribe <Text style={{ fontWeight: '800', color: colors.text }}>CONFIRMAR</Text> para continuar.
+                    </Text>
+                    <TextInput
+                      value={streakConfirmText}
+                      onChangeText={setStreakConfirmText}
+                      placeholder="CONFIRMAR"
+                      autoCapitalize="characters"
+                      style={{ backgroundColor: colors.background, borderRadius: 10, padding: 12, fontSize: 15, color: colors.text, marginBottom: 16, letterSpacing: 1 }}
+                    />
+                    <View style={{ flexDirection: 'row', gap: 10 }}>
+                      <Pressable onPress={() => setShowStreakConfirm(false)} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.background, alignItems: 'center' }}>
+                        <Text style={{ color: colors.textMuted, fontWeight: '600' }}>Cancelar</Text>
+                      </Pressable>
+                      <Pressable
+                        onPress={() => {
+                          if (streakConfirmText.trim() !== 'CONFIRMAR') {
+                            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+                            return;
+                          }
+                          setShowStreakConfirm(false);
+                          pendingSaveRef.current?.();
+                        }}
+                        style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: streakConfirmText.trim() === 'CONFIRMAR' ? '#EF4444' : colors.textMuted + '40', alignItems: 'center' }}
+                      >
+                        <Text style={{ color: '#FFF', fontWeight: '700' }}>Confirmar</Text>
+                      </Pressable>
+                    </View>
+                  </Animated.View>
+                </Animated.View>
+              )}
+
             </Animated.View>
           </KeyboardAvoidingView>
-        </Animated.View>
-      </Modal>
-
-      {/* ── Streak decrease confirmation ── */}
-      <Modal visible={showStreakConfirm} transparent animationType="fade" onRequestClose={() => setShowStreakConfirm(false)}>
-        <Pressable style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', padding: 24 }} onPress={() => setShowStreakConfirm(false)}>
-          <Pressable onPress={e => e.stopPropagation()}>
-            <Animated.View entering={FadeIn.duration(200)} style={{ backgroundColor: colors.surface, borderRadius: 20, padding: 24 }}>
-              <Text style={{ fontSize: 17, fontWeight: '800', color: '#EF4444', marginBottom: 8 }}>⚠ Bajar racha</Text>
-              <Text style={{ fontSize: 13, color: colors.textMuted, lineHeight: 19, marginBottom: 16 }}>
-                Estás bajando la racha de <Text style={{ fontWeight: '700', color: colors.text }}>{detail?.streakCurrent}</Text> a <Text style={{ fontWeight: '700', color: '#EF4444' }}>{editStreak}</Text> días.{'\n\n'}Escribe <Text style={{ fontWeight: '800', color: colors.text }}>CONFIRMAR</Text> para continuar.
-              </Text>
-              <TextInput
-                value={streakConfirmText}
-                onChangeText={setStreakConfirmText}
-                placeholder="CONFIRMAR"
-                autoCapitalize="characters"
-                style={{ backgroundColor: colors.background, borderRadius: 10, padding: 12, fontSize: 15, color: colors.text, marginBottom: 16, letterSpacing: 1 }}
-              />
-              <View style={{ flexDirection: 'row', gap: 10 }}>
-                <Pressable onPress={() => setShowStreakConfirm(false)} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.background, alignItems: 'center' }}>
-                  <Text style={{ color: colors.textMuted, fontWeight: '600' }}>Cancelar</Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    if (streakConfirmText.trim() !== 'CONFIRMAR') {
-                      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-                      return;
-                    }
-                    setShowStreakConfirm(false);
-                    pendingSaveRef.current?.();
-                  }}
-                  style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: streakConfirmText.trim() === 'CONFIRMAR' ? '#EF4444' : colors.textMuted + '40', alignItems: 'center' }}
-                >
-                  <Text style={{ color: '#FFF', fontWeight: '700' }}>Confirmar</Text>
-                </Pressable>
-              </View>
-            </Animated.View>
-          </Pressable>
-        </Pressable>
-      </Modal>
-
-      {/* ── Badge picker ── */}
-      <Modal visible={showBadgePicker} transparent animationType="none" onRequestClose={() => setShowBadgePicker(false)}>
-        <Animated.View entering={FadeIn.duration(150)} style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end' }}>
-          <Pressable style={{ flex: 1 }} onPress={() => setShowBadgePicker(false)} />
-          <Animated.View
-            entering={SlideInDown.springify().damping(22).stiffness(200)}
-            style={{ backgroundColor: colors.background, borderTopLeftRadius: 24, borderTopRightRadius: 24, maxHeight: '60%', paddingBottom: insets.bottom + 16 }}
-          >
-            <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40', alignSelf: 'center', marginTop: 12, marginBottom: 14 }} />
-            <Text style={{ fontSize: 15, fontWeight: '800', color: colors.text, paddingHorizontal: 20, marginBottom: 12 }}>Agregar insignia</Text>
-
-            <View style={{ marginHorizontal: 16, marginBottom: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, borderRadius: 12, paddingHorizontal: 10, height: 38, gap: 6, borderWidth: 1, borderColor: colors.textMuted + '20' }}>
-              <Search size={14} color={colors.textMuted} />
-              <TextInput
-                value={badgeSearch}
-                onChangeText={setBadgeSearch}
-                placeholder="Buscar insignia…"
-                placeholderTextColor={colors.textMuted + '70'}
-                style={{ flex: 1, fontSize: 13, color: colors.text }}
-                autoFocus
-              />
-            </View>
-
-            <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 8 }} showsVerticalScrollIndicator={false}>
-              {filteredCatalog.length === 0 && (
-                <Text style={{ color: colors.textMuted, fontSize: 13, textAlign: 'center', paddingVertical: 20 }}>
-                  {badgeSearch ? 'No encontrado' : 'Todas las insignias ya asignadas'}
-                </Text>
-              )}
-              {filteredCatalog.map(b => {
-                const rc = RARITY_COLOR[b.rarity] ?? '#6B7280';
-                return (
-                  <Pressable
-                    key={b.id}
-                    onPress={() => addBadge(b)}
-                    style={({ pressed }) => ({
-                      flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-                      paddingVertical: 11, paddingHorizontal: 12, borderRadius: 12, marginBottom: 6,
-                      backgroundColor: pressed ? colors.surface : colors.surface + 'CC',
-                      borderWidth: 1, borderColor: colors.textMuted + '15',
-                    })}
-                  >
-                    <View style={{ flex: 1 }}>
-                      <Text style={{ fontSize: 14, fontWeight: '600', color: colors.text }}>{b.displayNameEs}</Text>
-                      <Text style={{ fontSize: 11, color: colors.textMuted, marginTop: 1 }}>{b.id}</Text>
-                    </View>
-                    <View style={{ paddingHorizontal: 7, paddingVertical: 3, borderRadius: 6, backgroundColor: rc + '20' }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', color: rc }}>{b.rarity}</Text>
-                    </View>
-                  </Pressable>
-                );
-              })}
-            </ScrollView>
-          </Animated.View>
         </Animated.View>
       </Modal>
     </>
