@@ -3,6 +3,7 @@ import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 import { prisma } from "../prisma";
 import { requireRole } from "../middleware/rbac";
+import { validateNickname, normalizeNickname } from "../lib/nickname-safety";
 
 export const adminRouter = new Hono();
 
@@ -595,3 +596,75 @@ adminRouter.post("/snapshots/generate", requireRole("OWNER"), async (c) => {
   const result = await generateStreakSnapshots(today);
   return c.json({ success: true, date: today, ...result });
 });
+
+// ─── POST /api/admin/users/:id/force-rename — override nickname (OWNER) ──────
+const forceRenameSchema = z.object({
+  newNickname: z.string().min(3).max(20),
+  skipSafetyCheck: z.boolean().optional().default(false),
+});
+
+adminRouter.post(
+  "/users/:id/force-rename",
+  requireRole("OWNER"),
+  zValidator("json", forceRenameSchema),
+  async (c) => {
+    try {
+      const targetId = c.req.param("id");
+      const actorId  = c.req.header("X-User-Id") as string;
+      const { newNickname, skipSafetyCheck } = c.req.valid("json");
+
+      const target = await prisma.user.findUnique({ where: { id: targetId } });
+      if (!target) return c.json({ success: false, error: "User not found" }, 404);
+
+      // Run safety check unless owner explicitly overrides
+      const newNormalizedNickname = normalizeNickname(newNickname);
+      if (!skipSafetyCheck) {
+        const validation = validateNickname(newNickname);
+        if (!validation.ok) {
+          return c.json({ success: false, error: validation.error }, 400);
+        }
+      }
+
+      const newNicknameLower = newNickname.toLowerCase();
+
+      // Uniqueness checks (skip own current nickname)
+      if (newNicknameLower !== target.nicknameLower) {
+        const existingRaw = await prisma.user.findUnique({ where: { nicknameLower: newNicknameLower } });
+        if (existingRaw) return c.json({ success: false, error: "Ese nickname ya está en uso." }, 409);
+      }
+      if (newNormalizedNickname !== target.normalizedNickname) {
+        const lookalike = await prisma.$queryRawUnsafe<{ id: string }[]>(
+          `SELECT "id" FROM "User" WHERE "normalizedNickname" = ? AND "id" != ? LIMIT 1`,
+          newNormalizedNickname,
+          targetId
+        );
+        if (lookalike.length > 0) return c.json({ success: false, error: "Ese nickname ya está en uso." }, 409);
+      }
+
+      await prisma.user.update({
+        where: { id: targetId },
+        data: {
+          nickname: newNickname,
+          nicknameLower: newNicknameLower,
+          normalizedNickname: newNormalizedNickname,
+        },
+      });
+
+      await prisma.adminAuditLog.create({
+        data: {
+          actorUserId:  actorId,
+          targetUserId: targetId,
+          action:       `FORCE_RENAME:${target.nickname}=>${newNickname}`.slice(0, 200),
+          beforeRole:   target.role,
+          afterRole:    target.role,
+        },
+      });
+
+      console.log(`[AdminUsers] Force rename: ${target.nickname} => ${newNickname} by ${actorId}`);
+      return c.json({ success: true, oldNickname: target.nickname, newNickname });
+    } catch (err) {
+      console.error("[AdminUsers] Error force renaming:", err);
+      return c.json({ error: "Failed to rename user" }, 500);
+    }
+  }
+);

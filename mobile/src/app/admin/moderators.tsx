@@ -148,7 +148,7 @@ function countryFlag(code: string): string {
 // ─── Compact user card ────────────────────────────────────────────────────────
 function UserCard({
   user, isOwner, currentUserId,
-  onToggleMod, onViewDetail, onCompensate, onFixBadges, togglingId, colors,
+  onToggleMod, onViewDetail, onCompensate, onFixBadges, onForceRename, togglingId, colors,
 }: {
   user: AdminUserRow;
   isOwner: boolean;
@@ -157,6 +157,7 @@ function UserCard({
   onViewDetail: (u: AdminUserRow) => void;
   onCompensate: (u: AdminUserRow) => void;
   onFixBadges: (u: AdminUserRow) => void;
+  onForceRename: (u: AdminUserRow) => void;
   togglingId: string | null;
   colors: ReturnType<typeof useThemeColors>;
 }) {
@@ -315,6 +316,20 @@ function UserCard({
             >
               <Wrench size={14} color="#F59E0B" />
               <Text style={{ fontSize: 11, fontWeight: '600', color: '#F59E0B' }}>Fix Badges</Text>
+            </Pressable>
+          )}
+          {isOwner && (
+            <Pressable
+              onPress={() => onForceRename(user)}
+              style={({ pressed }) => ({
+                flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+                gap: 4, paddingVertical: 9,
+                backgroundColor: pressed ? '#EC489910' : 'transparent',
+                borderRightWidth: 1, borderRightColor: colors.background,
+              })}
+            >
+              <Pencil size={14} color="#EC4899" />
+              <Text style={{ fontSize: 11, fontWeight: '600', color: '#EC4899' }}>Renombrar</Text>
             </Pressable>
           )}
           <Pressable
@@ -970,6 +985,12 @@ export default function AdminUsersScreen() {
   const [compReason,    setCompReason]    = useState('');
   const [compLoading,   setCompLoading]   = useState(false);
 
+  // Force rename state
+  const [forceRenameUser,  setForceRenameUser]  = useState<AdminUserRow | null>(null);
+  const [forceRenameInput, setForceRenameInput] = useState('');
+  const [forceRenameError, setForceRenameError] = useState<string | null>(null);
+  const [forceRenameLoading, setForceRenameLoading] = useState(false);
+
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // ── Fetch ──────────────────────────────────────────────────────────────────
@@ -1081,6 +1102,33 @@ export default function AdminUsersScreen() {
 
   const activeFilterCount = [roleFilter !== '', activeOnly, issuesOnly].filter(Boolean).length;
 
+  const handleForceRenameSubmit = async () => {
+    if (!forceRenameUser || !myId) return;
+    const trimmed = forceRenameInput.trim();
+    if (!trimmed) return;
+    setForceRenameLoading(true);
+    setForceRenameError(null);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/admin/users/${forceRenameUser.id}/force-rename`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-User-Id': myId },
+        body: JSON.stringify({ newNickname: trimmed }),
+      });
+      const data = await res.json() as { success?: boolean; error?: string };
+      if (!res.ok || !data.success) {
+        setForceRenameError(data.error ?? 'Error al renombrar.');
+        return;
+      }
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      setForceRenameUser(null);
+      fetchUsers(search, { role: roleFilter, active: activeOnly, issues: issuesOnly });
+    } catch {
+      setForceRenameError('Error de conexión.');
+    } finally {
+      setForceRenameLoading(false);
+    }
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
 
@@ -1173,6 +1221,7 @@ export default function AdminUsersScreen() {
               onViewDetail={u => setDetailUserId(u.id)}
               onCompensate={u => { setCompensateUser(u); setCompType('points'); setCompPoints(''); setCompItemId(''); setCompReason(''); }}
               onFixBadges={handleFixBadges}
+              onForceRename={u => { setForceRenameUser(u); setForceRenameInput(''); setForceRenameError(null); }}
               togglingId={togglingId}
               colors={colors}
             />
@@ -1305,6 +1354,56 @@ export default function AdminUsersScreen() {
               </View>
             </Animated.View>
           )}
+        </Pressable>
+      </Modal>
+
+      {/* ── Force Rename Modal ── */}
+      <Modal visible={!!forceRenameUser} transparent animationType="fade" onRequestClose={() => !forceRenameLoading && setForceRenameUser(null)}>
+        <Pressable style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.55)', justifyContent: 'center', padding: 20 }} onPress={() => !forceRenameLoading && setForceRenameUser(null)}>
+          <Pressable onPress={e => e.stopPropagation()}>
+            {forceRenameUser && (
+              <Animated.View entering={FadeIn.duration(200)} style={{ backgroundColor: colors.surface, borderRadius: 20, padding: 20 }}>
+                <Text style={{ fontSize: 17, fontWeight: '800', color: colors.text, marginBottom: 4 }}>Renombrar usuario</Text>
+                <Text style={{ fontSize: 13, color: colors.textMuted, marginBottom: 14 }}>
+                  Nickname actual: <Text style={{ fontWeight: '700', color: colors.text }}>{forceRenameUser.nickname}</Text>
+                </Text>
+                <TextInput
+                  value={forceRenameInput}
+                  onChangeText={t => { setForceRenameInput(t); setForceRenameError(null); }}
+                  placeholder="Nuevo nickname"
+                  placeholderTextColor={colors.textMuted}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  maxLength={20}
+                  style={{
+                    backgroundColor: colors.background, borderRadius: 12, padding: 12,
+                    color: colors.text, fontSize: 15, marginBottom: 4,
+                    borderWidth: 1, borderColor: forceRenameError ? '#ef4444' : colors.textMuted + '30',
+                  }}
+                  editable={!forceRenameLoading}
+                />
+                <Text style={{ fontSize: 11, color: colors.textMuted, marginBottom: forceRenameError ? 8 : 16 }}>{forceRenameInput.length}/20</Text>
+                {forceRenameError && (
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 14, padding: 10, borderRadius: 10, backgroundColor: '#ef444420' }}>
+                    <X size={13} color="#ef4444" />
+                    <Text style={{ fontSize: 12, color: '#ef4444', flex: 1 }}>{forceRenameError}</Text>
+                  </View>
+                )}
+                <View style={{ flexDirection: 'row', gap: 10 }}>
+                  <Pressable onPress={() => !forceRenameLoading && setForceRenameUser(null)} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.background, alignItems: 'center' }}>
+                    <Text style={{ color: colors.textMuted, fontWeight: '600' }}>Cancelar</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={handleForceRenameSubmit}
+                    disabled={forceRenameLoading || forceRenameInput.trim().length < 3}
+                    style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: forceRenameInput.trim().length >= 3 ? '#EC4899' : '#EC489950', alignItems: 'center' }}
+                  >
+                    {forceRenameLoading ? <ActivityIndicator size="small" color="#FFF" /> : <Text style={{ color: '#FFF', fontWeight: '700' }}>Confirmar</Text>}
+                  </Pressable>
+                </View>
+              </Animated.View>
+            )}
+          </Pressable>
         </Pressable>
       </Modal>
 

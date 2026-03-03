@@ -3,6 +3,7 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { prisma } from "../prisma";
 import { checkAndAwardBadges } from "../seed-badges";
+import { validateNickname, normalizeNickname } from "../lib/nickname-safety";
 
 export const gamificationRouter = new Hono();
 
@@ -42,7 +43,7 @@ const STREAK_MILESTONES: Record<number, number> = {
 // ============================================
 
 const registerUserSchema = z.object({
-  nickname: z.string().min(3).max(20).regex(/^[a-zA-Z0-9_]+$/, "Nickname must contain only alphanumeric characters and underscores"),
+  nickname: z.string().min(3).max(20),
   avatarId: z.string().optional(),
   deviceId: z.string().optional(),
 });
@@ -191,14 +192,29 @@ gamificationRouter.post(
   async (c) => {
     try {
       const { nickname, avatarId, deviceId } = c.req.valid("json");
-      const nicknameLower = nickname.toLowerCase();
 
-      // Check for existing nickname (case-insensitive)
+      // Run full safety validation
+      const validation = validateNickname(nickname);
+      if (!validation.ok) {
+        return c.json({ error: validation.error }, 400);
+      }
+      const nicknameLower = nickname.toLowerCase();
+      const normalizedNickname = validation.normalized!;
+
+      // Check raw case-insensitive uniqueness
       const existingUser = await prisma.user.findUnique({
         where: { nicknameLower },
       });
-
       if (existingUser) {
+        return c.json({ error: "Nickname is already taken" }, 409);
+      }
+
+      // Check normalized (lookalike) uniqueness
+      const lookalike = await prisma.$queryRawUnsafe<{ id: string }[]>(
+        `SELECT "id" FROM "User" WHERE "normalizedNickname" = ? LIMIT 1`,
+        normalizedNickname
+      );
+      if (lookalike.length > 0) {
         return c.json({ error: "Nickname is already taken" }, 409);
       }
 
@@ -206,6 +222,7 @@ gamificationRouter.post(
         data: {
           nickname,
           nicknameLower,
+          normalizedNickname,
           avatarId: avatarId ?? "avatar_dove",
           deviceId: deviceId ?? null,
         },
@@ -2333,3 +2350,99 @@ gamificationRouter.get("/community/support/status", async (c) => {
     return c.json({ error: "Failed to get support status" }, 500);
   }
 });
+
+// ============================================
+// RENAME TOKEN HELPERS
+// ============================================
+
+export async function userHasRenameToken(userId: string): Promise<boolean> {
+  const rows = await prisma.$queryRawUnsafe<{ cnt: number }[]>(
+    `SELECT COUNT(*) as cnt FROM "UserInventory" WHERE "userId" = ? AND "itemId" = 'rename_token'`,
+    userId
+  );
+  return (rows[0]?.cnt ?? 0) > 0;
+}
+
+export async function consumeRenameToken(userId: string): Promise<void> {
+  await prisma.userInventory.delete({
+    where: { userId_itemId: { userId, itemId: "rename_token" } },
+  });
+}
+
+// ============================================
+// RENAME ENDPOINT
+// ============================================
+
+const renameSchema = z.object({
+  newNickname: z.string().min(3).max(20),
+});
+
+// POST /user/rename - Change nickname using a rename token
+gamificationRouter.post(
+  "/user/rename",
+  zValidator("json", renameSchema),
+  async (c) => {
+    try {
+      const userId = c.req.header("X-User-Id");
+      if (!userId) return c.json({ error: "Missing X-User-Id header" }, 400);
+
+      const { newNickname } = c.req.valid("json");
+
+      // a) Load user
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      if (!user) return c.json({ error: "Usuario no encontrado" }, 404);
+
+      // b) Check rename token ownership
+      const hasToken = await userHasRenameToken(userId);
+      if (!hasToken) {
+        return c.json({ error: "Necesitas un Token de Cambio de Nombre para cambiar tu nickname." }, 403);
+      }
+
+      // c) Run full safety checks
+      const validation = validateNickname(newNickname);
+      if (!validation.ok) {
+        return c.json({ error: validation.error }, 400);
+      }
+      const newNicknameLower = newNickname.toLowerCase();
+      const newNormalizedNickname = validation.normalized!;
+
+      // d) Raw uniqueness (skip own current nickname)
+      if (newNicknameLower !== user.nicknameLower) {
+        const existingRaw = await prisma.user.findUnique({ where: { nicknameLower: newNicknameLower } });
+        if (existingRaw) return c.json({ error: "Ese nickname ya está en uso." }, 409);
+      }
+
+      // e) Normalized (lookalike) uniqueness
+      if (newNormalizedNickname !== user.normalizedNickname) {
+        const lookalike = await prisma.$queryRawUnsafe<{ id: string }[]>(
+          `SELECT "id" FROM "User" WHERE "normalizedNickname" = ? AND "id" != ? LIMIT 1`,
+          newNormalizedNickname,
+          userId
+        );
+        if (lookalike.length > 0) return c.json({ error: "Ese nickname ya está en uso." }, 409);
+      }
+
+      // f) Rename + consume token atomically
+      const [updatedUser] = await prisma.$transaction([
+        prisma.user.update({
+          where: { id: userId },
+          data: {
+            nickname: newNickname,
+            nicknameLower: newNicknameLower,
+            normalizedNickname: newNormalizedNickname,
+          },
+          include: { inventory: { include: { item: true } } },
+        }),
+        prisma.userInventory.delete({
+          where: { userId_itemId: { userId, itemId: "rename_token" } },
+        }),
+      ]);
+
+      console.log(`[Rename] User ${user.nickname} renamed to ${newNickname}`);
+      return c.json({ success: true, user: updatedUser });
+    } catch (error) {
+      console.error("[Gamification] Error renaming user:", error);
+      return c.json({ error: "Error al cambiar el nickname." }, 500);
+    }
+  }
+);

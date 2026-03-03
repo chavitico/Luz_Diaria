@@ -6,6 +6,7 @@
  */
 
 import { prisma } from "./prisma";
+import { normalizeNickname } from "./lib/nickname-safety";
 
 const DDL = `
 CREATE TABLE IF NOT EXISTS "Devotional" (
@@ -372,6 +373,10 @@ export async function initDatabase(): Promise<void> {
   await addColumnIfMissing("User", "countryCode", `TEXT`);
   await addColumnIfMissing("User", "showCountry", `BOOLEAN NOT NULL DEFAULT true`);
   await addColumnIfMissing("User", "activeBadgeId", `TEXT`);
+  await addColumnIfMissing("User", "normalizedNickname", `TEXT NOT NULL DEFAULT ''`);
+
+  // Backfill normalizedNickname for existing users (one-time migration)
+  await backfillNormalizedNicknames();
 
   console.log("[DB Init] Schema initialization complete");
 }
@@ -395,5 +400,27 @@ async function addColumnIfMissing(
     }
   } catch (e) {
     // ignore
+  }
+}
+
+async function backfillNormalizedNicknames(): Promise<void> {
+  try {
+    // Find users whose normalizedNickname is still empty
+    const users = await prisma.$queryRawUnsafe<{ id: string; nickname: string }[]>(
+      `SELECT "id", "nickname" FROM "User" WHERE "normalizedNickname" = '' OR "normalizedNickname" IS NULL`
+    );
+    if (users.length === 0) return;
+    for (const user of users) {
+      const normalized = normalizeNickname(user.nickname);
+      await prisma.$executeRawUnsafe(
+        `UPDATE "User" SET "normalizedNickname" = ? WHERE "id" = ?`,
+        normalized,
+        user.id
+      );
+    }
+    console.log(`[DB Init] Backfilled normalizedNickname for ${users.length} users`);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.warn("[DB Init] backfillNormalizedNicknames failed:", msg.slice(0, 120));
   }
 }

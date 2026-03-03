@@ -783,6 +783,38 @@ async function seedStoreItems() {
   }
   console.log(`  Badges: ${BADGES.length} processed`);
 
+  // Seed rename token (consumable utility item)
+  console.log('Seeding rename token...');
+  await prisma.storeItem.upsert({
+    where: { id: 'rename_token' },
+    update: {
+      nameEn: 'Nickname Change Token',
+      nameEs: 'Token de Cambio de Nombre',
+      descriptionEn: 'Allows you to change your nickname once.',
+      descriptionEs: 'Permite cambiar tu nickname una vez.',
+      pricePoints: 2500,
+      rarity: 'rare',
+      type: 'consumable',
+      available: true,
+      metadata: JSON.stringify({ icon: '✏️', consumable: true }),
+    },
+    create: {
+      id: 'rename_token',
+      type: 'consumable',
+      nameEn: 'Nickname Change Token',
+      nameEs: 'Token de Cambio de Nombre',
+      descriptionEn: 'Allows you to change your nickname once.',
+      descriptionEs: 'Permite cambiar tu nickname una vez.',
+      pricePoints: 2500,
+      rarity: 'rare',
+      assetRef: 'rename_token',
+      metadata: JSON.stringify({ icon: '✏️', consumable: true }),
+      sortOrder: sortOrder++,
+      available: true,
+    },
+  });
+  console.log('  Rename token: processed');
+
   // Summary
   const totalItems = THEMES.length + THEMES_V2.length + THEMES_CHAPTER.length + FRAMES.length + FRAMES_V2.length + FRAMES_CHAPTER.length + MUSIC_TRACKS.length + TITLES.length + TITLES_CHAPTER.length + AVATARS.length + AVATARS_V2.length + AVATARS_L2.length + AVATARS_CHAPTER.length;
   console.log('\n========================================');

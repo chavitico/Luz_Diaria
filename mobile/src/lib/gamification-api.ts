@@ -6,7 +6,7 @@ const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://loca
 // Types
 export interface StoreItem {
   id: string;
-  type: 'theme' | 'frame' | 'music' | 'title' | 'avatar' | 'badge';
+  type: 'theme' | 'frame' | 'music' | 'title' | 'avatar' | 'badge' | 'consumable';
   nameEn: string;
   nameEs: string;
   descriptionEn: string;
@@ -852,5 +852,31 @@ export const gamificationApi = {
       body: JSON.stringify({ date, confirm: 'RESTORE_DEV_DATA' }),
     });
     return res.json();
+  },
+
+  // ─── Rename nickname (requires rename_token in inventory) ──────────────────
+
+  async renameNickname(userId: string, newNickname: string): Promise<{ success: boolean; user?: UserProfile; error?: string }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/user/rename`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
+      body: JSON.stringify({ newNickname }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { success: false, error: data.error ?? 'Error desconocido' };
+    return data;
+  },
+
+  // ─── Admin force-rename (OWNER, no token required) ────────────────────────
+
+  async adminForceRename(userId: string, targetId: string, newNickname: string, skipSafetyCheck = false): Promise<{ success: boolean; error?: string }> {
+    const res = await fetch(`${BACKEND_URL}/api/admin/users/${targetId}/force-rename`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
+      body: JSON.stringify({ newNickname, skipSafetyCheck }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { success: false, error: data.error ?? 'Error desconocido' };
+    return data;
   },
 };
