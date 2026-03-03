@@ -56,6 +56,15 @@ const syncUserSchema = z.object({
   lastActiveAt: z.string().datetime().optional(),
   // When a new devotional is completed, pass the date (YYYY-MM-DD) to record it authoritatively
   completedDevotionalDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  // Cosmetic fields - sync equipped items
+  titleId: z.string().nullable().optional(),
+  frameId: z.string().nullable().optional(),
+  avatarId: z.string().optional(),
+  themeId: z.string().optional(),
+  communityOptIn: z.boolean().optional(),
+  countryCode: z.string().nullable().optional(),
+  showCountry: z.boolean().optional(),
+  nickname: z.string().optional(),
 });
 
 const awardPointsSchema = z.object({
@@ -324,6 +333,25 @@ gamificationRouter.post(
         updateData.totalTimeSeconds = Math.max(data.totalTimeSeconds, existingUser.totalTimeSeconds);
       }
       if (data.lastActiveAt !== undefined) updateData.lastActiveAt = new Date(data.lastActiveAt);
+
+      // Sync cosmetic/profile fields (always update if provided)
+      if (data.titleId !== undefined) updateData.titleId = data.titleId;
+      if (data.frameId !== undefined) updateData.frameId = data.frameId;
+      if (data.avatarId !== undefined) updateData.avatarId = data.avatarId;
+      if (data.themeId !== undefined) updateData.themeId = data.themeId;
+      if (data.communityOptIn !== undefined) updateData.communityOptIn = data.communityOptIn;
+      if (data.countryCode !== undefined) updateData.countryCode = data.countryCode;
+      if (data.showCountry !== undefined) updateData.showCountry = data.showCountry;
+      if (data.nickname !== undefined) {
+        // Only update nickname if it's not taken by another user
+        const existingNickname = await prisma.user.findFirst({
+          where: { nicknameLower: data.nickname.toLowerCase(), NOT: { id: userId } },
+        });
+        if (!existingNickname) {
+          updateData.nickname = data.nickname;
+          updateData.nicknameLower = data.nickname.toLowerCase();
+        }
+      }
 
       const user = await prisma.user.update({
         where: { id: userId },
@@ -629,6 +657,23 @@ gamificationRouter.post(
     try {
       const { userId, itemId } = c.req.valid("json");
 
+      // Auto-create user if not found (e.g. after DB reset)
+      const existingUser = await prisma.user.findUnique({ where: { id: userId } });
+      if (!existingUser) {
+        const shortId = userId.slice(-8).replace(/[^a-zA-Z0-9]/g, 'x');
+        const base = `user_${shortId}`;
+        let nickname = base;
+        let suffix = 0;
+        while (await prisma.user.findUnique({ where: { nicknameLower: nickname.toLowerCase() } })) {
+          suffix++;
+          nickname = `${base}${suffix}`;
+        }
+        await prisma.user.create({
+          data: { id: userId, nickname, nicknameLower: nickname.toLowerCase() },
+        });
+        console.log(`[Store] Auto-created user ${userId} as "${nickname}" for purchase`);
+      }
+
       // Use transaction for atomic operation
       const result = await prisma.$transaction(async (tx) => {
         const user = await tx.user.findUnique({
@@ -823,12 +868,21 @@ gamificationRouter.post(
       const userId = c.req.param("userId");
       const { type, itemId } = c.req.valid("json");
 
-      const user = await prisma.user.findUnique({
-        where: { id: userId },
-      });
-
+      // Auto-create user if not found (e.g. after DB reset)
+      let user = await prisma.user.findUnique({ where: { id: userId } });
       if (!user) {
-        return c.json({ error: "User not found" }, 404);
+        const shortId = userId.slice(-8).replace(/[^a-zA-Z0-9]/g, 'x');
+        const base = `user_${shortId}`;
+        let nickname = base;
+        let suffix = 0;
+        while (await prisma.user.findUnique({ where: { nicknameLower: nickname.toLowerCase() } })) {
+          suffix++;
+          nickname = `${base}${suffix}`;
+        }
+        user = await prisma.user.create({
+          data: { id: userId, nickname, nicknameLower: nickname.toLowerCase() },
+        });
+        console.log(`[Store] Auto-created user ${userId} as "${nickname}" for equip`);
       }
 
       // Check if user owns the item (or it's a default/free item)
@@ -846,8 +900,19 @@ gamificationRouter.post(
           },
         });
 
+        // If not in inventory, check if the item exists in store and add it (trust client claim)
         if (!inventoryItem) {
-          return c.json({ error: "You do not own this item" }, 403);
+          const storeItem = await prisma.storeItem.findUnique({ where: { id: itemId } });
+          if (storeItem) {
+            await prisma.userInventory.upsert({
+              where: { userId_itemId: { userId, itemId } },
+              create: { userId, itemId, source: "store" },
+              update: {},
+            });
+            console.log(`[Store] Added missing inventory item ${itemId} for user ${userId} during equip`);
+          } else {
+            return c.json({ error: "You do not own this item" }, 403);
+          }
         }
       }
 

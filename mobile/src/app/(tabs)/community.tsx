@@ -521,6 +521,11 @@ export default function CommunityScreen() {
         devotionalsCompleted: user.devotionalsCompleted,
         totalTimeSeconds: user.totalTime,
         lastActiveAt,
+        // Sync cosmetic fields so community shows correct title/frame/avatar
+        titleId: user.titleId ?? null,
+        frameId: user.frameId ?? null,
+        avatarId: user.avatar,
+        nickname: user.nickname,
       });
 
       const updateUser = useAppStore.getState().updateUser;

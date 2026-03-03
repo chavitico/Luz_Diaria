@@ -4464,10 +4464,10 @@ function PointsToast({
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           <Sparkles size={16} color="#FFFFFF" />
           <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15 }}>
-            {isPositive ? '+' : '-'}{amount} pts
+            {amount === 0 && message ? message : `${isPositive ? '+' : '-'}${amount} pts`}
           </Text>
         </View>
-        {message ? (
+        {message && amount !== 0 ? (
           <Text style={{ color: '#ffffffCC', fontSize: 12, fontWeight: '500', textAlign: 'center' }}>
             {message}
           </Text>
@@ -4496,6 +4496,8 @@ export default function StoreScreen() {
   const [toastAmount, setToastAmount] = useState(0);
   const [toastPositive, setToastPositive] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | undefined>(undefined);
+  const [showErrorToast, setShowErrorToast] = useState(false);
+  const [errorToastMessage, setErrorToastMessage] = useState<string>('');
   const [allChallengesComplete, setAllChallengesComplete] = useState(false);
   const [showChestModal, setShowChestModal] = useState(false);
   const [showCollectionDetailModal, setShowCollectionDetailModal] = useState(false);
@@ -4696,26 +4698,20 @@ export default function StoreScreen() {
         setToastAmount(selectedDetailItem.price);
         setToastPositive(false);
         setShowPointsToast(true);
+      } else if (!data.success) {
+        const msg = data.error ?? (language === 'es' ? 'Error al comprar' : 'Purchase failed');
+        console.warn('[Store] Purchase failed:', msg);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        setErrorToastMessage(msg);
+        setShowErrorToast(true);
       }
     },
-    onError: () => {
-      // Fallback: use local store for purchase
-      if (selectedDetailItem) {
-        const localSuccess = useAppStore.getState().purchaseItem(selectedDetailItem.id, selectedDetailItem.price);
-        if (localSuccess) {
-          addLedgerEntry({
-            delta: -(selectedDetailItem.price),
-            kind: 'purchase',
-            title: language === 'es' ? 'Compra en Tienda' : 'Store Purchase',
-            detail: language === 'es' ? (selectedDetailItem.nameEs ?? selectedDetailItem.name) : selectedDetailItem.name,
-          });
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-          setShowDetailModal(false);
-          setToastAmount(selectedDetailItem.price);
-          setToastPositive(false);
-          setShowPointsToast(true);
-        }
-      }
+    onError: (err) => {
+      const msg = err instanceof Error ? err.message : '';
+      console.error('[Store] Purchase network error:', msg);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      setErrorToastMessage(language === 'es' ? 'Error al conectar con el servidor' : 'Could not connect to server');
+      setShowErrorToast(true);
     },
   });
 
@@ -4738,6 +4734,8 @@ export default function StoreScreen() {
       if (variables.type === 'avatar') updates.avatar = variables.itemId || undefined;
       updateUser(updates);
       setShowDetailModal(false);
+      // Invalidate community so the new title/frame/avatar shows up for others
+      queryClient.invalidateQueries({ queryKey: ['community-members'] });
     },
     onError: (_, variables) => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -5480,6 +5478,13 @@ export default function StoreScreen() {
         onHide={() => { setShowPointsToast(false); setToastMessage(undefined); }}
         isPositive={toastPositive}
         message={toastMessage}
+      />
+      <PointsToast
+        amount={0}
+        visible={showErrorToast}
+        onHide={() => setShowErrorToast(false)}
+        isPositive={false}
+        message={errorToastMessage}
       />
 
       <ScrollView
