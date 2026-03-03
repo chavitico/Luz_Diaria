@@ -50,6 +50,17 @@ interface BotPreview {
   userMessageEs: string;
   userMessageEn?: string;
   action: 'auto_fixed' | 'needs_human' | 'info_only';
+  snapshotComparison?: {
+    snapshotDate: string | null;
+    snapshotId: string | null;
+    snapshotStreak: number | null;
+    currentStreak: number;
+    claimedStreak: number;
+    diffDays: number | null;
+    devotionalTodayCR: boolean;
+    lastDevotionalDate: string | null;
+    escalationReason: string;
+  };
 }
 
 interface SystemSnapshot {
@@ -57,6 +68,12 @@ interface SystemSnapshot {
   avatarId?: string;
   country?: string;
   currentStreak?: number;
+  // Linked snapshot (stable reference from ticket creation)
+  linkedSnapshotId?: string | null;
+  linkedSnapshotDate?: string | null;
+  linkedSnapshotStreak?: number | null;
+  linkedSnapshotDevDate?: string | null;
+  // Legacy compat
   lastSnapshotDate?: string;
   lastSnapshotStreak?: number;
   devotionalTodayExists?: boolean;
@@ -79,6 +96,8 @@ interface AdminTicket {
   beforeState: string;
   afterState: string;
   botPreview: BotPreview;
+  snapshotDate?: string | null;
+  snapshotId?: string | null;
   createdAt: string;
   systemSnapshot: SystemSnapshot;
 }
@@ -440,16 +459,28 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
   const isResolve = mode === 'resolved';
   const accentColor = isResolve ? '#22C55E' : '#EF4444';
 
+  // For streak tickets in resolve mode: show the snapshot streak as the suggested value
+  const sc = ticket?.botPreview?.snapshotComparison;
+  const suggestedStreak = sc?.snapshotStreak ?? ticket?.claimedStreak ?? 0;
+  const isStreakTicket = ticket?.type === 'streak_missing';
+  const isDevotionalTicket = ticket?.type === 'devotional_not_counted';
+
   const handleSubmit = async () => {
     if (!ticket) return;
     setSending(true);
     try {
+      const body: Record<string, unknown> = { resolution: mode };
+      if (note.trim()) body.note = note.trim();
+      // For streak tickets in resolve mode, pass the snapshot streak as applyStreak
+      if (isResolve && isStreakTicket && suggestedStreak > 0) {
+        body.applyStreak = suggestedStreak;
+      }
       const res = await fetch(`${BACKEND_URL}/api/support/admin/tickets/${ticket.id}/resolve`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
-        body: JSON.stringify({ resolution: mode, note: note.trim() || undefined }),
+        body: JSON.stringify(body),
       });
-      const data = await res.json() as { success: boolean; error?: string };
+      const data = await res.json() as { success: boolean; error?: string; appliedChange?: string };
       if (!data.success) throw new Error(data.error ?? 'Error');
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       onSuccess();
@@ -495,7 +526,11 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
             <View style={{ backgroundColor: accentColor + '10', borderRadius: 12, padding: 12, marginBottom: 16, borderWidth: 1, borderColor: accentColor + '25' }}>
               <Text style={{ fontSize: 12, color: accentColor, lineHeight: 18, fontWeight: '500' }}>
                 {isResolve
-                  ? (es ? 'Cierra el ticket indicando que el problema fue atendido sin necesidad de compensación.' : 'Closes the ticket indicating the issue was handled without compensation.')
+                  ? isStreakTicket && suggestedStreak > 0
+                    ? `Restaurará la racha a ${suggestedStreak} días (valor del snapshot). No reduce racha existente.`
+                    : isDevotionalTicket
+                    ? `Registrará el devocional del ${ticket?.claimedDate ?? '?'} si no existe ya.`
+                    : (es ? 'Cierra el ticket indicando que el problema fue atendido sin necesidad de compensación.' : 'Closes the ticket indicating the issue was handled without compensation.')
                   : (es ? 'Cierra el ticket indicando que no procede la solicitud del usuario.' : 'Closes the ticket indicating the user\'s request does not qualify.')}
               </Text>
             </View>
@@ -912,9 +947,43 @@ function TicketCard({
             System Snapshot
           </Text>
 
+          {/* Snapshot comparison section */}
+          {ticket.botPreview?.snapshotComparison ? (() => {
+            const sc = ticket.botPreview.snapshotComparison;
+            const hasSnapshot = !!sc.snapshotDate;
+            const snapColor = hasSnapshot ? '#22C55E' : '#EF4444';
+            return (
+              <View style={{ backgroundColor: colors.surface, borderRadius: 10, padding: 10, marginBottom: 8, borderWidth: 1, borderColor: snapColor + '30' }}>
+                <Text style={{ fontSize: 10, fontWeight: '800', color: snapColor, letterSpacing: 0.8, textTransform: 'uppercase', marginBottom: 6 }}>
+                  {hasSnapshot ? 'Snapshot encontrado' : 'Sin snapshot'}
+                </Text>
+                {hasSnapshot ? (
+                  <>
+                    <SnapshotRow label="Snapshot fecha" value={sc.snapshotDate ?? '—'} colors={colors} />
+                    <SnapshotRow label="Snapshot racha" value={sc.snapshotStreak !== null ? `${sc.snapshotStreak}` : '—'} colors={colors} />
+                    <SnapshotRow label="Racha actual" value={`${sc.currentStreak}`} colors={colors} />
+                    <SnapshotRow label="Racha reclamada" value={`${sc.claimedStreak}`} colors={colors} />
+                    <SnapshotRow label="Diferencia" value={sc.diffDays !== null ? `${sc.diffDays} día(s)` : '—'} colors={colors} />
+                    {ticket.claimedDate ? <SnapshotRow label="Fecha reclamada" value={ticket.claimedDate} colors={colors} /> : null}
+                    {sc.lastDevotionalDate ? <SnapshotRow label="Último devocional" value={sc.lastDevotionalDate} colors={colors} /> : null}
+                  </>
+                ) : null}
+                {sc.escalationReason ? (
+                  <Text style={{ fontSize: 10, color: '#F59E0B', marginTop: 4, lineHeight: 15, fontStyle: 'italic' }}>
+                    Motivo escala: {sc.escalationReason}
+                  </Text>
+                ) : null}
+              </View>
+            );
+          })() : (
+            // Legacy: show old snapshot fields
+            <>
+              <SnapshotRow label="Snapshot racha" value={ss.lastSnapshotStreak !== undefined ? `${ss.lastSnapshotStreak}` : '—'} colors={colors} />
+              <SnapshotRow label="Snapshot fecha" value={ss.lastSnapshotDate ?? '—'} colors={colors} />
+            </>
+          )}
+
           <SnapshotRow label="Racha actual" value={ss.currentStreak !== undefined ? `🔥 ${ss.currentStreak}` : '—'} colors={colors} />
-          <SnapshotRow label="Snapshot racha" value={ss.lastSnapshotStreak !== undefined ? `${ss.lastSnapshotStreak}` : '—'} colors={colors} />
-          <SnapshotRow label="Snapshot fecha" value={ss.lastSnapshotDate ?? '—'} colors={colors} />
           <SnapshotRow label="Devocional hoy" value={ss.devotionalTodayExists ? '✅ Sí' : '❌ No'} colors={colors} />
           <SnapshotRow label="Último devocional" value={ss.devotionalLastClaimDate ?? '—'} colors={colors} />
           <SnapshotRow label="País" value={ss.country ?? '—'} colors={colors} />

@@ -2,7 +2,11 @@ import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { prisma } from "../prisma";
-import { getLatestSnapshotForUser } from "../streak-snapshot-service";
+import {
+  getBestSnapshotForUser,
+  getSnapshotById,
+  getCRDateString,
+} from "../streak-snapshot-service";
 import { requireRole } from "../middleware/rbac";
 
 const supportRouter = new Hono();
@@ -23,6 +27,18 @@ interface BotPreview {
   userMessageEs: string;
   userMessageEn: string;
   action: "auto_fixed" | "needs_human" | "info_only";
+  // Snapshot comparison data for admin display
+  snapshotComparison?: {
+    snapshotDate: string | null;
+    snapshotId: string | null;
+    snapshotStreak: number | null;
+    currentStreak: number;
+    claimedStreak: number;
+    diffDays: number | null;
+    devotionalTodayCR: boolean;
+    lastDevotionalDate: string | null;
+    escalationReason: string;
+  };
 }
 
 // ─── Schemas ──────────────────────────────────────────────────────────────────
@@ -36,14 +52,12 @@ const createTicketSchema = z.object({
     "notification",
     "reward_drop",
   ]),
-  // Kept for backward compat
   claimedStreak: z.number().int().min(0).optional().default(0),
   claimedDate: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/)
     .optional()
-    .default(() => new Date().toISOString().split("T")[0]!),
-  // New flexible payload
+    .default(() => getCRDateString(0)),
   clientClaim: z.record(z.string(), z.unknown()).optional().default({}),
 });
 
@@ -54,8 +68,11 @@ function buildBotPreview(
   status: TicketStatus,
   resolutionNote: string | null,
   claimedStreak: number,
-  clientClaim: Record<string, unknown>
+  clientClaim: Record<string, unknown>,
+  snapshotComparison?: BotPreview["snapshotComparison"]
 ): BotPreview {
+  const base: Pick<BotPreview, "snapshotComparison"> = { snapshotComparison };
+
   switch (type) {
     case "streak_missing": {
       if (status === "auto_fixed") {
@@ -64,6 +81,7 @@ function buildBotPreview(
           userMessageEs: `¡Tu racha fue restaurada! El sistema detectó una pequeña diferencia y la corrigió de forma automática. Tu racha no disminuirá.`,
           userMessageEn: `Your streak has been restored! The system detected a small discrepancy and fixed it automatically. Your streak is safe.`,
           action: "auto_fixed",
+          ...base,
         };
       }
       return {
@@ -71,6 +89,7 @@ function buildBotPreview(
         userMessageEs: `Hola, recibimos tu reporte sobre tu racha. La diferencia detectada es demasiado grande para una corrección automática, por lo que un moderador revisará tu caso pronto. Gracias por reportarlo.`,
         userMessageEn: `Hello, we received your streak report. The detected difference is too large for an automatic fix, so a moderator will review your case soon. Thank you for reporting it.`,
         action: "needs_human",
+        ...base,
       };
     }
     case "devotional_not_counted": {
@@ -80,6 +99,7 @@ function buildBotPreview(
           userMessageEs: `Tu devocional fue registrado correctamente. Si el conteo no se refleja de inmediato, cierra y abre la app.`,
           userMessageEn: `Your devotional was registered correctly. If the count doesn't show immediately, close and reopen the app.`,
           action: "auto_fixed",
+          ...base,
         };
       }
       return {
@@ -87,6 +107,7 @@ function buildBotPreview(
         userMessageEs: `Recibimos tu reporte. No encontramos una forma automática de verificar tu devocional del día indicado. Un moderador revisará tu caso. Gracias.`,
         userMessageEn: `We received your report. We couldn't automatically verify your devotional for the indicated day. A moderator will review your case. Thank you.`,
         action: "needs_human",
+        ...base,
       };
     }
     case "audio_tts": {
@@ -106,6 +127,7 @@ function buildBotPreview(
         userMessageEs: `Hola, recibimos tu reporte de audio (${issue}). Pasos a seguir: ${steps} Si el problema persiste, escríbenos y lo escalaremos.`,
         userMessageEn: `Hello, we received your audio report (${issue}). Steps to try: ${steps} If the issue persists, let us know and we'll escalate it.`,
         action: "info_only",
+        ...base,
       };
     }
     case "notification": {
@@ -123,6 +145,7 @@ function buildBotPreview(
         userMessageEs: `Hola, recibimos tu reporte de notificaciones (${issue}). ${stepsEs}`,
         userMessageEn: `Hello, we received your notification report (${issue}). Please check your device notification settings and make sure notifications are enabled for Luz Diaria.`,
         action: "info_only",
+        ...base,
       };
     }
     case "reward_drop": {
@@ -141,6 +164,7 @@ function buildBotPreview(
             : "If the chest won't open, close and reopen the app. If the issue persists, a moderator will review it manually."
         }`,
         action: "needs_human",
+        ...base,
       };
     }
     default:
@@ -149,6 +173,7 @@ function buildBotPreview(
         userMessageEs: "Tu reporte fue recibido y será revisado.",
         userMessageEn: "Your report has been received and will be reviewed.",
         action: "info_only",
+        ...base,
       };
   }
 }
@@ -172,7 +197,11 @@ supportRouter.post(
       return c.json({ success: false, error: "User not found" }, 404);
     }
 
-    const snapshot = await getLatestSnapshotForUser(userId);
+    // Use CR today as the ticket reference date (for snapshot lookup)
+    const ticketDateCR = getCRDateString(0);
+
+    // Find the best snapshot at or before today
+    const snapshot = await getBestSnapshotForUser(userId, ticketDateCR);
 
     const beforeState = JSON.stringify({
       streakCurrent: user.streakCurrent,
@@ -182,58 +211,116 @@ supportRouter.post(
     let status: TicketStatus = "open";
     let resolutionNote: string | null = null;
     let afterState = beforeState;
+    let escalationReason = "No auto-fix attempted";
+
+    // Build snapshot comparison for admin display
+    const snapshotComparison: BotPreview["snapshotComparison"] = {
+      snapshotDate: snapshot?.snapshotDate ?? null,
+      snapshotId: snapshot?.id ?? null,
+      snapshotStreak: snapshot?.streak ?? null,
+      currentStreak: user.streakCurrent,
+      claimedStreak,
+      diffDays: snapshot ? Math.abs(snapshot.streak - claimedStreak) : null,
+      devotionalTodayCR: false, // set below for devotional tickets
+      lastDevotionalDate: snapshot?.lastDevotionalDateCompleted ?? null,
+      escalationReason: "",
+    };
 
     // Auto-fix logic: only for streak_missing and devotional_not_counted
     if (type === "streak_missing" || type === "devotional_not_counted") {
       if (!snapshot) {
         status = "needs_human";
-        resolutionNote =
-          "No snapshot available for verification. Manual review required.";
-        console.warn(
-          `[Support] Ticket for user ${userId}: no snapshot found. Escalating.`
-        );
+        escalationReason = "No snapshot found for this user";
+        resolutionNote = `Sin snapshot disponible para verificación. Revisión manual requerida.`;
+        console.warn(`[Support] Ticket for ${userId}: no snapshot found. Escalating.`);
       } else {
         const snapshotStreak = snapshot.streak;
         const diff = Math.abs(snapshotStreak - claimedStreak);
 
-        if (snapshotStreak >= 1 && diff <= 1) {
-          const newStreak = Math.max(claimedStreak, user.streakCurrent);
-
-          await prisma.user.update({
-            where: { id: userId },
-            data: { streakCurrent: newStreak },
-          });
-
-          afterState = JSON.stringify({
-            streakCurrent: newStreak,
-            devotionalsCompleted: user.devotionalsCompleted,
-          });
-
-          status = "auto_fixed";
-          resolutionNote = `Auto-fixed using snapshot from ${snapshot.snapshotDate}. Snapshot streak: ${snapshotStreak}, claimed: ${claimedStreak}, applied: ${newStreak}.`;
-          console.log(
-            `[Support] Auto-fixed ticket for user ${userId}: streak ${user.streakCurrent} → ${newStreak}`
-          );
+        if (type === "streak_missing") {
+          if (snapshotStreak >= 1 && diff <= 1) {
+            // Safe: restore to the higher of snapshot vs current
+            const newStreak = Math.max(snapshotStreak, user.streakCurrent);
+            await prisma.user.update({
+              where: { id: userId },
+              data: {
+                streakCurrent: newStreak,
+                ...(newStreak > user.streakCurrent ? {} : {}),
+              },
+            });
+            afterState = JSON.stringify({
+              streakCurrent: newStreak,
+              devotionalsCompleted: user.devotionalsCompleted,
+            });
+            status = "auto_fixed";
+            escalationReason = "";
+            resolutionNote = `Auto-corregido con snapshot del ${snapshot.snapshotDate}. Snapshot=${snapshotStreak}, claimed=${claimedStreak}, aplicado=${newStreak}.`;
+            console.log(`[Support] Auto-fixed streak for ${userId}: ${user.streakCurrent}→${newStreak}`);
+          } else {
+            status = "needs_human";
+            escalationReason =
+              snapshotStreak < 1
+                ? `Snapshot streak is 0 (user had no streak at snapshot time)`
+                : `Diff too large: snapshot=${snapshotStreak}, claimed=${claimedStreak}, diff=${diff}`;
+            resolutionNote = `Snapshot del ${snapshot.snapshotDate}: racha=${snapshotStreak}, reclamado=${claimedStreak}, diff=${diff}. Requiere revisión.`;
+            console.warn(`[Support] Ticket ${userId}: diff=${diff}, escalating.`);
+          }
         } else {
-          status = "needs_human";
-          resolutionNote = `Snapshot streak (${snapshotStreak}) vs claimed (${claimedStreak}) diff=${diff}. Needs manual review.`;
-          console.warn(
-            `[Support] Ticket for user ${userId}: diff too large (snapshot=${snapshotStreak}, claimed=${claimedStreak}). Escalating.`
-          );
+          // devotional_not_counted: check if snapshot's lastDevotionalDate matches claimedDate
+          const snapshotDevDate = snapshot.lastDevotionalDateCompleted;
+          const todayCompletion = await prisma.devotionalCompletion.findFirst({
+            where: { userId, devotionalDate: claimedDate },
+          });
+
+          snapshotComparison.devotionalTodayCR = !!todayCompletion;
+
+          if (todayCompletion) {
+            // DB already has the completion — no need to do anything
+            status = "auto_fixed";
+            escalationReason = "";
+            resolutionNote = `Devocional del ${claimedDate} ya registrado en la base de datos.`;
+          } else if (snapshotDevDate === claimedDate) {
+            // Snapshot shows devotional was done that day — idempotently create the completion
+            await prisma.devotionalCompletion.upsert({
+              where: { userId_devotionalDate: { userId, devotionalDate: claimedDate } },
+              create: { userId, devotionalDate: claimedDate, completedAt: new Date() },
+              update: {},
+            });
+            afterState = JSON.stringify({
+              streakCurrent: user.streakCurrent,
+              devotionalsCompleted: user.devotionalsCompleted + 1,
+            });
+            status = "auto_fixed";
+            escalationReason = "";
+            resolutionNote = `Devocional del ${claimedDate} verificado por snapshot (${snapshot.snapshotDate}) y registrado.`;
+            console.log(`[Support] Auto-fixed devotional for ${userId} on ${claimedDate}`);
+          } else {
+            status = "needs_human";
+            escalationReason =
+              !snapshotDevDate
+                ? `Snapshot no tiene fecha de devocional registrada`
+                : `Snapshot lastDevotionalDate=${snapshotDevDate} no coincide con claimedDate=${claimedDate}`;
+            resolutionNote = `Snapshot del ${snapshot.snapshotDate}: lastDev=${snapshotDevDate ?? "null"}, reclamado=${claimedDate}. Sin evidencia para auto-corregir.`;
+            console.warn(`[Support] Devotional ticket ${userId}: evidence mismatch, escalating.`);
+          }
         }
       }
     } else {
-      // For audio/notification/reward_drop: no auto-fix, always info_only / needs_human
+      // For audio/notification/reward_drop: always needs_human
       status = "needs_human";
-      resolutionNote = `${type} issue reported. Awaiting moderator review.`;
+      escalationReason = `${type} — no auto-fix available`;
+      resolutionNote = `Problema tipo ${type} reportado. En espera de revisión de moderador.`;
     }
+
+    snapshotComparison.escalationReason = escalationReason;
 
     const botPreview = buildBotPreview(
       type as TicketType,
       status,
       resolutionNote,
       claimedStreak,
-      clientClaim as Record<string, unknown>
+      clientClaim as Record<string, unknown>,
+      snapshotComparison
     );
 
     const ticket = await prisma.supportTicket.create({
@@ -248,6 +335,8 @@ supportRouter.post(
         beforeState,
         afterState,
         botPreview: JSON.stringify(botPreview),
+        snapshotDate: snapshot?.snapshotDate ?? null,
+        snapshotId: snapshot?.id ?? null,
       },
     });
 
@@ -259,6 +348,7 @@ supportRouter.post(
         resolutionNote: ticket.resolutionNote,
         autoFixed: ticket.status === "auto_fixed",
         botPreview,
+        snapshotDate: ticket.snapshotDate,
       },
     });
   }
@@ -294,12 +384,14 @@ supportRouter.get("/admin/tickets", requireRole("MODERATOR"), async (c) => {
       beforeState: true,
       afterState: true,
       botPreview: true,
+      snapshotDate: true,
+      snapshotId: true,
       createdAt: true,
     },
   });
 
-  // Enrich each ticket with systemSnapshot
-  const today = new Date().toISOString().split("T")[0]!;
+  const today = getCRDateString(0);
+
   const enriched = await Promise.all(
     tickets.map(async (ticket) => {
       // Fetch user info
@@ -315,8 +407,24 @@ supportRouter.get("/admin/tickets", requireRole("MODERATOR"), async (c) => {
         },
       });
 
-      // Latest snapshot
-      const snapshot = await getLatestSnapshotForUser(ticket.userId);
+      // Get the snapshot that was attached at creation time (stable reference)
+      // If no snapshotId stored, fall back to a fresh lookup for display purposes
+      let displaySnapshot: {
+        id: string;
+        snapshotDate: string;
+        streak: number;
+        lastDevotionalDateCompleted: string | null;
+        totalDevotionalsCompleted: number;
+      } | null = null;
+
+      if (ticket.snapshotId) {
+        displaySnapshot = await getSnapshotById(ticket.snapshotId);
+      }
+      if (!displaySnapshot) {
+        // Fallback: find best snapshot at or before ticket creation date
+        const ticketDateCR = ticket.createdAt.toISOString().split("T")[0]!;
+        displaySnapshot = await getBestSnapshotForUser(ticket.userId, ticketDateCR);
+      }
 
       // Today's devotional completion
       const todayCompletion = await prisma.devotionalCompletion.findFirst({
@@ -342,27 +450,28 @@ supportRouter.get("/admin/tickets", requireRole("MODERATOR"), async (c) => {
       let notificationsEnabled: boolean | undefined;
       let notificationsHour: number | undefined;
       try {
-        const actions = JSON.parse(user?.dailyActions ?? "{}") as Record<
-          string,
-          unknown
-        >;
+        const actions = JSON.parse(user?.dailyActions ?? "{}") as Record<string, unknown>;
         if (typeof actions.notificationsEnabled === "boolean") {
           notificationsEnabled = actions.notificationsEnabled;
         }
         if (typeof actions.notificationsHour === "number") {
           notificationsHour = actions.notificationsHour;
         }
-      } catch {
-        // ignore
-      }
+      } catch { /* ignore */ }
 
       const systemSnapshot = {
         nickname: user?.nickname ?? ticket.userId.slice(0, 12),
         avatarId: user?.avatarId,
         country: user?.countryCode,
         currentStreak: user?.streakCurrent,
-        lastSnapshotDate: snapshot?.snapshotDate,
-        lastSnapshotStreak: snapshot?.streak,
+        // Snapshot linked at ticket creation
+        linkedSnapshotId: displaySnapshot?.id ?? null,
+        linkedSnapshotDate: displaySnapshot?.snapshotDate ?? null,
+        linkedSnapshotStreak: displaySnapshot?.streak ?? null,
+        linkedSnapshotDevDate: displaySnapshot?.lastDevotionalDateCompleted ?? null,
+        // Legacy fields kept for UI compat
+        lastSnapshotDate: displaySnapshot?.snapshotDate,
+        lastSnapshotStreak: displaySnapshot?.streak,
         devotionalTodayExists: !!todayCompletion,
         devotionalLastClaimDate: lastCompletion?.devotionalDate ?? null,
         notificationsEnabled,
@@ -378,13 +487,10 @@ supportRouter.get("/admin/tickets", requireRole("MODERATOR"), async (c) => {
         parsedBotPreview = JSON.parse(ticket.botPreview || "{}") as BotPreview;
       } catch {}
       try {
-        parsedClientClaim = JSON.parse(ticket.clientClaim || "{}") as Record<
-          string,
-          unknown
-        >;
+        parsedClientClaim = JSON.parse(ticket.clientClaim || "{}") as Record<string, unknown>;
       } catch {}
 
-      // If old tickets have no botPreview, generate on the fly
+      // Rebuild botPreview for old tickets that have no snapshotComparison
       if (!parsedBotPreview?.summary) {
         parsedBotPreview = buildBotPreview(
           ticket.type as TicketType,
@@ -393,6 +499,21 @@ supportRouter.get("/admin/tickets", requireRole("MODERATOR"), async (c) => {
           ticket.claimedStreak,
           parsedClientClaim
         );
+      }
+
+      // Inject live snapshotComparison if missing (old tickets)
+      if (parsedBotPreview && !parsedBotPreview.snapshotComparison && displaySnapshot) {
+        parsedBotPreview.snapshotComparison = {
+          snapshotDate: displaySnapshot.snapshotDate,
+          snapshotId: displaySnapshot.id,
+          snapshotStreak: displaySnapshot.streak,
+          currentStreak: user?.streakCurrent ?? 0,
+          claimedStreak: ticket.claimedStreak,
+          diffDays: Math.abs(displaySnapshot.streak - ticket.claimedStreak),
+          devotionalTodayCR: !!todayCompletion,
+          lastDevotionalDate: displaySnapshot.lastDevotionalDateCompleted,
+          escalationReason: ticket.resolutionNote ?? "",
+        };
       }
 
       return {
@@ -407,7 +528,7 @@ supportRouter.get("/admin/tickets", requireRole("MODERATOR"), async (c) => {
   return c.json({ tickets: enriched });
 });
 
-// POST /api/support/admin/compensate — create a targeted GiftDrop and UserGift for a user
+// POST /api/support/admin/compensate
 supportRouter.post(
   "/admin/compensate",
   requireRole("MODERATOR"),
@@ -425,10 +546,8 @@ supportRouter.post(
   async (c) => {
     const { ticketId, targetUserId, title, message, rewardType, rewardId } =
       c.req.valid("json");
-
     const adminUserId = c.req.header("X-User-Id") ?? "unknown";
 
-    // Verify target user exists
     const target = await prisma.user.findUnique({
       where: { id: targetUserId },
       select: { id: true },
@@ -437,7 +556,6 @@ supportRouter.post(
       return c.json({ success: false, error: "Target user not found" }, 404);
     }
 
-    // Create GiftDrop targeted to this user
     const giftDrop = await prisma.giftDrop.create({
       data: {
         title,
@@ -450,33 +568,24 @@ supportRouter.post(
       },
     });
 
-    // Create UserGift record
     await prisma.userGift.create({
-      data: {
-        userId: targetUserId,
-        giftDropId: giftDrop.id,
-        status: "PENDING",
-      },
+      data: { userId: targetUserId, giftDropId: giftDrop.id, status: "PENDING" },
     });
 
-    // Update ticket status to closed + note
     await prisma.supportTicket.update({
       where: { id: ticketId },
       data: {
         status: "closed",
-        resolutionNote: `Compensated with gift drop ${giftDrop.id} by admin ${adminUserId}`,
+        resolutionNote: `Compensado con regalo ${giftDrop.id} por admin ${adminUserId}`,
       },
     });
 
-    console.log(
-      `[Support] Compensate: admin ${adminUserId} created gift ${giftDrop.id} for user ${targetUserId} (ticket ${ticketId})`
-    );
-
+    console.log(`[Support] Compensate: admin ${adminUserId} → gift ${giftDrop.id} for ${targetUserId} (ticket ${ticketId})`);
     return c.json({ success: true, giftDropId: giftDrop.id });
   }
 );
 
-// PATCH /api/support/admin/tickets/:id/resolve — manually close a ticket
+// PATCH /api/support/admin/tickets/:id/resolve — manually resolve or reject a ticket
 supportRouter.patch(
   "/admin/tickets/:id/resolve",
   requireRole("MODERATOR"),
@@ -485,27 +594,70 @@ supportRouter.patch(
     z.object({
       resolution: z.enum(["resolved", "rejected"]),
       note: z.string().max(500).optional(),
+      // For streak resolution: optionally specify the streak to apply
+      applyStreak: z.number().int().min(0).optional(),
     })
   ),
   async (c) => {
     const ticketId = c.req.param("id");
-    const { resolution, note } = c.req.valid("json");
+    const { resolution, note, applyStreak } = c.req.valid("json");
     const adminUserId = c.req.header("X-User-Id") ?? "unknown";
 
     const ticket = await prisma.supportTicket.findUnique({
       where: { id: ticketId },
-      select: { id: true, status: true },
+      select: { id: true, status: true, userId: true, type: true, snapshotId: true, claimedStreak: true, claimedDate: true },
     });
-    if (!ticket) {
-      return c.json({ success: false, error: "Ticket not found" }, 404);
-    }
-    if (ticket.status === "closed") {
-      return c.json({ success: false, error: "Ticket already closed" }, 400);
+    if (!ticket) return c.json({ success: false, error: "Ticket not found" }, 404);
+    if (ticket.status === "closed") return c.json({ success: false, error: "Ticket already closed" }, 400);
+
+    let appliedChange: string | null = null;
+
+    if (resolution === "resolved") {
+      // For streak tickets: apply a safe restore if requested
+      if (
+        (ticket.type === "streak_missing") &&
+        applyStreak !== undefined &&
+        applyStreak > 0
+      ) {
+        const user = await prisma.user.findUnique({
+          where: { id: ticket.userId },
+          select: { streakCurrent: true, streakBest: true },
+        });
+        if (user) {
+          // Only increase streak, never decrease it via this path
+          const safeStreak = Math.max(applyStreak, user.streakCurrent);
+          const newBest = Math.max(safeStreak, user.streakBest);
+          await prisma.user.update({
+            where: { id: ticket.userId },
+            data: { streakCurrent: safeStreak, streakBest: newBest },
+          });
+          appliedChange = `Racha corregida manualmente: ${user.streakCurrent}→${safeStreak}`;
+          console.log(`[Support] Manual streak fix for ${ticket.userId}: ${user.streakCurrent}→${safeStreak}`);
+        }
+      }
+
+      // For devotional tickets: idempotently add the completion record
+      if (ticket.type === "devotional_not_counted" && ticket.claimedDate) {
+        const existing = await prisma.devotionalCompletion.findFirst({
+          where: { userId: ticket.userId, devotionalDate: ticket.claimedDate },
+        });
+        if (!existing) {
+          await prisma.devotionalCompletion.upsert({
+            where: { userId_devotionalDate: { userId: ticket.userId, devotionalDate: ticket.claimedDate } },
+            create: { userId: ticket.userId, devotionalDate: ticket.claimedDate, completedAt: new Date() },
+            update: {},
+          });
+          appliedChange = `Devocional del ${ticket.claimedDate} registrado manualmente`;
+          console.log(`[Support] Manual devotional fix for ${ticket.userId} on ${ticket.claimedDate}`);
+        } else {
+          appliedChange = `Devocional del ${ticket.claimedDate} ya existía`;
+        }
+      }
     }
 
     const resolutionNote =
       resolution === "resolved"
-        ? `Resuelto manualmente por admin ${adminUserId}${note ? ". Nota: " + note : ""}`
+        ? `Resuelto manualmente por admin ${adminUserId}${appliedChange ? ". " + appliedChange : ""}${note ? ". Nota: " + note : ""}`
         : `Rechazado por admin ${adminUserId}${note ? ". Motivo: " + note : ""}`;
 
     await prisma.supportTicket.update({
@@ -513,11 +665,8 @@ supportRouter.patch(
       data: { status: "closed", resolutionNote },
     });
 
-    console.log(
-      `[Support] Ticket ${ticketId} ${resolution} by admin ${adminUserId}`
-    );
-
-    return c.json({ success: true });
+    console.log(`[Support] Ticket ${ticketId} ${resolution} by admin ${adminUserId}`);
+    return c.json({ success: true, appliedChange });
   }
 );
 

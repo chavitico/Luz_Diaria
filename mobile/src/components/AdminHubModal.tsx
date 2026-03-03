@@ -10,6 +10,7 @@ import {
   Pressable,
   ScrollView,
   ActivityIndicator,
+  Alert,
   useWindowDimensions,
 } from 'react-native';
 import * as Haptics from 'expo-haptics';
@@ -22,9 +23,9 @@ import {
   Gift,
   Ticket,
   Users,
-  ChevronDown,
   ChevronRight,
   Crown,
+  Camera,
 } from 'lucide-react-native';
 import { useThemeColors, useUser, useAppStore } from '@/lib/store';
 
@@ -126,6 +127,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
   // Verified role fetched from backend — starts null (unknown), then resolves
   const [verifiedRole, setVerifiedRole] = useState<'OWNER' | 'MODERATOR' | 'USER' | null>(null);
   const [checking, setChecking] = useState(false);
+  const [generatingSnapshots, setGeneratingSnapshots] = useState(false);
 
   // Every time the modal opens, verify role directly from backend
   useEffect(() => {
@@ -410,6 +412,62 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
                     colors={colors}
                   />
                 ))}
+
+                {/* OWNER-only: Generate Snapshots now (for testing) */}
+                {isOwner && (
+                  <Pressable
+                    onPress={async () => {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                      setGeneratingSnapshots(true);
+                      try {
+                        const res = await fetch(`${BACKEND_URL}/api/admin/snapshots/generate`, {
+                          method: 'POST',
+                          headers: { 'X-User-Id': user?.id ?? '' },
+                        });
+                        const data = await res.json() as { success: boolean; date?: string; processed?: number; created?: number; errors?: number };
+                        if (data.success) {
+                          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                          Alert.alert('Snapshots generados', `Fecha: ${data.date}\nProcesados: ${data.processed}\nCreados: ${data.created}\nErrores: ${data.errors}`);
+                        } else {
+                          Alert.alert('Error', 'No se pudieron generar snapshots');
+                        }
+                      } catch (e) {
+                        Alert.alert('Error', String(e));
+                      } finally {
+                        setGeneratingSnapshots(false);
+                      }
+                    }}
+                    disabled={generatingSnapshots}
+                    style={({ pressed }) => ({
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingVertical: 14,
+                      paddingHorizontal: 16,
+                      borderRadius: 16,
+                      marginBottom: 10,
+                      marginTop: 4,
+                      backgroundColor: pressed ? '#0EA5E918' : colors.surface,
+                      borderWidth: 1,
+                      borderColor: pressed ? '#0EA5E940' : colors.surface,
+                      opacity: generatingSnapshots ? 0.6 : 1,
+                    })}
+                  >
+                    <View style={{ width: 44, height: 44, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: '#0EA5E920', marginRight: 14 }}>
+                      {generatingSnapshots
+                        ? <ActivityIndicator size="small" color="#0EA5E9" />
+                        : <Camera size={22} color="#0EA5E9" />}
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ fontSize: 15, fontWeight: '600', color: colors.text, marginBottom: 2 }}>
+                        Generar Snapshots
+                      </Text>
+                      <Text style={{ fontSize: 12, color: colors.textMuted, lineHeight: 16 }}>
+                        Forzar snapshot de todos los usuarios ahora
+                      </Text>
+                    </View>
+                    {!generatingSnapshots && <ChevronRight size={18} color={colors.textMuted} />}
+                  </Pressable>
+                )}
               </>
             )}
           </ScrollView>

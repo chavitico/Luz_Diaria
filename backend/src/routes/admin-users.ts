@@ -559,3 +559,11 @@ adminRouter.put(
   }
 );
 
+
+// ─── POST /api/admin/snapshots/generate — force snapshot generation (OWNER) ──
+adminRouter.post("/snapshots/generate", requireRole("OWNER"), async (c) => {
+  const { generateStreakSnapshots, getCRDateString } = await import("../streak-snapshot-service");
+  const today = getCRDateString(0);
+  const result = await generateStreakSnapshots(today);
+  return c.json({ success: true, date: today, ...result });
+});

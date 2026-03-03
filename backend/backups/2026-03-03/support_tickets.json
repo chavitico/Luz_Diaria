@@ -11,6 +11,8 @@
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "botPreview": "{\"summary\":\"Racha perdida — requiere revisión manual\",\"userMessageEs\":\"Hola, recibimos tu reporte sobre tu racha. La diferencia detectada es demasiado grande para una corrección automática, por lo que un moderador revisará tu caso pronto. Gracias por reportarlo.\",\"userMessageEn\":\"Hello, we received your streak report. The detected difference is too large for an automatic fix, so a moderator will review your case soon. Thank you for reporting it.\",\"action\":\"needs_human\"}",
+    "snapshotDate": null,
+    "snapshotId": null,
     "createdAt": "2026-03-03T01:13:13.921Z",
     "updatedAt": "2026-03-03T01:13:13.921Z"
   },
@@ -26,6 +28,8 @@
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "botPreview": "{\"summary\":\"Audio/TTS: no_sound (ios/no especificado)\",\"userMessageEs\":\"Hola, recibimos tu reporte de audio (no_sound). Pasos a seguir: 1) Verifica que el volumen del dispositivo esté activo. 2) Cierra y abre la app. 3) Ve a Ajustes > Sonido y asegúrate de que la música esté activada. Si el problema persiste, escríbenos y lo escalaremos.\",\"userMessageEn\":\"Hello, we received your audio report (no_sound). Steps to try: 1) Verifica que el volumen del dispositivo esté activo. 2) Cierra y abre la app. 3) Ve a Ajustes > Sonido y asegúrate de que la música esté activada. If the issue persists, let us know and we'll escalate it.\",\"action\":\"info_only\"}",
+    "snapshotDate": null,
+    "snapshotId": null,
     "createdAt": "2026-03-03T01:13:13.931Z",
     "updatedAt": "2026-03-03T01:13:13.931Z"
   },
@@ -41,6 +45,8 @@
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "botPreview": "{\"summary\":\"Notificación: not_received (habilitado: true)\",\"userMessageEs\":\"Hola, recibimos tu reporte de notificaciones (not_received). 1) Verifica que las notificaciones estén activadas en Ajustes > Notificaciones. 2) Hora programada: 6:00. 3) En iOS, ve a Configuración > Luz Diaria > Notificaciones y confirma que estén habilitadas.\",\"userMessageEn\":\"Hello, we received your notification report (not_received). Please check your device notification settings and make sure notifications are enabled for Luz Diaria.\",\"action\":\"info_only\"}",
+    "snapshotDate": null,
+    "snapshotId": null,
     "createdAt": "2026-03-03T01:13:13.939Z",
     "updatedAt": "2026-03-03T01:13:13.939Z"
   },
@@ -56,6 +62,8 @@
     "beforeState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
     "afterState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
     "botPreview": "{\"summary\":\"Devocional no contado — requiere revisión\",\"userMessageEs\":\"Recibimos tu reporte. No encontramos una forma automática de verificar tu devocional del día indicado. Un moderador revisará tu caso. Gracias.\",\"userMessageEn\":\"We received your report. We couldn't automatically verify your devotional for the indicated day. A moderator will review your case. Thank you.\",\"action\":\"needs_human\"}",
+    "snapshotDate": null,
+    "snapshotId": null,
     "createdAt": "2026-03-03T19:07:41.559Z",
     "updatedAt": "2026-03-03T19:07:41.559Z"
   }

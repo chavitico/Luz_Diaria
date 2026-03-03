@@ -328,6 +328,8 @@ model SupportTicket {
   beforeState    String   @default("{}") // JSON audit
   afterState     String   @default("{}") // JSON audit
   botPreview     String   @default("{}") // JSON: { summary, userMessageEs, userMessageEn, action }
+  snapshotDate   String?  // YYYY-MM-DD of the snapshot used at creation time (null = none found)
+  snapshotId     String?  // ID of the StreakSnapshot used at creation time
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
