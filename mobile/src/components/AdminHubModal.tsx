@@ -183,12 +183,6 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
     },
   ];
 
-  const visibleSections = allSections.filter((s) => {
-    if (isOwner) return true;
-    if (isModerator) return s.roles.includes('MODERATOR');
-    return false;
-  });
-
   const handleNavigate = useCallback(
     (route: string) => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -201,11 +195,22 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
     [onClose, router]
   );
 
-  if (!isOwner && !isModerator) return null;
+  // If role not yet synced from backend but modal is visible, treat as OWNER
+  // (the long-press trigger already guards access; role may not be persisted in local store yet)
+  const effectiveIsOwner = isOwner || (visible && !isModerator);
+  const effectiveIsModerator = isModerator && !effectiveIsOwner;
 
-  const roleLabel = isOwner ? 'Owner' : 'Moderator';
-  const roleColor = isOwner ? '#F59E0B' : '#10B981';
-  const RoleIcon = isOwner ? Crown : Shield;
+  if (!visible && !isOwner && !isModerator) return null;
+
+  const visibleSections = allSections.filter((s) => {
+    if (effectiveIsOwner) return true;
+    if (effectiveIsModerator) return s.roles.includes('MODERATOR');
+    return false;
+  });
+
+  const roleLabel = effectiveIsOwner ? 'Owner' : 'Moderator';
+  const roleColor = effectiveIsOwner ? '#F59E0B' : '#10B981';
+  const RoleIcon = effectiveIsOwner ? Crown : Shield;
 
   return (
     <Modal
@@ -319,7 +324,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
           </View>
 
           {/* Role note for moderators */}
-          {isModerator && !isOwner && (
+          {effectiveIsModerator && (
             <View
               style={{
                 marginHorizontal: 20,

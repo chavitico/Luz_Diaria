@@ -529,13 +529,15 @@ export default function CommunityScreen() {
       });
 
       const updateUser = useAppStore.getState().updateUser;
-      const updates: Record<string, number> = {};
+      const updates: Record<string, unknown> = {};
 
       if (syncedUser.points > user.points) updates.points = syncedUser.points;
       if (syncedUser.streakCurrent > user.streakCurrent) updates.streakCurrent = syncedUser.streakCurrent;
       if (syncedUser.streakBest > user.streakBest) updates.streakBest = syncedUser.streakBest;
       if (syncedUser.devotionalsCompleted > user.devotionalsCompleted) updates.devotionalsCompleted = syncedUser.devotionalsCompleted;
       if (syncedUser.totalTimeSeconds > user.totalTime) updates.totalTime = syncedUser.totalTimeSeconds;
+      // Always sync role from backend to keep admin access current
+      if (syncedUser.role && syncedUser.role !== user.role) updates.role = syncedUser.role as 'USER' | 'MODERATOR' | 'OWNER';
 
       if (Object.keys(updates).length > 0) {
         updateUser(updates);
