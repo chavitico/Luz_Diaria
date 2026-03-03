@@ -2,6 +2,7 @@ import "@vibecodeapp/proxy"; // DO NOT REMOVE OTHERWISE VIBECODE PROXY WILL NOT 
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import "./env";
+import { initDatabase } from "./db-init";
 import { sampleRouter } from "./routes/sample";
 import { devotionalRouter } from "./routes/devotional";
 import { gamificationRouter } from "./routes/gamification";
@@ -53,16 +54,13 @@ app.route("/api/gifts", giftsRouter);
 app.route("/api/admin", adminRouter);
 
 // Start cron job for daily devotional generation
-startDevotionalCron();
-
-// Initialize weekly challenges
-initializeWeeklyChallenges();
-
-// Seed promo codes
-seedPromoCodes();
-
-// Seed badges and auto-award to users
-seedBadges();
+// Initialize DB schema first (handles fresh DB or missing columns)
+initDatabase().then(() => {
+  startDevotionalCron();
+  initializeWeeklyChallenges();
+  seedPromoCodes();
+  seedBadges();
+});
 
 const port = Number(process.env.PORT) || 3000;
 

@@ -44,7 +44,7 @@ const createTicketSchema = z.object({
     .optional()
     .default(() => new Date().toISOString().split("T")[0]!),
   // New flexible payload
-  clientClaim: z.record(z.unknown()).optional().default({}),
+  clientClaim: z.record(z.string(), z.unknown()).optional().default({}),
 });
 
 // ─── Helper: build BotPreview ─────────────────────────────────────────────────
