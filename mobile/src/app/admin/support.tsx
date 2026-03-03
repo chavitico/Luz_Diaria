@@ -494,110 +494,110 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
 
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-      <Pressable
-        style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}
-        onPress={onClose}
-      >
-        <Pressable onPress={() => {}} style={{ width: '100%' }}>
-          <View style={{
-            backgroundColor: colors.surface,
-            borderRadius: 24,
-            padding: 24,
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 12 },
-            shadowOpacity: 0.3,
-            shadowRadius: 24,
-            elevation: 16,
-          }}>
-            {/* Icon + title */}
-            <View style={{ alignItems: 'center', marginBottom: 16 }}>
-              <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: accentColor + '18', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
-                {isResolve ? <Check size={28} color={accentColor} /> : <X size={28} color={accentColor} />}
-              </View>
-              <Text style={{ fontSize: 18, fontWeight: '800', color: colors.text, textAlign: 'center' }}>
-                {isResolve ? (es ? 'Resolver ticket' : 'Resolve ticket') : (es ? 'Rechazar ticket' : 'Reject ticket')}
-              </Text>
-              <Text style={{ fontSize: 13, color: colors.textMuted, marginTop: 4, textAlign: 'center' }}>
-                {ticket?.systemSnapshot?.nickname}
-              </Text>
-            </View>
+      <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}>
+        {/* Backdrop tap area */}
+        <Pressable style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} onPress={onClose} />
 
-            {/* What this does */}
-            <View style={{ backgroundColor: accentColor + '10', borderRadius: 12, padding: 12, marginBottom: 16, borderWidth: 1, borderColor: accentColor + '25' }}>
-              <Text style={{ fontSize: 12, color: accentColor, lineHeight: 18, fontWeight: '500' }}>
-                {isResolve
-                  ? isStreakTicket && suggestedStreak > 0
-                    ? `Restaurará la racha a ${suggestedStreak} días (valor del snapshot). No reduce racha existente.`
-                    : isDevotionalTicket
-                    ? `Registrará el devocional del ${ticket?.claimedDate ?? '?'} si no existe ya.`
-                    : (es ? 'Cierra el ticket indicando que el problema fue atendido sin necesidad de compensación.' : 'Closes the ticket indicating the issue was handled without compensation.')
-                  : (es ? 'Cierra el ticket indicando que no procede la solicitud del usuario.' : 'Closes the ticket indicating the user\'s request does not qualify.')}
-              </Text>
+        {/* Card */}
+        <View style={{
+          width: '100%',
+          backgroundColor: colors.surface,
+          borderRadius: 24,
+          padding: 24,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 12 },
+          shadowOpacity: 0.3,
+          shadowRadius: 24,
+          elevation: 16,
+        }}>
+          {/* Icon + title */}
+          <View style={{ alignItems: 'center', marginBottom: 16 }}>
+            <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: accentColor + '18', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+              {isResolve ? <Check size={28} color={accentColor} /> : <X size={28} color={accentColor} />}
             </View>
-
-            {/* Optional note */}
-            <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
-              {es ? 'Nota interna (opcional)' : 'Internal note (optional)'}
+            <Text style={{ fontSize: 18, fontWeight: '800', color: colors.text, textAlign: 'center' }}>
+              {isResolve ? (es ? 'Resolver ticket' : 'Resolve ticket') : (es ? 'Rechazar ticket' : 'Reject ticket')}
             </Text>
-            <TextInput
-              value={note}
-              onChangeText={setNote}
-              placeholder={isResolve
-                ? (es ? 'Ej: Se verificó manualmente y la racha estaba correcta.' : 'E.g.: Manually verified, streak was correct.')
-                : (es ? 'Ej: No hay evidencia suficiente para proceder.' : 'E.g.: Insufficient evidence to proceed.')}
-              placeholderTextColor={colors.textMuted + '70'}
-              multiline
-              numberOfLines={3}
-              style={{
-                backgroundColor: colors.background,
-                borderRadius: 12,
-                padding: 12,
-                color: colors.text,
-                fontSize: 13,
-                borderWidth: 1,
-                borderColor: colors.textMuted + '25',
-                minHeight: 72,
-                textAlignVertical: 'top',
-                marginBottom: 20,
-              }}
-            />
-
-            {/* Buttons */}
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-              <Pressable
-                onPress={onClose}
-                style={({ pressed }) => ({
-                  flex: 1, paddingVertical: 13, borderRadius: 14, alignItems: 'center',
-                  backgroundColor: colors.background, opacity: pressed ? 0.7 : 1,
-                })}
-              >
-                <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted }}>
-                  {es ? 'Cancelar' : 'Cancel'}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={handleSubmit}
-                disabled={sending}
-                style={({ pressed }) => ({
-                  flex: 2, paddingVertical: 13, borderRadius: 14, alignItems: 'center',
-                  flexDirection: 'row', justifyContent: 'center', gap: 8,
-                  backgroundColor: sending ? colors.textMuted + '40' : accentColor,
-                  opacity: pressed ? 0.85 : 1,
-                })}
-              >
-                {sending
-                  ? <ActivityIndicator size="small" color="#FFF" />
-                  : <>
-                      {isResolve ? <Check size={16} color="#FFF" /> : <X size={16} color="#FFF" />}
-                      <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFF' }}>
-                        {isResolve ? (es ? 'Marcar resuelto' : 'Mark resolved') : (es ? 'Rechazar' : 'Reject')}
-                      </Text>
-                    </>}
-              </Pressable>
-            </View>
+            <Text style={{ fontSize: 13, color: colors.textMuted, marginTop: 4, textAlign: 'center' }}>
+              {ticket?.systemSnapshot?.nickname}
+            </Text>
           </View>
-        </Pressable>
-      </Pressable>
+
+          {/* What this does */}
+          <View style={{ backgroundColor: accentColor + '10', borderRadius: 12, padding: 12, marginBottom: 16, borderWidth: 1, borderColor: accentColor + '25' }}>
+            <Text style={{ fontSize: 12, color: accentColor, lineHeight: 18, fontWeight: '500' }}>
+              {isResolve
+                ? isStreakTicket && suggestedStreak > 0
+                  ? `Restaurará la racha a ${suggestedStreak} días (valor del snapshot). No reduce racha existente.`
+                  : isDevotionalTicket
+                  ? `Registrará el devocional del ${ticket?.claimedDate ?? '?'} si no existe ya.`
+                  : (es ? 'Cierra el ticket indicando que el problema fue atendido sin necesidad de compensación.' : 'Closes the ticket indicating the issue was handled without compensation.')
+                : (es ? 'Cierra el ticket indicando que no procede la solicitud del usuario.' : 'Closes the ticket indicating the user\'s request does not qualify.')}
+            </Text>
+          </View>
+
+          {/* Optional note */}
+          <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
+            {es ? 'Nota interna (opcional)' : 'Internal note (optional)'}
+          </Text>
+          <TextInput
+            value={note}
+            onChangeText={setNote}
+            placeholder={isResolve
+              ? (es ? 'Ej: Se verificó manualmente y la racha estaba correcta.' : 'E.g.: Manually verified, streak was correct.')
+              : (es ? 'Ej: No hay evidencia suficiente para proceder.' : 'E.g.: Insufficient evidence to proceed.')}
+            placeholderTextColor={colors.textMuted + '70'}
+            multiline
+            numberOfLines={3}
+            style={{
+              backgroundColor: colors.background,
+              borderRadius: 12,
+              padding: 12,
+              color: colors.text,
+              fontSize: 13,
+              borderWidth: 1,
+              borderColor: colors.textMuted + '25',
+              minHeight: 72,
+              textAlignVertical: 'top',
+              marginBottom: 20,
+            }}
+          />
+
+          {/* Buttons */}
+          <View style={{ flexDirection: 'row', gap: 10 }}>
+            <Pressable
+              onPress={onClose}
+              style={({ pressed }) => ({
+                flex: 1, paddingVertical: 13, borderRadius: 14, alignItems: 'center',
+                backgroundColor: colors.background, opacity: pressed ? 0.7 : 1,
+              })}
+            >
+              <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted }}>
+                {es ? 'Cancelar' : 'Cancel'}
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={handleSubmit}
+              disabled={sending}
+              style={({ pressed }) => ({
+                flex: 2, paddingVertical: 13, borderRadius: 14, alignItems: 'center',
+                flexDirection: 'row', justifyContent: 'center', gap: 8,
+                backgroundColor: sending ? colors.textMuted + '40' : accentColor,
+                opacity: pressed ? 0.85 : 1,
+              })}
+            >
+              {sending
+                ? <ActivityIndicator size="small" color="#FFF" />
+                : <>
+                    {isResolve ? <Check size={16} color="#FFF" /> : <X size={16} color="#FFF" />}
+                    <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFF' }}>
+                      {isResolve ? (es ? 'Marcar resuelto' : 'Mark resolved') : (es ? 'Rechazar' : 'Reject')}
+                    </Text>
+                  </>}
+            </Pressable>
+          </View>
+        </View>
+      </View>
     </Modal>
   );
 }
