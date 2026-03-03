@@ -627,9 +627,9 @@ export default function SupportScreen() {
                   })}
                 >
                   {isSubmitting ? (
-                    <ActivityIndicator size="small" color="#FFFFFF" />
+                    <ActivityIndicator size="small" color={colors.primaryText} />
                   ) : (
-                    <Text style={{ fontSize: 16, fontWeight: '700', color: '#FFFFFF', letterSpacing: 0.3 }}>
+                    <Text style={{ fontSize: 16, fontWeight: '700', color: colors.primaryText, letterSpacing: 0.3 }}>
                       {es ? 'Enviar reporte' : 'Submit report'}
                     </Text>
                   )}
@@ -722,7 +722,7 @@ export default function SupportScreen() {
                 opacity: pressed ? 0.88 : 1,
               })}
             >
-              <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFFFFF' }}>OK</Text>
+              <Text style={{ fontSize: 15, fontWeight: '700', color: colors.primaryText }}>OK</Text>
             </Pressable>
           </Pressable>
         </Pressable>

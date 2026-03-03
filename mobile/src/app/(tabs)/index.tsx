@@ -675,14 +675,14 @@ function PrayerConfirmButton({
         {isPrayerDone ? (
           <>
             <Check size={22} color="#FFFFFF" strokeWidth={3} />
-            <Text className="ml-3 text-white font-bold text-base">
+            <Text className="ml-3 font-bold text-base" style={{ color: '#FFFFFF' }}>
               {language === 'es' ? 'Completado' : 'Completed'}
             </Text>
           </>
         ) : (
           <>
-            <Heart size={22} color="#FFFFFF" />
-            <Text className="ml-3 text-white font-bold text-base">
+            <Heart size={22} color={colors.primaryText} />
+            <Text className="ml-3 font-bold text-base" style={{ color: colors.primaryText }}>
               {language === 'es' ? 'Hoy hice esta oracion' : 'I prayed today'}
             </Text>
           </>
@@ -987,9 +987,9 @@ function AudioControls({
             onPressIn={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
           >
             {isTTSPlaying ? (
-              <Pause size={20} color="#FFFFFF" fill="#FFFFFF" />
+              <Pause size={20} color={colors.primaryText} fill={colors.primaryText} />
             ) : (
-              <Play size={20} color="#FFFFFF" fill="#FFFFFF" />
+              <Play size={20} color={colors.primaryText} fill={colors.primaryText} />
             )}
           </Pressable>
           <Text className="text-xs" style={{ color: colors.textMuted }}>
@@ -1035,7 +1035,7 @@ function AudioControls({
             style={{ backgroundColor: musicEnabled ? colors.primary : colors.textMuted + '30' }}
           >
             {musicEnabled ? (
-              <Volume2 size={20} color="#FFFFFF" />
+              <Volume2 size={20} color={colors.primaryText} />
             ) : (
               <VolumeX size={20} color={colors.textMuted} />
             )}
@@ -1082,7 +1082,7 @@ function AudioControls({
               >
                 <Text
                   className="text-sm font-medium"
-                  style={{ color: currentTrack === track.id ? '#FFFFFF' : colors.text }}
+                  style={{ color: currentTrack === track.id ? colors.primaryText : colors.text }}
                 >
                   {language === 'es' ? track.nameEs : track.name}
                 </Text>

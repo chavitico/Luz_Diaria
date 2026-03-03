@@ -378,5 +378,15 @@
     "amount": 1000,
     "metadata": "{\"reason\":\"Eres un fenómeno de la oración \"}",
     "createdAt": "2026-03-03T22:25:35.313Z"
+  },
+  {
+    "id": "cmmb722nl0011m29m22j13acb",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "ledgerId": "gift_claim_cmm9y71p5000km29qqx44tb91_1772577803505",
+    "type": "admin_grant",
+    "dateId": "2026-03-03",
+    "amount": 2000,
+    "metadata": "{\"reason\":\"Maravillosa Jugada\",\"giftDropId\":\"cmmb6r403003bm2y9q3p08qse\"}",
+    "createdAt": "2026-03-03T22:43:23.506Z"
   }
 ]

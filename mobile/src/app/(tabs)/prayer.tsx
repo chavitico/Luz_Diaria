@@ -370,9 +370,9 @@ function MyPetitionSection() {
               }}
             >
               {submitMutation.isPending ? (
-                <ActivityIndicator size="small" color="#fff" />
+                <ActivityIndicator size="small" color={colors.primaryText} />
               ) : (
-                <Text style={{ fontSize: 15, fontWeight: '700', color: selectedCategory ? '#fff' : colors.textMuted, letterSpacing: 0.3 }}>
+                <Text style={{ fontSize: 15, fontWeight: '700', color: selectedCategory ? colors.primaryText : colors.textMuted, letterSpacing: 0.3 }}>
                   {activePetition
                     ? language === 'es'
                       ? 'Cambiar mi petición'
@@ -502,11 +502,11 @@ function PrayedTodayButton() {
               }}
             >
               {prayedMutation.isPending ? (
-                <ActivityIndicator size="small" color="#fff" />
+                <ActivityIndicator size="small" color={colors.primaryText} />
               ) : (
                 <>
                   <Text style={{ fontSize: 20 }}>🙏</Text>
-                  <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
+                  <Text style={{ fontSize: 16, fontWeight: '700', color: colors.primaryText, letterSpacing: 0.3 }}>
                     {language === 'es' ? 'Ya oré hoy' : 'I prayed today'}
                   </Text>
                 </>
