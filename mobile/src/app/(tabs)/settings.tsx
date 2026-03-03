@@ -219,6 +219,8 @@ export default function SettingsScreen() {
   const [transferCodeExpiry, setTransferCodeExpiry] = useState<Date | null>(null);
   const [isGeneratingCode, setIsGeneratingCode] = useState(false);
   const [showAdminHub, setShowAdminHub] = useState(false);
+  const [adminTapCount, setAdminTapCount] = useState(0);
+  const adminTapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [enteredCode, setEnteredCode] = useState('');
   const [isRestoring, setIsRestoring] = useState(false);
   const [restoreError, setRestoreError] = useState<string | null>(null);
@@ -1278,17 +1280,25 @@ export default function SettingsScreen() {
             </View>
           </Animated.View>
 
-          {/* Admin Hub trigger — long-press v1.0 (OWNER / MODERATOR only) */}
+          {/* Admin Hub trigger — tap 5 veces el número de versión */}
           <Pressable
-            onLongPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-              setShowAdminHub(true);
+            onPress={() => {
+              const next = adminTapCount + 1;
+              setAdminTapCount(next);
+              if (adminTapTimer.current) clearTimeout(adminTapTimer.current);
+              if (next >= 5) {
+                setAdminTapCount(0);
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                setShowAdminHub(true);
+              } else {
+                adminTapTimer.current = setTimeout(() => setAdminTapCount(0), 1500);
+              }
             }}
-            delayLongPress={600}
             style={{ alignItems: 'center', paddingVertical: 10, marginBottom: 8 }}
+            hitSlop={{ top: 10, bottom: 10, left: 20, right: 20 }}
           >
-            <Text style={{ fontSize: 12, color: colors.textMuted + '60', letterSpacing: 0.5 }}>
-              v1.0.0
+            <Text style={{ fontSize: 12, color: adminTapCount > 0 ? colors.primary + 'CC' : colors.textMuted + '60', letterSpacing: 0.5 }}>
+              v1.0.0{adminTapCount > 0 ? ` (${adminTapCount}/5)` : ''}
             </Text>
           </Pressable>
 
