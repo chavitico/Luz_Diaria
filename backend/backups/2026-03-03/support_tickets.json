@@ -57,15 +57,15 @@
     "claimedStreak": 25,
     "claimedDate": "2026-03-03",
     "clientClaim": "{\"date\":\"2026-03-03\",\"issue\":\"not_counted\"}",
-    "status": "needs_human",
-    "resolutionNote": "No snapshot available for verification. Manual review required.",
+    "status": "closed",
+    "resolutionNote": "Rechazado por admin cmm9x0ybc0002m2sr3l31uj4q",
     "beforeState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
     "afterState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
     "botPreview": "{\"summary\":\"Devocional no contado — requiere revisión\",\"userMessageEs\":\"Recibimos tu reporte. No encontramos una forma automática de verificar tu devocional del día indicado. Un moderador revisará tu caso. Gracias.\",\"userMessageEn\":\"We received your report. We couldn't automatically verify your devotional for the indicated day. A moderator will review your case. Thank you.\",\"action\":\"needs_human\"}",
     "snapshotDate": null,
     "snapshotId": null,
     "createdAt": "2026-03-03T19:07:41.559Z",
-    "updatedAt": "2026-03-03T19:07:41.559Z"
+    "updatedAt": "2026-03-03T19:46:41.209Z"
   },
   {
     "id": "cmmb0lczn000um2rlvk2tiv6j",

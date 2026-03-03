@@ -202,7 +202,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
       label: 'Usuarios',
       description: 'Gestión de usuarios, roles, insignias y compensaciones',
       route: '/admin/moderators',
-      roles: ['OWNER', 'MODERATOR'],
+      roles: ['OWNER'],
       accentColor: '#3B82F6',
     },
   ];
