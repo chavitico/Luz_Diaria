@@ -570,36 +570,51 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
           />
 
           {/* Buttons */}
-          <View style={{ flexDirection: 'row', gap: 10 }}>
-            <Pressable
-              onPress={onClose}
-              style={({ pressed }) => ({
-                flex: 1, paddingVertical: 13, borderRadius: 14, alignItems: 'center',
-                backgroundColor: colors.background, opacity: pressed ? 0.7 : 1,
-              })}
-            >
-              <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted }}>
-                {es ? 'Cancelar' : 'Cancel'}
-              </Text>
-            </Pressable>
+          <View style={{ gap: 10 }}>
+            {/* Action button — full width, always solid */}
             <Pressable
               onPress={handleSubmit}
               disabled={sending}
               style={({ pressed }) => ({
-                flex: 2, paddingVertical: 13, borderRadius: 14, alignItems: 'center',
-                flexDirection: 'row', justifyContent: 'center', gap: 8,
-                backgroundColor: sending ? colors.textMuted + '40' : accentColor,
-                opacity: pressed ? 0.85 : 1,
+                width: '100%',
+                paddingVertical: 15,
+                borderRadius: 16,
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                gap: 8,
+                backgroundColor: accentColor,
+                opacity: pressed || sending ? 0.8 : 1,
+                shadowColor: accentColor,
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.4,
+                shadowRadius: 10,
+                elevation: 6,
               })}
             >
               {sending
                 ? <ActivityIndicator size="small" color="#FFF" />
                 : <>
-                    {isResolve ? <Check size={16} color="#FFF" /> : <X size={16} color="#FFF" />}
-                    <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFF' }}>
+                    {isResolve ? <Check size={17} color="#FFF" /> : <X size={17} color="#FFF" />}
+                    <Text style={{ fontSize: 15, fontWeight: '800', color: '#FFF', letterSpacing: 0.2 }}>
                       {isResolve ? (es ? 'Marcar resuelto' : 'Mark resolved') : (es ? 'Rechazar' : 'Reject')}
                     </Text>
                   </>}
+            </Pressable>
+
+            {/* Cancel — text only, aligned right */}
+            <Pressable
+              onPress={onClose}
+              style={({ pressed }) => ({
+                alignSelf: 'flex-end',
+                paddingVertical: 8,
+                paddingHorizontal: 4,
+                opacity: pressed ? 0.5 : 1,
+              })}
+            >
+              <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted }}>
+                {es ? 'Cancelar' : 'Cancel'}
+              </Text>
             </Pressable>
           </View>
         </View>
