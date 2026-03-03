@@ -493,23 +493,29 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
   };
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-      <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}>
-        {/* Backdrop tap area */}
-        <Pressable style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} onPress={onClose} />
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end' }}>
+          {/* Backdrop tap area */}
+          <Pressable style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} onPress={onClose} />
 
-        {/* Card */}
-        <View style={{
-          width: '100%',
-          backgroundColor: colors.surface,
-          borderRadius: 24,
-          padding: 24,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 12 },
-          shadowOpacity: 0.3,
-          shadowRadius: 24,
-          elevation: 16,
-        }}>
+          {/* Card as bottom sheet so buttons are always visible */}
+          <View style={{
+            width: '100%',
+            backgroundColor: colors.surface,
+            borderTopLeftRadius: 28,
+            borderTopRightRadius: 28,
+            paddingHorizontal: 24,
+            paddingTop: 16,
+            paddingBottom: 40,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: -4 },
+            shadowOpacity: 0.15,
+            shadowRadius: 16,
+            elevation: 16,
+          }}>
+          {/* Handle */}
+          <View style={{ alignSelf: 'center', width: 40, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40', marginBottom: 20 }} />
           {/* Icon + title */}
           <View style={{ alignItems: 'center', marginBottom: 16 }}>
             <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: accentColor + '18', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
@@ -598,6 +604,7 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
           </View>
         </View>
       </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }
