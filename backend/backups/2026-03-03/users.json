@@ -56,9 +56,9 @@
     "avatarId": "avatar_praying",
     "frameId": "frame_v2_jade",
     "titleId": "title_constructor",
-    "themeId": "theme_desierto_suave",
+    "themeId": "theme_amanecer_dorado",
     "selectedMusicId": "music_free_1",
-    "points": 10203,
+    "points": 9703,
     "streakCurrent": 4,
     "streakBest": 4,
     "devotionalsCompleted": 5,
@@ -72,7 +72,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-03T01:47:32.826Z",
-    "updatedAt": "2026-03-03T22:46:23.204Z"
+    "updatedAt": "2026-03-03T22:59:52.885Z"
   },
   {
     "id": "cmm9yc1nx000sm29qq8qeoai9",

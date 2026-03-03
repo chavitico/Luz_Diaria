@@ -39,7 +39,7 @@ import {
   X,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
-import { useThemeColors, useLanguage, useUser } from '@/lib/store';
+import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -301,7 +301,7 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
                       })}
                     >
                       <Text>{rt.emoji}</Text>
-                      <Text style={{ fontSize: 13, fontWeight: '600', color: rewardType === rt.value ? '#FFF' : colors.text }}>
+                      <Text style={{ fontSize: 13, fontWeight: '600', color: rewardType === rt.value ? colors.primaryText : colors.text }}>
                         {rt.label}
                       </Text>
                     </Pressable>
@@ -593,10 +593,10 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
               })}
             >
               {sending
-                ? <ActivityIndicator size="small" color="#FFF" />
+                ? <ActivityIndicator size="small" color={getContrastText(accentColor)} />
                 : <>
-                    {isResolve ? <Check size={17} color="#FFF" /> : <X size={17} color="#FFF" />}
-                    <Text style={{ fontSize: 15, fontWeight: '800', color: '#FFF', letterSpacing: 0.2 }}>
+                    {isResolve ? <Check size={17} color={getContrastText(accentColor)} /> : <X size={17} color={getContrastText(accentColor)} />}
+                    <Text style={{ fontSize: 15, fontWeight: '800', color: getContrastText(accentColor), letterSpacing: 0.2 }}>
                       {isResolve ? (es ? 'Marcar resuelto' : 'Mark resolved') : (es ? 'Rechazar' : 'Reject')}
                     </Text>
                   </>}
@@ -719,8 +719,8 @@ function BotPreviewModal({
                 opacity: pressed ? 0.8 : 1,
               })}
             >
-              <Copy size={15} color="#FFF" />
-              <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFF' }}>
+              <Copy size={15} color={colors.primaryText} />
+              <Text style={{ fontSize: 14, fontWeight: '700', color: colors.primaryText }}>
                 {es ? 'Copiar' : 'Copy'}
               </Text>
             </Pressable>
@@ -1153,7 +1153,7 @@ export default function AdminSupportScreen() {
               borderRadius: 12, backgroundColor: colors.primary, opacity: pressed ? 0.85 : 1,
             })}
           >
-            <Text style={{ color: '#FFF', fontWeight: '700', fontSize: 14 }}>
+            <Text style={{ color: colors.primaryText, fontWeight: '700', fontSize: 14 }}>
               {es ? 'Reintentar' : 'Retry'}
             </Text>
           </Pressable>
@@ -1194,7 +1194,7 @@ export default function AdminSupportScreen() {
                     opacity: pressed ? 0.75 : 1,
                   })}
                 >
-                  <Text style={{ fontSize: 12, fontWeight: '700', color: isActive ? '#FFF' : chip.color }}>
+                  <Text style={{ fontSize: 12, fontWeight: '700', color: isActive ? getContrastText(chip.color) : chip.color }}>
                     {chip.label}
                   </Text>
                 </Pressable>

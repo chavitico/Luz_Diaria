@@ -523,5 +523,19 @@
     "itemId": "theme_desierto_suave",
     "acquiredAt": "2026-03-03T22:46:20.120Z",
     "source": "store"
+  },
+  {
+    "id": "cmmb7jiy50013m2t2lle8jryn",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_fuego_espiritu",
+    "acquiredAt": "2026-03-03T22:56:57.774Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb7n85e0015m2t2kiciuu6z",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_amanecer_dorado",
+    "acquiredAt": "2026-03-03T22:59:50.403Z",
+    "source": "store"
   }
 ]
