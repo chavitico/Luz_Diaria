@@ -12,15 +12,6 @@ import {
   ActivityIndicator,
   useWindowDimensions,
 } from 'react-native';
-import Animated, {
-  FadeIn,
-  FadeOut,
-  SlideInDown,
-  SlideOutDown,
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-} from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import {
@@ -53,8 +44,6 @@ interface AdminHubModalProps {
   visible: boolean;
   onClose: () => void;
 }
-
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 function SectionRow({
   section,
@@ -242,14 +231,12 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
     <Modal
       visible={visible}
       transparent
-      animationType="none"
+      animationType="slide"
       statusBarTranslucent
       onRequestClose={onClose}
     >
       {/* Backdrop */}
-      <Animated.View
-        entering={FadeIn.duration(200)}
-        exiting={FadeOut.duration(200)}
+      <View
         style={{
           flex: 1,
           backgroundColor: 'rgba(0,0,0,0.6)',
@@ -259,9 +246,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
         <Pressable style={{ flex: 1 }} onPress={onClose} />
 
         {/* Sheet */}
-        <Animated.View
-          entering={SlideInDown.springify().damping(20).stiffness(180)}
-          exiting={SlideOutDown.duration(250)}
+        <View
           style={{
             backgroundColor: colors.background,
             borderTopLeftRadius: 28,
@@ -428,8 +413,8 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
               </>
             )}
           </ScrollView>
-        </Animated.View>
-      </Animated.View>
+        </View>
+      </View>
     </Modal>
   );
 }
