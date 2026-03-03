@@ -1278,18 +1278,18 @@ export default function SettingsScreen() {
             </View>
           </Animated.View>
 
-          {/* Hidden admin support access — tap © 7 times */}
+          {/* Admin Hub trigger — long-press v1.0 (OWNER / MODERATOR only) */}
           <Pressable
             onLongPress={() => {
               if (user?.role !== 'OWNER' && user?.role !== 'MODERATOR') return;
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
               setShowAdminHub(true);
             }}
-            delayLongPress={800}
-            style={{ alignItems: 'center', paddingVertical: 6, marginBottom: 8 }}
+            delayLongPress={600}
+            style={{ alignItems: 'center', paddingVertical: 10, marginBottom: 8 }}
           >
-            <Text style={{ fontSize: 11, color: colors.textMuted + '40' }}>
-              v1.0
+            <Text style={{ fontSize: 12, color: colors.textMuted + '60', letterSpacing: 0.5 }}>
+              v1.0.0
             </Text>
           </Pressable>
 
