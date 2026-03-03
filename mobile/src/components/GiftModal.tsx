@@ -14,7 +14,7 @@ import {
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
-import { Gift, X, Package, Palette, Tag, User as UserIcon, Star, ShoppingBag } from 'lucide-react-native';
+import { Gift, X, Package, Palette, Tag, User as UserIcon, Star, ShoppingBag, Coins } from 'lucide-react-native';
 import { useThemeColors, useLanguage } from '@/lib/store';
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
@@ -41,40 +41,44 @@ interface GiftModalProps {
 function RewardPreview({ rewardType, rewardId, itemName }: { rewardType: PendingGift['rewardType']; rewardId: string; itemName?: string | null }) {
   const colors = useThemeColors();
 
-  const config: Record<PendingGift['rewardType'], { icon: React.ReactNode; label: string; color: string; bg: string }> = {
+  // Detect if CHEST is a points gift (numeric rewardId)
+  const isPointsGift = rewardType === 'CHEST' && !isNaN(Number(rewardId));
+  const pointsAmount = isPointsGift ? Number(rewardId) : null;
+
+  const config: Record<PendingGift['rewardType'], { icon: React.ReactNode; color: string; bg: string }> = {
     CHEST: {
-      icon: <Text style={{ fontSize: 52 }}>📦</Text>,
-      label: rewardId,
+      icon: isPointsGift
+        ? <Coins size={48} color="#F59E0B" strokeWidth={1.5} />
+        : <Text style={{ fontSize: 52 }}>📦</Text>,
       color: '#F59E0B',
       bg: '#FEF3C7',
     },
     THEME: {
       icon: <Palette size={48} color="#8B5CF6" strokeWidth={1.5} />,
-      label: rewardId,
       color: '#8B5CF6',
       bg: '#EDE9FE',
     },
     TITLE: {
       icon: <Tag size={48} color="#0EA5E9" strokeWidth={1.5} />,
-      label: rewardId,
       color: '#0EA5E9',
       bg: '#E0F2FE',
     },
     AVATAR: {
       icon: <UserIcon size={48} color="#EC4899" strokeWidth={1.5} />,
-      label: rewardId,
       color: '#EC4899',
       bg: '#FCE7F3',
     },
     ITEM: {
       icon: <Star size={48} color="#10B981" strokeWidth={1.5} />,
-      label: rewardId,
       color: '#10B981',
       bg: '#D1FAE5',
     },
   };
 
   const { icon, color, bg } = config[rewardType];
+  const displayName = pointsAmount !== null
+    ? `+${pointsAmount.toLocaleString()} pts`
+    : itemName ?? null;
 
   return (
     <View style={{ alignItems: 'center', gap: 10 }}>
@@ -92,18 +96,18 @@ function RewardPreview({ rewardType, rewardId, itemName }: { rewardType: Pending
       >
         {icon}
       </View>
-      {itemName ? (
+      {displayName ? (
         <Text
           style={{
-            fontSize: 15,
-            fontWeight: '700',
+            fontSize: pointsAmount !== null ? 22 : 15,
+            fontWeight: '800',
             color: color,
             textAlign: 'center',
             maxWidth: 220,
           }}
           numberOfLines={2}
         >
-          {itemName}
+          {displayName}
         </Text>
       ) : null}
     </View>
@@ -197,8 +201,13 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
     onLater();
   };
 
+  // Detect if this is a points gift
+  const isPointsGift = gift.rewardType === 'CHEST' && !isNaN(Number(gift.rewardId));
+
   const rewardTypeLabel: Record<PendingGift['rewardType'], string> = {
-    CHEST: language === 'es' ? 'Cofre especial' : 'Special Chest',
+    CHEST: isPointsGift
+      ? (language === 'es' ? 'Compensación en puntos' : 'Points compensation')
+      : (language === 'es' ? 'Cofre especial' : 'Special Chest'),
     THEME: language === 'es' ? 'Tema exclusivo' : 'Exclusive Theme',
     TITLE: language === 'es' ? 'Título especial' : 'Special Title',
     AVATAR: language === 'es' ? 'Avatar exclusivo' : 'Exclusive Avatar',
@@ -360,9 +369,9 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
 
               {/* CTA buttons */}
               <View style={{ width: '100%', gap: 10, paddingTop: 4 }}>
-                {/* Primary: Claim and go to store */}
+                {/* Primary: Claim (and go to store for items) */}
                 <Pressable
-                  onPress={handleClaimAndGoToStore}
+                  onPress={isPointsGift ? handleClaim : handleClaimAndGoToStore}
                   disabled={claiming}
                   style={({ pressed }) => ({
                     backgroundColor: pressed ? '#D97706' : '#F59E0B',
@@ -380,33 +389,40 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                     elevation: 6,
                   })}
                 >
-                  <ShoppingBag size={18} color="#FFFFFF" strokeWidth={2.5} />
+                  {isPointsGift
+                    ? <Coins size={18} color="#FFFFFF" strokeWidth={2.5} />
+                    : <ShoppingBag size={18} color="#FFFFFF" strokeWidth={2.5} />
+                  }
                   <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '800' }}>
                     {claiming
                       ? (language === 'es' ? 'Reclamando...' : 'Claiming...')
-                      : (language === 'es' ? '¡Reclamar y ver en tienda!' : 'Claim & View in Store!')
+                      : isPointsGift
+                        ? (language === 'es' ? '¡Reclamar puntos!' : 'Claim Points!')
+                        : (language === 'es' ? '¡Reclamar y ver en tienda!' : 'Claim & View in Store!')
                     }
                   </Text>
                 </Pressable>
 
-                {/* Secondary: Just claim */}
-                <Pressable
-                  onPress={handleClaim}
-                  disabled={claiming}
-                  style={({ pressed }) => ({
-                    borderRadius: 14,
-                    paddingVertical: 12,
-                    alignItems: 'center',
-                    opacity: pressed || claiming ? 0.6 : 1,
-                    borderWidth: 1.5,
-                    borderColor: colors.textMuted + '30',
-                    backgroundColor: colors.textMuted + '08',
-                  })}
-                >
-                  <Text style={{ color: colors.text, fontSize: 15, fontWeight: '600' }}>
-                    {language === 'es' ? 'Solo reclamar' : 'Just claim'}
-                  </Text>
-                </Pressable>
+                {/* Secondary: Just claim — only shown for item gifts */}
+                {!isPointsGift && (
+                  <Pressable
+                    onPress={handleClaim}
+                    disabled={claiming}
+                    style={({ pressed }) => ({
+                      borderRadius: 14,
+                      paddingVertical: 12,
+                      alignItems: 'center',
+                      opacity: pressed || claiming ? 0.6 : 1,
+                      borderWidth: 1.5,
+                      borderColor: colors.textMuted + '30',
+                      backgroundColor: colors.textMuted + '08',
+                    })}
+                  >
+                    <Text style={{ color: colors.text, fontSize: 15, fontWeight: '600' }}>
+                      {language === 'es' ? 'Solo reclamar' : 'Just claim'}
+                    </Text>
+                  </Pressable>
+                )}
 
                 <Pressable
                   onPress={handleLater}

@@ -197,26 +197,32 @@ adminRouter.post(
       if (type === "points") {
         if (!points || points < 1) return c.json({ success: false, error: "Points must be >= 1" }, 400);
 
-        await prisma.$transaction([
-          prisma.user.update({ where: { id: targetId }, data: { points: { increment: points } } }),
-          prisma.pointLedger.create({
-            data: {
-              userId:   targetId,
-              ledgerId: `admin_grant_${targetId}_${Date.now()}`,
-              type:     "admin_grant",
-              dateId:   new Date().toISOString().split("T")[0] as string,
-              amount:   points,
-              metadata: JSON.stringify({ reason: reason ?? "Compensación admin" }),
-            },
-          }),
-        ]);
+        // Create a GiftDrop + UserGift so the user sees the gift popup and must claim the points
+        const giftTitle = reason?.trim() ? reason.trim() : `¡Puntos para ti!`;
+        const giftMessage = `Has recibido ${points} puntos de compensación.`;
+
+        const giftDrop = await prisma.giftDrop.create({
+          data: {
+            title: giftTitle,
+            message: giftMessage,
+            rewardType: "CHEST",
+            rewardId: String(points), // numeric string = points amount
+            audienceType: "USER_IDS",
+            audienceUserIds: JSON.stringify([targetId]),
+            isActive: true,
+          },
+        });
+
+        await prisma.userGift.create({
+          data: { userId: targetId, giftDropId: giftDrop.id, status: "PENDING" },
+        });
 
         await prisma.adminAuditLog.create({
           data: { actorUserId: actorId, targetUserId: targetId, action: "GRANT_POINTS", beforeRole: "", afterRole: "" },
         });
 
-        console.log(`[AdminUsers] Compensate ${target.nickname}: +${points} pts`);
-        return c.json({ success: true, message: `Granted ${points} points to ${target.nickname}` });
+        console.log(`[AdminUsers] Compensate ${target.nickname}: ${points} points (via gift drop ${giftDrop.id})`);
+        return c.json({ success: true, message: `Pending gift of ${points} points created for ${target.nickname}` });
       }
 
       if (type === "item") {

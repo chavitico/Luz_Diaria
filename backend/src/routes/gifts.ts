@@ -159,6 +159,16 @@ giftsRouter.post("/claim", zValidator("json", claimGiftSchema), async (c) => {
               where: { id: userId },
               data: { points: { increment: pointsAmount } },
             });
+            await tx.pointLedger.create({
+              data: {
+                userId,
+                ledgerId: `gift_claim_${userId}_${Date.now()}`,
+                type: "admin_grant",
+                dateId: new Date().toISOString().split("T")[0] as string,
+                amount: pointsAmount,
+                metadata: JSON.stringify({ reason: userGift.giftDrop.title, giftDropId: userGift.giftDropId }),
+              },
+            });
           }
         }
       } else {
