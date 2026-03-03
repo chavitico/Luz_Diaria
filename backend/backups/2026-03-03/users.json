@@ -31,7 +31,7 @@
     "avatarId": "avatar_heart",
     "frameId": "frame_v2_olivo",
     "titleId": "title_buscador",
-    "themeId": "theme_amanecer",
+    "themeId": "theme_amanecer_dorado",
     "selectedMusicId": "music_free_1",
     "points": 34307,
     "streakCurrent": 25,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-03T19:06:21.149Z"
+    "updatedAt": "2026-03-03T19:54:17.053Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -72,7 +72,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-03T01:47:32.826Z",
-    "updatedAt": "2026-03-03T14:10:53.958Z"
+    "updatedAt": "2026-03-03T20:04:36.209Z"
   },
   {
     "id": "cmm9yc1nx000sm29qq8qeoai9",

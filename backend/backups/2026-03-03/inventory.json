@@ -369,5 +369,33 @@
     "itemId": "badge_fundador",
     "acquiredAt": "2026-03-03T19:06:03.390Z",
     "source": "admin_grant"
+  },
+  {
+    "id": "cmmb0zon20011m2nulm8ooy9b",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_mar_misericordia",
+    "acquiredAt": "2026-03-03T19:53:34.335Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb1087i0013m2nu6oj4won8",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_jardin_gracia",
+    "acquiredAt": "2026-03-03T19:53:59.694Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb10cwo0015m2nui9ll3g4j",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_amanecer_dorado",
+    "acquiredAt": "2026-03-03T19:54:05.784Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb1bz65001fm2nu1ivkh3bk",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-03T20:03:07.853Z",
+    "source": "admin_grant"
   }
 ]

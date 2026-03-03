@@ -1073,6 +1073,8 @@ export default function AdminSupportScreen() {
   const [resolveMode, setResolveMode] = useState<'resolved' | 'rejected'>('resolved');
   const [resolveVisible, setResolveVisible] = useState(false);
 
+  const [activeFilter, setActiveFilter] = useState<AdminTicket['status'] | null>(null);
+
   const fetchTickets = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
     else setLoading(true);
@@ -1101,6 +1103,8 @@ export default function AdminSupportScreen() {
     open: tickets.filter(t => t.status === 'open').length,
     closed: tickets.filter(t => t.status === 'closed').length,
   };
+
+  const filteredTickets = activeFilter ? tickets.filter(t => t.status === activeFilter) : tickets;
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
@@ -1162,42 +1166,66 @@ export default function AdminSupportScreen() {
             <RefreshControl refreshing={refreshing} onRefresh={() => fetchTickets(true)} tintColor={colors.primary} />
           }
         >
-          {/* Summary chips */}
+          {/* Filter chips */}
           <Animated.View
             entering={FadeInDown.delay(40).duration(350)}
             style={{ flexDirection: 'row', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}
           >
-            {[
-              { label: `${counts.auto_fixed} auto-fixed`,   color: '#22C55E' },
-              { label: `${counts.needs_human} revisión`,    color: '#F59E0B' },
-              { label: `${counts.open} open`,               color: '#94A3B8' },
-              { label: `${counts.closed} closed`,           color: colors.textMuted },
-            ].map(chip => (
-              <View
-                key={chip.label}
-                style={{
-                  paddingVertical: 5, paddingHorizontal: 12,
-                  borderRadius: 20,
-                  backgroundColor: chip.color + '18',
-                  borderWidth: 1, borderColor: chip.color + '40',
-                }}
-              >
-                <Text style={{ fontSize: 12, fontWeight: '700', color: chip.color }}>
-                  {chip.label}
-                </Text>
-              </View>
-            ))}
+            {([
+              { status: 'auto_fixed' as const,  label: `${counts.auto_fixed} auto-fixed`, color: '#22C55E' },
+              { status: 'needs_human' as const, label: `${counts.needs_human} revisión`,  color: '#F59E0B' },
+              { status: 'open' as const,        label: `${counts.open} open`,             color: '#94A3B8' },
+              { status: 'closed' as const,      label: `${counts.closed} closed`,         color: colors.textMuted },
+            ] as { status: AdminTicket['status']; label: string; color: string }[]).map(chip => {
+              const isActive = activeFilter === chip.status;
+              return (
+                <Pressable
+                  key={chip.status}
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    setActiveFilter(isActive ? null : chip.status);
+                  }}
+                  style={({ pressed }) => ({
+                    paddingVertical: 6, paddingHorizontal: 13,
+                    borderRadius: 20,
+                    backgroundColor: isActive ? chip.color : chip.color + '18',
+                    borderWidth: 1.5,
+                    borderColor: isActive ? chip.color : chip.color + '40',
+                    opacity: pressed ? 0.75 : 1,
+                  })}
+                >
+                  <Text style={{ fontSize: 12, fontWeight: '700', color: isActive ? '#FFF' : chip.color }}>
+                    {chip.label}
+                  </Text>
+                </Pressable>
+              );
+            })}
           </Animated.View>
 
-          {tickets.length === 0 ? (
+          {/* Active filter label */}
+          {activeFilter && (
+            <Pressable
+              onPress={() => setActiveFilter(null)}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 14, alignSelf: 'flex-start' }}
+            >
+              <X size={12} color={colors.textMuted} />
+              <Text style={{ fontSize: 12, color: colors.textMuted, fontWeight: '600' }}>
+                {es ? 'Limpiar filtro' : 'Clear filter'}
+              </Text>
+            </Pressable>
+          )}
+
+          {filteredTickets.length === 0 ? (
             <View style={{ alignItems: 'center', paddingTop: 60 }}>
               <CheckCircle size={40} color={colors.textMuted + '60'} />
               <Text style={{ fontSize: 14, color: colors.textMuted, marginTop: 16 }}>
-                {es ? 'Sin tickets aún' : 'No tickets yet'}
+                {activeFilter
+                  ? (es ? 'Sin tickets con ese estado' : 'No tickets with that status')
+                  : (es ? 'Sin tickets aún' : 'No tickets yet')}
               </Text>
             </View>
           ) : (
-            tickets.map((ticket, i) => (
+            filteredTickets.map((ticket, i) => (
               <TicketCard
                 key={ticket.id}
                 ticket={ticket}

@@ -6,15 +6,15 @@
     "claimedStreak": 5,
     "claimedDate": "2026-03-03",
     "clientClaim": "{\"claimedStreak\":5}",
-    "status": "needs_human",
-    "resolutionNote": "No snapshot available for verification. Manual review required.",
+    "status": "closed",
+    "resolutionNote": "Rechazado por admin cmm9x0ybc0002m2sr3l31uj4q",
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "botPreview": "{\"summary\":\"Racha perdida — requiere revisión manual\",\"userMessageEs\":\"Hola, recibimos tu reporte sobre tu racha. La diferencia detectada es demasiado grande para una corrección automática, por lo que un moderador revisará tu caso pronto. Gracias por reportarlo.\",\"userMessageEn\":\"Hello, we received your streak report. The detected difference is too large for an automatic fix, so a moderator will review your case soon. Thank you for reporting it.\",\"action\":\"needs_human\"}",
     "snapshotDate": null,
     "snapshotId": null,
     "createdAt": "2026-03-03T01:13:13.921Z",
-    "updatedAt": "2026-03-03T01:13:13.921Z"
+    "updatedAt": "2026-03-03T19:52:54.913Z"
   },
   {
     "id": "cmm9wyx1m0002m2ljr9yj09pw",
@@ -23,15 +23,15 @@
     "claimedStreak": 0,
     "claimedDate": "2026-03-03",
     "clientClaim": "{\"issue\":\"no_sound\",\"os\":\"ios\"}",
-    "status": "needs_human",
-    "resolutionNote": "audio_tts issue reported. Awaiting moderator review.",
+    "status": "closed",
+    "resolutionNote": "Compensado con regalo cmmb0ylcs000xm2nubihgl8wb por admin cmm9x0ybc0002m2sr3l31uj4q",
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "botPreview": "{\"summary\":\"Audio/TTS: no_sound (ios/no especificado)\",\"userMessageEs\":\"Hola, recibimos tu reporte de audio (no_sound). Pasos a seguir: 1) Verifica que el volumen del dispositivo esté activo. 2) Cierra y abre la app. 3) Ve a Ajustes > Sonido y asegúrate de que la música esté activada. Si el problema persiste, escríbenos y lo escalaremos.\",\"userMessageEn\":\"Hello, we received your audio report (no_sound). Steps to try: 1) Verifica que el volumen del dispositivo esté activo. 2) Cierra y abre la app. 3) Ve a Ajustes > Sonido y asegúrate de que la música esté activada. If the issue persists, let us know and we'll escalate it.\",\"action\":\"info_only\"}",
     "snapshotDate": null,
     "snapshotId": null,
     "createdAt": "2026-03-03T01:13:13.931Z",
-    "updatedAt": "2026-03-03T01:13:13.931Z"
+    "updatedAt": "2026-03-03T19:52:43.428Z"
   },
   {
     "id": "cmm9wyx1u0003m2lj42mmpc8s",
@@ -40,15 +40,15 @@
     "claimedStreak": 0,
     "claimedDate": "2026-03-03",
     "clientClaim": "{\"issue\":\"not_received\",\"scheduledHour\":6,\"enabled\":true}",
-    "status": "needs_human",
-    "resolutionNote": "notification issue reported. Awaiting moderator review.",
+    "status": "closed",
+    "resolutionNote": "Compensado con regalo cmmb0y7nt000um2nuqn8roaso por admin cmm9x0ybc0002m2sr3l31uj4q",
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "botPreview": "{\"summary\":\"Notificación: not_received (habilitado: true)\",\"userMessageEs\":\"Hola, recibimos tu reporte de notificaciones (not_received). 1) Verifica que las notificaciones estén activadas en Ajustes > Notificaciones. 2) Hora programada: 6:00. 3) En iOS, ve a Configuración > Luz Diaria > Notificaciones y confirma que estén habilitadas.\",\"userMessageEn\":\"Hello, we received your notification report (not_received). Please check your device notification settings and make sure notifications are enabled for Luz Diaria.\",\"action\":\"info_only\"}",
     "snapshotDate": null,
     "snapshotId": null,
     "createdAt": "2026-03-03T01:13:13.939Z",
-    "updatedAt": "2026-03-03T01:13:13.939Z"
+    "updatedAt": "2026-03-03T19:52:25.681Z"
   },
   {
     "id": "cmmazcol20016m2e264u5cto8",
@@ -74,14 +74,14 @@
     "claimedStreak": 25,
     "claimedDate": "2026-03-03",
     "clientClaim": "{\"date\":\"2026-03-03\",\"issue\":\"not_counted\"}",
-    "status": "auto_fixed",
-    "resolutionNote": "Devocional del 2026-03-03 ya registrado en la base de datos.",
+    "status": "closed",
+    "resolutionNote": "Rechazado por admin cmm9x0ybc0002m2sr3l31uj4q",
     "beforeState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
     "afterState": "{\"streakCurrent\":25,\"devotionalsCompleted\":8}",
     "botPreview": "{\"summary\":\"Devocional reconocido automáticamente\",\"userMessageEs\":\"Tu devocional fue registrado correctamente. Si el conteo no se refleja de inmediato, cierra y abre la app.\",\"userMessageEn\":\"Your devotional was registered correctly. If the count doesn't show immediately, close and reopen the app.\",\"action\":\"auto_fixed\",\"snapshotComparison\":{\"snapshotDate\":\"2026-03-03\",\"snapshotId\":\"cmm9xoav90001m29qwzjzu5sj\",\"snapshotStreak\":25,\"currentStreak\":25,\"claimedStreak\":25,\"diffDays\":0,\"devotionalTodayCR\":true,\"lastDevotionalDate\":null,\"escalationReason\":\"\"}}",
     "snapshotDate": "2026-03-03",
     "snapshotId": "cmm9xoav90001m29qwzjzu5sj",
     "createdAt": "2026-03-03T19:42:26.051Z",
-    "updatedAt": "2026-03-03T19:42:26.051Z"
+    "updatedAt": "2026-03-03T19:51:46.758Z"
   }
 ]
