@@ -784,8 +784,8 @@ function WeeklyChestCard({
               </Text>
               <Text className="text-xs leading-5" style={{ color: colors.text }}>
                 {language === 'es'
-                  ? 'Completa los 3 desafíos semanales para desbloquear el cofre. Una vez todos estén reclamados, el cofre aparecerá listo para abrirse.'
-                  : 'Complete all 3 weekly challenges to unlock the chest. Once all are claimed, the chest will appear ready to open.'}
+                  ? 'Completa los 2 desafíos semanales para desbloquear el cofre. Una vez ambos estén reclamados, el cofre aparecerá listo para abrirse.'
+                  : 'Complete both weekly challenges to unlock the chest. Once both are claimed, the chest will appear ready to open.'}
               </Text>
             </View>
           </Pressable>
