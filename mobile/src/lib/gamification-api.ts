@@ -499,6 +499,7 @@ export const gamificationApi = {
 
   async getCommunityOptIn(userId: string): Promise<{ communityOptIn: boolean }> {
     const res = await fetch(`${BACKEND_URL}/api/gamification/community/opt-in/${userId}`);
+    if (res.status === 404) return { communityOptIn: false };
     if (!res.ok) throw new Error('Failed to get community opt-in status');
     return res.json();
   },
@@ -600,6 +601,7 @@ export const gamificationApi = {
 
   async getPrayerDisplayOptIn(userId: string): Promise<{ prayerDisplayOptIn: boolean }> {
     const res = await fetch(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`);
+    if (res.status === 404) return { prayerDisplayOptIn: true };
     if (!res.ok) throw new Error('Failed to get prayer display opt-in status');
     return res.json();
   },
