@@ -216,13 +216,13 @@ type CategoryType = 'themes' | 'frames' | 'titles' | 'avatars' | 'bundles' | 'co
 
 type CategoryIconComponent = (props: { color: string; active: boolean }) => React.ReactElement;
 
-const CATEGORIES: { key: CategoryType; IconComponent: CategoryIconComponent; label: string; labelEs: string }[] = [
-  { key: 'themes', IconComponent: IconTemas, label: 'Themes', labelEs: 'Temas' },
-  { key: 'frames', IconComponent: IconMarcos, label: 'Frames', labelEs: 'Marcos' },
-  { key: 'titles', IconComponent: IconTitulos, label: 'Titles', labelEs: 'Titulos' },
-  { key: 'avatars', IconComponent: IconAvatares, label: 'Avatars', labelEs: 'Avatares' },
-  { key: 'bundles', IconComponent: IconPaquetes, label: 'Bundles', labelEs: 'Paquetes' },
-  { key: 'collections', IconComponent: IconColecciones, label: 'Collections', labelEs: 'Colecciones' },
+const CATEGORIES: { key: CategoryType; IconComponent: CategoryIconComponent; label: string; labelEs: string; desc: string; descEs: string }[] = [
+  { key: 'collections', IconComponent: IconColecciones, label: 'Collections', labelEs: 'Colecciones', desc: 'Spiritual adventures that unlock step by step', descEs: 'Aventuras espirituales que se desbloquean paso a paso' },
+  { key: 'themes', IconComponent: IconTemas, label: 'Themes', labelEs: 'Temas', desc: 'Change the visual appearance of the app', descEs: 'Cambia la apariencia visual de la app' },
+  { key: 'avatars', IconComponent: IconAvatares, label: 'Avatars', labelEs: 'Avatares', desc: 'Customize your profile', descEs: 'Personaliza tu perfil' },
+  { key: 'titles', IconComponent: IconTitulos, label: 'Titles', labelEs: 'Títulos', desc: 'Badges that show your progress', descEs: 'Insignias que muestran tu progreso' },
+  { key: 'frames', IconComponent: IconMarcos, label: 'Frames', labelEs: 'Marcos', desc: 'Decorations for your devotionals', descEs: 'Decoraciones para tus devocionales' },
+  { key: 'bundles', IconComponent: IconPaquetes, label: 'Bundles', labelEs: 'Paquetes', desc: 'Special content and rewards', descEs: 'Contenido especial y recompensas' },
 ];
 
 // Get rarity icon
@@ -1343,7 +1343,7 @@ function useCollectionClaimBadges(
   return { pendingClaimsCount, newClaimableIds, markClaimablesSeen };
 }
 
-function CategoryTab({
+function CategoryCard({
   category,
   isActive,
   colors,
@@ -1365,76 +1365,103 @@ function CategoryTab({
     transform: [{ scale: scale.value }],
   }));
 
+  const label = language === 'es' ? category.labelEs : category.label;
+  const desc = language === 'es' ? category.descEs : category.desc;
+
   return (
-    <Animated.View style={animatedStyle}>
+    <Animated.View style={[animatedStyle, { flex: 1 }]}>
       <Pressable
-        onPressIn={() => { scale.value = withSpring(0.92); }}
+        onPressIn={() => { scale.value = withSpring(0.96); }}
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
-        style={{ alignItems: 'center', marginRight: 12 }}
+        style={{
+          flex: 1,
+          minHeight: 72,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 14,
+          paddingHorizontal: 16,
+          paddingVertical: 14,
+          borderRadius: 18,
+          backgroundColor: isActive ? colors.primary : colors.surface,
+          shadowColor: isActive ? colors.primary : '#000',
+          shadowOffset: { width: 0, height: isActive ? 6 : 2 },
+          shadowOpacity: isActive ? 0.32 : 0.06,
+          shadowRadius: isActive ? 12 : 5,
+          elevation: isActive ? 6 : 2,
+          borderWidth: isActive ? 0 : 1,
+          borderColor: colors.textMuted + '18',
+        }}
       >
-        <View style={{ position: 'relative' }}>
-          <View
-            style={{
-              width: 58,
-              height: 58,
-              borderRadius: 18,
+        {/* Icon container */}
+        <View style={{
+          width: 44,
+          height: 44,
+          borderRadius: 14,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: isActive ? 'rgba(255,255,255,0.18)' : colors.primary + '18',
+          flexShrink: 0,
+        }}>
+          <IconComponent
+            color={isActive ? '#FFFFFF' : colors.primary}
+            active={isActive}
+          />
+          {badgeCount > 0 && (
+            <View style={{
+              position: 'absolute',
+              top: -5,
+              right: -5,
+              minWidth: 18,
+              height: 18,
+              borderRadius: 9,
+              backgroundColor: '#EF4444',
               alignItems: 'center',
               justifyContent: 'center',
-              marginBottom: 6,
-              backgroundColor: isActive ? colors.primary : colors.surface,
-              shadowColor: isActive ? colors.primary : '#000',
-              shadowOffset: { width: 0, height: isActive ? 6 : 2 },
-              shadowOpacity: isActive ? 0.38 : 0.07,
-              shadowRadius: isActive ? 12 : 5,
-              elevation: isActive ? 6 : 2,
-              borderWidth: isActive ? 0 : 1,
-              borderColor: colors.textMuted + '18',
-            }}
-          >
-            <IconComponent
-              color={isActive ? '#FFFFFF' : colors.textMuted}
-              active={isActive}
-            />
-          </View>
-          {badgeCount > 0 && (
-            <View
-              style={{
-                position: 'absolute',
-                top: -4,
-                right: -4,
-                minWidth: 18,
-                height: 18,
-                borderRadius: 9,
-                backgroundColor: '#EF4444',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingHorizontal: 4,
-                borderWidth: 2,
-                borderColor: colors.background,
-                shadowColor: '#EF4444',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.5,
-                shadowRadius: 4,
-                elevation: 4,
-              }}
-            >
+              paddingHorizontal: 4,
+              borderWidth: 2,
+              borderColor: isActive ? colors.primary : colors.background,
+            }}>
               <Text style={{ color: '#fff', fontSize: 10, fontWeight: '800', lineHeight: 14 }}>
                 {badgeCount > 9 ? '9+' : String(badgeCount)}
               </Text>
             </View>
           )}
         </View>
-        <Text
-          style={{
-            fontSize: 11,
-            fontWeight: isActive ? '700' : '500',
-            color: isActive ? colors.primary : colors.textMuted,
-            letterSpacing: isActive ? 0.2 : 0,
-          }}
-        >
-          {language === 'es' ? category.labelEs : category.label}
-        </Text>
+
+        {/* Text */}
+        <View style={{ flex: 1 }}>
+          <Text style={{
+            fontSize: 15,
+            fontWeight: '700',
+            color: isActive ? '#fff' : colors.text,
+            marginBottom: 2,
+            letterSpacing: -0.2,
+          }}>
+            {label}
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: 12,
+              color: isActive ? 'rgba(255,255,255,0.75)' : colors.textMuted,
+              lineHeight: 16,
+            }}
+          >
+            {desc}
+          </Text>
+        </View>
+
+        {/* Active chevron */}
+        {isActive && (
+          <View style={{
+            width: 6,
+            height: 6,
+            borderRadius: 3,
+            backgroundColor: 'rgba(255,255,255,0.7)',
+            flexShrink: 0,
+          }} />
+        )}
       </Pressable>
     </Animated.View>
   );
@@ -5649,33 +5676,26 @@ export default function StoreScreen() {
           />
         )}
 
-        {/* Category Tabs */}
-        <View className="mb-5">
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 20 }}
-            style={{ flexGrow: 0 }}
-          >
-            {CATEGORIES.map((category) => (
-              <CategoryTab
-                key={category.key}
-                category={category}
-                isActive={activeCategory === category.key}
-                colors={colors}
-                language={language}
-                badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
-                onPress={() => {
-                  Haptics.selectionAsync();
-                  setActiveCategory(category.key);
-                  setShowV2Only(false);
-                  if (category.key === 'collections') {
-                    markClaimablesSeen();
-                  }
-                }}
-              />
-            ))}
-          </ScrollView>
+        {/* Category Cards */}
+        <View style={{ paddingHorizontal: 20, marginBottom: 20, gap: 10 }}>
+          {CATEGORIES.map((category) => (
+            <CategoryCard
+              key={category.key}
+              category={category}
+              isActive={activeCategory === category.key}
+              colors={colors}
+              language={language}
+              badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
+              onPress={() => {
+                Haptics.selectionAsync();
+                setActiveCategory(category.key);
+                setShowV2Only(false);
+                if (category.key === 'collections') {
+                  markClaimablesSeen();
+                }
+              }}
+            />
+          ))}
         </View>
 
         {/* Category Content */}
