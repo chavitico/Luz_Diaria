@@ -39,8 +39,8 @@ export interface PickedVoice {
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const CACHE_KEY_PREFIX = 'tts_voice_v3_';
-const CACHE_HASH_KEY_PREFIX = 'tts_voice_hash_v3_';
+const CACHE_KEY_PREFIX = 'tts_voice_v4_';
+const CACHE_HASH_KEY_PREFIX = 'tts_voice_hash_v4_';
 
 /**
  * Score below which we consider the voice "poor quality" and show the install guide.
@@ -262,9 +262,12 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
 
     if (cachedHash === currentHash && cachedVoiceJson) {
       const cached = JSON.parse(cachedVoiceJson) as PickedVoice;
-      // Verify the cached voice still exists on device
+      // Validate: voice still on device AND all required fields present (guards against stale schemas)
       const stillExists = !cached.voiceIdentifier || allVoices.some((v) => v.identifier === cached.voiceIdentifier);
-      if (stillExists) {
+      const schemaOk = typeof cached.needsUserAction === 'boolean' &&
+                       typeof cached.isEloquence === 'boolean' &&
+                       typeof cached.preferredVoiceFound === 'boolean';
+      if (stillExists && schemaOk) {
         if (__DEV__) {
           console.log(
             `[VoicePicker] LOCK hit: "${cached.name}" score=${cached.score}` +
@@ -273,6 +276,10 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
           );
         }
         return cached;
+      }
+      // Schema mismatch or voice gone — fall through to re-evaluate
+      if (__DEV__ && !schemaOk) {
+        console.log(`[VoicePicker] Stale cache schema detected, re-evaluating...`);
       }
     }
 
@@ -322,8 +329,19 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
     const eloquence = isEloquenceVoice(best.voice);
     const isFallback = eloquence || best.score < 0;
 
-    // needsUserAction: score is low AND we're in Spanish (English has acceptable built-ins)
-    const needsUserAction = langCode === 'es' && best.score <= NEEDS_ACTION_THRESHOLD;
+    // needsUserAction: true when the selected voice is clearly low quality.
+    // Rules (Spanish only — English built-ins are acceptable):
+    //   1. Eloquence (robotic synthetic voices)
+    //   2. Score below threshold AND not a preferred voice (Paulina/Monica are fine even compact)
+    //   3. Compact/super-compact AND not a preferred voice (unrecognised compact = possibly goblin)
+    const bestIsPreferred = isPreferredVoice(best.voice);
+    const bestIdLower = (best.voice.identifier ?? '').toLowerCase();
+    const bestIsCompact = bestIdLower.includes('compact') || bestIdLower.includes('super-compact');
+    const needsUserAction = langCode === 'es' && (
+      eloquence ||
+      (!bestIsPreferred && best.score <= NEEDS_ACTION_THRESHOLD) ||
+      (!bestIsPreferred && bestIsCompact)
+    );
 
     const result: PickedVoice = {
       language: best.voice.language ?? SPEAK_LANGUAGE_TAG[langCode],
@@ -343,10 +361,11 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
         : preferredVoiceFound
           ? 'preferred (Paulina/Monica)'
           : needsUserAction
-            ? `LOW QUALITY — score ${best.score} ≤ ${NEEDS_ACTION_THRESHOLD}, will show install guide`
+            ? `LOW QUALITY — compact/score=${best.score}, will show install guide`
             : 'best available';
       console.log(
         `[VoicePicker] SELECTED: "${result.name}" | score=${result.score}` +
+        ` | preferred=${bestIsPreferred} | compact=${bestIsCompact}` +
         ` | needsAction=${needsUserAction} | reason: ${reason}`
       );
     }
@@ -384,9 +403,11 @@ export async function resetVoiceCache(langCode?: 'en' | 'es'): Promise<void> {
     langs.flatMap((l) => [
       AsyncStorage.removeItem(`${CACHE_KEY_PREFIX}${l}`),
       AsyncStorage.removeItem(`${CACHE_HASH_KEY_PREFIX}${l}`),
-      // Clear old v2 keys too
+      // Clear old v2/v3 keys too
       AsyncStorage.removeItem(`tts_voice_v2_${l}`),
       AsyncStorage.removeItem(`tts_voice_hash_v2_${l}`),
+      AsyncStorage.removeItem(`tts_voice_v3_${l}`),
+      AsyncStorage.removeItem(`tts_voice_hash_v3_${l}`),
     ])
   );
   if (__DEV__) {
