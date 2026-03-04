@@ -614,5 +614,12 @@
     "itemId": "badge_portador_esperanza",
     "acquiredAt": "2026-03-04T18:20:03.285Z",
     "source": "achievement"
+  },
+  {
+    "id": "cmmchmllj000xm26eccacl256",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_psalm_shepherd",
+    "acquiredAt": "2026-03-04T20:27:03.511Z",
+    "source": "store"
   }
 ]

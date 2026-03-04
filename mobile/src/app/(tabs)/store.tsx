@@ -44,6 +44,7 @@ import {
   ShoppingBag,
   Ticket,
   Info,
+  BookOpen,
 } from 'lucide-react-native';
 import { TextInput } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -1350,6 +1351,7 @@ function CategoryCard({
   language,
   onPress,
   badgeCount = 0,
+  hasNew = false,
   progress,
 }: {
   category: typeof CATEGORIES[0];
@@ -1358,6 +1360,7 @@ function CategoryCard({
   language: 'en' | 'es';
   onPress: () => void;
   badgeCount?: number;
+  hasNew?: boolean;
   progress?: { owned: number; total: number };
 }) {
   const { IconComponent } = category;
@@ -1433,15 +1436,28 @@ function CategoryCard({
 
         {/* Text */}
         <View style={{ flex: 1 }}>
-          <Text style={{
-            fontSize: 15,
-            fontWeight: '700',
-            color: isActive ? '#fff' : colors.text,
-            marginBottom: 2,
-            letterSpacing: -0.2,
-          }}>
-            {label}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <Text style={{
+              fontSize: 15,
+              fontWeight: '700',
+              color: isActive ? '#fff' : colors.text,
+              marginBottom: 2,
+              letterSpacing: -0.2,
+            }}>
+              {label}
+            </Text>
+            {hasNew && (
+              <View style={{
+                backgroundColor: '#22C55E',
+                borderRadius: 99,
+                paddingHorizontal: 6,
+                paddingVertical: 2,
+                marginBottom: 2,
+              }}>
+                <Text style={{ color: '#fff', fontSize: 9, fontWeight: '800', letterSpacing: 0.5 }}>NUEVO</Text>
+              </View>
+            )}
+          </View>
           <Text
             numberOfLines={1}
             style={{
@@ -1484,6 +1500,52 @@ function CategoryCard({
     </Animated.View>
   );
 }
+
+// Item Detail Modal
+// ─── NEW Items State Hook ─────────────────────────────────────────────────────
+// Stores { [itemId]: true } in AsyncStorage. Computed in-memory, zero backend queries.
+const NEW_ITEMS_SEEN_KEY = 'store_new_items_seen_v1';
+
+function useNewItemsState() {
+  const [seenMap, setSeenMap] = useState<Record<string, boolean>>({});
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem(NEW_ITEMS_SEEN_KEY)
+      .then(raw => {
+        if (raw) setSeenMap(JSON.parse(raw));
+      })
+      .catch(() => {})
+      .finally(() => setIsLoaded(true));
+  }, []);
+
+  const markSeen = useCallback(async (itemId: string) => {
+    setSeenMap(prev => {
+      if (prev[itemId]) return prev; // already seen, no change
+      const next = { ...prev, [itemId]: true };
+      // Persist async, fire and forget
+      AsyncStorage.setItem(NEW_ITEMS_SEEN_KEY, JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+    console.log('[NewItems] Marked seen:', itemId);
+  }, []);
+
+  return { seenMap, markSeen, isLoaded };
+}
+
+// Compute which avatar IDs are "NEW" (isNewEligible && not seen)
+function computeNewAvatarIds(seenMap: Record<string, boolean>): Set<string> {
+  const result = new Set<string>();
+  for (const av of DEFAULT_AVATARS as readonly (typeof DEFAULT_AVATARS[0])[]) {
+    const isNewEligible = (av as { isNewEligible?: boolean }).isNewEligible;
+    if (isNewEligible && !seenMap[av.id]) {
+      result.add(av.id);
+    }
+  }
+  return result;
+}
+
+// ─── End NEW Items State Hook ─────────────────────────────────────────────────
 
 // Item Detail Modal
 function ItemDetailModal({
@@ -2622,6 +2684,7 @@ function PremiumAvatarCard({
   onPress,
   isHighlighted = false,
   isNewGift = false,
+  isNew = false,
   viewRef,
 }: {
   avatar: typeof DEFAULT_AVATARS[number];
@@ -2633,6 +2696,7 @@ function PremiumAvatarCard({
   onPress: () => void;
   isHighlighted?: boolean;
   isNewGift?: boolean;
+  isNew?: boolean;
   viewRef?: (ref: View | null) => void;
 }) {
   const scale = useSharedValue(1);
@@ -2718,7 +2782,7 @@ function PremiumAvatarCard({
             </View>
           )}
 
-          {/* NEW gift badge */}
+          {/* NEW gift badge (red — from gifts) or NEW item badge (green — catalog) */}
           {isNewGift && (
             <View style={{ position: 'absolute', top: 6, left: 6, zIndex: 10 }}>
               <View style={{
@@ -2733,26 +2797,51 @@ function PremiumAvatarCard({
               </View>
             </View>
           )}
-
-          {/* Adventure badge */}
-          {(avatar as { isAdventure?: boolean }).isAdventure && (
-            <View style={{ position: 'absolute', bottom: 6, left: 0, right: 0, alignItems: 'center', zIndex: 10 }}>
+          {!isNewGift && isNew && !isOwned && (
+            <View style={{ position: 'absolute', top: 6, left: 6, zIndex: 10 }}>
               <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                backgroundColor: '#C89B3C',
+                backgroundColor: '#22C55E',
                 borderRadius: 99,
-                paddingHorizontal: 6,
-                paddingVertical: 2,
-                gap: 3,
+                paddingHorizontal: 7,
+                paddingVertical: 3,
+                shadowColor: '#22C55E',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.5,
+                shadowRadius: 4,
               }}>
-                <Star size={7} color="#FFF" fill="#FFF" />
-                <Text style={{ fontSize: 8, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.3 }}>
-                  {language === 'es' ? 'Aventura' : 'Adventure'}
+                <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                  {language === 'es' ? 'NUEVO' : 'NEW'}
                 </Text>
               </View>
             </View>
           )}
+
+          {/* Adventure badge - shows bundle number if known */}
+          {(avatar as { isAdventure?: boolean }).isAdventure && (() => {
+            // Find which adventure bundle this avatar belongs to
+            const bundle = Object.values(STORE_BUNDLES).find(b =>
+              (b as any).isAdventure && b.items.includes(avatar.id)
+            );
+            const num = bundle ? (bundle as any).adventureNumber : undefined;
+            return (
+              <View style={{ position: 'absolute', bottom: 6, left: 0, right: 0, alignItems: 'center', zIndex: 10 }}>
+                <View style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  backgroundColor: '#C89B3C',
+                  borderRadius: 99,
+                  paddingHorizontal: 6,
+                  paddingVertical: 2,
+                  gap: 3,
+                }}>
+                  <Star size={7} color="#FFF" fill="#FFF" />
+                  <Text style={{ fontSize: 8, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.3 }}>
+                    {num ? `Av. #${num}` : (language === 'es' ? 'Aventura' : 'Adventure')}
+                  </Text>
+                </View>
+              </View>
+            );
+          })()}
 
           {/* Avatar Emoji */}
           <View style={{ position: 'relative', marginBottom: 8 }}>
@@ -2890,6 +2979,7 @@ function BundleCard({
   language,
   onPress,
   isPurchasing = false,
+  onViewAdventure,
 }: {
   bundle: typeof STORE_BUNDLES[string];
   purchasedItems: string[];
@@ -2898,6 +2988,7 @@ function BundleCard({
   language: 'en' | 'es';
   onPress: () => void;
   isPurchasing?: boolean;
+  onViewAdventure?: (storyId: string) => void;
 }) {
   const scale = useSharedValue(1);
   const rarityColor = RARITY_COLORS[bundle.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
@@ -2908,6 +2999,7 @@ function BundleCard({
   const isComingSoon = 'comingSoon' in bundle && bundle.comingSoon === true;
   const adventureNumber = 'adventureNumber' in bundle ? (bundle as { adventureNumber?: number }).adventureNumber : undefined;
   const collectionBonus = 'collectionBonus' in bundle ? (bundle as { collectionBonus?: number }).collectionBonus : undefined;
+  const storyId = 'storyId' in bundle ? (bundle as { storyId?: string }).storyId : undefined;
 
   // Check if all items in bundle are already owned
   const allOwned = bundle.items.every(itemId => purchasedItems.includes(itemId));
@@ -2936,6 +3028,223 @@ function BundleCard({
     return null;
   };
 
+  // ─── ADVENTURE BUNDLE — Premium Card ─────────────────────────────────────────
+  if (isAdventureBundle) {
+    const GOLD_GRADIENT: [string, string, string] = isComingSoon
+      ? ['#2A2210', '#1A1500', '#0D0B00']
+      : ['#3D2B00', '#1A1200', '#0A0800'];
+    const GOLD_ACCENT = isComingSoon ? '#6B5A2A' : '#C89B3C';
+    const GOLD_LIGHT = isComingSoon ? '#8B7A4A' : '#F5D06A';
+
+    const getItemTypeLabel = (itemId: string) => {
+      if (itemId.startsWith('avatar_')) return language === 'es' ? 'Avatar' : 'Avatar';
+      if (itemId.startsWith('frame_')) return language === 'es' ? 'Marco' : 'Frame';
+      if (itemId.startsWith('title_')) return language === 'es' ? 'Título' : 'Title';
+      return '';
+    };
+
+    return (
+      <Animated.View style={[animatedStyle, { marginBottom: 16 }]}>
+        <Pressable
+          onPressIn={() => { scale.value = withSpring(0.98); }}
+          onPressOut={() => { scale.value = withSpring(1); }}
+          onPress={onPress}
+          disabled={isPurchasing}
+          style={{
+            borderRadius: 20,
+            overflow: 'hidden',
+            shadowColor: isComingSoon ? '#000' : '#C89B3C',
+            shadowOffset: { width: 0, height: 6 },
+            shadowOpacity: isComingSoon ? 0.3 : 0.5,
+            shadowRadius: 16,
+            elevation: 8,
+            opacity: isComingSoon ? 0.8 : 1,
+          }}
+        >
+          {/* Hero gradient background */}
+          <LinearGradient
+            colors={GOLD_GRADIENT}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ padding: 0 }}
+          >
+            {/* Top banner */}
+            <LinearGradient
+              colors={isComingSoon ? ['#6B5A2A88', '#4A3D1A88'] : ['#C89B3C', '#8B6914']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={{ paddingVertical: 8, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                <Star size={12} color="#FFF8E0" fill="#FFF8E0" />
+                <Text style={{ fontSize: 11, fontWeight: '900', color: '#FFF8E0', letterSpacing: 1.5 }}>
+                  {(language === 'es' ? 'AVENTURA BÍBLICA' : 'BIBLICAL ADVENTURE')}
+                  {adventureNumber ? ` #${adventureNumber}` : ''}
+                </Text>
+              </View>
+              {isComingSoon ? (
+                <View style={{ backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 99, paddingHorizontal: 10, paddingVertical: 3, borderWidth: 1, borderColor: 'rgba(255,255,255,0.25)' }}>
+                  <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFF', letterSpacing: 0.8 }}>
+                    {language === 'es' ? 'PRÓXIMAMENTE' : 'COMING SOON'}
+                  </Text>
+                </View>
+              ) : allOwned ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: 'rgba(34,197,94,0.25)', borderRadius: 99, paddingHorizontal: 10, paddingVertical: 3 }}>
+                  <Check size={10} color="#22C55E" strokeWidth={3} />
+                  <Text style={{ fontSize: 9, fontWeight: '800', color: '#22C55E' }}>
+                    {language === 'es' ? 'COMPRADA' : 'OWNED'}
+                  </Text>
+                </View>
+              ) : null}
+            </LinearGradient>
+
+            {/* Body */}
+            <View style={{ padding: 16, gap: 14 }}>
+              {/* Title row */}
+              <View>
+                <Text style={{ fontSize: 19, fontWeight: '900', color: GOLD_LIGHT, letterSpacing: -0.3 }}>
+                  {language === 'es' ? bundle.nameEs : bundle.name}
+                </Text>
+                <Text style={{ fontSize: 12, color: GOLD_ACCENT, marginTop: 2, fontWeight: '500' }}>
+                  {language === 'es' ? bundle.descriptionEs : bundle.description}
+                </Text>
+              </View>
+
+              {/* Reward tiles row */}
+              <View style={{ flexDirection: 'row', gap: 8 }}>
+                {bundle.items.slice(0, 3).map((itemId) => {
+                  const preview = getItemPreview(itemId);
+                  const isItemOwned = purchasedItems.includes(itemId);
+                  const typeLabel = getItemTypeLabel(itemId);
+
+                  return (
+                    <View key={itemId} style={{ flex: 1, alignItems: 'center', gap: 5 }}>
+                      {/* Tile */}
+                      <View style={{
+                        width: '100%',
+                        aspectRatio: 1,
+                        borderRadius: 12,
+                        backgroundColor: isItemOwned ? '#22C55E15' : GOLD_ACCENT + '18',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderWidth: 1.5,
+                        borderColor: isItemOwned ? '#22C55E60' : GOLD_ACCENT + '50',
+                        position: 'relative',
+                      }}>
+                        {isItemOwned && (
+                          <View style={{ position: 'absolute', top: -5, right: -5, zIndex: 1, backgroundColor: '#22C55E', borderRadius: 99, width: 16, height: 16, alignItems: 'center', justifyContent: 'center' }}>
+                            <Check size={9} color="#fff" strokeWidth={3} />
+                          </View>
+                        )}
+                        {preview?.type === 'avatar' && preview.emoji && (
+                          <Text style={{ fontSize: 26 }}>{preview.emoji}</Text>
+                        )}
+                        {preview?.type === 'frame' && preview.color && (
+                          <View style={{ width: 32, height: 32, borderRadius: 16, borderWidth: 4, borderColor: preview.color }} />
+                        )}
+                        {preview?.type === 'title' && (
+                          <Award size={24} color={GOLD_ACCENT} />
+                        )}
+                      </View>
+                      {/* Label */}
+                      <Text style={{ fontSize: 10, fontWeight: '700', color: GOLD_ACCENT, letterSpacing: 0.3 }}>
+                        {typeLabel.toUpperCase()}
+                      </Text>
+                    </View>
+                  );
+                })}
+              </View>
+
+              {/* Bonus + price row */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                {collectionBonus && !allOwned ? (
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                    <Sparkles size={12} color={GOLD_ACCENT} />
+                    <Text style={{ fontSize: 11, fontWeight: '700', color: GOLD_ACCENT }}>
+                      {language === 'es'
+                        ? `Incluye 3 recompensas + bono +${collectionBonus} pts`
+                        : `3 rewards + collection bonus +${collectionBonus} pts`}
+                    </Text>
+                  </View>
+                ) : allOwned ? (
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                    <Check size={12} color="#22C55E" strokeWidth={2.5} />
+                    <Text style={{ fontSize: 11, fontWeight: '700', color: '#22C55E' }}>
+                      {language === 'es' ? 'Todas las recompensas obtenidas' : 'All rewards acquired'}
+                    </Text>
+                  </View>
+                ) : (
+                  <View />
+                )}
+
+                {/* Price pill */}
+                {!allOwned && !isComingSoon && (
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: GOLD_ACCENT + '25', borderRadius: 99, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: GOLD_ACCENT + '60' }}>
+                    <Coins size={12} color={GOLD_LIGHT} />
+                    <Text style={{ fontSize: 13, fontWeight: '900', color: GOLD_LIGHT }}>{bundle.bundlePrice.toLocaleString()}</Text>
+                  </View>
+                )}
+              </View>
+
+              {/* CTA Button */}
+              {!isComingSoon && (
+                <Pressable
+                  onPress={(e) => {
+                    e.stopPropagation?.();
+                    if (allOwned && storyId && onViewAdventure) {
+                      onViewAdventure(storyId);
+                    } else {
+                      onPress();
+                    }
+                  }}
+                  style={{
+                    borderRadius: 14,
+                    overflow: 'hidden',
+                    marginTop: 2,
+                    opacity: !allOwned && !canAfford ? 0.5 : 1,
+                  }}
+                >
+                  <LinearGradient
+                    colors={allOwned ? ['#166534', '#15803D'] : canAfford ? ['#C89B3C', '#8B6914'] : ['#444', '#333']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{ paddingVertical: 13, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7 }}
+                  >
+                    {isPurchasing ? (
+                      <ActivityIndicator size="small" color="#FFF" />
+                    ) : allOwned ? (
+                      <>
+                        <BookOpen size={16} color="#FFF" />
+                        <Text style={{ fontSize: 14, fontWeight: '800', color: '#FFF', letterSpacing: 0.3 }}>
+                          {language === 'es' ? 'Ver aventura' : 'View Adventure'}
+                        </Text>
+                      </>
+                    ) : canAfford ? (
+                      <>
+                        <Sparkles size={16} color="#FFF8E0" />
+                        <Text style={{ fontSize: 14, fontWeight: '800', color: '#FFF8E0', letterSpacing: 0.3 }}>
+                          {language === 'es' ? 'Comprar aventura' : 'Buy Adventure'}
+                        </Text>
+                      </>
+                    ) : (
+                      <>
+                        <Lock size={14} color="#999" />
+                        <Text style={{ fontSize: 14, fontWeight: '700', color: '#999' }}>
+                          {language === 'es' ? 'Puntos insuficientes' : 'Not enough points'}
+                        </Text>
+                      </>
+                    )}
+                  </LinearGradient>
+                </Pressable>
+              )}
+            </View>
+          </LinearGradient>
+        </Pressable>
+      </Animated.View>
+    );
+  }
+
+  // ─── REGULAR BUNDLE CARD ──────────────────────────────────────────────────────
   return (
     <Animated.View style={animatedStyle} className="mb-4">
       <Pressable
@@ -2946,7 +3255,7 @@ function BundleCard({
         className="rounded-2xl overflow-hidden"
         style={{
           backgroundColor: colors.surface,
-          shadowColor: isAdventureBundle ? '#C89B3C' : rarityColor,
+          shadowColor: rarityColor,
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: isComingSoon ? 0.1 : 0.2,
           shadowRadius: 12,
@@ -2954,31 +3263,6 @@ function BundleCard({
           opacity: allOwned ? 0.6 : isComingSoon ? 0.75 : 1,
         }}
       >
-        {/* Adventure banner stripe */}
-        {isAdventureBundle && (
-          <LinearGradient
-            colors={isComingSoon ? ['#6B5A2A', '#4A3D1A'] : ['#C89B3C', '#8B6914']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={{ paddingVertical: 5, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
-          >
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-              <Star size={10} color="#FFF" fill="#FFF" />
-              <Text style={{ fontSize: 10, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
-                {language === 'es' ? 'AVENTURA BÍBLICA' : 'BIBLICAL ADVENTURE'}
-                {adventureNumber ? ` #${adventureNumber}` : ''}
-              </Text>
-            </View>
-            {isComingSoon && (
-              <View style={{ backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 99, paddingHorizontal: 8, paddingVertical: 2 }}>
-                <Text style={{ fontSize: 9, fontWeight: '700', color: '#FFF' }}>
-                  {language === 'es' ? 'PRÓXIMAMENTE' : 'COMING SOON'}
-                </Text>
-              </View>
-            )}
-          </LinearGradient>
-        )}
-
         <LinearGradient
           colors={RARITY_GRADIENTS[bundle.rarity as keyof typeof RARITY_GRADIENTS] || RARITY_GRADIENTS.common}
           start={{ x: 0, y: 0 }}
@@ -3018,15 +3302,6 @@ function BundleCard({
               >
                 {language === 'es' ? bundle.descriptionEs : bundle.description}
               </Text>
-              {/* Collection bonus row */}
-              {isAdventureBundle && collectionBonus && !allOwned && (
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 }}>
-                  <Sparkles size={10} color="#C89B3C" />
-                  <Text style={{ fontSize: 10, fontWeight: '700', color: '#C89B3C' }}>
-                    {language === 'es' ? `+${collectionBonus} pts bono colección` : `+${collectionBonus} pts collection bonus`}
-                  </Text>
-                </View>
-              )}
             </View>
             <RarityBadge rarity={bundle.rarity} language={language} />
           </View>
@@ -4771,6 +5046,10 @@ export default function StoreScreen() {
   // Chapter collection progress (AsyncStorage + backend sync)
   const { claimedChapterIds, claimChapter } = useChapterCollectionProgress(effectiveUserId);
 
+  // NEW items state — tracks which catalog items the user hasn't seen yet
+  const { seenMap: newItemsSeenMap, markSeen: markNewItemSeen } = useNewItemsState();
+  const newAvatarIds = useMemo(() => computeNewAvatarIds(newItemsSeenMap), [newItemsSeenMap]);
+
   // Memoize user data for backend sync to avoid unnecessary re-fetches
   const userDataForSync = useMemo(() => {
     if (!user) return null;
@@ -5015,7 +5294,9 @@ export default function StoreScreen() {
     Haptics.selectionAsync();
     // Clear new-gift badge when user opens the item
     if (item.id) clearNewGiftItem(item.id);
-  }, [clearNewGiftItem]);
+    // Mark catalog NEW item as seen
+    if (item.id) markNewItemSeen(item.id);
+  }, [clearNewGiftItem, markNewItemSeen]);
 
   // Destructure mutation functions for stable references (eslint requirement)
   const { mutate: purchaseMutate } = purchaseMutation;
@@ -5036,18 +5317,19 @@ export default function StoreScreen() {
   const handlePurchase = useCallback(() => {
     if (!selectedDetailItem) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    markNewItemSeen(selectedDetailItem.id);
     purchaseMutate({ itemId: selectedDetailItem.id });
-  }, [selectedDetailItem, purchaseMutate]);
+  }, [selectedDetailItem, purchaseMutate, markNewItemSeen]);
 
   // Handle equip from modal
   const handleEquip = useCallback(() => {
     if (!selectedDetailItem) return;
-
+    markNewItemSeen(selectedDetailItem.id);
     equipMutate({
       type: selectedDetailItem.type as 'theme' | 'frame' | 'title' | 'music' | 'avatar',
       itemId: selectedDetailItem.id,
     });
-  }, [selectedDetailItem, equipMutate]);
+  }, [selectedDetailItem, equipMutate, markNewItemSeen]);
 
   // Handle weekly chest claim
   const handleChestClaim = useCallback(() => {
@@ -5414,6 +5696,7 @@ export default function StoreScreen() {
           { key: 'all', labelEs: 'Todos', label: 'All' },
           { key: 'v1', labelEs: 'V1 Básico', label: 'V1 Basic' },
           { key: 'v2', labelEs: 'V2 Ilustrado', label: 'V2 Illustrated' },
+          { key: 'v3_premium', labelEs: '✨ V3 Premium', label: '✨ V3 Premium', isNew: true },
           { key: 'adventures', labelEs: '⭐ Aventuras', label: '⭐ Adventures' },
         ];
         const allAvatarsList = DEFAULT_AVATARS as readonly (typeof DEFAULT_AVATARS[0])[];
@@ -5421,6 +5704,8 @@ export default function StoreScreen() {
           ? allAvatarsList.filter(a => !('isV2' in a) || !(a as any).isV2)
           : activeSubcategory === 'v2'
           ? allAvatarsList.filter(a => (a as any).isV2 === true && a.id.startsWith('avatar_v2_'))
+          : activeSubcategory === 'v3_premium'
+          ? allAvatarsList.filter(a => (a as any).isV3 === true)
           : activeSubcategory === 'adventures'
           ? allAvatarsList.filter(a => (a as any).isAdventure === true)
           : allAvatarsList;
@@ -5432,7 +5717,9 @@ export default function StoreScreen() {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 12, gap: 8, flexDirection: 'row' }}
             >
-              {AVATAR_SUBCATS.map(sc => (
+              {AVATAR_SUBCATS.map(sc => {
+                const subcatHasNew = (sc as any).isNew && newAvatarIds.size > 0;
+                return (
                 <Pressable
                   key={sc.key}
                   onPress={() => { Haptics.selectionAsync(); setActiveSubcategory(sc.key); }}
@@ -5440,20 +5727,27 @@ export default function StoreScreen() {
                     paddingHorizontal: 16, paddingVertical: 7, borderRadius: 99,
                     backgroundColor: activeSubcategory === sc.key ? colors.primary : colors.surface,
                     borderWidth: 1,
-                    borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
+                    borderColor: activeSubcategory === sc.key ? colors.primary : (subcatHasNew ? '#22C55E' : colors.textMuted + '30'),
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 5,
                   }}
                 >
                   <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
                     {language === 'es' ? sc.labelEs : sc.label}
                   </Text>
+                  {subcatHasNew && activeSubcategory !== sc.key && (
+                    <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: '#22C55E' }} />
+                  )}
                 </Pressable>
-              ))}
+              );})}
             </ScrollView>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
               {filteredAvatars.map((avatar, index) => {
                 const hasCost = 'price' in avatar && (avatar as { price: number }).price > 0;
                 const price = hasCost ? (avatar as { price: number }).price : 0;
                 const { isOwned, isEquipped, canAfford } = getItemStatus(avatar.id, 'avatar', price);
+                const isNewItem = newAvatarIds.has(avatar.id);
 
                 return (
                   <Animated.View
@@ -5470,6 +5764,7 @@ export default function StoreScreen() {
                       language={language}
                       isHighlighted={pendingNavTarget?.itemId === avatar.id}
                       isNewGift={newGiftItemIds.includes(avatar.id)}
+                      isNew={isNewItem}
                       viewRef={(ref) => {
                         if (ref) itemViewRefs.current.set(avatar.id, ref as unknown as View);
                       }}
@@ -5882,6 +6177,7 @@ export default function StoreScreen() {
                 colors={colors}
                 language={language}
                 badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
+                hasNew={category.key === 'avatars' && newAvatarIds.size > 0}
                 progress={catProgress[category.key]}
                 onPress={() => {
                   Haptics.selectionAsync();

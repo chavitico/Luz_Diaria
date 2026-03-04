@@ -676,6 +676,49 @@ const TITLES_V2_CITAS = [
 ];
 
 // ============================================
+// AVATARS V3 PREMIUM — Illustrated (Non-adventure, direct purchase)
+// IDs are IMMUTABLE. releasedAt stored in metadata for auditing.
+// ============================================
+const AVATARS_V3_PREMIUM = [
+  {
+    id: 'avatar_v3_paloma_luz',
+    type: 'avatar',
+    nameEn: 'Paloma de Luz',
+    nameEs: 'Paloma de Luz',
+    descriptionEn: 'Peace that descends from heaven',
+    descriptionEs: 'Paz que desciende del cielo',
+    pricePoints: 1200,
+    rarity: 'epic',
+    assetRef: '🕊️',
+    metadata: JSON.stringify({ isV3: true, subcategory: 'v3_premium', releasedAt: '2026-03-04T00:00:00.000Z' }),
+  },
+  {
+    id: 'avatar_v3_leon_valiente',
+    type: 'avatar',
+    nameEn: 'León Valiente',
+    nameEs: 'León Valiente',
+    descriptionEn: 'Strength with purpose',
+    descriptionEs: 'Fuerza con propósito',
+    pricePoints: 1200,
+    rarity: 'epic',
+    assetRef: '🦁',
+    metadata: JSON.stringify({ isV3: true, subcategory: 'v3_premium', releasedAt: '2026-03-04T00:00:00.000Z' }),
+  },
+  {
+    id: 'avatar_v3_olivo_gracia',
+    type: 'avatar',
+    nameEn: 'Olivo de Gracia',
+    nameEs: 'Olivo de Gracia',
+    descriptionEn: 'Firm roots in God',
+    descriptionEs: 'Raíces firmes en Dios',
+    pricePoints: 1200,
+    rarity: 'epic',
+    assetRef: '🌿',
+    metadata: JSON.stringify({ isV3: true, subcategory: 'v3_premium', releasedAt: '2026-03-04T00:00:00.000Z' }),
+  },
+];
+
+// ============================================
 // CHAPTER COLLECTIONS — New Avatars (6)
 // ============================================
 const AVATARS_CHAPTER = [
@@ -848,6 +891,13 @@ async function seedStoreItems() {
     await upsertItem(avatar, sortOrder++);
   }
   console.log(`  Chapter avatars: ${AVATARS_CHAPTER.length} processed`);
+
+  // Seed V3 Premium avatars
+  console.log('Seeding V3 Premium avatars...');
+  for (const avatar of AVATARS_V3_PREMIUM) {
+    await upsertItem(avatar, sortOrder++);
+  }
+  console.log(`  V3 Premium avatars: ${AVATARS_V3_PREMIUM.length} processed`);
 
   // Seed badges
   console.log('Seeding badges...');

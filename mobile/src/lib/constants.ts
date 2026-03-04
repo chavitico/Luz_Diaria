@@ -191,9 +191,15 @@ export const DEFAULT_AVATARS = [
   { id: 'avatar_adv_elijah_fire', name: 'Elijah\'s Fire', nameEs: 'Fuego de Elías', emoji: '🔥', description: 'Fire from heaven answering Elijah\'s prayer', descriptionEs: 'Fuego del cielo respondiendo la oración de Elías', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_elijah', chestOnly: true, isAdventure: true, animationReady: true, animationType: 'subtle_loop' },
   { id: 'avatar_adv_joseph_dream', name: 'Joseph the Dreamer', nameEs: 'José el Soñador', emoji: '⭐', description: 'The dreamer whose visions came from God', descriptionEs: 'El soñador cuyas visiones venían de Dios', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_joseph', chestOnly: true, isAdventure: true, animationReady: true, animationType: 'subtle_loop' },
   { id: 'avatar_adv_paul_scroll', name: 'Paul with Scroll', nameEs: 'Pablo con Pergamino', emoji: '📜', description: 'The apostle who wrote to the nations', descriptionEs: 'El apóstol que escribió a las naciones', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_paul', chestOnly: true, isAdventure: true, animationReady: true, animationType: 'subtle_loop' },
-  // ── V3 Animated upgrades for existing adventure avatars ──────────────────────
-  // These are metadata-only markers — existing IDs keep their data unchanged above.
-  // V3 animation hints are carried by the new adventure avatars listed above.
+  // ============================================
+  // AVATARS V3 PREMIUM — Illustrated (Non-adventure, direct purchase)
+  // releasedAt: ISO timestamp for "NEW" badge calculation
+  // isNewEligible: true = can show NEW badge
+  // subcategory: 'v3_premium'
+  // ============================================
+  { id: 'avatar_v3_paloma_luz', name: 'Paloma de Luz', nameEs: 'Paloma de Luz', emoji: '🕊️', description: 'Peace that descends from heaven', descriptionEs: 'Paz que desciende del cielo', price: 1200, rarity: 'epic', isV2: true, isV3: true, subcategory: 'v3_premium', releasedAt: '2026-03-04T00:00:00.000Z', isNewEligible: true },
+  { id: 'avatar_v3_leon_valiente', name: 'León Valiente', nameEs: 'León Valiente', emoji: '🦁', description: 'Strength with purpose', descriptionEs: 'Fuerza con propósito', price: 1200, rarity: 'epic', isV2: true, isV3: true, subcategory: 'v3_premium', releasedAt: '2026-03-04T00:00:00.000Z', isNewEligible: true },
+  { id: 'avatar_v3_olivo_gracia', name: 'Olivo de Gracia', nameEs: 'Olivo de Gracia', emoji: '🌿', description: 'Firm roots in God', descriptionEs: 'Raíces firmes en Dios', price: 1200, rarity: 'epic', isV2: true, isV3: true, subcategory: 'v3_premium', releasedAt: '2026-03-04T00:00:00.000Z', isNewEligible: true },
   // ============================================
   // Chapter Collection Avatars
   // ============================================
