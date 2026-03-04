@@ -84,11 +84,11 @@
     "themeId": "theme_jardin_gracia",
     "selectedMusicId": "music_free_1",
     "points": 14364,
-    "streakCurrent": 9,
-    "streakBest": 9,
-    "devotionalsCompleted": 8,
+    "streakCurrent": 10,
+    "streakBest": 10,
+    "devotionalsCompleted": 9,
     "totalTimeSeconds": 0,
-    "lastActiveAt": "2026-03-03T18:00:00.000Z",
+    "lastActiveAt": "2026-03-04T14:33:48.764Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -97,7 +97,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:51:26.062Z",
-    "updatedAt": "2026-03-04T02:37:54.964Z"
+    "updatedAt": "2026-03-04T14:33:48.923Z"
   },
   {
     "id": "cmma36c8v000qm25km7avpj84",
