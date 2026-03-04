@@ -1405,6 +1405,8 @@ export const STORE_BUNDLES: Record<string, {
   isLaunchEvent?: boolean;
   isPermanent?: boolean;
   badge?: string;
+  targetType?: 'story' | 'collection';
+  targetId?: string;
 }> = {
   bundle_gratitud: {
     id: 'bundle_gratitud',
@@ -1534,6 +1536,8 @@ export const STORE_BUNDLES: Record<string, {
     adventureNumber: 1,
     storyId: 'story_adv_jonah',
     storyDays: 5,
+    targetType: 'story',
+    targetId: 'story_adv_jonah',
   },
   // Aventura 2: David vs Goliat
   bundle_adv_david: {
@@ -1552,6 +1556,8 @@ export const STORE_BUNDLES: Record<string, {
     adventureNumber: 2,
     storyId: 'story_adv_david',
     storyDays: 5,
+    targetType: 'story',
+    targetId: 'story_adv_david',
   },
   // Aventura 3: Ester (Fase 1 - preparada)
   bundle_adv_esther: {
@@ -1703,6 +1709,8 @@ export const STORE_BUNDLES: Record<string, {
     isLaunchEvent: true,
     isPermanent: true,
     badge: '✨ Lanzamiento',
+    targetType: 'collection',
+    targetId: 'collection_growth_path',
   },
 };
 

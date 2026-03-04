@@ -65,14 +65,23 @@ function sortBundles(
   ids: string[],
   purchasedItems: string[]
 ): string[] {
-  const order: Record<BundleStatus, number> = { completed: 0, available: 1, comingSoon: 2 };
   return [...ids].sort((a, b) => {
     const bA = STORE_BUNDLES[a];
     const bB = STORE_BUNDLES[b];
     const sA = getStatus(a, purchasedItems, bA?.comingSoon);
     const sB = getStatus(b, purchasedItems, bB?.comingSoon);
-    if (order[sA] !== order[sB]) return order[sA] - order[sB];
-    // Within same group: sort by adventureNumber
+    // Completed always last
+    if (sA === 'completed' && sB !== 'completed') return 1;
+    if (sB === 'completed' && sA !== 'completed') return -1;
+    // Among non-completed: available before comingSoon
+    if (sA !== sB) {
+      if (sA === 'available') return -1;
+      if (sB === 'available') return 1;
+    }
+    // Within same group: newest releasedAt first, then by adventureNumber
+    const relA = (bA as any)?.releasedAt ? new Date((bA as any).releasedAt).getTime() : 0;
+    const relB = (bB as any)?.releasedAt ? new Date((bB as any).releasedAt).getTime() : 0;
+    if (relA !== relB) return relB - relA;
     return (bA?.adventureNumber ?? 99) - (bB?.adventureNumber ?? 99);
   });
 }

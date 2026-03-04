@@ -215,11 +215,21 @@ import {
   Season,
 } from '@/lib/gamification-api';
 
-type CategoryType = 'themes' | 'frames' | 'titles' | 'avatars' | 'bundles' | 'collections';
+type CategoryType = 'themes' | 'frames' | 'titles' | 'avatars' | 'bundles' | 'collections' | 'adventures';
 
 type CategoryIconComponent = (props: { color: string; active: boolean }) => React.ReactElement;
 
+function IconAventuras({ color, active }: { color: string; active: boolean }) {
+  const opacity = active ? 1 : 0.75;
+  return (
+    <View style={{ width: 26, height: 26, alignItems: 'center', justifyContent: 'center', opacity }}>
+      <BookOpen size={20} color={active ? '#fff' : color} />
+    </View>
+  );
+}
+
 const CATEGORIES: { key: CategoryType; IconComponent: CategoryIconComponent; label: string; labelEs: string; desc: string; descEs: string }[] = [
+  { key: 'adventures', IconComponent: IconAventuras, label: 'Biblical Adventures', labelEs: 'Aventuras Bíblicas', desc: 'Collect rewards from biblical stories', descEs: 'Colecciona recompensas de historias bíblicas' },
   { key: 'collections', IconComponent: IconColecciones, label: 'Collections', labelEs: 'Colecciones', desc: 'Spiritual adventures that unlock step by step', descEs: 'Aventuras espirituales que se desbloquean paso a paso' },
   { key: 'themes', IconComponent: IconTemas, label: 'Themes', labelEs: 'Temas', desc: 'Change the visual appearance of the app', descEs: 'Cambia la apariencia visual de la app' },
   { key: 'avatars', IconComponent: IconAvatares, label: 'Avatars', labelEs: 'Avatares', desc: 'Customize your profile', descEs: 'Personaliza tu perfil' },
@@ -2032,6 +2042,16 @@ function computeNewAvatarIds(seenMap: Record<string, boolean>): Set<string> {
   return result;
 }
 
+function computeNewStoreItemIds(storeItems: StoreItem[], seenMap: Record<string, boolean>): Set<string> {
+  const result = new Set<string>();
+  for (const item of storeItems) {
+    if ((item as any).isNew && !seenMap[item.id]) {
+      result.add(item.id);
+    }
+  }
+  return result;
+}
+
 // ─── End NEW Items State Hook ─────────────────────────────────────────────────
 
 // Item Detail Modal
@@ -3475,7 +3495,7 @@ function BundleCard({
   language: 'en' | 'es';
   onPress: () => void;
   isPurchasing?: boolean;
-  onViewAdventure?: (storyId: string) => void;
+  onViewAdventure?: (targetType: string, targetId: string) => void;
 }) {
   const scale = useSharedValue(1);
   const rarityColor = RARITY_COLORS[bundle.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
@@ -3678,8 +3698,10 @@ function BundleCard({
                 <Pressable
                   onPress={(e) => {
                     e.stopPropagation?.();
-                    if (allOwned && storyId && onViewAdventure) {
-                      onViewAdventure(storyId);
+                    if (allOwned && onViewAdventure) {
+                      const targetType = (bundle as any).targetType as string | undefined;
+                      const targetId = (bundle as any).targetId as string | undefined;
+                      onViewAdventure(targetType ?? 'story', targetId ?? bundle.id);
                     } else {
                       onPress();
                     }
@@ -5538,6 +5560,31 @@ export default function StoreScreen() {
   const { seenMap: newItemsSeenMap, markSeen: markNewItemSeen } = useNewItemsState();
   const newAvatarIds = useMemo(() => computeNewAvatarIds(newItemsSeenMap), [newItemsSeenMap]);
 
+  // Fetch all DB store items to power the isNew badge system
+  const { data: allDbStoreItems = [] } = useQuery({
+    queryKey: ['allStoreItems'],
+    queryFn: async () => {
+      const res = await gamificationApi.getStoreItems();
+      return res.items;
+    },
+    staleTime: 10 * 60 * 1000,
+  });
+  // Compute set of new (unseen) DB item IDs
+  const newDbItemIds = useMemo(
+    () => computeNewStoreItemIds(allDbStoreItems, newItemsSeenMap),
+    [allDbStoreItems, newItemsSeenMap]
+  );
+  // Per-category "has new" flags
+  const categoryHasNew = useMemo(() => ({
+    themes: allDbStoreItems.some(i => i.type === 'theme' && newDbItemIds.has(i.id)),
+    frames: allDbStoreItems.some(i => i.type === 'frame' && newDbItemIds.has(i.id)),
+    titles: allDbStoreItems.some(i => i.type === 'title' && newDbItemIds.has(i.id)),
+    avatars: newAvatarIds.size > 0 || allDbStoreItems.some(i => i.type === 'avatar' && newDbItemIds.has(i.id)),
+    bundles: allDbStoreItems.some(i => i.type === 'bundle' && newDbItemIds.has(i.id)),
+    collections: false,
+    adventures: false,
+  }), [allDbStoreItems, newDbItemIds, newAvatarIds]);
+
   // Memoize user data for backend sync to avoid unnecessary re-fetches
   const userDataForSync = useMemo(() => {
     if (!user) return null;
@@ -6464,7 +6511,7 @@ export default function StoreScreen() {
                     language={language}
                     onPress={() => handleBundlePurchase(bundle)}
                     isPurchasing={bundlePurchaseMutation.isPending}
-                    onViewAdventure={(storyId) => {
+                    onViewAdventure={(targetType, targetId) => {
                       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                       router.push({
                         pathname: '/collections/adventures',
@@ -6482,6 +6529,58 @@ export default function StoreScreen() {
       case 'collections':
         return (
           <View className="px-5">
+            {/* ── Aventuras Bíblicas Entry ── */}
+            <Animated.View entering={FadeInDown.delay(0).duration(400)} style={{ marginBottom: 12 }}>
+              <Pressable
+                onPress={() => {
+                  Haptics.selectionAsync();
+                  router.push('/collections/adventures');
+                }}
+                style={{ borderRadius: 18, overflow: 'hidden' }}
+              >
+                <LinearGradient
+                  colors={['#0B3A5C', '#1A6B8A']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{
+                    padding: 18,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 14,
+                    borderWidth: 1,
+                    borderColor: 'rgba(255,255,255,0.1)',
+                    borderRadius: 18,
+                  }}
+                >
+                  <View style={{
+                    width: 52, height: 52, borderRadius: 26,
+                    backgroundColor: 'rgba(255,255,255,0.12)',
+                    alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <Text style={{ fontSize: 26 }}>📖</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 16, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                      {language === 'es' ? 'Aventuras Bíblicas' : 'Biblical Adventures'}
+                    </Text>
+                    <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>
+                      {language === 'es' ? 'Colecciona recompensas de historias bíblicas' : 'Collect rewards from biblical stories'}
+                    </Text>
+                    {(() => {
+                      const advIds = Object.values(STORE_BUNDLES).filter(b => b.isAdventure && !b.comingSoon);
+                      const completed = advIds.filter(b => b.items.length > 0 && b.items.every(id => purchasedItems.includes(id))).length;
+                      return (
+                        <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', marginTop: 3 }}>
+                          {completed}/{advIds.length} {language === 'es' ? 'aventuras completadas' : 'adventures completed'}
+                        </Text>
+                      );
+                    })()}
+                  </View>
+                  <ChevronRight size={20} color="rgba(255,255,255,0.5)" />
+                </LinearGradient>
+              </Pressable>
+            </Animated.View>
+
             {/* ── Chapter Collections (Spiritual Paths) ── */}
             {Object.values(CHAPTER_COLLECTIONS).map((chCol, index) => (
               <Animated.View
@@ -6544,6 +6643,9 @@ export default function StoreScreen() {
             ))}
           </View>
         );
+
+      case 'adventures':
+        return null; // Navigation happens on press; content is the adventure hub screen
 
       default:
         return null;
@@ -6807,6 +6909,11 @@ export default function StoreScreen() {
             const allTitleIds = Object.keys(SPIRITUAL_TITLES);
             const allBundleIds = Object.keys(STORE_BUNDLES);
             const owned = (ids: string[]) => ids.filter(id => purchasedItems.includes(id)).length;
+            const adventureBundleIds = Object.values(STORE_BUNDLES).filter(b => b.isAdventure).map(b => b.id);
+            const completedAdventures = adventureBundleIds.filter(id => {
+              const b = STORE_BUNDLES[id];
+              return b?.items?.length > 0 && b.items.every(itemId => purchasedItems.includes(itemId));
+            }).length;
             const catProgress: Record<string, { owned: number; total: number }> = {
               themes: { owned: owned(allThemeIds), total: allThemeIds.length },
               frames: { owned: owned(allFrameIds), total: allFrameIds.length },
@@ -6814,6 +6921,7 @@ export default function StoreScreen() {
               avatars: { owned: owned(purchasableAvatarIds), total: purchasableAvatarIds.length },
               bundles: { owned: owned(allBundleIds), total: allBundleIds.length },
               collections: { owned: claimedCollectionIds.size, total: Object.keys(ITEM_COLLECTIONS).length + Object.keys(CHAPTER_COLLECTIONS).length },
+              adventures: { owned: completedAdventures, total: adventureBundleIds.filter(id => !STORE_BUNDLES[id]?.comingSoon).length },
             };
             return CATEGORIES.map((category) => (
               <CategoryCard
@@ -6823,10 +6931,14 @@ export default function StoreScreen() {
                 colors={colors}
                 language={language}
                 badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
-                hasNew={category.key === 'avatars' && newAvatarIds.size > 0}
+                hasNew={categoryHasNew[category.key as keyof typeof categoryHasNew] ?? false}
                 progress={catProgress[category.key]}
                 onPress={() => {
                   Haptics.selectionAsync();
+                  if (category.key === 'adventures') {
+                    router.push('/collections/adventures');
+                    return;
+                  }
                   setActiveCategory(category.key);
                   setActiveSubcategory('all');
                   if (category.key === 'collections') {
