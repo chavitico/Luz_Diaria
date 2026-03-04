@@ -125,6 +125,13 @@ function RootLayoutNav() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="collections/adventures"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

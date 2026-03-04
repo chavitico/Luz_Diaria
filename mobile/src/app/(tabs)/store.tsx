@@ -1,6 +1,7 @@
 // Store Screen - Premium Gamification Hub with Collections, Bundles & Weekly Chest
 
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { useRouter } from 'expo-router';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import {
   View,
@@ -5453,6 +5454,7 @@ export default function StoreScreen() {
   const language = useLanguage();
   const points = useUserPoints();
   const user = useUser();
+  const router = useRouter();
   const updateUser = useAppStore((s) => s.updateUser);
   const newGiftItemIds = useAppStore((s) => s.newGiftItemIds);
   const clearNewGiftItem = useAppStore((s) => s.clearNewGiftItem);
@@ -6462,6 +6464,13 @@ export default function StoreScreen() {
                     language={language}
                     onPress={() => handleBundlePurchase(bundle)}
                     isPurchasing={bundlePurchaseMutation.isPending}
+                    onViewAdventure={(storyId) => {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                      router.push({
+                        pathname: '/collections/adventures',
+                        params: { bundleId: bundle.id },
+                      });
+                    }}
                   />
                 </Animated.View>
               ))}
