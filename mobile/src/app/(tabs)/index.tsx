@@ -1363,6 +1363,7 @@ export default function HomeScreen() {
   const [ttsVolume, setTTSVolume] = useState(settings.ttsVolume ?? 1.0);
   const [ttsVoice, setTTSVoice] = useState('default');
   const [showVoiceFallbackBanner, setShowVoiceFallbackBanner] = useState(false);
+  const [voiceFallbackReason, setVoiceFallbackReason] = useState<'missing_preferred' | 'eloquence' | 'fallback'>('fallback');
   const pickedVoiceRef = useRef<PickedVoice | null>(null);
   const isTTSPlayingRef = useRef(false);
   const currentSectionIndexRef = useRef(-1);
@@ -1414,7 +1415,15 @@ export default function HomeScreen() {
     const langCode = language === 'es' ? 'es' : 'en';
     pickBestVoice(langCode).then((picked) => {
       pickedVoiceRef.current = picked;
-      if (picked.isFallback) {
+      // Show banner if: (a) eloquence fallback, (b) preferred voice missing, or (c) no voice
+      if (picked.isEloquence) {
+        setVoiceFallbackReason('eloquence');
+        setShowVoiceFallbackBanner(true);
+      } else if (!picked.preferredVoiceFound && langCode === 'es') {
+        setVoiceFallbackReason('missing_preferred');
+        setShowVoiceFallbackBanner(true);
+      } else if (picked.isFallback) {
+        setVoiceFallbackReason('fallback');
         setShowVoiceFallbackBanner(true);
       }
     });
@@ -1722,8 +1731,11 @@ export default function HomeScreen() {
   // Get the best voice identifier from the pre-picked voice
   const getVoiceIdentifier = useCallback((): { id: string | undefined; lang: string } => {
     const picked = pickedVoiceRef.current;
-    if (!picked || picked.isFallback) {
-      return { id: undefined, lang: language === 'es' ? 'es-419' : 'en-US' };
+    // Always use the picked voice/language if we have one, even if it's a fallback.
+    // isFallback = true just means "no great voice was found", but we still pass the
+    // best available identifier rather than nothing (which risks device default = wrong lang).
+    if (!picked || !picked.voiceIdentifier) {
+      return { id: undefined, lang: language === 'es' ? 'es-MX' : 'en-US' };
     }
     return { id: picked.voiceIdentifier, lang: picked.language };
   }, [language]);
@@ -2047,6 +2059,15 @@ export default function HomeScreen() {
             isTTSPlaying={isTTSPlaying}
             ttsVoice={ttsVoice}
             onTTSVoiceChange={handleTTSVoiceChange}
+          />
+
+          {/* Voice fallback banner — shown when Paulina/Monica not installed or Eloquence forced */}
+          <VoiceFallbackBanner
+            visible={showVoiceFallbackBanner}
+            reason={voiceFallbackReason}
+            language={language}
+            colors={colors}
+            onDismiss={() => setShowVoiceFallbackBanner(false)}
           />
 
           {/* Collapsible content wrapper */}

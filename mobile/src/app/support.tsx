@@ -31,6 +31,7 @@ import {
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { getNotificationSettings } from '@/lib/notifications';
+import { pickBestVoice } from '@/lib/voice-picker';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 const LAST_TICKET_KEY = '@support_last_ticket_v2';
@@ -282,7 +283,30 @@ export default function SupportScreen() {
       } else if (selectedCategory === 'devotional_not_counted') {
         clientClaim = { date: getTodayDate(), issue: 'not_counted' };
       } else if (selectedCategory === 'audio_tts') {
-        clientClaim = { issue: subIssue, os: Platform.OS };
+        // Gather TTS diagnostics to help debugging
+        let ttsVoiceIdentifier = '';
+        let ttsVoiceName = '';
+        let ttsLanguage = '';
+        let ttsPreferredVoiceFound = false;
+        let ttsIsEloquence = false;
+        try {
+          const langCode = (language === 'es' ? 'es' : 'en') as 'en' | 'es';
+          const picked = await pickBestVoice(langCode);
+          ttsVoiceIdentifier = picked.voiceIdentifier;
+          ttsVoiceName = picked.name;
+          ttsLanguage = picked.language;
+          ttsPreferredVoiceFound = picked.preferredVoiceFound;
+          ttsIsEloquence = picked.isEloquence;
+        } catch (_) {}
+        clientClaim = {
+          issue: subIssue,
+          os: Platform.OS,
+          ttsVoiceIdentifier,
+          ttsVoiceName,
+          ttsLanguage,
+          ttsPreferredVoiceFound,
+          ttsIsEloquence,
+        };
       } else if (selectedCategory === 'notification') {
         // Grab notification settings from local storage
         const notifSettings = await getNotificationSettings();
