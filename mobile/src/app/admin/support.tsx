@@ -37,6 +37,12 @@ import {
   XCircle,
   Check,
   X,
+  MessageCircle,
+  User as UserIcon,
+  Shield,
+  Info,
+  Zap,
+  History,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
@@ -113,6 +119,27 @@ interface StoreItemOption {
   nameEs: string;
   nameEn: string;
   rarity: string;
+}
+
+interface TicketEvent {
+  id: string;
+  actor: string;
+  type: string;
+  message: string;
+  meta: Record<string, unknown>;
+  createdAt: string;
+}
+
+// ─── Event helpers ─────────────────────────────────────────────────────────────
+
+function adminEventIcon(type: string, actor: string): { icon: React.ComponentType<{ size: number; color: string }>; color: string } {
+  if (type === 'AUTO_FIX') return { icon: Zap, color: '#22C55E' };
+  if (type === 'COMPENSATION') return { icon: Gift, color: '#F59E0B' };
+  if (type === 'CLOSED' || type === 'RATING') return { icon: CheckCircle, color: '#22C55E' };
+  if (type === 'REQUEST_INFO') return { icon: Info, color: '#0EA5E9' };
+  if (actor === 'USER') return { icon: UserIcon, color: '#94A3B8' };
+  if (actor === 'ADMIN') return { icon: Shield, color: '#8B5CF6' };
+  return { icon: MessageCircle, color: '#0EA5E9' };
 }
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
@@ -807,6 +834,10 @@ function TicketCard({
   userId: string;
 }) {
   const [snapshotExpanded, setSnapshotExpanded] = useState(false);
+  const [timelineExpanded, setTimelineExpanded] = useState(false);
+  const [timelineEvents, setTimelineEvents] = useState<TicketEvent[]>([]);
+  const [timelineLoading, setTimelineLoading] = useState(false);
+  const [timelineFetched, setTimelineFetched] = useState(false);
 
   const typeInfo = TYPE_LABELS[ticket.type] ?? { label: ticket.type, color: '#94A3B8' };
   const sColor = statusColor(ticket.status);
@@ -814,6 +845,20 @@ function TicketCard({
   const handleCopyUid = async () => {
     await Clipboard.setStringAsync(ticket.userId);
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+  };
+
+  const fetchTimeline = async () => {
+    if (timelineFetched) return;
+    setTimelineLoading(true);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/support/admin/ticket/${ticket.id}/events`, {
+        headers: { 'X-User-Id': userId },
+      });
+      const data = await res.json() as { events?: TicketEvent[] };
+      setTimelineEvents(data.events ?? []);
+      setTimelineFetched(true);
+    } catch {}
+    setTimelineLoading(false);
   };
 
   const ss = ticket.systemSnapshot;
@@ -981,30 +1026,58 @@ function TicketCard({
           )}
         </View>
 
-        {/* System Snapshot Toggle */}
-        <Pressable
-          onPress={() => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            setSnapshotExpanded(prev => !prev);
-          }}
-          style={({ pressed }) => ({
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 6,
-            marginTop: 12,
-            paddingVertical: 6,
-            opacity: pressed ? 0.7 : 1,
-          })}
-        >
-          <Package size={13} color={colors.textMuted} />
-          <Text style={{ fontSize: 12, fontWeight: '600', color: colors.textMuted, flex: 1 }}>
-            {es ? 'Estado técnico' : 'System snapshot'}
-          </Text>
-          {snapshotExpanded
-            ? <ChevronUp size={14} color={colors.textMuted} />
-            : <ChevronDown size={14} color={colors.textMuted} />
-          }
-        </Pressable>
+        {/* System Snapshot + Timeline Toggles */}
+        <View style={{ flexDirection: 'row', gap: 8, marginTop: 12 }}>
+          <Pressable
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              setSnapshotExpanded(prev => !prev);
+            }}
+            style={({ pressed }) => ({
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 5,
+              paddingVertical: 6,
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <Package size={13} color={colors.textMuted} />
+            <Text style={{ fontSize: 12, fontWeight: '600', color: colors.textMuted, flex: 1 }}>
+              {es ? 'Estado técnico' : 'System snapshot'}
+            </Text>
+            {snapshotExpanded
+              ? <ChevronUp size={14} color={colors.textMuted} />
+              : <ChevronDown size={14} color={colors.textMuted} />
+            }
+          </Pressable>
+
+          <Pressable
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              const next = !timelineExpanded;
+              setTimelineExpanded(next);
+              if (next) fetchTimeline();
+            }}
+            style={({ pressed }) => ({
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 5,
+              paddingVertical: 6,
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <History size={13} color={colors.textMuted} />
+            <Text style={{ fontSize: 12, fontWeight: '600', color: colors.textMuted, flex: 1 }}>
+              {es ? 'Historial' : 'Timeline'}
+            </Text>
+            {timelineExpanded
+              ? <ChevronUp size={14} color={colors.textMuted} />
+              : <ChevronDown size={14} color={colors.textMuted} />
+            }
+          </Pressable>
+        </View>
       </View>
 
       {/* Snapshot panel */}
@@ -1080,6 +1153,97 @@ function TicketCard({
               <Text style={{ fontSize: 11, color: colors.text + 'CC', lineHeight: 17 }}>
                 {ticket.resolutionNote}
               </Text>
+            </View>
+          )}
+        </View>
+      )}
+
+      {/* Timeline panel */}
+      {timelineExpanded && (
+        <View style={{
+          backgroundColor: colors.background,
+          paddingHorizontal: 16,
+          paddingVertical: 14,
+          borderTopWidth: 1,
+          borderTopColor: colors.textMuted + '15',
+        }}>
+          <Text style={{ fontSize: 11, fontWeight: '800', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 10 }}>
+            {es ? 'Historial de conversación' : 'Conversation Timeline'}
+          </Text>
+
+          {timelineLoading ? (
+            <ActivityIndicator size="small" color={colors.primary} style={{ marginVertical: 16 }} />
+          ) : timelineEvents.length === 0 ? (
+            <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center', paddingVertical: 12 }}>
+              {es ? 'Sin eventos aún' : 'No events yet'}
+            </Text>
+          ) : (
+            <View style={{ gap: 0 }}>
+              {timelineEvents.map((ev, idx) => {
+                const { icon: Icon, color } = adminEventIcon(ev.type, ev.actor);
+                const isLast = idx === timelineEvents.length - 1;
+                const actorLabel = ev.actor === 'USER'
+                  ? (es ? 'Usuario' : 'User')
+                  : ev.actor === 'ADMIN'
+                  ? (es ? 'Admin' : 'Admin')
+                  : (es ? 'Sistema' : 'System');
+                return (
+                  <View key={ev.id} style={{ flexDirection: 'row', gap: 10, marginBottom: isLast ? 0 : 4 }}>
+                    {/* Icon + line */}
+                    <View style={{ alignItems: 'center', width: 28 }}>
+                      <View style={{
+                        width: 28, height: 28, borderRadius: 14,
+                        backgroundColor: color + '18',
+                        alignItems: 'center', justifyContent: 'center',
+                        borderWidth: 1.5,
+                        borderColor: color + '40',
+                      }}>
+                        <Icon size={12} color={color} />
+                      </View>
+                      {!isLast && (
+                        <View style={{
+                          width: 1.5, flex: 1, minHeight: 10,
+                          backgroundColor: colors.textMuted + '25',
+                          marginTop: 3,
+                        }} />
+                      )}
+                    </View>
+
+                    {/* Bubble */}
+                    <View style={{
+                      flex: 1,
+                      backgroundColor: ev.actor === 'ADMIN'
+                        ? '#8B5CF610'
+                        : ev.actor === 'USER'
+                        ? colors.surface
+                        : colors.background,
+                      borderRadius: 12,
+                      padding: 10,
+                      marginBottom: isLast ? 0 : 8,
+                      borderWidth: 1,
+                      borderColor: ev.actor === 'ADMIN'
+                        ? '#8B5CF630'
+                        : ev.type === 'CLOSED' || ev.type === 'RATING'
+                        ? '#22C55E30'
+                        : colors.textMuted + '15',
+                    }}>
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
+                        <Text style={{ fontSize: 10, fontWeight: '700', color, letterSpacing: 0.7, textTransform: 'uppercase' }}>
+                          {actorLabel}
+                        </Text>
+                        <Text style={{ fontSize: 10, color: colors.textMuted }}>
+                          {new Date(ev.createdAt).toLocaleString(es ? 'es-CR' : 'en-US', {
+                            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
+                          })}
+                        </Text>
+                      </View>
+                      <Text style={{ fontSize: 12, color: colors.text, lineHeight: 18 }}>
+                        {ev.message}
+                      </Text>
+                    </View>
+                  </View>
+                );
+              })}
             </View>
           )}
         </View>

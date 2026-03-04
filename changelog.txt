@@ -214,3 +214,4 @@
 - Changes made by agent 2026-03-04T15:54:31Z
 - Support system overhauled 2026-03-04: incidentNumber (LD-YYYYMMDD-NNNN), SupportTicketEvent timeline, live ticket history, Ticket Detail modal with reply + rating 1-4, auto-fix events visible to user, admin emoji-safe copy, waiting_user status, support email shown
 - Changes made by agent 2026-03-04T16:42:05Z
+- Changes made by agent 2026-03-04T17:05:56Z
