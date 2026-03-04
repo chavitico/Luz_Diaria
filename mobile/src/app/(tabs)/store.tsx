@@ -383,6 +383,123 @@ function SeasonBanner({ season, language }: { season: Season; language: 'en' | '
   );
 }
 
+// ─── Launch Event Banner ──────────────────────────────────────────────────────
+// Shown permanently when NO active season is present.
+function LaunchEventBanner({
+  language,
+  colors,
+  onPress,
+  isOwned,
+}: {
+  language: 'en' | 'es';
+  colors: ReturnType<typeof useThemeColors>;
+  onPress: () => void;
+  isOwned: boolean;
+}) {
+  const scale = useSharedValue(1);
+  const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  // Deep forest-green gradient — distinct from red season banner
+  const G1 = '#1B3A2B';
+  const G2 = '#0D1F17';
+  const ACCENT = '#4A7D5E';
+
+  return (
+    <Animated.View
+      entering={FadeInDown.duration(500)}
+      style={[animatedStyle, { marginHorizontal: 20, marginBottom: 16 }]}
+    >
+      <Pressable
+        onPressIn={() => { scale.value = withSpring(0.98); }}
+        onPressOut={() => { scale.value = withSpring(1); }}
+        onPress={onPress}
+      >
+        <LinearGradient
+          colors={[G1, G2]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ borderRadius: 20, padding: 20, overflow: 'hidden' }}
+        >
+          {/* Badge */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
+            <View style={{
+              backgroundColor: ACCENT + '33',
+              borderWidth: 1,
+              borderColor: ACCENT + 'AA',
+              borderRadius: 99,
+              paddingHorizontal: 10,
+              paddingVertical: 3,
+            }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
+                ✨ {language === 'es' ? 'Evento de Lanzamiento' : 'Launch Event'}
+              </Text>
+            </View>
+            {isOwned && (
+              <View style={{ backgroundColor: '#4CAF5033', borderRadius: 99, paddingHorizontal: 8, paddingVertical: 2, borderWidth: 1, borderColor: '#4CAF5088' }}>
+                <Text style={{ fontSize: 9, fontWeight: '800', color: '#4CAF50' }}>
+                  {language === 'es' ? 'COMPLETADO' : 'OWNED'}
+                </Text>
+              </View>
+            )}
+          </View>
+
+          {/* Title */}
+          <Text style={{
+            fontSize: 22,
+            fontWeight: '800',
+            color: '#FFFFFF',
+            letterSpacing: -0.3,
+            marginBottom: 6,
+            textShadowColor: 'rgba(0,0,0,0.4)',
+            textShadowOffset: { width: 0, height: 1 },
+            textShadowRadius: 4,
+          }}>
+            {language === 'es' ? 'Camino del Crecimiento' : 'Growth Path'}
+          </Text>
+
+          {/* Description */}
+          <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.75)', lineHeight: 18, marginBottom: 16 }}>
+            {language === 'es'
+              ? 'La fe que siembras hoy dará fruto mañana.'
+              : 'The faith you plant today will bear fruit tomorrow.'}
+          </Text>
+
+          {/* Items preview: emojis */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16 }}>
+            {['🌱', '🍇', '🌿', '👑', '🕊️'].map((emoji, i) => (
+              <View key={i} style={{
+                width: 32, height: 32, borderRadius: 16,
+                backgroundColor: 'rgba(255,255,255,0.08)',
+                alignItems: 'center', justifyContent: 'center',
+              }}>
+                <Text style={{ fontSize: 16 }}>{emoji}</Text>
+              </View>
+            ))}
+            <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginLeft: 4 }}>
+              5 {language === 'es' ? 'recompensas' : 'rewards'}
+            </Text>
+          </View>
+
+          {/* CTA */}
+          {!isOwned && (
+            <View style={{
+              backgroundColor: ACCENT,
+              borderRadius: 99,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              alignSelf: 'flex-start',
+            }}>
+              <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFFFFF' }}>
+                {language === 'es' ? 'Comenzar aventura' : 'Start adventure'}
+              </Text>
+            </View>
+          )}
+        </LinearGradient>
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 // ─── Seasonal Adventure Card ──────────────────────────────────────────────────
 function SeasonalAdventureCard({
   item,
@@ -535,6 +652,7 @@ function sortBundlesForUser(
   type Scored = {
     bundle: typeof STORE_BUNDLES[string];
     isSeasonActive: boolean;
+    isLaunch: boolean;
     isIncomplete: boolean;
     releasedMs: number;
   };
@@ -543,6 +661,7 @@ function sortBundlesForUser(
     const meta = (() => { try { return JSON.parse((b as any).metadata ?? '{}'); } catch { return {}; } })();
     const bundleSeasonId: string | undefined = (b as any).seasonId ?? meta?.seasonId;
     const isSeasonActive = bundleSeasonId ? activeSeasonIds.includes(bundleSeasonId) : false;
+    const isLaunch = !!(b as any).isLaunchEvent;
 
     // A bundle is "incomplete" if the user doesn't own ALL items
     const allItems: string[] = b.items ?? [];
@@ -557,31 +676,35 @@ function sortBundlesForUser(
         ? new Date((b as any).releasedAt).getTime()
         : 0;
 
-    return { bundle: b, isSeasonActive, isIncomplete, releasedMs };
+    return { bundle: b, isSeasonActive, isLaunch, isIncomplete, releasedMs };
   });
 
   scored.sort((a, b) => {
-    // 1. Season-active first
+    // 1. Season-active bundles first
     if (a.isSeasonActive !== b.isSeasonActive) return a.isSeasonActive ? -1 : 1;
-    // 2. Incomplete/not-owned before completed
+    // 2. Launch event bundle second (permanent featured)
+    if (a.isLaunch !== b.isLaunch) return a.isLaunch ? -1 : 1;
+    // 3. Incomplete/not-owned before completed
     if (a.isIncomplete !== b.isIncomplete) return a.isIncomplete ? -1 : 1;
-    // 3. Newest releasedAt first within same group
+    // 4. Newest releasedAt first within same group
     if (b.releasedMs !== a.releasedMs) return b.releasedMs - a.releasedMs;
-    // 4. Stable tie-break by id
+    // 5. Stable tie-break by id
     return a.bundle.id < b.bundle.id ? -1 : 1;
   });
 
   if (__DEV__ && devLog) {
     const activeCount = scored.filter((s) => s.isSeasonActive).length;
+    const launchCount = scored.filter((s) => s.isLaunch).length;
     const incompleteCount = scored.filter((s) => s.isIncomplete).length;
     const top5 = scored.slice(0, 5).map((s) => ({
       id: s.bundle.id,
       seasonActive: s.isSeasonActive,
+      launch: s.isLaunch,
       incomplete: s.isIncomplete,
       releasedAt: s.releasedMs ? new Date(s.releasedMs).toISOString().slice(0, 10) : 'none',
     }));
     console.log(
-      `[BundleSort] total=${scored.length} seasonActive=${activeCount} incomplete=${incompleteCount}`,
+      `[BundleSort] total=${scored.length} seasonActive=${activeCount} launch=${launchCount} incomplete=${incompleteCount}`,
       '\n[BundleSort] top5:', JSON.stringify(top5)
     );
   }
@@ -6650,9 +6773,20 @@ export default function StoreScreen() {
           />
         )}
 
-        {/* Season Banner — shown when there is an active season */}
-        {primarySeason && (
+        {/* Season Banner — shown when active season; Launch Event Banner shown otherwise */}
+        {primarySeason ? (
           <SeasonBanner season={primarySeason} language={language} />
+        ) : (
+          <LaunchEventBanner
+            language={language}
+            colors={colors}
+            isOwned={STORE_BUNDLES.bundle_launch_growth.items.every(id => purchasedItems.includes(id))}
+            onPress={() => {
+              setActiveCategory('bundles');
+              setActiveSubcategory('all');
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            }}
+          />
         )}
 
         {/* Category Cards */}

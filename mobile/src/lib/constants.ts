@@ -1402,6 +1402,9 @@ export const STORE_BUNDLES: Record<string, {
   storyId?: string;
   storyDays?: number;
   comingSoon?: boolean;
+  isLaunchEvent?: boolean;
+  isPermanent?: boolean;
+  badge?: string;
 }> = {
   bundle_gratitud: {
     id: 'bundle_gratitud',
@@ -1682,6 +1685,24 @@ export const STORE_BUNDLES: Record<string, {
     storyId: 'story_adv_paul',
     storyDays: 5,
     comingSoon: true,
+  },
+  // ── Evento de Lanzamiento — permanente, no depende de fechas ──────────────
+  bundle_launch_growth: {
+    id: 'bundle_launch_growth',
+    name: 'Growth Path',
+    nameEs: 'Camino del Crecimiento',
+    description: 'The faith you plant today will bear fruit tomorrow. A journey from seed to harvest.',
+    descriptionEs: 'La fe que siembras hoy dará fruto mañana. Un camino desde la semilla hasta la cosecha.',
+    items: ['avatar_v2_semilla_mostaza', 'avatar_v2_vid_racimos', 'avatar_v2_rama_olivo', 'frame_corona', 'title_sembrador'],
+    originalPrice: 1720,
+    bundlePrice: 1200,
+    collectionBonus: 300,
+    rarity: 'epic',
+    isAdventure: true,
+    adventureNumber: 0,
+    isLaunchEvent: true,
+    isPermanent: true,
+    badge: '✨ Lanzamiento',
   },
 };
 
