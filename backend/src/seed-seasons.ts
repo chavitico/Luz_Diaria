@@ -16,9 +16,10 @@ const SEASONS = [
     storeSlot: "featured_adventure",
     bannerTitle: "Camino de la Cruz",
     bannerDescription:
-      "Revive los momentos del sacrificio y la resurrección de Cristo.",
+      "Revive la pasión, muerte y resurrección de Cristo.",
     accentColor: "#7A1F1F",
     isActive: true,
+    preview: true, // DEV: treat as active even before startDate
   },
 ];
 
@@ -180,6 +181,7 @@ export async function seedSeasons() {
           bannerDescription: season.bannerDescription,
           accentColor: season.accentColor,
           isActive: season.isActive,
+          preview: season.preview,
         },
         create: season,
       });

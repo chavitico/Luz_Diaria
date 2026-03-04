@@ -4,8 +4,31 @@ import { z } from "zod";
 import { prisma } from "../prisma";
 import { checkAndAwardBadges } from "../seed-badges";
 import { validateNickname, normalizeNickname } from "../lib/nickname-safety";
+import { IS_DEV } from "../env";
 
 export const gamificationRouter = new Hono();
+
+// ============================================
+// SEASON HELPER
+// ============================================
+
+/**
+ * Build a Prisma WHERE clause that matches seasons considered "active".
+ * A season is active if:
+ *   isActive = true  AND  (preview = true  OR  now BETWEEN startDate AND endDate)
+ * The `preview` flag only takes effect in DEV — in PROD it is ignored.
+ */
+function buildActiveSeasonWhere(now: Date) {
+  const dateRangeClause = { startDate: { lte: now }, endDate: { gte: now } };
+  if (IS_DEV) {
+    return {
+      isActive: true,
+      OR: [{ preview: true }, dateRangeClause],
+    };
+  }
+  // PROD: ignore preview flag entirely
+  return { isActive: true, ...dateRangeClause };
+}
 
 // ============================================
 // TYPES & CONSTANTS
@@ -625,13 +648,9 @@ gamificationRouter.get("/store/items", async (c) => {
     const type = c.req.query("type");
     const now = new Date();
 
-    // Determine active season IDs (date-range check)
+    // Determine active season IDs (supports preview flag in DEV)
     const activeSeasons = await prisma.season.findMany({
-      where: {
-        isActive: true,
-        startDate: { lte: now },
-        endDate: { gte: now },
-      },
+      where: buildActiveSeasonWhere(now),
     });
     const activeSeasonIds = activeSeasons.map((s) => s.id);
 
@@ -669,16 +688,12 @@ gamificationRouter.get("/store/items", async (c) => {
 // SEASONS / EVENTS ENDPOINTS
 // ============================================
 
-// GET /seasons/active - Get currently active seasons
+// GET /seasons/active - Get currently active seasons (respects preview flag in DEV)
 gamificationRouter.get("/seasons/active", async (c) => {
   try {
     const now = new Date();
     const seasons = await prisma.season.findMany({
-      where: {
-        isActive: true,
-        startDate: { lte: now },
-        endDate: { gte: now },
-      },
+      where: buildActiveSeasonWhere(now),
       orderBy: { priority: "desc" },
     });
     return c.json(seasons);
@@ -698,6 +713,32 @@ gamificationRouter.get("/seasons/all", async (c) => {
   } catch (error) {
     console.error("[Gamification] Error getting all seasons:", error);
     return c.json({ error: "Failed to get seasons" }, 500);
+  }
+});
+
+// GET /seasons/preview - Debug endpoint: shows all seasons + which are active right now (DEV only)
+gamificationRouter.get("/seasons/preview", async (c) => {
+  if (!IS_DEV) {
+    return c.json({ error: "Only available in DEV environment" }, 403);
+  }
+  try {
+    const now = new Date();
+    const allSeasons = await prisma.season.findMany({
+      orderBy: [{ priority: "desc" }, { startDate: "desc" }],
+    });
+    const activeSeasons = await prisma.season.findMany({
+      where: buildActiveSeasonWhere(now),
+      orderBy: { priority: "desc" },
+    });
+    return c.json({
+      now: now.toISOString(),
+      activeSeasons,
+      allSeasons,
+      note: "preview=true seasons are treated as active in DEV regardless of date",
+    });
+  } catch (error) {
+    console.error("[Gamification] Error getting seasons preview:", error);
+    return c.json({ error: "Failed to get seasons preview" }, 500);
   }
 });
 

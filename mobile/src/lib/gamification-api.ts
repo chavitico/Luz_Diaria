@@ -39,6 +39,7 @@ export interface Season {
   bannerDescription: string;
   accentColor: string;
   isActive: boolean;
+  preview: boolean; // DEV only: treated as active even before startDate
 }
 
 export interface StoreItemsResponse {
