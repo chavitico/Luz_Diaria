@@ -519,6 +519,76 @@ function SeasonalAdventureCard({
   );
 }
 
+// ─── Bundle Sort Utility ─────────────────────────────────────────────────────
+// Sorting rules for STORE_BUNDLES entries:
+//   1. Season-active bundles (seasonId in activeSeasonIds) — first
+//   2. Incomplete/not-owned bundles — before completed
+//   3. Within each group: newest releasedAt DESC, then id ASC (stable)
+//   4. comingSoon is treated same as incomplete (shows UI blocked)
+
+function sortBundlesForUser(
+  bundles: typeof STORE_BUNDLES[string][],
+  ownedItemIds: string[],
+  activeSeasonIds: string[],
+  devLog = false
+): typeof STORE_BUNDLES[string][] {
+  type Scored = {
+    bundle: typeof STORE_BUNDLES[string];
+    isSeasonActive: boolean;
+    isIncomplete: boolean;
+    releasedMs: number;
+  };
+
+  const scored: Scored[] = bundles.map((b) => {
+    const meta = (() => { try { return JSON.parse((b as any).metadata ?? '{}'); } catch { return {}; } })();
+    const bundleSeasonId: string | undefined = (b as any).seasonId ?? meta?.seasonId;
+    const isSeasonActive = bundleSeasonId ? activeSeasonIds.includes(bundleSeasonId) : false;
+
+    // A bundle is "incomplete" if the user doesn't own ALL items
+    const allItems: string[] = b.items ?? [];
+    const ownsAll = allItems.length > 0 && allItems.every((id) => ownedItemIds.includes(id));
+    const isIncomplete = !ownsAll || (b as any).comingSoon === true;
+
+    // releasedAt: from meta or item field or fallback to 0 (oldest)
+    const releasedMs =
+      (b as any).releasedAt instanceof Date
+        ? ((b as any).releasedAt as Date).getTime()
+        : typeof (b as any).releasedAt === 'string'
+        ? new Date((b as any).releasedAt).getTime()
+        : 0;
+
+    return { bundle: b, isSeasonActive, isIncomplete, releasedMs };
+  });
+
+  scored.sort((a, b) => {
+    // 1. Season-active first
+    if (a.isSeasonActive !== b.isSeasonActive) return a.isSeasonActive ? -1 : 1;
+    // 2. Incomplete/not-owned before completed
+    if (a.isIncomplete !== b.isIncomplete) return a.isIncomplete ? -1 : 1;
+    // 3. Newest releasedAt first within same group
+    if (b.releasedMs !== a.releasedMs) return b.releasedMs - a.releasedMs;
+    // 4. Stable tie-break by id
+    return a.bundle.id < b.bundle.id ? -1 : 1;
+  });
+
+  if (__DEV__ && devLog) {
+    const activeCount = scored.filter((s) => s.isSeasonActive).length;
+    const incompleteCount = scored.filter((s) => s.isIncomplete).length;
+    const top5 = scored.slice(0, 5).map((s) => ({
+      id: s.bundle.id,
+      seasonActive: s.isSeasonActive,
+      incomplete: s.isIncomplete,
+      releasedAt: s.releasedMs ? new Date(s.releasedMs).toISOString().slice(0, 10) : 'none',
+    }));
+    console.log(
+      `[BundleSort] total=${scored.length} seasonActive=${activeCount} incomplete=${incompleteCount}`,
+      '\n[BundleSort] top5:', JSON.stringify(top5)
+    );
+  }
+
+  return scored.map((s) => s.bundle);
+}
+
 // Get rarity icon
 function RarityIcon({ rarity, size = 12 }: { rarity: string; size?: number }) {
   const color = RARITY_COLORS[rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
@@ -5429,6 +5499,7 @@ export default function StoreScreen() {
     staleTime: 5 * 60 * 1000,
   });
   const primarySeason = activeSeasons[0] ?? null;
+  const activeSeasonIds = useMemo(() => activeSeasons.map((s) => s.id), [activeSeasons]);
 
   // Seasonal store items (bundles only) — DB-driven
   const { data: seasonalItemsData } = useQuery({
@@ -6169,11 +6240,15 @@ export default function StoreScreen() {
           { key: 'adventures', labelEs: 'Aventuras Bíblicas', label: 'Biblical Adventures' },
           ...(seasonalBundles.length > 0 ? [{ key: 'season', labelEs: '✝ Temporada', label: '✝ Season' }] : []),
         ];
-        const allBundles = Object.values(STORE_BUNDLES);
+        const allBundlesRaw = Object.values(STORE_BUNDLES);
+
+        // Sort: season-active first → incomplete/not-owned → newest → stable
+        const allBundles = sortBundlesForUser(allBundlesRaw, purchasedItems, activeSeasonIds, true);
+
         const filteredBundles = activeSubcategory === 'adventures'
           ? allBundles.filter(b => (b as any).isAdventure === true)
           : activeSubcategory === 'season'
-          ? [] // Only seasonal bundles shown below
+          ? [] // Only seasonal DB bundles shown below
           : allBundles;
 
         // Seasonal bundles shown when: 'all' or 'season' tab is active
