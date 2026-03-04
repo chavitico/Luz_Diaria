@@ -6026,7 +6026,7 @@ export default function StoreScreen() {
   }, [purchasedItems, user, points]);
 
   // Render category content
-  const renderCategoryContent = (overrideCategory?: CategoryType) => {
+  const renderCategoryContent = (overrideCategory?: CategoryType, disableAnimations?: boolean) => {
     const currentCategory = overrideCategory ?? activeCategory;
     const screenWidth = Dimensions.get('window').width;
 
@@ -6072,7 +6072,7 @@ export default function StoreScreen() {
               {filteredThemes.map((theme, index) => {
                 const { isOwned, isEquipped, canAfford } = getItemStatus(theme.id, 'theme', theme.price ?? 0);
                 return (
-                  <Animated.View key={theme.id} entering={FadeInRight.delay(index * 50).duration(300)} style={{ width: '48%' }}>
+                  <Animated.View key={theme.id} entering={disableAnimations ? undefined : FadeInRight.delay(index * 50).duration(300)} style={{ width: '48%' }}>
                     <PremiumThemeCard
                       themeData={theme}
                       isOwned={isOwned}
@@ -6166,7 +6166,7 @@ export default function StoreScreen() {
                 return (
                   <Animated.View
                     key={frame.id}
-                    entering={FadeInRight.delay(index * 40).duration(300)}
+                    entering={disableAnimations ? undefined : FadeInRight.delay(index * 40).duration(300)}
                     style={{ width: itemWidth }}
                   >
                     <PremiumFrameCard
@@ -6263,7 +6263,7 @@ export default function StoreScreen() {
                 return (
                   <Animated.View
                     key={title.id}
-                    entering={FadeInDown.delay(index * 40).duration(300)}
+                    entering={disableAnimations ? undefined : FadeInDown.delay(index * 40).duration(300)}
                   >
                     <PremiumTitleCard
                       titleData={title}
@@ -6380,7 +6380,7 @@ export default function StoreScreen() {
                 return (
                   <Animated.View
                     key={avatar.id}
-                    entering={FadeInRight.delay(index * 35).duration(300)}
+                    entering={disableAnimations ? undefined : FadeInRight.delay(index * 35).duration(300)}
                     style={{ width: itemWidth }}
                   >
                     <PremiumAvatarCard
@@ -6516,7 +6516,7 @@ export default function StoreScreen() {
               {filteredBundles.map((bundle, index) => (
                 <Animated.View
                   key={bundle.id}
-                  entering={FadeInDown.delay(index * 60).duration(400)}
+                  entering={disableAnimations ? undefined : FadeInDown.delay(index * 60).duration(400)}
                 >
                   <BundleCard
                     bundle={bundle}
@@ -6545,7 +6545,7 @@ export default function StoreScreen() {
         return (
           <View className="px-5">
             {/* ── Aventuras Bíblicas Entry ── */}
-            <Animated.View entering={FadeInDown.delay(0).duration(400)} style={{ marginBottom: 12 }}>
+            <Animated.View entering={disableAnimations ? undefined : FadeInDown.delay(0).duration(400)} style={{ marginBottom: 12 }}>
               <Pressable
                 onPress={() => {
                   Haptics.selectionAsync();
@@ -6600,7 +6600,7 @@ export default function StoreScreen() {
             {Object.values(CHAPTER_COLLECTIONS).map((chCol, index) => (
               <Animated.View
                 key={chCol.collectionId}
-                entering={FadeInDown.delay(index * 60).duration(400)}
+                entering={disableAnimations ? undefined : FadeInDown.delay(index * 60).duration(400)}
               >
                 <ChapterCollectionCard
                   collection={chCol}
@@ -6630,7 +6630,7 @@ export default function StoreScreen() {
             {Object.values(ITEM_COLLECTIONS).map((collection, index) => (
               <Animated.View
                 key={collection.id}
-                entering={FadeInDown.delay((index + Object.values(CHAPTER_COLLECTIONS).length) * 60).duration(400)}
+                entering={disableAnimations ? undefined : FadeInDown.delay((index + Object.values(CHAPTER_COLLECTIONS).length) * 60).duration(400)}
               >
                 <CollectionCard
                   collection={collection}
@@ -6689,13 +6689,37 @@ export default function StoreScreen() {
     };
     const targetCategory = categoryMap[itemType] ?? 'avatars';
 
-    // subcategory-filter: reset so the target item is always visible
+    // Reset subcategory so the item is always visible
     setActiveSubcategory('all');
-    setActiveCategory(targetCategory);
-    setPendingNavTarget({ itemId, itemType });
+
+    // Open the StoreSectionModal for the target category
+    setStoreSectionModalCategory(targetCategory);
+    setShowStoreSectionModal(true);
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    console.debug('[Navigation] Targeting item', itemId, 'in', targetCategory);
+
+    // Auto-open the item detail modal after modal has rendered
+    // Build detail inline to avoid forward-reference issue
+    let detail: typeof selectedDetailItem = null;
+    if (itemType === 'theme') {
+      const th = PURCHASABLE_THEMES[itemId];
+      if (th) detail = { id: th.id, type: 'theme', name: th.name, nameEs: th.nameEs, description: th.description, descriptionEs: th.descriptionEs, price: th.price ?? 0, rarity: th.rarity, colors: th.colors, chestOnly: th.chestOnly };
+    } else if (itemType === 'frame') {
+      const fr = AVATAR_FRAMES[itemId];
+      if (fr) detail = { id: fr.id, type: 'frame', name: fr.name, nameEs: fr.nameEs, description: fr.description, descriptionEs: fr.descriptionEs, price: fr.price ?? 0, rarity: fr.rarity, color: fr.color, chestOnly: fr.chestOnly };
+    } else if (itemType === 'title') {
+      const ti = SPIRITUAL_TITLES[itemId];
+      if (ti) detail = { id: ti.id, type: 'title', name: ti.name, nameEs: ti.nameEs, description: ti.description, descriptionEs: ti.descriptionEs, price: ti.price ?? 0, rarity: ti.rarity, chestOnly: ti.chestOnly };
+    } else if (itemType === 'avatar') {
+      const av = DEFAULT_AVATARS.find(a => a.id === itemId);
+      if (av) detail = { id: av.id, type: 'avatar', name: av.name, nameEs: av.nameEs, description: av.description, descriptionEs: av.descriptionEs, price: (av as any).price ?? 0, rarity: av.rarity, emoji: av.emoji };
+    }
+    if (detail) {
+      setTimeout(() => {
+        setSelectedDetailItem(detail);
+        setShowDetailModal(true);
+      }, 450);
+    }
   }, []);
 
   // Effect: once pendingNavTarget is set and the grid has rendered, scroll to the item
@@ -7020,8 +7044,8 @@ export default function StoreScreen() {
               })()}
             </View>
           </View>
-          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
-            {storeSectionModalCategory && renderCategoryContent(storeSectionModalCategory)}
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }} nestedScrollEnabled>
+            {storeSectionModalCategory && renderCategoryContent(storeSectionModalCategory, true)}
           </ScrollView>
         </View>
       </Modal>

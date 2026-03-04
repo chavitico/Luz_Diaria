@@ -705,5 +705,33 @@
     "itemId": "title_mensajero_senor",
     "acquiredAt": "2026-03-04T22:31:16.332Z",
     "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmcokzxr0069m26bgb5vmpm0",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-04T23:41:46.095Z",
+    "source": "support_grant"
+  },
+  {
+    "id": "cmmcol6f1006dm26by5rui4yb",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "itemId": "avatar_easter_cross_light",
+    "acquiredAt": "2026-03-04T23:41:54.492Z",
+    "source": "support_grant"
+  },
+  {
+    "id": "cmmcol6f3006fm26blejawtjg",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "itemId": "frame_easter_resurrection",
+    "acquiredAt": "2026-03-04T23:41:54.495Z",
+    "source": "support_grant"
+  },
+  {
+    "id": "cmmcol6f4006hm26bkg26wtyb",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "itemId": "title_resurrection_power",
+    "acquiredAt": "2026-03-04T23:41:54.496Z",
+    "source": "support_grant"
   }
 ]
