@@ -86,12 +86,14 @@ interface SystemSnapshot {
 
 interface AdminTicket {
   id: string;
+  incidentNumber?: string | null;
   userId: string;
   type: string;
   claimedStreak: number;
   claimedDate: string;
   clientClaim: Record<string, unknown>;
-  status: 'open' | 'auto_fixed' | 'needs_human' | 'closed';
+  status: 'open' | 'auto_fixed' | 'needs_human' | 'waiting_user' | 'closed';
+  rating?: number | null;
   resolutionNote: string | null;
   beforeState: string;
   afterState: string;
@@ -100,6 +102,7 @@ interface AdminTicket {
   snapshotId?: string | null;
   createdAt: string;
   systemSnapshot: SystemSnapshot;
+  latestEvent?: { actor: string; type: string; message: string; createdAt: string } | null;
 }
 
 type RewardType = 'CHEST' | 'THEME' | 'TITLE' | 'AVATAR' | 'ITEM';
@@ -135,6 +138,7 @@ const REWARD_TYPES: { value: RewardType; label: string; emoji: string }[] = [
 function statusColor(status: AdminTicket['status']): string {
   if (status === 'auto_fixed' || status === 'closed') return '#22C55E';
   if (status === 'needs_human') return '#F59E0B';
+  if (status === 'waiting_user') return '#0EA5E9';
   return '#94A3B8';
 }
 
@@ -142,12 +146,14 @@ function StatusIcon({ status }: { status: AdminTicket['status'] }) {
   const c = statusColor(status);
   if (status === 'auto_fixed' || status === 'closed') return <CheckCircle size={12} color={c} />;
   if (status === 'needs_human') return <AlertCircle size={12} color={c} />;
+  if (status === 'waiting_user') return <Clock size={12} color={c} />;
   return <Clock size={12} color={c} />;
 }
 
 function statusLabel(status: AdminTicket['status'], es: boolean) {
   if (status === 'auto_fixed') return es ? 'Auto-corregido' : 'Auto-fixed';
   if (status === 'needs_human') return es ? 'Requiere revisión' : 'Needs review';
+  if (status === 'waiting_user') return es ? 'Esperando usuario' : 'Awaiting user';
   if (status === 'closed') return es ? 'Cerrado' : 'Closed';
   return es ? 'Abierto' : 'Open';
 }
@@ -450,10 +456,14 @@ interface ResolveModalProps {
 
 function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, colors }: ResolveModalProps) {
   const [note, setNote] = useState('');
+  const [adminMessage, setAdminMessage] = useState('');
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
-    if (visible) setNote('');
+    if (visible) {
+      setNote('');
+      setAdminMessage('');
+    }
   }, [visible]);
 
   const isResolve = mode === 'resolved';
@@ -471,6 +481,7 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
     try {
       const body: Record<string, unknown> = { resolution: mode };
       if (note.trim()) body.note = note.trim();
+      if (adminMessage.trim()) body.adminMessage = adminMessage.trim();
       // For streak tickets in resolve mode, pass the snapshot streak as applyStreak
       if (isResolve && isStreakTicket && suggestedStreak > 0) {
         body.applyStreak = suggestedStreak;
@@ -554,7 +565,7 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
               : (es ? 'Ej: No hay evidencia suficiente para proceder.' : 'E.g.: Insufficient evidence to proceed.')}
             placeholderTextColor={colors.textMuted + '70'}
             multiline
-            numberOfLines={3}
+            numberOfLines={2}
             style={{
               backgroundColor: colors.background,
               borderRadius: 12,
@@ -563,6 +574,33 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
               fontSize: 13,
               borderWidth: 1,
               borderColor: colors.textMuted + '25',
+              minHeight: 56,
+              textAlignVertical: 'top',
+              marginBottom: 14,
+            }}
+          />
+
+          {/* Message visible to user */}
+          <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
+            {es ? 'Mensaje al usuario (visible en historial)' : 'Message to user (visible in timeline)'}
+          </Text>
+          <TextInput
+            value={adminMessage}
+            onChangeText={setAdminMessage}
+            placeholder={isResolve
+              ? (es ? 'Ej: Hola! Revisamos tu caso y lo resolvimos. 👍' : 'E.g.: Hi! We reviewed your case and resolved it. 👍')
+              : (es ? 'Ej: No encontramos evidencia suficiente en este caso.' : 'E.g.: We could not find sufficient evidence for this case.')}
+            placeholderTextColor={colors.textMuted + '70'}
+            multiline
+            numberOfLines={3}
+            style={{
+              backgroundColor: colors.background,
+              borderRadius: 12,
+              padding: 12,
+              color: colors.text,
+              fontSize: 13,
+              borderWidth: 1,
+              borderColor: colors.primary + '40',
               minHeight: 72,
               textAlignVertical: 'top',
               marginBottom: 20,
@@ -810,7 +848,7 @@ function TicketCard({
           </View>
         </View>
 
-        {/* Row 2: UID + copy + date */}
+        {/* Row 2: UID + incident number + copy */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
           <Text style={{ fontSize: 11, color: colors.textMuted, fontFamily: 'monospace', flex: 1 }} numberOfLines={1}>
             {ticket.userId.slice(0, 18)}…
@@ -823,6 +861,20 @@ function TicketCard({
             <Copy size={12} color={colors.textMuted} />
           </Pressable>
         </View>
+        {ticket.incidentNumber && (
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+            <Text style={{ fontSize: 10, fontFamily: 'monospace', color: colors.textMuted + 'CC', fontWeight: '700' }}>
+              {ticket.incidentNumber}
+            </Text>
+            {ticket.rating != null && (
+              <View style={{ marginLeft: 6, backgroundColor: '#F59E0B20', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 }}>
+                <Text style={{ fontSize: 10, fontWeight: '700', color: '#F59E0B' }}>
+                  {'⭐'.repeat(ticket.rating)} {ticket.rating}/4
+                </Text>
+              </View>
+            )}
+          </View>
+        )}
 
         {/* Row 3: Status + date */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 10 }}>
@@ -1100,6 +1152,7 @@ export default function AdminSupportScreen() {
     total: tickets.length,
     auto_fixed: tickets.filter(t => t.status === 'auto_fixed').length,
     needs_human: tickets.filter(t => t.status === 'needs_human').length,
+    waiting_user: tickets.filter(t => t.status === 'waiting_user').length,
     open: tickets.filter(t => t.status === 'open').length,
     closed: tickets.filter(t => t.status === 'closed').length,
   };
@@ -1172,10 +1225,11 @@ export default function AdminSupportScreen() {
             style={{ flexDirection: 'row', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}
           >
             {([
-              { status: 'auto_fixed' as const,  label: `${counts.auto_fixed} auto-fixed`, color: '#22C55E' },
-              { status: 'needs_human' as const, label: `${counts.needs_human} revisión`,  color: '#F59E0B' },
-              { status: 'open' as const,        label: `${counts.open} open`,             color: '#94A3B8' },
-              { status: 'closed' as const,      label: `${counts.closed} closed`,         color: colors.textMuted },
+              { status: 'auto_fixed' as const,   label: `${counts.auto_fixed} auto-fixed`,  color: '#22C55E' },
+              { status: 'needs_human' as const,  label: `${counts.needs_human} revisión`,   color: '#F59E0B' },
+              { status: 'waiting_user' as const, label: `${counts.waiting_user} esperando`, color: '#0EA5E9' },
+              { status: 'open' as const,         label: `${counts.open} open`,              color: '#94A3B8' },
+              { status: 'closed' as const,       label: `${counts.closed} closed`,          color: colors.textMuted },
             ] as { status: AdminTicket['status']; label: string; color: string }[]).map(chip => {
               const isActive = activeFilter === chip.status;
               return (

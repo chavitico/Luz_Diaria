@@ -319,13 +319,15 @@ model StreakSnapshot {
 
 model SupportTicket {
   id             String   @id @default(cuid())
+  incidentNumber String?  @unique // Friendly ID: LD-YYYYMMDD-NNNN (null for legacy tickets)
   userId         String
   type           String   // "streak_missing" | "devotional_not_counted" | "audio_tts" | "notification" | "reward_drop"
   claimedStreak  Int      @default(0)
   claimedDate    String   @default("") // YYYY-MM-DD (used for streak/devotional)
   clientClaim    String   @default("{}") // JSON: type-specific payload
-  status         String   @default("open") // "open" | "auto_fixed" | "needs_human" | "closed"
+  status         String   @default("open") // "open" | "auto_fixed" | "needs_human" | "waiting_user" | "closed"
   resolutionNote String?
+  rating         Int?     // 1–4 user satisfaction rating
   beforeState    String   @default("{}") // JSON audit
   afterState     String   @default("{}") // JSON audit
   botPreview     String   @default("{}") // JSON: { summary, userMessageEs, userMessageEn, action }
@@ -333,10 +335,27 @@ model SupportTicket {
   snapshotId     String?  // ID of the StreakSnapshot used at creation time
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  events         SupportTicketEvent[]
 
   @@index([userId])
   @@index([status])
   @@index([type])
+  @@index([incidentNumber])
+}
+
+model SupportTicketEvent {
+  id        String   @id @default(cuid())
+  ticketId  String
+  createdAt DateTime @default(now())
+  actor     String   // "USER" | "SYSTEM" | "ADMIN"
+  type      String   // "CREATED" | "STATUS_CHANGE" | "SYSTEM_REPLY" | "ADMIN_REPLY" | "USER_REPLY" | "AUTO_FIX" | "COMPENSATION" | "REQUEST_INFO" | "CLOSED" | "RATING"
+  message   String   @default("")
+  meta      String   @default("{}") // JSON: optional metadata
+
+  ticket    SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@index([ticketId])
+  @@index([createdAt])
 }
 
 // Gift Drop system - admin-managed premium gifts

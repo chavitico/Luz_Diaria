@@ -1,6 +1,6 @@
-// Support Screen — Multi-category issue reporter
+// Support Screen — Multi-category issue reporter with live ticket history
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -9,11 +9,13 @@ import {
   ActivityIndicator,
   Modal,
   Platform,
+  TextInput,
+  KeyboardAvoidingView,
+  RefreshControl,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import {
   ChevronLeft,
@@ -28,13 +30,19 @@ import {
   AlertCircle,
   X,
   ChevronRight,
+  Send,
+  Star,
+  MessageCircle,
+  Zap,
+  User as UserIcon,
+  Shield,
+  Info,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { getNotificationSettings } from '@/lib/notifications';
 import { pickBestVoice } from '@/lib/voice-picker';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
-const LAST_TICKET_KEY = '@support_last_ticket_v2';
 
 type Category =
   | 'streak_missing'
@@ -43,16 +51,46 @@ type Category =
   | 'notification'
   | 'reward_drop';
 
-interface SavedTicket {
+type TicketStatus = 'open' | 'auto_fixed' | 'needs_human' | 'waiting_user' | 'closed';
+
+interface TicketSummary {
   id: string;
-  type: Category;
-  status: 'open' | 'auto_fixed' | 'needs_human' | 'closed';
-  resolutionNote: string | null;
-  autoFixed: boolean;
+  incidentNumber: string | null;
+  type: string;
+  status: TicketStatus;
+  rating: number | null;
+  createdAt: string;
+  updatedAt: string;
+  latestEvent: {
+    actor: string;
+    type: string;
+    message: string;
+    createdAt: string;
+  } | null;
+}
+
+interface TicketEvent {
+  id: string;
+  actor: string;
+  type: string;
+  message: string;
+  meta: Record<string, unknown>;
   createdAt: string;
 }
 
-// ─── Category definitions ─────────────────────────────────────────────────────
+interface TicketDetail {
+  id: string;
+  incidentNumber: string | null;
+  type: string;
+  status: TicketStatus;
+  rating: number | null;
+  resolutionNote: string | null;
+  createdAt: string;
+  updatedAt: string;
+  events: TicketEvent[];
+}
+
+// ─── Category definitions ──────────────────────────────────────────────────────
 
 interface CategoryDef {
   type: Category;
@@ -64,7 +102,7 @@ interface CategoryDef {
   color: string;
 }
 
-function useCategoryDefs(colors: ReturnType<typeof useThemeColors>): CategoryDef[] {
+function useCategoryDefs(): CategoryDef[] {
   return [
     {
       type: 'streak_missing',
@@ -129,24 +167,18 @@ const AUDIO_ISSUES: SubOption[] = [
   { value: 'voice_changed', labelEs: 'Cambió la voz',             labelEn: 'Voice changed' },
   { value: 'voz_rara',      labelEs: 'Voz rara / robótica',       labelEn: 'Weird / robotic voice' },
 ];
-
 const NOTIFICATION_ISSUES: SubOption[] = [
   { value: 'not_received', labelEs: 'No las recibo',          labelEn: 'Not receiving them' },
   { value: 'late',         labelEs: 'Llegan tarde',           labelEn: 'Arriving late' },
   { value: 'duplicate',    labelEs: 'Recibo duplicadas',      labelEn: 'Getting duplicates' },
 ];
-
 const DROP_ISSUES: SubOption[] = [
   { value: 'not_received', labelEs: 'No recibí el regalo',    labelEn: "Didn't receive gift" },
   { value: 'open_failed',  labelEs: 'El cofre no abre',       labelEn: "Chest won't open" },
 ];
 
 function SubOptionPicker({
-  options,
-  selected,
-  onSelect,
-  es,
-  colors,
+  options, selected, onSelect, es, colors,
 }: {
   options: SubOption[];
   selected: string | null;
@@ -219,6 +251,554 @@ function getTodayDate(): string {
   }
 }
 
+function statusColor(status: TicketStatus): string {
+  if (status === 'auto_fixed' || status === 'closed') return '#22C55E';
+  if (status === 'needs_human') return '#F59E0B';
+  if (status === 'waiting_user') return '#0EA5E9';
+  return '#94A3B8';
+}
+
+function statusLabel(status: TicketStatus, es: boolean): string {
+  if (status === 'auto_fixed') return es ? 'Resuelto' : 'Resolved';
+  if (status === 'closed') return es ? 'Cerrado' : 'Closed';
+  if (status === 'needs_human') return es ? 'En revisión' : 'Under review';
+  if (status === 'waiting_user') return es ? 'Tu respuesta' : 'Reply needed';
+  return es ? 'Pendiente' : 'Pending';
+}
+
+function timeAgo(iso: string, es: boolean): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  const hrs = Math.floor(mins / 60);
+  const days = Math.floor(hrs / 24);
+  if (days > 0) return es ? `hace ${days}d` : `${days}d ago`;
+  if (hrs > 0) return es ? `hace ${hrs}h` : `${hrs}h ago`;
+  if (mins > 0) return es ? `hace ${mins}m` : `${mins}m ago`;
+  return es ? 'ahora mismo' : 'just now';
+}
+
+function eventIcon(type: string, actor: string) {
+  if (type === 'AUTO_FIX') return { icon: Zap, color: '#22C55E' };
+  if (type === 'COMPENSATION') return { icon: Gift, color: '#F59E0B' };
+  if (type === 'CLOSED' || type === 'RATING') return { icon: CheckCircle, color: '#22C55E' };
+  if (type === 'REQUEST_INFO') return { icon: Info, color: '#0EA5E9' };
+  if (actor === 'USER') return { icon: UserIcon, color: '#94A3B8' };
+  if (actor === 'ADMIN') return { icon: Shield, color: '#8B5CF6' };
+  return { icon: MessageCircle, color: '#0EA5E9' };
+}
+
+// ─── Ticket Detail Modal ───────────────────────────────────────────────────────
+
+function TicketDetailModal({
+  visible,
+  ticketId,
+  userId,
+  onClose,
+  onRated,
+  es,
+  colors,
+}: {
+  visible: boolean;
+  ticketId: string | null;
+  userId: string;
+  onClose: () => void;
+  onRated: () => void;
+  es: boolean;
+  colors: ReturnType<typeof useThemeColors>;
+}) {
+  const insets = useSafeAreaInsets();
+  const [detail, setDetail] = useState<TicketDetail | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [replyText, setReplyText] = useState('');
+  const [sending, setSending] = useState(false);
+  const [rating, setRating] = useState<number | null>(null);
+  const [submittingRating, setSubmittingRating] = useState(false);
+  const scrollRef = useRef<ScrollView>(null);
+
+  const fetchDetail = useCallback(async () => {
+    if (!ticketId) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/support/ticket/${ticketId}`, {
+        headers: { 'X-User-Id': userId },
+      });
+      const data = await res.json() as { ticket?: TicketDetail };
+      if (data.ticket) setDetail(data.ticket);
+    } catch {}
+    setLoading(false);
+  }, [ticketId, userId]);
+
+  useEffect(() => {
+    if (visible && ticketId) {
+      setDetail(null);
+      setReplyText('');
+      setRating(null);
+      fetchDetail();
+    }
+  }, [visible, ticketId]);
+
+  const sendReply = async () => {
+    if (!replyText.trim() || !ticketId) return;
+    setSending(true);
+    try {
+      await fetch(`${BACKEND_URL}/api/support/ticket/${ticketId}/reply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, message: replyText.trim() }),
+      });
+      setReplyText('');
+      await fetchDetail();
+    } catch {}
+    setSending(false);
+  };
+
+  const submitRating = async (r: number) => {
+    if (!ticketId) return;
+    setSubmittingRating(true);
+    setRating(r);
+    try {
+      await fetch(`${BACKEND_URL}/api/support/ticket/${ticketId}/rate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, rating: r }),
+      });
+      await fetchDetail();
+      onRated();
+    } catch {}
+    setSubmittingRating(false);
+  };
+
+  const canReply = detail?.status === 'waiting_user' || detail?.status === 'needs_human';
+  const canRate = detail?.status === 'auto_fixed' || (detail?.status === 'closed' && !detail.rating);
+  const needsRating = detail
+    && (detail.status === 'auto_fixed' || detail.status === 'closed')
+    && !detail.rating;
+
+  const typeLabel = (t: string) => {
+    const map: Record<string, [string, string]> = {
+      streak_missing: ['Racha', 'Streak'],
+      devotional_not_counted: ['Devocional', 'Devotional'],
+      audio_tts: ['Audio/Voz', 'Audio/TTS'],
+      notification: ['Notificación', 'Notification'],
+      reward_drop: ['Regalo', 'Gift'],
+    };
+    return map[t]?.[es ? 0 : 1] ?? t;
+  };
+
+  return (
+    <Modal visible={visible} animationType="slide" presentationStyle="pageSheet" onRequestClose={onClose}>
+      <KeyboardAvoidingView
+        style={{ flex: 1, backgroundColor: colors.background }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        {/* Header */}
+        <View style={{
+          paddingTop: insets.top + 8,
+          paddingBottom: 14,
+          paddingHorizontal: 20,
+          borderBottomWidth: 1,
+          borderBottomColor: colors.textMuted + '18',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+        }}>
+          <Pressable
+            onPress={onClose}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+          >
+            <X size={22} color={colors.textMuted} />
+          </Pressable>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 16, fontWeight: '700', color: colors.text }}>
+              {es ? 'Detalle del incidente' : 'Incident Detail'}
+            </Text>
+            {detail?.incidentNumber && (
+              <Text style={{ fontSize: 12, color: colors.textMuted, fontFamily: 'monospace' }}>
+                {detail.incidentNumber}
+              </Text>
+            )}
+          </View>
+          {detail && (
+            <View style={{
+              paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8,
+              backgroundColor: statusColor(detail.status) + '20',
+            }}>
+              <Text style={{ fontSize: 11, fontWeight: '700', color: statusColor(detail.status) }}>
+                {statusLabel(detail.status, es).toUpperCase()}
+              </Text>
+            </View>
+          )}
+        </View>
+
+        <ScrollView
+          ref={scrollRef}
+          contentContainerStyle={{ padding: 20, paddingBottom: insets.bottom + 100 }}
+          showsVerticalScrollIndicator={false}
+          onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: false })}
+        >
+          {loading && (
+            <View style={{ alignItems: 'center', paddingTop: 60 }}>
+              <ActivityIndicator color={colors.primary} />
+            </View>
+          )}
+
+          {detail && !loading && (
+            <>
+              {/* Meta */}
+              <View style={{
+                backgroundColor: colors.surface,
+                borderRadius: 14,
+                padding: 14,
+                marginBottom: 20,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+                <View>
+                  <Text style={{ fontSize: 11, color: colors.textMuted, marginBottom: 2 }}>
+                    {es ? 'Tipo' : 'Type'}
+                  </Text>
+                  <Text style={{ fontSize: 13, fontWeight: '700', color: colors.text }}>
+                    {typeLabel(detail.type)}
+                  </Text>
+                </View>
+                <View style={{ alignItems: 'flex-end' }}>
+                  <Text style={{ fontSize: 11, color: colors.textMuted, marginBottom: 2 }}>
+                    {es ? 'Creado' : 'Created'}
+                  </Text>
+                  <Text style={{ fontSize: 12, color: colors.text }}>
+                    {new Date(detail.createdAt).toLocaleDateString(es ? 'es-CR' : 'en-US', {
+                      month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
+                    })}
+                  </Text>
+                </View>
+              </View>
+
+              {/* Timeline */}
+              <Text style={{
+                fontSize: 11, fontWeight: '700', color: colors.textMuted,
+                letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12,
+              }}>
+                {es ? 'Historial' : 'Timeline'}
+              </Text>
+
+              <View style={{ gap: 0 }}>
+                {detail.events.map((ev, idx) => {
+                  const { icon: Icon, color } = eventIcon(ev.type, ev.actor);
+                  const isLast = idx === detail.events.length - 1;
+                  return (
+                    <View key={ev.id} style={{ flexDirection: 'row', gap: 12, marginBottom: isLast ? 0 : 4 }}>
+                      {/* Timeline line + dot */}
+                      <View style={{ alignItems: 'center', width: 32 }}>
+                        <View style={{
+                          width: 32, height: 32, borderRadius: 16,
+                          backgroundColor: color + '18',
+                          alignItems: 'center', justifyContent: 'center',
+                          borderWidth: 1.5,
+                          borderColor: color + '40',
+                        }}>
+                          <Icon size={14} color={color} />
+                        </View>
+                        {!isLast && (
+                          <View style={{
+                            width: 1.5, flex: 1, minHeight: 12,
+                            backgroundColor: colors.textMuted + '25',
+                            marginTop: 4,
+                          }} />
+                        )}
+                      </View>
+
+                      {/* Event content */}
+                      <View style={{
+                        flex: 1,
+                        backgroundColor: colors.surface,
+                        borderRadius: 14,
+                        padding: 12,
+                        marginBottom: isLast ? 0 : 8,
+                        borderWidth: 1,
+                        borderColor: ev.type === 'CLOSED' || ev.type === 'RATING'
+                          ? '#22C55E30'
+                          : ev.actor === 'ADMIN'
+                          ? '#8B5CF630'
+                          : 'transparent',
+                      }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
+                          <Text style={{
+                            fontSize: 10, fontWeight: '700',
+                            color: color,
+                            letterSpacing: 0.8,
+                            textTransform: 'uppercase',
+                          }}>
+                            {ev.actor === 'USER' ? (es ? 'Tú' : 'You')
+                              : ev.actor === 'ADMIN' ? (es ? 'Equipo' : 'Team')
+                              : (es ? 'Sistema' : 'System')}
+                          </Text>
+                          <Text style={{ fontSize: 10, color: colors.textMuted }}>
+                            {new Date(ev.createdAt).toLocaleTimeString(es ? 'es-CR' : 'en-US', {
+                              hour: '2-digit', minute: '2-digit',
+                            })}
+                          </Text>
+                        </View>
+                        <Text style={{
+                          fontSize: 13, color: colors.text, lineHeight: 19,
+                        }}>
+                          {ev.message}
+                        </Text>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+
+              {/* Rating prompt */}
+              {needsRating && (
+                <Animated.View entering={FadeInDown.duration(400)} style={{
+                  marginTop: 20,
+                  backgroundColor: '#22C55E10',
+                  borderRadius: 18,
+                  padding: 18,
+                  borderWidth: 1,
+                  borderColor: '#22C55E30',
+                  alignItems: 'center',
+                }}>
+                  <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text, marginBottom: 4, textAlign: 'center' }}>
+                    {es ? '¿Podemos cerrar este caso?' : 'Ready to close this case?'}
+                  </Text>
+                  <Text style={{ fontSize: 13, color: colors.textMuted, marginBottom: 16, textAlign: 'center', lineHeight: 18 }}>
+                    {es ? 'Califícanos del 1 al 4 para ayudarnos a mejorar' : 'Rate us 1–4 to help us improve'}
+                  </Text>
+                  <View style={{ flexDirection: 'row', gap: 10 }}>
+                    {[1, 2, 3, 4].map(r => (
+                      <Pressable
+                        key={r}
+                        onPress={() => {
+                          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                          submitRating(r);
+                        }}
+                        disabled={submittingRating}
+                        style={({ pressed }) => ({
+                          width: 56, height: 56, borderRadius: 16,
+                          backgroundColor: rating === r ? '#F59E0B' : colors.surface,
+                          borderWidth: 2,
+                          borderColor: rating === r ? '#F59E0B' : colors.textMuted + '30',
+                          alignItems: 'center', justifyContent: 'center',
+                          opacity: pressed ? 0.7 : submittingRating ? 0.5 : 1,
+                        })}
+                      >
+                        <Text style={{ fontSize: 22 }}>{'⭐'.repeat(r === 1 ? 1 : r === 2 ? 2 : r === 3 ? 3 : 4).slice(0, 2)}</Text>
+                        <Text style={{
+                          fontSize: 13, fontWeight: '800',
+                          color: rating === r ? '#FFF' : colors.text,
+                          marginTop: 1,
+                        }}>{r}</Text>
+                      </Pressable>
+                    ))}
+                  </View>
+                </Animated.View>
+              )}
+
+              {/* Reply box — only when ticket needs user input or is in review */}
+              {canReply && !detail.rating && (
+                <Animated.View entering={FadeInDown.delay(100).duration(400)} style={{ marginTop: 20 }}>
+                  {detail.status === 'waiting_user' && (
+                    <View style={{
+                      backgroundColor: '#0EA5E910',
+                      borderRadius: 12,
+                      padding: 12,
+                      marginBottom: 12,
+                      borderWidth: 1,
+                      borderColor: '#0EA5E930',
+                      gap: 6,
+                    }}>
+                      <Text style={{ fontSize: 12, fontWeight: '700', color: '#0EA5E9' }}>
+                        {es ? 'Necesitamos más información' : 'We need more info'}
+                      </Text>
+                      <Text style={{ fontSize: 12, color: colors.text, lineHeight: 17 }}>
+                        {es
+                          ? 'Si tienes evidencia adicional, también puedes enviarla a:'
+                          : 'You can also email evidence to:'}
+                      </Text>
+                      <Text style={{ fontSize: 12, fontWeight: '700', color: colors.primary }}>
+                        chaviticogames@gmail.com
+                      </Text>
+                    </View>
+                  )}
+                  <Text style={{
+                    fontSize: 11, fontWeight: '700', color: colors.textMuted,
+                    letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8,
+                  }}>
+                    {es ? 'Tu respuesta' : 'Your reply'}
+                  </Text>
+                  <View style={{
+                    flexDirection: 'row', gap: 10, alignItems: 'flex-end',
+                  }}>
+                    <TextInput
+                      value={replyText}
+                      onChangeText={setReplyText}
+                      placeholder={es
+                        ? 'Escribe aquí tu versión de iOS, modelo de iPhone u otra info...'
+                        : 'Write your iOS version, iPhone model or other info here...'}
+                      placeholderTextColor={colors.textMuted + '80'}
+                      multiline
+                      numberOfLines={3}
+                      maxLength={1000}
+                      style={{
+                        flex: 1,
+                        backgroundColor: colors.surface,
+                        borderRadius: 14,
+                        padding: 12,
+                        color: colors.text,
+                        fontSize: 13,
+                        lineHeight: 19,
+                        minHeight: 72,
+                        borderWidth: 1,
+                        borderColor: colors.textMuted + '25',
+                        textAlignVertical: 'top',
+                      }}
+                    />
+                    <Pressable
+                      onPress={sendReply}
+                      disabled={!replyText.trim() || sending}
+                      style={({ pressed }) => ({
+                        width: 44, height: 44, borderRadius: 22,
+                        backgroundColor: replyText.trim() ? colors.primary : colors.textMuted + '30',
+                        alignItems: 'center', justifyContent: 'center',
+                        opacity: pressed ? 0.7 : 1,
+                      })}
+                    >
+                      {sending
+                        ? <ActivityIndicator size="small" color="#FFF" />
+                        : <Send size={18} color={replyText.trim() ? colors.primaryText : colors.textMuted} />}
+                    </Pressable>
+                  </View>
+                </Animated.View>
+              )}
+            </>
+          )}
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </Modal>
+  );
+}
+
+// ─── Ticket List Item ──────────────────────────────────────────────────────────
+
+function TicketListItem({
+  ticket,
+  categories,
+  es,
+  colors,
+  onPress,
+}: {
+  ticket: TicketSummary;
+  categories: CategoryDef[];
+  es: boolean;
+  colors: ReturnType<typeof useThemeColors>;
+  onPress: () => void;
+}) {
+  const sc = statusColor(ticket.status);
+  const catDef = categories.find(c => c.type === ticket.type);
+  const isActionNeeded = ticket.status === 'waiting_user';
+  const isResolved = ticket.status === 'auto_fixed' || ticket.status === 'closed';
+
+  return (
+    <Pressable
+      onPress={() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        onPress();
+      }}
+      style={({ pressed }) => ({
+        backgroundColor: colors.surface,
+        borderRadius: 16,
+        padding: 14,
+        borderLeftWidth: 3,
+        borderLeftColor: sc,
+        opacity: pressed ? 0.85 : 1,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.04,
+        shadowRadius: 4,
+        elevation: 1,
+        borderWidth: isActionNeeded ? 1 : 0,
+        borderColor: isActionNeeded ? sc + '50' : 'transparent',
+      })}
+    >
+      {/* Top row */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+        {/* Status icon */}
+        {isResolved && !ticket.rating
+          ? <CheckCircle size={14} color={sc} />
+          : isActionNeeded
+          ? <AlertCircle size={14} color={sc} />
+          : ticket.status === 'needs_human'
+          ? <Clock size={14} color={sc} />
+          : <CheckCircle size={14} color={sc} />}
+
+        <Text style={{ fontSize: 13, fontWeight: '700', color: sc }}>
+          {statusLabel(ticket.status, es)}
+        </Text>
+
+        {/* Incident number */}
+        {ticket.incidentNumber && (
+          <Text style={{
+            fontSize: 10, color: colors.textMuted, fontFamily: 'monospace',
+            marginLeft: 'auto',
+          }}>
+            {ticket.incidentNumber}
+          </Text>
+        )}
+
+        {/* Rating badge */}
+        {ticket.rating && (
+          <View style={{
+            marginLeft: ticket.incidentNumber ? 6 : 'auto',
+            backgroundColor: '#F59E0B20',
+            borderRadius: 6,
+            paddingHorizontal: 6, paddingVertical: 2,
+          }}>
+            <Text style={{ fontSize: 10, fontWeight: '700', color: '#F59E0B' }}>
+              {'⭐'.repeat(ticket.rating)}
+            </Text>
+          </View>
+        )}
+      </View>
+
+      {/* Category */}
+      <Text style={{ fontSize: 13, color: colors.text, fontWeight: '600', marginBottom: 4 }}>
+        {catDef ? (es ? catDef.titleEs : catDef.titleEn) : ticket.type}
+      </Text>
+
+      {/* Latest event preview */}
+      {ticket.latestEvent && (
+        <Text
+          numberOfLines={2}
+          style={{ fontSize: 12, color: colors.textMuted, lineHeight: 16 }}
+        >
+          {ticket.latestEvent.message}
+        </Text>
+      )}
+
+      {/* Bottom row */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, gap: 6 }}>
+        <Text style={{ fontSize: 11, color: colors.textMuted + '80', flex: 1 }}>
+          {timeAgo(ticket.updatedAt, es)}
+        </Text>
+        {isActionNeeded && (
+          <View style={{
+            backgroundColor: sc + '20', borderRadius: 6,
+            paddingHorizontal: 6, paddingVertical: 2,
+          }}>
+            <Text style={{ fontSize: 10, fontWeight: '700', color: sc }}>
+              {es ? 'Responder' : 'Reply'}
+            </Text>
+          </View>
+        )}
+        <ChevronRight size={14} color={colors.textMuted + '60'} />
+      </View>
+    </Pressable>
+  );
+}
+
 // ─── Main Screen ───────────────────────────────────────────────────────────────
 
 export default function SupportScreen() {
@@ -228,33 +808,49 @@ export default function SupportScreen() {
   const language = useLanguage();
   const user = useUser();
   const es = language === 'es';
-
-  const categories = useCategoryDefs(colors);
+  const categories = useCategoryDefs();
 
   const [step, setStep] = useState<'category' | 'detail'>('category');
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [subIssue, setSubIssue] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [lastTicket, setLastTicket] = useState<SavedTicket | null>(null);
+
+  // Tickets list
+  const [tickets, setTickets] = useState<TicketSummary[]>([]);
+  const [loadingTickets, setLoadingTickets] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  // Detail modal
+  const [selectedTicketId, setSelectedTicketId] = useState<string | null>(null);
+  const [detailVisible, setDetailVisible] = useState(false);
+
+  // Result modal
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalData, setModalData] = useState<{ title: string; message: string; isSuccess: boolean } | null>(null);
+  const [modalData, setModalData] = useState<{ title: string; message: string; isSuccess: boolean; ticketId?: string } | null>(null);
+
+  const userId = user?.id ?? '';
+
+  const fetchTickets = useCallback(async (silent = false) => {
+    if (!userId) return;
+    if (!silent) setLoadingTickets(true);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/support/tickets/${userId}`);
+      const data = await res.json() as { tickets?: TicketSummary[] };
+      if (data.tickets) setTickets(data.tickets);
+    } catch {}
+    setLoadingTickets(false);
+    setRefreshing(false);
+  }, [userId]);
 
   useEffect(() => {
-    AsyncStorage.getItem(LAST_TICKET_KEY).then(raw => {
-      if (raw) { try { setLastTicket(JSON.parse(raw) as SavedTicket); } catch {} }
-    });
-  }, []);
+    fetchTickets();
+  }, [fetchTickets]);
 
   const handleSelectCategory = (cat: Category) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setSelectedCategory(cat);
     setSubIssue(null);
-    // streak/devotional don't need a sub-option step
-    if (cat === 'streak_missing' || cat === 'devotional_not_counted') {
-      setStep('detail');
-    } else {
-      setStep('detail');
-    }
+    setStep('detail');
   };
 
   const getSubOptions = (cat: Category): SubOption[] => {
@@ -271,20 +867,18 @@ export default function SupportScreen() {
     && (!needsSubIssue(selectedCategory) || subIssue !== null);
 
   const handleSubmit = useCallback(async () => {
-    if (!selectedCategory || !user?.id || isSubmitting) return;
+    if (!selectedCategory || !userId || isSubmitting) return;
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setIsSubmitting(true);
 
     try {
-      // Build clientClaim based on type
       let clientClaim: Record<string, unknown> = {};
       if (selectedCategory === 'streak_missing') {
-        clientClaim = { claimedStreak: user.streakCurrent ?? 0 };
+        clientClaim = { claimedStreak: user?.streakCurrent ?? 0 };
       } else if (selectedCategory === 'devotional_not_counted') {
         clientClaim = { date: getTodayDate(), issue: 'not_counted' };
       } else if (selectedCategory === 'audio_tts') {
-        // Gather TTS diagnostics to help debugging
         let ttsVoiceIdentifier = '';
         let ttsVoiceName = '';
         let ttsLanguage = '';
@@ -302,7 +896,7 @@ export default function SupportScreen() {
           ttsIsEloquence = picked.isEloquence;
           ttsNeedsUserAction = picked.needsUserAction;
           ttsVoiceScore = picked.score;
-        } catch (_) {}
+        } catch {}
         clientClaim = {
           issue: subIssue,
           os: Platform.OS,
@@ -315,7 +909,6 @@ export default function SupportScreen() {
           ttsVoiceScore,
         };
       } else if (selectedCategory === 'notification') {
-        // Grab notification settings from local storage
         const notifSettings = await getNotificationSettings();
         clientClaim = {
           issue: subIssue,
@@ -327,9 +920,9 @@ export default function SupportScreen() {
       }
 
       const body = {
-        userId: user.id,
+        userId,
         type: selectedCategory,
-        claimedStreak: user.streakCurrent ?? 0,
+        claimedStreak: user?.streakCurrent ?? 0,
         claimedDate: getTodayDate(),
         clientClaim,
       };
@@ -343,47 +936,42 @@ export default function SupportScreen() {
       const data = await res.json() as {
         success: boolean;
         error?: string;
-        ticket?: { id: string; status: string; resolutionNote: string | null; autoFixed: boolean };
+        ticket?: {
+          id: string;
+          incidentNumber: string;
+          status: string;
+          resolutionNote: string | null;
+          autoFixed: boolean;
+        };
       };
 
       if (!data.success || !data.ticket) throw new Error(data.error ?? 'Error desconocido');
 
       const { ticket } = data;
 
-      const saved: SavedTicket = {
-        id: ticket.id,
-        type: selectedCategory,
-        status: ticket.status as SavedTicket['status'],
-        resolutionNote: ticket.resolutionNote,
-        autoFixed: ticket.autoFixed,
-        createdAt: new Date().toISOString(),
-      };
-      await AsyncStorage.setItem(LAST_TICKET_KEY, JSON.stringify(saved));
-      setLastTicket(saved);
-
-      if (ticket.autoFixed) {
-        setModalData({
-          isSuccess: true,
-          title: es ? '¡Listo!' : 'Fixed!',
-          message: es
-            ? 'Detectamos una diferencia y la corregimos automáticamente. Tu racha está protegida.'
-            : 'We detected a discrepancy and corrected it automatically. Your streak is safe.',
-        });
-      } else {
-        setModalData({
-          isSuccess: false,
-          title: es ? 'Recibido' : 'Received',
-          message: es
-            ? 'Recibimos tu solicitud. Si aplica, el sistema intentará corregirlo automáticamente. De lo contrario quedará para revisión.'
-            : 'We received your request. If applicable, the system will try to fix it automatically, otherwise it will be queued for review.',
-        });
-      }
+      setModalData({
+        isSuccess: ticket.autoFixed || ticket.status === 'auto_fixed',
+        ticketId: ticket.id,
+        title: ticket.autoFixed
+          ? (es ? '¡Listo!' : 'Fixed!')
+          : (es ? 'Recibido' : 'Received'),
+        message: ticket.incidentNumber
+          ? (es
+              ? `Incidente ${ticket.incidentNumber} creado. Puedes ver el progreso en "Mis reportes".`
+              : `Incident ${ticket.incidentNumber} created. Track progress in "My reports".`)
+          : (es
+              ? 'Tu reporte fue recibido. Puedes ver el estado en "Mis reportes".'
+              : 'Your report was received. Check status in "My reports".'),
+      });
 
       setModalVisible(true);
       setStep('category');
       setSelectedCategory(null);
       setSubIssue(null);
-    } catch (err) {
+
+      // Refresh tickets list
+      await fetchTickets(true);
+    } catch {
       setModalData({
         isSuccess: false,
         title: 'Error',
@@ -395,20 +983,7 @@ export default function SupportScreen() {
     } finally {
       setIsSubmitting(false);
     }
-  }, [selectedCategory, subIssue, user, isSubmitting, es]);
-
-  const statusColor = (status: SavedTicket['status']) => {
-    if (status === 'auto_fixed' || status === 'closed') return '#22C55E';
-    if (status === 'needs_human') return '#F59E0B';
-    return colors.textMuted;
-  };
-
-  const statusLabel = (status: SavedTicket['status']) => {
-    if (status === 'auto_fixed') return es ? 'Corregido automáticamente' : 'Auto-fixed';
-    if (status === 'closed') return es ? 'Cerrado' : 'Closed';
-    if (status === 'needs_human') return es ? 'En revisión' : 'Under review';
-    return es ? 'Pendiente' : 'Pending';
-  };
+  }, [selectedCategory, subIssue, user, userId, isSubmitting, es, language, fetchTickets]);
 
   const catDef = categories.find(c => c.type === selectedCategory);
 
@@ -450,6 +1025,13 @@ export default function SupportScreen() {
         contentContainerStyle={{ padding: 20, paddingBottom: insets.bottom + 60 }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => { setRefreshing(true); fetchTickets(); }}
+            tintColor={colors.primary}
+          />
+        }
       >
         {step === 'category' ? (
           <>
@@ -479,7 +1061,6 @@ export default function SupportScreen() {
               }}>
                 {es ? 'Categoría' : 'Category'}
               </Text>
-
               <View style={{ gap: 10 }}>
                 {categories.map((cat, i) => (
                   <Animated.View key={cat.type} entering={FadeInDown.delay(100 + i * 40).duration(350)}>
@@ -500,7 +1081,6 @@ export default function SupportScreen() {
                         elevation: 1,
                       })}
                     >
-                      {/* Icon */}
                       <View style={{
                         width: 44, height: 44, borderRadius: 22,
                         backgroundColor: cat.color + '18',
@@ -508,8 +1088,6 @@ export default function SupportScreen() {
                       }}>
                         {cat.renderIcon(cat.color)}
                       </View>
-
-                      {/* Text */}
                       <View style={{ flex: 1 }}>
                         <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text, marginBottom: 2 }}>
                           {es ? cat.titleEs : cat.titleEn}
@@ -518,7 +1096,6 @@ export default function SupportScreen() {
                           {es ? cat.subtitleEs : cat.subtitleEn}
                         </Text>
                       </View>
-
                       <ChevronRight size={16} color={colors.textMuted} />
                     </Pressable>
                   </Animated.View>
@@ -526,49 +1103,60 @@ export default function SupportScreen() {
               </View>
             </Animated.View>
 
-            {/* Last ticket */}
-            {lastTicket && (
-              <Animated.View entering={FadeInDown.delay(320).duration(400)} style={{ marginTop: 32 }}>
+            {/* My Tickets */}
+            <Animated.View entering={FadeInDown.delay(320).duration(400)} style={{ marginTop: 32 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14, gap: 8 }}>
                 <Text style={{
                   fontSize: 12, fontWeight: '700', color: colors.textMuted,
-                  letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 12,
+                  letterSpacing: 1.2, textTransform: 'uppercase', flex: 1,
                 }}>
-                  {es ? 'Último reporte' : 'Last report'}
+                  {es ? 'Mis reportes' : 'My reports'}
                 </Text>
+                <Pressable
+                  onPress={() => fetchTickets()}
+                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                >
+                  <Text style={{ fontSize: 12, color: colors.primary, fontWeight: '600' }}>
+                    {es ? 'Actualizar' : 'Refresh'}
+                  </Text>
+                </Pressable>
+              </View>
+
+              {loadingTickets && (
+                <ActivityIndicator color={colors.primary} style={{ marginTop: 12 }} />
+              )}
+
+              {!loadingTickets && tickets.length === 0 && (
                 <View style={{
                   backgroundColor: colors.surface,
-                  borderRadius: 16,
-                  padding: 16,
-                  borderLeftWidth: 3,
-                  borderLeftColor: statusColor(lastTicket.status),
+                  borderRadius: 14,
+                  padding: 20,
+                  alignItems: 'center',
                 }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                    {lastTicket.status === 'auto_fixed' || lastTicket.status === 'closed'
-                      ? <CheckCircle size={14} color="#22C55E" />
-                      : lastTicket.status === 'needs_human'
-                        ? <Clock size={14} color="#F59E0B" />
-                        : <AlertCircle size={14} color={colors.textMuted} />
-                    }
-                    <Text style={{ fontSize: 14, fontWeight: '700', color: statusColor(lastTicket.status) }}>
-                      {statusLabel(lastTicket.status)}
-                    </Text>
-                  </View>
-                  <Text style={{ fontSize: 13, color: colors.textMuted, marginBottom: 4 }}>
-                    {categories.find(c => c.type === lastTicket.type)?.[es ? 'titleEs' : 'titleEn'] ?? lastTicket.type}
-                  </Text>
-                  {lastTicket.resolutionNote && (
-                    <Text style={{ fontSize: 12, color: colors.text + 'CC', lineHeight: 18, marginTop: 4 }}>
-                      {lastTicket.resolutionNote}
-                    </Text>
-                  )}
-                  <Text style={{ fontSize: 11, color: colors.textMuted + '80', marginTop: 8 }}>
-                    {new Date(lastTicket.createdAt).toLocaleDateString(es ? 'es-CR' : 'en-US', {
-                      year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
-                    })}
+                  <Text style={{ fontSize: 13, color: colors.textMuted, textAlign: 'center' }}>
+                    {es ? 'No tienes reportes aún.' : 'No reports yet.'}
                   </Text>
                 </View>
-              </Animated.View>
-            )}
+              )}
+
+              {!loadingTickets && tickets.length > 0 && (
+                <View style={{ gap: 10 }}>
+                  {tickets.map(ticket => (
+                    <TicketListItem
+                      key={ticket.id}
+                      ticket={ticket}
+                      categories={categories}
+                      es={es}
+                      colors={colors}
+                      onPress={() => {
+                        setSelectedTicketId(ticket.id);
+                        setDetailVisible(true);
+                      }}
+                    />
+                  ))}
+                </View>
+              )}
+            </Animated.View>
           </>
         ) : (
           /* Detail / Sub-issue step */
@@ -638,14 +1226,16 @@ export default function SupportScreen() {
                   </View>
                 )}
 
-                {/* Submit Button */}
+                {/* Submit button */}
                 <Pressable
                   onPress={handleSubmit}
                   disabled={!canSubmit || isSubmitting}
                   style={({ pressed }) => ({
-                    backgroundColor: canSubmit && !isSubmitting ? colors.primary : colors.primary + '40',
-                    borderRadius: 16,
-                    paddingVertical: 17,
+                    backgroundColor: canSubmit && !isSubmitting
+                      ? colors.primary
+                      : colors.textMuted + '30',
+                    borderRadius: 18,
+                    paddingVertical: 18,
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginTop: 28,
@@ -666,17 +1256,32 @@ export default function SupportScreen() {
                   )}
                 </Pressable>
 
-                {/* Note */}
                 <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center', lineHeight: 18, marginTop: 16 }}>
                   {es
-                    ? 'Tu reporte queda registrado. Si no puede resolverse automáticamente, quedará guardado para revisión.'
-                    : 'Your report is saved. If it cannot be resolved automatically, it will be kept for review.'}
+                    ? 'Tu reporte queda registrado y puedes ver el progreso en "Mis reportes".'
+                    : 'Your report is saved and you can track progress in "My reports".'}
                 </Text>
               </Animated.View>
             )}
           </>
         )}
       </ScrollView>
+
+      {/* Ticket Detail Modal */}
+      <TicketDetailModal
+        visible={detailVisible}
+        ticketId={selectedTicketId}
+        userId={userId}
+        onClose={() => {
+          setDetailVisible(false);
+          fetchTickets(true);
+        }}
+        onRated={() => {
+          fetchTickets(true);
+        }}
+        es={es}
+        colors={colors}
+      />
 
       {/* Result Modal */}
       <Modal
@@ -728,32 +1333,58 @@ export default function SupportScreen() {
               width: 64, height: 64, borderRadius: 32,
               backgroundColor: modalData?.isSuccess ? '#22C55E18' : '#F59E0B18',
               alignItems: 'center', justifyContent: 'center',
-              marginBottom: 16, marginTop: 8,
+              marginBottom: 16,
             }}>
               {modalData?.isSuccess
-                ? <CheckCircle size={32} color="#22C55E" />
-                : <Clock size={32} color="#F59E0B" />
-              }
+                ? <CheckCircle size={28} color="#22C55E" />
+                : <Clock size={28} color="#F59E0B" />}
             </View>
 
-            <Text style={{ fontSize: 20, fontWeight: '800', color: colors.text, marginBottom: 10, textAlign: 'center' }}>
+            <Text style={{
+              fontSize: 18, fontWeight: '800', color: colors.text,
+              marginBottom: 10, textAlign: 'center',
+            }}>
               {modalData?.title}
             </Text>
-            <Text style={{ fontSize: 14, color: colors.textMuted, textAlign: 'center', lineHeight: 21, marginBottom: 24 }}>
+            <Text style={{
+              fontSize: 14, color: colors.textMuted, textAlign: 'center', lineHeight: 20,
+              marginBottom: 20,
+            }}>
               {modalData?.message}
             </Text>
+
+            {modalData?.ticketId && (
+              <Pressable
+                onPress={() => {
+                  setModalVisible(false);
+                  setSelectedTicketId(modalData.ticketId!);
+                  setDetailVisible(true);
+                }}
+                style={({ pressed }) => ({
+                  backgroundColor: colors.primary + '18',
+                  borderRadius: 12,
+                  paddingVertical: 10,
+                  paddingHorizontal: 20,
+                  marginBottom: 8,
+                  opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                <Text style={{ fontSize: 14, fontWeight: '700', color: colors.primary }}>
+                  {es ? 'Ver historial del incidente' : 'View incident timeline'}
+                </Text>
+              </Pressable>
+            )}
 
             <Pressable
               onPress={() => setModalVisible(false)}
               style={({ pressed }) => ({
-                backgroundColor: colors.primary,
-                borderRadius: 14,
-                paddingVertical: 14,
-                paddingHorizontal: 40,
-                opacity: pressed ? 0.88 : 1,
+                paddingVertical: 8, paddingHorizontal: 20,
+                opacity: pressed ? 0.6 : 1,
               })}
             >
-              <Text style={{ fontSize: 15, fontWeight: '700', color: colors.primaryText }}>OK</Text>
+              <Text style={{ fontSize: 14, color: colors.textMuted, fontWeight: '600' }}>
+                {es ? 'Cerrar' : 'Close'}
+              </Text>
             </Pressable>
           </Pressable>
         </Pressable>
