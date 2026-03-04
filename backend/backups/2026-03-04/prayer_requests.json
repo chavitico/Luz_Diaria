@@ -43,5 +43,20 @@
     "expiresAt": "2026-03-05T14:10:50.236Z",
     "createdAt": "2026-03-03T14:10:50.239Z",
     "updatedAt": "2026-03-03T14:10:50.239Z"
+  },
+  {
+    "id": "cmmbblvh80011m261pnc9gg88",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "work",
+    "nickname": "Meli",
+    "avatarId": "avatar_v2_corona_vida",
+    "frameId": "frame_verde",
+    "titleId": "title_corazon",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-06T00:50:45.786Z",
+    "createdAt": "2026-03-04T00:50:45.789Z",
+    "updatedAt": "2026-03-04T00:50:45.789Z"
   }
 ]
