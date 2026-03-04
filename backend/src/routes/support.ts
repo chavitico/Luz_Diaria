@@ -885,6 +885,44 @@ supportRouter.get("/admin/ticket/:id/events", requireRole("MODERATOR"), async (c
   });
 });
 
+// POST /api/support/admin/ticket/:id/reply — admin sends a message visible to user
+supportRouter.post(
+  "/admin/ticket/:id/reply",
+  requireRole("MODERATOR"),
+  zValidator(
+    "json",
+    z.object({ message: z.string().min(1).max(2000) })
+  ),
+  async (c) => {
+    const ticketId = c.req.param("id");
+    const { message } = c.req.valid("json");
+    const adminUserId = c.req.header("X-User-Id") ?? "unknown";
+
+    const ticket = await prisma.supportTicket.findUnique({
+      where: { id: ticketId },
+      select: { id: true, status: true },
+    });
+    if (!ticket) return c.json({ success: false, error: "Ticket not found" }, 404);
+
+    // Add the admin reply event
+    await addEvent(ticketId, "ADMIN", "ADMIN_REPLY", message, { adminUserId });
+
+    // If ticket is needs_human, transition to waiting_user so user knows to respond
+    if (ticket.status === "needs_human" || ticket.status === "open") {
+      await prisma.supportTicket.update({
+        where: { id: ticketId },
+        data: { status: "waiting_user" },
+      });
+      await addEvent(ticketId, "SYSTEM", "STATUS_CHANGE",
+        "El moderador respondió. Por favor revisa la respuesta y responde si tienes más información.",
+        { from: ticket.status, to: "waiting_user" }
+      );
+    }
+
+    return c.json({ success: true });
+  }
+);
+
 // POST /api/support/admin/compensate
 supportRouter.post(
   "/admin/compensate",

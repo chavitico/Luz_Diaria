@@ -43,6 +43,7 @@ import {
   Info,
   Zap,
   History,
+  Send,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
@@ -838,6 +839,8 @@ function TicketCard({
   const [timelineEvents, setTimelineEvents] = useState<TicketEvent[]>([]);
   const [timelineLoading, setTimelineLoading] = useState(false);
   const [timelineFetched, setTimelineFetched] = useState(false);
+  const [replyText, setReplyText] = useState('');
+  const [replySending, setReplySending] = useState(false);
 
   const typeInfo = TYPE_LABELS[ticket.type] ?? { label: ticket.type, color: '#94A3B8' };
   const sColor = statusColor(ticket.status);
@@ -859,6 +862,36 @@ function TicketCard({
       setTimelineFetched(true);
     } catch {}
     setTimelineLoading(false);
+  };
+
+  const refreshTimeline = async () => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/support/admin/ticket/${ticket.id}/events`, {
+        headers: { 'X-User-Id': userId },
+      });
+      const data = await res.json() as { events?: TicketEvent[] };
+      setTimelineEvents(data.events ?? []);
+    } catch {}
+  };
+
+  const handleAdminReply = async () => {
+    if (!replyText.trim() || replySending) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    setReplySending(true);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/support/admin/ticket/${ticket.id}/reply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
+        body: JSON.stringify({ message: replyText.trim() }),
+      });
+      const data = await res.json() as { success: boolean };
+      if (data.success) {
+        setReplyText('');
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        await refreshTimeline();
+      }
+    } catch {}
+    setReplySending(false);
   };
 
   const ss = ticket.systemSnapshot;
@@ -1244,6 +1277,66 @@ function TicketCard({
                   </View>
                 );
               })}
+            </View>
+          )}
+
+          {/* Admin reply box */}
+          {ticket.status !== 'closed' && (
+            <View style={{
+              marginTop: 12,
+              borderTopWidth: 1,
+              borderTopColor: colors.textMuted + '20',
+              paddingTop: 12,
+              gap: 8,
+            }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', color: '#8B5CF6', letterSpacing: 1, textTransform: 'uppercase' }}>
+                {es ? 'Responder al usuario' : 'Reply to user'}
+              </Text>
+              <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-end' }}>
+                <TextInput
+                  value={replyText}
+                  onChangeText={setReplyText}
+                  placeholder={es ? 'Escribe tu respuesta…' : 'Write your reply…'}
+                  placeholderTextColor={colors.textMuted + '70'}
+                  multiline
+                  style={{
+                    flex: 1,
+                    backgroundColor: colors.surface,
+                    borderRadius: 14,
+                    paddingHorizontal: 12,
+                    paddingVertical: 10,
+                    color: colors.text,
+                    fontSize: 13,
+                    lineHeight: 19,
+                    borderWidth: 1.5,
+                    borderColor: replyText.length > 0 ? '#8B5CF660' : colors.textMuted + '25',
+                    minHeight: 44,
+                    maxHeight: 120,
+                    textAlignVertical: 'top',
+                  }}
+                />
+                <Pressable
+                  onPress={handleAdminReply}
+                  disabled={!replyText.trim() || replySending}
+                  style={({ pressed }) => ({
+                    width: 40, height: 40,
+                    borderRadius: 20,
+                    backgroundColor: replyText.trim() ? '#8B5CF6' : colors.textMuted + '30',
+                    alignItems: 'center', justifyContent: 'center',
+                    opacity: pressed ? 0.75 : 1,
+                    shadowColor: '#8B5CF6',
+                    shadowOffset: { width: 0, height: 3 },
+                    shadowOpacity: replyText.trim() ? 0.35 : 0,
+                    shadowRadius: 6,
+                    elevation: replyText.trim() ? 4 : 0,
+                  })}
+                >
+                  {replySending
+                    ? <ActivityIndicator size="small" color="#FFF" />
+                    : <Send size={16} color={replyText.trim() ? '#FFF' : colors.textMuted} />
+                  }
+                </Pressable>
+              </View>
             </View>
           )}
         </View>

@@ -265,6 +265,20 @@ export default function SettingsScreen() {
   const [renameError, setRenameError] = useState<string | null>(null);
   const [hasRenameToken, setHasRenameToken] = useState(false);
 
+  // Pending support tickets badge
+  const [pendingSupportCount, setPendingSupportCount] = useState(0);
+
+  const loadPendingSupport = useCallback(async () => {
+    if (!user?.id) return;
+    try {
+      const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
+      const res = await fetch(`${BACKEND_URL}/api/support/tickets/${user.id}`);
+      const data = await res.json() as { tickets?: Array<{ status: string }> };
+      const count = (data.tickets ?? []).filter(t => t.status === 'waiting_user').length;
+      setPendingSupportCount(count);
+    } catch {}
+  }, [user?.id]);
+
   const loadLedger = useCallback(async () => {
     const entries = await getLedgerEntries();
     setLedgerEntries(entries);
@@ -274,7 +288,8 @@ export default function SettingsScreen() {
   useFocusEffect(
     useCallback(() => {
       loadLedger();
-    }, [loadLedger])
+      loadPendingSupport();
+    }, [loadLedger, loadPendingSupport])
   );
 
   // Load notification settings and community opt-in on mount
@@ -1149,6 +1164,23 @@ export default function SettingsScreen() {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
               router.push('/support');
             }}
+            right={
+              pendingSupportCount > 0 ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                  <View style={{
+                    minWidth: 20, height: 20, borderRadius: 10,
+                    backgroundColor: '#EF4444',
+                    alignItems: 'center', justifyContent: 'center',
+                    paddingHorizontal: 5,
+                  }}>
+                    <Text style={{ fontSize: 11, fontWeight: '800', color: '#FFF' }}>
+                      {pendingSupportCount}
+                    </Text>
+                  </View>
+                  <ChevronRight size={20} color={colors.textMuted} />
+                </View>
+              ) : undefined
+            }
           />
 
           {/* Notifications Section */}
