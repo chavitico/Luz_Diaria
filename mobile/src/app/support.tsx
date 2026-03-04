@@ -37,6 +37,7 @@ import {
   User as UserIcon,
   Shield,
   Info,
+  ShoppingBag,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { getNotificationSettings } from '@/lib/notifications';
@@ -49,7 +50,8 @@ type Category =
   | 'devotional_not_counted'
   | 'audio_tts'
   | 'notification'
-  | 'reward_drop';
+  | 'reward_drop'
+  | 'purchase_not_delivered';
 
 type TicketStatus = 'open' | 'auto_fixed' | 'needs_human' | 'waiting_user' | 'closed';
 
@@ -148,6 +150,15 @@ function useCategoryDefs(): CategoryDef[] {
       subtitleEs: 'No recibí el regalo o el cofre no abre',
       subtitleEn: "Didn't receive the gift or chest won't open",
       color: '#22C55E',
+    },
+    {
+      type: 'purchase_not_delivered' as const,
+      renderIcon: (c) => <ShoppingBag size={20} color={c} />,
+      titleEs: 'Compra / Ítem no entregado',
+      titleEn: 'Purchase / Item Not Delivered',
+      subtitleEs: 'Te descontaron puntos pero no recibiste el ítem o bundle',
+      subtitleEn: 'Points were deducted but you did not receive the item or bundle',
+      color: '#EC4899',
     },
   ];
 }
@@ -381,6 +392,7 @@ function TicketDetailModal({
       audio_tts: ['Audio/Voz', 'Audio/TTS'],
       notification: ['Notificación', 'Notification'],
       reward_drop: ['Regalo', 'Gift'],
+      purchase_not_delivered: ['Compra/Ítem', 'Purchase/Item'],
     };
     return map[t]?.[es ? 0 : 1] ?? t;
   };
@@ -813,6 +825,7 @@ export default function SupportScreen() {
   const [step, setStep] = useState<'category' | 'detail'>('category');
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [subIssue, setSubIssue] = useState<string | null>(null);
+  const [purchaseItemText, setPurchaseItemText] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Tickets list
@@ -850,6 +863,7 @@ export default function SupportScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setSelectedCategory(cat);
     setSubIssue(null);
+    setPurchaseItemText('');
     setStep('detail');
   };
 
@@ -864,7 +878,8 @@ export default function SupportScreen() {
     cat === 'audio_tts' || cat === 'notification' || cat === 'reward_drop';
 
   const canSubmit = selectedCategory !== null
-    && (!needsSubIssue(selectedCategory) || subIssue !== null);
+    && (!needsSubIssue(selectedCategory) || subIssue !== null)
+    && (selectedCategory !== 'purchase_not_delivered' || purchaseItemText.trim().length > 0);
 
   const handleSubmit = useCallback(async () => {
     if (!selectedCategory || !userId || isSubmitting) return;
@@ -917,15 +932,43 @@ export default function SupportScreen() {
         };
       } else if (selectedCategory === 'reward_drop') {
         clientClaim = { issue: subIssue };
+      } else if (selectedCategory === 'purchase_not_delivered') {
+        // Determine if the user typed a bundle ID or item ID
+        // The text field accepts either a bundleId or a storeItemId
+        const trimmed = purchaseItemText.trim();
+        // Heuristic: if text starts with "bundle_" treat as bundleId, otherwise itemId
+        if (trimmed.startsWith('bundle_')) {
+          clientClaim = { purchaseBundleId: trimmed };
+        } else {
+          clientClaim = { purchaseItemId: trimmed };
+        }
       }
 
-      const body = {
+      const trimmedPurchaseText = purchaseItemText.trim();
+      const body: {
+        userId: string;
+        type: Category;
+        claimedStreak: number;
+        claimedDate: string;
+        clientClaim: Record<string, unknown>;
+        purchaseItemId?: string;
+        purchaseBundleId?: string;
+      } = {
         userId,
         type: selectedCategory,
         claimedStreak: user?.streakCurrent ?? 0,
         claimedDate: getTodayDate(),
         clientClaim,
       };
+
+      // For purchase_not_delivered, also pass top-level fields for backend validation
+      if (selectedCategory === 'purchase_not_delivered' && trimmedPurchaseText) {
+        if (trimmedPurchaseText.startsWith('bundle_')) {
+          body.purchaseBundleId = trimmedPurchaseText;
+        } else {
+          body.purchaseItemId = trimmedPurchaseText;
+        }
+      }
 
       const res = await fetch(`${BACKEND_URL}/api/support/ticket`, {
         method: 'POST',
@@ -968,6 +1011,7 @@ export default function SupportScreen() {
       setStep('category');
       setSelectedCategory(null);
       setSubIssue(null);
+      setPurchaseItemText('');
 
       // Refresh tickets list
       await fetchTickets(true);
@@ -1203,8 +1247,55 @@ export default function SupportScreen() {
                   />
                 )}
 
-                {/* Info for streak/devotional */}
-                {!needsSubIssue(selectedCategory!) && (
+                {/* Purchase item picker for purchase_not_delivered */}
+                {selectedCategory === 'purchase_not_delivered' && (
+                  <View style={{ marginTop: 8 }}>
+                    <Text style={{
+                      fontSize: 12, fontWeight: '700', color: colors.textMuted,
+                      letterSpacing: 1.1, textTransform: 'uppercase', marginBottom: 10,
+                    }}>
+                      {es ? '¿Qué compraste?' : 'What did you purchase?'}
+                    </Text>
+                    <TextInput
+                      value={purchaseItemText}
+                      onChangeText={setPurchaseItemText}
+                      placeholder={es
+                        ? 'Escribe el nombre o ID del ítem / bundle...'
+                        : 'Type the item name or ID / bundle ID...'}
+                      placeholderTextColor={colors.textMuted + '70'}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      style={{
+                        backgroundColor: colors.surface,
+                        borderRadius: 14,
+                        padding: 14,
+                        color: colors.text,
+                        fontSize: 14,
+                        borderWidth: 1.5,
+                        borderColor: purchaseItemText.trim()
+                          ? catDef.color + '70'
+                          : colors.textMuted + '25',
+                      }}
+                    />
+                    <View style={{
+                      backgroundColor: catDef.color + '10',
+                      borderRadius: 12,
+                      padding: 12,
+                      marginTop: 10,
+                      borderWidth: 1,
+                      borderColor: catDef.color + '25',
+                    }}>
+                      <Text style={{ fontSize: 12, color: colors.text, lineHeight: 18 }}>
+                        {es
+                          ? 'El sistema verificará si el ítem está en tu inventario. Si fue una compra válida y no fue entregado, lo agregaremos automáticamente.'
+                          : 'The system will check if the item is in your inventory. If it was a valid purchase and not delivered, we will add it automatically.'}
+                      </Text>
+                    </View>
+                  </View>
+                )}
+
+                {/* Info for streak/devotional — only show for non-purchase, non-suboption categories */}
+                {!needsSubIssue(selectedCategory!) && selectedCategory !== 'purchase_not_delivered' && (
                   <View style={{
                     backgroundColor: catDef.color + '10',
                     borderRadius: 14,

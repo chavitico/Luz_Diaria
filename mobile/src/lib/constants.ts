@@ -1038,6 +1038,7 @@ export const SPIRITUAL_TITLES: Record<string, {
   title_profeta_de_fuego: { id: 'title_profeta_de_fuego', name: 'Prophet of Fire', nameEs: 'Profeta de Fuego', description: 'Burning with holy zeal for God', descriptionEs: 'Ardiendo con celo santo por Dios', price: 0, rarity: 'epic', chestOnly: true },
   title_sonador_de_dios: { id: 'title_sonador_de_dios', name: 'Dreamer of God', nameEs: 'Soñador de Dios', description: 'Carrying visions from the throne of God', descriptionEs: 'Portando visiones del trono de Dios', price: 0, rarity: 'epic', chestOnly: true },
   title_apostol_de_las_naciones: { id: 'title_apostol_de_las_naciones', name: 'Apostle to the Nations', nameEs: 'Apóstol de las Naciones', description: 'Sent to proclaim the gospel to every people', descriptionEs: 'Enviado a proclamar el evangelio a todo pueblo', price: 0, rarity: 'epic', chestOnly: true },
+  title_resurrection_power: { id: 'title_resurrection_power', name: 'Resurrection Power', nameEs: 'Poder de Resurrección', description: 'Walking in the power of His resurrection', descriptionEs: 'Caminando en el poder de Su resurrección', price: 600, rarity: 'epic', isV2: true, bibleRef: 'Filipenses 3:10' },
 };
 
 // ── Badges — achievement-based items auto-awarded by milestones ───────────────

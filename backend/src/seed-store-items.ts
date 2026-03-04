@@ -413,6 +413,14 @@ const TITLES = [
   { id: 'title_peregrino', type: 'title', nameEn: 'Pilgrim of Grace', nameEs: 'Peregrino de Gracia', descriptionEn: 'Pilgrim walking in grace', descriptionEs: 'Peregrino caminando en gracia', pricePoints: 400, rarity: 'rare', assetRef: '' },
 ];
 
+const TITLES_CHEST = [
+  { id: 'title_chest_ungido', type: 'title', nameEn: 'The Anointed', nameEs: 'El Ungido', descriptionEn: 'Set apart by the Spirit — chest exclusive', descriptionEs: 'Apartado por el Espiritu — exclusivo del cofre', pricePoints: 0, rarity: 'epic', assetRef: '', metadata: JSON.stringify({ chestOnly: true }) },
+  { id: 'title_chest_columna', type: 'title', nameEn: 'Pillar of Fire', nameEs: 'Columna de Fuego', descriptionEn: 'Guiding light through the wilderness — chest exclusive', descriptionEs: 'Luz guiadora en el desierto — exclusivo del cofre', pricePoints: 0, rarity: 'epic', assetRef: '', metadata: JSON.stringify({ chestOnly: true }) },
+  { id: 'title_chest_profeta', type: 'title', nameEn: 'Voice of the Prophet', nameEs: 'Voz del Profeta', descriptionEn: 'Speaks what heaven declares — chest exclusive', descriptionEs: 'Proclama lo que el cielo declara — exclusivo del cofre', pricePoints: 0, rarity: 'epic', assetRef: '', metadata: JSON.stringify({ chestOnly: true }) },
+  { id: 'title_chest_escogido', type: 'title', nameEn: 'The Chosen', nameEs: 'El Escogido', descriptionEn: 'Called before the foundation of the world — chest exclusive', descriptionEs: 'Llamado antes de la fundacion del mundo — exclusivo del cofre', pricePoints: 0, rarity: 'rare', assetRef: '', metadata: JSON.stringify({ chestOnly: true }) },
+  { id: 'title_chest_intercesor', type: 'title', nameEn: 'Intercessor', nameEs: 'Intercesor', descriptionEn: 'Stands in the gap for others — chest exclusive', descriptionEs: 'Se para en la brecha por los demas — exclusivo del cofre', pricePoints: 0, rarity: 'rare', assetRef: '', metadata: JSON.stringify({ chestOnly: true }) },
+];
+
 // ============================================
 // PREMIUM AVATARS (6 items - Original with price)
 // ============================================
@@ -822,6 +830,13 @@ async function seedStoreItems() {
     await upsertItem(title, sortOrder++);
   }
   console.log(`  Spiritual titles: ${TITLES.length} processed`);
+
+  // Seed chest-only titles
+  console.log('Seeding chest-only titles...');
+  for (const title of TITLES_CHEST) {
+    await upsertItem(title, sortOrder++);
+  }
+  console.log(`  Chest-only titles: ${TITLES_CHEST.length} processed`);
 
   // Seed avatars (original)
   console.log('Seeding premium avatars...');

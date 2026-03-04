@@ -23,7 +23,8 @@ type TicketType =
   | "devotional_not_counted"
   | "audio_tts"
   | "notification"
-  | "reward_drop";
+  | "reward_drop"
+  | "purchase_not_delivered";
 
 type TicketStatus = "open" | "auto_fixed" | "needs_human" | "waiting_user" | "closed";
 
@@ -69,6 +70,7 @@ const createTicketSchema = z.object({
     "audio_tts",
     "notification",
     "reward_drop",
+    "purchase_not_delivered",
   ]),
   claimedStreak: z.number().int().min(0).optional().default(0),
   claimedDate: z
@@ -77,6 +79,8 @@ const createTicketSchema = z.object({
     .optional()
     .default(() => getCRDateString(0)),
   clientClaim: z.record(z.string(), z.unknown()).optional().default({}),
+  purchaseItemId: z.string().optional(),   // storeItemId of the purchased item
+  purchaseBundleId: z.string().optional(), // bundleId if it was a bundle
 });
 
 // ─── Incident Number Generator ────────────────────────────────────────────────
@@ -277,6 +281,27 @@ function buildBotPreview(
         ...base,
       };
     }
+    case "purchase_not_delivered": {
+      const purchaseItemId = (clientClaim.purchaseItemId as string) || "";
+      const purchaseBundleId = (clientClaim.purchaseBundleId as string) || "";
+      const targetLabel = purchaseBundleId || purchaseItemId || "desconocido";
+      if (status === "auto_fixed") {
+        return {
+          summary: `Compra no entregada: ${targetLabel} — corregido automáticamente`,
+          userMessageEs: `¡Listo! Revisamos tu compra y el ítem ya fue agregado a tu inventario. Si no lo ves de inmediato, cierra y abre la app para que se sincronice.`,
+          userMessageEn: `Done! We checked your purchase and the item has been added to your inventory. If you don't see it right away, close and reopen the app to sync.`,
+          action: "auto_fixed",
+          ...base,
+        };
+      }
+      return {
+        summary: `Compra no entregada: ${targetLabel} — requiere revisión`,
+        userMessageEs: `Recibimos tu reporte sobre tu compra (${targetLabel}). Un moderador revisará tu caso pronto para verificar la transacción y gestionar la entrega del ítem. Gracias por reportarlo.`,
+        userMessageEn: `We received your purchase report (${targetLabel}). A moderator will review your case soon to verify the transaction and handle the item delivery. Thank you for reporting.`,
+        action: "needs_human",
+        ...base,
+      };
+    }
     default:
       return {
         summary: "Ticket recibido",
@@ -295,7 +320,7 @@ supportRouter.post(
   "/ticket",
   zValidator("json", createTicketSchema),
   async (c) => {
-    const { userId, type, claimedStreak, claimedDate, clientClaim } =
+    const { userId, type, claimedStreak, claimedDate, clientClaim, purchaseItemId, purchaseBundleId } =
       c.req.valid("json");
 
     const user = await prisma.user.findUnique({
@@ -414,6 +439,121 @@ supportRouter.post(
           }
         }
       }
+    } else if (type === "purchase_not_delivered") {
+      // Auto-resolve: check if the item was actually delivered, if not grant it
+      const targetBundleId = purchaseBundleId ?? (clientClaim.purchaseBundleId as string | undefined);
+      const targetItemId = purchaseItemId ?? (clientClaim.purchaseItemId as string | undefined);
+      const resolvedBundleId = targetBundleId || undefined;
+      const resolvedItemId = targetItemId || undefined;
+
+      if (!resolvedBundleId && !resolvedItemId) {
+        status = "needs_human";
+        escalationReason = "No item or bundle ID provided in claim";
+        resolutionNote = "No se especificó un ítem o bundle. Revisión manual requerida.";
+      } else if (resolvedBundleId) {
+        // Bundle purchase — find items that belong to this bundle
+        const bundleItems = await prisma.storeItem.findMany({
+          where: { bundleId: resolvedBundleId },
+          select: { id: true, nameEs: true },
+        });
+
+        if (bundleItems.length === 0) {
+          status = "needs_human";
+          escalationReason = `Bundle ${resolvedBundleId} has no items in catalog`;
+          resolutionNote = `No se encontraron ítems para el bundle ${resolvedBundleId}. Revisión manual requerida.`;
+        } else {
+          const ownedItems = await prisma.userInventory.findMany({
+            where: { userId },
+            select: { itemId: true },
+          });
+          const ownedIds = new Set(ownedItems.map((i) => i.itemId));
+
+          const granted: string[] = [];
+          for (const item of bundleItems) {
+            if (!ownedIds.has(item.id)) {
+              try {
+                await prisma.userInventory.create({
+                  data: {
+                    userId,
+                    itemId: item.id,
+                    source: "support_grant",
+                    acquiredAt: new Date(),
+                  },
+                });
+                granted.push(item.nameEs);
+              } catch {
+                // ignore duplicate constraint errors (race condition)
+              }
+            }
+          }
+
+          if (granted.length > 0) {
+            status = "auto_fixed";
+            escalationReason = "";
+            resolutionNote = `Se entregaron ${granted.length} ítem(s) del bundle ${resolvedBundleId}: ${granted.join(", ")}.`;
+            autoFixApplied = `Bundle ${resolvedBundleId}: ${granted.length} ítem(s) entregado(s) — ${granted.join(", ")}`;
+            afterState = JSON.stringify({
+              streakCurrent: user.streakCurrent,
+              devotionalsCompleted: user.devotionalsCompleted,
+              grantedItems: granted,
+            });
+            console.log(`[Support] Auto-granted bundle items for ${userId}: ${granted.join(", ")}`);
+          } else {
+            status = "auto_fixed";
+            escalationReason = "";
+            resolutionNote = `Todos los ítems del bundle ${resolvedBundleId} ya estaban en tu inventario.`;
+            autoFixApplied = `Bundle ${resolvedBundleId}: todos los ítems ya estaban en inventario`;
+          }
+        }
+      } else if (resolvedItemId) {
+        // Single item purchase
+        const storeItem = await prisma.storeItem.findUnique({
+          where: { id: resolvedItemId },
+          select: { id: true, nameEs: true },
+        });
+
+        if (!storeItem) {
+          status = "needs_human";
+          escalationReason = `Item ${resolvedItemId} not found in store catalog`;
+          resolutionNote = `El ítem ${resolvedItemId} no existe en el catálogo. Revisión manual requerida.`;
+        } else {
+          const alreadyOwned = await prisma.userInventory.findUnique({
+            where: { userId_itemId: { userId, itemId: resolvedItemId } },
+          });
+
+          if (alreadyOwned) {
+            status = "auto_fixed";
+            escalationReason = "";
+            resolutionNote = `El ítem "${storeItem.nameEs}" ya se encontraba en tu inventario.`;
+            autoFixApplied = `Ítem "${storeItem.nameEs}" ya estaba en inventario (confirmado)`;
+          } else {
+            try {
+              await prisma.userInventory.create({
+                data: {
+                  userId,
+                  itemId: resolvedItemId,
+                  source: "support_grant",
+                  acquiredAt: new Date(),
+                },
+              });
+              status = "auto_fixed";
+              escalationReason = "";
+              resolutionNote = `Ítem "${storeItem.nameEs}" entregado a tu inventario.`;
+              autoFixApplied = `Ítem "${storeItem.nameEs}" entregado al inventario`;
+              afterState = JSON.stringify({
+                streakCurrent: user.streakCurrent,
+                devotionalsCompleted: user.devotionalsCompleted,
+                grantedItem: resolvedItemId,
+              });
+              console.log(`[Support] Auto-granted item ${resolvedItemId} for ${userId}`);
+            } catch {
+              status = "needs_human";
+              escalationReason = `Failed to grant item ${resolvedItemId} — possible constraint error`;
+              resolutionNote = `No se pudo entregar el ítem automáticamente. Revisión manual requerida.`;
+            }
+          }
+        }
+      }
     } else {
       // For audio/notification/reward_drop: always needs_human (info_only handled via botPreview)
       status = "needs_human";
@@ -462,6 +602,7 @@ supportRouter.post(
       audio_tts: "Problema de audio/voz",
       notification: "Problema de notificación",
       reward_drop: "Regalo no recibido",
+      purchase_not_delivered: "Compra / Ítem no entregado",
     };
     const createdMsg = `${typeLabels[type] ?? type} reportado. ${botPreview.summary}`;
     await addEvent(ticket.id, "USER", "CREATED", createdMsg, {

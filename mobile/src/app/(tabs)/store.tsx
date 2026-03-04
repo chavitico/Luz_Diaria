@@ -39,6 +39,7 @@ import {
   X,
   Gift,
   ChevronRight,
+  ChevronLeft,
   Sparkles,
   Star,
   Gem,
@@ -329,16 +330,17 @@ function SeasonalItemsSection({
 }
 
 // ─── Season Banner Component ──────────────────────────────────────────────────
-function SeasonBanner({ season, language }: { season: Season; language: 'en' | 'es' }) {
+function SeasonBanner({ season, language, onPress }: { season: Season; language: 'en' | 'es'; onPress?: () => void }) {
   const accent = season.accentColor || '#7A1F1F';
   const accentLight = accent + 'CC';
   const accentDim = accent + '33';
 
   return (
-    <Animated.View
-      entering={FadeInDown.duration(500)}
-      style={{ marginHorizontal: 20, marginBottom: 16, borderRadius: 18, overflow: 'hidden' }}
-    >
+    <Pressable onPress={onPress}>
+      <Animated.View
+        entering={FadeInDown.duration(500)}
+        style={{ marginHorizontal: 20, marginBottom: 16, borderRadius: 18, overflow: 'hidden' }}
+      >
       <LinearGradient
         colors={[accent, '#1A0A0A']}
         start={{ x: 0, y: 0 }}
@@ -390,7 +392,8 @@ function SeasonBanner({ season, language }: { season: Season; language: 'en' | '
           </Text>
         </View>
       </LinearGradient>
-    </Animated.View>
+      </Animated.View>
+    </Pressable>
   );
 }
 
@@ -2042,10 +2045,19 @@ function computeNewAvatarIds(seenMap: Record<string, boolean>): Set<string> {
   return result;
 }
 
+// 14-day window for releasedAt-based "new" detection
+const NEW_ITEM_WINDOW_MS = 14 * 24 * 60 * 60 * 1000;
+
 function computeNewStoreItemIds(storeItems: StoreItem[], seenMap: Record<string, boolean>): Set<string> {
   const result = new Set<string>();
+  const now = Date.now();
   for (const item of storeItems) {
-    if ((item as any).isNew && !seenMap[item.id]) {
+    if (seenMap[item.id]) continue;
+    // Item is new if: explicit isNew flag OR released in last 14 days
+    const isNewFlag = (item as any).isNew === true;
+    const releasedAt = item.releasedAt ? new Date(item.releasedAt).getTime() : null;
+    const isRecentRelease = releasedAt !== null && (now - releasedAt) < NEW_ITEM_WINDOW_MS;
+    if (isNewFlag || isRecentRelease) {
       result.add(item.id);
     }
   }
@@ -5496,6 +5508,8 @@ export default function StoreScreen() {
   const [showCollectionDetailModal, setShowCollectionDetailModal] = useState(false);
   const [showChapterCollectionModal, setShowChapterCollectionModal] = useState(false);
   const [selectedChapterCollection, setSelectedChapterCollection] = useState<ChapterCollection | null>(null);
+  const [showStoreSectionModal, setShowStoreSectionModal] = useState(false);
+  const [storeSectionModalCategory, setStoreSectionModalCategory] = useState<CategoryType | null>(null);
 
   const [selectedCollection, setSelectedCollection] = useState<typeof ITEM_COLLECTIONS[string] | null>(null);
   const [chestReward, setChestReward] = useState<{
@@ -6012,10 +6026,11 @@ export default function StoreScreen() {
   }, [purchasedItems, user, points]);
 
   // Render category content
-  const renderCategoryContent = () => {
+  const renderCategoryContent = (overrideCategory?: CategoryType) => {
+    const currentCategory = overrideCategory ?? activeCategory;
     const screenWidth = Dimensions.get('window').width;
 
-    switch (activeCategory) {
+    switch (currentCategory) {
       case 'themes': {
         const allThemes = Object.values(PURCHASABLE_THEMES);
         const filteredThemes = activeSubcategory === 'v2'
@@ -6066,7 +6081,7 @@ export default function StoreScreen() {
                       colors={colors}
                       language={language}
                       isHighlighted={pendingNavTarget?.itemId === theme.id}
-                      isNewGift={newGiftItemIds.includes(theme.id)}
+                      isNewGift={newGiftItemIds.includes(theme.id) || newDbItemIds.has(theme.id)}
                       viewRef={(ref) => { if (ref) itemViewRefs.current.set(theme.id, ref as unknown as View); }}
                       onPress={() => handleItemPress({
                         id: theme.id, type: 'theme', name: theme.name, nameEs: theme.nameEs,
@@ -6162,7 +6177,7 @@ export default function StoreScreen() {
                       colors={colors}
                       language={language}
                       isHighlighted={pendingNavTarget?.itemId === frame.id}
-                      isNewGift={newGiftItemIds.includes(frame.id)}
+                      isNewGift={newGiftItemIds.includes(frame.id) || newDbItemIds.has(frame.id)}
                       viewRef={(ref) => {
                         if (ref) itemViewRefs.current.set(frame.id, ref as unknown as View);
                       }}
@@ -6258,7 +6273,7 @@ export default function StoreScreen() {
                       colors={colors}
                       language={language}
                       isHighlighted={pendingNavTarget?.itemId === title.id}
-                      isNewGift={newGiftItemIds.includes(title.id)}
+                      isNewGift={newGiftItemIds.includes(title.id) || newDbItemIds.has(title.id)}
                       viewRef={(ref) => {
                         if (ref) itemViewRefs.current.set(title.id, ref as unknown as View);
                       }}
@@ -6376,7 +6391,7 @@ export default function StoreScreen() {
                       colors={colors}
                       language={language}
                       isHighlighted={pendingNavTarget?.itemId === avatar.id}
-                      isNewGift={newGiftItemIds.includes(avatar.id)}
+                      isNewGift={newGiftItemIds.includes(avatar.id) || newDbItemIds.has(avatar.id)}
                       isNew={isNewItem}
                       viewRef={(ref) => {
                         if (ref) itemViewRefs.current.set(avatar.id, ref as unknown as View);
@@ -6794,6 +6809,29 @@ export default function StoreScreen() {
     return null;
   }, []);
 
+  const catProgress = useMemo(() => {
+    const purchasableAvatarIds = DEFAULT_AVATARS.filter(a => 'price' in a && (a as { price?: number }).price! > 0).map(a => a.id);
+    const allThemeIds = Object.keys(PURCHASABLE_THEMES);
+    const allFrameIds = Object.keys(AVATAR_FRAMES);
+    const allTitleIds = Object.keys(SPIRITUAL_TITLES);
+    const allBundleIds = Object.keys(STORE_BUNDLES);
+    const owned = (ids: string[]) => ids.filter(id => purchasedItems.includes(id)).length;
+    const adventureBundleIds = Object.values(STORE_BUNDLES).filter(b => b.isAdventure).map(b => b.id);
+    const completedAdventures = adventureBundleIds.filter(id => {
+      const b = STORE_BUNDLES[id];
+      return b?.items?.length > 0 && b.items.every(itemId => purchasedItems.includes(itemId));
+    }).length;
+    return {
+      themes: { owned: owned(allThemeIds), total: allThemeIds.length },
+      frames: { owned: owned(allFrameIds), total: allFrameIds.length },
+      titles: { owned: owned(allTitleIds), total: allTitleIds.length },
+      avatars: { owned: owned(purchasableAvatarIds), total: purchasableAvatarIds.length },
+      bundles: { owned: owned(allBundleIds), total: allBundleIds.length },
+      collections: { owned: claimedCollectionIds.size, total: Object.keys(ITEM_COLLECTIONS).length + Object.keys(CHAPTER_COLLECTIONS).length },
+      adventures: { owned: completedAdventures, total: adventureBundleIds.filter(id => !STORE_BUNDLES[id]?.comingSoon).length },
+    } as Record<string, { owned: number; total: number }>;
+  }, [purchasedItems, claimedCollectionIds]);
+
   return (
     <View className="flex-1" style={{ backgroundColor: colors.background }}>
       <PointsToast
@@ -6886,7 +6924,15 @@ export default function StoreScreen() {
 
         {/* Season Banner — shown when active season; Launch Event Banner shown otherwise */}
         {primarySeason ? (
-          <SeasonBanner season={primarySeason} language={language} />
+          <SeasonBanner
+            season={primarySeason}
+            language={language}
+            onPress={() => {
+              setStoreSectionModalCategory('bundles');
+              setShowStoreSectionModal(true);
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            }}
+          />
         ) : (
           <LaunchEventBanner
             language={language}
@@ -6902,57 +6948,83 @@ export default function StoreScreen() {
 
         {/* Category Cards */}
         <View style={{ paddingHorizontal: 20, marginBottom: 20, gap: 10 }}>
-          {(() => {
-            const purchasableAvatarIds = DEFAULT_AVATARS.filter(a => 'price' in a && (a as { price?: number }).price! > 0).map(a => a.id);
-            const allThemeIds = Object.keys(PURCHASABLE_THEMES);
-            const allFrameIds = Object.keys(AVATAR_FRAMES);
-            const allTitleIds = Object.keys(SPIRITUAL_TITLES);
-            const allBundleIds = Object.keys(STORE_BUNDLES);
-            const owned = (ids: string[]) => ids.filter(id => purchasedItems.includes(id)).length;
-            const adventureBundleIds = Object.values(STORE_BUNDLES).filter(b => b.isAdventure).map(b => b.id);
-            const completedAdventures = adventureBundleIds.filter(id => {
-              const b = STORE_BUNDLES[id];
-              return b?.items?.length > 0 && b.items.every(itemId => purchasedItems.includes(itemId));
-            }).length;
-            const catProgress: Record<string, { owned: number; total: number }> = {
-              themes: { owned: owned(allThemeIds), total: allThemeIds.length },
-              frames: { owned: owned(allFrameIds), total: allFrameIds.length },
-              titles: { owned: owned(allTitleIds), total: allTitleIds.length },
-              avatars: { owned: owned(purchasableAvatarIds), total: purchasableAvatarIds.length },
-              bundles: { owned: owned(allBundleIds), total: allBundleIds.length },
-              collections: { owned: claimedCollectionIds.size, total: Object.keys(ITEM_COLLECTIONS).length + Object.keys(CHAPTER_COLLECTIONS).length },
-              adventures: { owned: completedAdventures, total: adventureBundleIds.filter(id => !STORE_BUNDLES[id]?.comingSoon).length },
-            };
-            return CATEGORIES.map((category) => (
-              <CategoryCard
-                key={category.key}
-                category={category}
-                isActive={activeCategory === category.key}
-                colors={colors}
-                language={language}
-                badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
-                hasNew={categoryHasNew[category.key as keyof typeof categoryHasNew] ?? false}
-                progress={catProgress[category.key]}
-                onPress={() => {
-                  Haptics.selectionAsync();
-                  if (category.key === 'adventures') {
-                    router.push('/collections/adventures');
-                    return;
-                  }
-                  setActiveCategory(category.key);
-                  setActiveSubcategory('all');
-                  if (category.key === 'collections') {
-                    markClaimablesSeen();
-                  }
-                }}
-              />
-            ));
-          })()}
+          {CATEGORIES.map((category) => (
+            <CategoryCard
+              key={category.key}
+              category={category}
+              isActive={activeCategory === category.key}
+              colors={colors}
+              language={language}
+              badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
+              hasNew={categoryHasNew[category.key as keyof typeof categoryHasNew] ?? false}
+              progress={catProgress[category.key]}
+              onPress={() => {
+                Haptics.selectionAsync();
+                if (category.key === 'adventures') {
+                  router.push('/collections/adventures');
+                  return;
+                }
+                setActiveSubcategory('all');
+                setStoreSectionModalCategory(category.key as CategoryType);
+                setShowStoreSectionModal(true);
+                if (category.key === 'collections') {
+                  markClaimablesSeen();
+                }
+              }}
+            />
+          ))}
         </View>
 
         {/* Category Content */}
         {renderCategoryContent()}
       </ScrollView>
+
+      {/* Store Section Modal — opened when tapping a category card */}
+      <Modal
+        visible={showStoreSectionModal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowStoreSectionModal(false)}
+      >
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
+          {/* Header */}
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: 20,
+            paddingTop: insets.top + 16,
+            paddingBottom: 16,
+            borderBottomWidth: 1,
+            borderBottomColor: colors.textMuted + '20',
+          }}>
+            <Pressable
+              onPress={() => setShowStoreSectionModal(false)}
+              style={{ marginRight: 12, padding: 4 }}
+            >
+              <ChevronLeft size={24} color={colors.text} />
+            </Pressable>
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontSize: 20, fontWeight: '800', color: colors.text }}>
+                {storeSectionModalCategory ? (language === 'es'
+                  ? CATEGORIES.find(c => c.key === storeSectionModalCategory)?.labelEs
+                  : CATEGORIES.find(c => c.key === storeSectionModalCategory)?.label) : ''}
+              </Text>
+              {storeSectionModalCategory && (() => {
+                const prog = catProgress[storeSectionModalCategory];
+                if (!prog) return null;
+                return (
+                  <Text style={{ fontSize: 12, color: colors.textMuted }}>
+                    {prog.owned}/{prog.total} {language === 'es' ? 'obtenidos' : 'obtained'}
+                  </Text>
+                );
+              })()}
+            </View>
+          </View>
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
+            {storeSectionModalCategory && renderCategoryContent(storeSectionModalCategory)}
+          </ScrollView>
+        </View>
+      </Modal>
 
       {/* Item Detail Modal */}
       <ItemDetailModal
