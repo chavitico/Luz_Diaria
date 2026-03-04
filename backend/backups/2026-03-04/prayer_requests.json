@@ -58,5 +58,20 @@
     "expiresAt": "2026-03-06T00:50:45.786Z",
     "createdAt": "2026-03-04T00:50:45.789Z",
     "updatedAt": "2026-03-04T00:50:45.789Z"
+  },
+  {
+    "id": "cmmbe76cm001hm25r3h53kvxp",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "strength",
+    "nickname": "chavi",
+    "avatarId": "avatar_star",
+    "frameId": "frame_fuego",
+    "titleId": "title_valiente",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-06T02:03:18.884Z",
+    "createdAt": "2026-03-04T02:03:18.887Z",
+    "updatedAt": "2026-03-04T02:03:18.887Z"
   }
 ]

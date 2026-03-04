@@ -428,5 +428,65 @@
     "amount": 10,
     "metadata": "{}",
     "createdAt": "2026-03-04T00:53:23.495Z"
+  },
+  {
+    "id": "cmmbe4o4s001cm25rdmdgms0w",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "ledgerId": "prayer_2026-03-04",
+    "type": "prayer",
+    "dateId": "2026-03-04",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-04T02:01:21.964Z"
+  },
+  {
+    "id": "cmmbe76cn001jm25rj1r0qa4z",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "ledgerId": "prayer_request_2026-03-03",
+    "type": "prayer_request",
+    "dateId": "2026-03-03",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"strength\"}",
+    "createdAt": "2026-03-04T02:03:18.887Z"
+  },
+  {
+    "id": "cmmbe77gt001lm25rvxto262g",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "ledgerId": "prayed_community_2026-03-03",
+    "type": "prayed_community",
+    "dateId": "2026-03-03",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-04T02:03:20.334Z"
+  },
+  {
+    "id": "cmmbfbr0q0028m25ru644ajzh",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "collection_collection_simbolos_fe_1772591691913",
+    "type": "collection_reward",
+    "dateId": "2026-03-04",
+    "amount": 200,
+    "metadata": "{\"collectionId\":\"collection_simbolos_fe\"}",
+    "createdAt": "2026-03-04T02:34:51.915Z"
+  },
+  {
+    "id": "cmmbfck81002dm25rbgjjghe5",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "collection_collection_titulos_servicio_1772591729760",
+    "type": "collection_reward",
+    "dateId": "2026-03-04",
+    "amount": 350,
+    "metadata": "{\"collectionId\":\"collection_titulos_servicio\"}",
+    "createdAt": "2026-03-04T02:35:29.761Z"
+  },
+  {
+    "id": "cmmbgf2rg002rm25rtflcmiev",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "prayed_community_2026-03-03",
+    "type": "prayed_community",
+    "dateId": "2026-03-03",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-04T03:05:26.716Z"
   }
 ]

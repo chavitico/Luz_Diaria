@@ -210,15 +210,15 @@
     "claimedStreak": 7,
     "claimedDate": "2026-03-03",
     "clientClaim": "{\"issue\":\"voice_changed\",\"os\":\"ios\"}",
-    "status": "needs_human",
-    "resolutionNote": "Problema tipo audio_tts reportado. En espera de revisión de moderador.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmm9x0ybc0002m2sr3l31uj4q",
     "beforeState": "{\"streakCurrent\":7,\"devotionalsCompleted\":8}",
     "afterState": "{\"streakCurrent\":7,\"devotionalsCompleted\":8}",
     "botPreview": "{\"summary\":\"Audio/TTS: voice_changed (ios/no especificado)\",\"userMessageEs\":\"Hola, recibimos tu reporte de audio (voice_changed). Pasos a seguir: 1) Cierra y abre la app. 2) Verifica tu conexión a internet. Si el problema persiste, escríbenos y lo escalaremos.\",\"userMessageEn\":\"Hello, we received your audio report (voice_changed). Steps to try: 1) Cierra y abre la app. 2) Verifica tu conexión a internet. If the issue persists, let us know and we'll escalate it.\",\"action\":\"info_only\",\"snapshotComparison\":{\"snapshotDate\":\"2026-03-03\",\"snapshotId\":\"cmma4877o0004m2uragnc2lrf\",\"snapshotStreak\":6,\"currentStreak\":7,\"claimedStreak\":7,\"diffDays\":1,\"devotionalTodayCR\":false,\"lastDevotionalDate\":null,\"escalationReason\":\"audio_tts — no auto-fix available\"}}",
     "snapshotDate": "2026-03-03",
     "snapshotId": "cmma4877o0004m2uragnc2lrf",
     "createdAt": "2026-03-04T00:07:47.300Z",
-    "updatedAt": "2026-03-04T00:07:47.300Z"
+    "updatedAt": "2026-03-04T02:06:41.701Z"
   },
   {
     "id": "cmmbbre550018m261jla1f9a8",
@@ -236,5 +236,22 @@
     "snapshotId": "cmmb5jem90006m26kd3x40pte",
     "createdAt": "2026-03-04T00:55:03.257Z",
     "updatedAt": "2026-03-04T00:55:03.257Z"
+  },
+  {
+    "id": "cmmbe9okm001mm25rdauwy59z",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "type": "devotional_not_counted",
+    "claimedStreak": 1,
+    "claimedDate": "2026-03-03",
+    "clientClaim": "{\"date\":\"2026-03-03\",\"issue\":\"not_counted\"}",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmm9x0ybc0002m2sr3l31uj4q. Devocional del 2026-03-03 ya existía",
+    "beforeState": "{\"streakCurrent\":1,\"devotionalsCompleted\":1}",
+    "afterState": "{\"streakCurrent\":1,\"devotionalsCompleted\":1}",
+    "botPreview": "{\"summary\":\"Devocional no contado — requiere revisión\",\"userMessageEs\":\"Recibimos tu reporte. No encontramos una forma automática de verificar tu devocional del día indicado. Un moderador revisará tu caso. Gracias.\",\"userMessageEn\":\"We received your report. We couldn't automatically verify your devotional for the indicated day. A moderator will review your case. Thank you.\",\"action\":\"needs_human\",\"snapshotComparison\":{\"snapshotDate\":null,\"snapshotId\":null,\"snapshotStreak\":null,\"currentStreak\":1,\"claimedStreak\":1,\"diffDays\":null,\"devotionalTodayCR\":false,\"lastDevotionalDate\":null,\"escalationReason\":\"No snapshot found for this user\"}}",
+    "snapshotDate": null,
+    "snapshotId": null,
+    "createdAt": "2026-03-04T02:05:15.815Z",
+    "updatedAt": "2026-03-04T02:06:24.785Z"
   }
 ]

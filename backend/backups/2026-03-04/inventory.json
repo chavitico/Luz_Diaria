@@ -572,5 +572,40 @@
     "itemId": "theme_hope_dawn",
     "acquiredAt": "2026-03-03T23:57:52.984Z",
     "source": "store"
+  },
+  {
+    "id": "cmmbe6s4d001fm25r5naiz3qf",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-04T02:03:00.446Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmbepu550022m25rqzag18st",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_promise_scroll",
+    "acquiredAt": "2026-03-04T02:17:49.530Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmbfc6tt002am25rkk31a65s",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_guardian",
+    "acquiredAt": "2026-03-04T02:35:12.402Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmbfdurw002fm25r1insl3az",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "frame_faithful_seal",
+    "acquiredAt": "2026-03-04T02:36:30.092Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmbffo9h002im25rnogm7fk1",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_guiding_star",
+    "acquiredAt": "2026-03-04T02:37:54.965Z",
+    "source": "store"
   }
 ]

@@ -1,12 +1,21 @@
 [
   {
+    "id": "cmmbllwht0008m25t0brys0e9",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "streak": 1,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 1,
+    "updatedAt": "2026-03-04T05:30:43.265Z"
+  },
+  {
     "id": "cmmbbl5oi0007m2612yfd6cqp",
     "snapshotDate": "2026-03-04",
     "userId": "cmmb46i64002im2q08tv0dw6y",
     "streak": 2,
     "lastDevotionalDateCompleted": null,
     "totalDevotionalsCompleted": 6,
-    "updatedAt": "2026-03-04T01:02:23.224Z"
+    "updatedAt": "2026-03-04T05:30:43.265Z"
   },
   {
     "id": "cmmbbl5oh0006m261h32r8jt6",
@@ -15,7 +24,7 @@
     "streak": 1,
     "lastDevotionalDateCompleted": null,
     "totalDevotionalsCompleted": 1,
-    "updatedAt": "2026-03-04T01:02:23.219Z"
+    "updatedAt": "2026-03-04T05:30:43.265Z"
   },
   {
     "id": "cmmbbl5og0005m261hhej42y0",
@@ -24,7 +33,7 @@
     "streak": 1,
     "lastDevotionalDateCompleted": null,
     "totalDevotionalsCompleted": 2,
-    "updatedAt": "2026-03-04T01:02:23.216Z"
+    "updatedAt": "2026-03-04T05:30:43.264Z"
   },
   {
     "id": "cmmbbl5of0004m261r5ta0nwb",
@@ -33,7 +42,7 @@
     "streak": 7,
     "lastDevotionalDateCompleted": null,
     "totalDevotionalsCompleted": 8,
-    "updatedAt": "2026-03-04T01:02:23.215Z"
+    "updatedAt": "2026-03-04T05:30:43.264Z"
   },
   {
     "id": "cmmbbl5oe0003m261xd8h6dp6",
@@ -42,7 +51,7 @@
     "streak": 9,
     "lastDevotionalDateCompleted": null,
     "totalDevotionalsCompleted": 8,
-    "updatedAt": "2026-03-04T01:02:23.210Z"
+    "updatedAt": "2026-03-04T05:30:43.263Z"
   },
   {
     "id": "cmmbbl5oc0002m261jo85crye",
@@ -51,7 +60,7 @@
     "streak": 4,
     "lastDevotionalDateCompleted": null,
     "totalDevotionalsCompleted": 5,
-    "updatedAt": "2026-03-04T01:02:23.196Z"
+    "updatedAt": "2026-03-04T05:30:43.262Z"
   },
   {
     "id": "cmmbbl5ob0001m261gz2ugb0n",
@@ -60,7 +69,7 @@
     "streak": 25,
     "lastDevotionalDateCompleted": null,
     "totalDevotionalsCompleted": 8,
-    "updatedAt": "2026-03-04T01:02:23.192Z"
+    "updatedAt": "2026-03-04T05:30:43.261Z"
   },
   {
     "id": "cmmbbl5o20000m261r6469yvq",
@@ -69,7 +78,7 @@
     "streak": 0,
     "lastDevotionalDateCompleted": null,
     "totalDevotionalsCompleted": 0,
-    "updatedAt": "2026-03-04T01:02:23.176Z"
+    "updatedAt": "2026-03-04T05:30:43.246Z"
   },
   {
     "id": "cmmb5jeme0007m26k266a8i7z",
