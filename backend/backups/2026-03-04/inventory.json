@@ -628,5 +628,82 @@
     "itemId": "frame_v2_fuego_sagrado",
     "acquiredAt": "2026-03-04T21:05:05.305Z",
     "source": "store"
+  },
+  {
+    "id": "cmmcm1bii000xm2u1q824a1gy",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_rama_olivo",
+    "acquiredAt": "2026-03-04T22:30:28.747Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm1bij000zm2u1i6wj2xg5",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-04T22:30:28.747Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm1bij0011m2u1ix1smunb",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_vid_racimos",
+    "acquiredAt": "2026-03-04T22:30:28.747Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm1bij0013m2u10zxsjffs",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_corona",
+    "acquiredAt": "2026-03-04T22:30:28.748Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm1bik0015m2u15mvlotye",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-04T22:30:28.748Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm25vo0017m2u1to7jxwml",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_adv_david_sling",
+    "acquiredAt": "2026-03-04T22:31:08.101Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmcm25vp0019m2u1cuae4kkh",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_adv_valley_battle",
+    "acquiredAt": "2026-03-04T22:31:08.101Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmcm25vp001bm2u1fyqda9zb",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_vencedor_gigantes",
+    "acquiredAt": "2026-03-04T22:31:08.101Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmcm2c8b001dm2u1qm8y7art",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_adv_jonah_whale",
+    "acquiredAt": "2026-03-04T22:31:16.331Z",
+    "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmcm2c8b001fm2u1liv68g0p",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_adv_ocean_deep",
+    "acquiredAt": "2026-03-04T22:31:16.331Z",
+    "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmcm2c8b001hm2u1mwgt5qdv",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_mensajero_senor",
+    "acquiredAt": "2026-03-04T22:31:16.332Z",
+    "source": "bundle:bundle_adv_jonas"
   }
 ]
