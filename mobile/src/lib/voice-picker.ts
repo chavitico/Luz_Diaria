@@ -12,9 +12,12 @@
  *   - Same device will always use the same voice across sessions.
  *   - Cache invalidated only when: (a) voice list changes, or (b) user resets cache.
  *
+ * Quality gate:
+ *   - needsUserAction=true when the best available voice scores below NEEDS_ACTION_THRESHOLD.
+ *   - Callers can use this to show a one-time "install a better voice" modal.
+ *
  * Diagnostics (__DEV__ only):
- *   - Logs requested language, available voice count, top 5 candidates with scores+reasons,
- *     and the selected voiceIdentifier with reason.
+ *   - Logs total voices, top 5 candidates with scores+reasons, selected voice + reason.
  */
 
 import * as Speech from 'expo-speech';
@@ -23,13 +26,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // ─── Types ──────────────────────────────────────────────────────────────────
 
 export interface PickedVoice {
-  language: string;          // BCP-47 tag to pass to Speech.speak()
+  language: string;             // BCP-47 tag to pass to Speech.speak()
   voiceIdentifier: string;
   name: string;
   quality: string;
-  isFallback: boolean;       // true if no good voice found
-  isEloquence: boolean;      // true if this is an Eloquence voice (last resort)
+  isFallback: boolean;          // true if no good voice found
+  isEloquence: boolean;         // true if this is an Eloquence voice (last resort)
   preferredVoiceFound: boolean; // true if Paulina / Monica was available
+  needsUserAction: boolean;     // true if voice quality is poor enough to prompt install guide
   score: number;
 }
 
@@ -37,6 +41,13 @@ export interface PickedVoice {
 
 const CACHE_KEY_PREFIX = 'tts_voice_v3_';
 const CACHE_HASH_KEY_PREFIX = 'tts_voice_hash_v3_';
+
+/**
+ * Score below which we consider the voice "poor quality" and show the install guide.
+ * A preferred voice (Paulina) scores ~209. A decent female compact voice scores ~7-27.
+ * Scores ≤ 20 means: no preferred voice, not enhanced/premium, possibly super-compact.
+ */
+const NEEDS_ACTION_THRESHOLD = 20;
 
 /**
  * BCP-47 language tags to use when calling Speech.speak()
@@ -144,7 +155,6 @@ function scoreVoice(voice: Speech.Voice, langCode: 'en' | 'es'): ScoredCandidate
   if (langCode === 'es') {
     const prefIdx = IOS_PREFERRED_ES.findIndex((pattern) => idLower.includes(pattern.toLowerCase()));
     if (prefIdx >= 0) {
-      // Earlier in list = higher priority; max bonus 50, decreasing by rank
       const bonus = Math.max(50 - prefIdx * 5, 5);
       score += bonus;
       reasons.push(`ios_preferred_${prefIdx}:+${bonus}`);
@@ -166,8 +176,12 @@ function scoreVoice(voice: Speech.Voice, langCode: 'en' | 'es'): ScoredCandidate
     reasons.push('female:+15');
   }
 
-  // ── Compact penalty (lower quality tier) ──
-  if (nameLower.includes('compact') || idLower.includes('compact')) {
+  // ── super-compact penalty (worst iOS quality tier — often the "goblin" voices) ──
+  if (idLower.includes('super-compact') || idLower.includes('speech.synthesis')) {
+    score -= 18;
+    reasons.push('super_compact:-18');
+  } else if (nameLower.includes('compact') || idLower.includes('compact')) {
+    // regular compact: mild penalty
     score -= 8;
     reasons.push('compact:-8');
   }
@@ -223,6 +237,8 @@ function hashVoiceList(voices: Speech.Voice[]): string {
  *
  * Voice Lock: result is cached per (langCode + voice list hash).
  * Same device will always get the same voice across sessions.
+ *
+ * needsUserAction: true if best score ≤ NEEDS_ACTION_THRESHOLD (poor voice quality).
  */
 export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice> {
   try {
@@ -230,7 +246,7 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
     const allVoices = await Speech.getAvailableVoicesAsync();
 
     if (__DEV__) {
-      console.log(`[VoicePicker] Total device voices: ${allVoices.length}, requested lang: ${langCode}`);
+      console.log(`[VoicePicker] Total voices: ${allVoices.length}, lang: ${langCode}`);
     }
 
     // 2. Compute hash for Voice Lock
@@ -246,13 +262,14 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
 
     if (cachedHash === currentHash && cachedVoiceJson) {
       const cached = JSON.parse(cachedVoiceJson) as PickedVoice;
+      // Verify the cached voice still exists on device
       const stillExists = !cached.voiceIdentifier || allVoices.some((v) => v.identifier === cached.voiceIdentifier);
       if (stillExists) {
         if (__DEV__) {
           console.log(
-            `[VoicePicker] VOICE LOCK — using cached: ${cached.name} | ${cached.voiceIdentifier}` +
-            ` | quality: ${cached.quality} | score: ${cached.score}` +
-            ` | eloquence: ${cached.isEloquence} | preferred: ${cached.preferredVoiceFound}`
+            `[VoicePicker] LOCK hit: "${cached.name}" score=${cached.score}` +
+            ` eloquence=${cached.isEloquence} preferred=${cached.preferredVoiceFound}` +
+            ` needsAction=${cached.needsUserAction}`
           );
         }
         return cached;
@@ -263,12 +280,7 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
     const langPrefix = langCode === 'es' ? 'es' : 'en';
     const candidates = allVoices.filter((v) => v.language?.startsWith(langPrefix));
 
-    if (__DEV__) {
-      console.log(`[VoicePicker] Spanish-matching voices found: ${candidates.length}`);
-    }
-
     if (candidates.length === 0) {
-      // No voices at all for this language — full fallback
       const fallback: PickedVoice = {
         language: SPEAK_LANGUAGE_TAG[langCode],
         voiceIdentifier: '',
@@ -277,10 +289,11 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
         isFallback: true,
         isEloquence: false,
         preferredVoiceFound: false,
+        needsUserAction: langCode === 'es', // guide user to install a voice
         score: -999,
       };
       if (__DEV__) {
-        console.warn(`[VoicePicker] No voices found for "${langCode}". Using system default.`);
+        console.warn(`[VoicePicker] No ${langCode} voices found. System default.`);
       }
       return fallback;
     }
@@ -290,29 +303,27 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
     scored.sort((a, b) => b.score - a.score);
 
     if (__DEV__) {
-      console.log(`[VoicePicker] Top 5 candidates for "${langCode}":`);
+      console.log(`[VoicePicker] Top 5 for "${langCode}":`);
       scored.slice(0, 5).forEach((s, i) => {
         const qual = (s.voice as any).quality ?? '?';
-        const eloquenceTag = isEloquenceVoice(s.voice) ? ' [ELOQUENCE]' : '';
+        const tag = isEloquenceVoice(s.voice) ? ' [ELOQUENCE]' : '';
         console.log(
-          `  #${i + 1}: ${s.voice.name}${eloquenceTag}` +
-          ` | id: ${s.voice.identifier}` +
-          ` | lang: ${s.voice.language}` +
-          ` | quality: ${qual}` +
-          ` | score: ${s.score}` +
-          ` | reasons: [${s.reasons.join(', ')}]`
+          `  #${i + 1}: ${s.voice.name}${tag} | ${s.voice.identifier}` +
+          ` | ${s.voice.language} | q:${qual} | score:${s.score}` +
+          ` | [${s.reasons.join(', ')}]`
         );
       });
     }
 
-    // 6. Check if a preferred voice (Paulina / Monica) was found
+    // 6. Determine flags
     const preferredVoiceFound = scored.some((s) => isPreferredVoice(s.voice));
-
     const best = scored[0];
     const quality = (best.voice as any).quality ?? 'unknown';
     const eloquence = isEloquenceVoice(best.voice);
-    // Mark as fallback if: only eloquence voices exist, or score is very negative
     const isFallback = eloquence || best.score < 0;
+
+    // needsUserAction: score is low AND we're in Spanish (English has acceptable built-ins)
+    const needsUserAction = langCode === 'es' && best.score <= NEEDS_ACTION_THRESHOLD;
 
     const result: PickedVoice = {
       language: best.voice.language ?? SPEAK_LANGUAGE_TAG[langCode],
@@ -322,19 +333,21 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
       isFallback,
       isEloquence: eloquence,
       preferredVoiceFound,
+      needsUserAction,
       score: best.score,
     };
 
     if (__DEV__) {
       const reason = eloquence
-        ? 'LAST RESORT — only Eloquence available'
+        ? 'LAST RESORT — Eloquence only'
         : preferredVoiceFound
-          ? 'preferred voice (Paulina/Monica) selected'
-          : 'best non-Eloquence voice selected';
+          ? 'preferred (Paulina/Monica)'
+          : needsUserAction
+            ? `LOW QUALITY — score ${best.score} ≤ ${NEEDS_ACTION_THRESHOLD}, will show install guide`
+            : 'best available';
       console.log(
-        `[VoicePicker] SELECTED: "${result.name}" | ${result.voiceIdentifier}` +
-        ` | lang: ${result.language} | quality: ${quality} | score: ${result.score}` +
-        ` | reason: ${reason}`
+        `[VoicePicker] SELECTED: "${result.name}" | score=${result.score}` +
+        ` | needsAction=${needsUserAction} | reason: ${reason}`
       );
     }
 
@@ -346,7 +359,7 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
 
     return result;
   } catch (err) {
-    console.error('[VoicePicker] Error picking voice:', err);
+    console.error('[VoicePicker] Error:', err);
     return {
       language: SPEAK_LANGUAGE_TAG[langCode],
       voiceIdentifier: '',
@@ -355,6 +368,7 @@ export async function pickBestVoice(langCode: 'en' | 'es'): Promise<PickedVoice>
       isFallback: true,
       isEloquence: false,
       preferredVoiceFound: false,
+      needsUserAction: langCode === 'es',
       score: -999,
     };
   }
@@ -370,21 +384,18 @@ export async function resetVoiceCache(langCode?: 'en' | 'es'): Promise<void> {
     langs.flatMap((l) => [
       AsyncStorage.removeItem(`${CACHE_KEY_PREFIX}${l}`),
       AsyncStorage.removeItem(`${CACHE_HASH_KEY_PREFIX}${l}`),
-      // Also clear old v2 keys to avoid stale data
+      // Clear old v2 keys too
       AsyncStorage.removeItem(`tts_voice_v2_${l}`),
       AsyncStorage.removeItem(`tts_voice_hash_v2_${l}`),
     ])
   );
   if (__DEV__) {
-    console.log(`[VoicePicker] Voice Lock cache cleared for: ${langCode ?? 'all'}`);
+    console.log(`[VoicePicker] Cache cleared: ${langCode ?? 'all'}`);
   }
 }
 
 /**
  * Returns Speech.SpeechOptions with language + voice pre-filled.
- * onFallback is called when the selected voice is a fallback (no good voice found).
- * onEloquence is called specifically when the voice is Eloquence (robotic).
- * onPreferredMissing is called when preferred voice (Paulina/Monica) is not installed.
  */
 export async function buildSpeechOptions(
   langCode: 'en' | 'es',
@@ -395,28 +406,14 @@ export async function buildSpeechOptions(
   } = {}
 ): Promise<{ options: Speech.SpeechOptions; picked: PickedVoice }> {
   const picked = await pickBestVoice(langCode);
-
   const { onFallback, onEloquence, onPreferredMissing, ...rest } = extra;
 
-  if (picked.isFallback && onFallback) {
-    onFallback(picked);
-  }
-  if (picked.isEloquence && onEloquence) {
-    onEloquence(picked);
-  }
-  // Notify if preferred voice not found (and we didn't already fire isFallback)
-  if (!picked.preferredVoiceFound && langCode === 'es' && onPreferredMissing) {
-    onPreferredMissing(picked);
-  }
+  if (picked.isFallback && onFallback) onFallback(picked);
+  if (picked.isEloquence && onEloquence) onEloquence(picked);
+  if (!picked.preferredVoiceFound && langCode === 'es' && onPreferredMissing) onPreferredMissing(picked);
 
-  const options: Speech.SpeechOptions = {
-    ...rest,
-    language: picked.language,
-  };
-
-  if (picked.voiceIdentifier) {
-    options.voice = picked.voiceIdentifier;
-  }
+  const options: Speech.SpeechOptions = { ...rest, language: picked.language };
+  if (picked.voiceIdentifier) options.voice = picked.voiceIdentifier;
 
   return { options, picked };
 }

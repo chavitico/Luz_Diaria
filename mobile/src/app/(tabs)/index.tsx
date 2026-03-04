@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from 'expo-router';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -98,6 +99,7 @@ import {
 } from '@/lib/tts-voices';
 import { pickBestVoice, type PickedVoice } from '@/lib/voice-picker';
 import { VoiceFallbackBanner } from '@/components/VoiceFallbackBanner';
+import { VoiceSetupModal, VOICE_SETUP_SHOWN_KEY } from '@/components/VoiceSetupModal';
 
 // Bible book translations from English to Spanish
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
@@ -1334,6 +1336,7 @@ export default function HomeScreen() {
   const [ttsVolume, setTTSVolume] = useState(settings.ttsVolume ?? 1.0);
   const [showVoiceFallbackBanner, setShowVoiceFallbackBanner] = useState(false);
   const [voiceFallbackReason, setVoiceFallbackReason] = useState<'missing_preferred' | 'eloquence' | 'fallback'>('fallback');
+  const [showVoiceSetupModal, setShowVoiceSetupModal] = useState(false);
   const pickedVoiceRef = useRef<PickedVoice | null>(null);
   const isTTSPlayingRef = useRef(false);
   const currentSectionIndexRef = useRef(-1);
@@ -1383,9 +1386,10 @@ export default function HomeScreen() {
   // Pick best voice on mount (cached in AsyncStorage)
   useEffect(() => {
     const langCode = language === 'es' ? 'es' : 'en';
-    pickBestVoice(langCode).then((picked) => {
+    pickBestVoice(langCode).then(async (picked) => {
       pickedVoiceRef.current = picked;
-      // Show banner if: (a) eloquence fallback, (b) preferred voice missing, or (c) no voice
+
+      // Show small banner for non-critical guidance
       if (picked.isEloquence) {
         setVoiceFallbackReason('eloquence');
         setShowVoiceFallbackBanner(true);
@@ -1395,6 +1399,17 @@ export default function HomeScreen() {
       } else if (picked.isFallback) {
         setVoiceFallbackReason('fallback');
         setShowVoiceFallbackBanner(true);
+      }
+
+      // Show one-time modal when voice quality is poor (needsUserAction)
+      if (picked.needsUserAction) {
+        try {
+          const alreadyShown = await AsyncStorage.getItem(VOICE_SETUP_SHOWN_KEY);
+          if (!alreadyShown) {
+            // Small delay so it doesn't pop up while the screen is still loading
+            setTimeout(() => setShowVoiceSetupModal(true), 1500);
+          }
+        } catch (_) {}
       }
     });
   }, [language]);
@@ -1911,6 +1926,20 @@ export default function HomeScreen() {
         points={POINTS.COMPLETE_DEVOTIONAL}
         colors={colors}
         language={language}
+      />
+
+      {/* One-time modal shown when device has poor voice quality */}
+      <VoiceSetupModal
+        visible={showVoiceSetupModal}
+        language={language}
+        voiceName={pickedVoiceRef.current?.name}
+        colors={colors}
+        onDismiss={async () => {
+          setShowVoiceSetupModal(false);
+          try {
+            await AsyncStorage.setItem(VOICE_SETUP_SHOWN_KEY, '1');
+          } catch (_) {}
+        }}
       />
 
       <Animated.ScrollView
