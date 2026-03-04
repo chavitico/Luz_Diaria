@@ -90,17 +90,14 @@ const DAILY_LIMITS = {
   SHARE_MAX: 2,
 };
 
-// Import curated TTS voices
+// Import TTS utilities
 import {
-  getCuratedVoices,
-  findMatchingDeviceVoice,
-  getDeviceVoiceIdentifier,
-  getPreviewText,
   addTTSPausesForNumberedPoints,
   sanitizeForTTS,
   preprocessNumbersForTTS,
-  type CuratedVoice,
 } from '@/lib/tts-voices';
+import { pickBestVoice, type PickedVoice } from '@/lib/voice-picker';
+import { VoiceFallbackBanner } from '@/components/VoiceFallbackBanner';
 
 // Bible book translations from English to Spanish
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
@@ -1365,7 +1362,8 @@ export default function HomeScreen() {
   const [ttsSpeed, setTTSSpeed] = useState(TTS_FIXED_SPEED);
   const [ttsVolume, setTTSVolume] = useState(settings.ttsVolume ?? 1.0);
   const [ttsVoice, setTTSVoice] = useState('default');
-  const [availableVoices, setAvailableVoices] = useState<Speech.Voice[]>([]);
+  const [showVoiceFallbackBanner, setShowVoiceFallbackBanner] = useState(false);
+  const pickedVoiceRef = useRef<PickedVoice | null>(null);
   const isTTSPlayingRef = useRef(false);
   const currentSectionIndexRef = useRef(-1);
   const ttsSpeedRef = useRef(TTS_FIXED_SPEED);
@@ -1411,19 +1409,16 @@ export default function HomeScreen() {
     ttsVolumeRef.current = settings.ttsVolume ?? 1.0;
   }, [settings.ttsVolume]);
 
-  // Load available voices on mount
+  // Pick best voice on mount (cached in AsyncStorage)
   useEffect(() => {
-    const loadVoices = async () => {
-      try {
-        const voices = await Speech.getAvailableVoicesAsync();
-        setAvailableVoices(voices);
-        console.log('[TTS] Available voices:', voices.length);
-      } catch (error) {
-        console.error('[TTS] Failed to load voices:', error);
+    const langCode = language === 'es' ? 'es' : 'en';
+    pickBestVoice(langCode).then((picked) => {
+      pickedVoiceRef.current = picked;
+      if (picked.isFallback) {
+        setShowVoiceFallbackBanner(true);
       }
-    };
-    loadVoices();
-  }, []);
+    });
+  }, [language]);
 
   // Time tracking (hidden from user - internal control only)
   useEffect(() => {
@@ -1724,12 +1719,14 @@ export default function HomeScreen() {
     ];
   }, [devotional, language]);
 
-  // Get the best matching voice for current language using curated voice system
-  const getVoiceIdentifier = useCallback(() => {
-    const currentVoiceId = ttsVoiceRef.current;
-    // Use shared utility to get device voice identifier
-    return getDeviceVoiceIdentifier(currentVoiceId, availableVoices, language);
-  }, [availableVoices, language]);
+  // Get the best voice identifier from the pre-picked voice
+  const getVoiceIdentifier = useCallback((): { id: string | undefined; lang: string } => {
+    const picked = pickedVoiceRef.current;
+    if (!picked || picked.isFallback) {
+      return { id: undefined, lang: language === 'es' ? 'es-419' : 'en-US' };
+    }
+    return { id: picked.voiceIdentifier, lang: picked.language };
+  }, [language]);
 
   const speakSection = useCallback(async (index: number, sections: { key: string; text: string }[], jobId: number) => {
     // Guard: abort if this job was superseded
@@ -1756,9 +1753,9 @@ export default function HomeScreen() {
     const section = sections[index];
 
     // Get current settings from refs for real-time updates
-    const voiceId = getVoiceIdentifier();
+    const { id: voiceId, lang: voiceLang } = getVoiceIdentifier();
     const speechOptions: Speech.SpeechOptions = {
-      language: language === 'es' ? 'es-ES' : 'en-US',
+      language: voiceLang,
       rate: ttsSpeedRef.current,
       volume: ttsVolumeRef.current,
       onDone: () => {
