@@ -183,6 +183,18 @@ export const DEFAULT_AVATARS = [
   { id: 'avatar_adv_queen_esther', name: 'Queen Esther', nameEs: 'Reina Ester', emoji: '👑', description: 'The queen who saved her people', descriptionEs: 'La reina que salvó a su pueblo', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_esther', chestOnly: true, isAdventure: true },
   { id: 'avatar_adv_lion_faith', name: 'Lion of Faith', nameEs: 'León de la Fe', emoji: '🦁', description: 'Daniel standing firm before the lions', descriptionEs: 'Daniel firme ante los leones', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_daniel', chestOnly: true, isAdventure: true },
   // ============================================
+  // AVATARS V3 — Animated Adventure Avatars
+  // animationReady: true indicates Lottie/Rive animation support prepared
+  // ============================================
+  { id: 'avatar_adv_moses_sea', name: 'Moses at the Sea', nameEs: 'Moisés en el Mar', emoji: '🌊', description: 'The sea parts before Moses', descriptionEs: 'El mar se abre ante Moisés', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_moses', chestOnly: true, isAdventure: true, animationReady: true, animationType: 'subtle_loop' },
+  { id: 'avatar_adv_noah_dove', name: 'Noah\'s Dove', nameEs: 'Paloma de Noé', emoji: '🕊️', description: 'The dove that carried the promise of peace', descriptionEs: 'La paloma que cargó la promesa de paz', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_noah', chestOnly: true, isAdventure: true, animationReady: true, animationType: 'subtle_loop' },
+  { id: 'avatar_adv_elijah_fire', name: 'Elijah\'s Fire', nameEs: 'Fuego de Elías', emoji: '🔥', description: 'Fire from heaven answering Elijah\'s prayer', descriptionEs: 'Fuego del cielo respondiendo la oración de Elías', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_elijah', chestOnly: true, isAdventure: true, animationReady: true, animationType: 'subtle_loop' },
+  { id: 'avatar_adv_joseph_dream', name: 'Joseph the Dreamer', nameEs: 'José el Soñador', emoji: '⭐', description: 'The dreamer whose visions came from God', descriptionEs: 'El soñador cuyas visiones venían de Dios', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_joseph', chestOnly: true, isAdventure: true, animationReady: true, animationType: 'subtle_loop' },
+  { id: 'avatar_adv_paul_scroll', name: 'Paul with Scroll', nameEs: 'Pablo con Pergamino', emoji: '📜', description: 'The apostle who wrote to the nations', descriptionEs: 'El apóstol que escribió a las naciones', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_paul', chestOnly: true, isAdventure: true, animationReady: true, animationType: 'subtle_loop' },
+  // ── V3 Animated upgrades for existing adventure avatars ──────────────────────
+  // These are metadata-only markers — existing IDs keep their data unchanged above.
+  // V3 animation hints are carried by the new adventure avatars listed above.
+  // ============================================
   // Chapter Collection Avatars
   // ============================================
   { id: 'avatar_promise_scroll', name: 'Promise Scroll', nameEs: 'Pergamino de Promesa', emoji: '📜', description: 'Ancient scroll bearing divine promises', descriptionEs: 'Pergamino antiguo con promesas divinas', price: 350, rarity: 'rare' },
@@ -938,6 +950,16 @@ export const AVATAR_FRAMES: Record<string, {
   frame_v2_rosa_gracia: { id: 'frame_v2_rosa_gracia', name: 'Rose of Grace', nameEs: 'Rosa de Gracia', description: 'Blush rose petal frame of tender grace', descriptionEs: 'Marco de petalo de rosa del amor tierno', color: '#E8829A', price: 420, rarity: 'rare', isV2: true },
   frame_v2_tierra_santa: { id: 'frame_v2_tierra_santa', name: 'Holy Land', nameEs: 'Tierra Santa', description: 'Warm desert sand of ancient holy ground', descriptionEs: 'Arena calida del desierto de tierra santa antigua', color: '#C8956C', price: 340, rarity: 'common', isV2: true },
   frame_adv_ocean_deep: { id: 'frame_adv_ocean_deep', name: 'Deep Ocean', nameEs: 'Océano Profundo', description: 'Depths of the sea where Jonah was carried', descriptionEs: 'Las profundidades del mar donde fue llevado Jonás', color: '#1A4A7A', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
+  // ── Adventure Frames V2 (Adventures 3–4) ────────────────────────────────────
+  frame_adv_royal_persia: { id: 'frame_adv_royal_persia', name: 'Royal Persia', nameEs: 'Persia Real', description: 'The golden halls of the Persian palace', descriptionEs: 'Los salones dorados del palacio persa', color: '#C8942A', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
+  frame_adv_lions_den: { id: 'frame_adv_lions_den', name: 'Lion\'s Den', nameEs: 'Fosa de los Leones', description: 'The den where faith conquered fear', descriptionEs: 'La fosa donde la fe venció al miedo', color: '#8B6914', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
+  frame_adv_valley_battle: { id: 'frame_adv_valley_battle', name: 'Valley of Battle', nameEs: 'Valle de Batalla', description: 'The valley where one stone changed history', descriptionEs: 'El valle donde una piedra cambió la historia', color: '#6B4F2A', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
+  // ── Adventure Frames V3 (Adventures 5–9) ────────────────────────────────────
+  frame_adv_red_sea: { id: 'frame_adv_red_sea', name: 'Red Sea', nameEs: 'Mar Rojo', description: 'The parted sea — walls of water on both sides', descriptionEs: 'El mar abierto — muros de agua a ambos lados', color: '#1E6FA8', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
+  frame_adv_rainbow: { id: 'frame_adv_rainbow', name: 'Rainbow Covenant', nameEs: 'Arco del Pacto', description: 'The eternal rainbow of God\'s covenant with Noah', descriptionEs: 'El arco eterno del pacto de Dios con Noé', color: '#7C3AED', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
+  frame_adv_fire_heaven: { id: 'frame_adv_fire_heaven', name: 'Fire from Heaven', nameEs: 'Fuego del Cielo', description: 'The consuming fire that answered Elijah\'s prayer', descriptionEs: 'El fuego consumidor que respondió la oración de Elías', color: '#DC4E0A', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
+  frame_adv_dream_stars: { id: 'frame_adv_dream_stars', name: 'Dream of Stars', nameEs: 'Sueño de Estrellas', description: 'The starlit sky of Joseph\'s prophetic dreams', descriptionEs: 'El cielo estrellado de los sueños proféticos de José', color: '#1E3A8A', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
+  frame_adv_mission_world: { id: 'frame_adv_mission_world', name: 'World Mission', nameEs: 'Misión al Mundo', description: 'The wide horizon of Paul\'s apostolic mission', descriptionEs: 'El horizonte amplio de la misión apostólica de Pablo', color: '#064E3B', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
   // ── New items for Chapter Collections ───────────────────────────────────────
   frame_faithful_seal: { id: 'frame_faithful_seal', name: 'Faithful Seal', nameEs: 'Sello Fiel', description: 'Sealed by the promise of the Faithful One', descriptionEs: 'Sellado por la promesa del Fiel', color: '#4F46E5', price: 350, rarity: 'rare' },
   frame_gentle_breeze: { id: 'frame_gentle_breeze', name: 'Gentle Breeze', nameEs: 'Brisa Suave', description: 'Soft breath of the Spirit', descriptionEs: 'Suave soplo del Espíritu', color: '#10B981', price: 300, rarity: 'common' },
@@ -955,6 +977,9 @@ export const SPIRITUAL_TITLES: Record<string, {
   price?: number;
   rarity: string;
   chestOnly?: boolean;
+  /** Bible reference — used by V2 Biblical Citations subcategory */
+  bibleRef?: string;
+  isV2?: boolean;
 }> = {
   title_buscador: { id: 'title_buscador', name: 'Seeker of Light', nameEs: 'Buscador de Luz', description: 'One who seeks divine truth', descriptionEs: 'Quien busca la verdad divina', price: 200, rarity: 'common' },
   title_corazon: { id: 'title_corazon', name: 'Grateful Heart', nameEs: 'Corazon Agradecido', description: 'Living in thankfulness', descriptionEs: 'Viviendo en gratitud', price: 250, rarity: 'common' },
@@ -980,6 +1005,33 @@ export const SPIRITUAL_TITLES: Record<string, {
   title_belt_truth: { id: 'title_belt_truth', name: 'Belt of Truth', nameEs: 'Cinturón de Verdad', description: 'Girded with the truth of God', descriptionEs: 'Ceñido con la verdad de Dios', price: 400, rarity: 'rare' },
   title_guard_word: { id: 'title_guard_word', name: 'Guard of the Word', nameEs: 'Guardia de la Palabra', description: 'Defender of sacred scripture', descriptionEs: 'Defensor de las sagradas escrituras', price: 500, rarity: 'epic' },
   title_mensajero_senor: { id: 'title_mensajero_senor', name: 'Messenger of the Lord', nameEs: 'Mensajero del Señor', description: 'Called and sent by God', descriptionEs: 'Llamado y enviado por Dios', price: 0, rarity: 'epic', chestOnly: true },
+  // ── V2 — Citas Bíblicas (Biblical Citations) ─────────────────────────────────
+  title_psalm_shepherd: { id: 'title_psalm_shepherd', name: 'The Lord is my Shepherd', nameEs: 'El Señor es mi Pastor', description: 'Guided and provided for by the Shepherd', descriptionEs: 'Guiado y provisto por el Pastor', price: 350, rarity: 'rare', isV2: true, bibleRef: 'Salmo 23:1' },
+  title_all_through_christ: { id: 'title_all_through_christ', name: 'I can do all through Christ', nameEs: 'Todo lo puedo en Cristo', description: 'Strength found in Christ alone', descriptionEs: 'Fuerza hallada solo en Cristo', price: 300, rarity: 'rare', isV2: true, bibleRef: 'Filipenses 4:13' },
+  title_more_than_conquerors: { id: 'title_more_than_conquerors', name: 'More than Conquerors', nameEs: 'Más que vencedores', description: 'Overcoming through His love', descriptionEs: 'Venciendo a través de su amor', price: 400, rarity: 'rare', isV2: true, bibleRef: 'Romanos 8:37' },
+  title_lord_my_light: { id: 'title_lord_my_light', name: 'The Lord is my Light', nameEs: 'El Señor es mi luz', description: 'No darkness can overcome this light', descriptionEs: 'Ninguna oscuridad puede vencer esta luz', price: 350, rarity: 'rare', isV2: true, bibleRef: 'Salmo 27:1' },
+  title_joy_is_strength: { id: 'title_joy_is_strength', name: 'Joy of the Lord is my Strength', nameEs: 'El gozo del Señor es mi fuerza', description: 'Sustained by unshakeable joy', descriptionEs: 'Sostenido por un gozo inquebrantable', price: 400, rarity: 'rare', isV2: true, bibleRef: 'Nehemías 8:10' },
+  title_grace_is_enough: { id: 'title_grace_is_enough', name: 'My Grace is Sufficient', nameEs: 'Mi gracia es suficiente', description: 'His grace is enough in weakness', descriptionEs: 'Su gracia es suficiente en la debilidad', price: 450, rarity: 'rare', isV2: true, bibleRef: '2 Corintios 12:9' },
+  title_walk_by_faith: { id: 'title_walk_by_faith', name: 'We Walk by Faith', nameEs: 'Andamos por fe', description: 'Not by sight but by trust in Him', descriptionEs: 'No por vista sino por confianza en Él', price: 300, rarity: 'common', isV2: true, bibleRef: '2 Corintios 5:7' },
+  title_god_is_love: { id: 'title_god_is_love', name: 'God is Love', nameEs: 'Dios es amor', description: 'Living in the fullness of divine love', descriptionEs: 'Viviendo en la plenitud del amor divino', price: 350, rarity: 'rare', isV2: true, bibleRef: '1 Juan 4:8' },
+  title_peace_of_christ: { id: 'title_peace_of_christ', name: 'Peace of Christ Rules', nameEs: 'La paz de Cristo gobierne', description: 'Peace ruling heart and mind', descriptionEs: 'La paz gobernando el corazón y la mente', price: 400, rarity: 'rare', isV2: true, bibleRef: 'Colosenses 3:15' },
+  title_word_is_light: { id: 'title_word_is_light', name: 'Your Word is a Lamp', nameEs: 'Tu palabra es lámpara', description: 'Guided by the light of scripture', descriptionEs: 'Guiado por la luz de las escrituras', price: 350, rarity: 'rare', isV2: true, bibleRef: 'Salmo 119:105' },
+  title_lord_my_refuge: { id: 'title_lord_my_refuge', name: 'The Lord is my Refuge', nameEs: 'El Señor es mi refugio', description: 'Safe in the shadow of the Almighty', descriptionEs: 'Seguro a la sombra del Todopoderoso', price: 400, rarity: 'rare', isV2: true, bibleRef: 'Salmo 91:2' },
+  title_be_strong_courage: { id: 'title_be_strong_courage', name: 'Be Strong and Courageous', nameEs: 'Sé fuerte y valiente', description: 'Courage given by God himself', descriptionEs: 'Valentía dada por Dios mismo', price: 450, rarity: 'rare', isV2: true, bibleRef: 'Josué 1:9' },
+  title_lord_fights: { id: 'title_lord_fights', name: 'The Lord Fights for You', nameEs: 'El Señor peleará por ustedes', description: 'Standing still while God battles', descriptionEs: 'Quieto mientras Dios pelea la batalla', price: 500, rarity: 'epic', isV2: true, bibleRef: 'Éxodo 14:14' },
+  title_lord_is_good: { id: 'title_lord_is_good', name: 'The Lord is Good', nameEs: 'Bueno es el Señor', description: 'Declaring His goodness in every season', descriptionEs: 'Declarando su bondad en toda temporada', price: 300, rarity: 'common', isV2: true, bibleRef: 'Salmo 100:5' },
+  title_god_with_us: { id: 'title_god_with_us', name: 'God With Us', nameEs: 'Dios con nosotros', description: 'Emmanuel, forever present', descriptionEs: 'Emmanuel, siempre presente', price: 400, rarity: 'rare', isV2: true, bibleRef: 'Mateo 1:23' },
+  title_living_hope: { id: 'title_living_hope', name: 'Living Hope', nameEs: 'Esperanza viva', description: 'Reborn into a living hope through Christ', descriptionEs: 'Renacido a una esperanza viva por Cristo', price: 450, rarity: 'rare', isV2: true, bibleRef: '1 Pedro 1:3' },
+  title_renewed_strength: { id: 'title_renewed_strength', name: 'They Will Renew Their Strength', nameEs: 'Renovarán sus fuerzas', description: 'Soaring on wings like eagles', descriptionEs: 'Remontando el vuelo como las águilas', price: 500, rarity: 'epic', isV2: true, bibleRef: 'Isaías 40:31' },
+  title_light_world: { id: 'title_light_world', name: 'Light of the World', nameEs: 'Luz del mundo', description: 'Shining before all people', descriptionEs: 'Brillando ante todo el mundo', price: 550, rarity: 'epic', isV2: true, bibleRef: 'Mateo 5:14' },
+  title_abide_in_me: { id: 'title_abide_in_me', name: 'Remain in Me', nameEs: 'Permanezcan en mí', description: 'Connected to the Vine, bearing fruit', descriptionEs: 'Conectado a la Vid, dando fruto', price: 450, rarity: 'rare', isV2: true, bibleRef: 'Juan 15:4' },
+  title_love_never_fails: { id: 'title_love_never_fails', name: 'Love Never Fails', nameEs: 'El amor nunca falla', description: 'Walking in the love that endures forever', descriptionEs: 'Caminando en el amor que dura para siempre', price: 500, rarity: 'epic', isV2: true, bibleRef: '1 Corintios 13:8' },
+  // ── Adventure Titles (Adventures 5–9) ───────────────────────────────────────
+  title_camino_en_el_mar: { id: 'title_camino_en_el_mar', name: 'Path Through the Sea', nameEs: 'Camino en el Mar', description: 'God opens a way where there is none', descriptionEs: 'Dios abre camino donde no lo hay', price: 0, rarity: 'epic', chestOnly: true },
+  title_guardian_del_pacto: { id: 'title_guardian_del_pacto', name: 'Guardian of the Covenant', nameEs: 'Guardián del Pacto', description: 'Keeper of God\'s eternal promises', descriptionEs: 'Guardián de las promesas eternas de Dios', price: 0, rarity: 'epic', chestOnly: true },
+  title_profeta_de_fuego: { id: 'title_profeta_de_fuego', name: 'Prophet of Fire', nameEs: 'Profeta de Fuego', description: 'Burning with holy zeal for God', descriptionEs: 'Ardiendo con celo santo por Dios', price: 0, rarity: 'epic', chestOnly: true },
+  title_sonador_de_dios: { id: 'title_sonador_de_dios', name: 'Dreamer of God', nameEs: 'Soñador de Dios', description: 'Carrying visions from the throne of God', descriptionEs: 'Portando visiones del trono de Dios', price: 0, rarity: 'epic', chestOnly: true },
+  title_apostol_de_las_naciones: { id: 'title_apostol_de_las_naciones', name: 'Apostle to the Nations', nameEs: 'Apóstol de las Naciones', description: 'Sent to proclaim the gospel to every people', descriptionEs: 'Enviado a proclamar el evangelio a todo pueblo', price: 0, rarity: 'epic', chestOnly: true },
 };
 
 // ── Badges — achievement-based items auto-awarded by milestones ───────────────
@@ -1527,6 +1579,101 @@ export const STORE_BUNDLES: Record<string, {
     adventureId: 'adv_daniel',
     adventureNumber: 4,
     storyId: 'story_adv_daniel',
+    storyDays: 5,
+    comingSoon: true,
+  },
+  // Aventura 5: Moisés
+  bundle_adv_moses: {
+    id: 'bundle_adv_moses',
+    name: 'Moses and the Red Sea',
+    nameEs: 'Moisés y el Mar Rojo',
+    description: 'Exclusive items from Moses\' miracle at the Red Sea',
+    descriptionEs: 'Items exclusivos del milagro de Moisés en el Mar Rojo',
+    items: ['avatar_adv_moses_sea', 'frame_adv_red_sea', 'title_camino_en_el_mar'],
+    originalPrice: 3500,
+    bundlePrice: 2500,
+    collectionBonus: 600,
+    rarity: 'epic',
+    isAdventure: true,
+    adventureId: 'adv_moses',
+    adventureNumber: 5,
+    storyId: 'story_adv_moses',
+    storyDays: 5,
+    comingSoon: true,
+  },
+  // Aventura 6: Noé
+  bundle_adv_noah: {
+    id: 'bundle_adv_noah',
+    name: 'Noah and the Covenant',
+    nameEs: 'Noé y el Pacto',
+    description: 'Exclusive items from Noah\'s journey of faith and God\'s covenant',
+    descriptionEs: 'Items exclusivos del viaje de fe de Noé y el pacto de Dios',
+    items: ['avatar_adv_noah_dove', 'frame_adv_rainbow', 'title_guardian_del_pacto'],
+    originalPrice: 3500,
+    bundlePrice: 2500,
+    collectionBonus: 600,
+    rarity: 'epic',
+    isAdventure: true,
+    adventureId: 'adv_noah',
+    adventureNumber: 6,
+    storyId: 'story_adv_noah',
+    storyDays: 5,
+    comingSoon: true,
+  },
+  // Aventura 7: Elías
+  bundle_adv_elijah: {
+    id: 'bundle_adv_elijah',
+    name: 'Elijah\'s Fire',
+    nameEs: 'El Fuego de Elías',
+    description: 'Exclusive items from Elijah\'s fiery encounter with God on Mount Carmel',
+    descriptionEs: 'Items exclusivos del encuentro ardiente de Elías con Dios en el Monte Carmelo',
+    items: ['avatar_adv_elijah_fire', 'frame_adv_fire_heaven', 'title_profeta_de_fuego'],
+    originalPrice: 3500,
+    bundlePrice: 2500,
+    collectionBonus: 600,
+    rarity: 'epic',
+    isAdventure: true,
+    adventureId: 'adv_elijah',
+    adventureNumber: 7,
+    storyId: 'story_adv_elijah',
+    storyDays: 5,
+    comingSoon: true,
+  },
+  // Aventura 8: José
+  bundle_adv_joseph: {
+    id: 'bundle_adv_joseph',
+    name: 'Joseph the Dreamer',
+    nameEs: 'José el Soñador',
+    description: 'Exclusive items from Joseph\'s journey from pit to palace',
+    descriptionEs: 'Items exclusivos del viaje de José del pozo al palacio',
+    items: ['avatar_adv_joseph_dream', 'frame_adv_dream_stars', 'title_sonador_de_dios'],
+    originalPrice: 3500,
+    bundlePrice: 2500,
+    collectionBonus: 600,
+    rarity: 'epic',
+    isAdventure: true,
+    adventureId: 'adv_joseph',
+    adventureNumber: 8,
+    storyId: 'story_adv_joseph',
+    storyDays: 5,
+    comingSoon: true,
+  },
+  // Aventura 9: Pablo
+  bundle_adv_paul: {
+    id: 'bundle_adv_paul',
+    name: 'Paul the Apostle',
+    nameEs: 'Pablo el Apóstol',
+    description: 'Exclusive items from Paul\'s mission to the nations',
+    descriptionEs: 'Items exclusivos de la misión apostólica de Pablo a las naciones',
+    items: ['avatar_adv_paul_scroll', 'frame_adv_mission_world', 'title_apostol_de_las_naciones'],
+    originalPrice: 3500,
+    bundlePrice: 2500,
+    collectionBonus: 600,
+    rarity: 'epic',
+    isAdventure: true,
+    adventureId: 'adv_paul',
+    adventureNumber: 9,
+    storyId: 'story_adv_paul',
     storyDays: 5,
     comingSoon: true,
   },

@@ -2559,6 +2559,15 @@ function PremiumTitleCard({
             >
               {language === 'es' ? titleData.descriptionEs : titleData.description}
             </Text>
+            {titleData.bibleRef && (
+              <Text
+                className="text-xs font-medium mt-0.5"
+                style={{ color: rarityColor, opacity: 0.85 }}
+                numberOfLines={1}
+              >
+                {titleData.bibleRef}
+              </Text>
+            )}
           </View>
 
           {/* Price or Status */}
@@ -5313,10 +5322,13 @@ export default function StoreScreen() {
         const TITLE_SUBCATS = [
           { key: 'all', labelEs: 'Todos', label: 'All' },
           { key: 'v1', labelEs: 'V1 Básico', label: 'V1 Basic' },
+          { key: 'v2_citas', labelEs: 'V2 Citas Bíblicas', label: 'V2 Bible Quotes' },
         ];
         const allTitles = Object.values(SPIRITUAL_TITLES);
         const filteredTitles = activeSubcategory === 'v1'
-          ? allTitles.filter(t => !t.chestOnly)
+          ? allTitles.filter(t => !t.chestOnly && !t.isV2)
+          : activeSubcategory === 'v2_citas'
+          ? allTitles.filter(t => t.isV2 && t.bibleRef)
           : allTitles;
 
         return (

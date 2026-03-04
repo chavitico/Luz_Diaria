@@ -215,7 +215,7 @@ All admin endpoints require `X-User-Id` header. The `requireRole` middleware in 
 - **Subcategory Chip Selectors** — Each category has filter chips:
   - **Themes**: Todos | V2 Premium
   - **Frames**: Todos | V1 Básico | V2 Ilustrado
-  - **Titles**: Todos | V1 Básico
+  - **Titles**: Todos | V1 Básico | V2 Citas Bíblicas
   - **Avatars**: Todos | V1 Básico | V2 Ilustrado
   - **Bundles**: Todos | Aventuras Bíblicas
 - **6 Reward Categories**:
@@ -223,14 +223,17 @@ All admin endpoints require `X-User-Id` header. The `requireRole` middleware in 
     - Original: Sunrise, Peaceful Night, Forest, Desert, Promise, Minimal
     - V2 Premium: Amanecer Dorado, Noche de Paz Profunda, Bosque Sereno, Desierto Suave, Promesa Violeta, Cielo de Gloria, Mar de Misericordia, Fuego del Espiritu, Jardin de Gracia, Olivo y Paz, Trono Azul, Lampara Encendida, Pergamino Antiguo, Luz Celestial
     - V2 themes have 5-color swatch preview + sample text "Aa"
-  - **Avatar Frames** (26 total: 10 original + 12 V2 + 1 adventure + 4 chapter)
-  - **Spiritual Titles** (17 total: 12 original + 4 chapter + 1 adventure)
-  - **Avatars** (57 total: 8 free + 6 premium + 24 V2 + 18 Level 2 + 1 adventure):
+  - **Avatar Frames** (35 total: 10 original + 12 V2 + 9 adventure + 4 chapter)
+  - **Spiritual Titles** (42 total: 12 original + 5 chest + 4 chapter + 1 adventure + 20 V2 citas + 5 adventure V3):
+    - **V2 — Citas Bíblicas** (20): Each has `bibleRef` field; shown in rarity color in PremiumTitleCard
+    - Adventure titles (5–9): camino_en_el_mar, guardian_del_pacto, profeta_de_fuego, sonador_de_dios, apostol_de_las_naciones
+  - **Avatars** (62 total: 8 free + 6 premium + 24 V2 + 18 Level 2 + 4 adventure V1 + 5 adventure V3):
     - Free: Dove, Sun, Star, Heart, Cross, Candle, Book, Praying
     - Premium V1: Rainbow, Crown, Angel, Olive, Lamb, Fish
     - **V2 Premium Collections** (4 mini-collections with 24 illustrated avatars)
     - **Level 2 — Identity & Calling** (3 collections, 18 avatars with spiritual meaning)
-    - **Adventure** (1): Ballena de Jonás (Deep ocean illustrated, epic)
+    - **Adventure V1** (4): Jonah, David, Esther, Daniel
+    - **Adventure V3** (5): Moses, Noah, Elijah, Joseph, Paul — `animationReady: true`, `animationType: 'subtle_loop'`
     - L2 avatars carry `meaning`/`meaningEn` + `unlockType`/`unlockValue` shown in modal
     - V2 + L2 + Adv avatars have illustrated art rendering, glow, V2 badge
   - **Illustrated Avatars** (`src/components/IllustratedAvatar.tsx`):
@@ -238,10 +241,11 @@ All admin endpoints require `X-User-Id` header. The `requireRole` middleware in 
     - 10 accent shape types: rays, stars, dots, rings, cross, waves, crown, flame, scroll, none
     - Used in store grid cards, item detail modal, and anywhere `PremiumAvatarCard` renders
     - Non-V2 avatars fall back to plain emoji rendering
-  - **Bundles** (10 total: 3 original + 6 V2 + 1 adventure):
+  - **Bundles** (15 total: 3 original + 6 V2 + 9 adventure):
     - Original: Gratitude Kit, Divine Light Bundle, Pilgrim Collection
     - V2: Kit Gratitud V2, Kit Paz V2, Kit Fe V2, Kit Promesa V2, Kit Infantil, Paquete Naturaleza V2
-    - **Aventuras Bíblicas**: Aventura de Jonás (2500 pts — avatar + frame + title exclusivos)
+    - **Aventuras Bíblicas** (9): Jonás(1), David(2), Ester(3), Daniel(4), Moisés(5), Noé(6), Elías(7), José(8), Pablo(9)
+    - Adventures 3–9 marked `comingSoon: true` | Each: 2500 pts | collectionBonus: 600 | storyDays: 5
     - V2 bundles show "V2" badge; Adventure bundles appear under "Aventuras Bíblicas" subcategory chip
   - **Collections** (11 total: 4 original + 4 V2 + 3 Level 2, rebalanced rewards):
     - Original: Symbols of Faith (400 pts), Biblical Nature (500 pts), Frames of Light (550 pts), Titles of Service (600 pts)
