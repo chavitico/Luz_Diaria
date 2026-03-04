@@ -108,15 +108,15 @@
     "claimedStreak": 4,
     "claimedDate": "2026-03-03",
     "clientClaim": "{\"date\":\"2026-03-03\",\"issue\":\"not_counted\"}",
-    "status": "auto_fixed",
-    "resolutionNote": "Devocional del 2026-03-03 ya registrado en la base de datos.",
+    "status": "closed",
+    "resolutionNote": "Rechazado por admin cmm9x0ybc0002m2sr3l31uj4q",
     "beforeState": "{\"streakCurrent\":4,\"devotionalsCompleted\":5}",
     "afterState": "{\"streakCurrent\":4,\"devotionalsCompleted\":5}",
     "botPreview": "{\"summary\":\"Devocional reconocido automáticamente\",\"userMessageEs\":\"Tu devocional fue registrado correctamente. Si el conteo no se refleja de inmediato, cierra y abre la app.\",\"userMessageEn\":\"Your devotional was registered correctly. If the count doesn't show immediately, close and reopen the app.\",\"action\":\"auto_fixed\",\"snapshotComparison\":{\"snapshotDate\":\"2026-03-03\",\"snapshotId\":\"cmm9zo92q001xm29qr7dto06q\",\"snapshotStreak\":4,\"currentStreak\":4,\"claimedStreak\":4,\"diffDays\":0,\"devotionalTodayCR\":true,\"lastDevotionalDate\":null,\"escalationReason\":\"\"}}",
     "snapshotDate": "2026-03-03",
     "snapshotId": "cmm9zo92q001xm29qr7dto06q",
     "createdAt": "2026-03-03T20:38:24.114Z",
-    "updatedAt": "2026-03-03T20:38:24.114Z"
+    "updatedAt": "2026-03-04T05:32:03.649Z"
   },
   {
     "id": "cmmb2m2ie0011m2q0tqkxqhgw",
@@ -125,15 +125,15 @@
     "claimedStreak": 4,
     "claimedDate": "2026-03-03",
     "clientClaim": "{\"claimedStreak\":4}",
-    "status": "auto_fixed",
-    "resolutionNote": "Auto-corregido con snapshot del 2026-03-03. Snapshot=4, claimed=4, aplicado=4.",
+    "status": "closed",
+    "resolutionNote": "Rechazado por admin cmm9x0ybc0002m2sr3l31uj4q",
     "beforeState": "{\"streakCurrent\":4,\"devotionalsCompleted\":5}",
     "afterState": "{\"streakCurrent\":4,\"devotionalsCompleted\":5}",
     "botPreview": "{\"summary\":\"Racha corregida automáticamente (claimed: 4)\",\"userMessageEs\":\"¡Tu racha fue restaurada! El sistema detectó una pequeña diferencia y la corrigió de forma automática. Tu racha no disminuirá.\",\"userMessageEn\":\"Your streak has been restored! The system detected a small discrepancy and fixed it automatically. Your streak is safe.\",\"action\":\"auto_fixed\",\"snapshotComparison\":{\"snapshotDate\":\"2026-03-03\",\"snapshotId\":\"cmm9zo92q001xm29qr7dto06q\",\"snapshotStreak\":4,\"currentStreak\":4,\"claimedStreak\":4,\"diffDays\":0,\"devotionalTodayCR\":false,\"lastDevotionalDate\":null,\"escalationReason\":\"\"}}",
     "snapshotDate": "2026-03-03",
     "snapshotId": "cmm9zo92q001xm29qr7dto06q",
     "createdAt": "2026-03-03T20:38:58.358Z",
-    "updatedAt": "2026-03-03T20:38:58.358Z"
+    "updatedAt": "2026-03-04T05:31:58.219Z"
   },
   {
     "id": "cmmb3qhcb0027m2q0dk465kco",
@@ -227,15 +227,15 @@
     "claimedStreak": 1,
     "claimedDate": "2026-03-03",
     "clientClaim": "{\"date\":\"2026-03-03\",\"issue\":\"not_counted\"}",
-    "status": "auto_fixed",
-    "resolutionNote": "Devocional del 2026-03-03 ya registrado en la base de datos.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmm9x0ybc0002m2sr3l31uj4q. Devocional del 2026-03-03 ya existía",
     "beforeState": "{\"streakCurrent\":1,\"devotionalsCompleted\":1}",
     "afterState": "{\"streakCurrent\":1,\"devotionalsCompleted\":1}",
     "botPreview": "{\"summary\":\"Devocional reconocido automáticamente\",\"userMessageEs\":\"Tu devocional fue registrado correctamente. Si el conteo no se refleja de inmediato, cierra y abre la app.\",\"userMessageEn\":\"Your devotional was registered correctly. If the count doesn't show immediately, close and reopen the app.\",\"action\":\"auto_fixed\",\"snapshotComparison\":{\"snapshotDate\":\"2026-03-03\",\"snapshotId\":\"cmmb5jem90006m26kd3x40pte\",\"snapshotStreak\":1,\"currentStreak\":1,\"claimedStreak\":1,\"diffDays\":0,\"devotionalTodayCR\":true,\"lastDevotionalDate\":null,\"escalationReason\":\"\"}}",
     "snapshotDate": "2026-03-03",
     "snapshotId": "cmmb5jem90006m26kd3x40pte",
     "createdAt": "2026-03-04T00:55:03.257Z",
-    "updatedAt": "2026-03-04T00:55:03.257Z"
+    "updatedAt": "2026-03-04T05:31:44.688Z"
   },
   {
     "id": "cmmbe9okm001mm25rdauwy59z",
