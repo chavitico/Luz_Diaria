@@ -153,6 +153,17 @@ export const firestoreService = {
     }
   },
 
+  // Get upcoming (future) devotionals for locked preview section in library
+  async getUpcomingDevotionals(): Promise<Array<{ date: string; topic: string; topicEs: string; imageUrl: string }>> {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/devotional/upcoming`);
+      if (!response.ok) return [];
+      return await response.json();
+    } catch {
+      return [];
+    }
+  },
+
   // Save user progress
   async saveProgress(userId: string, progress: UserProgress): Promise<void> {
     await new Promise(resolve => setTimeout(resolve, 100));

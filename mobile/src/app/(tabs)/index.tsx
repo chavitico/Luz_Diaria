@@ -1946,27 +1946,70 @@ export default function HomeScreen() {
         primaryColor={colors.primary}
       />
 
-      {/* Offline / from-cache indicator */}
-      {isFromCache && (
-        <View style={{
-          backgroundColor: '#F59E0B',
-          paddingVertical: 5,
-          paddingHorizontal: 16,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 6,
-        }}>
-          <Text style={{ fontSize: 11, fontWeight: '700', color: '#000', letterSpacing: 0.4 }}>
-            {offlineCachedDate && offlineCachedDate !== getTodayDate()
-              ? (language === 'es'
-                ? `Sin conexión — mostrando el devocional de ${offlineCachedDate}`
-                : `Offline — showing devotional from ${offlineCachedDate}`)
-              : (language === 'es' ? 'Sin conexión — modo sin internet' : 'Offline — cached content')
-            }
-          </Text>
-        </View>
-      )}
+      {/* Cache / offline state banner — 3 states */}
+      {(() => {
+        // State 1: cached today — positive confirmation, no alarm
+        if (isFromCache && (!offlineCachedDate || offlineCachedDate === getTodayDate())) {
+          return (
+            <View style={{
+              backgroundColor: '#16A34A',
+              paddingVertical: 5,
+              paddingHorizontal: 16,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+            }}>
+              <Text style={{ fontSize: 11, fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
+                {language === 'es'
+                  ? 'Devocional de hoy listo  •  Disponible sin conexion'
+                  : 'Today\'s devotional ready  •  Available offline'}
+              </Text>
+            </View>
+          );
+        }
+        // State 2: offline, fallback to a different date
+        if (isFromCache && offlineCachedDate && offlineCachedDate !== getTodayDate()) {
+          return (
+            <View style={{
+              backgroundColor: '#D97706',
+              paddingVertical: 5,
+              paddingHorizontal: 16,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+            }}>
+              <Text style={{ fontSize: 11, fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
+                {language === 'es'
+                  ? `Mostrando devocional guardado  •  Disponible sin conexion  •  ${offlineCachedDate}`
+                  : `Showing saved devotional  •  Available offline  •  ${offlineCachedDate}`}
+              </Text>
+            </View>
+          );
+        }
+        // State 3: truly offline, no usable cache
+        if (isOffline && !isFromCache) {
+          return (
+            <View style={{
+              backgroundColor: '#DC2626',
+              paddingVertical: 5,
+              paddingHorizontal: 16,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+            }}>
+              <Text style={{ fontSize: 11, fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
+                {language === 'es'
+                  ? 'Sin conexion — conectate para descargar el devocional'
+                  : 'No connection — connect to download today\'s devotional'}
+              </Text>
+            </View>
+          );
+        }
+        return null;
+      })()}
 
       <ConfettiCelebration visible={showCelebration} />
       <AchievementPopup

@@ -189,14 +189,39 @@ devotionalRouter.get("/date/:date", async (c) => {
   }
 });
 
-// Get all devotionals (for library)
+// Get all devotionals (for library) — only returns date <= todayCR to avoid showing future entries
 devotionalRouter.get("/all", async (c) => {
   try {
+    const today = getCRToday();
     const devotionals = await getAllDevotionals();
-    return c.json(devotionals);
+    // Filter out any pre-generated future devotionals
+    const pastAndToday = devotionals.filter((d: { date: string }) => d.date <= today);
+    return c.json(pastAndToday);
   } catch (error) {
     console.error("[API] Error getting all devotionals:", error);
     return c.json({ error: "Failed to get devotionals" }, 500);
+  }
+});
+
+// Get upcoming devotionals (for library "Próximos" section) — date > todayCR, up to 7 days ahead
+devotionalRouter.get("/upcoming", async (c) => {
+  try {
+    const today = getCRToday();
+    const devotionals = await getAllDevotionals();
+    // Return future entries with only safe metadata (no content — they're locked)
+    const upcoming = devotionals
+      .filter((d: { date: string }) => d.date > today)
+      .slice(0, 7)
+      .map((d: { date: string; topic: string; topicEs: string; imageUrl: string }) => ({
+        date: d.date,
+        topic: d.topic,
+        topicEs: d.topicEs,
+        imageUrl: d.imageUrl,
+      }));
+    return c.json(upcoming);
+  } catch (error) {
+    console.error("[API] Error getting upcoming devotionals:", error);
+    return c.json({ error: "Failed to get upcoming devotionals" }, 500);
   }
 });
 
