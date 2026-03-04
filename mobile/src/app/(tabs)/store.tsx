@@ -5186,7 +5186,11 @@ export default function StoreScreen() {
         return (
           <View>
             {/* Subcategory filter chips */}
-            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 12, gap: 8, flexDirection: 'row' }}
+            >
               {THEME_SUBCATS.map(sc => (
                 <Pressable
                   key={sc.key}
@@ -5203,7 +5207,7 @@ export default function StoreScreen() {
                   </Text>
                 </Pressable>
               ))}
-            </View>
+            </ScrollView>
 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'flex-start' }}>
               {filteredThemes.map((theme, index) => {
@@ -5256,7 +5260,11 @@ export default function StoreScreen() {
         return (
           <View>
             {/* Subcategory filter chips */}
-            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 12, gap: 8, flexDirection: 'row' }}
+            >
               {FRAME_SUBCATS.map(sc => (
                 <Pressable
                   key={sc.key}
@@ -5273,7 +5281,7 @@ export default function StoreScreen() {
                   </Text>
                 </Pressable>
               ))}
-            </View>
+            </ScrollView>
 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
               {filteredFrames.map((frame, index) => {
@@ -5333,7 +5341,11 @@ export default function StoreScreen() {
 
         return (
           <View>
-            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 12, gap: 8, flexDirection: 'row' }}
+            >
               {TITLE_SUBCATS.map(sc => (
                 <Pressable
                   key={sc.key}
@@ -5350,7 +5362,7 @@ export default function StoreScreen() {
                   </Text>
                 </Pressable>
               ))}
-            </View>
+            </ScrollView>
             <View className="px-5">
               {filteredTitles.map((title, index) => {
                 const { isOwned, isEquipped, canAfford } = getItemStatus(title.id, 'title', title.price ?? 0);
@@ -5415,7 +5427,11 @@ export default function StoreScreen() {
 
         return (
           <View>
-            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 12, gap: 8, flexDirection: 'row' }}
+            >
               {AVATAR_SUBCATS.map(sc => (
                 <Pressable
                   key={sc.key}
@@ -5432,7 +5448,7 @@ export default function StoreScreen() {
                   </Text>
                 </Pressable>
               ))}
-            </View>
+            </ScrollView>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
               {filteredAvatars.map((avatar, index) => {
                 const hasCost = 'price' in avatar && (avatar as { price: number }).price > 0;
@@ -5494,7 +5510,11 @@ export default function StoreScreen() {
 
         return (
           <View>
-            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 12, gap: 8, flexDirection: 'row' }}
+            >
               {BUNDLE_SUBCATS.map(sc => (
                 <Pressable
                   key={sc.key}
@@ -5511,7 +5531,7 @@ export default function StoreScreen() {
                   </Text>
                 </Pressable>
               ))}
-            </View>
+            </ScrollView>
             <View className="px-5">
               {filteredBundles.map((bundle, index) => (
                 <Animated.View
