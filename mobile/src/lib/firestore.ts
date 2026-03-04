@@ -94,18 +94,24 @@ export const firestoreService = {
   },
 
   // Get today's devotional from backend API (with offline cache fallback)
-  async getTodayDevotional(): Promise<Devotional> {
-    const { devotional, fromCache, offline } = await getDevotionalWithFallback();
-    if (devotional) {
-      if (fromCache) {
-        console.log(`[Firestore] Got devotional from cache (offline: ${offline}):`, devotional.title);
+  // Returns the full meta object so callers can show offline indicators.
+  async getTodayDevotional(): Promise<{
+    devotional: Devotional;
+    fromCache: boolean;
+    offline: boolean;
+    cachedDate?: string;
+  }> {
+    const result = await getDevotionalWithFallback();
+    if (result.devotional) {
+      if (result.fromCache) {
+        console.log(`[Firestore] Got devotional from cache (offline: ${result.offline}):`, result.devotional.title);
       } else {
-        console.log('[Firestore] Got devotional from network:', devotional.title);
+        console.log('[Firestore] Got devotional from network:', result.devotional.title);
       }
-      return devotional;
+      return result as { devotional: Devotional; fromCache: boolean; offline: boolean; cachedDate?: string };
     }
     console.warn('[Firestore] Completely offline with no cache — using fallback devotional');
-    return FALLBACK_DEVOTIONAL;
+    return { devotional: FALLBACK_DEVOTIONAL, fromCache: false, offline: true };
   },
 
   // Get devotional by date from backend API (cache-first for upcoming, network for past)

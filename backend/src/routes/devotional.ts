@@ -75,14 +75,27 @@ export const devotionalRouter = new Hono();
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-/** Costa Rica today as YYYY-MM-DD */
+/** Costa Rica today as YYYY-MM-DD — uses Intl.DateTimeFormat for correctness across DST changes on host */
 function getCRToday(): string {
+  try {
+    const fmt = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Costa_Rica',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const parts = fmt.formatToParts(new Date());
+    const y = parts.find(p => p.type === 'year')?.value ?? '';
+    const m = parts.find(p => p.type === 'month')?.value ?? '';
+    const d = parts.find(p => p.type === 'day')?.value ?? '';
+    const result = `${y}-${m}-${d}`;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(result)) return result;
+  } catch {}
+  // Static UTC-6 fallback (CR has no DST, so this is always correct for CR time)
   const now = new Date();
-  const cr = new Date(now.toLocaleString("en-US", { timeZone: "America/Costa_Rica" }));
-  const y = cr.getFullYear();
-  const m = String(cr.getMonth() + 1).padStart(2, "0");
-  const d = String(cr.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
+  const crMs = now.getTime() - 6 * 60 * 60 * 1000;
+  const cr = new Date(crMs);
+  return `${cr.getUTCFullYear()}-${String(cr.getUTCMonth() + 1).padStart(2, '0')}-${String(cr.getUTCDate()).padStart(2, '0')}`;
 }
 
 /** Returns devotional enriched with community prayer, or the plain row */

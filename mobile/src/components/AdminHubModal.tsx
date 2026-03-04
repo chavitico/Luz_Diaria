@@ -26,8 +26,16 @@ import {
   ChevronRight,
   Crown,
   Camera,
+  Wifi,
+  RefreshCw,
 } from 'lucide-react-native';
 import { useThemeColors, useUser, useAppStore } from '@/lib/store';
+import {
+  getCachedDates,
+  getLastPrefetchTime,
+  prefetchDevotionals,
+  getCRToday,
+} from '@/lib/devotional-cache';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -129,6 +137,18 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
   const [checking, setChecking] = useState(false);
   const [generatingSnapshots, setGeneratingSnapshots] = useState(false);
 
+  // DevCache debug panel state (OWNER only)
+  const [cachedDates, setCachedDates] = useState<string[]>([]);
+  const [lastPrefetch, setLastPrefetch] = useState<number | null>(null);
+  const [forcePrefetching, setForcePrefetching] = useState(false);
+  const [devCacheExpanded, setDevCacheExpanded] = useState(false);
+
+  const loadDevCacheInfo = useCallback(async () => {
+    const [dates, ts] = await Promise.all([getCachedDates(), getLastPrefetchTime()]);
+    setCachedDates(dates);
+    setLastPrefetch(ts);
+  }, []);
+
   // Every time the modal opens, verify role directly from backend
   useEffect(() => {
     if (!visible || !user?.id) return;
@@ -141,14 +161,15 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
       .then((profile: { role?: string } | null) => {
         const role = (profile?.role ?? 'USER') as 'OWNER' | 'MODERATOR' | 'USER';
         setVerifiedRole(role);
-        // Sync role into local store so it's available next time
         if (profile?.role && profile.role !== user.role) {
           updateUser({ role: profile.role as 'USER' | 'MODERATOR' | 'OWNER' });
         }
+        if (role === 'OWNER') loadDevCacheInfo();
       })
       .catch(() => {
-        // Fallback to local store role if network fails
-        setVerifiedRole((user?.role as 'OWNER' | 'MODERATOR' | 'USER') ?? 'USER');
+        const role = (user?.role as 'OWNER' | 'MODERATOR' | 'USER') ?? 'USER';
+        setVerifiedRole(role);
+        if (role === 'OWNER') loadDevCacheInfo();
       })
       .finally(() => setChecking(false));
   }, [visible, user?.id]);
@@ -467,6 +488,136 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
                     </View>
                     {!generatingSnapshots && <ChevronRight size={18} color={colors.textMuted} />}
                   </Pressable>
+                )}
+                {/* OWNER-only: DevCache debug panel */}
+                {isOwner && (
+                  <View style={{ marginTop: 4 }}>
+                    {/* Toggle header */}
+                    <Pressable
+                      onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                        setDevCacheExpanded(p => !p);
+                        if (!devCacheExpanded) loadDevCacheInfo();
+                      }}
+                      style={({ pressed }) => ({
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingVertical: 14,
+                        paddingHorizontal: 16,
+                        borderRadius: 16,
+                        marginBottom: devCacheExpanded ? 0 : 10,
+                        backgroundColor: pressed ? '#10B98118' : colors.surface,
+                        borderWidth: 1,
+                        borderColor: pressed ? '#10B98140' : colors.surface,
+                      })}
+                    >
+                      <View style={{ width: 44, height: 44, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: '#10B98120', marginRight: 14 }}>
+                        <Wifi size={22} color="#10B981" />
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: 15, fontWeight: '600', color: colors.text, marginBottom: 2 }}>
+                          DevCache — Devocionales
+                        </Text>
+                        <Text style={{ fontSize: 12, color: colors.textMuted, lineHeight: 16 }}>
+                          {cachedDates.length} fechas cacheadas · {devCacheExpanded ? 'Cerrar' : 'Ver detalle'}
+                        </Text>
+                      </View>
+                      <ChevronRight
+                        size={18}
+                        color={colors.textMuted}
+                        style={{ transform: [{ rotate: devCacheExpanded ? '90deg' : '0deg' }] }}
+                      />
+                    </Pressable>
+
+                    {devCacheExpanded && (
+                      <View style={{
+                        backgroundColor: colors.surface,
+                        borderRadius: 16,
+                        marginBottom: 10,
+                        paddingHorizontal: 16,
+                        paddingVertical: 14,
+                        gap: 8,
+                      }}>
+                        {/* Last prefetch */}
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 8, borderBottomWidth: 1, borderBottomColor: colors.textMuted + '20' }}>
+                          <Text style={{ fontSize: 12, color: colors.textMuted }}>Último prefetch</Text>
+                          <Text style={{ fontSize: 12, fontWeight: '600', color: colors.text }}>
+                            {lastPrefetch
+                              ? new Date(lastPrefetch).toLocaleString('es-CR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+                              : 'Nunca'}
+                          </Text>
+                        </View>
+
+                        {/* todayCR */}
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                          <Text style={{ fontSize: 12, color: colors.textMuted }}>Hoy CR</Text>
+                          <Text style={{ fontSize: 12, fontWeight: '600', color: '#10B981' }}>{getCRToday()}</Text>
+                        </View>
+
+                        {/* Cached dates list */}
+                        <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.8, marginTop: 4 }}>
+                          Fechas cacheadas ({cachedDates.length})
+                        </Text>
+                        {cachedDates.length === 0 ? (
+                          <Text style={{ fontSize: 12, color: colors.textMuted, fontStyle: 'italic' }}>Sin caché</Text>
+                        ) : (
+                          cachedDates.map(date => {
+                            const isToday = date === getCRToday();
+                            return (
+                              <View key={date} style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                                <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: isToday ? '#10B981' : colors.textMuted + '60' }} />
+                                <Text style={{ fontSize: 12, color: isToday ? '#10B981' : colors.text, fontWeight: isToday ? '700' : '400' }}>
+                                  {date}{isToday ? ' ← hoy' : ''}
+                                </Text>
+                              </View>
+                            );
+                          })
+                        )}
+
+                        {/* Force prefetch button */}
+                        <Pressable
+                          onPress={async () => {
+                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                            setForcePrefetching(true);
+                            try {
+                              const result = await prefetchDevotionals(true);
+                              Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                              Alert.alert(
+                                'Prefetch forzado',
+                                `Descargados: ${result.fetched}/${result.total}\nFechas: ${result.dates.join(', ')}`
+                              );
+                              await loadDevCacheInfo();
+                            } catch (e) {
+                              Alert.alert('Error', String(e));
+                            }
+                            setForcePrefetching(false);
+                          }}
+                          disabled={forcePrefetching}
+                          style={({ pressed }) => ({
+                            marginTop: 8,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: 8,
+                            paddingVertical: 10,
+                            borderRadius: 12,
+                            backgroundColor: pressed ? '#10B98130' : '#10B98118',
+                            borderWidth: 1,
+                            borderColor: '#10B98140',
+                            opacity: forcePrefetching ? 0.6 : 1,
+                          })}
+                        >
+                          {forcePrefetching
+                            ? <ActivityIndicator size="small" color="#10B981" />
+                            : <RefreshCw size={14} color="#10B981" />
+                          }
+                          <Text style={{ fontSize: 13, fontWeight: '700', color: '#10B981' }}>
+                            {forcePrefetching ? 'Descargando…' : 'Forzar prefetch ahora'}
+                          </Text>
+                        </Pressable>
+                      </View>
+                    )}
+                  </View>
                 )}
               </>
             )}

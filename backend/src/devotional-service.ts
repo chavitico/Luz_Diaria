@@ -53,31 +53,43 @@ const IMAGES = [
 ];
 
 function getTodayDate(): string {
-  // Use Costa Rica timezone (UTC-6) to get today's date
-  const now = new Date();
-  const costaRicaDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Costa_Rica" }));
-  const year = costaRicaDate.getFullYear();
-  const month = String(costaRicaDate.getMonth() + 1).padStart(2, "0");
-  const day = String(costaRicaDate.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
+  // Intl.DateTimeFormat is the canonical, DST-safe way to get CR date
+  try {
+    const fmt = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Costa_Rica',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const parts = fmt.formatToParts(new Date());
+    const y = parts.find(p => p.type === 'year')?.value ?? '';
+    const m = parts.find(p => p.type === 'month')?.value ?? '';
+    const d = parts.find(p => p.type === 'day')?.value ?? '';
+    const result = `${y}-${m}-${d}`;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(result)) return result;
+  } catch {}
+  // Static UTC-6 fallback — CR has no DST so this is always correct for CR time
+  const crMs = Date.now() - 6 * 60 * 60 * 1000;
+  const cr = new Date(crMs);
+  return `${cr.getUTCFullYear()}-${String(cr.getUTCMonth() + 1).padStart(2, '0')}-${String(cr.getUTCDate()).padStart(2, '0')}`;
+}
+
+/** Returns the 1-based day-of-year for a YYYY-MM-DD string, computed entirely in UTC so the result is timezone-independent */
+function dayOfYearUTC(date: string): number {
+  const [y, m, d] = date.split('-').map(Number) as [number, number, number];
+  const target = Date.UTC(y, m - 1, d);
+  const jan1 = Date.UTC(y, 0, 1);
+  return Math.round((target - jan1) / 86400000) + 1;
 }
 
 export function getTopicForDate(date: string): { en: string; es: string } {
-  const dayOfYear = Math.floor(
-    (new Date(date).getTime() - new Date(new Date(date).getFullYear(), 0, 0).getTime()) /
-      (1000 * 60 * 60 * 24)
-  );
-  const topic = TOPICS[dayOfYear % TOPICS.length];
-  return topic!;
+  const idx = (dayOfYearUTC(date) - 1) % TOPICS.length;
+  return TOPICS[idx]!;
 }
 
 function getImageForDate(date: string): string {
-  const dayOfYear = Math.floor(
-    (new Date(date).getTime() - new Date(new Date(date).getFullYear(), 0, 0).getTime()) /
-      (1000 * 60 * 60 * 24)
-  );
-  const image = IMAGES[dayOfYear % IMAGES.length];
-  return image!;
+  const idx = (dayOfYearUTC(date) - 1) % IMAGES.length;
+  return IMAGES[idx]!;
 }
 
 interface DevotionalContent {

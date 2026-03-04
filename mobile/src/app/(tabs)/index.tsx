@@ -1351,10 +1351,15 @@ export default function HomeScreen() {
   // Share modal state
   const [showShareModal, setShowShareModal] = useState(false);
 
-  const { data: devotional, isLoading } = useQuery({
+  const { data: devotionalData, isLoading } = useQuery({
     queryKey: ['todayDevotional'],
     queryFn: () => firestoreService.getTodayDevotional(),
   });
+
+  const devotional = devotionalData?.devotional ?? null;
+  const isOffline = devotionalData?.offline ?? false;
+  const isFromCache = devotionalData?.fromCache ?? false;
+  const offlineCachedDate = devotionalData?.cachedDate;
 
   const today = getTodayDate();
   const isFavorite = favorites.includes(today);
@@ -1909,9 +1914,17 @@ export default function HomeScreen() {
     return (
       <View
         className="flex-1 items-center justify-center"
-        style={{ backgroundColor: colors.background }}
+        style={{ backgroundColor: colors.background, padding: 32 }}
       >
-        <Text style={{ color: colors.text }}>No devotional available</Text>
+        <Text style={{ fontSize: 40, marginBottom: 16 }}>📵</Text>
+        <Text style={{ fontSize: 17, fontWeight: '700', color: colors.text, textAlign: 'center', marginBottom: 8 }}>
+          {language === 'es' ? 'Sin conexión' : 'No connection'}
+        </Text>
+        <Text style={{ fontSize: 14, color: colors.textMuted, textAlign: 'center', lineHeight: 20 }}>
+          {language === 'es'
+            ? 'Conéctate a internet para descargar el devocional de hoy.'
+            : 'Connect to the internet to download today\'s devotional.'}
+        </Text>
       </View>
     );
   }
@@ -1932,6 +1945,28 @@ export default function HomeScreen() {
         onHide={hideToast}
         primaryColor={colors.primary}
       />
+
+      {/* Offline / from-cache indicator */}
+      {isFromCache && (
+        <View style={{
+          backgroundColor: '#F59E0B',
+          paddingVertical: 5,
+          paddingHorizontal: 16,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 6,
+        }}>
+          <Text style={{ fontSize: 11, fontWeight: '700', color: '#000', letterSpacing: 0.4 }}>
+            {offlineCachedDate && offlineCachedDate !== getTodayDate()
+              ? (language === 'es'
+                ? `Sin conexión — mostrando el devocional de ${offlineCachedDate}`
+                : `Offline — showing devotional from ${offlineCachedDate}`)
+              : (language === 'es' ? 'Sin conexión — modo sin internet' : 'Offline — cached content')
+            }
+          </Text>
+        </View>
+      )}
 
       <ConfettiCelebration visible={showCelebration} />
       <AchievementPopup
