@@ -18,7 +18,7 @@ import { initializeNotifications, markAppOpenedToday } from '@/lib/notifications
 import { useBrandingStore } from '@/lib/branding-service';
 import GiftModal, { type PendingGift } from '@/components/GiftModal';
 import { gamificationApi } from '@/lib/gamification-api';
-import { prefetchDevotionals } from '@/lib/devotional-cache';
+import { prefetchDevotionals, checkAndPrefetchOnDateChange } from '@/lib/devotional-cache';
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -181,11 +181,15 @@ function AppContent() {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
       if (
         appStateRef.current.match(/inactive|background/) &&
-        nextAppState === 'active' &&
-        isOnboarded &&
-        user?.id
+        nextAppState === 'active'
       ) {
-        checkPendingGift();
+        // Check for day rollover — users who never close the app need fresh devotionals
+        if (isOnboarded) {
+          checkAndPrefetchOnDateChange().catch(() => {});
+        }
+        if (isOnboarded && user?.id) {
+          checkPendingGift();
+        }
       }
       appStateRef.current = nextAppState;
     });

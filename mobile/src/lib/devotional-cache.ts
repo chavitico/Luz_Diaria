@@ -5,7 +5,7 @@
  *  - Store each devotional keyed by date: "dev:YYYY-MM-DD"
  *  - On launch (online): prefetch today + next 6 days, store each
  *  - Offline access: return cached row for todayCR, or most-recent cached
- *  - Cache entries never expire (devotionals are canonical + immutable by date)
+ *  - Cache entries older than 14 days are pruned automatically
  *
  * Timezone note:
  *  The canonical date is always YYYY-MM-DD in America/Costa_Rica (UTC-6, no DST).
@@ -21,9 +21,12 @@ const IS_DEV = process.env.EXPO_PUBLIC_APP_ENV === 'dev' || !process.env.EXPO_PU
 
 export const KEY_PREFIX = 'dev:';
 export const LAST_FETCHED_KEY = 'dev:__last_prefetch__';
+export const LAST_SEEN_DATE_KEY = 'dev:__last_seen_date__';
 
 // Re-prefetch at most once per 12 hours (avoids hammering on every app open)
 const PREFETCH_INTERVAL_MS = 12 * 60 * 60 * 1000;
+// Prune devotionals cached more than 14 days ago
+const CACHE_MAX_AGE_DAYS = 14;
 
 // ─── Date helpers ──────────────────────────────────────────────────────────────
 
@@ -106,6 +109,60 @@ export async function getLastPrefetchTime(): Promise<number | null> {
   }
 }
 
+// ─── Cache maintenance ─────────────────────────────────────────────────────────
+
+/**
+ * Remove cached devotionals older than CACHE_MAX_AGE_DAYS days.
+ * Called automatically during prefetch.
+ */
+export async function pruneOldCache(): Promise<void> {
+  try {
+    const today = getCRToday();
+    const cutoff = addDays(today, -CACHE_MAX_AGE_DAYS);
+    const dates = await getCachedDates();
+    const stale = dates.filter(d => d < cutoff);
+    if (stale.length === 0) return;
+    await AsyncStorage.multiRemove(stale.map(d => KEY_PREFIX + d));
+    if (IS_DEV) console.log(`[DevCache] Pruned ${stale.length} stale entries (older than ${cutoff}): ${stale.join(', ')}`);
+  } catch (e) {
+    if (IS_DEV) console.warn('[DevCache] pruneOldCache error:', e);
+  }
+}
+
+/**
+ * Returns the last-seen CR date stored across sessions.
+ * Used to detect day rollovers for users who never close the app.
+ */
+export async function getLastSeenDate(): Promise<string | null> {
+  try {
+    return await AsyncStorage.getItem(LAST_SEEN_DATE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+/** Persist the current CR date as the last-seen date */
+export async function setLastSeenDate(date: string): Promise<void> {
+  try {
+    await AsyncStorage.setItem(LAST_SEEN_DATE_KEY, date);
+  } catch {}
+}
+
+/**
+ * Check if the CR date has changed since last seen.
+ * If yes, force-run prefetch (bypasses throttle) and update the stored date.
+ * Call this on AppState 'active' events so long-running sessions don't miss a day rollover.
+ */
+export async function checkAndPrefetchOnDateChange(): Promise<void> {
+  const today = getCRToday();
+  const last = await getLastSeenDate();
+  if (last !== today) {
+    if (IS_DEV) console.log(`[DevCache] Date changed: ${last} → ${today} — forcing prefetch`);
+    await setLastSeenDate(today);
+    await prefetchDevotionals(true);
+  }
+}
+
 // ─── Network helpers ───────────────────────────────────────────────────────────
 
 /** Fetch one devotional from server and cache it. Returns null on network error. */
@@ -172,6 +229,9 @@ export async function prefetchDevotionals(force = false): Promise<{
   const dates = Array.from({ length: 7 }, (_, i) => addDays(today, i));
   if (IS_DEV) console.log(`[DevCache] Prefetching ${dates.length} devotionals: ${dates.join(', ')}`);
 
+  // Prune stale cache before fetching
+  await pruneOldCache();
+
   // Fetch all in parallel — partial failures are fine
   const results = await Promise.allSettled(dates.map(fetchAndCache));
 
@@ -193,9 +253,18 @@ export async function prefetchDevotionals(force = false): Promise<{
 
   try {
     await AsyncStorage.setItem(LAST_FETCHED_KEY, String(Date.now()));
+    await setLastSeenDate(today);
   } catch {}
 
   return { fetched, total: dates.length, dates };
+}
+
+// ─── Metrics ───────────────────────────────────────────────────────────────────
+
+type CacheMetric = 'devotional_cache_hit' | 'devotional_network_fetch' | 'devotional_offline_fallback';
+
+function logCacheMetric(metric: CacheMetric, date: string): void {
+  console.log(`[CacheMetric] ${metric} date=${date}`);
 }
 
 /**
@@ -217,6 +286,7 @@ export async function getDevotionalWithFallback(date?: string): Promise<{
   const fresh = await fetchAndCache(target);
   if (fresh) {
     if (IS_DEV) console.log(`[DevCache] ${target} — served from NETWORK: "${fresh.title}"`);
+    logCacheMetric('devotional_network_fetch', target);
     return { devotional: fresh, fromCache: false, offline: false };
   }
 
@@ -226,6 +296,7 @@ export async function getDevotionalWithFallback(date?: string): Promise<{
   const cached = await getCachedDevotional(target);
   if (cached) {
     if (IS_DEV) console.log(`[DevCache] ${target} — served from CACHE (exact): "${cached.title}"`);
+    logCacheMetric('devotional_cache_hit', target);
     return { devotional: cached, fromCache: true, offline: true };
   }
 
@@ -240,10 +311,12 @@ export async function getDevotionalWithFallback(date?: string): Promise<{
     const d = await getCachedDevotional(key);
     if (d) {
       if (IS_DEV) console.log(`[DevCache] ${target} — served FALLBACK from ${key}: "${d.title}"`);
+      logCacheMetric('devotional_offline_fallback', target);
       return { devotional: d, fromCache: true, offline: true, cachedDate: key };
     }
   }
 
   if (IS_DEV) console.warn(`[DevCache] ${target} — completely offline, no cache`);
+  logCacheMetric('devotional_offline_fallback', target);
   return { devotional: null, fromCache: false, offline: true };
 }
