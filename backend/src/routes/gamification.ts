@@ -34,8 +34,9 @@ const POINTS_CONFIG: Record<ActionType, { points: number; dailyCap?: number }> =
 
 const STREAK_MILESTONES: Record<number, number> = {
   5: 100,
+  7: 200,   // 7-day streak = 200 bonus points
   10: 250,
-  30: 1000,
+  30: 600,  // 30-day streak = 600 bonus points (updated from 1000)
 };
 
 // ============================================

@@ -176,9 +176,12 @@ export const DEFAULT_AVATARS = [
   { id: 'avatar_l2_fuente_agua', name: 'Living Water', nameEs: 'Fuente de Agua Viva', emoji: '💧', description: 'The spring of living water that never runs dry.', descriptionEs: 'El manantial de agua viva que nunca se agota.', price: 900, rarity: 'epic', collectionId: 'collection_l2_simbolos_profundos', isV2: true, meaning: 'Representa a Cristo como la unica fuente de agua viva que sacia la sed del alma para siempre.', meaningEn: 'Represents Christ as the only source of living water that forever satisfies the soul\'s thirst.' },
   // ============================================
   // AVENTURAS BÍBLICAS — Adventure Items
-  // Aventura Jonás
+  // Aventura 1: Jonás | Aventura 2: David | Aventura 3: Ester | Aventura 4: Daniel
   // ============================================
-  { id: 'avatar_adv_jonah_whale', name: 'Jonah\'s Whale', nameEs: 'Ballena de Jonás', emoji: '🐋', description: 'The great fish that carried Jonah', descriptionEs: 'El gran pez que cargo a Jonás', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_jonas', chestOnly: true },
+  { id: 'avatar_adv_jonah_whale', name: 'Jonah\'s Whale', nameEs: 'Ballena de Jonás', emoji: '🐋', description: 'The great fish that carried Jonah', descriptionEs: 'El gran pez que cargo a Jonás', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_jonas', chestOnly: true, isAdventure: true },
+  { id: 'avatar_adv_david_sling', name: 'David with Sling', nameEs: 'David con Honda', emoji: '🪨', description: 'The shepherd who faced a giant with faith', descriptionEs: 'El pastorcillo que enfrentó a un gigante con fe', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_david', chestOnly: true, isAdventure: true },
+  { id: 'avatar_adv_queen_esther', name: 'Queen Esther', nameEs: 'Reina Ester', emoji: '👑', description: 'The queen who saved her people', descriptionEs: 'La reina que salvó a su pueblo', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_esther', chestOnly: true, isAdventure: true },
+  { id: 'avatar_adv_lion_faith', name: 'Lion of Faith', nameEs: 'León de la Fe', emoji: '🦁', description: 'Daniel standing firm before the lions', descriptionEs: 'Daniel firme ante los leones', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_daniel', chestOnly: true, isAdventure: true },
   // ============================================
   // Chapter Collection Avatars
   // ============================================
@@ -1332,9 +1335,15 @@ export const STORE_BUNDLES: Record<string, {
   items: string[];
   originalPrice: number;
   bundlePrice: number;
+  collectionBonus?: number;
   rarity: string;
   isV2?: boolean;
   isAdventure?: boolean;
+  adventureId?: string;
+  adventureNumber?: number;
+  storyId?: string;
+  storyDays?: number;
+  comingSoon?: boolean;
 }> = {
   bundle_gratitud: {
     id: 'bundle_gratitud',
@@ -1447,6 +1456,7 @@ export const STORE_BUNDLES: Record<string, {
   // ============================================
   // AVENTURAS BÍBLICAS — Biblical Adventures
   // ============================================
+  // Aventura 1: Jonás
   bundle_adv_jonas: {
     id: 'bundle_adv_jonas',
     name: 'Jonah\'s Adventure',
@@ -1456,8 +1466,69 @@ export const STORE_BUNDLES: Record<string, {
     items: ['avatar_adv_jonah_whale', 'frame_adv_ocean_deep', 'title_mensajero_senor'],
     originalPrice: 3500,
     bundlePrice: 2500,
+    collectionBonus: 600,
     rarity: 'epic',
     isAdventure: true,
+    adventureId: 'adv_jonah',
+    adventureNumber: 1,
+    storyId: 'story_adv_jonah',
+    storyDays: 5,
+  },
+  // Aventura 2: David vs Goliat
+  bundle_adv_david: {
+    id: 'bundle_adv_david',
+    name: 'David vs Goliath',
+    nameEs: 'David vs Goliat',
+    description: 'Three exclusive items from David\'s legendary battle of faith',
+    descriptionEs: 'Tres items exclusivos de la legendaria batalla de fe de David',
+    items: ['avatar_adv_david_sling', 'frame_adv_valley_battle', 'title_vencedor_gigantes'],
+    originalPrice: 3500,
+    bundlePrice: 2500,
+    collectionBonus: 600,
+    rarity: 'epic',
+    isAdventure: true,
+    adventureId: 'adv_david',
+    adventureNumber: 2,
+    storyId: 'story_adv_david',
+    storyDays: 5,
+  },
+  // Aventura 3: Ester (Fase 1 - preparada)
+  bundle_adv_esther: {
+    id: 'bundle_adv_esther',
+    name: 'Esther\'s Courage',
+    nameEs: 'La Valentía de Ester',
+    description: 'Exclusive items from Esther\'s story of divine courage',
+    descriptionEs: 'Items exclusivos de la historia de valentía divina de Ester',
+    items: ['avatar_adv_queen_esther', 'frame_adv_royal_persia', 'title_valiente_corazon'],
+    originalPrice: 3500,
+    bundlePrice: 2500,
+    collectionBonus: 600,
+    rarity: 'epic',
+    isAdventure: true,
+    adventureId: 'adv_esther',
+    adventureNumber: 3,
+    storyId: 'story_adv_esther',
+    storyDays: 5,
+    comingSoon: true,
+  },
+  // Aventura 4: Daniel (Fase 1 - preparada)
+  bundle_adv_daniel: {
+    id: 'bundle_adv_daniel',
+    name: 'Daniel\'s Faith',
+    nameEs: 'La Fe de Daniel',
+    description: 'Exclusive items from Daniel\'s unshakeable faith in the lion\'s den',
+    descriptionEs: 'Items exclusivos de la fe inquebrantable de Daniel en la fosa de los leones',
+    items: ['avatar_adv_lion_faith', 'frame_adv_lions_den', 'title_fe_inquebrantable'],
+    originalPrice: 3500,
+    bundlePrice: 2500,
+    collectionBonus: 600,
+    rarity: 'epic',
+    isAdventure: true,
+    adventureId: 'adv_daniel',
+    adventureNumber: 4,
+    storyId: 'story_adv_daniel',
+    storyDays: 5,
+    comingSoon: true,
   },
 };
 

@@ -2725,6 +2725,26 @@ function PremiumAvatarCard({
             </View>
           )}
 
+          {/* Adventure badge */}
+          {(avatar as { isAdventure?: boolean }).isAdventure && (
+            <View style={{ position: 'absolute', bottom: 6, left: 0, right: 0, alignItems: 'center', zIndex: 10 }}>
+              <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                backgroundColor: '#C89B3C',
+                borderRadius: 99,
+                paddingHorizontal: 6,
+                paddingVertical: 2,
+                gap: 3,
+              }}>
+                <Star size={7} color="#FFF" fill="#FFF" />
+                <Text style={{ fontSize: 8, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.3 }}>
+                  {language === 'es' ? 'Aventura' : 'Adventure'}
+                </Text>
+              </View>
+            </View>
+          )}
+
           {/* Avatar Emoji */}
           <View style={{ position: 'relative', marginBottom: 8 }}>
             {/* Static glow ring for V2 avatars */}
@@ -2875,6 +2895,10 @@ function BundleCard({
   const canAfford = points >= bundle.bundlePrice;
   const savings = bundle.originalPrice - bundle.bundlePrice;
   const isV2Bundle = 'isV2' in bundle && bundle.isV2 === true;
+  const isAdventureBundle = 'isAdventure' in bundle && bundle.isAdventure === true;
+  const isComingSoon = 'comingSoon' in bundle && bundle.comingSoon === true;
+  const adventureNumber = 'adventureNumber' in bundle ? (bundle as { adventureNumber?: number }).adventureNumber : undefined;
+  const collectionBonus = 'collectionBonus' in bundle ? (bundle as { collectionBonus?: number }).collectionBonus : undefined;
 
   // Check if all items in bundle are already owned
   const allOwned = bundle.items.every(itemId => purchasedItems.includes(itemId));
@@ -2909,18 +2933,43 @@ function BundleCard({
         onPressIn={() => { scale.value = withSpring(0.98); }}
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
-        disabled={allOwned || isPurchasing || !canAfford}
+        disabled={allOwned || isPurchasing || !canAfford || isComingSoon}
         className="rounded-2xl overflow-hidden"
         style={{
           backgroundColor: colors.surface,
-          shadowColor: rarityColor,
+          shadowColor: isAdventureBundle ? '#C89B3C' : rarityColor,
           shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.2,
+          shadowOpacity: isComingSoon ? 0.1 : 0.2,
           shadowRadius: 12,
           elevation: 4,
-          opacity: allOwned ? 0.6 : 1,
+          opacity: allOwned ? 0.6 : isComingSoon ? 0.75 : 1,
         }}
       >
+        {/* Adventure banner stripe */}
+        {isAdventureBundle && (
+          <LinearGradient
+            colors={isComingSoon ? ['#6B5A2A', '#4A3D1A'] : ['#C89B3C', '#8B6914']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={{ paddingVertical: 5, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+              <Star size={10} color="#FFF" fill="#FFF" />
+              <Text style={{ fontSize: 10, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                {language === 'es' ? 'AVENTURA BÍBLICA' : 'BIBLICAL ADVENTURE'}
+                {adventureNumber ? ` #${adventureNumber}` : ''}
+              </Text>
+            </View>
+            {isComingSoon && (
+              <View style={{ backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 99, paddingHorizontal: 8, paddingVertical: 2 }}>
+                <Text style={{ fontSize: 9, fontWeight: '700', color: '#FFF' }}>
+                  {language === 'es' ? 'PRÓXIMAMENTE' : 'COMING SOON'}
+                </Text>
+              </View>
+            )}
+          </LinearGradient>
+        )}
+
         <LinearGradient
           colors={RARITY_GRADIENTS[bundle.rarity as keyof typeof RARITY_GRADIENTS] || RARITY_GRADIENTS.common}
           start={{ x: 0, y: 0 }}
@@ -2960,6 +3009,15 @@ function BundleCard({
               >
                 {language === 'es' ? bundle.descriptionEs : bundle.description}
               </Text>
+              {/* Collection bonus row */}
+              {isAdventureBundle && collectionBonus && !allOwned && (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 }}>
+                  <Sparkles size={10} color="#C89B3C" />
+                  <Text style={{ fontSize: 10, fontWeight: '700', color: '#C89B3C' }}>
+                    {language === 'es' ? `+${collectionBonus} pts bono colección` : `+${collectionBonus} pts collection bonus`}
+                  </Text>
+                </View>
+              )}
             </View>
             <RarityBadge rarity={bundle.rarity} language={language} />
           </View>
@@ -3041,6 +3099,13 @@ function BundleCard({
                 <Check size={14} color="#22C55E" strokeWidth={3} />
                 <Text className="text-xs font-semibold text-green-600 ml-1">
                   {language === 'es' ? 'Completado' : 'Owned'}
+                </Text>
+              </View>
+            ) : isComingSoon ? (
+              <View className="flex-row items-center px-3 py-2 rounded-xl" style={{ backgroundColor: '#C89B3C20' }}>
+                <Lock size={12} color="#C89B3C" />
+                <Text className="text-xs font-semibold ml-1" style={{ color: '#C89B3C' }}>
+                  {language === 'es' ? 'Próximamente' : 'Soon'}
                 </Text>
               </View>
             ) : canAfford ? (
@@ -5325,12 +5390,15 @@ export default function StoreScreen() {
           { key: 'all', labelEs: 'Todos', label: 'All' },
           { key: 'v1', labelEs: 'V1 Básico', label: 'V1 Basic' },
           { key: 'v2', labelEs: 'V2 Ilustrado', label: 'V2 Illustrated' },
+          { key: 'adventures', labelEs: '⭐ Aventuras', label: '⭐ Adventures' },
         ];
         const allAvatarsList = DEFAULT_AVATARS as readonly (typeof DEFAULT_AVATARS[0])[];
         const filteredAvatars = activeSubcategory === 'v1'
           ? allAvatarsList.filter(a => !('isV2' in a) || !(a as any).isV2)
           : activeSubcategory === 'v2'
           ? allAvatarsList.filter(a => (a as any).isV2 === true && a.id.startsWith('avatar_v2_'))
+          : activeSubcategory === 'adventures'
+          ? allAvatarsList.filter(a => (a as any).isAdventure === true)
           : allAvatarsList;
 
         return (

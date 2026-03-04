@@ -489,16 +489,38 @@ const AVATARS_L2 = [
 // ============================================
 // AVENTURAS BÍBLICAS — Biblical Adventure Items
 // ============================================
+
+// --- Aventura 1: Jonás ---
 const AVATARS_ADVENTURES = [
-  { id: 'avatar_adv_jonah_whale', type: 'avatar', nameEn: "Jonah's Whale", nameEs: "Ballena de Jonás", descriptionEn: 'The great fish that carried Jonah to Nineveh', descriptionEs: 'El gran pez que cargo a Jonás hacia Nínive', pricePoints: 0, rarity: 'epic', assetRef: '🐋', metadata: JSON.stringify({ emoji: '🐋', collectionId: 'adventure_jonas', isV2: true, animationReady: true }) },
+  { id: 'avatar_adv_jonah_whale', type: 'avatar', nameEn: "Jonah's Whale", nameEs: "Ballena de Jonás", descriptionEn: 'The great fish that carried Jonah to Nineveh', descriptionEs: 'El gran pez que cargo a Jonás hacia Nínive', pricePoints: 0, rarity: 'epic', assetRef: '🐋', metadata: JSON.stringify({ emoji: '🐋', collectionId: 'adventure_jonas', isV2: true, animationReady: true, isAdventure: true, adventureId: 'adv_jonah' }) },
+  // --- Aventura 2: David vs Goliat ---
+  { id: 'avatar_adv_david_sling', type: 'avatar', nameEn: 'David with Sling', nameEs: 'David con Honda', descriptionEn: 'The shepherd boy who faced a giant with faith and a stone', descriptionEs: 'El pastorcillo que enfrentó a un gigante con fe y una piedra', pricePoints: 0, rarity: 'epic', assetRef: '🪨', metadata: JSON.stringify({ emoji: '🪨', collectionId: 'adventure_david', isV2: true, animationReady: true, isAdventure: true, adventureId: 'adv_david', visualStyle: 'sticker_sling_golden' }) },
+  // --- Aventura 3: Ester (preparada) ---
+  { id: 'avatar_adv_queen_esther', type: 'avatar', nameEn: 'Queen Esther', nameEs: 'Reina Ester', descriptionEn: 'The queen who risked her life to save her people', descriptionEs: 'La reina que arriesgó su vida para salvar a su pueblo', pricePoints: 0, rarity: 'epic', assetRef: '👑', metadata: JSON.stringify({ emoji: '👑', collectionId: 'adventure_esther', isV2: true, animationReady: false, isAdventure: true, adventureId: 'adv_esther', comingSoon: true }) },
+  // --- Aventura 4: Daniel (preparada) ---
+  { id: 'avatar_adv_lion_faith', type: 'avatar', nameEn: 'Lion of Faith', nameEs: 'León de la Fe', descriptionEn: 'Daniel standing firm before the lions through unwavering faith', descriptionEs: 'Daniel firme ante los leones por fe inquebrantable', pricePoints: 0, rarity: 'epic', assetRef: '🦁', metadata: JSON.stringify({ emoji: '🦁', collectionId: 'adventure_daniel', isV2: true, animationReady: false, isAdventure: true, adventureId: 'adv_daniel', comingSoon: true }) },
 ];
 
 const FRAMES_ADVENTURES = [
-  { id: 'frame_adv_ocean_deep', type: 'frame', nameEn: 'Deep Ocean', nameEs: 'Océano Profundo', descriptionEn: 'Depths of the sea where Jonah was carried by the great fish', descriptionEs: 'Las profundidades del mar donde Jonás fue llevado por el gran pez', pricePoints: 0, rarity: 'epic', assetRef: '#1A4A7A', metadata: JSON.stringify({ color: '#1A4A7A', isV2: true }) },
+  // Aventura 1: Jonás
+  { id: 'frame_adv_ocean_deep', type: 'frame', nameEn: 'Deep Ocean', nameEs: 'Océano Profundo', descriptionEn: 'Depths of the sea where Jonah was carried by the great fish', descriptionEs: 'Las profundidades del mar donde Jonás fue llevado por el gran pez', pricePoints: 0, rarity: 'epic', assetRef: '#1A4A7A', metadata: JSON.stringify({ color: '#1A4A7A', isV2: true, isAdventure: true, adventureId: 'adv_jonah' }) },
+  // Aventura 2: David vs Goliat
+  { id: 'frame_adv_valley_battle', type: 'frame', nameEn: 'Valley of Battle', nameEs: 'Valle de Batalla', descriptionEn: 'The golden valley where David defeated Goliath', descriptionEs: 'El valle dorado donde David venció a Goliat', pricePoints: 0, rarity: 'epic', assetRef: '#C89B3C', metadata: JSON.stringify({ color: '#C89B3C', colorSecondary: '#6A4E23', isV2: true, isAdventure: true, adventureId: 'adv_david' }) },
+  // Aventura 3: Ester (preparada)
+  { id: 'frame_adv_royal_persia', type: 'frame', nameEn: 'Royal Persia', nameEs: 'Persia Real', descriptionEn: 'The royal court of Persia, where Esther found favor', descriptionEs: 'La corte real de Persia, donde Ester halló favor', pricePoints: 0, rarity: 'epic', assetRef: '#8B1A4A', metadata: JSON.stringify({ color: '#8B1A4A', colorSecondary: '#D4AF37', isV2: true, isAdventure: true, adventureId: 'adv_esther', comingSoon: true }) },
+  // Aventura 4: Daniel (preparada)
+  { id: 'frame_adv_lions_den', type: 'frame', nameEn: "Lion's Den", nameEs: 'Fosa de los Leones', descriptionEn: 'The den of lions where Daniel prayed without ceasing', descriptionEs: 'La fosa de los leones donde Daniel oró sin cesar', pricePoints: 0, rarity: 'epic', assetRef: '#2A1A0A', metadata: JSON.stringify({ color: '#2A1A0A', colorSecondary: '#C17A2A', isV2: true, isAdventure: true, adventureId: 'adv_daniel', comingSoon: true }) },
 ];
 
 const TITLES_ADVENTURES = [
-  { id: 'title_mensajero_senor', type: 'title', nameEn: 'Messenger of the Lord', nameEs: 'Mensajero del Señor', descriptionEn: 'Called and sent by God to deliver His message', descriptionEs: 'Llamado y enviado por Dios para entregar Su mensaje', pricePoints: 0, rarity: 'epic', assetRef: '', metadata: '{}' },
+  // Aventura 1: Jonás
+  { id: 'title_mensajero_senor', type: 'title', nameEn: 'Messenger of the Lord', nameEs: 'Mensajero del Señor', descriptionEn: 'Called and sent by God to deliver His message', descriptionEs: 'Llamado y enviado por Dios para entregar Su mensaje', pricePoints: 0, rarity: 'epic', assetRef: '', metadata: JSON.stringify({ isAdventure: true, adventureId: 'adv_jonah' }) },
+  // Aventura 2: David vs Goliat
+  { id: 'title_vencedor_gigantes', type: 'title', nameEn: 'Giant Slayer', nameEs: 'Vencedor de Gigantes', descriptionEn: 'One who faces impossible odds with faith and overcomes', descriptionEs: 'Quien enfrenta lo imposible con fe y vence', pricePoints: 0, rarity: 'epic', assetRef: '', metadata: JSON.stringify({ isAdventure: true, adventureId: 'adv_david' }) },
+  // Aventura 3: Ester (preparada)
+  { id: 'title_valiente_corazon', type: 'title', nameEn: 'Brave Heart', nameEs: 'Valiente de Corazón', descriptionEn: 'One whose courage comes from a heart surrendered to God', descriptionEs: 'Aquel cuyo valor viene de un corazón rendido a Dios', pricePoints: 0, rarity: 'epic', assetRef: '', metadata: JSON.stringify({ isAdventure: true, adventureId: 'adv_esther', comingSoon: true }) },
+  // Aventura 4: Daniel (preparada)
+  { id: 'title_fe_inquebrantable', type: 'title', nameEn: 'Unbreakable Faith', nameEs: 'Fe Inquebrantable', descriptionEn: 'One whose faith cannot be shaken by any trial', descriptionEs: 'Aquel cuya fe no puede ser quebrantada por ninguna prueba', pricePoints: 0, rarity: 'epic', assetRef: '', metadata: JSON.stringify({ isAdventure: true, adventureId: 'adv_daniel', comingSoon: true }) },
 ];
 
 // ============================================

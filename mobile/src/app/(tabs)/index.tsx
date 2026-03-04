@@ -1583,6 +1583,27 @@ export default function HomeScreen() {
         console.error('[Gamification] Failed to sync user data:', error);
       }
 
+      // Award streak milestone bonus points (7-day = +200, 30-day = +600)
+      const STREAK_BONUS_MILESTONES: Record<number, number> = { 7: 200, 30: 600 };
+      const streakMilestonePoints = STREAK_BONUS_MILESTONES[newStreakCurrent];
+      if (!alreadyCountedToday && streakMilestonePoints && lastActive === yesterdayStr) {
+        try {
+          const bonusResult = await gamificationApi.awardPoints(user.id, 'streak_bonus', { streakDays: newStreakCurrent });
+          if (bonusResult.success && bonusResult.pointsAwarded > 0) {
+            addPoints(bonusResult.pointsAwarded);
+            addLedgerEntry({
+              delta: bonusResult.pointsAwarded,
+              kind: 'devotional',
+              title: language === 'es' ? `Racha de ${newStreakCurrent} días` : `${newStreakCurrent}-day streak`,
+              detail: '',
+            });
+            console.log(`[Streak] Milestone bonus awarded: ${bonusResult.pointsAwarded} pts for ${newStreakCurrent}-day streak`);
+          }
+        } catch (error) {
+          console.error('[Gamification] Failed to award streak milestone bonus:', error);
+        }
+      }
+
       // Update challenge progress only on a fresh completion (not a re-open)
       if (!alreadyCountedToday) {
         try {
