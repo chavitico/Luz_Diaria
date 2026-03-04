@@ -23,7 +23,7 @@ const SEASONS = [
       "Revive la pasión, muerte y resurrección de Cristo.",
     accentColor: "#7A1F1F",
     isActive: true,
-    preview: true, // DEV: treat as active even before startDate
+    preview: false,
   },
 
   // ── 2. Pentecostés ────────────────────────────────────────────
@@ -39,7 +39,7 @@ const SEASONS = [
       "El Espíritu Santo desciende con poder. Celebra el nacimiento de la Iglesia.",
     accentColor: "#B84500",
     isActive: true,
-    preview: true, // DEV preview
+    preview: false,
   },
 
   // ── 3. Adviento ───────────────────────────────────────────────
