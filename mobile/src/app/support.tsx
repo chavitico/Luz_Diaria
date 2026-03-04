@@ -127,6 +127,7 @@ const AUDIO_ISSUES: SubOption[] = [
   { value: 'repeats',       labelEs: 'Se repite constantemente',  labelEn: 'Keeps repeating' },
   { value: 'cuts',          labelEs: 'Se corta o se interrumpe',  labelEn: 'Cuts off / interrupted' },
   { value: 'voice_changed', labelEs: 'Cambió la voz',             labelEn: 'Voice changed' },
+  { value: 'voz_rara',      labelEs: 'Voz rara / robótica',       labelEn: 'Weird / robotic voice' },
 ];
 
 const NOTIFICATION_ISSUES: SubOption[] = [
@@ -289,6 +290,8 @@ export default function SupportScreen() {
         let ttsLanguage = '';
         let ttsPreferredVoiceFound = false;
         let ttsIsEloquence = false;
+        let ttsNeedsUserAction = false;
+        let ttsVoiceScore = 0;
         try {
           const langCode = (language === 'es' ? 'es' : 'en') as 'en' | 'es';
           const picked = await pickBestVoice(langCode);
@@ -297,6 +300,8 @@ export default function SupportScreen() {
           ttsLanguage = picked.language;
           ttsPreferredVoiceFound = picked.preferredVoiceFound;
           ttsIsEloquence = picked.isEloquence;
+          ttsNeedsUserAction = picked.needsUserAction;
+          ttsVoiceScore = picked.score;
         } catch (_) {}
         clientClaim = {
           issue: subIssue,
@@ -306,6 +311,8 @@ export default function SupportScreen() {
           ttsLanguage,
           ttsPreferredVoiceFound,
           ttsIsEloquence,
+          ttsNeedsUserAction,
+          ttsVoiceScore,
         };
       } else if (selectedCategory === 'notification') {
         // Grab notification settings from local storage

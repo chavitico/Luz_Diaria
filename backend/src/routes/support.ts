@@ -114,6 +114,47 @@ function buildBotPreview(
       const issue = (clientClaim.issue as string) || "unknown";
       const device = (clientClaim.device as string) || "no especificado";
       const os = (clientClaim.os as string) || "no especificado";
+      const ttsVoiceName = (clientClaim.ttsVoiceName as string) || "";
+      const ttsVoiceIdentifier = (clientClaim.ttsVoiceIdentifier as string) || "";
+      const ttsNeedsUserAction = !!(clientClaim.ttsNeedsUserAction);
+      const ttsVoiceScore = typeof clientClaim.ttsVoiceScore === "number" ? clientClaim.ttsVoiceScore : null;
+
+      // voz_rara: special case — provide iOS voice install steps, never auto-fix
+      if (issue === "voz_rara") {
+        const voiceInfo = ttsVoiceName
+          ? `Voz seleccionada: "${ttsVoiceName}"${ttsVoiceScore !== null ? ` (score: ${ttsVoiceScore})` : ""}.`
+          : "No se pudo detectar la voz del dispositivo.";
+
+        const userMessageEs =
+          `Hola 👋 Recibimos tu reporte sobre la voz de narración. ` +
+          `Esta app usa las voces nativas de iOS, y algunos dispositivos no tienen instalada una voz de alta calidad en español.\n\n` +
+          `📲 *Para instalar una mejor voz:*\n` +
+          `1. Ve a Ajustes → Accesibilidad → Contenido hablado → Voces\n` +
+          `2. Elige *Español (México)* o *Español (Latinoamérica)*\n` +
+          `3. Descarga *"Paulina"* (o la mejor voz disponible) y actívala\n` +
+          `4. Cierra completamente la app y vuelve a abrirla\n\n` +
+          `Si después de esto la voz sigue sonando rara, mándanos una grabación de pantalla corta junto con tu versión de iOS y modelo de iPhone. Con gusto lo revisamos.`;
+
+        const userMessageEn =
+          `Hi 👋 We received your report about the narration voice. ` +
+          `This app uses iOS native voices, and some devices don't have a high-quality Spanish voice installed.\n\n` +
+          `📲 *To install a better voice:*\n` +
+          `1. Go to Settings → Accessibility → Spoken Content → Voices\n` +
+          `2. Choose *Spanish (Mexico)* or *Spanish (Latin America)*\n` +
+          `3. Download *"Paulina"* (or the best available voice) and enable it\n` +
+          `4. Fully close the app and reopen it\n\n` +
+          `If the voice still sounds robotic after this, send us a short screen recording along with your iOS version and iPhone model.`;
+
+        return {
+          summary: `Audio/TTS: voz_rara (${os}) | voz: ${ttsVoiceName || "?"} | score: ${ttsVoiceScore ?? "?"} | needsAction: ${ttsNeedsUserAction}`,
+          userMessageEs,
+          userMessageEn,
+          action: "info_only",
+          ...base,
+        };
+      }
+
+      // Standard audio issues
       const steps =
         issue === "no_sound"
           ? "1) Verifica que el volumen del dispositivo esté activo. 2) Cierra y abre la app. 3) Ve a Ajustes > Sonido y asegúrate de que la música esté activada."

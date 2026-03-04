@@ -1749,29 +1749,42 @@ export default function HomeScreen() {
     currentSectionsRef.current = sections;
     const section = sections[index];
 
-    // Get current settings from refs for real-time updates
+    // Pastoral TTS parameters — slightly slower rate and warmer pitch for a natural devotional feel
+    const DEVOTIONAL_RATE = 0.88;
+    const DEVOTIONAL_PITCH = 0.95;
+
     const { id: voiceId, lang: voiceLang } = getVoiceIdentifier();
+
+    // Inter-section pause: 300ms gap between sections feels more natural (like a breath).
+    // We guard the jobId in the timeout so a stopped session doesn't continue.
+    const advanceToNext = () => {
+      setTimeout(() => {
+        if (jobId === speechJobIdRef.current && isTTSPlayingRef.current) {
+          speakSection(index + 1, sections, jobId);
+        }
+      }, 300);
+    };
+
     const speechOptions: Speech.SpeechOptions = {
       language: voiceLang,
-      rate: ttsSpeedRef.current,
+      rate: DEVOTIONAL_RATE,
+      pitch: DEVOTIONAL_PITCH,
       volume: ttsVolumeRef.current,
-      onDone: () => {
-        // Only continue if this job is still active and TTS is still playing
-        if (jobId === speechJobIdRef.current && isTTSPlayingRef.current) {
-          speakSection(index + 1, sections, jobId);
-        }
-      },
-      onError: () => {
-        // Only continue if this job is still active and TTS is still playing
-        if (jobId === speechJobIdRef.current && isTTSPlayingRef.current) {
-          speakSection(index + 1, sections, jobId);
-        }
-      },
+      onDone: advanceToNext,
+      onError: advanceToNext,
     };
 
     // Only add voice if we have a valid identifier
     if (voiceId) {
       speechOptions.voice = voiceId;
+    }
+
+    if (__DEV__) {
+      console.log(
+        `[TTS] Section ${index + 1}/${sections.length}: "${section.key}"` +
+        ` | voice: ${voiceId ?? 'system'} | lang: ${voiceLang}` +
+        ` | rate: ${DEVOTIONAL_RATE} | pitch: ${DEVOTIONAL_PITCH}`
+      );
     }
 
     Speech.speak(section.text, speechOptions);

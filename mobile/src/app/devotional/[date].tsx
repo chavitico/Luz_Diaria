@@ -58,17 +58,13 @@ import { getTodayDate } from '@/lib/firestore';
 
 const { height, width } = Dimensions.get('window');
 
-// Import curated TTS voices
+// Import TTS utilities
 import {
-  getCuratedVoices,
-  findMatchingDeviceVoice,
-  getDeviceVoiceIdentifier,
-  getPreviewText,
   addTTSPausesForNumberedPoints,
   sanitizeForTTS,
   preprocessNumbersForTTS,
-  type CuratedVoice,
 } from '@/lib/tts-voices';
+import { pickBestVoice, type PickedVoice } from '@/lib/voice-picker';
 
 // Bible book translations from English to Spanish
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
@@ -656,13 +652,11 @@ export default function DevotionalDetailScreen() {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(-1);
   const [ttsSpeed, setTTSSpeed] = useState(settings.ttsSpeed ?? 1.0);
   const [ttsVolume, setTTSVolume] = useState(settings.ttsVolume ?? 1.0);
-  const [ttsVoice, setTTSVoice] = useState(settings.ttsVoice ?? 'default');
-  const [availableVoices, setAvailableVoices] = useState<Speech.Voice[]>([]);
+  const pickedVoiceRef = useRef<PickedVoice | null>(null);
+  const speechJobIdRef = useRef(0);
   const isTTSPlayingRef = useRef(false);
   const currentSectionIndexRef = useRef(-1);
-  const ttsSpeedRef = useRef(settings.ttsSpeed ?? 1.0);
   const ttsVolumeRef = useRef(settings.ttsVolume ?? 1.0);
-  const ttsVoiceRef = useRef(settings.ttsVoice ?? 'default');
   const currentSectionsRef = useRef<{ key: string; text: string }[]>([]);
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -674,57 +668,35 @@ export default function DevotionalDetailScreen() {
 
   const isFavorite = date ? favorites.includes(date) : false;
 
-  // Sync TTS speed with settings
-  useEffect(() => {
-    setTTSSpeed(settings.ttsSpeed ?? 1.0);
-    ttsSpeedRef.current = settings.ttsSpeed ?? 1.0;
-  }, [settings.ttsSpeed]);
-
   // Sync TTS volume with settings
   useEffect(() => {
     setTTSVolume(settings.ttsVolume ?? 1.0);
     ttsVolumeRef.current = settings.ttsVolume ?? 1.0;
   }, [settings.ttsVolume]);
 
-  // Sync TTS voice with settings
+  // Initialize voice picker on mount
   useEffect(() => {
-    setTTSVoice(settings.ttsVoice ?? 'default');
-    ttsVoiceRef.current = settings.ttsVoice ?? 'default';
-  }, [settings.ttsVoice]);
-
-  // Load available voices on mount
-  useEffect(() => {
-    const loadVoices = async () => {
+    const initVoice = async () => {
       try {
-        const voices = await Speech.getAvailableVoicesAsync();
-        setAvailableVoices(voices);
-      } catch (error) {
-        console.error('[TTS] Failed to load voices:', error);
+        const picked = await pickBestVoice(language as 'en' | 'es');
+        pickedVoiceRef.current = picked;
+        if (__DEV__) {
+          console.log(`[TTS][date] Picked voice: ${picked.name} | id: ${picked.voiceIdentifier} | score: ${picked.score} | needsAction: ${picked.needsUserAction}`);
+        }
+      } catch (err) {
+        console.error('[TTS][date] Failed to init voice:', err);
       }
     };
-    loadVoices();
-  }, []);
+    initVoice();
+  }, [language]);
 
-  // Get the best matching voice for current language using curated voice system
-  const getVoiceIdentifier = useCallback(() => {
-    const currentVoiceId = ttsVoiceRef.current;
-    if (currentVoiceId === 'default' || !availableVoices.length) {
-      return undefined;
-    }
-
-    // Find the curated voice by ID
-    const curatedVoices = getCuratedVoices(language);
-    const curatedVoice = curatedVoices.find((v: CuratedVoice) => v.id === currentVoiceId);
-
-    if (!curatedVoice) {
-      // Fallback to default behavior
-      return undefined;
-    }
-
-    // Find matching device voice for the curated voice
-    const deviceVoice = findMatchingDeviceVoice(curatedVoice, availableVoices, language);
-    return deviceVoice?.identifier;
-  }, [availableVoices, language]);
+  // Get voice identifier from picked voice
+  const getVoiceIdentifier = useCallback((): { id: string | undefined; lang: string } => {
+    const picked = pickedVoiceRef.current;
+    const lang = language === 'es' ? 'es-MX' : 'en-US';
+    if (!picked) return { id: undefined, lang };
+    return { id: picked.voiceIdentifier, lang: picked.language ?? lang };
+  }, [language]);
 
   // TTS functions
   const buildDevotionalText = useCallback(() => {
@@ -752,8 +724,11 @@ export default function DevotionalDetailScreen() {
     ];
   }, [devotional, language]);
 
-  const speakSection = useCallback(async (index: number, sections: { key: string; text: string }[]) => {
-    if (!isTTSPlayingRef.current) {
+  const DEVOTIONAL_RATE = 0.88;
+  const DEVOTIONAL_PITCH = 0.95;
+
+  const speakSection = useCallback((index: number, sections: { key: string; text: string }[], jobId: number) => {
+    if (!isTTSPlayingRef.current || jobId !== speechJobIdRef.current) {
       return;
     }
 
@@ -771,40 +746,48 @@ export default function DevotionalDetailScreen() {
     currentSectionsRef.current = sections;
     const section = sections[index];
 
-    const voiceId = getVoiceIdentifier();
+    const { id: voiceId, lang: voiceLang } = getVoiceIdentifier();
+
+    const advanceToNext = () => {
+      setTimeout(() => {
+        if (jobId === speechJobIdRef.current && isTTSPlayingRef.current) {
+          speakSection(index + 1, sections, jobId);
+        }
+      }, 300);
+    };
+
     const speechOptions: Speech.SpeechOptions = {
-      language: language === 'es' ? 'es-ES' : 'en-US',
-      rate: ttsSpeedRef.current,
+      language: voiceLang,
+      rate: DEVOTIONAL_RATE,
+      pitch: DEVOTIONAL_PITCH,
       volume: ttsVolumeRef.current,
-      onDone: () => {
-        if (isTTSPlayingRef.current) {
-          speakSection(index + 1, sections);
-        }
-      },
-      onError: () => {
-        if (isTTSPlayingRef.current) {
-          speakSection(index + 1, sections);
-        }
-      },
+      onDone: advanceToNext,
+      onError: advanceToNext,
     };
 
     if (voiceId) {
       speechOptions.voice = voiceId;
     }
 
-    Speech.speak(section.text, speechOptions);
-  }, [language, getVoiceIdentifier]);
+    if (__DEV__) {
+      console.log(`[TTS][date] Section ${index + 1}/${sections.length}: "${section.key}" | voice: ${voiceId ?? 'default'} | lang: ${voiceLang} | rate: ${DEVOTIONAL_RATE} | pitch: ${DEVOTIONAL_PITCH}`);
+    }
 
-  const handleTTSPlay = useCallback(async () => {
+    Speech.speak(section.text, speechOptions);
+  }, [getVoiceIdentifier]);
+
+  const handleTTSPlay = useCallback(() => {
     if (isTTSPlaying) return;
 
     const sections = buildDevotionalText();
     if (sections.length === 0) return;
 
+    speechJobIdRef.current += 1;
+    const jobId = speechJobIdRef.current;
     setIsTTSPlaying(true);
     isTTSPlayingRef.current = true;
     currentSectionsRef.current = sections;
-    await speakSection(0, sections);
+    speakSection(0, sections, jobId);
   }, [isTTSPlaying, buildDevotionalText, speakSection]);
 
   const handleTTSPause = useCallback(async () => {
@@ -828,8 +811,10 @@ export default function DevotionalDetailScreen() {
     const sections = currentSectionsRef.current;
     const currentIndex = currentSectionIndexRef.current;
     if (sections.length === 0 || currentIndex >= sections.length) return;
+    speechJobIdRef.current += 1;
+    const jobId = speechJobIdRef.current;
     await Speech.stop();
-    speakSection(currentIndex, sections);
+    speakSection(currentIndex, sections, jobId);
   }, [speakSection]);
 
   // Cleanup TTS on unmount
@@ -916,7 +901,6 @@ export default function DevotionalDetailScreen() {
 
   const handleTTSSpeedChange = useCallback((value: number) => {
     setTTSSpeed(value);
-    ttsSpeedRef.current = value;
     updateSettings({ ttsSpeed: value });
     if (isTTSPlayingRef.current) {
       restartCurrentSection();
@@ -927,15 +911,6 @@ export default function DevotionalDetailScreen() {
     setTTSVolume(value);
     ttsVolumeRef.current = value;
     updateSettings({ ttsVolume: value });
-    if (isTTSPlayingRef.current) {
-      restartCurrentSection();
-    }
-  }, [updateSettings, restartCurrentSection]);
-
-  const handleTTSVoiceChange = useCallback((voiceId: string) => {
-    setTTSVoice(voiceId);
-    ttsVoiceRef.current = voiceId;
-    updateSettings({ ttsVoice: voiceId });
     if (isTTSPlayingRef.current) {
       restartCurrentSection();
     }
