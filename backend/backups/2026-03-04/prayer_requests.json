@@ -15,21 +15,6 @@
     "updatedAt": "2026-03-03T01:16:30.628Z"
   },
   {
-    "id": "cmma3ujm20018m25kx7ctrz9b",
-    "userId": "cmma36c8v000qm25km7avpj84",
-    "periodId": "active",
-    "mode": "daily",
-    "categoryKey": "work",
-    "nickname": "Victoria",
-    "avatarId": "avatar_dove",
-    "frameId": "frame_luz",
-    "titleId": "title_caminando",
-    "displayNameOptIn": true,
-    "expiresAt": "2026-03-05T04:25:47.208Z",
-    "createdAt": "2026-03-03T04:25:47.211Z",
-    "updatedAt": "2026-03-03T04:25:47.211Z"
-  },
-  {
     "id": "cmmaoqxa6001hm25pj9lhfhaj",
     "userId": "cmm9y71p5000km29qqx44tb91",
     "periodId": "active",
@@ -73,5 +58,20 @@
     "expiresAt": "2026-03-06T02:03:18.884Z",
     "createdAt": "2026-03-04T02:03:18.887Z",
     "updatedAt": "2026-03-04T02:03:18.887Z"
+  },
+  {
+    "id": "cmmbpdhbz001om25v2ywykk76",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "peace",
+    "nickname": "Victoria",
+    "avatarId": "avatar_dove",
+    "frameId": "frame_luz",
+    "titleId": "title_caminando",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-06T07:16:08.828Z",
+    "createdAt": "2026-03-04T07:16:08.831Z",
+    "updatedAt": "2026-03-04T07:16:08.831Z"
   }
 ]
