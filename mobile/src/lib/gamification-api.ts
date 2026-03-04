@@ -6,16 +6,44 @@ const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://loca
 // Types
 export interface StoreItem {
   id: string;
-  type: 'theme' | 'frame' | 'music' | 'title' | 'avatar' | 'badge' | 'consumable';
+  type: 'theme' | 'frame' | 'music' | 'title' | 'avatar' | 'badge' | 'consumable' | 'bundle';
   nameEn: string;
   nameEs: string;
   descriptionEn: string;
   descriptionEs: string;
   pricePoints: number;
   assetRef: string;
-  rarity: 'common' | 'rare' | 'epic';
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
   metadata: string; // JSON string for themes
   available: boolean;
+  // Dynamic catalog fields
+  category?: string;
+  subcategory?: string;
+  isNew?: boolean;
+  animationType?: 'none' | 'glow' | 'sparkle' | 'floating' | 'flame' | 'water';
+  badge?: string | null;
+  bundleId?: string | null;
+  comingSoon?: boolean;
+  seasonId?: string | null;
+  releasedAt?: string;
+}
+
+export interface Season {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  priority: number;
+  storeSlot: string; // 'featured_adventure' | 'featured_store' | 'season_event'
+  bannerTitle: string;
+  bannerDescription: string;
+  accentColor: string;
+  isActive: boolean;
+}
+
+export interface StoreItemsResponse {
+  items: StoreItem[];
+  activeSeasons: Season[];
 }
 
 export interface UserProfile {
@@ -287,12 +315,23 @@ export const gamificationApi = {
   },
 
   // Store
-  async getStoreItems(type?: string): Promise<StoreItem[]> {
+  async getStoreItems(type?: string): Promise<StoreItemsResponse> {
     const url = type
       ? `${BACKEND_URL}/api/gamification/store/items?type=${type}`
       : `${BACKEND_URL}/api/gamification/store/items`;
     const res = await fetch(url);
     if (!res.ok) throw new Error('Failed to fetch store items');
+    const data = await res.json();
+    // Support both old array format and new { items, activeSeasons } format
+    if (Array.isArray(data)) {
+      return { items: data, activeSeasons: [] };
+    }
+    return data as StoreItemsResponse;
+  },
+
+  async getActiveSeasons(): Promise<Season[]> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/seasons/active`);
+    if (!res.ok) throw new Error('Failed to fetch active seasons');
     return res.json();
   },
 

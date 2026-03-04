@@ -18,6 +18,7 @@ import { startDevotionalCron } from "./cron";
 import { initializeWeeklyChallenges } from "./weekly-challenges";
 import { seedPromoCodes } from "./seed-promo-codes";
 import { seedBadges } from "./seed-badges";
+import { seedSeasons } from "./seed-seasons";
 import { runStartupSanityCheck, runDailyBackup } from "./backup-service";
 import { logger } from "hono/logger";
 
@@ -77,6 +78,7 @@ initDatabase().then(async () => {
   initializeWeeklyChallenges();
   seedPromoCodes();
   seedBadges();
+  seedSeasons();
 
   // Run an initial backup shortly after startup (non-blocking)
   setTimeout(async () => {

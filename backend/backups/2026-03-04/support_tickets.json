@@ -292,8 +292,8 @@
     "claimedStreak": 26,
     "claimedDate": "2026-03-04",
     "clientClaim": "{\"issue\":\"voz_rara\",\"os\":\"ios\",\"ttsVoiceIdentifier\":\"com.apple.voice.compact.es-MX.Paulina\",\"ttsVoiceName\":\"Paulina\",\"ttsLanguage\":\"es-MX\",\"ttsPreferredVoiceFound\":true,\"ttsIsEloquence\":false,\"ttsNeedsUserAction\":false,\"ttsVoiceScore\":209}",
-    "status": "needs_human",
-    "resolutionNote": "Problema tipo audio_tts reportado. En espera de revisión de moderador.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmm9x0ybc0002m2sr3l31uj4q",
     "rating": null,
     "beforeState": "{\"streakCurrent\":26,\"devotionalsCompleted\":9}",
     "afterState": "{\"streakCurrent\":26,\"devotionalsCompleted\":9}",
@@ -301,7 +301,7 @@
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5ob0001m261gz2ugb0n",
     "createdAt": "2026-03-04T16:03:57.401Z",
-    "updatedAt": "2026-03-04T16:03:57.401Z"
+    "updatedAt": "2026-03-04T21:09:36.291Z"
   },
   {
     "id": "cmmc9gobf0013m26g5iblqyvu",
@@ -311,8 +311,8 @@
     "claimedStreak": 0,
     "claimedDate": "2026-03-04",
     "clientClaim": "{\"issue\":\"voz_rara\",\"os\":\"ios\",\"ttsVoiceName\":\"Paulina\",\"ttsVoiceScore\":209}",
-    "status": "needs_human",
-    "resolutionNote": "Problema tipo audio_tts reportado. En espera de revisión de moderador.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmm9x0ybc0002m2sr3l31uj4q",
     "rating": null,
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
@@ -320,7 +320,7 @@
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5o20000m261r6469yvq",
     "createdAt": "2026-03-04T16:38:30.172Z",
-    "updatedAt": "2026-03-04T16:38:30.172Z"
+    "updatedAt": "2026-03-04T21:07:23.386Z"
   },
   {
     "id": "cmmc9i7qo0014m26gwrgrpa8p",
@@ -330,8 +330,8 @@
     "claimedStreak": 0,
     "claimedDate": "2026-03-04",
     "clientClaim": "{\"issue\":\"not_received\",\"enabled\":true,\"scheduledHour\":8}",
-    "status": "needs_human",
-    "resolutionNote": "Problema tipo notification reportado. En espera de revisión de moderador.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmm9x0ybc0002m2sr3l31uj4q",
     "rating": null,
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
@@ -339,7 +339,7 @@
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5o20000m261r6469yvq",
     "createdAt": "2026-03-04T16:39:42.000Z",
-    "updatedAt": "2026-03-04T16:39:42.000Z"
+    "updatedAt": "2026-03-04T21:07:17.459Z"
   },
   {
     "id": "cmmc9ihlc0015m26g7p0a0ezn",
@@ -349,8 +349,8 @@
     "claimedStreak": 0,
     "claimedDate": "2026-03-04",
     "clientClaim": "{\"issue\":\"not_received\"}",
-    "status": "needs_human",
-    "resolutionNote": "Problema tipo reward_drop reportado. En espera de revisión de moderador.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmm9x0ybc0002m2sr3l31uj4q",
     "rating": null,
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
@@ -358,7 +358,7 @@
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5o20000m261r6469yvq",
     "createdAt": "2026-03-04T16:39:54.768Z",
-    "updatedAt": "2026-03-04T16:39:54.768Z"
+    "updatedAt": "2026-03-04T21:07:10.009Z"
   },
   {
     "id": "cmmc9ixuz0013m2lxldsyaukz",

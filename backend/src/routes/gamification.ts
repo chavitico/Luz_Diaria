@@ -619,12 +619,36 @@ gamificationRouter.post(
 // STORE & INVENTORY ENDPOINTS
 // ============================================
 
-// GET /store/items - Get all available store items
+// GET /store/items - Get all available store items (respects active seasons)
 gamificationRouter.get("/store/items", async (c) => {
   try {
     const type = c.req.query("type");
+    const now = new Date();
 
-    const where: { available: boolean; type?: string } = { available: true };
+    // Determine active season IDs (date-range check)
+    const activeSeasons = await prisma.season.findMany({
+      where: {
+        isActive: true,
+        startDate: { lte: now },
+        endDate: { gte: now },
+      },
+    });
+    const activeSeasonIds = activeSeasons.map((s) => s.id);
+
+    // Build filter: available items that are either:
+    // a) not tied to any season (seasonId is null)
+    // b) tied to an active season
+    const where: Record<string, unknown> = {
+      available: true,
+      comingSoon: false,
+      OR: [
+        { seasonId: null },
+        ...(activeSeasonIds.length > 0
+          ? [{ seasonId: { in: activeSeasonIds } }]
+          : []),
+      ],
+    };
+
     if (type) {
       where.type = type;
     }
@@ -634,10 +658,46 @@ gamificationRouter.get("/store/items", async (c) => {
       orderBy: [{ sortOrder: "asc" }, { pricePoints: "asc" }],
     });
 
-    return c.json(items);
+    return c.json({ items, activeSeasons });
   } catch (error) {
     console.error("[Gamification] Error getting store items:", error);
     return c.json({ error: "Failed to get store items" }, 500);
+  }
+});
+
+// ============================================
+// SEASONS / EVENTS ENDPOINTS
+// ============================================
+
+// GET /seasons/active - Get currently active seasons
+gamificationRouter.get("/seasons/active", async (c) => {
+  try {
+    const now = new Date();
+    const seasons = await prisma.season.findMany({
+      where: {
+        isActive: true,
+        startDate: { lte: now },
+        endDate: { gte: now },
+      },
+      orderBy: { priority: "desc" },
+    });
+    return c.json(seasons);
+  } catch (error) {
+    console.error("[Gamification] Error getting active seasons:", error);
+    return c.json({ error: "Failed to get active seasons" }, 500);
+  }
+});
+
+// GET /seasons/all - Get all seasons (admin use)
+gamificationRouter.get("/seasons/all", async (c) => {
+  try {
+    const seasons = await prisma.season.findMany({
+      orderBy: [{ priority: "desc" }, { startDate: "desc" }],
+    });
+    return c.json(seasons);
+  } catch (error) {
+    console.error("[Gamification] Error getting all seasons:", error);
+    return c.json({ error: "Failed to get seasons" }, 500);
   }
 });
 

@@ -211,6 +211,7 @@ import {
   StoreItem,
   WeeklyProgress,
   WeeklyChallenge,
+  Season,
 } from '@/lib/gamification-api';
 
 type CategoryType = 'themes' | 'frames' | 'titles' | 'avatars' | 'bundles' | 'collections';
@@ -225,6 +226,298 @@ const CATEGORIES: { key: CategoryType; IconComponent: CategoryIconComponent; lab
   { key: 'frames', IconComponent: IconMarcos, label: 'Frames', labelEs: 'Marcos', desc: 'Decorations for your devotionals', descEs: 'Decoraciones para tus devocionales' },
   { key: 'bundles', IconComponent: IconPaquetes, label: 'Bundles', labelEs: 'Paquetes', desc: 'Special content and rewards', descEs: 'Contenido especial y recompensas' },
 ];
+
+// ─── Seasonal Items Section Banner ────────────────────────────────────────────
+function SeasonalItemsSection({
+  items,
+  season,
+  purchasedItems,
+  points,
+  colors,
+  language,
+  onPress,
+}: {
+  items: StoreItem[];
+  season: Season;
+  purchasedItems: string[];
+  points: number;
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+  onPress: (item: StoreItem) => void;
+}) {
+  if (items.length === 0) return null;
+  const accent = season.accentColor || '#7A1F1F';
+
+  return (
+    <Animated.View entering={FadeInDown.duration(400)} style={{ marginBottom: 12 }}>
+      {/* Section header */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, paddingHorizontal: 20, gap: 8 }}>
+        <View style={{ flex: 1, height: 1, backgroundColor: accent + '40' }} />
+        <Text style={{ fontSize: 10, fontWeight: '800', color: accent, letterSpacing: 0.7 }}>
+          {language === 'es' ? `✝ ${season.name.toUpperCase()}` : `✝ ${season.name.toUpperCase()}`}
+        </Text>
+        <View style={{ flex: 1, height: 1, backgroundColor: accent + '40' }} />
+      </View>
+
+      {/* Items horizontal scroll */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 20, gap: 10, flexDirection: 'row', paddingBottom: 4 }}
+      >
+        {items.map((item) => {
+          const isOwned = purchasedItems.includes(item.id);
+          const canAfford = item.pricePoints === 0 || points >= item.pricePoints;
+          const meta = (() => { try { return JSON.parse(item.metadata); } catch { return {}; } })();
+          const emoji = meta?.emoji || (item.type === 'frame' ? '🪟' : item.type === 'title' ? '📜' : '✝️');
+
+          return (
+            <Pressable
+              key={item.id}
+              onPress={() => onPress(item)}
+              style={{
+                width: 90,
+                borderRadius: 16,
+                overflow: 'hidden',
+                borderWidth: 1.5,
+                borderColor: isOwned ? '#4CAF50' : accent + '80',
+              }}
+            >
+              <LinearGradient
+                colors={[accent + '33', '#0D0500']}
+                style={{ padding: 10, alignItems: 'center', gap: 4 }}
+              >
+                <Text style={{ fontSize: 28 }}>{emoji}</Text>
+                <Text style={{ fontSize: 10, fontWeight: '700', color: '#FFFFFF', textAlign: 'center', lineHeight: 13 }} numberOfLines={2}>
+                  {language === 'es' ? item.nameEs : item.nameEn}
+                </Text>
+                {item.badge && (
+                  <Text style={{ fontSize: 8, color: accent, fontWeight: '700' }}>{item.badge}</Text>
+                )}
+                {isOwned ? (
+                  <View style={{ backgroundColor: '#4CAF5033', borderRadius: 99, paddingHorizontal: 6, paddingVertical: 2 }}>
+                    <Text style={{ fontSize: 8, fontWeight: '700', color: '#4CAF50' }}>
+                      {language === 'es' ? 'Tuyo' : 'Owned'}
+                    </Text>
+                  </View>
+                ) : (
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                    <Coins size={9} color={canAfford ? '#FFD700' : '#888'} />
+                    <Text style={{ fontSize: 9, color: canAfford ? '#FFD700' : '#888', fontWeight: '600' }}>
+                      {item.pricePoints === 0 ? (language === 'es' ? 'Bundle' : 'Bundle') : item.pricePoints.toLocaleString()}
+                    </Text>
+                  </View>
+                )}
+              </LinearGradient>
+            </Pressable>
+          );
+        })}
+      </ScrollView>
+    </Animated.View>
+  );
+}
+
+// ─── Season Banner Component ──────────────────────────────────────────────────
+function SeasonBanner({ season, language }: { season: Season; language: 'en' | 'es' }) {
+  const accent = season.accentColor || '#7A1F1F';
+  const accentLight = accent + 'CC';
+  const accentDim = accent + '33';
+
+  return (
+    <Animated.View
+      entering={FadeInDown.duration(500)}
+      style={{ marginHorizontal: 20, marginBottom: 16, borderRadius: 18, overflow: 'hidden' }}
+    >
+      <LinearGradient
+        colors={[accent, '#1A0A0A']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{ padding: 18, borderRadius: 18 }}
+      >
+        {/* Top: event type label */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 6 }}>
+          <View style={{
+            backgroundColor: accentDim,
+            borderWidth: 1,
+            borderColor: accentLight,
+            borderRadius: 99,
+            paddingHorizontal: 10,
+            paddingVertical: 3,
+          }}>
+            <Text style={{ fontSize: 10, fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
+              {language === 'es' ? '✝ Evento de Temporada' : '✝ Season Event'}
+            </Text>
+          </View>
+        </View>
+
+        {/* Main title */}
+        <Text style={{
+          fontSize: 22,
+          fontWeight: '800',
+          color: '#FFFFFF',
+          letterSpacing: -0.3,
+          marginBottom: 4,
+          textShadowColor: 'rgba(0,0,0,0.5)',
+          textShadowOffset: { width: 0, height: 1 },
+          textShadowRadius: 4,
+        }}>
+          {season.bannerTitle}
+        </Text>
+
+        {/* Description */}
+        <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.80)', lineHeight: 18, fontWeight: '400', marginBottom: 12 }}>
+          {season.bannerDescription}
+        </Text>
+
+        {/* Bottom: dates */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <View style={{ width: 5, height: 5, borderRadius: 2.5, backgroundColor: '#FFFFFF', opacity: 0.7 }} />
+          <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', fontWeight: '500' }}>
+            {new Date(season.startDate).toLocaleDateString(language === 'es' ? 'es-CO' : 'en-US', { month: 'short', day: 'numeric' })}
+            {' — '}
+            {new Date(season.endDate).toLocaleDateString(language === 'es' ? 'es-CO' : 'en-US', { month: 'short', day: 'numeric' })}
+          </Text>
+        </View>
+      </LinearGradient>
+    </Animated.View>
+  );
+}
+
+// ─── Seasonal Adventure Card ──────────────────────────────────────────────────
+function SeasonalAdventureCard({
+  item,
+  season,
+  purchasedItems,
+  points,
+  colors,
+  language,
+  onPress,
+}: {
+  item: StoreItem;
+  season: Season;
+  purchasedItems: string[];
+  points: number;
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+  onPress: () => void;
+}) {
+  const scale = useSharedValue(1);
+  const accent = season.accentColor || '#7A1F1F';
+  const canAfford = points >= item.pricePoints;
+  const meta = (() => {
+    try { return JSON.parse(item.metadata); } catch { return {}; }
+  })();
+  const rewardCount = Array.isArray(meta?.rewards) ? meta.rewards.length : 3;
+  const isOwned = purchasedItems.includes(item.id);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  return (
+    <Animated.View entering={FadeInDown.duration(400)} style={[animatedStyle, { marginBottom: 16 }]}>
+      <Pressable
+        onPressIn={() => { scale.value = withSpring(0.97); }}
+        onPressOut={() => { scale.value = withSpring(1); }}
+        onPress={onPress}
+      >
+        <LinearGradient
+          colors={[accent + 'EE', '#1A0A0A', '#0D0500']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ borderRadius: 20, padding: 20, overflow: 'hidden' }}
+        >
+          {/* Season badge */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
+            <View style={{
+              backgroundColor: 'rgba(255,255,255,0.12)',
+              borderWidth: 1,
+              borderColor: 'rgba(255,255,255,0.25)',
+              borderRadius: 99,
+              paddingHorizontal: 10,
+              paddingVertical: 3,
+            }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.8, textTransform: 'uppercase' }}>
+                {item.badge || '✝ ' + season.name}
+              </Text>
+            </View>
+            {item.isNew && (
+              <View style={{
+                backgroundColor: '#FFD70033',
+                borderWidth: 1,
+                borderColor: '#FFD700',
+                borderRadius: 99,
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+              }}>
+                <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFD700', letterSpacing: 0.5 }}>NUEVO</Text>
+              </View>
+            )}
+          </View>
+
+          {/* Title */}
+          <Text style={{
+            fontSize: 24,
+            fontWeight: '800',
+            color: '#FFFFFF',
+            marginBottom: 6,
+            letterSpacing: -0.5,
+          }}>
+            {language === 'es' ? item.nameEs : item.nameEn}
+          </Text>
+
+          {/* Description */}
+          <Text style={{
+            fontSize: 13,
+            color: 'rgba(255,255,255,0.75)',
+            lineHeight: 18,
+            marginBottom: 16,
+          }}>
+            {language === 'es' ? item.descriptionEs : item.descriptionEn}
+          </Text>
+
+          {/* Rewards indicator */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16 }}>
+            <Gift size={14} color="rgba(255,255,255,0.6)" />
+            <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: '500' }}>
+              {rewardCount} {language === 'es' ? 'recompensas incluidas' : 'rewards included'}
+            </Text>
+          </View>
+
+          {/* CTA row */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+              <Coins size={18} color={isOwned ? '#4CAF50' : canAfford ? '#FFD700' : '#888'} />
+              {isOwned ? (
+                <Text style={{ fontSize: 16, fontWeight: '800', color: '#4CAF50' }}>
+                  {language === 'es' ? 'Adquirido' : 'Owned'}
+                </Text>
+              ) : (
+                <Text style={{ fontSize: 18, fontWeight: '800', color: canAfford ? '#FFD700' : '#888' }}>
+                  {item.pricePoints.toLocaleString()}
+                </Text>
+              )}
+            </View>
+            {!isOwned && (
+              <View style={{
+                backgroundColor: canAfford ? accent : '#333',
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                borderRadius: 99,
+              }}>
+                <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFFFFF' }}>
+                  {canAfford
+                    ? (language === 'es' ? 'Obtener' : 'Get')
+                    : (language === 'es' ? 'Sin puntos' : 'Need points')}
+                </Text>
+              </View>
+            )}
+          </View>
+        </LinearGradient>
+      </Pressable>
+    </Animated.View>
+  );
+}
 
 // Get rarity icon
 function RarityIcon({ rarity, size = 12 }: { rarity: string; size?: number }) {
@@ -5128,6 +5421,32 @@ export default function StoreScreen() {
     queryFn: () => gamificationApi.getCollectionClaims(effectiveUserId),
     enabled: !!effectiveUserId,
   });
+
+  // Active seasons — drive banner + seasonal content visibility
+  const { data: activeSeasons = [] } = useQuery({
+    queryKey: ['activeSeasons'],
+    queryFn: () => gamificationApi.getActiveSeasons(),
+    staleTime: 5 * 60 * 1000,
+  });
+  const primarySeason = activeSeasons[0] ?? null;
+
+  // Seasonal store items (bundles only) — DB-driven
+  const { data: seasonalItemsData } = useQuery({
+    queryKey: ['seasonalItems', primarySeason?.id],
+    queryFn: async () => {
+      const res = await gamificationApi.getStoreItems();
+      const seasonal = res.items.filter(
+        (item) => item.seasonId && activeSeasons.some((s) => s.id === item.seasonId)
+      );
+      return seasonal;
+    },
+    enabled: activeSeasons.length > 0,
+    staleTime: 5 * 60 * 1000,
+  });
+  const seasonalBundles: StoreItem[] = (seasonalItemsData ?? []).filter(i => i.type === 'bundle');
+  const seasonalAvatars: StoreItem[] = (seasonalItemsData ?? []).filter(i => i.type === 'avatar');
+  const seasonalFrames: StoreItem[] = (seasonalItemsData ?? []).filter(i => i.type === 'frame');
+  const seasonalTitles: StoreItem[] = (seasonalItemsData ?? []).filter(i => i.type === 'title');
   const claimedCollectionIds = useMemo(
     () => new Set((collectionClaimsData?.claims ?? []).map(c => c.collectionId)),
     [collectionClaimsData]
@@ -5541,6 +5860,23 @@ export default function StoreScreen() {
 
         return (
           <View>
+            {/* Seasonal frames section */}
+            {seasonalFrames.length > 0 && primarySeason && (
+              <SeasonalItemsSection
+                items={seasonalFrames}
+                season={primarySeason}
+                purchasedItems={purchasedItems}
+                points={points}
+                colors={colors}
+                language={language}
+                onPress={(item) => handleItemPress({
+                  id: item.id, type: 'frame',
+                  name: item.nameEn, nameEs: item.nameEs,
+                  description: item.descriptionEn, descriptionEs: item.descriptionEs,
+                  price: item.pricePoints, rarity: item.rarity,
+                })}
+              />
+            )}
             {/* Subcategory filter chips */}
             <ScrollView
               horizontal
@@ -5623,6 +5959,23 @@ export default function StoreScreen() {
 
         return (
           <View>
+            {/* Seasonal titles section */}
+            {seasonalTitles.length > 0 && primarySeason && (
+              <SeasonalItemsSection
+                items={seasonalTitles}
+                season={primarySeason}
+                purchasedItems={purchasedItems}
+                points={points}
+                colors={colors}
+                language={language}
+                onPress={(item) => handleItemPress({
+                  id: item.id, type: 'title',
+                  name: item.nameEn, nameEs: item.nameEs,
+                  description: item.descriptionEn, descriptionEs: item.descriptionEs,
+                  price: item.pricePoints, rarity: item.rarity,
+                })}
+              />
+            )}
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -5712,6 +6065,23 @@ export default function StoreScreen() {
 
         return (
           <View>
+            {/* Seasonal avatars section */}
+            {seasonalAvatars.length > 0 && primarySeason && (activeSubcategory === 'all' || activeSubcategory === 'adventures' || activeSubcategory === 'v3_premium') && (
+              <SeasonalItemsSection
+                items={seasonalAvatars}
+                season={primarySeason}
+                purchasedItems={purchasedItems}
+                points={points}
+                colors={colors}
+                language={language}
+                onPress={(item) => handleItemPress({
+                  id: item.id, type: 'avatar',
+                  name: item.nameEn, nameEs: item.nameEs,
+                  description: item.descriptionEn, descriptionEs: item.descriptionEs,
+                  price: item.pricePoints, rarity: item.rarity,
+                })}
+              />
+            )}
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -5797,11 +6167,19 @@ export default function StoreScreen() {
         const BUNDLE_SUBCATS = [
           { key: 'all', labelEs: 'Todos', label: 'All' },
           { key: 'adventures', labelEs: 'Aventuras Bíblicas', label: 'Biblical Adventures' },
+          ...(seasonalBundles.length > 0 ? [{ key: 'season', labelEs: '✝ Temporada', label: '✝ Season' }] : []),
         ];
         const allBundles = Object.values(STORE_BUNDLES);
         const filteredBundles = activeSubcategory === 'adventures'
           ? allBundles.filter(b => (b as any).isAdventure === true)
+          : activeSubcategory === 'season'
+          ? [] // Only seasonal bundles shown below
           : allBundles;
+
+        // Seasonal bundles shown when: 'all' or 'season' tab is active
+        const showSeasonalBundles =
+          (activeSubcategory === 'all' || activeSubcategory === 'season') &&
+          seasonalBundles.length > 0;
 
         return (
           <View>
@@ -5828,6 +6206,51 @@ export default function StoreScreen() {
               ))}
             </ScrollView>
             <View className="px-5">
+              {/* ── Seasonal bundles first ─────────────────────── */}
+              {showSeasonalBundles && primarySeason && (
+                <>
+                  {/* Season section header */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 8 }}>
+                    <View style={{ flex: 1, height: 1, backgroundColor: (primarySeason.accentColor || '#7A1F1F') + '40' }} />
+                    <Text style={{ fontSize: 11, fontWeight: '700', color: primarySeason.accentColor || '#7A1F1F', letterSpacing: 0.5 }}>
+                      {language === 'es' ? primarySeason.name.toUpperCase() : primarySeason.name.toUpperCase()}
+                    </Text>
+                    <View style={{ flex: 1, height: 1, backgroundColor: (primarySeason.accentColor || '#7A1F1F') + '40' }} />
+                  </View>
+                  {seasonalBundles.map((item) => (
+                    <SeasonalAdventureCard
+                      key={item.id}
+                      item={item}
+                      season={primarySeason}
+                      purchasedItems={purchasedItems}
+                      points={points}
+                      colors={colors}
+                      language={language}
+                      onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                        bundlePurchaseMutation.mutate({
+                          bundleId: item.id,
+                          itemIds: (() => {
+                            try { return JSON.parse(item.metadata)?.rewards ?? []; } catch { return []; }
+                          })(),
+                          bundlePrice: item.pricePoints,
+                        });
+                      }}
+                    />
+                  ))}
+                  {/* Divider before static bundles */}
+                  {filteredBundles.length > 0 && (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, marginTop: 4, gap: 8 }}>
+                      <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '20' }} />
+                      <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, letterSpacing: 0.5 }}>
+                        {language === 'es' ? 'OTROS PAQUETES' : 'OTHER BUNDLES'}
+                      </Text>
+                      <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '20' }} />
+                    </View>
+                  )}
+                </>
+              )}
+              {/* ── Regular bundles ────────────────────────────── */}
               {filteredBundles.map((bundle, index) => (
                 <Animated.View
                   key={bundle.id}
@@ -6150,6 +6573,11 @@ export default function StoreScreen() {
               setShowPointsToast(true);
             }}
           />
+        )}
+
+        {/* Season Banner — shown when there is an active season */}
+        {primarySeason && (
+          <SeasonBanner season={primarySeason} language={language} />
         )}
 
         {/* Category Cards */}

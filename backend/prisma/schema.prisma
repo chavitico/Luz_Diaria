@@ -100,7 +100,32 @@ model StoreItem {
   available     Boolean         @default(true)
   metadata      String          @default("{}")
   createdAt     DateTime        @default(now())
+  // Dynamic catalog fields
+  category      String          @default("")
+  subcategory   String          @default("")
+  isNew         Boolean         @default(false)
+  animationType String          @default("none") // none | glow | sparkle | floating | flame | water
+  badge         String?         // "⭐ Aventura" | "✨ Nuevo" | "🎄 Navidad" | "✝ Semana Santa"
+  bundleId      String?         // links reward items to their parent bundle
+  comingSoon    Boolean         @default(false)
+  seasonId      String?         // links item to a season/event
+  releasedAt    DateTime        @default(now())
   inventory     UserInventory[]
+}
+
+model Season {
+  id                 String   @id
+  name               String
+  startDate          DateTime
+  endDate            DateTime
+  priority           Int      @default(0)
+  storeSlot          String   @default("season_event") // featured_adventure | featured_store | season_event
+  bannerTitle        String
+  bannerDescription  String
+  accentColor        String   @default("#7A1F1F")
+  isActive           Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }
 
 model UserInventory {

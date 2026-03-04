@@ -211,13 +211,16 @@ All admin endpoints require `X-User-Id` header. The `requireRole` middleware in 
   - Server-validated redemption (one-time per user)
   - Success/error feedback with toast notification
   - Points instantly added to balance
+- **Season Banner** — Shown automatically when an active season/event exists (date-range based). Displays `bannerTitle`, `bannerDescription`, and `accentColor` from the `Season` DB record.
+- **Seasonal Items Sections** — In Avatares, Marcos, and Títulos tabs, seasonal items (from DB, linked via `seasonId`) appear at the top as a highlighted horizontal scroll section.
+- **Seasonal Bundles** — In Paquetes tab, a "✝ Season" filter chip appears and seasonal adventure bundles from the DB render at the top with a `SeasonalAdventureCard`.
 - **Progress Bars per Category** — Each CategoryCard shows `owned/total` with an animated progress bar
 - **Subcategory Chip Selectors** — Each category has filter chips:
   - **Themes**: Todos | V2 Premium
   - **Frames**: Todos | V1 Básico | V2 Ilustrado
   - **Titles**: Todos | V1 Básico | V2 Citas Bíblicas
   - **Avatars**: Todos | V1 Básico | V2 Ilustrado
-  - **Bundles**: Todos | Aventuras Bíblicas
+  - **Bundles**: Todos | Aventuras Bíblicas | ✝ Temporada (when active)
 - **6 Reward Categories**:
   - **Themes** (24 total: 6 original + 14 V2 premium + 4 chapter):
     - Original: Sunrise, Peaceful Night, Forest, Desert, Promise, Minimal
@@ -395,6 +398,13 @@ Admin-managed premium gift distribution to reward users.
 - Publish flow: confirms audience count before sending
 
 ### Gamification System
+- **Seasons / Events System** — DB-driven temporal content with automatic activation/deactivation:
+  - `Season` table: `id`, `name`, `startDate`, `endDate`, `priority`, `storeSlot`, `bannerTitle`, `bannerDescription`, `accentColor`, `isActive`
+  - `StoreItem` new fields: `category`, `subcategory`, `isNew`, `animationType`, `badge`, `bundleId`, `comingSoon`, `seasonId`, `releasedAt`
+  - Seasonal items auto-appear in store when `now` is between `startDate` and `endDate`
+  - `storeSlot` values: `featured_adventure`, `featured_store`, `season_event`
+  - **Semana Santa (Easter) seed**: `season_easter` (2026-03-23 → 2026-04-06) with bundle `bundle_easter_path` + 3 reward items
+  - Seed file: `backend/src/seed-seasons.ts` — runs at startup via `seedSeasons()`
 - **Points earned for**:
   - Completing daily devotional: 50 pts
   - Sharing devotional: 10 pts (max 2/day)
@@ -546,7 +556,9 @@ The app connects to a Hono backend with:
 - `POST /api/gamification/user/:userId/sync` - Sync local user data to server
 - `GET /api/gamification/nickname/check/:nickname` - Check nickname availability
 - `POST /api/gamification/points/award` - Award points with daily cap checking
-- `GET /api/gamification/store/items` - Get all store items (filterable by type)
+- `GET /api/gamification/store/items` - Get catalog items filtered by active seasons. Returns `{ items, activeSeasons }`. Items with `seasonId` outside active date range are excluded automatically.
+- `GET /api/gamification/seasons/active` - Get currently active seasons (startDate ≤ now ≤ endDate)
+- `GET /api/gamification/seasons/all` - Get all seasons (admin)
 - `GET /api/gamification/inventory/:userId` - Get user's inventory
 - `POST /api/gamification/store/purchase` - Purchase item
 - `POST /api/gamification/user/:userId/equip` - Equip item (theme/frame/title/music)
