@@ -357,3 +357,36 @@ export async function getAllDevotionals() {
     orderBy: { date: "desc" },
   });
 }
+
+/**
+ * Guarantees devotionals exist for todayCR .. todayCR+6 (7 days ahead).
+ * Generates ONLY missing dates sequentially; never overwrites existing rows.
+ * Idempotent — safe to call at any time.
+ */
+export async function ensureDevotionalsAhead(days = 7): Promise<void> {
+  const today = getTodayDate();
+
+  for (let i = 0; i < days; i++) {
+    // Compute target date by offsetting from today
+    const [y, m, d] = today.split("-").map(Number) as [number, number, number];
+    const dt = new Date(Date.UTC(y, m - 1, d + i));
+    const dateStr = `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, "0")}-${String(dt.getUTCDate()).padStart(2, "0")}`;
+
+    const existing = await prisma.devotional.findUnique({ where: { date: dateStr } });
+    if (existing) {
+      console.log(`[Ensure] Devotional for ${dateStr} already exists — skipping`);
+      continue;
+    }
+
+    console.log(`[Ensure] Generating missing devotional for ${dateStr}…`);
+    try {
+      await generateDevotionalForDate(dateStr);
+      console.log(`[Ensure] Devotional for ${dateStr} generated`);
+    } catch (err) {
+      // Non-fatal — log and continue so remaining dates are attempted
+      console.error(`[Ensure] Failed to generate devotional for ${dateStr}:`, err);
+    }
+  }
+
+  console.log(`[Ensure] ensureDevotionalsAhead(${days}) complete`);
+}

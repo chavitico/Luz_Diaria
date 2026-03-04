@@ -2,6 +2,15 @@
 // User data is still managed locally with Zustand/AsyncStorage
 
 import type { Devotional, User, UserProgress } from './types';
+import {
+  getCRToday,
+  getDevotionalWithFallback,
+  prefetchDevotionals,
+  getCachedDevotional,
+  cacheDevotional,
+} from './devotional-cache';
+
+export { getCRToday as getTodayDateCR, prefetchDevotionals } from './devotional-cache';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -12,36 +21,7 @@ export function generateUserId(): string {
 
 // Get today's date in YYYY-MM-DD format using Costa Rica timezone
 export function getTodayDate(): string {
-  try {
-    const now = new Date();
-    // Use Intl.DateTimeFormat for reliable timezone conversion (more robust than toLocaleString parsing)
-    const formatter = new Intl.DateTimeFormat('en-CA', {
-      timeZone: 'America/Costa_Rica',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    });
-    // en-CA locale returns YYYY-MM-DD format directly
-    const formatted = formatter.format(now);
-    // Validate the result looks like a date
-    if (/^\d{4}-\d{2}-\d{2}$/.test(formatted)) {
-      return formatted;
-    }
-    // Fallback: manual UTC-6 offset calculation
-    const utcMs = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-    const crDate = new Date(utcMs - (6 * 60 * 60 * 1000));
-    const year = crDate.getUTCFullYear();
-    const month = String(crDate.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(crDate.getUTCDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  } catch {
-    // Last resort: use local date
-    const d = new Date();
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
+  return getCRToday();
 }
 
 // Fallback devotional when API is unavailable
@@ -113,45 +93,40 @@ export const firestoreService = {
     return user;
   },
 
-  // Get today's devotional from backend API
+  // Get today's devotional from backend API (with offline cache fallback)
   async getTodayDevotional(): Promise<Devotional> {
-    try {
-      console.log('[Firestore] Fetching today\'s devotional from:', `${BACKEND_URL}/api/devotional/today`);
-      const response = await fetch(`${BACKEND_URL}/api/devotional/today`);
-
-      if (!response.ok) {
-        console.error('[Firestore] Failed to fetch today\'s devotional:', response.status);
-        return FALLBACK_DEVOTIONAL;
+    const { devotional, fromCache, offline } = await getDevotionalWithFallback();
+    if (devotional) {
+      if (fromCache) {
+        console.log(`[Firestore] Got devotional from cache (offline: ${offline}):`, devotional.title);
+      } else {
+        console.log('[Firestore] Got devotional from network:', devotional.title);
       }
-
-      const devotional = await response.json() as Devotional;
-      console.log('[Firestore] Got devotional:', devotional.title);
       return devotional;
-    } catch (error) {
-      console.error('[Firestore] Error fetching today\'s devotional:', error);
-      return FALLBACK_DEVOTIONAL;
     }
+    console.warn('[Firestore] Completely offline with no cache — using fallback devotional');
+    return FALLBACK_DEVOTIONAL;
   },
 
-  // Get devotional by date from backend API
+  // Get devotional by date from backend API (cache-first for upcoming, network for past)
   async getDevotional(date: string): Promise<Devotional | null> {
     try {
-      const response = await fetch(`${BACKEND_URL}/api/devotional/date/${date}`);
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          return null;
+      // Try network first
+      const url = `${BACKEND_URL}/api/devotional?date=${date}`;
+      const response = await fetch(url);
+      if (response.ok) {
+        const d = await response.json() as Devotional;
+        if (d && d.date) {
+          await cacheDevotional(d);
+          return d;
         }
-        console.error('[Firestore] Failed to fetch devotional:', response.status);
+      } else if (response.status === 404) {
         return null;
       }
+    } catch {}
 
-      const devotional = await response.json() as Devotional;
-      return devotional;
-    } catch (error) {
-      console.error('[Firestore] Error fetching devotional:', error);
-      return null;
-    }
+    // Network failed — try cache
+    return getCachedDevotional(date);
   },
 
   // Get all devotionals for library from backend API

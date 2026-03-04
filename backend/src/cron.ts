@@ -1,4 +1,4 @@
-import { generateTodayDevotional, generateDevotionalForDate } from "./devotional-service";
+import { generateDevotionalForDate, ensureDevotionalsAhead } from "./devotional-service";
 import { generateWeeklyChallenges } from "./weekly-challenges";
 import { generateTodayDailyPrayer } from "./prayer-service";
 import { generateStreakSnapshots } from "./streak-snapshot-service";
@@ -33,13 +33,14 @@ function getCostaRicaTime(): string {
 }
 
 async function runCronJob(): Promise<void> {
-  console.log(`[Cron] Running devotional generation at ${getCostaRicaTime()} (Costa Rica time)`);
+  console.log(`[Cron] Running at ${getCostaRicaTime()} (Costa Rica time)`);
 
+  // Ensure 7-day rolling window of devotionals is always pre-generated
   try {
-    await generateTodayDevotional();
-    console.log(`[Cron] Devotional generation completed successfully`);
+    await ensureDevotionalsAhead(7);
+    console.log(`[Cron] ensureDevotionalsAhead(7) completed`);
   } catch (error) {
-    console.error(`[Cron] Failed to generate devotional:`, error);
+    console.error(`[Cron] Failed to ensure devotionals ahead:`, error);
   }
 
   // Generate daily prayer (includes community prayer requests)
@@ -97,11 +98,13 @@ export function startDevotionalCron(): void {
     console.log(`[Cron] Daily interval set up for every 24 hours`);
   }, msUntilNextRun);
 
-  // Also run immediately on startup if no devotional exists for today
-  console.log(`[Cron] Checking if today's devotional exists...`);
-  runCronJob();
+  // On startup: ensure 7-day queue immediately (idempotent, non-blocking)
+  console.log(`[Cron] Startup: running ensureDevotionalsAhead(7)…`);
+  ensureDevotionalsAhead(7).catch((err) => {
+    console.error(`[Cron] Startup ensureDevotionalsAhead failed:`, err);
+  });
 
-  // Seed historical devotionals in the background
+  // Also seed 7 days of historical devotionals (past) in background
   seedHistoricalDevotionals();
 }
 

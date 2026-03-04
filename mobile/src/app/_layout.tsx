@@ -18,6 +18,7 @@ import { initializeNotifications, markAppOpenedToday } from '@/lib/notifications
 import { useBrandingStore } from '@/lib/branding-service';
 import GiftModal, { type PendingGift } from '@/components/GiftModal';
 import { gamificationApi } from '@/lib/gamification-api';
+import { prefetchDevotionals } from '@/lib/devotional-cache';
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -199,6 +200,9 @@ function AppContent() {
       markAppOpenedToday().then(() => {
         initializeNotifications(language);
       });
+
+      // Prefetch next 7 devotionals in background for offline support
+      prefetchDevotionals().catch(() => {});
     }
   }, [appReady, isOnboarded, language]);
 

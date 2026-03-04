@@ -7,6 +7,7 @@ import {
   getAllDevotionals,
   generateDevotionalWithAI,
   getTopicForDate,
+  ensureDevotionalsAhead,
 } from "../devotional-service";
 import { prisma } from "../prisma";
 
@@ -72,44 +73,93 @@ async function buildCommunityPrayerSentence(): Promise<{ en: string; es: string 
 
 export const devotionalRouter = new Hono();
 
-// Get today's devotional
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/** Costa Rica today as YYYY-MM-DD */
+function getCRToday(): string {
+  const now = new Date();
+  const cr = new Date(now.toLocaleString("en-US", { timeZone: "America/Costa_Rica" }));
+  const y = cr.getFullYear();
+  const m = String(cr.getMonth() + 1).padStart(2, "0");
+  const d = String(cr.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+/** Returns devotional enriched with community prayer, or the plain row */
+async function withCommunityPrayer(devotional: Awaited<ReturnType<typeof getDevotionalByDate>>) {
+  if (!devotional) return null;
+  const communityPrayer = await buildCommunityPrayerSentence();
+  if (communityPrayer) {
+    return {
+      ...devotional,
+      prayer: devotional.prayer + "\n\n" + communityPrayer.en,
+      prayerEs: devotional.prayerEs + "\n\n" + communityPrayer.es,
+    };
+  }
+  return devotional;
+}
+
+// ─── GET /api/devotional/today ─────────────────────────────────────────────
+// Returns today's devotional (CR timezone). If missing, kicks off ensure-ahead
+// and returns the just-generated row. Never triggers on-demand AI for the mobile.
 devotionalRouter.get("/today", async (c) => {
   try {
-    let devotional = await getTodayDevotional();
+    const today = getCRToday();
+    let devotional = await getDevotionalByDate(today);
 
     if (!devotional) {
-      // Generate if not exists
-      try {
-        await generateTodayDevotional();
-      } catch (genError) {
-        // If generation failed, try to fetch again in case another request created it
-        console.log("[API] Generation failed, checking if devotional was created by another request");
-      }
-      devotional = await getTodayDevotional();
+      // Should never happen when cron is healthy — run ensure-ahead as recovery
+      console.warn(`[API] /today: devotional for ${today} missing — running ensureDevotionalsAhead`);
+      await ensureDevotionalsAhead(7);
+      devotional = await getDevotionalByDate(today);
     }
 
     if (!devotional) {
-      return c.json({ error: "Failed to get or generate devotional" }, 500);
+      return c.json({ error: "Failed to get devotional" }, 500);
     }
 
-    // Enrich prayer fields with a community prayer sentence (non-blocking)
-    const communityPrayer = await buildCommunityPrayerSentence();
-    if (communityPrayer) {
-      return c.json({
-        ...devotional,
-        prayer: devotional.prayer + "\n\n" + communityPrayer.en,
-        prayerEs: devotional.prayerEs + "\n\n" + communityPrayer.es,
-      });
-    }
-
-    return c.json(devotional);
+    return c.json(await withCommunityPrayer(devotional));
   } catch (error) {
     console.error("[API] Error getting today's devotional:", error);
     return c.json({ error: "Failed to get devotional" }, 500);
   }
 });
 
-// Get devotional by date
+// ─── GET /api/devotional?date=YYYY-MM-DD ──────────────────────────────────
+// Returns devotional for a specific date. Also handles /date/:date for compat.
+// If the date is within the 7-day ahead window and missing, runs ensure-ahead.
+devotionalRouter.get("/", async (c) => {
+  const dateParam = c.req.query("date");
+  if (!dateParam || !/^\d{4}-\d{2}-\d{2}$/.test(dateParam)) {
+    return c.json({ error: "date query param required (YYYY-MM-DD)" }, 400);
+  }
+  try {
+    let devotional = await getDevotionalByDate(dateParam);
+
+    if (!devotional) {
+      // If within 7-day window, try to generate it
+      const today = getCRToday();
+      const diffMs = new Date(dateParam).getTime() - new Date(today).getTime();
+      const diffDays = Math.round(diffMs / 86400000);
+      if (diffDays >= 0 && diffDays < 7) {
+        console.warn(`[API] /?date=${dateParam}: missing ahead devotional — running ensureDevotionalsAhead`);
+        await ensureDevotionalsAhead(7);
+        devotional = await getDevotionalByDate(dateParam);
+      }
+    }
+
+    if (!devotional) {
+      return c.json({ error: "Devotional not found" }, 404);
+    }
+
+    return c.json(await withCommunityPrayer(devotional));
+  } catch (error) {
+    console.error("[API] Error getting devotional by date:", error);
+    return c.json({ error: "Failed to get devotional" }, 500);
+  }
+});
+
+// ─── GET /api/devotional/date/:date (compat) ──────────────────────────────
 devotionalRouter.get("/date/:date", async (c) => {
   try {
     const date = c.req.param("date");
@@ -119,7 +169,7 @@ devotionalRouter.get("/date/:date", async (c) => {
       return c.json({ error: "Devotional not found" }, 404);
     }
 
-    return c.json(devotional);
+    return c.json(await withCommunityPrayer(devotional));
   } catch (error) {
     console.error("[API] Error getting devotional by date:", error);
     return c.json({ error: "Failed to get devotional" }, 500);
