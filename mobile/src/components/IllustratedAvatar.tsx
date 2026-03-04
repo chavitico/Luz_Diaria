@@ -328,6 +328,14 @@ const V2_STYLES: Record<string, V2Style> = {
     accentColor: '#B3E5FC',
     emojiSize: 0.5,
   },
+  // ─── Aventuras Bíblicas ───────────────────────────────────────────────────
+  avatar_adv_jonah_whale: {
+    gradientColors: ['#0D2B52', '#1A4A7A', '#0A1A3A'],
+    glowColor: '#1E88E5',
+    accentShape: 'waves',
+    accentColor: '#1565C0',
+    emojiSize: 0.56,
+  },
 };
 
 function AccentShape({

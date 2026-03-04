@@ -175,6 +175,11 @@ export const DEFAULT_AVATARS = [
   { id: 'avatar_l2_pergamino_vivo', name: 'Living Scroll', nameEs: 'Pergamino Vivo', emoji: '📜', description: 'A life written by God\'s own hand.', descriptionEs: 'Una vida escrita por la propia mano de Dios.', price: 560, rarity: 'rare', collectionId: 'collection_l2_simbolos_profundos', isV2: true, meaning: 'Representa al creyente como carta viva de Cristo, escrita no con tinta sino con el Espiritu.', meaningEn: 'Represents the believer as a living letter from Christ, written not with ink but with the Spirit.', unlockType: 'devotionals', unlockValue: 21 },
   { id: 'avatar_l2_fuente_agua', name: 'Living Water', nameEs: 'Fuente de Agua Viva', emoji: '💧', description: 'The spring of living water that never runs dry.', descriptionEs: 'El manantial de agua viva que nunca se agota.', price: 900, rarity: 'epic', collectionId: 'collection_l2_simbolos_profundos', isV2: true, meaning: 'Representa a Cristo como la unica fuente de agua viva que sacia la sed del alma para siempre.', meaningEn: 'Represents Christ as the only source of living water that forever satisfies the soul\'s thirst.' },
   // ============================================
+  // AVENTURAS BÍBLICAS — Adventure Items
+  // Aventura Jonás
+  // ============================================
+  { id: 'avatar_adv_jonah_whale', name: 'Jonah\'s Whale', nameEs: 'Ballena de Jonás', emoji: '🐋', description: 'The great fish that carried Jonah', descriptionEs: 'El gran pez que cargo a Jonás', price: 0, rarity: 'epic', isV2: true, collectionId: 'adventure_jonas', chestOnly: true },
+  // ============================================
   // Chapter Collection Avatars
   // ============================================
   { id: 'avatar_promise_scroll', name: 'Promise Scroll', nameEs: 'Pergamino de Promesa', emoji: '📜', description: 'Ancient scroll bearing divine promises', descriptionEs: 'Pergamino antiguo con promesas divinas', price: 350, rarity: 'rare' },
@@ -929,6 +934,7 @@ export const AVATAR_FRAMES: Record<string, {
   frame_v2_zafiro: { id: 'frame_v2_zafiro', name: 'Sapphire Crown', nameEs: 'Corona Zafiro', description: 'Royal sapphire crown frame', descriptionEs: 'Marco de corona de zafiro real', color: '#1E6EBE', price: 750, rarity: 'epic', isV2: true },
   frame_v2_rosa_gracia: { id: 'frame_v2_rosa_gracia', name: 'Rose of Grace', nameEs: 'Rosa de Gracia', description: 'Blush rose petal frame of tender grace', descriptionEs: 'Marco de petalo de rosa del amor tierno', color: '#E8829A', price: 420, rarity: 'rare', isV2: true },
   frame_v2_tierra_santa: { id: 'frame_v2_tierra_santa', name: 'Holy Land', nameEs: 'Tierra Santa', description: 'Warm desert sand of ancient holy ground', descriptionEs: 'Arena calida del desierto de tierra santa antigua', color: '#C8956C', price: 340, rarity: 'common', isV2: true },
+  frame_adv_ocean_deep: { id: 'frame_adv_ocean_deep', name: 'Deep Ocean', nameEs: 'Océano Profundo', description: 'Depths of the sea where Jonah was carried', descriptionEs: 'Las profundidades del mar donde fue llevado Jonás', color: '#1A4A7A', price: 0, rarity: 'epic', isV2: true, chestOnly: true },
   // ── New items for Chapter Collections ───────────────────────────────────────
   frame_faithful_seal: { id: 'frame_faithful_seal', name: 'Faithful Seal', nameEs: 'Sello Fiel', description: 'Sealed by the promise of the Faithful One', descriptionEs: 'Sellado por la promesa del Fiel', color: '#4F46E5', price: 350, rarity: 'rare' },
   frame_gentle_breeze: { id: 'frame_gentle_breeze', name: 'Gentle Breeze', nameEs: 'Brisa Suave', description: 'Soft breath of the Spirit', descriptionEs: 'Suave soplo del Espíritu', color: '#10B981', price: 300, rarity: 'common' },
@@ -970,6 +976,7 @@ export const SPIRITUAL_TITLES: Record<string, {
   title_patient_wait: { id: 'title_patient_wait', name: 'Patient in Waiting', nameEs: 'Paciente en la Espera', description: 'Enduring with joyful hope', descriptionEs: 'Perseverando con esperanza gozosa', price: 400, rarity: 'rare' },
   title_belt_truth: { id: 'title_belt_truth', name: 'Belt of Truth', nameEs: 'Cinturón de Verdad', description: 'Girded with the truth of God', descriptionEs: 'Ceñido con la verdad de Dios', price: 400, rarity: 'rare' },
   title_guard_word: { id: 'title_guard_word', name: 'Guard of the Word', nameEs: 'Guardia de la Palabra', description: 'Defender of sacred scripture', descriptionEs: 'Defensor de las sagradas escrituras', price: 500, rarity: 'epic' },
+  title_mensajero_senor: { id: 'title_mensajero_senor', name: 'Messenger of the Lord', nameEs: 'Mensajero del Señor', description: 'Called and sent by God', descriptionEs: 'Llamado y enviado por Dios', price: 0, rarity: 'epic', chestOnly: true },
 };
 
 // ── Badges — achievement-based items auto-awarded by milestones ───────────────
@@ -1158,7 +1165,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'Completa esta coleccion adquiriendo los simbolos sagrados que han representado la fe a traves de los siglos. Cada uno es un recordatorio de las promesas eternas que nos sostienen.',
     icon: '✝️',
     items: ['avatar_dove', 'avatar_cross', 'avatar_candle', 'avatar_crown'],
-    rewardPoints: 200,
+    rewardPoints: 400,
   },
   collection_naturaleza: {
     id: 'collection_naturaleza',
@@ -1172,7 +1179,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'Dios se revela a traves de la creacion. Colecciona estos simbolos de la naturaleza biblica y reflexiona sobre la verdad espiritual oculta en cada ser vivo que El creo.',
     icon: '🌿',
     items: ['avatar_olive', 'avatar_fish', 'avatar_lamb', 'avatar_rainbow'],
-    rewardPoints: 250,
+    rewardPoints: 500,
   },
   collection_marcos_luz: {
     id: 'collection_marcos_luz',
@@ -1186,7 +1193,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'Completa esta coleccion rodeandote de marcos que reflejan la gloria de Dios. Cada uno evoca un aspecto distinto de la luz que guia nuestros pasos.',
     icon: '✨',
     items: ['frame_dorado', 'frame_luz', 'frame_estrellas', 'frame_cielo'],
-    rewardPoints: 300,
+    rewardPoints: 550,
   },
   collection_titulos_servicio: {
     id: 'collection_titulos_servicio',
@@ -1200,7 +1207,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'Completa esta coleccion adquiriendo los titulos que representan una vida de servicio fiel y constante. Cada uno refleja una virtud que se cultiva con perseverancia.',
     icon: '👑',
     items: ['title_siervo', 'title_portador', 'title_sembrador', 'title_guardian'],
-    rewardPoints: 350,
+    rewardPoints: 600,
   },
   // ============================================
   // V2 COLLECTIONS - Premium Avatar Collections
@@ -1217,7 +1224,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'Esta coleccion premium reune los simbolos mas poderosos de la fe cristiana, ilustrados con cuidado y reverencia. Completarla es en si mismo un acto de devocion.',
     icon: '✝️',
     items: ['avatar_v2_paloma_paz', 'avatar_v2_cruz_radiante', 'avatar_v2_lampara_aceite', 'avatar_v2_corona_vida', 'avatar_v2_biblia_abierta', 'avatar_v2_caliz', 'avatar_v2_ancla_esperanza', 'avatar_v2_pan_uvas'],
-    rewardPoints: 500,
+    rewardPoints: 700,
     isV2: true,
   },
   collection_v2_naturaleza: {
@@ -1232,7 +1239,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'La naturaleza siempre ha sido el primer lenguaje de Dios. Estos avatares premium capturan las criaturas y plantas que las Escrituras usan para revelar verdades divinas.',
     icon: '🌿',
     items: ['avatar_v2_rama_olivo', 'avatar_v2_pez_ichthys', 'avatar_v2_cordero', 'avatar_v2_leon', 'avatar_v2_semilla_mostaza', 'avatar_v2_vid_racimos'],
-    rewardPoints: 600,
+    rewardPoints: 700,
     isV2: true,
   },
   collection_v2_virtudes: {
@@ -1247,7 +1254,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'Las virtudes no se ganan de la noche a la manana — se cultivan a traves de la practica, la oracion y la entrega. Colecciona estos avatares como testimonio del caracter que estas construyendo.',
     icon: '💖',
     items: ['avatar_v2_gratitud', 'avatar_v2_fe', 'avatar_v2_amor', 'avatar_v2_paz', 'avatar_v2_gozo', 'avatar_v2_valentia'],
-    rewardPoints: 550,
+    rewardPoints: 650,
     isV2: true,
   },
   collection_v2_kids: {
@@ -1262,7 +1269,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'Jesus dijo que el reino de los cielos pertenece a los que son como ninos. Estos alegres avatares celebran una fe simple, luminosa y llena de asombro.',
     icon: '🌟',
     items: ['avatar_v2_estrellita', 'avatar_v2_arcoiris', 'avatar_v2_nube', 'avatar_v2_angelito'],
-    rewardPoints: 300,
+    rewardPoints: 400,
     isV2: true,
   },
   // ============================================
@@ -1280,7 +1287,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'Las virtudes del reino no son valores mundanos — son cualidades transformadoras que cambian como vemos, hablamos y actuamos. Completa esta coleccion como un compromiso con esa transformacion.',
     icon: '💛',
     items: ['avatar_l2_corazon_agradecido', 'avatar_l2_espiritu_humilde', 'avatar_l2_gozo_constante', 'avatar_l2_fe_inquebrantable', 'avatar_l2_amor_sacrificial', 'avatar_l2_paz_permanece'],
-    rewardPoints: 700,
+    rewardPoints: 800,
     isV2: true,
   },
   collection_l2_llamados: {
@@ -1295,7 +1302,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'No fuiste llamado a observar — fuiste llamado a actuar. Esta coleccion es para quienes han dicho si a su proposito y lo viven dia a dia con valentia.',
     icon: '📣',
     items: ['avatar_l2_siervo_fiel', 'avatar_l2_guerrero_oracion', 'avatar_l2_portador_luz', 'avatar_l2_atalaya', 'avatar_l2_sembrador', 'avatar_l2_testigo'],
-    rewardPoints: 800,
+    rewardPoints: 900,
     isV2: true,
   },
   collection_l2_simbolos_profundos: {
@@ -1310,7 +1317,7 @@ export const ITEM_COLLECTIONS: Record<string, {
     inspirationEs: 'Estos simbolos llevan siglos de profundidad teologica. Cada uno apunta a una faceta de la naturaleza de Dios y su obra redentora. Completar esta coleccion es meditar en la plenitud del evangelio.',
     icon: '✨',
     items: ['avatar_l2_lampara_encendida', 'avatar_l2_corona_vida', 'avatar_l2_espada_espiritu', 'avatar_l2_ancla_alma', 'avatar_l2_pergamino_vivo', 'avatar_l2_fuente_agua'],
-    rewardPoints: 900,
+    rewardPoints: 1000,
     isV2: true,
   },
 };
@@ -1327,6 +1334,7 @@ export const STORE_BUNDLES: Record<string, {
   bundlePrice: number;
   rarity: string;
   isV2?: boolean;
+  isAdventure?: boolean;
 }> = {
   bundle_gratitud: {
     id: 'bundle_gratitud',
@@ -1435,6 +1443,21 @@ export const STORE_BUNDLES: Record<string, {
     bundlePrice: 1200,
     rarity: 'epic',
     isV2: true,
+  },
+  // ============================================
+  // AVENTURAS BÍBLICAS — Biblical Adventures
+  // ============================================
+  bundle_adv_jonas: {
+    id: 'bundle_adv_jonas',
+    name: 'Jonah\'s Adventure',
+    nameEs: 'Aventura de Jonás',
+    description: 'Three exclusive items from Jonah\'s journey into the deep',
+    descriptionEs: 'Tres items exclusivos del viaje de Jonás hacia las profundidades',
+    items: ['avatar_adv_jonah_whale', 'frame_adv_ocean_deep', 'title_mensajero_senor'],
+    originalPrice: 3500,
+    bundlePrice: 2500,
+    rarity: 'epic',
+    isAdventure: true,
   },
 };
 

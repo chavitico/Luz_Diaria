@@ -487,6 +487,21 @@ const AVATARS_L2 = [
 ];
 
 // ============================================
+// AVENTURAS BÍBLICAS — Biblical Adventure Items
+// ============================================
+const AVATARS_ADVENTURES = [
+  { id: 'avatar_adv_jonah_whale', type: 'avatar', nameEn: "Jonah's Whale", nameEs: "Ballena de Jonás", descriptionEn: 'The great fish that carried Jonah to Nineveh', descriptionEs: 'El gran pez que cargo a Jonás hacia Nínive', pricePoints: 0, rarity: 'epic', assetRef: '🐋', metadata: JSON.stringify({ emoji: '🐋', collectionId: 'adventure_jonas', isV2: true, animationReady: true }) },
+];
+
+const FRAMES_ADVENTURES = [
+  { id: 'frame_adv_ocean_deep', type: 'frame', nameEn: 'Deep Ocean', nameEs: 'Océano Profundo', descriptionEn: 'Depths of the sea where Jonah was carried by the great fish', descriptionEs: 'Las profundidades del mar donde Jonás fue llevado por el gran pez', pricePoints: 0, rarity: 'epic', assetRef: '#1A4A7A', metadata: JSON.stringify({ color: '#1A4A7A', isV2: true }) },
+];
+
+const TITLES_ADVENTURES = [
+  { id: 'title_mensajero_senor', type: 'title', nameEn: 'Messenger of the Lord', nameEs: 'Mensajero del Señor', descriptionEn: 'Called and sent by God to deliver His message', descriptionEs: 'Llamado y enviado por Dios para entregar Su mensaje', pricePoints: 0, rarity: 'epic', assetRef: '', metadata: '{}' },
+];
+
+// ============================================
 // AVATAR FRAMES V2 (12 premium frames)
 // ============================================
 const FRAMES_V2 = [
@@ -719,6 +734,19 @@ async function seedStoreItems() {
     await upsertItem(avatar, sortOrder++);
   }
   console.log(`  Avatars L2: ${AVATARS_L2.length} processed`);
+
+  // Seed adventure items (Biblical Adventures)
+  console.log('Seeding Biblical Adventure items...');
+  for (const avatar of AVATARS_ADVENTURES) {
+    await upsertItem(avatar, sortOrder++);
+  }
+  for (const frame of FRAMES_ADVENTURES) {
+    await upsertItem(frame, sortOrder++);
+  }
+  for (const title of TITLES_ADVENTURES) {
+    await upsertItem(title, sortOrder++);
+  }
+  console.log(`  Adventure items: ${AVATARS_ADVENTURES.length + FRAMES_ADVENTURES.length + TITLES_ADVENTURES.length} processed`);
 
   // Seed chapter collection themes
   console.log('Seeding chapter collection themes...');

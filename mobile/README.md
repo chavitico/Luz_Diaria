@@ -211,54 +211,48 @@ All admin endpoints require `X-User-Id` header. The `requireRole` middleware in 
   - Server-validated redemption (one-time per user)
   - Success/error feedback with toast notification
   - Points instantly added to balance
+- **Progress Bars per Category** — Each CategoryCard shows `owned/total` with an animated progress bar
+- **Subcategory Chip Selectors** — Each category has filter chips:
+  - **Themes**: Todos | V2 Premium
+  - **Frames**: Todos | V1 Básico | V2 Ilustrado
+  - **Titles**: Todos | V1 Básico
+  - **Avatars**: Todos | V1 Básico | V2 Ilustrado
+  - **Bundles**: Todos | Aventuras Bíblicas
 - **6 Reward Categories**:
-  - **Themes** (20 total: 6 original + 14 V2 premium):
+  - **Themes** (24 total: 6 original + 14 V2 premium + 4 chapter):
     - Original: Sunrise, Peaceful Night, Forest, Desert, Promise, Minimal
     - V2 Premium: Amanecer Dorado, Noche de Paz Profunda, Bosque Sereno, Desierto Suave, Promesa Violeta, Cielo de Gloria, Mar de Misericordia, Fuego del Espiritu, Jardin de Gracia, Olivo y Paz, Trono Azul, Lampara Encendida, Pergamino Antiguo, Luz Celestial
     - V2 themes have 5-color swatch preview + sample text "Aa"
-  - **Avatar Frames** (10 overlays): Golden, Silver, Blue Hope, Green Life, Soft Light, Leaf Crown, Stars, Parchment, Soft Fire, Heaven
-  - **Spiritual Titles** (12 titles): Buscador de Luz, Corazon Agradecido, Siervo Fiel, etc.
-  - **Avatars** (38 total: 8 free + 6 premium + 24 V2 premium):
+  - **Avatar Frames** (26 total: 10 original + 12 V2 + 1 adventure + 4 chapter)
+  - **Spiritual Titles** (17 total: 12 original + 4 chapter + 1 adventure)
+  - **Avatars** (57 total: 8 free + 6 premium + 24 V2 + 18 Level 2 + 1 adventure):
     - Free: Dove, Sun, Star, Heart, Cross, Candle, Book, Praying
     - Premium V1: Rainbow, Crown, Angel, Olive, Lamb, Fish
-    - **V2 Premium Collections** (4 mini-collections with 24 illustrated avatars):
-      - **Simbolos de Fe** (8): Paloma de Paz, Cruz Radiante, Lampara de Aceite, Corona de Vida (epic), Biblia Abierta, Caliz, Ancla de Esperanza, Pan y Uvas
-      - **Naturaleza Biblica** (6): Rama de Olivo, Pez Ichthys, Cordero, Leon de Juda (epic), Semilla de Mostaza, Vid y Racimos
-      - **Virtudes** (6): Gratitud, Fe, Amor, Paz, Gozo, Valentia (epic)
-      - **Kids Friendly** (4): Estrellita, Arcoiris Suave, Nube Feliz, Angelito
-  - **Avatars** (56 total: 8 free + 6 premium + 24 V2 + 18 Level 2):
-    - Free: Dove, Sun, Star, Heart, Cross, Candle, Book, Praying
-    - Premium V1: Rainbow, Crown, Angel, Olive, Lamb, Fish
-    - **V2 Premium Collections** (4 mini-collections with 24 illustrated avatars):
-      - **Simbolos de Fe** (8): Paloma de Paz, Cruz Radiante, Lampara de Aceite, Corona de Vida (epic), Biblia Abierta, Caliz, Ancla de Esperanza, Pan y Uvas
-      - **Naturaleza Biblica** (6): Rama de Olivo, Pez Ichthys, Cordero, Leon de Juda (epic), Semilla de Mostaza, Vid y Racimos
-      - **Virtudes** (6): Gratitud, Fe, Amor, Paz, Gozo, Valentia (epic)
-      - **Kids Friendly** (4): Estrellita, Arcoiris Suave, Nube Feliz, Angelito
-    - **Level 2 — Identity & Calling** (3 collections, 18 avatars with spiritual meaning):
-      - **Virtudes del Reino** (6): Corazon Agradecido, Espiritu Humilde, Gozo Constante, Fe Inquebrantable (epic), Amor Sacrificial, Paz que Permanece
-      - **Los Llamados** (6): Siervo Fiel (streak-7), Guerrero de Oracion (streak-14, epic), Portador de Luz (devot-30), Atalaya (devot-50, epic), Sembrador (share-5), Testigo (share-10)
-      - **Simbolos Profundos** (6): Lampara Encendida, Corona de Vida (streak-30, epic), Espada del Espiritu (epic), Ancla del Alma, Pergamino Vivo (devot-21), Fuente de Agua Viva (epic)
+    - **V2 Premium Collections** (4 mini-collections with 24 illustrated avatars)
+    - **Level 2 — Identity & Calling** (3 collections, 18 avatars with spiritual meaning)
+    - **Adventure** (1): Ballena de Jonás (Deep ocean illustrated, epic)
     - L2 avatars carry `meaning`/`meaningEn` + `unlockType`/`unlockValue` shown in modal
-    - V2 + L2 avatars have illustrated art rendering, glow, V2 badge
+    - V2 + L2 + Adv avatars have illustrated art rendering, glow, V2 badge
   - **Illustrated Avatars** (`src/components/IllustratedAvatar.tsx`):
-    - All 42 V2+L2 avatars render with unique `LinearGradient` backgrounds and geometric accent layers
+    - All V2/L2/Adventure avatars render with unique `LinearGradient` backgrounds and geometric accent layers
     - 10 accent shape types: rays, stars, dots, rings, cross, waves, crown, flame, scroll, none
     - Used in store grid cards, item detail modal, and anywhere `PremiumAvatarCard` renders
     - Non-V2 avatars fall back to plain emoji rendering
-  - **Bundles** (9 total: 3 original + 6 V2):
+  - **Bundles** (10 total: 3 original + 6 V2 + 1 adventure):
     - Original: Gratitude Kit, Divine Light Bundle, Pilgrim Collection
     - V2: Kit Gratitud V2, Kit Paz V2, Kit Fe V2, Kit Promesa V2, Kit Infantil, Paquete Naturaleza V2
-    - V2 bundles show "V2" badge and include V2 items
-  - **Collections** (11 total: 4 original + 4 V2 + 3 Level 2):
-    - Original: Symbols of Faith, Biblical Nature, Frames of Light, Titles of Service
-    - V2: Simbolos de Fe V2, Naturaleza Biblica V2, Coleccion de Virtudes, Kids Friendly (500-600 pts)
-    - **Level 2**: Virtudes del Reino (700 pts), Los Llamados (800 pts), Simbolos Profundos (900 pts)
+    - **Aventuras Bíblicas**: Aventura de Jonás (2500 pts — avatar + frame + title exclusivos)
+    - V2 bundles show "V2" badge; Adventure bundles appear under "Aventuras Bíblicas" subcategory chip
+  - **Collections** (11 total: 4 original + 4 V2 + 3 Level 2, rebalanced rewards):
+    - Original: Symbols of Faith (400 pts), Biblical Nature (500 pts), Frames of Light (550 pts), Titles of Service (600 pts)
+    - V2: Simbolos de Fe V2 (700 pts), Naturaleza Biblica V2 (700 pts), Virtudes (650 pts), Kids (400 pts)
+    - **Level 2**: Virtudes del Reino (800 pts), Los Llamados (900 pts), Simbolos Profundos (1000 pts)
     - **Server-authoritative claim system**: once complete, a "Reclamar / Claim" button appears
     - Claims stored in `CollectionClaim` table (unique per user+collection) — prevents double-claiming
     - Claiming triggers atomic Prisma transaction: points + ledger entry + claim record
     - Claimed state persists via `GET /api/gamification/collections/claims/:userId`
 - **Item Detail Modal** with large preview:
-  - Avatars: 120px illustrated preview (V2/L2) or emoji circle
+  - Avatars: 120px illustrated preview (V2/L2/Adventure) or emoji circle
   - **L2 avatars show**: spiritual meaning card (bordered, italicized), unlock method badge (streak/devotionals/share), access type pill (FREE / PREMIUM / CHEST ONLY)
   - Frames: layered ring preview with hex color label
   - Themes: **mini app UI mockup** (200×155px) showing header, verse card, action button styled in the theme's colors

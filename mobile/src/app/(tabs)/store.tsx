@@ -1350,6 +1350,7 @@ function CategoryCard({
   language,
   onPress,
   badgeCount = 0,
+  progress,
 }: {
   category: typeof CATEGORIES[0];
   isActive: boolean;
@@ -1357,6 +1358,7 @@ function CategoryCard({
   language: 'en' | 'es';
   onPress: () => void;
   badgeCount?: number;
+  progress?: { owned: number; total: number };
 }) {
   const { IconComponent } = category;
   const scale = useSharedValue(1);
@@ -1450,6 +1452,22 @@ function CategoryCard({
           >
             {desc}
           </Text>
+          {progress && progress.total > 0 && (
+            <View style={{ marginTop: 5 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                <View style={{ flex: 1, height: 3, borderRadius: 2, backgroundColor: isActive ? 'rgba(255,255,255,0.25)' : colors.textMuted + '20', overflow: 'hidden' }}>
+                  <View style={{
+                    height: 3, borderRadius: 2,
+                    width: `${Math.min(100, Math.round((progress.owned / progress.total) * 100))}%` as any,
+                    backgroundColor: isActive ? 'rgba(255,255,255,0.9)' : colors.primary,
+                  }} />
+                </View>
+                <Text style={{ fontSize: 10, fontWeight: '600', color: isActive ? 'rgba(255,255,255,0.75)' : colors.textMuted }}>
+                  {progress.owned}/{progress.total}
+                </Text>
+              </View>
+            </View>
+          )}
         </View>
 
         {/* Active chevron */}
@@ -1520,7 +1538,7 @@ function ItemDetailModal({
   // Render preview based on type
   const renderPreview = () => {
     if (item.type === 'avatar' && item.emoji) {
-      const isV2 = item.id.startsWith('avatar_v2_') || item.id.startsWith('avatar_l2_');
+      const isV2 = item.id.startsWith('avatar_v2_') || item.id.startsWith('avatar_l2_') || item.id.startsWith('avatar_adv_');
       if (isV2) {
         return (
           <View
@@ -4607,7 +4625,7 @@ export default function StoreScreen() {
   const queryClient = useQueryClient();
 
   const [activeCategory, setActiveCategory] = useState<CategoryType>('themes');
-  const [showV2Only, setShowV2Only] = useState(false);
+  const [activeSubcategory, setActiveSubcategory] = useState<string>('all');
   const [showPointsToast, setShowPointsToast] = useState(false);
   const [toastAmount, setToastAmount] = useState(0);
   const [toastPositive, setToastPositive] = useState(false);
@@ -5082,56 +5100,42 @@ export default function StoreScreen() {
     switch (activeCategory) {
       case 'themes': {
         const allThemes = Object.values(PURCHASABLE_THEMES);
-        const filteredThemes = showV2Only
-          ? allThemes.filter(t => t.id.includes('_v2_') || t.id.includes('amanecer_dorado') || t.id.includes('noche_profunda') || t.id.includes('bosque_sereno') || t.id.includes('desierto_suave') || t.id.includes('promesa_violeta') || t.id.includes('cielo_gloria') || t.id.includes('mar_misericordia') || t.id.includes('fuego_espiritu') || t.id.includes('jardin_gracia') || t.id.includes('olivo_paz') || t.id.includes('trono_azul') || t.id.includes('lampara_encendida') || t.id.includes('pergamino_antiguo') || t.id.includes('luz_celestial'))
+        const filteredThemes = activeSubcategory === 'v2'
+          ? allThemes.filter(t => t.id.includes('_v2_') || t.id.includes('amanecer_dorado') || t.id.includes('cielo_gloria') || t.id.includes('noche_profunda') || t.id.includes('bosque_sereno') || t.id.includes('promesa') || t.id.includes('jardin') || t.id.includes('horizonte') || t.id.includes('sanctum') || t.id.includes('fuego_sagrado_t') || t.id.includes('noche_santa') || t.id.includes('rio_vida') || t.id.includes('pastor') || t.id.includes('capilla') || t.id.includes('tierra_prometida') || t.id.includes('voz_silencio'))
           : allThemes;
+
+        const THEME_SUBCATS = [
+          { key: 'all', labelEs: 'Todos', label: 'All' },
+          { key: 'v2', labelEs: 'V2 Premium', label: 'V2 Premium' },
+        ];
 
         return (
           <View>
-            {/* V2 filter row */}
+            {/* Subcategory filter chips */}
             <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
-              <Pressable
-                onPress={() => { Haptics.selectionAsync(); setShowV2Only(false); }}
-                style={{
-                  paddingHorizontal: 16,
-                  paddingVertical: 7,
-                  borderRadius: 99,
-                  backgroundColor: !showV2Only ? colors.primary : colors.surface,
-                  borderWidth: 1,
-                  borderColor: !showV2Only ? colors.primary : colors.textMuted + '30',
-                }}
-              >
-                <Text style={{ fontSize: 13, fontWeight: '600', color: !showV2Only ? '#FFFFFF' : colors.textMuted }}>
-                  {language === 'es' ? 'Todos' : 'All'}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={() => { Haptics.selectionAsync(); setShowV2Only(true); }}
-                style={{
-                  paddingHorizontal: 16,
-                  paddingVertical: 7,
-                  borderRadius: 99,
-                  backgroundColor: showV2Only ? colors.primary : colors.surface,
-                  borderWidth: 1,
-                  borderColor: showV2Only ? colors.primary : colors.textMuted + '30',
-                }}
-              >
-                <Text style={{ fontSize: 13, fontWeight: '600', color: showV2Only ? '#FFFFFF' : colors.textMuted }}>
-                  V2 Premium
-                </Text>
-              </Pressable>
+              {THEME_SUBCATS.map(sc => (
+                <Pressable
+                  key={sc.key}
+                  onPress={() => { Haptics.selectionAsync(); setActiveSubcategory(sc.key); }}
+                  style={{
+                    paddingHorizontal: 16, paddingVertical: 7, borderRadius: 99,
+                    backgroundColor: activeSubcategory === sc.key ? colors.primary : colors.surface,
+                    borderWidth: 1,
+                    borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
+                  }}
+                >
+                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                    {language === 'es' ? sc.labelEs : sc.label}
+                  </Text>
+                </Pressable>
+              ))}
             </View>
 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'flex-start' }}>
               {filteredThemes.map((theme, index) => {
                 const { isOwned, isEquipped, canAfford } = getItemStatus(theme.id, 'theme', theme.price ?? 0);
-
                 return (
-                  <Animated.View
-                    key={theme.id}
-                    entering={FadeInRight.delay(index * 50).duration(300)}
-                    style={{ width: '48%' }}
-                  >
+                  <Animated.View key={theme.id} entering={FadeInRight.delay(index * 50).duration(300)} style={{ width: '48%' }}>
                     <PremiumThemeCard
                       themeData={theme}
                       isOwned={isOwned}
@@ -5141,20 +5145,11 @@ export default function StoreScreen() {
                       language={language}
                       isHighlighted={pendingNavTarget?.itemId === theme.id}
                       isNewGift={newGiftItemIds.includes(theme.id)}
-                      viewRef={(ref) => {
-                        if (ref) itemViewRefs.current.set(theme.id, ref as unknown as View);
-                      }}
+                      viewRef={(ref) => { if (ref) itemViewRefs.current.set(theme.id, ref as unknown as View); }}
                       onPress={() => handleItemPress({
-                        id: theme.id,
-                        type: 'theme',
-                        name: theme.name,
-                        nameEs: theme.nameEs,
-                        description: theme.description,
-                        descriptionEs: theme.descriptionEs,
-                        price: theme.price ?? 0,
-                        rarity: theme.rarity,
-                        colors: theme.colors,
-                        chestOnly: theme.chestOnly,
+                        id: theme.id, type: 'theme', name: theme.name, nameEs: theme.nameEs,
+                        description: theme.description, descriptionEs: theme.descriptionEs,
+                        price: theme.price ?? 0, rarity: theme.rarity, colors: theme.colors, chestOnly: theme.chestOnly,
                       })}
                     />
                   </Animated.View>
@@ -5172,44 +5167,38 @@ export default function StoreScreen() {
         const itemWidth = (screenWidth - horizontalPadding - (gap * (numColumns - 1))) / numColumns;
 
         const allFrames = Object.values(AVATAR_FRAMES);
-        const filteredFrames = showV2Only
+        const filteredFrames = activeSubcategory === 'v2'
           ? allFrames.filter(f => 'isV2' in f && (f as any).isV2 === true || f.id.includes('_v2_'))
+          : activeSubcategory === 'v1'
+          ? allFrames.filter(f => !('isV2' in f) || !(f as any).isV2)
           : allFrames;
+
+        const FRAME_SUBCATS = [
+          { key: 'all', labelEs: 'Todos', label: 'All' },
+          { key: 'v1', labelEs: 'V1 Básico', label: 'V1 Basic' },
+          { key: 'v2', labelEs: 'V2 Ilustrado', label: 'V2 Illustrated' },
+        ];
 
         return (
           <View>
-            {/* V2 filter row */}
+            {/* Subcategory filter chips */}
             <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
-              <Pressable
-                onPress={() => { Haptics.selectionAsync(); setShowV2Only(false); }}
-                style={{
-                  paddingHorizontal: 16,
-                  paddingVertical: 7,
-                  borderRadius: 99,
-                  backgroundColor: !showV2Only ? colors.primary : colors.surface,
-                  borderWidth: 1,
-                  borderColor: !showV2Only ? colors.primary : colors.textMuted + '30',
-                }}
-              >
-                <Text style={{ fontSize: 13, fontWeight: '600', color: !showV2Only ? '#FFFFFF' : colors.textMuted }}>
-                  {language === 'es' ? 'Todos' : 'All'}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={() => { Haptics.selectionAsync(); setShowV2Only(true); }}
-                style={{
-                  paddingHorizontal: 16,
-                  paddingVertical: 7,
-                  borderRadius: 99,
-                  backgroundColor: showV2Only ? colors.primary : colors.surface,
-                  borderWidth: 1,
-                  borderColor: showV2Only ? colors.primary : colors.textMuted + '30',
-                }}
-              >
-                <Text style={{ fontSize: 13, fontWeight: '600', color: showV2Only ? '#FFFFFF' : colors.textMuted }}>
-                  V2 Premium
-                </Text>
-              </Pressable>
+              {FRAME_SUBCATS.map(sc => (
+                <Pressable
+                  key={sc.key}
+                  onPress={() => { Haptics.selectionAsync(); setActiveSubcategory(sc.key); }}
+                  style={{
+                    paddingHorizontal: 16, paddingVertical: 7, borderRadius: 99,
+                    backgroundColor: activeSubcategory === sc.key ? colors.primary : colors.surface,
+                    borderWidth: 1,
+                    borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
+                  }}
+                >
+                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                    {language === 'es' ? sc.labelEs : sc.label}
+                  </Text>
+                </Pressable>
+              ))}
             </View>
 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
@@ -5255,46 +5244,76 @@ export default function StoreScreen() {
         );
       }
 
-      case 'titles':
-        return (
-          <View className="px-5">
-            {Object.values(SPIRITUAL_TITLES).map((title, index) => {
-              const { isOwned, isEquipped, canAfford } = getItemStatus(title.id, 'title', title.price ?? 0);
+      case 'titles': {
+        const TITLE_SUBCATS = [
+          { key: 'all', labelEs: 'Todos', label: 'All' },
+          { key: 'v1', labelEs: 'V1 Básico', label: 'V1 Basic' },
+        ];
+        const allTitles = Object.values(SPIRITUAL_TITLES);
+        const filteredTitles = activeSubcategory === 'v1'
+          ? allTitles.filter(t => !t.chestOnly)
+          : allTitles;
 
-              return (
-                <Animated.View
-                  key={title.id}
-                  entering={FadeInDown.delay(index * 40).duration(300)}
+        return (
+          <View>
+            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+              {TITLE_SUBCATS.map(sc => (
+                <Pressable
+                  key={sc.key}
+                  onPress={() => { Haptics.selectionAsync(); setActiveSubcategory(sc.key); }}
+                  style={{
+                    paddingHorizontal: 16, paddingVertical: 7, borderRadius: 99,
+                    backgroundColor: activeSubcategory === sc.key ? colors.primary : colors.surface,
+                    borderWidth: 1,
+                    borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
+                  }}
                 >
-                  <PremiumTitleCard
-                    titleData={title}
-                    isOwned={isOwned}
-                    isEquipped={isEquipped}
-                    canAfford={canAfford}
-                    colors={colors}
-                    language={language}
-                    isHighlighted={pendingNavTarget?.itemId === title.id}
-                    isNewGift={newGiftItemIds.includes(title.id)}
-                    viewRef={(ref) => {
-                      if (ref) itemViewRefs.current.set(title.id, ref as unknown as View);
-                    }}
-                    onPress={() => handleItemPress({
-                      id: title.id,
-                      type: 'title',
-                      name: title.name,
-                      nameEs: title.nameEs,
-                      description: title.description,
-                      descriptionEs: title.descriptionEs,
-                      price: title.price ?? 0,
-                      rarity: title.rarity,
-                      chestOnly: title.chestOnly,
-                    })}
-                  />
-                </Animated.View>
-              );
-            })}
+                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                    {language === 'es' ? sc.labelEs : sc.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+            <View className="px-5">
+              {filteredTitles.map((title, index) => {
+                const { isOwned, isEquipped, canAfford } = getItemStatus(title.id, 'title', title.price ?? 0);
+
+                return (
+                  <Animated.View
+                    key={title.id}
+                    entering={FadeInDown.delay(index * 40).duration(300)}
+                  >
+                    <PremiumTitleCard
+                      titleData={title}
+                      isOwned={isOwned}
+                      isEquipped={isEquipped}
+                      canAfford={canAfford}
+                      colors={colors}
+                      language={language}
+                      isHighlighted={pendingNavTarget?.itemId === title.id}
+                      isNewGift={newGiftItemIds.includes(title.id)}
+                      viewRef={(ref) => {
+                        if (ref) itemViewRefs.current.set(title.id, ref as unknown as View);
+                      }}
+                      onPress={() => handleItemPress({
+                        id: title.id,
+                        type: 'title',
+                        name: title.name,
+                        nameEs: title.nameEs,
+                        description: title.description,
+                        descriptionEs: title.descriptionEs,
+                        price: title.price ?? 0,
+                        rarity: title.rarity,
+                        chestOnly: title.chestOnly,
+                      })}
+                    />
+                  </Animated.View>
+                );
+              })}
+            </View>
           </View>
         );
+      }
 
       case 'avatars': {
         const horizontalPadding = 40;
@@ -5302,76 +5321,138 @@ export default function StoreScreen() {
         const numColumns = 3;
         const itemWidth = (screenWidth - horizontalPadding - (gap * (numColumns - 1))) / numColumns;
 
-        return (
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
-            {DEFAULT_AVATARS.map((avatar, index) => {
-              const hasCost = 'price' in avatar && (avatar as { price: number }).price > 0;
-              const price = hasCost ? (avatar as { price: number }).price : 0;
-              const { isOwned, isEquipped, canAfford } = getItemStatus(avatar.id, 'avatar', price);
+        const AVATAR_SUBCATS = [
+          { key: 'all', labelEs: 'Todos', label: 'All' },
+          { key: 'v1', labelEs: 'V1 Básico', label: 'V1 Basic' },
+          { key: 'v2', labelEs: 'V2 Ilustrado', label: 'V2 Illustrated' },
+        ];
+        const allAvatarsList = DEFAULT_AVATARS as readonly (typeof DEFAULT_AVATARS[0])[];
+        const filteredAvatars = activeSubcategory === 'v1'
+          ? allAvatarsList.filter(a => !('isV2' in a) || !(a as any).isV2)
+          : activeSubcategory === 'v2'
+          ? allAvatarsList.filter(a => (a as any).isV2 === true && a.id.startsWith('avatar_v2_'))
+          : allAvatarsList;
 
-              return (
-                <Animated.View
-                  key={avatar.id}
-                  entering={FadeInRight.delay(index * 35).duration(300)}
-                  style={{ width: itemWidth }}
+        return (
+          <View>
+            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+              {AVATAR_SUBCATS.map(sc => (
+                <Pressable
+                  key={sc.key}
+                  onPress={() => { Haptics.selectionAsync(); setActiveSubcategory(sc.key); }}
+                  style={{
+                    paddingHorizontal: 16, paddingVertical: 7, borderRadius: 99,
+                    backgroundColor: activeSubcategory === sc.key ? colors.primary : colors.surface,
+                    borderWidth: 1,
+                    borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
+                  }}
                 >
-                  <PremiumAvatarCard
-                    avatar={avatar}
-                    isOwned={isOwned}
-                    isEquipped={isEquipped}
-                    canAfford={canAfford}
-                    colors={colors}
-                    language={language}
-                    isHighlighted={pendingNavTarget?.itemId === avatar.id}
-                    isNewGift={newGiftItemIds.includes(avatar.id)}
-                    viewRef={(ref) => {
-                      if (ref) itemViewRefs.current.set(avatar.id, ref as unknown as View);
-                    }}
-                    onPress={() => handleItemPress({
-                      id: avatar.id,
-                      type: 'avatar',
-                      name: avatar.name,
-                      nameEs: avatar.nameEs,
-                      description: avatar.description,
-                      descriptionEs: avatar.descriptionEs,
-                      price: price,
-                      rarity: avatar.rarity,
-                      emoji: avatar.emoji,
-                      chestOnly: (avatar as { chestOnly?: boolean }).chestOnly,
-                      meaning: (avatar as { meaning?: string }).meaning,
-                      meaningEn: (avatar as { meaningEn?: string }).meaningEn,
-                      unlockType: (avatar as { unlockType?: 'streak' | 'devotionals' | 'share' | 'store' }).unlockType,
-                      unlockValue: (avatar as { unlockValue?: number }).unlockValue,
-                    })}
-                  />
-                </Animated.View>
-              );
-            })}
+                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                    {language === 'es' ? sc.labelEs : sc.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, gap: gap, alignItems: 'flex-start' }}>
+              {filteredAvatars.map((avatar, index) => {
+                const hasCost = 'price' in avatar && (avatar as { price: number }).price > 0;
+                const price = hasCost ? (avatar as { price: number }).price : 0;
+                const { isOwned, isEquipped, canAfford } = getItemStatus(avatar.id, 'avatar', price);
+
+                return (
+                  <Animated.View
+                    key={avatar.id}
+                    entering={FadeInRight.delay(index * 35).duration(300)}
+                    style={{ width: itemWidth }}
+                  >
+                    <PremiumAvatarCard
+                      avatar={avatar}
+                      isOwned={isOwned}
+                      isEquipped={isEquipped}
+                      canAfford={canAfford}
+                      colors={colors}
+                      language={language}
+                      isHighlighted={pendingNavTarget?.itemId === avatar.id}
+                      isNewGift={newGiftItemIds.includes(avatar.id)}
+                      viewRef={(ref) => {
+                        if (ref) itemViewRefs.current.set(avatar.id, ref as unknown as View);
+                      }}
+                      onPress={() => handleItemPress({
+                        id: avatar.id,
+                        type: 'avatar',
+                        name: avatar.name,
+                        nameEs: avatar.nameEs,
+                        description: avatar.description,
+                        descriptionEs: avatar.descriptionEs,
+                        price: price,
+                        rarity: avatar.rarity,
+                        emoji: avatar.emoji,
+                        chestOnly: (avatar as { chestOnly?: boolean }).chestOnly,
+                        meaning: (avatar as { meaning?: string }).meaning,
+                        meaningEn: (avatar as { meaningEn?: string }).meaningEn,
+                        unlockType: (avatar as { unlockType?: 'streak' | 'devotionals' | 'share' | 'store' }).unlockType,
+                        unlockValue: (avatar as { unlockValue?: number }).unlockValue,
+                      })}
+                    />
+                  </Animated.View>
+                );
+              })}
+            </View>
           </View>
         );
       }
 
-      case 'bundles':
+      case 'bundles': {
+        const BUNDLE_SUBCATS = [
+          { key: 'all', labelEs: 'Todos', label: 'All' },
+          { key: 'adventures', labelEs: 'Aventuras Bíblicas', label: 'Biblical Adventures' },
+        ];
+        const allBundles = Object.values(STORE_BUNDLES);
+        const filteredBundles = activeSubcategory === 'adventures'
+          ? allBundles.filter(b => (b as any).isAdventure === true)
+          : allBundles;
+
         return (
-          <View className="px-5">
-            {Object.values(STORE_BUNDLES).map((bundle, index) => (
-              <Animated.View
-                key={bundle.id}
-                entering={FadeInDown.delay(index * 60).duration(400)}
-              >
-                <BundleCard
-                  bundle={bundle}
-                  purchasedItems={purchasedItems}
-                  points={points}
-                  colors={colors}
-                  language={language}
-                  onPress={() => handleBundlePurchase(bundle)}
-                  isPurchasing={bundlePurchaseMutation.isPending}
-                />
-              </Animated.View>
-            ))}
+          <View>
+            <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 12, gap: 8 }}>
+              {BUNDLE_SUBCATS.map(sc => (
+                <Pressable
+                  key={sc.key}
+                  onPress={() => { Haptics.selectionAsync(); setActiveSubcategory(sc.key); }}
+                  style={{
+                    paddingHorizontal: 16, paddingVertical: 7, borderRadius: 99,
+                    backgroundColor: activeSubcategory === sc.key ? colors.primary : colors.surface,
+                    borderWidth: 1,
+                    borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
+                  }}
+                >
+                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                    {language === 'es' ? sc.labelEs : sc.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+            <View className="px-5">
+              {filteredBundles.map((bundle, index) => (
+                <Animated.View
+                  key={bundle.id}
+                  entering={FadeInDown.delay(index * 60).duration(400)}
+                >
+                  <BundleCard
+                    bundle={bundle}
+                    purchasedItems={purchasedItems}
+                    points={points}
+                    colors={colors}
+                    language={language}
+                    onPress={() => handleBundlePurchase(bundle)}
+                    isPurchasing={bundlePurchaseMutation.isPending}
+                  />
+                </Animated.View>
+              ))}
+            </View>
           </View>
         );
+      }
 
       case 'collections':
         return (
@@ -5466,8 +5547,8 @@ export default function StoreScreen() {
     };
     const targetCategory = categoryMap[itemType] ?? 'avatars';
 
-    // V2-filter: disable it so the target item is always visible
-    setShowV2Only(false);
+    // subcategory-filter: reset so the target item is always visible
+    setActiveSubcategory('all');
     setActiveCategory(targetCategory);
     setPendingNavTarget({ itemId, itemType });
 
@@ -5678,24 +5759,41 @@ export default function StoreScreen() {
 
         {/* Category Cards */}
         <View style={{ paddingHorizontal: 20, marginBottom: 20, gap: 10 }}>
-          {CATEGORIES.map((category) => (
-            <CategoryCard
-              key={category.key}
-              category={category}
-              isActive={activeCategory === category.key}
-              colors={colors}
-              language={language}
-              badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
-              onPress={() => {
-                Haptics.selectionAsync();
-                setActiveCategory(category.key);
-                setShowV2Only(false);
-                if (category.key === 'collections') {
-                  markClaimablesSeen();
-                }
-              }}
-            />
-          ))}
+          {(() => {
+            const purchasableAvatarIds = DEFAULT_AVATARS.filter(a => 'price' in a && (a as { price?: number }).price! > 0).map(a => a.id);
+            const allThemeIds = Object.keys(PURCHASABLE_THEMES);
+            const allFrameIds = Object.keys(AVATAR_FRAMES);
+            const allTitleIds = Object.keys(SPIRITUAL_TITLES);
+            const allBundleIds = Object.keys(STORE_BUNDLES);
+            const owned = (ids: string[]) => ids.filter(id => purchasedItems.includes(id)).length;
+            const catProgress: Record<string, { owned: number; total: number }> = {
+              themes: { owned: owned(allThemeIds), total: allThemeIds.length },
+              frames: { owned: owned(allFrameIds), total: allFrameIds.length },
+              titles: { owned: owned(allTitleIds), total: allTitleIds.length },
+              avatars: { owned: owned(purchasableAvatarIds), total: purchasableAvatarIds.length },
+              bundles: { owned: owned(allBundleIds), total: allBundleIds.length },
+              collections: { owned: claimedCollectionIds.size, total: Object.keys(ITEM_COLLECTIONS).length + Object.keys(CHAPTER_COLLECTIONS).length },
+            };
+            return CATEGORIES.map((category) => (
+              <CategoryCard
+                key={category.key}
+                category={category}
+                isActive={activeCategory === category.key}
+                colors={colors}
+                language={language}
+                badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
+                progress={catProgress[category.key]}
+                onPress={() => {
+                  Haptics.selectionAsync();
+                  setActiveCategory(category.key);
+                  setActiveSubcategory('all');
+                  if (category.key === 'collections') {
+                    markClaimablesSeen();
+                  }
+                }}
+              />
+            ));
+          })()}
         </View>
 
         {/* Category Content */}
