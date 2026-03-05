@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-05T16:09:54.205Z"
+    "updatedAt": "2026-03-05T16:34:35.731Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -201,19 +201,19 @@
   },
   {
     "id": "cmmbe3rik0016m25rw06b6s43",
-    "nickname": "chavi",
+    "nickname": "Vitigre",
     "role": "USER",
     "avatarId": "avatar_star",
     "frameId": "frame_fuego",
     "titleId": "title_valiente",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 1593,
-    "streakCurrent": 1,
-    "streakBest": 0,
-    "devotionalsCompleted": 1,
+    "points": 1893,
+    "streakCurrent": 2,
+    "streakBest": 2,
+    "devotionalsCompleted": 2,
     "totalTimeSeconds": 0,
-    "lastActiveAt": "2026-03-04T18:00:00.000Z",
+    "lastActiveAt": "2026-03-05T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -222,7 +222,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-04T02:00:39.693Z",
-    "updatedAt": "2026-03-04T05:30:43.284Z"
+    "updatedAt": "2026-03-05T16:55:33.489Z"
   },
   {
     "id": "user_y2gpgsrn359mmcyy3c4",

@@ -838,5 +838,35 @@
     "amount": -2500,
     "metadata": "{\"itemId\":\"avatar_v2_corona_vida\",\"receiverUserId\":\"cmm9yc1nx000sm29qq8qeoai9\"}",
     "createdAt": "2026-03-05T15:12:33.126Z"
+  },
+  {
+    "id": "cmmdpeyuu0019m26qv4yw5tyx",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "ledgerId": "promo_cielo",
+    "type": "promo",
+    "dateId": "2026-03-05",
+    "amount": 10000,
+    "metadata": "{\"codeId\":\"cielo\",\"displayCode\":\"Cielo\"}",
+    "createdAt": "2026-03-05T16:52:50.551Z"
+  },
+  {
+    "id": "cmmdpf5ij001dm26qcuu5s0aw",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "ledgerId": "promo_fe",
+    "type": "promo",
+    "dateId": "2026-03-05",
+    "amount": 250,
+    "metadata": "{\"codeId\":\"fe\",\"displayCode\":\"Fe\"}",
+    "createdAt": "2026-03-05T16:52:59.180Z"
+  },
+  {
+    "id": "cmmdpfcsb001hm26qt2ubobfh",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "ledgerId": "promo_cristo",
+    "type": "promo",
+    "dateId": "2026-03-05",
+    "amount": 5000,
+    "metadata": "{\"codeId\":\"cristo\",\"displayCode\":\"Cristo\"}",
+    "createdAt": "2026-03-05T16:53:08.604Z"
   }
 ]

@@ -421,11 +421,13 @@ function LaunchEventBanner({
   colors,
   onPress,
   isOwned,
+  onViewAdventure,
 }: {
   language: 'en' | 'es';
   colors: ReturnType<typeof useThemeColors>;
   onPress: () => void;
   isOwned: boolean;
+  onViewAdventure?: () => void;
 }) {
   const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
@@ -513,7 +515,7 @@ function LaunchEventBanner({
           </View>
 
           {/* CTA */}
-          {!isOwned && (
+          {!isOwned ? (
             <View style={{
               backgroundColor: ACCENT,
               borderRadius: 99,
@@ -525,6 +527,25 @@ function LaunchEventBanner({
                 {language === 'es' ? 'Comenzar aventura' : 'Start adventure'}
               </Text>
             </View>
+          ) : (
+            <Pressable
+              onPress={(e) => { e.stopPropagation?.(); onViewAdventure?.(); }}
+              style={{
+                backgroundColor: ACCENT,
+                borderRadius: 99,
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                alignSelf: 'flex-start',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 6,
+              }}
+            >
+              <BookOpen size={15} color="#FFF" />
+              <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
+                {language === 'es' ? 'Ver aventura' : 'View Adventure'}
+              </Text>
+            </Pressable>
           )}
         </LinearGradient>
       </Pressable>
@@ -6765,14 +6786,13 @@ export default function StoreScreen() {
                     onViewAdventure={(targetType, targetId) => {
                       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                       if (targetType === 'collection') {
-                        // Try to find the matching collection and open its detail
-                        const stdCol = Object.values(ITEM_COLLECTIONS).find(c => c.id === targetId);
+                        // Resolve targetId — 'collection_growth_path' maps to the Naturaleza Bíblica collection
+                        const resolvedId = targetId === 'collection_growth_path' ? 'collection_v2_naturaleza' : targetId;
+                        const stdCol = Object.values(ITEM_COLLECTIONS).find(c => c.id === resolvedId);
                         if (stdCol) {
                           setSelectedCollection(stdCol as any);
                           setShowCollectionDetailModal(true);
                         }
-                        // If no collection found (e.g. collection_growth_path is the bundle itself),
-                        // do nothing — BundleCard already shows "Completed" state
                       } else {
                         // Close modal first, then navigate — router.push doesn't work from inside Modal
                         setShowStoreSectionModal(false);
@@ -6795,58 +6815,6 @@ export default function StoreScreen() {
       case 'collections':
         return (
           <View className="px-5">
-            {/* ── Aventuras Bíblicas Entry ── */}
-            <Animated.View entering={disableAnimations ? undefined : FadeInDown.delay(0).duration(400)} style={{ marginBottom: 12 }}>
-              <Pressable
-                onPress={() => {
-                  Haptics.selectionAsync();
-                  router.push('/collections/adventures');
-                }}
-                style={{ borderRadius: 18, overflow: 'hidden' }}
-              >
-                <LinearGradient
-                  colors={['#0B3A5C', '#1A6B8A']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{
-                    padding: 18,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 14,
-                    borderWidth: 1,
-                    borderColor: 'rgba(255,255,255,0.1)',
-                    borderRadius: 18,
-                  }}
-                >
-                  <View style={{
-                    width: 52, height: 52, borderRadius: 26,
-                    backgroundColor: 'rgba(255,255,255,0.12)',
-                    alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <Text style={{ fontSize: sFont(26) }}>📖</Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
-                      {language === 'es' ? 'Aventuras Bíblicas' : 'Biblical Adventures'}
-                    </Text>
-                    <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.6)' }}>
-                      {language === 'es' ? 'Colecciona recompensas de historias bíblicas' : 'Collect rewards from biblical stories'}
-                    </Text>
-                    {(() => {
-                      const advIds = Object.values(STORE_BUNDLES).filter(b => b.isAdventure && !b.comingSoon);
-                      const completed = advIds.filter(b => b.items.length > 0 && b.items.every(id => purchasedItems.includes(id))).length;
-                      return (
-                        <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.45)', marginTop: 3 }}>
-                          {completed}/{advIds.length} {language === 'es' ? 'aventuras completadas' : 'adventures completed'}
-                        </Text>
-                      );
-                    })()}
-                  </View>
-                  <ChevronRight size={20} color="rgba(255,255,255,0.5)" />
-                </LinearGradient>
-              </Pressable>
-            </Animated.View>
-
             {/* ── Chapter Collections (Spiritual Paths) ── */}
             {Object.values(CHAPTER_COLLECTIONS).map((chCol, index) => (
               <Animated.View
@@ -7261,6 +7229,14 @@ export default function StoreScreen() {
               setStoreSectionModalCategory('bundles');
               setShowStoreSectionModal(true);
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            }}
+            onViewAdventure={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              const col = ITEM_COLLECTIONS['collection_v2_naturaleza'];
+              if (col) {
+                setSelectedCollection(col as any);
+                setShowCollectionDetailModal(true);
+              }
             }}
           />
         )}

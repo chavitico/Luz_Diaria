@@ -1097,5 +1097,12 @@
     "itemId": "title_valiente_corazon",
     "acquiredAt": "2026-03-05T16:09:54.206Z",
     "source": "bundle:bundle_adv_esther"
+  },
+  {
+    "id": "cmmdpg00g001jm26qblszwf2e",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "pincel_magico",
+    "acquiredAt": "2026-03-05T16:53:38.705Z",
+    "source": "used"
   }
 ]
