@@ -6786,6 +6786,8 @@ export default function StoreScreen() {
                     onPress={() => handleBundlePurchase(bundle)}
                     isPurchasing={bundlePurchaseMutation.isPending}
                     onViewAdventure={(targetType, targetId) => {
+                      if (isOpeningModal.current) return;
+                      isOpeningModal.current = true;
                       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                       if (targetType === 'collection') {
                         // Resolve targetId — 'collection_growth_path' maps to the Naturaleza Bíblica collection
@@ -6794,9 +6796,10 @@ export default function StoreScreen() {
                         if (stdCol) {
                           setSelectedCollection(stdCol as any);
                           setShowCollectionDetailModal(true);
+                          isOpeningModal.current = false;
                         }
                       } else {
-                        // Defer navigation until modal dismiss animation fully completes
+                        // Defer navigation until modal dismiss animation fully completes (onDismiss resets lock)
                         pendingAdventureRoute.current = {
                           pathname: '/collections/adventures',
                           params: { bundleId: bundle.id },
@@ -7302,6 +7305,7 @@ export default function StoreScreen() {
         onDismiss={() => {
           const pending = pendingAdventureRoute.current;
           pendingAdventureRoute.current = null;
+          isOpeningModal.current = false;
           if (pending) {
             InteractionManager.runAfterInteractions(() => {
               router.push(pending as any);
