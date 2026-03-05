@@ -5735,6 +5735,10 @@ export default function StoreScreen() {
   const scrollViewPageY = useRef(0);
   // Map of itemId → View ref for highlight + scroll-to
   const itemViewRefs = useRef<Map<string, View>>(new Map());
+  // Anti-freeze guards: prevent double modal opens and rapid tap queuing
+  const isOpeningModal = useRef(false);
+  const lastCategoryTapAt = useRef(0);
+  const isOpeningItem = useRef(false);
 
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
@@ -6047,6 +6051,10 @@ export default function StoreScreen() {
   // Handle item press - open detail modal
   const handleItemPress = useCallback((item: typeof selectedDetailItem) => {
     if (!item) return;
+    // Guard: ignore duplicate rapid taps on the same item
+    if (isOpeningItem.current) return;
+    isOpeningItem.current = true;
+    setTimeout(() => { isOpeningItem.current = false; }, 500);
     setSelectedDetailItem(item);
     setShowDetailModal(true);
     Haptics.selectionAsync();
@@ -6063,21 +6071,24 @@ export default function StoreScreen() {
 
   // Handle bundle purchase
   const handleBundlePurchase = useCallback((bundle: typeof STORE_BUNDLES[string]) => {
+    if (bundlePurchaseMutation.isPending) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     bundlePurchaseMutate({
       bundleId: bundle.id,
       itemIds: bundle.items,
       bundlePrice: bundle.bundlePrice,
     });
-  }, [bundlePurchaseMutate]);
+  }, [bundlePurchaseMutate, bundlePurchaseMutation.isPending]);
 
   // Handle purchase from modal
   const handlePurchase = useCallback(() => {
     if (!selectedDetailItem) return;
+    // Guard: prevent double-tap purchase while already processing
+    if (purchaseMutation.isPending) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     markNewItemSeen(selectedDetailItem.id);
     purchaseMutate({ itemId: selectedDetailItem.id });
-  }, [selectedDetailItem, purchaseMutate, markNewItemSeen]);
+  }, [selectedDetailItem, purchaseMutate, markNewItemSeen, purchaseMutation.isPending]);
 
   // Handle equip from modal
   const handleEquip = useCallback(() => {
@@ -7243,6 +7254,9 @@ export default function StoreScreen() {
             colors={colors}
             isOwned={STORE_BUNDLES.bundle_launch_growth.items.every(id => purchasedItems.includes(id))}
             onPress={() => {
+              if (isOpeningModal.current) return;
+              isOpeningModal.current = true;
+              setTimeout(() => { isOpeningModal.current = false; }, 600);
               setActiveSubcategory('all');
               setStoreSectionModalCategory('bundles');
               setShowStoreSectionModal(true);
@@ -7252,7 +7266,15 @@ export default function StoreScreen() {
         )}
 
         {/* Category Cards */}
-        <View style={{ paddingHorizontal: 20, marginBottom: 20, gap: 10 }}>
+        <View
+          style={{ paddingHorizontal: 20, marginBottom: 20, gap: 10 }}
+          pointerEvents={isLoadingBackendUser ? 'none' : 'auto'}
+        >
+          {isLoadingBackendUser && (
+            <View style={{ position: 'absolute', top: 0, left: 20, right: 20, bottom: 0, zIndex: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: 'transparent' }}>
+              <ActivityIndicator size="small" color={colors.primary} />
+            </View>
+          )}
           {CATEGORIES.map((category) => (
             <CategoryCard
               key={category.key}
@@ -7264,6 +7286,15 @@ export default function StoreScreen() {
               hasNew={categoryHasNew[category.key as keyof typeof categoryHasNew] ?? false}
               progress={catProgress[category.key]}
               onPress={() => {
+                // Throttle: ignore taps within 500ms of the last one
+                const now = Date.now();
+                if (now - lastCategoryTapAt.current < 500) return;
+                lastCategoryTapAt.current = now;
+                // Guard: prevent double modal open
+                if (isOpeningModal.current) return;
+                isOpeningModal.current = true;
+                setTimeout(() => { isOpeningModal.current = false; }, 600);
+
                 Haptics.selectionAsync();
                 if (category.key === 'adventures') {
                   router.push('/collections/adventures');
