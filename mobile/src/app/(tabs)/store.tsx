@@ -5495,7 +5495,7 @@ export default function StoreScreen() {
   const t = TRANSLATIONS[language];
   const queryClient = useQueryClient();
 
-  const [activeCategory, setActiveCategory] = useState<CategoryType>('themes');
+  const [activeCategory, setActiveCategory] = useState<CategoryType | null>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<string>('all');
   const [showPointsToast, setShowPointsToast] = useState(false);
   const [toastAmount, setToastAmount] = useState(0);
