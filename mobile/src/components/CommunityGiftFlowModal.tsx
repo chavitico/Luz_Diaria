@@ -26,7 +26,6 @@ import {
   Animated,
   Easing,
   StyleSheet,
-  Dimensions,
 } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -46,7 +45,6 @@ import { ActionButton } from '@/components/ui/ActionButton';
 import type { CommunityMember } from '@/lib/gamification-api';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

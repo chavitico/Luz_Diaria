@@ -32,7 +32,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
-import Slider from '@react-native-community/slider';
 import {
   BookOpen,
   Heart,
@@ -44,14 +43,11 @@ import {
   Trophy,
   Play,
   Pause,
-  Square,
   Volume2,
   VolumeX,
   Music,
-  Settings2,
   Share2,
   X,
-  Download,
 } from 'lucide-react-native';
 import { ShareSheet } from '@/components/ShareSheet';
 import { BibleReferenceText } from '@/components/BibleReferenceText';

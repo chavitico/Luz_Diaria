@@ -214,7 +214,7 @@ export const gamificationApi = {
 
       if (res.status === 404) {
         // User doesn't exist, create them
-        console.log('[Gamification] User not found, registering:', user.id);
+        if (__DEV__) console.log('[Gamification] User not found, registering:', user.id);
 
         // Register with the user's existing ID by directly inserting (we need a special endpoint)
         // For now, we'll create a new user and they'll need to use that ID
@@ -230,7 +230,7 @@ export const gamificationApi = {
 
         if (registerRes.ok) {
           const newUser = await registerRes.json() as UserProfile;
-          console.log('[Gamification] Created new backend user:', newUser.id);
+          if (__DEV__) console.log('[Gamification] Created new backend user:', newUser.id);
           return newUser;
         }
 
@@ -250,7 +250,7 @@ export const gamificationApi = {
 
           if (retryRes.ok) {
             const newUser = await retryRes.json() as UserProfile;
-            console.log('[Gamification] Created backend user with new nickname:', newUser.id);
+            if (__DEV__) console.log('[Gamification] Created backend user with new nickname:', newUser.id);
             return newUser;
           }
         }

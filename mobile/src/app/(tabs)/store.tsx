@@ -20,7 +20,6 @@ import Animated, {
   FadeIn,
   FadeInDown,
   FadeInRight,
-  FadeOut,
   useSharedValue,
   useAnimatedStyle,
   withSpring,
@@ -216,8 +215,6 @@ function IconColecciones({ color, active }: { color: string; active: boolean }) 
 import {
   gamificationApi,
   StoreItem,
-  WeeklyProgress,
-  WeeklyChallenge,
   Season,
 } from '@/lib/gamification-api';
 
@@ -7027,7 +7024,7 @@ export default function StoreScreen() {
         isOpeningModal.current = false;
       });
     });
-  }, [showStoreSectionModal]);
+  }, [showStoreSectionModal, pendingAdventureNav]);
 
   // Build a detail item object from an itemId + itemType (used for auto-open)
   const buildDetailFromId = useCallback((

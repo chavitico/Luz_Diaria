@@ -81,7 +81,7 @@ Notifications.setNotificationHandler({
  */
 export async function requestNotificationPermissions(): Promise<boolean> {
   if (!Device.isDevice) {
-    console.log('[Notifications] Must use physical device for push notifications');
+    if (__DEV__) console.log('[Notifications] Must use physical device for push notifications');
     return false;
   }
 
@@ -94,7 +94,7 @@ export async function requestNotificationPermissions(): Promise<boolean> {
   }
 
   if (finalStatus !== 'granted') {
-    console.log('[Notifications] Permission not granted');
+    if (__DEV__) console.log('[Notifications] Permission not granted');
     return false;
   }
 
@@ -109,7 +109,7 @@ export async function requestNotificationPermissions(): Promise<boolean> {
     });
   }
 
-  console.log('[Notifications] Permission granted');
+  if (__DEV__) console.log('[Notifications] Permission granted');
   return true;
 }
 
@@ -134,7 +134,7 @@ export async function getNotificationSettings(): Promise<NotificationSettings> {
 export async function saveNotificationSettings(settings: NotificationSettings): Promise<void> {
   try {
     await AsyncStorage.setItem(NOTIFICATION_STORAGE_KEY, JSON.stringify(settings));
-    console.log('[Notifications] Settings saved:', settings);
+    if (__DEV__) console.log('[Notifications] Settings saved:', settings);
   } catch (error) {
     console.error('[Notifications] Error saving settings:', error);
   }
@@ -170,7 +170,7 @@ export async function scheduleDailyNotification(
       trigger,
     });
 
-    console.log(`[Notifications] Scheduled daily notification at ${hour}:${minute.toString().padStart(2, '0')}, ID: ${identifier}`);
+    if (__DEV__) console.log(`[Notifications] Scheduled daily notification at ${hour}:${minute.toString().padStart(2, '0')}, ID: ${identifier}`);
 
     await saveNotificationSettings({
       enabled: true,
@@ -201,7 +201,7 @@ async function cancelAllScheduledNotificationsOnly(): Promise<void> {
 export async function cancelAllScheduledNotifications(): Promise<void> {
   try {
     await Notifications.cancelAllScheduledNotificationsAsync();
-    console.log('[Notifications] All scheduled notifications cancelled');
+    if (__DEV__) console.log('[Notifications] All scheduled notifications cancelled');
 
     const settings = await getNotificationSettings();
     await saveNotificationSettings({
@@ -245,7 +245,7 @@ export async function markAppOpenedToday(): Promise<boolean> {
       return false; // Already opened today
     }
     await AsyncStorage.setItem(ENGAGEMENT_KEYS.LAST_OPENED_DATE, today);
-    console.log('[Engagement] App opened for the first time today:', today);
+    if (__DEV__) console.log('[Engagement] App opened for the first time today:', today);
     return true;
   } catch (error) {
     console.error('[Engagement] Error marking app open:', error);
@@ -273,7 +273,7 @@ export async function markNotificationSentToday(): Promise<void> {
   try {
     const today = getLocalDateString();
     await AsyncStorage.setItem(ENGAGEMENT_KEYS.LAST_NOTIFICATION_SENT_DATE, today);
-    console.log('[Engagement] Notification sent today:', today);
+    if (__DEV__) console.log('[Engagement] Notification sent today:', today);
   } catch (error) {
     console.error('[Engagement] Error marking notification sent:', error);
   }
@@ -300,7 +300,7 @@ export async function markDevotionalCompletedToday(): Promise<void> {
   try {
     const today = getLocalDateString();
     await AsyncStorage.setItem(ENGAGEMENT_KEYS.LAST_DEVOTIONAL_COMPLETED_DATE, today);
-    console.log('[Engagement] Devotional completed today:', today);
+    if (__DEV__) console.log('[Engagement] Devotional completed today:', today);
   } catch (error) {
     console.error('[Engagement] Error marking devotional completed:', error);
   }
@@ -350,7 +350,7 @@ export async function handleSmartNotificationOnOpen(language: 'en' | 'es' = 'es'
       if (hasPermission) {
         await scheduleDailyNotification(settings.hour, settings.minute, language);
         await markNotificationSentToday(); // prevent double-tracking
-        console.log('[Notifications] Suppressed today\'s notification (user opened early)');
+        if (__DEV__) console.log('[Notifications] Suppressed today\'s notification (user opened early)');
       }
     }
   } catch (error) {
@@ -376,7 +376,7 @@ export async function initializeNotifications(language: 'en' | 'es' = 'es'): Pro
       const hasPermission = await requestNotificationPermissions();
       if (hasPermission) {
         await scheduleDailyNotification(settings.hour, settings.minute, language);
-        console.log('[Notifications] Reinitialized daily notification');
+        if (__DEV__) console.log('[Notifications] Reinitialized daily notification');
         // Smart suppress: if user opens before notification time
         await handleSmartNotificationOnOpen(language);
       }
@@ -389,7 +389,7 @@ export async function initializeNotifications(language: 'en' | 'es' = 'es'): Pro
           DEFAULT_NOTIFICATION_SETTINGS.minute,
           language
         );
-        console.log('[Notifications] Auto-scheduled first-time notification at 7:00 AM');
+        if (__DEV__) console.log('[Notifications] Auto-scheduled first-time notification at 7:00 AM');
         await handleSmartNotificationOnOpen(language);
       }
     }
@@ -414,7 +414,7 @@ export async function sendTestNotification(language: 'en' | 'es' = 'es'): Promis
       },
       trigger: null,
     });
-    console.log('[Notifications] Test notification sent');
+    if (__DEV__) console.log('[Notifications] Test notification sent');
   } catch (error) {
     console.error('[Notifications] Error sending test notification:', error);
   }

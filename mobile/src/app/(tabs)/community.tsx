@@ -30,7 +30,6 @@ import {
   BookOpen,
   Flame,
   Heart,
-  Sparkles,
   WifiOff,
   Shield,
   Coins,
@@ -732,7 +731,7 @@ export default function CommunityScreen() {
       // Correct local nickname immediately if server has a different (canonical) value
       const canonicalNickname = backendUser.nickname ?? user.nickname;
       if (backendUser.nickname && backendUser.nickname !== user.nickname) {
-        console.log(`[Sync] Nickname corrected by server: "${user.nickname}" → "${backendUser.nickname}"`);
+        if (__DEV__) console.log(`[Sync] Nickname corrected by server: "${user.nickname}" → "${backendUser.nickname}"`);
         updateUser({ nickname: backendUser.nickname });
       }
 
@@ -799,12 +798,12 @@ export default function CommunityScreen() {
     const now = Date.now();
     // Cooldown: ignore if called within 10s of last run
     if (now - lastResumeRef.current < 10_000) {
-      console.log('[Community] onAppResume skipped — cooldown active');
+      if (__DEV__) console.log('[Community] onAppResume skipped — cooldown active');
       return;
     }
     lastResumeRef.current = now;
 
-    console.log('[Community] onAppResume: starting recovery pipeline');
+    if (__DEV__) console.log('[Community] onAppResume: starting recovery pipeline');
     setRefreshing(true);
     setLocalSupport({}); // clear optimistic state
 
@@ -814,9 +813,9 @@ export default function CommunityScreen() {
       // 2. Invalidate and refetch community data
       await queryClient.invalidateQueries({ queryKey: ['community-members'] });
       await queryClient.invalidateQueries({ queryKey: ['community-support-status'] });
-      console.log('[Community] onAppResume: recovery complete');
+      if (__DEV__) console.log('[Community] onAppResume: recovery complete');
     } catch (err) {
-      console.warn('[Community] onAppResume: recovery error', err);
+      if (__DEV__) console.warn('[Community] onAppResume: recovery error', err);
     } finally {
       setRefreshing(false);
     }
@@ -832,7 +831,7 @@ export default function CommunityScreen() {
       const prev = appStateRef.current;
       appStateRef.current = nextState;
       if ((prev === 'background' || prev === 'inactive') && nextState === 'active') {
-        console.log('[Community] App resumed from background — triggering recovery');
+        if (__DEV__) console.log('[Community] App resumed from background — triggering recovery');
         onAppResumeRef.current();
       }
     });
@@ -872,7 +871,7 @@ export default function CommunityScreen() {
   useEffect(() => {
     if (!isLoading) return;
     const timer = setTimeout(() => {
-      console.warn('[Community] isLoading stuck >20s — forcing refetch');
+      if (__DEV__) console.warn('[Community] isLoading stuck >20s — forcing refetch');
       refetch();
     }, 20_000);
     return () => clearTimeout(timer);

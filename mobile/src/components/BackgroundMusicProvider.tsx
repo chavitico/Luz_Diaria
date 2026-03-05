@@ -104,9 +104,9 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
           interruptionModeIOS: InterruptionModeIOS.MixWithOthers,
           interruptionModeAndroid: InterruptionModeAndroid.DuckOthers,
         });
-        console.log('Audio mode initialized successfully');
+        if (__DEV__) console.log('Audio mode initialized successfully');
       } catch (error) {
-        console.log('Error initializing audio mode:', error);
+        if (__DEV__) console.log('Error initializing audio mode:', error);
       }
     };
 
@@ -142,13 +142,13 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
   const loadTrack = useCallback(async (trackId: string) => {
     const track = MUSIC_TRACKS.find((t) => t.id === trackId);
     if (!track || !track.source) {
-      console.log('Track not found or no source:', trackId);
+      if (__DEV__) console.log('Track not found or no source:', trackId);
       return false;
     }
 
     try {
       setIsLoading(true);
-      console.log('Loading track:', trackId);
+      if (__DEV__) console.log('Loading track:', trackId);
 
       // Unload current sound if exists
       if (soundRef.current) {
@@ -170,10 +170,10 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
       soundRef.current = sound;
       setCurrentTrack(trackId);
       setIsLoading(false);
-      console.log('Track loaded successfully:', trackId);
+      if (__DEV__) console.log('Track loaded successfully:', trackId);
       return true;
     } catch (error) {
-      console.log('Error loading track:', error);
+      if (__DEV__) console.log('Error loading track:', error);
       setIsLoading(false);
       return false;
     }
@@ -188,22 +188,22 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
   const play = useCallback(async () => {
     // Mutex: ignore if another operation is already in progress
     if (operationInProgressRef.current) {
-      console.log('Play ignored — operation already in progress');
+      if (__DEV__) console.log('Play ignored — operation already in progress');
       return;
     }
     operationInProgressRef.current = true;
 
     try {
-      console.log('Play called, soundRef.current:', !!soundRef.current);
+      if (__DEV__) console.log('Play called, soundRef.current:', !!soundRef.current);
       if (!soundRef.current) {
         const loaded = await loadTrack(currentTrack);
         if (!loaded) {
-          console.log('Failed to load track for playback');
+          if (__DEV__) console.log('Failed to load track for playback');
           return;
         }
       }
 
-      console.log('Starting playback...');
+      if (__DEV__) console.log('Starting playback...');
       await soundRef.current?.playAsync();
       setIsPlaying(true);
       updateSettings({ musicEnabled: true });
@@ -217,9 +217,9 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
         const v = (target * i) / steps;
         try { await soundRef.current?.setVolumeAsync(v); } catch {}
       }
-      console.log('Playback started successfully');
+      if (__DEV__) console.log('Playback started successfully');
     } catch (error) {
-      console.log('Error playing:', error);
+      if (__DEV__) console.log('Error playing:', error);
     } finally {
       operationInProgressRef.current = false;
     }
@@ -227,7 +227,7 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
 
   const pause = useCallback(async () => {
     if (operationInProgressRef.current) {
-      console.log('Pause ignored — operation already in progress');
+      if (__DEV__) console.log('Pause ignored — operation already in progress');
       return;
     }
     operationInProgressRef.current = true;
@@ -245,7 +245,7 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
       await soundRef.current?.pauseAsync();
       setIsPlaying(false);
     } catch (error) {
-      console.log('Error pausing:', error);
+      if (__DEV__) console.log('Error pausing:', error);
     } finally {
       operationInProgressRef.current = false;
     }
@@ -264,7 +264,7 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
       await soundRef.current?.setPositionAsync(0);
       setIsPlaying(false);
     } catch (error) {
-      console.log('Error stopping:', error);
+      if (__DEV__) console.log('Error stopping:', error);
     }
   }, [volume]);
 
@@ -282,14 +282,14 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
     try {
       await soundRef.current?.setVolumeAsync(newVolume);
     } catch (error) {
-      console.log('Error setting volume:', error);
+      if (__DEV__) console.log('Error setting volume:', error);
     }
   }, [updateSettings]);
 
   const togglePlayback = useCallback(async () => {
     // Mutex check at toggle level too — debounces rapid taps
     if (operationInProgressRef.current) {
-      console.log('Toggle ignored — operation already in progress');
+      if (__DEV__) console.log('Toggle ignored — operation already in progress');
       return;
     }
     if (isPlaying) {
