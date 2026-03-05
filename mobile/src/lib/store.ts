@@ -69,6 +69,7 @@ const initialUserSettings: UserSettings = {
   ttsVoice: 'default',
   ttsSpeed: 1.0,
   ttsVolume: 1.0,
+  textScale: 1.0,
 };
 
 export const useAppStore = create<AppState>()(
@@ -272,6 +273,7 @@ export const useUserStreak = () => useAppStore((s) => s.user?.streakCurrent ?? 0
 export const useUserFavorites = () => useAppStore((s) => s.user?.favorites ?? [] as string[]);
 export const useUserSettings = () => useAppStore((s) => s.user?.settings ?? initialUserSettings);
 export const useLanguage = () => useAppStore((s) => s.user?.settings?.language ?? 'es');
+export const useTextScale = () => useAppStore((s) => s.user?.settings?.textScale ?? 1.0);
 
 // Gamification selector hooks
 export const useEquippedTheme = () => useAppStore((s) => s.user?.themeId ?? 'theme_amanecer');

@@ -10,6 +10,7 @@ export interface UserSettings {
   ttsVoice: string;
   ttsSpeed: number;
   ttsVolume: number;
+  textScale: number; // 0.85 – 1.40, default 1.0
 }
 
 export type ThemeOption = 'dawn' | 'dusk' | 'ocean' | 'forest' | 'rose';

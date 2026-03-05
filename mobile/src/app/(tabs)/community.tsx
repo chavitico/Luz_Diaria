@@ -36,6 +36,7 @@ import {
   Coins,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
+import { useScaledFont } from '@/lib/textScale';
 import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
 import { gamificationApi, CommunityMember } from '@/lib/gamification-api';
 import { getCountryByCode } from '@/components/CountryPicker';
@@ -99,6 +100,7 @@ function PrayerIconButton({
   isCurrentUser: boolean;
 }) {
   const colors = useThemeColors();
+  const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
 
   const animStyle = useAnimatedStyle(() => ({
@@ -132,11 +134,11 @@ function PrayerIconButton({
           opacity: isCurrentUser ? 0.25 : 1,
         }}
       >
-        <Text style={{ fontSize: 15 }}>{alreadySupported ? '🙏✨' : '🙏'}</Text>
+        <Text style={{ fontSize: sFont(15) }}>{alreadySupported ? '🙏✨' : '🙏'}</Text>
         {supportCount > 0 && (
           <Text
             style={{
-              fontSize: 11,
+              fontSize: sFont(11),
               fontWeight: '600',
               color: alreadySupported ? colors.primary : colors.textMuted,
               marginLeft: 3,
@@ -166,6 +168,7 @@ function MemberCard({
 }) {
   const colors = useThemeColors();
   const language = useLanguage();
+  const { sFont } = useScaledFont();
   const t = TRANSLATIONS[language];
 
   const title = member.titleId ? SPIRITUAL_TITLES[member.titleId] : null;
@@ -230,7 +233,7 @@ function MemberCard({
                 elevation: 2,
               }}
             >
-              <Text style={{ fontSize: 11, lineHeight: 16 }}>
+              <Text style={{ fontSize: sFont(11), lineHeight: 16 }}>
                 {getCountryByCode(member.countryCode)?.flag ?? ''}
               </Text>
             </View>
@@ -242,7 +245,7 @@ function MemberCard({
           {/* Row 1: nickname + chip (Admin / Tú) */}
           <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'nowrap', gap: 5 }}>
             <Text
-              style={{ fontSize: 14, fontWeight: '600', color: colors.text, flexShrink: 1 }}
+              style={{ fontSize: sFont(14), fontWeight: '600', color: colors.text, flexShrink: 1 }}
               numberOfLines={1}
             >
               {member.nickname}
@@ -262,7 +265,7 @@ function MemberCard({
                 {member.isAdmin && (
                   <Shield size={9} color={chipColor} style={{ marginRight: 2 }} />
                 )}
-                <Text style={{ fontSize: 10, fontWeight: '600', color: chipColor }}>
+                <Text style={{ fontSize: sFont(10), fontWeight: '600', color: chipColor }}>
                   {chipLabel}
                 </Text>
               </View>
@@ -274,7 +277,7 @@ function MemberCard({
             {titleDisplay && (
               <Text
                 style={{
-                  fontSize: 11,
+                  fontSize: sFont(11),
                   fontWeight: '500',
                   color: colors.primary,
                   flexShrink: 1,
@@ -288,12 +291,12 @@ function MemberCard({
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexShrink: 0, marginLeft: titleDisplay ? 2 : 0 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
                 <BookOpen size={11} color={colors.textMuted} />
-                <Text style={{ fontSize: 10, fontWeight: '500', color: colors.textMuted }}>{member.devotionalsCompleted}</Text>
+                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: colors.textMuted }}>{member.devotionalsCompleted}</Text>
               </View>
               {member.streakCurrent > 0 && (
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
                   <Flame size={11} color={colors.accent} />
-                  <Text style={{ fontSize: 10, fontWeight: '500', color: colors.textMuted }}>{member.streakCurrent}</Text>
+                  <Text style={{ fontSize: sFont(10), fontWeight: '500', color: colors.textMuted }}>{member.streakCurrent}</Text>
                 </View>
               )}
             </View>
@@ -317,7 +320,7 @@ function MemberCard({
           )}
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
             <Coins size={11} color={colors.primary} />
-            <Text style={{ fontSize: 10, fontWeight: '600', color: colors.primary }}>
+            <Text style={{ fontSize: sFont(10), fontWeight: '600', color: colors.primary }}>
               {member.points.toLocaleString()}
             </Text>
           </View>
@@ -461,6 +464,7 @@ export default function CommunityScreen() {
   const insets = useSafeAreaInsets();
   const colors = useThemeColors();
   const language = useLanguage();
+  const { sFont } = useScaledFont();
   const user = useUser();
   const queryClient = useQueryClient();
   const t = TRANSLATIONS[language];

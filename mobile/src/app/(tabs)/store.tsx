@@ -59,6 +59,7 @@ import {
   useUser,
   useAppStore,
 } from '@/lib/store';
+import { useScaledFont } from '@/lib/textScale';
 import { ActionButton } from '@/components/ui/ActionButton';
 import { GiftSendModal, type GiftSendItem } from '@/components/GiftSendModal';
 import {
@@ -122,6 +123,7 @@ function IconMarcos({ color, active }: { color: string; active: boolean }) {
 }
 
 function IconTitulos({ color, active }: { color: string; active: boolean }) {
+  const { sFont } = useScaledFont();
   const opacity = active ? 1 : 0.75;
   return (
     <View style={{ width: 26, height: 26, alignItems: 'center', justifyContent: 'center' }}>
@@ -143,7 +145,7 @@ function IconTitulos({ color, active }: { color: string; active: boolean }) {
       }} />
       {/* Star in medal */}
       <View style={{ position: 'absolute', bottom: 4, width: 6, height: 6, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontSize: 6, color: active ? '#fff' : color, opacity: opacity }}>★</Text>
+        <Text style={{ fontSize: sFont(6), color: active ? '#fff' : color, opacity: opacity }}>★</Text>
       </View>
     </View>
   );
@@ -232,10 +234,11 @@ function IconAventuras({ color, active }: { color: string; active: boolean }) {
 }
 
 function IconTokens({ color, active }: { color: string; active: boolean }) {
+  const { sFont } = useScaledFont();
   const opacity = active ? 1 : 0.75;
   return (
     <View style={{ width: 26, height: 26, alignItems: 'center', justifyContent: 'center', opacity }}>
-      <Text style={{ fontSize: 18, opacity }}>🖌️</Text>
+      <Text style={{ fontSize: sFont(18), opacity }}>🖌️</Text>
     </View>
   );
 }
@@ -269,6 +272,7 @@ function SeasonalItemsSection({
   language: 'en' | 'es';
   onPress: (item: StoreItem) => void;
 }) {
+  const { sFont } = useScaledFont();
   if (items.length === 0) return null;
   const accent = season.accentColor || '#7A1F1F';
 
@@ -277,7 +281,7 @@ function SeasonalItemsSection({
       {/* Section header */}
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, paddingHorizontal: 20, gap: 8 }}>
         <View style={{ flex: 1, height: 1, backgroundColor: accent + '40' }} />
-        <Text style={{ fontSize: 10, fontWeight: '800', color: accent, letterSpacing: 0.7 }}>
+        <Text style={{ fontSize: sFont(10), fontWeight: '800', color: accent, letterSpacing: 0.7 }}>
           {language === 'es' ? `✝ ${season.name.toUpperCase()}` : `✝ ${season.name.toUpperCase()}`}
         </Text>
         <View style={{ flex: 1, height: 1, backgroundColor: accent + '40' }} />
@@ -311,23 +315,23 @@ function SeasonalItemsSection({
                 colors={[accent + '33', '#0D0500']}
                 style={{ padding: 10, alignItems: 'center', gap: 4 }}
               >
-                <Text style={{ fontSize: 28 }}>{emoji}</Text>
-                <Text style={{ fontSize: 10, fontWeight: '700', color: '#FFFFFF', textAlign: 'center', lineHeight: 13 }} numberOfLines={2}>
+                <Text style={{ fontSize: sFont(28) }}>{emoji}</Text>
+                <Text style={{ fontSize: sFont(10), fontWeight: '700', color: '#FFFFFF', textAlign: 'center', lineHeight: 13 }} numberOfLines={2}>
                   {language === 'es' ? item.nameEs : item.nameEn}
                 </Text>
                 {item.badge && (
-                  <Text style={{ fontSize: 8, color: accent, fontWeight: '700' }}>{item.badge}</Text>
+                  <Text style={{ fontSize: sFont(8), color: accent, fontWeight: '700' }}>{item.badge}</Text>
                 )}
                 {isOwned ? (
                   <View style={{ backgroundColor: '#4CAF5033', borderRadius: 99, paddingHorizontal: 6, paddingVertical: 2 }}>
-                    <Text style={{ fontSize: 8, fontWeight: '700', color: '#4CAF50' }}>
+                    <Text style={{ fontSize: sFont(8), fontWeight: '700', color: '#4CAF50' }}>
                       {language === 'es' ? 'Tuyo' : 'Owned'}
                     </Text>
                   </View>
                 ) : (
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
                     <Coins size={9} color={canAfford ? '#FFD700' : '#888'} />
-                    <Text style={{ fontSize: 9, color: canAfford ? '#FFD700' : '#888', fontWeight: '600' }}>
+                    <Text style={{ fontSize: sFont(9), color: canAfford ? '#FFD700' : '#888', fontWeight: '600' }}>
                       {item.pricePoints === 0 ? (language === 'es' ? 'Bundle' : 'Bundle') : item.pricePoints.toLocaleString()}
                     </Text>
                   </View>
@@ -343,6 +347,7 @@ function SeasonalItemsSection({
 
 // ─── Season Banner Component ──────────────────────────────────────────────────
 function SeasonBanner({ season, language, onPress }: { season: Season; language: 'en' | 'es'; onPress?: () => void }) {
+  const { sFont } = useScaledFont();
   const accent = season.accentColor || '#7A1F1F';
   const accentLight = accent + 'CC';
   const accentDim = accent + '33';
@@ -369,7 +374,7 @@ function SeasonBanner({ season, language, onPress }: { season: Season; language:
             paddingHorizontal: 10,
             paddingVertical: 3,
           }}>
-            <Text style={{ fontSize: 10, fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
+            <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
               {language === 'es' ? '✝ Evento de Temporada' : '✝ Season Event'}
             </Text>
           </View>
@@ -377,7 +382,7 @@ function SeasonBanner({ season, language, onPress }: { season: Season; language:
 
         {/* Main title */}
         <Text style={{
-          fontSize: 22,
+          fontSize: sFont(22),
           fontWeight: '800',
           color: '#FFFFFF',
           letterSpacing: -0.3,
@@ -390,14 +395,14 @@ function SeasonBanner({ season, language, onPress }: { season: Season; language:
         </Text>
 
         {/* Description */}
-        <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.80)', lineHeight: 18, fontWeight: '400', marginBottom: 12 }}>
+        <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.80)', lineHeight: 18, fontWeight: '400', marginBottom: 12 }}>
           {season.bannerDescription}
         </Text>
 
         {/* Bottom: dates */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
           <View style={{ width: 5, height: 5, borderRadius: 2.5, backgroundColor: '#FFFFFF', opacity: 0.7 }} />
-          <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', fontWeight: '500' }}>
+          <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.6)', fontWeight: '500' }}>
             {new Date(season.startDate).toLocaleDateString(language === 'es' ? 'es-CO' : 'en-US', { month: 'short', day: 'numeric' })}
             {' — '}
             {new Date(season.endDate).toLocaleDateString(language === 'es' ? 'es-CO' : 'en-US', { month: 'short', day: 'numeric' })}
@@ -422,6 +427,7 @@ function LaunchEventBanner({
   onPress: () => void;
   isOwned: boolean;
 }) {
+  const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
@@ -456,13 +462,13 @@ function LaunchEventBanner({
               paddingHorizontal: 10,
               paddingVertical: 3,
             }}>
-              <Text style={{ fontSize: 10, fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
+              <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
                 ✨ {language === 'es' ? 'Evento de Lanzamiento' : 'Launch Event'}
               </Text>
             </View>
             {isOwned && (
               <View style={{ backgroundColor: '#4CAF5033', borderRadius: 99, paddingHorizontal: 8, paddingVertical: 2, borderWidth: 1, borderColor: '#4CAF5088' }}>
-                <Text style={{ fontSize: 9, fontWeight: '800', color: '#4CAF50' }}>
+                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#4CAF50' }}>
                   {language === 'es' ? 'COMPLETADO' : 'OWNED'}
                 </Text>
               </View>
@@ -471,7 +477,7 @@ function LaunchEventBanner({
 
           {/* Title */}
           <Text style={{
-            fontSize: 22,
+            fontSize: sFont(22),
             fontWeight: '800',
             color: '#FFFFFF',
             letterSpacing: -0.3,
@@ -484,7 +490,7 @@ function LaunchEventBanner({
           </Text>
 
           {/* Description */}
-          <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.75)', lineHeight: 18, marginBottom: 16 }}>
+          <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.75)', lineHeight: 18, marginBottom: 16 }}>
             {language === 'es'
               ? 'La fe que siembras hoy dará fruto mañana.'
               : 'The faith you plant today will bear fruit tomorrow.'}
@@ -498,10 +504,10 @@ function LaunchEventBanner({
                 backgroundColor: 'rgba(255,255,255,0.08)',
                 alignItems: 'center', justifyContent: 'center',
               }}>
-                <Text style={{ fontSize: 16 }}>{emoji}</Text>
+                <Text style={{ fontSize: sFont(16) }}>{emoji}</Text>
               </View>
             ))}
-            <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginLeft: 4 }}>
+            <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.5)', marginLeft: 4 }}>
               5 {language === 'es' ? 'recompensas' : 'rewards'}
             </Text>
           </View>
@@ -515,7 +521,7 @@ function LaunchEventBanner({
               paddingVertical: 10,
               alignSelf: 'flex-start',
             }}>
-              <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFFFFF' }}>
+              <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
                 {language === 'es' ? 'Comenzar aventura' : 'Start adventure'}
               </Text>
             </View>
@@ -544,6 +550,7 @@ function SeasonalAdventureCard({
   language: 'en' | 'es';
   onPress: () => void;
 }) {
+  const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const accent = season.accentColor || '#7A1F1F';
   const canAfford = points >= item.pricePoints;
@@ -580,7 +587,7 @@ function SeasonalAdventureCard({
               paddingHorizontal: 10,
               paddingVertical: 3,
             }}>
-              <Text style={{ fontSize: 10, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.8, textTransform: 'uppercase' }}>
+              <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.8, textTransform: 'uppercase' }}>
                 {item.badge || '✝ ' + season.name}
               </Text>
             </View>
@@ -593,14 +600,14 @@ function SeasonalAdventureCard({
                 paddingHorizontal: 8,
                 paddingVertical: 2,
               }}>
-                <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFD700', letterSpacing: 0.5 }}>NUEVO</Text>
+                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#FFD700', letterSpacing: 0.5 }}>NUEVO</Text>
               </View>
             )}
           </View>
 
           {/* Title */}
           <Text style={{
-            fontSize: 24,
+            fontSize: sFont(24),
             fontWeight: '800',
             color: '#FFFFFF',
             marginBottom: 6,
@@ -611,7 +618,7 @@ function SeasonalAdventureCard({
 
           {/* Description */}
           <Text style={{
-            fontSize: 13,
+            fontSize: sFont(13),
             color: 'rgba(255,255,255,0.75)',
             lineHeight: 18,
             marginBottom: 16,
@@ -622,7 +629,7 @@ function SeasonalAdventureCard({
           {/* Rewards indicator */}
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16 }}>
             <Gift size={14} color="rgba(255,255,255,0.6)" />
-            <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: '500' }}>
+            <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.6)', fontWeight: '500' }}>
               {rewardCount} {language === 'es' ? 'recompensas incluidas' : 'rewards included'}
             </Text>
           </View>
@@ -632,11 +639,11 @@ function SeasonalAdventureCard({
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
               <Coins size={18} color={isOwned ? '#4CAF50' : canAfford ? '#FFD700' : '#888'} />
               {isOwned ? (
-                <Text style={{ fontSize: 16, fontWeight: '800', color: '#4CAF50' }}>
+                <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#4CAF50' }}>
                   {language === 'es' ? 'Adquirido' : 'Owned'}
                 </Text>
               ) : (
-                <Text style={{ fontSize: 18, fontWeight: '800', color: canAfford ? '#FFD700' : '#888' }}>
+                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: canAfford ? '#FFD700' : '#888' }}>
                   {item.pricePoints.toLocaleString()}
                 </Text>
               )}
@@ -648,7 +655,7 @@ function SeasonalAdventureCard({
                 paddingVertical: 10,
                 borderRadius: 99,
               }}>
-                <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFFFFF' }}>
+                <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
                   {canAfford
                     ? (language === 'es' ? 'Obtener' : 'Get')
                     : (language === 'es' ? 'Sin puntos' : 'Need points')}
@@ -748,6 +755,7 @@ function RarityIcon({ rarity, size = 12 }: { rarity: string; size?: number }) {
 
 // Rarity Badge Component
 function RarityBadge({ rarity, language }: { rarity: string; language: 'en' | 'es' }) {
+  const { sFont } = useScaledFont();
   const color = RARITY_COLORS[rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
   const labels = {
     common: { en: 'Common', es: 'Comun' },
@@ -769,7 +777,7 @@ function RarityBadge({ rarity, language }: { rarity: string; language: 'en' | 'e
       }}
     >
       <RarityIcon rarity={rarity} size={10} />
-      <Text style={{ fontSize: 10, fontWeight: '600', color, textTransform: 'capitalize' }}>
+      <Text style={{ fontSize: sFont(10), fontWeight: '600', color, textTransform: 'capitalize' }}>
         {label}
       </Text>
     </View>
@@ -788,6 +796,7 @@ function ProfileHeader({
   points: number;
   language: 'en' | 'es';
 }) {
+  const { sFont } = useScaledFont();
   const t = TRANSLATIONS[language];
 
   const frameColor = user?.frameId && AVATAR_FRAMES[user.frameId]
@@ -838,7 +847,7 @@ function ProfileHeader({
                 shadowRadius: 8,
               }}
             >
-              <Text style={{ fontSize: 32 }}>{avatarEmoji}</Text>
+              <Text style={{ fontSize: sFont(32) }}>{avatarEmoji}</Text>
             </View>
           </View>
 
@@ -947,6 +956,7 @@ function ChestRewardModal({
   colors: ReturnType<typeof useThemeColors>;
   onClose: () => void;
 }) {
+  const { sFont } = useScaledFont();
   const scale = useSharedValue(0);
   const opacity = useSharedValue(0);
   const chestScale = useSharedValue(1);
@@ -1038,7 +1048,7 @@ function ChestRewardModal({
             {/* Rarity badge */}
             {isExclusive && (
               <View style={{ backgroundColor: rarityColor + '30', borderWidth: 1, borderColor: rarityColor, borderRadius: 99, paddingHorizontal: 12, paddingVertical: 4, marginBottom: 16 }}>
-                <Text style={{ color: rarityColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5 }}>
+                <Text style={{ color: rarityColor, fontSize: sFont(11), fontWeight: '700', letterSpacing: 1.5 }}>
                   {language === 'es' ? '✦ EXCLUSIVO DEL COFRE ✦' : '✦ CHEST EXCLUSIVE ✦'}
                 </Text>
               </View>
@@ -1047,7 +1057,7 @@ function ChestRewardModal({
             {/* Chest icon */}
             <Animated.View style={[{ marginBottom: 20 }, chestStyle]}>
               <View style={{ width: 96, height: 96, borderRadius: 48, backgroundColor: rarityColor + '25', alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: rarityColor + '60' }}>
-                <Text style={{ fontSize: 52 }}>🎁</Text>
+                <Text style={{ fontSize: sFont(52) }}>🎁</Text>
               </View>
             </Animated.View>
 
@@ -1055,7 +1065,7 @@ function ChestRewardModal({
             {reward?.type === 'item' ? (
               <>
                 {/* Item type label */}
-                <Text style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11, fontWeight: '600', letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 10 }}>
+                <Text style={{ color: 'rgba(255,255,255,0.55)', fontSize: sFont(11), fontWeight: '600', letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 10 }}>
                   {language === 'es'
                     ? reward.itemType === 'avatar' ? 'Nuevo avatar desbloqueado'
                       : reward.itemType === 'frame' ? 'Nuevo marco desbloqueado'
@@ -1070,28 +1080,28 @@ function ChestRewardModal({
                   }
                 </Text>
                 {reward.itemEmoji ? (
-                  <Text style={{ fontSize: 56, marginBottom: 12 }}>{reward.itemEmoji}</Text>
+                  <Text style={{ fontSize: sFont(56), marginBottom: 12 }}>{reward.itemEmoji}</Text>
                 ) : reward.itemColor ? (
                   <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: reward.itemColor, marginBottom: 12, borderWidth: 3, borderColor: 'rgba(255,255,255,0.4)' }} />
                 ) : null}
-                <Text style={{ color: '#FFFFFF', fontSize: 22, fontWeight: '800', textAlign: 'center', marginBottom: 6 }}>
+                <Text style={{ color: '#FFFFFF', fontSize: sFont(22), fontWeight: '800', textAlign: 'center', marginBottom: 6 }}>
                   {displayName}
                 </Text>
                 <View style={{ backgroundColor: rarityColor + '30', borderRadius: 99, paddingHorizontal: 14, paddingVertical: 5, marginBottom: 4 }}>
-                  <Text style={{ color: rarityColor, fontSize: 12, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 }}>
+                  <Text style={{ color: rarityColor, fontSize: sFont(12), fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 }}>
                     {reward.rarity}
                   </Text>
                 </View>
               </>
             ) : (
               <>
-                <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 8 }}>
+                <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: sFont(13), marginBottom: 8 }}>
                   {language === 'es' ? 'Has ganado' : 'You earned'}
                 </Text>
-                <Text style={{ color: '#FCD34D', fontSize: 52, fontWeight: '900', marginBottom: 8 }}>
+                <Text style={{ color: '#FCD34D', fontSize: sFont(52), fontWeight: '900', marginBottom: 8 }}>
                   +{reward?.value}
                 </Text>
-                <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 18, fontWeight: '600' }}>
+                <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: sFont(18), fontWeight: '600' }}>
                   {language === 'es' ? 'puntos' : 'points'}
                 </Text>
               </>
@@ -1102,7 +1112,7 @@ function ChestRewardModal({
               onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); onClose(); }}
               style={{ marginTop: 28, backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 16, paddingHorizontal: 40, paddingVertical: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.25)' }}
             >
-              <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '700' }}>
+              <Text style={{ color: '#FFFFFF', fontSize: sFont(16), fontWeight: '700' }}>
                 {language === 'es' ? '¡Genial!' : 'Awesome!'}
               </Text>
             </Pressable>
@@ -1603,6 +1613,7 @@ function PromoCodeCard({
   userId: string;
   onSuccess: (points: number) => void;
 }) {
+  const { sFont } = useScaledFont();
   const [code, setCode] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [isRedeeming, setIsRedeeming] = useState(false);
@@ -1719,7 +1730,7 @@ function PromoCodeCard({
                 flex: 1,
                 paddingHorizontal: 16,
                 paddingVertical: 14,
-                fontSize: 16,
+                fontSize: sFont(16),
                 color: colors.text,
                 fontWeight: '600',
               }}
@@ -1741,7 +1752,7 @@ function PromoCodeCard({
                   style={{
                     color: code.trim() ? '#FFFFFF' : colors.textMuted,
                     fontWeight: '700',
-                    fontSize: 14,
+                    fontSize: sFont(14),
                   }}
                 >
                   {language === 'es' ? 'Canjear' : 'Redeem'}
@@ -1875,6 +1886,7 @@ function CategoryCard({
   hasNew?: boolean;
   progress?: { owned: number; total: number };
 }) {
+  const { sFont } = useScaledFont();
   const { IconComponent } = category;
   const scale = useSharedValue(1);
 
@@ -1939,7 +1951,7 @@ function CategoryCard({
               borderWidth: 2,
               borderColor: isActive ? colors.primary : colors.background,
             }}>
-              <Text style={{ color: '#fff', fontSize: 10, fontWeight: '800', lineHeight: 14 }}>
+              <Text style={{ color: '#fff', fontSize: sFont(10), fontWeight: '800', lineHeight: 14 }}>
                 {badgeCount > 9 ? '9+' : String(badgeCount)}
               </Text>
             </View>
@@ -1950,7 +1962,7 @@ function CategoryCard({
         <View style={{ flex: 1 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <Text style={{
-              fontSize: 15,
+              fontSize: sFont(15),
               fontWeight: '700',
               color: isActive ? '#fff' : colors.text,
               marginBottom: 2,
@@ -1966,14 +1978,14 @@ function CategoryCard({
                 paddingVertical: 2,
                 marginBottom: 2,
               }}>
-                <Text style={{ color: '#fff', fontSize: 9, fontWeight: '800', letterSpacing: 0.5 }}>NUEVO</Text>
+                <Text style={{ color: '#fff', fontSize: sFont(9), fontWeight: '800', letterSpacing: 0.5 }}>NUEVO</Text>
               </View>
             )}
           </View>
           <Text
             numberOfLines={1}
             style={{
-              fontSize: 12,
+              fontSize: sFont(12),
               color: isActive ? 'rgba(255,255,255,0.75)' : colors.textMuted,
               lineHeight: 16,
             }}
@@ -1990,7 +2002,7 @@ function CategoryCard({
                     backgroundColor: isActive ? 'rgba(255,255,255,0.9)' : colors.primary,
                   }} />
                 </View>
-                <Text style={{ fontSize: 10, fontWeight: '600', color: isActive ? 'rgba(255,255,255,0.75)' : colors.textMuted }}>
+                <Text style={{ fontSize: sFont(10), fontWeight: '600', color: isActive ? 'rgba(255,255,255,0.75)' : colors.textMuted }}>
                   {progress.owned}/{progress.total}
                 </Text>
               </View>
@@ -2123,6 +2135,7 @@ function ItemDetailModal({
   isPurchasing: boolean;
   onGift?: () => void;
 }) {
+  const { sFont } = useScaledFont();
   const t = TRANSLATIONS[language];
   if (!item) return null;
 
@@ -2163,7 +2176,7 @@ function ItemDetailModal({
             borderColor: rarityColor + '40',
           }}
         >
-          <Text style={{ fontSize: 56 }}>{item.emoji}</Text>
+          <Text style={{ fontSize: sFont(56) }}>{item.emoji}</Text>
         </View>
       );
     }
@@ -2203,12 +2216,12 @@ function ItemDetailModal({
               }}
             />
             {/* Avatar emoji */}
-            <Text style={{ fontSize: 44 }}>🕊️</Text>
+            <Text style={{ fontSize: sFont(44) }}>🕊️</Text>
           </View>
           {/* Hex color label */}
           <Text style={{
             marginTop: 10,
-            fontSize: 11,
+            fontSize: sFont(11),
             fontWeight: '600',
             color: colors.textMuted,
             letterSpacing: 0.8,
@@ -2374,10 +2387,10 @@ function ItemDetailModal({
                     marginBottom: 12,
                   }}
                 >
-                  <Text style={{ fontSize: 11, fontWeight: '700', color: rarityColor, marginBottom: 3, letterSpacing: 0.5 }}>
+                  <Text style={{ fontSize: sFont(11), fontWeight: '700', color: rarityColor, marginBottom: 3, letterSpacing: 0.5 }}>
                     {language === 'es' ? 'SIGNIFICADO' : 'MEANING'}
                   </Text>
-                  <Text style={{ fontSize: 12, color: colors.text, lineHeight: 18, fontStyle: 'italic' }}>
+                  <Text style={{ fontSize: sFont(12), color: colors.text, lineHeight: 18, fontStyle: 'italic' }}>
                     {language === 'es' ? item.meaning : (item.meaningEn ?? item.meaning)}
                   </Text>
                 </View>
@@ -2398,10 +2411,10 @@ function ItemDetailModal({
                     marginBottom: 12,
                   }}
                 >
-                  <Text style={{ fontSize: 13 }}>
+                  <Text style={{ fontSize: sFont(13) }}>
                     {item.unlockType === 'streak' ? '🔥' : item.unlockType === 'devotionals' ? '📖' : item.unlockType === 'share' ? '💌' : '🏪'}
                   </Text>
-                  <Text style={{ fontSize: 12, fontWeight: '600', color: colors.textMuted }}>
+                  <Text style={{ fontSize: sFont(12), fontWeight: '600', color: colors.textMuted }}>
                     {language === 'es'
                       ? item.unlockType === 'streak'
                         ? `Racha de ${item.unlockValue} días`
@@ -2441,7 +2454,7 @@ function ItemDetailModal({
                       : rarityColor + '40',
                   }}>
                     <Text style={{
-                      fontSize: 11,
+                      fontSize: sFont(11),
                       fontWeight: '700',
                       letterSpacing: 0.5,
                       color: item.chestOnly ? '#F59E0B' : item.price === 0 ? '#22C55E' : rarityColor,
@@ -2531,7 +2544,7 @@ function ItemDetailModal({
                 })}
               >
                 <Gift size={15} color={colors.textMuted} />
-                <Text style={{ fontSize: 13, color: colors.textMuted, fontWeight: '600' }}>
+                <Text style={{ fontSize: sFont(13), color: colors.textMuted, fontWeight: '600' }}>
                   {language === 'es' ? 'Regalar a un amigo' : 'Gift to a friend'}
                 </Text>
               </Pressable>
@@ -2568,6 +2581,7 @@ function PremiumThemeCard({
   viewRef?: (ref: View | null) => void;
 })
  {
+  const { sFont } = useScaledFont();
   const t = TRANSLATIONS[language];
   const scale = useSharedValue(1);
   const highlightOpacity = useSharedValue(0);
@@ -2651,7 +2665,7 @@ function PremiumThemeCard({
             }}>
               {/* Row 1: Bold "Aa" heading text */}
               <Text style={{
-                fontSize: 15,
+                fontSize: sFont(15),
                 fontWeight: '800',
                 color: themeData.colors.text,
                 marginBottom: 4,
@@ -2670,7 +2684,7 @@ function PremiumThemeCard({
                 borderRadius: 99,
                 backgroundColor: themeData.colors.primary,
               }}>
-                <Text style={{ fontSize: 8, fontWeight: '700', color: '#FFFFFF' }}>V2</Text>
+                <Text style={{ fontSize: sFont(8), fontWeight: '700', color: '#FFFFFF' }}>V2</Text>
               </View>
             </View>
           )}
@@ -2727,7 +2741,7 @@ function PremiumThemeCard({
               paddingHorizontal: 7,
               paddingVertical: 3,
             }}>
-              <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+              <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
                 {language === 'es' ? 'NUEVO' : 'NEW'}
               </Text>
             </View>
@@ -2738,7 +2752,7 @@ function PremiumThemeCard({
           {/* Name: up to 2 lines, fixed minHeight so all cards align in the grid */}
           <View style={{ minHeight: 40, justifyContent: 'flex-start', marginBottom: 6 }}>
             <Text
-              style={{ fontSize: 13, fontWeight: '700', color: colors.text, lineHeight: 19 }}
+              style={{ fontSize: sFont(13), fontWeight: '700', color: colors.text, lineHeight: 19 }}
               numberOfLines={2}
               ellipsizeMode="tail"
             >
@@ -2750,30 +2764,30 @@ function PremiumThemeCard({
           {isEquipped ? (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Check size={13} color="#22C55E" strokeWidth={3} />
-              <Text style={{ fontSize: 12, fontWeight: '600', color: '#22C55E', marginLeft: 4 }}>
+              <Text style={{ fontSize: sFont(12), fontWeight: '600', color: '#22C55E', marginLeft: 4 }}>
                 {t.equipped}
               </Text>
             </View>
           ) : isOwned ? (
-            <Text style={{ fontSize: 12, fontWeight: '600', color: colors.primary }}>
+            <Text style={{ fontSize: sFont(12), fontWeight: '600', color: colors.primary }}>
               {t.equip}
             </Text>
           ) : themeData.chestOnly ? (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Gift size={11} color="#F59E0B" />
-              <Text style={{ fontSize: 10, fontWeight: '700', marginLeft: 3, color: '#F59E0B' }}>
+              <Text style={{ fontSize: sFont(10), fontWeight: '700', marginLeft: 3, color: '#F59E0B' }}>
                 {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
               </Text>
             </View>
           ) : themeData.price === 0 ? (
-            <Text style={{ fontSize: 12, fontWeight: '600', color: '#22C55E' }}>
+            <Text style={{ fontSize: sFont(12), fontWeight: '600', color: '#22C55E' }}>
               {language === 'es' ? 'Gratis' : 'Free'}
             </Text>
           ) : (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Coins size={13} color={canAfford ? colors.primary : colors.textMuted} />
               <Text
-                style={{ fontSize: 12, fontWeight: '700', marginLeft: 4, color: canAfford ? colors.primary : colors.textMuted }}
+                style={{ fontSize: sFont(12), fontWeight: '700', marginLeft: 4, color: canAfford ? colors.primary : colors.textMuted }}
               >
                 {themeData.price}
               </Text>
@@ -2809,6 +2823,7 @@ function PremiumFrameCard({
   isNewGift?: boolean;
   viewRef?: (ref: View | null) => void;
 }) {
+  const { sFont } = useScaledFont();
   const t = TRANSLATIONS[language];
   const scale = useSharedValue(1);
   const highlightOpacity = useSharedValue(0);
@@ -2889,7 +2904,7 @@ function PremiumFrameCard({
               borderWidth: 1,
               borderColor: frameData.color + '60',
             }}>
-              <Text style={{ fontSize: 8, fontWeight: '800', color: frameData.color, letterSpacing: 0.5 }}>V2</Text>
+              <Text style={{ fontSize: sFont(8), fontWeight: '800', color: frameData.color, letterSpacing: 0.5 }}>V2</Text>
             </View>
           )}
 
@@ -2902,7 +2917,7 @@ function PremiumFrameCard({
                 paddingHorizontal: 7,
                 paddingVertical: 3,
               }}>
-                <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
                   {language === 'es' ? 'NUEVO' : 'NEW'}
                 </Text>
               </View>
@@ -2964,7 +2979,7 @@ function PremiumFrameCard({
 
           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: isV2Frame ? 2 : 4 }}>
             <Text
-              style={{ fontSize: 12, fontWeight: '700', color: colors.text, maxWidth: isV2Frame ? 80 : 70 }}
+              style={{ fontSize: sFont(12), fontWeight: '700', color: colors.text, maxWidth: isV2Frame ? 80 : 70 }}
               numberOfLines={1}
             >
               {language === 'es' ? frameData.nameEs : frameData.name}
@@ -2977,7 +2992,7 @@ function PremiumFrameCard({
           {/* V2 subtitle description */}
           {isV2Frame && (
             <Text
-              style={{ fontSize: 9, color: colors.textMuted, textAlign: 'center', marginBottom: 4, maxWidth: 80 }}
+              style={{ fontSize: sFont(9), color: colors.textMuted, textAlign: 'center', marginBottom: 4, maxWidth: 80 }}
               numberOfLines={1}
             >
               {language === 'es'
@@ -2990,18 +3005,18 @@ function PremiumFrameCard({
           {isEquipped ? (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Check size={11} color="#22C55E" strokeWidth={3} />
-              <Text style={{ fontSize: 10, fontWeight: '600', color: '#22C55E', marginLeft: 2 }}>
+              <Text style={{ fontSize: sFont(10), fontWeight: '600', color: '#22C55E', marginLeft: 2 }}>
                 {t.equipped}
               </Text>
             </View>
           ) : isOwned ? (
-            <Text style={{ fontSize: 11, fontWeight: '600', color: colors.primary }}>
+            <Text style={{ fontSize: sFont(11), fontWeight: '600', color: colors.primary }}>
               {t.equip}
             </Text>
           ) : frameData.chestOnly ? (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Gift size={10} color="#F59E0B" />
-              <Text style={{ fontSize: 9, fontWeight: '700', marginLeft: 2, color: '#F59E0B' }}>
+              <Text style={{ fontSize: sFont(9), fontWeight: '700', marginLeft: 2, color: '#F59E0B' }}>
                 {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
               </Text>
             </View>
@@ -3009,7 +3024,7 @@ function PremiumFrameCard({
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Coins size={11} color={canAfford ? colors.primary : colors.textMuted} />
               <Text
-                style={{ fontSize: 11, fontWeight: '700', marginLeft: 3, color: canAfford ? colors.primary : colors.textMuted }}
+                style={{ fontSize: sFont(11), fontWeight: '700', marginLeft: 3, color: canAfford ? colors.primary : colors.textMuted }}
               >
                 {frameData.price}
               </Text>
@@ -3045,6 +3060,7 @@ function PremiumTitleCard({
   isNewGift?: boolean;
   viewRef?: (ref: View | null) => void;
 }) {
+  const { sFont } = useScaledFont();
   const t = TRANSLATIONS[language];
   const scale = useSharedValue(1);
   const highlightOpacity = useSharedValue(0);
@@ -3139,7 +3155,7 @@ function PremiumTitleCard({
                   paddingHorizontal: 7,
                   paddingVertical: 2,
                 }}>
-                  <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                  <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
                     {language === 'es' ? 'NUEVO' : 'NEW'}
                   </Text>
                 </View>
@@ -3230,6 +3246,7 @@ function PremiumAvatarCard({
   isNew?: boolean;
   viewRef?: (ref: View | null) => void;
 }) {
+  const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const highlightOpacity = useSharedValue(0);
   const hasCost = 'price' in avatar && (avatar as { price: number }).price > 0;
@@ -3309,7 +3326,7 @@ function PremiumAvatarCard({
               borderRadius: 4,
               backgroundColor: rarityColor + '20',
             }}>
-              <Text style={{ fontSize: 8, fontWeight: '700', color: rarityColor }}>V2</Text>
+              <Text style={{ fontSize: sFont(8), fontWeight: '700', color: rarityColor }}>V2</Text>
             </View>
           )}
 
@@ -3322,7 +3339,7 @@ function PremiumAvatarCard({
                 paddingHorizontal: 7,
                 paddingVertical: 3,
               }}>
-                <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
                   {language === 'es' ? 'NUEVO' : 'NEW'}
                 </Text>
               </View>
@@ -3340,7 +3357,7 @@ function PremiumAvatarCard({
                 shadowOpacity: 0.5,
                 shadowRadius: 4,
               }}>
-                <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
                   {language === 'es' ? 'NUEVO' : 'NEW'}
                 </Text>
               </View>
@@ -3366,7 +3383,7 @@ function PremiumAvatarCard({
                   gap: 3,
                 }}>
                   <Star size={7} color="#FFF" fill="#FFF" />
-                  <Text style={{ fontSize: 8, fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.3 }}>
+                  <Text style={{ fontSize: sFont(8), fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.3 }}>
                     {num ? `Av. #${num}` : (language === 'es' ? 'Aventura' : 'Adventure')}
                   </Text>
                 </View>
@@ -3410,7 +3427,7 @@ function PremiumAvatarCard({
               {isV2Avatar ? (
                 <IllustratedAvatar avatarId={avatar.id} size={60} emoji={avatar.emoji} />
               ) : (
-                <Text style={{ fontSize: 32 }}>{avatar.emoji}</Text>
+                <Text style={{ fontSize: sFont(32) }}>{avatar.emoji}</Text>
               )}
             </View>
 
@@ -3459,7 +3476,7 @@ function PremiumAvatarCard({
           </View>
 
           <Text
-            style={{ fontSize: 11, fontWeight: isV2Avatar ? '700' : '600', color: colors.text, textAlign: 'center', marginBottom: 4 }}
+            style={{ fontSize: sFont(11), fontWeight: isV2Avatar ? '700' : '600', color: colors.text, textAlign: 'center', marginBottom: 4 }}
             numberOfLines={1}
           >
             {language === 'es' && avatar.nameEs ? avatar.nameEs : avatar.name}
@@ -3471,25 +3488,25 @@ function PremiumAvatarCard({
               <Check size={10} color="#22C55E" strokeWidth={3} />
             </View>
           ) : isOwned && !isEquipped && hasCost ? (
-            <Text style={{ fontSize: 10, color: colors.primary, fontWeight: '600' }}>
+            <Text style={{ fontSize: sFont(10), color: colors.primary, fontWeight: '600' }}>
               {language === 'es' ? 'Equipar' : 'Equip'}
             </Text>
           ) : (avatar as { chestOnly?: boolean }).chestOnly ? (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Gift size={10} color="#F59E0B" />
-              <Text style={{ fontSize: 9, fontWeight: '700', marginLeft: 2, color: '#F59E0B' }}>
+              <Text style={{ fontSize: sFont(9), fontWeight: '700', marginLeft: 2, color: '#F59E0B' }}>
                 {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
               </Text>
             </View>
           ) : !hasCost || isOwned ? (
-            <Text style={{ fontSize: 10, color: '#22C55E', fontWeight: '600' }}>
+            <Text style={{ fontSize: sFont(10), color: '#22C55E', fontWeight: '600' }}>
               {language === 'es' ? 'Gratis' : 'Free'}
             </Text>
           ) : (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Coins size={10} color={canAfford ? colors.primary : colors.textMuted} />
               <Text
-                style={{ fontSize: 10, fontWeight: '700', marginLeft: 3, color: canAfford ? colors.primary : colors.textMuted }}
+                style={{ fontSize: sFont(10), fontWeight: '700', marginLeft: 3, color: canAfford ? colors.primary : colors.textMuted }}
               >
                 {price}
               </Text>
@@ -3521,6 +3538,7 @@ function BundleCard({
   isPurchasing?: boolean;
   onViewAdventure?: (targetType: string, targetId: string) => void;
 }) {
+  const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const rarityColor = RARITY_COLORS[bundle.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
   const canAfford = points >= bundle.bundlePrice;
@@ -3608,21 +3626,21 @@ function BundleCard({
             >
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                 <Star size={12} color="#FFF8E0" fill="#FFF8E0" />
-                <Text style={{ fontSize: 11, fontWeight: '900', color: '#FFF8E0', letterSpacing: 1.5 }}>
+                <Text style={{ fontSize: sFont(11), fontWeight: '900', color: '#FFF8E0', letterSpacing: 1.5 }}>
                   {(language === 'es' ? 'AVENTURA BÍBLICA' : 'BIBLICAL ADVENTURE')}
                   {adventureNumber ? ` #${adventureNumber}` : ''}
                 </Text>
               </View>
               {isComingSoon ? (
                 <View style={{ backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 99, paddingHorizontal: 10, paddingVertical: 3, borderWidth: 1, borderColor: 'rgba(255,255,255,0.25)' }}>
-                  <Text style={{ fontSize: 9, fontWeight: '800', color: '#FFF', letterSpacing: 0.8 }}>
+                  <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#FFF', letterSpacing: 0.8 }}>
                     {language === 'es' ? 'PRÓXIMAMENTE' : 'COMING SOON'}
                   </Text>
                 </View>
               ) : allOwned ? (
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: 'rgba(34,197,94,0.25)', borderRadius: 99, paddingHorizontal: 10, paddingVertical: 3 }}>
                   <Check size={10} color="#22C55E" strokeWidth={3} />
-                  <Text style={{ fontSize: 9, fontWeight: '800', color: '#22C55E' }}>
+                  <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#22C55E' }}>
                     {language === 'es' ? 'COMPRADA' : 'OWNED'}
                   </Text>
                 </View>
@@ -3633,10 +3651,10 @@ function BundleCard({
             <View style={{ padding: 16, gap: 14 }}>
               {/* Title row */}
               <View>
-                <Text style={{ fontSize: 19, fontWeight: '900', color: GOLD_LIGHT, letterSpacing: -0.3 }}>
+                <Text style={{ fontSize: sFont(19), fontWeight: '900', color: GOLD_LIGHT, letterSpacing: -0.3 }}>
                   {language === 'es' ? bundle.nameEs : bundle.name}
                 </Text>
-                <Text style={{ fontSize: 12, color: GOLD_ACCENT, marginTop: 2, fontWeight: '500' }}>
+                <Text style={{ fontSize: sFont(12), color: GOLD_ACCENT, marginTop: 2, fontWeight: '500' }}>
                   {language === 'es' ? bundle.descriptionEs : bundle.description}
                 </Text>
               </View>
@@ -3668,7 +3686,7 @@ function BundleCard({
                           </View>
                         )}
                         {preview?.type === 'avatar' && preview.emoji && (
-                          <Text style={{ fontSize: 26 }}>{preview.emoji}</Text>
+                          <Text style={{ fontSize: sFont(26) }}>{preview.emoji}</Text>
                         )}
                         {preview?.type === 'frame' && preview.color && (
                           <View style={{ width: 32, height: 32, borderRadius: 16, borderWidth: 4, borderColor: preview.color }} />
@@ -3678,7 +3696,7 @@ function BundleCard({
                         )}
                       </View>
                       {/* Label */}
-                      <Text style={{ fontSize: 10, fontWeight: '700', color: GOLD_ACCENT, letterSpacing: 0.3 }}>
+                      <Text style={{ fontSize: sFont(10), fontWeight: '700', color: GOLD_ACCENT, letterSpacing: 0.3 }}>
                         {typeLabel.toUpperCase()}
                       </Text>
                     </View>
@@ -3691,7 +3709,7 @@ function BundleCard({
                 {collectionBonus && !allOwned ? (
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                     <Sparkles size={12} color={GOLD_ACCENT} />
-                    <Text style={{ fontSize: 11, fontWeight: '700', color: GOLD_ACCENT }}>
+                    <Text style={{ fontSize: sFont(11), fontWeight: '700', color: GOLD_ACCENT }}>
                       {language === 'es'
                         ? `Incluye 3 recompensas + bono +${collectionBonus} pts`
                         : `3 rewards + collection bonus +${collectionBonus} pts`}
@@ -3700,7 +3718,7 @@ function BundleCard({
                 ) : allOwned ? (
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                     <Check size={12} color="#22C55E" strokeWidth={2.5} />
-                    <Text style={{ fontSize: 11, fontWeight: '700', color: '#22C55E' }}>
+                    <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#22C55E' }}>
                       {language === 'es' ? 'Todas las recompensas obtenidas' : 'All rewards acquired'}
                     </Text>
                   </View>
@@ -3712,7 +3730,7 @@ function BundleCard({
                 {!allOwned && !isComingSoon && (
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: GOLD_ACCENT + '25', borderRadius: 99, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: GOLD_ACCENT + '60' }}>
                     <Coins size={12} color={GOLD_LIGHT} />
-                    <Text style={{ fontSize: 13, fontWeight: '900', color: GOLD_LIGHT }}>{bundle.bundlePrice.toLocaleString()}</Text>
+                    <Text style={{ fontSize: sFont(13), fontWeight: '900', color: GOLD_LIGHT }}>{bundle.bundlePrice.toLocaleString()}</Text>
                   </View>
                 )}
               </View>
@@ -3748,21 +3766,21 @@ function BundleCard({
                     ) : allOwned ? (
                       <>
                         <BookOpen size={16} color="#FFF" />
-                        <Text style={{ fontSize: 14, fontWeight: '800', color: '#FFF', letterSpacing: 0.3 }}>
+                        <Text style={{ fontSize: sFont(14), fontWeight: '800', color: '#FFF', letterSpacing: 0.3 }}>
                           {language === 'es' ? 'Ver aventura' : 'View Adventure'}
                         </Text>
                       </>
                     ) : canAfford ? (
                       <>
                         <Sparkles size={16} color="#FFF8E0" />
-                        <Text style={{ fontSize: 14, fontWeight: '800', color: '#FFF8E0', letterSpacing: 0.3 }}>
+                        <Text style={{ fontSize: sFont(14), fontWeight: '800', color: '#FFF8E0', letterSpacing: 0.3 }}>
                           {language === 'es' ? 'Comprar aventura' : 'Buy Adventure'}
                         </Text>
                       </>
                     ) : (
                       <>
                         <Lock size={14} color="#999" />
-                        <Text style={{ fontSize: 14, fontWeight: '700', color: '#999' }}>
+                        <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#999' }}>
                           {language === 'es' ? 'Puntos insuficientes' : 'Not enough points'}
                         </Text>
                       </>
@@ -3825,7 +3843,7 @@ function BundleCard({
                     borderRadius: 4,
                     backgroundColor: rarityColor + '20',
                   }}>
-                    <Text style={{ fontSize: 9, fontWeight: '700', color: rarityColor }}>V2</Text>
+                    <Text style={{ fontSize: sFont(9), fontWeight: '700', color: rarityColor }}>V2</Text>
                   </View>
                 )}
               </View>
@@ -3876,7 +3894,7 @@ function BundleCard({
                   )}
                   {preview?.type === 'title' && <Award size={20} color={colors.textMuted} />}
                   {preview?.type === 'avatar' && preview.emoji && (
-                    <Text style={{ fontSize: 22 }}>{preview.emoji}</Text>
+                    <Text style={{ fontSize: sFont(22) }}>{preview.emoji}</Text>
                   )}
                 </View>
               );
@@ -4049,6 +4067,7 @@ function ClaimChapterButton({ onClaim, points, language, colors, isLoading }: {
   colors: ReturnType<typeof useThemeColors>;
   isLoading?: boolean;
 }) {
+  const { sFont } = useScaledFont();
   const [pressed, setPressed] = useState(false);
   return (
     <TouchableOpacity
@@ -4076,7 +4095,7 @@ function ClaimChapterButton({ onClaim, points, language, colors, isLoading }: {
       {isLoading ? (
         <ActivityIndicator size="small" color="#fff" />
       ) : (
-        <Text style={{ color: '#fff', fontWeight: '900', fontSize: 16, letterSpacing: 0.3 }}>
+        <Text style={{ color: '#fff', fontWeight: '900', fontSize: sFont(16), letterSpacing: 0.3 }}>
           {language === 'es' ? `🎁 Reclamar Capítulo +${points} pts` : `🎁 Claim Chapter +${points} pts`}
         </Text>
       )}
@@ -4105,6 +4124,7 @@ function ChapterCollectionModal({
   onClose: () => void;
   onNavigateToItem: (itemId: string, itemType: 'avatar' | 'frame' | 'title' | 'theme') => void;
 }) {
+  const { sFont } = useScaledFont();
   const translateY = useSharedValue(600);
   const opacity = useSharedValue(0);
   // Track which chapterId was just claimed so we can show "new chapter" message
@@ -4209,12 +4229,12 @@ function ChapterCollectionModal({
                 borderColor: allDone ? '#22C55E40' : colors.primary + '30',
                 marginBottom: 12,
               }}>
-                <Text style={{ fontSize: 40 }}>{collection.icon}</Text>
+                <Text style={{ fontSize: sFont(40) }}>{collection.icon}</Text>
               </View>
-              <Text style={{ fontSize: 22, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 6 }}>
+              <Text style={{ fontSize: sFont(22), fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 6 }}>
                 {language === 'es' ? collection.nameEs : collection.nameEn}
               </Text>
-              <Text style={{ fontSize: 13, color: colors.textMuted, textAlign: 'center', lineHeight: 20, paddingHorizontal: 8 }}>
+              <Text style={{ fontSize: sFont(13), color: colors.textMuted, textAlign: 'center', lineHeight: 20, paddingHorizontal: 8 }}>
                 {language === 'es' ? collection.descriptionEs : collection.descriptionEn}
               </Text>
             </View>
@@ -4230,7 +4250,7 @@ function ChapterCollectionModal({
                       backgroundColor: state === 'completed' ? '#22C55E' : state === 'active' ? colors.primary : colors.textMuted + '25',
                     }} />
                     <Text style={{
-                      fontSize: 9, fontWeight: '600', textAlign: 'center',
+                      fontSize: sFont(9), fontWeight: '600', textAlign: 'center',
                       color: state === 'completed' ? '#22C55E' : state === 'active' ? colors.primary : colors.textMuted + '60',
                     }}>
                       {language === 'es' ? ch.titleEs : ch.titleEn}
@@ -4254,11 +4274,11 @@ function ChapterCollectionModal({
                   borderColor: '#22C55E40',
                 }}
               >
-                <Text style={{ fontSize: 32, marginBottom: 6 }}>🏆</Text>
-                <Text style={{ fontSize: 16, fontWeight: '800', color: '#22C55E', marginBottom: 4 }}>
+                <Text style={{ fontSize: sFont(32), marginBottom: 6 }}>🏆</Text>
+                <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#22C55E', marginBottom: 4 }}>
                   {language === 'es' ? '¡Camino completado!' : 'Path completed!'}
                 </Text>
-                <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center', lineHeight: 18 }}>
+                <Text style={{ fontSize: sFont(12), color: colors.textMuted, textAlign: 'center', lineHeight: 18 }}>
                   {language === 'es'
                     ? 'Has completado todos los capítulos. Gracias por avanzar con fidelidad.'
                     : 'You have completed all chapters. Thank you for advancing with faithfulness.'}
@@ -4338,32 +4358,32 @@ function ChapterCollectionModal({
                         {isCompleted
                           ? <Check size={17} color="#22C55E" strokeWidth={2.5} />
                           : isActive
-                          ? <Text style={{ fontSize: 14, fontWeight: '800', color: colors.primary }}>{chapter.number}</Text>
+                          ? <Text style={{ fontSize: sFont(14), fontWeight: '800', color: colors.primary }}>{chapter.number}</Text>
                           : <Lock size={14} color={colors.textMuted} />
                         }
                       </View>
 
                       <View style={{ flex: 1 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 1 }}>
-                          <Text style={{ fontSize: 9, fontWeight: '700', color: isCompleted ? '#22C55E' : isActive ? colors.primary : colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.8 }}>
+                          <Text style={{ fontSize: sFont(9), fontWeight: '700', color: isCompleted ? '#22C55E' : isActive ? colors.primary : colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.8 }}>
                             {language === 'es' ? `Capítulo ${chapter.number}` : `Chapter ${chapter.number}`}
                           </Text>
                           {isActive && !isCompleted && (
                             <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 5, backgroundColor: colors.primary + '20' }}>
-                              <Text style={{ fontSize: 8, fontWeight: '800', color: colors.primary, letterSpacing: 0.5 }}>
+                              <Text style={{ fontSize: sFont(8), fontWeight: '800', color: colors.primary, letterSpacing: 0.5 }}>
                                 {language === 'es' ? 'ACTIVO' : 'ACTIVE'}
                               </Text>
                             </View>
                           )}
                           {isCompleted && (
                             <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 5, backgroundColor: '#22C55E20' }}>
-                              <Text style={{ fontSize: 8, fontWeight: '800', color: '#22C55E', letterSpacing: 0.5 }}>
+                              <Text style={{ fontSize: sFont(8), fontWeight: '800', color: '#22C55E', letterSpacing: 0.5 }}>
                                 {language === 'es' ? 'COMPLETADO' : 'COMPLETED'}
                               </Text>
                             </View>
                           )}
                         </View>
-                        <Text style={{ fontSize: 16, fontWeight: '800', color: isLocked ? colors.textMuted : colors.text }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: isLocked ? colors.textMuted : colors.text }}>
                           {language === 'es' ? chapter.titleEs : chapter.titleEn}
                         </Text>
                       </View>
@@ -4376,7 +4396,7 @@ function ChapterCollectionModal({
                         flexDirection: 'row', alignItems: 'center', gap: 3,
                       }}>
                         <Sparkles size={11} color={isCompleted ? '#22C55E' : isActive ? colors.primary : colors.textMuted} />
-                        <Text style={{ fontSize: 12, fontWeight: '700', color: isCompleted ? '#22C55E' : isActive ? colors.primary : colors.textMuted }}>
+                        <Text style={{ fontSize: sFont(12), fontWeight: '700', color: isCompleted ? '#22C55E' : isActive ? colors.primary : colors.textMuted }}>
                           +{chapter.rewardPoints}
                         </Text>
                       </View>
@@ -4397,7 +4417,7 @@ function ChapterCollectionModal({
                         }}>
                           <Lock size={16} color={colors.textMuted} />
                         </View>
-                        <Text style={{ flex: 1, fontSize: 13, color: colors.textMuted, lineHeight: 18 }}>
+                        <Text style={{ flex: 1, fontSize: sFont(13), color: colors.textMuted, lineHeight: 18 }}>
                           {language === 'es'
                             ? 'Completa el capítulo anterior para desbloquearlo.'
                             : 'Complete the previous chapter to unlock this one.'}
@@ -4425,8 +4445,8 @@ function ChapterCollectionModal({
                               gap: 8,
                             }}
                           >
-                            <Text style={{ fontSize: 18 }}>✨</Text>
-                            <Text style={{ flex: 1, fontSize: 13, color: colors.primary, fontWeight: '600', lineHeight: 18 }}>
+                            <Text style={{ fontSize: sFont(18) }}>✨</Text>
+                            <Text style={{ flex: 1, fontSize: sFont(13), color: colors.primary, fontWeight: '600', lineHeight: 18 }}>
                               {language === 'es'
                                 ? 'Ahora es tiempo de crecer y fortalecerte.'
                                 : 'Now is the time to grow and strengthen yourself.'}
@@ -4436,7 +4456,7 @@ function ChapterCollectionModal({
 
                         {/* Verse reference */}
                         {chapter.verseEn && (
-                          <Text style={{ fontSize: 10, fontWeight: '700', color: colors.primary, marginBottom: 6, letterSpacing: 0.5, textTransform: 'uppercase' }}>
+                          <Text style={{ fontSize: sFont(10), fontWeight: '700', color: colors.primary, marginBottom: 6, letterSpacing: 0.5, textTransform: 'uppercase' }}>
                             {language === 'es' ? chapter.verseEs : chapter.verseEn}
                           </Text>
                         )}
@@ -4450,17 +4470,17 @@ function ChapterCollectionModal({
                           borderLeftColor: colors.primary + '50',
                           marginBottom: 18,
                         }}>
-                          <Text style={{ fontSize: 13, lineHeight: 21, color: colors.text + 'DD', fontStyle: 'italic' }}>
+                          <Text style={{ fontSize: sFont(13), lineHeight: 21, color: colors.text + 'DD', fontStyle: 'italic' }}>
                             {language === 'es' ? chapter.spiritualTextEs : chapter.spiritualTextEn}
                           </Text>
                         </View>
 
                         {/* Items progress header */}
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 8 }}>
-                          <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.6, flex: 1 }}>
+                          <Text style={{ fontSize: sFont(10), fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.6, flex: 1 }}>
                             {language === 'es' ? 'Ítems requeridos' : 'Required items'}
                           </Text>
-                          <Text style={{ fontSize: 11, fontWeight: '700', color: chapterComplete ? '#22C55E' : colors.primary }}>
+                          <Text style={{ fontSize: sFont(11), fontWeight: '700', color: chapterComplete ? '#22C55E' : colors.primary }}>
                             {ownedCount}/{totalCount}
                           </Text>
                         </View>
@@ -4513,19 +4533,19 @@ function ChapterCollectionModal({
                                 marginRight: 11,
                               }}>
                                 {meta.emoji
-                                  ? <Text style={{ fontSize: 19 }}>{meta.emoji}</Text>
+                                  ? <Text style={{ fontSize: sFont(19) }}>{meta.emoji}</Text>
                                   : meta.color
                                   ? <View style={{ width: 22, height: 22, borderRadius: 11, backgroundColor: meta.color }} />
-                                  : <Text style={{ fontSize: 17 }}>{collection.icon}</Text>
+                                  : <Text style={{ fontSize: sFont(17) }}>{collection.icon}</Text>
                                 }
                               </View>
 
                               {/* Info */}
                               <View style={{ flex: 1 }}>
-                                <Text style={{ fontSize: 13, fontWeight: '700', color: owned ? colors.textMuted : colors.text }}>
+                                <Text style={{ fontSize: sFont(13), fontWeight: '700', color: owned ? colors.textMuted : colors.text }}>
                                   {language === 'es' ? meta.nameEs : meta.name}
                                 </Text>
-                                <Text style={{ fontSize: 10, color: colors.textMuted }}>
+                                <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>
                                   {typeLabel(ci.itemType)}
                                 </Text>
                               </View>
@@ -4534,13 +4554,13 @@ function ChapterCollectionModal({
                               {owned ? (
                                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                                   <Check size={14} color="#22C55E" strokeWidth={2.5} />
-                                  <Text style={{ fontSize: 11, fontWeight: '700', color: '#22C55E' }}>
+                                  <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#22C55E' }}>
                                     {language === 'es' ? 'Adquirido' : 'Acquired'}
                                   </Text>
                                 </View>
                               ) : isActive ? (
                                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, paddingHorizontal: 8, paddingVertical: 5, borderRadius: 8, backgroundColor: colors.primary + '15' }}>
-                                  <Text style={{ fontSize: 11, fontWeight: '700', color: colors.primary }}>
+                                  <Text style={{ fontSize: sFont(11), fontWeight: '700', color: colors.primary }}>
                                     {language === 'es' ? 'Ir' : 'Go'}
                                   </Text>
                                   <ChevronRight size={13} color={colors.primary} />
@@ -4566,12 +4586,12 @@ function ChapterCollectionModal({
                               borderColor: colors.textMuted + '18',
                               gap: 4,
                             }}>
-                              <Text style={{ color: colors.text, fontSize: 13, fontWeight: '700' }}>
+                              <Text style={{ color: colors.text, fontSize: sFont(13), fontWeight: '700' }}>
                                 {language === 'es'
                                   ? `${pendingCount} ítem${pendingCount !== 1 ? 's' : ''} pendiente${pendingCount !== 1 ? 's' : ''}`
                                   : `${pendingCount} item${pendingCount !== 1 ? 's' : ''} remaining`}
                               </Text>
-                              <Text style={{ color: colors.textMuted, fontSize: 11, textAlign: 'center', lineHeight: 17 }}>
+                              <Text style={{ color: colors.textMuted, fontSize: sFont(11), textAlign: 'center', lineHeight: 17 }}>
                                 {language === 'es'
                                   ? 'Completa todos los ítems de este capítulo para continuar tu camino espiritual.'
                                   : 'Complete all items in this chapter to continue your spiritual path.'}
@@ -4589,7 +4609,7 @@ function ChapterCollectionModal({
                             borderWidth: 1, borderColor: '#22C55E25',
                           }}>
                             <Check size={14} color="#22C55E" strokeWidth={2.5} />
-                            <Text style={{ fontSize: 12, fontWeight: '700', color: '#22C55E' }}>
+                            <Text style={{ fontSize: sFont(12), fontWeight: '700', color: '#22C55E' }}>
                               {language === 'es' ? 'Capítulo completado' : 'Chapter completed'}
                             </Text>
                           </View>
@@ -4611,7 +4631,7 @@ function ChapterCollectionModal({
                         borderWidth: 1,
                         borderColor: colors.primary + '20',
                       }}>
-                        <Text style={{ fontSize: 12, color: colors.primary, fontWeight: '600', textAlign: 'center', lineHeight: 18 }}>
+                        <Text style={{ fontSize: sFont(12), color: colors.primary, fontWeight: '600', textAlign: 'center', lineHeight: 18 }}>
                           {language === 'es'
                             ? 'Capítulo completo. Reclámalo para avanzar al siguiente nivel.'
                             : 'Chapter complete. Claim it to advance to the next level.'}
@@ -4709,6 +4729,7 @@ function CollectionDetailModal({
   onClose: () => void;
   onNavigateToItem: (itemId: string, itemType: 'avatar' | 'frame' | 'title' | 'theme') => void;
 }) {
+  const { sFont } = useScaledFont();
   const translateY = useSharedValue(600);
   const opacity = useSharedValue(0);
 
@@ -4817,13 +4838,13 @@ function CollectionDetailModal({
                   borderColor: isClaimed ? '#22C55E40' : colors.primary + '40',
                 }}
               >
-                <Text style={{ fontSize: 36 }}>{collection.icon}</Text>
+                <Text style={{ fontSize: sFont(36) }}>{collection.icon}</Text>
               </View>
 
-              <Text style={{ fontSize: 20, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 4 }}>
+              <Text style={{ fontSize: sFont(20), fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 4 }}>
                 {language === 'es' ? collection.nameEs : collection.name}
               </Text>
-              <Text style={{ fontSize: 13, color: colors.textMuted, textAlign: 'center', fontStyle: 'italic' }}>
+              <Text style={{ fontSize: sFont(13), color: colors.textMuted, textAlign: 'center', fontStyle: 'italic' }}>
                 {language === 'es' ? collection.subtitleEs : collection.subtitle}
               </Text>
             </View>
@@ -4839,7 +4860,7 @@ function CollectionDetailModal({
                 marginBottom: 20,
               }}
             >
-              <Text style={{ fontSize: 12, lineHeight: 20, color: colors.text + 'CC', fontStyle: 'italic' }}>
+              <Text style={{ fontSize: sFont(12), lineHeight: 20, color: colors.text + 'CC', fontStyle: 'italic' }}>
                 {language === 'es' ? collection.inspirationEs : collection.inspiration}
               </Text>
             </View>
@@ -4854,10 +4875,10 @@ function CollectionDetailModal({
               }}
             >
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                <Text style={{ fontSize: sFont(11), fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5 }}>
                   {language === 'es' ? 'Progreso' : 'Progress'}
                 </Text>
-                <Text style={{ fontSize: 13, fontWeight: '700', color: isComplete ? '#22C55E' : colors.primary }}>
+                <Text style={{ fontSize: sFont(13), fontWeight: '700', color: isComplete ? '#22C55E' : colors.primary }}>
                   {ownedCount}/{totalCount}
                 </Text>
               </View>
@@ -4871,7 +4892,7 @@ function CollectionDetailModal({
                   }}
                 />
               </View>
-              <Text style={{ fontSize: 12, color: colors.textMuted }}>
+              <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
                 {language === 'es'
                   ? `Has completado ${ownedCount} de ${totalCount}`
                   : `You have completed ${ownedCount} of ${totalCount}`}
@@ -4891,11 +4912,11 @@ function CollectionDetailModal({
                   borderColor: '#22C55E40',
                 }}
               >
-                <Text style={{ fontSize: 28, marginBottom: 6 }}>🏆</Text>
-                <Text style={{ fontSize: 15, fontWeight: '800', color: '#22C55E', marginBottom: 4 }}>
+                <Text style={{ fontSize: sFont(28), marginBottom: 6 }}>🏆</Text>
+                <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#22C55E', marginBottom: 4 }}>
                   {language === 'es' ? 'Coleccion completada' : 'Collection completed'}
                 </Text>
-                <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center' }}>
+                <Text style={{ fontSize: sFont(12), color: colors.textMuted, textAlign: 'center' }}>
                   {language === 'es'
                     ? 'Has completado este reto. Gracias por avanzar con fidelidad.'
                     : 'You completed this challenge. Thank you for advancing with faithfulness.'}
@@ -4904,7 +4925,7 @@ function CollectionDetailModal({
             )}
 
             {/* ── Items list ───────────────────────────────── */}
-            <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 12 }}>
+            <Text style={{ fontSize: sFont(11), fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 12 }}>
               {language === 'es' ? 'Elementos de la Coleccion' : 'Collection Items'}
             </Text>
 
@@ -4954,20 +4975,20 @@ function CollectionDetailModal({
                       }}
                     >
                       {meta.emoji ? (
-                        <Text style={{ fontSize: 20 }}>{meta.emoji}</Text>
+                        <Text style={{ fontSize: sFont(20) }}>{meta.emoji}</Text>
                       ) : meta.color ? (
                         <View style={{ width: 22, height: 22, borderRadius: 11, backgroundColor: meta.color, borderWidth: 2, borderColor: '#fff' + '80' }} />
                       ) : (
-                        <Text style={{ fontSize: 18 }}>{collection.icon}</Text>
+                        <Text style={{ fontSize: sFont(18) }}>{collection.icon}</Text>
                       )}
                     </View>
 
                     {/* Item info */}
                     <View style={{ flex: 1 }}>
-                      <Text style={{ fontSize: 13, fontWeight: '700', color: isOwned ? colors.textMuted : colors.text }}>
+                      <Text style={{ fontSize: sFont(13), fontWeight: '700', color: isOwned ? colors.textMuted : colors.text }}>
                         {language === 'es' ? meta.nameEs : meta.name}
                       </Text>
-                      <Text style={{ fontSize: 11, color: colors.textMuted, marginTop: 1 }}>
+                      <Text style={{ fontSize: sFont(11), color: colors.textMuted, marginTop: 1 }}>
                         {typeLabel(meta.type)}
                       </Text>
                     </View>
@@ -4976,7 +4997,7 @@ function CollectionDetailModal({
                     {isOwned ? (
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                         <Check size={14} color="#22C55E" strokeWidth={2.5} />
-                        <Text style={{ fontSize: 11, fontWeight: '600', color: '#22C55E' }}>
+                        <Text style={{ fontSize: sFont(11), fontWeight: '600', color: '#22C55E' }}>
                           {language === 'es' ? 'Adquirido' : 'Acquired'}
                         </Text>
                       </View>
@@ -5013,7 +5034,7 @@ function CollectionDetailModal({
                     ) : (
                       <Gift size={18} color="#fff" />
                     )}
-                    <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15 }}>
+                    <Text style={{ color: '#fff', fontWeight: '800', fontSize: sFont(15) }}>
                       {language === 'es' ? 'Reclamar recompensa' : 'Claim reward'} • +{collection.rewardPoints} pts
                     </Text>
                   </Pressable>
@@ -5028,12 +5049,12 @@ function CollectionDetailModal({
                       backgroundColor: colors.primary + '08',
                     }}
                   >
-                    <Text style={{ color: colors.primary, fontWeight: '700', fontSize: 13 }}>
+                    <Text style={{ color: colors.primary, fontWeight: '700', fontSize: sFont(13) }}>
                       {language === 'es'
                         ? `Faltan ${totalCount - ownedCount} elemento${totalCount - ownedCount !== 1 ? 's' : ''} para completar`
                         : `${totalCount - ownedCount} item${totalCount - ownedCount !== 1 ? 's' : ''} remaining to complete`}
                     </Text>
-                    <Text style={{ color: colors.textMuted, fontSize: 11, marginTop: 2 }}>
+                    <Text style={{ color: colors.textMuted, fontSize: sFont(11), marginTop: 2 }}>
                       {language === 'es' ? 'Toca un elemento pendiente para ir a el' : 'Tap a pending item to navigate to it'}
                     </Text>
                   </View>
@@ -5063,6 +5084,7 @@ function ChapterCollectionCard({
   claimedChapterIds: Set<string>;
   onPress: () => void;
 }) {
+  const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
@@ -5111,18 +5133,18 @@ function ChapterCollectionCard({
           paddingHorizontal: 12, paddingVertical: 6,
           backgroundColor: allDone ? '#22C55E12' : activeChapterReady ? colors.primary + '12' : colors.primary + '0C',
         }}>
-          <Text style={{ fontSize: 10, fontWeight: '700', color: allDone ? '#22C55E' : colors.primary, letterSpacing: 0.5 }}>
+          <Text style={{ fontSize: sFont(10), fontWeight: '700', color: allDone ? '#22C55E' : colors.primary, letterSpacing: 0.5 }}>
             {language === 'es' ? '✦ CAMINO ESPIRITUAL' : '✦ SPIRITUAL PATH'}
           </Text>
           <View style={{ flex: 1 }} />
           {activeChapterReady && !allDone ? (
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: colors.primary, borderRadius: 6, paddingHorizontal: 7, paddingVertical: 3 }}>
-              <Text style={{ fontSize: 10, fontWeight: '800', color: '#fff' }}>
+              <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#fff' }}>
                 🎁 {language === 'es' ? '¡Listo!' : 'Ready!'}
               </Text>
             </View>
           ) : (
-            <Text style={{ fontSize: 10, fontWeight: '600', color: allDone ? '#22C55E' : colors.textMuted }}>
+            <Text style={{ fontSize: sFont(10), fontWeight: '600', color: allDone ? '#22C55E' : colors.textMuted }}>
               {completedCount}/{totalChapters} {language === 'es' ? 'cap.' : 'ch.'}
             </Text>
           )}
@@ -5137,21 +5159,21 @@ function ChapterCollectionCard({
               backgroundColor: allDone ? '#22C55E18' : colors.primary + '18',
               marginRight: 12,
             }}>
-              <Text style={{ fontSize: 26 }}>{collection.icon}</Text>
+              <Text style={{ fontSize: sFont(26) }}>{collection.icon}</Text>
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15, fontWeight: '800', color: colors.text, marginBottom: 2 }}>
+              <Text style={{ fontSize: sFont(15), fontWeight: '800', color: colors.text, marginBottom: 2 }}>
                 {language === 'es' ? collection.nameEs : collection.nameEn}
               </Text>
               {activeChapter && !allDone ? (
-                <Text style={{ fontSize: 11, color: colors.primary, fontWeight: '600' }}>
+                <Text style={{ fontSize: sFont(11), color: colors.primary, fontWeight: '600' }}>
                   {language === 'es' ? `Capítulo ${activeChapter.number}: ` : `Chapter ${activeChapter.number}: `}
                   <Text style={{ fontWeight: '400', color: colors.textMuted }}>
                     {language === 'es' ? activeChapter.titleEs : activeChapter.titleEn}
                   </Text>
                 </Text>
               ) : (
-                <Text style={{ fontSize: 11, color: '#22C55E', fontWeight: '600' }}>
+                <Text style={{ fontSize: sFont(11), color: '#22C55E', fontWeight: '600' }}>
                   {language === 'es' ? 'Camino completado' : 'Path completed'}
                 </Text>
               )}
@@ -5170,7 +5192,7 @@ function ChapterCollectionCard({
                     height: 5, borderRadius: 3,
                     backgroundColor: done ? '#22C55E' : active ? colors.primary : colors.textMuted + '22',
                   }} />
-                  <Text style={{ fontSize: 9, fontWeight: '600', color: done ? '#22C55E' : active ? colors.primary : colors.textMuted + '80', textAlign: 'center' }}>
+                  <Text style={{ fontSize: sFont(9), fontWeight: '600', color: done ? '#22C55E' : active ? colors.primary : colors.textMuted + '80', textAlign: 'center' }}>
                     {language === 'es' ? ch.titleEs : ch.titleEn}
                   </Text>
                 </View>
@@ -5185,18 +5207,18 @@ function ChapterCollectionCard({
               backgroundColor: activeChapterReady ? colors.primary + '0C' : colors.textMuted + '08',
               borderRadius: 10, padding: 8,
             }}>
-              <Text style={{ fontSize: 11, color: colors.textMuted, flex: 1 }}>
+              <Text style={{ fontSize: sFont(11), color: colors.textMuted, flex: 1 }}>
                 {activeChapterOwnedCount}/{activeChapter.items.length} {language === 'es' ? 'ítems del capítulo activo' : 'items in active chapter'}
               </Text>
               {activeChapterReady ? (
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8, backgroundColor: colors.primary }}>
                   <Gift size={12} color="#fff" />
-                  <Text style={{ fontSize: 11, fontWeight: '800', color: '#fff' }}>
+                  <Text style={{ fontSize: sFont(11), fontWeight: '800', color: '#fff' }}>
                     {language === 'es' ? 'Listo' : 'Ready'}
                   </Text>
                 </View>
               ) : (
-                <Text style={{ fontSize: 11, fontWeight: '600', color: colors.primary }}>
+                <Text style={{ fontSize: sFont(11), fontWeight: '600', color: colors.primary }}>
                   +{activeChapter.rewardPoints} pts
                 </Text>
               )}
@@ -5230,6 +5252,7 @@ function CollectionCard({
   onClaim: (ownedItemIds: string[]) => void;
   onPress: () => void;
 }) {
+  const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const isV2Collection = 'isV2' in collection && (collection as any).isV2 === true;
 
@@ -5283,7 +5306,7 @@ function CollectionCard({
                   : colors.primary + '15',
               }}
             >
-              <Text style={{ fontSize: 24 }}>{collection.icon}</Text>
+              <Text style={{ fontSize: sFont(24) }}>{collection.icon}</Text>
             </View>
             <View className="flex-1">
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
@@ -5297,7 +5320,7 @@ function CollectionCard({
                     borderRadius: 4,
                     backgroundColor: colors.primary + '20',
                   }}>
-                    <Text style={{ fontSize: 9, fontWeight: '700', color: colors.primary }}>V2</Text>
+                    <Text style={{ fontSize: sFont(9), fontWeight: '700', color: colors.primary }}>V2</Text>
                   </View>
                 )}
                 {isNew && (
@@ -5312,7 +5335,7 @@ function CollectionCard({
                     shadowRadius: 4,
                     elevation: 3,
                   }}>
-                    <Text style={{ fontSize: 9, fontWeight: '800', color: '#fff' }}>
+                    <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#fff' }}>
                       {language === 'es' ? 'NUEVO' : 'NEW'}
                     </Text>
                   </View>
@@ -5391,7 +5414,7 @@ function CollectionCard({
                 ) : (
                   <Gift size={13} color="#fff" />
                 )}
-                <Text style={{ color: '#fff', fontWeight: '700', fontSize: 12 }}>
+                <Text style={{ color: '#fff', fontWeight: '700', fontSize: sFont(12) }}>
                   {language === 'es' ? 'Reclamar' : 'Claim'}
                 </Text>
               </Pressable>
@@ -5417,6 +5440,7 @@ function PointsToast({
   isPositive?: boolean;
   message?: string;
 }) {
+  const { sFont } = useScaledFont();
   const translateY = useSharedValue(50);
   const opacity = useSharedValue(0);
 
@@ -5477,12 +5501,12 @@ function PointsToast({
       >
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           <Sparkles size={16} color="#FFFFFF" />
-          <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15 }}>
+          <Text style={{ color: '#fff', fontWeight: '800', fontSize: sFont(15) }}>
             {amount === 0 && message ? message : `${isPositive ? '+' : '-'}${amount} pts`}
           </Text>
         </View>
         {message && amount !== 0 ? (
-          <Text style={{ color: '#ffffffCC', fontSize: 12, fontWeight: '500', textAlign: 'center' }}>
+          <Text style={{ color: '#ffffffCC', fontSize: sFont(12), fontWeight: '500', textAlign: 'center' }}>
             {message}
           </Text>
         ) : null}
@@ -5513,6 +5537,7 @@ function TokenItemCard({
   language: 'en' | 'es';
   onPress: () => void;
 }) {
+  const { sFont } = useScaledFont();
   const rarityColor = rarity === 'legendary' ? '#F59E0B' : RARITY_COLORS[rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
   const displayName = language === 'es' ? nameEs : name;
   const displayDesc = language === 'es' ? descriptionEs : description;
@@ -5546,7 +5571,7 @@ function TokenItemCard({
               borderWidth: 2, borderColor: isOwned ? colors.textMuted + '30' : rarityColor + '50',
               alignItems: 'center', justifyContent: 'center',
             }}>
-              <Text style={{ fontSize: 32 }}>{emoji}</Text>
+              <Text style={{ fontSize: sFont(32) }}>{emoji}</Text>
             </View>
             <View style={{ flex: 1 }}>
               {/* Rarity badge */}
@@ -5554,18 +5579,18 @@ function TokenItemCard({
                 backgroundColor: rarityColor + '20', borderWidth: 1, borderColor: rarityColor + '50',
                 borderRadius: 99, paddingHorizontal: 8, paddingVertical: 2, alignSelf: 'flex-start', marginBottom: 4,
               }}>
-                <Text style={{ fontSize: 9, fontWeight: '800', color: rarityColor, letterSpacing: 0.8, textTransform: 'uppercase' }}>
+                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: rarityColor, letterSpacing: 0.8, textTransform: 'uppercase' }}>
                   {language === 'es' ? 'Legendario' : 'Legendary'} · {language === 'es' ? 'Único' : 'One-time'}
                 </Text>
               </View>
               <Text style={{
-                fontSize: 18, fontWeight: '800', letterSpacing: -0.3,
+                fontSize: sFont(18), fontWeight: '800', letterSpacing: -0.3,
                 color: isOwned ? colors.textMuted : '#FFFFFF',
                 marginBottom: 2,
               }}>
                 {displayName}
               </Text>
-              <Text style={{ fontSize: 12, color: isOwned ? colors.textMuted : 'rgba(255,255,255,0.65)', lineHeight: 17 }}>
+              <Text style={{ fontSize: sFont(12), color: isOwned ? colors.textMuted : 'rgba(255,255,255,0.65)', lineHeight: 17 }}>
                 {displayDesc}
               </Text>
             </View>
@@ -5577,8 +5602,8 @@ function TokenItemCard({
             backgroundColor: isOwned ? colors.textMuted + '10' : '#F59E0B10',
             borderWidth: 1, borderColor: isOwned ? colors.textMuted + '20' : '#F59E0B30',
           }}>
-            <Text style={{ fontSize: 13 }}>⚠️</Text>
-            <Text style={{ flex: 1, fontSize: 11, color: isOwned ? colors.textMuted : '#F59E0B', lineHeight: 16 }}>
+            <Text style={{ fontSize: sFont(13) }}>⚠️</Text>
+            <Text style={{ flex: 1, fontSize: sFont(11), color: isOwned ? colors.textMuted : '#F59E0B', lineHeight: 16 }}>
               {displayWarning}
             </Text>
           </View>
@@ -5587,7 +5612,7 @@ function TokenItemCard({
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
               <Coins size={16} color={isOwned ? colors.textMuted : canAfford ? '#F59E0B' : '#888'} />
-              <Text style={{ fontSize: 18, fontWeight: '800', color: isOwned ? colors.textMuted : canAfford ? '#F59E0B' : '#888' }}>
+              <Text style={{ fontSize: sFont(18), fontWeight: '800', color: isOwned ? colors.textMuted : canAfford ? '#F59E0B' : '#888' }}>
                 {price.toLocaleString()}
               </Text>
             </View>
@@ -5599,10 +5624,10 @@ function TokenItemCard({
                 flexDirection: 'row', alignItems: 'center', gap: 5,
               }}>
                 {isUsed
-                  ? <Text style={{ fontSize: 12, fontWeight: '700', color: colors.textMuted }}>{language === 'es' ? 'Ya utilizado' : 'Already used'}</Text>
+                  ? <Text style={{ fontSize: sFont(12), fontWeight: '700', color: colors.textMuted }}>{language === 'es' ? 'Ya utilizado' : 'Already used'}</Text>
                   : <>
                       <Check size={12} color="#22C55E" strokeWidth={3} />
-                      <Text style={{ fontSize: 12, fontWeight: '700', color: '#22C55E' }}>{language === 'es' ? 'Adquirido' : 'Owned'}</Text>
+                      <Text style={{ fontSize: sFont(12), fontWeight: '700', color: '#22C55E' }}>{language === 'es' ? 'Adquirido' : 'Owned'}</Text>
                     </>
                 }
               </View>
@@ -5611,7 +5636,7 @@ function TokenItemCard({
                 paddingHorizontal: 20, paddingVertical: 10, borderRadius: 99,
                 backgroundColor: canAfford ? '#F59E0B' : colors.textMuted + '30',
               }}>
-                <Text style={{ fontSize: 14, fontWeight: '700', color: canAfford ? '#000000' : colors.textMuted }}>
+                <Text style={{ fontSize: sFont(14), fontWeight: '700', color: canAfford ? '#000000' : colors.textMuted }}>
                   {canAfford
                     ? (language === 'es' ? 'Obtener' : 'Get')
                     : (language === 'es' ? 'Sin puntos' : 'Need points')}
@@ -5627,6 +5652,7 @@ function TokenItemCard({
 
 // Main Store Screen
 export default function StoreScreen() {
+  const { sFont } = useScaledFont();
   const insets = useSafeAreaInsets();
   const colors = useThemeColors();
   const language = useLanguage();
@@ -6260,7 +6286,7 @@ export default function StoreScreen() {
                     borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
                   }}
                 >
-                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                  <Text style={{ fontSize: sFont(13), fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
                     {language === 'es' ? sc.labelEs : sc.label}
                   </Text>
                 </Pressable>
@@ -6351,7 +6377,7 @@ export default function StoreScreen() {
                     borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
                   }}
                 >
-                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                  <Text style={{ fontSize: sFont(13), fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
                     {language === 'es' ? sc.labelEs : sc.label}
                   </Text>
                 </Pressable>
@@ -6449,7 +6475,7 @@ export default function StoreScreen() {
                     borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
                   }}
                 >
-                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                  <Text style={{ fontSize: sFont(13), fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
                     {language === 'es' ? sc.labelEs : sc.label}
                   </Text>
                 </Pressable>
@@ -6560,7 +6586,7 @@ export default function StoreScreen() {
                     gap: 5,
                   }}
                 >
-                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                  <Text style={{ fontSize: sFont(13), fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
                     {language === 'es' ? sc.labelEs : sc.label}
                   </Text>
                   {subcatHasNew && activeSubcategory !== sc.key && (
@@ -6660,7 +6686,7 @@ export default function StoreScreen() {
                     borderColor: activeSubcategory === sc.key ? colors.primary : colors.textMuted + '30',
                   }}
                 >
-                  <Text style={{ fontSize: 13, fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                  <Text style={{ fontSize: sFont(13), fontWeight: '600', color: activeSubcategory === sc.key ? '#FFFFFF' : colors.textMuted }}>
                     {language === 'es' ? sc.labelEs : sc.label}
                   </Text>
                 </Pressable>
@@ -6673,7 +6699,7 @@ export default function StoreScreen() {
                   {/* Season section header */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 8 }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: (primarySeason.accentColor || '#7A1F1F') + '40' }} />
-                    <Text style={{ fontSize: 11, fontWeight: '700', color: primarySeason.accentColor || '#7A1F1F', letterSpacing: 0.5 }}>
+                    <Text style={{ fontSize: sFont(11), fontWeight: '700', color: primarySeason.accentColor || '#7A1F1F', letterSpacing: 0.5 }}>
                       {language === 'es' ? primarySeason.name.toUpperCase() : primarySeason.name.toUpperCase()}
                     </Text>
                     <View style={{ flex: 1, height: 1, backgroundColor: (primarySeason.accentColor || '#7A1F1F') + '40' }} />
@@ -6703,7 +6729,7 @@ export default function StoreScreen() {
                   {filteredBundles.length > 0 && (
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, marginTop: 4, gap: 8 }}>
                       <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '20' }} />
-                      <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, letterSpacing: 0.5 }}>
+                      <Text style={{ fontSize: sFont(10), fontWeight: '700', color: colors.textMuted, letterSpacing: 0.5 }}>
                         {language === 'es' ? 'OTROS PAQUETES' : 'OTHER BUNDLES'}
                       </Text>
                       <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '20' }} />
@@ -6786,20 +6812,20 @@ export default function StoreScreen() {
                     backgroundColor: 'rgba(255,255,255,0.12)',
                     alignItems: 'center', justifyContent: 'center',
                   }}>
-                    <Text style={{ fontSize: 26 }}>📖</Text>
+                    <Text style={{ fontSize: sFont(26) }}>📖</Text>
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 16, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                    <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
                       {language === 'es' ? 'Aventuras Bíblicas' : 'Biblical Adventures'}
                     </Text>
-                    <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>
+                    <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.6)' }}>
                       {language === 'es' ? 'Colecciona recompensas de historias bíblicas' : 'Collect rewards from biblical stories'}
                     </Text>
                     {(() => {
                       const advIds = Object.values(STORE_BUNDLES).filter(b => b.isAdventure && !b.comingSoon);
                       const completed = advIds.filter(b => b.items.length > 0 && b.items.every(id => purchasedItems.includes(id))).length;
                       return (
-                        <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', marginTop: 3 }}>
+                        <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.45)', marginTop: 3 }}>
                           {completed}/{advIds.length} {language === 'es' ? 'aventuras completadas' : 'adventures completed'}
                         </Text>
                       );
@@ -6834,7 +6860,7 @@ export default function StoreScreen() {
             {/* Divider */}
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 8, marginBottom: 16 }}>
               <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '20' }} />
-              <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, paddingHorizontal: 12, letterSpacing: 0.5 }}>
+              <Text style={{ fontSize: sFont(10), fontWeight: '700', color: colors.textMuted, paddingHorizontal: 12, letterSpacing: 0.5 }}>
                 {language === 'es' ? 'COLECCIONES LIBRES' : 'FREE COLLECTIONS'}
               </Text>
               <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '20' }} />
@@ -6881,7 +6907,7 @@ export default function StoreScreen() {
         return (
           <View className="px-5">
             <View style={{ marginBottom: 16, padding: 14, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.textMuted + '18' }}>
-              <Text style={{ fontSize: 13, color: colors.textMuted, lineHeight: 19 }}>
+              <Text style={{ fontSize: sFont(13), color: colors.textMuted, lineHeight: 19 }}>
                 {language === 'es'
                   ? 'Los Tokens son ítems especiales que desbloquean funciones únicas en tu perfil.'
                   : 'Tokens are special items that unlock unique features in your profile.'}
@@ -7281,7 +7307,7 @@ export default function StoreScreen() {
               <ChevronLeft size={24} color={colors.text} />
             </Pressable>
             <View style={{ flex: 1 }}>
-              <Text style={{ fontSize: 20, fontWeight: '800', color: colors.text }}>
+              <Text style={{ fontSize: sFont(20), fontWeight: '800', color: colors.text }}>
                 {storeSectionModalCategory ? (language === 'es'
                   ? CATEGORIES.find(c => c.key === storeSectionModalCategory)?.labelEs
                   : CATEGORIES.find(c => c.key === storeSectionModalCategory)?.label) : ''}
@@ -7290,7 +7316,7 @@ export default function StoreScreen() {
                 const prog = catProgress[storeSectionModalCategory];
                 if (!prog) return null;
                 return (
-                  <Text style={{ fontSize: 12, color: colors.textMuted }}>
+                  <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
                     {prog.owned}/{prog.total} {language === 'es' ? 'obtenidos' : 'obtained'}
                   </Text>
                 );

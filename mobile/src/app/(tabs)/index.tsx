@@ -69,6 +69,7 @@ import { TRANSLATIONS } from '@/lib/constants';
 import { COMPLETION_REQUIREMENTS, POINTS } from '@/lib/types';
 import type { Devotional, DailyActions } from '@/lib/types';
 import { cn } from '@/lib/cn';
+import { useScaledFont } from '@/lib/textScale';
 import { useMusicPlayer, MUSIC_TRACKS } from '@/components/BackgroundMusicProvider';
 import { PointsToast, usePointsToast } from '@/components/PointsToast';
 import { gamificationApi } from '@/lib/gamification-api';
@@ -491,6 +492,7 @@ function AchievementPopup({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
 }) {
+  const { sFont } = useScaledFont();
   const scale = useSharedValue(0);
   const opacity = useSharedValue(0);
 
@@ -559,7 +561,7 @@ function AchievementPopup({
         <Text
           style={{
             color: colors.text,
-            fontSize: 24,
+            fontSize: sFont(24),
             fontWeight: 'bold',
             marginBottom: 8,
             textAlign: 'center',
@@ -570,7 +572,7 @@ function AchievementPopup({
         <Text
           style={{
             color: colors.primary,
-            fontSize: 28,
+            fontSize: sFont(28),
             fontWeight: 'bold',
           }}
         >
@@ -783,6 +785,7 @@ function PastoralClosure({
   onFavorite: () => void;
   onPrayerTab: () => void;
 }) {
+  const { sFont } = useScaledFont();
   return (
     <Animated.View
       entering={FadeInDown.delay(200).duration(500)}
@@ -795,10 +798,10 @@ function PastoralClosure({
 
       {/* Closing message */}
       <View style={{ alignItems: 'center', marginBottom: 28, paddingHorizontal: 8 }}>
-        <Text style={{ fontSize: 18, marginBottom: 12 }}>🕊️</Text>
+        <Text style={{ fontSize: sFont(18), marginBottom: 12 }}>🕊️</Text>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: sFont(16),
             fontWeight: '600',
             color: colors.text,
             textAlign: 'center',
@@ -812,7 +815,7 @@ function PastoralClosure({
         </Text>
         <Text
           style={{
-            fontSize: 14,
+            fontSize: sFont(14),
             color: colors.textMuted,
             textAlign: 'center',
             lineHeight: 21,
@@ -850,8 +853,8 @@ function PastoralClosure({
             elevation: 6,
           })}
         >
-          <Text style={{ fontSize: 18 }}>🤲</Text>
-          <Text style={{ fontSize: 15, fontWeight: '700', color: colors.primaryText, letterSpacing: 0.2 }}>
+          <Text style={{ fontSize: sFont(18) }}>🤲</Text>
+          <Text style={{ fontSize: sFont(15), fontWeight: '700', color: colors.primaryText, letterSpacing: 0.2 }}>
             {language === 'es' ? 'Orar por la comunidad' : 'Pray for the community'}
           </Text>
         </Pressable>
@@ -883,7 +886,7 @@ function PastoralClosure({
           />
           <Text
             style={{
-              fontSize: 15,
+              fontSize: sFont(15),
               fontWeight: '700',
               color: colors.primary,
             }}
@@ -908,6 +911,7 @@ function SpiritualIntro({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
 }) {
+  const { sFont } = useScaledFont();
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY.value, [0, 80], [1, 0], Extrapolation.CLAMP),
     transform: [
@@ -923,7 +927,7 @@ function SpiritualIntro({
       <Text
         numberOfLines={1}
         style={{
-          fontSize: 12,
+          fontSize: sFont(12),
           color: colors.textMuted,
           textAlign: 'center',
           letterSpacing: 0.4,
@@ -1161,6 +1165,7 @@ function DailyEngagementBanner({
   isFavorite: boolean;
   onToggleFavorite: () => void;
 }) {
+  const { sFont } = useScaledFont();
   const opacity = useSharedValue(0);
   const translateY = useSharedValue(8);
 
@@ -1193,10 +1198,10 @@ function DailyEngagementBanner({
           },
         ]}
       >
-        <Text style={{ fontSize: 16 }}>🙏</Text>
+        <Text style={{ fontSize: sFont(16) }}>🙏</Text>
         <Text
           style={{
-            fontSize: 14,
+            fontSize: sFont(14),
             color: colors.primary,
             fontWeight: '500',
             flexShrink: 1,
@@ -1231,7 +1236,7 @@ function DailyEngagementBanner({
         <Check size={13} color="rgb(34,197,94)" strokeWidth={2.5} />
         <Text
           style={{
-            fontSize: 13,
+            fontSize: sFont(13),
             color: 'rgb(34,197,94)',
             fontWeight: '500',
           }}
@@ -1266,7 +1271,7 @@ function DailyEngagementBanner({
     >
       <Text
         style={{
-          fontSize: 14,
+          fontSize: sFont(14),
           color: colors.textMuted,
           fontStyle: 'italic',
           letterSpacing: 0.1,
@@ -1285,6 +1290,7 @@ export default function HomeScreen() {
   const router = useRouter();
   const colors = useThemeColors();
   const language = useLanguage();
+  const { sFont } = useScaledFont();
   const t = TRANSLATIONS[language];
   const user = useUser();
   const favorites = useUserFavorites();
@@ -1942,11 +1948,11 @@ export default function HomeScreen() {
         className="flex-1 items-center justify-center"
         style={{ backgroundColor: colors.background, padding: 32 }}
       >
-        <Text style={{ fontSize: 40, marginBottom: 16 }}>📵</Text>
-        <Text style={{ fontSize: 17, fontWeight: '700', color: colors.text, textAlign: 'center', marginBottom: 8 }}>
+        <Text style={{ fontSize: sFont(40), marginBottom: 16 }}>📵</Text>
+        <Text style={{ fontSize: sFont(17), fontWeight: '700', color: colors.text, textAlign: 'center', marginBottom: 8 }}>
           {language === 'es' ? 'Sin conexión' : 'No connection'}
         </Text>
-        <Text style={{ fontSize: 14, color: colors.textMuted, textAlign: 'center', lineHeight: 20 }}>
+        <Text style={{ fontSize: sFont(14), color: colors.textMuted, textAlign: 'center', lineHeight: 20 }}>
           {language === 'es'
             ? 'Conéctate a internet para descargar el devocional de hoy.'
             : 'Connect to the internet to download today\'s devotional.'}
@@ -1986,7 +1992,7 @@ export default function HomeScreen() {
               justifyContent: 'center',
               gap: 6,
             }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
+              <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
                 {language === 'es'
                   ? 'Devocional de hoy listo  •  Disponible sin conexion'
                   : 'Today\'s devotional ready  •  Available offline'}
@@ -2006,7 +2012,7 @@ export default function HomeScreen() {
               justifyContent: 'center',
               gap: 6,
             }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
+              <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
                 {language === 'es'
                   ? `Mostrando devocional guardado  •  Disponible sin conexion  •  ${offlineCachedDate}`
                   : `Showing saved devotional  •  Available offline  •  ${offlineCachedDate}`}
@@ -2026,7 +2032,7 @@ export default function HomeScreen() {
               justifyContent: 'center',
               gap: 6,
             }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
+              <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
                 {language === 'es'
                   ? 'Sin conexion — conectate para descargar el devocional'
                   : 'No connection — connect to download today\'s devotional'}
@@ -2093,7 +2099,7 @@ export default function HomeScreen() {
             {user && user.streakCurrent > 0 ? (
               <View className="flex-row items-center bg-orange-500/90 px-3 py-2 rounded-full">
                 <Flame size={14} color="#FFFFFF" />
-                <Text className="text-white font-bold ml-1" style={{ fontSize: 13 }}>
+                <Text className="text-white font-bold ml-1" style={{ fontSize: sFont(13) }}>
                   {user.streakCurrent}
                 </Text>
               </View>

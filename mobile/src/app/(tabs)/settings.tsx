@@ -50,6 +50,7 @@ import {
   Users,
   ChevronDown,
   LifeBuoy,
+  Type,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
@@ -76,6 +77,7 @@ import {
   type NotificationSettings,
 } from '@/lib/notifications';
 import { gamificationApi } from '@/lib/gamification-api';
+import { useScaledFont } from '@/lib/textScale';
 import { useQueryClient } from '@tanstack/react-query';
 import { ShareableProfileCard } from '@/components/ShareableProfileCard';
 import { AdminHubModal } from '@/components/AdminHubModal';
@@ -105,6 +107,7 @@ interface SettingRowProps {
 }
 
 function SettingRow({ icon, title, subtitle, right, onPress, colors }: SettingRowProps) {
+  const { sFont } = useScaledFont();
   return (
     <Pressable
       onPress={() => {
@@ -205,6 +208,7 @@ export default function SettingsScreen() {
   const updateSettings = useAppStore((s) => s.updateSettings);
   const updateUser = useAppStore((s) => s.updateUser);
   const queryClient = useQueryClient();
+  const { sFont } = useScaledFont();
 
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
@@ -1001,7 +1005,7 @@ export default function SettingsScreen() {
           <SettingRow
             icon={
               countryCode
-                ? <Text style={{ fontSize: 20 }}>{getCountryByCode(countryCode)?.flag ?? '🌍'}</Text>
+                ? <Text style={{ fontSize: sFont(20) }}>{getCountryByCode(countryCode)?.flag ?? '🌍'}</Text>
                 : <Globe size={20} color={colors.primary} />
             }
             title={language === 'es' ? 'Mi país' : 'My Country'}
@@ -1061,7 +1065,7 @@ export default function SettingsScreen() {
                       justifyContent: 'center',
                     }}
                   >
-                    <Text style={{ fontSize: 11, fontWeight: '600', color: activeBadgeId === null ? colors.primary : colors.textMuted }}>
+                    <Text style={{ fontSize: sFont(11), fontWeight: '600', color: activeBadgeId === null ? colors.primary : colors.textMuted }}>
                       {language === 'es' ? 'Ninguna' : 'None'}
                     </Text>
                   </Pressable>
@@ -1097,7 +1101,7 @@ export default function SettingsScreen() {
                         >
                           <BadgeChip badgeId={badgeId} variant="community" />
                         </Pressable>
-                        <Text style={{ fontSize: 11, fontWeight: '600', color: isActive ? badge.color : colors.textMuted }}>
+                        <Text style={{ fontSize: sFont(11), fontWeight: '600', color: isActive ? badge.color : colors.textMuted }}>
                           {badge.nameEs}
                         </Text>
                         {isActive && (
@@ -1147,6 +1151,64 @@ export default function SettingsScreen() {
             onPress={() => setShowLanguageModal(true)}
           />
 
+          {/* Text Zoom */}
+          <View
+            className="px-4 py-4 rounded-2xl mb-2"
+            style={{ backgroundColor: colors.surface }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                <Type size={20} color={colors.primary} />
+                <View>
+                  <Text style={{ fontSize: sFont(15), fontWeight: '600', color: colors.text }}>
+                    {language === 'es' ? 'Zoom de texto' : 'Text zoom'}
+                  </Text>
+                  <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
+                    {language === 'es' ? 'Tamaño de letra en toda la app' : 'Font size across the app'}
+                  </Text>
+                </View>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <Text style={{ fontSize: sFont(17), fontWeight: '800', color: colors.primary }}>
+                  {Math.round((settings.textScale ?? 1.0) * 100)}%
+                </Text>
+                {(settings.textScale ?? 1.0) !== 1.0 && (
+                  <Pressable
+                    onPress={() => {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                      updateSettings({ textScale: 1.0 });
+                    }}
+                    style={{
+                      paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8,
+                      backgroundColor: colors.textMuted + '18',
+                    }}
+                  >
+                    <Text style={{ fontSize: sFont(11), color: colors.textMuted, fontWeight: '600' }}>
+                      {language === 'es' ? 'Restablecer' : 'Reset'}
+                    </Text>
+                  </Pressable>
+                )}
+              </View>
+            </View>
+            <Slider
+              value={settings.textScale ?? 1.0}
+              onValueChange={(value) => {
+                const snapped = Math.round(value / 0.05) * 0.05;
+                updateSettings({ textScale: snapped });
+              }}
+              minimumValue={0.85}
+              maximumValue={1.40}
+              minimumTrackTintColor={colors.primary}
+              maximumTrackTintColor={colors.textMuted + '40'}
+              thumbTintColor={colors.primary}
+            />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 2 }}>
+              <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>85%</Text>
+              <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>100%</Text>
+              <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>140%</Text>
+            </View>
+          </View>
+
           {/* Support Section */}
           <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
             {language === 'es' ? 'Ayuda' : 'Help'}
@@ -1170,7 +1232,7 @@ export default function SettingsScreen() {
                     alignItems: 'center', justifyContent: 'center',
                     paddingHorizontal: 5,
                   }}>
-                    <Text style={{ fontSize: 11, fontWeight: '800', color: '#FFF' }}>
+                    <Text style={{ fontSize: sFont(11), fontWeight: '800', color: '#FFF' }}>
                       {pendingSupportCount}
                     </Text>
                   </View>
@@ -1360,14 +1422,14 @@ export default function SettingsScreen() {
                 style={{ width: 180, height: 180, marginBottom: 16 }}
                 resizeMode="contain"
               />
-              <Text style={{ fontSize: 26, fontWeight: '800', color: colors.text, letterSpacing: -0.5, textAlign: 'center' }}>
+              <Text style={{ fontSize: sFont(26), fontWeight: '800', color: colors.text, letterSpacing: -0.5, textAlign: 'center' }}>
                 {APP_BRANDING.appName}
               </Text>
-              <Text style={{ fontSize: 13, color: colors.textMuted, letterSpacing: 1.5, marginTop: 6, textTransform: 'uppercase', textAlign: 'center' }}>
+              <Text style={{ fontSize: sFont(13), color: colors.textMuted, letterSpacing: 1.5, marginTop: 6, textTransform: 'uppercase', textAlign: 'center' }}>
                 {APP_BRANDING.tagline.es}
               </Text>
               <View style={{ marginTop: 20, height: 1, width: '35%', backgroundColor: colors.textMuted + '20' }} />
-              <Text style={{ fontSize: 12, color: colors.textMuted + '80', marginTop: 14, textAlign: 'center' }}>
+              <Text style={{ fontSize: sFont(12), color: colors.textMuted + '80', marginTop: 14, textAlign: 'center' }}>
                 © {new Date().getFullYear()} ChaViTico Games
               </Text>
             </View>
@@ -1390,7 +1452,7 @@ export default function SettingsScreen() {
             style={{ alignItems: 'center', paddingVertical: 10, marginBottom: 8 }}
             hitSlop={{ top: 10, bottom: 10, left: 20, right: 20 }}
           >
-            <Text style={{ fontSize: 12, color: adminTapCount > 0 ? colors.primary + 'CC' : colors.textMuted + '60', letterSpacing: 0.5 }}>
+            <Text style={{ fontSize: sFont(12), color: adminTapCount > 0 ? colors.primary + 'CC' : colors.textMuted + '60', letterSpacing: 0.5 }}>
               v1.0.0{adminTapCount > 0 ? ` (${adminTapCount}/5)` : ''}
             </Text>
           </Pressable>
@@ -1472,7 +1534,7 @@ export default function SettingsScreen() {
                         }}
                       >
                         <View className="relative">
-                          <Text style={{ fontSize: 36 }}>{avatar.emoji}</Text>
+                          <Text style={{ fontSize: sFont(36) }}>{avatar.emoji}</Text>
                           {!isAvailable && isPremium && (
                             <View
                               className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full items-center justify-center"
@@ -1560,7 +1622,7 @@ export default function SettingsScreen() {
                 className="flex-row items-center py-4 border-b"
                 style={{ borderBottomColor: colors.textMuted + '20' }}
               >
-                <Text style={{ fontSize: 28 }} className="mr-4">
+                <Text style={{ fontSize: sFont(28) }} className="mr-4">
                   {lang === 'en' ? '🇺🇸' : '🇪🇸'}
                 </Text>
                 <Text className="flex-1 text-base font-medium" style={{ color: colors.text }}>
