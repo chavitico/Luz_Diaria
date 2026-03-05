@@ -747,5 +747,19 @@
     "itemId": "frame_v2_luna_plata",
     "acquiredAt": "2026-03-05T00:25:31.062Z",
     "source": "store"
+  },
+  {
+    "id": "cmmcqhep7000xm2chcoim2vkz",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_biblia_abierta",
+    "acquiredAt": "2026-03-05T00:34:57.835Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcqhz5u000zm2cha55onplh",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_lampara_aceite",
+    "acquiredAt": "2026-03-05T00:35:24.354Z",
+    "source": "store"
   }
 ]
