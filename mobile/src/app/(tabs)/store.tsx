@@ -5749,6 +5749,9 @@ export default function StoreScreen() {
     itemType: 'avatar' | 'frame' | 'title' | 'theme';
   } | null>(null);
 
+  // Pending adventure route: set when "Ver aventura" closes StoreSectionModal
+  const [pendingAdventureNav, setPendingAdventureNav] = useState<string | null>(null);
+
   // ScrollView ref for programmatic scrolling
   const mainScrollViewRef = useRef<ScrollView>(null);
   // Track current scroll offset so we can compute absolute item positions
@@ -5761,7 +5764,6 @@ export default function StoreScreen() {
   const isOpeningModal = useRef(false);
   const lastCategoryTapAt = useRef(0);
   const isOpeningItem = useRef(false);
-  const pendingAdventureRoute = useRef<string | null>(null);
 
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
@@ -6800,13 +6802,11 @@ export default function StoreScreen() {
                         }
                       } else {
                         const route = `/collections/adventures?bundleId=${bundle.id}`;
-                        pendingAdventureRoute.current = route;
+                        setPendingAdventureNav(route);
                         setShowStoreSectionModal(false);
                         // Failsafe: release lock if useEffect never fires
                         setTimeout(() => {
-                          if (isOpeningModal.current && pendingAdventureRoute.current === route) {
-                            isOpeningModal.current = false;
-                          }
+                          isOpeningModal.current = false;
                         }, 1500);
                       }
                     }}
@@ -7045,13 +7045,13 @@ export default function StoreScreen() {
   useEffect(() => {
     if (showStoreSectionModal) return;
 
-    const route = pendingAdventureRoute.current;
+    const route = pendingAdventureNav;
     if (!route) {
       isOpeningModal.current = false;
       return;
     }
 
-    pendingAdventureRoute.current = null;
+    setPendingAdventureNav(null);
 
     InteractionManager.runAfterInteractions(() => {
       requestAnimationFrame(() => {
