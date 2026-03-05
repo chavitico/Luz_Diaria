@@ -788,5 +788,15 @@
     "amount": -1200,
     "metadata": "{\"itemId\":\"avatar_l2_fe_inquebrantable\",\"receiverUserId\":\"cmm9x0ybc0002m2sr3l31uj4q\"}",
     "createdAt": "2026-03-05T07:59:11.851Z"
+  },
+  {
+    "id": "cmmdf84pm0017m26ip56dr97y",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "prayed_community_2026-03-05",
+    "type": "prayed_community",
+    "dateId": "2026-03-05",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-05T12:07:35.386Z"
   }
 ]
