@@ -146,6 +146,8 @@ function AppContent() {
   const language = useLanguage();
   const user = useAppStore(s => s.user);
   const addNewGiftItem = useAppStore(s => s.addNewGiftItem);
+  const heartbeatSessionId = useAppStore(s => s.heartbeatSessionId);
+  const setHeartbeatSessionId = useAppStore(s => s.setHeartbeatSessionId);
   const [showSplash, setShowSplash] = useState(true);
   const [appReady, setAppReady] = useState(false);
   const fetchBranding = useBrandingStore(s => s.fetchBranding);
@@ -159,6 +161,47 @@ function AppContent() {
   const [showReceivedGiftModal, setShowReceivedGiftModal] = useState(false);
 
   const appStateRef = useRef(AppState.currentState);
+  // Heartbeat state
+  const heartbeatTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const heartbeatInFlightRef = useRef(false);
+  const sessionIdRef = useRef<string | null>(heartbeatSessionId);
+
+  // Keep ref in sync with persisted store value
+  useEffect(() => {
+    sessionIdRef.current = heartbeatSessionId;
+  }, [heartbeatSessionId]);
+
+  const sendHeartbeat = useCallback(async (userId: string) => {
+    if (heartbeatInFlightRef.current) return; // throttle: skip if request in flight
+    heartbeatInFlightRef.current = true;
+    try {
+      const result = await gamificationApi.sessionHeartbeat(userId, sessionIdRef.current ?? undefined);
+      if (result.sessionId !== sessionIdRef.current) {
+        sessionIdRef.current = result.sessionId;
+        setHeartbeatSessionId(result.sessionId);
+      }
+    } catch {
+      // silent fail — non-critical
+    } finally {
+      heartbeatInFlightRef.current = false;
+    }
+  }, [setHeartbeatSessionId]);
+
+  const startHeartbeat = useCallback((userId: string) => {
+    if (heartbeatTimerRef.current) return;
+    // Send one immediately on start/resume
+    sendHeartbeat(userId);
+    heartbeatTimerRef.current = setInterval(() => {
+      sendHeartbeat(userId);
+    }, 30_000); // every 30s
+  }, [sendHeartbeat]);
+
+  const stopHeartbeat = useCallback(() => {
+    if (heartbeatTimerRef.current) {
+      clearInterval(heartbeatTimerRef.current);
+      heartbeatTimerRef.current = null;
+    }
+  }, []);
 
   const checkPendingGift = useCallback(async () => {
     if (!user?.id) return;
@@ -204,6 +247,16 @@ function AppContent() {
     fetchBranding();
   }, []);
 
+  // Start heartbeat when user is ready; stop on unmount
+  useEffect(() => {
+    if (appReady && isOnboarded && user?.id) {
+      startHeartbeat(user.id);
+    } else {
+      stopHeartbeat();
+    }
+    return () => stopHeartbeat();
+  }, [appReady, isOnboarded, user?.id, startHeartbeat, stopHeartbeat]);
+
   // Check for pending gifts on app start (after onboarding)
   useEffect(() => {
     if (appReady && isOnboarded && user?.id) {
@@ -215,23 +268,30 @@ function AppContent() {
   // Check for pending gifts when app comes to foreground
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
-      if (
-        appStateRef.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        // Check for day rollover — users who never close the app need fresh devotionals
+      const wasBackground = appStateRef.current.match(/inactive|background/);
+      const isNowActive = nextAppState === 'active';
+      const isNowBackground = nextAppState.match(/inactive|background/);
+
+      if (wasBackground && isNowActive) {
+        // App came to foreground
         if (isOnboarded) {
           checkAndPrefetchOnDateChange().catch(() => {});
         }
         if (isOnboarded && user?.id) {
           checkPendingGift();
           checkReceivedGifts();
+          // Resume heartbeat immediately
+          startHeartbeat(user.id);
         }
+      } else if (isNowBackground) {
+        // App went to background — pause heartbeat
+        stopHeartbeat();
       }
+
       appStateRef.current = nextAppState;
     });
     return () => subscription.remove();
-  }, [isOnboarded, user?.id, checkPendingGift]);
+  }, [isOnboarded, user?.id, checkPendingGift, startHeartbeat, stopHeartbeat]);
 
   // Initialize notifications + mark app opened (for smart skip logic)
   useEffect(() => {

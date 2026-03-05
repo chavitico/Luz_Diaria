@@ -367,13 +367,11 @@ function EmptyState() {
 
 // Header Component
 function CommunityHeader({
-  memberCount,
   lastUpdated,
   isRefreshing,
   isOffline,
   language,
 }: {
-  memberCount: number;
   lastUpdated: Date | null;
   isRefreshing: boolean;
   isOffline: boolean;
@@ -381,6 +379,52 @@ function CommunityHeader({
 }) {
   const colors = useThemeColors();
   const t = TRANSLATIONS[language as 'en' | 'es'];
+
+  const { data: stats, isLoading: statsLoading } = useQuery({
+    queryKey: ['communityStats'],
+    queryFn: () => gamificationApi.getCommunityStats(),
+    staleTime: 60_000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    retry: 1,
+  });
+
+  const fmt = (n: number) =>
+    new Intl.NumberFormat(language === 'es' ? 'es-ES' : 'en-US').format(n);
+
+  const cards: {
+    icon: React.ReactNode;
+    label: string;
+    sublabel?: string;
+    value: string;
+    color: string;
+  }[] = [
+    {
+      icon: <Users size={18} color={colors.primary} />,
+      label: language === 'es' ? 'Usuarios activos' : 'Active users',
+      sublabel: language === 'es' ? `últimos ${stats?.windowDays ?? 30}d` : `last ${stats?.windowDays ?? 30}d`,
+      value: statsLoading ? '—' : fmt(stats?.activeUsers ?? 0),
+      color: colors.primary,
+    },
+    {
+      icon: <BookOpen size={18} color={colors.secondary} />,
+      label: language === 'es' ? 'Devocionales' : 'Devotionals',
+      value: statsLoading ? '—' : fmt(stats?.devotionalsCompletedTotal ?? 0),
+      color: colors.secondary,
+    },
+    {
+      icon: <Sparkles size={18} color="#F59E0B" />,
+      label: language === 'es' ? 'Puntos ganados' : 'Points earned',
+      value: statsLoading ? '—' : fmt(stats?.pointsEarnedTotal ?? 0),
+      color: '#F59E0B',
+    },
+    {
+      icon: <Coins size={18} color="#8B5CF6" />,
+      label: language === 'es' ? 'Puntos gastados' : 'Points spent',
+      value: statsLoading ? '—' : fmt(stats?.pointsSpentTotal ?? 0),
+      color: '#8B5CF6',
+    },
+  ];
 
   const getUpdateLabel = () => {
     if (isRefreshing) return language === 'es' ? 'Actualizando...' : 'Updating...';
@@ -400,50 +444,83 @@ function CommunityHeader({
         colors={[colors.primary + '15', colors.secondary + '10', colors.surface]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={{
-          borderRadius: 20,
-          padding: 20,
-        }}
+        style={{ borderRadius: 20, padding: 16 }}
       >
-        <View className="flex-row items-center mb-3">
+        {/* Title row */}
+        <View className="flex-row items-center mb-4">
           <View
-            className="w-12 h-12 rounded-full items-center justify-center mr-4"
+            className="w-10 h-10 rounded-full items-center justify-center mr-3"
             style={{ backgroundColor: colors.primary + '20' }}
           >
-            <Heart size={24} color={colors.primary} />
+            <Heart size={20} color={colors.primary} />
           </View>
           <View className="flex-1">
-            <Text
-              className="text-xl font-bold"
-              style={{ color: colors.text }}
-            >
+            <Text className="text-lg font-bold" style={{ color: colors.text }}>
               {t.community_subtitle}
             </Text>
-            <Text className="text-sm" style={{ color: colors.textMuted }}>
+            <Text className="text-xs" style={{ color: colors.textMuted }}>
               {t.community_god_works}
             </Text>
           </View>
         </View>
 
-        {memberCount > 0 && (
-          <View
-            className="flex-row items-center justify-center py-2 rounded-xl"
-            style={{ backgroundColor: colors.primary + '10' }}
-          >
-            <Sparkles size={16} color={colors.primary} />
-            <Text
-              className="text-sm font-medium ml-2"
-              style={{ color: colors.primary }}
+        {/* 2x2 metrics grid */}
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+          {cards.map((card, i) => (
+            <View
+              key={i}
+              style={{
+                flex: 1,
+                minWidth: '45%',
+                backgroundColor: colors.surface + 'CC',
+                borderRadius: 14,
+                padding: 12,
+                borderWidth: 1,
+                borderColor: card.color + '20',
+              }}
             >
-              {memberCount} {language === 'es' ? 'caminando juntos' : 'walking together'}
-            </Text>
-          </View>
-        )}
+              <View className="flex-row items-center mb-1.5" style={{ gap: 6 }}>
+                {card.icon}
+                <Text
+                  className="text-xs font-medium flex-1"
+                  style={{ color: colors.textMuted }}
+                  numberOfLines={1}
+                >
+                  {card.label}
+                </Text>
+              </View>
+              {statsLoading ? (
+                <View
+                  style={{
+                    height: 22,
+                    width: 60,
+                    borderRadius: 6,
+                    backgroundColor: colors.textMuted + '20',
+                  }}
+                />
+              ) : (
+                <Text
+                  className="text-xl font-bold"
+                  style={{ color: card.color }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                >
+                  {card.value}
+                </Text>
+              )}
+              {card.sublabel ? (
+                <Text className="text-xs mt-0.5" style={{ color: colors.textMuted + 'AA' }}>
+                  {card.sublabel}
+                </Text>
+              ) : null}
+            </View>
+          ))}
+        </View>
 
-        {/* Status row: offline warning or last updated */}
+        {/* Status row */}
         {isOffline ? (
-          <View className="flex-row items-center mt-2 px-1">
-            <WifiOff size={13} color={colors.textMuted} />
+          <View className="flex-row items-center mt-3 px-1">
+            <WifiOff size={12} color={colors.textMuted} />
             <Text className="text-xs ml-1.5" style={{ color: colors.textMuted }}>
               {language === 'es'
                 ? 'Sin conexión, actualizaremos cuando regreses a internet.'
@@ -783,14 +860,13 @@ export default function CommunityScreen() {
   const ListHeader = useCallback(
     () => (
       <CommunityHeader
-        memberCount={total}
         lastUpdated={lastUpdated}
         isRefreshing={isFetching && !refreshing}
         isOffline={isOffline}
         language={language}
       />
     ),
-    [total, lastUpdated, isFetching, refreshing, isOffline, language]
+    [lastUpdated, isFetching, refreshing, isOffline, language]
   );
 
   return (

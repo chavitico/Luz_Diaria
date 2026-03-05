@@ -196,6 +196,31 @@ All admin endpoints require `X-User-Id` header. The `requireRole` middleware in 
 
 ## Features
 
+### Community Stats Header (2x2 Metrics Grid)
+- Replaced "X caminando juntos" text with a 2×2 grid of global metrics:
+  - **Usuarios activos** — users with `lastSeenAt >= now - 30 days`
+  - **Devocionales** — total `SUM(devotionalsCompleted)` across all users
+  - **Puntos ganados** — total earned (max of counter vs ledger sum)
+  - **Puntos gastados** — total spent (max of counter vs ledger sum)
+- Numbers formatted with `Intl.NumberFormat` (thousands separator)
+- Skeleton placeholder while loading; fallback `—` on error
+- Cached 60s server-side; React Query staleTime 60s
+
+### Session Time Tracking (Server-Authoritative)
+- New `UserSession` table in Prisma tracks each app session
+- Heartbeat endpoint `POST /api/gamification/session/heartbeat`:
+  - Creates new session on first heartbeat
+  - Subsequent heartbeats: `delta = clamp(serverNow - lastSeenAt, 0, 60s)`
+  - Atomically increments `User.totalTimeSeconds` and `User.lastSeenAt`
+- Frontend heartbeat loop (every 30s when foreground):
+  - Starts when user is authenticated and app is ready
+  - Pauses when app goes to background
+  - Resumes immediately on foreground with one heartbeat
+  - Throttles: skips if request already in flight
+  - `sessionId` persisted in Zustand/AsyncStorage for session continuity
+- `User.pointsEarnedTotal` incremented on every `points/award`
+- `User.pointsSpentTotal` incremented on every `store/purchase` and `store/purchase-bundle`
+
 ### Daily Devotional (Home Tab)
 - One unique devotional per day for all users worldwide
 - Beautiful hero image with devotional-style imagery
