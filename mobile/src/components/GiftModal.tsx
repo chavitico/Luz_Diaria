@@ -15,6 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 import { Gift, X, Palette, Tag, User as UserIcon, Star, ShoppingBag, Coins } from 'lucide-react-native';
 import { useThemeColors, useLanguage } from '@/lib/store';
+import { ActionButton } from '@/components/ui/ActionButton';
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 
@@ -367,72 +368,42 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
               {/* CTA buttons */}
               <View style={{ width: '100%', gap: 10, paddingTop: 4 }}>
                 {/* Primary: Claim (and go to store for items) */}
-                <Pressable
+                <ActionButton
                   onPress={isPointsGift ? handleClaim : handleClaimAndGoToStore}
                   disabled={claiming}
-                  style={({ pressed }) => ({
-                    backgroundColor: pressed ? '#D97706' : '#F59E0B',
-                    borderRadius: 16,
-                    paddingVertical: 14,
-                    alignItems: 'center',
-                    opacity: claiming ? 0.7 : 1,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    gap: 8,
-                    shadowColor: '#F59E0B',
-                    shadowOffset: { width: 0, height: 4 },
-                    shadowOpacity: 0.4,
-                    shadowRadius: 10,
-                    elevation: 6,
-                  })}
-                >
-                  {isPointsGift
-                    ? <Coins size={18} color="#FFFFFF" strokeWidth={2.5} />
-                    : <ShoppingBag size={18} color="#FFFFFF" strokeWidth={2.5} />
-                  }
-                  <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '800' }}>
-                    {claiming
+                  loading={claiming}
+                  label={
+                    claiming
                       ? (language === 'es' ? 'Reclamando...' : 'Claiming...')
                       : isPointsGift
                         ? (language === 'es' ? '¡Reclamar puntos!' : 'Claim Points!')
                         : (language === 'es' ? '¡Reclamar y ver en tienda!' : 'Claim & View in Store!')
-                    }
-                  </Text>
-                </Pressable>
+                  }
+                  icon={isPointsGift
+                    ? (color, size) => <Coins size={size} color={color} strokeWidth={2.5} />
+                    : (color, size) => <ShoppingBag size={size} color={color} strokeWidth={2.5} />
+                  }
+                  fillColor="#F59E0B"
+                  size="md"
+                />
 
                 {/* Secondary: Just claim — only shown for item gifts */}
                 {!isPointsGift && (
-                  <Pressable
+                  <ActionButton
                     onPress={handleClaim}
                     disabled={claiming}
-                    style={({ pressed }) => ({
-                      borderRadius: 14,
-                      paddingVertical: 12,
-                      alignItems: 'center',
-                      opacity: pressed || claiming ? 0.6 : 1,
-                      borderWidth: 1.5,
-                      borderColor: colors.textMuted + '30',
-                      backgroundColor: colors.textMuted + '08',
-                    })}
-                  >
-                    <Text style={{ color: colors.text, fontSize: 15, fontWeight: '600' }}>
-                      {language === 'es' ? 'Solo reclamar' : 'Just claim'}
-                    </Text>
-                  </Pressable>
+                    label={language === 'es' ? 'Solo reclamar' : 'Just claim'}
+                    variant="secondary"
+                    size="md"
+                  />
                 )}
 
-                <Pressable
+                <ActionButton
                   onPress={handleLater}
-                  style={({ pressed }) => ({
-                    paddingVertical: 10,
-                    alignItems: 'center',
-                    opacity: pressed ? 0.5 : 1,
-                  })}
-                >
-                  <Text style={{ color: colors.textMuted, fontSize: 14, fontWeight: '500' }}>
-                    {language === 'es' ? 'Más tarde' : 'Later'}
-                  </Text>
-                </Pressable>
+                  label={language === 'es' ? 'Más tarde' : 'Later'}
+                  variant="ghost"
+                  size="sm"
+                />
               </View>
             </View>
           </View>

@@ -59,6 +59,7 @@ import {
   useUser,
   useAppStore,
 } from '@/lib/store';
+import { ActionButton } from '@/components/ui/ActionButton';
 import {
   TRANSLATIONS,
   DEFAULT_AVATARS,
@@ -2454,15 +2455,11 @@ function ItemDetailModal({
                   </Text>
                 </View>
               ) : isOwned ? (
-                <Pressable
+                <ActionButton
                   onPress={onEquip}
-                  className="py-4 rounded-xl items-center"
-                  style={{ backgroundColor: colors.primary }}
-                >
-                  <Text className="text-base font-semibold text-white">
-                    {t.equip}
-                  </Text>
-                </Pressable>
+                  label={t.equip}
+                  size="md"
+                />
               ) : item.chestOnly ? (
                 <View
                   className="py-4 rounded-xl flex-row items-center justify-center"
@@ -2477,38 +2474,23 @@ function ItemDetailModal({
                   </Text>
                 </View>
               ) : item.price === 0 ? (
-                <Pressable
+                <ActionButton
                   onPress={onPurchase}
                   disabled={isPurchasing}
-                  className="py-4 rounded-xl items-center"
-                  style={{ backgroundColor: '#22C55E' }}
-                >
-                  {isPurchasing ? (
-                    <ActivityIndicator color="#FFFFFF" />
-                  ) : (
-                    <Text className="text-base font-semibold text-white">
-                      {language === 'es' ? 'Reclamar Gratis' : 'Claim Free'}
-                    </Text>
-                  )}
-                </Pressable>
+                  loading={isPurchasing}
+                  label={language === 'es' ? 'Reclamar Gratis' : 'Claim Free'}
+                  fillColor="#22C55E"
+                  size="md"
+                />
               ) : canAfford ? (
-                <Pressable
+                <ActionButton
                   onPress={onPurchase}
                   disabled={isPurchasing}
-                  className="py-4 rounded-xl flex-row items-center justify-center"
-                  style={{ backgroundColor: colors.primary }}
-                >
-                  {isPurchasing ? (
-                    <ActivityIndicator color="#FFFFFF" />
-                  ) : (
-                    <>
-                      <Coins size={18} color="#FFFFFF" />
-                      <Text className="text-base font-semibold text-white ml-2">
-                        {item.price} {language === 'es' ? 'puntos' : 'points'}
-                      </Text>
-                    </>
-                  )}
-                </Pressable>
+                  loading={isPurchasing}
+                  label={`${item.price} ${language === 'es' ? 'puntos' : 'points'}`}
+                  icon={(color, size) => <Coins size={size} color={color} />}
+                  size="md"
+                />
               ) : (
                 <View
                   className="py-4 rounded-xl flex-row items-center justify-center"
@@ -3914,17 +3896,15 @@ function BundleCard({
                 </Text>
               </View>
             ) : canAfford ? (
-              <View
-                className="px-4 py-2 rounded-xl"
-                style={{ backgroundColor: isPurchasing ? colors.primary + '80' : colors.primary }}
-              >
-                {isPurchasing ? (
-                  <ActivityIndicator size="small" color="#FFFFFF" />
-                ) : (
-                  <Text className="text-sm font-semibold text-white">
-                    {language === 'es' ? 'Comprar' : 'Buy'}
-                  </Text>
-                )}
+              <View style={{ paddingHorizontal: 4 }}>
+                <ActionButton
+                  disabled={isPurchasing}
+                  loading={isPurchasing}
+                  label={language === 'es' ? 'Comprar' : 'Buy'}
+                  size="sm"
+                  fullWidth={false}
+                  style={{ paddingHorizontal: 16, paddingVertical: 8 }}
+                />
               </View>
             ) : (
               <View

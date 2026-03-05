@@ -60,6 +60,38 @@ A beautiful, cross-platform mobile app delivering daily Christian devotionals wi
 - Defaults to `"dev"` if missing (safe default — never accidentally treat unknown as prod)
 - `mobile/.env.production` is used by Expo when building production releases
 
+## UI Components
+
+### ActionButton (`src/components/ui/ActionButton.tsx`)
+
+The **single canonical CTA component** for all call-to-action buttons in the app. Guarantees WCAG AA contrast in every theme.
+
+**Contrast guarantees:**
+- Button fill vs surface background: >= 3.0:1
+- Label/icon color vs button fill: >= 4.5:1
+- Double border + shadow for visual separation on any background
+
+**Variants:** `primary` | `secondary` | `ghost` | `danger`
+**Sizes:** `sm` | `md` | `lg`
+
+**Icon prop:** accepts a render function `(color: string, size: number) => ReactNode` so the icon automatically receives the correct contrast color:
+```tsx
+<ActionButton
+  label="Comprar"
+  icon={(color, size) => <Coins size={size} color={color} />}
+  onPress={handleBuy}
+/>
+```
+
+**Contrast utilities (`src/lib/contrast.ts`):**
+- `relativeLuminance(hex)` — WCAG relative luminance
+- `contrastRatio(a, b)` — WCAG contrast ratio [1–21]
+- `pickReadableTextColor(bg)` — returns `#FFFFFF` or `#111111`
+- `ensureContrast(fg, bg, minRatio, isDark)` — adjusts color until ratio is met
+- `deriveButtonColors(primary, surface, isDark)` — derives safe fill + text color
+
+**DEV stress test:** Navigate to `/theme-stress` to visually verify contrast across all challenging backgrounds.
+
 ### Dev vs Prod behaviors
 
 | Feature | DEV | PROD |

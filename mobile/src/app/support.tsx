@@ -40,6 +40,7 @@ import {
   ShoppingBag,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
+import { ActionButton } from '@/components/ui/ActionButton';
 import { getNotificationSettings } from '@/lib/notifications';
 import { pickBestVoice } from '@/lib/voice-picker';
 
@@ -1318,34 +1319,15 @@ export default function SupportScreen() {
                 )}
 
                 {/* Submit button */}
-                <Pressable
-                  onPress={handleSubmit}
-                  disabled={!canSubmit || isSubmitting}
-                  style={({ pressed }) => ({
-                    backgroundColor: canSubmit && !isSubmitting
-                      ? colors.primary
-                      : colors.textMuted + '30',
-                    borderRadius: 18,
-                    paddingVertical: 18,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginTop: 28,
-                    opacity: pressed ? 0.88 : 1,
-                    shadowColor: colors.primary,
-                    shadowOffset: { width: 0, height: 4 },
-                    shadowOpacity: canSubmit && !isSubmitting ? 0.3 : 0,
-                    shadowRadius: 10,
-                    elevation: canSubmit && !isSubmitting ? 6 : 0,
-                  })}
-                >
-                  {isSubmitting ? (
-                    <ActivityIndicator size="small" color={colors.primaryText} />
-                  ) : (
-                    <Text style={{ fontSize: 16, fontWeight: '700', color: colors.primaryText, letterSpacing: 0.3 }}>
-                      {es ? 'Enviar reporte' : 'Submit report'}
-                    </Text>
-                  )}
-                </Pressable>
+                <View style={{ marginTop: 28 }}>
+                  <ActionButton
+                    onPress={handleSubmit}
+                    disabled={!canSubmit || isSubmitting}
+                    loading={isSubmitting}
+                    label={es ? 'Enviar reporte' : 'Submit report'}
+                    size="lg"
+                  />
+                </View>
 
                 <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center', lineHeight: 18, marginTop: 16 }}>
                   {es

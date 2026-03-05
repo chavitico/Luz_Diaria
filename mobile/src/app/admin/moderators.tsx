@@ -43,6 +43,7 @@ import {
   RotateCcw,
 } from 'lucide-react-native';
 import { useThemeColors, useUser } from '@/lib/store';
+import { ActionButton } from '@/components/ui/ActionButton';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 const IS_DEV = process.env.EXPO_PUBLIC_APP_ENV === 'development' || __DEV__;
@@ -901,10 +902,14 @@ function UserDetailModal({
                       style={{ backgroundColor: colors.background, borderRadius: 10, padding: 12, fontSize: 15, color: colors.text, marginBottom: 16, letterSpacing: 1 }}
                     />
                     <View style={{ flexDirection: 'row', gap: 10 }}>
-                      <Pressable onPress={() => setShowStreakConfirm(false)} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.background, alignItems: 'center' }}>
-                        <Text style={{ color: colors.textMuted, fontWeight: '600' }}>Cancelar</Text>
-                      </Pressable>
-                      <Pressable
+                      <ActionButton
+                        onPress={() => setShowStreakConfirm(false)}
+                        label="Cancelar"
+                        variant="secondary"
+                        size="sm"
+                        style={{ flex: 1 }}
+                      />
+                      <ActionButton
                         onPress={() => {
                           if (streakConfirmText.trim() !== 'CONFIRMAR') {
                             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
@@ -913,10 +918,12 @@ function UserDetailModal({
                           setShowStreakConfirm(false);
                           pendingSaveRef.current?.();
                         }}
-                        style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: streakConfirmText.trim() === 'CONFIRMAR' ? '#EF4444' : colors.textMuted + '40', alignItems: 'center' }}
-                      >
-                        <Text style={{ color: '#FFF', fontWeight: '700' }}>Confirmar</Text>
-                      </Pressable>
+                        label="Confirmar"
+                        variant="danger"
+                        size="sm"
+                        disabled={streakConfirmText.trim() !== 'CONFIRMAR'}
+                        style={{ flex: 1 }}
+                      />
                     </View>
                   </Animated.View>
                 </Animated.View>
@@ -1317,12 +1324,22 @@ export default function AdminUsersScreen() {
                 )}
                 <TextInput value={compReason} onChangeText={setCompReason} placeholder={compType === 'item' ? 'Título del regalo (opcional)' : 'Razón (opcional)'} placeholderTextColor={colors.textMuted + '70'} style={{ backgroundColor: colors.background, borderRadius: 10, padding: 12, fontSize: 14, color: colors.text, marginBottom: 16 }} />
                 <View style={{ flexDirection: 'row', gap: 10 }}>
-                  <Pressable onPress={() => setCompensateUser(null)} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.background, alignItems: 'center' }}>
-                    <Text style={{ color: colors.textMuted, fontWeight: '600' }}>Cancelar</Text>
-                  </Pressable>
-                  <Pressable onPress={handleCompensateSubmit} disabled={compLoading} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: compLoading ? colors.textMuted + '40' : '#8B5CF6', alignItems: 'center' }}>
-                    {compLoading ? <ActivityIndicator size="small" color="#FFF" /> : <Text style={{ color: '#FFF', fontWeight: '700' }}>Enviar</Text>}
-                  </Pressable>
+                  <ActionButton
+                    onPress={() => setCompensateUser(null)}
+                    label="Cancelar"
+                    variant="secondary"
+                    size="sm"
+                    style={{ flex: 1 }}
+                  />
+                  <ActionButton
+                    onPress={handleCompensateSubmit}
+                    disabled={compLoading}
+                    loading={compLoading}
+                    label="Enviar"
+                    fillColor="#8B5CF6"
+                    size="sm"
+                    style={{ flex: 1 }}
+                  />
                 </View>
               </Animated.View>
             )}
@@ -1345,12 +1362,21 @@ export default function AdminUsersScreen() {
                 {confirmToggle.target === 'MODERATOR' ? `¿Otorgar permisos de moderador a ${confirmToggle.user.nickname}?` : `¿Revocar permisos de ${confirmToggle.user.nickname}? Volverá a ser usuario normal.`}
               </Text>
               <View style={{ flexDirection: 'row', gap: 10 }}>
-                <Pressable onPress={() => setConfirmToggle(null)} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.background, alignItems: 'center' }}>
-                  <Text style={{ color: colors.textMuted, fontWeight: '600' }}>Cancelar</Text>
-                </Pressable>
-                <Pressable onPress={executeToggle} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: confirmToggle.target === 'MODERATOR' ? '#3B82F6' : '#EF4444', alignItems: 'center' }}>
-                  <Text style={{ color: '#FFF', fontWeight: '700' }}>{confirmToggle.target === 'MODERATOR' ? 'Otorgar' : 'Revocar'}</Text>
-                </Pressable>
+                <ActionButton
+                  onPress={() => setConfirmToggle(null)}
+                  label="Cancelar"
+                  variant="secondary"
+                  size="sm"
+                  style={{ flex: 1 }}
+                />
+                <ActionButton
+                  onPress={executeToggle}
+                  label={confirmToggle.target === 'MODERATOR' ? 'Otorgar' : 'Revocar'}
+                  variant={confirmToggle.target === 'MODERATOR' ? 'primary' : 'danger'}
+                  fillColor={confirmToggle.target === 'MODERATOR' ? '#3B82F6' : undefined}
+                  size="sm"
+                  style={{ flex: 1 }}
+                />
               </View>
             </Animated.View>
           )}
@@ -1390,16 +1416,22 @@ export default function AdminUsersScreen() {
                   </View>
                 )}
                 <View style={{ flexDirection: 'row', gap: 10 }}>
-                  <Pressable onPress={() => !forceRenameLoading && setForceRenameUser(null)} style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.background, alignItems: 'center' }}>
-                    <Text style={{ color: colors.textMuted, fontWeight: '600' }}>Cancelar</Text>
-                  </Pressable>
-                  <Pressable
+                  <ActionButton
+                    onPress={() => !forceRenameLoading && setForceRenameUser(null)}
+                    label="Cancelar"
+                    variant="secondary"
+                    size="sm"
+                    style={{ flex: 1 }}
+                  />
+                  <ActionButton
                     onPress={handleForceRenameSubmit}
                     disabled={forceRenameLoading || forceRenameInput.trim().length < 3}
-                    style={{ flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: forceRenameInput.trim().length >= 3 ? '#EC4899' : '#EC489950', alignItems: 'center' }}
-                  >
-                    {forceRenameLoading ? <ActivityIndicator size="small" color="#FFF" /> : <Text style={{ color: '#FFF', fontWeight: '700' }}>Confirmar</Text>}
-                  </Pressable>
+                    loading={forceRenameLoading}
+                    label="Confirmar"
+                    fillColor="#EC4899"
+                    size="sm"
+                    style={{ flex: 1 }}
+                  />
                 </View>
               </Animated.View>
             )}
