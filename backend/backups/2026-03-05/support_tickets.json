@@ -558,8 +558,8 @@
     "claimedStreak": 26,
     "claimedDate": "2026-03-04",
     "clientClaim": "{\"issue\":\"voz_rara\",\"os\":\"ios\",\"ttsVoiceIdentifier\":\"com.apple.voice.compact.es-MX.Paulina\",\"ttsVoiceName\":\"Paulina\",\"ttsLanguage\":\"es-MX\",\"ttsPreferredVoiceFound\":true,\"ttsIsEloquence\":false,\"ttsNeedsUserAction\":false,\"ttsVoiceScore\":209}",
-    "status": "needs_human",
-    "resolutionNote": "Problema tipo audio_tts reportado. En espera de revisión de moderador.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmm9x0ybc0002m2sr3l31uj4q",
     "rating": null,
     "beforeState": "{\"streakCurrent\":26,\"devotionalsCompleted\":15}",
     "afterState": "{\"streakCurrent\":26,\"devotionalsCompleted\":15}",
@@ -567,7 +567,7 @@
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5ob0001m261gz2ugb0n",
     "createdAt": "2026-03-05T04:22:45.290Z",
-    "updatedAt": "2026-03-05T04:24:58.197Z"
+    "updatedAt": "2026-03-05T13:08:34.755Z"
   },
   {
     "id": "cmmcymtr8004fm2xcasx3nm9u",
@@ -615,8 +615,8 @@
     "claimedStreak": 8,
     "claimedDate": "2026-03-05",
     "clientClaim": "{\"date\":\"2026-03-05\",\"issue\":\"not_counted\"}",
-    "status": "needs_human",
-    "resolutionNote": "Snapshot del 2026-03-04: lastDev=null, reclamado=2026-03-05. Sin evidencia para auto-corregir.",
+    "status": "closed",
+    "resolutionNote": "Rechazado por admin cmm9x0ybc0002m2sr3l31uj4q",
     "rating": null,
     "beforeState": "{\"streakCurrent\":8,\"devotionalsCompleted\":10}",
     "afterState": "{\"streakCurrent\":8,\"devotionalsCompleted\":10}",
@@ -624,6 +624,6 @@
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5of0004m261r5ta0nwb",
     "createdAt": "2026-03-05T06:06:15.953Z",
-    "updatedAt": "2026-03-05T06:06:15.953Z"
+    "updatedAt": "2026-03-05T13:08:26.033Z"
   }
 ]
