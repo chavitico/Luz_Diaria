@@ -703,6 +703,7 @@ function DailyPrayerSection({
     queryKey: ['daily-prayer-today'],
     queryFn: () => gamificationApi.getTodayDailyPrayer(),
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 1,
   });
 
   if (isLoading) {
@@ -1361,6 +1362,7 @@ export default function HomeScreen() {
   const { data: devotionalData, isLoading } = useQuery({
     queryKey: ['todayDevotional'],
     queryFn: () => firestoreService.getTodayDevotional(),
+    retry: 1,
   });
 
   const devotional = devotionalData?.devotional ?? null;

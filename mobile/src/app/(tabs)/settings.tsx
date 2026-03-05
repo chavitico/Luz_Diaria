@@ -277,6 +277,7 @@ export default function SettingsScreen() {
     try {
       const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
       const res = await fetch(`${BACKEND_URL}/api/support/tickets/${user.id}`);
+      if (!res.ok) return; // silent fail for non-critical feature
       const data = await res.json() as { tickets?: Array<{ status: string }> };
       const count = (data.tickets ?? []).filter(t => t.status === 'waiting_user').length;
       setPendingSupportCount(count);
@@ -975,6 +976,7 @@ export default function SettingsScreen() {
                 <Switch
                   value={communityOptIn}
                   onValueChange={handleCommunityOptInToggle}
+                  disabled={isLoadingCommunityOptIn}
                   trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
                   thumbColor={communityOptIn ? colors.primary : '#FFFFFF'}
                 />

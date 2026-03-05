@@ -1330,6 +1330,7 @@ function WeeklyChallengesCard({
     queryKey: ['weeklyChallenges'],
     queryFn: () => gamificationApi.getCurrentChallenges(),
     staleTime: 5 * 60 * 1000,
+    retry: 1,
   });
 
   const { data: progressData = [] } = useQuery({
@@ -1337,6 +1338,7 @@ function WeeklyChallengesCard({
     queryFn: () => gamificationApi.getChallengeProgress(userId),
     enabled: !!userId,
     staleTime: 60 * 1000,
+    retry: 1,
   });
 
   // Check if all challenges complete
@@ -5752,6 +5754,7 @@ export default function StoreScreen() {
       return res.items;
     },
     staleTime: 10 * 60 * 1000,
+    retry: 1,
   });
   // Compute set of new (unseen) DB item IDs
   const newDbItemIds = useMemo(
@@ -5846,6 +5849,7 @@ export default function StoreScreen() {
     queryKey: ['collectionClaims', effectiveUserId],
     queryFn: () => gamificationApi.getCollectionClaims(effectiveUserId),
     enabled: !!effectiveUserId,
+    retry: 1,
   });
 
   // Active seasons — drive banner + seasonal content visibility
@@ -5853,6 +5857,7 @@ export default function StoreScreen() {
     queryKey: ['activeSeasons'],
     queryFn: () => gamificationApi.getActiveSeasons(),
     staleTime: 5 * 60 * 1000,
+    retry: 1,
   });
   const primarySeason = activeSeasons[0] ?? null;
   const activeSeasonIds = useMemo(() => activeSeasons.map((s) => s.id), [activeSeasons]);
@@ -5869,6 +5874,7 @@ export default function StoreScreen() {
     },
     enabled: activeSeasons.length > 0,
     staleTime: 5 * 60 * 1000,
+    retry: 1,
   });
   const seasonalBundles: StoreItem[] = (seasonalItemsData ?? []).filter(i => i.type === 'bundle');
   const seasonalAvatars: StoreItem[] = (seasonalItemsData ?? []).filter(i => i.type === 'avatar');

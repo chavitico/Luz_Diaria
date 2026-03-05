@@ -862,7 +862,7 @@ export default function CommunityScreen() {
     },
     staleTime: 30_000,      // 30s — stale faster so resume always refetches
     refetchOnMount: true,   // always refetch when screen mounts fresh
-    retry: 2,
+    retry: 1,
   });
 
   const members = data?.members ?? [];
@@ -887,6 +887,7 @@ export default function CommunityScreen() {
     },
     enabled: !!user?.id && memberIds.length > 0,
     staleTime: 60000,
+    retry: 1,
   });
 
   // Merge server support status with local optimistic updates
@@ -898,7 +899,7 @@ export default function CommunityScreen() {
   }, [localSupport, supportStatusData]);
 
   // Send support mutation
-  const { mutate: mutateSendSupport } = useMutation({
+  const { mutate: mutateSendSupport, isPending: isSupportPending } = useMutation({
     mutationFn: ({ fromUserId, toUserId }: { fromUserId: string; toUserId: string }) =>
       gamificationApi.sendSupport(fromUserId, toUserId),
     onSuccess: (result, variables) => {
@@ -915,6 +916,7 @@ export default function CommunityScreen() {
 
   const handleSupport = useCallback((memberId: string) => {
     if (!user?.id) return;
+    if (isSupportPending) return;
     const current = getSupportState(memberId, members.find((m) => m.id === memberId)?.supportCount ?? 0);
     if (current.supported) return;
 
@@ -929,7 +931,7 @@ export default function CommunityScreen() {
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     mutateSendSupport({ fromUserId: user.id, toUserId: memberId });
-  }, [user?.id, getSupportState, members, mutateSendSupport]);
+  }, [user?.id, isSupportPending, getSupportState, members, mutateSendSupport]);
 
   const onRefresh = useCallback(async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);

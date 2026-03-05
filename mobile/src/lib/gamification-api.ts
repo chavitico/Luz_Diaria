@@ -3,6 +3,20 @@
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
+// Wraps fetch with an AbortController timeout so no network call can hang forever.
+// Default: 12 seconds — enough for slow 3G, short enough to fail fast.
+function fetchWithTimeout(
+  input: RequestInfo,
+  init?: RequestInit,
+  timeoutMs = 12_000,
+): Promise<Response> {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(input, { ...init, signal: controller.signal }).finally(() =>
+    clearTimeout(id),
+  );
+}
+
 // Types
 export interface StoreItem {
   id: string;
@@ -171,7 +185,7 @@ export interface DailyPrayer {
 export const gamificationApi = {
   // User
   async registerUser(nickname: string, avatarId?: string): Promise<UserProfile> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/user/register`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nickname, avatarId }),
@@ -184,7 +198,7 @@ export const gamificationApi = {
   },
 
   async getUser(userId: string): Promise<UserProfile> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/${userId}`);
     if (!res.ok) throw new Error('Failed to fetch user');
     return res.json();
   },
@@ -205,7 +219,7 @@ export const gamificationApi = {
   }): Promise<UserProfile | null> {
     try {
       // First, try to get the user
-      const res = await fetch(`${BACKEND_URL}/api/gamification/user/${user.id}`);
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/${user.id}`);
 
       if (res.ok) {
         // User exists, return profile
@@ -219,7 +233,7 @@ export const gamificationApi = {
         // Register with the user's existing ID by directly inserting (we need a special endpoint)
         // For now, we'll create a new user and they'll need to use that ID
         // Actually, let's try registering with their nickname
-        const registerRes = await fetch(`${BACKEND_URL}/api/gamification/user/register`, {
+        const registerRes = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -239,7 +253,7 @@ export const gamificationApi = {
           const suffix = Math.random().toString(36).substring(2, 6);
           const newNickname = `${user.nickname.slice(0, 12)}_${suffix}`;
 
-          const retryRes = await fetch(`${BACKEND_URL}/api/gamification/user/register`, {
+          const retryRes = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -283,7 +297,7 @@ export const gamificationApi = {
     showCountry?: boolean;
     nickname?: string;
   }): Promise<UserProfile> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/sync`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/${userId}/sync`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -296,14 +310,14 @@ export const gamificationApi = {
   },
 
   async checkNickname(nickname: string): Promise<{ available: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/nickname/check/${encodeURIComponent(nickname)}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/nickname/check/${encodeURIComponent(nickname)}`);
     if (!res.ok) throw new Error('Failed to check nickname');
     return res.json();
   },
 
   // Points
   async awardPoints(userId: string, action: PointAction, metadata?: any): Promise<PointsResult> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/points/award`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/points/award`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, action, metadata }),
@@ -320,7 +334,7 @@ export const gamificationApi = {
     const url = type
       ? `${BACKEND_URL}/api/gamification/store/items?type=${type}`
       : `${BACKEND_URL}/api/gamification/store/items`;
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url);
     if (!res.ok) throw new Error('Failed to fetch store items');
     const data = await res.json();
     // Support both old array format and new { items, activeSeasons } format
@@ -331,19 +345,19 @@ export const gamificationApi = {
   },
 
   async getActiveSeasons(): Promise<Season[]> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/seasons/active`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/seasons/active`);
     if (!res.ok) throw new Error('Failed to fetch active seasons');
     return res.json();
   },
 
   async getInventory(userId: string): Promise<Array<{ itemId: string; item: StoreItem; source: string }>> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/inventory/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/inventory/${userId}`);
     if (!res.ok) throw new Error('Failed to fetch inventory');
     return res.json();
   },
 
   async purchaseItem(userId: string, itemId: string): Promise<{ success: boolean; item?: StoreItem; newPoints?: number; error?: string }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/store/purchase`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/store/purchase`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, itemId }),
@@ -361,7 +375,7 @@ export const gamificationApi = {
     itemIds: string[],
     bundlePrice: number
   ): Promise<{ success: boolean; itemsAdded?: StoreItem[]; newPoints?: number; alreadyOwned?: number; error?: string }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/store/purchase-bundle`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/store/purchase-bundle`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, bundleId, itemIds, bundlePrice }),
@@ -374,7 +388,7 @@ export const gamificationApi = {
   },
 
   async equipItem(userId: string, type: 'theme' | 'frame' | 'title' | 'music' | 'avatar' | 'badge', itemId: string | null): Promise<UserProfile> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/equip`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/${userId}/equip`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type, itemId }),
@@ -388,13 +402,13 @@ export const gamificationApi = {
 
   // Challenges
   async getCurrentChallenges(): Promise<WeeklyChallenge[]> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/challenges/current`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/current`);
     if (!res.ok) throw new Error('Failed to fetch challenges');
     return res.json();
   },
 
   async getChallengeProgress(userId: string): Promise<WeeklyProgress[]> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/challenges/progress/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/progress/${userId}`);
     if (!res.ok) throw new Error('Failed to fetch challenge progress');
     return res.json();
   },
@@ -403,7 +417,7 @@ export const gamificationApi = {
     updated: WeeklyProgress[];
     completed: boolean[];
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/challenges/update`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/update`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, type }),
@@ -422,7 +436,7 @@ export const gamificationApi = {
     pointsAwarded: number;
     itemAwarded?: StoreItem;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/challenges/claim`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/claim`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, challengeId }),
@@ -436,7 +450,7 @@ export const gamificationApi = {
 
   // Transfer Code Methods
   async generateTransferCode(userId: string): Promise<{ code: string; expiresAt: string }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/transfer/generate`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/transfer/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId }),
@@ -446,7 +460,7 @@ export const gamificationApi = {
   },
 
   async restoreWithCode(code: string, targetUserId: string): Promise<{ success: boolean; user: UserProfile }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/transfer/restore`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/transfer/restore`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code, targetUserId }),
@@ -459,20 +473,20 @@ export const gamificationApi = {
   },
 
   async getActiveTransferCode(userId: string): Promise<{ hasActiveCode: boolean; code?: string; expiresAt?: string }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/transfer/active/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/transfer/active/${userId}`);
     if (!res.ok) throw new Error('Failed to check transfer code');
     return res.json();
   },
 
   async getUserByDeviceId(deviceId: string): Promise<UserProfile | null> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/user/by-device/${deviceId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/by-device/${deviceId}`);
     if (res.status === 404) return null;
     if (!res.ok) throw new Error('Failed to find user');
     return res.json();
   },
 
   async updateDeviceId(userId: string, deviceId: string): Promise<void> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/device`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/${userId}/device`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ deviceId }),
@@ -490,7 +504,7 @@ export const gamificationApi = {
     error?: string;
     errorCode?: string;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/promo/redeem`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/promo/redeem`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, code }),
@@ -509,7 +523,7 @@ export const gamificationApi = {
       points: number;
     };
   }>> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/promo/user/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/promo/user/${userId}`);
     if (!res.ok) throw new Error('Failed to fetch redemptions');
     return res.json();
   },
@@ -522,13 +536,13 @@ export const gamificationApi = {
     offset: number;
     orderingStrategy: 'recent' | 'streak' | 'random';
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/community/members?limit=${limit}&offset=${offset}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/community/members?limit=${limit}&offset=${offset}`);
     if (!res.ok) throw new Error('Failed to fetch community members');
     return res.json();
   },
 
   async updateCommunityOptIn(userId: string, optIn: boolean): Promise<{ success: boolean; communityOptIn: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/community/opt-in/${userId}`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/community/opt-in/${userId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ optIn }),
@@ -538,7 +552,7 @@ export const gamificationApi = {
   },
 
   async getCommunityOptIn(userId: string): Promise<{ communityOptIn: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/community/opt-in/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/community/opt-in/${userId}`);
     if (res.status === 404) return { communityOptIn: false };
     if (!res.ok) throw new Error('Failed to get community opt-in status');
     return res.json();
@@ -555,7 +569,7 @@ export const gamificationApi = {
     pointsAwarded: number;
     error?: string;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/request`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/request`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, categoryKey, mode }),
@@ -564,13 +578,13 @@ export const gamificationApi = {
   },
 
   async getUserPrayerRequests(userId: string): Promise<{ requests: PrayerRequest[] }> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/request/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/request/${userId}`);
     if (!res.ok) throw new Error('Failed to fetch user prayer requests');
     return res.json();
   },
 
   async deletePrayerRequest(userId: string, mode: 'daily' | 'weekly'): Promise<{ success: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/request/${userId}/${mode}`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/request/${userId}/${mode}`, {
       method: 'DELETE',
     });
     if (!res.ok) throw new Error('Failed to delete prayer request');
@@ -583,26 +597,26 @@ export const gamificationApi = {
     limit: number;
     offset: number;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/community?limit=${limit}&offset=${offset}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/community?limit=${limit}&offset=${offset}`);
     if (!res.ok) throw new Error('Failed to fetch community prayer requests');
     return res.json();
   },
 
   async getPrayerSummary(): Promise<{ summary: Record<string, number>; total: number }> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/summary`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/summary`);
     if (!res.ok) throw new Error('Failed to fetch prayer summary');
     return res.json();
   },
 
   async getTodayDailyPrayer(): Promise<DailyPrayer | null> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/daily/today`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/daily/today`);
     if (res.status === 404) return null;
     if (!res.ok) throw new Error('Failed to fetch today\'s daily prayer');
     return res.json();
   },
 
   async getDailyPrayerByDate(dateId: string): Promise<DailyPrayer | null> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/daily/${dateId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/daily/${dateId}`);
     if (res.status === 404) return null;
     if (!res.ok) throw new Error('Failed to fetch daily prayer');
     return res.json();
@@ -614,7 +628,7 @@ export const gamificationApi = {
     pointsAwarded: number;
     message?: string;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/prayed-for-community`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/prayed-for-community`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId }),
@@ -624,13 +638,13 @@ export const gamificationApi = {
   },
 
   async checkPrayedForCommunity(userId: string): Promise<{ prayedToday: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/prayed-for-community/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/prayed-for-community/${userId}`);
     if (!res.ok) throw new Error('Failed to check prayer status');
     return res.json();
   },
 
   async updatePrayerDisplayOptIn(userId: string, optIn: boolean): Promise<{ success: boolean; prayerDisplayOptIn: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ optIn }),
@@ -640,7 +654,7 @@ export const gamificationApi = {
   },
 
   async getPrayerDisplayOptIn(userId: string): Promise<{ prayerDisplayOptIn: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`);
     if (res.status === 404) return { prayerDisplayOptIn: true };
     if (!res.ok) throw new Error('Failed to get prayer display opt-in status');
     return res.json();
@@ -649,7 +663,7 @@ export const gamificationApi = {
   // ─── Country ────────────────────────────────────────────────────────────────
 
   async updateCountry(userId: string, params: { countryCode?: string | null; showCountry?: boolean }): Promise<{ success: boolean; countryCode: string | null; showCountry: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/country`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/${userId}/country`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params),
@@ -659,7 +673,7 @@ export const gamificationApi = {
   },
 
   async getCountry(userId: string): Promise<{ countryCode: string | null; showCountry: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/user/${userId}/country`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/${userId}/country`);
     if (!res.ok) throw new Error('Failed to get country');
     return res.json();
   },
@@ -667,7 +681,7 @@ export const gamificationApi = {
   // ─── Collection Claims ──────────────────────────────────────────────────────
 
   async getCollectionClaims(userId: string): Promise<{ claims: Array<{ collectionId: string; pointsAwarded: number; claimedAt: string }> }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/collections/claims/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/collections/claims/${userId}`);
     if (!res.ok) throw new Error('Failed to fetch collection claims');
     return res.json();
   },
@@ -678,7 +692,7 @@ export const gamificationApi = {
     ownedItemIds: string[];
     rewardPoints: number;
   }): Promise<{ success: boolean; newPoints: number; pointsAwarded: number; collectionId: string }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/collections/claim`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/collections/claim`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params),
@@ -695,7 +709,7 @@ export const gamificationApi = {
   async getChapterProgress(userId: string): Promise<{
     progress: Array<{ collectionId: string; claimedChapterIds: string[]; updatedAt: string }>;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/collections/chapters/progress/${userId}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/collections/chapters/progress/${userId}`);
     if (!res.ok) throw new Error('Failed to fetch chapter progress');
     return res.json();
   },
@@ -705,7 +719,7 @@ export const gamificationApi = {
     collectionId: string;
     claimedChapterIds: string[];
   }): Promise<{ success: boolean; claimedChapterIds: string[] }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/collections/chapters/progress`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/collections/chapters/progress`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params),
@@ -721,7 +735,7 @@ export const gamificationApi = {
     alreadySupported: boolean;
     supportCount: number;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/community/support`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/community/support`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fromUserId, toUserId }),
@@ -739,7 +753,7 @@ export const gamificationApi = {
       fromUserId,
       toUserIds: toUserIds.join(','),
     });
-    const res = await fetch(`${BACKEND_URL}/api/gamification/community/support/status?${params}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/community/support/status?${params}`);
     if (!res.ok) throw new Error('Failed to get support status');
     return res.json();
   },
@@ -757,7 +771,7 @@ export const gamificationApi = {
       createdAt: string;
     } | null;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/pending?userId=${encodeURIComponent(userId)}`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gifts/pending?userId=${encodeURIComponent(userId)}`);
     if (!res.ok) return { gift: null };
     return res.json();
   },
@@ -767,7 +781,7 @@ export const gamificationApi = {
     granted?: { rewardType: string; rewardId: string };
     error?: string;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/claim`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gifts/claim`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, giftDropId }),
@@ -791,7 +805,7 @@ export const gamificationApi = {
     createdAt: string;
     totalRecipients: number;
   }>> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/list`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gifts/admin/list`, {
       headers: { 'X-User-Id': userId },
     });
     if (!res.ok) throw new Error('Failed to list gift drops');
@@ -807,7 +821,7 @@ export const gamificationApi = {
     audienceUserIds?: string[];
     isActive?: boolean;
   }): Promise<{ success: boolean; giftDrop: { id: string } }> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/create`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gifts/admin/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
       body: JSON.stringify(data),
@@ -817,7 +831,7 @@ export const gamificationApi = {
   },
 
   async adminUpdateGiftDrop(userId: string, id: string, data: { isActive?: boolean; title?: string; message?: string }): Promise<{ success: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/${id}`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gifts/admin/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
       body: JSON.stringify(data),
@@ -827,7 +841,7 @@ export const gamificationApi = {
   },
 
   async adminPublishGiftDrop(userId: string, giftDropId: string): Promise<{ success: boolean; created: number; total: number; message?: string }> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/publish`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gifts/admin/publish`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
       body: JSON.stringify({ giftDropId }),
@@ -837,7 +851,7 @@ export const gamificationApi = {
   },
 
   async adminDeleteGiftDrop(userId: string, id: string): Promise<{ success: boolean }> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/${id}`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gifts/admin/${id}`, {
       method: 'DELETE',
       headers: { 'X-User-Id': userId },
     });
@@ -852,7 +866,7 @@ export const gamificationApi = {
     nameEn: string;
     rarity: string;
   }>> {
-    const res = await fetch(`${BACKEND_URL}/api/gifts/admin/store-items`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gifts/admin/store-items`, {
       headers: { 'X-User-Id': userId },
     });
     if (!res.ok) throw new Error('Failed to get store items');
@@ -866,7 +880,7 @@ export const gamificationApi = {
     count: number;
     isProd: boolean;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/admin/backups`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/backups`, {
       headers: { 'X-User-Id': userId },
     });
     if (!res.ok) throw new Error('Failed to list backups');
@@ -874,7 +888,7 @@ export const gamificationApi = {
   },
 
   async adminTriggerBackup(userId: string): Promise<{ success: boolean; message: string }> {
-    const res = await fetch(`${BACKEND_URL}/api/admin/backups/run`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/backups/run`, {
       method: 'POST',
       headers: { 'X-User-Id': userId },
     });
@@ -888,7 +902,7 @@ export const gamificationApi = {
     error?: string;
     restoredCounts?: Record<string, number>;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/admin/backups/restore`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/backups/restore`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
       body: JSON.stringify({ date, confirm: 'RESTORE_DEV_DATA' }),
@@ -909,7 +923,7 @@ export const gamificationApi = {
     windowDays: number;
     computedAt: string;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/community/stats`);
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/community/stats`);
     if (!res.ok) throw new Error('Failed to fetch community stats');
     return res.json();
   },
@@ -921,7 +935,7 @@ export const gamificationApi = {
     serverNow: string;
     deltaSeconds?: number;
   }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/session/heartbeat`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/session/heartbeat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId, sessionId }),
@@ -931,7 +945,7 @@ export const gamificationApi = {
   },
 
   async renameNickname(userId: string, newNickname: string): Promise<{ success: boolean; user?: UserProfile; error?: string }> {
-    const res = await fetch(`${BACKEND_URL}/api/gamification/user/rename`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/rename`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
       body: JSON.stringify({ newNickname }),
@@ -944,7 +958,7 @@ export const gamificationApi = {
   // ─── Admin force-rename (OWNER, no token required) ────────────────────────
 
   async adminForceRename(userId: string, targetId: string, newNickname: string, skipSafetyCheck = false): Promise<{ success: boolean; error?: string }> {
-    const res = await fetch(`${BACKEND_URL}/api/admin/users/${targetId}/force-rename`, {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${targetId}/force-rename`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
       body: JSON.stringify({ newNickname, skipSafetyCheck }),
