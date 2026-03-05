@@ -60,6 +60,8 @@ const HARD_BLOCK: string[] = [
   "vagina", "vagi",
   "cabron", "cabrona",
   "hijoputa", "hijoput",
+  "hijueputa", "hijueput", "hijuep",   // Colombian variant (hijue = hijo de)
+  "hijadeputa", "hijadeput",           // feminine form
   "pendejo", "pendeja",
   "chingada", "chingo", "chinga", "chingas",
   "culero", "culera",
@@ -88,7 +90,7 @@ const HARD_BLOCK: string[] = [
   "pelotudo",
   "sorete",
   "gil",
-  "hdp",       // hijo de puta abbreviation
+  "hdp", "hjp", "hjdp", // hijo de puta abbreviations
   "mrd",       // mierda abbreviation
   // English profanity
   "fuck", "fucker", "fuckin",

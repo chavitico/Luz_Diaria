@@ -768,5 +768,180 @@
     "itemId": "avatar_v2_cordero",
     "acquiredAt": "2026-03-05T01:07:27.043Z",
     "source": "store"
+  },
+  {
+    "id": "cmmcupubg000xm25wdhfv71tf",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_pez_ichthys",
+    "acquiredAt": "2026-03-05T02:33:29.788Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcv8wps0018m2xc58eldgd2",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-05T02:48:19.360Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcv9vzq001am2xcfd44zxub",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_amor",
+    "acquiredAt": "2026-03-05T02:49:05.079Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvapxn001cm2xcouff7x3h",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v3_paloma_luz",
+    "acquiredAt": "2026-03-05T02:49:43.883Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvawky001em2xcbr5rclpk",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v3_leon_valiente",
+    "acquiredAt": "2026-03-05T02:49:52.498Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvrw6p001sm2xcmjrn6xxi",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_cielo_gloria",
+    "acquiredAt": "2026-03-05T03:03:05.137Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvsd04001um2xc4lp5un9x",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_portador",
+    "acquiredAt": "2026-03-05T03:03:26.932Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvuxc8001wm2xco5wm2q3n",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_all_through_christ",
+    "acquiredAt": "2026-03-05T03:05:26.600Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvv5i6001ym2xcwmzzh3zn",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_walk_by_faith",
+    "acquiredAt": "2026-03-05T03:05:37.183Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvvlv60028m2xctmppcgac",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_patient_wait",
+    "acquiredAt": "2026-03-05T03:05:58.387Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvx7wy002am2xceh4a4rme",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v3_paloma_luz",
+    "acquiredAt": "2026-03-05T03:07:13.618Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvydu9002cm2xcvy72mqps",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "title_word_is_light",
+    "acquiredAt": "2026-03-05T03:08:07.953Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcw1mth002pm2xcl6radr14",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-05T03:10:39.557Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmcw2pgc002vm2xchylcepvp",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_azul",
+    "acquiredAt": "2026-03-05T03:11:29.628Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcw7zwq002ym2xcpcg9ncko",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "theme_promesa",
+    "acquiredAt": "2026-03-05T03:15:36.458Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcxxjfy003sm2xc7jr8686j",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "avatar_v2_cruz_radiante",
+    "acquiredAt": "2026-03-05T04:03:27.791Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcy29ll003um2xcabss4vt7",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "avatar_v3_leon_valiente",
+    "acquiredAt": "2026-03-05T04:07:08.314Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcy9a470044m2xclf61a6af",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "frame_v2_rosa_gracia",
+    "acquiredAt": "2026-03-05T04:12:35.575Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcypqz8004km2xcijf1820i",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-05T04:25:23.924Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcyrsei004mm2xcpvz9oed7",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "theme_promesa_violeta",
+    "acquiredAt": "2026-03-05T04:26:59.082Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmczdm9z004tm2xcmf120tq5",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "avatar_v2_rama_olivo",
+    "acquiredAt": "2026-03-05T04:43:57.576Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmczdma0004vm2xcffbc4va0",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-05T04:43:57.576Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmczdma0004xm2xctrfpriyv",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "avatar_v2_vid_racimos",
+    "acquiredAt": "2026-03-05T04:43:57.576Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmczdma0004zm2xcogvlx1uh",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "frame_corona",
+    "acquiredAt": "2026-03-05T04:43:57.577Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmczdma00051m2xcstcd5fbb",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-05T04:43:57.577Z",
+    "source": "bundle:bundle_launch_growth"
   }
 ]

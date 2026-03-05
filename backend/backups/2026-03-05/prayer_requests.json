@@ -73,5 +73,20 @@
     "expiresAt": "2026-03-07T01:12:46.106Z",
     "createdAt": "2026-03-05T01:12:46.109Z",
     "updatedAt": "2026-03-05T01:12:46.109Z"
+  },
+  {
+    "id": "cmmcy5680003wm2xchfnlf4hs",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "friend_strength",
+    "nickname": "Pame",
+    "avatarId": "avatar_v3_leon_valiente",
+    "frameId": "frame_serene_crown",
+    "titleId": "title_luz",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-07T04:09:23.902Z",
+    "createdAt": "2026-03-05T04:09:23.905Z",
+    "updatedAt": "2026-03-05T04:09:23.905Z"
   }
 ]
