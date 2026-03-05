@@ -175,7 +175,15 @@ async function fetchAndCache(date: string): Promise<Devotional | null> {
       ? `${BACKEND_URL}/api/devotional/today`
       : `${BACKEND_URL}/api/devotional?date=${date}`;
 
-    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    // AbortSignal.timeout() is not available in Hermes (React Native) — use manual controller
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    let res: Response;
+    try {
+      res = await fetch(url, { signal: controller.signal });
+    } finally {
+      clearTimeout(timeoutId);
+    }
     if (!res.ok) {
       if (IS_DEV) console.warn(`[DevCache] fetchAndCache(${date}): HTTP ${res.status}`);
       return null;

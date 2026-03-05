@@ -616,18 +616,23 @@ export default function CommunityScreen() {
     }
   }, [syncCurrentUser, queryClient]);
 
-  // AppState listener — only triggers on background/inactive → active
+  // Stable ref so the AppState listener never needs to be re-registered
+  const onAppResumeRef = useRef(onAppResume);
+  useEffect(() => { onAppResumeRef.current = onAppResume; }, [onAppResume]);
+
+  // AppState listener — register once, call stable ref to always get fresh handler
   useEffect(() => {
     const sub = AppState.addEventListener('change', (nextState) => {
       const prev = appStateRef.current;
       appStateRef.current = nextState;
       if ((prev === 'background' || prev === 'inactive') && nextState === 'active') {
         console.log('[Community] App resumed from background — triggering recovery');
-        onAppResume();
+        onAppResumeRef.current();
       }
     });
     return () => sub.remove();
-  }, [onAppResume]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // intentionally empty — stable ref pattern
 
   // Revalidate on screen focus (lightweight — no syncCurrentUser, just invalidate)
   useFocusEffect(
