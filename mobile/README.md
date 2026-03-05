@@ -429,6 +429,34 @@ Admin-managed premium gift distribution to reward users.
 - List: last 20 drops with recipient count, active toggle, publish button
 - Publish flow: confirms audience count before sending
 
+### Peer-to-Peer Store Gift System
+Users can send store items as gifts directly to other community members.
+
+**DB Models:** `GiftTransaction`, `GiftNotification`
+**Backend Endpoints (`/api/store/`):**
+- `POST /gift` — Atomic: deduct sender points, add item to receiver inventory, create GiftTransaction + GiftNotification. Limits: 3/day, 20/week per sender.
+- `GET /gift/notifications` — Unseen gift notifications for current user (includes item + sender info)
+- `POST /gift/notifications/:id/accept` — Receiver accepts (marks seen, sets status "delivered")
+- `POST /gift/notifications/:id/reject` — Receiver declines (marks seen only)
+- `POST /gift/notifications/:id/seen` — Generic mark-seen
+- `GET /gift/search-users?q=` — Search users by nickname prefix (min 2 chars, excludes self)
+- `GET /gift/giftable-items?receiverId=&type=` — All purchasable items with `receiverOwns` flag
+
+**Gift Flow (community screen):**
+- Tap any community member card → `CommunityGiftFlowModal` opens
+- Step 1: Category picker (avatar 🕊️ / marco 🖼️ / título 🏅) with available item counts
+- Step 2: Rarity/tier picker (common/rare/epic) with LinearGradient, owned-by-receiver counts
+- Step 3: Item cards — items receiver already owns shown greyed-out with "Ya tiene" badge (unselectable)
+- Step 4: Confirm with cost summary, recipient chip, insufficient-points hint → send
+- Step 5: Success animation with pulsing gift emoji
+
+**ReceivedGiftModal (receiver side):**
+- Shown on app start/foreground if unseen gift notifications exist
+- Sparkle particle animation, rarity glow, item preview
+- "Equipar ahora" → calls `/accept` endpoint (status → "delivered") then closes
+- "Cerrar" → calls `/reject` endpoint (mark seen only) then closes
+- Collection completion: item lands in inventory normally; client-side collection logic handles progress automatically
+
 ### Gamification System
 - **Seasons / Events System** — DB-driven temporal content with automatic activation/deactivation:
   - `Season` table: `id`, `name`, `startDate`, `endDate`, `priority`, `storeSlot`, `bannerTitle`, `bannerDescription`, `accentColor`, `isActive`

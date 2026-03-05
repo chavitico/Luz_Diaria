@@ -80,19 +80,18 @@ storeGiftsRouter.post(
           },
         });
 
-        // 8. Add item to receiver's inventory (or skip if already owned — idempotent)
+        // 8. Add item to receiver's inventory (throw if already owned)
         const existingInventory = await tx.userInventory.findUnique({
           where: { userId_itemId: { userId: receiverUserId, itemId } },
         });
-        if (!existingInventory) {
-          await tx.userInventory.create({
-            data: {
-              userId: receiverUserId,
-              itemId,
-              source: "gift",
-            },
-          });
-        }
+        if (existingInventory) throw new Error("RECEIVER_ALREADY_HAS_ITEM");
+        await tx.userInventory.create({
+          data: {
+            userId: receiverUserId,
+            itemId,
+            source: "gift",
+          },
+        });
 
         // 9. Create gift transaction (idempotency: check for recent duplicate)
         const giftTransaction = await tx.giftTransaction.create({
@@ -134,6 +133,7 @@ storeGiftsRouter.post(
         ITEM_NOT_AVAILABLE: 400,
         ITEM_NOT_GIFTABLE: 400,
         INSUFFICIENT_POINTS: 400,
+        RECEIVER_ALREADY_HAS_ITEM: 400,
         DAILY_LIMIT_REACHED: 429,
         WEEKLY_LIMIT_REACHED: 429,
       };
@@ -223,5 +223,102 @@ storeGiftsRouter.get("/gift/search-users", async (c) => {
     return c.json({ users });
   } catch (err) {
     return c.json({ error: "Search failed" }, 500);
+  }
+});
+
+// GET /store/gift/giftable-items — items giftable to a specific receiver
+// Query params: receiverId (required), type (optional: avatar|frame|title|theme)
+storeGiftsRouter.get("/gift/giftable-items", async (c) => {
+  const userId = c.req.header("X-User-Id");
+  const receiverId = c.req.query("receiverId") ?? "";
+  const type = c.req.query("type") ?? "";
+  if (!userId) return c.json({ error: "Missing X-User-Id" }, 400);
+  if (!receiverId) return c.json({ error: "Missing receiverId" }, 400);
+
+  try {
+    const whereClause: Record<string, unknown> = {
+      available: true,
+      comingSoon: false,
+      pricePoints: { gt: 0 },
+    };
+    if (type) whereClause.type = type;
+
+    const items = await prisma.storeItem.findMany({
+      where: whereClause,
+      orderBy: [{ rarity: "asc" }, { pricePoints: "asc" }],
+    });
+
+    // Get receiver's current inventory item IDs
+    const receiverInventory = await prisma.userInventory.findMany({
+      where: { userId: receiverId },
+      select: { itemId: true },
+    });
+    const ownedItemIds = new Set(receiverInventory.map((inv) => inv.itemId));
+
+    const result = items.map((item) => ({
+      ...item,
+      receiverOwns: ownedItemIds.has(item.id),
+    }));
+
+    return c.json({ items: result });
+  } catch (err) {
+    console.error("[GiftableItems] Error:", err);
+    return c.json({ error: "Failed to fetch items" }, 500);
+  }
+});
+
+// POST /store/gift/notifications/:id/accept — receiver accepts gift, notifies sender
+storeGiftsRouter.post("/gift/notifications/:id/accept", async (c) => {
+  const userId = c.req.header("X-User-Id");
+  const id = c.req.param("id");
+  if (!userId) return c.json({ error: "Missing X-User-Id" }, 400);
+
+  try {
+    // Mark notification as seen
+    const notif = await prisma.giftNotification.findFirst({
+      where: { id, userId },
+      include: {
+        giftTransaction: {
+          include: {
+            receiver: { select: { id: true, nickname: true } },
+            sender: { select: { id: true, nickname: true } },
+          },
+        },
+      },
+    });
+
+    if (!notif) return c.json({ error: "Notification not found" }, 404);
+
+    await prisma.giftNotification.update({
+      where: { id },
+      data: { seen: true },
+    });
+
+    // Update gift transaction status to "delivered"
+    await prisma.giftTransaction.update({
+      where: { id: notif.giftTransactionId },
+      data: { status: "delivered" },
+    });
+
+    return c.json({ success: true });
+  } catch (err) {
+    return c.json({ error: "Failed to accept gift" }, 500);
+  }
+});
+
+// POST /store/gift/notifications/:id/reject — receiver rejects gift (marks seen)
+storeGiftsRouter.post("/gift/notifications/:id/reject", async (c) => {
+  const userId = c.req.header("X-User-Id");
+  const id = c.req.param("id");
+  if (!userId) return c.json({ error: "Missing X-User-Id" }, 400);
+
+  try {
+    await prisma.giftNotification.updateMany({
+      where: { id, userId },
+      data: { seen: true },
+    });
+    return c.json({ success: true });
+  } catch (err) {
+    return c.json({ error: "Failed to reject gift" }, 500);
   }
 });

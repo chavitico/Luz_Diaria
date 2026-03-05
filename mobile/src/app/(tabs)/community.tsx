@@ -41,6 +41,7 @@ import { gamificationApi, CommunityMember } from '@/lib/gamification-api';
 import { getCountryByCode } from '@/components/CountryPicker';
 import { BadgeChip } from '@/components/BadgeChip';
 import { BadgeInfoModal } from '@/components/BadgeInfoModal';
+import { CommunityGiftFlowModal } from '@/components/CommunityGiftFlowModal';
 
 // Helper: is a member active today?
 function isActiveToday(member: CommunityMember): boolean {
@@ -155,11 +156,13 @@ function MemberCard({
   isCurrentUser,
   index,
   onBadgePress,
+  onGiftPress,
 }: {
   member: CommunityMember;
   isCurrentUser: boolean;
   index: number;
   onBadgePress?: (badgeId: string) => void;
+  onGiftPress?: (member: CommunityMember) => void;
 }) {
   const colors = useThemeColors();
   const language = useLanguage();
@@ -186,7 +189,13 @@ function MemberCard({
       entering={FadeInDown.delay(index * 40).duration(280)}
       style={{ marginHorizontal: 12, marginBottom: 6 }}
     >
-      <View
+      <Pressable
+        onPress={() => {
+          if (!isCurrentUser && onGiftPress) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            onGiftPress(member);
+          }
+        }}
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -313,7 +322,7 @@ function MemberCard({
             </Text>
           </View>
         </View>
-      </View>
+      </Pressable>
     </Animated.View>
   );
 }
@@ -460,6 +469,9 @@ export default function CommunityScreen() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isOffline, setIsOffline] = useState(false);
   const syncedRef = useRef(false);
+
+  const [giftTarget, setGiftTarget] = useState<CommunityMember | null>(null);
+  const [showGiftFlow, setShowGiftFlow] = useState(false);
 
   // Badge info modal state
   const [badgeModalId, setBadgeModalId] = useState<string | null>(null);
@@ -705,6 +717,7 @@ export default function CommunityScreen() {
           isCurrentUser={item.id === user?.id}
           index={index}
           onBadgePress={(badgeId) => setBadgeModalId(badgeId)}
+          onGiftPress={(member) => { setGiftTarget(member); setShowGiftFlow(true); }}
         />
       );
     },
@@ -790,6 +803,13 @@ export default function CommunityScreen() {
         visible={!!badgeModalId}
         variant="community"
         onClose={() => setBadgeModalId(null)}
+      />
+
+      {/* Community gift flow modal */}
+      <CommunityGiftFlowModal
+        visible={showGiftFlow}
+        recipient={giftTarget}
+        onClose={() => setShowGiftFlow(false)}
       />
     </View>
   );

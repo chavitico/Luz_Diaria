@@ -273,9 +273,9 @@ function AppContent() {
   // Received peer-to-peer gift handlers
   const handleReceivedGiftClose = useCallback(async () => {
     if (!user?.id || !pendingReceivedGift) return;
-    // Mark as seen on backend
+    // Receiver dismisses → reject (marks seen, no status change to "delivered")
     try {
-      await fetch(`${BACKEND_URL}/api/store/gift/notifications/${pendingReceivedGift.notificationId}/seen`, {
+      await fetch(`${BACKEND_URL}/api/store/gift/notifications/${pendingReceivedGift.notificationId}/reject`, {
         method: 'POST',
         headers: { 'X-User-Id': user.id },
       });
@@ -285,10 +285,18 @@ function AppContent() {
   }, [user?.id, pendingReceivedGift]);
 
   const handleReceivedGiftEquip = useCallback(async () => {
-    await handleReceivedGiftClose();
-    // Navigate to store so user can equip
-    // (router is available from expo-router; item is now in inventory)
-  }, [handleReceivedGiftClose]);
+    if (!user?.id || !pendingReceivedGift) return;
+    // Receiver equips → accept (marks seen + sets status "delivered", notifies sender)
+    try {
+      await fetch(`${BACKEND_URL}/api/store/gift/notifications/${pendingReceivedGift.notificationId}/accept`, {
+        method: 'POST',
+        headers: { 'X-User-Id': user.id },
+      });
+    } catch { /* silent */ }
+    setShowReceivedGiftModal(false);
+    setPendingReceivedGift(null);
+    // Navigate to store so user can equip the item
+  }, [user?.id, pendingReceivedGift]);
 
   if (!appReady) {
     return null;
