@@ -5761,7 +5761,7 @@ export default function StoreScreen() {
   const isOpeningModal = useRef(false);
   const lastCategoryTapAt = useRef(0);
   const isOpeningItem = useRef(false);
-  const pendingAdventureRoute = useRef<{ pathname: string; params?: Record<string, string> } | null>(null);
+  const pendingAdventureRoute = useRef<string | null>(null);
 
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
@@ -6788,7 +6788,7 @@ export default function StoreScreen() {
                     onViewAdventure={(targetType, targetId) => {
                       if (isOpeningModal.current) return;
                       isOpeningModal.current = true;
-                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
                       if (targetType === 'collection') {
                         // Resolve targetId — 'collection_growth_path' maps to the Naturaleza Bíblica collection
                         const resolvedId = targetId === 'collection_growth_path' ? 'collection_v2_naturaleza' : targetId;
@@ -6799,12 +6799,15 @@ export default function StoreScreen() {
                           isOpeningModal.current = false;
                         }
                       } else {
-                        // Defer navigation until modal dismiss animation fully completes (onDismiss resets lock)
-                        pendingAdventureRoute.current = {
-                          pathname: '/collections/adventures',
-                          params: { bundleId: bundle.id },
-                        };
+                        const route = `/collections/adventures?bundleId=${bundle.id}`;
+                        pendingAdventureRoute.current = route;
                         setShowStoreSectionModal(false);
+                        // Failsafe: release lock if useEffect never fires
+                        setTimeout(() => {
+                          if (isOpeningModal.current && pendingAdventureRoute.current === route) {
+                            isOpeningModal.current = false;
+                          }
+                        }, 1500);
                       }
                     }}
                   />
@@ -7036,6 +7039,27 @@ export default function StoreScreen() {
 
     return () => clearTimeout(timer);
   }, [pendingNavTarget, language]);
+
+  // Navigate to adventure when StoreSectionModal fully closes
+  // Tied to state transition so it fires even if onDismiss doesn't (Android, edge cases)
+  useEffect(() => {
+    if (showStoreSectionModal) return;
+
+    const route = pendingAdventureRoute.current;
+    if (!route) {
+      isOpeningModal.current = false;
+      return;
+    }
+
+    pendingAdventureRoute.current = null;
+
+    InteractionManager.runAfterInteractions(() => {
+      requestAnimationFrame(() => {
+        router.push(route as any);
+        isOpeningModal.current = false;
+      });
+    });
+  }, [showStoreSectionModal]);
 
   // Build a detail item object from an itemId + itemType (used for auto-open)
   const buildDetailFromId = useCallback((
@@ -7303,14 +7327,8 @@ export default function StoreScreen() {
         presentationStyle="pageSheet"
         onRequestClose={() => setShowStoreSectionModal(false)}
         onDismiss={() => {
-          const pending = pendingAdventureRoute.current;
-          pendingAdventureRoute.current = null;
+          // Lock released here as failsafe; navigation is driven by the useEffect below
           isOpeningModal.current = false;
-          if (pending) {
-            InteractionManager.runAfterInteractions(() => {
-              router.push(pending as any);
-            });
-          }
         }}
       >
         <View style={{ flex: 1, backgroundColor: colors.background }}>
