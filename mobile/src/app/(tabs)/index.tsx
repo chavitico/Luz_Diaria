@@ -951,6 +951,7 @@ function AudioControls({
   onTTSPlay,
   onTTSPause,
   isTTSPlaying,
+  musicIsLoading,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
@@ -963,6 +964,7 @@ function AudioControls({
   onTTSPlay: () => void;
   onTTSPause: () => void;
   isTTSPlaying: boolean;
+  musicIsLoading: boolean;
 }) {
   const [showMusicSettings, setShowMusicSettings] = useState(false);
 
@@ -998,13 +1000,16 @@ function AudioControls({
           </Text>
           <Pressable
             onPress={() => {
+              if (musicIsLoading) return;
               onMusicToggle();
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             }}
             className="w-12 h-12 rounded-full items-center justify-center"
-            style={{ backgroundColor: musicEnabled ? colors.primary : colors.textMuted + '30' }}
+            style={{ backgroundColor: musicEnabled ? colors.primary : colors.textMuted + '30', opacity: musicIsLoading ? 0.6 : 1 }}
           >
-            {musicEnabled ? (
+            {musicIsLoading ? (
+              <ActivityIndicator size="small" color={musicEnabled ? colors.primaryText : colors.textMuted} />
+            ) : musicEnabled ? (
               <Volume2 size={20} color={colors.primaryText} />
             ) : (
               <VolumeX size={20} color={colors.textMuted} />
@@ -2158,6 +2163,7 @@ export default function HomeScreen() {
             onTTSPlay={handleTTSPlay}
             onTTSPause={handleTTSPause}
             isTTSPlaying={isTTSPlaying}
+            musicIsLoading={musicPlayer.isLoading}
           />
 
           {/* Voice fallback banner — shown when Paulina/Monica not installed or Eloquence forced */}

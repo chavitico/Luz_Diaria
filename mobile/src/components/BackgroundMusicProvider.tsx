@@ -89,6 +89,8 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
   const [isLoading, setIsLoading] = useState(false);
 
   const soundRef = useRef<Audio.Sound | null>(null);
+  // Mutex: prevents concurrent play/load/toggle operations from stomping on each other
+  const operationInProgressRef = useRef(false);
 
   // Initialize audio mode
   useEffect(() => {
@@ -154,13 +156,13 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
         soundRef.current = null;
       }
 
-      // Load new sound from local asset
+      // Load new sound from local asset with a gentle fade-in via initial volume 0
       const { sound } = await Audio.Sound.createAsync(
         track.source,
         {
           shouldPlay: false,
           isLooping: true,
-          volume: volume,
+          volume: 0,  // start silent, fade in after play starts
         },
         onPlaybackStatusUpdate
       );
@@ -184,45 +186,87 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
   };
 
   const play = useCallback(async () => {
-    console.log('Play called, soundRef.current:', !!soundRef.current);
-    if (!soundRef.current) {
-      // Try to load the current track first
-      const loaded = await loadTrack(currentTrack);
-      if (!loaded) {
-        console.log('Failed to load track for playback');
-        return;
-      }
+    // Mutex: ignore if another operation is already in progress
+    if (operationInProgressRef.current) {
+      console.log('Play ignored — operation already in progress');
+      return;
     }
+    operationInProgressRef.current = true;
 
     try {
+      console.log('Play called, soundRef.current:', !!soundRef.current);
+      if (!soundRef.current) {
+        const loaded = await loadTrack(currentTrack);
+        if (!loaded) {
+          console.log('Failed to load track for playback');
+          return;
+        }
+      }
+
       console.log('Starting playback...');
       await soundRef.current?.playAsync();
       setIsPlaying(true);
       updateSettings({ musicEnabled: true });
+
+      // Fade in: ramp volume from 0 → target over ~800ms
+      const target = volume;
+      const steps = 16;
+      const stepMs = 50;
+      for (let i = 1; i <= steps; i++) {
+        await new Promise<void>((r) => setTimeout(r, stepMs));
+        const v = (target * i) / steps;
+        try { await soundRef.current?.setVolumeAsync(v); } catch {}
+      }
       console.log('Playback started successfully');
     } catch (error) {
       console.log('Error playing:', error);
+    } finally {
+      operationInProgressRef.current = false;
     }
-  }, [currentTrack, loadTrack, updateSettings]);
+  }, [currentTrack, loadTrack, updateSettings, volume]);
 
   const pause = useCallback(async () => {
+    if (operationInProgressRef.current) {
+      console.log('Pause ignored — operation already in progress');
+      return;
+    }
+    operationInProgressRef.current = true;
+
     try {
+      // Fade out before pausing
+      const current = volume;
+      const steps = 10;
+      const stepMs = 40;
+      for (let i = steps - 1; i >= 0; i--) {
+        await new Promise<void>((r) => setTimeout(r, stepMs));
+        const v = (current * i) / steps;
+        try { await soundRef.current?.setVolumeAsync(v); } catch {}
+      }
       await soundRef.current?.pauseAsync();
       setIsPlaying(false);
     } catch (error) {
       console.log('Error pausing:', error);
+    } finally {
+      operationInProgressRef.current = false;
     }
-  }, []);
+  }, [volume]);
 
   const stop = useCallback(async () => {
     try {
+      // Fade out before stopping
+      const current = volume;
+      const steps = 10;
+      for (let i = steps - 1; i >= 0; i--) {
+        await new Promise<void>((r) => setTimeout(r, 40));
+        try { await soundRef.current?.setVolumeAsync((current * i) / steps); } catch {}
+      }
       await soundRef.current?.stopAsync();
       await soundRef.current?.setPositionAsync(0);
       setIsPlaying(false);
     } catch (error) {
       console.log('Error stopping:', error);
     }
-  }, []);
+  }, [volume]);
 
   const setTrack = useCallback(async (trackId: string) => {
     const wasPlaying = isPlaying;
@@ -243,6 +287,11 @@ export function BackgroundMusicProvider({ children }: BackgroundMusicProviderPro
   }, [updateSettings]);
 
   const togglePlayback = useCallback(async () => {
+    // Mutex check at toggle level too — debounces rapid taps
+    if (operationInProgressRef.current) {
+      console.log('Toggle ignored — operation already in progress');
+      return;
+    }
     if (isPlaying) {
       await pause();
       updateSettings({ musicEnabled: false });
