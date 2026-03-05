@@ -1,20 +1,5 @@
 [
   {
-    "id": "cmm9x34tf000em2sr9bzirpu0",
-    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
-    "periodId": "active",
-    "mode": "daily",
-    "categoryKey": "family",
-    "nickname": "ChaViTico",
-    "avatarId": "avatar_v2_vid_racimos",
-    "frameId": null,
-    "titleId": null,
-    "displayNameOptIn": true,
-    "expiresAt": "2026-03-05T01:16:30.624Z",
-    "createdAt": "2026-03-03T01:16:30.628Z",
-    "updatedAt": "2026-03-03T01:16:30.628Z"
-  },
-  {
     "id": "cmmaoqxa6001hm25pj9lhfhaj",
     "userId": "cmm9y71p5000km29qqx44tb91",
     "periodId": "active",
@@ -73,5 +58,20 @@
     "expiresAt": "2026-03-06T07:16:08.828Z",
     "createdAt": "2026-03-04T07:16:08.831Z",
     "updatedAt": "2026-03-04T07:16:08.831Z"
+  },
+  {
+    "id": "cmmcru0wt001am26b1eo9c5g1",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "peace",
+    "nickname": "ChaViTico",
+    "avatarId": "avatar_adv_jonah_whale",
+    "frameId": "frame_v2_luna_plata",
+    "titleId": "title_psalm_shepherd",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-07T01:12:46.106Z",
+    "createdAt": "2026-03-05T01:12:46.109Z",
+    "updatedAt": "2026-03-05T01:12:46.109Z"
   }
 ]

@@ -539,8 +539,13 @@ export default function AdventuresCollectionScreen() {
 
   const [selectedBundleId, setSelectedBundleId] = useState<string | null>(null);
   const [showDetail, setShowDetail] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<BundleStatus | 'all'>('all');
 
-  const sortedIds = sortBundles(ADVENTURE_BUNDLE_IDS, purchasedItems);
+  const sortedIds = sortBundles(ADVENTURE_BUNDLE_IDS, purchasedItems).filter(id => {
+    if (activeFilter === 'all') return true;
+    const b = STORE_BUNDLES[id];
+    return getStatus(id, purchasedItems, b?.comingSoon) === activeFilter;
+  });
 
   // Auto-scroll to highlighted card
   useEffect(() => {
@@ -596,20 +601,40 @@ export default function AdventuresCollectionScreen() {
         </View>
       </LinearGradient>
 
-      {/* Legend */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16, paddingHorizontal: 20, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.05)' }}>
-        {[
-          { icon: <Check size={12} color="#22C55E" />, label: language === 'es' ? 'Completada' : 'Completed', bg: '#22C55E22' },
-          { icon: <BookOpen size={12} color="#F5C842" />, label: language === 'es' ? 'Disponible' : 'Available', bg: '#F5C84222' },
-          { icon: <Clock size={12} color="rgba(255,255,255,0.4)" />, label: language === 'es' ? 'Próximamente' : 'Coming Soon', bg: 'rgba(255,255,255,0.08)' },
-        ].map((item, i) => (
-          <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-            <View style={{ width: 22, height: 22, borderRadius: 11, backgroundColor: item.bg, alignItems: 'center', justifyContent: 'center' }}>
-              {item.icon}
-            </View>
-            <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)' }}>{item.label}</Text>
-          </View>
-        ))}
+      {/* Filter tabs */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 20, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.05)' }}>
+        {([
+          { filter: 'all' as const, label: language === 'es' ? 'Todas' : 'All', icon: null, activeColor: '#FFFFFF', bg: 'rgba(255,255,255,0.12)' },
+          { filter: 'completed' as const, icon: <Check size={11} color="#22C55E" />, label: language === 'es' ? 'Completada' : 'Completed', activeColor: '#22C55E', bg: '#22C55E22' },
+          { filter: 'available' as const, icon: <BookOpen size={11} color="#F5C842" />, label: language === 'es' ? 'Disponible' : 'Available', activeColor: '#F5C842', bg: '#F5C84222' },
+          { filter: 'comingSoon' as const, icon: <Clock size={11} color="rgba(255,255,255,0.4)" />, label: language === 'es' ? 'Próximamente' : 'Coming Soon', activeColor: 'rgba(255,255,255,0.6)', bg: 'rgba(255,255,255,0.08)' },
+        ] as Array<{ filter: BundleStatus | 'all'; label: string; icon: React.ReactNode | null; activeColor: string; bg: string }>).map((item) => {
+          const isActive = activeFilter === item.filter;
+          return (
+            <Pressable
+              key={item.filter}
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setActiveFilter(item.filter);
+              }}
+              style={{
+                flexDirection: 'row', alignItems: 'center', gap: 5,
+                paddingHorizontal: 10, paddingVertical: 6,
+                borderRadius: 20,
+                backgroundColor: isActive ? (item.filter === 'all' ? 'rgba(255,255,255,0.15)' : item.bg.replace('22', '44')) : 'rgba(255,255,255,0.05)',
+                borderWidth: 1,
+                borderColor: isActive ? (item.filter === 'all' ? 'rgba(255,255,255,0.3)' : item.activeColor + '66') : 'transparent',
+              }}
+            >
+              {item.icon && (
+                <View style={{ width: 16, height: 16, borderRadius: 8, backgroundColor: isActive ? item.bg : 'transparent', alignItems: 'center', justifyContent: 'center' }}>
+                  {item.icon}
+                </View>
+              )}
+              <Text style={{ fontSize: 11, fontWeight: isActive ? '700' : '400', color: isActive ? item.activeColor : 'rgba(255,255,255,0.4)' }}>{item.label}</Text>
+            </Pressable>
+          );
+        })}
       </View>
 
       {/* Card list */}
@@ -626,6 +651,14 @@ export default function AdventuresCollectionScreen() {
             />
           </View>
         ))}
+        {sortedIds.length === 0 && (
+          <View style={{ alignItems: 'center', paddingTop: 60, gap: 8 }}>
+            <Text style={{ fontSize: 32 }}>✦</Text>
+            <Text style={{ fontSize: 14, color: 'rgba(255,255,255,0.35)', textAlign: 'center' }}>
+              {language === 'es' ? 'Sin aventuras en esta categoría' : 'No adventures in this category'}
+            </Text>
+          </View>
+        )}
         <Text style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.3)', marginTop: 8, lineHeight: 18 }}>
           {language === 'es' ? 'Más aventuras bíblicas próximamente' : 'More biblical adventures coming soon'}
         </Text>

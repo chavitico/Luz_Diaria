@@ -588,5 +588,25 @@
     "amount": 6,
     "metadata": "{}",
     "createdAt": "2026-03-04T15:26:25.806Z"
+  },
+  {
+    "id": "cmmcrmu4k000ym26blllisc21",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "collection_collection_v2_simbolos_fe_1772672830723",
+    "type": "collection_reward",
+    "dateId": "2026-03-05",
+    "amount": 700,
+    "metadata": "{\"collectionId\":\"collection_v2_simbolos_fe\"}",
+    "createdAt": "2026-03-05T01:07:10.724Z"
+  },
+  {
+    "id": "cmmcru0wu001cm26bhqnxc4vr",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "prayer_request_2026-03-04",
+    "type": "prayer_request",
+    "dateId": "2026-03-04",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"peace\"}",
+    "createdAt": "2026-03-05T01:12:46.111Z"
   }
 ]

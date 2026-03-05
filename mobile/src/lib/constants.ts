@@ -1039,6 +1039,12 @@ export const SPIRITUAL_TITLES: Record<string, {
   title_sonador_de_dios: { id: 'title_sonador_de_dios', name: 'Dreamer of God', nameEs: 'Soñador de Dios', description: 'Carrying visions from the throne of God', descriptionEs: 'Portando visiones del trono de Dios', price: 0, rarity: 'epic', chestOnly: true },
   title_apostol_de_las_naciones: { id: 'title_apostol_de_las_naciones', name: 'Apostle to the Nations', nameEs: 'Apóstol de las Naciones', description: 'Sent to proclaim the gospel to every people', descriptionEs: 'Enviado a proclamar el evangelio a todo pueblo', price: 0, rarity: 'epic', chestOnly: true },
   title_resurrection_power: { id: 'title_resurrection_power', name: 'Resurrection Power', nameEs: 'Poder de Resurrección', description: 'Walking in the power of His resurrection', descriptionEs: 'Caminando en el poder de Su resurrección', price: 600, rarity: 'epic', isV2: true, bibleRef: 'Filipenses 3:10' },
+  // ── Adventure 2: David vs Goliath ────────────────────────────────────────────
+  title_vencedor_gigantes: { id: 'title_vencedor_gigantes', name: 'Giant Slayer', nameEs: 'Vencedor de Gigantes', description: 'Faith that topples the impossible', descriptionEs: 'Fe que derriba lo imposible', price: 0, rarity: 'epic', chestOnly: true },
+  // ── Adventure 3: Esther ──────────────────────────────────────────────────────
+  title_valiente_corazon: { id: 'title_valiente_corazon', name: 'Courageous Heart', nameEs: 'Corazón Valiente', description: 'Called for such a time as this', descriptionEs: 'Llamado para tal momento como este', price: 0, rarity: 'epic', chestOnly: true },
+  // ── Adventure 4: Daniel ──────────────────────────────────────────────────────
+  title_fe_inquebrantable: { id: 'title_fe_inquebrantable', name: 'Unshakeable Faith', nameEs: 'Fe Inquebrantable', description: 'Standing firm when the lions roar', descriptionEs: 'Firme incluso cuando rugen los leones', price: 0, rarity: 'epic', chestOnly: true },
 };
 
 // ── Badges — achievement-based items auto-awarded by milestones ───────────────
