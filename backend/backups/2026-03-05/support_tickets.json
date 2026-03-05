@@ -425,8 +425,8 @@
     "claimedStreak": 0,
     "claimedDate": "2026-03-04",
     "clientClaim": "{\"purchaseItemId\":\"badge_fundador\"}",
-    "status": "auto_fixed",
-    "resolutionNote": "Ítem \"Fundador\" entregado a tu inventario.",
+    "status": "closed",
+    "resolutionNote": "Rechazado por admin cmm9x0ybc0002m2sr3l31uj4q",
     "rating": null,
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0,\"grantedItem\":\"badge_fundador\"}",
@@ -434,7 +434,7 @@
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5o20000m261r6469yvq",
     "createdAt": "2026-03-04T23:41:46.098Z",
-    "updatedAt": "2026-03-04T23:41:46.098Z"
+    "updatedAt": "2026-03-05T21:24:25.688Z"
   },
   {
     "id": "cmmcol3e8006bm26boje0ky4k",
@@ -444,8 +444,8 @@
     "claimedStreak": 0,
     "claimedDate": "2026-03-04",
     "clientClaim": "{\"purchaseItemId\":\"badge_fundador\"}",
-    "status": "auto_fixed",
-    "resolutionNote": "El ítem \"Fundador\" ya se encontraba en tu inventario.",
+    "status": "closed",
+    "resolutionNote": "Rechazado por admin cmm9x0ybc0002m2sr3l31uj4q",
     "rating": null,
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
@@ -453,7 +453,7 @@
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5o20000m261r6469yvq",
     "createdAt": "2026-03-04T23:41:50.576Z",
-    "updatedAt": "2026-03-04T23:41:50.576Z"
+    "updatedAt": "2026-03-05T21:24:19.526Z"
   },
   {
     "id": "cmmcol6f9006im26b8ehl1bkc",
@@ -463,8 +463,8 @@
     "claimedStreak": 0,
     "claimedDate": "2026-03-04",
     "clientClaim": "{\"purchaseBundleId\":\"bundle_easter_path\"}",
-    "status": "auto_fixed",
-    "resolutionNote": "Se entregaron 3 ítem(s) del bundle bundle_easter_path: Cruz de Luz, Marco Resurrección, Yo Soy la Resurrección.",
+    "status": "closed",
+    "resolutionNote": "Rechazado por admin cmm9x0ybc0002m2sr3l31uj4q",
     "rating": null,
     "beforeState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0}",
     "afterState": "{\"streakCurrent\":0,\"devotionalsCompleted\":0,\"grantedItems\":[\"Cruz de Luz\",\"Marco Resurrección\",\"Yo Soy la Resurrección\"]}",
@@ -472,7 +472,7 @@
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5o20000m261r6469yvq",
     "createdAt": "2026-03-04T23:41:54.501Z",
-    "updatedAt": "2026-03-04T23:41:54.501Z"
+    "updatedAt": "2026-03-05T21:24:15.804Z"
   },
   {
     "id": "cmmcol9ke006jm26bsvaqjb6d",
