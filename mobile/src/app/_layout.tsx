@@ -17,8 +17,11 @@ import { BackgroundMusicProvider } from '@/components/BackgroundMusicProvider';
 import { initializeNotifications, markAppOpenedToday } from '@/lib/notifications';
 import { useBrandingStore } from '@/lib/branding-service';
 import GiftModal, { type PendingGift } from '@/components/GiftModal';
+import { ReceivedGiftModal, type ReceivedGift } from '@/components/ReceivedGiftModal';
 import { gamificationApi } from '@/lib/gamification-api';
 import { prefetchDevotionals, checkAndPrefetchOnDateChange } from '@/lib/devotional-cache';
+
+const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -150,6 +153,11 @@ function AppContent() {
   // Gift modal state
   const [pendingGift, setPendingGift] = useState<PendingGift | null>(null);
   const [showGiftModal, setShowGiftModal] = useState(false);
+
+  // Received item gift (peer-to-peer gift notifications)
+  const [pendingReceivedGift, setPendingReceivedGift] = useState<ReceivedGift | null>(null);
+  const [showReceivedGiftModal, setShowReceivedGiftModal] = useState(false);
+
   const appStateRef = useRef(AppState.currentState);
 
   const checkPendingGift = useCallback(async () => {
@@ -162,6 +170,26 @@ function AppContent() {
       }
     } catch {
       // Silent fail - gifts are non-critical
+    }
+  }, [user?.id]);
+
+  // Check for received peer-to-peer item gifts
+  const checkReceivedGifts = useCallback(async () => {
+    if (!user?.id) return;
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/store/gift/notifications`, {
+        headers: { 'X-User-Id': user.id },
+      });
+      if (!res.ok) return;
+      const data = await res.json();
+      const notifs: ReceivedGift[] = data.notifications ?? [];
+      if (notifs.length > 0) {
+        // Show the first unseen notification; others will appear next time
+        setPendingReceivedGift(notifs[0]);
+        setShowReceivedGiftModal(true);
+      }
+    } catch {
+      // Silent fail
     }
   }, [user?.id]);
 
@@ -180,6 +208,7 @@ function AppContent() {
   useEffect(() => {
     if (appReady && isOnboarded && user?.id) {
       checkPendingGift();
+      checkReceivedGifts();
     }
   }, [appReady, isOnboarded, user?.id]);
 
@@ -196,6 +225,7 @@ function AppContent() {
         }
         if (isOnboarded && user?.id) {
           checkPendingGift();
+          checkReceivedGifts();
         }
       }
       appStateRef.current = nextAppState;
@@ -240,6 +270,26 @@ function AppContent() {
     setShowGiftModal(false);
   }, []);
 
+  // Received peer-to-peer gift handlers
+  const handleReceivedGiftClose = useCallback(async () => {
+    if (!user?.id || !pendingReceivedGift) return;
+    // Mark as seen on backend
+    try {
+      await fetch(`${BACKEND_URL}/api/store/gift/notifications/${pendingReceivedGift.notificationId}/seen`, {
+        method: 'POST',
+        headers: { 'X-User-Id': user.id },
+      });
+    } catch { /* silent */ }
+    setShowReceivedGiftModal(false);
+    setPendingReceivedGift(null);
+  }, [user?.id, pendingReceivedGift]);
+
+  const handleReceivedGiftEquip = useCallback(async () => {
+    await handleReceivedGiftClose();
+    // Navigate to store so user can equip
+    // (router is available from expo-router; item is now in inventory)
+  }, [handleReceivedGiftClose]);
+
   if (!appReady) {
     return null;
   }
@@ -265,6 +315,14 @@ function AppContent() {
           gift={pendingGift}
           onClaim={handleClaimGift}
           onLater={handleLaterGift}
+        />
+      )}
+      {pendingReceivedGift && (
+        <ReceivedGiftModal
+          visible={showReceivedGiftModal}
+          gift={pendingReceivedGift}
+          onEquip={handleReceivedGiftEquip}
+          onClose={handleReceivedGiftClose}
         />
       )}
     </>

@@ -606,5 +606,24 @@
     "snapshotId": "cmmbbl5og0005m261hhej42y0",
     "createdAt": "2026-03-05T04:27:35.631Z",
     "updatedAt": "2026-03-05T04:45:21.859Z"
+  },
+  {
+    "id": "cmmd2bgr50013m207mnggr9dj",
+    "incidentNumber": "LD-20260305-0006",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "type": "devotional_not_counted",
+    "claimedStreak": 8,
+    "claimedDate": "2026-03-05",
+    "clientClaim": "{\"date\":\"2026-03-05\",\"issue\":\"not_counted\"}",
+    "status": "needs_human",
+    "resolutionNote": "Snapshot del 2026-03-04: lastDev=null, reclamado=2026-03-05. Sin evidencia para auto-corregir.",
+    "rating": null,
+    "beforeState": "{\"streakCurrent\":8,\"devotionalsCompleted\":10}",
+    "afterState": "{\"streakCurrent\":8,\"devotionalsCompleted\":10}",
+    "botPreview": "{\"summary\":\"Devocional no contado — requiere revisión\",\"userMessageEs\":\"Recibimos tu reporte. No encontramos una forma automática de verificar tu devocional del día indicado. Un moderador revisará tu caso. Gracias.\",\"userMessageEn\":\"We received your report. We couldn't automatically verify your devotional for the indicated day. A moderator will review your case. Thank you.\",\"action\":\"needs_human\",\"snapshotComparison\":{\"snapshotDate\":\"2026-03-04\",\"snapshotId\":\"cmmbbl5of0004m261r5ta0nwb\",\"snapshotStreak\":8,\"currentStreak\":8,\"claimedStreak\":8,\"diffDays\":0,\"devotionalTodayCR\":false,\"lastDevotionalDate\":null,\"escalationReason\":\"Snapshot no tiene fecha de devocional registrada\"}}",
+    "snapshotDate": "2026-03-04",
+    "snapshotId": "cmmbbl5of0004m261r5ta0nwb",
+    "createdAt": "2026-03-05T06:06:15.953Z",
+    "updatedAt": "2026-03-05T06:06:15.953Z"
   }
 ]

@@ -60,6 +60,7 @@ import {
   useAppStore,
 } from '@/lib/store';
 import { ActionButton } from '@/components/ui/ActionButton';
+import { GiftSendModal, type GiftSendItem } from '@/components/GiftSendModal';
 import {
   TRANSLATIONS,
   DEFAULT_AVATARS,
@@ -2080,6 +2081,7 @@ function ItemDetailModal({
   onPurchase,
   onEquip,
   isPurchasing,
+  onGift,
 }: {
   visible: boolean;
   onClose: () => void;
@@ -2109,6 +2111,7 @@ function ItemDetailModal({
   onPurchase: () => void;
   onEquip: () => void;
   isPurchasing: boolean;
+  onGift?: () => void;
 }) {
   const t = TRANSLATIONS[language];
   if (!item) return null;
@@ -2506,6 +2509,23 @@ function ItemDetailModal({
                 </View>
               )}
             </View>
+
+            {/* Gift button — visible when item is purchasable (price > 0, not chest-only) */}
+            {!item.chestOnly && item.price > 0 && onGift && (
+              <Pressable
+                onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); onGift(); }}
+                style={({ pressed }) => ({
+                  flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  marginTop: 8, paddingVertical: 10,
+                  opacity: pressed ? 0.6 : 1,
+                })}
+              >
+                <Gift size={15} color={colors.textMuted} />
+                <Text style={{ fontSize: 13, color: colors.textMuted, fontWeight: '600' }}>
+                  {language === 'es' ? 'Regalar a un amigo' : 'Gift to a friend'}
+                </Text>
+              </Pressable>
+            )}
           </Animated.View>
         </Pressable>
       </Pressable>
@@ -5525,6 +5545,10 @@ export default function StoreScreen() {
   } | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
+  // Gift send modal state
+  const [showGiftSendModal, setShowGiftSendModal] = useState(false);
+  const [giftSendItem, setGiftSendItem] = useState<GiftSendItem | null>(null);
+
   // Pending navigation target: set when user taps "Ir →" from a collection modal
   const [pendingNavTarget, setPendingNavTarget] = useState<{
     itemId: string;
@@ -7061,6 +7085,17 @@ export default function StoreScreen() {
             onPurchase={handlePurchase}
             onEquip={handleEquip}
             isPurchasing={purchaseMutation.isPending}
+            onGift={selectedDetailItem && selectedDetailItem.price > 0 && !selectedDetailItem.chestOnly ? () => {
+              setGiftSendItem({
+                id: selectedDetailItem.id,
+                nameEs: selectedDetailItem.nameEs,
+                nameEn: selectedDetailItem.name,
+                price: selectedDetailItem.price,
+                rarity: selectedDetailItem.rarity,
+              });
+              setShowDetailModal(false);
+              setTimeout(() => setShowGiftSendModal(true), 350);
+            } : undefined}
           />
 
           {/* Collection modals also inside so they stack above the section modal on iOS */}
@@ -7154,8 +7189,26 @@ export default function StoreScreen() {
           onPurchase={handlePurchase}
           onEquip={handleEquip}
           isPurchasing={purchaseMutation.isPending}
+          onGift={selectedDetailItem && selectedDetailItem.price > 0 && !selectedDetailItem.chestOnly ? () => {
+            setGiftSendItem({
+              id: selectedDetailItem.id,
+              nameEs: selectedDetailItem.nameEs,
+              nameEn: selectedDetailItem.name,
+              price: selectedDetailItem.price,
+              rarity: selectedDetailItem.rarity,
+            });
+            setShowDetailModal(false);
+            setTimeout(() => setShowGiftSendModal(true), 350);
+          } : undefined}
         />
       )}
+
+      {/* Gift Send Modal */}
+      <GiftSendModal
+        visible={showGiftSendModal}
+        onClose={() => setShowGiftSendModal(false)}
+        item={giftSendItem}
+      />
 
       {/* Chest Reward Modal */}
       <ChestRewardModal

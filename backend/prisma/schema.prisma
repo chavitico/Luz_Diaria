@@ -70,6 +70,8 @@ model User {
   supportReceived        UserSupport[]     @relation("SupportReceived")
   supportGiven           UserSupport[]     @relation("SupportGiven")
   weeklyProgress         WeeklyProgress[]
+  giftsSent              GiftTransaction[] @relation("GiftsSent")
+  giftsReceived          GiftTransaction[] @relation("GiftsReceived")
 }
 
 model UserSupport {
@@ -427,4 +429,34 @@ model AdminAuditLog {
   @@index([actorUserId])
   @@index([targetUserId])
   @@index([createdAt])
+}
+
+model GiftTransaction {
+  id             String    @id @default(cuid())
+  senderUserId   String
+  receiverUserId String
+  itemId         String
+  pricePaid      Int
+  message        String    @default("")
+  status         String    @default("sent") // "sent" | "delivered"
+  createdAt      DateTime  @default(now())
+  sender         User      @relation("GiftsSent", fields: [senderUserId], references: [id], onDelete: Cascade)
+  receiver       User      @relation("GiftsReceived", fields: [receiverUserId], references: [id], onDelete: Cascade)
+  notifications  GiftNotification[]
+
+  @@index([senderUserId])
+  @@index([receiverUserId])
+}
+
+model GiftNotification {
+  id                String          @id @default(cuid())
+  userId            String
+  giftTransactionId String
+  seen              Boolean         @default(false)
+  createdAt         DateTime        @default(now())
+  giftTransaction   GiftTransaction @relation(fields: [giftTransactionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, giftTransactionId])
+  @@index([userId])
+  @@index([seen])
 }

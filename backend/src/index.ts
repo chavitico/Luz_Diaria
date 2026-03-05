@@ -12,6 +12,7 @@ import { prayerRouter } from "./routes/prayer";
 import { brandingRouter } from "./routes/branding";
 import { supportRouter } from "./routes/support";
 import { giftsRouter } from "./routes/gifts";
+import { storeGiftsRouter } from "./routes/store-gifts";
 import { adminRouter } from "./routes/admin-users";
 import { adminBackupRouter } from "./routes/admin-backup";
 import { startDevotionalCron } from "./cron";
@@ -57,6 +58,7 @@ app.route("/api/prayer", prayerRouter);
 app.route("/api/branding", brandingRouter);
 app.route("/api/support", supportRouter);
 app.route("/api/gifts", giftsRouter);
+app.route("/api/store", storeGiftsRouter);
 app.route("/api/admin", adminRouter);
 app.route("/api/admin/backups", adminBackupRouter);
 

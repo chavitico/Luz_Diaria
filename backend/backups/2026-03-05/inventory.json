@@ -964,5 +964,19 @@
     "itemId": "title_fe_inquebrantable",
     "acquiredAt": "2026-03-05T05:55:07.935Z",
     "source": "bundle:bundle_adv_daniel"
+  },
+  {
+    "id": "cmmd2bmxn0016m207ddcvh35z",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-05T06:06:23.963Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmd2eoio001rm207wqsxwhyt",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_fuego",
+    "acquiredAt": "2026-03-05T06:08:45.985Z",
+    "source": "store"
   }
 ]

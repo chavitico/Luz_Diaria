@@ -3,19 +3,19 @@
     "id": "cmm9x5ebx000lm2srw1nnd39b",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "challengeId": "cmm9wycou0001m2fq0kzc5jej",
-    "currentCount": 2,
+    "currentCount": 3,
     "completed": false,
     "claimed": false,
-    "updatedAt": "2026-03-04T07:22:02.032Z"
+    "updatedAt": "2026-03-05T06:06:32.559Z"
   },
   {
     "id": "cmm9x5ebx000mm2srhpfgdxtp",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "challengeId": "cmm9wycoi0000m2fqd6ioiz0j",
-    "currentCount": 2,
+    "currentCount": 3,
     "completed": false,
     "claimed": false,
-    "updatedAt": "2026-03-04T07:11:12.051Z"
+    "updatedAt": "2026-03-05T06:07:01.597Z"
   },
   {
     "id": "cmm9y72fv000nm29qp6lgn9ak",
@@ -57,10 +57,10 @@
     "id": "cmma3km8f0010m25k3h1ua4at",
     "userId": "cmma36c8v000qm25km7avpj84",
     "challengeId": "cmm9wycoi0000m2fqd6ioiz0j",
-    "currentCount": 2,
+    "currentCount": 3,
     "completed": false,
     "claimed": false,
-    "updatedAt": "2026-03-04T07:15:47.502Z"
+    "updatedAt": "2026-03-05T06:06:38.256Z"
   },
   {
     "id": "cmma3km8f0012m25kzha5bxw8",
@@ -156,9 +156,9 @@
     "id": "cmmd22j2t001bm27ep7w6srfa",
     "userId": "user_y2gpgsrn359mmcyy3c4",
     "challengeId": "cmm9wycoi0000m2fqd6ioiz0j",
-    "currentCount": 0,
+    "currentCount": 1,
     "completed": false,
     "claimed": false,
-    "updatedAt": "2026-03-05T05:59:19.061Z"
+    "updatedAt": "2026-03-05T06:06:24.205Z"
   }
 ]
