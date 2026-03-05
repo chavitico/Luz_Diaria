@@ -985,5 +985,19 @@
     "itemId": "frame_dorado",
     "acquiredAt": "2026-03-05T06:45:39.026Z",
     "source": "store"
+  },
+  {
+    "id": "cmmd50elc0019m2btc10z7krk",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_renewed_strength",
+    "acquiredAt": "2026-03-05T07:21:38.784Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmd6cp2j001pm2btgkoqdhwx",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_l2_fe_inquebrantable",
+    "acquiredAt": "2026-03-05T07:59:11.851Z",
+    "source": "gift"
   }
 ]

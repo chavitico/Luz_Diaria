@@ -768,5 +768,25 @@
     "amount": 5,
     "metadata": "{}",
     "createdAt": "2026-03-05T06:37:15.882Z"
+  },
+  {
+    "id": "cmmd50elb0017m2bt1ki4gnge",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "gift_sent_cmm9x0ybc0002m2sr3l31uj4q_title_renewed_strength_1772695298782",
+    "type": "gift_sent",
+    "dateId": "2026-03-05",
+    "amount": -500,
+    "metadata": "{\"itemId\":\"title_renewed_strength\",\"receiverUserId\":\"cmma36c8v000qm25km7avpj84\"}",
+    "createdAt": "2026-03-05T07:21:38.783Z"
+  },
+  {
+    "id": "cmmd6cp2i001nm2bty4v4tr5o",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "gift_sent_cmma36c8v000qm25km7avpj84_avatar_l2_fe_inquebrantable_1772697551850",
+    "type": "gift_sent",
+    "dateId": "2026-03-05",
+    "amount": -1200,
+    "metadata": "{\"itemId\":\"avatar_l2_fe_inquebrantable\",\"receiverUserId\":\"cmm9x0ybc0002m2sr3l31uj4q\"}",
+    "createdAt": "2026-03-05T07:59:11.851Z"
   }
 ]

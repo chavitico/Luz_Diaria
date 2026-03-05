@@ -26,5 +26,12 @@
     "collectionId": "chapter_naturaleza_biblica",
     "claimedChapterIds": "[\"chapter_naturaleza_biblica_1\",\"chapter_naturaleza_biblica_2\",\"chapter_naturaleza_biblica_3\"]",
     "updatedAt": "2026-03-05T03:16:04.983Z"
+  },
+  {
+    "id": "cmmd692k0001km2btg3kl0exr",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "collectionId": "chapter_simbolos_fe",
+    "claimedChapterIds": "[\"chapter_naturaleza_biblica_1\",\"chapter_naturaleza_biblica_2\",\"chapter_naturaleza_biblica_3\",\"chapter_simbolos_fe_1\",\"chapter_simbolos_fe_2\"]",
+    "updatedAt": "2026-03-05T07:56:40.224Z"
   }
 ]
