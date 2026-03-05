@@ -500,10 +500,20 @@ export default function CommunityScreen() {
 
       if (!backendUser) return;
 
+      // Server is authoritative — grab updateUser once for this whole block
+      const updateUser = useAppStore.getState().updateUser;
+
+      // Correct local nickname immediately if server has a different (canonical) value
+      const canonicalNickname = backendUser.nickname ?? user.nickname;
+      if (backendUser.nickname && backendUser.nickname !== user.nickname) {
+        console.log(`[Sync] Nickname corrected by server: "${user.nickname}" → "${backendUser.nickname}"`);
+        updateUser({ nickname: backendUser.nickname });
+      }
+
       // If the backend assigned a different ID, update local store
       const effectiveId = backendUser.id;
       if (effectiveId !== user.id) {
-        useAppStore.getState().updateUser({ id: effectiveId });
+        updateUser({ id: effectiveId });
       }
 
       let lastActiveAt: string | undefined;
@@ -525,10 +535,9 @@ export default function CommunityScreen() {
         titleId: user.titleId ?? null,
         frameId: user.frameId ?? null,
         avatarId: user.avatar,
-        nickname: user.nickname,
+        nickname: canonicalNickname,
       });
 
-      const updateUser = useAppStore.getState().updateUser;
       const updates: Record<string, unknown> = {};
 
       if (syncedUser.points > user.points) updates.points = syncedUser.points;
