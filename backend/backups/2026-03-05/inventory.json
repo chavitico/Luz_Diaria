@@ -943,5 +943,26 @@
     "itemId": "title_sembrador",
     "acquiredAt": "2026-03-05T04:43:57.577Z",
     "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmd1x5b10013m27el6d9onhf",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_adv_lion_faith",
+    "acquiredAt": "2026-03-05T05:55:07.933Z",
+    "source": "bundle:bundle_adv_daniel"
+  },
+  {
+    "id": "cmmd1x5b20015m27eksjxfsws",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_adv_lions_den",
+    "acquiredAt": "2026-03-05T05:55:07.934Z",
+    "source": "bundle:bundle_adv_daniel"
+  },
+  {
+    "id": "cmmd1x5b20017m27ew335xb97",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_fe_inquebrantable",
+    "acquiredAt": "2026-03-05T05:55:07.935Z",
+    "source": "bundle:bundle_adv_daniel"
   }
 ]
