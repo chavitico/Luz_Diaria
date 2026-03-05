@@ -5758,6 +5758,8 @@ export default function StoreScreen() {
         });
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         setShowDetailModal(false);
+        // Close section modal so the toast (outside modal) becomes visible
+        setShowStoreSectionModal(false);
         setToastAmount(selectedDetailItem.price);
         setToastPositive(false);
         setShowPointsToast(true);
@@ -5825,6 +5827,8 @@ export default function StoreScreen() {
           purchasedItems: newPurchasedItems,
         });
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        // Close the section modal so the toast (which is outside it) becomes visible
+        setShowStoreSectionModal(false);
         setToastAmount(points - data.newPoints);
         setToastPositive(false);
         setShowPointsToast(true);
@@ -5852,6 +5856,10 @@ export default function StoreScreen() {
         detail: '',
       });
       refetchCollectionClaims();
+      // Close the collection modal and section modal so the toast is visible
+      setShowCollectionDetailModal(false);
+      setSelectedCollection(null);
+      setShowStoreSectionModal(false);
       setToastAmount(data.pointsAwarded);
       setToastPositive(true);
       setShowPointsToast(true);
@@ -7061,6 +7069,65 @@ export default function StoreScreen() {
             onEquip={handleEquip}
             isPurchasing={purchaseMutation.isPending}
           />
+
+          {/* Collection modals also inside so they stack above the section modal on iOS */}
+          <CollectionDetailModal
+            visible={showCollectionDetailModal}
+            collection={selectedCollection}
+            purchasedItems={purchasedItems}
+            colors={colors}
+            language={language}
+            isClaimed={selectedCollection ? claimedCollectionIds.has(selectedCollection.id) : false}
+            isClaiming={
+              claimCollectionMutation.isPending &&
+              claimCollectionMutation.variables?.collectionId === selectedCollection?.id
+            }
+            onClaim={(ownedItemIds) => {
+              if (!selectedCollection) return;
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              claimCollectionMutation.mutate({
+                collectionId: selectedCollection.id,
+                rewardPoints: selectedCollection.rewardPoints,
+                ownedItemIds,
+              });
+            }}
+            onClose={() => {
+              setShowCollectionDetailModal(false);
+              setSelectedCollection(null);
+            }}
+            onNavigateToItem={handleNavigateToCollectionItem}
+          />
+
+          <ChapterCollectionModal
+            visible={showChapterCollectionModal}
+            collection={selectedChapterCollection}
+            purchasedItems={purchasedItems}
+            colors={colors}
+            language={language}
+            claimedChapterIds={claimedChapterIds}
+            onClaimChapter={async (chapterId, pts) => {
+              Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+              await claimChapter(chapterId, selectedChapterCollection?.collectionId ?? '');
+              updateUser({ points: (user?.points ?? 0) + pts });
+              addLedgerEntry({
+                delta: pts,
+                kind: 'claim',
+                title: language === 'es' ? 'Capítulo completado' : 'Chapter completed',
+                detail: selectedChapterCollection
+                  ? (language === 'es' ? selectedChapterCollection.nameEs : selectedChapterCollection.nameEn)
+                  : '',
+              });
+              setToastAmount(pts);
+              setToastPositive(true);
+              setToastMessage(language === 'es' ? '¡Capítulo completado! Has avanzado en tu camino espiritual.' : 'Chapter completed! You have advanced on your spiritual path.');
+              setShowPointsToast(true);
+            }}
+            onClose={() => {
+              setShowChapterCollectionModal(false);
+              setSelectedChapterCollection(null);
+            }}
+            onNavigateToItem={handleNavigateToCollectionItem}
+          />
         </View>
       </Modal>
 
@@ -7088,66 +7155,6 @@ export default function StoreScreen() {
         language={language}
         colors={colors}
         onClose={() => setShowChestModal(false)}
-      />
-
-      {/* Collection Detail Modal */}
-      <CollectionDetailModal
-        visible={showCollectionDetailModal}
-        collection={selectedCollection}
-        purchasedItems={purchasedItems}
-        colors={colors}
-        language={language}
-        isClaimed={selectedCollection ? claimedCollectionIds.has(selectedCollection.id) : false}
-        isClaiming={
-          claimCollectionMutation.isPending &&
-          claimCollectionMutation.variables?.collectionId === selectedCollection?.id
-        }
-        onClaim={(ownedItemIds) => {
-          if (!selectedCollection) return;
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-          claimCollectionMutation.mutate({
-            collectionId: selectedCollection.id,
-            rewardPoints: selectedCollection.rewardPoints,
-            ownedItemIds,
-          });
-        }}
-        onClose={() => {
-          setShowCollectionDetailModal(false);
-          setSelectedCollection(null);
-        }}
-        onNavigateToItem={handleNavigateToCollectionItem}
-      />
-
-      {/* Chapter Collection Modal */}
-      <ChapterCollectionModal
-        visible={showChapterCollectionModal}
-        collection={selectedChapterCollection}
-        purchasedItems={purchasedItems}
-        colors={colors}
-        language={language}
-        claimedChapterIds={claimedChapterIds}
-        onClaimChapter={async (chapterId, points) => {
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-          await claimChapter(chapterId, selectedChapterCollection?.collectionId ?? '');
-          updateUser({ points: (user?.points ?? 0) + points });
-          addLedgerEntry({
-            delta: points,
-            kind: 'claim',
-            title: language === 'es' ? 'Capítulo completado' : 'Chapter completed',
-            detail: selectedChapterCollection
-              ? (language === 'es' ? selectedChapterCollection.nameEs : selectedChapterCollection.nameEn)
-              : '',
-          });
-          setToastAmount(points);
-          setToastPositive(true);
-          setToastMessage(language === 'es' ? '¡Capítulo completado! Has avanzado en tu camino espiritual.' : 'Chapter completed! You have advanced on your spiritual path.');
-          setShowPointsToast(true);
-        }}
-        onClose={() => {
-          setShowChapterCollectionModal(false);
-          setSelectedChapterCollection(null);
-        }}
-        onNavigateToItem={handleNavigateToCollectionItem}
       />
     </View>
   );
