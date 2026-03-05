@@ -6963,8 +6963,9 @@ export default function StoreScreen() {
             colors={colors}
             isOwned={STORE_BUNDLES.bundle_launch_growth.items.every(id => purchasedItems.includes(id))}
             onPress={() => {
-              setActiveCategory('bundles');
               setActiveSubcategory('all');
+              setStoreSectionModalCategory('bundles');
+              setShowStoreSectionModal(true);
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
             }}
           />
@@ -6999,8 +7000,6 @@ export default function StoreScreen() {
           ))}
         </View>
 
-        {/* Category Content */}
-        {renderCategoryContent()}
       </ScrollView>
 
       {/* Store Section Modal — opened when tapping a category card */}
@@ -7047,23 +7046,40 @@ export default function StoreScreen() {
           <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }} nestedScrollEnabled>
             {storeSectionModalCategory && renderCategoryContent(storeSectionModalCategory, true)}
           </ScrollView>
+
+          {/* Item Detail Modal rendered INSIDE the section modal so iOS stacks it correctly */}
+          <ItemDetailModal
+            visible={showDetailModal}
+            onClose={() => setShowDetailModal(false)}
+            item={selectedDetailItem}
+            colors={colors}
+            language={language}
+            isOwned={modalItemStatus.isOwned}
+            isEquipped={modalItemStatus.isEquipped}
+            canAfford={modalItemStatus.canAfford}
+            onPurchase={handlePurchase}
+            onEquip={handleEquip}
+            isPurchasing={purchaseMutation.isPending}
+          />
         </View>
       </Modal>
 
-      {/* Item Detail Modal */}
-      <ItemDetailModal
-        visible={showDetailModal}
-        onClose={() => setShowDetailModal(false)}
-        item={selectedDetailItem}
-        colors={colors}
-        language={language}
-        isOwned={modalItemStatus.isOwned}
-        isEquipped={modalItemStatus.isEquipped}
-        canAfford={modalItemStatus.canAfford}
-        onPurchase={handlePurchase}
-        onEquip={handleEquip}
-        isPurchasing={purchaseMutation.isPending}
-      />
+      {/* Item Detail Modal — also shown standalone when StoreSectionModal is closed */}
+      {!showStoreSectionModal && (
+        <ItemDetailModal
+          visible={showDetailModal}
+          onClose={() => setShowDetailModal(false)}
+          item={selectedDetailItem}
+          colors={colors}
+          language={language}
+          isOwned={modalItemStatus.isOwned}
+          isEquipped={modalItemStatus.isEquipped}
+          canAfford={modalItemStatus.canAfford}
+          onPurchase={handlePurchase}
+          onEquip={handleEquip}
+          isPurchasing={purchaseMutation.isPending}
+        />
+      )}
 
       {/* Chest Reward Modal */}
       <ChestRewardModal
