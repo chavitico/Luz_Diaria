@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
   Dimensions,
   TouchableOpacity,
+  InteractionManager,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -5760,6 +5761,7 @@ export default function StoreScreen() {
   const isOpeningModal = useRef(false);
   const lastCategoryTapAt = useRef(0);
   const isOpeningItem = useRef(false);
+  const pendingAdventureRoute = useRef<{ pathname: string; params?: Record<string, string> } | null>(null);
 
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
@@ -6794,15 +6796,12 @@ export default function StoreScreen() {
                           setShowCollectionDetailModal(true);
                         }
                       } else {
-                        // Close modal first, then navigate — router.push doesn't work from inside Modal
-                        // Use 500ms to allow pageSheet dismiss animation to fully complete
+                        // Defer navigation until modal dismiss animation fully completes
+                        pendingAdventureRoute.current = {
+                          pathname: '/collections/adventures',
+                          params: { bundleId: bundle.id },
+                        };
                         setShowStoreSectionModal(false);
-                        setTimeout(() => {
-                          router.push({
-                            pathname: '/collections/adventures',
-                            params: { bundleId: bundle.id },
-                          });
-                        }, 500);
                       }
                     }}
                   />
@@ -7300,6 +7299,15 @@ export default function StoreScreen() {
         animationType="slide"
         presentationStyle="pageSheet"
         onRequestClose={() => setShowStoreSectionModal(false)}
+        onDismiss={() => {
+          const pending = pendingAdventureRoute.current;
+          pendingAdventureRoute.current = null;
+          if (pending) {
+            InteractionManager.runAfterInteractions(() => {
+              router.push(pending as any);
+            });
+          }
+        }}
       >
         <View style={{ flex: 1, backgroundColor: colors.background }}>
           {/* Header */}
