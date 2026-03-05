@@ -41,6 +41,7 @@ import {
   Plus,
   Save,
   RotateCcw,
+  RefreshCw,
 } from 'lucide-react-native';
 import { useThemeColors, useUser } from '@/lib/store';
 import { ActionButton } from '@/components/ui/ActionButton';
@@ -998,6 +999,8 @@ export default function AdminUsersScreen() {
   const [activeOnly,    setActiveOnly]    = useState(false);
   const [issuesOnly,    setIssuesOnly]    = useState(false);
   const [showFilters,   setShowFilters]   = useState(false);
+  const [onlineFilter,  setOnlineFilter]  = useState(false);
+  const [refreshing,    setRefreshing]    = useState(false);
 
   // Detail modal uses userId string (not the row object) so it fetches fresh
   const [detailUserId,   setDetailUserId]   = useState<string | null>(null);
@@ -1127,6 +1130,14 @@ export default function AdminUsersScreen() {
 
   const activeFilterCount = [roleFilter !== '', activeOnly, issuesOnly].filter(Boolean).length;
   const onlineCount = users.filter(u => isUserOnline(u.lastSeenAt)).length;
+  const displayedUsers = onlineFilter ? users.filter(u => isUserOnline(u.lastSeenAt)) : users;
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    await fetchUsers(search, { role: roleFilter, active: activeOnly, issues: issuesOnly });
+    setRefreshing(false);
+  };
 
   const handleForceRenameSubmit = async () => {
     if (!forceRenameUser || !myId) return;
@@ -1171,16 +1182,34 @@ export default function AdminUsersScreen() {
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Text style={{ fontSize: 18, fontWeight: '800', color: colors.text, letterSpacing: -0.3 }}>Usuarios</Text>
             {loaded && onlineCount > 0 && (
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 7, paddingVertical: 3, borderRadius: 8, backgroundColor: '#22C55E18' }}>
-                <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#22C55E' }} />
-                <Text style={{ fontSize: 11, fontWeight: '700', color: '#22C55E' }}>{onlineCount} en línea</Text>
-              </View>
+              <Pressable
+                onPress={() => { setOnlineFilter(v => !v); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); }}
+                style={{
+                  flexDirection: 'row', alignItems: 'center', gap: 4,
+                  paddingHorizontal: 7, paddingVertical: 3, borderRadius: 8,
+                  backgroundColor: onlineFilter ? '#22C55E' : '#22C55E18',
+                  borderWidth: onlineFilter ? 0 : 1,
+                  borderColor: '#22C55E40',
+                }}
+              >
+                <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: onlineFilter ? '#FFF' : '#22C55E' }} />
+                <Text style={{ fontSize: 11, fontWeight: '700', color: onlineFilter ? '#FFF' : '#22C55E' }}>{onlineCount} en línea</Text>
+              </Pressable>
             )}
           </View>
           <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 1 }}>
-            {loaded ? `${users.length} encontrados` : 'Cargando…'}
+            {loaded ? `${displayedUsers.length} mostrados` : 'Cargando…'}
           </Text>
         </View>
+        <Pressable
+          onPress={handleRefresh}
+          disabled={refreshing}
+          style={{ width: 34, height: 34, borderRadius: 10, backgroundColor: colors.textMuted + '15', alignItems: 'center', justifyContent: 'center', marginRight: 6 }}
+        >
+          {refreshing
+            ? <ActivityIndicator size="small" color={colors.textMuted} />
+            : <RefreshCw size={16} color={colors.textMuted} />}
+        </Pressable>
         <Pressable onPress={() => router.back()} style={{ width: 34, height: 34, borderRadius: 10, backgroundColor: colors.textMuted + '15', alignItems: 'center', justifyContent: 'center' }}>
           <X size={17} color={colors.textMuted} />
         </Pressable>
@@ -1235,16 +1264,16 @@ export default function AdminUsersScreen() {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator color={colors.primary} size="large" />
         </View>
-      ) : users.length === 0 ? (
+      ) : displayedUsers.length === 0 ? (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 40 }}>
           <Users size={48} color={colors.textMuted + '40'} />
           <Text style={{ color: colors.textMuted, marginTop: 12, fontSize: 14, textAlign: 'center' }}>
-            {search || activeFilterCount > 0 ? 'Sin resultados para estos filtros.' : 'No hay usuarios todavía.'}
+            {onlineFilter ? 'Ningún usuario en línea ahora.' : search || activeFilterCount > 0 ? 'Sin resultados para estos filtros.' : 'No hay usuarios todavía.'}
           </Text>
         </View>
       ) : (
         <FlatList
-          data={users}
+          data={displayedUsers}
           keyExtractor={u => u.id}
           renderItem={({ item }) => (
             <UserCard
