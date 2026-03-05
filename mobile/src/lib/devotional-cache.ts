@@ -165,41 +165,62 @@ export async function checkAndPrefetchOnDateChange(): Promise<void> {
 
 // ─── Network helpers ───────────────────────────────────────────────────────────
 
-/** Fetch one devotional from server and cache it. Returns null on network error. */
-async function fetchAndCache(date: string): Promise<Devotional | null> {
-  try {
-    // Always request by date so the key is deterministic and consistent
-    // Use /today for todayCR (avoids the ?date= path and its 7-day window check)
-    const today = getCRToday();
-    const url = date === today
-      ? `${BACKEND_URL}/api/devotional/today`
-      : `${BACKEND_URL}/api/devotional?date=${date}`;
+/**
+ * Result of a fetchAndCache attempt.
+ * - 'network': fetched from server, stored in cache.
+ * - 'not_found': server responded but date not available (404 / no data).
+ * - 'network_error': request failed (timeout, offline, DNS, etc.).
+ */
+type FetchResult =
+  | { source: 'network'; devotional: Devotional }
+  | { source: 'not_found' }
+  | { source: 'network_error'; error: unknown };
 
-    // AbortSignal.timeout() is not available in Hermes (React Native) — use manual controller
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
-    let res: Response;
-    try {
-      res = await fetch(url, { signal: controller.signal });
-    } finally {
-      clearTimeout(timeoutId);
-    }
-    if (!res.ok) {
-      if (IS_DEV) console.warn(`[DevCache] fetchAndCache(${date}): HTTP ${res.status}`);
-      return null;
-    }
-    const d = await res.json() as Devotional;
-    // Invariant: server must return a devotional with a date field
-    if (!d || !d.date) {
-      if (IS_DEV) console.warn(`[DevCache] fetchAndCache(${date}): response missing date field`);
-      return null;
-    }
-    await cacheDevotional(d);
-    return d;
+/**
+ * Fetch one devotional from the server and cache it.
+ * Returns a discriminated FetchResult — never throws.
+ * AbortSignal.timeout() is NOT available in Hermes — uses manual AbortController.
+ */
+async function fetchAndCache(date: string): Promise<FetchResult> {
+  const today = getCRToday();
+  const url = date === today
+    ? `${BACKEND_URL}/api/devotional/today`
+    : `${BACKEND_URL}/api/devotional?date=${date}`;
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+  let res: Response;
+  try {
+    res = await fetch(url, { signal: controller.signal });
   } catch (e) {
-    if (IS_DEV) console.warn(`[DevCache] fetchAndCache(${date}) failed:`, e);
-    return null;
+    clearTimeout(timeoutId);
+    // Network-level failure: offline, DNS, timeout abort, etc.
+    return { source: 'network_error', error: e };
   }
+  clearTimeout(timeoutId);
+
+  if (!res.ok) {
+    // Server responded but date is unavailable (404, 204, future date, etc.)
+    if (IS_DEV) console.log(`[DevCache] fetchAndCache(${date}): HTTP ${res.status} — not found`);
+    return { source: 'not_found' };
+  }
+
+  let d: Devotional;
+  try {
+    d = await res.json() as Devotional;
+  } catch (e) {
+    if (IS_DEV) console.warn(`[DevCache] fetchAndCache(${date}): JSON parse error`, e);
+    return { source: 'network_error', error: e };
+  }
+
+  if (!d || !d.date) {
+    if (IS_DEV) console.warn(`[DevCache] fetchAndCache(${date}): response missing date field`);
+    return { source: 'not_found' };
+  }
+
+  await cacheDevotional(d);
+  return { source: 'network', devotional: d };
 }
 
 // ─── Public API ────────────────────────────────────────────────────────────────
@@ -243,20 +264,32 @@ export async function prefetchDevotionals(force = false): Promise<{
   // Fetch all in parallel — partial failures are fine
   const results = await Promise.allSettled(dates.map(fetchAndCache));
 
-  const fetched = results.filter(
-    r => r.status === 'fulfilled' && r.value !== null
-  ).length;
-
+  let fetched = 0;
   if (IS_DEV) {
     results.forEach((r, i) => {
       const date = dates[i];
-      if (r.status === 'fulfilled' && r.value) {
-        console.log(`[DevCache] ✓ ${date}: "${r.value.title}"`);
+      if (r.status === 'fulfilled') {
+        const res = r.value;
+        if (res.source === 'network') {
+          console.log(`[DevCache] ✓ ${date}: "${res.devotional.title}"`);
+          fetched++;
+        } else if (res.source === 'not_found') {
+          // Future dates often return 404 — expected, not an error
+          console.log(`[DevCache] — ${date}: not available on server yet`);
+        } else {
+          // Actual network error — log once clearly
+          console.warn(`[DevCache] ✗ ${date}: network error —`, res.error);
+        }
       } else {
-        console.warn(`[DevCache] ✗ ${date}: failed or null`);
+        console.warn(`[DevCache] ✗ ${date}: unexpected rejection —`, r.reason);
       }
     });
     console.log(`[DevCache] Prefetch complete: ${fetched}/${dates.length}`);
+  } else {
+    // Non-dev: count silently
+    results.forEach(r => {
+      if (r.status === 'fulfilled' && r.value.source === 'network') fetched++;
+    });
   }
 
   try {
@@ -269,7 +302,11 @@ export async function prefetchDevotionals(force = false): Promise<{
 
 // ─── Metrics ───────────────────────────────────────────────────────────────────
 
-type CacheMetric = 'devotional_cache_hit' | 'devotional_network_fetch' | 'devotional_offline_fallback';
+type CacheMetric =
+  | 'devotional_network_fetch'
+  | 'devotional_cache_fetch'
+  | 'devotional_offline_fallback'
+  | 'devotional_error';
 
 function logCacheMetric(metric: CacheMetric, date: string): void {
   console.log(`[CacheMetric] ${metric} date=${date}`);
@@ -281,6 +318,9 @@ function logCacheMetric(metric: CacheMetric, date: string): void {
  *  2. On failure: try cache for todayCR.
  *  3. Last resort: find the most recently cached date.
  * Returns null only if completely offline and no cache at all.
+ *
+ * "network failed" is only logged when the request actually failed at network level,
+ * not when the server returns a non-OK status.
  */
 export async function getDevotionalWithFallback(date?: string): Promise<{
   devotional: Devotional | null;
@@ -291,21 +331,28 @@ export async function getDevotionalWithFallback(date?: string): Promise<{
   const target = date ?? getCRToday();
 
   // 1. Try network
-  const fresh = await fetchAndCache(target);
-  if (fresh) {
-    if (IS_DEV) console.log(`[DevCache] ${target} — served from NETWORK: "${fresh.title}"`);
+  const fetchResult = await fetchAndCache(target);
+
+  if (fetchResult.source === 'network') {
+    if (IS_DEV) console.log(`[DevCache] ${target} — served from NETWORK: "${fetchResult.devotional.title}"`);
     logCacheMetric('devotional_network_fetch', target);
-    return { devotional: fresh, fromCache: false, offline: false };
+    return { devotional: fetchResult.devotional, fromCache: false, offline: false };
   }
 
-  if (IS_DEV) console.log(`[DevCache] ${target} — network failed, checking cache…`);
+  // Only log "network failed" for actual network errors, not 404/not_found
+  if (fetchResult.source === 'network_error') {
+    if (IS_DEV) console.log(`[DevCache] ${target} — network failed, checking cache…`);
+  } else {
+    // not_found: server is reachable but has no devotional for this date
+    if (IS_DEV) console.log(`[DevCache] ${target} — not found on server, checking cache…`);
+  }
 
-  // 2. Network failed — try exact cache hit
+  // 2. Try exact cache hit
   const cached = await getCachedDevotional(target);
   if (cached) {
     if (IS_DEV) console.log(`[DevCache] ${target} — served from CACHE (exact): "${cached.title}"`);
-    logCacheMetric('devotional_cache_hit', target);
-    return { devotional: cached, fromCache: true, offline: true };
+    logCacheMetric('devotional_cache_fetch', target);
+    return { devotional: cached, fromCache: true, offline: fetchResult.source === 'network_error' };
   }
 
   // 3. Find most recently cached devotional as graceful degradation
@@ -325,6 +372,6 @@ export async function getDevotionalWithFallback(date?: string): Promise<{
   }
 
   if (IS_DEV) console.warn(`[DevCache] ${target} — completely offline, no cache`);
-  logCacheMetric('devotional_offline_fallback', target);
+  logCacheMetric('devotional_error', target);
   return { devotional: null, fromCache: false, offline: true };
 }
