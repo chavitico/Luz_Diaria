@@ -901,7 +901,8 @@ export const gamificationApi = {
   // ─── Community Stats ────────────────────────────────────────────────────────
 
   async getCommunityStats(): Promise<{
-    activeUsers: number;
+    registeredUsers: number;
+    activeUsers30d: number;
     devotionalsCompletedTotal: number;
     pointsEarnedTotal: number;
     pointsSpentTotal: number;

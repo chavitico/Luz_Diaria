@@ -1146,5 +1146,12 @@
     "itemId": "theme_bosque_sereno",
     "acquiredAt": "2026-03-05T17:51:09.478Z",
     "source": "store"
+  },
+  {
+    "id": "cmmdv5q2d002qm2xf369i7rmc",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-05T19:33:36.949Z",
+    "source": "achievement"
   }
 ]

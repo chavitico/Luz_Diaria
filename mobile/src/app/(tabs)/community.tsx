@@ -389,41 +389,61 @@ function CommunityHeader({
     retry: 1,
   });
 
-  const fmt = (n: number) =>
-    new Intl.NumberFormat(language === 'es' ? 'es-ES' : 'en-US').format(n);
+  // Compact number formatter: 65149 → "65.1K", 7200 → "7.2K"
+  const fmtCompact = (n: number): string => {
+    if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`;
+    if (n >= 1_000) return `${(n / 1_000).toFixed(1).replace(/\.0$/, '')}K`;
+    return new Intl.NumberFormat(language === 'es' ? 'es-ES' : 'en-US').format(n);
+  };
 
-  const cards: {
-    icon: React.ReactNode;
+  const cardDefs: {
+    icon: string;
     label: string;
-    sublabel?: string;
     value: string;
-    color: string;
+    accent: string;
+    bg: string;
+    border: string;
   }[] = [
     {
-      icon: <Users size={18} color={colors.primary} />,
-      label: language === 'es' ? 'Usuarios activos' : 'Active users',
-      sublabel: language === 'es' ? `últimos ${stats?.windowDays ?? 30}d` : `last ${stats?.windowDays ?? 30}d`,
-      value: statsLoading ? '—' : fmt(stats?.activeUsers ?? 0),
-      color: colors.primary,
+      icon: '👥',
+      label: language === 'es' ? 'Registrados' : 'Registered',
+      value: statsLoading ? '—' : fmtCompact(stats?.registeredUsers ?? 0),
+      accent: '#34D399',
+      bg: '#34D39912',
+      border: '#34D39930',
     },
     {
-      icon: <BookOpen size={18} color={colors.secondary} />,
+      icon: '📖',
       label: language === 'es' ? 'Devocionales' : 'Devotionals',
-      value: statsLoading ? '—' : fmt(stats?.devotionalsCompletedTotal ?? 0),
-      color: colors.secondary,
+      value: statsLoading ? '—' : fmtCompact(stats?.devotionalsCompletedTotal ?? 0),
+      accent: '#FBBF24',
+      bg: '#FBBF2412',
+      border: '#FBBF2430',
     },
     {
-      icon: <Sparkles size={18} color="#F59E0B" />,
-      label: language === 'es' ? 'Puntos ganados' : 'Points earned',
-      value: statsLoading ? '—' : fmt(stats?.pointsEarnedTotal ?? 0),
-      color: '#F59E0B',
+      icon: '✨',
+      label: language === 'es' ? 'Pts ganados' : 'Pts earned',
+      value: statsLoading ? '—' : fmtCompact(stats?.pointsEarnedTotal ?? 0),
+      accent: '#F97316',
+      bg: '#F9731612',
+      border: '#F9731630',
     },
     {
-      icon: <Coins size={18} color="#8B5CF6" />,
-      label: language === 'es' ? 'Puntos gastados' : 'Points spent',
-      value: statsLoading ? '—' : fmt(stats?.pointsSpentTotal ?? 0),
-      color: '#8B5CF6',
+      icon: '🛍️',
+      label: language === 'es' ? 'Pts gastados' : 'Pts spent',
+      value: statsLoading ? '—' : fmtCompact(stats?.pointsSpentTotal ?? 0),
+      accent: '#A78BFA',
+      bg: '#A78BFA12',
+      border: '#A78BFA30',
     },
+  ];
+
+  const pressScales = [useSharedValue(1), useSharedValue(1), useSharedValue(1), useSharedValue(1)];
+  const pressStyles = [
+    useAnimatedStyle(() => ({ transform: [{ scale: pressScales[0].value }] })),
+    useAnimatedStyle(() => ({ transform: [{ scale: pressScales[1].value }] })),
+    useAnimatedStyle(() => ({ transform: [{ scale: pressScales[2].value }] })),
+    useAnimatedStyle(() => ({ transform: [{ scale: pressScales[3].value }] })),
   ];
 
   const getUpdateLabel = () => {
@@ -439,23 +459,35 @@ function CommunityHeader({
   const updateLabel = getUpdateLabel();
 
   return (
-    <Animated.View entering={FadeInDown.duration(400)} className="mx-5 mb-4">
+    <Animated.View entering={FadeInDown.duration(400)} className="mx-4 mb-4">
       <LinearGradient
-        colors={[colors.primary + '15', colors.secondary + '10', colors.surface]}
+        colors={[colors.primary + '18', colors.background, colors.background]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={{ borderRadius: 20, padding: 16 }}
+        style={{
+          borderRadius: 22,
+          padding: 16,
+          borderWidth: 1,
+          borderColor: colors.primary + '20',
+        }}
       >
         {/* Title row */}
         <View className="flex-row items-center mb-4">
           <View
-            className="w-10 h-10 rounded-full items-center justify-center mr-3"
-            style={{ backgroundColor: colors.primary + '20' }}
+            style={{
+              width: 38,
+              height: 38,
+              borderRadius: 19,
+              backgroundColor: colors.primary + '20',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginRight: 10,
+            }}
           >
-            <Heart size={20} color={colors.primary} />
+            <Heart size={18} color={colors.primary} />
           </View>
           <View className="flex-1">
-            <Text className="text-lg font-bold" style={{ color: colors.text }}>
+            <Text className="text-base font-bold" style={{ color: colors.text }}>
               {t.community_subtitle}
             </Text>
             <Text className="text-xs" style={{ color: colors.textMuted }}>
@@ -464,57 +496,154 @@ function CommunityHeader({
           </View>
         </View>
 
-        {/* 2x2 metrics grid */}
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-          {cards.map((card, i) => (
-            <View
-              key={i}
-              style={{
-                flex: 1,
-                minWidth: '45%',
-                backgroundColor: colors.surface + 'CC',
-                borderRadius: 14,
-                padding: 12,
-                borderWidth: 1,
-                borderColor: card.color + '20',
-              }}
-            >
-              <View className="flex-row items-center mb-1.5" style={{ gap: 6 }}>
-                {card.icon}
-                <Text
-                  className="text-xs font-medium flex-1"
-                  style={{ color: colors.textMuted }}
-                  numberOfLines={1}
+        {/* 2×2 metrics grid */}
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          {/* Column 1 */}
+          <View style={{ flex: 1, gap: 8 }}>
+            {[0, 2].map((i) => {
+              const card = cardDefs[i];
+              return (
+                <Animated.View
+                  key={i}
+                  style={[
+                    {
+                      backgroundColor: card.bg,
+                      borderRadius: 16,
+                      borderWidth: 1,
+                      borderColor: card.border,
+                      padding: 12,
+                      shadowColor: card.accent,
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.12,
+                      shadowRadius: 6,
+                      elevation: 3,
+                    },
+                    pressStyles[i],
+                  ]}
                 >
-                  {card.label}
-                </Text>
-              </View>
-              {statsLoading ? (
-                <View
-                  style={{
-                    height: 22,
-                    width: 60,
-                    borderRadius: 6,
-                    backgroundColor: colors.textMuted + '20',
-                  }}
-                />
-              ) : (
-                <Text
-                  className="text-xl font-bold"
-                  style={{ color: card.color }}
-                  numberOfLines={1}
-                  adjustsFontSizeToFit
+                  {/* Icon container */}
+                  <View
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 10,
+                      backgroundColor: card.accent + '22',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: 8,
+                    }}
+                  >
+                    <Text style={{ fontSize: 16 }}>{card.icon}</Text>
+                  </View>
+                  {/* Value */}
+                  {statsLoading ? (
+                    <View
+                      style={{
+                        height: 24,
+                        width: 48,
+                        borderRadius: 6,
+                        backgroundColor: card.accent + '20',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ) : (
+                    <Text
+                      style={{
+                        fontSize: 22,
+                        fontWeight: '800',
+                        color: card.accent,
+                        letterSpacing: -0.5,
+                        marginBottom: 2,
+                      }}
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                    >
+                      {card.value}
+                    </Text>
+                  )}
+                  {/* Label */}
+                  <Text
+                    style={{ fontSize: 11, color: colors.textMuted, fontWeight: '500' }}
+                    numberOfLines={1}
+                  >
+                    {card.label}
+                  </Text>
+                </Animated.View>
+              );
+            })}
+          </View>
+
+          {/* Column 2 */}
+          <View style={{ flex: 1, gap: 8 }}>
+            {[1, 3].map((i) => {
+              const card = cardDefs[i];
+              return (
+                <Animated.View
+                  key={i}
+                  style={[
+                    {
+                      backgroundColor: card.bg,
+                      borderRadius: 16,
+                      borderWidth: 1,
+                      borderColor: card.border,
+                      padding: 12,
+                      shadowColor: card.accent,
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.12,
+                      shadowRadius: 6,
+                      elevation: 3,
+                    },
+                    pressStyles[i],
+                  ]}
                 >
-                  {card.value}
-                </Text>
-              )}
-              {card.sublabel ? (
-                <Text className="text-xs mt-0.5" style={{ color: colors.textMuted + 'AA' }}>
-                  {card.sublabel}
-                </Text>
-              ) : null}
-            </View>
-          ))}
+                  <View
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 10,
+                      backgroundColor: card.accent + '22',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: 8,
+                    }}
+                  >
+                    <Text style={{ fontSize: 16 }}>{card.icon}</Text>
+                  </View>
+                  {statsLoading ? (
+                    <View
+                      style={{
+                        height: 24,
+                        width: 48,
+                        borderRadius: 6,
+                        backgroundColor: card.accent + '20',
+                        marginBottom: 4,
+                      }}
+                    />
+                  ) : (
+                    <Text
+                      style={{
+                        fontSize: 22,
+                        fontWeight: '800',
+                        color: card.accent,
+                        letterSpacing: -0.5,
+                        marginBottom: 2,
+                      }}
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                    >
+                      {card.value}
+                    </Text>
+                  )}
+                  <Text
+                    style={{ fontSize: 11, color: colors.textMuted, fontWeight: '500' }}
+                    numberOfLines={1}
+                  >
+                    {card.label}
+                  </Text>
+                </Animated.View>
+              );
+            })}
+          </View>
         </View>
 
         {/* Status row */}
@@ -528,7 +657,7 @@ function CommunityHeader({
             </Text>
           </View>
         ) : updateLabel ? (
-          <Text className="text-xs mt-2 text-center" style={{ color: colors.textMuted }}>
+          <Text className="text-xs mt-3 text-center" style={{ color: colors.textMuted + '99' }}>
             {updateLabel}
           </Text>
         ) : null}
