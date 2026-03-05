@@ -421,14 +421,10 @@ function LaunchEventBanner({
   language,
   colors,
   onPress,
-  isOwned,
-  onViewAdventure,
 }: {
   language: 'en' | 'es';
   colors: ReturnType<typeof useThemeColors>;
   onPress: () => void;
-  isOwned: boolean;
-  onViewAdventure?: () => void;
 }) {
   const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
@@ -469,13 +465,6 @@ function LaunchEventBanner({
                 ✨ {language === 'es' ? 'Evento de Lanzamiento' : 'Launch Event'}
               </Text>
             </View>
-            {isOwned && (
-              <View style={{ backgroundColor: '#4CAF5033', borderRadius: 99, paddingHorizontal: 8, paddingVertical: 2, borderWidth: 1, borderColor: '#4CAF5088' }}>
-                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#4CAF50' }}>
-                  {language === 'es' ? 'COMPLETADO' : 'OWNED'}
-                </Text>
-              </View>
-            )}
           </View>
 
           {/* Title */}
@@ -516,38 +505,17 @@ function LaunchEventBanner({
           </View>
 
           {/* CTA */}
-          {!isOwned ? (
-            <View style={{
-              backgroundColor: ACCENT,
-              borderRadius: 99,
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              alignSelf: 'flex-start',
-            }}>
-              <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
-                {language === 'es' ? 'Comenzar aventura' : 'Start adventure'}
-              </Text>
-            </View>
-          ) : (
-            <Pressable
-              onPress={(e) => { e.stopPropagation?.(); onViewAdventure?.(); }}
-              style={{
-                backgroundColor: ACCENT,
-                borderRadius: 99,
-                paddingHorizontal: 20,
-                paddingVertical: 10,
-                alignSelf: 'flex-start',
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 6,
-              }}
-            >
-              <BookOpen size={15} color="#FFF" />
-              <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
-                {language === 'es' ? 'Ver aventura' : 'View Adventure'}
-              </Text>
-            </Pressable>
-          )}
+          <View style={{
+            backgroundColor: ACCENT,
+            borderRadius: 99,
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            alignSelf: 'flex-start',
+          }}>
+            <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
+              {language === 'es' ? 'Ver paquetes' : 'View packages'}
+            </Text>
+          </View>
         </LinearGradient>
       </Pressable>
     </Animated.View>
@@ -7251,7 +7219,6 @@ export default function StoreScreen() {
           <LaunchEventBanner
             language={language}
             colors={colors}
-            isOwned={STORE_BUNDLES.bundle_launch_growth.items.every(id => purchasedItems.includes(id))}
             onPress={() => {
               if (isOpeningModal.current) return;
               isOpeningModal.current = true;
@@ -7260,14 +7227,6 @@ export default function StoreScreen() {
               setStoreSectionModalCategory('bundles');
               setShowStoreSectionModal(true);
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-            }}
-            onViewAdventure={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              const col = ITEM_COLLECTIONS['collection_v2_naturaleza'];
-              if (col) {
-                setSelectedCollection(col as any);
-                setShowCollectionDetailModal(true);
-              }
             }}
           />
         )}
