@@ -66,6 +66,7 @@ adminRouter.get("/users", requireRole("MODERATOR"), async (c) => {
       completionsLast7Days: number;
       points: number;
       lastActiveAt: string | null;
+      lastSeenAt: string | null;
       activeBadgeId: string | null;
       badges: BadgeInfo[];
       hasIssues: boolean;
@@ -100,6 +101,7 @@ adminRouter.get("/users", requireRole("MODERATOR"), async (c) => {
         completionsLast7Days: recent7Map.get(u.id) ?? 0,
         points:               u.points,
         lastActiveAt:         u.lastActiveAt ? new Date(u.lastActiveAt).toISOString() : null,
+        lastSeenAt:           u.lastSeenAt ? new Date(u.lastSeenAt).toISOString() : null,
         activeBadgeId:        u.activeBadgeId,
         badges,
         hasIssues:            userHasIssues,

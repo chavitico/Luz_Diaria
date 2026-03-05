@@ -99,6 +99,7 @@ interface AdminUserRow {
   completionsLast7Days: number;
   points: number;
   lastActiveAt: string | null;
+  lastSeenAt: string | null;
   activeBadgeId: string | null;
   badges: BadgeInfo[];
   hasIssues: boolean;
@@ -146,6 +147,12 @@ function countryFlag(code: string): string {
   return code.toUpperCase().split('').map(c => String.fromCodePoint(0x1F1E6 - 65 + c.charCodeAt(0))).join('');
 }
 
+// ─── Online status helper (seen in last 5 minutes) ───────────────────────────
+function isUserOnline(lastSeenAt: string | null): boolean {
+  if (!lastSeenAt) return false;
+  return Date.now() - new Date(lastSeenAt).getTime() < 5 * 60 * 1000;
+}
+
 // ─── Compact user card ────────────────────────────────────────────────────────
 function UserCard({
   user, isOwner, currentUserId,
@@ -165,6 +172,7 @@ function UserCard({
   const [copied, setCopied] = useState(false);
   const isSelf  = user.id === currentUserId;
   const shortId = user.id.slice(-8);
+  const online  = isUserOnline(user.lastSeenAt);
 
   const handleCopy = () => {
     Clipboard.setString(user.id);
@@ -197,14 +205,24 @@ function UserCard({
       }}>
         <Pressable onPress={() => onViewDetail(user)} style={{ padding: 12, paddingBottom: 8 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-            <View style={{
-              width: 36, height: 36, borderRadius: 10,
-              backgroundColor: user.role === 'OWNER' ? '#F59E0B18' : user.role === 'MODERATOR' ? '#3B82F618' : colors.background,
-              alignItems: 'center', justifyContent: 'center',
-            }}>
-              <Text style={{ fontSize: 18 }}>
-                {user.role === 'OWNER' ? '👑' : user.role === 'MODERATOR' ? '🛡️' : '👤'}
-              </Text>
+            <View style={{ position: 'relative' }}>
+              <View style={{
+                width: 36, height: 36, borderRadius: 10,
+                backgroundColor: user.role === 'OWNER' ? '#F59E0B18' : user.role === 'MODERATOR' ? '#3B82F618' : colors.background,
+                alignItems: 'center', justifyContent: 'center',
+              }}>
+                <Text style={{ fontSize: 18 }}>
+                  {user.role === 'OWNER' ? '👑' : user.role === 'MODERATOR' ? '🛡️' : '👤'}
+                </Text>
+              </View>
+              {online && (
+                <View style={{
+                  position: 'absolute', bottom: -2, right: -2,
+                  width: 10, height: 10, borderRadius: 5,
+                  backgroundColor: '#22C55E',
+                  borderWidth: 2, borderColor: colors.surface,
+                }} />
+              )}
             </View>
             <View style={{ flex: 1 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
@@ -1108,6 +1126,7 @@ export default function AdminUsersScreen() {
   };
 
   const activeFilterCount = [roleFilter !== '', activeOnly, issuesOnly].filter(Boolean).length;
+  const onlineCount = users.filter(u => isUserOnline(u.lastSeenAt)).length;
 
   const handleForceRenameSubmit = async () => {
     if (!forceRenameUser || !myId) return;
@@ -1149,7 +1168,15 @@ export default function AdminUsersScreen() {
           <Users size={20} color="#3B82F6" />
         </View>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 18, fontWeight: '800', color: colors.text, letterSpacing: -0.3 }}>Usuarios</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <Text style={{ fontSize: 18, fontWeight: '800', color: colors.text, letterSpacing: -0.3 }}>Usuarios</Text>
+            {loaded && onlineCount > 0 && (
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 7, paddingVertical: 3, borderRadius: 8, backgroundColor: '#22C55E18' }}>
+                <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#22C55E' }} />
+                <Text style={{ fontSize: 11, fontWeight: '700', color: '#22C55E' }}>{onlineCount} en línea</Text>
+              </View>
+            )}
+          </View>
           <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 1 }}>
             {loaded ? `${users.length} encontrados` : 'Cargando…'}
           </Text>
