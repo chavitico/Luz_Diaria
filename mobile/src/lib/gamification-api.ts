@@ -898,6 +898,37 @@ export const gamificationApi = {
 
   // ─── Rename nickname (requires rename_token in inventory) ──────────────────
 
+  // ─── Community Stats ────────────────────────────────────────────────────────
+
+  async getCommunityStats(): Promise<{
+    activeUsers: number;
+    devotionalsCompletedTotal: number;
+    pointsEarnedTotal: number;
+    pointsSpentTotal: number;
+    windowDays: number;
+    computedAt: string;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/community/stats`);
+    if (!res.ok) throw new Error('Failed to fetch community stats');
+    return res.json();
+  },
+
+  // ─── Session Heartbeat ──────────────────────────────────────────────────────
+
+  async sessionHeartbeat(userId: string, sessionId?: string): Promise<{
+    sessionId: string;
+    serverNow: string;
+    deltaSeconds?: number;
+  }> {
+    const res = await fetch(`${BACKEND_URL}/api/gamification/session/heartbeat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, sessionId }),
+    });
+    if (!res.ok) throw new Error('Failed to send heartbeat');
+    return res.json();
+  },
+
   async renameNickname(userId: string, newNickname: string): Promise<{ success: boolean; user?: UserProfile; error?: string }> {
     const res = await fetch(`${BACKEND_URL}/api/gamification/user/rename`, {
       method: 'POST',

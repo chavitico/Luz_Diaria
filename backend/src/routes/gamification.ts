@@ -596,6 +596,7 @@ gamificationRouter.post(
             where: { id: userId },
             data: {
               points: { increment: pointsAwarded },
+              pointsEarnedTotal: { increment: pointsAwarded },
               dailyActions: JSON.stringify(dailyActions),
             },
           });
@@ -844,7 +845,7 @@ gamificationRouter.post(
 
         await tx.user.update({
           where: { id: userId },
-          data: { points: newPoints },
+          data: { points: newPoints, pointsSpentTotal: { increment: item.pricePoints } },
         });
 
         await tx.userInventory.create({
@@ -940,7 +941,7 @@ gamificationRouter.post(
 
         await tx.user.update({
           where: { id: userId },
-          data: { points: newPoints },
+          data: { points: newPoints, pointsSpentTotal: { increment: bundlePrice } },
         });
 
         // Add all new items to inventory
@@ -2464,6 +2465,171 @@ gamificationRouter.get("/community/support/status", async (c) => {
 // ============================================
 // RENAME TOKEN HELPERS
 // ============================================
+
+// ============================================
+// COMMUNITY STATS ENDPOINT
+// ============================================
+
+// In-memory cache (60 seconds)
+let communityStatsCache: {
+  data: {
+    activeUsers: number;
+    devotionalsCompletedTotal: number;
+    pointsEarnedTotal: number;
+    pointsSpentTotal: number;
+    windowDays: number;
+    computedAt: string;
+  };
+  expiresAt: number;
+} | null = null;
+
+const ACTIVE_DAYS = 30;
+
+// GET /community/stats - Global community metrics
+gamificationRouter.get("/community/stats", async (c) => {
+  try {
+    const now = Date.now();
+    if (communityStatsCache && communityStatsCache.expiresAt > now) {
+      return c.json(communityStatsCache.data);
+    }
+
+    const windowDate = new Date(now - ACTIVE_DAYS * 24 * 60 * 60 * 1000);
+
+    const [activeUsers, totals, ledgerEarned, ledgerSpent] = await Promise.all([
+      prisma.user.count({
+        where: { lastSeenAt: { gte: windowDate } },
+      }),
+      prisma.user.aggregate({
+        _sum: {
+          devotionalsCompleted: true,
+          pointsEarnedTotal: true,
+          pointsSpentTotal: true,
+        },
+      }),
+      // Fallback: calculate earned from ledger (for users before pointsEarnedTotal was tracked)
+      prisma.pointLedger.aggregate({
+        _sum: { amount: true },
+        where: { amount: { gt: 0 } },
+      }),
+      prisma.pointLedger.aggregate({
+        _sum: { amount: true },
+        where: { amount: { lt: 0 } },
+      }),
+    ]);
+
+    const earnedFromCounters = totals._sum.pointsEarnedTotal ?? 0;
+    const spentFromCounters = totals._sum.pointsSpentTotal ?? 0;
+
+    // Use ledger as source of truth since counters are newly added
+    const earnedFromLedger = ledgerEarned._sum.amount ?? 0;
+    const spentFromLedger = Math.abs(ledgerSpent._sum.amount ?? 0);
+
+    // Use the higher of the two (counters fill in over time)
+    const pointsEarnedTotal = Math.max(earnedFromCounters, earnedFromLedger);
+    const pointsSpentTotal = Math.max(spentFromCounters, spentFromLedger);
+
+    const data = {
+      activeUsers,
+      devotionalsCompletedTotal: totals._sum.devotionalsCompleted ?? 0,
+      pointsEarnedTotal,
+      pointsSpentTotal,
+      windowDays: ACTIVE_DAYS,
+      computedAt: new Date().toISOString(),
+    };
+
+    communityStatsCache = { data, expiresAt: now + 60_000 };
+    return c.json(data);
+  } catch (error) {
+    console.error("[CommunityStats] Error:", error);
+    return c.json({ error: "Failed to fetch community stats" }, 500);
+  }
+});
+
+// ============================================
+// SESSION HEARTBEAT ENDPOINT
+// ============================================
+
+const heartbeatSchema = z.object({
+  sessionId: z.string().optional(),
+  userId: z.string(),
+});
+
+const MAX_DELTA_SECONDS = 60; // clamp: max seconds credited per heartbeat
+
+// POST /session/heartbeat - Track user session time (server-authoritative)
+gamificationRouter.post(
+  "/session/heartbeat",
+  zValidator("json", heartbeatSchema),
+  async (c) => {
+    try {
+      const { sessionId, userId } = c.req.valid("json");
+      const serverNow = new Date();
+
+      // Validate user exists
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      if (!user) {
+        return c.json({ error: "User not found" }, 404);
+      }
+
+      let session: { id: string; lastSeenAt: Date } | null = null;
+
+      if (sessionId) {
+        session = await prisma.userSession.findFirst({
+          where: { id: sessionId, userId },
+          select: { id: true, lastSeenAt: true },
+        });
+      }
+
+      if (!session) {
+        // Create new session
+        const newSession = await prisma.userSession.create({
+          data: {
+            userId,
+            startedAt: serverNow,
+            lastSeenAt: serverNow,
+            totalSeconds: 0,
+          },
+        });
+
+        // Update user's lastSeenAt
+        await prisma.user.update({
+          where: { id: userId },
+          data: { lastSeenAt: serverNow },
+        });
+
+        return c.json({ sessionId: newSession.id, serverNow: serverNow.toISOString() });
+      }
+
+      // Calculate delta from server clock
+      const deltaMs = serverNow.getTime() - session.lastSeenAt.getTime();
+      const deltaRaw = Math.floor(deltaMs / 1000);
+      const delta = Math.min(Math.max(deltaRaw, 0), MAX_DELTA_SECONDS);
+
+      // Update session + user atomically
+      await prisma.$transaction([
+        prisma.userSession.update({
+          where: { id: session.id },
+          data: {
+            lastSeenAt: serverNow,
+            totalSeconds: { increment: delta },
+          },
+        }),
+        prisma.user.update({
+          where: { id: userId },
+          data: {
+            totalTimeSeconds: { increment: delta },
+            lastSeenAt: serverNow,
+          },
+        }),
+      ]);
+
+      return c.json({ sessionId: session.id, serverNow: serverNow.toISOString(), deltaSeconds: delta });
+    } catch (error) {
+      console.error("[Heartbeat] Error:", error);
+      return c.json({ error: "Failed to process heartbeat" }, 500);
+    }
+  }
+);
 
 export async function userHasRenameToken(userId: string): Promise<boolean> {
   const rows = await prisma.$queryRawUnsafe<{ cnt: number }[]>(

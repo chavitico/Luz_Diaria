@@ -18,6 +18,7 @@ interface AppState {
   // Progress tracking
   todayProgress: UserProgress | null;
   sessionStartTime: number | null;
+  heartbeatSessionId: string | null; // Server-assigned session ID for heartbeat tracking
 
   // Gamification state
   inventoryItems: string[]; // List of owned item IDs (cached from backend)
@@ -36,6 +37,7 @@ interface AppState {
   setTodayProgress: (progress: UserProgress | null) => void;
   startSession: () => void;
   endSession: () => number; // returns elapsed seconds
+  setHeartbeatSessionId: (id: string | null) => void;
   addPoints: (amount: number) => void;
   incrementStreak: () => void;
   resetStreak: () => void;
@@ -81,6 +83,7 @@ export const useAppStore = create<AppState>()(
       isDarkMode: false,
       todayProgress: null,
       sessionStartTime: null,
+      heartbeatSessionId: null,
 
       // Gamification initial state
       inventoryItems: [],
@@ -129,6 +132,8 @@ export const useAppStore = create<AppState>()(
 
         return elapsed;
       },
+
+      setHeartbeatSessionId: (id) => set({ heartbeatSessionId: id }),
 
       addPoints: (amount) => set((state) => ({
         user: state.user
@@ -231,6 +236,7 @@ export const useAppStore = create<AppState>()(
         isDarkMode: false,
         todayProgress: null,
         sessionStartTime: null,
+        heartbeatSessionId: null,
         inventoryItems: [],
       }),
     }),
@@ -244,6 +250,7 @@ export const useAppStore = create<AppState>()(
         isDarkMode: state.isDarkMode,
         inventoryItems: state.inventoryItems,
         newGiftItemIds: state.newGiftItemIds,
+        heartbeatSessionId: state.heartbeatSessionId,
       }),
       onRehydrateStorage: () => (state) => {
         if (!state?.user) return;
