@@ -289,6 +289,7 @@ export default function SettingsScreen() {
     useCallback(() => {
       loadLedger();
       loadPendingSupport();
+      loadBadgeData();
     }, [loadLedger, loadPendingSupport])
   );
 
@@ -439,7 +440,9 @@ export default function SettingsScreen() {
       setOwnedBadgeIds(badges);
       setActiveBadgeId(profile.activeBadgeId ?? null);
       // Check rename token ownership
-      setHasRenameToken(profile.inventory.some((inv) => inv.itemId === 'rename_token'));
+      setHasRenameToken(profile.inventory.some((inv) => inv.itemId === 'pincel_magico' && inv.source !== 'used'));
+      // Sync points from backend into local store
+      updateUser({ points: profile.points });
       // Sync role from backend into local store
       if (profile.role && profile.role !== user.role) {
         updateUser({ role: profile.role as 'USER' | 'MODERATOR' | 'OWNER' });
@@ -774,13 +777,7 @@ export default function SettingsScreen() {
                           setRenameError(null);
                           setShowRenameModal(true);
                         } else {
-                          Alert.alert(
-                            language === 'es' ? 'Nickname bloqueado' : 'Nickname locked',
-                            language === 'es'
-                              ? 'Necesitas un Token de Cambio de Nombre para modificar tu nickname. Puedes comprarlo en la tienda.'
-                              : 'You need a Nickname Change Token to rename. Buy one in the store.',
-                            [{ text: 'OK' }]
-                          );
+                          router.push({ pathname: '/(tabs)/store', params: { openCategory: 'tokens' } });
                         }
                       }}
                       className="flex-row items-center px-2 py-0.5 rounded-lg"

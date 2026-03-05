@@ -1006,5 +1006,33 @@
     "itemId": "avatar_v2_gozo",
     "acquiredAt": "2026-03-05T13:06:52.862Z",
     "source": "store"
+  },
+  {
+    "id": "cmmdkqo2l0019m261p3tv865t",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "title_guardian",
+    "acquiredAt": "2026-03-05T14:41:58.365Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmdltfnh001mm26189g554fz",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_l2_espada_espiritu",
+    "acquiredAt": "2026-03-05T15:12:07.037Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmdlto72001um26194wgvptg",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_shield_faith",
+    "acquiredAt": "2026-03-05T15:12:18.110Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmdltzs60022m261f5z9mh82",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_v2_corona_vida",
+    "acquiredAt": "2026-03-05T15:12:33.127Z",
+    "source": "gift"
   }
 ]

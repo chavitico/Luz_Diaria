@@ -2467,15 +2467,16 @@ gamificationRouter.get("/community/support/status", async (c) => {
 
 export async function userHasRenameToken(userId: string): Promise<boolean> {
   const rows = await prisma.$queryRawUnsafe<{ cnt: number }[]>(
-    `SELECT COUNT(*) as cnt FROM "UserInventory" WHERE "userId" = ? AND "itemId" = 'rename_token'`,
+    `SELECT COUNT(*) as cnt FROM "UserInventory" WHERE "userId" = ? AND "itemId" = 'pincel_magico' AND "source" != 'used'`,
     userId
   );
   return (rows[0]?.cnt ?? 0) > 0;
 }
 
 export async function consumeRenameToken(userId: string): Promise<void> {
-  await prisma.userInventory.delete({
-    where: { userId_itemId: { userId, itemId: "rename_token" } },
+  await prisma.userInventory.update({
+    where: { userId_itemId: { userId, itemId: "pincel_magico" } },
+    data: { source: 'used' },
   });
 }
 
@@ -2505,7 +2506,7 @@ gamificationRouter.post(
       // b) Check rename token ownership
       const hasToken = await userHasRenameToken(userId);
       if (!hasToken) {
-        return c.json({ error: "Necesitas un Token de Cambio de Nombre para cambiar tu nickname." }, 403);
+        return c.json({ error: "Necesitas el Pincel Mágico para cambiar tu nickname." }, 403);
       }
 
       // c) Run full safety checks
@@ -2543,8 +2544,9 @@ gamificationRouter.post(
           },
           include: { inventory: { include: { item: true } } },
         }),
-        prisma.userInventory.delete({
-          where: { userId_itemId: { userId, itemId: "rename_token" } },
+        prisma.userInventory.update({
+          where: { userId_itemId: { userId, itemId: "pincel_magico" } },
+          data: { source: 'used' },
         }),
       ]);
 

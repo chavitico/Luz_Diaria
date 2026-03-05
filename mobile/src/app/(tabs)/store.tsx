@@ -1,7 +1,7 @@
 // Store Screen - Premium Gamification Hub with Collections, Bundles & Weekly Chest
 
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import {
   View,
@@ -218,7 +218,7 @@ import {
   Season,
 } from '@/lib/gamification-api';
 
-type CategoryType = 'themes' | 'frames' | 'titles' | 'avatars' | 'bundles' | 'collections' | 'adventures';
+type CategoryType = 'themes' | 'frames' | 'titles' | 'avatars' | 'bundles' | 'collections' | 'adventures' | 'tokens';
 
 type CategoryIconComponent = (props: { color: string; active: boolean }) => React.ReactElement;
 
@@ -231,6 +231,15 @@ function IconAventuras({ color, active }: { color: string; active: boolean }) {
   );
 }
 
+function IconTokens({ color, active }: { color: string; active: boolean }) {
+  const opacity = active ? 1 : 0.75;
+  return (
+    <View style={{ width: 26, height: 26, alignItems: 'center', justifyContent: 'center', opacity }}>
+      <Text style={{ fontSize: 18, opacity }}>🖌️</Text>
+    </View>
+  );
+}
+
 const CATEGORIES: { key: CategoryType; IconComponent: CategoryIconComponent; label: string; labelEs: string; desc: string; descEs: string }[] = [
   { key: 'adventures', IconComponent: IconAventuras, label: 'Biblical Adventures', labelEs: 'Aventuras Bíblicas', desc: 'Collect rewards from biblical stories', descEs: 'Colecciona recompensas de historias bíblicas' },
   { key: 'collections', IconComponent: IconColecciones, label: 'Collections', labelEs: 'Colecciones', desc: 'Spiritual adventures that unlock step by step', descEs: 'Aventuras espirituales que se desbloquean paso a paso' },
@@ -239,6 +248,7 @@ const CATEGORIES: { key: CategoryType; IconComponent: CategoryIconComponent; lab
   { key: 'titles', IconComponent: IconTitulos, label: 'Titles', labelEs: 'Títulos', desc: 'Badges that show your progress', descEs: 'Insignias que muestran tu progreso' },
   { key: 'frames', IconComponent: IconMarcos, label: 'Frames', labelEs: 'Marcos', desc: 'Decorations for your devotionals', descEs: 'Decoraciones para tus devocionales' },
   { key: 'bundles', IconComponent: IconPaquetes, label: 'Bundles', labelEs: 'Paquetes', desc: 'Special content and rewards', descEs: 'Contenido especial y recompensas' },
+  { key: 'tokens', IconComponent: IconTokens, label: 'Tokens & Badges', labelEs: 'Tokens y Badges', desc: 'Special one-time use items', descEs: 'Ítems especiales de uso único' },
 ];
 
 // ─── Seasonal Items Section Banner ────────────────────────────────────────────
@@ -5481,6 +5491,140 @@ function PointsToast({
   );
 }
 
+// Token Item Card Component
+function TokenItemCard({
+  id, emoji, name, nameEs, description, descriptionEs, warning, warningEs,
+  price, rarity, isOwned, isUsed, canAfford, colors, language, onPress,
+}: {
+  id: string;
+  emoji: string;
+  name: string;
+  nameEs: string;
+  description: string;
+  descriptionEs: string;
+  warning: string;
+  warningEs: string;
+  price: number;
+  rarity: string;
+  isOwned: boolean;
+  isUsed: boolean;
+  canAfford: boolean;
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+  onPress: () => void;
+}) {
+  const rarityColor = rarity === 'legendary' ? '#F59E0B' : RARITY_COLORS[rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
+  const displayName = language === 'es' ? nameEs : name;
+  const displayDesc = language === 'es' ? descriptionEs : description;
+  const displayWarning = language === 'es' ? warningEs : warning;
+  const scale = useSharedValue(1);
+  const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  return (
+    <Animated.View entering={FadeInDown.duration(400)} style={[animStyle, { marginBottom: 12 }]}>
+      <Pressable
+        onPressIn={() => { if (!isOwned) scale.value = withSpring(0.97); }}
+        onPressOut={() => { scale.value = withSpring(1); }}
+        onPress={onPress}
+      >
+        <LinearGradient
+          colors={isOwned ? [colors.surface, colors.surface] : ['#1A0A00', '#2D1500', '#1A0A00']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{
+            borderRadius: 20,
+            padding: 20,
+            borderWidth: 1.5,
+            borderColor: isOwned ? colors.textMuted + '30' : rarityColor + '60',
+          }}
+        >
+          {/* Header */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14, gap: 14 }}>
+            <View style={{
+              width: 64, height: 64, borderRadius: 20,
+              backgroundColor: isOwned ? colors.background : rarityColor + '20',
+              borderWidth: 2, borderColor: isOwned ? colors.textMuted + '30' : rarityColor + '50',
+              alignItems: 'center', justifyContent: 'center',
+            }}>
+              <Text style={{ fontSize: 32 }}>{emoji}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              {/* Rarity badge */}
+              <View style={{
+                backgroundColor: rarityColor + '20', borderWidth: 1, borderColor: rarityColor + '50',
+                borderRadius: 99, paddingHorizontal: 8, paddingVertical: 2, alignSelf: 'flex-start', marginBottom: 4,
+              }}>
+                <Text style={{ fontSize: 9, fontWeight: '800', color: rarityColor, letterSpacing: 0.8, textTransform: 'uppercase' }}>
+                  {language === 'es' ? 'Legendario' : 'Legendary'} · {language === 'es' ? 'Único' : 'One-time'}
+                </Text>
+              </View>
+              <Text style={{
+                fontSize: 18, fontWeight: '800', letterSpacing: -0.3,
+                color: isOwned ? colors.textMuted : '#FFFFFF',
+                marginBottom: 2,
+              }}>
+                {displayName}
+              </Text>
+              <Text style={{ fontSize: 12, color: isOwned ? colors.textMuted : 'rgba(255,255,255,0.65)', lineHeight: 17 }}>
+                {displayDesc}
+              </Text>
+            </View>
+          </View>
+
+          {/* Warning */}
+          <View style={{
+            flexDirection: 'row', alignItems: 'flex-start', gap: 8, padding: 10, borderRadius: 10, marginBottom: 14,
+            backgroundColor: isOwned ? colors.textMuted + '10' : '#F59E0B10',
+            borderWidth: 1, borderColor: isOwned ? colors.textMuted + '20' : '#F59E0B30',
+          }}>
+            <Text style={{ fontSize: 13 }}>⚠️</Text>
+            <Text style={{ flex: 1, fontSize: 11, color: isOwned ? colors.textMuted : '#F59E0B', lineHeight: 16 }}>
+              {displayWarning}
+            </Text>
+          </View>
+
+          {/* Footer */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+              <Coins size={16} color={isOwned ? colors.textMuted : canAfford ? '#F59E0B' : '#888'} />
+              <Text style={{ fontSize: 18, fontWeight: '800', color: isOwned ? colors.textMuted : canAfford ? '#F59E0B' : '#888' }}>
+                {price.toLocaleString()}
+              </Text>
+            </View>
+            {isOwned ? (
+              <View style={{
+                paddingHorizontal: 16, paddingVertical: 8, borderRadius: 99,
+                backgroundColor: isUsed ? colors.textMuted + '20' : '#22C55E20',
+                borderWidth: 1, borderColor: isUsed ? colors.textMuted + '30' : '#22C55E40',
+                flexDirection: 'row', alignItems: 'center', gap: 5,
+              }}>
+                {isUsed
+                  ? <Text style={{ fontSize: 12, fontWeight: '700', color: colors.textMuted }}>{language === 'es' ? 'Ya utilizado' : 'Already used'}</Text>
+                  : <>
+                      <Check size={12} color="#22C55E" strokeWidth={3} />
+                      <Text style={{ fontSize: 12, fontWeight: '700', color: '#22C55E' }}>{language === 'es' ? 'Adquirido' : 'Owned'}</Text>
+                    </>
+                }
+              </View>
+            ) : (
+              <View style={{
+                paddingHorizontal: 20, paddingVertical: 10, borderRadius: 99,
+                backgroundColor: canAfford ? '#F59E0B' : colors.textMuted + '30',
+              }}>
+                <Text style={{ fontSize: 14, fontWeight: '700', color: canAfford ? '#000000' : colors.textMuted }}>
+                  {canAfford
+                    ? (language === 'es' ? 'Obtener' : 'Get')
+                    : (language === 'es' ? 'Sin puntos' : 'Need points')}
+                </Text>
+              </View>
+            )}
+          </View>
+        </LinearGradient>
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 // Main Store Screen
 export default function StoreScreen() {
   const insets = useSafeAreaInsets();
@@ -5489,6 +5633,7 @@ export default function StoreScreen() {
   const points = useUserPoints();
   const user = useUser();
   const router = useRouter();
+  const { openCategory } = useLocalSearchParams<{ openCategory?: string }>();
   const updateUser = useAppStore((s) => s.updateUser);
   const newGiftItemIds = useAppStore((s) => s.newGiftItemIds);
   const clearNewGiftItem = useAppStore((s) => s.clearNewGiftItem);
@@ -5510,6 +5655,7 @@ export default function StoreScreen() {
   const [selectedChapterCollection, setSelectedChapterCollection] = useState<ChapterCollection | null>(null);
   const [showStoreSectionModal, setShowStoreSectionModal] = useState(false);
   const [storeSectionModalCategory, setStoreSectionModalCategory] = useState<CategoryType | null>(null);
+  const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
 
   const [selectedCollection, setSelectedCollection] = useState<typeof ITEM_COLLECTIONS[string] | null>(null);
   const [chestReward, setChestReward] = useState<{
@@ -6034,6 +6180,49 @@ export default function StoreScreen() {
 
     return { isOwned, isEquipped, canAfford };
   }, [purchasedItems, user, points]);
+
+  // Fetch pincel_magico inventory state when tokens tab is active
+  useEffect(() => {
+    if ((activeCategory === 'tokens' || storeSectionModalCategory === 'tokens') && userId) {
+      gamificationApi.getUser(userId).then(profile => {
+        const pincelInv = profile.inventory.find(inv => inv.itemId === 'pincel_magico');
+        if (pincelInv) {
+          setPincelMagicoSource(pincelInv.source as 'store' | 'used');
+        } else {
+          setPincelMagicoSource(null);
+        }
+      }).catch(() => {});
+    }
+  }, [activeCategory, storeSectionModalCategory, userId]);
+
+  // Handle token purchases (pincel_magico, etc.)
+  const handleTokenPurchase = async (itemId: string, price: number) => {
+    if (!userId || points < price) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    try {
+      const res = await gamificationApi.purchaseItem(userId, itemId);
+      if (res.success) {
+        updateUser({ points: res.newPoints, purchasedItems: [...purchasedItems, itemId] });
+        setPincelMagicoSource('store');
+        setToastAmount(price);
+        setToastPositive(false);
+        setToastMessage(language === 'es' ? '¡Pincel Mágico adquirido!' : 'Magic Paintbrush acquired!');
+        setShowPointsToast(true);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
+      }
+    } catch {
+      // silently fail
+    }
+  };
+
+  // Handle openCategory navigation param (e.g. from settings lock button)
+  useEffect(() => {
+    if (openCategory === 'tokens') {
+      setStoreSectionModalCategory('tokens');
+      setShowStoreSectionModal(true);
+    }
+  }, [openCategory]);
 
   // Render category content
   const renderCategoryContent = (overrideCategory?: CategoryType, disableAnimations?: boolean) => {
@@ -6683,6 +6872,46 @@ export default function StoreScreen() {
             ))}
           </View>
         );
+
+      case 'tokens': {
+        const hasPincel = purchasedItems.includes('pincel_magico') || pincelMagicoSource !== null;
+        const isUsed = pincelMagicoSource === 'used';
+        const canAffordPincel = points >= 15000;
+
+        return (
+          <View className="px-5">
+            <View style={{ marginBottom: 16, padding: 14, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.textMuted + '18' }}>
+              <Text style={{ fontSize: 13, color: colors.textMuted, lineHeight: 19 }}>
+                {language === 'es'
+                  ? 'Los Tokens son ítems especiales que desbloquean funciones únicas en tu perfil.'
+                  : 'Tokens are special items that unlock unique features in your profile.'}
+              </Text>
+            </View>
+            <TokenItemCard
+              id="pincel_magico"
+              emoji="🖌️"
+              name="Magic Paintbrush"
+              nameEs="Pincel Mágico"
+              description="Allows you to change your nickname once."
+              descriptionEs="Permite cambiar tu nickname una vez."
+              warning="Use wisely — this is a one-time item per account. Once used, it cannot be purchased again."
+              warningEs="Úsalo con cabeza — es un ítem único por cuenta. Una vez usado, no podrá comprarse de nuevo."
+              price={15000}
+              rarity="legendary"
+              isOwned={hasPincel}
+              isUsed={isUsed}
+              canAfford={canAffordPincel}
+              colors={colors}
+              language={language}
+              onPress={() => {
+                if (!hasPincel && canAffordPincel) {
+                  handleTokenPurchase('pincel_magico', 15000);
+                }
+              }}
+            />
+          </View>
+        );
+      }
 
       case 'adventures':
         return null; // Navigation happens on press; content is the adventure hub screen

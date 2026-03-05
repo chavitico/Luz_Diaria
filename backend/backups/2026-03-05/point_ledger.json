@@ -798,5 +798,45 @@
     "amount": 5,
     "metadata": "{}",
     "createdAt": "2026-03-05T12:07:35.386Z"
+  },
+  {
+    "id": "cmmdkqo2k0017m261019nbfke",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "gift_sent_cmm9x0ybc0002m2sr3l31uj4q_title_guardian_1772721718363",
+    "type": "gift_sent",
+    "dateId": "2026-03-05",
+    "amount": -700,
+    "metadata": "{\"itemId\":\"title_guardian\",\"receiverUserId\":\"cmm9y71p5000km29qqx44tb91\"}",
+    "createdAt": "2026-03-05T14:41:58.364Z"
+  },
+  {
+    "id": "cmmdltfng001km2615u81hlmp",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "gift_sent_cmmaqp77i000pm2686xq6bozg_avatar_l2_espada_espiritu_1772723527035",
+    "type": "gift_sent",
+    "dateId": "2026-03-05",
+    "amount": -1800,
+    "metadata": "{\"itemId\":\"avatar_l2_espada_espiritu\",\"receiverUserId\":\"cmma36c8v000qm25km7avpj84\"}",
+    "createdAt": "2026-03-05T15:12:07.036Z"
+  },
+  {
+    "id": "cmmdlto71001sm2617gppmqdp",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "gift_sent_cmmaqp77i000pm2686xq6bozg_frame_shield_faith_1772723538109",
+    "type": "gift_sent",
+    "dateId": "2026-03-05",
+    "amount": -500,
+    "metadata": "{\"itemId\":\"frame_shield_faith\",\"receiverUserId\":\"cmm9x0ybc0002m2sr3l31uj4q\"}",
+    "createdAt": "2026-03-05T15:12:18.110Z"
+  },
+  {
+    "id": "cmmdltzs50020m261nb82o2nf",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "gift_sent_cmmaqp77i000pm2686xq6bozg_avatar_v2_corona_vida_1772723553125",
+    "type": "gift_sent",
+    "dateId": "2026-03-05",
+    "amount": -2500,
+    "metadata": "{\"itemId\":\"avatar_v2_corona_vida\",\"receiverUserId\":\"cmm9yc1nx000sm29qq8qeoai9\"}",
+    "createdAt": "2026-03-05T15:12:33.126Z"
   }
 ]

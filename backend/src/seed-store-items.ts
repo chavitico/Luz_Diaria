@@ -949,37 +949,61 @@ async function seedStoreItems() {
   }
   console.log(`  Badges: ${BADGES.length} processed`);
 
-  // Seed rename token (consumable utility item)
-  console.log('Seeding rename token...');
+  // Seed Pincel Mágico (magic paintbrush token - limited 1 per person lifetime)
+  console.log('Seeding Pincel Mágico...');
   await prisma.storeItem.upsert({
-    where: { id: 'rename_token' },
+    where: { id: 'pincel_magico' },
     update: {
-      nameEn: 'Nickname Change Token',
-      nameEs: 'Token de Cambio de Nombre',
-      descriptionEn: 'Allows you to change your nickname once.',
-      descriptionEs: 'Permite cambiar tu nickname una vez.',
-      pricePoints: 2500,
-      rarity: 'rare',
+      nameEn: 'Magic Paintbrush',
+      nameEs: 'Pincel Mágico',
+      descriptionEn: 'Allows you to change your nickname once. Use wisely — this is a one-time item per account.',
+      descriptionEs: 'Permite cambiar tu nickname una vez. Úsalo con cabeza — es un ítem único por cuenta.',
+      pricePoints: 15000,
+      rarity: 'legendary',
       type: 'consumable',
       available: true,
-      metadata: JSON.stringify({ icon: '✏️', consumable: true }),
+      category: 'tokens',
+      isNew: true,
+      metadata: JSON.stringify({ icon: '🖌️', consumable: true, limitedOnePerAccount: true, warning: 'Úsalo con cuidado' }),
     },
     create: {
-      id: 'rename_token',
+      id: 'pincel_magico',
       type: 'consumable',
-      nameEn: 'Nickname Change Token',
-      nameEs: 'Token de Cambio de Nombre',
-      descriptionEn: 'Allows you to change your nickname once.',
-      descriptionEs: 'Permite cambiar tu nickname una vez.',
-      pricePoints: 2500,
-      rarity: 'rare',
-      assetRef: 'rename_token',
-      metadata: JSON.stringify({ icon: '✏️', consumable: true }),
-      sortOrder: sortOrder++,
+      nameEn: 'Magic Paintbrush',
+      nameEs: 'Pincel Mágico',
+      descriptionEn: 'Allows you to change your nickname once. Use wisely — this is a one-time item per account.',
+      descriptionEs: 'Permite cambiar tu nickname una vez. Úsalo con cabeza — es un ítem único por cuenta.',
+      pricePoints: 15000,
+      rarity: 'legendary',
+      assetRef: 'pincel_magico',
+      category: 'tokens',
+      isNew: true,
+      metadata: JSON.stringify({ icon: '🖌️', consumable: true, limitedOnePerAccount: true, warning: 'Úsalo con cuidado' }),
+      sortOrder: 9999,
       available: true,
     },
   });
-  console.log('  Rename token: processed');
+  console.log('  Pincel Mágico: processed');
+
+  // Make rename_token unavailable (replaced by pincel_magico)
+  await prisma.storeItem.upsert({
+    where: { id: 'rename_token' },
+    update: { available: false },
+    create: {
+      id: 'rename_token',
+      type: 'consumable',
+      nameEn: 'Nickname Change Token (Legacy)',
+      nameEs: 'Token de Cambio de Nombre (Legado)',
+      descriptionEn: 'Legacy item.',
+      descriptionEs: 'Ítem de legado.',
+      pricePoints: 99999,
+      rarity: 'common',
+      assetRef: 'rename_token',
+      metadata: JSON.stringify({ icon: '✏️', consumable: true }),
+      sortOrder: 9998,
+      available: false,
+    },
+  });
 
   // Summary
   const totalItems = THEMES.length + THEMES_V2.length + THEMES_CHAPTER.length + FRAMES.length + FRAMES_V2.length + FRAMES_CHAPTER.length + MUSIC_TRACKS.length + TITLES.length + TITLES_CHAPTER.length + AVATARS.length + AVATARS_V2.length + AVATARS_L2.length + AVATARS_CHAPTER.length;
