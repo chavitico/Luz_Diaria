@@ -1104,5 +1104,40 @@
     "itemId": "pincel_magico",
     "acquiredAt": "2026-03-05T16:53:38.705Z",
     "source": "used"
+  },
+  {
+    "id": "cmmdr373q000zm268ph2v5qol",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "avatar_v2_rama_olivo",
+    "acquiredAt": "2026-03-05T17:39:40.598Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdr373q0011m268lpj5xk7k",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-05T17:39:40.599Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdr373q0013m268oqnpbjmt",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "avatar_v2_vid_racimos",
+    "acquiredAt": "2026-03-05T17:39:40.599Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdr373r0015m268e75idsux",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "frame_corona",
+    "acquiredAt": "2026-03-05T17:39:40.599Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdr373r0017m268mqinz5ns",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-05T17:39:40.600Z",
+    "source": "bundle:bundle_launch_growth"
   }
 ]
