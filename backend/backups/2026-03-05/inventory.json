@@ -1139,5 +1139,12 @@
     "itemId": "title_sembrador",
     "acquiredAt": "2026-03-05T17:39:40.600Z",
     "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdrhyna000zm2yc35cl17ru",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_bosque_sereno",
+    "acquiredAt": "2026-03-05T17:51:09.478Z",
+    "source": "store"
   }
 ]

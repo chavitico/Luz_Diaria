@@ -473,6 +473,10 @@ export default function CommunityScreen() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isOffline, setIsOffline] = useState(false);
   const syncedRef = useRef(false);
+  // Cooldown: prevent resume pipeline from running more than once every 10s
+  const lastResumeRef = useRef<number>(0);
+  // Track previous AppState to detect background→active transitions
+  const appStateRef = useRef(AppState.currentState);
 
   const [giftTarget, setGiftTarget] = useState<CommunityMember | null>(null);
   const [showGiftFlow, setShowGiftFlow] = useState(false);
@@ -584,22 +588,53 @@ export default function CommunityScreen() {
     }
   }, [syncCurrentUser]);
 
-  // Revalidate on screen focus
+  // --- Unified recovery pipeline (used by AppState resume AND refresh button) ---
+  const onAppResume = useCallback(async () => {
+    const now = Date.now();
+    // Cooldown: ignore if called within 10s of last run
+    if (now - lastResumeRef.current < 10_000) {
+      console.log('[Community] onAppResume skipped — cooldown active');
+      return;
+    }
+    lastResumeRef.current = now;
+
+    console.log('[Community] onAppResume: starting recovery pipeline');
+    setRefreshing(true);
+    setLocalSupport({}); // clear optimistic state
+
+    try {
+      // 1. Re-sync user session (lightweight auth/stats check)
+      await syncCurrentUser();
+      // 2. Invalidate and refetch community data
+      await queryClient.invalidateQueries({ queryKey: ['community-members'] });
+      await queryClient.invalidateQueries({ queryKey: ['community-support-status'] });
+      console.log('[Community] onAppResume: recovery complete');
+    } catch (err) {
+      console.warn('[Community] onAppResume: recovery error', err);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [syncCurrentUser, queryClient]);
+
+  // AppState listener — only triggers on background/inactive → active
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (nextState) => {
+      const prev = appStateRef.current;
+      appStateRef.current = nextState;
+      if ((prev === 'background' || prev === 'inactive') && nextState === 'active') {
+        console.log('[Community] App resumed from background — triggering recovery');
+        onAppResume();
+      }
+    });
+    return () => sub.remove();
+  }, [onAppResume]);
+
+  // Revalidate on screen focus (lightweight — no syncCurrentUser, just invalidate)
   useFocusEffect(
     useCallback(() => {
       queryClient.invalidateQueries({ queryKey: ['community-members'] });
     }, [queryClient])
   );
-
-  // Also revalidate when app comes to foreground
-  useEffect(() => {
-    const sub = AppState.addEventListener('change', (state) => {
-      if (state === 'active') {
-        queryClient.invalidateQueries({ queryKey: ['community-members'] });
-      }
-    });
-    return () => sub.remove();
-  }, [queryClient]);
 
   // Fetch community members
   const {
@@ -615,11 +650,22 @@ export default function CommunityScreen() {
       setLastUpdated(new Date());
       return result;
     },
-    staleTime: 60000, // 1 minute cache
+    staleTime: 30_000,      // 30s — stale faster so resume always refetches
+    refetchOnMount: true,   // always refetch when screen mounts fresh
     retry: 2,
   });
 
   const members = data?.members ?? [];
+
+  // Stuck-loading guard: if isLoading is stuck for >20s, force a refetch
+  useEffect(() => {
+    if (!isLoading) return;
+    const timer = setTimeout(() => {
+      console.warn('[Community] isLoading stuck >20s — forcing refetch');
+      refetch();
+    }, 20_000);
+    return () => clearTimeout(timer);
+  }, [isLoading, refetch]);
 
   // Fetch support status for all members once we have them
   const memberIds = members.map((m) => m.id);
@@ -676,12 +722,11 @@ export default function CommunityScreen() {
   }, [user?.id, getSupportState, members, mutateSendSupport]);
 
   const onRefresh = useCallback(async () => {
-    setRefreshing(true);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    setLocalSupport({}); // reset optimistic on refresh
-    await refetch();
-    setRefreshing(false);
-  }, [refetch]);
+    // Bypass cooldown for manual refresh by resetting the timer
+    lastResumeRef.current = 0;
+    await onAppResume();
+  }, [onAppResume]);
 
   const total = data?.total ?? 0;
 

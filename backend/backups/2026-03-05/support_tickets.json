@@ -560,14 +560,14 @@
     "clientClaim": "{\"issue\":\"voz_rara\",\"os\":\"ios\",\"ttsVoiceIdentifier\":\"com.apple.voice.compact.es-MX.Paulina\",\"ttsVoiceName\":\"Paulina\",\"ttsLanguage\":\"es-MX\",\"ttsPreferredVoiceFound\":true,\"ttsIsEloquence\":false,\"ttsNeedsUserAction\":false,\"ttsVoiceScore\":209}",
     "status": "closed",
     "resolutionNote": "Resuelto manualmente por admin cmm9x0ybc0002m2sr3l31uj4q",
-    "rating": null,
+    "rating": 4,
     "beforeState": "{\"streakCurrent\":26,\"devotionalsCompleted\":15}",
     "afterState": "{\"streakCurrent\":26,\"devotionalsCompleted\":15}",
     "botPreview": "{\"summary\":\"Audio/TTS: voz_rara (ios) | voz: Paulina | score: 209 | needsAction: false\",\"userMessageEs\":\"Hola 👋 Recibimos tu reporte sobre la voz de narración. Esta app usa las voces nativas de iOS, y algunos dispositivos no tienen instalada una voz de alta calidad en español.\\n\\n📲 Para instalar una mejor voz:\\n1. Ve a Ajustes → Accesibilidad → Contenido hablado → Voces\\n2. Elige Español (México) o Español (Latinoamérica)\\n3. Descarga \\\"Paulina\\\" (o la mejor voz disponible) y actívala\\n4. Cierra completamente la app y vuelve a abrirla\\n\\nSi después de esto la voz sigue sonando rara, escríbenos aquí mismo con tu versión de iOS y modelo de iPhone. También puedes enviarnos una grabación corta a chaviticogames@gmail.com\",\"userMessageEn\":\"Hi 👋 We received your report about the narration voice. This app uses iOS native voices, and some devices don't have a high-quality Spanish voice installed.\\n\\n📲 To install a better voice:\\n1. Go to Settings → Accessibility → Spoken Content → Voices\\n2. Choose Spanish (Mexico) or Spanish (Latin America)\\n3. Download \\\"Paulina\\\" (or the best available voice) and enable it\\n4. Fully close the app and reopen it\\n\\nIf the voice still sounds robotic after this, reply here with your iOS version and iPhone model. You can also email a short screen recording to chaviticogames@gmail.com\",\"action\":\"info_only\",\"snapshotComparison\":{\"snapshotDate\":\"2026-03-04\",\"snapshotId\":\"cmmbbl5ob0001m261gz2ugb0n\",\"snapshotStreak\":26,\"currentStreak\":26,\"claimedStreak\":26,\"diffDays\":0,\"devotionalTodayCR\":false,\"lastDevotionalDate\":null,\"escalationReason\":\"audio_tts — no auto-fix available\"}}",
     "snapshotDate": "2026-03-04",
     "snapshotId": "cmmbbl5ob0001m261gz2ugb0n",
     "createdAt": "2026-03-05T04:22:45.290Z",
-    "updatedAt": "2026-03-05T13:08:34.755Z"
+    "updatedAt": "2026-03-05T17:56:56.199Z"
   },
   {
     "id": "cmmcymtr8004fm2xcasx3nm9u",
