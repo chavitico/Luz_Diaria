@@ -733,5 +733,19 @@
     "itemId": "title_resurrection_power",
     "acquiredAt": "2026-03-04T23:41:54.496Z",
     "source": "support_grant"
+  },
+  {
+    "id": "cmmcq259e000xm2mxqp84mrtj",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_minimal",
+    "acquiredAt": "2026-03-05T00:23:05.762Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcq59dh0017m2mxy32a9vob",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_v2_luna_plata",
+    "acquiredAt": "2026-03-05T00:25:31.062Z",
+    "source": "store"
   }
 ]

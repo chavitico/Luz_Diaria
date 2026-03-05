@@ -5758,8 +5758,6 @@ export default function StoreScreen() {
         });
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         setShowDetailModal(false);
-        // Close section modal so the toast (outside modal) becomes visible
-        setShowStoreSectionModal(false);
         setToastAmount(selectedDetailItem.price);
         setToastPositive(false);
         setShowPointsToast(true);
@@ -6536,10 +6534,25 @@ export default function StoreScreen() {
                     isPurchasing={bundlePurchaseMutation.isPending}
                     onViewAdventure={(targetType, targetId) => {
                       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                      router.push({
-                        pathname: '/collections/adventures',
-                        params: { bundleId: bundle.id },
-                      });
+                      if (targetType === 'collection') {
+                        // Try to find the matching collection and open its detail
+                        const stdCol = Object.values(ITEM_COLLECTIONS).find(c => c.id === targetId);
+                        if (stdCol) {
+                          setSelectedCollection(stdCol as any);
+                          setShowCollectionDetailModal(true);
+                        }
+                        // If no collection found (e.g. collection_growth_path is the bundle itself),
+                        // do nothing — BundleCard already shows "Completed" state
+                      } else {
+                        // Close modal first, then navigate — router.push doesn't work from inside Modal
+                        setShowStoreSectionModal(false);
+                        setTimeout(() => {
+                          router.push({
+                            pathname: '/collections/adventures',
+                            params: { bundleId: bundle.id },
+                          });
+                        }, 350);
+                      }
                     }}
                   />
                 </Animated.View>
@@ -7127,6 +7140,22 @@ export default function StoreScreen() {
               setSelectedChapterCollection(null);
             }}
             onNavigateToItem={handleNavigateToCollectionItem}
+          />
+
+          {/* Toast overlays inside the modal so they appear above it */}
+          <PointsToast
+            amount={toastAmount}
+            visible={showPointsToast && showStoreSectionModal}
+            onHide={() => { setShowPointsToast(false); setToastMessage(undefined); }}
+            isPositive={toastPositive}
+            message={toastMessage}
+          />
+          <PointsToast
+            amount={0}
+            visible={showErrorToast && showStoreSectionModal}
+            onHide={() => setShowErrorToast(false)}
+            isPositive={false}
+            message={errorToastMessage}
           />
         </View>
       </Modal>
