@@ -1153,5 +1153,12 @@
     "itemId": "badge_caminando_fe",
     "acquiredAt": "2026-03-05T19:33:36.949Z",
     "source": "achievement"
+  },
+  {
+    "id": "cmmdxkqa50013m2o40ibciq7u",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_renewed_strength",
+    "acquiredAt": "2026-03-05T20:41:16.301Z",
+    "source": "store"
   }
 ]

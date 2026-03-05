@@ -6795,13 +6795,14 @@ export default function StoreScreen() {
                         }
                       } else {
                         // Close modal first, then navigate — router.push doesn't work from inside Modal
+                        // Use 500ms to allow pageSheet dismiss animation to fully complete
                         setShowStoreSectionModal(false);
                         setTimeout(() => {
                           router.push({
                             pathname: '/collections/adventures',
                             params: { bundleId: bundle.id },
                           });
-                        }, 350);
+                        }, 500);
                       }
                     }}
                   />
@@ -7211,6 +7212,10 @@ export default function StoreScreen() {
             season={primarySeason}
             language={language}
             onPress={() => {
+              if (isOpeningModal.current) return;
+              isOpeningModal.current = true;
+              setTimeout(() => { isOpeningModal.current = false; }, 600);
+              setActiveSubcategory('all');
               setStoreSectionModalCategory('bundles');
               setShowStoreSectionModal(true);
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
