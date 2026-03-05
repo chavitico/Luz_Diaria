@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-05T04:46:12.023Z"
+    "updatedAt": "2026-03-05T04:56:38.151Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -226,7 +226,7 @@
   },
   {
     "id": "user_y2gpgsrn359mmcyy3c4",
-    "nickname": "Laritala",
+    "nickname": "hijueputa",
     "role": "USER",
     "avatarId": "avatar_candle",
     "frameId": null,
@@ -247,6 +247,6 @@
     "activeBadgeId": null,
     "deviceId": null,
     "createdAt": "2026-03-05T04:41:54.929Z",
-    "updatedAt": "2026-03-05T04:49:14.837Z"
+    "updatedAt": "2026-03-05T04:57:18.120Z"
   }
 ]

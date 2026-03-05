@@ -384,13 +384,21 @@ gamificationRouter.post(
       if (data.countryCode !== undefined) updateData.countryCode = data.countryCode;
       if (data.showCountry !== undefined) updateData.showCountry = data.showCountry;
       if (data.nickname !== undefined) {
-        // Only update nickname if it's not taken by another user
-        const existingNickname = await prisma.user.findFirst({
-          where: { nicknameLower: data.nickname.toLowerCase(), NOT: { id: userId } },
-        });
-        if (!existingNickname) {
-          updateData.nickname = data.nickname;
-          updateData.nicknameLower = data.nickname.toLowerCase();
+        // Reject nicknames that fail safety checks (profanity, etc.)
+        const safetyCheck = validateNickname(data.nickname);
+        if (safetyCheck.ok) {
+          // Only update nickname if it's not taken by another user
+          const existingNickname = await prisma.user.findFirst({
+            where: { nicknameLower: data.nickname.toLowerCase(), NOT: { id: userId } },
+          });
+          if (!existingNickname) {
+            updateData.nickname = data.nickname;
+            updateData.nicknameLower = data.nickname.toLowerCase();
+            updateData.normalizedNickname = safetyCheck.normalized!;
+          }
+        } else {
+          // Incoming nickname is inappropriate — keep the server's current value, do not overwrite
+          console.warn(`[Sync] Blocked inappropriate nickname from device for user ${userId}: "${data.nickname}"`);
         }
       }
 

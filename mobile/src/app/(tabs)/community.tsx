@@ -538,6 +538,8 @@ export default function CommunityScreen() {
       if (syncedUser.totalTimeSeconds > user.totalTime) updates.totalTime = syncedUser.totalTimeSeconds;
       // Always sync role from backend to keep admin access current
       if (syncedUser.role && syncedUser.role !== user.role) updates.role = syncedUser.role as 'USER' | 'MODERATOR' | 'OWNER';
+      // Always trust server nickname — it may have been corrected by moderation
+      if (syncedUser.nickname && syncedUser.nickname !== user.nickname) updates.nickname = syncedUser.nickname;
 
       if (Object.keys(updates).length > 0) {
         updateUser(updates);
