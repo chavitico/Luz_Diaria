@@ -63,6 +63,7 @@ import {
   useAppStore,
 } from '@/lib/store';
 import { APP_BRANDING, TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES, BADGES, RARITY_COLORS } from '@/lib/constants';
+import { fetchWithTimeout } from '@/lib/fetch';
 
 const LOGO_PNG = require('../../../assets/logo/luz-diaria-logo.png');
 import type { Language } from '@/lib/types';
@@ -276,7 +277,7 @@ export default function SettingsScreen() {
     if (!user?.id) return;
     try {
       const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
-      const res = await fetch(`${BACKEND_URL}/api/support/tickets/${user.id}`);
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/tickets/${user.id}`);
       if (!res.ok) return; // silent fail for non-critical feature
       const data = await res.json() as { tickets?: Array<{ status: string }> };
       const count = (data.tickets ?? []).filter(t => t.status === 'waiting_user').length;

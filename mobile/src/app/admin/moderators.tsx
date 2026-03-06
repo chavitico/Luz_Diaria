@@ -45,6 +45,7 @@ import {
 } from 'lucide-react-native';
 import { useThemeColors, useUser } from '@/lib/store';
 import { ActionButton } from '@/components/ui/ActionButton';
+import { fetchWithTimeout } from '@/lib/fetch';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 const IS_DEV = process.env.EXPO_PUBLIC_APP_ENV === 'development' || __DEV__;
@@ -414,7 +415,7 @@ function UserDetailModal({
     if (!userId) return;
     setLoading(true);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/admin/users/${userId}`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${userId}`, {
         headers: { 'X-User-Id': myId },
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -435,7 +436,7 @@ function UserDetailModal({
 
   const fetchBadgeCatalog = useCallback(async () => {
     try {
-      const res = await fetch(`${BACKEND_URL}/api/admin/badges`, { headers: { 'X-User-Id': myId } });
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/badges`, { headers: { 'X-User-Id': myId } });
       if (res.ok) {
         const data = await res.json() as { badges: BadgeCatalogItem[] };
         setBadgeCatalog(data.badges ?? []);
@@ -503,7 +504,7 @@ function UserDetailModal({
       if (editRole && editRole !== detail.role) patchBody.role         = editRole;
 
       if (Object.keys(patchBody).length > 0) {
-        const res = await fetch(`${BACKEND_URL}/api/admin/users/${detail.id}`, {
+        const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${detail.id}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json', 'X-User-Id': myId },
           body: JSON.stringify(patchBody),
@@ -524,7 +525,7 @@ function UserDetailModal({
       const toRemove    = detail.badges.filter(b => !newIds.has(b.id)).map(b => b.id);
 
       if (toAdd.length > 0 || toRemove.length > 0) {
-        const res = await fetch(`${BACKEND_URL}/api/admin/users/${detail.id}/badges`, {
+        const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${detail.id}/badges`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json', 'X-User-Id': myId },
           body: JSON.stringify({ add: toAdd, remove: toRemove }),
@@ -1032,7 +1033,7 @@ export default function AdminUsersScreen() {
       if (opts?.active) params.set('activeOnly', 'true');
       if (opts?.issues) params.set('hasIssues',  'true');
       const qs = params.toString();
-      const res = await fetch(`${BACKEND_URL}/api/admin/users${qs ? '?' + qs : ''}`, { headers: { 'X-User-Id': myId } });
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users${qs ? '?' + qs : ''}`, { headers: { 'X-User-Id': myId } });
       if (res.status === 403) { Alert.alert('Sin acceso', 'No tienes permisos.'); router.back(); return; }
       const data = await res.json() as { users: AdminUserRow[] };
       setUsers(data.users ?? []);
@@ -1044,7 +1045,7 @@ export default function AdminUsersScreen() {
   const fetchStoreItems = useCallback(async () => {
     if (!myId) return;
     try {
-      const res = await fetch(`${BACKEND_URL}/api/admin/store-items`, { headers: { 'X-User-Id': myId } });
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/store-items`, { headers: { 'X-User-Id': myId } });
       if (res.ok) { const data = await res.json() as { items: StoreItemSimple[] }; setStoreItems(data.items ?? []); }
     } catch { /* non-critical */ }
   }, [myId]);
@@ -1075,7 +1076,7 @@ export default function AdminUsersScreen() {
     setConfirmToggle(null);
     setTogglingId(user.id);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/admin/users/${user.id}/role`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${user.id}/role`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'X-User-Id': myId },
         body: JSON.stringify({ role: target }),
@@ -1092,7 +1093,7 @@ export default function AdminUsersScreen() {
   const handleFixBadges = async (u: AdminUserRow) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/admin/users/${u.id}/fix-badges`, { method: 'POST', headers: { 'X-User-Id': myId } });
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${u.id}/fix-badges`, { method: 'POST', headers: { 'X-User-Id': myId } });
       const data = await res.json() as { success?: boolean; message?: string; error?: string };
       if (!res.ok || !data.success) { Alert.alert('Error', data.error ?? 'Fix badges falló.'); return; }
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -1115,7 +1116,7 @@ export default function AdminUsersScreen() {
         if (!compItemId) { Alert.alert('Error', 'Selecciona un ítem.'); return; }
         body.itemId = compItemId;
       }
-      const res = await fetch(`${BACKEND_URL}/api/admin/users/${compensateUser.id}/compensate`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${compensateUser.id}/compensate`, {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'X-User-Id': myId }, body: JSON.stringify(body),
       });
       const data = await res.json() as { success?: boolean; message?: string; error?: string };
@@ -1146,7 +1147,7 @@ export default function AdminUsersScreen() {
     setForceRenameLoading(true);
     setForceRenameError(null);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/admin/users/${forceRenameUser.id}/force-rename`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${forceRenameUser.id}/force-rename`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-User-Id': myId },
         body: JSON.stringify({ newNickname: trimmed }),

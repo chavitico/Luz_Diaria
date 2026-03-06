@@ -21,6 +21,7 @@ import * as Haptics from 'expo-haptics';
 import { Gift, X, Search, User as UserIcon, Check, ChevronRight, Coins } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { ActionButton } from '@/components/ui/ActionButton';
+import { fetchWithTimeout } from '@/lib/fetch';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -134,7 +135,7 @@ export function GiftSendModal({ visible, onClose, item }: GiftSendModalProps) {
     }
     setSearching(true);
     try {
-      const res = await fetch(
+      const res = await fetchWithTimeout(
         `${BACKEND_URL}/api/store/gift/search-users?q=${encodeURIComponent(q)}`,
         { headers: { 'X-User-Id': user.id } }
       );
@@ -167,7 +168,7 @@ export function GiftSendModal({ visible, onClose, item }: GiftSendModalProps) {
     setSending(true);
     setError(null);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/store/gift`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/store/gift`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

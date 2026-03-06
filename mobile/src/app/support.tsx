@@ -43,6 +43,7 @@ import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { ActionButton } from '@/components/ui/ActionButton';
 import { getNotificationSettings } from '@/lib/notifications';
 import { pickBestVoice } from '@/lib/voice-picker';
+import { fetchWithTimeout } from '@/lib/fetch';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -331,7 +332,7 @@ function TicketDetailModal({
     if (!ticketId) return;
     setLoading(true);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/support/ticket/${ticketId}`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/ticket/${ticketId}`, {
         headers: { 'X-User-Id': userId },
       });
       const data = await res.json() as { ticket?: TicketDetail };
@@ -353,7 +354,7 @@ function TicketDetailModal({
     if (!replyText.trim() || !ticketId) return;
     setSending(true);
     try {
-      await fetch(`${BACKEND_URL}/api/support/ticket/${ticketId}/reply`, {
+      await fetchWithTimeout(`${BACKEND_URL}/api/support/ticket/${ticketId}/reply`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, message: replyText.trim() }),
@@ -369,7 +370,7 @@ function TicketDetailModal({
     setSubmittingRating(true);
     setRating(r);
     try {
-      await fetch(`${BACKEND_URL}/api/support/ticket/${ticketId}/rate`, {
+      await fetchWithTimeout(`${BACKEND_URL}/api/support/ticket/${ticketId}/rate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, rating: r }),
@@ -848,7 +849,7 @@ export default function SupportScreen() {
     if (!userId) return;
     if (!silent) setLoadingTickets(true);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/support/tickets/${userId}`);
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/tickets/${userId}`);
       const data = await res.json() as { tickets?: TicketSummary[] };
       if (data.tickets) setTickets(data.tickets);
     } catch {}
@@ -971,7 +972,7 @@ export default function SupportScreen() {
         }
       }
 
-      const res = await fetch(`${BACKEND_URL}/api/support/ticket`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/ticket`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

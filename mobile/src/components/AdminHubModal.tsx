@@ -36,6 +36,7 @@ import {
   prefetchDevotionals,
   getCRToday,
 } from '@/lib/devotional-cache';
+import { fetchWithTimeout } from '@/lib/fetch';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -441,7 +442,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
                       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                       setGeneratingSnapshots(true);
                       try {
-                        const res = await fetch(`${BACKEND_URL}/api/admin/snapshots/generate`, {
+                        const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/snapshots/generate`, {
                           method: 'POST',
                           headers: { 'X-User-Id': user?.id ?? '' },
                         });

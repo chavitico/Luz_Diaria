@@ -44,6 +44,7 @@ import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { ActionButton } from '@/components/ui/ActionButton';
 import type { CommunityMember } from '@/lib/gamification-api';
 import { RARITY_COLORS } from '@/lib/constants';
+import { fetchWithTimeout } from '@/lib/fetch';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -362,7 +363,7 @@ export function CommunityGiftFlowModal({
     if (!user?.id || !recipient?.id) return;
     setLoadingItems(true);
     try {
-      const res = await fetch(
+      const res = await fetchWithTimeout(
         `${BACKEND_URL}/api/store/gift/giftable-items?receiverId=${recipient.id}`,
         { headers: { 'X-User-Id': user.id } }
       );
@@ -391,7 +392,7 @@ export function CommunityGiftFlowModal({
     setSending(true);
     setError(null);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/store/gift`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/store/gift`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

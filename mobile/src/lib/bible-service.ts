@@ -2,6 +2,7 @@
 // Handles fetching passages from the backend with local caching
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { fetchWithTimeout } from './fetch';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 const CACHE_KEY_PREFIX = 'bible_passage_';
@@ -277,7 +278,7 @@ export async function fetchBiblePassage(
     console.log('[Bible] Fetching from API:', reference, lang);
 
     const url = `${BACKEND_URL}/api/bible/passage?reference=${encodeURIComponent(reference)}&lang=${lang}`;
-    const response = await fetch(url);
+    const response = await fetchWithTimeout(url);
 
     if (!response.ok) {
       const errorData = await response.json() as { error?: string };

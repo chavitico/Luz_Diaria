@@ -47,6 +47,7 @@ import {
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
+import { fetchWithTimeout } from '@/lib/fetch';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -241,7 +242,7 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setSending(true);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/support/admin/compensate`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/admin/compensate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
         body: JSON.stringify({
@@ -514,7 +515,7 @@ function ResolveModal({ ticket, visible, mode, onClose, onSuccess, userId, es, c
       if (isResolve && isStreakTicket && suggestedStreak > 0) {
         body.applyStreak = suggestedStreak;
       }
-      const res = await fetch(`${BACKEND_URL}/api/support/admin/tickets/${ticket.id}/resolve`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/admin/tickets/${ticket.id}/resolve`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
         body: JSON.stringify(body),
@@ -854,7 +855,7 @@ function TicketCard({
     if (timelineFetched) return;
     setTimelineLoading(true);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/support/admin/ticket/${ticket.id}/events`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/admin/ticket/${ticket.id}/events`, {
         headers: { 'X-User-Id': userId },
       });
       const data = await res.json() as { events?: TicketEvent[] };
@@ -866,7 +867,7 @@ function TicketCard({
 
   const refreshTimeline = async () => {
     try {
-      const res = await fetch(`${BACKEND_URL}/api/support/admin/ticket/${ticket.id}/events`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/admin/ticket/${ticket.id}/events`, {
         headers: { 'X-User-Id': userId },
       });
       const data = await res.json() as { events?: TicketEvent[] };
@@ -879,7 +880,7 @@ function TicketCard({
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setReplySending(true);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/support/admin/ticket/${ticket.id}/reply`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/admin/ticket/${ticket.id}/reply`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
         body: JSON.stringify({ message: replyText.trim() }),
@@ -1389,7 +1390,7 @@ export default function AdminSupportScreen() {
     else setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${BACKEND_URL}/api/support/admin/tickets?limit=50`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/support/admin/tickets?limit=50`, {
         headers: { 'X-User-Id': userId },
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
