@@ -47,6 +47,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['harp', 'sling', 'shepherd', 'crown'],
     gradientColors: ['#0C1850', '#162E82', '#1C3D9E'],
     accentColor: '#D4AF37',
+    // Young shepherd with harp — warm golden pastoral light, hills of Israel
+    imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600&q=85&fit=crop',
     motif: {
       topSymbol: '✦',
       subtitleEs: 'Rey de Israel',
@@ -71,6 +73,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['staff', 'mount sinai', 'tablets', 'burning bush'],
     gradientColors: ['#2C1654', '#4A1880', '#6B2FA0'],
     accentColor: '#C9A227',
+    // Moses near burning bush — desert with glowing divine fire
+    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=85&fit=crop',
     motif: {
       topSymbol: '☩',
       subtitleEs: 'Profeta de Dios',
@@ -119,6 +123,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['sword', 'light', 'armor', 'scripture'],
     gradientColors: ['#0A1828', '#0E2A50', '#162E6A'],
     accentColor: '#A8C8F0',
+    // Epic raised sword with divine light — dramatic dark background, silver + blue palette
+    imageUrl: 'https://images.unsplash.com/photo-1531251445707-1f000e1e87d0?w=600&q=85&fit=crop',
     motif: {
       topSymbol: '⚔',
       subtitleEs: 'Armadura de Dios',

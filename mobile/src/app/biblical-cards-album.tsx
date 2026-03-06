@@ -223,28 +223,40 @@ export default function BiblicalCardsAlbumScreen() {
                         <View style={{ height: 0.5, backgroundColor: card.accentColor + '60' }} />
 
                         {/* Artwork area */}
-                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 4 }}>
-                          {/* Radial glow */}
-                          <View style={{
-                            position: 'absolute',
-                            width: CARD_W * 0.65,
-                            height: CARD_W * 0.65,
-                            borderRadius: CARD_W * 0.325,
-                            backgroundColor: card.accentColor + '0E',
-                          }} />
-                          {card.imageUrl ? (
+                        {card.imageUrl ? (
+                          /* Full-bleed illustration */
+                          <View style={{ flex: 1, overflow: 'hidden' }}>
                             <Image
                               source={{ uri: card.imageUrl }}
-                              style={{
-                                width: CARD_W * 0.52,
-                                height: CARD_W * 0.52,
-                                borderRadius: 8,
-                                borderWidth: 1,
-                                borderColor: card.accentColor + '55',
-                              }}
+                              style={{ width: CARD_W, flex: 1 }}
                               resizeMode="cover"
                             />
-                          ) : (
+                            {/* Bottom vignette */}
+                            <LinearGradient
+                              colors={['transparent', card.gradientColors[2] + 'CC']}
+                              start={{ x: 0.5, y: 0.5 }}
+                              end={{ x: 0.5, y: 1 }}
+                              style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 30 }}
+                            />
+                            {/* Top vignette */}
+                            <LinearGradient
+                              colors={[card.gradientColors[0] + 'AA', 'transparent']}
+                              start={{ x: 0.5, y: 0 }}
+                              end={{ x: 0.5, y: 1 }}
+                              style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 18 }}
+                            />
+                          </View>
+                        ) : (
+                          /* Icon fallback */
+                          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 4 }}>
+                            {/* Radial glow */}
+                            <View style={{
+                              position: 'absolute',
+                              width: CARD_W * 0.65,
+                              height: CARD_W * 0.65,
+                              borderRadius: CARD_W * 0.325,
+                              backgroundColor: card.accentColor + '0E',
+                            }} />
                             <View style={{
                               width: CARD_W * 0.50,
                               height: CARD_W * 0.50,
@@ -261,8 +273,8 @@ export default function BiblicalCardsAlbumScreen() {
                             }}>
                               <Text style={{ fontSize: CARD_W * 0.22 }}>{card.motif.artEmoji}</Text>
                             </View>
-                          )}
-                        </View>
+                          </View>
+                        )}
 
                         {/* Gold rule */}
                         <View style={{ height: 0.5, backgroundColor: card.accentColor + '60' }} />

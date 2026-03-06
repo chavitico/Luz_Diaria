@@ -175,50 +175,85 @@ export function CollectibleCardVisual({
         <View style={{ height: 1, backgroundColor: card.accentColor + '60', marginHorizontal: 10 }} />
 
         {/* ── ILLUSTRATION AREA ── */}
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
-          {/* Radial glow behind art */}
-          <View style={{
-            position: 'absolute',
-            width: W * 0.72,
-            height: W * 0.72,
-            borderRadius: W * 0.36,
-            backgroundColor: card.accentColor + '10',
-            alignSelf: 'center',
-          }} />
-
-          {/* Dot grid pattern */}
-          <View style={{ position: 'absolute', width: '100%', height: '100%', opacity: 0.04 }}>
-            {[0, 1, 2, 3, 4, 5, 6].map(row => (
-              <View key={row} style={{ flexDirection: 'row', gap: 14, marginBottom: 10, paddingLeft: row % 2 === 0 ? 0 : 7 }}>
-                {[0, 1, 2, 3, 4, 5, 6].map(col => (
-                  <View key={col} style={{ width: 2.5, height: 2.5, borderRadius: 99, backgroundColor: card.accentColor }} />
-                ))}
-              </View>
-            ))}
-          </View>
-
-          {/* Decor symbols row */}
-          <View style={{ flexDirection: 'row', gap: 12, marginBottom: 12, opacity: 0.6 }}>
-            {card.motif.decorSymbols.map((s, i) => (
-              <Text key={i} style={{ fontSize: 13, color: card.accentColor }}>{s}</Text>
-            ))}
-          </View>
-
-          {/* Main artwork — imageUrl OR local fallback */}
-          {card.imageUrl ? (
+        {card.imageUrl ? (
+          /* ── FULL ILLUSTRATION (imageUrl present) ── */
+          <View style={{ flex: 1, overflow: 'hidden' }}>
+            {/* Full-bleed painting */}
             <Image
               source={{ uri: card.imageUrl }}
-              style={{
-                width: W * 0.52,
-                height: W * 0.52,
-                borderRadius: 14,
-                borderWidth: 2,
-                borderColor: card.accentColor + '70',
-                marginBottom: 10,
-              }}
+              style={{ width: W, flex: 1 }}
               resizeMode="cover"
             />
-          ) : (
+            {/* Bottom vignette so footer text reads clearly */}
+            <LinearGradient
+              colors={['transparent', card.gradientColors[1] + 'CC', card.gradientColors[2]]}
+              start={{ x: 0.5, y: 0.4 }}
+              end={{ x: 0.5, y: 1 }}
+              style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 56 }}
+            />
+            {/* Top vignette for continuity from header */}
+            <LinearGradient
+              colors={[card.gradientColors[0] + 'AA', 'transparent']}
+              start={{ x: 0.5, y: 0 }}
+              end={{ x: 0.5, y: 1 }}
+              style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 32 }}
+            />
+            {/* Subtle accent tint overlay */}
+            <View style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0, bottom: 0,
+              backgroundColor: card.accentColor + '06',
+            }} />
+            {/* Subtitle deco pinned to bottom */}
+            <View style={{
+              position: 'absolute',
+              bottom: 8,
+              left: 0,
+              right: 0,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+            }}>
+              <View style={{ width: 22, height: 0.75, backgroundColor: card.accentColor + '80' }} />
+              <Text style={{ fontSize: 7.5, color: card.accentColor, opacity: 0.9, letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                {subtitle}
+              </Text>
+              <View style={{ width: 22, height: 0.75, backgroundColor: card.accentColor + '80' }} />
+            </View>
+          </View>
+        ) : (
+          /* ── ICON FALLBACK (no imageUrl) ── */
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
+            {/* Radial glow behind art */}
+            <View style={{
+              position: 'absolute',
+              width: W * 0.72,
+              height: W * 0.72,
+              borderRadius: W * 0.36,
+              backgroundColor: card.accentColor + '10',
+              alignSelf: 'center',
+            }} />
+
+            {/* Dot grid pattern */}
+            <View style={{ position: 'absolute', width: '100%', height: '100%', opacity: 0.04 }}>
+              {[0, 1, 2, 3, 4, 5, 6].map(row => (
+                <View key={row} style={{ flexDirection: 'row', gap: 14, marginBottom: 10, paddingLeft: row % 2 === 0 ? 0 : 7 }}>
+                  {[0, 1, 2, 3, 4, 5, 6].map(col => (
+                    <View key={col} style={{ width: 2.5, height: 2.5, borderRadius: 99, backgroundColor: card.accentColor }} />
+                  ))}
+                </View>
+              ))}
+            </View>
+
+            {/* Decor symbols row */}
+            <View style={{ flexDirection: 'row', gap: 12, marginBottom: 12, opacity: 0.6 }}>
+              {card.motif.decorSymbols.map((s, i) => (
+                <Text key={i} style={{ fontSize: 13, color: card.accentColor }}>{s}</Text>
+              ))}
+            </View>
+
+            {/* Icon circle */}
             <View style={{
               width: W * 0.46,
               height: W * 0.46,
@@ -254,17 +289,17 @@ export function CollectibleCardVisual({
               }} />
               <Text style={{ fontSize: W * 0.22 }}>{card.motif.artEmoji}</Text>
             </View>
-          )}
 
-          {/* Subtitle deco */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-            <View style={{ width: 22, height: 0.75, backgroundColor: card.accentColor + '60' }} />
-            <Text style={{ fontSize: 7.5, color: card.accentColor, opacity: 0.75, letterSpacing: 1.2, textTransform: 'uppercase' }}>
-              {subtitle}
-            </Text>
-            <View style={{ width: 22, height: 0.75, backgroundColor: card.accentColor + '60' }} />
+            {/* Subtitle deco */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+              <View style={{ width: 22, height: 0.75, backgroundColor: card.accentColor + '60' }} />
+              <Text style={{ fontSize: 7.5, color: card.accentColor, opacity: 0.75, letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                {subtitle}
+              </Text>
+              <View style={{ width: 22, height: 0.75, backgroundColor: card.accentColor + '60' }} />
+            </View>
           </View>
-        </View>
+        )}
 
         {/* Separator */}
         <View style={{ height: 1, backgroundColor: card.accentColor + '60', marginHorizontal: 10 }} />
