@@ -2,6 +2,7 @@
 // User data is still managed locally with Zustand/AsyncStorage
 
 import type { Devotional, User, UserProgress } from './types';
+import { fetchWithTimeout } from './fetch';
 import {
   getCRToday,
   getDevotionalWithFallback,
@@ -120,7 +121,7 @@ export const firestoreService = {
     try {
       // Try network first
       const url = `${BACKEND_URL}/api/devotional?date=${date}`;
-      const response = await fetch(url);
+      const response = await fetchWithTimeout(url);
       if (response.ok) {
         const d = await response.json() as Devotional;
         if (d && d.date) {
@@ -139,7 +140,7 @@ export const firestoreService = {
   // Get all devotionals for library from backend API
   async getAllDevotionals(): Promise<Devotional[]> {
     try {
-      const response = await fetch(`${BACKEND_URL}/api/devotional/all`);
+      const response = await fetchWithTimeout(`${BACKEND_URL}/api/devotional/all`);
 
       if (!response.ok) {
         console.error('[Firestore] Failed to fetch all devotionals:', response.status);
@@ -157,7 +158,7 @@ export const firestoreService = {
   // Get upcoming (future) devotionals for locked preview section in library
   async getUpcomingDevotionals(): Promise<Array<{ date: string; topic: string; topicEs: string; imageUrl: string }>> {
     try {
-      const response = await fetch(`${BACKEND_URL}/api/devotional/upcoming`);
+      const response = await fetchWithTimeout(`${BACKEND_URL}/api/devotional/upcoming`);
       if (!response.ok) return [];
       return await response.json();
     } catch {

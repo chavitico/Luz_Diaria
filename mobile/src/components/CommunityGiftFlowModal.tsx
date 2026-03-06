@@ -43,6 +43,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { ActionButton } from '@/components/ui/ActionButton';
 import type { CommunityMember } from '@/lib/gamification-api';
+import { RARITY_COLORS } from '@/lib/constants';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -72,12 +73,6 @@ interface CommunityGiftFlowModalProps {
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-
-const RARITY_COLORS: Record<GiftRarity, string> = {
-  common: '#6B7280',
-  rare: '#3B82F6',
-  epic: '#A855F7',
-};
 
 const RARITY_GRADIENTS: Record<GiftRarity, [string, string]> = {
   common: ['#F9FAFB', '#F3F4F6'],

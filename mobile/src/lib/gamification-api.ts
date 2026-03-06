@@ -1,21 +1,9 @@
 // Gamification API service - connects to backend gamification endpoints
 // Handles user profiles, points, store, inventory, and weekly challenges
 
-const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
+import { fetchWithTimeout } from './fetch';
 
-// Wraps fetch with an AbortController timeout so no network call can hang forever.
-// Default: 12 seconds — enough for slow 3G, short enough to fail fast.
-function fetchWithTimeout(
-  input: RequestInfo,
-  init?: RequestInit,
-  timeoutMs = 12_000,
-): Promise<Response> {
-  const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), timeoutMs);
-  return fetch(input, { ...init, signal: controller.signal }).finally(() =>
-    clearTimeout(id),
-  );
-}
+const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
 // Types
 export interface StoreItem {

@@ -20,6 +20,7 @@ import { useBrandingStore } from '@/lib/branding-service';
 import GiftModal, { type PendingGift } from '@/components/GiftModal';
 import { ReceivedGiftModal, type ReceivedGift } from '@/components/ReceivedGiftModal';
 import { gamificationApi } from '@/lib/gamification-api';
+import { fetchWithTimeout } from '@/lib/fetch';
 import { prefetchDevotionals, checkAndPrefetchOnDateChange } from '@/lib/devotional-cache';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
@@ -231,7 +232,7 @@ function AppContent() {
   const checkReceivedGifts = useCallback(async () => {
     if (!user?.id) return;
     try {
-      const res = await fetch(`${BACKEND_URL}/api/store/gift/notifications`, {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/store/gift/notifications`, {
         headers: { 'X-User-Id': user.id },
       });
       if (!res.ok) return;
@@ -373,7 +374,7 @@ function AppContent() {
     if (!user?.id || !pendingReceivedGift) return;
     // Receiver dismisses → reject (marks seen, no status change to "delivered")
     try {
-      await fetch(`${BACKEND_URL}/api/store/gift/notifications/${pendingReceivedGift.notificationId}/reject`, {
+      await fetchWithTimeout(`${BACKEND_URL}/api/store/gift/notifications/${pendingReceivedGift.notificationId}/reject`, {
         method: 'POST',
         headers: { 'X-User-Id': user.id },
       });
@@ -386,7 +387,7 @@ function AppContent() {
     if (!user?.id || !pendingReceivedGift) return;
     // Receiver equips → accept (marks seen + sets status "delivered", notifies sender)
     try {
-      await fetch(`${BACKEND_URL}/api/store/gift/notifications/${pendingReceivedGift.notificationId}/accept`, {
+      await fetchWithTimeout(`${BACKEND_URL}/api/store/gift/notifications/${pendingReceivedGift.notificationId}/accept`, {
         method: 'POST',
         headers: { 'X-User-Id': user.id },
       });

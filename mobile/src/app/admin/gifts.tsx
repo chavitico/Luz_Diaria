@@ -32,6 +32,7 @@ import {
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useThemeColors, useUser } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
+import { RARITY_COLORS } from '@/lib/constants';
 
 type RewardType = 'CHEST' | 'THEME' | 'TITLE' | 'AVATAR' | 'ITEM';
 type AudienceType = 'ALL_USERS' | 'USER_IDS';
@@ -73,12 +74,6 @@ const REWARD_TYPE_ICONS: Record<RewardType, string> = {
   TITLE: '🏷️',
   AVATAR: '👤',
   ITEM: '⭐',
-};
-
-const RARITY_COLORS: Record<string, string> = {
-  common: '#6B7280',
-  rare: '#3B82F6',
-  epic: '#8B5CF6',
 };
 
 export default function AdminGiftsScreen() {
@@ -560,7 +555,7 @@ export default function AdminGiftsScreen() {
                                 width: 8,
                                 height: 8,
                                 borderRadius: 4,
-                                backgroundColor: RARITY_COLORS[item.rarity] || '#6B7280',
+                                backgroundColor: RARITY_COLORS[item.rarity as keyof typeof RARITY_COLORS] || '#6B7280',
                               }}
                             />
                             <Text style={{ color: colors.text, fontSize: 13, flex: 1 }}>
