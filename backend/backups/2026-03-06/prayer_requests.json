@@ -45,21 +45,6 @@
     "updatedAt": "2026-03-04T02:03:18.887Z"
   },
   {
-    "id": "cmmbpdhbz001om25v2ywykk76",
-    "userId": "cmma36c8v000qm25km7avpj84",
-    "periodId": "active",
-    "mode": "daily",
-    "categoryKey": "peace",
-    "nickname": "Victoria",
-    "avatarId": "avatar_dove",
-    "frameId": "frame_luz",
-    "titleId": "title_caminando",
-    "displayNameOptIn": true,
-    "expiresAt": "2026-03-06T07:16:08.828Z",
-    "createdAt": "2026-03-04T07:16:08.831Z",
-    "updatedAt": "2026-03-04T07:16:08.831Z"
-  },
-  {
     "id": "cmmcru0wt001am26b1eo9c5g1",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "periodId": "active",
@@ -88,5 +73,20 @@
     "expiresAt": "2026-03-07T04:09:23.902Z",
     "createdAt": "2026-03-05T04:09:23.905Z",
     "updatedAt": "2026-03-05T04:09:23.905Z"
+  },
+  {
+    "id": "cmmeglcq3001bm26pp1igfaxr",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "work",
+    "nickname": "Victoria",
+    "avatarId": "avatar_v3_paloma_luz",
+    "frameId": "frame_luz",
+    "titleId": "title_walk_by_faith",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-08T05:33:38.089Z",
+    "createdAt": "2026-03-06T05:33:38.091Z",
+    "updatedAt": "2026-03-06T05:33:38.091Z"
   }
 ]

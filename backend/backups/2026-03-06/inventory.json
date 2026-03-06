@@ -1167,5 +1167,40 @@
     "itemId": "frame_v2_jade",
     "acquiredAt": "2026-03-06T01:57:19.949Z",
     "source": "store"
+  },
+  {
+    "id": "cmmegk68p0011m26pwll6i8sq",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_rama_olivo",
+    "acquiredAt": "2026-03-06T05:32:43.034Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmegk68q0013m26papmcreyf",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-06T05:32:43.034Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmegk68q0015m26pomkyi0tr",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_vid_racimos",
+    "acquiredAt": "2026-03-06T05:32:43.035Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmegk68q0017m26p6pke0v0u",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_corona",
+    "acquiredAt": "2026-03-06T05:32:43.035Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmegk68r0019m26phif3wfzi",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-06T05:32:43.035Z",
+    "source": "bundle:bundle_launch_growth"
   }
 ]
