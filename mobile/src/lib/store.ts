@@ -59,6 +59,11 @@ interface AppState {
   newGiftItemIds: string[];
   addNewGiftItem: (itemId: string) => void;
   clearNewGiftItem: (itemId: string) => void;
+
+  // Resume tick — incremented each time the app returns to foreground.
+  // Non-persisted. Screens subscribe to react to app-resume events.
+  resumeTick: number;
+  bumpResumeTick: () => void;
 }
 
 const initialUserSettings: UserSettings = {
@@ -94,6 +99,9 @@ export const useAppStore = create<AppState>()(
 
       // Gift new-item tracking
       newGiftItemIds: [],
+
+      // Resume tick — transient, starts at 0 each launch
+      resumeTick: 0,
 
       setUser: (user) => set({ user }),
 
@@ -228,6 +236,8 @@ export const useAppStore = create<AppState>()(
       clearNewGiftItem: (itemId) => set((state) => ({
         newGiftItemIds: state.newGiftItemIds.filter(id => id !== itemId),
       })),
+
+      bumpResumeTick: () => set((state) => ({ resumeTick: state.resumeTick + 1 })),
 
       reset: () => set({
         user: null,

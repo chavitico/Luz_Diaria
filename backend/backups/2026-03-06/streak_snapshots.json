@@ -1,0 +1,155 @@
+[
+  {
+    "id": "cmmbllwht0008m25t0brys0e9",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "streak": 1,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 1,
+    "updatedAt": "2026-03-04T17:31:09.447Z"
+  },
+  {
+    "id": "cmmbbl5oi0007m2612yfd6cqp",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "streak": 2,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 6,
+    "updatedAt": "2026-03-04T17:31:09.445Z"
+  },
+  {
+    "id": "cmmbbl5oh0006m261h32r8jt6",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "streak": 2,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 2,
+    "updatedAt": "2026-03-04T17:31:09.443Z"
+  },
+  {
+    "id": "cmmbbl5og0005m261hhej42y0",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "streak": 1,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 2,
+    "updatedAt": "2026-03-04T17:31:09.441Z"
+  },
+  {
+    "id": "cmmbbl5of0004m261r5ta0nwb",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "streak": 8,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 9,
+    "updatedAt": "2026-03-04T17:31:09.439Z"
+  },
+  {
+    "id": "cmmbbl5oe0003m261xd8h6dp6",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "streak": 10,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 9,
+    "updatedAt": "2026-03-04T17:31:09.435Z"
+  },
+  {
+    "id": "cmmbbl5oc0002m261jo85crye",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "streak": 5,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 6,
+    "updatedAt": "2026-03-04T17:31:09.433Z"
+  },
+  {
+    "id": "cmmbbl5ob0001m261gz2ugb0n",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "streak": 26,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 9,
+    "updatedAt": "2026-03-04T17:31:09.428Z"
+  },
+  {
+    "id": "cmmbbl5o20000m261r6469yvq",
+    "snapshotDate": "2026-03-04",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "streak": 0,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 0,
+    "updatedAt": "2026-03-04T17:31:09.424Z"
+  },
+  {
+    "id": "cmmb5jeme0007m26k266a8i7z",
+    "snapshotDate": "2026-03-03",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "streak": 2,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 6,
+    "updatedAt": "2026-03-03T23:38:02.045Z"
+  },
+  {
+    "id": "cmmb5jem90006m26kd3x40pte",
+    "snapshotDate": "2026-03-03",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "streak": 1,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 1,
+    "updatedAt": "2026-03-03T23:38:02.042Z"
+  },
+  {
+    "id": "cmmat7pxa0005m25cue8wpl3f",
+    "snapshotDate": "2026-03-03",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "streak": 1,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 2,
+    "updatedAt": "2026-03-03T23:38:02.035Z"
+  },
+  {
+    "id": "cmma4877o0004m2uragnc2lrf",
+    "snapshotDate": "2026-03-03",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "streak": 6,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 7,
+    "updatedAt": "2026-03-03T23:38:02.031Z"
+  },
+  {
+    "id": "cmm9zo92s001ym29qppdrb37o",
+    "snapshotDate": "2026-03-03",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "streak": 9,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 8,
+    "updatedAt": "2026-03-03T23:38:02.026Z"
+  },
+  {
+    "id": "cmm9zo92q001xm29qr7dto06q",
+    "snapshotDate": "2026-03-03",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "streak": 4,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 5,
+    "updatedAt": "2026-03-03T23:38:02.021Z"
+  },
+  {
+    "id": "cmm9xoav90001m29qwzjzu5sj",
+    "snapshotDate": "2026-03-03",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "streak": 25,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 8,
+    "updatedAt": "2026-03-03T23:38:02.016Z"
+  },
+  {
+    "id": "cmm9wz7ya0007m2ljwetxq5cc",
+    "snapshotDate": "2026-03-03",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "streak": 0,
+    "lastDevotionalDateCompleted": null,
+    "totalDevotionalsCompleted": 0,
+    "updatedAt": "2026-03-03T23:38:02.005Z"
+  }
+]

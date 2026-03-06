@@ -8,7 +8,6 @@ import {
   Pressable,
   ActivityIndicator,
   RefreshControl,
-  AppState,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
@@ -35,6 +34,7 @@ import {
   Coins,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
+import logger from '@/lib/logger';
 import { useScaledFont } from '@/lib/textScale';
 import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
 import { gamificationApi, CommunityMember } from '@/lib/gamification-api';
@@ -680,8 +680,6 @@ export default function CommunityScreen() {
   const syncedRef = useRef(false);
   // Cooldown: prevent resume pipeline from running more than once every 10s
   const lastResumeRef = useRef<number>(0);
-  // Track previous AppState to detect background→active transitions
-  const appStateRef = useRef(AppState.currentState);
 
   const [giftTarget, setGiftTarget] = useState<CommunityMember | null>(null);
   const [showGiftFlow, setShowGiftFlow] = useState(false);
@@ -798,48 +796,42 @@ export default function CommunityScreen() {
     const now = Date.now();
     // Cooldown: ignore if called within 10s of last run
     if (now - lastResumeRef.current < 10_000) {
-      console.log('[Community] onAppResume skipped — cooldown active');
+      logger.debug('[Community] onAppResume skipped — cooldown active');
       return;
     }
     lastResumeRef.current = now;
 
-    console.log('[Community] onAppResume: starting recovery pipeline');
+    logger.debug('[Community] onAppResume: starting recovery pipeline');
     setRefreshing(true);
     setLocalSupport({}); // clear optimistic state
 
     try {
       // 1. Re-sync user session (lightweight auth/stats check)
-      console.log('[Community] Resume step 1: syncCurrentUser');
+      logger.debug('[Community] Resume step 1: syncCurrentUser');
       await syncCurrentUser();
       // 2. Invalidate and refetch community data
-      console.log('[Community] Resume step 2: invalidate queries');
+      logger.debug('[Community] Resume step 2: invalidate queries');
       await queryClient.invalidateQueries({ queryKey: ['community-members'] });
       await queryClient.invalidateQueries({ queryKey: ['community-support-status'] });
-      console.log('[Community] onAppResume: recovery complete');
+      logger.debug('[Community] onAppResume: recovery complete');
     } catch (err) {
-      console.warn('[Community] onAppResume: recovery error', err);
+      logger.warn('[Community] onAppResume: recovery error', err);
     } finally {
       setRefreshing(false);
     }
   }, [syncCurrentUser, queryClient]);
 
-  // Stable ref so the AppState listener never needs to be re-registered
+  // Stable ref so the resume handler never needs to be re-registered
   const onAppResumeRef = useRef(onAppResume);
   useEffect(() => { onAppResumeRef.current = onAppResume; }, [onAppResume]);
 
-  // AppState listener — register once, call stable ref to always get fresh handler
+  // Subscribe to resumeTick from the global store — _layout.tsx is the single AppState listener
+  const resumeTick = useAppStore(s => s.resumeTick);
   useEffect(() => {
-    const sub = AppState.addEventListener('change', (nextState) => {
-      const prev = appStateRef.current;
-      appStateRef.current = nextState;
-      if ((prev === 'background' || prev === 'inactive') && nextState === 'active') {
-        console.log('[Community] App resumed from background — triggering recovery');
-        onAppResumeRef.current();
-      }
-    });
-    return () => sub.remove();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // intentionally empty — stable ref pattern
+    if (resumeTick === 0) return; // skip initial mount
+    logger.debug('[Community] resumeTick fired — triggering recovery');
+    onAppResumeRef.current();
+  }, [resumeTick]);
 
   // Revalidate on screen focus (lightweight — no syncCurrentUser, just invalidate)
   useFocusEffect(

@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useAppStore, useIsOnboarded, useIsDarkMode, useThemeColors, useLanguage } from '@/lib/store';
+import logger from '@/lib/logger';
 import { SplashScreen } from '@/components/SplashScreen';
 import { OnboardingScreen } from '@/components/OnboardingScreen';
 import { BackgroundMusicProvider } from '@/components/BackgroundMusicProvider';
@@ -148,6 +149,7 @@ function AppContent() {
   const addNewGiftItem = useAppStore(s => s.addNewGiftItem);
   const heartbeatSessionId = useAppStore(s => s.heartbeatSessionId);
   const setHeartbeatSessionId = useAppStore(s => s.setHeartbeatSessionId);
+  const bumpResumeTick = useAppStore(s => s.bumpResumeTick);
   const [showSplash, setShowSplash] = useState(true);
   const [appReady, setAppReady] = useState(false);
   const fetchBranding = useBrandingStore(s => s.fetchBranding);
@@ -164,6 +166,8 @@ function AppContent() {
   // Stable refs for AppState listener (register-once pattern)
   const isOnboardedRef = useRef(false);
   const userIdRef = useRef<string | undefined>(undefined);
+  // Global cooldown: ignore resumes fired within 2s of each other
+  const lastLayoutResumeRef = useRef<number>(0);
   // Heartbeat state
   const heartbeatTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const heartbeatInFlightRef = useRef(false);
@@ -254,6 +258,8 @@ function AppContent() {
   useEffect(() => { stopHeartbeatRef.current = stopHeartbeat; }, [stopHeartbeat]);
   const checkAndPrefetchOnDateChangeRef = useRef(checkAndPrefetchOnDateChange);
   useEffect(() => { checkAndPrefetchOnDateChangeRef.current = checkAndPrefetchOnDateChange; }, [checkAndPrefetchOnDateChange]);
+  const bumpResumeTickRef = useRef(bumpResumeTick);
+  useEffect(() => { bumpResumeTickRef.current = bumpResumeTick; }, [bumpResumeTick]);
 
   useEffect(() => {
     // Hide native splash screen once we're ready
@@ -295,19 +301,29 @@ function AppContent() {
       const isNowBackground = nextAppState.match(/inactive|background/);
 
       if (wasBackground && isNowActive) {
-        console.log('[Layout] App resumed from background → running resume pipeline');
+        // Global cooldown: ignore duplicate resume events within 2s
+        const now = Date.now();
+        if (now - lastLayoutResumeRef.current < 2_000) {
+          logger.debug('[Layout] App resumed — cooldown active, skipping pipeline');
+          return;
+        }
+        lastLayoutResumeRef.current = now;
+
+        logger.debug('[Layout] App resumed from background → running resume pipeline');
+        // Notify all subscribers (e.g. Community screen) via store tick
+        bumpResumeTickRef.current();
         if (isOnboardedRef.current) {
-          console.log('[Layout] Resume: checkAndPrefetchOnDateChange');
+          logger.debug('[Layout] Resume: checkAndPrefetchOnDateChange');
           checkAndPrefetchOnDateChangeRef.current().catch(() => {});
         }
         if (isOnboardedRef.current && userIdRef.current) {
-          console.log('[Layout] Resume: checkPendingGift + checkReceivedGifts + startHeartbeat');
+          logger.debug('[Layout] Resume: checkPendingGift + checkReceivedGifts + startHeartbeat');
           checkPendingGiftRef.current();
           checkReceivedGiftsRef.current();
           startHeartbeatRef.current(userIdRef.current);
         }
       } else if (isNowBackground) {
-        console.log('[Layout] App went to background → stopHeartbeat');
+        logger.debug('[Layout] App went to background → stopHeartbeat');
         stopHeartbeatRef.current();
       }
     });

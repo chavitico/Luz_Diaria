@@ -1,0 +1,82 @@
+[
+  {
+    "id": "cmma0af220010m2qfu7g8uz20",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "giftDropId": "cmma0aexh000ym2qfv7m4b9ca",
+    "status": "PENDING",
+    "claimedAt": null,
+    "createdAt": "2026-03-03T02:46:09.339Z"
+  },
+  {
+    "id": "cmma0af250012m2qfxrs56ar8",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "giftDropId": "cmma0aexh000ym2qfv7m4b9ca",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-03T04:02:15.049Z",
+    "createdAt": "2026-03-03T02:46:09.341Z"
+  },
+  {
+    "id": "cmma0af270014m2qf0nplxbtu",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "giftDropId": "cmma0aexh000ym2qfv7m4b9ca",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-03T14:07:07.593Z",
+    "createdAt": "2026-03-03T02:46:09.344Z"
+  },
+  {
+    "id": "cmma0af290016m2qfbim2ruf0",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "giftDropId": "cmma0aexh000ym2qfv7m4b9ca",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-03T04:41:59.905Z",
+    "createdAt": "2026-03-03T02:46:09.346Z"
+  },
+  {
+    "id": "cmmb0y7nw000wm2nuxcf78xcd",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "giftDropId": "cmmb0y7nt000um2nuqn8roaso",
+    "status": "PENDING",
+    "claimedAt": null,
+    "createdAt": "2026-03-03T19:52:25.677Z"
+  },
+  {
+    "id": "cmmb0ylcv000zm2nuxijugg3e",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "giftDropId": "cmmb0ylcs000xm2nubihgl8wb",
+    "status": "PENDING",
+    "claimedAt": null,
+    "createdAt": "2026-03-03T19:52:43.423Z"
+  },
+  {
+    "id": "cmmb6j2o40017m2y9y8r6u93g",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "giftDropId": "cmmb6j2o20015m2y90jq5n4uy",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-03T22:29:31.094Z",
+    "createdAt": "2026-03-03T22:28:37.061Z"
+  },
+  {
+    "id": "cmmb6r404003dm2y9nwgbvgy4",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "giftDropId": "cmmb6r403003bm2y9q3p08qse",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-03T22:43:23.503Z",
+    "createdAt": "2026-03-03T22:34:52.036Z"
+  },
+  {
+    "id": "cmmb9e4vf001sm21agd0reyy5",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "giftDropId": "cmmb9e4vc001qm21ap5ob6x8g",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-03T23:49:27.116Z",
+    "createdAt": "2026-03-03T23:48:45.484Z"
+  },
+  {
+    "id": "cmmcyo21y004im2xceq1ziuct",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "giftDropId": "cmmcyo21u004gm2xc0xl5uron",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-05T04:41:21.504Z",
+    "createdAt": "2026-03-05T04:24:04.966Z"
+  }
+]
