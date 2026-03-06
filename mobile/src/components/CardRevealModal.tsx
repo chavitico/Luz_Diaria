@@ -20,6 +20,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { View, Text, Modal, Pressable, Dimensions, Platform } from 'react-native';
+import { useRouter } from 'expo-router';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -392,6 +393,7 @@ function CollectibleCardVisual({
 export function CardRevealModal({ visible, drawnCard, onClose }: CardRevealModalProps) {
   const language = useLanguage();
   const { sFont } = useScaledFont();
+  const router = useRouter();
 
   const card = drawnCard ? BIBLICAL_CARDS[drawnCard.cardId] : null;
 
@@ -609,9 +611,12 @@ export function CardRevealModal({ visible, drawnCard, onClose }: CardRevealModal
         </Animated.View>
 
         {/* CTA — opacity only, no entering= */}
-        <Animated.View style={[ctaAnimStyle, { marginTop: 28 }]}>
+        <Animated.View style={[ctaAnimStyle, { marginTop: 28, gap: 10, alignItems: 'center' }]}>
           <Pressable
-            onPress={onClose}
+            onPress={() => {
+              onClose();
+              setTimeout(() => router.push('/biblical-cards-album'), 300);
+            }}
             style={{
               backgroundColor: card.accentColor,
               paddingHorizontal: 44,
@@ -621,6 +626,14 @@ export function CardRevealModal({ visible, drawnCard, onClose }: CardRevealModal
           >
             <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#000000' }}>
               {language === 'es' ? 'Ver mi álbum' : 'View album'}
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={onClose}
+            style={{ paddingHorizontal: 28, paddingVertical: 10 }}
+          >
+            <Text style={{ fontSize: sFont(13), fontWeight: '600', color: 'rgba(255,255,255,0.45)' }}>
+              {language === 'es' ? 'Cerrar' : 'Close'}
             </Text>
           </Pressable>
         </Animated.View>

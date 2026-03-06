@@ -6912,28 +6912,53 @@ export default function StoreScreen() {
 
             {/* Cartas Bíblicas subcategory */}
             {activeSubcat === 'cartas' && (
-              <TokenItemCard
-                id="sobre_biblico"
-                emoji="✉️"
-                name="Biblical Envelope"
-                nameEs="Sobre Bíblico"
-                description="Contains 1 random biblical card for your collection."
-                descriptionEs="Contiene 1 carta bíblica aleatoria para tu colección."
-                warning="Each purchase gives you a new random card. Duplicates are saved for future trading."
-                warningEs="Cada compra te da una carta aleatoria nueva. Los duplicados se guardan para intercambios futuros."
-                price={2000}
-                rarity="rare"
-                isOwned={false}
-                isUsed={false}
-                canAfford={canAffordSobre}
-                colors={colors}
-                language={language}
-                onPress={() => {
-                  if (canAffordSobre) {
-                    handleTokenPurchase('sobre_biblico', 2000);
-                  }
-                }}
-              />
+              <View>
+                <TokenItemCard
+                  id="sobre_biblico"
+                  emoji="✉️"
+                  name="Biblical Envelope"
+                  nameEs="Sobre Bíblico"
+                  description="Contains 1 random biblical card for your collection."
+                  descriptionEs="Contiene 1 carta bíblica aleatoria para tu colección."
+                  warning="Each purchase gives you a new random card. Duplicates are saved for future trading."
+                  warningEs="Cada compra te da una carta aleatoria nueva. Los duplicados se guardan para intercambios futuros."
+                  price={2000}
+                  rarity="rare"
+                  isOwned={false}
+                  isUsed={false}
+                  canAfford={canAffordSobre}
+                  colors={colors}
+                  language={language}
+                  onPress={() => {
+                    if (canAffordSobre) {
+                      handleTokenPurchase('sobre_biblico', 2000);
+                    }
+                  }}
+                />
+                {/* Link to album */}
+                <Pressable
+                  onPress={() => {
+                    setShowStoreSectionModal(false);
+                    setTimeout(() => router.push('/biblical-cards-album'), 350);
+                  }}
+                  style={{
+                    marginTop: 12,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 6,
+                    paddingVertical: 12,
+                    borderRadius: 14,
+                    backgroundColor: colors.surface,
+                    borderWidth: 1,
+                    borderColor: colors.textMuted + '25',
+                  }}
+                >
+                  <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary }}>
+                    {language === 'es' ? '📖 Ver mi álbum bíblico' : '📖 View my biblical album'}
+                  </Text>
+                </Pressable>
+              </View>
             )}
 
             {/* Tokens subcategory */}
