@@ -3,8 +3,8 @@
 // Phase C visual upgrade: premium collectible card aesthetic, richer lore sections,
 // category color identity, deeper layering, luminous backgrounds.
 
-import React from 'react';
-import { View, Text, Modal, Pressable, ScrollView, Image } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, Modal, Pressable, ScrollView, Image, LayoutChangeEvent } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { X, Sparkles, Star, BookOpen } from 'lucide-react-native';
@@ -54,6 +54,44 @@ export function CollectibleCardVisual({
   const W = size === 'detail' ? 218 : 200;
   const H = size === 'detail' ? 305 : 280;
   const catStyle = getCatStyle(card.category);
+
+  // Focal point (defaults to 0.5, 0.5 = centered)
+  const focusX = card.imageFocusX ?? 0.5;
+  const focusY = card.imageFocusY ?? 0.5;
+
+  // Track illustration container height via onLayout so we can compute offset
+  const [illusHeight, setIllusHeight] = useState(0);
+  const onIllusLayout = useCallback((e: LayoutChangeEvent) => {
+    setIllusHeight(e.nativeEvent.layout.height);
+  }, []);
+
+  /**
+   * Focal-point crop calculation.
+   *
+   * Strategy: render the image at `width: W` with `resizeMode="cover"` so it
+   * always fills horizontally. Then apply a vertical (and horizontal) translateY
+   * offset to shift *which part* of the image is centered in the clip window.
+   *
+   * resizeMode="cover" in React Native centers the image. To bias the crop toward
+   * a focus point we need to know the rendered image height. We size the image
+   * taller than the container (oversize factor) so we have room to pan, then
+   * translate it so focusY maps to the vertical center of the container.
+   *
+   * oversize = 1.6 means the image is 60% taller than the container, giving
+   * ±30% panning range — enough for any realistic focal-point adjustment.
+   *
+   * translateY = (0.5 - focusY) * (oversizeH - illusHeight)
+   *   focusY=0   → push image DOWN  (show top of image)
+   *   focusY=0.5 → no offset        (centered, default behavior)
+   *   focusY=1   → push image UP    (show bottom of image)
+   *
+   * Same logic applies horizontally with translateX / focusX.
+   */
+  const OVERSIZE = 1.6;
+  const oversizeH = illusHeight > 0 ? illusHeight * OVERSIZE : 0;
+  const translateY = illusHeight > 0 ? (0.5 - focusY) * (oversizeH - illusHeight) : 0;
+  const oversizeW = W * OVERSIZE;
+  const translateX = (0.5 - focusX) * (oversizeW - W);
 
   return (
     <View style={{ alignItems: 'center' }}>
@@ -176,13 +214,22 @@ export function CollectibleCardVisual({
 
         {/* ── ILLUSTRATION AREA ── */}
         {card.imageUrl ? (
-          /* ── FULL ILLUSTRATION (imageUrl present) ── */
-          <View style={{ flex: 1, overflow: 'hidden' }}>
-            {/* Full-bleed painting */}
+          /* ── FULL ILLUSTRATION with focal-point crop ── */
+          <View style={{ flex: 1, overflow: 'hidden' }} onLayout={onIllusLayout}>
+            {/* Image sized larger than container so we can pan to the focal point */}
             <Image
               source={{ uri: card.imageUrl }}
-              style={{ width: W, flex: 1 }}
-              resizeMode="cover"
+              style={{
+                position: 'absolute',
+                width: oversizeW,
+                height: oversizeH > 0 ? oversizeH : undefined,
+                // When height is not yet measured, fall back to cover behavior
+                ...(oversizeH === 0 ? { top: 0, bottom: 0 } : {
+                  top: (illusHeight - oversizeH) / 2 + translateY,
+                }),
+                left: (W - oversizeW) / 2 + translateX,
+              }}
+              resizeMode={oversizeH === 0 ? 'cover' : 'stretch'}
             />
             {/* Bottom vignette so footer text reads clearly */}
             <LinearGradient

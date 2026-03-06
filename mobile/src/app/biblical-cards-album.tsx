@@ -12,6 +12,7 @@ import {
   Dimensions,
   ActivityIndicator,
   Image,
+  LayoutChangeEvent,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -39,6 +40,59 @@ const CATEGORY_STYLES: Record<string, { bg: string; border: string; text: string
   Objetos:    { bg: 'rgba(168,200,240,0.16)', border: 'rgba(168,200,240,0.50)', text: '#A8C8F0' },
   Eventos:    { bg: 'rgba(255,122,42,0.16)', border: 'rgba(255,122,42,0.50)', text: '#FF7A2A' },
 };
+
+// ─────────────────────────────────────────────
+// Focal-point thumbnail artwork
+// Mirrors the same crop logic as CollectibleCardVisual (CardRevealModal).
+// Must be a proper component so it can use hooks.
+// ─────────────────────────────────────────────
+function CardThumbnailArtwork({ card }: { card: BiblicalCard }) {
+  const focusX = card.imageFocusX ?? 0.5;
+  const focusY = card.imageFocusY ?? 0.5;
+  const [containerH, setContainerH] = useState(0);
+
+  const onLayout = useCallback((e: LayoutChangeEvent) => {
+    setContainerH(e.nativeEvent.layout.height);
+  }, []);
+
+  const OVERSIZE = 1.6;
+  const oversizeH = containerH > 0 ? containerH * OVERSIZE : 0;
+  const translateY = containerH > 0 ? (0.5 - focusY) * (oversizeH - containerH) : 0;
+  const oversizeW = CARD_W * OVERSIZE;
+  const translateX = (0.5 - focusX) * (oversizeW - CARD_W);
+
+  return (
+    <View style={{ flex: 1, overflow: 'hidden' }} onLayout={onLayout}>
+      <Image
+        source={{ uri: card.imageUrl }}
+        style={{
+          position: 'absolute',
+          width: oversizeW,
+          height: oversizeH > 0 ? oversizeH : undefined,
+          ...(oversizeH === 0 ? { top: 0, bottom: 0 } : {
+            top: (containerH - oversizeH) / 2 + translateY,
+          }),
+          left: (CARD_W - oversizeW) / 2 + translateX,
+        }}
+        resizeMode={oversizeH === 0 ? 'cover' : 'stretch'}
+      />
+      {/* Bottom vignette */}
+      <LinearGradient
+        colors={['transparent', card.gradientColors[2] + 'CC']}
+        start={{ x: 0.5, y: 0.5 }}
+        end={{ x: 0.5, y: 1 }}
+        style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 30 }}
+      />
+      {/* Top vignette */}
+      <LinearGradient
+        colors={[card.gradientColors[0] + 'AA', 'transparent']}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 18 }}
+      />
+    </View>
+  );
+}
 
 export default function BiblicalCardsAlbumScreen() {
   const colors = useThemeColors();
@@ -224,28 +278,8 @@ export default function BiblicalCardsAlbumScreen() {
 
                         {/* Artwork area */}
                         {card.imageUrl ? (
-                          /* Full-bleed illustration */
-                          <View style={{ flex: 1, overflow: 'hidden' }}>
-                            <Image
-                              source={{ uri: card.imageUrl }}
-                              style={{ width: CARD_W, flex: 1 }}
-                              resizeMode="cover"
-                            />
-                            {/* Bottom vignette */}
-                            <LinearGradient
-                              colors={['transparent', card.gradientColors[2] + 'CC']}
-                              start={{ x: 0.5, y: 0.5 }}
-                              end={{ x: 0.5, y: 1 }}
-                              style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 30 }}
-                            />
-                            {/* Top vignette */}
-                            <LinearGradient
-                              colors={[card.gradientColors[0] + 'AA', 'transparent']}
-                              start={{ x: 0.5, y: 0 }}
-                              end={{ x: 0.5, y: 1 }}
-                              style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 18 }}
-                            />
-                          </View>
+                          /* Full-bleed illustration with focal-point crop */
+                          <CardThumbnailArtwork card={card} />
                         ) : (
                           /* Icon fallback */
                           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 4 }}>

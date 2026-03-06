@@ -20,6 +20,27 @@ export interface BiblicalCard {
   accentColor: string;
   // Optional remote artwork. When present, rendered as the main illustration.
   imageUrl?: string;
+  /**
+   * Focal point for the illustration crop (0–1 range).
+   * 0.5 / 0.5 = centered (default).
+   * Adjust to keep heads / key subjects visible.
+   *
+   * ARTWORK GENERATION GUIDELINES
+   * ─────────────────────────────────────────────────────────────────────────
+   * • Compose for a vertical trading-card crop (roughly 2:3 portrait ratio).
+   * • Keep the main subject(s) inside a central safe zone:
+   *     horizontal: 15%–85% of image width
+   *     vertical:   10%–85% of image height
+   * • Do NOT place faces, heads, or key action areas near the frame edge.
+   * • Leave visual breathing room at top and bottom (≥ 10% padding).
+   * • If the scene has multiple subjects (e.g. David + Goliath), anchor the
+   *   focal point between them so both stay visible.
+   * • After generating, set imageFocusX / imageFocusY so the renderer centres
+   *   the crop on the most important part of the scene.
+   * ─────────────────────────────────────────────────────────────────────────
+   */
+  imageFocusX?: number; // 0 = left edge, 0.5 = center (default), 1 = right edge
+  imageFocusY?: number; // 0 = top edge,  0.5 = center (default), 1 = bottom edge
   // Per-card decorative motif used by the local fallback renderer
   motif: {
     topSymbol: string;
@@ -49,6 +70,10 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     accentColor: '#D4AF37',
     // Custom illustration — David card artwork
     imageUrl: 'https://images.composerapi.com/019c33a9-4a45-71bd-8908-f785cc52f6a1/assets/images/image_1772839374_1772839382183_019cc576-2ca7-734e-b019-1c199427b8f0.png',
+    // Focus: shift slightly left + up to keep both David and Goliath's upper
+    // bodies / heads in frame and keep the sling-and-rock action visible.
+    imageFocusX: 0.5,
+    imageFocusY: 0.28,
     motif: {
       topSymbol: '✦',
       subtitleEs: 'Rey de Israel',
