@@ -37,7 +37,7 @@
     "streakCurrent": 28,
     "streakBest": 28,
     "devotionalsCompleted": 17,
-    "totalTimeSeconds": 24030,
+    "totalTimeSeconds": 24165,
     "lastActiveAt": "2026-03-06T07:24:57.045Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-06T12:35:49.901Z"
+    "updatedAt": "2026-03-06T12:53:20.959Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -197,7 +197,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-03T21:22:51.389Z",
-    "updatedAt": "2026-03-05T03:11:02.698Z"
+    "updatedAt": "2026-03-06T12:53:13.937Z"
   },
   {
     "id": "cmmbe3rik0016m25rw06b6s43",
