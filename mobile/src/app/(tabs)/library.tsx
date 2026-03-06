@@ -265,12 +265,14 @@ export default function LibraryScreen() {
   const { data: devotionals, isLoading } = useQuery({
     queryKey: ['allDevotionals'],
     queryFn: () => firestoreService.getAllDevotionals(),
+    retry: 1,
   });
 
   const { data: upcomingDevotionals } = useQuery({
     queryKey: ['upcomingDevotionals'],
     queryFn: () => firestoreService.getUpcomingDevotionals(),
     staleTime: 1000 * 60 * 30, // 30 min — they don't change often
+    retry: 1,
   });
 
   // Extract unique categories from devotionals

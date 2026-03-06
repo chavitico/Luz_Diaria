@@ -3,6 +3,7 @@
 
 import type { Devotional, User, UserProgress } from './types';
 import { fetchWithTimeout } from './fetch';
+import logger from './logger';
 import {
   getCRToday,
   getDevotionalWithFallback,
@@ -106,13 +107,13 @@ export const firestoreService = {
     const result = await getDevotionalWithFallback();
     if (result.devotional) {
       if (result.fromCache) {
-        console.log(`[Firestore] Got devotional from cache (offline: ${result.offline}):`, result.devotional.title);
+        logger.debug(`[Firestore] Got devotional from cache (offline: ${result.offline}):`, result.devotional.title);
       } else {
-        console.log('[Firestore] Got devotional from network:', result.devotional.title);
+        logger.debug('[Firestore] Got devotional from network:', result.devotional.title);
       }
       return result as { devotional: Devotional; fromCache: boolean; offline: boolean; cachedDate?: string };
     }
-    console.warn('[Firestore] Completely offline with no cache — using fallback devotional');
+    logger.warn('[Firestore] Completely offline with no cache — using fallback devotional');
     return { devotional: FALLBACK_DEVOTIONAL, fromCache: false, offline: true };
   },
 
@@ -170,12 +171,12 @@ export const firestoreService = {
   async saveProgress(userId: string, progress: UserProgress): Promise<void> {
     await new Promise(resolve => setTimeout(resolve, 100));
     // In production, save to Firestore
-    console.log('Progress saved:', userId, progress);
+    logger.debug('[Firestore] saveProgress (stub):', userId);
   },
 
   // Update user stats
   async updateUserStats(userId: string, updates: Partial<User>): Promise<void> {
     await new Promise(resolve => setTimeout(resolve, 100));
-    console.log('User stats updated:', userId, updates);
+    logger.debug('[Firestore] updateUserStats (stub):', userId);
   },
 };

@@ -664,6 +664,7 @@ export default function DevotionalDetailScreen() {
     queryKey: ['devotional', date],
     queryFn: () => firestoreService.getDevotional(date ?? ''),
     enabled: !!date,
+    retry: 1,
   });
 
   const isFavorite = date ? favorites.includes(date) : false;

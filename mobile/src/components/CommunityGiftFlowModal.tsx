@@ -162,7 +162,7 @@ function RarityRow({
   colors: ReturnType<typeof useThemeColors>;
   isDark: boolean;
 }) {
-  const rarityColor = RARITY_COLORS[rarity];
+  const rarityColor = RARITY_COLORS[rarity as keyof typeof RARITY_COLORS];
   const gradients = isDark ? RARITY_GRADIENT_DARK[rarity] : RARITY_GRADIENTS[rarity];
   const rarityLabel: Record<GiftRarity, string> = { common: 'Común', rare: 'Raro', epic: 'Épico' };
   const available = count - ownedCount;
