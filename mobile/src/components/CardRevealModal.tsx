@@ -1,9 +1,10 @@
 // CardRevealModal — STATIC version (Phase A stability fix)
 // All Reanimated animations removed to eliminate freeze after purchase.
 // This is a clean, readable static modal that shows card + info immediately.
+// Phase B visual upgrade: richer card composition, imageUrl support for future remote artwork.
 
 import React from 'react';
-import { View, Text, Modal, Pressable, ScrollView } from 'react-native';
+import { View, Text, Modal, Pressable, ScrollView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { X, Sparkles } from 'lucide-react-native';
@@ -19,205 +20,241 @@ interface CardRevealModalProps {
 }
 
 // ─────────────────────────────────────────────
-// Static Card Visual
+// Shared reusable card visual — used here AND in album
+// Supports imageUrl (remote art) with local fallback.
 // ─────────────────────────────────────────────
-function CollectibleCardVisual({
+export function CollectibleCardVisual({
   card,
   wasNew,
   language,
   sFont,
+  size = 'reveal',
 }: {
   card: BiblicalCard;
-  wasNew: boolean;
+  wasNew?: boolean;
   language: 'es' | 'en';
   sFont: (size: number) => number;
+  size?: 'reveal' | 'detail';
 }) {
   const cardName = language === 'es' ? card.nameEs : card.nameEn;
-
-  const motif = (() => {
-    if (card.id === 'david') {
-      return {
-        topIcon: '♜',
-        midSymbols: ['𝄞', '✦', '⊕'],
-        bottomDeco: '— Rey de Israel —',
-        sheen: ['rgba(255,215,0,0.12)', 'rgba(255,215,0,0.05)'] as [string, string],
-        emoji: '🎵',
-      };
-    }
-    if (card.id === 'moses') {
-      return {
-        topIcon: '☩',
-        midSymbols: ['⚡', '✦', '📜'],
-        bottomDeco: '— Profeta de Dios —',
-        sheen: ['rgba(224,64,251,0.12)', 'rgba(180,40,220,0.05)'] as [string, string],
-        emoji: '📜',
-      };
-    }
-    return {
-      topIcon: '🌈',
-      midSymbols: ['〜', '✦', '〜'],
-      bottomDeco: '— Pacto Eterno —',
-      sheen: ['rgba(105,240,174,0.12)', 'rgba(56,142,60,0.05)'] as [string, string],
-      emoji: '🚢',
-    };
-  })();
+  const subtitle = language === 'es' ? card.motif.subtitleEs : card.motif.subtitleEn;
+  const W = size === 'detail' ? 210 : 195;
+  const H = size === 'detail' ? 292 : 270;
 
   return (
     <View style={{ alignItems: 'center' }}>
       {/* Card */}
       <LinearGradient
-        colors={[card.gradientColors[0], card.gradientColors[1], card.gradientColors[2], card.accentColor + '22'] as [string, string, string, string]}
+        colors={[card.gradientColors[0], card.gradientColors[1], card.gradientColors[2], card.accentColor + '1A'] as [string, string, string, string]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{
-          width: 195,
-          height: 270,
+          width: W,
+          height: H,
           borderRadius: 20,
           borderWidth: 2.5,
           borderColor: card.accentColor + 'CC',
           shadowColor: card.accentColor,
-          shadowOpacity: 0.8,
-          shadowRadius: 28,
-          shadowOffset: { width: 0, height: 6 },
-          elevation: 24,
+          shadowOpacity: 0.75,
+          shadowRadius: 30,
+          shadowOffset: { width: 0, height: 8 },
+          elevation: 26,
           overflow: 'hidden',
         }}
       >
-        {/* Inner sheen */}
+        {/* Foil shimmer */}
         <LinearGradient
-          colors={[motif.sheen[0], 'transparent', motif.sheen[1]]}
+          colors={[card.motif.sheenColors[0], 'transparent', card.motif.sheenColors[1]]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={{ position: 'absolute', width: '100%', height: '100%' }}
         />
-
-        {/* Top bar */}
+        {/* Diagonal gloss stripe */}
         <LinearGradient
-          colors={[card.accentColor + '60', card.accentColor + '20']}
+          colors={['transparent', 'rgba(255,255,255,0.06)', 'transparent']}
+          start={{ x: 0, y: 0.25 }}
+          end={{ x: 1, y: 0.75 }}
+          style={{ position: 'absolute', width: '100%', height: '100%' }}
+        />
+
+        {/* ── TOP HEADER BAR ── */}
+        <LinearGradient
+          colors={[card.accentColor + '55', card.accentColor + '18']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={{
-            paddingHorizontal: 14,
+            paddingHorizontal: 12,
             paddingVertical: 7,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
+          {/* Category chip */}
           <View style={{
-            backgroundColor: card.accentColor + '30',
+            backgroundColor: card.accentColor + '28',
             borderWidth: 1,
             borderColor: card.accentColor + '70',
             borderRadius: 99,
             paddingHorizontal: 8,
             paddingVertical: 2,
           }}>
-            <Text style={{ fontSize: 8, fontWeight: '900', color: card.accentColor, letterSpacing: 1.2, textTransform: 'uppercase' }}>
+            <Text style={{ fontSize: 7.5, fontWeight: '900', color: card.accentColor, letterSpacing: 1.3, textTransform: 'uppercase' }}>
               {card.category}
             </Text>
           </View>
-          <Text style={{ fontSize: 13, opacity: 0.85 }}>{motif.topIcon}</Text>
+          {/* Corner glyph */}
+          <Text style={{ fontSize: 13, color: card.accentColor, opacity: 0.8 }}>{card.motif.cornerGlyph}</Text>
         </LinearGradient>
 
-        {/* Divider */}
-        <View style={{ height: 1, backgroundColor: card.accentColor + '40', marginHorizontal: 10 }} />
+        {/* Gold rule */}
+        <View style={{ height: 1, backgroundColor: card.accentColor + '50', marginHorizontal: 8 }} />
 
-        {/* Artwork area */}
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
-          {/* Dot pattern */}
-          <View style={{ position: 'absolute', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', opacity: 0.05 }}>
-            {[0, 1, 2, 3, 4].map(row => (
-              <View key={row} style={{ flexDirection: 'row', gap: 18, marginBottom: 14 }}>
-                {[0, 1, 2, 3, 4].map(col => (
-                  <View key={col} style={{ width: 3, height: 3, borderRadius: 99, backgroundColor: card.accentColor }} />
+        {/* ── ILLUSTRATION AREA ── */}
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 6 }}>
+          {/* Background pattern: subtle diagonal lines */}
+          <View style={{ position: 'absolute', width: '100%', height: '100%', opacity: 0.035 }}>
+            {[0, 1, 2, 3, 4, 5].map(row => (
+              <View key={row} style={{ flexDirection: 'row', gap: 16, marginBottom: 12, paddingLeft: row % 2 === 0 ? 0 : 8 }}>
+                {[0, 1, 2, 3, 4, 5].map(col => (
+                  <View key={col} style={{ width: 2, height: 2, borderRadius: 99, backgroundColor: card.accentColor }} />
                 ))}
               </View>
             ))}
           </View>
 
-          {/* Symbol row */}
-          <View style={{ flexDirection: 'row', gap: 8, marginBottom: 8, opacity: 0.6 }}>
-            {motif.midSymbols.map((s, i) => (
-              <Text key={i} style={{ fontSize: 11, color: card.accentColor }}>{s}</Text>
+          {/* Decor symbols row */}
+          <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10, opacity: 0.55 }}>
+            {card.motif.decorSymbols.map((s, i) => (
+              <Text key={i} style={{ fontSize: 12, color: card.accentColor }}>{s}</Text>
             ))}
           </View>
 
-          {/* Art emoji */}
-          <View style={{
-            width: 80,
-            height: 80,
-            borderRadius: 40,
-            backgroundColor: card.accentColor + '18',
-            borderWidth: 2,
-            borderColor: card.accentColor + '50',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 6,
-          }}>
-            <Text style={{ fontSize: 42 }}>{motif.emoji}</Text>
-          </View>
+          {/* Main artwork — imageUrl OR local emoji fallback */}
+          {card.imageUrl ? (
+            <Image
+              source={{ uri: card.imageUrl }}
+              style={{
+                width: W * 0.52,
+                height: W * 0.52,
+                borderRadius: 12,
+                borderWidth: 1.5,
+                borderColor: card.accentColor + '60',
+                marginBottom: 8,
+              }}
+              resizeMode="cover"
+            />
+          ) : (
+            <View style={{
+              width: W * 0.44,
+              height: W * 0.44,
+              borderRadius: (W * 0.44) / 2,
+              backgroundColor: card.accentColor + '15',
+              borderWidth: 2.5,
+              borderColor: card.accentColor + '55',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 8,
+              // Inner ring
+              shadowColor: card.accentColor,
+              shadowOpacity: 0.35,
+              shadowRadius: 10,
+              shadowOffset: { width: 0, height: 0 },
+            }}>
+              {/* Inner thin ring */}
+              <View style={{
+                position: 'absolute',
+                width: W * 0.44 - 10,
+                height: W * 0.44 - 10,
+                borderRadius: (W * 0.44 - 10) / 2,
+                borderWidth: 0.5,
+                borderColor: card.accentColor + '35',
+              }} />
+              <Text style={{ fontSize: W * 0.21 }}>{card.motif.artEmoji}</Text>
+            </View>
+          )}
 
-          {/* Bottom deco */}
-          <Text style={{ fontSize: 8, color: card.accentColor, opacity: 0.55, letterSpacing: 0.8, marginTop: 4 }}>
-            {motif.bottomDeco}
-          </Text>
+          {/* Subtitle deco */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+            <View style={{ width: 18, height: 0.5, backgroundColor: card.accentColor + '55' }} />
+            <Text style={{ fontSize: 7.5, color: card.accentColor, opacity: 0.65, letterSpacing: 1.0, textTransform: 'uppercase' }}>
+              {subtitle}
+            </Text>
+            <View style={{ width: 18, height: 0.5, backgroundColor: card.accentColor + '55' }} />
+          </View>
         </View>
 
-        {/* Bottom divider */}
-        <View style={{ height: 1, backgroundColor: card.accentColor + '40', marginHorizontal: 10 }} />
+        {/* Gold rule */}
+        <View style={{ height: 1, backgroundColor: card.accentColor + '50', marginHorizontal: 8 }} />
 
-        {/* Name + verse footer */}
+        {/* ── FOOTER ── */}
         <LinearGradient
-          colors={[card.accentColor + '20', card.accentColor + '60']}
+          colors={[card.accentColor + '18', card.accentColor + '55']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={{ paddingHorizontal: 12, paddingVertical: 9, alignItems: 'center' }}
         >
           <Text style={{
-            fontSize: 15,
+            fontSize: 15.5,
             fontWeight: '900',
             color: '#FFFFFF',
-            letterSpacing: -0.3,
+            letterSpacing: -0.2,
             textAlign: 'center',
             marginBottom: 2,
           }}>
             {cardName}
           </Text>
           <Text style={{
-            fontSize: 9,
+            fontSize: 8.5,
             fontWeight: '700',
             color: card.accentColor,
-            letterSpacing: 0.6,
+            letterSpacing: 0.8,
+            opacity: 0.9,
           }}>
             {card.verseRef}
           </Text>
         </LinearGradient>
+
+        {/* Top symbol watermark */}
+        <Text style={{
+          position: 'absolute',
+          top: 8,
+          alignSelf: 'center',
+          fontSize: 9,
+          color: card.accentColor,
+          opacity: 0.25,
+          letterSpacing: 3,
+        }}>
+          {card.motif.topSymbol}
+        </Text>
       </LinearGradient>
 
-      {/* New / Duplicate chip */}
-      <View style={{
-        marginTop: 14,
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 5,
-        backgroundColor: wasNew ? card.accentColor + '22' : 'rgba(255,255,255,0.08)',
-        borderWidth: 1,
-        borderColor: wasNew ? card.accentColor + '55' : 'rgba(255,255,255,0.15)',
-        borderRadius: 99,
-        paddingHorizontal: 14,
-        paddingVertical: 5,
-      }}>
-        {wasNew && <Sparkles size={12} color={card.accentColor} />}
-        <Text style={{
-          fontSize: sFont(12),
-          fontWeight: '700',
-          color: wasNew ? card.accentColor : 'rgba(255,255,255,0.5)',
+      {/* New / Duplicate chip — only shown when wasNew is defined (reveal context) */}
+      {wasNew !== undefined && (
+        <View style={{
+          marginTop: 14,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 5,
+          backgroundColor: wasNew ? card.accentColor + '22' : 'rgba(255,255,255,0.08)',
+          borderWidth: 1,
+          borderColor: wasNew ? card.accentColor + '55' : 'rgba(255,255,255,0.15)',
+          borderRadius: 99,
+          paddingHorizontal: 14,
+          paddingVertical: 5,
         }}>
-          {wasNew
-            ? (language === 'es' ? '¡Carta nueva!' : 'New card!')
-            : (language === 'es' ? 'Duplicado guardado' : 'Duplicate saved')}
-        </Text>
-      </View>
+          {wasNew && <Sparkles size={12} color={card.accentColor} />}
+          <Text style={{
+            fontSize: sFont(12),
+            fontWeight: '700',
+            color: wasNew ? card.accentColor : 'rgba(255,255,255,0.5)',
+          }}>
+            {wasNew
+              ? (language === 'es' ? '¡Carta nueva!' : 'New card!')
+              : (language === 'es' ? 'Duplicado guardado' : 'Duplicate saved')}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -273,7 +310,7 @@ export function CardRevealModal({ visible, drawnCard, onClose }: CardRevealModal
         >
           {/* Header */}
           <View style={{ alignItems: 'center', marginBottom: 28 }}>
-            <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.5)', letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 5 }}>
+            <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.45)', letterSpacing: 2.8, textTransform: 'uppercase', marginBottom: 5 }}>
               {language === 'es' ? 'Sobre Bíblico' : 'Biblical Pack'}
             </Text>
             <Text style={{ fontSize: sFont(24), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.5 }}>
@@ -287,6 +324,7 @@ export function CardRevealModal({ visible, drawnCard, onClose }: CardRevealModal
             wasNew={isNew}
             language={language}
             sFont={sFont}
+            size="reveal"
           />
 
           {/* Description */}

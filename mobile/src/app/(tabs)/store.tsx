@@ -5508,6 +5508,219 @@ function PointsToast({
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Biblical Pack Card — Premium collectible booster pack visual
+// Replaces the plain ✉️ envelope for "Sobre Bíblico"
+// ─────────────────────────────────────────────────────────────────────────────
+function BiblicalPackCard({
+  canAfford,
+  language,
+  onPress,
+}: {
+  canAfford: boolean;
+  language: 'en' | 'es';
+  onPress: () => void;
+}) {
+  const { sFont } = useScaledFont();
+  const scale = useSharedValue(1);
+  const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  return (
+    <View style={{ marginBottom: 12 }}>
+      <Animated.View style={animStyle}>
+        <Pressable
+          onPressIn={() => { scale.value = withSpring(0.97); }}
+          onPressOut={() => { scale.value = withSpring(1); }}
+          onPress={onPress}
+        >
+          {/* Outer card shell — dark gold border */}
+          <LinearGradient
+            colors={['#0A0E1A', '#111827', '#0A0E1A']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{
+              borderRadius: 22,
+              padding: 18,
+              borderWidth: 1.5,
+              borderColor: '#B8962E',
+            }}
+          >
+            {/* Top rarity badge */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+              <View style={{
+                backgroundColor: '#B8962E22',
+                borderWidth: 1,
+                borderColor: '#B8962E60',
+                borderRadius: 99,
+                paddingHorizontal: 10,
+                paddingVertical: 3,
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 5,
+              }}>
+                <Sparkles size={9} color="#D4AF37" />
+                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#D4AF37', letterSpacing: 1.1, textTransform: 'uppercase' }}>
+                  {language === 'es' ? 'Coleccionable · Raro' : 'Collectible · Rare'}
+                </Text>
+              </View>
+              <Text style={{ fontSize: sFont(11), color: '#D4AF3760', fontWeight: '700' }}>✦ ✦ ✦</Text>
+            </View>
+
+            {/* Pack illustration + info row */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginBottom: 14 }}>
+              {/* Pack visual — the main redesigned element */}
+              <LinearGradient
+                colors={['#1A2870', '#0D1B4F', '#0A1235']}
+                start={{ x: 0.1, y: 0 }}
+                end={{ x: 0.9, y: 1 }}
+                style={{
+                  width: 76,
+                  height: 104,
+                  borderRadius: 10,
+                  borderWidth: 2,
+                  borderColor: '#D4AF37CC',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  shadowColor: '#D4AF37',
+                  shadowOpacity: 0.55,
+                  shadowRadius: 14,
+                  shadowOffset: { width: 0, height: 4 },
+                  elevation: 12,
+                }}
+              >
+                {/* Foil shimmer layer */}
+                <LinearGradient
+                  colors={['rgba(212,175,55,0.22)', 'transparent', 'rgba(212,175,55,0.10)']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{ position: 'absolute', width: '100%', height: '100%' }}
+                />
+                {/* Diagonal gloss stripe */}
+                <LinearGradient
+                  colors={['transparent', 'rgba(255,255,255,0.08)', 'transparent']}
+                  start={{ x: 0, y: 0.3 }}
+                  end={{ x: 1, y: 0.7 }}
+                  style={{ position: 'absolute', width: '100%', height: '100%' }}
+                />
+                {/* Top ornament line */}
+                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, backgroundColor: '#D4AF37' }} />
+                {/* Bottom ornament line */}
+                <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, backgroundColor: '#D4AF37' }} />
+                {/* Corner ornaments */}
+                <Text style={{ position: 'absolute', top: 4, left: 5, fontSize: 9, color: '#D4AF37AA' }}>✦</Text>
+                <Text style={{ position: 'absolute', top: 4, right: 5, fontSize: 9, color: '#D4AF37AA' }}>✦</Text>
+                <Text style={{ position: 'absolute', bottom: 4, left: 5, fontSize: 9, color: '#D4AF37AA' }}>✦</Text>
+                <Text style={{ position: 'absolute', bottom: 4, right: 5, fontSize: 9, color: '#D4AF37AA' }}>✦</Text>
+
+                {/* Cross / biblical icon */}
+                <Text style={{ fontSize: 26, marginBottom: 4 }}>✝</Text>
+                {/* Pack label */}
+                <Text style={{
+                  fontSize: sFont(6.5),
+                  fontWeight: '900',
+                  color: '#D4AF37',
+                  letterSpacing: 1.2,
+                  textTransform: 'uppercase',
+                  textAlign: 'center',
+                  lineHeight: 9,
+                }}>
+                  SOBRE{'\n'}BÍBLICO
+                </Text>
+                {/* Subtitle */}
+                <Text style={{ fontSize: sFont(5.5), color: 'rgba(212,175,55,0.65)', letterSpacing: 0.5, marginTop: 3, textAlign: 'center' }}>
+                  1 carta
+                </Text>
+              </LinearGradient>
+
+              {/* Text block */}
+              <View style={{ flex: 1 }}>
+                <Text style={{
+                  fontSize: sFont(19),
+                  fontWeight: '800',
+                  color: '#FFFFFF',
+                  letterSpacing: -0.4,
+                  marginBottom: 3,
+                }}>
+                  {language === 'es' ? 'Sobre Bíblico' : 'Biblical Pack'}
+                </Text>
+                <Text style={{
+                  fontSize: sFont(12),
+                  color: 'rgba(255,255,255,0.60)',
+                  lineHeight: 18,
+                  marginBottom: 6,
+                }}>
+                  {language === 'es'
+                    ? '1 carta aleatoria de personajes y objetos bíblicos'
+                    : '1 random biblical character or object card'}
+                </Text>
+                {/* Small flavour line */}
+                <Text style={{
+                  fontSize: sFont(10),
+                  color: '#D4AF3780',
+                  fontStyle: 'italic',
+                  letterSpacing: 0.2,
+                }}>
+                  {language === 'es' ? 'Personajes y objetos bíblicos' : 'Biblical characters & objects'}
+                </Text>
+              </View>
+            </View>
+
+            {/* Warning strip */}
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              gap: 8,
+              padding: 10,
+              borderRadius: 10,
+              marginBottom: 14,
+              backgroundColor: '#D4AF3710',
+              borderWidth: 1,
+              borderColor: '#D4AF3730',
+            }}>
+              <Text style={{ fontSize: sFont(13) }}>⚠️</Text>
+              <Text style={{ flex: 1, fontSize: sFont(11), color: '#D4AF37CC', lineHeight: 16 }}>
+                {language === 'es'
+                  ? 'Carta aleatoria — los duplicados se guardan para intercambios futuros.'
+                  : 'Random card — duplicates are saved for future trading.'}
+              </Text>
+            </View>
+
+            {/* Footer — price + CTA */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                <Coins size={17} color={canAfford ? '#D4AF37' : '#666'} />
+                <Text style={{ fontSize: sFont(20), fontWeight: '800', color: canAfford ? '#D4AF37' : '#666' }}>
+                  2,000
+                </Text>
+              </View>
+              <Pressable
+                onPress={onPress}
+                style={{
+                  paddingHorizontal: 22,
+                  paddingVertical: 11,
+                  borderRadius: 99,
+                  backgroundColor: canAfford ? '#D4AF37' : 'rgba(255,255,255,0.1)',
+                }}
+              >
+                <Text style={{
+                  fontSize: sFont(14),
+                  fontWeight: '800',
+                  color: canAfford ? '#0A0E1A' : 'rgba(255,255,255,0.35)',
+                }}>
+                  {canAfford
+                    ? (language === 'es' ? 'Obtener' : 'Open Pack')
+                    : (language === 'es' ? 'Sin puntos' : 'Need points')}
+                </Text>
+              </Pressable>
+            </View>
+          </LinearGradient>
+        </Pressable>
+      </Animated.View>
+    </View>
+  );
+}
+
 // Token Item Card Component
 function TokenItemCard({
   id, emoji, name, nameEs, description, descriptionEs, warning, warningEs,
@@ -6966,21 +7179,8 @@ export default function StoreScreen() {
             {/* Cartas Bíblicas subcategory */}
             {activeSubcat === 'cartas' && (
               <View>
-                <TokenItemCard
-                  id="sobre_biblico"
-                  emoji="✉️"
-                  name="Biblical Envelope"
-                  nameEs="Sobre Bíblico"
-                  description="Contains 1 random biblical card for your collection."
-                  descriptionEs="Contiene 1 carta bíblica aleatoria para tu colección."
-                  warning="Each purchase gives you a new random card. Duplicates are saved for future trading."
-                  warningEs="Cada compra te da una carta aleatoria nueva. Los duplicados se guardan para intercambios futuros."
-                  price={2000}
-                  rarity="rare"
-                  isOwned={false}
-                  isUsed={false}
+                <BiblicalPackCard
                   canAfford={canAffordSobre}
-                  colors={colors}
                   language={language}
                   onPress={() => {
                     if (canAffordSobre) {
