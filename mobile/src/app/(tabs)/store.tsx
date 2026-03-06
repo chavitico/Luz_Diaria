@@ -6280,8 +6280,11 @@ export default function StoreScreen() {
                 {
                   text: language === 'es' ? 'Ver mi álbum' : 'View album',
                   onPress: () => {
-                    console.log('[Store] Alert: navigating to album');
-                    router.push('/biblical-cards-album');
+                    console.log('[Store] Alert: closing sheet then navigating to album');
+                    // Close the pageSheet first, then navigate via the pendingAdventureNav pattern
+                    // so the album appears on top instead of behind the sheet.
+                    setPendingAdventureNav('/biblical-cards-album');
+                    setShowStoreSectionModal(false);
                   },
                 },
                 {
