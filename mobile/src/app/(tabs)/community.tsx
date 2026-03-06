@@ -798,24 +798,26 @@ export default function CommunityScreen() {
     const now = Date.now();
     // Cooldown: ignore if called within 10s of last run
     if (now - lastResumeRef.current < 10_000) {
-      if (__DEV__) console.log('[Community] onAppResume skipped — cooldown active');
+      console.log('[Community] onAppResume skipped — cooldown active');
       return;
     }
     lastResumeRef.current = now;
 
-    if (__DEV__) console.log('[Community] onAppResume: starting recovery pipeline');
+    console.log('[Community] onAppResume: starting recovery pipeline');
     setRefreshing(true);
     setLocalSupport({}); // clear optimistic state
 
     try {
       // 1. Re-sync user session (lightweight auth/stats check)
+      console.log('[Community] Resume step 1: syncCurrentUser');
       await syncCurrentUser();
       // 2. Invalidate and refetch community data
+      console.log('[Community] Resume step 2: invalidate queries');
       await queryClient.invalidateQueries({ queryKey: ['community-members'] });
       await queryClient.invalidateQueries({ queryKey: ['community-support-status'] });
-      if (__DEV__) console.log('[Community] onAppResume: recovery complete');
+      console.log('[Community] onAppResume: recovery complete');
     } catch (err) {
-      if (__DEV__) console.warn('[Community] onAppResume: recovery error', err);
+      console.warn('[Community] onAppResume: recovery error', err);
     } finally {
       setRefreshing(false);
     }
@@ -831,7 +833,7 @@ export default function CommunityScreen() {
       const prev = appStateRef.current;
       appStateRef.current = nextState;
       if ((prev === 'background' || prev === 'inactive') && nextState === 'active') {
-        if (__DEV__) console.log('[Community] App resumed from background — triggering recovery');
+        console.log('[Community] App resumed from background — triggering recovery');
         onAppResumeRef.current();
       }
     });

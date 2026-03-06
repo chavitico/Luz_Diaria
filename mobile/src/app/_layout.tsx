@@ -161,6 +161,9 @@ function AppContent() {
   const [showReceivedGiftModal, setShowReceivedGiftModal] = useState(false);
 
   const appStateRef = useRef(AppState.currentState);
+  // Stable refs for AppState listener (register-once pattern)
+  const isOnboardedRef = useRef(false);
+  const userIdRef = useRef<string | undefined>(undefined);
   // Heartbeat state
   const heartbeatTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const heartbeatInFlightRef = useRef(false);
@@ -170,6 +173,10 @@ function AppContent() {
   useEffect(() => {
     sessionIdRef.current = heartbeatSessionId;
   }, [heartbeatSessionId]);
+
+  // Keep stable refs in sync for the register-once AppState listener
+  useEffect(() => { isOnboardedRef.current = isOnboarded; }, [isOnboarded]);
+  useEffect(() => { userIdRef.current = user?.id; }, [user?.id]);
 
   const sendHeartbeat = useCallback(async (userId: string) => {
     if (heartbeatInFlightRef.current) return; // throttle: skip if request in flight
@@ -236,6 +243,18 @@ function AppContent() {
     }
   }, [user?.id]);
 
+  // Stable callback refs for the register-once AppState listener
+  const checkPendingGiftRef = useRef(checkPendingGift);
+  useEffect(() => { checkPendingGiftRef.current = checkPendingGift; }, [checkPendingGift]);
+  const checkReceivedGiftsRef = useRef(checkReceivedGifts);
+  useEffect(() => { checkReceivedGiftsRef.current = checkReceivedGifts; }, [checkReceivedGifts]);
+  const startHeartbeatRef = useRef(startHeartbeat);
+  useEffect(() => { startHeartbeatRef.current = startHeartbeat; }, [startHeartbeat]);
+  const stopHeartbeatRef = useRef(stopHeartbeat);
+  useEffect(() => { stopHeartbeatRef.current = stopHeartbeat; }, [stopHeartbeat]);
+  const checkAndPrefetchOnDateChangeRef = useRef(checkAndPrefetchOnDateChange);
+  useEffect(() => { checkAndPrefetchOnDateChangeRef.current = checkAndPrefetchOnDateChange; }, [checkAndPrefetchOnDateChange]);
+
   useEffect(() => {
     // Hide native splash screen once we're ready
     const prepare = async () => {
@@ -265,33 +284,36 @@ function AppContent() {
     }
   }, [appReady, isOnboarded, user?.id]);
 
-  // Check for pending gifts when app comes to foreground
+  // Check for pending gifts when app comes to foreground — registered ONCE (stable-ref pattern)
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
-      const wasBackground = appStateRef.current.match(/inactive|background/);
+      const prev = appStateRef.current;
+      appStateRef.current = nextAppState;
+
+      const wasBackground = prev.match(/inactive|background/);
       const isNowActive = nextAppState === 'active';
       const isNowBackground = nextAppState.match(/inactive|background/);
 
       if (wasBackground && isNowActive) {
-        // App came to foreground
-        if (isOnboarded) {
-          checkAndPrefetchOnDateChange().catch(() => {});
+        console.log('[Layout] App resumed from background → running resume pipeline');
+        if (isOnboardedRef.current) {
+          console.log('[Layout] Resume: checkAndPrefetchOnDateChange');
+          checkAndPrefetchOnDateChangeRef.current().catch(() => {});
         }
-        if (isOnboarded && user?.id) {
-          checkPendingGift();
-          checkReceivedGifts();
-          // Resume heartbeat immediately
-          startHeartbeat(user.id);
+        if (isOnboardedRef.current && userIdRef.current) {
+          console.log('[Layout] Resume: checkPendingGift + checkReceivedGifts + startHeartbeat');
+          checkPendingGiftRef.current();
+          checkReceivedGiftsRef.current();
+          startHeartbeatRef.current(userIdRef.current);
         }
       } else if (isNowBackground) {
-        // App went to background — pause heartbeat
-        stopHeartbeat();
+        console.log('[Layout] App went to background → stopHeartbeat');
+        stopHeartbeatRef.current();
       }
-
-      appStateRef.current = nextAppState;
     });
     return () => subscription.remove();
-  }, [isOnboarded, user?.id, checkPendingGift, startHeartbeat, stopHeartbeat]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // intentionally empty — stable-ref pattern, registers once
 
   // Initialize notifications + mark app opened (for smart skip logic)
   useEffect(() => {
