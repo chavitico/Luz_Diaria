@@ -863,7 +863,7 @@ gamificationRouter.post(
         // === Special: sobre_biblico - draw a random biblical card ===
         let drawnCard: { cardId: string; wasNew: boolean } | undefined;
         if (itemId === 'sobre_biblico') {
-          const CARD_POOL: string[] = ['david', 'moses', 'ark'];
+          const CARD_POOL: string[] = ['david', 'moses', 'ark', 'espada_espiritu', 'arpa_david', 'zarza_ardiente'];
           const cardId = CARD_POOL[Math.floor(Math.random() * CARD_POOL.length)] as string;
 
           const existing = await tx.biblicalCardInventory.findUnique({

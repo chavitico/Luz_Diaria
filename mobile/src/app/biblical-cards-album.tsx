@@ -1,7 +1,6 @@
 // Biblical Cards Album Screen
-// Displays the user's biblical card collection in a beautiful grid.
-// Tap a card to see details. Unowned cards show a "?" placeholder.
-// Phase B visual upgrade: grid thumbnails use motif data; detail modal uses CollectibleCardVisual.
+// Phase C: 6 cards, richer detail modal with dato destacado + significado bíblico,
+// category identity chips, premium card grid thumbnails.
 
 import React, { useState, useCallback } from 'react';
 import {
@@ -18,7 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeIn, FadeInDown, ZoomIn } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { ChevronLeft, X, Sparkles, BookOpen, Copy } from 'lucide-react-native';
+import { ChevronLeft, X, Sparkles, BookOpen, Copy, Star } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 
@@ -33,6 +32,13 @@ const CARD_GAP = 12;
 const COLS = 3;
 const CARD_W = (SCREEN_W - 40 - CARD_GAP * (COLS - 1)) / COLS;
 const CARD_H = CARD_W * 1.5;
+
+// Category identity colors (same as CardRevealModal)
+const CATEGORY_STYLES: Record<string, { bg: string; border: string; text: string }> = {
+  Personajes: { bg: 'rgba(212,175,55,0.20)', border: 'rgba(212,175,55,0.55)', text: '#D4AF37' },
+  Objetos:    { bg: 'rgba(168,200,240,0.16)', border: 'rgba(168,200,240,0.50)', text: '#A8C8F0' },
+  Eventos:    { bg: 'rgba(255,122,42,0.16)', border: 'rgba(255,122,42,0.50)', text: '#FF7A2A' },
+};
 
 export default function BiblicalCardsAlbumScreen() {
   const colors = useThemeColors();
@@ -75,16 +81,16 @@ export default function BiblicalCardsAlbumScreen() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background }}>
+    <View style={{ flex: 1, backgroundColor: '#080C18' }}>
       {/* Header */}
       <LinearGradient
-        colors={['#0A0E1A', '#111827', '#0A0E1A']}
+        colors={['#080C18', '#0D1224', '#080C18']}
         style={{ paddingTop: insets.top, paddingBottom: 0 }}
       >
         <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 14 }}>
           <Pressable
             onPress={() => router.back()}
-            style={{ padding: 8, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.1)', marginRight: 12 }}
+            style={{ padding: 8, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.10)', marginRight: 12 }}
           >
             <ChevronLeft size={22} color="#FFFFFF" />
           </Pressable>
@@ -92,15 +98,15 @@ export default function BiblicalCardsAlbumScreen() {
             <Text style={{ fontSize: sFont(20), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3 }}>
               {language === 'es' ? 'Álbum Bíblico' : 'Biblical Album'}
             </Text>
-            <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.55)', marginTop: 1 }}>
+            <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.50)', marginTop: 1 }}>
               {language === 'es' ? `${ownedCount} de ${totalCount} cartas` : `${ownedCount} of ${totalCount} cards`}
             </Text>
           </View>
-          <BookOpen size={22} color="rgba(255,255,255,0.5)" />
+          <BookOpen size={22} color="rgba(255,255,255,0.45)" />
         </View>
 
         {/* Progress bar */}
-        <View style={{ marginHorizontal: 20, marginBottom: 16, backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 99, height: 6, overflow: 'hidden' }}>
+        <View style={{ marginHorizontal: 20, marginBottom: 16, backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 99, height: 5, overflow: 'hidden' }}>
           <Animated.View
             entering={FadeIn.duration(800)}
             style={{
@@ -113,21 +119,24 @@ export default function BiblicalCardsAlbumScreen() {
         </View>
       </LinearGradient>
 
+      {/* Separator */}
+      <View style={{ height: 1, backgroundColor: 'rgba(212,175,55,0.15)' }} />
+
       {isLoading ? (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <ActivityIndicator color={colors.primary} />
+          <ActivityIndicator color="#D4AF37" />
         </View>
       ) : (
         <ScrollView
-          contentContainerStyle={{ padding: 20, paddingBottom: insets.bottom + 32 }}
+          contentContainerStyle={{ padding: 20, paddingBottom: insets.bottom + 40 }}
           showsVerticalScrollIndicator={false}
         >
           {/* Section header */}
           <Animated.View entering={FadeInDown.duration(400)} style={{ marginBottom: 20 }}>
-            <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.textMuted, letterSpacing: 1.5, textTransform: 'uppercase' }}>
-              {language === 'es' ? 'Personajes y Objetos' : 'Characters & Objects'}
+            <Text style={{ fontSize: sFont(12), fontWeight: '700', color: 'rgba(255,255,255,0.35)', letterSpacing: 1.8, textTransform: 'uppercase' }}>
+              {language === 'es' ? 'Colección' : 'Collection'}
             </Text>
-            <Text style={{ fontSize: sFont(12), color: colors.textMuted, marginTop: 4, lineHeight: 18 }}>
+            <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.45)', marginTop: 4, lineHeight: 18 }}>
               {language === 'es'
                 ? 'Abre Sobres Bíblicos en la Tienda para desbloquear cartas.'
                 : 'Open Biblical Packs in the Store to unlock cards.'}
@@ -140,11 +149,12 @@ export default function BiblicalCardsAlbumScreen() {
               const card = BIBLICAL_CARDS[cardId];
               if (!card) return null;
               const { owned, duplicates } = getCardStatus(cardId);
+              const catStyle = CATEGORY_STYLES[card.category] ?? CATEGORY_STYLES['Objetos'];
 
               return (
                 <Animated.View
                   key={cardId}
-                  entering={ZoomIn.delay(index * 80).duration(350)}
+                  entering={ZoomIn.delay(index * 70).duration(340)}
                 >
                   <Pressable
                     onPress={() => openCard(card)}
@@ -159,14 +169,14 @@ export default function BiblicalCardsAlbumScreen() {
                         style={{
                           flex: 1,
                           borderRadius: 14,
-                          borderWidth: 2,
-                          borderColor: card.accentColor + '80',
+                          borderWidth: 1.5,
+                          borderColor: card.accentColor + '88',
                           overflow: 'hidden',
                           shadowColor: card.accentColor,
-                          shadowOpacity: 0.5,
-                          shadowRadius: 10,
+                          shadowOpacity: 0.55,
+                          shadowRadius: 12,
                           shadowOffset: { width: 0, height: 3 },
-                          elevation: 8,
+                          elevation: 10,
                         }}
                       >
                         {/* Foil shimmer */}
@@ -176,75 +186,98 @@ export default function BiblicalCardsAlbumScreen() {
                           end={{ x: 1, y: 1 }}
                           style={{ position: 'absolute', width: '100%', height: '100%' }}
                         />
+                        {/* Diagonal gloss */}
+                        <LinearGradient
+                          colors={['transparent', 'rgba(255,255,255,0.06)', 'transparent']}
+                          start={{ x: 0, y: 0.2 }}
+                          end={{ x: 1, y: 0.8 }}
+                          style={{ position: 'absolute', width: '100%', height: '100%' }}
+                        />
+                        {/* Top accent line */}
+                        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, backgroundColor: card.accentColor }} />
+                        {/* Bottom accent line */}
+                        <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, backgroundColor: card.accentColor }} />
 
                         {/* Top bar */}
                         <LinearGradient
-                          colors={[card.accentColor + '55', card.accentColor + '18']}
+                          colors={[card.accentColor + '60', card.accentColor + '1A']}
                           start={{ x: 0, y: 0 }}
                           end={{ x: 1, y: 0 }}
                           style={{
-                            paddingHorizontal: 6,
+                            paddingHorizontal: 5,
                             paddingVertical: 4,
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between',
                           }}
                         >
-                          <View style={{ backgroundColor: card.accentColor + '28', borderRadius: 99, paddingHorizontal: 5, paddingVertical: 1, borderWidth: 0.5, borderColor: card.accentColor + '70' }}>
-                            <Text style={{ fontSize: sFont(6.5), fontWeight: '900', color: card.accentColor, letterSpacing: 0.8, textTransform: 'uppercase' }}>
+                          <View style={{ backgroundColor: catStyle.bg, borderRadius: 99, paddingHorizontal: 5, paddingVertical: 1, borderWidth: 0.5, borderColor: catStyle.border }}>
+                            <Text style={{ fontSize: sFont(5.5), fontWeight: '900', color: catStyle.text, letterSpacing: 0.6, textTransform: 'uppercase' }}>
                               {card.category}
                             </Text>
                           </View>
-                          <Text style={{ fontSize: 9, color: card.accentColor, opacity: 0.75 }}>{card.motif.cornerGlyph}</Text>
+                          <Text style={{ fontSize: 9, color: card.accentColor, opacity: 0.8 }}>{card.motif.cornerGlyph}</Text>
                         </LinearGradient>
 
-                        {/* Thin gold rule */}
-                        <View style={{ height: 0.5, backgroundColor: card.accentColor + '55' }} />
+                        {/* Gold rule */}
+                        <View style={{ height: 0.5, backgroundColor: card.accentColor + '60' }} />
 
                         {/* Artwork area */}
                         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 4 }}>
+                          {/* Radial glow */}
+                          <View style={{
+                            position: 'absolute',
+                            width: CARD_W * 0.65,
+                            height: CARD_W * 0.65,
+                            borderRadius: CARD_W * 0.325,
+                            backgroundColor: card.accentColor + '0E',
+                          }} />
                           {card.imageUrl ? (
                             <Image
                               source={{ uri: card.imageUrl }}
                               style={{
-                                width: CARD_W * 0.55,
-                                height: CARD_W * 0.55,
+                                width: CARD_W * 0.52,
+                                height: CARD_W * 0.52,
                                 borderRadius: 8,
                                 borderWidth: 1,
-                                borderColor: card.accentColor + '50',
+                                borderColor: card.accentColor + '55',
                               }}
                               resizeMode="cover"
                             />
                           ) : (
                             <View style={{
-                              width: CARD_W * 0.5,
-                              height: CARD_W * 0.5,
-                              borderRadius: (CARD_W * 0.5) / 2,
+                              width: CARD_W * 0.50,
+                              height: CARD_W * 0.50,
+                              borderRadius: (CARD_W * 0.50) / 2,
                               backgroundColor: card.accentColor + '15',
-                              borderWidth: 1.5,
-                              borderColor: card.accentColor + '50',
+                              borderWidth: 2,
+                              borderColor: card.accentColor + '55',
                               alignItems: 'center',
                               justifyContent: 'center',
+                              shadowColor: card.accentColor,
+                              shadowOpacity: 0.4,
+                              shadowRadius: 8,
+                              shadowOffset: { width: 0, height: 0 },
                             }}>
                               <Text style={{ fontSize: CARD_W * 0.22 }}>{card.motif.artEmoji}</Text>
                             </View>
                           )}
                         </View>
 
-                        {/* Thin gold rule */}
-                        <View style={{ height: 0.5, backgroundColor: card.accentColor + '55' }} />
+                        {/* Gold rule */}
+                        <View style={{ height: 0.5, backgroundColor: card.accentColor + '60' }} />
 
                         {/* Footer */}
                         <LinearGradient
-                          colors={[card.accentColor + '18', card.accentColor + '55']}
+                          colors={[card.accentColor + '1A', card.accentColor + '60']}
                           start={{ x: 0, y: 0 }}
                           end={{ x: 1, y: 0 }}
                           style={{ paddingHorizontal: 6, paddingVertical: 5, alignItems: 'center' }}
                         >
-                          <Text style={{ fontSize: sFont(9.5), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.1 }} numberOfLines={1}>
+                          <Text style={{ fontSize: sFont(9), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.1 }} numberOfLines={1}>
                             {language === 'es' ? card.nameEs : card.nameEn}
                           </Text>
-                          <Text style={{ fontSize: sFont(7), color: card.accentColor, fontWeight: '700', marginTop: 1 }}>
+                          <Text style={{ fontSize: sFont(6.5), color: card.accentColor, fontWeight: '700', marginTop: 1 }}>
                             {card.verseRef}
                           </Text>
                         </LinearGradient>
@@ -252,24 +285,24 @@ export default function BiblicalCardsAlbumScreen() {
                         {/* Duplicate badge */}
                         {duplicates > 0 && (
                           <View style={{ position: 'absolute', top: 5, right: 5, backgroundColor: card.accentColor, borderRadius: 99, minWidth: 18, height: 18, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 4 }}>
-                            <Text style={{ fontSize: sFont(8), fontWeight: '900', color: '#000' }}>×{duplicates + 1}</Text>
+                            <Text style={{ fontSize: sFont(7.5), fontWeight: '900', color: '#000' }}>×{duplicates + 1}</Text>
                           </View>
                         )}
                       </LinearGradient>
                     ) : (
-                      // ── Unowned card placeholder ──────────────────────
+                      // ── Unowned placeholder ──────────────────────────
                       <View style={{
                         flex: 1,
                         borderRadius: 14,
-                        backgroundColor: colors.surface,
+                        backgroundColor: 'rgba(255,255,255,0.04)',
                         borderWidth: 1.5,
-                        borderColor: colors.textMuted + '25',
+                        borderColor: 'rgba(255,255,255,0.10)',
                         alignItems: 'center',
                         justifyContent: 'center',
                         borderStyle: 'dashed',
                       }}>
-                        <Text style={{ fontSize: CARD_W * 0.3, opacity: 0.2 }}>?</Text>
-                        <Text style={{ fontSize: sFont(8), color: colors.textMuted, marginTop: 6, textAlign: 'center', paddingHorizontal: 4, opacity: 0.7 }}>
+                        <Text style={{ fontSize: CARD_W * 0.3, opacity: 0.15 }}>?</Text>
+                        <Text style={{ fontSize: sFont(7.5), color: 'rgba(255,255,255,0.30)', marginTop: 6, textAlign: 'center', paddingHorizontal: 4 }}>
                           {language === 'es' ? 'No obtenida' : 'Not owned'}
                         </Text>
                       </View>
@@ -281,14 +314,14 @@ export default function BiblicalCardsAlbumScreen() {
           </View>
 
           {/* Phase info box */}
-          <Animated.View entering={FadeInDown.delay(400).duration(400)} style={{ marginTop: 32, padding: 16, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.textMuted + '18' }}>
+          <Animated.View entering={FadeInDown.delay(400).duration(400)} style={{ marginTop: 28, padding: 16, borderRadius: 16, backgroundColor: 'rgba(212,175,55,0.07)', borderWidth: 1, borderColor: 'rgba(212,175,55,0.20)' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-              <Sparkles size={15} color={colors.primary} />
-              <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.text }}>
-                {language === 'es' ? 'Fase 1 — 3 cartas disponibles' : 'Phase 1 — 3 cards available'}
+              <Sparkles size={14} color="#D4AF37" />
+              <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#D4AF37' }}>
+                {language === 'es' ? 'Fase 1 — 6 cartas disponibles' : 'Phase 1 — 6 cards available'}
               </Text>
             </View>
-            <Text style={{ fontSize: sFont(12), color: colors.textMuted, lineHeight: 18 }}>
+            <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.50)', lineHeight: 18 }}>
               {language === 'es'
                 ? 'Más cartas llegarán en futuras actualizaciones. Los duplicados podrán intercambiarse próximamente.'
                 : 'More cards coming in future updates. Duplicates will be tradable soon.'}
@@ -299,10 +332,23 @@ export default function BiblicalCardsAlbumScreen() {
 
       {/* Card Detail Modal */}
       <Modal visible={showDetailModal} transparent animationType="fade" onRequestClose={() => setShowDetailModal(false)}>
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.9)', alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.94)', alignItems: 'center', justifyContent: 'center' }}>
+          {/* Ambient glow */}
+          {selectedCard && (
+            <View style={{
+              position: 'absolute',
+              top: '15%',
+              width: 280,
+              height: 280,
+              borderRadius: 140,
+              backgroundColor: selectedCard.accentColor + '08',
+              alignSelf: 'center',
+            }} />
+          )}
+
           <Pressable
             onPress={() => setShowDetailModal(false)}
-            style={{ position: 'absolute', top: 56, right: 24, padding: 8, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.1)', zIndex: 10 }}
+            style={{ position: 'absolute', top: 56, right: 24, padding: 9, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.12)', zIndex: 10 }}
           >
             <X size={22} color="#FFFFFF" />
           </Pressable>
@@ -312,8 +358,8 @@ export default function BiblicalCardsAlbumScreen() {
               contentContainerStyle={{ alignItems: 'center', paddingVertical: 80, paddingHorizontal: 24 }}
               showsVerticalScrollIndicator={false}
             >
-              <Animated.View entering={ZoomIn.duration(300)} style={{ width: '100%', maxWidth: 320, alignItems: 'center' }}>
-                {/* Shared card visual (detail size) */}
+              <Animated.View entering={ZoomIn.duration(300)} style={{ width: '100%', maxWidth: 340, alignItems: 'center' }}>
+                {/* Card visual */}
                 <CollectibleCardVisual
                   card={selectedCard}
                   language={language}
@@ -321,30 +367,89 @@ export default function BiblicalCardsAlbumScreen() {
                   size="detail"
                 />
 
-                <View style={{ marginTop: 24 }} />
-
-                {/* Description */}
-                <Text style={{ fontSize: sFont(15), color: 'rgba(255,255,255,0.9)', textAlign: 'center', lineHeight: 23, fontWeight: '500', marginBottom: 10 }}>
-                  {language === 'es' ? selectedCard.descriptionEs : selectedCard.descriptionEn}
-                </Text>
-
-                {/* Verse text */}
-                <View style={{ backgroundColor: 'rgba(255,255,255,0.07)', borderRadius: 12, padding: 14, borderLeftWidth: 3, borderLeftColor: selectedCard.accentColor, marginBottom: 8, alignSelf: 'stretch' }}>
-                  <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.75)', lineHeight: 20, fontStyle: 'italic', textAlign: 'center' }}>
-                    "{selectedCard.verseTextEs}"
+                <View style={{ marginTop: 28, width: '100%' }}>
+                  {/* Name */}
+                  <Text style={{ fontSize: sFont(22), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.4, marginBottom: 4 }}>
+                    {language === 'es' ? selectedCard.nameEs : selectedCard.nameEn}
                   </Text>
-                </View>
+                  <Text style={{ fontSize: sFont(11), color: selectedCard.accentColor, textAlign: 'center', fontWeight: '700', letterSpacing: 0.8, marginBottom: 20, opacity: 0.9 }}>
+                    {selectedCard.verseRef}
+                  </Text>
 
-                {selectedDuplicates > 0 && (
-                  <Animated.View entering={FadeIn.duration(400)} style={{ marginTop: 8, flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                    <Copy size={13} color="rgba(255,255,255,0.4)" />
-                    <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.4)' }}>
-                      {language === 'es'
-                        ? `${selectedDuplicates} duplicado${selectedDuplicates > 1 ? 's' : ''} — intercambiable próximamente`
-                        : `${selectedDuplicates} duplicate${selectedDuplicates > 1 ? 's' : ''} — tradable soon`}
+                  {/* Description */}
+                  <Text style={{ fontSize: sFont(14), color: 'rgba(255,255,255,0.78)', textAlign: 'center', lineHeight: 22, fontWeight: '500', marginBottom: 18 }}>
+                    {language === 'es' ? selectedCard.descriptionEs : selectedCard.descriptionEn}
+                  </Text>
+
+                  {/* Verse text box */}
+                  <View style={{
+                    backgroundColor: selectedCard.accentColor + '12',
+                    borderRadius: 14,
+                    padding: 16,
+                    borderLeftWidth: 3,
+                    borderLeftColor: selectedCard.accentColor,
+                    marginBottom: 14,
+                  }}>
+                    <Text style={{ fontSize: sFont(10), fontWeight: '800', color: selectedCard.accentColor, letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 7 }}>
+                      {selectedCard.verseRef}
                     </Text>
-                  </Animated.View>
-                )}
+                    <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.75)', lineHeight: 20, fontStyle: 'italic' }}>
+                      "{selectedCard.verseTextEs}"
+                    </Text>
+                  </View>
+
+                  {/* Dato destacado */}
+                  <View style={{
+                    backgroundColor: 'rgba(255,255,255,0.06)',
+                    borderRadius: 14,
+                    padding: 14,
+                    marginBottom: 12,
+                    borderWidth: 1,
+                    borderColor: 'rgba(255,255,255,0.10)',
+                  }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 6 }}>
+                      <Star size={12} color={selectedCard.accentColor} />
+                      <Text style={{ fontSize: sFont(10), fontWeight: '800', color: selectedCard.accentColor, letterSpacing: 1.0, textTransform: 'uppercase' }}>
+                        {language === 'es' ? 'Dato destacado' : 'Key Fact'}
+                      </Text>
+                    </View>
+                    <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.70)', lineHeight: 20 }}>
+                      {selectedCard.datoDestacadoEs}
+                    </Text>
+                  </View>
+
+                  {/* Significado bíblico */}
+                  <View style={{
+                    backgroundColor: selectedCard.accentColor + '10',
+                    borderRadius: 14,
+                    padding: 14,
+                    borderWidth: 1,
+                    borderColor: selectedCard.accentColor + '25',
+                    marginBottom: 14,
+                  }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 6 }}>
+                      <BookOpen size={12} color={selectedCard.accentColor} />
+                      <Text style={{ fontSize: sFont(10), fontWeight: '800', color: selectedCard.accentColor, letterSpacing: 1.0, textTransform: 'uppercase' }}>
+                        {language === 'es' ? 'Significado bíblico' : 'Biblical Meaning'}
+                      </Text>
+                    </View>
+                    <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.70)', lineHeight: 20 }}>
+                      {selectedCard.significadoBiblicoEs}
+                    </Text>
+                  </View>
+
+                  {/* Duplicate count */}
+                  {selectedDuplicates > 0 && (
+                    <Animated.View entering={FadeIn.duration(400)} style={{ flexDirection: 'row', alignItems: 'center', gap: 6, justifyContent: 'center' }}>
+                      <Copy size={13} color="rgba(255,255,255,0.35)" />
+                      <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.35)' }}>
+                        {language === 'es'
+                          ? `${selectedDuplicates} duplicado${selectedDuplicates > 1 ? 's' : ''} — intercambiable próximamente`
+                          : `${selectedDuplicates} duplicate${selectedDuplicates > 1 ? 's' : ''} — tradable soon`}
+                      </Text>
+                    </Animated.View>
+                  )}
+                </View>
               </Animated.View>
             </ScrollView>
           )}
