@@ -1,8 +1,9 @@
 // Biblical Cards Album Screen
 // Phase C: 6 cards, richer detail modal with dato destacado + significado bíblico,
 // category identity chips, premium card grid thumbnails.
+// Perf: staleTime 10min, non-blocking render, image preload + skeleton placeholders.
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -10,9 +11,8 @@ import {
   Pressable,
   Modal,
   Dimensions,
-  ActivityIndicator,
-  Image,
   LayoutChangeEvent,
+  Animated as RNAnimated,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -27,6 +27,7 @@ import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi } from '@/lib/gamification-api';
 import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard } from '@/lib/biblical-cards';
 import { CollectibleCardVisual } from '@/components/CardRevealModal';
+import { preloadCardImages, preloadOwnedCardImages } from '@/lib/card-image-preload';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 const CARD_GAP = 12;
@@ -45,15 +46,27 @@ const CATEGORY_STYLES: Record<string, { bg: string; border: string; text: string
 // Focal-point thumbnail artwork
 // Mirrors the same crop logic as CollectibleCardVisual (CardRevealModal).
 // Must be a proper component so it can use hooks.
+// Includes: skeleton placeholder while loading, fade-in on load.
 // ─────────────────────────────────────────────
 function CardThumbnailArtwork({ card }: { card: BiblicalCard }) {
   const focusX = card.imageFocusX ?? 0.5;
   const focusY = card.imageFocusY ?? 0.5;
   const [containerH, setContainerH] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const fadeAnim = useRef(new RNAnimated.Value(0)).current;
 
   const onLayout = useCallback((e: LayoutChangeEvent) => {
     setContainerH(e.nativeEvent.layout.height);
   }, []);
+
+  const onImageLoad = useCallback(() => {
+    setImageLoaded(true);
+    RNAnimated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 220,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   const OVERSIZE = 1.6;
   const oversizeH = containerH > 0 ? containerH * OVERSIZE : 0;
@@ -63,9 +76,27 @@ function CardThumbnailArtwork({ card }: { card: BiblicalCard }) {
 
   return (
     <View style={{ flex: 1, overflow: 'hidden' }} onLayout={onLayout}>
-      <Image
+      {/* Skeleton shown until image loads */}
+      {!imageLoaded && (
+        <View style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: card.accentColor + '15',
+        }}>
+          {/* Shimmer stripe */}
+          <LinearGradient
+            colors={['transparent', card.accentColor + '20', 'transparent']}
+            start={{ x: 0, y: 0.5 }}
+            end={{ x: 1, y: 0.5 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
+        </View>
+      )}
+      <RNAnimated.Image
         source={{ uri: card.imageUrl }}
+        onLoad={onImageLoad}
         style={{
+          opacity: fadeAnim,
           position: 'absolute',
           width: oversizeW,
           height: oversizeH > 0 ? oversizeH : undefined,
@@ -103,16 +134,42 @@ export default function BiblicalCardsAlbumScreen() {
   const user = useUser();
   const userId = user?.id ?? '';
 
+  // Timing logs
+  const mountTimeRef = useRef(Date.now());
+  useEffect(() => {
+    console.log('[Cards/Album] Screen mounted');
+    // Fire preload of all card images immediately on mount (best-effort, no-op if already cached)
+    preloadCardImages();
+    return () => {
+      console.log(`[Cards/Album] Screen unmounted after ${Date.now() - mountTimeRef.current}ms`);
+    };
+  }, []);
+
   const [selectedCard, setSelectedCard] = useState<BiblicalCard | null>(null);
   const [selectedDuplicates, setSelectedDuplicates] = useState(0);
   const [showDetailModal, setShowDetailModal] = useState(false);
 
-  const { data: cardInventory = [], isLoading } = useQuery({
+  // staleTime: 10 min — card inventory changes only when the user purchases a pack,
+  // which invalidates the query explicitly. No need to refetch every 30 seconds.
+  const { data: cardInventory = [] } = useQuery({
     queryKey: ['biblical-cards', userId],
-    queryFn: () => gamificationApi.getBiblicalCards(userId),
+    queryFn: async () => {
+      const t0 = Date.now();
+      const result = await gamificationApi.getBiblicalCards(userId);
+      console.log(`[Cards/Album] Inventory loaded in ${Date.now() - t0}ms (${result.length} entries)`);
+      return result;
+    },
     enabled: !!userId,
-    staleTime: 30_000,
+    staleTime: 1000 * 60 * 10, // 10 minutes
   });
+
+  // Preload owned card images as soon as we know which cards the user has
+  useEffect(() => {
+    const ownedIds = cardInventory.filter((c) => c.owned).map((c) => c.cardId);
+    if (ownedIds.length > 0) {
+      preloadOwnedCardImages(ownedIds);
+    }
+  }, [cardInventory]);
 
   const getCardStatus = useCallback((cardId: string) => {
     const entry = cardInventory.find((c) => c.cardId === cardId);
@@ -176,12 +233,10 @@ export default function BiblicalCardsAlbumScreen() {
       {/* Separator */}
       <View style={{ height: 1, backgroundColor: 'rgba(212,175,55,0.15)' }} />
 
-      {isLoading ? (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <ActivityIndicator color="#D4AF37" />
-        </View>
-      ) : (
-        <ScrollView
+      {/* Render the grid immediately — no blocking wait.
+          While inventory is loading, all cards show as unowned placeholders.
+          They flip to the real state once data arrives (usually < 200ms on a warm cache). */}
+      <ScrollView
           contentContainerStyle={{ padding: 20, paddingBottom: insets.bottom + 40 }}
           showsVerticalScrollIndicator={false}
         >
@@ -374,7 +429,6 @@ export default function BiblicalCardsAlbumScreen() {
             </Text>
           </Animated.View>
         </ScrollView>
-      )}
 
       {/* Card Detail Modal */}
       <Modal visible={showDetailModal} transparent animationType="fade" onRequestClose={() => setShowDetailModal(false)}>

@@ -51,6 +51,7 @@ import {
 } from 'lucide-react-native';
 import { TextInput } from 'react-native';
 import { BIBLICAL_CARDS } from '@/lib/biblical-cards';
+import { preloadCardImages } from '@/lib/card-image-preload';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -6539,9 +6540,12 @@ export default function StoreScreen() {
     return { isOwned, isEquipped, canAfford };
   }, [purchasedItems, user, points]);
 
-  // Fetch pincel_magico inventory state when tokens tab is active
+  // Fetch pincel_magico inventory state when tokens tab is active.
+  // Also kick off card image preload so artwork is cached before the user taps "Ver álbum".
   useEffect(() => {
     if ((activeCategory === 'tokens' || storeSectionModalCategory === 'tokens') && userId) {
+      // Warm image cache as soon as the user opens Objetos Especiales
+      preloadCardImages();
       gamificationApi.getUser(userId).then(profile => {
         const pincelInv = profile.inventory.find(inv => inv.itemId === 'pincel_magico');
         if (pincelInv) {
