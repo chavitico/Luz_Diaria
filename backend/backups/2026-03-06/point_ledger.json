@@ -888,5 +888,35 @@
     "amount": 10,
     "metadata": "{}",
     "createdAt": "2026-03-05T20:38:15.596Z"
+  },
+  {
+    "id": "cmme678s20027m26ewopfxvke",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "ledgerId": "gift_claim_cmmb3ggjr001jm2q06al9hwcz_1772757763633",
+    "type": "admin_grant",
+    "dateId": "2026-03-06",
+    "amount": 3000,
+    "metadata": "{\"reason\":\"🥰\",\"giftDropId\":\"cmme66sen001ym26e8h36v6l5\"}",
+    "createdAt": "2026-03-06T00:42:43.634Z"
+  },
+  {
+    "id": "cmme91k1h003rm26e4o5bmjzh",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "tts_2026-03-06",
+    "type": "tts_complete",
+    "dateId": "2026-03-06",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-06T02:02:17.141Z"
+  },
+  {
+    "id": "cmme91ko7003tm26eu8dfk17b",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "prayer_2026-03-06",
+    "type": "prayer",
+    "dateId": "2026-03-06",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-06T02:02:17.959Z"
   }
 ]
