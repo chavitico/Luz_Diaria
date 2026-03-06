@@ -5536,7 +5536,11 @@ function TokenItemCard({
   const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
   return (
-    <Animated.View entering={FadeInDown.duration(400)} style={[animStyle, { marginBottom: 12 }]}>
+    // Phase D fix: split entering= and useAnimatedStyle onto separate elements.
+    // Outer plain View has no animation; inner Animated.View has only useAnimatedStyle (no entering=).
+    // This eliminates the "Property transform may be overwritten by layout animation" Reanimated warning.
+    <View style={{ marginBottom: 12 }}>
+      <Animated.View style={animStyle}>
       <Pressable
         onPressIn={() => { if (!isOwned) scale.value = withSpring(0.97); }}
         onPressOut={() => { scale.value = withSpring(1); }}
@@ -5637,6 +5641,7 @@ function TokenItemCard({
         </LinearGradient>
       </Pressable>
     </Animated.View>
+    </View>
   );
 }
 
@@ -5674,6 +5679,8 @@ export default function StoreScreen() {
   const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
   const [showCardRevealModal, setShowCardRevealModal] = useState(false);
   const [revealedCard, setRevealedCard] = useState<{ cardId: string; wasNew: boolean } | null>(null);
+  // Phase B: purchase lock ref — prevents double-tap; no re-render overhead
+  const isTokenPurchasing = useRef(false);
 
   const [selectedCollection, setSelectedCollection] = useState<typeof ITEM_COLLECTIONS[string] | null>(null);
   const [chestReward, setChestReward] = useState<{
@@ -6232,11 +6239,21 @@ export default function StoreScreen() {
   }, [activeCategory, storeSectionModalCategory, userId]);
 
   // Handle token purchases (pincel_magico, sobre_biblico, etc.)
+  // Phase B+C: purchase lock + structured logging + finally release
   const handleTokenPurchase = async (itemId: string, price: number) => {
     if (!userId || points < price) return;
+    // Phase B: guard against double-tap
+    if (isTokenPurchasing.current) {
+      console.log('[Store] handleTokenPurchase: BLOCKED (already purchasing)');
+      return;
+    }
+    isTokenPurchasing.current = true;
+    console.log('[Store] purchase started', { itemId, price, points });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     try {
+      console.log('[Store] calling gamificationApi.purchaseItem');
       const res = await gamificationApi.purchaseItem(userId, itemId);
+      console.log('[Store] purchase success', { success: res.success, newPoints: res.newPoints, drawnCard: res.drawnCard });
       if (res.success) {
         updateUser({ points: res.newPoints, purchasedItems: [...purchasedItems, itemId] });
         if (itemId === 'pincel_magico') {
@@ -6244,9 +6261,14 @@ export default function StoreScreen() {
           setToastMessage(language === 'es' ? '¡Pincel Mágico adquirido!' : 'Magic Paintbrush acquired!');
         } else if (itemId === 'sobre_biblico') {
           const drawn = res.drawnCard ?? null;
+          console.log('[Store] sobre_biblico drawn card', drawn);
           if (drawn) {
+            console.log('[Store] setting revealedCard + opening reveal modal');
             setRevealedCard(drawn);
             setShowCardRevealModal(true);
+            console.log('[Store] reveal modal state set to true');
+          } else {
+            console.log('[Store] no drawn card returned — showing toast only');
           }
         }
         setToastAmount(price);
@@ -6255,8 +6277,12 @@ export default function StoreScreen() {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
       }
-    } catch {
-      // silently fail
+    } catch (err) {
+      console.log('[Store] purchase error', err);
+    } finally {
+      // Phase B: always release lock, even if reveal modal fails to open
+      isTokenPurchasing.current = false;
+      console.log('[Store] purchase lock released');
     }
   };
 
@@ -7590,7 +7616,11 @@ export default function StoreScreen() {
       <CardRevealModal
         visible={showCardRevealModal}
         drawnCard={revealedCard}
-        onClose={() => setShowCardRevealModal(false)}
+        onClose={() => {
+          console.log('[Store] reveal modal closed — store is now interactive');
+          setShowCardRevealModal(false);
+          setRevealedCard(null);
+        }}
       />
     </View>
   );

@@ -998,5 +998,15 @@
     "amount": -500,
     "metadata": "{\"itemId\":\"title_love_never_fails\",\"receiverUserId\":\"cmmaqp77i000pm2686xq6bozg\"}",
     "createdAt": "2026-03-06T17:52:46.263Z"
+  },
+  {
+    "id": "cmmfdnx4g001lm26g813ieper",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "gift_claim_cmm9x0ybc0002m2sr3l31uj4q_1772830765167",
+    "type": "admin_grant",
+    "dateId": "2026-03-06",
+    "amount": 20000,
+    "metadata": "{\"reason\":\"Loco te pasas\",\"giftDropId\":\"cmmfdluii000ym26gjnxswlml\"}",
+    "createdAt": "2026-03-06T20:59:25.169Z"
   }
 ]
