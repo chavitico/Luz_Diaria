@@ -47,8 +47,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['harp', 'sling', 'shepherd', 'crown'],
     gradientColors: ['#0C1850', '#162E82', '#1C3D9E'],
     accentColor: '#D4AF37',
-    // Young shepherd with harp — warm golden pastoral light, hills of Israel
-    imageUrl: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600&q=85&fit=crop',
+    // Custom illustration — David card artwork
+    imageUrl: 'https://images.composerapi.com/019c33a9-4a45-71bd-8908-f785cc52f6a1/assets/images/image_1772839374_1772839382183_019cc576-2ca7-734e-b019-1c199427b8f0.png',
     motif: {
       topSymbol: '✦',
       subtitleEs: 'Rey de Israel',
