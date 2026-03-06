@@ -9,6 +9,7 @@ import {
   ScrollView,
   Pressable,
   Modal,
+  Alert,
   ActivityIndicator,
   Dimensions,
   TouchableOpacity,
@@ -49,6 +50,7 @@ import {
   BookOpen,
 } from 'lucide-react-native';
 import { TextInput } from 'react-native';
+import { BIBLICAL_CARDS } from '@/lib/biblical-cards';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -434,10 +436,8 @@ function LaunchEventBanner({
   const ACCENT = '#4A7D5E';
 
   return (
-    <Animated.View
-      entering={FadeInDown.duration(500)}
-      style={[animatedStyle, { marginHorizontal: 20, marginBottom: 16 }]}
-    >
+    <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
+      <Animated.View style={animatedStyle}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.98); }}
         onPressOut={() => { scale.value = withSpring(1); }}
@@ -517,6 +517,7 @@ function LaunchEventBanner({
         </LinearGradient>
       </Pressable>
     </Animated.View>
+    </View>
   );
 }
 
@@ -553,7 +554,8 @@ function SeasonalAdventureCard({
   }));
 
   return (
-    <Animated.View entering={FadeInDown.duration(400)} style={[animatedStyle, { marginBottom: 16 }]}>
+    <View style={{ marginBottom: 16 }}>
+      <Animated.View style={animatedStyle}>
       <Pressable
         onPressIn={() => { scale.value = withSpring(0.97); }}
         onPressOut={() => { scale.value = withSpring(1); }}
@@ -654,6 +656,7 @@ function SeasonalAdventureCard({
         </LinearGradient>
       </Pressable>
     </Animated.View>
+    </View>
   );
 }
 
@@ -6263,10 +6266,31 @@ export default function StoreScreen() {
           const drawn = res.drawnCard ?? null;
           console.log('[Store] sobre_biblico drawn card', drawn);
           if (drawn) {
-            console.log('[Store] setting revealedCard + opening reveal modal');
-            setRevealedCard(drawn);
-            setShowCardRevealModal(true);
-            console.log('[Store] reveal modal state set to true');
+            // Phase 2: bypass CardRevealModal entirely — use Alert to confirm no freeze is modal-caused
+            const card = BIBLICAL_CARDS[drawn.cardId];
+            const cardName = card ? (language === 'es' ? card.nameEs : card.nameEn) : drawn.cardId;
+            const statusLabel = drawn.wasNew
+              ? (language === 'es' ? 'Nueva carta' : 'New card')
+              : (language === 'es' ? 'Duplicado guardado' : 'Duplicate saved');
+            console.log('[Store] showing Alert for drawn card', { cardName, statusLabel });
+            Alert.alert(
+              language === 'es' ? 'Carta obtenida' : 'Card Obtained',
+              `${cardName}${card ? '\n' + card.verseRef : ''}\n\n${statusLabel}`,
+              [
+                {
+                  text: language === 'es' ? 'Ver mi álbum' : 'View album',
+                  onPress: () => {
+                    console.log('[Store] Alert: navigating to album');
+                    router.push('/biblical-cards-album');
+                  },
+                },
+                {
+                  text: language === 'es' ? 'Cerrar' : 'Close',
+                  style: 'cancel',
+                  onPress: () => { console.log('[Store] Alert: closed — store remains interactive'); },
+                },
+              ]
+            );
           } else {
             console.log('[Store] no drawn card returned — showing toast only');
           }
