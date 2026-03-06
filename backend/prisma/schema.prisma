@@ -76,6 +76,7 @@ model User {
   giftsSent              GiftTransaction[] @relation("GiftsSent")
   giftsReceived          GiftTransaction[] @relation("GiftsReceived")
   sessions               UserSession[]
+  biblicalCards          BiblicalCardInventory[]
 }
 
 model UserSession {
@@ -432,6 +433,21 @@ model UserGift {
   @@unique([userId, giftDropId])
   @@index([userId])
   @@index([giftDropId])
+}
+
+// Biblical Card Inventory - tracks each user's collected biblical cards
+model BiblicalCardInventory {
+  id         String   @id @default(cuid())
+  userId     String
+  cardId     String   // e.g. "david", "moses", "ark"
+  owned      Boolean  @default(false)
+  duplicates Int      @default(0)
+  acquiredAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, cardId])
+  @@index([userId])
 }
 
 // Audit log for admin role changes

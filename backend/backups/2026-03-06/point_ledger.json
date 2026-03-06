@@ -978,5 +978,25 @@
     "amount": 6,
     "metadata": "{}",
     "createdAt": "2026-03-06T15:10:10.045Z"
+  },
+  {
+    "id": "cmmf6lkv60011m25yzxpelztt",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "prayed_community_2026-03-06",
+    "type": "prayed_community",
+    "dateId": "2026-03-06",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-06T17:41:38.658Z"
+  },
+  {
+    "id": "cmmf6zvzq002xm25ydkk3xl5n",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "gift_sent_cmm9x0ybc0002m2sr3l31uj4q_title_love_never_fails_1772819566262",
+    "type": "gift_sent",
+    "dateId": "2026-03-06",
+    "amount": -500,
+    "metadata": "{\"itemId\":\"title_love_never_fails\",\"receiverUserId\":\"cmmaqp77i000pm2686xq6bozg\"}",
+    "createdAt": "2026-03-06T17:52:46.263Z"
   }
 ]

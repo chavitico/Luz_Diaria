@@ -824,15 +824,20 @@ gamificationRouter.post(
           throw new Error("ITEM_NOT_AVAILABLE");
         }
 
-        // Check if user already owns item
-        const existingInventory = await tx.userInventory.findUnique({
-          where: {
-            userId_itemId: { userId, itemId },
-          },
-        });
+        // Check if user already owns item (skip for repeatable consumables like sobre_biblico)
+        const itemMeta = JSON.parse(item.metadata || '{}');
+        const isRepeatableConsumable = itemMeta.repeatablePurchase === true;
 
-        if (existingInventory) {
-          throw new Error("ALREADY_OWNED");
+        if (!isRepeatableConsumable) {
+          const existingInventory = await tx.userInventory.findUnique({
+            where: {
+              userId_itemId: { userId, itemId },
+            },
+          });
+
+          if (existingInventory) {
+            throw new Error("ALREADY_OWNED");
+          }
         }
 
         // Check if user has enough points
@@ -848,15 +853,38 @@ gamificationRouter.post(
           data: { points: newPoints, pointsSpentTotal: { increment: item.pricePoints } },
         });
 
-        await tx.userInventory.create({
-          data: {
-            userId,
-            itemId,
-            source: "store",
-          },
+        // For repeatable consumables, upsert (don't fail if already "owned")
+        await tx.userInventory.upsert({
+          where: { userId_itemId: { userId, itemId } },
+          create: { userId, itemId, source: "store" },
+          update: { acquiredAt: new Date(), source: "store" },
         });
 
-        return { item, newPoints };
+        // === Special: sobre_biblico - draw a random biblical card ===
+        let drawnCard: { cardId: string; wasNew: boolean } | undefined;
+        if (itemId === 'sobre_biblico') {
+          const CARD_POOL: string[] = ['david', 'moses', 'ark'];
+          const cardId = CARD_POOL[Math.floor(Math.random() * CARD_POOL.length)] as string;
+
+          const existing = await tx.biblicalCardInventory.findUnique({
+            where: { userId_cardId: { userId, cardId } },
+          });
+
+          if (existing) {
+            await tx.biblicalCardInventory.update({
+              where: { userId_cardId: { userId, cardId } },
+              data: { duplicates: { increment: 1 } },
+            });
+            drawnCard = { cardId, wasNew: false };
+          } else {
+            await tx.biblicalCardInventory.create({
+              data: { userId, cardId, owned: true, duplicates: 0 },
+            });
+            drawnCard = { cardId, wasNew: true };
+          }
+        }
+
+        return { item, newPoints, drawnCard };
       });
 
       return c.json({
