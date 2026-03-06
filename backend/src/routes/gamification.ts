@@ -891,6 +891,7 @@ gamificationRouter.post(
         success: true,
         item: result.item,
         newPoints: result.newPoints,
+        drawnCard: result.drawnCard ?? null,
       });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
@@ -2755,3 +2756,21 @@ gamificationRouter.post(
     }
   }
 );
+
+// ============================================
+// BIBLICAL CARDS
+// ============================================
+
+// GET /biblical-cards/:userId - Get user's biblical card inventory
+gamificationRouter.get("/biblical-cards/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const cards = await prisma.biblicalCardInventory.findMany({
+      where: { userId },
+    });
+    return c.json(cards);
+  } catch (error) {
+    console.error("[BiblicalCards] Error fetching cards:", error);
+    return c.json({ error: "Failed to fetch biblical cards" }, 500);
+  }
+});

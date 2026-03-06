@@ -62,6 +62,7 @@ import {
 import { useScaledFont } from '@/lib/textScale';
 import { ActionButton } from '@/components/ui/ActionButton';
 import { GiftSendModal, type GiftSendItem } from '@/components/GiftSendModal';
+import { CardRevealModal } from '@/components/CardRevealModal';
 import {
   TRANSLATIONS,
   DEFAULT_AVATARS,
@@ -249,7 +250,7 @@ const CATEGORIES: { key: CategoryType; IconComponent: CategoryIconComponent; lab
   { key: 'titles', IconComponent: IconTitulos, label: 'Titles', labelEs: 'Títulos', desc: 'Badges that show your progress', descEs: 'Insignias que muestran tu progreso' },
   { key: 'frames', IconComponent: IconMarcos, label: 'Frames', labelEs: 'Marcos', desc: 'Decorations for your devotionals', descEs: 'Decoraciones para tus devocionales' },
   { key: 'bundles', IconComponent: IconPaquetes, label: 'Bundles', labelEs: 'Paquetes', desc: 'Special content and rewards', descEs: 'Contenido especial y recompensas' },
-  { key: 'tokens', IconComponent: IconTokens, label: 'Tokens & Badges', labelEs: 'Tokens y Badges', desc: 'Special one-time use items', descEs: 'Ítems especiales de uso único' },
+  { key: 'tokens', IconComponent: IconTokens, label: 'Special Objects', labelEs: 'Objetos Especiales', desc: 'Special one-time use items', descEs: 'Ítems especiales de uso único' },
 ];
 
 // ─── Seasonal Items Section Banner ────────────────────────────────────────────
@@ -5671,6 +5672,8 @@ export default function StoreScreen() {
   const [showStoreSectionModal, setShowStoreSectionModal] = useState(false);
   const [storeSectionModalCategory, setStoreSectionModalCategory] = useState<CategoryType | null>(null);
   const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
+  const [showCardRevealModal, setShowCardRevealModal] = useState(false);
+  const [revealedCard, setRevealedCard] = useState<{ cardId: string; wasNew: boolean } | null>(null);
 
   const [selectedCollection, setSelectedCollection] = useState<typeof ITEM_COLLECTIONS[string] | null>(null);
   const [chestReward, setChestReward] = useState<{
@@ -6228,7 +6231,7 @@ export default function StoreScreen() {
     }
   }, [activeCategory, storeSectionModalCategory, userId]);
 
-  // Handle token purchases (pincel_magico, etc.)
+  // Handle token purchases (pincel_magico, sobre_biblico, etc.)
   const handleTokenPurchase = async (itemId: string, price: number) => {
     if (!userId || points < price) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
@@ -6236,10 +6239,18 @@ export default function StoreScreen() {
       const res = await gamificationApi.purchaseItem(userId, itemId);
       if (res.success) {
         updateUser({ points: res.newPoints, purchasedItems: [...purchasedItems, itemId] });
-        setPincelMagicoSource('store');
+        if (itemId === 'pincel_magico') {
+          setPincelMagicoSource('store');
+          setToastMessage(language === 'es' ? '¡Pincel Mágico adquirido!' : 'Magic Paintbrush acquired!');
+        } else if (itemId === 'sobre_biblico') {
+          const drawn = res.drawnCard ?? null;
+          if (drawn) {
+            setRevealedCard(drawn);
+            setShowCardRevealModal(true);
+          }
+        }
         setToastAmount(price);
         setToastPositive(false);
-        setToastMessage(language === 'es' ? '¡Pincel Mágico adquirido!' : 'Magic Paintbrush acquired!');
         setShowPointsToast(true);
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
@@ -6859,38 +6870,110 @@ export default function StoreScreen() {
         const hasPincel = purchasedItems.includes('pincel_magico') || pincelMagicoSource !== null;
         const isUsed = pincelMagicoSource === 'used';
         const canAffordPincel = points >= 15000;
+        const canAffordSobre = points >= 2000;
+
+        const TOKEN_SUBCATS = [
+          { key: 'cartas', labelEs: 'Cartas Bíblicas', label: 'Biblical Cards' },
+          { key: 'tokens', labelEs: 'Tokens', label: 'Tokens' },
+          { key: 'insignias', labelEs: 'Insignias', label: 'Badges' },
+        ];
+        const activeSubcat = activeSubcategory === 'all' ? 'cartas' : activeSubcategory;
 
         return (
           <View className="px-5">
+            {/* Info banner */}
             <View style={{ marginBottom: 16, padding: 14, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.textMuted + '18' }}>
               <Text style={{ fontSize: sFont(13), color: colors.textMuted, lineHeight: 19 }}>
                 {language === 'es'
-                  ? 'Los Tokens son ítems especiales que desbloquean funciones únicas en tu perfil.'
-                  : 'Tokens are special items that unlock unique features in your profile.'}
+                  ? 'Objetos especiales que desbloquean funciones únicas o amplían tu colección.'
+                  : 'Special objects that unlock unique features or expand your collection.'}
               </Text>
             </View>
-            <TokenItemCard
-              id="pincel_magico"
-              emoji="🖌️"
-              name="Magic Paintbrush"
-              nameEs="Pincel Mágico"
-              description="Allows you to change your nickname once."
-              descriptionEs="Permite cambiar tu nickname una vez."
-              warning="Use wisely — this is a one-time item per account. Once used, it cannot be purchased again."
-              warningEs="Úsalo con cabeza — es un ítem único por cuenta. Una vez usado, no podrá comprarse de nuevo."
-              price={15000}
-              rarity="legendary"
-              isOwned={hasPincel}
-              isUsed={isUsed}
-              canAfford={canAffordPincel}
-              colors={colors}
-              language={language}
-              onPress={() => {
-                if (!hasPincel && canAffordPincel) {
-                  handleTokenPurchase('pincel_magico', 15000);
-                }
-              }}
-            />
+
+            {/* Subcategory tabs */}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }} contentContainerStyle={{ gap: 8, paddingRight: 4 }}>
+              {TOKEN_SUBCATS.map(sc => (
+                <Pressable
+                  key={sc.key}
+                  onPress={() => { Haptics.selectionAsync(); setActiveSubcategory(sc.key); }}
+                  style={{
+                    paddingHorizontal: 16, paddingVertical: 7, borderRadius: 99,
+                    backgroundColor: activeSubcat === sc.key ? colors.primary : colors.surface,
+                    borderWidth: 1,
+                    borderColor: activeSubcat === sc.key ? colors.primary : colors.textMuted + '30',
+                  }}
+                >
+                  <Text style={{ fontSize: sFont(13), fontWeight: '600', color: activeSubcat === sc.key ? '#FFFFFF' : colors.textMuted }}>
+                    {language === 'es' ? sc.labelEs : sc.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+
+            {/* Cartas Bíblicas subcategory */}
+            {activeSubcat === 'cartas' && (
+              <TokenItemCard
+                id="sobre_biblico"
+                emoji="✉️"
+                name="Biblical Envelope"
+                nameEs="Sobre Bíblico"
+                description="Contains 1 random biblical card for your collection."
+                descriptionEs="Contiene 1 carta bíblica aleatoria para tu colección."
+                warning="Each purchase gives you a new random card. Duplicates are saved for future trading."
+                warningEs="Cada compra te da una carta aleatoria nueva. Los duplicados se guardan para intercambios futuros."
+                price={2000}
+                rarity="rare"
+                isOwned={false}
+                isUsed={false}
+                canAfford={canAffordSobre}
+                colors={colors}
+                language={language}
+                onPress={() => {
+                  if (canAffordSobre) {
+                    handleTokenPurchase('sobre_biblico', 2000);
+                  }
+                }}
+              />
+            )}
+
+            {/* Tokens subcategory */}
+            {activeSubcat === 'tokens' && (
+              <TokenItemCard
+                id="pincel_magico"
+                emoji="🖌️"
+                name="Magic Paintbrush"
+                nameEs="Pincel Mágico"
+                description="Allows you to change your nickname once."
+                descriptionEs="Permite cambiar tu nickname una vez."
+                warning="Use wisely — this is a one-time item per account. Once used, it cannot be purchased again."
+                warningEs="Úsalo con cabeza — es un ítem único por cuenta. Una vez usado, no podrá comprarse de nuevo."
+                price={15000}
+                rarity="legendary"
+                isOwned={hasPincel}
+                isUsed={isUsed}
+                canAfford={canAffordPincel}
+                colors={colors}
+                language={language}
+                onPress={() => {
+                  if (!hasPincel && canAffordPincel) {
+                    handleTokenPurchase('pincel_magico', 15000);
+                  }
+                }}
+              />
+            )}
+
+            {/* Insignias subcategory */}
+            {activeSubcat === 'insignias' && (
+              <View style={{ alignItems: 'center', paddingVertical: 32 }}>
+                <Text style={{ fontSize: sFont(32), marginBottom: 12 }}>🏅</Text>
+                <Text style={{ fontSize: sFont(16), fontWeight: '700', color: colors.text, marginBottom: 6 }}>
+                  {language === 'es' ? 'Próximamente' : 'Coming Soon'}
+                </Text>
+                <Text style={{ fontSize: sFont(13), color: colors.textMuted, textAlign: 'center', lineHeight: 19 }}>
+                  {language === 'es' ? 'Las insignias llegarán en una futura actualización.' : 'Badges are coming in a future update.'}
+                </Text>
+              </View>
+            )}
           </View>
         );
       }
@@ -7476,6 +7559,13 @@ export default function StoreScreen() {
         language={language}
         colors={colors}
         onClose={() => setShowChestModal(false)}
+      />
+
+      {/* Card Reveal Modal */}
+      <CardRevealModal
+        visible={showCardRevealModal}
+        drawnCard={revealedCard}
+        onClose={() => setShowCardRevealModal(false)}
       />
     </View>
   );

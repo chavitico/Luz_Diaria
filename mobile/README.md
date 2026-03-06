@@ -278,6 +278,37 @@ All admin endpoints require `X-User-Id` header. The `requireRole` middleware in 
   - **Titles**: Todos | V1 Básico | V2 Citas Bíblicas
   - **Avatars**: Todos | V1 Básico | V2 Ilustrado
   - **Bundles**: Todos | Aventuras Bíblicas | ✝ Temporada (when active)
+  - **Objetos Especiales**: Cartas Bíblicas | Tokens | Insignias
+
+### Objetos Especiales (was "Tokens y Badges")
+The `tokens` category has been renamed **Objetos Especiales** and reorganized into 3 subcategories:
+1. **Cartas Bíblicas** — Contains the "Sobre Bíblico" card pack (2000 pts, repeatable)
+2. **Tokens** — Contains "Pincel Mágico" (one-time nickname change, 15000 pts)
+3. **Insignias** — Coming soon placeholder
+
+### Biblical Cards System (Phase 1)
+- **Store item:** `sobre_biblico` — 2000 pts, repeatable consumable. Each purchase draws 1 random card from the pool.
+- **Card pool (Phase 1):** `david`, `moses`, `ark`
+- **Inventory model:** `BiblicalCardInventory` table — `userId`, `cardId`, `owned`, `duplicates`
+  - If user gets a new card: `owned = true`, `duplicates = 0`
+  - If user gets a duplicate: `duplicates += 1`
+- **Backend endpoint:** `GET /api/gamification/biblical-cards/:userId`
+- **Purchase flow:** `POST /api/gamification/store/purchase` returns `drawnCard: { cardId, wasNew }` for `sobre_biblico`
+- **Card reveal animation:** `CardRevealModal` — envelope appears → glow pulse → card reveal
+- **Album screen:** `src/app/biblical-cards-album.tsx` — grid of all cards, owned = full art, unowned = "?" placeholder
+  - Accessible from Settings → Mi Colección → Álbum Bíblico
+- **Card data:** `src/lib/biblical-cards.ts` — `BIBLICAL_CARDS` record with all card definitions
+
+### Card Definitions (Phase 1)
+| id | Name | Category | Verse |
+|----|------|----------|-------|
+| david | David | Personajes | Hechos 13:22 |
+| moses | Moisés | Personajes | Éxodo 3:10 |
+| ark | Arca de Noé | Objetos | Génesis 6:14 |
+
+### Phase 2 (NOT YET IMPLEMENTED)
+- Trading system: only duplicate cards (`duplicates > 0`) will be tradable
+- Users will be able to open trade requests, offer duplicate cards, accept/reject trades
 - **6 Reward Categories**:
   - **Themes** (24 total: 6 original + 14 V2 premium + 4 chapter):
     - Original: Sunrise, Peaceful Night, Forest, Desert, Promise, Minimal

@@ -344,7 +344,7 @@ export const gamificationApi = {
     return res.json();
   },
 
-  async purchaseItem(userId: string, itemId: string): Promise<{ success: boolean; item?: StoreItem; newPoints?: number; error?: string }> {
+  async purchaseItem(userId: string, itemId: string): Promise<{ success: boolean; item?: StoreItem; newPoints?: number; drawnCard?: { cardId: string; wasNew: boolean } | null; error?: string }> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/store/purchase`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -385,6 +385,13 @@ export const gamificationApi = {
       const error = await res.json();
       throw new Error(error.error || 'Failed to equip item');
     }
+    return res.json();
+  },
+
+  // Biblical Cards
+  async getBiblicalCards(userId: string): Promise<Array<{ id: string; cardId: string; owned: boolean; duplicates: number; acquiredAt: string }>> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/${userId}`);
+    if (!res.ok) return [];
     return res.json();
   },
 

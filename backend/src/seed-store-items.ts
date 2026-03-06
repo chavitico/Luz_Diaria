@@ -1005,6 +1005,54 @@ async function seedStoreItems() {
     },
   });
 
+  // Seed Sobre Bíblico (biblical card pack - repeatable consumable)
+  console.log('Seeding Sobre Bíblico...');
+  await prisma.storeItem.upsert({
+    where: { id: 'sobre_biblico' },
+    update: {
+      nameEn: 'Biblical Envelope',
+      nameEs: 'Sobre Bíblico',
+      descriptionEn: 'Contains 1 random biblical card for your collection.',
+      descriptionEs: 'Contiene 1 carta bíblica aleatoria para tu colección.',
+      pricePoints: 2000,
+      rarity: 'rare',
+      type: 'consumable',
+      available: true,
+      category: 'special_objects',
+      subcategory: 'cartas_biblicas',
+      isNew: true,
+      metadata: JSON.stringify({
+        icon: '✉️',
+        consumable: true,
+        repeatablePurchase: true,
+        cardPack: true,
+      }),
+    },
+    create: {
+      id: 'sobre_biblico',
+      type: 'consumable',
+      nameEn: 'Biblical Envelope',
+      nameEs: 'Sobre Bíblico',
+      descriptionEn: 'Contains 1 random biblical card for your collection.',
+      descriptionEs: 'Contiene 1 carta bíblica aleatoria para tu colección.',
+      pricePoints: 2000,
+      rarity: 'rare',
+      assetRef: 'sobre_biblico',
+      category: 'special_objects',
+      subcategory: 'cartas_biblicas',
+      isNew: true,
+      metadata: JSON.stringify({
+        icon: '✉️',
+        consumable: true,
+        repeatablePurchase: true,
+        cardPack: true,
+      }),
+      sortOrder: 10000,
+      available: true,
+    },
+  });
+  console.log('  Sobre Bíblico: processed');
+
   // Summary
   const totalItems = THEMES.length + THEMES_V2.length + THEMES_CHAPTER.length + FRAMES.length + FRAMES_V2.length + FRAMES_CHAPTER.length + MUSIC_TRACKS.length + TITLES.length + TITLES_CHAPTER.length + AVATARS.length + AVATARS_V2.length + AVATARS_L2.length + AVATARS_CHAPTER.length;
   console.log('\n========================================');
