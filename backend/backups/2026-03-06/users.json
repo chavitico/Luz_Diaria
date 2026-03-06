@@ -37,7 +37,7 @@
     "streakCurrent": 28,
     "streakBest": 28,
     "devotionalsCompleted": 17,
-    "totalTimeSeconds": 24491,
+    "totalTimeSeconds": 24675,
     "lastActiveAt": "2026-03-06T07:24:57.045Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-06T14:40:19.887Z"
+    "updatedAt": "2026-03-06T15:05:58.668Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -84,11 +84,11 @@
     "themeId": "theme_jardin_gracia",
     "selectedMusicId": "music_free_1",
     "points": 14767,
-    "streakCurrent": 11,
-    "streakBest": 11,
-    "devotionalsCompleted": 11,
-    "totalTimeSeconds": 479,
-    "lastActiveAt": "2026-03-05T18:00:00.000Z",
+    "streakCurrent": 12,
+    "streakBest": 12,
+    "devotionalsCompleted": 12,
+    "totalTimeSeconds": 924,
+    "lastActiveAt": "2026-03-06T15:00:55.286Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -97,7 +97,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:51:26.062Z",
-    "updatedAt": "2026-03-06T14:57:52.397Z"
+    "updatedAt": "2026-03-06T15:05:54.841Z"
   },
   {
     "id": "cmma36c8v000qm25km7avpj84",
@@ -133,12 +133,12 @@
     "titleId": "title_luz",
     "themeId": "theme_promesa_violeta",
     "selectedMusicId": "music_free_1",
-    "points": 5066,
-    "streakCurrent": 3,
-    "streakBest": 3,
-    "devotionalsCompleted": 4,
-    "totalTimeSeconds": 0,
-    "lastActiveAt": "2026-03-05T18:00:00.000Z",
+    "points": 5080,
+    "streakCurrent": 4,
+    "streakBest": 4,
+    "devotionalsCompleted": 5,
+    "totalTimeSeconds": 628,
+    "lastActiveAt": "2026-03-06T15:08:49.330Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -147,7 +147,7 @@
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-03T15:05:29.022Z",
-    "updatedAt": "2026-03-05T15:12:33.125Z"
+    "updatedAt": "2026-03-06T15:16:13.581Z"
   },
   {
     "id": "cmmb3ggjr001jm2q06al9hwcz",
