@@ -392,6 +392,20 @@ export function PackOpeningModal({
         if (!active.current || !finished) return;
         setPhase('pack_ready');
 
+        // Preload sound while user reads "Toca para abrir", so playback is instant on tap
+        Audio.Sound.createAsync(
+          require('../../assets/audio/sonido_sobre_abriendo.m4a'),
+          { shouldPlay: false, volume: 1.0 }
+        ).then(({ sound }) => {
+          soundRef.current = sound;
+          sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.isLoaded && status.didJustFinish) {
+              sound.unloadAsync().catch(() => {});
+              if (soundRef.current === sound) soundRef.current = null;
+            }
+          });
+        }).catch(() => {});
+
         const loop = Animated.loop(
           Animated.sequence([
             Animated.timing(packFloat, { toValue: -6, duration: 1100, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
@@ -420,19 +434,24 @@ export function PackOpeningModal({
     stopLoops();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
 
-    // Play sound immediately on tap
-    Audio.Sound.createAsync(
-      require('../../assets/audio/sonido_sobre_abriendo.m4a'),
-      { shouldPlay: true, volume: 1.0 }
-    ).then(({ sound }) => {
-      soundRef.current = sound;
-      sound.setOnPlaybackStatusUpdate((status) => {
-        if (status.isLoaded && status.didJustFinish) {
-          sound.unloadAsync().catch(() => {});
-          if (soundRef.current === sound) soundRef.current = null;
-        }
-      });
-    }).catch(() => {});
+    // Fire preloaded sound instantly on tap
+    if (soundRef.current) {
+      soundRef.current.playAsync().catch(() => {});
+    } else {
+      // Fallback if preload didn't finish in time
+      Audio.Sound.createAsync(
+        require('../../assets/audio/sonido_sobre_abriendo.m4a'),
+        { shouldPlay: true, volume: 1.0 }
+      ).then(({ sound }) => {
+        soundRef.current = sound;
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.isLoaded && status.didJustFinish) {
+            sound.unloadAsync().catch(() => {});
+            if (soundRef.current === sound) soundRef.current = null;
+          }
+        });
+      }).catch(() => {});
+    }
 
     // Shake intensity scales with rarity
     const shakeAmp = rarity === 'legendary' ? 1.0 :
