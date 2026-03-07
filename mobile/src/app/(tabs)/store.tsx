@@ -9,7 +9,6 @@ import {
   ScrollView,
   Pressable,
   Modal,
-  Alert,
   ActivityIndicator,
   Dimensions,
   TouchableOpacity,
@@ -61,6 +60,7 @@ import {
   useUserPoints,
   useUser,
   useAppStore,
+  useRequestPackReveal,
 } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { ActionButton } from '@/components/ui/ActionButton';
@@ -6551,6 +6551,13 @@ export default function StoreScreen() {
   // Pending adventure route: set when "Ver aventura" closes StoreSectionModal
   const [pendingAdventureNav, setPendingAdventureNav] = useState<string | null>(null);
 
+  // Pending pack reveal: set on purchase success, dispatched to root layer after sheet fully closes
+  const [pendingPackReveal, setPendingPackReveal] = useState<{
+    drawnCard: { cardId: string; wasNew: boolean };
+    packType: 'sobre_biblico' | 'pack_pascua';
+  } | null>(null);
+  const requestPackReveal = useRequestPackReveal();
+
   // ScrollView ref for programmatic scrolling
   const mainScrollViewRef = useRef<ScrollView>(null);
   // Track current scroll offset so we can compute absolute item positions
@@ -7077,7 +7084,7 @@ export default function StoreScreen() {
   }, [activeCategory, storeSectionModalCategory, userId]);
 
   // Handle token purchases (pincel_magico, sobre_biblico, pack_pascua)
-  // STABILITY-FIRST: no animated modal — use Alert + CardRevealModal only.
+  // STABILITY-FIRST: close sheet first, dispatch reveal to root layer after sheet dismisses.
   // isPackTransactionActive (state) disables all pack buttons during the flow.
   const handleTokenPurchase = async (itemId: string, price: number) => {
     console.log('[Store][Lock] handleTokenPurchase pressed', { itemId, price, isTokenPurchasing: isTokenPurchasing.current, isPackTransactionActive });
@@ -7118,38 +7125,14 @@ export default function StoreScreen() {
           const drawn = res.drawnCard ?? null;
           console.log('[Store][Card] drawn card', drawn);
           if (drawn) {
-            const card = BIBLICAL_CARDS[drawn.cardId];
-            const cardName = card ? (language === 'es' ? card.nameEs : card.nameEn) : drawn.cardId;
-            const statusLabel = drawn.wasNew
-              ? (language === 'es' ? 'Nueva carta' : 'New card')
-              : (language === 'es' ? 'Duplicado guardado' : 'Duplicate saved');
-            console.log('[Store][Reveal] showing Alert', { cardName, statusLabel });
-
-            // Clear failsafe before Alert — Alert is synchronous UI, no freeze risk
-            if (packFailsafeTimeout.current) {
-              clearTimeout(packFailsafeTimeout.current);
-              packFailsafeTimeout.current = null;
-            }
-
-            Alert.alert(
-              language === 'es' ? '¡Carta obtenida!' : 'Card Obtained!',
-              `${cardName}${card ? '\n' + card.verseRef : ''}\n\n${statusLabel}`,
-              [
-                {
-                  text: language === 'es' ? 'Ver mi álbum' : 'View album',
-                  onPress: () => {
-                    console.log('[Store][Reveal] navigating to album');
-                    setPendingAdventureNav('/biblical-cards-album');
-                    setShowStoreSectionModal(false);
-                  },
-                },
-                {
-                  text: language === 'es' ? 'Cerrar' : 'Close',
-                  style: 'cancel',
-                  onPress: () => { console.log('[Store][Reveal] Alert closed'); },
-                },
-              ]
-            );
+            // Queue the reveal to fire AFTER the Store sheet fully closes.
+            // The useEffect below dispatches it to the root-level overlay layer.
+            console.log('[Store][Reveal] queuing reveal, closing sheet');
+            setPendingPackReveal({
+              drawnCard: drawn,
+              packType: itemId as 'sobre_biblico' | 'pack_pascua',
+            });
+            setShowStoreSectionModal(false);
           } else {
             console.log('[Store][Card] no drawn card returned — toast only');
           }
@@ -7163,7 +7146,7 @@ export default function StoreScreen() {
     } catch (err) {
       console.log('[Store][Error] purchaseItem failed', err);
     } finally {
-      // Always release — even if Alert, reveal, or any state-set throws
+      // Always release lock — reveal is now handled by the root overlay, not this modal
       if (packFailsafeTimeout.current) {
         clearTimeout(packFailsafeTimeout.current);
         packFailsafeTimeout.current = null;
@@ -7192,34 +7175,20 @@ export default function StoreScreen() {
       const res = await gamificationApi.claimDailyPack(userId, packType);
       console.log('[Store][DailyPack] claimed', res);
       if (res.success && res.drawnCard) {
-        const drawn = res.drawnCard;
-        const card = BIBLICAL_CARDS[drawn.cardId];
-        const cardName = card ? (language === 'es' ? card.nameEs : card.nameEn) : drawn.cardId;
-        const statusLabel = drawn.wasNew
-          ? (language === 'es' ? 'Nueva carta' : 'New card')
-          : (language === 'es' ? 'Duplicado guardado' : 'Duplicate saved');
         refetchDailyPack();
-        Alert.alert(
-          language === 'es' ? '¡Sobre diario reclamado!' : 'Daily Pack Claimed!',
-          `${cardName}${card ? '\n' + card.verseRef : ''}\n\n${statusLabel}`,
-          [
-            {
-              text: language === 'es' ? 'Ver mi álbum' : 'View album',
-              onPress: () => {
-                setPendingAdventureNav('/biblical-cards-album');
-                setShowStoreSectionModal(false);
-              },
-            },
-            { text: language === 'es' ? 'Cerrar' : 'Close', style: 'cancel' },
-          ]
-        );
+        console.log('[Store][DailyPack] queuing reveal, closing sheet');
+        setPendingPackReveal({
+          drawnCard: res.drawnCard,
+          packType,
+        });
+        setShowStoreSectionModal(false);
       }
     } catch (err) {
       console.log('[Store][DailyPack] claim error', err);
     } finally {
       isDailyPackClaiming.current = false;
     }
-  }, [userId, dailyPackStatus, language]);
+  }, [userId, dailyPackStatus]);
 
   // Handle openCategory navigation param (e.g. from settings lock button)
   useEffect(() => {
@@ -8110,6 +8079,26 @@ export default function StoreScreen() {
       });
     });
   }, [showStoreSectionModal, pendingAdventureNav]);
+
+  // Dispatch pack reveal to root layer after StoreSectionModal fully closes.
+  // This guarantees the reveal renders ABOVE the pageSheet, not inside it.
+  useEffect(() => {
+    if (showStoreSectionModal) return;
+    if (!pendingPackReveal) return;
+
+    const req = pendingPackReveal;
+    setPendingPackReveal(null);
+
+    console.log('[Store][Reveal] sheet closed — dispatching reveal to root layer', req);
+
+    // Give the sheet dismiss animation one frame to finish before mounting the overlay
+    InteractionManager.runAfterInteractions(() => {
+      requestAnimationFrame(() => {
+        console.log('[Store][Reveal] requestPackReveal fired');
+        requestPackReveal(req);
+      });
+    });
+  }, [showStoreSectionModal, pendingPackReveal]);
 
   // Build a detail item object from an itemId + itemType (used for auto-open)
   const buildDetailFromId = useCallback((

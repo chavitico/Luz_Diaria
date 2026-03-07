@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { View, AppState, Text } from 'react-native';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as ExpoSplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -22,6 +22,8 @@ import { ReceivedGiftModal, type ReceivedGift } from '@/components/ReceivedGiftM
 import { gamificationApi } from '@/lib/gamification-api';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { prefetchDevotionals, checkAndPrefetchOnDateChange } from '@/lib/devotional-cache';
+import { usePackRevealRequest, useClearPackRevealRequest } from '@/lib/store';
+import { PackOpeningModal } from '@/components/PackOpeningModal';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -161,6 +163,11 @@ function AppContent() {
   const [showSplash, setShowSplash] = useState(true);
   const [appReady, setAppReady] = useState(false);
   const fetchBranding = useBrandingStore(s => s.fetchBranding);
+
+  // Root-level pack reveal — rendered above all navigation layers
+  const packRevealRequest = usePackRevealRequest();
+  const clearPackRevealRequest = useClearPackRevealRequest();
+  const router = useRouter();
 
   // Gift modal state
   const [pendingGift, setPendingGift] = useState<PendingGift | null>(null);
@@ -439,6 +446,21 @@ function AppContent() {
           onClose={handleReceivedGiftClose}
         />
       )}
+      {/* Root-level pack reveal — mounted ABOVE all navigation and pageSheet layers */}
+      <PackOpeningModal
+        visible={!!packRevealRequest}
+        packType={packRevealRequest?.packType ?? null}
+        drawnCard={packRevealRequest?.drawnCard ?? null}
+        onClose={() => {
+          console.log('[PackReveal] closed');
+          clearPackRevealRequest();
+        }}
+        onViewAlbum={() => {
+          console.log('[PackReveal] navigating to album');
+          clearPackRevealRequest();
+          router.push('/biblical-cards-album' as any);
+        }}
+      />
     </>
   );
 }

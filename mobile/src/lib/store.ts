@@ -315,6 +315,11 @@ export const useEquippedMusic = () => useAppStore((s) => s.user?.selectedMusicId
 export const useUserDailyActions = () => useAppStore((s) => s.user?.dailyActions ?? {});
 export const useInventory = () => useAppStore((s) => s.inventoryItems);
 
+// Pack reveal request — consumed by root-level PackRevealOverlay in _layout.tsx
+export const usePackRevealRequest = () => useAppStore((s) => s.packRevealRequest);
+export const useRequestPackReveal = () => useAppStore((s) => s.requestPackReveal);
+export const useClearPackRevealRequest = () => useAppStore((s) => s.clearPackRevealRequest);
+
 // Helper: returns '#FFFFFF' or '#1A1A1A' depending on which gives better contrast on the given hex bg
 export function getContrastText(hex: string): string {
   const r = parseInt(hex.slice(1, 3), 16);
