@@ -6366,6 +6366,8 @@ export default function StoreScreen() {
   // Sub-menu modal: 'personalizacion' | 'colecciones' | null
   const [showSubMenuModal, setShowSubMenuModal] = useState(false);
   const [subMenuType, setSubMenuType] = useState<'personalizacion' | 'colecciones' | null>(null);
+  // Track if StoreSectionModal was opened from submenu, so Back returns to submenu
+  const storeSectionFromSubmenu = useRef<'personalizacion' | 'colecciones' | null>(null);
   const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
   const [showCardRevealModal, setShowCardRevealModal] = useState(false);
   const [revealedCard, setRevealedCard] = useState<{ cardId: string; wasNew: boolean } | null>(null);
@@ -6431,6 +6433,19 @@ export default function StoreScreen() {
   const isOpeningModal = useRef(false);
   const lastCategoryTapAt = useRef(0);
   const isOpeningItem = useRef(false);
+
+  // Close StoreSectionModal: if it was opened from a submenu, return to that submenu
+  const closeStoreSectionModal = useCallback(() => {
+    setShowStoreSectionModal(false);
+    const src = storeSectionFromSubmenu.current;
+    if (src) {
+      storeSectionFromSubmenu.current = null;
+      setTimeout(() => {
+        setSubMenuType(src);
+        setShowSubMenuModal(true);
+      }, 350);
+    }
+  }, []);
 
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
@@ -8276,6 +8291,7 @@ export default function StoreScreen() {
                 {/* Temas */}
                 <Pressable
                   onPress={() => {
+                    storeSectionFromSubmenu.current = 'personalizacion';
                     setShowSubMenuModal(false);
                     setTimeout(() => {
                       setActiveSubcategory('all');
@@ -8310,6 +8326,7 @@ export default function StoreScreen() {
                 {/* Marcos */}
                 <Pressable
                   onPress={() => {
+                    storeSectionFromSubmenu.current = 'personalizacion';
                     setShowSubMenuModal(false);
                     setTimeout(() => {
                       setActiveSubcategory('all');
@@ -8344,6 +8361,7 @@ export default function StoreScreen() {
                 {/* Avatares */}
                 <Pressable
                   onPress={() => {
+                    storeSectionFromSubmenu.current = 'personalizacion';
                     setShowSubMenuModal(false);
                     setTimeout(() => {
                       setActiveSubcategory('all');
@@ -8378,6 +8396,7 @@ export default function StoreScreen() {
                 {/* Títulos */}
                 <Pressable
                   onPress={() => {
+                    storeSectionFromSubmenu.current = 'personalizacion';
                     setShowSubMenuModal(false);
                     setTimeout(() => {
                       setActiveSubcategory('all');
@@ -8419,10 +8438,19 @@ export default function StoreScreen() {
         visible={showStoreSectionModal}
         animationType="slide"
         presentationStyle="pageSheet"
-        onRequestClose={() => setShowStoreSectionModal(false)}
+        onRequestClose={closeStoreSectionModal}
         onDismiss={() => {
-          // Lock released here as failsafe; navigation is driven by the useEffect below
+          // Lock released here as failsafe
           isOpeningModal.current = false;
+          // If dismissed via swipe-down (not the back button), also return to submenu
+          const src = storeSectionFromSubmenu.current;
+          if (src) {
+            storeSectionFromSubmenu.current = null;
+            setTimeout(() => {
+              setSubMenuType(src);
+              setShowSubMenuModal(true);
+            }, 100);
+          }
         }}
       >
         <View style={{ flex: 1, backgroundColor: colors.background }}>
@@ -8437,7 +8465,7 @@ export default function StoreScreen() {
             borderBottomColor: colors.textMuted + '20',
           }}>
             <Pressable
-              onPress={() => setShowStoreSectionModal(false)}
+              onPress={closeStoreSectionModal}
               style={{ marginRight: 12, padding: 4 }}
             >
               <ChevronLeft size={24} color={colors.text} />
