@@ -45,21 +45,6 @@
     "updatedAt": "2026-03-05T04:09:23.905Z"
   },
   {
-    "id": "cmmeglcq3001bm26pp1igfaxr",
-    "userId": "cmma36c8v000qm25km7avpj84",
-    "periodId": "active",
-    "mode": "daily",
-    "categoryKey": "work",
-    "nickname": "Victoria",
-    "avatarId": "avatar_v3_paloma_luz",
-    "frameId": "frame_luz",
-    "titleId": "title_walk_by_faith",
-    "displayNameOptIn": true,
-    "expiresAt": "2026-03-08T05:33:38.089Z",
-    "createdAt": "2026-03-06T05:33:38.091Z",
-    "updatedAt": "2026-03-06T05:33:38.091Z"
-  },
-  {
     "id": "cmmftz3od0017m26ayj3ipymo",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "periodId": "active",
@@ -88,5 +73,20 @@
     "expiresAt": "2026-03-09T05:13:58.787Z",
     "createdAt": "2026-03-07T05:13:58.790Z",
     "updatedAt": "2026-03-07T05:13:58.790Z"
+  },
+  {
+    "id": "cmmg4tt90001em26ycylvcrf7",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "peace",
+    "nickname": "Victoria",
+    "avatarId": "avatar_v3_paloma_luz",
+    "frameId": "frame_luz",
+    "titleId": "title_walk_by_faith",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-09T09:39:49.713Z",
+    "createdAt": "2026-03-07T09:39:49.716Z",
+    "updatedAt": "2026-03-07T09:39:49.716Z"
   }
 ]

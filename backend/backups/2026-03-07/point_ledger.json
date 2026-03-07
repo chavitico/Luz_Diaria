@@ -1208,5 +1208,35 @@
     "amount": 5000,
     "metadata": "{\"reason\":\"Para que abra sobres\",\"giftDropId\":\"cmmg0033c005jm2xy47phld2c\"}",
     "createdAt": "2026-03-07T07:25:58.982Z"
+  },
+  {
+    "id": "cmmg4t4lt001cm26y6mv9016e",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "prayer_2026-03-07",
+    "type": "prayer",
+    "dateId": "2026-03-07",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T09:39:17.777Z"
+  },
+  {
+    "id": "cmmg4tt91001gm26yesnexms5",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "prayer_request_2026-03-07",
+    "type": "prayer_request",
+    "dateId": "2026-03-07",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"peace\"}",
+    "createdAt": "2026-03-07T09:39:49.717Z"
+  },
+  {
+    "id": "cmmg4tyaz001im26yfeencvbm",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "prayed_community_2026-03-07",
+    "type": "prayed_community",
+    "dateId": "2026-03-07",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T09:39:56.268Z"
   }
 ]
