@@ -1098,5 +1098,35 @@
     "amount": 10,
     "metadata": "{\"categoryKey\":\"family\"}",
     "createdAt": "2026-03-07T04:36:00.734Z"
+  },
+  {
+    "id": "cmmfvblk40013m2qiyb1v8rgs",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "ledgerId": "prayer_2026-03-07",
+    "type": "prayer",
+    "dateId": "2026-03-07",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T05:13:43.396Z"
+  },
+  {
+    "id": "cmmfvbqzo0015m2qi9ztwb7s4",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "ledgerId": "prayed_community_2026-03-06",
+    "type": "prayed_community",
+    "dateId": "2026-03-06",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T05:13:50.437Z"
+  },
+  {
+    "id": "cmmfvbxfq0019m2qi2bn6qsq0",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "ledgerId": "prayer_request_2026-03-06",
+    "type": "prayer_request",
+    "dateId": "2026-03-06",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"wisdom\"}",
+    "createdAt": "2026-03-07T05:13:58.790Z"
   }
 ]

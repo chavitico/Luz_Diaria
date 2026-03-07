@@ -1,20 +1,5 @@
 [
   {
-    "id": "cmmaoqxa6001hm25pj9lhfhaj",
-    "userId": "cmm9y71p5000km29qqx44tb91",
-    "periodId": "active",
-    "mode": "daily",
-    "categoryKey": "gratitude",
-    "nickname": "Chavitico2",
-    "avatarId": "avatar_praying",
-    "frameId": "frame_v2_jade",
-    "titleId": "title_constructor",
-    "displayNameOptIn": true,
-    "expiresAt": "2026-03-05T14:10:50.236Z",
-    "createdAt": "2026-03-03T14:10:50.239Z",
-    "updatedAt": "2026-03-03T14:10:50.239Z"
-  },
-  {
     "id": "cmmbblvh80011m261pnc9gg88",
     "userId": "cmmb3ggjr001jm2q06al9hwcz",
     "periodId": "active",
@@ -88,5 +73,20 @@
     "expiresAt": "2026-03-09T04:36:00.731Z",
     "createdAt": "2026-03-07T04:36:00.733Z",
     "updatedAt": "2026-03-07T04:36:00.733Z"
+  },
+  {
+    "id": "cmmfvbxfp0017m2qikbrbbe3j",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "wisdom",
+    "nickname": "Chavitico2",
+    "avatarId": "avatar_praying",
+    "frameId": "frame_v2_jade",
+    "titleId": "title_constructor",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-09T05:13:58.787Z",
+    "createdAt": "2026-03-07T05:13:58.790Z",
+    "updatedAt": "2026-03-07T05:13:58.790Z"
   }
 ]
