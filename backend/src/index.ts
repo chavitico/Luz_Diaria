@@ -1,6 +1,7 @@
 import "@vibecodeapp/proxy"; // DO NOT REMOVE OTHERWISE VIBECODE PROXY WILL NOT WORK
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { serveStatic } from "hono/bun";
 import "./env";
 import { env, IS_PROD } from "./env";
 import { initDatabase } from "./db-init";
@@ -48,6 +49,9 @@ app.use("*", logger());
 app.get("/health", (c) =>
   c.json({ status: "ok", appEnv: env.APP_ENV, isProd: IS_PROD })
 );
+
+// Static file serving for card images
+app.use("/cards/*", serveStatic({ root: "./public" }));
 
 // Routes
 app.route("/api/sample", sampleRouter);
