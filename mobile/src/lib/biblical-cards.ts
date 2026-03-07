@@ -1,4 +1,4 @@
-// Biblical Cards — Phase 1: 6 cards + 1 special legendary
+// Biblical Cards — Phase 1: 6 standard cards + 1 special legendary + Pascua 2026 event set
 // Phase 2 will add trading system for duplicates.
 // imageUrl is optional — when present, the card renders remote artwork instead of local fallback.
 
@@ -14,9 +14,17 @@ export interface BiblicalCard {
   rarity: CardRarity;
   /**
    * Whether this card is included in the standard random pack draw pool.
-   * Set to false for special / event / legendary-only cards (e.g. Jesus card).
+   * Set to false for special / event / legendary-only cards.
    */
   inStandardPool: boolean;
+  // ── Event metadata (optional) ────────────────────────────────────────────
+  /** Slug for the event this card belongs to, e.g. "pascua" */
+  event?: string;
+  /** Versioned event set identifier, e.g. "pascua_2026" */
+  eventSet?: string;
+  /** Chronological order within the event set (1-based) */
+  eventOrder?: number;
+  // ─────────────────────────────────────────────────────────────────────────
   descriptionEs: string;
   descriptionEn: string;
   verseRef: string;
@@ -33,7 +41,6 @@ export interface BiblicalCard {
   /**
    * Focal point for the illustration crop (0–1 range).
    * 0.5 / 0.5 = centered (default).
-   * Adjust to keep heads / key subjects visible.
    *
    * ARTWORK GENERATION GUIDELINES
    * ─────────────────────────────────────────────────────────────────────────
@@ -43,14 +50,13 @@ export interface BiblicalCard {
    *     vertical:   10%–85% of image height
    * • Do NOT place faces, heads, or key action areas near the frame edge.
    * • Leave visual breathing room at top and bottom (≥ 10% padding).
-   * • If the scene has multiple subjects (e.g. David + Goliath), anchor the
-   *   focal point between them so both stay visible.
+   * • If the scene has multiple subjects, anchor the focal point between them.
    * • After generating, set imageFocusX / imageFocusY so the renderer centres
    *   the crop on the most important part of the scene.
    * ─────────────────────────────────────────────────────────────────────────
    */
-  imageFocusX?: number; // 0 = left edge, 0.5 = center (default), 1 = right edge
-  imageFocusY?: number; // 0 = top edge,  0.5 = center (default), 1 = bottom edge
+  imageFocusX?: number;
+  imageFocusY?: number;
   // Per-card decorative motif used by the local fallback renderer
   motif: {
     topSymbol: string;
@@ -265,11 +271,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     datoDestacadoEs: 'Su vida, muerte y resurrección transformaron la historia para siempre.',
     significadoBiblicoEs: 'Representa salvación, gracia, autoridad suprema y esperanza eterna.',
     visualHints: ['crown of thorns', 'white robe', 'divine light', 'resurrection', 'cross'],
-    // Warm luminous white-gold palette — reverent, majestic, sacred
     gradientColors: ['#1A1200', '#3D2B00', '#5C3F00'],
     accentColor: '#F5E27A',
-    // No imageUrl yet — placeholder art via motif fallback until official artwork is commissioned.
-    // When ready: add imageUrl and imageFocusX / imageFocusY per artwork guidelines.
     motif: {
       topSymbol: '✟',
       subtitleEs: 'Rey de Reyes',
@@ -280,6 +283,430 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
       cornerGlyph: '♔',
     },
   },
+
+  // ─── PASCUA 2026 EVENT SET ────────────────────────────────────────────────────
+  // event: "pascua" | eventSet: "pascua_2026" | inStandardPool: false
+  // Cards are sorted by eventOrder (1–14) in getEventSetCards().
+
+  entrada_jerusalen: {
+    id: 'entrada_jerusalen',
+    nameEs: 'Entrada Triunfal',
+    nameEn: 'Triumphal Entry',
+    category: 'Eventos',
+    rarity: 'rare',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 1,
+    descriptionEs: 'Jesús entra en Jerusalén montado en un burrito mientras la multitud lo recibe como Rey.',
+    descriptionEn: 'Jesus enters Jerusalem on a donkey as the crowd receives him as King.',
+    verseRef: 'Mateo 21:9',
+    verseTextEs: '¡Hosanna al Hijo de David! ¡Bendito el que viene en el nombre del Señor!',
+    datoDestacadoEs: 'La multitud extendía mantos y ramas en el camino.',
+    significadoBiblicoEs: 'Representa el cumplimiento de las profecías sobre el Mesías.',
+    visualHints: ['donkey', 'palm branches', 'crowd', 'Jerusalem gate'],
+    gradientColors: ['#1A2E0A', '#2D4F12', '#3D6618'],
+    accentColor: '#7EC850',
+    motif: {
+      topSymbol: '✦',
+      subtitleEs: 'Domingo de Ramos',
+      subtitleEn: 'Palm Sunday',
+      artEmoji: '🌿',
+      decorSymbols: ['🌿', '✦', '🌿'],
+      sheenColors: ['rgba(126,200,80,0.28)', 'rgba(80,160,40,0.08)'],
+      cornerGlyph: '✦',
+    },
+  },
+
+  burrito: {
+    id: 'burrito',
+    nameEs: 'El Burrito',
+    nameEn: "The Donkey",
+    category: 'Objetos',
+    rarity: 'common',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 2,
+    descriptionEs: 'El humilde animal que llevó a Jesús durante su entrada triunfal en Jerusalén.',
+    descriptionEn: 'The humble animal that carried Jesus during his triumphal entry into Jerusalem.',
+    verseRef: 'Lucas 19:30',
+    verseTextEs: 'Id a la aldea de enfrente, en la cual entrareis y hallaréis un pollino atado.',
+    datoDestacadoEs: 'Jesús eligió un burrito en lugar de un caballo de guerra.',
+    significadoBiblicoEs: 'Simboliza humildad y paz.',
+    visualHints: ['donkey', 'palm road', 'humble', 'Jerusalem'],
+    gradientColors: ['#2A1F0E', '#4A3618', '#5E4520'],
+    accentColor: '#C4975A',
+    motif: {
+      topSymbol: '🫏',
+      subtitleEs: 'Humildad',
+      subtitleEn: 'Humility',
+      artEmoji: '🫏',
+      decorSymbols: ['✦', '🫏', '✦'],
+      sheenColors: ['rgba(196,151,90,0.28)', 'rgba(150,100,50,0.08)'],
+      cornerGlyph: '✦',
+    },
+  },
+
+  ultima_cena: {
+    id: 'ultima_cena',
+    nameEs: 'La Última Cena',
+    nameEn: 'The Last Supper',
+    category: 'Eventos',
+    rarity: 'epic',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 3,
+    descriptionEs: 'Jesús comparte el pan y el vino con sus discípulos antes de su arresto.',
+    descriptionEn: 'Jesus shares bread and wine with his disciples before his arrest.',
+    verseRef: 'Lucas 22:19',
+    verseTextEs: 'Esto es mi cuerpo, que por vosotros es dado; haced esto en memoria de mí.',
+    datoDestacadoEs: '"Haced esto en memoria de mí."',
+    significadoBiblicoEs: 'Institución de la Santa Cena.',
+    visualHints: ['bread', 'wine', 'table', 'twelve disciples', 'candlelight'],
+    gradientColors: ['#1E0E00', '#3D1E00', '#5C2D00'],
+    accentColor: '#E07B30',
+    motif: {
+      topSymbol: '✟',
+      subtitleEs: 'Santa Cena',
+      subtitleEn: 'Holy Communion',
+      artEmoji: '🍞',
+      decorSymbols: ['🍞', '✟', '🍷'],
+      sheenColors: ['rgba(224,123,48,0.30)', 'rgba(180,80,20,0.08)'],
+      cornerGlyph: '✟',
+    },
+  },
+
+  getsemani: {
+    id: 'getsemani',
+    nameEs: 'Oración en Getsemaní',
+    nameEn: 'Prayer at Gethsemane',
+    category: 'Eventos',
+    rarity: 'epic',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 4,
+    descriptionEs: 'Jesús ora con profunda angustia antes de su arresto.',
+    descriptionEn: 'Jesus prays in deep anguish before his arrest.',
+    verseRef: 'Mateo 26:39',
+    verseTextEs: 'No sea como yo quiero, sino como tú.',
+    datoDestacadoEs: '"No sea como yo quiero, sino como tú."',
+    significadoBiblicoEs: 'Muestra obediencia total al Padre.',
+    visualHints: ['olive garden', 'kneeling', 'moonlight', 'anguish', 'prayer'],
+    gradientColors: ['#050E1A', '#0A1E36', '#102848'],
+    accentColor: '#5B8DD9',
+    motif: {
+      topSymbol: '☩',
+      subtitleEs: 'Obediencia',
+      subtitleEn: 'Obedience',
+      artEmoji: '🌙',
+      decorSymbols: ['☩', '✦', '☩'],
+      sheenColors: ['rgba(91,141,217,0.28)', 'rgba(50,90,160,0.08)'],
+      cornerGlyph: '☩',
+    },
+  },
+
+  judas: {
+    id: 'judas',
+    nameEs: 'La Traición de Judas',
+    nameEn: 'The Betrayal of Judas',
+    category: 'Personajes',
+    rarity: 'rare',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 5,
+    descriptionEs: 'Judas identifica a Jesús con un beso para entregarlo a los soldados.',
+    descriptionEn: 'Judas identifies Jesus with a kiss to hand him over to the soldiers.',
+    verseRef: 'Mateo 26:49',
+    verseTextEs: '¡Salve, Maestro! Y le besó.',
+    datoDestacadoEs: 'El beso de traición.',
+    significadoBiblicoEs: 'Cumplimiento de las profecías.',
+    visualHints: ['kiss', 'betrayal', 'soldiers', 'torchlight', 'thirty silver coins'],
+    gradientColors: ['#1A0A00', '#360F00', '#501500'],
+    accentColor: '#C0392B',
+    motif: {
+      topSymbol: '✦',
+      subtitleEs: 'Traición',
+      subtitleEn: 'Betrayal',
+      artEmoji: '💋',
+      decorSymbols: ['💰', '✦', '💔'],
+      sheenColors: ['rgba(192,57,43,0.28)', 'rgba(140,30,20,0.08)'],
+      cornerGlyph: '✦',
+    },
+  },
+
+  arresto: {
+    id: 'arresto',
+    nameEs: 'Arresto de Jesús',
+    nameEn: 'Arrest of Jesus',
+    category: 'Eventos',
+    rarity: 'common',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 6,
+    descriptionEs: 'Jesús es arrestado por los soldados y llevado ante las autoridades.',
+    descriptionEn: 'Jesus is arrested by soldiers and brought before the authorities.',
+    verseRef: 'Juan 18:12',
+    verseTextEs: 'La compañía de soldados prendió a Jesús y le ató.',
+    datoDestacadoEs: 'Los discípulos se dispersan.',
+    significadoBiblicoEs: 'Inicio del juicio injusto.',
+    visualHints: ['soldiers', 'torches', 'bound hands', 'night', 'garden'],
+    gradientColors: ['#0A0A14', '#141422', '#1E1E30'],
+    accentColor: '#8888CC',
+    motif: {
+      topSymbol: '⛓',
+      subtitleEs: 'Captura',
+      subtitleEn: 'Captured',
+      artEmoji: '⛓️',
+      decorSymbols: ['⛓', '✦', '⛓'],
+      sheenColors: ['rgba(136,136,204,0.24)', 'rgba(80,80,160,0.08)'],
+      cornerGlyph: '⛓',
+    },
+  },
+
+  poncio_pilato: {
+    id: 'poncio_pilato',
+    nameEs: 'Poncio Pilato',
+    nameEn: 'Pontius Pilate',
+    category: 'Personajes',
+    rarity: 'rare',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 7,
+    descriptionEs: 'Gobernador romano que autorizó la crucifixión de Jesús.',
+    descriptionEn: 'Roman governor who authorized the crucifixion of Jesus.',
+    verseRef: 'Mateo 27:24',
+    verseTextEs: 'Tomó agua y se lavó las manos delante de la multitud, diciendo: Inocente soy yo de la sangre de este justo.',
+    datoDestacadoEs: 'Pilato se lava las manos ante la multitud.',
+    significadoBiblicoEs: 'Representa la presión política frente a la verdad.',
+    visualHints: ['Roman robes', 'stone basin', 'water', 'crowd', 'Jerusalem courtyard'],
+    gradientColors: ['#1A1208', '#2E2010', '#3E2C14'],
+    accentColor: '#C8A84B',
+    motif: {
+      topSymbol: '⚖',
+      subtitleEs: 'Juicio',
+      subtitleEn: 'Judgment',
+      artEmoji: '⚖️',
+      decorSymbols: ['⚖', '✦', '🏛'],
+      sheenColors: ['rgba(200,168,75,0.28)', 'rgba(160,120,40,0.08)'],
+      cornerGlyph: '⚖',
+    },
+  },
+
+  barrabas: {
+    id: 'barrabas',
+    nameEs: 'Barrabás',
+    nameEn: 'Barabbas',
+    category: 'Personajes',
+    rarity: 'common',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 8,
+    descriptionEs: 'Criminal liberado por la multitud en lugar de Jesús.',
+    descriptionEn: 'Criminal released by the crowd instead of Jesus.',
+    verseRef: 'Mateo 27:26',
+    verseTextEs: 'Entonces les soltó a Barrabás; y habiendo azotado a Jesús, le entregó para ser crucificado.',
+    datoDestacadoEs: 'El pueblo pidió la libertad de Barrabás.',
+    significadoBiblicoEs: 'Imagen simbólica del pecador liberado mientras Cristo toma su lugar.',
+    visualHints: ['prisoner', 'chains broken', 'crowd', 'freedom'],
+    gradientColors: ['#140A0A', '#280F0F', '#3A1414'],
+    accentColor: '#AA4444',
+    motif: {
+      topSymbol: '⛓',
+      subtitleEs: 'El Libre',
+      subtitleEn: 'The Freed',
+      artEmoji: '🔓',
+      decorSymbols: ['🔓', '✦', '⛓'],
+      sheenColors: ['rgba(170,68,68,0.28)', 'rgba(120,40,40,0.08)'],
+      cornerGlyph: '✦',
+    },
+  },
+
+  camino_calvario: {
+    id: 'camino_calvario',
+    nameEs: 'Camino al Calvario',
+    nameEn: 'Way of the Cross',
+    category: 'Eventos',
+    rarity: 'common',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 9,
+    descriptionEs: 'Jesús carga la cruz rumbo al lugar de la crucifixión.',
+    descriptionEn: 'Jesus carries the cross toward the place of crucifixion.',
+    verseRef: 'Lucas 23:26',
+    verseTextEs: 'Y llevándole, tomaron a cierto Simón de Cirene que venía del campo, y le pusieron encima la cruz para que la llevase tras Jesús.',
+    datoDestacadoEs: 'Simón de Cirene ayuda a llevar la cruz.',
+    significadoBiblicoEs: 'Camino de sacrificio y redención.',
+    visualHints: ['cross', 'cobblestone road', 'crowd watching', 'Simon of Cyrene', 'Jerusalem street'],
+    gradientColors: ['#1A1008', '#301E0C', '#452810'],
+    accentColor: '#B07840',
+    motif: {
+      topSymbol: '✟',
+      subtitleEs: 'Vía Crucis',
+      subtitleEn: 'Via Crucis',
+      artEmoji: '✝️',
+      decorSymbols: ['✟', '✦', '✟'],
+      sheenColors: ['rgba(176,120,64,0.28)', 'rgba(130,80,30,0.08)'],
+      cornerGlyph: '✟',
+    },
+  },
+
+  crucifixion: {
+    id: 'crucifixion',
+    nameEs: 'Jesús en la Cruz',
+    nameEn: 'Jesus on the Cross',
+    category: 'Eventos',
+    rarity: 'legendary',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 10,
+    descriptionEs: 'Jesús entrega su vida en la cruz por la salvación del mundo.',
+    descriptionEn: 'Jesus gives his life on the cross for the salvation of the world.',
+    verseRef: 'Lucas 23:46',
+    verseTextEs: 'Padre, en tus manos encomiendo mi espíritu.',
+    datoDestacadoEs: '"Padre, en tus manos encomiendo mi espíritu."',
+    significadoBiblicoEs: 'El sacrificio central de la fe cristiana.',
+    visualHints: ['cross', 'Golgotha', 'dark sky', 'crown of thorns', 'divine light'],
+    gradientColors: ['#1A0000', '#380000', '#500000'],
+    accentColor: '#CC3333',
+    motif: {
+      topSymbol: '✟',
+      subtitleEs: 'Sacrificio Eterno',
+      subtitleEn: 'Eternal Sacrifice',
+      artEmoji: '✝️',
+      decorSymbols: ['✟', '✦', '✟'],
+      sheenColors: ['rgba(204,51,51,0.35)', 'rgba(160,20,20,0.10)'],
+      cornerGlyph: '✟',
+    },
+  },
+
+  velo_rasgado: {
+    id: 'velo_rasgado',
+    nameEs: 'El Velo Rasgado',
+    nameEn: 'The Torn Veil',
+    category: 'Eventos',
+    rarity: 'epic',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 11,
+    descriptionEs: 'El velo del templo se rasga cuando Jesús muere.',
+    descriptionEn: 'The temple veil tears in two when Jesus dies.',
+    verseRef: 'Mateo 27:51',
+    verseTextEs: 'El velo del templo se rasgó en dos, de arriba abajo.',
+    datoDestacadoEs: 'El acceso directo a Dios queda abierto.',
+    significadoBiblicoEs: 'Fin de la separación entre Dios y la humanidad.',
+    visualHints: ['temple veil', 'tearing', 'divine light', 'holy of holies', 'earthquake'],
+    gradientColors: ['#1A1200', '#342400', '#4A3300'],
+    accentColor: '#D4A030',
+    motif: {
+      topSymbol: '✟',
+      subtitleEs: 'Acceso a Dios',
+      subtitleEn: 'Access to God',
+      artEmoji: '⚡',
+      decorSymbols: ['✟', '⚡', '✟'],
+      sheenColors: ['rgba(212,160,48,0.32)', 'rgba(170,110,20,0.08)'],
+      cornerGlyph: '✟',
+    },
+  },
+
+  tumba_sellada: {
+    id: 'tumba_sellada',
+    nameEs: 'La Tumba Sellada',
+    nameEn: 'The Sealed Tomb',
+    category: 'Eventos',
+    rarity: 'rare',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 12,
+    descriptionEs: 'La tumba de Jesús es sellada y vigilada por soldados.',
+    descriptionEn: 'The tomb of Jesus is sealed and guarded by soldiers.',
+    verseRef: 'Mateo 27:66',
+    verseTextEs: 'Fueron y aseguraron el sepulcro, sellando la piedra y poniendo la guardia.',
+    datoDestacadoEs: 'La piedra es colocada en la entrada.',
+    significadoBiblicoEs: 'Preparación para el milagro de la resurrección.',
+    visualHints: ['stone tomb', 'sealed stone', 'Roman soldiers', 'dawn', 'garden'],
+    gradientColors: ['#0A0A0A', '#161616', '#222222'],
+    accentColor: '#888888',
+    motif: {
+      topSymbol: '⛰',
+      subtitleEs: 'Silencio',
+      subtitleEn: 'Silence',
+      artEmoji: '🪨',
+      decorSymbols: ['🪨', '✦', '🪨'],
+      sheenColors: ['rgba(136,136,136,0.24)', 'rgba(90,90,90,0.08)'],
+      cornerGlyph: '⛰',
+    },
+  },
+
+  resurreccion: {
+    id: 'resurreccion',
+    nameEs: 'La Resurrección',
+    nameEn: 'The Resurrection',
+    category: 'Eventos',
+    rarity: 'legendary',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 13,
+    descriptionEs: 'Jesús resucita al tercer día venciendo la muerte.',
+    descriptionEn: 'Jesus rises on the third day, conquering death.',
+    verseRef: 'Mateo 28:6',
+    verseTextEs: 'No está aquí, pues ha resucitado, como dijo. Venid, ved el lugar donde fue puesto el Señor.',
+    datoDestacadoEs: '"No está aquí, pues ha resucitado."',
+    significadoBiblicoEs: 'La victoria definitiva sobre el pecado y la muerte.',
+    visualHints: ['empty tomb', 'open stone', 'blazing light', 'angel', 'white linen'],
+    gradientColors: ['#1A1400', '#3D3200', '#604E00'],
+    accentColor: '#F5D060',
+    motif: {
+      topSymbol: '✟',
+      subtitleEs: '¡Resucitó!',
+      subtitleEn: 'He is Risen!',
+      artEmoji: '☀️',
+      decorSymbols: ['✟', '☀️', '✟'],
+      sheenColors: ['rgba(245,208,96,0.40)', 'rgba(220,170,40,0.12)'],
+      cornerGlyph: '☀',
+    },
+  },
+
+  tomas: {
+    id: 'tomas',
+    nameEs: 'Tomás el Incrédulo',
+    nameEn: 'Doubting Thomas',
+    category: 'Personajes',
+    rarity: 'rare',
+    inStandardPool: false,
+    event: 'pascua',
+    eventSet: 'pascua_2026',
+    eventOrder: 14,
+    descriptionEs: 'Tomás duda de la resurrección hasta ver a Jesús resucitado.',
+    descriptionEn: 'Thomas doubts the resurrection until he sees the risen Jesus.',
+    verseRef: 'Juan 20:27',
+    verseTextEs: 'Pon aquí tu dedo, y mira mis manos; y acerca tu mano, y métela en mi costado.',
+    datoDestacadoEs: '"Señor mío y Dios mío."',
+    significadoBiblicoEs: 'La fe que nace después de la duda.',
+    visualHints: ['hands', 'wounds', 'doubt', 'faith', 'risen Jesus'],
+    gradientColors: ['#0A1020', '#121C38', '#1A2850'],
+    accentColor: '#6090D0',
+    motif: {
+      topSymbol: '✦',
+      subtitleEs: 'Fe y Duda',
+      subtitleEn: 'Faith & Doubt',
+      artEmoji: '🙏',
+      decorSymbols: ['🙏', '✦', '✝'],
+      sheenColors: ['rgba(96,144,208,0.28)', 'rgba(60,100,160,0.08)'],
+      cornerGlyph: '✦',
+    },
+  },
 };
 
 export const ALL_CARD_IDS = Object.keys(BIBLICAL_CARDS);
@@ -288,6 +715,16 @@ export const ALL_CARD_IDS = Object.keys(BIBLICAL_CARDS);
 export const STANDARD_POOL_IDS = Object.values(BIBLICAL_CARDS)
   .filter((c) => c.inStandardPool)
   .map((c) => c.id);
+
+/**
+ * Returns all cards belonging to a given eventSet, sorted by eventOrder.
+ * Used by the album to render event sections in chronological order.
+ */
+export function getEventSetCards(eventSet: string): BiblicalCard[] {
+  return Object.values(BIBLICAL_CARDS)
+    .filter((c) => c.eventSet === eventSet)
+    .sort((a, b) => (a.eventOrder ?? 0) - (b.eventOrder ?? 0));
+}
 
 export function getCard(id: string): BiblicalCard | undefined {
   return BIBLICAL_CARDS[id];

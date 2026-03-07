@@ -25,7 +25,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi } from '@/lib/gamification-api';
-import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard, RARITY_CONFIG, type CardRarity } from '@/lib/biblical-cards';
+import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard, RARITY_CONFIG, type CardRarity, getEventSetCards } from '@/lib/biblical-cards';
 import { CollectibleCardVisual } from '@/components/CardRevealModal';
 import { preloadCardImages, preloadOwnedCardImages } from '@/lib/card-image-preload';
 
@@ -125,6 +125,84 @@ function CardThumbnailArtwork({ card }: { card: BiblicalCard }) {
   );
 }
 
+// ─────────────────────────────────────────────
+// Focal-point artwork for event (Pascua) cards.
+// Same logic as CardThumbnailArtwork but accepts a custom cardW prop
+// so it works at any column width.
+// ─────────────────────────────────────────────
+function PascuaCardArtwork({ card, cardW }: { card: BiblicalCard; cardW: number }) {
+  const focusX = card.imageFocusX ?? 0.5;
+  const focusY = card.imageFocusY ?? 0.5;
+  const [containerH, setContainerH] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const fadeAnim = useRef(new RNAnimated.Value(0)).current;
+
+  const onLayout = useCallback((e: LayoutChangeEvent) => {
+    setContainerH(e.nativeEvent.layout.height);
+  }, []);
+
+  const onImageLoad = useCallback(() => {
+    setImageLoaded(true);
+    RNAnimated.timing(fadeAnim, { toValue: 1, duration: 220, useNativeDriver: true }).start();
+  }, [fadeAnim]);
+
+  const OVERSIZE = 1.6;
+  const oversizeH = containerH > 0 ? containerH * OVERSIZE : 0;
+  const translateY = containerH > 0 ? (0.5 - focusY) * (oversizeH - containerH) : 0;
+  const oversizeW = cardW * OVERSIZE;
+  const translateX = (0.5 - focusX) * (oversizeW - cardW);
+
+  if (!card.imageUrl) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: cardW * 0.28 }}>{card.motif.artEmoji}</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={{ flex: 1, overflow: 'hidden' }} onLayout={onLayout}>
+      {!imageLoaded && (
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: card.accentColor + '15' }}>
+          <LinearGradient
+            colors={['transparent', card.accentColor + '20', 'transparent']}
+            start={{ x: 0, y: 0.5 }}
+            end={{ x: 1, y: 0.5 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
+        </View>
+      )}
+      <RNAnimated.Image
+        source={{ uri: card.imageUrl }}
+        onLoad={onImageLoad}
+        style={{
+          opacity: fadeAnim,
+          position: 'absolute',
+          width: oversizeW,
+          height: oversizeH > 0 ? oversizeH : undefined,
+          ...(oversizeH === 0 ? { top: 0, bottom: 0 } : {
+            top: (containerH - oversizeH) / 2 + translateY,
+          }),
+          left: (cardW - oversizeW) / 2 + translateX,
+        }}
+        resizeMode={oversizeH === 0 ? 'cover' : 'stretch'}
+      />
+      <LinearGradient
+        colors={['transparent', card.gradientColors[2] + 'CC']}
+        start={{ x: 0.5, y: 0.5 }}
+        end={{ x: 0.5, y: 1 }}
+        style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 36 }}
+      />
+      <LinearGradient
+        colors={[card.gradientColors[0] + 'AA', 'transparent']}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 22 }}
+      />
+    </View>
+  );
+}
+
 export default function BiblicalCardsAlbumScreen() {
   const colors = useThemeColors();
   const language = useLanguage();
@@ -182,12 +260,17 @@ export default function BiblicalCardsAlbumScreen() {
   }, [cardInventory]);
 
   const ownedCount = cardInventory.filter((c) => c.owned).length;
-  const totalCount = ALL_CARD_IDS.length;
+  // Standard cards only (no event cards in main grid)
+  const standardCardIds = ALL_CARD_IDS.filter((id) => BIBLICAL_CARDS[id]?.inStandardPool !== false || !BIBLICAL_CARDS[id]?.eventSet);
+  const totalCount = standardCardIds.length;
 
-  // Filtered card IDs based on rarity selector
+  // Pascua 2026 event cards in chronological order
+  const pascuaCards = getEventSetCards('pascua_2026');
+
+  // Filtered standard card IDs based on rarity selector (event cards always shown separately)
   const filteredCardIds = rarityFilter
-    ? ALL_CARD_IDS.filter((id) => BIBLICAL_CARDS[id]?.rarity === rarityFilter)
-    : ALL_CARD_IDS;
+    ? standardCardIds.filter((id) => BIBLICAL_CARDS[id]?.rarity === rarityFilter)
+    : standardCardIds;
 
   const openCard = (card: BiblicalCard) => {
     const { owned, duplicates } = getCardStatus(card.id);
@@ -486,6 +569,183 @@ export default function BiblicalCardsAlbumScreen() {
                 ? 'Más cartas llegarán en futuras actualizaciones. Los duplicados podrán intercambiarse próximamente.'
                 : 'More cards coming in future updates. Duplicates will be tradable soon.'}
             </Text>
+          </Animated.View>
+
+          {/* ── PASCUA 2026 EVENT SECTION ─────────────────────────────────── */}
+          <Animated.View entering={FadeInDown.delay(500).duration(400)} style={{ marginTop: 36 }}>
+            {/* Event banner */}
+            <LinearGradient
+              colors={['rgba(204,51,51,0.25)', 'rgba(245,208,96,0.18)', 'rgba(204,51,51,0.12)']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ borderRadius: 16, padding: 16, marginBottom: 20, borderWidth: 1, borderColor: 'rgba(245,208,96,0.30)' }}
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                <Text style={{ fontSize: 22 }}>✝️</Text>
+                <View>
+                  <Text style={{ fontSize: sFont(14), fontWeight: '900', color: '#F5D060', letterSpacing: 0.2 }}>
+                    {language === 'es' ? 'Pascua 2026' : 'Easter 2026'}
+                  </Text>
+                  <Text style={{ fontSize: sFont(10), color: 'rgba(245,208,96,0.70)', fontWeight: '600', letterSpacing: 0.8, textTransform: 'uppercase', marginTop: 1 }}>
+                    {language === 'es' ? '14 cartas — Evento especial' : '14 cards — Special event'}
+                  </Text>
+                </View>
+              </View>
+              <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.55)', lineHeight: 18 }}>
+                {language === 'es'
+                  ? 'Sigue la historia de la Pasión y Resurrección de Jesús en orden cronológico.'
+                  : 'Follow the story of the Passion and Resurrection of Jesus in chronological order.'}
+              </Text>
+              {/* Progress within event set */}
+              {(() => {
+                const ownedEventCount = pascuaCards.filter((c) => {
+                  const entry = cardInventory.find((inv) => inv.cardId === c.id);
+                  return entry?.owned ?? false;
+                }).length;
+                return (
+                  <View style={{ marginTop: 12 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
+                      <Text style={{ fontSize: sFont(10), color: 'rgba(245,208,96,0.70)', fontWeight: '600' }}>
+                        {language === 'es' ? 'Progreso del evento' : 'Event progress'}
+                      </Text>
+                      <Text style={{ fontSize: sFont(10), color: '#F5D060', fontWeight: '700' }}>
+                        {ownedEventCount}/{pascuaCards.length}
+                      </Text>
+                    </View>
+                    <View style={{ height: 4, backgroundColor: 'rgba(255,255,255,0.10)', borderRadius: 99, overflow: 'hidden' }}>
+                      <View style={{ width: `${(ownedEventCount / pascuaCards.length) * 100}%`, height: '100%', borderRadius: 99, backgroundColor: '#F5D060' }} />
+                    </View>
+                  </View>
+                );
+              })()}
+            </LinearGradient>
+
+            {/* Pascua card grid — 2 columns, wider cards */}
+            {(() => {
+              const PASCUA_COLS = 2;
+              const PASCUA_GAP = 12;
+              const PASCUA_W = (SCREEN_W - 40 - PASCUA_GAP) / PASCUA_COLS;
+              const PASCUA_H = PASCUA_W * 1.5;
+
+              return (
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: PASCUA_GAP }}>
+                  {pascuaCards.map((card, index) => {
+                    const { owned, duplicates } = getCardStatus(card.id);
+                    const rc = RARITY_CONFIG[card.rarity];
+
+                    return (
+                      <Animated.View
+                        key={card.id}
+                        entering={ZoomIn.delay(index * 50).duration(300)}
+                      >
+                        <Pressable
+                          onPress={() => openCard(card)}
+                          style={{ width: PASCUA_W, height: PASCUA_H }}
+                        >
+                          {owned ? (
+                            <LinearGradient
+                              colors={[card.gradientColors[0], card.gradientColors[1], card.gradientColors[2]] as [string, string, string]}
+                              start={{ x: 0, y: 0 }}
+                              end={{ x: 1, y: 1 }}
+                              style={{
+                                flex: 1,
+                                borderRadius: 14,
+                                borderWidth: 1.5,
+                                borderColor: card.accentColor + '88',
+                                overflow: 'hidden',
+                                shadowColor: card.accentColor,
+                                shadowOpacity: card.rarity === 'legendary' ? 0.75 : 0.45,
+                                shadowRadius: card.rarity === 'legendary' ? 16 : 10,
+                                shadowOffset: { width: 0, height: 4 },
+                                elevation: 12,
+                              }}
+                            >
+                              {/* Foil shimmer */}
+                              <LinearGradient
+                                colors={[card.motif.sheenColors[0], 'transparent', card.motif.sheenColors[1]]}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{ position: 'absolute', width: '100%', height: '100%' }}
+                              />
+                              {/* Top accent line */}
+                              <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2.5, backgroundColor: card.accentColor }} />
+                              {/* Bottom accent line */}
+                              <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2.5, backgroundColor: card.accentColor }} />
+
+                              {/* Top bar: order number + rarity badge */}
+                              <LinearGradient
+                                colors={[card.accentColor + '60', card.accentColor + '1A']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={{ paddingHorizontal: 8, paddingVertical: 5, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+                              >
+                                <Text style={{ fontSize: sFont(8), fontWeight: '900', color: card.accentColor + 'CC', letterSpacing: 0.5 }}>
+                                  {String(card.eventOrder ?? '').padStart(2, '0')}
+                                </Text>
+                                <View style={{ backgroundColor: rc.bg, borderRadius: 99, paddingHorizontal: 6, paddingVertical: 1.5, borderWidth: 0.5, borderColor: rc.color + 'AA' }}>
+                                  <Text style={{ fontSize: sFont(6), fontWeight: '900', color: rc.color, letterSpacing: 0.6, textTransform: 'uppercase' }}>
+                                    {language === 'es' ? rc.labelEs : rc.labelEn}
+                                  </Text>
+                                </View>
+                                <Text style={{ fontSize: 10, color: card.accentColor, opacity: 0.8 }}>{card.motif.cornerGlyph}</Text>
+                              </LinearGradient>
+
+                              <View style={{ height: 0.5, backgroundColor: card.accentColor + '60' }} />
+
+                              {/* Artwork — inline focal-point logic for Pascua card size */}
+                              <PascuaCardArtwork card={card} cardW={PASCUA_W} />
+
+                              <View style={{ height: 0.5, backgroundColor: card.accentColor + '60' }} />
+
+                              {/* Footer */}
+                              <LinearGradient
+                                colors={[card.accentColor + '1A', card.accentColor + '60']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={{ paddingHorizontal: 8, paddingVertical: 6, alignItems: 'center' }}
+                              >
+                                <Text style={{ fontSize: sFont(10), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.1 }} numberOfLines={1}>
+                                  {language === 'es' ? card.nameEs : card.nameEn}
+                                </Text>
+                                <Text style={{ fontSize: sFont(7.5), color: card.accentColor, fontWeight: '700', marginTop: 1 }}>
+                                  {card.verseRef}
+                                </Text>
+                              </LinearGradient>
+
+                              {duplicates > 0 && (
+                                <View style={{ position: 'absolute', top: 5, right: 5, backgroundColor: card.accentColor, borderRadius: 99, minWidth: 18, height: 18, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 4 }}>
+                                  <Text style={{ fontSize: sFont(7.5), fontWeight: '900', color: '#000' }}>×{duplicates + 1}</Text>
+                                </View>
+                              )}
+                            </LinearGradient>
+                          ) : (
+                            /* Unowned event card — shows order number hint */
+                            <View style={{
+                              flex: 1,
+                              borderRadius: 14,
+                              backgroundColor: 'rgba(245,208,96,0.04)',
+                              borderWidth: 1.5,
+                              borderColor: 'rgba(245,208,96,0.15)',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              borderStyle: 'dashed',
+                            }}>
+                              <Text style={{ fontSize: sFont(11), fontWeight: '800', color: 'rgba(245,208,96,0.25)', letterSpacing: 1 }}>
+                                {String(card.eventOrder ?? '').padStart(2, '0')}
+                              </Text>
+                              <Text style={{ fontSize: PASCUA_W * 0.18, opacity: 0.12, marginTop: 2 }}>✝</Text>
+                              <Text style={{ fontSize: sFont(7.5), color: 'rgba(245,208,96,0.25)', marginTop: 6, textAlign: 'center', paddingHorizontal: 6 }} numberOfLines={2}>
+                                {language === 'es' ? card.nameEs : card.nameEn}
+                              </Text>
+                            </View>
+                          )}
+                        </Pressable>
+                      </Animated.View>
+                    );
+                  })}
+                </View>
+              );
+            })()}
           </Animated.View>
         </ScrollView>
 
