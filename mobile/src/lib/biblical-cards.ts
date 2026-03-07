@@ -722,6 +722,11 @@ export const STANDARD_POOL_IDS = Object.values(BIBLICAL_CARDS)
   .filter((c) => c.inStandardPool)
   .map((c) => c.id);
 
+/** Card IDs belonging to the Pascua 2026 event set */
+export const PASCUA_2026_POOL_IDS = Object.values(BIBLICAL_CARDS)
+  .filter((c) => c.eventSet === 'pascua_2026')
+  .map((c) => c.id);
+
 /**
  * Returns all cards belonging to a given eventSet, sorted by eventOrder.
  * Used by the album to render event sections in chronological order.

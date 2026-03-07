@@ -31,13 +31,13 @@
     "avatarId": "avatar_adv_elijah_fire",
     "frameId": "frame_v2_jade",
     "titleId": "title_renewed_strength",
-    "themeId": "theme_bosque_sereno",
+    "themeId": "theme_fuego_espiritu",
     "selectedMusicId": "music_free_1",
-    "points": 1384,
+    "points": 29384,
     "streakCurrent": 28,
     "streakBest": 28,
     "devotionalsCompleted": 17,
-    "totalTimeSeconds": 34451,
+    "totalTimeSeconds": 35054,
     "lastActiveAt": "2026-03-06T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-07T00:45:10.285Z"
+    "updatedAt": "2026-03-07T01:00:34.170Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",

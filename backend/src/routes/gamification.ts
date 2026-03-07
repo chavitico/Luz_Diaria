@@ -864,10 +864,39 @@ gamificationRouter.post(
         let drawnCard: { cardId: string; wasNew: boolean } | undefined;
         if (itemId === 'sobre_biblico') {
           // Only cards with inStandardPool=true are eligible for random draws.
-          // Special/legendary cards (e.g. jesus_rey_reyes) must be excluded here.
+          // Special/legendary cards (e.g. jesus_rey_reyes) and event cards must be excluded here.
           // Keep this list in sync with STANDARD_POOL_IDS in mobile/src/lib/biblical-cards.ts.
           const CARD_POOL: string[] = ['david', 'moses', 'ark', 'espada_espiritu', 'arpa_david', 'zarza_ardiente'];
           const cardId = CARD_POOL[Math.floor(Math.random() * CARD_POOL.length)] as string;
+
+          const existing = await tx.biblicalCardInventory.findUnique({
+            where: { userId_cardId: { userId, cardId } },
+          });
+
+          if (existing) {
+            await tx.biblicalCardInventory.update({
+              where: { userId_cardId: { userId, cardId } },
+              data: { duplicates: { increment: 1 } },
+            });
+            drawnCard = { cardId, wasNew: false };
+          } else {
+            await tx.biblicalCardInventory.create({
+              data: { userId, cardId, owned: true, duplicates: 0 },
+            });
+            drawnCard = { cardId, wasNew: true };
+          }
+        }
+
+        // === Special: pack_pascua - draw a random Pascua 2026 event card ===
+        if (itemId === 'pack_pascua') {
+          // Only cards belonging to eventSet="pascua_2026".
+          // Keep this list in sync with PASCUA_2026_POOL_IDS in mobile/src/lib/biblical-cards.ts.
+          const PASCUA_POOL: string[] = [
+            'entrada_jerusalen', 'burrito', 'ultima_cena', 'getsemani', 'judas',
+            'arresto', 'poncio_pilato', 'barrabas', 'camino_calvario', 'crucifixion',
+            'velo_rasgado', 'tumba_sellada', 'resurreccion', 'tomas',
+          ];
+          const cardId = PASCUA_POOL[Math.floor(Math.random() * PASCUA_POOL.length)] as string;
 
           const existing = await tx.biblicalCardInventory.findUnique({
             where: { userId_cardId: { userId, cardId } },

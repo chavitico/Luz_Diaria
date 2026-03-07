@@ -1053,6 +1053,60 @@ async function seedStoreItems() {
   });
   console.log('  Sobre Bíblico: processed');
 
+  // Seed Sobre de Pascua (easter event card pack - repeatable consumable)
+  console.log('Seeding Sobre de Pascua...');
+  await prisma.storeItem.upsert({
+    where: { id: 'pack_pascua' },
+    update: {
+      nameEn: 'Easter Envelope',
+      nameEs: 'Sobre de Pascua',
+      descriptionEn: 'Special Easter event cards narrating the story of the Passion and Resurrection of Jesus.',
+      descriptionEs: 'Cartas especiales del evento de Pascua que narran la historia de la pasión y resurrección de Jesús.',
+      pricePoints: 3000,
+      rarity: 'epic',
+      type: 'consumable',
+      available: true,
+      category: 'special_objects',
+      subcategory: 'cartas_biblicas',
+      isNew: true,
+      metadata: JSON.stringify({
+        icon: '✝️',
+        consumable: true,
+        repeatablePurchase: true,
+        cardPack: true,
+        eventPack: true,
+        eventSet: 'pascua_2026',
+        isEventActive: true,
+      }),
+    },
+    create: {
+      id: 'pack_pascua',
+      type: 'consumable',
+      nameEn: 'Easter Envelope',
+      nameEs: 'Sobre de Pascua',
+      descriptionEn: 'Special Easter event cards narrating the story of the Passion and Resurrection of Jesus.',
+      descriptionEs: 'Cartas especiales del evento de Pascua que narran la historia de la pasión y resurrección de Jesús.',
+      pricePoints: 3000,
+      rarity: 'epic',
+      assetRef: 'pack_pascua',
+      category: 'special_objects',
+      subcategory: 'cartas_biblicas',
+      isNew: true,
+      metadata: JSON.stringify({
+        icon: '✝️',
+        consumable: true,
+        repeatablePurchase: true,
+        cardPack: true,
+        eventPack: true,
+        eventSet: 'pascua_2026',
+        isEventActive: true,
+      }),
+      sortOrder: 10001,
+      available: true,
+    },
+  });
+  console.log('  Sobre de Pascua: processed');
+
   // Summary
   const totalItems = THEMES.length + THEMES_V2.length + THEMES_CHAPTER.length + FRAMES.length + FRAMES_V2.length + FRAMES_CHAPTER.length + MUSIC_TRACKS.length + TITLES.length + TITLES_CHAPTER.length + AVATARS.length + AVATARS_V2.length + AVATARS_L2.length + AVATARS_CHAPTER.length;
   console.log('\n========================================');
