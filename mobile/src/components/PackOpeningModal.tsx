@@ -33,6 +33,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
+import { Audio } from 'expo-av';
 import { useScaledFont } from '@/lib/textScale';
 import { useLanguage } from '@/lib/store';
 import { BIBLICAL_CARDS, type BiblicalCard } from '@/lib/biblical-cards';
@@ -303,6 +304,7 @@ export function PackOpeningModal({
   const pulseLoop   = useRef<Animated.CompositeAnimation | null>(null);
   const shimmerLoop = useRef<Animated.CompositeAnimation | null>(null);
   const active      = useRef(false);
+  const soundRef    = useRef<Audio.Sound | null>(null);
 
   const card = drawnCard ? (BIBLICAL_CARDS[drawnCard.cardId] ?? null) : null;
   const rarity = card?.rarity ?? 'common';
@@ -323,6 +325,11 @@ export function PackOpeningModal({
   const resetAll = useCallback(() => {
     active.current = false;
     stopLoops();
+    // Unload any playing sound
+    if (soundRef.current) {
+      soundRef.current.unloadAsync().catch(() => {});
+      soundRef.current = null;
+    }
     backdropOpacity.setValue(0);
     packScale.setValue(0.3);
     packOpacity.setValue(0);
@@ -412,6 +419,20 @@ export function PackOpeningModal({
 
     stopLoops();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+
+    // Play envelope opening sound
+    Audio.Sound.createAsync(
+      require('../../assets/audio/sonido_sobre_abriendo.m4a'),
+      { shouldPlay: true, volume: 1.0 }
+    ).then(({ sound }) => {
+      soundRef.current = sound;
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync().catch(() => {});
+          soundRef.current = null;
+        }
+      });
+    }).catch(() => {});
 
     // Shake intensity scales with rarity
     const shakeAmp = rarity === 'legendary' ? 1.0 :
