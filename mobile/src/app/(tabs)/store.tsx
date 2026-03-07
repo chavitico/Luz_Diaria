@@ -6556,6 +6556,7 @@ export default function StoreScreen() {
   const updateUser = useAppStore((s) => s.updateUser);
   const newGiftItemIds = useAppStore((s) => s.newGiftItemIds);
   const clearNewGiftItem = useAppStore((s) => s.clearNewGiftItem);
+  const resumeTick = useAppStore((s) => s.resumeTick);
   const t = TRANSLATIONS[language];
   const queryClient = useQueryClient();
 
@@ -6589,6 +6590,19 @@ export default function StoreScreen() {
   const isTokenPurchasing = useRef(false);
   // Failsafe timeout handle — clears stuck transaction state after 2s
   const packFailsafeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Reset transaction locks when app returns to foreground (resumeTick bumped by _layout.tsx)
+  // This fixes the bug where minimizing mid-purchase leaves locks stuck and pack buttons disabled.
+  useEffect(() => {
+    if (resumeTick === 0) return; // Skip initial mount
+    if (packFailsafeTimeout.current) {
+      clearTimeout(packFailsafeTimeout.current);
+      packFailsafeTimeout.current = null;
+    }
+    isTokenPurchasing.current = false;
+    isDailyPackClaiming.current = false;
+    setIsPackTransactionActive(false);
+  }, [resumeTick]);
 
   const [selectedCollection, setSelectedCollection] = useState<typeof ITEM_COLLECTIONS[string] | null>(null);
   const [chestReward, setChestReward] = useState<{
