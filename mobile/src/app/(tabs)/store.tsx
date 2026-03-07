@@ -6363,6 +6363,9 @@ export default function StoreScreen() {
   const [selectedChapterCollection, setSelectedChapterCollection] = useState<ChapterCollection | null>(null);
   const [showStoreSectionModal, setShowStoreSectionModal] = useState(false);
   const [storeSectionModalCategory, setStoreSectionModalCategory] = useState<CategoryType | null>(null);
+  // Sub-menu modal: 'personalizacion' | 'colecciones' | null
+  const [showSubMenuModal, setShowSubMenuModal] = useState(false);
+  const [subMenuType, setSubMenuType] = useState<'personalizacion' | 'colecciones' | null>(null);
   const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
   const [showCardRevealModal, setShowCardRevealModal] = useState(false);
   const [revealedCard, setRevealedCard] = useState<{ cardId: string; wasNew: boolean } | null>(null);
@@ -8119,7 +8122,7 @@ export default function StoreScreen() {
           <FeatureCard
             emoji="📚"
             title={language === 'es' ? 'Colecciones' : 'Collections'}
-            subtitle={language === 'es' ? 'Álbum bíblico' : 'Biblical album'}
+            subtitle={language === 'es' ? 'Álbum bíblico y aventuras' : 'Biblical album & adventures'}
             gradientColors={['#0D1E3D', '#071526', '#030C18']}
             borderColor="rgba(96,165,250,0.25)"
             accentGlowColor="rgba(96,165,250,0.08)"
@@ -8128,7 +8131,8 @@ export default function StoreScreen() {
               if (now - lastCategoryTapAt.current < 500) return;
               lastCategoryTapAt.current = now;
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-              router.push('/biblical-cards-album');
+              setSubMenuType('colecciones');
+              setShowSubMenuModal(true);
             }}
           />
 
@@ -8144,13 +8148,9 @@ export default function StoreScreen() {
               const now = Date.now();
               if (now - lastCategoryTapAt.current < 500) return;
               lastCategoryTapAt.current = now;
-              if (isOpeningModal.current) return;
-              isOpeningModal.current = true;
-              setTimeout(() => { isOpeningModal.current = false; }, 600);
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-              setActiveSubcategory('all');
-              setStoreSectionModalCategory('themes');
-              setShowStoreSectionModal(true);
+              setSubMenuType('personalizacion');
+              setShowSubMenuModal(true);
             }}
           />
 
@@ -8179,6 +8179,240 @@ export default function StoreScreen() {
         </View>
 
       </ScrollView>
+
+      {/* Sub-Menu Modal — Colecciones / Personalización */}
+      <Modal
+        visible={showSubMenuModal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowSubMenuModal(false)}
+      >
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
+          {/* Header */}
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: 20,
+            paddingTop: insets.top + 16,
+            paddingBottom: 16,
+            borderBottomWidth: 1,
+            borderBottomColor: colors.textMuted + '20',
+          }}>
+            <Pressable onPress={() => setShowSubMenuModal(false)} style={{ marginRight: 12, padding: 4 }}>
+              <ChevronLeft size={24} color={colors.text} />
+            </Pressable>
+            <Text style={{ fontSize: sFont(20), fontWeight: '800', color: colors.text }}>
+              {subMenuType === 'colecciones'
+                ? (language === 'es' ? 'Colecciones' : 'Collections')
+                : (language === 'es' ? 'Personalización' : 'Personalization')}
+            </Text>
+          </View>
+
+          <ScrollView contentContainerStyle={{ padding: 20, gap: 14 }} showsVerticalScrollIndicator={false}>
+            {subMenuType === 'colecciones' ? (
+              <>
+                {/* Álbum Bíblico */}
+                <Pressable
+                  onPress={() => {
+                    setShowSubMenuModal(false);
+                    setTimeout(() => router.push('/biblical-cards-album'), 350);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                >
+                  <LinearGradient
+                    colors={['#0D1E3D', '#071526', '#030C18']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(96,165,250,0.25)' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(96,165,250,0.12)', borderWidth: 1, borderColor: 'rgba(96,165,250,0.30)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>📖</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                          {language === 'es' ? 'Álbum Bíblico' : 'Biblical Album'}
+                        </Text>
+                        <Text style={{ fontSize: sFont(12), color: 'rgba(96,165,250,0.70)' }}>
+                          {language === 'es' ? 'Cartas coleccionables' : 'Collectible cards'}
+                        </Text>
+                      </View>
+                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                    </View>
+                  </LinearGradient>
+                </Pressable>
+
+                {/* Aventuras */}
+                <Pressable
+                  onPress={() => {
+                    setShowSubMenuModal(false);
+                    setTimeout(() => router.push('/collections/adventures'), 350);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                >
+                  <LinearGradient
+                    colors={['#1A2A0D', '#0F1A07', '#080F03']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(134,239,172,0.25)' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(134,239,172,0.10)', borderWidth: 1, borderColor: 'rgba(134,239,172,0.28)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>🗺️</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                          {language === 'es' ? 'Aventuras' : 'Adventures'}
+                        </Text>
+                        <Text style={{ fontSize: sFont(12), color: 'rgba(134,239,172,0.65)' }}>
+                          {language === 'es' ? 'Progreso de historia y logros' : 'Story progress & achievements'}
+                        </Text>
+                      </View>
+                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                    </View>
+                  </LinearGradient>
+                </Pressable>
+              </>
+            ) : (
+              <>
+                {/* Temas */}
+                <Pressable
+                  onPress={() => {
+                    setShowSubMenuModal(false);
+                    setTimeout(() => {
+                      setActiveSubcategory('all');
+                      setStoreSectionModalCategory('themes');
+                      setShowStoreSectionModal(true);
+                    }, 350);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                >
+                  <LinearGradient
+                    colors={['#1A0D2A', '#0F0718', '#08030F']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(192,132,252,0.25)' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(192,132,252,0.10)', borderWidth: 1, borderColor: 'rgba(192,132,252,0.28)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>🎨</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                          {language === 'es' ? 'Temas' : 'Themes'}
+                        </Text>
+                        <Text style={{ fontSize: sFont(12), color: 'rgba(192,132,252,0.65)' }}>
+                          {language === 'es' ? 'Cambia la apariencia de la app' : 'Change the app appearance'}
+                        </Text>
+                      </View>
+                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                    </View>
+                  </LinearGradient>
+                </Pressable>
+
+                {/* Marcos */}
+                <Pressable
+                  onPress={() => {
+                    setShowSubMenuModal(false);
+                    setTimeout(() => {
+                      setActiveSubcategory('all');
+                      setStoreSectionModalCategory('frames');
+                      setShowStoreSectionModal(true);
+                    }, 350);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                >
+                  <LinearGradient
+                    colors={['#0A1F2A', '#051218', '#02090F']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(56,189,248,0.25)' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(56,189,248,0.10)', borderWidth: 1, borderColor: 'rgba(56,189,248,0.28)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>🖼️</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                          {language === 'es' ? 'Marcos' : 'Frames'}
+                        </Text>
+                        <Text style={{ fontSize: sFont(12), color: 'rgba(56,189,248,0.65)' }}>
+                          {language === 'es' ? 'Marcos para tus cartas' : 'Frames for your cards'}
+                        </Text>
+                      </View>
+                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                    </View>
+                  </LinearGradient>
+                </Pressable>
+
+                {/* Avatares */}
+                <Pressable
+                  onPress={() => {
+                    setShowSubMenuModal(false);
+                    setTimeout(() => {
+                      setActiveSubcategory('all');
+                      setStoreSectionModalCategory('avatars');
+                      setShowStoreSectionModal(true);
+                    }, 350);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                >
+                  <LinearGradient
+                    colors={['#1A1A0A', '#101008', '#080805']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(250,204,21,0.25)' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(250,204,21,0.10)', borderWidth: 1, borderColor: 'rgba(250,204,21,0.28)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>🧑‍🎨</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                          {language === 'es' ? 'Avatares' : 'Avatars'}
+                        </Text>
+                        <Text style={{ fontSize: sFont(12), color: 'rgba(250,204,21,0.65)' }}>
+                          {language === 'es' ? 'Imagen de perfil' : 'Profile picture'}
+                        </Text>
+                      </View>
+                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                    </View>
+                  </LinearGradient>
+                </Pressable>
+
+                {/* Títulos */}
+                <Pressable
+                  onPress={() => {
+                    setShowSubMenuModal(false);
+                    setTimeout(() => {
+                      setActiveSubcategory('all');
+                      setStoreSectionModalCategory('titles');
+                      setShowStoreSectionModal(true);
+                    }, 350);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                >
+                  <LinearGradient
+                    colors={['#1A0A0A', '#100505', '#080202']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(252,165,165,0.25)' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(252,165,165,0.10)', borderWidth: 1, borderColor: 'rgba(252,165,165,0.28)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>🏅</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                          {language === 'es' ? 'Títulos' : 'Titles'}
+                        </Text>
+                        <Text style={{ fontSize: sFont(12), color: 'rgba(252,165,165,0.65)' }}>
+                          {language === 'es' ? 'Distintivos para tu perfil' : 'Badges for your profile'}
+                        </Text>
+                      </View>
+                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                    </View>
+                  </LinearGradient>
+                </Pressable>
+              </>
+            )}
+          </ScrollView>
+        </View>
+      </Modal>
 
       {/* Store Section Modal — opened when tapping a category card */}
       <Modal

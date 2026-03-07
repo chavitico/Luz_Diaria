@@ -865,39 +865,6 @@ export default function SettingsScreen() {
             </Animated.View>
           )}
 
-          {/* Biblical Cards Album Section */}
-          <View className="mt-6 mb-1 ml-1">
-            <Text className="text-sm font-semibold uppercase tracking-wider" style={{ color: colors.textMuted }}>
-              {language === 'es' ? 'Mi Colección' : 'My Collection'}
-            </Text>
-          </View>
-          <Pressable
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              router.push('/biblical-cards-album');
-            }}
-            style={{
-              flexDirection: 'row', alignItems: 'center',
-              backgroundColor: colors.surface,
-              borderRadius: 16, padding: 16,
-              borderWidth: 1, borderColor: colors.textMuted + '18',
-              marginBottom: 6,
-            }}
-          >
-            <View style={{ width: 40, height: 40, borderRadius: 12, backgroundColor: '#1565C0' + '20', alignItems: 'center', justifyContent: 'center', marginRight: 14 }}>
-              <Text style={{ fontSize: 20 }}>✉️</Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text }}>
-                {language === 'es' ? 'Álbum Bíblico' : 'Biblical Album'}
-              </Text>
-              <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 1 }}>
-                {language === 'es' ? 'Tus cartas bíblicas coleccionables' : 'Your collectible biblical cards'}
-              </Text>
-            </View>
-            <ChevronRight size={18} color={colors.textMuted} />
-          </Pressable>
-
           {/* Points History Section */}
           <>
             <View className="flex-row items-center justify-between mb-3 ml-1 mt-6">
