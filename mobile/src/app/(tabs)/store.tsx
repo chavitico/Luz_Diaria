@@ -9,7 +9,6 @@ import {
   ScrollView,
   Pressable,
   Modal,
-  Alert,
   ActivityIndicator,
   Dimensions,
   TouchableOpacity,
@@ -66,6 +65,7 @@ import { useScaledFont } from '@/lib/textScale';
 import { ActionButton } from '@/components/ui/ActionButton';
 import { GiftSendModal, type GiftSendItem } from '@/components/GiftSendModal';
 import { CardRevealModal } from '@/components/CardRevealModal';
+import { PackOpeningModal } from '@/components/PackOpeningModal';
 import {
   TRANSLATIONS,
   DEFAULT_AVATARS,
@@ -6371,6 +6371,8 @@ export default function StoreScreen() {
   const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
   const [showCardRevealModal, setShowCardRevealModal] = useState(false);
   const [revealedCard, setRevealedCard] = useState<{ cardId: string; wasNew: boolean } | null>(null);
+  const [showPackOpeningModal, setShowPackOpeningModal] = useState(false);
+  const [packOpeningType, setPackOpeningType] = useState<'sobre_biblico' | 'pack_pascua' | null>(null);
   // Phase B: purchase lock ref — prevents double-tap; no re-render overhead
   const isTokenPurchasing = useRef(false);
 
@@ -6971,34 +6973,10 @@ export default function StoreScreen() {
           const drawn = res.drawnCard ?? null;
           console.log('[Store] sobre_biblico drawn card', drawn);
           if (drawn) {
-            // Phase 2: bypass CardRevealModal entirely — use Alert to confirm no freeze is modal-caused
-            const card = BIBLICAL_CARDS[drawn.cardId];
-            const cardName = card ? (language === 'es' ? card.nameEs : card.nameEn) : drawn.cardId;
-            const statusLabel = drawn.wasNew
-              ? (language === 'es' ? 'Nueva carta' : 'New card')
-              : (language === 'es' ? 'Duplicado guardado' : 'Duplicate saved');
-            console.log('[Store] showing Alert for drawn card', { cardName, statusLabel });
-            Alert.alert(
-              language === 'es' ? 'Carta obtenida' : 'Card Obtained',
-              `${cardName}${card ? '\n' + card.verseRef : ''}\n\n${statusLabel}`,
-              [
-                {
-                  text: language === 'es' ? 'Ver mi álbum' : 'View album',
-                  onPress: () => {
-                    console.log('[Store] Alert: closing sheet then navigating to album');
-                    // Close the pageSheet first, then navigate via the pendingAdventureNav pattern
-                    // so the album appears on top instead of behind the sheet.
-                    setPendingAdventureNav('/biblical-cards-album');
-                    setShowStoreSectionModal(false);
-                  },
-                },
-                {
-                  text: language === 'es' ? 'Cerrar' : 'Close',
-                  style: 'cancel',
-                  onPress: () => { console.log('[Store] Alert: closed — store remains interactive'); },
-                },
-              ]
-            );
+            console.log('[Store] showing PackOpeningModal for drawn card', drawn);
+            setRevealedCard(drawn);
+            setPackOpeningType(itemId as 'sobre_biblico' | 'pack_pascua');
+            setShowPackOpeningModal(true);
           } else {
             console.log('[Store] no drawn card returned — showing toast only');
           }
@@ -8638,7 +8616,7 @@ export default function StoreScreen() {
         onClose={() => setShowChestModal(false)}
       />
 
-      {/* Card Reveal Modal */}
+      {/* Card Reveal Modal (legacy, kept for other uses) */}
       <CardRevealModal
         visible={showCardRevealModal}
         drawnCard={revealedCard}
@@ -8646,6 +8624,27 @@ export default function StoreScreen() {
           console.log('[Store] reveal modal closed — store is now interactive');
           setShowCardRevealModal(false);
           setRevealedCard(null);
+        }}
+      />
+
+      {/* Pack Opening Animation Modal */}
+      <PackOpeningModal
+        visible={showPackOpeningModal}
+        packType={packOpeningType}
+        drawnCard={revealedCard}
+        onClose={() => {
+          console.log('[Store] PackOpeningModal closed');
+          setShowPackOpeningModal(false);
+          setPackOpeningType(null);
+          setRevealedCard(null);
+        }}
+        onViewAlbum={() => {
+          console.log('[Store] PackOpeningModal: navigating to album');
+          setShowPackOpeningModal(false);
+          setPackOpeningType(null);
+          setRevealedCard(null);
+          setPendingAdventureNav('/biblical-cards-album');
+          setShowStoreSectionModal(false);
         }}
       />
     </View>

@@ -469,20 +469,11 @@ export function PackOpeningModal({
 
             {/* Tap hint */}
             {phase === 'pack_ready' && (
-              <Animated.View style={{ opacity: contentOpacity }}>
+              <View style={styles.tapHintContainer}>
                 <Text style={styles.tapHint}>
                   {language === 'es' ? 'Toca para abrir' : 'Tap to open'}
                 </Text>
-              </Animated.View>
-            )}
-            {phase === 'pack_ready' && (
-              <Animated.View
-                style={styles.tapHintContainer}
-              >
-                <Text style={styles.tapHint}>
-                  {language === 'es' ? 'Toca para abrir' : 'Tap to open'}
-                </Text>
-              </Animated.View>
+              </View>
             )}
           </Animated.View>
         )}
