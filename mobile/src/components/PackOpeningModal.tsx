@@ -305,6 +305,7 @@ export function PackOpeningModal({
   const shimmerLoop = useRef<Animated.CompositeAnimation | null>(null);
   const active      = useRef(false);
   const soundRef    = useRef<Audio.Sound | null>(null);
+  const revealSoundRef = useRef<Audio.Sound | null>(null);
 
   const card = drawnCard ? (BIBLICAL_CARDS[drawnCard.cardId] ?? null) : null;
   const rarity = card?.rarity ?? 'common';
@@ -329,6 +330,10 @@ export function PackOpeningModal({
     if (soundRef.current) {
       soundRef.current.unloadAsync().catch(() => {});
       soundRef.current = null;
+    }
+    if (revealSoundRef.current) {
+      revealSoundRef.current.unloadAsync().catch(() => {});
+      revealSoundRef.current = null;
     }
     backdropOpacity.setValue(0);
     packScale.setValue(0.3);
@@ -406,6 +411,20 @@ export function PackOpeningModal({
           });
         }).catch(() => {});
 
+        // Preload card reveal sound (plays 790ms after tap, 2s before opening sound ends)
+        Audio.Sound.createAsync(
+          require('../../assets/audio/revelacion_carta.m4a'),
+          { shouldPlay: false, volume: 1.0 }
+        ).then(({ sound }) => {
+          revealSoundRef.current = sound;
+          sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.isLoaded && status.didJustFinish) {
+              sound.unloadAsync().catch(() => {});
+              if (revealSoundRef.current === sound) revealSoundRef.current = null;
+            }
+          });
+        }).catch(() => {});
+
         const loop = Animated.loop(
           Animated.sequence([
             Animated.timing(packFloat, { toValue: -6, duration: 1100, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
@@ -452,6 +471,27 @@ export function PackOpeningModal({
         });
       }).catch(() => {});
     }
+
+    // Fire card reveal sound 790ms after tap (2s before opening sound ends at 2.79s)
+    setTimeout(() => {
+      if (!active.current) return;
+      if (revealSoundRef.current) {
+        revealSoundRef.current.playAsync().catch(() => {});
+      } else {
+        Audio.Sound.createAsync(
+          require('../../assets/audio/revelacion_carta.m4a'),
+          { shouldPlay: true, volume: 1.0 }
+        ).then(({ sound }) => {
+          revealSoundRef.current = sound;
+          sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.isLoaded && status.didJustFinish) {
+              sound.unloadAsync().catch(() => {});
+              if (revealSoundRef.current === sound) revealSoundRef.current = null;
+            }
+          });
+        }).catch(() => {});
+      }
+    }, 790);
 
     // Shake intensity scales with rarity
     const shakeAmp = rarity === 'legendary' ? 1.0 :
