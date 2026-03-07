@@ -371,20 +371,23 @@ export function PackOpeningModal({
   const actionsOpacity  = useRef(new Animated.Value(0)).current;
 
   // ── Tear gesture animation values ──
-  const packZoomScale   = useRef(new Animated.Value(1)).current;   // zooms on tap
-  const hintOpacity     = useRef(new Animated.Value(0)).current;   // "Desliza para abrir" hint
-  const innerGlow       = useRef(new Animated.Value(0)).current;   // glow from inside during drag
-  const innerGlowScale  = useRef(new Animated.Value(1)).current;
-  const leftHalfX       = useRef(new Animated.Value(0)).current;   // left half translateX
-  const rightHalfX      = useRef(new Animated.Value(0)).current;   // right half translateX
-  const leftHalfY       = useRef(new Animated.Value(0)).current;
-  const rightHalfY      = useRef(new Animated.Value(0)).current;
-  const tearRotate      = useRef(new Animated.Value(0)).current;   // controls half rotation
-  const tearGap         = useRef(new Animated.Value(0)).current;   // separation between halves
-  const packHalvesOpacity = useRef(new Animated.Value(0)).current; // fade in halves
-  const fullPackOpacityTear = useRef(new Animated.Value(1)).current; // fade out full pack on tear
-  const dragOffsetRef   = useRef(0);                               // live drag distance (not animated)
-  const phaseRef        = useRef<Phase>('idle');                   // sync ref for gesture handler
+  // Envelope-style: horizontal drag tears a flap off the top of the pack.
+  // TEAR_Y_RATIO = position of tear line as fraction of pack height from top (e.g. 0.12 = ~1 "cm")
+  const packZoomScale      = useRef(new Animated.Value(1)).current;  // zooms on tap
+  const hintOpacity        = useRef(new Animated.Value(0)).current;  // "Desliza para abrir" hint
+  const innerGlow          = useRef(new Animated.Value(0)).current;  // light leak along tear line
+  const innerGlowScale     = useRef(new Animated.Value(1)).current;
+  // Top flap (the portion above the tear line)
+  const flapTranslateY     = useRef(new Animated.Value(0)).current;  // flap lifts upward
+  const flapRotateX        = useRef(new Animated.Value(0)).current;  // flap curls back (perspective hint)
+  const flapOpacity        = useRef(new Animated.Value(1)).current;
+  // Tear-line progress — 0 = sealed, 1 = fully torn across
+  const tearProgress       = useRef(new Animated.Value(0)).current;  // drives tear line width mask
+  const packBodyOpacity    = useRef(new Animated.Value(1)).current;  // body fades on final burst
+  const fullPackOpacityTear = useRef(new Animated.Value(1)).current; // hides full pack when halves active
+  const packHalvesOpacity  = useRef(new Animated.Value(0)).current;  // shows flap/body layers
+  const dragOffsetRef      = useRef(0);                              // live drag distance (not animated)
+  const phaseRef           = useRef<Phase>('idle');                  // sync ref for gesture handler
 
   // Legendary particles — 6 particles, each with x/y/opacity
   const particleX   = useRef(Array.from({ length: PARTICLE_COUNT }, () => new Animated.Value(0))).current;
@@ -458,12 +461,11 @@ export function PackOpeningModal({
     hintOpacity.setValue(0);
     innerGlow.setValue(0);
     innerGlowScale.setValue(1);
-    leftHalfX.setValue(0);
-    rightHalfX.setValue(0);
-    leftHalfY.setValue(0);
-    rightHalfY.setValue(0);
-    tearRotate.setValue(0);
-    tearGap.setValue(0);
+    flapTranslateY.setValue(0);
+    flapRotateX.setValue(0);
+    flapOpacity.setValue(1);
+    tearProgress.setValue(0);
+    packBodyOpacity.setValue(1);
     packHalvesOpacity.setValue(0);
     fullPackOpacityTear.setValue(1);
     dragOffsetRef.current = 0;
@@ -609,30 +611,30 @@ export function PackOpeningModal({
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
 
-    // Tear animation: halves fly apart + light flash
+    // Envelope tear: top flap flies up, body stays, then flash + card
+    const FLAP_H = CARD_H * 0.14; // height of the top flap (tear line position)
     Animated.parallel([
-      // Left half flies left and up
-      Animated.timing(leftHalfX, { toValue: -CARD_W * 0.85, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
-      Animated.timing(leftHalfY, { toValue: -30, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
-      // Right half flies right and up
-      Animated.timing(rightHalfX, { toValue: CARD_W * 0.85, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
-      Animated.timing(rightHalfY, { toValue: -30, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
-      // Halves rotate outward
-      Animated.timing(tearRotate, { toValue: 1, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
-      // Halves fade out as they fly
-      Animated.timing(packHalvesOpacity, { toValue: 0, duration: 340, delay: 120, useNativeDriver: true }),
-      // Full pack (if still visible) fades immediately
-      Animated.timing(fullPackOpacityTear, { toValue: 0, duration: 80, useNativeDriver: true }),
-      // Big light flash from the tear
+      // Flap flies up and off screen
+      Animated.timing(flapTranslateY, { toValue: -(CARD_H * 0.6), duration: 360, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      Animated.timing(flapRotateX,   { toValue: 1,                 duration: 360, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      Animated.timing(flapOpacity,   { toValue: 0,                 duration: 280, delay: 80, useNativeDriver: true }),
+      // Tear progress completes to full width
+      Animated.timing(tearProgress,  { toValue: 1,                 duration: 200, easing: Easing.out(Easing.quad), useNativeDriver: false }),
+      // Body fades as flash takes over
+      Animated.timing(packBodyOpacity, { toValue: 0, duration: 200, delay: 200, useNativeDriver: true }),
+      // Full pack hidden immediately
+      Animated.timing(fullPackOpacityTear, { toValue: 0, duration: 60, useNativeDriver: true }),
+      // Big light flash bursting from tear line
       Animated.sequence([
-        Animated.timing(flashOpacity, { toValue: flashPeak * 1.2, duration: 80, useNativeDriver: true }),
-        Animated.timing(flashOpacity, { toValue: 0, duration: 200, useNativeDriver: true }),
+        Animated.timing(flashOpacity, { toValue: flashPeak * 1.2, duration: 80,  useNativeDriver: true }),
+        Animated.timing(flashOpacity, { toValue: 0,               duration: 220, useNativeDriver: true }),
       ]),
-      // Inner glow burst
+      // Inner glow burst along tear line
       Animated.sequence([
-        Animated.timing(innerGlow, { toValue: 1, duration: 100, useNativeDriver: true }),
-        Animated.timing(innerGlow, { toValue: 0, duration: 300, useNativeDriver: true }),
+        Animated.timing(innerGlow,      { toValue: 1,  duration: 80,  useNativeDriver: true }),
+        Animated.timing(innerGlow,      { toValue: 0,  duration: 320, useNativeDriver: true }),
       ]),
+      Animated.spring(innerGlowScale, { toValue: 2.2, tension: 60, friction: 5, useNativeDriver: true }),
     ]).start(({ finished }) => {
       if (!active.current || !finished) return;
       console.log('[PackReveal] pack_open_completed');
@@ -668,9 +670,8 @@ export function PackOpeningModal({
       useNativeDriver: true,
     }).start();
 
-    // Show pack halves overlay (same position as full pack, gap=0)
-    packHalvesOpacity.setValue(1);
-    fullPackOpacityTear.setValue(1);
+    // Flap/body layers are always opacity 1; hide the full single-layer pack
+    fullPackOpacityTear.setValue(0);
   }, [stopLoops]);
 
   // ── PanResponder for swipe-to-tear gesture ──
@@ -695,21 +696,14 @@ export function PackOpeningModal({
         const TEAR_THRESHOLD = CARD_W * 0.4;
         const progress = Math.min(absDx / TEAR_THRESHOLD, 1);
 
-        // Move halves apart proportionally
-        leftHalfX.setValue(-absDx * 0.3);
-        rightHalfX.setValue(absDx * 0.3);
-        leftHalfY.setValue(-progress * 8);
-        rightHalfY.setValue(-progress * 8);
-        tearRotate.setValue(progress * 0.4);
+        // Top flap lifts as user drags — envelope opening feel
+        flapTranslateY.setValue(-progress * 18);
+        flapRotateX.setValue(progress * 0.3);
+        tearProgress.setValue(progress);
 
         // Inner glow grows with drag
-        innerGlow.setValue(progress * 0.7);
-        innerGlowScale.setValue(1 + progress * 0.4);
-
-        // Light haptic at 50% threshold
-        if (progress > 0.5 && absDx < TEAR_THRESHOLD) {
-          // handled by threshold trigger below
-        }
+        innerGlow.setValue(progress * 0.6);
+        innerGlowScale.setValue(1 + progress * 0.3);
       },
       onPanResponderRelease: (_, gs) => {
         if (phaseRef.current !== 'pack_tearing') return;
@@ -724,13 +718,11 @@ export function PackOpeningModal({
           // Cancelled — reset smoothly
           setPhaseSync('pack_zoom');
           Animated.parallel([
-            Animated.spring(leftHalfX,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-            Animated.spring(rightHalfX, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-            Animated.spring(leftHalfY,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-            Animated.spring(rightHalfY, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-            Animated.spring(tearRotate, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-            Animated.timing(innerGlow,  { toValue: 0, duration: 200, useNativeDriver: true }),
-            Animated.spring(innerGlowScale, { toValue: 1, tension: 80, friction: 8, useNativeDriver: true }),
+            Animated.spring(flapTranslateY,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+            Animated.spring(flapRotateX,     { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+            Animated.timing(tearProgress,    { toValue: 0, duration: 200, useNativeDriver: false }),
+            Animated.timing(innerGlow,       { toValue: 0, duration: 200, useNativeDriver: true }),
+            Animated.spring(innerGlowScale,  { toValue: 1, tension: 80, friction: 8, useNativeDriver: true }),
           ]).start();
           dragOffsetRef.current = 0;
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
@@ -741,13 +733,11 @@ export function PackOpeningModal({
         // Reset on termination
         setPhaseSync('pack_zoom');
         Animated.parallel([
-          Animated.spring(leftHalfX,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-          Animated.spring(rightHalfX, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-          Animated.spring(leftHalfY,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-          Animated.spring(rightHalfY, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-          Animated.spring(tearRotate, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
-          Animated.timing(innerGlow,  { toValue: 0, duration: 200, useNativeDriver: true }),
-          Animated.spring(innerGlowScale, { toValue: 1, tension: 80, friction: 8, useNativeDriver: true }),
+          Animated.spring(flapTranslateY,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+          Animated.spring(flapRotateX,     { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+          Animated.timing(tearProgress,    { toValue: 0, duration: 200, useNativeDriver: false }),
+          Animated.timing(innerGlow,       { toValue: 0, duration: 200, useNativeDriver: true }),
+          Animated.spring(innerGlowScale,  { toValue: 1, tension: 80, friction: 8, useNativeDriver: true }),
         ]).start();
         dragOffsetRef.current = 0;
       },
@@ -1020,75 +1010,84 @@ export function PackOpeningModal({
                     justifyContent: 'center',
                   }}
                 >
-                  {/* Inner light burst (grows during drag, peaks at tear) */}
+                  {/* Inner light leak — glows along the tear line */}
                   <Animated.View
                     pointerEvents="none"
                     style={{
                       position: 'absolute',
-                      width: CARD_W * 0.6,
-                      height: CARD_H * 0.6,
-                      borderRadius: CARD_W * 0.6,
-                      backgroundColor: 'rgba(255,220,120,0.95)',
+                      top: CARD_H * 0.12 - 6,
+                      left: 0,
+                      right: 0,
+                      height: 12,
+                      backgroundColor: 'rgba(255,220,100,0.9)',
                       opacity: innerGlow,
-                      transform: [{ scale: innerGlowScale }],
+                      transform: [{ scaleX: innerGlowScale }],
+                      borderRadius: 6,
                     }}
                   />
 
-                  {/* Left half */}
+                  {/* BODY — bottom portion (stays in place, fades on completion) */}
                   <Animated.View
                     pointerEvents="none"
                     style={{
                       position: 'absolute',
                       width: CARD_W,
                       height: CARD_H,
-                      opacity: packHalvesOpacity,
-                      transform: [
-                        { translateX: leftHalfX },
-                        { translateY: leftHalfY },
-                        {
-                          rotate: tearRotate.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: ['0deg', '-25deg'],
-                          }),
-                        },
-                      ],
+                      opacity: packBodyOpacity,
                       overflow: 'hidden',
+                      borderRadius: 20,
                     }}
                   >
-                    {/* Clip to left half */}
-                    <View style={{ width: CARD_W / 2, height: CARD_H, overflow: 'hidden', borderRadius: 20 }}>
-                      <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
+                    {/* Clip to show only below tear line */}
+                    <View style={{
+                      position: 'absolute',
+                      top: CARD_H * 0.12,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      overflow: 'hidden',
+                      borderBottomLeftRadius: 20,
+                      borderBottomRightRadius: 20,
+                    }}>
+                      <View style={{ width: CARD_W, height: CARD_H, marginTop: -(CARD_H * 0.12) }}>
+                        <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
+                      </View>
                     </View>
                   </Animated.View>
 
-                  {/* Right half */}
+                  {/* TOP FLAP — lifts and rotates as user drags */}
                   <Animated.View
                     pointerEvents="none"
                     style={{
                       position: 'absolute',
                       width: CARD_W,
                       height: CARD_H,
-                      opacity: packHalvesOpacity,
+                      opacity: flapOpacity,
                       transform: [
-                        { translateX: rightHalfX },
-                        { translateY: rightHalfY },
+                        { translateY: flapTranslateY },
                         {
-                          rotate: tearRotate.interpolate({
+                          rotate: flapRotateX.interpolate({
                             inputRange: [0, 1],
-                            outputRange: ['0deg', '25deg'],
+                            outputRange: ['0deg', '-8deg'],
                           }),
                         },
                       ],
                       overflow: 'hidden',
+                      borderRadius: 20,
                     }}
                   >
-                    {/* Clip to right half */}
-                    <View style={{ width: CARD_W, height: CARD_H, overflow: 'hidden', borderRadius: 20, alignItems: 'flex-end' }}>
-                      <View style={{ width: CARD_W / 2, height: CARD_H, overflow: 'hidden', borderTopRightRadius: 20, borderBottomRightRadius: 20 }}>
-                        <View style={{ width: CARD_W, height: CARD_H, marginLeft: -CARD_W / 2 }}>
-                          <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
-                        </View>
-                      </View>
+                    {/* Clip to show only above tear line */}
+                    <View style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: CARD_H * 0.12,
+                      overflow: 'hidden',
+                      borderTopLeftRadius: 20,
+                      borderTopRightRadius: 20,
+                    }}>
+                      <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
                     </View>
                   </Animated.View>
                 </View>
