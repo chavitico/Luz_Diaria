@@ -64,6 +64,15 @@ interface AppState {
   // Non-persisted. Screens subscribe to react to app-resume events.
   resumeTick: number;
   bumpResumeTick: () => void;
+
+  // Root-level pack reveal request — set after Store sheet fully closes,
+  // consumed by _layout.tsx PackRevealOverlay (rendered above all navigation).
+  packRevealRequest: {
+    drawnCard: { cardId: string; wasNew: boolean };
+    packType: 'sobre_biblico' | 'pack_pascua';
+  } | null;
+  requestPackReveal: (req: { drawnCard: { cardId: string; wasNew: boolean }; packType: 'sobre_biblico' | 'pack_pascua' }) => void;
+  clearPackRevealRequest: () => void;
 }
 
 const initialUserSettings: UserSettings = {
@@ -102,6 +111,9 @@ export const useAppStore = create<AppState>()(
 
       // Resume tick — transient, starts at 0 each launch
       resumeTick: 0,
+
+      // Pack reveal request — transient, starts null each launch
+      packRevealRequest: null,
 
       setUser: (user) => set({ user }),
 
@@ -238,6 +250,9 @@ export const useAppStore = create<AppState>()(
       })),
 
       bumpResumeTick: () => set((state) => ({ resumeTick: state.resumeTick + 1 })),
+
+      requestPackReveal: (req) => set({ packRevealRequest: req }),
+      clearPackRevealRequest: () => set({ packRevealRequest: null }),
 
       reset: () => set({
         user: null,
