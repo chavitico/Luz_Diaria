@@ -33,11 +33,11 @@
     "titleId": "title_renewed_strength",
     "themeId": "theme_unshakable_rock",
     "selectedMusicId": "music_free_1",
-    "points": 6433,
+    "points": 5433,
     "streakCurrent": 29,
     "streakBest": 29,
     "devotionalsCompleted": 18,
-    "totalTimeSeconds": 55626,
+    "totalTimeSeconds": 55873,
     "lastActiveAt": "2026-03-07T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-07T21:26:36.206Z"
+    "updatedAt": "2026-03-07T23:26:14.749Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -87,7 +87,7 @@
     "streakCurrent": 13,
     "streakBest": 13,
     "devotionalsCompleted": 13,
-    "totalTimeSeconds": 4014,
+    "totalTimeSeconds": 4074,
     "lastActiveAt": "2026-03-07T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -97,7 +97,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:51:26.062Z",
-    "updatedAt": "2026-03-07T07:50:30.851Z"
+    "updatedAt": "2026-03-07T23:41:03.585Z"
   },
   {
     "id": "cmma36c8v000qm25km7avpj84",
