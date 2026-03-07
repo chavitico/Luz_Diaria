@@ -1237,5 +1237,33 @@
     "itemId": "pack_pascua",
     "acquiredAt": "2026-03-07T01:54:56.570Z",
     "source": "store"
+  },
+  {
+    "id": "cmmfr0cz9000zm2xqtdi5wooh",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_covenant_rainbow",
+    "acquiredAt": "2026-03-07T03:13:00.597Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfr0v120011m2xq64dwyy43",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_promesa_violeta",
+    "acquiredAt": "2026-03-07T03:13:23.990Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfr12vi0013m2xqpw4czfg4",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_luz_celestial",
+    "acquiredAt": "2026-03-07T03:13:34.159Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfr1hbh0015m2xqlt5itfzv",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_bosque",
+    "acquiredAt": "2026-03-07T03:13:52.878Z",
+    "source": "store"
   }
 ]
