@@ -37,7 +37,7 @@
     "streakCurrent": 29,
     "streakBest": 29,
     "devotionalsCompleted": 18,
-    "totalTimeSeconds": 50435,
+    "totalTimeSeconds": 50509,
     "lastActiveAt": "2026-03-07T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-07T06:56:35.293Z"
+    "updatedAt": "2026-03-07T06:57:50.240Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -62,7 +62,7 @@
     "streakCurrent": 8,
     "streakBest": 8,
     "devotionalsCompleted": 9,
-    "totalTimeSeconds": 7606,
+    "totalTimeSeconds": 7683,
     "lastActiveAt": "2026-03-07T06:23:25.909Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -72,7 +72,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-03T01:47:32.826Z",
-    "updatedAt": "2026-03-07T06:56:21.719Z"
+    "updatedAt": "2026-03-07T06:57:39.723Z"
   },
   {
     "id": "cmm9yc1nx000sm29qq8qeoai9",
@@ -87,7 +87,7 @@
     "streakCurrent": 12,
     "streakBest": 12,
     "devotionalsCompleted": 12,
-    "totalTimeSeconds": 924,
+    "totalTimeSeconds": 984,
     "lastActiveAt": "2026-03-06T15:00:55.286Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -97,7 +97,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:51:26.062Z",
-    "updatedAt": "2026-03-06T15:05:54.841Z"
+    "updatedAt": "2026-03-07T06:57:38.404Z"
   },
   {
     "id": "cmma36c8v000qm25km7avpj84",
@@ -212,7 +212,7 @@
     "streakCurrent": 2,
     "streakBest": 2,
     "devotionalsCompleted": 3,
-    "totalTimeSeconds": 3721,
+    "totalTimeSeconds": 3796,
     "lastActiveAt": "2026-03-07T06:25:08.087Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -222,7 +222,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-04T02:00:39.693Z",
-    "updatedAt": "2026-03-07T06:56:21.021Z"
+    "updatedAt": "2026-03-07T06:57:36.954Z"
   },
   {
     "id": "user_y2gpgsrn359mmcyy3c4",
