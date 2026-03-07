@@ -37,7 +37,7 @@
     "streakCurrent": 29,
     "streakBest": 29,
     "devotionalsCompleted": 18,
-    "totalTimeSeconds": 49585,
+    "totalTimeSeconds": 49796,
     "lastActiveAt": "2026-03-07T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-07T06:37:58.605Z"
+    "updatedAt": "2026-03-07T06:45:07.496Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -62,7 +62,7 @@
     "streakCurrent": 8,
     "streakBest": 8,
     "devotionalsCompleted": 9,
-    "totalTimeSeconds": 6505,
+    "totalTimeSeconds": 6935,
     "lastActiveAt": "2026-03-07T06:23:25.909Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -72,7 +72,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-03T01:47:32.826Z",
-    "updatedAt": "2026-03-07T06:37:49.959Z"
+    "updatedAt": "2026-03-07T06:45:01.493Z"
   },
   {
     "id": "cmm9yc1nx000sm29qq8qeoai9",
@@ -212,7 +212,7 @@
     "streakCurrent": 2,
     "streakBest": 2,
     "devotionalsCompleted": 3,
-    "totalTimeSeconds": 2620,
+    "totalTimeSeconds": 3050,
     "lastActiveAt": "2026-03-07T06:25:08.087Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -222,7 +222,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-04T02:00:39.693Z",
-    "updatedAt": "2026-03-07T06:37:49.092Z"
+    "updatedAt": "2026-03-07T06:45:02.783Z"
   },
   {
     "id": "user_y2gpgsrn359mmcyy3c4",

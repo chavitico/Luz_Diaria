@@ -114,7 +114,20 @@ interface DevotionalContent {
 // Counter to track story style variation (persisted in-memory per server session)
 let storyGenerationCount = 0;
 
-export async function generateDevotionalWithAI(topic: { en: string; es: string }): Promise<DevotionalContent> {
+/** Extracts the protagonist first name from the opening of a story */
+function extractProtagonistName(story: string): string | null {
+  // Match the first capitalized word (2+ chars) that isn't a common non-name word
+  const SKIP = new Set(['She','He','The','His','Her','They','When','As','It','In','On','At','An',
+    'Una','Un','El','La','Los','Las','Era','Fue','Uno','Algo','Todo','Este','Esta','Esa',
+    'That','This','There','Then','With','From','After','Before','While','During']);
+  const words = story.slice(0, 300).match(/\b([A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,})\b/g) ?? [];
+  return words.find(w => !SKIP.has(w)) ?? null;
+}
+
+export async function generateDevotionalWithAI(
+  topic: { en: string; es: string },
+  usedNames: string[] = [],
+): Promise<DevotionalContent> {
   storyGenerationCount++;
 
   // Determine story style variation based on count
@@ -126,7 +139,7 @@ export async function generateDevotionalWithAI(topic: { en: string; es: string }
 === INSTRUCCIONES ESPECÍFICAS PARA ESTA HISTORIA (seguir al pie de la letra) ===
 ${useNoName
   ? `IDENTIDAD DEL PROTAGONISTA: No uses nombres propios en absoluto. Refiere al protagonista únicamente como "una mujer", "un joven", "alguien que…", "ella", "él", "una madre", "un hombre mayor", etc. Esto hace que cualquier lector sienta que podría ser su propia historia.`
-  : `IDENTIDAD DEL PROTAGONISTA: Usa un nombre POCO COMÚN o INUSUAL para el protagonista — evita absolutamente nombres comunes como María, Juan, Pedro, Ana, Carlos, Laura, José. Considera nombres como: Rebeca, Amara, Tadeo, Elías, Noa, Miriam, Isaí, Lía, Ezra, Celestino, Adara, Simei, Tomás, Hadasa, Naín, Zoe, Caleb, Abner, Débora, Silas, Rufina, Azarías, etc. También puedes mezclar: nombre para el protagonista y descripciones para los demás.`}
+  : `IDENTIDAD DEL PROTAGONISTA: Usa un nombre POCO COMÚN o INUSUAL para el protagonista — evita absolutamente nombres comunes como María, Juan, Pedro, Ana, Carlos, Laura, José.${usedNames.length > 0 ? `\n\n⚠️ NOMBRES ABSOLUTAMENTE PROHIBIDOS (ya usados en devocionales recientes — NO uses ninguno de estos bajo ninguna circunstancia): ${usedNames.join(', ')}. Si usas alguno de estos nombres, la historia será rechazada.` : ''}\n\nElige un nombre bíblico o inusual completamente diferente. Considera nombres como: Tadeo, Elías, Noa, Lía, Celestino, Adara, Simei, Tomás, Hadasa, Zoe, Caleb, Abner, Débora, Rufina, Isamar, Leví, Jada, Eliú, Selah, Jairo, Neftalí, Abigaíl, Gersón, Tamar, Rut, Booz, Amós, Oseas, Habacuc, Filemón, Priscila, Aquila, Epafras, Tíquico, Onésimo, Evódias, Síntique, Clemente. También puedes mezclar: nombre para el protagonista y descripciones para los demás.`}
 
 ${useFirstPerson
   ? `VOZ NARRATIVA: Escribe en PRIMERA PERSONA — como un testimonio personal íntimo. Usa frases como "Yo sentí…", "Recuerdo cuando…", "Fue una noche que…", "No supe cómo explicarlo, pero…", "Algo dentro de mí se quebró…". Debe sentirse como alguien contando su historia más vulnerable ante Dios.`
@@ -347,7 +360,21 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
   }
 
   try {
-    const content = await generateDevotionalWithAI(topic);
+    // Fetch protagonist names used in recent devotionals (last ~90 days) to avoid repetition
+    const recentDevotionals = await prisma.devotional.findMany({
+      where: { date: { lte: date } },
+      orderBy: { date: 'desc' },
+      take: 90,
+      select: { story: true },
+    });
+    const usedNames: string[] = [];
+    for (const dev of recentDevotionals) {
+      const name = extractProtagonistName(dev.story);
+      if (name && !usedNames.includes(name)) usedNames.push(name);
+    }
+    console.log(`[Devotional] Passing ${usedNames.length} used names to AI: ${usedNames.slice(0, 10).join(', ')}${usedNames.length > 10 ? '…' : ''}`);
+
+    const content = await generateDevotionalWithAI(topic, usedNames);
 
     // Use upsert to avoid race conditions on server restart
     await prisma.devotional.upsert({
