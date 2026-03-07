@@ -1214,7 +1214,7 @@
     "id": "cmmf98riw0011m2f9gbmnrvil",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-07T00:51:12.964Z",
+    "acquiredAt": "2026-03-07T03:38:20.099Z",
     "source": "store"
   },
   {
@@ -1235,7 +1235,7 @@
     "id": "cmmfmlkij0011m2i25duo0bm1",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "pack_pascua",
-    "acquiredAt": "2026-03-07T01:54:56.570Z",
+    "acquiredAt": "2026-03-07T03:38:26.199Z",
     "source": "store"
   },
   {
@@ -1264,6 +1264,13 @@
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "theme_bosque",
     "acquiredAt": "2026-03-07T03:13:52.878Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfrusef0015m23en1qs4i4w",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-07T03:36:40.263Z",
     "source": "store"
   }
 ]

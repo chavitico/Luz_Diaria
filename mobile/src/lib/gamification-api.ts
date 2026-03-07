@@ -962,4 +962,35 @@ export const gamificationApi = {
     if (!res.ok) return { success: false, error: data.error ?? 'Error desconocido' };
     return data;
   },
+
+  async getDailyPackStatus(userId: string): Promise<{
+    canClaim: boolean;
+    remaining: number;
+    dailyLimit: number;
+    isPremium: boolean;
+    nextAvailableMs: number | null;
+    claimedToday: number;
+  }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/daily-pack/status/${userId}`);
+    if (!res.ok) throw new Error('Failed to fetch daily pack status');
+    return res.json();
+  },
+
+  async claimDailyPack(userId: string, packType: 'sobre_biblico' | 'pack_pascua'): Promise<{
+    success: boolean;
+    drawnCard?: { cardId: string; wasNew: boolean };
+    remaining?: number;
+    dailyLimit?: number;
+    isPremium?: boolean;
+    error?: string;
+  }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/daily-pack/claim`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, packType }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { success: false, error: data.error };
+    return data;
+  },
 };

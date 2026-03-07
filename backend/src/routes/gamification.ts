@@ -44,6 +44,9 @@ interface DailyActions {
   ttsDate?: string;
   ttsDone?: boolean;
   devotionalDates?: string[]; // Track completed devotionals by date
+  // Daily pack claims: tracks claim count and date per pack type
+  dailyPackDate?: string;       // ISO date string (YYYY-MM-DD) of last claim
+  dailyPackCount?: number;      // How many packs claimed today
 }
 
 const POINTS_CONFIG: Record<ActionType, { points: number; dailyCap?: number }> = {
@@ -2802,7 +2805,151 @@ gamificationRouter.get("/biblical-cards/:userId", async (c) => {
     });
     return c.json(cards);
   } catch (error) {
-    console.error("[BiblicalCards] Error fetching cards:", error);
+    console.error("[BiblicalCards] Error fetching biblical cards:", error);
     return c.json({ error: "Failed to fetch biblical cards" }, 500);
   }
 });
+
+// ============================================================
+// DAILY PACK CLAIM
+// Free packs every 24h. Premium users get 2/day, free users 1/day.
+// Pack type: 'sobre_biblico' for standard, 'pack_pascua' for event.
+// ============================================================
+
+// GET /daily-pack/status/:userId - Check daily pack availability
+gamificationRouter.get("/daily-pack/status/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) return c.json({ error: "User not found" }, 404);
+
+    const today = new Date().toISOString().split("T")[0] as string;
+    const dailyActions = parseDailyActions(user.dailyActions);
+
+    // Premium support: isPremium will be read from metadata/role in future.
+    // For now derive from role field: 'PREMIUM' or 'OWNER' = 2 packs/day.
+    const isPremium = user.role === 'PREMIUM' || user.role === 'OWNER';
+    const dailyPackLimit = isPremium ? 2 : 1;
+
+    const claimedToday = dailyActions.dailyPackDate === today
+      ? (dailyActions.dailyPackCount ?? 0)
+      : 0;
+
+    const remaining = Math.max(0, dailyPackLimit - claimedToday);
+
+    // Compute next available time: midnight of next day UTC
+    let nextAvailableMs: number | null = null;
+    if (remaining === 0) {
+      const tomorrow = new Date();
+      tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
+      tomorrow.setUTCHours(0, 0, 0, 0);
+      nextAvailableMs = tomorrow.getTime();
+    }
+
+    return c.json({
+      canClaim: remaining > 0,
+      remaining,
+      dailyLimit: dailyPackLimit,
+      isPremium,
+      nextAvailableMs,
+      claimedToday,
+    });
+  } catch (error) {
+    console.error("[DailyPack] Error checking status:", error);
+    return c.json({ error: "Failed to check daily pack status" }, 500);
+  }
+});
+
+// POST /daily-pack/claim - Claim a daily free pack
+gamificationRouter.post(
+  "/daily-pack/claim",
+  zValidator("json", z.object({
+    userId: z.string(),
+    packType: z.enum(["sobre_biblico", "pack_pascua"]),
+  })),
+  async (c) => {
+    try {
+      const { userId, packType } = c.req.valid("json");
+      const today = new Date().toISOString().split("T")[0] as string;
+
+      const result = await prisma.$transaction(async (tx) => {
+        const user = await tx.user.findUnique({ where: { id: userId } });
+        if (!user) throw new Error("USER_NOT_FOUND");
+
+        const isPremium = user.role === 'PREMIUM' || user.role === 'OWNER';
+        const dailyPackLimit = isPremium ? 2 : 1;
+
+        const dailyActions = parseDailyActions(user.dailyActions);
+
+        // Reset or accumulate based on date
+        if (dailyActions.dailyPackDate !== today) {
+          dailyActions.dailyPackDate = today;
+          dailyActions.dailyPackCount = 0;
+        }
+
+        const claimedToday = dailyActions.dailyPackCount ?? 0;
+        if (claimedToday >= dailyPackLimit) {
+          throw new Error("DAILY_LIMIT_REACHED");
+        }
+
+        // Draw a card — same pools as the purchase endpoint
+        const CARD_POOL = ['david', 'moses', 'ark', 'espada_espiritu', 'arpa_david', 'zarza_ardiente'];
+        const PASCUA_POOL = [
+          'entrada_jerusalen', 'burrito', 'ultima_cena', 'getsemani', 'judas',
+          'arresto', 'poncio_pilato', 'barrabas', 'camino_calvario', 'crucifixion',
+          'velo_rasgado', 'tumba_sellada', 'resurreccion', 'tomas',
+        ];
+
+        const pool = packType === 'pack_pascua' ? PASCUA_POOL : CARD_POOL;
+        const cardId = pool[Math.floor(Math.random() * pool.length)] as string;
+
+        // Check if user already has this card
+        const existing = await tx.biblicalCardInventory.findUnique({
+          where: { userId_cardId: { userId, cardId } },
+        });
+
+        let wasNew = false;
+        if (existing) {
+          await tx.biblicalCardInventory.update({
+            where: { userId_cardId: { userId, cardId } },
+            data: { duplicates: { increment: 1 } },
+          });
+        } else {
+          await tx.biblicalCardInventory.create({
+            data: { userId, cardId, owned: true, duplicates: 0 },
+          });
+          wasNew = true;
+        }
+
+        // Increment daily claim count
+        dailyActions.dailyPackCount = claimedToday + 1;
+
+        await tx.user.update({
+          where: { id: userId },
+          data: { dailyActions: JSON.stringify(dailyActions) },
+        });
+
+        const remaining = Math.max(0, dailyPackLimit - dailyActions.dailyPackCount);
+
+        return {
+          success: true,
+          drawnCard: { cardId, wasNew },
+          remaining,
+          dailyLimit: dailyPackLimit,
+          isPremium,
+        };
+      });
+
+      console.log(`[DailyPack] User ${userId} claimed ${packType}:`, result.drawnCard);
+      return c.json(result);
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      if (msg === "USER_NOT_FOUND") return c.json({ error: "User not found" }, 404);
+      if (msg === "DAILY_LIMIT_REACHED") {
+        return c.json({ error: "Daily pack limit already claimed", canClaim: false }, 400);
+      }
+      console.error("[DailyPack] Error claiming pack:", error);
+      return c.json({ error: "Failed to claim daily pack" }, 500);
+    }
+  }
+);
