@@ -9,6 +9,7 @@ import {
   ScrollView,
   Pressable,
   Modal,
+  Alert,
   ActivityIndicator,
   Dimensions,
   TouchableOpacity,
@@ -5577,6 +5578,7 @@ function DailyPackBanner({
   status,
   language,
   isEventActive,
+  disabled,
   onClaim,
 }: {
   status: {
@@ -5589,6 +5591,7 @@ function DailyPackBanner({
   } | null;
   language: 'en' | 'es';
   isEventActive: boolean;
+  disabled?: boolean;
   onClaim: (packType: 'sobre_biblico' | 'pack_pascua') => void;
 }) {
   const { sFont } = useScaledFont();
@@ -5630,12 +5633,12 @@ function DailyPackBanner({
   const packTypeToUse: 'sobre_biblico' | 'pack_pascua' = isEventActive ? 'pack_pascua' : 'sobre_biblico';
 
   return (
-    <Animated.View style={[animStyle, { marginBottom: 12 }]}>
+    <Animated.View style={[animStyle, { marginBottom: 12, opacity: disabled ? 0.5 : 1 }]}>
       <Pressable
-        onPressIn={() => { if (canClaim) scale.value = withSpring(0.97); }}
+        onPressIn={() => { if (canClaim && !disabled) scale.value = withSpring(0.97); }}
         onPressOut={() => { scale.value = withSpring(1); }}
-        onPress={() => { if (canClaim) onClaim(packTypeToUse); }}
-        disabled={!canClaim}
+        onPress={() => { if (canClaim && !disabled) onClaim(packTypeToUse); }}
+        disabled={!canClaim || disabled}
       >
         <LinearGradient
           colors={canClaim
@@ -5692,10 +5695,12 @@ function DailyPackBanner({
 // ─────────────────────────────────────────────────────────────────────────────
 function BiblicalPackCard({
   canAfford,
+  disabled,
   language,
   onPress,
 }: {
   canAfford: boolean;
+  disabled?: boolean;
   language: 'en' | 'es';
   onPress: () => void;
 }) {
@@ -5704,12 +5709,13 @@ function BiblicalPackCard({
   const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
   return (
-    <View style={{ marginBottom: 12 }}>
+    <View style={{ marginBottom: 12, opacity: disabled ? 0.5 : 1 }}>
       <Animated.View style={animStyle}>
         <Pressable
-          onPressIn={() => { scale.value = withSpring(0.97); }}
+          onPressIn={() => { if (!disabled) scale.value = withSpring(0.97); }}
           onPressOut={() => { scale.value = withSpring(1); }}
           onPress={onPress}
+          disabled={disabled}
         >
           {/* Outer card shell */}
           <LinearGradient
@@ -6004,11 +6010,13 @@ function BiblicalPackCard({
 // ─────────────────────────────────────────────────────────────────────────────
 function EasterPackCard({
   canAfford,
+  disabled,
   isEventActive,
   language,
   onPress,
 }: {
   canAfford: boolean;
+  disabled?: boolean;
   isEventActive: boolean;
   language: 'en' | 'es';
   onPress: () => void;
@@ -6021,10 +6029,11 @@ function EasterPackCard({
     <View style={{ marginBottom: 12 }}>
       <Animated.View style={animStyle}>
         <Pressable
-          onPressIn={() => { if (isEventActive && canAfford) scale.value = withSpring(0.97); }}
+          onPressIn={() => { if (isEventActive && canAfford && !disabled) scale.value = withSpring(0.97); }}
           onPressOut={() => { scale.value = withSpring(1); }}
           onPress={onPress}
-          style={{ opacity: isEventActive ? 1 : 0.65 }}
+          disabled={disabled}
+          style={{ opacity: disabled ? 0.5 : isEventActive ? 1 : 0.65 }}
         >
           {/* Outer card shell — deep crimson night */}
           <LinearGradient
@@ -6487,11 +6496,13 @@ export default function StoreScreen() {
   const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
   const [showCardRevealModal, setShowCardRevealModal] = useState(false);
   const [revealedCard, setRevealedCard] = useState<{ cardId: string; wasNew: boolean } | null>(null);
-  const [showPackOpeningModal, setShowPackOpeningModal] = useState(false);
-  const [packOpeningType, setPackOpeningType] = useState<'sobre_biblico' | 'pack_pascua' | null>(null);
+  // isPackTransactionActive: true = purchase in flight or reveal showing → disables all pack buttons
+  const [isPackTransactionActive, setIsPackTransactionActive] = useState(false);
   const isDailyPackClaiming = useRef(false);
-  // Phase B: purchase lock ref — prevents double-tap; no re-render overhead
+  // Inner dedup ref — zero re-render overhead, checked before setting state
   const isTokenPurchasing = useRef(false);
+  // Failsafe timeout handle — clears stuck transaction state after 2s
+  const packFailsafeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [selectedCollection, setSelectedCollection] = useState<typeof ITEM_COLLECTIONS[string] | null>(null);
   const [chestReward, setChestReward] = useState<{
@@ -7065,37 +7076,82 @@ export default function StoreScreen() {
     }
   }, [activeCategory, storeSectionModalCategory, userId]);
 
-  // Handle token purchases (pincel_magico, sobre_biblico, etc.)
-  // Phase B+C: purchase lock + structured logging + finally release
+  // Handle token purchases (pincel_magico, sobre_biblico, pack_pascua)
+  // STABILITY-FIRST: no animated modal — use Alert + CardRevealModal only.
+  // isPackTransactionActive (state) disables all pack buttons during the flow.
   const handleTokenPurchase = async (itemId: string, price: number) => {
+    console.log('[Store][Lock] handleTokenPurchase pressed', { itemId, price, isTokenPurchasing: isTokenPurchasing.current, isPackTransactionActive });
     if (!userId || points < price) return;
-    // Phase B: guard against double-tap
     if (isTokenPurchasing.current) {
-      console.log('[Store] handleTokenPurchase: BLOCKED (already purchasing)');
+      console.log('[Store][Lock] BLOCKED — purchase already in flight');
       return;
     }
+
+    // Arm both the ref (inner, zero-render) and the state (outer, disables buttons)
     isTokenPurchasing.current = true;
-    console.log('[Store] purchase started', { itemId, price, points });
+    setIsPackTransactionActive(true);
+    console.log('[Store][Lock] acquired — isPackTransactionActive=true');
+
+    // Failsafe: forcibly unlock after 2s in case anything gets stuck
+    if (packFailsafeTimeout.current) clearTimeout(packFailsafeTimeout.current);
+    packFailsafeTimeout.current = setTimeout(() => {
+      console.log('[Store][Failsafe] 2s timeout fired — unlocking store');
+      isTokenPurchasing.current = false;
+      setIsPackTransactionActive(false);
+      setToastMessage(language === 'es' ? 'Carta obtenida. Revisa tu Álbum Bíblico.' : 'Card obtained. Check your Biblical Album.');
+    }, 2000);
+
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     try {
-      console.log('[Store] calling gamificationApi.purchaseItem');
+      console.log('[Store][API] purchaseItem started', { itemId });
       const res = await gamificationApi.purchaseItem(userId, itemId);
-      console.log('[Store] purchase success', { success: res.success, newPoints: res.newPoints, drawnCard: res.drawnCard });
+      console.log('[Store][API] purchaseItem response', { success: res.success, newPoints: res.newPoints, drawnCard: res.drawnCard });
+
       if (res.success) {
         updateUser({ points: res.newPoints, purchasedItems: [...purchasedItems, itemId] });
+        console.log('[Store][Inventory] user points updated to', res.newPoints);
+
         if (itemId === 'pincel_magico') {
           setPincelMagicoSource('store');
           setToastMessage(language === 'es' ? '¡Pincel Mágico adquirido!' : 'Magic Paintbrush acquired!');
         } else if (itemId === 'sobre_biblico' || itemId === 'pack_pascua') {
           const drawn = res.drawnCard ?? null;
-          console.log('[Store] sobre_biblico drawn card', drawn);
+          console.log('[Store][Card] drawn card', drawn);
           if (drawn) {
-            console.log('[Store] showing PackOpeningModal for drawn card', drawn);
-            setRevealedCard(drawn);
-            setPackOpeningType(itemId as 'sobre_biblico' | 'pack_pascua');
-            setShowPackOpeningModal(true);
+            const card = BIBLICAL_CARDS[drawn.cardId];
+            const cardName = card ? (language === 'es' ? card.nameEs : card.nameEn) : drawn.cardId;
+            const statusLabel = drawn.wasNew
+              ? (language === 'es' ? 'Nueva carta' : 'New card')
+              : (language === 'es' ? 'Duplicado guardado' : 'Duplicate saved');
+            console.log('[Store][Reveal] showing Alert', { cardName, statusLabel });
+
+            // Clear failsafe before Alert — Alert is synchronous UI, no freeze risk
+            if (packFailsafeTimeout.current) {
+              clearTimeout(packFailsafeTimeout.current);
+              packFailsafeTimeout.current = null;
+            }
+
+            Alert.alert(
+              language === 'es' ? '¡Carta obtenida!' : 'Card Obtained!',
+              `${cardName}${card ? '\n' + card.verseRef : ''}\n\n${statusLabel}`,
+              [
+                {
+                  text: language === 'es' ? 'Ver mi álbum' : 'View album',
+                  onPress: () => {
+                    console.log('[Store][Reveal] navigating to album');
+                    setPendingAdventureNav('/biblical-cards-album');
+                    setShowStoreSectionModal(false);
+                  },
+                },
+                {
+                  text: language === 'es' ? 'Cerrar' : 'Close',
+                  style: 'cancel',
+                  onPress: () => { console.log('[Store][Reveal] Alert closed'); },
+                },
+              ]
+            );
           } else {
-            console.log('[Store] no drawn card returned — showing toast only');
+            console.log('[Store][Card] no drawn card returned — toast only');
           }
         }
         setToastAmount(price);
@@ -7105,11 +7161,16 @@ export default function StoreScreen() {
         queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
       }
     } catch (err) {
-      console.log('[Store] purchase error', err);
+      console.log('[Store][Error] purchaseItem failed', err);
     } finally {
-      // Phase B: always release lock, even if reveal modal fails to open
+      // Always release — even if Alert, reveal, or any state-set throws
+      if (packFailsafeTimeout.current) {
+        clearTimeout(packFailsafeTimeout.current);
+        packFailsafeTimeout.current = null;
+      }
       isTokenPurchasing.current = false;
-      console.log('[Store] purchase lock released');
+      setIsPackTransactionActive(false);
+      console.log('[Store][Lock] released — isPackTransactionActive=false');
     }
   };
 
@@ -7129,19 +7190,36 @@ export default function StoreScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
     try {
       const res = await gamificationApi.claimDailyPack(userId, packType);
-      console.log('[Store] daily pack claimed', res);
+      console.log('[Store][DailyPack] claimed', res);
       if (res.success && res.drawnCard) {
-        setRevealedCard(res.drawnCard);
-        setPackOpeningType(packType);
-        setShowPackOpeningModal(true);
+        const drawn = res.drawnCard;
+        const card = BIBLICAL_CARDS[drawn.cardId];
+        const cardName = card ? (language === 'es' ? card.nameEs : card.nameEn) : drawn.cardId;
+        const statusLabel = drawn.wasNew
+          ? (language === 'es' ? 'Nueva carta' : 'New card')
+          : (language === 'es' ? 'Duplicado guardado' : 'Duplicate saved');
         refetchDailyPack();
+        Alert.alert(
+          language === 'es' ? '¡Sobre diario reclamado!' : 'Daily Pack Claimed!',
+          `${cardName}${card ? '\n' + card.verseRef : ''}\n\n${statusLabel}`,
+          [
+            {
+              text: language === 'es' ? 'Ver mi álbum' : 'View album',
+              onPress: () => {
+                setPendingAdventureNav('/biblical-cards-album');
+                setShowStoreSectionModal(false);
+              },
+            },
+            { text: language === 'es' ? 'Cerrar' : 'Close', style: 'cancel' },
+          ]
+        );
       }
     } catch (err) {
-      console.log('[Store] daily pack claim error', err);
+      console.log('[Store][DailyPack] claim error', err);
     } finally {
       isDailyPackClaiming.current = false;
     }
-  }, [userId, dailyPackStatus]);
+  }, [userId, dailyPackStatus, language]);
 
   // Handle openCategory navigation param (e.g. from settings lock button)
   useEffect(() => {
@@ -7804,23 +7882,26 @@ export default function StoreScreen() {
                   status={dailyPackStatus ?? null}
                   language={language}
                   isEventActive={EASTER_EVENT_ACTIVE}
+                  disabled={isPackTransactionActive}
                   onClaim={handleClaimDailyPack}
                 />
                 <BiblicalPackCard
                   canAfford={canAffordSobre}
+                  disabled={isPackTransactionActive}
                   language={language}
                   onPress={() => {
-                    if (canAffordSobre) {
+                    if (canAffordSobre && !isPackTransactionActive) {
                       handleTokenPurchase('sobre_biblico', 1000);
                     }
                   }}
                 />
                 <EasterPackCard
                   canAfford={canAffordEaster}
+                  disabled={isPackTransactionActive}
                   isEventActive={EASTER_EVENT_ACTIVE}
                   language={language}
                   onPress={() => {
-                    if (EASTER_EVENT_ACTIVE && canAffordEaster) {
+                    if (EASTER_EVENT_ACTIVE && canAffordEaster && !isPackTransactionActive) {
                       handleTokenPurchase('pack_pascua', 1000);
                     }
                   }}
@@ -8781,26 +8862,8 @@ export default function StoreScreen() {
         }}
       />
 
-      {/* Pack Opening Animation Modal */}
-      <PackOpeningModal
-        visible={showPackOpeningModal}
-        packType={packOpeningType}
-        drawnCard={revealedCard}
-        onClose={() => {
-          console.log('[Store] PackOpeningModal closed');
-          setShowPackOpeningModal(false);
-          setPackOpeningType(null);
-          setRevealedCard(null);
-        }}
-        onViewAlbum={() => {
-          console.log('[Store] PackOpeningModal: navigating to album');
-          setShowPackOpeningModal(false);
-          setPackOpeningType(null);
-          setRevealedCard(null);
-          setPendingAdventureNav('/biblical-cards-album');
-          setShowStoreSectionModal(false);
-        }}
-      />
+      {/* Pack Opening Animation Modal — disabled (stability bypass) */}
+      {/* PackOpeningModal will be re-enabled once the animation state machine is stable */}
     </View>
   );
 }
