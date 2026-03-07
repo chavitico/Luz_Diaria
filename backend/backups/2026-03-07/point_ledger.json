@@ -1298,5 +1298,15 @@
     "amount": 5000,
     "metadata": "{\"codeId\":\"cristo\",\"displayCode\":\"Cristo\"}",
     "createdAt": "2026-03-07T14:54:00.777Z"
+  },
+  {
+    "id": "cmmgibgqw001mm25xlijca2sb",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "ledgerId": "prayer_2026-03-07",
+    "type": "prayer",
+    "dateId": "2026-03-07",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T15:57:28.329Z"
   }
 ]

@@ -1363,5 +1363,19 @@
     "itemId": "pack_pascua",
     "acquiredAt": "2026-03-07T14:51:34.199Z",
     "source": "store"
+  },
+  {
+    "id": "cmmgi1sw00015m25xac5ecqni",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-07T15:51:51.886Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgi6r3f001im25x4kn466yl",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-07T15:53:48.459Z",
+    "source": "store"
   }
 ]

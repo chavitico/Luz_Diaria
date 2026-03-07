@@ -26,6 +26,7 @@ import {
   Dimensions,
   Easing,
   Modal,
+  PanResponder,
   Pressable,
   StyleSheet,
   Text,
@@ -45,6 +46,8 @@ type Phase =
   | 'idle'
   | 'pack_appear'
   | 'pack_ready'
+  | 'pack_zoom'     // tapped, zooming slightly, showing swipe hint
+  | 'pack_tearing'  // user is dragging
   | 'pack_open'
   | 'card_back'
   | 'card_flip'
@@ -138,6 +141,7 @@ const PARTICLE_COUNT = 6;
 
 // ─── Animated Pack Visual ────────────────────────────────────────────────────
 
+/** Full pack — shown during idle/zoom phases */
 function PackVisual({
   packType,
   shakeAnim,
@@ -185,6 +189,81 @@ function PackVisual({
           <Text style={[styles.packSub, { color: cfg.borderColor + 'AA' }]}>Cartas Bíblicas</Text>
         </View>
       </LinearGradient>
+    </Animated.View>
+  );
+}
+
+/** Pack half — left or right fragment during tear animation */
+function PackHalf({
+  packType,
+  side,
+  translateX,
+  translateY,
+  rotate,
+  glowColor,
+}: {
+  packType: PackType;
+  side: 'left' | 'right';
+  translateX: Animated.Value;
+  translateY: Animated.Value;
+  rotate: Animated.Value;
+  glowColor: string;
+}) {
+  const cfg = PACK_CONFIG[packType];
+  const rotateInterp = rotate.interpolate({
+    inputRange: [-1, 0, 1],
+    outputRange: side === 'left' ? ['-35deg', '-15deg', '0deg'] : ['0deg', '15deg', '35deg'],
+  });
+
+  return (
+    <Animated.View
+      style={{
+        position: 'absolute',
+        width: CARD_W,
+        height: CARD_H,
+        transform: [
+          { translateX },
+          { translateY },
+          { rotate: rotateInterp },
+        ],
+        shadowColor: glowColor,
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.9,
+        shadowRadius: 20,
+        elevation: 20,
+        // Clip to left or right half
+        overflow: 'hidden',
+      }}
+    >
+      {/* Inner content mirroring the pack */}
+      <View
+        style={{
+          width: CARD_W,
+          height: CARD_H,
+          overflow: 'hidden',
+          borderRadius: 20,
+          // Offset for right half clipping
+          ...(side === 'right' ? { marginLeft: 0 } : {}),
+        }}
+      >
+        <LinearGradient
+          colors={[cfg.gradientTop, cfg.gradientBottom]}
+          style={styles.packGradient}
+          start={{ x: 0.3, y: 0 }}
+          end={{ x: 0.7, y: 1 }}
+        >
+          <View style={[styles.packBorder, { borderColor: cfg.borderColor }]}>
+            <Text style={[styles.packCorner, { top: 8, left: 10 }]}>✦</Text>
+            <Text style={[styles.packCorner, { top: 8, right: 10 }]}>✦</Text>
+            <Text style={[styles.packCorner, { bottom: 8, left: 10 }]}>✦</Text>
+            <Text style={[styles.packCorner, { bottom: 8, right: 10 }]}>✦</Text>
+            <Text style={styles.packEmoji}>{cfg.emoji}</Text>
+            <Text style={[styles.packLabel, { color: cfg.borderColor }]}>{cfg.label}</Text>
+            <View style={[styles.packDivider, { backgroundColor: cfg.borderColor }]} />
+            <Text style={[styles.packSub, { color: cfg.borderColor + 'AA' }]}>Cartas Bíblicas</Text>
+          </View>
+        </LinearGradient>
+      </View>
     </Animated.View>
   );
 }
@@ -291,6 +370,22 @@ export function PackOpeningModal({
   const celebOpacity    = useRef(new Animated.Value(0)).current;
   const actionsOpacity  = useRef(new Animated.Value(0)).current;
 
+  // ── Tear gesture animation values ──
+  const packZoomScale   = useRef(new Animated.Value(1)).current;   // zooms on tap
+  const hintOpacity     = useRef(new Animated.Value(0)).current;   // "Desliza para abrir" hint
+  const innerGlow       = useRef(new Animated.Value(0)).current;   // glow from inside during drag
+  const innerGlowScale  = useRef(new Animated.Value(1)).current;
+  const leftHalfX       = useRef(new Animated.Value(0)).current;   // left half translateX
+  const rightHalfX      = useRef(new Animated.Value(0)).current;   // right half translateX
+  const leftHalfY       = useRef(new Animated.Value(0)).current;
+  const rightHalfY      = useRef(new Animated.Value(0)).current;
+  const tearRotate      = useRef(new Animated.Value(0)).current;   // controls half rotation
+  const tearGap         = useRef(new Animated.Value(0)).current;   // separation between halves
+  const packHalvesOpacity = useRef(new Animated.Value(0)).current; // fade in halves
+  const fullPackOpacityTear = useRef(new Animated.Value(1)).current; // fade out full pack on tear
+  const dragOffsetRef   = useRef(0);                               // live drag distance (not animated)
+  const phaseRef        = useRef<Phase>('idle');                   // sync ref for gesture handler
+
   // Legendary particles — 6 particles, each with x/y/opacity
   const particleX   = useRef(Array.from({ length: PARTICLE_COUNT }, () => new Animated.Value(0))).current;
   const particleY   = useRef(Array.from({ length: PARTICLE_COUNT }, () => new Animated.Value(0))).current;
@@ -299,6 +394,12 @@ export function PackOpeningModal({
   const [phase, setPhase]       = useState<Phase>('idle');
   const [showCard, setShowCard] = useState(false);
   const [cardFace, setCardFace] = useState<'back' | 'front'>('back');
+
+  // Keep phaseRef in sync so PanResponder gesture handler can read current phase
+  const setPhaseSync = useCallback((p: Phase) => {
+    phaseRef.current = p;
+    setPhase(p);
+  }, []);
 
   const floatLoop   = useRef<Animated.CompositeAnimation | null>(null);
   const pulseLoop   = useRef<Animated.CompositeAnimation | null>(null);
@@ -352,6 +453,21 @@ export function PackOpeningModal({
     shimmerAnim.setValue(0);
     celebOpacity.setValue(0);
     actionsOpacity.setValue(0);
+    // Tear values reset
+    packZoomScale.setValue(1);
+    hintOpacity.setValue(0);
+    innerGlow.setValue(0);
+    innerGlowScale.setValue(1);
+    leftHalfX.setValue(0);
+    rightHalfX.setValue(0);
+    leftHalfY.setValue(0);
+    rightHalfY.setValue(0);
+    tearRotate.setValue(0);
+    tearGap.setValue(0);
+    packHalvesOpacity.setValue(0);
+    fullPackOpacityTear.setValue(1);
+    dragOffsetRef.current = 0;
+    phaseRef.current = 'idle';
     particleX.forEach(v => v.setValue(0));
     particleY.forEach(v => v.setValue(0));
     particleOp.forEach(v => v.setValue(0));
@@ -373,19 +489,19 @@ export function PackOpeningModal({
     auraOpacity.setValue(0);
     setShowCard(true);
     setCardFace('front');
-    setPhase('final');
+    setPhaseSync('final');
   }, [glowPeak, stopLoops]);
 
   // ── Entry — fires when visible becomes true ──
   useEffect(() => {
     if (!visible || !packType || !drawnCard) {
       resetAll();
-      setPhase('idle');
+      setPhaseSync('idle');
       return;
     }
     resetAll();
     active.current = true;
-    setPhase('pack_appear');
+    setPhaseSync('pack_appear');
     console.log('[PackReveal] pack_idle_shown');
 
     try {
@@ -395,7 +511,7 @@ export function PackOpeningModal({
         Animated.timing(packOpacity,  { toValue: 1, duration: 220, useNativeDriver: true }),
       ]).start(({ finished }) => {
         if (!active.current || !finished) return;
-        setPhase('pack_ready');
+        setPhaseSync('pack_ready');
 
         // Preload sound while user reads "Toca para abrir", so playback is instant on tap
         Audio.Sound.createAsync(
@@ -444,20 +560,18 @@ export function PackOpeningModal({
     };
   }, [visible, packType, drawnCard?.cardId]);
 
-  // ── Pack tap ──
-  const handlePackTap = useCallback(() => {
-    if (phase !== 'pack_ready') return;
-    setPhase('pack_open');
-    console.log('[PackReveal] pack_open_started');
+  // ── Trigger the actual tear/open sequence (fires after threshold reached) ──
+  const triggerTear = useCallback(() => {
+    if (!active.current) return;
+    setPhaseSync('pack_open');
+    console.log('[PackReveal] pack_open_started via tear');
 
     stopLoops();
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
 
-    // Fire preloaded sound instantly on tap
+    // Fire preloaded sound instantly
     if (soundRef.current) {
       soundRef.current.playAsync().catch(() => {});
     } else {
-      // Fallback if preload didn't finish in time
       Audio.Sound.createAsync(
         require('../../assets/audio/sonido_sobre_abriendo.m4a'),
         { shouldPlay: true, volume: 1.0 }
@@ -472,7 +586,7 @@ export function PackOpeningModal({
       }).catch(() => {});
     }
 
-    // Fire card reveal sound 790ms after tap (2s before opening sound ends at 2.79s)
+    // Fire card reveal sound 790ms after tear
     setTimeout(() => {
       if (!active.current) return;
       if (revealSoundRef.current) {
@@ -493,49 +607,154 @@ export function PackOpeningModal({
       }
     }, 790);
 
-    // Shake intensity scales with rarity
-    const shakeAmp = rarity === 'legendary' ? 1.0 :
-                     rarity === 'epic'      ? 0.9 :
-                     rarity === 'rare'      ? 0.85 : 0.75;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
 
-    try {
+    // Tear animation: halves fly apart + light flash
+    Animated.parallel([
+      // Left half flies left and up
+      Animated.timing(leftHalfX, { toValue: -CARD_W * 0.85, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      Animated.timing(leftHalfY, { toValue: -30, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      // Right half flies right and up
+      Animated.timing(rightHalfX, { toValue: CARD_W * 0.85, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      Animated.timing(rightHalfY, { toValue: -30, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      // Halves rotate outward
+      Animated.timing(tearRotate, { toValue: 1, duration: 340, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+      // Halves fade out as they fly
+      Animated.timing(packHalvesOpacity, { toValue: 0, duration: 340, delay: 120, useNativeDriver: true }),
+      // Full pack (if still visible) fades immediately
+      Animated.timing(fullPackOpacityTear, { toValue: 0, duration: 80, useNativeDriver: true }),
+      // Big light flash from the tear
       Animated.sequence([
-        // 1. Shake (5 steps, ~240ms)
-        Animated.sequence([
-          Animated.timing(packShake, { toValue:  shakeAmp,      duration: 55, useNativeDriver: true }),
-          Animated.timing(packShake, { toValue: -shakeAmp,      duration: 55, useNativeDriver: true }),
-          Animated.timing(packShake, { toValue:  shakeAmp * 0.7, duration: 45, useNativeDriver: true }),
-          Animated.timing(packShake, { toValue: -shakeAmp * 0.7, duration: 45, useNativeDriver: true }),
-          Animated.timing(packShake, { toValue:  0,             duration: 40, useNativeDriver: true }),
-        ]),
-        // 2. Bump (80ms)
-        Animated.timing(packBump, {
-          toValue: 1.05, duration: 80,
-          easing: Easing.out(Easing.quad), useNativeDriver: true,
-        }),
-        // 3. Flash — peak opacity keyed by rarity
-        Animated.sequence([
-          Animated.timing(flashOpacity, { toValue: flashPeak, duration: 70,  useNativeDriver: true }),
-          Animated.timing(flashOpacity, { toValue: 0,          duration: 130, useNativeDriver: true }),
-        ]),
-        // 4. Pack fade out
+        Animated.timing(flashOpacity, { toValue: flashPeak * 1.2, duration: 80, useNativeDriver: true }),
+        Animated.timing(flashOpacity, { toValue: 0, duration: 200, useNativeDriver: true }),
+      ]),
+      // Inner glow burst
+      Animated.sequence([
+        Animated.timing(innerGlow, { toValue: 1, duration: 100, useNativeDriver: true }),
+        Animated.timing(innerGlow, { toValue: 0, duration: 300, useNativeDriver: true }),
+      ]),
+    ]).start(({ finished }) => {
+      if (!active.current || !finished) return;
+      console.log('[PackReveal] pack_open_completed');
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+      setShowCard(true);
+      setCardFace('back');
+      setPhaseSync('card_back');
+      startCardFlip();
+    });
+  }, [flashPeak, stopLoops]);
+
+  // ── Pack tap — zooms pack and transitions to swipe mode ──
+  const handlePackTap = useCallback(() => {
+    if (phaseRef.current !== 'pack_ready') return;
+    setPhaseSync('pack_zoom');
+    console.log('[PackReveal] pack_tapped — zooming');
+
+    stopLoops();
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+
+    // Zoom pack slightly
+    Animated.spring(packZoomScale, {
+      toValue: 1.06,
+      tension: 120,
+      friction: 6,
+      useNativeDriver: true,
+    }).start();
+
+    // Show swipe hint
+    Animated.timing(hintOpacity, {
+      toValue: 1,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+
+    // Show pack halves overlay (same position as full pack, gap=0)
+    packHalvesOpacity.setValue(1);
+    fullPackOpacityTear.setValue(1);
+  }, [stopLoops]);
+
+  // ── PanResponder for swipe-to-tear gesture ──
+  const tearPanResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => phaseRef.current === 'pack_zoom' || phaseRef.current === 'pack_tearing',
+      onMoveShouldSetPanResponder: (_, gs) =>
+        (phaseRef.current === 'pack_zoom' || phaseRef.current === 'pack_tearing') && Math.abs(gs.dx) > 4,
+      onPanResponderGrant: () => {
+        if (phaseRef.current !== 'pack_zoom') return;
+        setPhaseSync('pack_tearing');
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+      },
+      onPanResponderMove: (_, gs) => {
+        if (phaseRef.current !== 'pack_tearing') return;
+
+        const dx = gs.dx;
+        const absDx = Math.abs(dx);
+        dragOffsetRef.current = dx;
+
+        // Progress 0→1 based on drag vs threshold
+        const TEAR_THRESHOLD = CARD_W * 0.4;
+        const progress = Math.min(absDx / TEAR_THRESHOLD, 1);
+
+        // Move halves apart proportionally
+        leftHalfX.setValue(-absDx * 0.3);
+        rightHalfX.setValue(absDx * 0.3);
+        leftHalfY.setValue(-progress * 8);
+        rightHalfY.setValue(-progress * 8);
+        tearRotate.setValue(progress * 0.4);
+
+        // Inner glow grows with drag
+        innerGlow.setValue(progress * 0.7);
+        innerGlowScale.setValue(1 + progress * 0.4);
+
+        // Light haptic at 50% threshold
+        if (progress > 0.5 && absDx < TEAR_THRESHOLD) {
+          // handled by threshold trigger below
+        }
+      },
+      onPanResponderRelease: (_, gs) => {
+        if (phaseRef.current !== 'pack_tearing') return;
+
+        const TEAR_THRESHOLD = CARD_W * 0.4;
+        const absDx = Math.abs(gs.dx);
+
+        if (absDx >= TEAR_THRESHOLD) {
+          // Threshold reached — tear it open!
+          triggerTear();
+        } else {
+          // Cancelled — reset smoothly
+          setPhaseSync('pack_zoom');
+          Animated.parallel([
+            Animated.spring(leftHalfX,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+            Animated.spring(rightHalfX, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+            Animated.spring(leftHalfY,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+            Animated.spring(rightHalfY, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+            Animated.spring(tearRotate, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+            Animated.timing(innerGlow,  { toValue: 0, duration: 200, useNativeDriver: true }),
+            Animated.spring(innerGlowScale, { toValue: 1, tension: 80, friction: 8, useNativeDriver: true }),
+          ]).start();
+          dragOffsetRef.current = 0;
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+        }
+      },
+      onPanResponderTerminate: (_, gs) => {
+        if (phaseRef.current !== 'pack_tearing') return;
+        // Reset on termination
+        setPhaseSync('pack_zoom');
         Animated.parallel([
-          Animated.timing(packOpacity, { toValue: 0,    duration: 180, useNativeDriver: true }),
-          Animated.timing(packScale,   { toValue: 1.15, duration: 180, useNativeDriver: true }),
-        ]),
-      ]).start(({ finished }) => {
-        if (!active.current || !finished) return;
-        console.log('[PackReveal] pack_open_completed');
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
-        setShowCard(true);
-        setCardFace('back');
-        setPhase('card_back');
-        startCardFlip();
-      });
-    } catch {
-      skipToFinal();
-    }
-  }, [phase, rarity, flashPeak]);
+          Animated.spring(leftHalfX,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+          Animated.spring(rightHalfX, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+          Animated.spring(leftHalfY,  { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+          Animated.spring(rightHalfY, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+          Animated.spring(tearRotate, { toValue: 0, tension: 80, friction: 8, useNativeDriver: true }),
+          Animated.timing(innerGlow,  { toValue: 0, duration: 200, useNativeDriver: true }),
+          Animated.spring(innerGlowScale, { toValue: 1, tension: 80, friction: 8, useNativeDriver: true }),
+        ]).start();
+        dragOffsetRef.current = 0;
+      },
+    })
+  ).current;
+
+
 
   // ── Card flip — rarity-tiered pause before flip ──
   const startCardFlip = useCallback(() => {
@@ -577,7 +796,7 @@ export function PackOpeningModal({
         // Wait for suspense pause, then flip
         const t = setTimeout(() => {
           if (!active.current) return;
-          setPhase('card_flip');
+          setPhaseSync('card_flip');
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
 
           Animated.timing(cardScaleX, {
@@ -595,7 +814,7 @@ export function PackOpeningModal({
             }).start(({ finished: f2 }) => {
               if (!active.current || !f2) { skipToFinal(); return; }
               console.log('[PackReveal] card_flip_completed');
-              setPhase('rarity_reveal');
+              setPhaseSync('rarity_reveal');
               startRarityReveal();
             });
           });
@@ -699,7 +918,7 @@ export function PackOpeningModal({
             Animated.timing(celebOpacity,   { toValue: 1, duration: 250, useNativeDriver: true }),
             Animated.timing(actionsOpacity, { toValue: 1, duration: 300, useNativeDriver: true }),
           ]).start();
-          setPhase('final');
+          setPhaseSync('final');
           console.log('[PackReveal] reveal_completed', { rarity, wasNew: drawnCard?.wasNew });
         }, delay);
 
@@ -770,20 +989,125 @@ export function PackOpeningModal({
               alignItems: 'center',
             }}
           >
-            <Pressable
-              onPress={handlePackTap}
-              disabled={phase !== 'pack_ready'}
-              style={{ alignItems: 'center' }}
+            {/* Outer wrapper handles zoom scale from tap */}
+            <Animated.View
+              style={{
+                transform: [{ scale: packZoomScale }],
+                alignItems: 'center',
+              }}
             >
-              <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
-            </Pressable>
-            {phase === 'pack_ready' && (
-              <View style={styles.tapHintContainer}>
+              {/* Tap target — only active during pack_ready */}
+              <Pressable
+                onPress={handlePackTap}
+                disabled={phase !== 'pack_ready'}
+                style={{ alignItems: 'center' }}
+              >
+                {/* Full pack — fades out when halves take over */}
+                <Animated.View style={{ opacity: fullPackOpacityTear }}>
+                  <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
+                </Animated.View>
+              </Pressable>
+
+              {/* Pack halves + gesture handler — shown during zoom/tearing/open phases */}
+              {(phase === 'pack_zoom' || phase === 'pack_tearing' || phase === 'pack_open') && (
+                <View
+                  {...tearPanResponder.panHandlers}
+                  style={{
+                    position: 'absolute',
+                    width: CARD_W,
+                    height: CARD_H,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {/* Inner light burst (grows during drag, peaks at tear) */}
+                  <Animated.View
+                    pointerEvents="none"
+                    style={{
+                      position: 'absolute',
+                      width: CARD_W * 0.6,
+                      height: CARD_H * 0.6,
+                      borderRadius: CARD_W * 0.6,
+                      backgroundColor: 'rgba(255,220,120,0.95)',
+                      opacity: innerGlow,
+                      transform: [{ scale: innerGlowScale }],
+                    }}
+                  />
+
+                  {/* Left half */}
+                  <Animated.View
+                    pointerEvents="none"
+                    style={{
+                      position: 'absolute',
+                      width: CARD_W,
+                      height: CARD_H,
+                      opacity: packHalvesOpacity,
+                      transform: [
+                        { translateX: leftHalfX },
+                        { translateY: leftHalfY },
+                        {
+                          rotate: tearRotate.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: ['0deg', '-25deg'],
+                          }),
+                        },
+                      ],
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {/* Clip to left half */}
+                    <View style={{ width: CARD_W / 2, height: CARD_H, overflow: 'hidden', borderRadius: 20 }}>
+                      <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
+                    </View>
+                  </Animated.View>
+
+                  {/* Right half */}
+                  <Animated.View
+                    pointerEvents="none"
+                    style={{
+                      position: 'absolute',
+                      width: CARD_W,
+                      height: CARD_H,
+                      opacity: packHalvesOpacity,
+                      transform: [
+                        { translateX: rightHalfX },
+                        { translateY: rightHalfY },
+                        {
+                          rotate: tearRotate.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: ['0deg', '25deg'],
+                          }),
+                        },
+                      ],
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {/* Clip to right half */}
+                    <View style={{ width: CARD_W, height: CARD_H, overflow: 'hidden', borderRadius: 20, alignItems: 'flex-end' }}>
+                      <View style={{ width: CARD_W / 2, height: CARD_H, overflow: 'hidden', borderTopRightRadius: 20, borderBottomRightRadius: 20 }}>
+                        <View style={{ width: CARD_W, height: CARD_H, marginLeft: -CARD_W / 2 }}>
+                          <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
+                        </View>
+                      </View>
+                    </View>
+                  </Animated.View>
+                </View>
+              )}
+            </Animated.View>
+
+            {/* Hint text */}
+            <View style={styles.tapHintContainer}>
+              {phase === 'pack_ready' && (
                 <Text style={styles.tapHint}>
                   {language === 'es' ? 'Toca para abrir' : 'Tap to open'}
                 </Text>
-              </View>
-            )}
+              )}
+              {(phase === 'pack_zoom' || phase === 'pack_tearing') && (
+                <Animated.Text style={[styles.tapHint, styles.swipeHint, { opacity: hintOpacity }]}>
+                  {language === 'es' ? 'Desliza para abrir' : 'Swipe to open'}
+                </Animated.Text>
+              )}
+            </View>
           </Animated.View>
         )}
 
@@ -949,6 +1273,7 @@ const styles = StyleSheet.create({
   packSub: { fontSize: 11, fontWeight: '600', letterSpacing: 1.5, textTransform: 'uppercase' },
   tapHintContainer: { marginTop: 28, alignItems: 'center' },
   tapHint: { color: 'rgba(255,255,255,0.55)', fontSize: 15, letterSpacing: 0.3, textAlign: 'center' },
+  swipeHint: { color: 'rgba(255,220,120,0.85)', fontWeight: '600' as const, letterSpacing: 0.8 },
   glowRing: {
     position: 'absolute',
     width: CARD_W * 2.2,
