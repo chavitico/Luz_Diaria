@@ -1128,5 +1128,25 @@
     "amount": 10,
     "metadata": "{\"categoryKey\":\"wisdom\"}",
     "createdAt": "2026-03-07T05:13:58.790Z"
+  },
+  {
+    "id": "cmmfxbqnn001cm2tpmyds2t0n",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "tts_2026-03-07",
+    "type": "tts_complete",
+    "dateId": "2026-03-07",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T06:09:49.235Z"
+  },
+  {
+    "id": "cmmfxbtqd001em2tpfp91imhn",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "prayer_2026-03-07",
+    "type": "prayer",
+    "dateId": "2026-03-07",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T06:09:53.222Z"
   }
 ]

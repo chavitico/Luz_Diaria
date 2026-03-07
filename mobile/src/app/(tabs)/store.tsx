@@ -359,6 +359,7 @@ function FeatureCard({
   accentGlowColor,
   onPress,
   badgeCount,
+  showNewBadge,
 }: {
   emoji: string;
   title: string;
@@ -368,11 +369,13 @@ function FeatureCard({
   accentGlowColor: string;
   onPress: () => void;
   badgeCount?: number;
+  showNewBadge?: boolean;
 }) {
   const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
   const badgePulse = useSharedValue(1);
+  const newBadgeOpacity = useSharedValue(1);
 
   React.useEffect(() => {
     if (badgeCount && badgeCount > 0) {
@@ -389,7 +392,23 @@ function FeatureCard({
     }
   }, [badgeCount]);
 
+  React.useEffect(() => {
+    if (showNewBadge) {
+      newBadgeOpacity.value = withRepeat(
+        withSequence(
+          withTiming(0.2, { duration: 600 }),
+          withTiming(1, { duration: 600 }),
+        ),
+        -1,
+        false,
+      );
+    } else {
+      newBadgeOpacity.value = 1;
+    }
+  }, [showNewBadge]);
+
   const badgeStyle = useAnimatedStyle(() => ({ transform: [{ scale: badgePulse.value }] }));
+  const newBadgeStyle = useAnimatedStyle(() => ({ opacity: newBadgeOpacity.value }));
 
   return (
     <Animated.View style={animatedStyle}>
@@ -442,9 +461,28 @@ function FeatureCard({
               )}
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 3 }}>
-                {title}
-              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 3 }}>
+                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.3 }}>
+                  {title}
+                </Text>
+                {showNewBadge && (
+                  <Animated.View
+                    style={[
+                      {
+                        backgroundColor: '#FF3B30',
+                        borderRadius: 6,
+                        paddingHorizontal: 6,
+                        paddingVertical: 2,
+                      },
+                      newBadgeStyle,
+                    ]}
+                  >
+                    <Text style={{ fontSize: 9, fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.8 }}>
+                      NOVEDAD
+                    </Text>
+                  </Animated.View>
+                )}
+              </View>
               <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.60)', fontWeight: '500' }}>
                 {subtitle}
               </Text>
@@ -8380,6 +8418,7 @@ export default function StoreScreen() {
             borderColor="rgba(212,175,55,0.25)"
             accentGlowColor="rgba(212,175,55,0.08)"
             badgeCount={dailyPackStatus?.canClaim ? (dailyPackStatus.remaining ?? 1) : undefined}
+            showNewBadge
             onPress={() => {
               const now = Date.now();
               if (now - lastCategoryTapAt.current < 500) return;
