@@ -1,21 +1,17 @@
 /**
  * PackOpeningModal
  *
- * Premium pack opening animation flow for Biblical Cards.
+ * Premium pack opening animation — runs inside a single root-level Modal
+ * mounted above all navigation layers in _layout.tsx.
  *
- * Flow:
- *   Phase 0 — idle
- *   Phase 1 — pack appears: scale-in + float pulse + glow
- *   Phase 2 — pack tap: shake + flash + fade
- *   Phase 3 — card flip reveal: scaleX shrink → swap face → expand
- *   Phase 4 — rarity glow reveal
- *   Phase 5 — final: show card with actions (Ver álbum / Cerrar)
+ * State machine (strictly sequential):
+ *   idle → pack_appear → pack_ready → pack_open → card_back → card_flip → rarity_reveal → final
  *
  * Safety rules:
- *   - Uses React Native Animated only (no Reanimated) to prevent UI thread freezes.
- *   - All locks released in finally blocks.
- *   - If animation throws, falls back to static card display.
- *   - No async operations on the UI thread that could block the JS bridge.
+ *   - React Native Animated only (no Reanimated) to prevent UI thread freezes.
+ *   - animationActive ref guards every async callback.
+ *   - If any animation throws, skipToFinal() immediately shows the card with buttons.
+ *   - Float loop always stopped before pack_open starts.
  */
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -39,11 +35,19 @@ import { RARITY_COLORS } from '@/lib/constants';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type Phase = 'idle' | 'pack_appear' | 'pack_ready' | 'pack_open' | 'card_flip' | 'rarity_reveal' | 'final';
+type Phase =
+  | 'idle'
+  | 'pack_appear'
+  | 'pack_ready'
+  | 'pack_open'
+  | 'card_back'
+  | 'card_flip'
+  | 'rarity_reveal'
+  | 'final';
 
 type PackType = 'sobre_biblico' | 'pack_pascua';
 
-interface PackOpeningModalProps {
+export interface PackOpeningModalProps {
   visible: boolean;
   packType: PackType | null;
   drawnCard: { cardId: string; wasNew: boolean } | null;
@@ -53,11 +57,12 @@ interface PackOpeningModalProps {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
+const { width: SCREEN_W } = Dimensions.get('window');
+const CARD_W = Math.min(SCREEN_W * 0.65, 280);
+const CARD_H = CARD_W * 1.5;
 
 const PACK_CONFIG: Record<PackType, {
   label: string;
-  labelEn: string;
   gradientTop: string;
   gradientBottom: string;
   borderColor: string;
@@ -66,7 +71,6 @@ const PACK_CONFIG: Record<PackType, {
 }> = {
   sobre_biblico: {
     label: 'Sobre Bíblico',
-    labelEn: 'Biblical Pack',
     gradientTop: '#1E3A5F',
     gradientBottom: '#0A1929',
     borderColor: '#D4A017',
@@ -75,7 +79,6 @@ const PACK_CONFIG: Record<PackType, {
   },
   pack_pascua: {
     label: 'Pack de Pascua',
-    labelEn: 'Easter Pack',
     gradientTop: '#8B0000',
     gradientBottom: '#1A0000',
     borderColor: '#D4A017',
@@ -84,50 +87,123 @@ const PACK_CONFIG: Record<PackType, {
   },
 };
 
-const RARITY_GLOW: Record<string, string[]> = {
-  common: ['#6B7280', '#9CA3AF'],
-  rare: ['#1D4ED8', '#3B82F6'],
-  epic: ['#7C3AED', '#A855F7'],
-  legendary: ['#92400E', '#D97706'],
+// Glow colors per rarity — inner / outer
+const RARITY_GLOW_COLORS: Record<string, [string, string]> = {
+  common:    ['#4B5563', '#1F2937'],
+  rare:      ['#3B82F6', '#1D4ED8'],
+  epic:      ['#A855F7', '#7C3AED'],
+  legendary: ['#F59E0B', '#D97706'],
 };
 
 // ─── Animated Pack Visual ────────────────────────────────────────────────────
 
-function PackVisual({ packType, shakeAnim }: { packType: PackType; shakeAnim: Animated.Value }) {
+function PackVisual({
+  packType,
+  shakeAnim,
+  scaleAnim,
+}: {
+  packType: PackType;
+  shakeAnim: Animated.Value;
+  scaleAnim: Animated.Value;
+}) {
   const cfg = PACK_CONFIG[packType];
   const rotate = shakeAnim.interpolate({
     inputRange: [-1, 0, 1],
-    outputRange: ['-8deg', '0deg', '8deg'],
+    outputRange: ['-7deg', '0deg', '7deg'],
   });
 
   return (
     <Animated.View
-      style={[
-        styles.packContainer,
-        { transform: [{ rotate }] },
-        {
-          shadowColor: cfg.glowColor,
-          shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 0.9,
-          shadowRadius: 24,
-          elevation: 20,
-        },
-      ]}
+      style={{
+        transform: [{ rotate }, { scale: scaleAnim }],
+        shadowColor: cfg.glowColor,
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.85,
+        shadowRadius: 28,
+        elevation: 20,
+        width: CARD_W,
+        height: CARD_H,
+        borderRadius: 20,
+        overflow: 'hidden',
+      }}
     >
       <LinearGradient
         colors={[cfg.gradientTop, cfg.gradientBottom]}
         style={styles.packGradient}
-        start={{ x: 0.5, y: 0 }}
-        end={{ x: 0.5, y: 1 }}
+        start={{ x: 0.3, y: 0 }}
+        end={{ x: 0.7, y: 1 }}
       >
         <View style={[styles.packBorder, { borderColor: cfg.borderColor }]}>
+          {/* Corner ornaments */}
+          <Text style={[styles.packCorner, { top: 8, left: 10 }]}>✦</Text>
+          <Text style={[styles.packCorner, { top: 8, right: 10 }]}>✦</Text>
+          <Text style={[styles.packCorner, { bottom: 8, left: 10 }]}>✦</Text>
+          <Text style={[styles.packCorner, { bottom: 8, right: 10 }]}>✦</Text>
+
           <Text style={styles.packEmoji}>{cfg.emoji}</Text>
           <Text style={[styles.packLabel, { color: cfg.borderColor }]}>
             {cfg.label}
           </Text>
+          <View style={[styles.packDivider, { backgroundColor: cfg.borderColor }]} />
+          <Text style={[styles.packSub, { color: cfg.borderColor + 'AA' }]}>
+            Cartas Bíblicas
+          </Text>
         </View>
       </LinearGradient>
     </Animated.View>
+  );
+}
+
+// ─── Card Back Visual ─────────────────────────────────────────────────────────
+
+function CardBack() {
+  return (
+    <View style={styles.cardBack}>
+      <LinearGradient
+        colors={['#1E3A5F', '#0A1929']}
+        style={styles.cardBackGradient}
+        start={{ x: 0.2, y: 0 }}
+        end={{ x: 0.8, y: 1 }}
+      >
+        <View style={styles.cardBackBorder}>
+          <Text style={styles.cardBackCross}>✝</Text>
+          <Text style={styles.cardBackLabel}>Cartas{'\n'}Bíblicas</Text>
+        </View>
+      </LinearGradient>
+    </View>
+  );
+}
+
+// ─── Rarity Shimmer (epic/legendary extra effect) ─────────────────────────────
+
+function RarityShimmer({
+  rarity,
+  shimmerAnim,
+}: {
+  rarity: string;
+  shimmerAnim: Animated.Value;
+}) {
+  if (rarity !== 'epic' && rarity !== 'legendary') return null;
+
+  const translateX = shimmerAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-CARD_W * 1.5, CARD_W * 1.5],
+  });
+
+  const color = rarity === 'legendary' ? 'rgba(251,191,36,0.35)' : 'rgba(168,85,247,0.3)';
+
+  return (
+    <Animated.View
+      pointerEvents="none"
+      style={{
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        width: CARD_W * 0.4,
+        transform: [{ translateX }, { skewX: '-20deg' }],
+        backgroundColor: color,
+      }}
+    />
   );
 }
 
@@ -143,268 +219,311 @@ export function PackOpeningModal({
   const language = useLanguage();
   const { sFont } = useScaledFont();
 
-  // ── Animation values ──
-  const backdropOpacity = useRef(new Animated.Value(0)).current;
-  const packScale = useRef(new Animated.Value(0.3)).current;
-  const packOpacity = useRef(new Animated.Value(0)).current;
-  const packFloat = useRef(new Animated.Value(0)).current;
-  const packShake = useRef(new Animated.Value(0)).current;
-  const flashOpacity = useRef(new Animated.Value(0)).current;
-  const cardScale = useRef(new Animated.Value(0)).current;
-  const cardScaleX = useRef(new Animated.Value(1)).current;
-  const cardOpacity = useRef(new Animated.Value(0)).current;
-  const glowOpacity = useRef(new Animated.Value(0)).current;
-  const glowScale = useRef(new Animated.Value(0.5)).current;
-  const contentOpacity = useRef(new Animated.Value(0)).current;
+  // ── Animation values (stable refs, never recreated) ──
+  const backdropOpacity  = useRef(new Animated.Value(0)).current;
+  const packScale        = useRef(new Animated.Value(0.3)).current;
+  const packOpacity      = useRef(new Animated.Value(0)).current;
+  const packFloat        = useRef(new Animated.Value(0)).current;
+  const packShake        = useRef(new Animated.Value(0)).current;
+  const packBump         = useRef(new Animated.Value(1)).current;   // scale 1→1.05 on open
+  const flashOpacity     = useRef(new Animated.Value(0)).current;
+  const cardScale        = useRef(new Animated.Value(0)).current;
+  const cardScaleX       = useRef(new Animated.Value(1)).current;
+  const cardOpacity      = useRef(new Animated.Value(0)).current;
+  const glowOpacity      = useRef(new Animated.Value(0)).current;
+  const glowScale        = useRef(new Animated.Value(0.6)).current;
+  const glowPulse        = useRef(new Animated.Value(1)).current;   // pulse for rare+
+  const shimmerAnim      = useRef(new Animated.Value(0)).current;   // shimmer pass
+  const celebOpacity     = useRef(new Animated.Value(0)).current;   // "nueva carta" text
+  const actionsOpacity   = useRef(new Animated.Value(0)).current;
 
-  const [phase, setPhase] = useState<Phase>('idle');
-  const [showCard, setShowCard] = useState(false);
-  const [cardFace, setCardFace] = useState<'back' | 'front'>('back');
-  const floatLoop = useRef<Animated.CompositeAnimation | null>(null);
-  const animationActive = useRef(false);
+  const [phase, setPhase]         = useState<Phase>('idle');
+  const [showCard, setShowCard]   = useState(false);
+  const [cardFace, setCardFace]   = useState<'back' | 'front'>('back');
 
-  const card: BiblicalCard | null = drawnCard ? (BIBLICAL_CARDS[drawnCard.cardId] ?? null) : null;
-  const rarity = card?.rarity ?? 'common';
-  const rarityGlow = RARITY_GLOW[rarity] ?? RARITY_GLOW.common;
-  const rarityColor = RARITY_COLORS[rarity as keyof typeof RARITY_COLORS] ?? RARITY_COLORS.common;
+  const floatLoop    = useRef<Animated.CompositeAnimation | null>(null);
+  const pulseLoop    = useRef<Animated.CompositeAnimation | null>(null);
+  const shimmerLoop  = useRef<Animated.CompositeAnimation | null>(null);
+  const active       = useRef(false);  // guards all async animation callbacks
 
-  // ── Reset all values ──
-  const resetAnimValues = useCallback(() => {
+  const card: BiblicalCard | null = drawnCard
+    ? (BIBLICAL_CARDS[drawnCard.cardId] ?? null)
+    : null;
+  const rarity    = card?.rarity ?? 'common';
+  const glowColors = RARITY_GLOW_COLORS[rarity] ?? RARITY_GLOW_COLORS.common;
+  const glowPeakOpacity = rarity === 'common' ? 0.25 : rarity === 'rare' ? 0.55 : 0.75;
+
+  // ── Stop all loops ──
+  const stopLoops = useCallback(() => {
+    floatLoop.current?.stop();   floatLoop.current  = null;
+    pulseLoop.current?.stop();   pulseLoop.current  = null;
+    shimmerLoop.current?.stop(); shimmerLoop.current = null;
+  }, []);
+
+  // ── Hard reset ──
+  const resetAll = useCallback(() => {
+    active.current = false;
+    stopLoops();
     backdropOpacity.setValue(0);
     packScale.setValue(0.3);
     packOpacity.setValue(0);
     packFloat.setValue(0);
     packShake.setValue(0);
+    packBump.setValue(1);
     flashOpacity.setValue(0);
     cardScale.setValue(0);
     cardScaleX.setValue(1);
     cardOpacity.setValue(0);
     glowOpacity.setValue(0);
-    glowScale.setValue(0.5);
-    contentOpacity.setValue(0);
+    glowScale.setValue(0.6);
+    glowPulse.setValue(1);
+    shimmerAnim.setValue(0);
+    celebOpacity.setValue(0);
+    actionsOpacity.setValue(0);
     setShowCard(false);
     setCardFace('back');
   }, []);
 
-  // ── Start flow when modal becomes visible ──
+  // ── Emergency fallback: skip straight to final ──
+  const skipToFinal = useCallback(() => {
+    console.log('[PackReveal] skipToFinal — showing static card');
+    stopLoops();
+    cardScale.setValue(1);
+    cardScaleX.setValue(1);
+    cardOpacity.setValue(1);
+    glowOpacity.setValue(glowPeakOpacity);
+    glowScale.setValue(1);
+    actionsOpacity.setValue(1);
+    celebOpacity.setValue(1);
+    setShowCard(true);
+    setCardFace('front');
+    setPhase('final');
+  }, [glowPeakOpacity]);
+
+  // ── Entry point — fires when visible becomes true ──
   useEffect(() => {
     if (!visible || !packType || !drawnCard) {
-      if (floatLoop.current) {
-        floatLoop.current.stop();
-        floatLoop.current = null;
-      }
+      resetAll();
       setPhase('idle');
-      resetAnimValues();
       return;
     }
 
-    resetAnimValues();
+    resetAll();
+    active.current = true;
     setPhase('pack_appear');
-    animationActive.current = true;
+    console.log('[PackReveal] pack_idle_shown');
 
-    // Phase 1: backdrop + pack scale-in
-    Animated.parallel([
-      Animated.timing(backdropOpacity, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-      Animated.spring(packScale, {
-        toValue: 1,
-        tension: 80,
-        friction: 8,
-        useNativeDriver: true,
-      }),
-      Animated.timing(packOpacity, {
-        toValue: 1,
-        duration: 250,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      if (!animationActive.current) return;
-      setPhase('pack_ready');
+    try {
+      Animated.parallel([
+        Animated.timing(backdropOpacity, {
+          toValue: 1, duration: 280, useNativeDriver: true,
+        }),
+        Animated.spring(packScale, {
+          toValue: 1, tension: 80, friction: 8, useNativeDriver: true,
+        }),
+        Animated.timing(packOpacity, {
+          toValue: 1, duration: 220, useNativeDriver: true,
+        }),
+      ]).start(({ finished }) => {
+        if (!active.current || !finished) return;
+        setPhase('pack_ready');
 
-      // Start float loop
-      const loop = Animated.loop(
-        Animated.sequence([
-          Animated.timing(packFloat, {
-            toValue: -8,
-            duration: 1200,
-            easing: Easing.inOut(Easing.sin),
-            useNativeDriver: true,
-          }),
-          Animated.timing(packFloat, {
-            toValue: 8,
-            duration: 1200,
-            easing: Easing.inOut(Easing.sin),
-            useNativeDriver: true,
-          }),
-        ])
-      );
-      floatLoop.current = loop;
-      loop.start();
-    });
+        // Float loop: gentle ±6px sine
+        const loop = Animated.loop(
+          Animated.sequence([
+            Animated.timing(packFloat, {
+              toValue: -6, duration: 1100,
+              easing: Easing.inOut(Easing.sin), useNativeDriver: true,
+            }),
+            Animated.timing(packFloat, {
+              toValue: 6, duration: 1100,
+              easing: Easing.inOut(Easing.sin), useNativeDriver: true,
+            }),
+          ])
+        );
+        floatLoop.current = loop;
+        loop.start();
+      });
+    } catch {
+      skipToFinal();
+    }
 
     return () => {
-      animationActive.current = false;
-      if (floatLoop.current) {
-        floatLoop.current.stop();
-        floatLoop.current = null;
-      }
+      active.current = false;
+      stopLoops();
     };
-  }, [visible, packType, drawnCard]);
+  }, [visible, packType, drawnCard?.cardId]);
 
-  // ── Handle pack tap ──
+  // ── Pack tap handler ──
   const handlePackTap = useCallback(() => {
     if (phase !== 'pack_ready') return;
     setPhase('pack_open');
+    console.log('[PackReveal] pack_open_started');
 
-    // Stop float
-    if (floatLoop.current) {
-      floatLoop.current.stop();
-      floatLoop.current = null;
-    }
-
+    stopLoops();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
 
-    // Shake → flash → fade pack
-    Animated.sequence([
-      // Shake
+    try {
       Animated.sequence([
-        Animated.timing(packShake, { toValue: 1, duration: 60, useNativeDriver: true }),
-        Animated.timing(packShake, { toValue: -1, duration: 60, useNativeDriver: true }),
-        Animated.timing(packShake, { toValue: 1, duration: 60, useNativeDriver: true }),
-        Animated.timing(packShake, { toValue: -1, duration: 60, useNativeDriver: true }),
-        Animated.timing(packShake, { toValue: 0.5, duration: 60, useNativeDriver: true }),
-        Animated.timing(packShake, { toValue: -0.5, duration: 60, useNativeDriver: true }),
-        Animated.timing(packShake, { toValue: 0, duration: 60, useNativeDriver: true }),
-      ]),
-      // Flash white
-      Animated.sequence([
-        Animated.timing(flashOpacity, {
-          toValue: 1,
-          duration: 80,
-          useNativeDriver: true,
+        // 1. Shake (3 quick moves, <200ms total)
+        Animated.sequence([
+          Animated.timing(packShake, { toValue: 1,    duration: 55, useNativeDriver: true }),
+          Animated.timing(packShake, { toValue: -1,   duration: 55, useNativeDriver: true }),
+          Animated.timing(packShake, { toValue: 0.7,  duration: 45, useNativeDriver: true }),
+          Animated.timing(packShake, { toValue: -0.7, duration: 45, useNativeDriver: true }),
+          Animated.timing(packShake, { toValue: 0,    duration: 40, useNativeDriver: true }),
+        ]),
+        // 2. Bump scale 1→1.05
+        Animated.timing(packBump, {
+          toValue: 1.05, duration: 80,
+          easing: Easing.out(Easing.quad), useNativeDriver: true,
         }),
-        Animated.timing(flashOpacity, {
-          toValue: 0,
-          duration: 150,
-          useNativeDriver: true,
-        }),
-      ]),
-    ]).start(() => {
-      if (!animationActive.current) return;
-
-      // Haptics for card reveal
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
-
-      // Fade pack + show card back
-      Animated.parallel([
-        Animated.timing(packOpacity, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(packScale, {
-          toValue: 1.2,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]).start(() => {
-        if (!animationActive.current) return;
+        // 3. Flash
+        Animated.sequence([
+          Animated.timing(flashOpacity, { toValue: 1, duration: 70, useNativeDriver: true }),
+          Animated.timing(flashOpacity, { toValue: 0, duration: 130, useNativeDriver: true }),
+        ]),
+        // 4. Fade pack out + scale up slightly
+        Animated.parallel([
+          Animated.timing(packOpacity, { toValue: 0, duration: 180, useNativeDriver: true }),
+          Animated.timing(packScale,   { toValue: 1.15, duration: 180, useNativeDriver: true }),
+        ]),
+      ]).start(({ finished }) => {
+        if (!active.current || !finished) return;
+        console.log('[PackReveal] pack_open_completed');
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
         setShowCard(true);
         setCardFace('back');
-        setPhase('card_flip');
+        setPhase('card_back');
         startCardFlip();
       });
-    });
+    } catch {
+      skipToFinal();
+    }
   }, [phase]);
 
-  // ── Card flip animation ──
+  // ── Card flip ──
   const startCardFlip = useCallback(() => {
-    // Card appears from scale 0
-    Animated.parallel([
-      Animated.spring(cardScale, {
-        toValue: 1,
-        tension: 80,
-        friction: 7,
-        useNativeDriver: true,
-      }),
-      Animated.timing(cardOpacity, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      if (!animationActive.current) return;
+    console.log('[PackReveal] card_flip_started');
+    try {
+      // Card springs in from scale 0
+      Animated.parallel([
+        Animated.spring(cardScale, {
+          toValue: 1, tension: 75, friction: 7, useNativeDriver: true,
+        }),
+        Animated.timing(cardOpacity, {
+          toValue: 1, duration: 180, useNativeDriver: true,
+        }),
+      ]).start(({ finished }) => {
+        if (!active.current || !finished) { skipToFinal(); return; }
 
-      // Brief pause for drama
-      setTimeout(() => {
-        if (!animationActive.current) return;
+        // 350ms drama pause
+        const t = setTimeout(() => {
+          if (!active.current) return;
+          setPhase('card_flip');
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
 
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
-
-        // Flip: shrink X to 0 (showing back)
-        Animated.timing(cardScaleX, {
-          toValue: 0,
-          duration: 220,
-          easing: Easing.in(Easing.quad),
-          useNativeDriver: true,
-        }).start(() => {
-          if (!animationActive.current) return;
-
-          // Swap face at the midpoint
-          setCardFace('front');
-
-          // Expand X to 1 (showing front)
+          // scaleX → 0
           Animated.timing(cardScaleX, {
-            toValue: 1,
-            duration: 280,
-            easing: Easing.out(Easing.back(1.2)),
-            useNativeDriver: true,
-          }).start(() => {
-            if (!animationActive.current) return;
-            setPhase('rarity_reveal');
-            startRarityReveal();
+            toValue: 0, duration: 200,
+            easing: Easing.in(Easing.quad), useNativeDriver: true,
+          }).start(({ finished: f1 }) => {
+            if (!active.current || !f1) { skipToFinal(); return; }
+            setCardFace('front');
+
+            // scaleX → 1 with slight overshoot
+            Animated.timing(cardScaleX, {
+              toValue: 1, duration: 260,
+              easing: Easing.out(Easing.back(1.15)), useNativeDriver: true,
+            }).start(({ finished: f2 }) => {
+              if (!active.current || !f2) { skipToFinal(); return; }
+              console.log('[PackReveal] card_flip_completed');
+              setPhase('rarity_reveal');
+              startRarityReveal();
+            });
           });
-        });
-      }, 400);
-    });
+        }, 350);
+
+        return () => clearTimeout(t);
+      });
+    } catch {
+      skipToFinal();
+    }
   }, []);
 
-  // ── Rarity glow ──
+  // ── Rarity reveal ──
   const startRarityReveal = useCallback(() => {
+    console.log('[PackReveal] rarity_effect_started', rarity);
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
 
-    Animated.parallel([
-      Animated.spring(glowScale, {
-        toValue: 1,
-        tension: 60,
-        friction: 6,
-        useNativeDriver: true,
-      }),
-      Animated.timing(glowOpacity, {
-        toValue: rarity === 'common' ? 0.3 : 0.7,
-        duration: 400,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      if (!animationActive.current) return;
+    try {
+      Animated.parallel([
+        Animated.spring(glowScale, {
+          toValue: 1, tension: 55, friction: 6, useNativeDriver: true,
+        }),
+        Animated.timing(glowOpacity, {
+          toValue: glowPeakOpacity, duration: 380, useNativeDriver: true,
+        }),
+      ]).start(({ finished }) => {
+        if (!active.current || !finished) { skipToFinal(); return; }
 
-      // Fade in action buttons
-      setTimeout(() => {
-        if (!animationActive.current) return;
-        setPhase('final');
-        Animated.timing(contentOpacity, {
-          toValue: 1,
-          duration: 300,
-          useNativeDriver: true,
-        }).start();
-      }, 500);
-    });
-  }, [rarity]);
+        // For rare+: start glow pulse loop
+        if (rarity !== 'common') {
+          const pulse = Animated.loop(
+            Animated.sequence([
+              Animated.timing(glowPulse, {
+                toValue: 1.08, duration: 700,
+                easing: Easing.inOut(Easing.sin), useNativeDriver: true,
+              }),
+              Animated.timing(glowPulse, {
+                toValue: 1, duration: 700,
+                easing: Easing.inOut(Easing.sin), useNativeDriver: true,
+              }),
+            ])
+          );
+          pulseLoop.current = pulse;
+          pulse.start();
+        }
 
-  // ── Fallback: if card is not found, show simple modal ──
+        // For epic/legendary: shimmer pass
+        if (rarity === 'epic' || rarity === 'legendary') {
+          const shimmer = Animated.loop(
+            Animated.timing(shimmerAnim, {
+              toValue: 1, duration: rarity === 'legendary' ? 900 : 1400,
+              easing: Easing.linear, useNativeDriver: true,
+            })
+          );
+          shimmerLoop.current = shimmer;
+          shimmer.start();
+
+          if (rarity === 'legendary') {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+          }
+        }
+
+        // Celebration text + actions
+        const t = setTimeout(() => {
+          if (!active.current) return;
+          Animated.parallel([
+            Animated.timing(celebOpacity, {
+              toValue: 1, duration: 250, useNativeDriver: true,
+            }),
+            Animated.timing(actionsOpacity, {
+              toValue: 1, duration: 300, useNativeDriver: true,
+            }),
+          ]).start();
+          setPhase('final');
+          console.log('[PackReveal] reveal_completed', { rarity, wasNew: drawnCard?.wasNew });
+        }, 450);
+
+        return () => clearTimeout(t);
+      });
+    } catch {
+      skipToFinal();
+    }
+  }, [rarity, glowPeakOpacity, drawnCard?.wasNew]);
+
+  // ── Fallback: card not in BIBLICAL_CARDS ──
   if (visible && drawnCard && !card) {
     return (
       <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
@@ -435,39 +554,44 @@ export function PackOpeningModal({
       statusBarTranslucent
       onRequestClose={onClose}
     >
-      {/* Backdrop */}
+      {/* ── Dark backdrop ── */}
       <Animated.View style={[styles.backdrop, { opacity: backdropOpacity }]}>
         <LinearGradient
-          colors={['#000000', '#0D0D1A']}
+          colors={['#050508', '#0D0D1A']}
           style={StyleSheet.absoluteFill}
         />
       </Animated.View>
 
-      {/* Flash overlay */}
+      {/* ── White flash ── */}
       <Animated.View
         style={[styles.flashOverlay, { opacity: flashOpacity }]}
         pointerEvents="none"
       />
 
-      {/* Content */}
+      {/* ── Main content ── */}
       <View style={styles.container}>
 
-        {/* Pack or Card */}
+        {/* PACK (shown until pack_open completes) */}
         {!showCard && packType && packCfg && (
           <Animated.View
             style={{
-              transform: [
-                { scale: packScale },
-                { translateY: packFloat },
-              ],
+              transform: [{ scale: packScale }, { translateY: packFloat }],
               opacity: packOpacity,
+              alignItems: 'center',
             }}
           >
-            <Pressable onPress={handlePackTap} disabled={phase !== 'pack_ready'}>
-              <PackVisual packType={packType} shakeAnim={packShake} />
+            <Pressable
+              onPress={handlePackTap}
+              disabled={phase !== 'pack_ready'}
+              style={{ alignItems: 'center' }}
+            >
+              <PackVisual
+                packType={packType}
+                shakeAnim={packShake}
+                scaleAnim={packBump}
+              />
             </Pressable>
 
-            {/* Tap hint */}
             {phase === 'pack_ready' && (
               <View style={styles.tapHintContainer}>
                 <Text style={styles.tapHint}>
@@ -478,77 +602,92 @@ export function PackOpeningModal({
           </Animated.View>
         )}
 
-        {/* Card reveal */}
+        {/* CARD REVEAL */}
         {showCard && card && drawnCard && (
           <>
-            {/* Rarity glow behind card */}
+            {/* Rarity glow ring behind card */}
             <Animated.View
+              pointerEvents="none"
               style={[
-                styles.rarityGlowContainer,
+                styles.glowRing,
                 {
-                  transform: [{ scale: glowScale }],
+                  transform: [{ scale: Animated.multiply(glowScale, glowPulse) }],
                   opacity: glowOpacity,
                 },
               ]}
-              pointerEvents="none"
             >
               <LinearGradient
-                colors={rarityGlow as [string, string]}
-                style={styles.rarityGlow}
+                colors={glowColors}
+                style={styles.glowRingInner}
                 start={{ x: 0.5, y: 0.5 }}
                 end={{ x: 1, y: 1 }}
               />
             </Animated.View>
 
-            {/* Card visual */}
+            {/* Card (back then front) with flip */}
             <Animated.View
               style={{
-                transform: [
-                  { scale: cardScale },
-                  { scaleX: cardScaleX },
-                ],
+                transform: [{ scale: cardScale }, { scaleX: cardScaleX }],
                 opacity: cardOpacity,
+                overflow: 'hidden',
+                borderRadius: 20,
+                width: CARD_W,
+                height: CARD_H,
               }}
             >
               {cardFace === 'front' ? (
-                <CollectibleCardVisual
-                  card={card}
-                  wasNew={drawnCard.wasNew}
-                  language={language}
-                  sFont={sFont}
-                  size="reveal"
-                />
+                <>
+                  <CollectibleCardVisual
+                    card={card}
+                    wasNew={drawnCard.wasNew}
+                    language={language}
+                    sFont={sFont}
+                    size="reveal"
+                  />
+                  {/* Shimmer overlay for epic/legendary */}
+                  <RarityShimmer rarity={rarity} shimmerAnim={shimmerAnim} />
+                </>
               ) : (
                 <CardBack />
               )}
             </Animated.View>
 
-            {/* New card badge */}
-            {cardFace === 'front' && drawnCard.wasNew && (
-              <Animated.View style={[styles.newBadge, { opacity: glowOpacity }]}>
-                <LinearGradient
-                  colors={['#D97706', '#92400E']}
-                  style={styles.newBadgeGradient}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                >
-                  <Text style={styles.newBadgeText}>
-                    {language === 'es' ? '¡NUEVA!' : 'NEW!'}
-                  </Text>
-                </LinearGradient>
+            {/* Celebration / duplicate label */}
+            {cardFace === 'front' && (
+              <Animated.View style={[styles.celebContainer, { opacity: celebOpacity }]}>
+                {drawnCard.wasNew ? (
+                  <LinearGradient
+                    colors={
+                      rarity === 'legendary' ? ['#D97706', '#92400E'] :
+                      rarity === 'epic'      ? ['#7C3AED', '#5B21B6'] :
+                      rarity === 'rare'      ? ['#1D4ED8', '#1E40AF'] :
+                                              ['#374151', '#1F2937']
+                    }
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.celebBadge}
+                  >
+                    <Text style={styles.celebText}>
+                      ✨ {language === 'es' ? 'Nueva carta descubierta' : 'New card discovered'} ✨
+                    </Text>
+                  </LinearGradient>
+                ) : (
+                  <View style={styles.dupBadge}>
+                    <Text style={styles.dupText}>
+                      {language === 'es' ? 'Duplicado guardado' : 'Duplicate saved'}
+                    </Text>
+                  </View>
+                )}
               </Animated.View>
             )}
 
             {/* Action buttons */}
             {phase === 'final' && (
-              <Animated.View style={[styles.actions, { opacity: contentOpacity }]}>
-                <Pressable
-                  style={[styles.actionBtn, styles.primaryBtn]}
-                  onPress={onViewAlbum}
-                >
+              <Animated.View style={[styles.actions, { opacity: actionsOpacity }]}>
+                <Pressable style={styles.primaryBtn} onPress={onViewAlbum}>
                   <LinearGradient
                     colors={['#1E3A5F', '#0A1929']}
-                    style={styles.actionBtnGradient}
+                    style={styles.primaryBtnGradient}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                   >
@@ -557,10 +696,7 @@ export function PackOpeningModal({
                     </Text>
                   </LinearGradient>
                 </Pressable>
-                <Pressable
-                  style={[styles.actionBtn, styles.secondaryBtn]}
-                  onPress={onClose}
-                >
+                <Pressable style={styles.secondaryBtn} onPress={onClose}>
                   <Text style={styles.secondaryBtnText}>
                     {language === 'es' ? 'Cerrar' : 'Close'}
                   </Text>
@@ -574,30 +710,7 @@ export function PackOpeningModal({
   );
 }
 
-// ─── Card Back Visual ─────────────────────────────────────────────────────────
-
-function CardBack() {
-  return (
-    <View style={styles.cardBack}>
-      <LinearGradient
-        colors={['#1E3A5F', '#0A1929']}
-        style={styles.cardBackGradient}
-        start={{ x: 0.2, y: 0 }}
-        end={{ x: 0.8, y: 1 }}
-      >
-        <View style={styles.cardBackBorder}>
-          <Text style={styles.cardBackCross}>✝</Text>
-          <Text style={styles.cardBackLabel}>Cartas Bíblicas</Text>
-        </View>
-      </LinearGradient>
-    </View>
-  );
-}
-
 // ─── Styles ───────────────────────────────────────────────────────────────────
-
-const CARD_W = Math.min(SCREEN_W * 0.65, 280);
-const CARD_H = CARD_W * 1.5;
 
 const styles = StyleSheet.create({
   backdrop: {
@@ -611,14 +724,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 20,
   },
-  // Pack styles
-  packContainer: {
-    width: CARD_W,
-    height: CARD_H,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
+  // Pack
   packGradient: {
     flex: 1,
     alignItems: 'center',
@@ -628,106 +736,131 @@ const styles = StyleSheet.create({
   packBorder: {
     flex: 1,
     width: '100%',
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 16,
+    gap: 10,
+    position: 'relative',
+  },
+  packCorner: {
+    position: 'absolute',
+    fontSize: 11,
+    color: '#D4A017',
+    opacity: 0.7,
   },
   packEmoji: {
-    fontSize: 64,
+    fontSize: 60,
   },
   packLabel: {
-    fontSize: 18,
-    fontWeight: '700',
-    letterSpacing: 0.5,
+    fontSize: 17,
+    fontWeight: '800',
+    letterSpacing: 0.4,
     textAlign: 'center',
   },
+  packDivider: {
+    width: 40,
+    height: 1,
+    opacity: 0.4,
+  },
+  packSub: {
+    fontSize: 11,
+    fontWeight: '600',
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+  },
   tapHintContainer: {
-    marginTop: 24,
+    marginTop: 28,
     alignItems: 'center',
   },
   tapHint: {
-    color: 'rgba(255,255,255,0.6)',
+    color: 'rgba(255,255,255,0.55)',
     fontSize: 15,
     letterSpacing: 0.3,
-    marginTop: 24,
     textAlign: 'center',
   },
-  // Card reveal
-  rarityGlowContainer: {
+  // Glow
+  glowRing: {
     position: 'absolute',
-    width: CARD_W * 2,
-    height: CARD_W * 2,
-    borderRadius: CARD_W,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: CARD_W * 2.2,
+    height: CARD_W * 2.2,
+    borderRadius: CARD_W * 1.1,
   },
-  rarityGlow: {
+  glowRingInner: {
     width: '100%',
     height: '100%',
-    borderRadius: CARD_W,
-    opacity: 0.5,
+    borderRadius: CARD_W * 1.1,
+    opacity: 0.6,
   },
-  newBadge: {
-    position: 'absolute',
-    top: -16,
-    right: -16,
+  // Celebration
+  celebContainer: {
+    marginTop: 16,
+    alignItems: 'center',
   },
-  newBadgeGradient: {
-    paddingHorizontal: 14,
+  celebBadge: {
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+    borderRadius: 24,
+  },
+  celebText: {
+    color: '#FFF',
+    fontSize: 13,
+    fontWeight: '700',
+    letterSpacing: 0.3,
+  },
+  dupBadge: {
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    paddingHorizontal: 16,
     paddingVertical: 7,
     borderRadius: 20,
   },
-  newBadgeText: {
-    color: '#FFF',
+  dupText: {
+    color: 'rgba(255,255,255,0.5)',
     fontSize: 13,
-    fontWeight: '800',
-    letterSpacing: 1,
+    fontWeight: '500',
   },
   // Actions
   actions: {
-    marginTop: 32,
-    gap: 12,
+    marginTop: 20,
+    gap: 10,
     alignItems: 'center',
     width: CARD_W + 40,
   },
-  actionBtn: {
+  primaryBtn: {
     width: '100%',
     borderRadius: 14,
     overflow: 'hidden',
-  },
-  actionBtnGradient: {
-    paddingVertical: 16,
-    alignItems: 'center',
-  },
-  primaryBtn: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 8,
     elevation: 8,
   },
+  primaryBtnGradient: {
+    paddingVertical: 15,
+    alignItems: 'center',
+  },
   primaryBtnText: {
     color: '#FFF',
     fontSize: 16,
     fontWeight: '700',
-    letterSpacing: 0.3,
+    letterSpacing: 0.2,
   },
   secondaryBtn: {
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    paddingVertical: 14,
+    width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.09)',
+    paddingVertical: 13,
     alignItems: 'center',
+    borderRadius: 14,
   },
   secondaryBtnText: {
-    color: 'rgba(255,255,255,0.7)',
+    color: 'rgba(255,255,255,0.65)',
     fontSize: 15,
     fontWeight: '500',
   },
   // Card back
   cardBack: {
-    width: CARD_W,
-    height: CARD_H,
+    flex: 1,
     borderRadius: 20,
     overflow: 'hidden',
     shadowColor: '#D4A017',
@@ -753,20 +886,21 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   cardBackCross: {
-    fontSize: 72,
+    fontSize: 68,
     color: '#D4A017',
   },
   cardBackLabel: {
     color: '#D4A017',
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 13,
+    fontWeight: '700',
     letterSpacing: 1.5,
     textTransform: 'uppercase',
+    textAlign: 'center',
   },
   // Fallback
   fallbackOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.85)',
+    backgroundColor: 'rgba(0,0,0,0.9)',
     alignItems: 'center',
     justifyContent: 'center',
   },

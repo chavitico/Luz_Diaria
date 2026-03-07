@@ -24,6 +24,7 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
   withSequence,
+  withRepeat,
   withTiming,
   runOnJS,
   type SharedValue,
@@ -357,6 +358,7 @@ function FeatureCard({
   borderColor,
   accentGlowColor,
   onPress,
+  badgeCount,
 }: {
   emoji: string;
   title: string;
@@ -365,10 +367,29 @@ function FeatureCard({
   borderColor: string;
   accentGlowColor: string;
   onPress: () => void;
+  badgeCount?: number;
 }) {
   const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const badgePulse = useSharedValue(1);
+
+  React.useEffect(() => {
+    if (badgeCount && badgeCount > 0) {
+      badgePulse.value = withRepeat(
+        withSequence(
+          withSpring(1.2, { damping: 4, stiffness: 200 }),
+          withSpring(1, { damping: 6, stiffness: 180 }),
+        ),
+        -1,
+        false,
+      );
+    } else {
+      badgePulse.value = 1;
+    }
+  }, [badgeCount]);
+
+  const badgeStyle = useAnimatedStyle(() => ({ transform: [{ scale: badgePulse.value }] }));
 
   return (
     <Animated.View style={animatedStyle}>
@@ -390,8 +411,35 @@ function FeatureCard({
             style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
           />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-            <View style={{ width: 56, height: 56, borderRadius: 16, backgroundColor: accentGlowColor, borderWidth: 1, borderColor, alignItems: 'center', justifyContent: 'center' }}>
-              <Text style={{ fontSize: 26 }}>{emoji}</Text>
+            <View style={{ position: 'relative' }}>
+              <View style={{ width: 56, height: 56, borderRadius: 16, backgroundColor: accentGlowColor, borderWidth: 1, borderColor, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontSize: 26 }}>{emoji}</Text>
+              </View>
+              {badgeCount !== undefined && badgeCount > 0 && (
+                <Animated.View
+                  style={[
+                    {
+                      position: 'absolute',
+                      top: -6,
+                      right: -6,
+                      minWidth: 20,
+                      height: 20,
+                      borderRadius: 10,
+                      backgroundColor: '#FF3B30',
+                      borderWidth: 2,
+                      borderColor: '#0E0900',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      paddingHorizontal: 4,
+                    },
+                    badgeStyle,
+                  ]}
+                >
+                  <Text style={{ fontSize: 11, fontWeight: '800', color: '#FFFFFF', lineHeight: 14 }}>
+                    {badgeCount > 9 ? '9+' : String(badgeCount)}
+                  </Text>
+                </Animated.View>
+              )}
             </View>
             <View style={{ flex: 1 }}>
               <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 3 }}>
@@ -8321,6 +8369,7 @@ export default function StoreScreen() {
             gradientColors={['#2A1F00', '#1A1200', '#0E0900']}
             borderColor="rgba(212,175,55,0.25)"
             accentGlowColor="rgba(212,175,55,0.08)"
+            badgeCount={dailyPackStatus?.canClaim ? (dailyPackStatus.remaining ?? 1) : undefined}
             onPress={() => {
               const now = Date.now();
               if (now - lastCategoryTapAt.current < 500) return;
