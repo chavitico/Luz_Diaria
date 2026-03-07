@@ -392,6 +392,28 @@ export function PackOpeningModal({
         if (!active.current || !finished) return;
         setPhase('pack_ready');
 
+        // Play envelope opening sound ~2s before user taps (anticipation)
+        Audio.Sound.createAsync(
+          require('../../assets/audio/sonido_sobre_abriendo.m4a'),
+          { shouldPlay: false, volume: 1.0 }
+        ).then(({ sound }) => {
+          soundRef.current = sound;
+          sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.isLoaded && status.didJustFinish) {
+              sound.unloadAsync().catch(() => {});
+              if (soundRef.current === sound) soundRef.current = null;
+            }
+          });
+          // Delay playback ~2 seconds so it peaks right when user taps
+          setTimeout(() => {
+            if (!active.current) {
+              sound.unloadAsync().catch(() => {});
+              return;
+            }
+            sound.playAsync().catch(() => {});
+          }, 2000);
+        }).catch(() => {});
+
         const loop = Animated.loop(
           Animated.sequence([
             Animated.timing(packFloat, { toValue: -6, duration: 1100, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
@@ -419,20 +441,6 @@ export function PackOpeningModal({
 
     stopLoops();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
-
-    // Play envelope opening sound
-    Audio.Sound.createAsync(
-      require('../../assets/audio/sonido_sobre_abriendo.m4a'),
-      { shouldPlay: true, volume: 1.0 }
-    ).then(({ sound }) => {
-      soundRef.current = sound;
-      sound.setOnPlaybackStatusUpdate((status) => {
-        if (status.isLoaded && status.didJustFinish) {
-          sound.unloadAsync().catch(() => {});
-          soundRef.current = null;
-        }
-      });
-    }).catch(() => {});
 
     // Shake intensity scales with rarity
     const shakeAmp = rarity === 'legendary' ? 1.0 :
