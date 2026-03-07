@@ -24,6 +24,7 @@ import { fetchWithTimeout } from '@/lib/fetch';
 import { prefetchDevotionals, checkAndPrefetchOnDateChange } from '@/lib/devotional-cache';
 import { usePackRevealRequest, useClearPackRevealRequest } from '@/lib/store';
 import { PackOpeningModal } from '@/components/PackOpeningModal';
+import { initCardImageCache, downloadCollection } from '@/lib/card-image-cache';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -285,6 +286,11 @@ function AppContent() {
     prepare();
     // Kick off branding fetch immediately on startup
     fetchBranding();
+    // Warm card image cache immediately — before user ever navigates to album.
+    // This runs the disk scan + downloads both collections in the background.
+    initCardImageCache();
+    downloadCollection('inicial');
+    downloadCollection('pascua');
   }, []);
 
   // Start heartbeat when user is ready; stop on unmount

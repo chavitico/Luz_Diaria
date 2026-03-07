@@ -251,16 +251,11 @@ async function _downloadCollectionAsync(collectionId: CollectionId): Promise<voi
   await persistStatus(collectionId, 'downloading');
   console.log(`[CardImageCache] Starting download for collection '${collectionId}' (${cards.length} images)`);
 
-  let completed = 0;
-  // Sequential to avoid saturating bandwidth — or use Promise.allSettled for parallel
-  // Using batches of 3 to balance speed vs memory/network pressure
-  const BATCH = 3;
-  for (let i = 0; i < cards.length; i += BATCH) {
-    const batch = cards.slice(i, i + BATCH);
-    await Promise.allSettled(batch.map((c) => downloadImage(c)));
-    completed += batch.length;
-    console.log(`[CardImageCache] ${collectionId}: ${Math.min(completed, cards.length)}/${cards.length} images`);
-  }
+  // Download all images in parallel — 20 small PNGs saturate quickly but complete faster
+  // than sequential batches on both fast and slow connections.
+  await Promise.allSettled(cards.map((c) => downloadImage(c)));
+  const completed = cards.filter((c) => localPathCache.has(c.id)).length;
+  console.log(`[CardImageCache] ${collectionId}: ${completed}/${cards.length} images`);
 
   // Verify
   const allDone = cards.every((c) => localPathCache.has(c.id));

@@ -12,6 +12,7 @@ import { useLanguage } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { BIBLICAL_CARDS, RARITY_CONFIG } from '@/lib/biblical-cards';
 import type { BiblicalCard } from '@/lib/biblical-cards';
+import { resolveCardImageUriSync } from '@/lib/card-image-cache';
 
 interface CardRevealModalProps {
   visible: boolean;
@@ -58,6 +59,9 @@ export function CollectibleCardVisual({
   // Focal point (defaults to 0.5, 0.5 = centered)
   const focusX = card.imageFocusX ?? 0.5;
   const focusY = card.imageFocusY ?? 0.5;
+
+  // Use local cached file if available, fall back to remote URL
+  const imageUri = resolveCardImageUriSync(card) ?? card.imageUrl;
 
   // Track illustration container height via onLayout so we can compute offset
   const [illusHeight, setIllusHeight] = useState(0);
@@ -246,7 +250,7 @@ export function CollectibleCardVisual({
           <View style={{ flex: 1, overflow: 'hidden' }} onLayout={onIllusLayout}>
             {/* Image sized larger than container so we can pan to the focal point */}
             <Image
-              source={{ uri: card.imageUrl }}
+              source={{ uri: imageUri ?? '' }}
               style={{
                 position: 'absolute',
                 width: oversizeW,

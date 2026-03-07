@@ -28,9 +28,8 @@ import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi } from '@/lib/gamification-api';
 import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard, RARITY_CONFIG, type CardRarity, getEventSetCards } from '@/lib/biblical-cards';
 import { CollectibleCardVisual } from '@/components/CardRevealModal';
-import { preloadCardImages, preloadOwnedCardImages } from '@/lib/card-image-preload';
+import { preloadOwnedCardImages } from '@/lib/card-image-preload';
 import {
-  initCardImageCache,
   downloadCollection,
   resolveCardImageUriSync,
   type CollectionStatus,
@@ -605,9 +604,8 @@ export default function BiblicalCardsAlbumScreen() {
   const mountTimeRef = useRef<number>(Date.now());
   useEffect(() => {
     console.log('[Cards/Album] Screen mounted');
-    preloadCardImages();
-    // Initialise local image cache (scans disk, non-blocking)
-    initCardImageCache();
+    // initCardImageCache + downloadCollection are called in _layout.tsx at app start.
+    // No need to repeat here — cache is already warm by the time the user opens the album.
     return () => {
       console.log(`[Cards/Album] Screen unmounted after ${Date.now() - mountTimeRef.current}ms`);
     };
