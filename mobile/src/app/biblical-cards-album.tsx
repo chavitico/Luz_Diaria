@@ -29,6 +29,12 @@ import { gamificationApi } from '@/lib/gamification-api';
 import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard, RARITY_CONFIG, type CardRarity, getEventSetCards } from '@/lib/biblical-cards';
 import { CollectibleCardVisual } from '@/components/CardRevealModal';
 import { preloadCardImages, preloadOwnedCardImages } from '@/lib/card-image-preload';
+import {
+  initCardImageCache,
+  downloadCollection,
+  resolveCardImageUriSync,
+  type CollectionStatus,
+} from '@/lib/card-image-cache';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
@@ -51,6 +57,8 @@ function CardThumbnailArtwork({ card, cardW }: { card: BiblicalCard; cardW: numb
   const [containerH, setContainerH] = useState<number>(0);
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   const fadeAnim = useRef(new RNAnimated.Value(0)).current;
+  // Hybrid URI: local file if cached, else remote URL
+  const imageUri = resolveCardImageUriSync(card) ?? card.imageUrl;
 
   const onLayout = useCallback((e: LayoutChangeEvent) => {
     setContainerH(e.nativeEvent.layout.height);
@@ -89,7 +97,7 @@ function CardThumbnailArtwork({ card, cardW }: { card: BiblicalCard; cardW: numb
         </View>
       )}
       <RNAnimated.Image
-        source={{ uri: card.imageUrl }}
+        source={{ uri: imageUri ?? '' }}
         onLoad={onImageLoad}
         style={{
           opacity: fadeAnim,
@@ -131,6 +139,8 @@ function PascuaCardArtwork({ card, cardW }: { card: BiblicalCard; cardW: number 
   const [containerH, setContainerH] = useState<number>(0);
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   const fadeAnim = useRef(new RNAnimated.Value(0)).current;
+  // Hybrid URI: local file if cached, else remote URL
+  const imageUri = resolveCardImageUriSync(card) ?? card.imageUrl;
 
   const onLayout = useCallback((e: LayoutChangeEvent) => {
     setContainerH(e.nativeEvent.layout.height);
@@ -168,7 +178,7 @@ function PascuaCardArtwork({ card, cardW }: { card: BiblicalCard; cardW: number 
         </View>
       )}
       <RNAnimated.Image
-        source={{ uri: card.imageUrl }}
+        source={{ uri: imageUri ?? '' }}
         onLoad={onImageLoad}
         style={{
           opacity: fadeAnim,
@@ -509,6 +519,8 @@ export default function BiblicalCardsAlbumScreen() {
   useEffect(() => {
     console.log('[Cards/Album] Screen mounted');
     preloadCardImages();
+    // Initialise local image cache (scans disk, non-blocking)
+    initCardImageCache();
     return () => {
       console.log(`[Cards/Album] Screen unmounted after ${Date.now() - mountTimeRef.current}ms`);
     };
@@ -682,6 +694,8 @@ export default function BiblicalCardsAlbumScreen() {
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 setActiveCollection('inicial');
+                // Start background download for this collection (non-blocking)
+                downloadCollection('inicial');
               }}
             >
               <LinearGradient
@@ -771,6 +785,8 @@ export default function BiblicalCardsAlbumScreen() {
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 setActiveCollection('pascua');
+                // Start background download for this collection (non-blocking)
+                downloadCollection('pascua');
               }}
             >
               <LinearGradient
