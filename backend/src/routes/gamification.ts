@@ -863,6 +863,9 @@ gamificationRouter.post(
         // === Special: sobre_biblico - draw a random biblical card ===
         let drawnCard: { cardId: string; wasNew: boolean } | undefined;
         if (itemId === 'sobre_biblico') {
+          // Only cards with inStandardPool=true are eligible for random draws.
+          // Special/legendary cards (e.g. jesus_rey_reyes) must be excluded here.
+          // Keep this list in sync with STANDARD_POOL_IDS in mobile/src/lib/biblical-cards.ts.
           const CARD_POOL: string[] = ['david', 'moses', 'ark', 'espada_espiritu', 'arpa_david', 'zarza_ardiente'];
           const cardId = CARD_POOL[Math.floor(Math.random() * CARD_POOL.length)] as string;
 

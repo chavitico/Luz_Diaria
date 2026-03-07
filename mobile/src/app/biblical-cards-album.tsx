@@ -25,7 +25,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi } from '@/lib/gamification-api';
-import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard } from '@/lib/biblical-cards';
+import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard, RARITY_CONFIG, type CardRarity } from '@/lib/biblical-cards';
 import { CollectibleCardVisual } from '@/components/CardRevealModal';
 import { preloadCardImages, preloadOwnedCardImages } from '@/lib/card-image-preload';
 
@@ -148,6 +148,8 @@ export default function BiblicalCardsAlbumScreen() {
   const [selectedCard, setSelectedCard] = useState<BiblicalCard | null>(null);
   const [selectedDuplicates, setSelectedDuplicates] = useState(0);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  // null = show all rarities
+  const [rarityFilter, setRarityFilter] = useState<CardRarity | null>(null);
 
   // staleTime: 10 min — card inventory changes only when the user purchases a pack,
   // which invalidates the query explicitly. No need to refetch every 30 seconds.
@@ -181,6 +183,11 @@ export default function BiblicalCardsAlbumScreen() {
 
   const ownedCount = cardInventory.filter((c) => c.owned).length;
   const totalCount = ALL_CARD_IDS.length;
+
+  // Filtered card IDs based on rarity selector
+  const filteredCardIds = rarityFilter
+    ? ALL_CARD_IDS.filter((id) => BIBLICAL_CARDS[id]?.rarity === rarityFilter)
+    : ALL_CARD_IDS;
 
   const openCard = (card: BiblicalCard) => {
     const { owned, duplicates } = getCardStatus(card.id);
@@ -241,7 +248,7 @@ export default function BiblicalCardsAlbumScreen() {
           showsVerticalScrollIndicator={false}
         >
           {/* Section header */}
-          <Animated.View entering={FadeInDown.duration(400)} style={{ marginBottom: 20 }}>
+          <Animated.View entering={FadeInDown.duration(400)} style={{ marginBottom: 16 }}>
             <Text style={{ fontSize: sFont(12), fontWeight: '700', color: 'rgba(255,255,255,0.35)', letterSpacing: 1.8, textTransform: 'uppercase' }}>
               {language === 'es' ? 'Colección' : 'Collection'}
             </Text>
@@ -252,9 +259,56 @@ export default function BiblicalCardsAlbumScreen() {
             </Text>
           </Animated.View>
 
+          {/* Rarity filter bar */}
+          <Animated.View entering={FadeInDown.delay(100).duration(350)} style={{ flexDirection: 'row', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
+            {/* "All" pill */}
+            <Pressable
+              onPress={() => { setRarityFilter(null); Haptics.selectionAsync(); }}
+              style={{
+                paddingHorizontal: 12,
+                paddingVertical: 5,
+                borderRadius: 99,
+                borderWidth: 1,
+                borderColor: rarityFilter === null ? '#D4AF37' : 'rgba(255,255,255,0.18)',
+                backgroundColor: rarityFilter === null ? 'rgba(212,175,55,0.18)' : 'transparent',
+              }}
+            >
+              <Text style={{ fontSize: sFont(10), fontWeight: '700', color: rarityFilter === null ? '#D4AF37' : 'rgba(255,255,255,0.45)', letterSpacing: 0.6 }}>
+                {language === 'es' ? 'Todas' : 'All'}
+              </Text>
+            </Pressable>
+            {/* Per-rarity pills */}
+            {(['rare', 'epic', 'legendary'] as CardRarity[]).map((r) => {
+              const rc = RARITY_CONFIG[r];
+              const active = rarityFilter === r;
+              return (
+                <Pressable
+                  key={r}
+                  onPress={() => { setRarityFilter(active ? null : r); Haptics.selectionAsync(); }}
+                  style={{
+                    paddingHorizontal: 12,
+                    paddingVertical: 5,
+                    borderRadius: 99,
+                    borderWidth: 1,
+                    borderColor: active ? rc.color : rc.color + '55',
+                    backgroundColor: active ? rc.bg : 'transparent',
+                    shadowColor: active ? rc.glow : 'transparent',
+                    shadowOpacity: active ? 0.7 : 0,
+                    shadowRadius: 6,
+                    shadowOffset: { width: 0, height: 0 },
+                  }}
+                >
+                  <Text style={{ fontSize: sFont(10), fontWeight: '700', color: active ? rc.color : rc.color + 'AA', letterSpacing: 0.6 }}>
+                    {language === 'es' ? rc.labelEs : rc.labelEn}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </Animated.View>
+
           {/* Card Grid */}
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: CARD_GAP }}>
-            {ALL_CARD_IDS.map((cardId, index) => {
+            {filteredCardIds.map((cardId, index) => {
               const card = BIBLICAL_CARDS[cardId];
               if (!card) return null;
               const { owned, duplicates } = getCardStatus(cardId);
@@ -307,7 +361,7 @@ export default function BiblicalCardsAlbumScreen() {
                         {/* Bottom accent line */}
                         <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, backgroundColor: card.accentColor }} />
 
-                        {/* Top bar */}
+                        {/* Top bar: rarity badge (left) + corner glyph (right) */}
                         <LinearGradient
                           colors={[card.accentColor + '60', card.accentColor + '1A']}
                           start={{ x: 0, y: 0 }}
@@ -320,11 +374,16 @@ export default function BiblicalCardsAlbumScreen() {
                             justifyContent: 'space-between',
                           }}
                         >
-                          <View style={{ backgroundColor: catStyle.bg, borderRadius: 99, paddingHorizontal: 5, paddingVertical: 1, borderWidth: 0.5, borderColor: catStyle.border }}>
-                            <Text style={{ fontSize: sFont(5.5), fontWeight: '900', color: catStyle.text, letterSpacing: 0.6, textTransform: 'uppercase' }}>
-                              {card.category}
-                            </Text>
-                          </View>
+                          {(() => {
+                            const rc = RARITY_CONFIG[card.rarity];
+                            return (
+                              <View style={{ backgroundColor: rc.bg, borderRadius: 99, paddingHorizontal: 5, paddingVertical: 1, borderWidth: 0.5, borderColor: rc.color + 'AA' }}>
+                                <Text style={{ fontSize: sFont(5.5), fontWeight: '900', color: rc.color, letterSpacing: 0.6, textTransform: 'uppercase' }}>
+                                  {language === 'es' ? rc.labelEs : rc.labelEn}
+                                </Text>
+                              </View>
+                            );
+                          })()}
                           <Text style={{ fontSize: 9, color: card.accentColor, opacity: 0.8 }}>{card.motif.cornerGlyph}</Text>
                         </LinearGradient>
 

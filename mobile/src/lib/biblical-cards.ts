@@ -1,17 +1,27 @@
-// Biblical Cards — Phase 1: 6 cards
+// Biblical Cards — Phase 1: 6 cards + 1 special legendary
 // Phase 2 will add trading system for duplicates.
 // imageUrl is optional — when present, the card renders remote artwork instead of local fallback.
+
+export type CardRarity = 'common' | 'rare' | 'epic' | 'legendary';
 
 export interface BiblicalCard {
   id: string;
   nameEs: string;
   nameEn: string;
+  /** Category: what type of biblical subject this is */
   category: 'Personajes' | 'Objetos' | 'Eventos';
+  /** Rarity tier — drives UI treatment and drop rates */
+  rarity: CardRarity;
+  /**
+   * Whether this card is included in the standard random pack draw pool.
+   * Set to false for special / event / legendary-only cards (e.g. Jesus card).
+   */
+  inStandardPool: boolean;
   descriptionEs: string;
   descriptionEn: string;
   verseRef: string;
   verseTextEs: string;
-  // New enriched lore fields
+  // Enriched lore fields
   datoDestacadoEs: string;
   significadoBiblicoEs: string;
   visualHints: string[];
@@ -53,12 +63,30 @@ export interface BiblicalCard {
   };
 }
 
+// ─── Rarity display config ────────────────────────────────────────────────────
+export const RARITY_CONFIG: Record<CardRarity, {
+  labelEs: string;
+  labelEn: string;
+  color: string;       // text + border
+  bg: string;          // chip background
+  glow: string;        // shadow/glow color
+}> = {
+  common:    { labelEs: 'Común',     labelEn: 'Common',    color: '#9CA3AF', bg: 'rgba(156,163,175,0.18)', glow: 'rgba(156,163,175,0.30)' },
+  rare:      { labelEs: 'Rara',      labelEn: 'Rare',      color: '#60A5FA', bg: 'rgba(96,165,250,0.18)',  glow: 'rgba(96,165,250,0.40)'  },
+  epic:      { labelEs: 'Épica',     labelEn: 'Epic',      color: '#C084FC', bg: 'rgba(192,132,252,0.18)', glow: 'rgba(192,132,252,0.45)' },
+  legendary: { labelEs: 'Legendaria',labelEn: 'Legendary', color: '#D4AF37', bg: 'rgba(212,175,55,0.20)',  glow: 'rgba(212,175,55,0.55)'  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
   david: {
     id: 'david',
     nameEs: 'David',
     nameEn: 'David',
     category: 'Personajes',
+    rarity: 'rare',
+    inStandardPool: true,
     descriptionEs: 'Pastor, músico, guerrero y rey. David venció a Goliat y fue llamado un hombre conforme al corazón de Dios.',
     descriptionEn: 'Shepherd, musician, warrior and king. David defeated Goliath and was called a man after God\'s own heart.',
     verseRef: 'Hechos 13:22',
@@ -89,6 +117,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     nameEs: 'Moisés',
     nameEn: 'Moses',
     category: 'Personajes',
+    rarity: 'rare',
+    inStandardPool: true,
     descriptionEs: 'Dios lo llamó desde la zarza ardiente para sacar a Israel de Egipto y guiarlo hacia la libertad.',
     descriptionEn: 'God called him from the burning bush to lead Israel out of Egypt toward freedom.',
     verseRef: 'Éxodo 3:10',
@@ -115,6 +145,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     nameEs: 'Arca de Noé',
     nameEn: "Noah's Ark",
     category: 'Objetos',
+    rarity: 'rare',
+    inStandardPool: true,
     descriptionEs: 'El arca preservó a Noé, su familia y la vida animal durante el diluvio.',
     descriptionEn: 'The ark preserved Noah, his family and animal life through the flood.',
     verseRef: 'Génesis 6:14',
@@ -139,6 +171,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     nameEs: 'Espada del Espíritu',
     nameEn: 'Sword of the Spirit',
     category: 'Objetos',
+    rarity: 'epic',
+    inStandardPool: true,
     descriptionEs: 'La Palabra de Dios es llamada la espada del Espíritu, un arma espiritual para la verdad y la victoria.',
     descriptionEn: 'The Word of God is called the sword of the Spirit — a spiritual weapon for truth and victory.',
     verseRef: 'Efesios 6:17',
@@ -165,6 +199,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     nameEs: 'Arpa de David',
     nameEn: "David's Harp",
     category: 'Objetos',
+    rarity: 'rare',
+    inStandardPool: true,
     descriptionEs: 'David tocaba el arpa y Saúl hallaba alivio. Su música ministraba paz en tiempos de tormento.',
     descriptionEn: "David played the harp and Saul found relief. His music ministered peace in times of torment.",
     verseRef: '1 Samuel 16:23',
@@ -189,6 +225,8 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     nameEs: 'Zarza Ardiente',
     nameEn: 'Burning Bush',
     category: 'Eventos',
+    rarity: 'epic',
+    inStandardPool: true,
     descriptionEs: 'Dios se manifestó a Moisés en una zarza que ardía sin consumirse.',
     descriptionEn: 'God revealed Himself to Moses in a bush that burned without being consumed.',
     verseRef: 'Éxodo 3:2',
@@ -208,9 +246,48 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
       cornerGlyph: '✡',
     },
   },
+
+  // ─── SPECIAL / UNRELEASED CARDS ─────────────────────────────────────────────
+  // inStandardPool: false → never drawn from a normal sobre_biblico pack.
+  // Will be distributed via special events or future mechanics.
+
+  jesus_rey_reyes: {
+    id: 'jesus_rey_reyes',
+    nameEs: 'Jesús',
+    nameEn: 'Jesus',
+    category: 'Personajes',
+    rarity: 'legendary',
+    inStandardPool: false,
+    descriptionEs: 'Jesús es el Hijo de Dios, Salvador y Rey de Reyes. En Él hay vida, redención y victoria eterna.',
+    descriptionEn: 'Jesus is the Son of God, Savior and King of Kings. In Him there is life, redemption, and eternal victory.',
+    verseRef: 'Apocalipsis 19:16',
+    verseTextEs: 'Y en su vestidura y en su muslo tiene escrito este nombre: REY DE REYES Y SEÑOR DE SEÑORES.',
+    datoDestacadoEs: 'Su vida, muerte y resurrección transformaron la historia para siempre.',
+    significadoBiblicoEs: 'Representa salvación, gracia, autoridad suprema y esperanza eterna.',
+    visualHints: ['crown of thorns', 'white robe', 'divine light', 'resurrection', 'cross'],
+    // Warm luminous white-gold palette — reverent, majestic, sacred
+    gradientColors: ['#1A1200', '#3D2B00', '#5C3F00'],
+    accentColor: '#F5E27A',
+    // No imageUrl yet — placeholder art via motif fallback until official artwork is commissioned.
+    // When ready: add imageUrl and imageFocusX / imageFocusY per artwork guidelines.
+    motif: {
+      topSymbol: '✟',
+      subtitleEs: 'Rey de Reyes',
+      subtitleEn: 'King of Kings',
+      artEmoji: '✝️',
+      decorSymbols: ['✟', '✦', '✟'],
+      sheenColors: ['rgba(245,226,122,0.40)', 'rgba(255,255,220,0.12)'],
+      cornerGlyph: '♔',
+    },
+  },
 };
 
 export const ALL_CARD_IDS = Object.keys(BIBLICAL_CARDS);
+
+/** Card IDs eligible for standard random pack draws */
+export const STANDARD_POOL_IDS = Object.values(BIBLICAL_CARDS)
+  .filter((c) => c.inStandardPool)
+  .map((c) => c.id);
 
 export function getCard(id: string): BiblicalCard | undefined {
   return BIBLICAL_CARDS[id];

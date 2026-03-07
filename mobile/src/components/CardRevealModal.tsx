@@ -10,7 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { X, Sparkles, Star, BookOpen } from 'lucide-react-native';
 import { useLanguage } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
-import { BIBLICAL_CARDS } from '@/lib/biblical-cards';
+import { BIBLICAL_CARDS, RARITY_CONFIG } from '@/lib/biblical-cards';
 import type { BiblicalCard } from '@/lib/biblical-cards';
 
 interface CardRevealModalProps {
@@ -185,28 +185,56 @@ export function CollectibleCardVisual({
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={{
-            paddingHorizontal: 12,
-            paddingVertical: 8,
+            paddingHorizontal: 8,
+            paddingVertical: 7,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
+            gap: 4,
           }}
         >
-          {/* Category chip with identity color */}
+          {/* Left: rarity chip */}
+          {(() => {
+            const rc = RARITY_CONFIG[card.rarity];
+            return (
+              <View style={{
+                backgroundColor: rc.bg,
+                borderWidth: 1,
+                borderColor: rc.color + 'AA',
+                borderRadius: 99,
+                paddingHorizontal: 7,
+                paddingVertical: 2,
+                shadowColor: rc.glow,
+                shadowOpacity: card.rarity === 'legendary' ? 0.9 : 0.5,
+                shadowRadius: card.rarity === 'legendary' ? 6 : 3,
+                shadowOffset: { width: 0, height: 0 },
+              }}>
+                <Text style={{ fontSize: 6.5, fontWeight: '900', color: rc.color, letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                  {language === 'es' ? rc.labelEs : rc.labelEn}
+                </Text>
+              </View>
+            );
+          })()}
+          {/* Center: category chip */}
           <View style={{
-            backgroundColor: catStyle.bg,
-            borderWidth: 1,
-            borderColor: catStyle.border,
-            borderRadius: 99,
-            paddingHorizontal: 9,
-            paddingVertical: 2.5,
+            flex: 1,
+            alignItems: 'center',
           }}>
-            <Text style={{ fontSize: 7, fontWeight: '900', color: catStyle.text, letterSpacing: 1.4, textTransform: 'uppercase' }}>
-              {catStyle.label}
-            </Text>
+            <View style={{
+              backgroundColor: catStyle.bg,
+              borderWidth: 1,
+              borderColor: catStyle.border,
+              borderRadius: 99,
+              paddingHorizontal: 7,
+              paddingVertical: 2,
+            }}>
+              <Text style={{ fontSize: 6.5, fontWeight: '800', color: catStyle.text, letterSpacing: 1.0, textTransform: 'uppercase' }}>
+                {catStyle.label}
+              </Text>
+            </View>
           </View>
           {/* Corner ornament */}
-          <Text style={{ fontSize: 14, color: card.accentColor, opacity: 0.9 }}>{card.motif.cornerGlyph}</Text>
+          <Text style={{ fontSize: 13, color: card.accentColor, opacity: 0.9 }}>{card.motif.cornerGlyph}</Text>
         </LinearGradient>
 
         {/* Separator */}
