@@ -134,8 +134,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['staff', 'mount sinai', 'tablets', 'burning bush'],
     gradientColors: ['#2C1654', '#4A1880', '#6B2FA0'],
     accentColor: '#C9A227',
-    // Moses near burning bush — desert with glowing divine fire
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=85&fit=crop',
+    imageUrl: 'https://images.composerapi.com/019c33a9-4a45-71bd-8908-f785cc52f6a1/assets/images/image_1772851308_1772851309624_019cc62c-2c38-757b-b0b6-0a683b8ce07a.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.32,
     motif: {
       topSymbol: '☩',
       subtitleEs: 'Profeta de Dios',
@@ -162,6 +163,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['ark', 'rainbow', 'animals', 'dove'],
     gradientColors: ['#0B3D2E', '#165A40', '#1E7A52'],
     accentColor: '#4DD9AC',
+    imageUrl: 'https://images.composerapi.com/019c33a9-4a45-71bd-8908-f785cc52f6a1/assets/images/image_1772851341_1772851343433_019cc62c-b049-758a-bf0e-463f60d82391.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.35,
     motif: {
       topSymbol: '🌈',
       subtitleEs: 'Pacto Eterno',
@@ -188,8 +192,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['sword', 'light', 'armor', 'scripture'],
     gradientColors: ['#0A1828', '#0E2A50', '#162E6A'],
     accentColor: '#A8C8F0',
-    // Epic raised sword with divine light — dramatic dark background, silver + blue palette
-    imageUrl: 'https://images.unsplash.com/photo-1531251445707-1f000e1e87d0?w=600&q=85&fit=crop',
+    imageUrl: 'https://images.composerapi.com/019c33a9-4a45-71bd-8908-f785cc52f6a1/assets/images/image_1772851359_1772851360307_019cc62c-f233-71bb-a736-cd4af8414c87.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.35,
     motif: {
       topSymbol: '⚔',
       subtitleEs: 'Armadura de Dios',
@@ -216,6 +221,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['harp', 'golden strings', 'music', 'worship'],
     gradientColors: ['#3B1A08', '#6B3510', '#8B4A18'],
     accentColor: '#F4C56A',
+    imageUrl: 'https://images.composerapi.com/019c33a9-4a45-71bd-8908-f785cc52f6a1/assets/images/image_1772851381_1772851383826_019cc62d-4e12-764c-81c5-e5e189b760b0.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.35,
     motif: {
       topSymbol: '𝄞',
       subtitleEs: 'Adoración Real',
@@ -242,6 +250,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['burning bush', 'flame', 'desert', 'divine light'],
     gradientColors: ['#2A0E00', '#5C1F00', '#8B3300'],
     accentColor: '#FF7A2A',
+    imageUrl: 'https://images.composerapi.com/019c33a9-4a45-71bd-8908-f785cc52f6a1/assets/images/image_1772851416_1772851418326_019cc62d-d4d6-721b-9001-dcf88cc0fe1e.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.35,
     motif: {
       topSymbol: '🔥',
       subtitleEs: 'Llamado Divino',

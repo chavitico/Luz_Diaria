@@ -1048,5 +1048,25 @@
     "amount": 50000,
     "metadata": "{\"reason\":\"Op\",\"giftDropId\":\"cmmflul670014m2ln6f9saier\"}",
     "createdAt": "2026-03-07T00:48:55.601Z"
+  },
+  {
+    "id": "cmmfo1rhp0013m2kvosuy2yay",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "gift_claim_cmm9x0ybc0002m2sr3l31uj4q_1772848207212",
+    "type": "admin_grant",
+    "dateId": "2026-03-07",
+    "amount": 50000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmfo1ixs000ym2kv1iogukfh\"}",
+    "createdAt": "2026-03-07T01:50:07.213Z"
+  },
+  {
+    "id": "cmmfo6jf5002hm2kvg89361pl",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "gift_claim_cmm9x0ybc0002m2sr3l31uj4q_1772848430033",
+    "type": "admin_grant",
+    "dateId": "2026-03-07",
+    "amount": 50000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmfo6e3e002cm2kvwc2piwi9\"}",
+    "createdAt": "2026-03-07T01:53:50.033Z"
   }
 ]
