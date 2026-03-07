@@ -150,5 +150,21 @@
     "status": "CLAIMED",
     "claimedAt": "2026-03-07T03:37:54.356Z",
     "createdAt": "2026-03-07T03:37:49.121Z"
+  },
+  {
+    "id": "cmmfxgc1i0016m2a3sqw7kiwi",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "giftDropId": "cmmfxgc1e0014m2a3pimwuo60",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-07T06:13:41.444Z",
+    "createdAt": "2026-03-07T06:13:23.574Z"
+  },
+  {
+    "id": "cmmfxwjl8001qm2u76oqko72x",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "giftDropId": "cmmfxwjl8001om2u7xx4scxph",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-07T06:26:21.105Z",
+    "createdAt": "2026-03-07T06:25:59.853Z"
   }
 ]

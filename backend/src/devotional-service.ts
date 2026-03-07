@@ -257,6 +257,13 @@ IDIOMA Y CALIDAD:
 
   try {
     const devotionalContent = JSON.parse(cleanedContent) as DevotionalContent;
+    // Normalize fields that GPT sometimes returns as arrays instead of strings
+    if (Array.isArray(devotionalContent.application)) {
+      devotionalContent.application = (devotionalContent.application as string[]).join('\n');
+    }
+    if (Array.isArray(devotionalContent.applicationEs)) {
+      devotionalContent.applicationEs = (devotionalContent.applicationEs as string[]).join('\n');
+    }
     console.log(`[Devotional] Successfully generated devotional: "${devotionalContent.title}"`);
     return devotionalContent;
   } catch (parseError) {
@@ -320,8 +327,24 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
     return;
   }
 
-  const topic = getTopicForDate(date);
-  const imageUrl = getImageForDate(date);
+  let topic = getTopicForDate(date);
+  let imageUrl = getImageForDate(date);
+
+  // Anti-duplicate guard: check the day before to avoid consecutive same topic/image
+  const [y, m, d] = date.split('-').map(Number) as [number, number, number];
+  const prevDt = new Date(Date.UTC(y, m - 1, d - 1));
+  const prevDateStr = `${prevDt.getUTCFullYear()}-${String(prevDt.getUTCMonth() + 1).padStart(2, '0')}-${String(prevDt.getUTCDate()).padStart(2, '0')}`;
+  const prevDevotional = await prisma.devotional.findUnique({ where: { date: prevDateStr } });
+
+  if (prevDevotional && (prevDevotional.topic === topic.en || prevDevotional.imageUrl === imageUrl)) {
+    // Skip to the next topic and image index
+    const currentIdx = (dayOfYearUTC(date) - 1) % TOPICS.length;
+    const nextIdx = (currentIdx + 1) % TOPICS.length;
+    const nextImgIdx = (dayOfYearUTC(date) % IMAGES.length);
+    topic = TOPICS[nextIdx]!;
+    imageUrl = IMAGES[nextImgIdx]!;
+    console.log(`[Devotional] Anti-duplicate: shifted topic for ${date} from "${prevDevotional.topic}" to "${topic.en}", image idx ${nextImgIdx}`);
+  }
 
   try {
     const content = await generateDevotionalWithAI(topic);

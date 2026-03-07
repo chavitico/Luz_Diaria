@@ -33,12 +33,12 @@
     "titleId": "title_renewed_strength",
     "themeId": "theme_amanecer_dorado",
     "selectedMusicId": "music_free_1",
-    "points": 30408,
+    "points": 30008,
     "streakCurrent": 29,
     "streakBest": 29,
     "devotionalsCompleted": 18,
-    "totalTimeSeconds": 48277,
-    "lastActiveAt": "2026-03-07T06:09:47.729Z",
+    "totalTimeSeconds": 49585,
+    "lastActiveAt": "2026-03-07T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-07T06:11:58.621Z"
+    "updatedAt": "2026-03-07T06:37:58.605Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -58,12 +58,12 @@
     "titleId": "title_constructor",
     "themeId": "theme_amanecer_dorado",
     "selectedMusicId": "music_free_1",
-    "points": 43032,
-    "streakCurrent": 7,
-    "streakBest": 7,
-    "devotionalsCompleted": 8,
-    "totalTimeSeconds": 5402,
-    "lastActiveAt": "2026-03-06T23:45:46.732Z",
+    "points": 42037,
+    "streakCurrent": 8,
+    "streakBest": 8,
+    "devotionalsCompleted": 9,
+    "totalTimeSeconds": 6505,
+    "lastActiveAt": "2026-03-07T06:23:25.909Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -72,7 +72,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-03T01:47:32.826Z",
-    "updatedAt": "2026-03-07T05:55:07.774Z"
+    "updatedAt": "2026-03-07T06:37:49.959Z"
   },
   {
     "id": "cmm9yc1nx000sm29qq8qeoai9",
@@ -208,12 +208,12 @@
     "titleId": "title_valiente",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 701,
+    "points": 48715,
     "streakCurrent": 2,
     "streakBest": 2,
-    "devotionalsCompleted": 2,
-    "totalTimeSeconds": 1603,
-    "lastActiveAt": "2026-03-05T18:00:00.000Z",
+    "devotionalsCompleted": 3,
+    "totalTimeSeconds": 2620,
+    "lastActiveAt": "2026-03-07T06:25:08.087Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -222,7 +222,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-04T02:00:39.693Z",
-    "updatedAt": "2026-03-05T20:42:22.942Z"
+    "updatedAt": "2026-03-07T06:37:49.092Z"
   },
   {
     "id": "user_y2gpgsrn359mmcyy3c4",
