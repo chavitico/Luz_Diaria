@@ -1238,5 +1238,65 @@
     "amount": 5,
     "metadata": "{}",
     "createdAt": "2026-03-07T09:39:56.268Z"
+  },
+  {
+    "id": "cmmgfq3570015m2wa322vo5us",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "prayer_2026-03-07",
+    "type": "prayer",
+    "dateId": "2026-03-07",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T14:44:51.691Z"
+  },
+  {
+    "id": "cmmgfuu0x001km2wak0ap52nc",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "prayed_community_2026-03-07",
+    "type": "prayed_community",
+    "dateId": "2026-03-07",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T14:48:33.154Z"
+  },
+  {
+    "id": "cmmgfv1sm001mm2wahg7sldvn",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "tts_2026-03-07",
+    "type": "tts_complete",
+    "dateId": "2026-03-07",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-07T14:48:43.222Z"
+  },
+  {
+    "id": "cmmgfvft4001qm2waivldjgvv",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "prayer_request_2026-03-07",
+    "type": "prayer_request",
+    "dateId": "2026-03-07",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"studies\"}",
+    "createdAt": "2026-03-07T14:49:01.385Z"
+  },
+  {
+    "id": "cmmgg1l1i002wm2waqw7k4rmc",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "promo_cielo",
+    "type": "promo",
+    "dateId": "2026-03-07",
+    "amount": 10000,
+    "metadata": "{\"codeId\":\"cielo\",\"displayCode\":\"Cielo\"}",
+    "createdAt": "2026-03-07T14:53:48.103Z"
+  },
+  {
+    "id": "cmmgg1utl0030m2wabior9fps",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "promo_cristo",
+    "type": "promo",
+    "dateId": "2026-03-07",
+    "amount": 5000,
+    "metadata": "{\"codeId\":\"cristo\",\"displayCode\":\"Cristo\"}",
+    "createdAt": "2026-03-07T14:54:00.777Z"
   }
 ]

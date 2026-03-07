@@ -30,21 +30,6 @@
     "updatedAt": "2026-03-04T02:03:18.887Z"
   },
   {
-    "id": "cmmcy5680003wm2xchfnlf4hs",
-    "userId": "cmmaqp77i000pm2686xq6bozg",
-    "periodId": "active",
-    "mode": "daily",
-    "categoryKey": "friend_strength",
-    "nickname": "Pame",
-    "avatarId": "avatar_v3_leon_valiente",
-    "frameId": "frame_serene_crown",
-    "titleId": "title_luz",
-    "displayNameOptIn": true,
-    "expiresAt": "2026-03-07T04:09:23.902Z",
-    "createdAt": "2026-03-05T04:09:23.905Z",
-    "updatedAt": "2026-03-05T04:09:23.905Z"
-  },
-  {
     "id": "cmmftz3od0017m26ayj3ipymo",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "periodId": "active",
@@ -88,5 +73,20 @@
     "expiresAt": "2026-03-09T09:39:49.713Z",
     "createdAt": "2026-03-07T09:39:49.716Z",
     "updatedAt": "2026-03-07T09:39:49.716Z"
+  },
+  {
+    "id": "cmmgfvft4001om2wahd0svfcj",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "studies",
+    "nickname": "Pame",
+    "avatarId": "avatar_v3_leon_valiente",
+    "frameId": "frame_v2_rosa_gracia",
+    "titleId": "title_luz",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-09T14:49:01.382Z",
+    "createdAt": "2026-03-07T14:49:01.384Z",
+    "updatedAt": "2026-03-07T14:49:01.384Z"
   }
 ]
