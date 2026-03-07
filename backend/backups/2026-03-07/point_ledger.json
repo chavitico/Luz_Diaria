@@ -1338,5 +1338,15 @@
     "amount": 10,
     "metadata": "{\"categoryKey\":\"family\"}",
     "createdAt": "2026-03-07T18:06:15.324Z"
+  },
+  {
+    "id": "cmmgu2l0t0017m26shtbk35bj",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "gift_claim_cmma36c8v000qm25km7avpj84_1772918789356",
+    "type": "admin_grant",
+    "dateId": "2026-03-07",
+    "amount": 10000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmgu1p0b0012m26shttyet33\"}",
+    "createdAt": "2026-03-07T21:26:29.357Z"
   }
 ]

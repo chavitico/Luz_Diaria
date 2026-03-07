@@ -1384,5 +1384,19 @@
     "itemId": "theme_unshakable_rock",
     "acquiredAt": "2026-03-07T19:31:55.756Z",
     "source": "store"
+  },
+  {
+    "id": "cmmgu49ly001lm26sfrcrt12y",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-07T21:27:47.879Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgu515d001pm26sualgk5d9",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-07T21:32:45.939Z",
+    "source": "store"
   }
 ]
