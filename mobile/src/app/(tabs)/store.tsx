@@ -347,6 +347,67 @@ function SeasonalItemsSection({
   );
 }
 
+// ─── Feature Card ─────────────────────────────────────────────────────────────
+function FeatureCard({
+  emoji,
+  title,
+  subtitle,
+  gradientColors,
+  borderColor,
+  accentGlowColor,
+  onPress,
+}: {
+  emoji: string;
+  title: string;
+  subtitle: string;
+  gradientColors: [string, string, string];
+  borderColor: string;
+  accentGlowColor: string;
+  onPress: () => void;
+}) {
+  const { sFont } = useScaledFont();
+  const scale = useSharedValue(1);
+  const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  return (
+    <Animated.View style={animatedStyle}>
+      <Pressable
+        onPressIn={() => { scale.value = withSpring(0.97); }}
+        onPressOut={() => { scale.value = withSpring(1); }}
+        onPress={onPress}
+      >
+        <LinearGradient
+          colors={gradientColors}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ borderRadius: 20, padding: 20, borderWidth: 1, borderColor, overflow: 'hidden' }}
+        >
+          <LinearGradient
+            colors={[accentGlowColor, 'transparent']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+            <View style={{ width: 56, height: 56, borderRadius: 16, backgroundColor: accentGlowColor, borderWidth: 1, borderColor, alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ fontSize: 26 }}>{emoji}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 3 }}>
+                {title}
+              </Text>
+              <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.60)', fontWeight: '500' }}>
+                {subtitle}
+              </Text>
+            </View>
+            <ChevronRight size={20} color="rgba(255,255,255,0.35)" />
+          </View>
+        </LinearGradient>
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 // ─── Season Banner Component ──────────────────────────────────────────────────
 function SeasonBanner({ season, language, onPress }: { season: Season; language: 'en' | 'es'; onPress?: () => void }) {
   const { sFont } = useScaledFont();
@@ -8021,9 +8082,9 @@ export default function StoreScreen() {
           />
         )}
 
-        {/* Category Cards */}
+        {/* Feature Cards — new large card layout */}
         <View
-          style={{ paddingHorizontal: 20, marginBottom: 20, gap: 10 }}
+          style={{ paddingHorizontal: 20, marginBottom: 28, gap: 16 }}
           pointerEvents={isLoadingBackendUser ? 'none' : 'auto'}
         >
           {isLoadingBackendUser && (
@@ -8031,40 +8092,90 @@ export default function StoreScreen() {
               <ActivityIndicator size="small" color={colors.primary} />
             </View>
           )}
-          {CATEGORIES.map((category) => (
-            <CategoryCard
-              key={category.key}
-              category={category}
-              isActive={activeCategory === category.key}
-              colors={colors}
-              language={language}
-              badgeCount={category.key === 'collections' ? pendingClaimsCount + chapterPendingCount : 0}
-              hasNew={categoryHasNew[category.key as keyof typeof categoryHasNew] ?? false}
-              progress={catProgress[category.key]}
-              onPress={() => {
-                // Throttle: ignore taps within 500ms of the last one
-                const now = Date.now();
-                if (now - lastCategoryTapAt.current < 500) return;
-                lastCategoryTapAt.current = now;
-                // Guard: prevent double modal open
-                if (isOpeningModal.current) return;
-                isOpeningModal.current = true;
-                setTimeout(() => { isOpeningModal.current = false; }, 600);
 
-                Haptics.selectionAsync();
-                if (category.key === 'adventures') {
-                  router.push('/collections/adventures');
-                  return;
-                }
-                setActiveSubcategory('all');
-                setStoreSectionModalCategory(category.key as CategoryType);
-                setShowStoreSectionModal(true);
-                if (category.key === 'collections') {
-                  markClaimablesSeen();
-                }
-              }}
-            />
-          ))}
+          {/* 1. OBJETOS ESPECIALES */}
+          <FeatureCard
+            emoji="✨"
+            title={language === 'es' ? 'Objetos Especiales' : 'Special Items'}
+            subtitle={language === 'es' ? 'Cartas, tokens e insignias' : 'Cards, tokens & badges'}
+            gradientColors={['#2A1F00', '#1A1200', '#0E0900']}
+            borderColor="rgba(212,175,55,0.25)"
+            accentGlowColor="rgba(212,175,55,0.08)"
+            onPress={() => {
+              const now = Date.now();
+              if (now - lastCategoryTapAt.current < 500) return;
+              lastCategoryTapAt.current = now;
+              if (isOpeningModal.current) return;
+              isOpeningModal.current = true;
+              setTimeout(() => { isOpeningModal.current = false; }, 600);
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              setActiveSubcategory('all');
+              setStoreSectionModalCategory('tokens');
+              setShowStoreSectionModal(true);
+            }}
+          />
+
+          {/* 2. COLECCIONES */}
+          <FeatureCard
+            emoji="📚"
+            title={language === 'es' ? 'Colecciones' : 'Collections'}
+            subtitle={language === 'es' ? 'Álbum bíblico' : 'Biblical album'}
+            gradientColors={['#0D1E3D', '#071526', '#030C18']}
+            borderColor="rgba(96,165,250,0.25)"
+            accentGlowColor="rgba(96,165,250,0.08)"
+            onPress={() => {
+              const now = Date.now();
+              if (now - lastCategoryTapAt.current < 500) return;
+              lastCategoryTapAt.current = now;
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              router.push('/biblical-cards-album');
+            }}
+          />
+
+          {/* 3. PERSONALIZACIÓN */}
+          <FeatureCard
+            emoji="🎨"
+            title={language === 'es' ? 'Personalización' : 'Personalization'}
+            subtitle={language === 'es' ? 'Temas, marcos, avatar y títulos' : 'Themes, frames, avatar & titles'}
+            gradientColors={['#0D2A2A', '#071A1A', '#030F0F']}
+            borderColor="rgba(45,212,191,0.25)"
+            accentGlowColor="rgba(45,212,191,0.08)"
+            onPress={() => {
+              const now = Date.now();
+              if (now - lastCategoryTapAt.current < 500) return;
+              lastCategoryTapAt.current = now;
+              if (isOpeningModal.current) return;
+              isOpeningModal.current = true;
+              setTimeout(() => { isOpeningModal.current = false; }, 600);
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              setActiveSubcategory('all');
+              setStoreSectionModalCategory('themes');
+              setShowStoreSectionModal(true);
+            }}
+          />
+
+          {/* 4. PAQUETES */}
+          <FeatureCard
+            emoji="🎁"
+            title={language === 'es' ? 'Paquetes' : 'Bundles'}
+            subtitle={language === 'es' ? 'Bundles especiales' : 'Special bundles'}
+            gradientColors={['#2A1400', '#1A0D00', '#0E0800']}
+            borderColor="rgba(251,146,60,0.25)"
+            accentGlowColor="rgba(251,146,60,0.08)"
+            onPress={() => {
+              const now = Date.now();
+              if (now - lastCategoryTapAt.current < 500) return;
+              lastCategoryTapAt.current = now;
+              if (isOpeningModal.current) return;
+              isOpeningModal.current = true;
+              setTimeout(() => { isOpeningModal.current = false; }, 600);
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              setActiveSubcategory('all');
+              setStoreSectionModalCategory('bundles');
+              setShowStoreSectionModal(true);
+            }}
+          />
+
         </View>
 
       </ScrollView>
