@@ -139,7 +139,7 @@ export async function generateDevotionalWithAI(
 === INSTRUCCIONES ESPECÍFICAS PARA ESTA HISTORIA (seguir al pie de la letra) ===
 ${useNoName
   ? `IDENTIDAD DEL PROTAGONISTA: No uses nombres propios en absoluto. Refiere al protagonista únicamente como "una mujer", "un joven", "alguien que…", "ella", "él", "una madre", "un hombre mayor", etc. Esto hace que cualquier lector sienta que podría ser su propia historia.`
-  : `IDENTIDAD DEL PROTAGONISTA: Usa un nombre POCO COMÚN o INUSUAL para el protagonista — evita absolutamente nombres comunes como María, Juan, Pedro, Ana, Carlos, Laura, José.${usedNames.length > 0 ? `\n\n⚠️ NOMBRES ABSOLUTAMENTE PROHIBIDOS (ya usados en devocionales recientes — NO uses ninguno de estos bajo ninguna circunstancia): ${usedNames.join(', ')}. Si usas alguno de estos nombres, la historia será rechazada.` : ''}\n\nElige un nombre bíblico o inusual completamente diferente. Considera nombres como: Tadeo, Elías, Noa, Lía, Celestino, Adara, Simei, Tomás, Hadasa, Zoe, Caleb, Abner, Débora, Rufina, Isamar, Leví, Jada, Eliú, Selah, Jairo, Neftalí, Abigaíl, Gersón, Tamar, Rut, Booz, Amós, Oseas, Habacuc, Filemón, Priscila, Aquila, Epafras, Tíquico, Onésimo, Evódias, Síntique, Clemente. También puedes mezclar: nombre para el protagonista y descripciones para los demás.`}
+  : `IDENTIDAD DEL PROTAGONISTA: Usa un nombre POCO COMÚN o INUSUAL para el protagonista — evita absolutamente nombres comunes como María, Juan, Pedro, Ana, Carlos, Laura, José. Elige un nombre bíblico o inusual. Considera nombres como: Tadeo, Noa, Lía, Adara, Simei, Tomás, Hadasa, Zoe, Caleb, Débora, Rufina, Isamar, Leví, Jada, Eliú, Selah, Jairo, Neftalí, Abigaíl, Gersón, Tamar, Rut, Booz, Amós, Priscila, Aquila, Epafras, Tíquico, Onésimo, Clemente, Lidia, Febe, Dorcas, Cornelio, Esteban, Felipe, Bernabé. También puedes mezclar: nombre para el protagonista y descripciones para los demás.`}
 
 ${useFirstPerson
   ? `VOZ NARRATIVA: Escribe en PRIMERA PERSONA — como un testimonio personal íntimo. Usa frases como "Yo sentí…", "Recuerdo cuando…", "Fue una noche que…", "No supe cómo explicarlo, pero…", "Algo dentro de mí se quebró…". Debe sentirse como alguien contando su historia más vulnerable ante Dios.`
@@ -280,7 +280,7 @@ IDIOMA Y CALIDAD:
     console.log(`[Devotional] Successfully generated devotional: "${devotionalContent.title}"`);
     return devotionalContent;
   } catch (parseError) {
-    console.error(`[Devotional] Failed to parse JSON:`, cleanedContent.substring(0, 500));
+    console.error(`[Devotional] Failed to parse JSON (first 800 chars):`, cleanedContent.substring(0, 800));
     throw new Error("Failed to parse devotional content as JSON");
   }
 }
@@ -360,11 +360,11 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
   }
 
   try {
-    // Fetch protagonist names used in recent devotionals (last ~90 days) to avoid repetition
+    // Fetch protagonist names used in recent devotionals (last 30 entries) for post-generation validation
     const recentDevotionals = await prisma.devotional.findMany({
       where: { date: { lte: date } },
       orderBy: { date: 'desc' },
-      take: 90,
+      take: 30,
       select: { story: true },
     });
     const usedNames: string[] = [];
@@ -372,9 +372,28 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
       const name = extractProtagonistName(dev.story);
       if (name && !usedNames.includes(name)) usedNames.push(name);
     }
-    console.log(`[Devotional] Passing ${usedNames.length} used names to AI: ${usedNames.slice(0, 10).join(', ')}${usedNames.length > 10 ? '…' : ''}`);
+    console.log(`[Devotional] Used names for ${date}: ${usedNames.join(', ')}`);
 
-    const content = await generateDevotionalWithAI(topic, usedNames);
+    // Generate with up to 3 retries if protagonist name is a duplicate
+    let content: DevotionalContent | null = null;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const candidate = await generateDevotionalWithAI(topic, usedNames);
+      const generatedName = extractProtagonistName(candidate.story);
+      const generatedNameEs = extractProtagonistName(candidate.storyEs ?? '');
+      const isDuplicate = generatedName && usedNames.includes(generatedName);
+      const isDuplicateEs = generatedNameEs && usedNames.includes(generatedNameEs);
+      if (!isDuplicate && !isDuplicateEs) {
+        content = candidate;
+        if (generatedName) console.log(`[Devotional] Attempt ${attempt}: accepted name "${generatedName}"`);
+        break;
+      }
+      console.log(`[Devotional] Attempt ${attempt}: name "${generatedName ?? generatedNameEs}" already used — retrying`);
+    }
+    if (!content) {
+      // All retries exhausted — use last attempt anyway
+      content = await generateDevotionalWithAI(topic, usedNames);
+      console.warn(`[Devotional] All retries exhausted for ${date} — using last generated content`);
+    }
 
     // Use upsert to avoid race conditions on server restart
     await prisma.devotional.upsert({
@@ -385,11 +404,11 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
         topic: topic.en,
         topicEs: topic.es,
         imageUrl,
-        ...content,
+        ...content!,
       },
     });
 
-    console.log(`[Devotional] Successfully created devotional for ${date}: "${content.title}"`);
+    console.log(`[Devotional] Successfully created devotional for ${date}: "${content!.title}"`);
   } catch (error) {
     // Ignore unique constraint errors (race condition from server restart)
     if (error instanceof Error && error.message.includes("Unique constraint")) {
