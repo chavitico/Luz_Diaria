@@ -171,10 +171,11 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
     setClaiming(true);
     try {
       await onClaim();
-      // Refresh inventory and store queries
-      queryClient.invalidateQueries({ queryKey: ['inventory'] });
-      queryClient.invalidateQueries({ queryKey: ['storeItems'] });
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      // Invalidate all queries that may be stale after receiving a gift
+      queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
+      queryClient.invalidateQueries({ queryKey: ['backendUser'] });
+      queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
+      queryClient.invalidateQueries({ queryKey: ['collectionClaims'] });
     } finally {
       setClaiming(false);
     }
@@ -186,9 +187,10 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
     setClaiming(true);
     try {
       await onClaim();
-      queryClient.invalidateQueries({ queryKey: ['inventory'] });
-      queryClient.invalidateQueries({ queryKey: ['storeItems'] });
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
+      queryClient.invalidateQueries({ queryKey: ['backendUser'] });
+      queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
+      queryClient.invalidateQueries({ queryKey: ['collectionClaims'] });
       // Navigate to store tab
       router.push('/(tabs)/store');
     } finally {

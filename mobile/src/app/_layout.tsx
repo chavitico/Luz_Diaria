@@ -6,7 +6,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { Stack, useRouter } from 'expo-router';
 import * as ExpoSplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -161,6 +161,7 @@ function AppContent() {
   const heartbeatSessionId = useAppStore(s => s.heartbeatSessionId);
   const setHeartbeatSessionId = useAppStore(s => s.setHeartbeatSessionId);
   const bumpResumeTick = useAppStore(s => s.bumpResumeTick);
+  const queryClient = useQueryClient();
   const [showSplash, setShowSplash] = useState(true);
   const [appReady, setAppReady] = useState(false);
   const fetchBranding = useBrandingStore(s => s.fetchBranding);
@@ -460,10 +461,13 @@ function AppContent() {
         onClose={() => {
           console.log('[PackReveal] closed');
           clearPackRevealRequest();
+          // Ensure album shows the new card if user navigates there
+          queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
         }}
         onViewAlbum={() => {
           console.log('[PackReveal] navigating to album');
           clearPackRevealRequest();
+          queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
           router.push('/biblical-cards-album' as any);
         }}
       />

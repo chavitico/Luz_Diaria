@@ -628,7 +628,8 @@ export default function BiblicalCardsAlbumScreen() {
       return result;
     },
     enabled: !!userId,
-    staleTime: 1000 * 60 * 10,
+    staleTime: 1000 * 60 * 2,
+    refetchOnWindowFocus: true,
   });
 
   useEffect(() => {

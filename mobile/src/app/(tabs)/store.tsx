@@ -6653,7 +6653,8 @@ export default function StoreScreen() {
       const res = await gamificationApi.getStoreItems();
       return res.items;
     },
-    staleTime: 10 * 60 * 1000,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: true,
     retry: 1,
   });
   // Compute set of new (unseen) DB item IDs
@@ -6697,7 +6698,8 @@ export default function StoreScreen() {
       return result;
     },
     enabled: !!userId && !!user?.nickname,
-    staleTime: 60 * 1000,
+    staleTime: 30 * 1000,
+    refetchOnWindowFocus: true,
     retry: 1,
   });
 
@@ -7190,6 +7192,11 @@ export default function StoreScreen() {
         setShowPointsToast(true);
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
+        queryClient.invalidateQueries({ queryKey: ['backendUser'] });
+        // If a card was drawn, invalidate the album inventory so it appears immediately
+        if (itemId === 'sobre_biblico' || itemId === 'pack_pascua') {
+          queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
+        }
       }
     } catch (err) {
       console.log('[Store][Error] purchaseItem failed', err);
@@ -7211,6 +7218,7 @@ export default function StoreScreen() {
     queryFn: () => userId ? gamificationApi.getDailyPackStatus(userId) : null,
     enabled: !!userId,
     staleTime: 60_000,
+    refetchOnWindowFocus: true,
     refetchInterval: 5 * 60_000,
   });
 
@@ -7224,6 +7232,8 @@ export default function StoreScreen() {
       console.log('[Store][DailyPack] claimed', res);
       if (res.success && res.drawnCard) {
         refetchDailyPack();
+        queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
+        queryClient.invalidateQueries({ queryKey: ['backendUser'] });
         console.log('[Store][DailyPack] queuing reveal, closing sheet');
         setPendingPackReveal({
           drawnCard: res.drawnCard,
