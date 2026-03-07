@@ -7550,6 +7550,9 @@ export default function StoreScreen() {
         const isUsed = pincelMagicoSource === 'used';
         const canAffordPincel = points >= 15000;
         const canAffordSobre = points >= 2000;
+        const canAffordEaster = points >= 3000;
+        // Set to false when the Pascua 2026 event ends
+        const EASTER_EVENT_ACTIVE = true;
 
         const TOKEN_SUBCATS = [
           { key: 'cartas', labelEs: 'Cartas Bíblicas', label: 'Biblical Cards' },
@@ -7598,6 +7601,16 @@ export default function StoreScreen() {
                   onPress={() => {
                     if (canAffordSobre) {
                       handleTokenPurchase('sobre_biblico', 2000);
+                    }
+                  }}
+                />
+                <EasterPackCard
+                  canAfford={canAffordEaster}
+                  isEventActive={EASTER_EVENT_ACTIVE}
+                  language={language}
+                  onPress={() => {
+                    if (EASTER_EVENT_ACTIVE && canAffordEaster) {
+                      handleTokenPurchase('pack_pascua', 3000);
                     }
                   }}
                 />
