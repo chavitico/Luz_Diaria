@@ -2088,7 +2088,7 @@ export const TRANSLATIONS = {
     // Tabs
     tab_home: 'Today',
     tab_library: 'Library',
-    tab_store: 'Customize',
+    tab_store: 'My Space',
     tab_community: 'Community',
     tab_settings: 'Settings',
 
@@ -2255,7 +2255,7 @@ export const TRANSLATIONS = {
     // Tabs
     tab_home: 'Hoy',
     tab_library: 'Biblioteca',
-    tab_store: 'Personalizar',
+    tab_store: 'Mi Espacio',
     tab_community: 'Comunidad',
     tab_settings: 'Ajustes',
 

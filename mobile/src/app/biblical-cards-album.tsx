@@ -21,7 +21,7 @@ import Animated, { FadeIn, FadeInDown, ZoomIn } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { ChevronLeft, ChevronRight, X, BookOpen, Copy, Star } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useLanguage, useUser } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
@@ -46,6 +46,65 @@ const CARD_H = CARD_W * 1.5;
 
 // Collection type
 type ActiveCollection = 'inicial' | 'pascua' | null;
+
+// ─────────────────────────────────────────────
+// NOVEDAD scrolling ticker — runs inside album hub cards
+// ─────────────────────────────────────────────
+const TICKER_TEXT = '  ✦  NOVEDAD — ÁLBUM COLECCIONABLE  ✦  NOVEDAD — ÁLBUM COLECCIONABLE  ✦  NOVEDAD — ÁLBUM COLECCIONABLE  ';
+const TICKER_SPEED = 38; // px per second
+
+function NovedadTicker({ accentColor }: { accentColor: string }) {
+  const tickerX = useRef(new RNAnimated.Value(0)).current;
+  const tickerW = useRef(0);
+  const anim = useRef<RNAnimated.CompositeAnimation | null>(null);
+
+  const startScroll = useCallback((width: number) => {
+    if (width <= 0) return;
+    tickerX.setValue(0);
+    anim.current?.stop();
+    const duration = (width / TICKER_SPEED) * 1000;
+    const loop = RNAnimated.loop(
+      RNAnimated.timing(tickerX, {
+        toValue: -width / 2,
+        duration,
+        easing: (t) => t,
+        useNativeDriver: true,
+      })
+    );
+    anim.current = loop;
+    loop.start();
+  }, []);
+
+  useEffect(() => {
+    return () => { anim.current?.stop(); };
+  }, []);
+
+  return (
+    <View style={{ height: 22, overflow: 'hidden', justifyContent: 'center' }}>
+      <RNAnimated.Text
+        onLayout={(e) => {
+          const w = e.nativeEvent.layout.width;
+          if (w !== tickerW.current) {
+            tickerW.current = w;
+            startScroll(w);
+          }
+        }}
+        style={{
+          transform: [{ translateX: tickerX }],
+          fontSize: 9.5,
+          fontWeight: '800',
+          color: accentColor,
+          letterSpacing: 1.2,
+          textTransform: 'uppercase',
+          whiteSpace: 'nowrap',
+        } as any}
+        numberOfLines={1}
+      >
+        {TICKER_TEXT}
+      </RNAnimated.Text>
+    </View>
+  );
+}
 
 // ─────────────────────────────────────────────
 // Focal-point thumbnail artwork for standard cards.
@@ -215,6 +274,7 @@ function StandardCardThumbnail({
   card,
   owned,
   duplicates,
+  isNew,
   cardW,
   cardH,
   onPress,
@@ -225,6 +285,7 @@ function StandardCardThumbnail({
   card: BiblicalCard;
   owned: boolean;
   duplicates: number;
+  isNew: boolean;
   cardW: number;
   cardH: number;
   onPress: () => void;
@@ -347,6 +408,18 @@ function StandardCardThumbnail({
                 <Text style={{ fontSize: sFont(7.5), fontWeight: '900', color: '#000' }}>x{duplicates + 1}</Text>
               </View>
             )}
+            {isNew && !duplicates && (
+              <Animated.View entering={FadeIn.duration(180)} style={{ position: 'absolute', top: 5, right: 5 }}>
+                <LinearGradient
+                  colors={['#D4A017', '#F5D060']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{ borderRadius: 99, paddingHorizontal: 6, paddingVertical: 2.5, shadowColor: '#D4A017', shadowOpacity: 0.7, shadowRadius: 6, shadowOffset: { width: 0, height: 0 }, elevation: 6 }}
+                >
+                  <Text style={{ fontSize: sFont(6.5), fontWeight: '900', color: '#000', letterSpacing: 0.5 }}>✨ NUEVA</Text>
+                </LinearGradient>
+              </Animated.View>
+            )}
           </LinearGradient>
         ) : (
           <View style={{
@@ -377,6 +450,7 @@ function PascuaCardThumbnail({
   card,
   owned,
   duplicates,
+  isNew,
   cardW,
   cardH,
   onPress,
@@ -387,6 +461,7 @@ function PascuaCardThumbnail({
   card: BiblicalCard;
   owned: boolean;
   duplicates: number;
+  isNew: boolean;
   cardW: number;
   cardH: number;
   onPress: () => void;
@@ -473,6 +548,18 @@ function PascuaCardThumbnail({
                 <Text style={{ fontSize: sFont(7.5), fontWeight: '900', color: '#000' }}>x{duplicates + 1}</Text>
               </View>
             )}
+            {isNew && !duplicates && (
+              <Animated.View entering={FadeIn.duration(180)} style={{ position: 'absolute', top: 5, right: 5 }}>
+                <LinearGradient
+                  colors={['#D4A017', '#F5D060']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{ borderRadius: 99, paddingHorizontal: 6, paddingVertical: 2.5, shadowColor: '#D4A017', shadowOpacity: 0.7, shadowRadius: 6, shadowOffset: { width: 0, height: 0 }, elevation: 6 }}
+                >
+                  <Text style={{ fontSize: sFont(6.5), fontWeight: '900', color: '#000', letterSpacing: 0.5 }}>✨ NUEVA</Text>
+                </LinearGradient>
+              </Animated.View>
+            )}
           </LinearGradient>
         ) : (
           /* Unowned event card — shows order number hint */
@@ -532,6 +619,8 @@ export default function BiblicalCardsAlbumScreen() {
   // null = show all rarities
   const [rarityFilter, setRarityFilter] = useState<CardRarity | null>(null);
 
+  const queryClient = useQueryClient();
+
   const { data: cardInventory = [] } = useQuery({
     queryKey: ['biblical-cards', userId],
     queryFn: async () => {
@@ -556,6 +645,7 @@ export default function BiblicalCardsAlbumScreen() {
     return {
       owned: entry?.owned ?? false,
       duplicates: entry?.duplicates ?? 0,
+      isNew: entry?.isNew ?? false,
     };
   }, [cardInventory]);
 
@@ -592,14 +682,25 @@ export default function BiblicalCardsAlbumScreen() {
     ? pascuaCards.filter((c) => c.rarity === rarityFilter)
     : pascuaCards;
 
+  // Count of new (unseen) cards in current collection view
+  const newCardCount = cardInventory.filter((c) => c.isNew && c.owned).length;
+
   const openCard = useCallback((card: BiblicalCard) => {
-    const { owned, duplicates } = getCardStatus(card.id);
+    const { owned, duplicates, isNew } = getCardStatus(card.id);
     if (!owned) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setSelectedCard(card);
     setSelectedDuplicates(duplicates);
     setShowDetailModal(true);
-  }, [getCardStatus]);
+    // Clear the "new" flag when user opens the card
+    if (isNew && userId) {
+      gamificationApi.markCardSeen(userId, card.id);
+      // Optimistic update — remove isNew locally so badge disappears immediately
+      queryClient.setQueryData(['biblical-cards', userId], (old: typeof cardInventory) =>
+        old.map((c) => c.cardId === card.id ? { ...c, isNew: false } : c)
+      );
+    }
+  }, [getCardStatus, userId, queryClient, cardInventory]);
 
   // Handle back button — returns to hub if in collection, or navigates back if in hub
   const handleBack = useCallback(() => {
@@ -707,7 +808,6 @@ export default function BiblicalCardsAlbumScreen() {
                   borderWidth: 1,
                   borderColor: 'rgba(100,150,255,0.30)',
                   overflow: 'hidden',
-                  height: 180,
                   shadowColor: '#1A3A6B',
                   shadowOpacity: 0.55,
                   shadowRadius: 14,
@@ -722,7 +822,7 @@ export default function BiblicalCardsAlbumScreen() {
                   end={{ x: 1, y: 1 }}
                   style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
                 />
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
                   {/* Icon */}
                   <View style={{
                     width: 56,
@@ -775,6 +875,10 @@ export default function BiblicalCardsAlbumScreen() {
                   {/* Chevron */}
                   <ChevronRight size={22} color="rgba(180,210,255,0.55)" style={{ marginLeft: 10 }} />
                 </View>
+                {/* NOVEDAD ticker */}
+                <View style={{ borderTopWidth: 1, borderTopColor: 'rgba(100,160,255,0.18)', backgroundColor: 'rgba(100,160,255,0.07)' }}>
+                  <NovedadTicker accentColor="rgba(168,210,255,0.80)" />
+                </View>
               </LinearGradient>
             </Pressable>
           </Animated.View>
@@ -798,7 +902,6 @@ export default function BiblicalCardsAlbumScreen() {
                   borderWidth: 1,
                   borderColor: 'rgba(245,208,96,0.25)',
                   overflow: 'hidden',
-                  height: 180,
                   shadowColor: '#CC3333',
                   shadowOpacity: 0.55,
                   shadowRadius: 14,
@@ -813,7 +916,7 @@ export default function BiblicalCardsAlbumScreen() {
                   end={{ x: 1, y: 1 }}
                   style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
                 />
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
                   {/* Icon */}
                   <View style={{
                     width: 56,
@@ -865,6 +968,10 @@ export default function BiblicalCardsAlbumScreen() {
 
                   {/* Chevron */}
                   <ChevronRight size={22} color="rgba(245,208,96,0.50)" style={{ marginLeft: 10 }} />
+                </View>
+                {/* NOVEDAD ticker */}
+                <View style={{ borderTopWidth: 1, borderTopColor: 'rgba(245,208,96,0.18)', backgroundColor: 'rgba(245,208,96,0.07)' }}>
+                  <NovedadTicker accentColor="rgba(245,208,96,0.85)" />
                 </View>
               </LinearGradient>
             </Pressable>
@@ -926,18 +1033,49 @@ export default function BiblicalCardsAlbumScreen() {
           </Animated.View>
 
           {/* ── Card grid ───────────────────────────────────────────────── */}
+          {/* New cards banner */}
+          {newCardCount > 0 && (
+            <Animated.View entering={FadeIn.duration(300)} style={{ marginBottom: 16 }}>
+              <LinearGradient
+                colors={['rgba(212,175,55,0.18)', 'rgba(212,175,55,0.08)']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  borderRadius: 14,
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderWidth: 1,
+                  borderColor: 'rgba(212,175,55,0.35)',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 10,
+                }}
+              >
+                <Text style={{ fontSize: 18 }}>✨</Text>
+                <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#F5D060', flex: 1 }}>
+                  {language === 'es'
+                    ? `${newCardCount} carta${newCardCount !== 1 ? 's' : ''} nueva${newCardCount !== 1 ? 's' : ''} descubierta${newCardCount !== 1 ? 's' : ''}`
+                    : `${newCardCount} new card${newCardCount !== 1 ? 's' : ''} discovered`}
+                </Text>
+                <Text style={{ fontSize: sFont(11), color: 'rgba(245,208,96,0.60)' }}>
+                  {language === 'es' ? 'Toca para ver' : 'Tap to view'}
+                </Text>
+              </LinearGradient>
+            </Animated.View>
+          )}
           {activeCollection === 'inicial' ? (
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: CARD_GAP }}>
               {filteredStandardIds.map((cardId, index) => {
                 const card = BIBLICAL_CARDS[cardId];
                 if (!card) return null;
-                const { owned, duplicates } = getCardStatus(cardId);
+                const { owned, duplicates, isNew } = getCardStatus(cardId);
                 return (
                   <StandardCardThumbnail
                     key={cardId}
                     card={card}
                     owned={owned}
                     duplicates={duplicates}
+                    isNew={isNew}
                     cardW={CARD_W}
                     cardH={CARD_H}
                     onPress={() => openCard(card)}
@@ -951,13 +1089,14 @@ export default function BiblicalCardsAlbumScreen() {
           ) : (
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: CARD_GAP }}>
               {filteredPascuaCards.map((card, index) => {
-                const { owned, duplicates } = getCardStatus(card.id);
+                const { owned, duplicates, isNew } = getCardStatus(card.id);
                 return (
                   <PascuaCardThumbnail
                     key={card.id}
                     card={card}
                     owned={owned}
                     duplicates={duplicates}
+                    isNew={isNew}
                     cardW={CARD_W}
                     cardH={CARD_H}
                     onPress={() => openCard(card)}

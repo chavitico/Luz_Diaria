@@ -389,10 +389,16 @@ export const gamificationApi = {
   },
 
   // Biblical Cards
-  async getBiblicalCards(userId: string): Promise<Array<{ id: string; cardId: string; owned: boolean; duplicates: number; acquiredAt: string }>> {
+  async getBiblicalCards(userId: string): Promise<Array<{ id: string; cardId: string; owned: boolean; duplicates: number; isNew: boolean; acquiredAt: string }>> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/${userId}`);
     if (!res.ok) return [];
     return res.json();
+  },
+
+  async markCardSeen(userId: string, cardId: string): Promise<void> {
+    await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/${userId}/${cardId}/seen`, {
+      method: 'PATCH',
+    }).catch(() => {}); // fire-and-forget, no throw
   },
 
   // Challenges

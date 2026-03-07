@@ -884,7 +884,7 @@ gamificationRouter.post(
             drawnCard = { cardId, wasNew: false };
           } else {
             await tx.biblicalCardInventory.create({
-              data: { userId, cardId, owned: true, duplicates: 0 },
+              data: { userId, cardId, owned: true, duplicates: 0, isNew: true },
             });
             drawnCard = { cardId, wasNew: true };
           }
@@ -2810,6 +2810,22 @@ gamificationRouter.get("/biblical-cards/:userId", async (c) => {
   }
 });
 
+// PATCH /biblical-cards/:userId/:cardId/seen — clear isNew flag when user opens a card
+gamificationRouter.patch("/biblical-cards/:userId/:cardId/seen", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const cardId = c.req.param("cardId");
+    await prisma.biblicalCardInventory.updateMany({
+      where: { userId, cardId, isNew: true },
+      data: { isNew: false },
+    });
+    return c.json({ success: true });
+  } catch (error) {
+    console.error("[BiblicalCards] Error clearing isNew:", error);
+    return c.json({ error: "Failed to clear isNew" }, 500);
+  }
+});
+
 // ============================================================
 // DAILY PACK CLAIM
 // Free packs every 24h. Premium users get 2/day, free users 1/day.
@@ -2916,7 +2932,7 @@ gamificationRouter.post(
           });
         } else {
           await tx.biblicalCardInventory.create({
-            data: { userId, cardId, owned: true, duplicates: 0 },
+            data: { userId, cardId, owned: true, duplicates: 0, isNew: true },
           });
           wasNew = true;
         }
