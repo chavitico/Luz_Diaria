@@ -5,8 +5,8 @@
     "challengeId": "cmm9wycou0001m2fq0kzc5jej",
     "currentCount": 7,
     "completed": true,
-    "claimed": false,
-    "updatedAt": "2026-03-07T06:09:53.468Z"
+    "claimed": true,
+    "updatedAt": "2026-03-07T07:01:19.637Z"
   },
   {
     "id": "cmm9x5ebx000mm2srhpfgdxtp",
@@ -48,10 +48,10 @@
     "id": "cmm9yc211000wm29qcqb3dzkd",
     "userId": "cmm9yc1nx000sm29qq8qeoai9",
     "challengeId": "cmm9wycoi0000m2fqd6ioiz0j",
-    "currentCount": 4,
+    "currentCount": 5,
     "completed": false,
     "claimed": false,
-    "updatedAt": "2026-03-06T15:00:55.690Z"
+    "updatedAt": "2026-03-07T07:00:43.026Z"
   },
   {
     "id": "cmma3km8f0010m25k3h1ua4at",

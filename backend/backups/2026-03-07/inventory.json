@@ -1214,14 +1214,14 @@
     "id": "cmmf98riw0011m2f9gbmnrvil",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-07T06:19:15.918Z",
+    "acquiredAt": "2026-03-07T07:35:14.537Z",
     "source": "store"
   },
   {
     "id": "cmmfjield000zm22zvdqdpqkw",
     "userId": "cmm9y71p5000km29qqx44tb91",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-07T00:17:18.396Z",
+    "acquiredAt": "2026-03-07T07:13:56.937Z",
     "source": "store"
   },
   {
@@ -1270,14 +1270,14 @@
     "id": "cmmfrusef0015m23en1qs4i4w",
     "userId": "cmm9y71p5000km29qqx44tb91",
     "itemId": "pack_pascua",
-    "acquiredAt": "2026-03-07T06:20:35.654Z",
+    "acquiredAt": "2026-03-07T07:05:02.936Z",
     "source": "store"
   },
   {
     "id": "cmmfxxd9l0023m2u7umu57j7j",
     "userId": "cmmbe3rik0016m25rw06b6s43",
     "itemId": "pack_pascua",
-    "acquiredAt": "2026-03-07T06:26:59.754Z",
+    "acquiredAt": "2026-03-07T07:28:14.479Z",
     "source": "store"
   },
   {
@@ -1286,5 +1286,68 @@
     "itemId": "badge_columna_comunidad",
     "acquiredAt": "2026-03-07T06:37:37.404Z",
     "source": "achievement"
+  },
+  {
+    "id": "cmmfzddfh0020m2xywj8ycrmb",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "pincel_magico",
+    "acquiredAt": "2026-03-07T07:07:04.637Z",
+    "source": "used"
+  },
+  {
+    "id": "cmmfzge3o002mm2xypp5h33is",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_bosque_sereno",
+    "acquiredAt": "2026-03-07T07:09:25.477Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfzgx2c002om2xyd4phs7er",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "title_grace_is_enough",
+    "acquiredAt": "2026-03-07T07:09:50.052Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfzq341003km2xy3qovjrpv",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "title_walk_by_faith",
+    "acquiredAt": "2026-03-07T07:16:57.793Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfzzgrz0056m2xy7j7dqec3",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_adv_david_sling",
+    "acquiredAt": "2026-03-07T07:24:15.407Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmfzzgrz0058m2xyahn0zzgy",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "frame_adv_valley_battle",
+    "acquiredAt": "2026-03-07T07:24:15.407Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmfzzgrz005am2xye77rlobl",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_vencedor_gigantes",
+    "acquiredAt": "2026-03-07T07:24:15.408Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmg02t7a007gm2xyfffisi49",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-07T07:27:59.740Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmg0ernq008am2xymxzghfc2",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "avatar_v3_olivo_gracia",
+    "acquiredAt": "2026-03-07T07:36:09.350Z",
+    "source": "store"
   }
 ]

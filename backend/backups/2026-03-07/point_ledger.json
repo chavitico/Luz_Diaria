@@ -1198,5 +1198,15 @@
     "amount": 6,
     "metadata": "{}",
     "createdAt": "2026-03-07T06:28:02.893Z"
+  },
+  {
+    "id": "cmmg01op1007em2xy4m2awl37",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "gift_claim_cmm9yc1nx000sm29qq8qeoai9_1772868358981",
+    "type": "admin_grant",
+    "dateId": "2026-03-07",
+    "amount": 5000,
+    "metadata": "{\"reason\":\"Para que abra sobres\",\"giftDropId\":\"cmmg0033c005jm2xy47phld2c\"}",
+    "createdAt": "2026-03-07T07:25:58.982Z"
   }
 ]
