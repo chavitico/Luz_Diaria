@@ -37,7 +37,7 @@
     "streakCurrent": 30,
     "streakBest": 30,
     "devotionalsCompleted": 19,
-    "totalTimeSeconds": 57388,
+    "totalTimeSeconds": 57594,
     "lastActiveAt": "2026-03-08T12:37:05.565Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-08T15:43:46.672Z"
+    "updatedAt": "2026-03-08T18:42:32.230Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -108,12 +108,12 @@
     "titleId": "title_walk_by_faith",
     "themeId": "theme_cielo_gloria",
     "selectedMusicId": "music_free_1",
-    "points": 14099,
-    "streakCurrent": 9,
-    "streakBest": 9,
-    "devotionalsCompleted": 12,
-    "totalTimeSeconds": 3418,
-    "lastActiveAt": "2026-03-07T18:00:00.000Z",
+    "points": 14112,
+    "streakCurrent": 10,
+    "streakBest": 10,
+    "devotionalsCompleted": 13,
+    "totalTimeSeconds": 4225,
+    "lastActiveAt": "2026-03-08T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -122,7 +122,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T04:06:57.919Z",
-    "updatedAt": "2026-03-07T21:36:19.413Z"
+    "updatedAt": "2026-03-08T16:00:01.379Z"
   },
   {
     "id": "cmmaqp77i000pm2686xq6bozg",

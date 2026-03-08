@@ -1418,5 +1418,25 @@
     "amount": 10,
     "metadata": "{}",
     "createdAt": "2026-03-08T12:43:46.464Z"
+  },
+  {
+    "id": "cmmhxr56i001cm25ic6f32wwr",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "prayer_2026-03-08",
+    "type": "prayer",
+    "dateId": "2026-03-08",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-08T15:57:20.251Z"
+  },
+  {
+    "id": "cmmhxrhzd001gm25iypy521n0",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "prayed_community_2026-03-08",
+    "type": "prayed_community",
+    "dateId": "2026-03-08",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-08T15:57:36.841Z"
   }
 ]
