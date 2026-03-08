@@ -1235,7 +1235,7 @@
     "id": "cmmfmlkij0011m2i25duo0bm1",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "pack_pascua",
-    "acquiredAt": "2026-03-07T23:21:40.751Z",
+    "acquiredAt": "2026-03-08T18:57:03.673Z",
     "source": "store"
   },
   {
@@ -1354,14 +1354,14 @@
     "id": "cmmgfx5of001wm2waptapyfkm",
     "userId": "cmmaqp77i000pm2686xq6bozg",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-07T14:57:42.223Z",
+    "acquiredAt": "2026-03-08T18:48:46.888Z",
     "source": "store"
   },
   {
     "id": "cmmgfydjy0022m2waz6x4tltl",
     "userId": "cmmaqp77i000pm2686xq6bozg",
     "itemId": "pack_pascua",
-    "acquiredAt": "2026-03-07T14:51:34.199Z",
+    "acquiredAt": "2026-03-08T18:50:27.729Z",
     "source": "store"
   },
   {
@@ -1432,6 +1432,27 @@
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "badge_valiente_reino",
     "acquiredAt": "2026-03-08T12:37:05.667Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmi3rf4u001jm25qlcqetg14",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-08T18:54:33.522Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmi3s8n1001rm25qgzaid6io",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-08T18:53:10.087Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmi3vyxz002nm25qrrnuqmf7",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-08T18:49:03.144Z",
     "source": "achievement"
   }
 ]
