@@ -1214,7 +1214,7 @@
     "id": "cmmf98riw0011m2f9gbmnrvil",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-07T19:02:14.134Z",
+    "acquiredAt": "2026-03-08T12:40:53.167Z",
     "source": "store"
   },
   {
@@ -1426,5 +1426,12 @@
     "itemId": "title_mensajero_senor",
     "acquiredAt": "2026-03-07T23:47:10.434Z",
     "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmhqlmo3001am27ekgdypdok",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "badge_valiente_reino",
+    "acquiredAt": "2026-03-08T12:37:05.667Z",
+    "source": "achievement"
   }
 ]

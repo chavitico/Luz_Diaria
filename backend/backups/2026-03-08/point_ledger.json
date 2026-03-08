@@ -1378,5 +1378,45 @@
     "amount": 5,
     "metadata": "{}",
     "createdAt": "2026-03-07T23:47:37.315Z"
+  },
+  {
+    "id": "cmmhqlnfy001em27ev5m2oh7y",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "streak_bonus_30_2026-03-08",
+    "type": "streak_bonus",
+    "dateId": "2026-03-08",
+    "amount": 600,
+    "metadata": "{\"streakDays\":30}",
+    "createdAt": "2026-03-08T12:37:06.670Z"
+  },
+  {
+    "id": "cmmhqpo2r001gm27er8t5vm1o",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "prayer_2026-03-08",
+    "type": "prayer",
+    "dateId": "2026-03-08",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-08T12:40:14.115Z"
+  },
+  {
+    "id": "cmmhqps9f001im27emqpi6kta",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "tts_2026-03-08",
+    "type": "tts_complete",
+    "dateId": "2026-03-08",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-08T12:40:19.539Z"
+  },
+  {
+    "id": "cmmhqu7xb001mm27e21uhywm0",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "share_2026-03-08_1",
+    "type": "share",
+    "dateId": "2026-03-08",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-08T12:43:46.464Z"
   }
 ]
