@@ -6093,130 +6093,21 @@ function BiblicalPackCard({
             {/* Pack illustration + info row */}
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 18, marginBottom: 16 }}>
 
-              {/* ── THE PACK VISUAL ── */}
+              {/* ── THE PACK VISUAL — real PNG asset ── */}
               <View style={{
                 shadowColor: '#D4AF37',
                 shadowOpacity: 0.70,
-                shadowRadius: 20,
+                shadowRadius: 18,
                 shadowOffset: { width: 0, height: 0 },
-                elevation: 18,
+                elevation: 16,
+                width: 84,
+                height: 116,
               }}>
-                <LinearGradient
-                  colors={['#1C2B8A', '#0E1B5E', '#091240', '#0A1830']}
-                  start={{ x: 0.15, y: 0 }}
-                  end={{ x: 0.85, y: 1 }}
-                  style={{
-                    width: 84,
-                    height: 116,
-                    borderRadius: 12,
-                    borderWidth: 2.5,
-                    borderColor: '#D4AF37',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    overflow: 'hidden',
-                  }}
-                >
-                  {/* Primary foil sweep */}
-                  <LinearGradient
-                    colors={['rgba(212,175,55,0.30)', 'transparent', 'rgba(212,175,55,0.14)']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={{ position: 'absolute', width: '100%', height: '100%' }}
-                  />
-                  {/* Diagonal gloss streak */}
-                  <LinearGradient
-                    colors={['transparent', 'rgba(255,255,255,0.12)', 'transparent']}
-                    start={{ x: 0, y: 0.2 }}
-                    end={{ x: 1, y: 0.8 }}
-                    style={{ position: 'absolute', width: '100%', height: '100%' }}
-                  />
-                  {/* Counter-diagonal sweep */}
-                  <LinearGradient
-                    colors={['transparent', 'rgba(120,100,200,0.10)', 'transparent']}
-                    start={{ x: 1, y: 0.1 }}
-                    end={{ x: 0, y: 0.9 }}
-                    style={{ position: 'absolute', width: '100%', height: '100%' }}
-                  />
-
-                  {/* Top gold border */}
-                  <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, backgroundColor: '#D4AF37' }} />
-                  {/* Bottom gold border */}
-                  <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, backgroundColor: '#D4AF37' }} />
-                  {/* Left side thin gold */}
-                  <View style={{ position: 'absolute', top: 12, left: 0, width: 1, bottom: 12, backgroundColor: 'rgba(212,175,55,0.50)' }} />
-                  {/* Right side thin gold */}
-                  <View style={{ position: 'absolute', top: 12, right: 0, width: 1, bottom: 12, backgroundColor: 'rgba(212,175,55,0.50)' }} />
-
-                  {/* Inner frame */}
-                  <View style={{
-                    position: 'absolute',
-                    top: 5,
-                    left: 5,
-                    right: 5,
-                    bottom: 5,
-                    borderRadius: 7,
-                    borderWidth: 0.75,
-                    borderColor: 'rgba(212,175,55,0.35)',
-                  }} />
-
-                  {/* Corner ornaments */}
-                  <Text style={{ position: 'absolute', top: 6, left: 6, fontSize: 8, color: '#D4AF37', opacity: 0.85 }}>✦</Text>
-                  <Text style={{ position: 'absolute', top: 6, right: 6, fontSize: 8, color: '#D4AF37', opacity: 0.85 }}>✦</Text>
-                  <Text style={{ position: 'absolute', bottom: 6, left: 6, fontSize: 8, color: '#D4AF37', opacity: 0.85 }}>✦</Text>
-                  <Text style={{ position: 'absolute', bottom: 6, right: 6, fontSize: 8, color: '#D4AF37', opacity: 0.85 }}>✦</Text>
-
-                  {/* Center emblem — layered */}
-                  <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    {/* Outer aura */}
-                    <View style={{
-                      position: 'absolute',
-                      width: 52,
-                      height: 52,
-                      borderRadius: 26,
-                      backgroundColor: 'rgba(212,175,55,0.10)',
-                      borderWidth: 1,
-                      borderColor: 'rgba(212,175,55,0.25)',
-                    }} />
-                    {/* Inner aura */}
-                    <View style={{
-                      position: 'absolute',
-                      width: 40,
-                      height: 40,
-                      borderRadius: 20,
-                      backgroundColor: 'rgba(212,175,55,0.08)',
-                    }} />
-                    {/* Cross emblem */}
-                    <Text style={{
-                      fontSize: 28,
-                      color: '#D4AF37',
-                      textShadowColor: 'rgba(212,175,55,0.60)',
-                      textShadowRadius: 12,
-                      textShadowOffset: { width: 0, height: 0 },
-                      marginBottom: 2,
-                    }}>✝</Text>
-                  </View>
-
-                  {/* Decorative ray lines */}
-                  <Text style={{ position: 'absolute', top: 22, fontSize: 6, color: 'rgba(212,175,55,0.30)', letterSpacing: 6 }}>— — —</Text>
-
-                  {/* Pack label */}
-                  <View style={{ position: 'absolute', bottom: 12, alignItems: 'center' }}>
-                    <Text style={{
-                      fontSize: sFont(6),
-                      fontWeight: '900',
-                      color: '#D4AF37',
-                      letterSpacing: 1.4,
-                      textTransform: 'uppercase',
-                      textAlign: 'center',
-                      lineHeight: 9,
-                    }}>
-                      SOBRE{'\n'}BÍBLICO
-                    </Text>
-                    <Text style={{ fontSize: sFont(5), color: 'rgba(212,175,55,0.60)', letterSpacing: 0.5, marginTop: 2.5 }}>
-                      1 carta aleatoria
-                    </Text>
-                  </View>
-                </LinearGradient>
+                <Image
+                  source={require('../../../assets/packs/sobre_biblico_pack.png')}
+                  style={{ width: 84, height: 116 }}
+                  resizeMode="contain"
+                />
               </View>
 
               {/* Text block */}
@@ -6629,97 +6520,21 @@ function MilagrosPackCard({
             {/* Pack illustration + info row */}
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 18, marginBottom: 16 }}>
 
-              {/* ── Pack Visual — deep ocean / miracle blue ── */}
+              {/* ── Pack Visual — real PNG asset ── */}
               <View style={{
-                shadowColor: '#4A90D9',
-                shadowOpacity: 0.60,
-                shadowRadius: 16,
+                shadowColor: '#60A5FA',
+                shadowOpacity: 0.70,
+                shadowRadius: 18,
                 shadowOffset: { width: 0, height: 0 },
                 elevation: 16,
+                width: 84,
+                height: 116,
               }}>
-                <LinearGradient
-                  colors={['#091838', '#060F28', '#040C20', '#020810']}
-                  start={{ x: 0.15, y: 0 }}
-                  end={{ x: 0.85, y: 1 }}
-                  style={{
-                    width: 84,
-                    height: 116,
-                    borderRadius: 12,
-                    borderWidth: 2.5,
-                    borderColor: '#1A4A8A',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <LinearGradient
-                    colors={['rgba(26,74,138,0.28)', 'transparent', 'rgba(212,175,55,0.10)']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={{ position: 'absolute', width: '100%', height: '100%' }}
-                  />
-                  <LinearGradient
-                    colors={['transparent', 'rgba(100,180,255,0.08)', 'transparent']}
-                    start={{ x: 0, y: 0.2 }}
-                    end={{ x: 1, y: 0.8 }}
-                    style={{ position: 'absolute', width: '100%', height: '100%' }}
-                  />
-
-                  <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, backgroundColor: '#1A4A8A' }} />
-                  <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, backgroundColor: '#D4AF37' }} />
-
-                  <View style={{
-                    position: 'absolute',
-                    top: 5, left: 5, right: 5, bottom: 5,
-                    borderRadius: 7,
-                    borderWidth: 0.75,
-                    borderColor: 'rgba(26,74,138,0.40)',
-                  }} />
-
-                  <Text style={{ position: 'absolute', top: 6, left: 6, fontSize: 7, color: '#D4AF37', opacity: 0.80 }}>✦</Text>
-                  <Text style={{ position: 'absolute', top: 6, right: 6, fontSize: 7, color: '#D4AF37', opacity: 0.80 }}>✦</Text>
-                  <Text style={{ position: 'absolute', bottom: 6, left: 6, fontSize: 7, color: '#D4AF37', opacity: 0.80 }}>✦</Text>
-                  <Text style={{ position: 'absolute', bottom: 6, right: 6, fontSize: 7, color: '#D4AF37', opacity: 0.80 }}>✦</Text>
-
-                  {/* Center emblem — radiant miracle light */}
-                  <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <View style={{
-                      position: 'absolute',
-                      width: 56, height: 56,
-                      borderRadius: 28,
-                      backgroundColor: 'rgba(100,180,255,0.08)',
-                      borderWidth: 1,
-                      borderColor: 'rgba(74,144,217,0.25)',
-                    }} />
-                    <Text style={{ position: 'absolute', fontSize: 38, color: 'rgba(74,144,217,0.10)', letterSpacing: 0 }}>✴</Text>
-                    <Text style={{
-                      fontSize: 26,
-                      textShadowColor: 'rgba(100,180,255,0.80)',
-                      textShadowRadius: 14,
-                      textShadowOffset: { width: 0, height: 0 },
-                      marginBottom: 2,
-                    }}>✨</Text>
-                  </View>
-
-                  <Text style={{ position: 'absolute', top: 22, fontSize: 5, color: 'rgba(26,74,138,0.35)', letterSpacing: 5 }}>— — —</Text>
-
-                  <View style={{ position: 'absolute', bottom: 11, alignItems: 'center' }}>
-                    <Text style={{
-                      fontSize: sFont(6),
-                      fontWeight: '900',
-                      color: '#D4AF37',
-                      letterSpacing: 1.2,
-                      textTransform: 'uppercase',
-                      textAlign: 'center',
-                      lineHeight: 9,
-                    }}>
-                      SOBRE{'\n'}MILAGROS
-                    </Text>
-                    <Text style={{ fontSize: sFont(5), color: 'rgba(212,175,55,0.55)', letterSpacing: 0.5, marginTop: 2.5 }}>
-                      3 cartas
-                    </Text>
-                  </View>
-                </LinearGradient>
+                <Image
+                  source={require('../../../assets/packs/pack_milagros_pack.png')}
+                  style={{ width: 84, height: 116 }}
+                  resizeMode="contain"
+                />
               </View>
 
               {/* Text block */}

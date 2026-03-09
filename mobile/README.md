@@ -299,6 +299,19 @@ The `tokens` category has been renamed **Objetos Especiales** and reorganized in
   - Accessible from Settings → Mi Colección → Álbum Bíblico
 - **Card data:** `src/lib/biblical-cards.ts` — `BIBLICAL_CARDS` record with all card definitions
 
+### Pack Opening Animation System
+- **Component:** `src/components/PackOpeningModal.tsx` — full pack opening state machine
+- **Pack types:** `sobre_biblico` (Personajes Bíblicos), `pack_pascua` (Pascua), `pack_milagros` (Milagros de Jesús)
+- **State machine:** idle → pack_appear → pack_ready → pack_zoom → pack_tearing → pack_open → card_back → card_flip → rarity_reveal → final
+- **All 3 collections use PNG artwork** with transparent flag (white background removed via `resizeMode="contain"`)
+- **Tear gesture:** horizontal drag tears top flap off envelope; TEAR_BASE_Y = 22% of card height
+- **Timing:** `cardBackDelayMs: 2200`, `minPauseMs: 1200` applied to all collections
+- **Assets (PNG):**
+  - `assets/packs/sobre_biblico_pack.png` + `sobre_biblico_card_back.png` — Personajes Bíblicos golden pack
+  - `assets/packs/pack_pascua_pack.png` + `pack_pascua_card_back.png` — Pascua red/gold pack
+  - `assets/packs/pack_milagros_pack.png` + `pack_milagros_card_back.png` — Milagros dark blue pack
+- **Store thumbnails:** All 3 collections use real PNG images (84×116) with matching glow shadows
+
 ### Card Definitions (Phase 1)
 | id | Name | Category | Verse |
 |----|------|----------|-------|

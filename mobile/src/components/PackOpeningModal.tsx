@@ -144,12 +144,12 @@ const PACK_CONFIG: Record<PackType, {
   emoji: string;
 }> = {
   sobre_biblico: {
-    label: 'Sobre Bíblico',
-    gradientTop: '#1E3A5F',
-    gradientBottom: '#0A1929',
+    label: 'Personajes Bíblicos',
+    gradientTop: '#3D2800',
+    gradientBottom: '#1A0F00',
     borderColor: '#D4A017',
-    glowColor: '#D4A017',
-    emoji: '📜',
+    glowColor: '#FFD700',
+    emoji: '📖',
   },
   pack_pascua: {
     label: 'Pack de Pascua',
@@ -161,10 +161,10 @@ const PACK_CONFIG: Record<PackType, {
   },
   pack_milagros: {
     label: 'Sobre de Milagros',
-    gradientTop: '#091838',
-    gradientBottom: '#020810',
-    borderColor: '#1A4A8A',
-    glowColor: '#60A5FA',
+    gradientTop: '#0D1A38',
+    gradientBottom: '#060C1A',
+    borderColor: '#D4AF37',
+    glowColor: '#D4AF37',
     emoji: '✨',
   },
 };
@@ -250,9 +250,12 @@ const PACK_ASSETS: Record<PackType, {
   minPauseMs?: number;
 }> = {
   sobre_biblico: {
-    pack:     require('../../assets/packs/sobre_biblico_pack.jpg') as ImageSourcePropType,
-    cardBack: require('../../assets/packs/sobre_biblico_card_back.jpg') as ImageSourcePropType,
+    pack:     require('../../assets/packs/sobre_biblico_pack.png') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/sobre_biblico_card_back.png') as ImageSourcePropType,
     glowColor: '#D4A017',
+    transparent: true,
+    cardBackDelayMs: 2200,
+    minPauseMs: 1200,
   },
   pack_pascua: {
     pack:     require('../../assets/packs/pack_pascua_pack.png') as ImageSourcePropType,
@@ -263,9 +266,12 @@ const PACK_ASSETS: Record<PackType, {
     minPauseMs: 1200,
   },
   pack_milagros: {
-    pack:     require('../../assets/packs/pack_milagros_pack.jpg') as ImageSourcePropType,
-    cardBack: require('../../assets/packs/pack_milagros_card_back.jpg') as ImageSourcePropType,
+    pack:     require('../../assets/packs/pack_milagros_pack.png') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/pack_milagros_card_back.png') as ImageSourcePropType,
     glowColor: '#60A5FA',
+    transparent: true,
+    cardBackDelayMs: 2200,
+    minPauseMs: 1200,
   },
 };
 
