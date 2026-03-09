@@ -506,59 +506,94 @@ function SeasonBanner({ season, language, onPress }: { season: Season; language:
     <Pressable onPress={onPress}>
       <Animated.View
         entering={FadeInDown.duration(500)}
-        style={{ marginHorizontal: 20, marginBottom: 16, borderRadius: 18, overflow: 'hidden' }}
+        style={{ marginHorizontal: 20, marginBottom: 16 }}
       >
-      <LinearGradient
-        colors={[accent, '#1A0A0A']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={{ padding: 18, borderRadius: 18 }}
-      >
-        {/* Top: event type label */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 6 }}>
-          <View style={{
-            backgroundColor: accentDim,
-            borderWidth: 1,
-            borderColor: accentLight,
-            borderRadius: 99,
-            paddingHorizontal: 10,
-            paddingVertical: 3,
-          }}>
-            <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
-              {language === 'es' ? '✝ Evento de Temporada' : '✝ Season Event'}
-            </Text>
-          </View>
-        </View>
+        {/* Special luminous outer border — gradient glow ring */}
+        <LinearGradient
+          colors={[accent, accentLight, '#FFD700CC', accentLight, accent + '88']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{
+            borderRadius: 22,
+            padding: 2,
+            shadowColor: accent,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.8,
+            shadowRadius: 18,
+            elevation: 10,
+          }}
+        >
+          {/* Inner faint sheen ring */}
+          <LinearGradient
+            colors={['rgba(255,255,255,0.18)', 'transparent', 'transparent']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ borderRadius: 21, padding: 1 }}
+          >
+            <LinearGradient
+              colors={[accent, '#1A0A0A']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ padding: 18, borderRadius: 20, overflow: 'hidden' }}
+            >
+              {/* Bright shimmer highlight at top edge */}
+              <View style={{
+                position: 'absolute',
+                top: 0,
+                left: 24,
+                right: 24,
+                height: 1.5,
+                backgroundColor: 'rgba(255,255,255,0.35)',
+                borderRadius: 99,
+              }} />
 
-        {/* Main title */}
-        <Text style={{
-          fontSize: sFont(22),
-          fontWeight: '800',
-          color: '#FFFFFF',
-          letterSpacing: -0.3,
-          marginBottom: 4,
-          textShadowColor: 'rgba(0,0,0,0.5)',
-          textShadowOffset: { width: 0, height: 1 },
-          textShadowRadius: 4,
-        }}>
-          {season.bannerTitle}
-        </Text>
+              {/* Top: event type label */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 6 }}>
+                <View style={{
+                  backgroundColor: accentDim,
+                  borderWidth: 1,
+                  borderColor: accentLight,
+                  borderRadius: 99,
+                  paddingHorizontal: 10,
+                  paddingVertical: 3,
+                }}>
+                  <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
+                    {language === 'es' ? '✝ Evento de Temporada' : '✝ Season Event'}
+                  </Text>
+                </View>
+              </View>
 
-        {/* Description */}
-        <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.80)', lineHeight: 18, fontWeight: '400', marginBottom: 12 }}>
-          {season.bannerDescription}
-        </Text>
+              {/* Main title */}
+              <Text style={{
+                fontSize: sFont(22),
+                fontWeight: '800',
+                color: '#FFFFFF',
+                letterSpacing: -0.3,
+                marginBottom: 4,
+                textShadowColor: 'rgba(0,0,0,0.5)',
+                textShadowOffset: { width: 0, height: 1 },
+                textShadowRadius: 4,
+              }}>
+                {season.bannerTitle}
+              </Text>
 
-        {/* Bottom: dates */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-          <View style={{ width: 5, height: 5, borderRadius: 2.5, backgroundColor: '#FFFFFF', opacity: 0.7 }} />
-          <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.6)', fontWeight: '500' }}>
-            {new Date(season.startDate).toLocaleDateString(language === 'es' ? 'es-CO' : 'en-US', { month: 'short', day: 'numeric' })}
-            {' — '}
-            {new Date(season.endDate).toLocaleDateString(language === 'es' ? 'es-CO' : 'en-US', { month: 'short', day: 'numeric' })}
-          </Text>
-        </View>
-      </LinearGradient>
+              {/* Description */}
+              <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.80)', lineHeight: 18, fontWeight: '400', marginBottom: 12 }}>
+                {season.bannerDescription}
+              </Text>
+
+              {/* Bottom: dates */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <View style={{ width: 5, height: 5, borderRadius: 2.5, backgroundColor: '#FFFFFF', opacity: 0.7 }} />
+                <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.6)', fontWeight: '500' }}>
+                  {new Date(season.startDate).toLocaleDateString(language === 'es' ? 'es-CO' : 'en-US', { month: 'short', day: 'numeric' })}
+                  {' — '}
+                  {new Date(season.endDate).toLocaleDateString(language === 'es' ? 'es-CO' : 'en-US', { month: 'short', day: 'numeric' })}
+                </Text>
+              </View>
+            </LinearGradient>
+          </LinearGradient>
+        </LinearGradient>
       </Animated.View>
     </Pressable>
   );
@@ -592,77 +627,111 @@ function LaunchEventBanner({
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
       >
+        {/* Special luminous event border */}
         <LinearGradient
-          colors={[G1, G2]}
+          colors={['#4A7D5EDD', '#7EC8A0CC', '#FFD700AA', '#7EC8A0CC', '#4A7D5EDD']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
-          style={{ borderRadius: 20, padding: 20, overflow: 'hidden' }}
+          style={{
+            borderRadius: 24,
+            padding: 2,
+            shadowColor: '#4A7D5E',
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.75,
+            shadowRadius: 18,
+            elevation: 10,
+          }}
         >
-          {/* Badge */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
-            <View style={{
-              backgroundColor: ACCENT + '33',
-              borderWidth: 1,
-              borderColor: ACCENT + 'AA',
-              borderRadius: 99,
-              paddingHorizontal: 10,
-              paddingVertical: 3,
-            }}>
-              <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
-                ✨ {language === 'es' ? 'Evento de Lanzamiento' : 'Launch Event'}
-              </Text>
-            </View>
-          </View>
+          <LinearGradient
+            colors={['rgba(255,255,255,0.15)', 'transparent', 'transparent']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ borderRadius: 23, padding: 1 }}
+          >
+            <LinearGradient
+              colors={[G1, G2]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ borderRadius: 22, padding: 20, overflow: 'hidden' }}
+            >
+              {/* Shimmer highlight */}
+              <View style={{
+                position: 'absolute',
+                top: 0,
+                left: 24,
+                right: 24,
+                height: 1.5,
+                backgroundColor: 'rgba(255,255,255,0.28)',
+                borderRadius: 99,
+              }} />
 
-          {/* Title */}
-          <Text style={{
-            fontSize: sFont(22),
-            fontWeight: '800',
-            color: '#FFFFFF',
-            letterSpacing: -0.3,
-            marginBottom: 6,
-            textShadowColor: 'rgba(0,0,0,0.4)',
-            textShadowOffset: { width: 0, height: 1 },
-            textShadowRadius: 4,
-          }}>
-            {language === 'es' ? 'Camino del Crecimiento' : 'Growth Path'}
-          </Text>
-
-          {/* Description */}
-          <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.75)', lineHeight: 18, marginBottom: 16 }}>
-            {language === 'es'
-              ? 'La fe que siembras hoy dará fruto mañana.'
-              : 'The faith you plant today will bear fruit tomorrow.'}
-          </Text>
-
-          {/* Items preview: emojis */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16 }}>
-            {['🌱', '🍇', '🌿', '👑', '🕊️'].map((emoji, i) => (
-              <View key={i} style={{
-                width: 32, height: 32, borderRadius: 16,
-                backgroundColor: 'rgba(255,255,255,0.08)',
-                alignItems: 'center', justifyContent: 'center',
-              }}>
-                <Text style={{ fontSize: sFont(16) }}>{emoji}</Text>
+              {/* Badge */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
+                <View style={{
+                  backgroundColor: ACCENT + '33',
+                  borderWidth: 1,
+                  borderColor: ACCENT + 'AA',
+                  borderRadius: 99,
+                  paddingHorizontal: 10,
+                  paddingVertical: 3,
+                }}>
+                  <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
+                    ✨ {language === 'es' ? 'Evento de Lanzamiento' : 'Launch Event'}
+                  </Text>
+                </View>
               </View>
-            ))}
-            <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.5)', marginLeft: 4 }}>
-              5 {language === 'es' ? 'recompensas' : 'rewards'}
-            </Text>
-          </View>
 
-          {/* CTA */}
-          <View style={{
-            backgroundColor: ACCENT,
-            borderRadius: 99,
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            alignSelf: 'flex-start',
-          }}>
-            <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
-              {language === 'es' ? 'Ver paquetes' : 'View packages'}
-            </Text>
-          </View>
+              {/* Title */}
+              <Text style={{
+                fontSize: sFont(22),
+                fontWeight: '800',
+                color: '#FFFFFF',
+                letterSpacing: -0.3,
+                marginBottom: 6,
+                textShadowColor: 'rgba(0,0,0,0.4)',
+                textShadowOffset: { width: 0, height: 1 },
+                textShadowRadius: 4,
+              }}>
+                {language === 'es' ? 'Camino del Crecimiento' : 'Growth Path'}
+              </Text>
+
+              {/* Description */}
+              <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.75)', lineHeight: 18, marginBottom: 16 }}>
+                {language === 'es'
+                  ? 'La fe que siembras hoy dará fruto mañana.'
+                  : 'The faith you plant today will bear fruit tomorrow.'}
+              </Text>
+
+              {/* Items preview: emojis */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16 }}>
+                {['🌱', '🍇', '🌿', '👑', '🕊️'].map((emoji, i) => (
+                  <View key={i} style={{
+                    width: 32, height: 32, borderRadius: 16,
+                    backgroundColor: 'rgba(255,255,255,0.08)',
+                    alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <Text style={{ fontSize: sFont(16) }}>{emoji}</Text>
+                  </View>
+                ))}
+                <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.5)', marginLeft: 4 }}>
+                  5 {language === 'es' ? 'recompensas' : 'rewards'}
+                </Text>
+              </View>
+
+              {/* CTA */}
+              <View style={{
+                backgroundColor: ACCENT,
+                borderRadius: 99,
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                alignSelf: 'flex-start',
+              }}>
+                <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
+                  {language === 'es' ? 'Ver paquetes' : 'View packages'}
+                </Text>
+              </View>
+            </LinearGradient>
+          </LinearGradient>
         </LinearGradient>
       </Pressable>
     </Animated.View>
@@ -955,84 +1024,162 @@ function ProfileHeader({
   return (
     <Animated.View
       entering={FadeInDown.duration(400)}
-      className="mx-5 mb-5 rounded-2xl overflow-hidden"
       style={{
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 12,
-        elevation: 4,
+        marginHorizontal: 20,
+        marginBottom: 20,
+        borderRadius: 24,
+        shadowColor: colors.primary,
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.22,
+        shadowRadius: 18,
+        elevation: 8,
       }}
     >
+      {/* Outer glow border */}
       <LinearGradient
-        colors={[colors.surface, colors.background]}
+        colors={[colors.primary + '55', colors.primary + '11', 'transparent']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={{ padding: 20 }}
+        style={{ borderRadius: 24, padding: 1.5 }}
       >
-        <View className="flex-row items-center">
-          {/* Avatar with Frame */}
-          <View className="relative mr-4">
-            <View
-              className="w-18 h-18 rounded-full items-center justify-center"
-              style={{
-                width: 72,
-                height: 72,
-                backgroundColor: colors.primary + '15',
-                borderWidth: 4,
-                borderColor: frameColor,
-                shadowColor: frameColor,
-                shadowOffset: { width: 0, height: 0 },
-                shadowOpacity: 0.4,
-                shadowRadius: 8,
-              }}
-            >
-              <Text style={{ fontSize: sFont(32) }}>{avatarEmoji}</Text>
-            </View>
-          </View>
+        <LinearGradient
+          colors={['#1C1008', '#120B04', '#0E0700']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ borderRadius: 23, overflow: 'hidden' }}
+        >
+          {/* Inner accent glow */}
+          <LinearGradient
+            colors={[colors.primary + '22', 'transparent']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
 
-          {/* User Info */}
-          <View className="flex-1">
-            <Text
-              className="text-xl font-bold mb-0.5"
-              style={{ color: colors.text }}
-            >
-              {user?.nickname || 'Pilgrim'}
-            </Text>
-            <Text
-              className="text-sm italic"
-              style={{ color: colors.textMuted }}
-              numberOfLines={1}
-            >
-              {equippedTitle}
-            </Text>
-          </View>
+          <View style={{ padding: 20 }}>
+            {/* Identity row */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+              {/* Avatar with elevated ring */}
+              <View style={{ marginRight: 14 }}>
+                {/* Outer ring glow */}
+                <View style={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: 40,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: frameColor + '22',
+                  shadowColor: frameColor,
+                  shadowOffset: { width: 0, height: 0 },
+                  shadowOpacity: 0.6,
+                  shadowRadius: 12,
+                }}>
+                  <View style={{
+                    width: 72,
+                    height: 72,
+                    borderRadius: 36,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#1A0F05',
+                    borderWidth: 2.5,
+                    borderColor: frameColor,
+                  }}>
+                    <Text style={{ fontSize: sFont(34) }}>{avatarEmoji}</Text>
+                  </View>
+                </View>
+              </View>
 
-          {/* Points & Streak */}
-          <View className="items-end">
-            <View
-              className="flex-row items-center mb-2 px-3 py-1.5 rounded-full"
-              style={{ backgroundColor: colors.primary + '15' }}
-            >
-              <Coins size={18} color={colors.primary} />
-              <Text
-                className="text-lg font-bold ml-1.5"
-                style={{ color: colors.primary }}
-              >
-                {points}
-              </Text>
+              {/* Name + Title */}
+              <View style={{ flex: 1 }}>
+                <Text style={{
+                  fontSize: sFont(20),
+                  fontWeight: '800',
+                  color: '#FFFFFF',
+                  letterSpacing: -0.3,
+                  marginBottom: 3,
+                }}>
+                  {user?.nickname || 'Pilgrim'}
+                </Text>
+                <View style={{
+                  alignSelf: 'flex-start',
+                  backgroundColor: colors.primary + '20',
+                  borderWidth: 1,
+                  borderColor: colors.primary + '50',
+                  borderRadius: 99,
+                  paddingHorizontal: 10,
+                  paddingVertical: 3,
+                }}>
+                  <Text style={{
+                    fontSize: sFont(11),
+                    fontWeight: '600',
+                    color: colors.primary,
+                    fontStyle: 'italic',
+                  }} numberOfLines={1}>
+                    {equippedTitle}
+                  </Text>
+                </View>
+              </View>
             </View>
-            <View className="flex-row items-center">
-              <Flame size={16} color="#F97316" />
-              <Text
-                className="text-base font-semibold ml-1"
-                style={{ color: '#F97316' }}
+
+            {/* Divider */}
+            <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.07)', marginBottom: 16 }} />
+
+            {/* Stats chips row */}
+            <View style={{ flexDirection: 'row', gap: 10 }}>
+              {/* Points chip */}
+              <LinearGradient
+                colors={[colors.primary + '30', colors.primary + '10']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingVertical: 10,
+                  borderRadius: 14,
+                  borderWidth: 1,
+                  borderColor: colors.primary + '35',
+                  gap: 6,
+                }}
               >
-                {user?.streakCurrent || 0}
-              </Text>
+                <Coins size={16} color={colors.primary} />
+                <Text style={{ fontSize: sFont(17), fontWeight: '800', color: colors.primary }}>
+                  {points}
+                </Text>
+                <Text style={{ fontSize: sFont(11), fontWeight: '500', color: colors.primary + 'AA' }}>
+                  {language === 'es' ? 'pts' : 'pts'}
+                </Text>
+              </LinearGradient>
+
+              {/* Streak chip */}
+              <LinearGradient
+                colors={['#F9731625', '#F9731608']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingVertical: 10,
+                  borderRadius: 14,
+                  borderWidth: 1,
+                  borderColor: '#F9731635',
+                  gap: 6,
+                }}
+              >
+                <Flame size={16} color="#F97316" />
+                <Text style={{ fontSize: sFont(17), fontWeight: '800', color: '#F97316' }}>
+                  {user?.streakCurrent || 0}
+                </Text>
+                <Text style={{ fontSize: sFont(11), fontWeight: '500', color: '#F9731680' }}>
+                  {language === 'es' ? 'días' : 'days'}
+                </Text>
+              </LinearGradient>
             </View>
           </View>
-        </View>
+        </LinearGradient>
       </LinearGradient>
     </Animated.View>
   );
@@ -1547,126 +1694,165 @@ function WeeklyChallengesCard({
     <>
       <Animated.View
         entering={FadeInDown.delay(100).duration(400)}
-        className="mx-5 mb-5 rounded-2xl overflow-hidden"
         style={{
-          backgroundColor: colors.surface,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.06,
-          shadowRadius: 8,
-          elevation: 3,
+          marginHorizontal: 20,
+          marginBottom: 20,
+          borderRadius: 24,
+          shadowColor: '#F97316',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.15,
+          shadowRadius: 14,
+          elevation: 6,
         }}
       >
-        <View className="p-5">
-          <View className="flex-row items-center mb-4">
-            <View
-              className="w-10 h-10 rounded-xl items-center justify-center mr-3"
-              style={{ backgroundColor: '#F97316' + '20' }}
-            >
-              <Gift size={20} color="#F97316" />
+        <LinearGradient
+          colors={['#F9731618', '#F9731608', 'transparent']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ borderRadius: 24, padding: 1.5 }}
+        >
+          <LinearGradient
+            colors={['#1C1208', '#120D05', '#0E0900']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ borderRadius: 23, overflow: 'hidden', padding: 20 }}
+          >
+            {/* Inner accent glow */}
+            <LinearGradient
+              colors={['#F9731612', 'transparent']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+            />
+
+            {/* Header row */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 18 }}>
+              <LinearGradient
+                colors={['#F9731630', '#F9731615']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: 14,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: 12,
+                  borderWidth: 1,
+                  borderColor: '#F9731635',
+                }}
+              >
+                <Gift size={20} color="#F97316" />
+              </LinearGradient>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 16, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2 }}>
+                  {t.weekly_challenges}
+                </Text>
+                <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', fontWeight: '500', marginTop: 1 }}>
+                  {language === 'es' ? 'Completa y reclama tus recompensas' : 'Complete and claim your rewards'}
+                </Text>
+              </View>
             </View>
-            <Text
-              className="text-base font-bold flex-1"
-              style={{ color: colors.text }}
-            >
-              {t.weekly_challenges}
-            </Text>
-          </View>
 
-          {challenges.slice(0, 3).map((challenge, index) => {
-            const progress = progressData.find(p => p.challengeId === challenge.id);
-            const currentCount = progress?.currentCount || 0;
-            const progressPercent = Math.min((currentCount / challenge.goalCount) * 100, 100);
-            const isComplete = progress?.completed || false;
-            const isClaimed = progress?.claimed || false;
-            const title = language === 'es' ? challenge.titleEs : challenge.titleEn;
-            const description = language === 'es' ? challenge.descriptionEs : challenge.descriptionEn;
+            {/* Divider */}
+            <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.07)', marginBottom: 16 }} />
 
-            return (
-              <View key={challenge.id} className={index > 0 ? 'mt-4' : ''}>
-                <View className="flex-row items-center justify-between mb-2">
-                  <Pressable
-                    onPress={() => {
-                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                      setSelectedChallenge({ title, description, type: challenge.type });
-                    }}
-                    className="flex-row items-center flex-1 mr-2"
-                    style={{ gap: 6 }}
-                  >
-                    <Text
-                      className="text-sm font-medium flex-1"
-                      style={{ color: colors.text }}
-                      numberOfLines={1}
-                    >
-                      {title}
-                    </Text>
-                    <Info size={14} color={colors.textMuted} />
-                  </Pressable>
-                  <Text
-                    className="text-xs font-bold ml-2 px-2 py-0.5 rounded-full"
-                    style={{
-                      backgroundColor: isComplete ? '#22C55E20' : colors.textMuted + '15',
-                      color: isComplete ? '#22C55E' : colors.textMuted
-                    }}
-                  >
-                    {currentCount}/{challenge.goalCount}
-                  </Text>
-                </View>
+            {challenges.slice(0, 3).map((challenge, index) => {
+              const progress = progressData.find(p => p.challengeId === challenge.id);
+              const currentCount = progress?.currentCount || 0;
+              const progressPercent = Math.min((currentCount / challenge.goalCount) * 100, 100);
+              const isComplete = progress?.completed || false;
+              const isClaimed = progress?.claimed || false;
+              const title = language === 'es' ? challenge.titleEs : challenge.titleEn;
+              const description = language === 'es' ? challenge.descriptionEs : challenge.descriptionEn;
 
-                <View
-                  className="h-2.5 rounded-full overflow-hidden mb-2"
-                  style={{ backgroundColor: colors.textMuted + '15' }}
-                >
-                  <View
-                    className="h-full rounded-full"
-                    style={{
-                      width: `${progressPercent}%`,
-                      backgroundColor: isComplete ? '#22C55E' : colors.primary,
-                    }}
-                  />
-                </View>
-
-                <View className="flex-row items-center justify-between">
-                  <View className="flex-row items-center">
-                    <Coins size={14} color={colors.primary} />
-                    <Text
-                      className="text-xs font-semibold ml-1"
-                      style={{ color: colors.primary }}
-                    >
-                      +{challenge.rewardPoints}
-                    </Text>
-                  </View>
-
-                  {isComplete && !isClaimed && (
+              return (
+                <View key={challenge.id} style={index > 0 ? { marginTop: 16, paddingTop: 16, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.05)' } : {}}>
+                  {/* Title row */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <Pressable
-                      onPress={() => claimMutation.mutate({ challengeId: challenge.id })}
-                      disabled={claimMutation.isPending}
-                      className="px-4 py-1.5 rounded-lg"
-                      style={{ backgroundColor: '#22C55E' }}
+                      onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                        setSelectedChallenge({ title, description, type: challenge.type });
+                      }}
+                      style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 8, gap: 6 }}
                     >
-                      {claimMutation.isPending ? (
-                        <ActivityIndicator size="small" color="#FFFFFF" />
-                      ) : (
-                        <Text className="text-xs font-semibold text-white">
-                          {t.claim_reward}
-                        </Text>
-                      )}
+                      <Text
+                        style={{ fontSize: 13, fontWeight: '600', color: 'rgba(255,255,255,0.88)', flex: 1 }}
+                        numberOfLines={1}
+                      >
+                        {title}
+                      </Text>
+                      <Info size={13} color="rgba(255,255,255,0.30)" />
                     </Pressable>
-                  )}
-
-                  {isClaimed && (
-                    <View className="flex-row items-center px-3 py-1.5 rounded-lg" style={{ backgroundColor: '#22C55E20' }}>
-                      <Check size={12} color="#22C55E" strokeWidth={3} />
-                      <Text className="text-xs font-semibold text-green-600 ml-1">
-                        {t.reward_claimed}
+                    <View style={{
+                      backgroundColor: isComplete ? '#22C55E20' : 'rgba(255,255,255,0.08)',
+                      borderRadius: 99,
+                      paddingHorizontal: 8,
+                      paddingVertical: 2,
+                      borderWidth: 1,
+                      borderColor: isComplete ? '#22C55E40' : 'rgba(255,255,255,0.10)',
+                    }}>
+                      <Text style={{ fontSize: 11, fontWeight: '700', color: isComplete ? '#22C55E' : 'rgba(255,255,255,0.50)' }}>
+                        {currentCount}/{challenge.goalCount}
                       </Text>
                     </View>
-                  )}
+                  </View>
+
+                  {/* Progress bar */}
+                  <View style={{ height: 6, borderRadius: 99, overflow: 'hidden', backgroundColor: 'rgba(255,255,255,0.08)', marginBottom: 8 }}>
+                    <LinearGradient
+                      colors={isComplete ? ['#22C55E', '#16A34A'] : [colors.primary, colors.primary + 'AA']}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                      style={{ height: '100%', width: `${progressPercent}%`, borderRadius: 99 }}
+                    />
+                  </View>
+
+                  {/* Bottom row: points + action */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                      <Coins size={13} color={colors.primary} />
+                      <Text style={{ fontSize: 12, fontWeight: '700', color: colors.primary }}>
+                        +{challenge.rewardPoints}
+                      </Text>
+                    </View>
+
+                    {isComplete && !isClaimed && (
+                      <Pressable
+                        onPress={() => claimMutation.mutate({ challengeId: challenge.id })}
+                        disabled={claimMutation.isPending}
+                        style={{
+                          backgroundColor: '#22C55E',
+                          borderRadius: 10,
+                          paddingHorizontal: 14,
+                          paddingVertical: 6,
+                        }}
+                      >
+                        {claimMutation.isPending ? (
+                          <ActivityIndicator size="small" color="#FFFFFF" />
+                        ) : (
+                          <Text style={{ fontSize: 12, fontWeight: '700', color: '#FFFFFF' }}>
+                            {t.claim_reward}
+                          </Text>
+                        )}
+                      </Pressable>
+                    )}
+
+                    {isClaimed && (
+                      <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#22C55E15', borderRadius: 10, paddingHorizontal: 10, paddingVertical: 5, gap: 4 }}>
+                        <Check size={12} color="#22C55E" strokeWidth={3} />
+                        <Text style={{ fontSize: 12, fontWeight: '600', color: '#22C55E' }}>
+                          {t.reward_claimed}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
                 </View>
-              </View>
-            );
-          })}
-        </View>
+              );
+            })}
+          </LinearGradient>
+        </LinearGradient>
       </Animated.View>
 
       {/* Challenge Description Modal */}
@@ -1802,131 +1988,178 @@ function PromoCodeCard({
   return (
     <Animated.View
       entering={FadeInDown.delay(200).duration(400)}
-      className="mx-5 mb-5 rounded-2xl overflow-hidden"
       style={{
-        backgroundColor: colors.surface,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.06,
-        shadowRadius: 8,
-        elevation: 3,
+        marginHorizontal: 20,
+        marginBottom: 20,
+        borderRadius: 24,
+        shadowColor: colors.primary,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.12,
+        shadowRadius: 14,
+        elevation: 5,
       }}
     >
-      <Pressable
-        onPress={() => {
-          Haptics.selectionAsync();
-          setIsExpanded(!isExpanded);
-          setMessage(null);
-        }}
-        style={{ padding: 20 }}
+      <LinearGradient
+        colors={[colors.primary + '25', colors.primary + '08', 'transparent']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{ borderRadius: 24, padding: 1.5 }}
       >
-        <View className="flex-row items-center">
-          <View
-            className="w-12 h-12 rounded-xl items-center justify-center mr-4"
-            style={{ backgroundColor: colors.primary + '20' }}
-          >
-            <Ticket size={24} color={colors.primary} />
-          </View>
-          <View className="flex-1">
-            <Text
-              className="text-base font-bold"
-              style={{ color: colors.text }}
-            >
-              {language === 'es' ? 'Canjear Codigo' : 'Redeem Code'}
-            </Text>
-            <Text
-              className="text-xs"
-              style={{ color: colors.textMuted }}
-            >
-              {language === 'es' ? 'Ingresa tu codigo promocional' : 'Enter your promo code'}
-            </Text>
-          </View>
-          <View
-            style={{
-              transform: [{ rotate: isExpanded ? '90deg' : '0deg' }],
-            }}
-          >
-            <ChevronRight size={20} color={colors.textMuted} />
-          </View>
-        </View>
-      </Pressable>
-
-      {isExpanded && (
-        <Animated.View
-          entering={FadeIn.duration(200)}
-          style={{ paddingHorizontal: 20, paddingBottom: 20 }}
+        <LinearGradient
+          colors={['#1C1208', '#120D05', '#0E0900']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ borderRadius: 23, overflow: 'hidden' }}
         >
-          {/* Input Field */}
-          <View
-            className="flex-row items-center rounded-xl overflow-hidden mb-3"
-            style={{ backgroundColor: colors.background }}
+          {/* Inner accent glow */}
+          <LinearGradient
+            colors={[colors.primary + '14', 'transparent']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
+
+          <Pressable
+            onPress={() => {
+              Haptics.selectionAsync();
+              setIsExpanded(!isExpanded);
+              setMessage(null);
+            }}
+            style={{ padding: 20 }}
           >
-            <TextInput
-              value={code}
-              onChangeText={setCode}
-              placeholder={language === 'es' ? 'Codigo...' : 'Code...'}
-              placeholderTextColor={colors.textMuted}
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={{
-                flex: 1,
-                paddingHorizontal: 16,
-                paddingVertical: 14,
-                fontSize: sFont(16),
-                color: colors.text,
-                fontWeight: '600',
-              }}
-              editable={!isRedeeming}
-            />
-            <Pressable
-              onPress={handleRedeem}
-              disabled={!code.trim() || isRedeeming}
-              style={{
-                paddingHorizontal: 20,
-                paddingVertical: 14,
-                backgroundColor: code.trim() && !isRedeeming ? colors.primary : colors.textMuted + '30',
-              }}
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {/* Icon chip */}
+              <LinearGradient
+                colors={[colors.primary + '30', colors.primary + '12']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 15,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: 14,
+                  borderWidth: 1,
+                  borderColor: colors.primary + '40',
+                }}
+              >
+                <Ticket size={22} color={colors.primary} />
+              </LinearGradient>
+
+              {/* Text */}
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 16, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                  {language === 'es' ? 'Canjear Código' : 'Redeem Code'}
+                </Text>
+                <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', fontWeight: '500' }}>
+                  {language === 'es' ? 'Ingresa tu código promocional' : 'Enter your promo code'}
+                </Text>
+              </View>
+
+              {/* Arrow */}
+              <View style={{ transform: [{ rotate: isExpanded ? '90deg' : '0deg' }] }}>
+                <ChevronRight size={20} color="rgba(255,255,255,0.30)" />
+              </View>
+            </View>
+          </Pressable>
+
+          {isExpanded && (
+            <Animated.View
+              entering={FadeIn.duration(200)}
+              style={{ paddingHorizontal: 20, paddingBottom: 20 }}
             >
-              {isRedeeming ? (
-                <ActivityIndicator size="small" color="#FFFFFF" />
-              ) : (
-                <Text
+              {/* Subtle separator */}
+              <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.07)', marginBottom: 16 }} />
+
+              {/* Input Field */}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderRadius: 14,
+                  overflow: 'hidden',
+                  marginBottom: 10,
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  borderWidth: 1,
+                  borderColor: 'rgba(255,255,255,0.10)',
+                }}
+              >
+                <TextInput
+                  value={code}
+                  onChangeText={setCode}
+                  placeholder={language === 'es' ? 'Código...' : 'Code...'}
+                  placeholderTextColor="rgba(255,255,255,0.30)"
+                  autoCapitalize="none"
+                  autoCorrect={false}
                   style={{
-                    color: code.trim() ? '#FFFFFF' : colors.textMuted,
+                    flex: 1,
+                    paddingHorizontal: 16,
+                    paddingVertical: 14,
+                    fontSize: sFont(15),
+                    color: '#FFFFFF',
                     fontWeight: '700',
-                    fontSize: sFont(14),
+                    letterSpacing: 1,
+                  }}
+                  editable={!isRedeeming}
+                />
+                <Pressable
+                  onPress={handleRedeem}
+                  disabled={!code.trim() || isRedeeming}
+                  style={{
+                    paddingHorizontal: 20,
+                    paddingVertical: 14,
+                    backgroundColor: code.trim() && !isRedeeming ? colors.primary : 'rgba(255,255,255,0.08)',
                   }}
                 >
-                  {language === 'es' ? 'Canjear' : 'Redeem'}
-                </Text>
-              )}
-            </Pressable>
-          </View>
+                  {isRedeeming ? (
+                    <ActivityIndicator size="small" color="#FFFFFF" />
+                  ) : (
+                    <Text
+                      style={{
+                        color: code.trim() ? '#FFFFFF' : 'rgba(255,255,255,0.30)',
+                        fontWeight: '700',
+                        fontSize: sFont(14),
+                      }}
+                    >
+                      {language === 'es' ? 'Canjear' : 'Redeem'}
+                    </Text>
+                  )}
+                </Pressable>
+              </View>
 
-          {/* Message */}
-          {message && (
-            <Animated.View
-              entering={FadeIn.duration(150)}
-              className="flex-row items-center rounded-lg px-4 py-3"
-              style={{
-                backgroundColor: message.type === 'success' ? '#22C55E20' : '#EF444420',
-              }}
-            >
-              {message.type === 'success' ? (
-                <Check size={16} color="#22C55E" strokeWidth={3} />
-              ) : (
-                <X size={16} color="#EF4444" strokeWidth={3} />
+              {/* Message */}
+              {message && (
+                <Animated.View
+                  entering={FadeIn.duration(150)}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderRadius: 12,
+                    paddingHorizontal: 14,
+                    paddingVertical: 10,
+                    backgroundColor: message.type === 'success' ? '#22C55E18' : '#EF444418',
+                    borderWidth: 1,
+                    borderColor: message.type === 'success' ? '#22C55E30' : '#EF444430',
+                    gap: 8,
+                  }}
+                >
+                  {message.type === 'success' ? (
+                    <Check size={15} color="#22C55E" strokeWidth={3} />
+                  ) : (
+                    <X size={15} color="#EF4444" strokeWidth={3} />
+                  )}
+                  <Text
+                    style={{ fontSize: 13, fontWeight: '600', flex: 1, color: message.type === 'success' ? '#22C55E' : '#EF4444' }}
+                  >
+                    {message.text}
+                  </Text>
+                </Animated.View>
               )}
-              <Text
-                className="text-sm font-medium ml-2 flex-1"
-                style={{ color: message.type === 'success' ? '#22C55E' : '#EF4444' }}
-              >
-                {message.text}
-              </Text>
             </Animated.View>
           )}
-        </Animated.View>
-      )}
+        </LinearGradient>
+      </LinearGradient>
     </Animated.View>
   );
 }
