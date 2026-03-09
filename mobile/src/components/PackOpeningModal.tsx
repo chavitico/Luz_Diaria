@@ -32,6 +32,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import Svg, { Defs, ClipPath, Rect, Polyline } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
 import { Audio } from 'expo-av';
@@ -95,6 +96,30 @@ const PACK_CONFIG: Record<PackType, {
     emoji: '✝️',
   },
 };
+
+// ─── Irregular Tear Path Generator ──────────────────────────────────────────
+// Generates a polyline of points that creates a subtle irregular tear seam.
+// Points are evenly spaced horizontally; Y offsets are small (±3px).
+// Generated once per width so it stays consistent during the opening sequence.
+function generateTearPoints(width: number, baseY: number): string {
+  // 10 segments → 11 x-positions
+  const offsets = [0, 2, -1, 3, -2, 1, -3, 2, -1, 1, 0]; // subtle irregularity
+  const segW = width / (offsets.length - 1);
+  return offsets
+    .map((dy, i) => `${(i * segW).toFixed(1)},${(baseY + dy).toFixed(1)}`)
+    .join(' ');
+}
+
+// Translate a polyline points string so that baseY maps to localY
+function translateTearPoints(points: string, baseY: number, localY: number): string {
+  return points
+    .split(' ')
+    .map(pt => {
+      const [x, y] = pt.split(',').map(Number);
+      return `${x.toFixed(1)},${(y - baseY + localY).toFixed(1)}`;
+    })
+    .join(' ');
+}
 
 // Glow ring colors per rarity [inner, outer]
 const RARITY_GLOW_COLORS: Record<string, [string, string]> = {
@@ -398,6 +423,14 @@ export function PackOpeningModal({
   const [showCard, setShowCard] = useState(false);
   const [cardFace, setCardFace] = useState<'back' | 'front'>('back');
 
+  // Irregular tear line — SVG clip width (0→CARD_W), driven by tearProgress listener
+  const TEAR_BASE_Y = CARD_H * 0.12;
+  const SVG_H = 20; // SVG container height; center line at y=10
+  const tearPointsAbs  = useRef(generateTearPoints(CARD_W, TEAR_BASE_Y)).current;
+  const tearPointsLocal = useRef(translateTearPoints(tearPointsAbs, TEAR_BASE_Y, 10)).current;
+  const [tearClipW, setTearClipW] = useState(0);
+  const glowClipW = useRef(0);
+
   // Keep phaseRef in sync so PanResponder gesture handler can read current phase
   const setPhaseSync = useCallback((p: Phase) => {
     phaseRef.current = p;
@@ -475,7 +508,22 @@ export function PackOpeningModal({
     particleOp.forEach(v => v.setValue(0));
     setShowCard(false);
     setCardFace('back');
+    setTearClipW(0);
+    glowClipW.current = 0;
   }, [stopLoops]);
+
+  // ── Sync tearProgress → tearClipW for SVG glow line ──
+  useEffect(() => {
+    const id = tearProgress.addListener(({ value }) => {
+      const w = value * CARD_W;
+      glowClipW.current = w;
+      // Batch setState at ~60fps via requestAnimationFrame is not needed here —
+      // tearProgress changes are already driven by gesture (live) or short timing (200ms).
+      setTearClipW(w);
+    });
+    return () => tearProgress.removeListener(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ── Emergency skip to final ──
   const skipToFinal = useCallback(() => {
@@ -1010,21 +1058,46 @@ export function PackOpeningModal({
                     justifyContent: 'center',
                   }}
                 >
-                  {/* Inner light leak — glows along the tear line */}
+                  {/* Irregular tear line glow — SVG polyline revealed left→right via clip */}
                   <Animated.View
                     pointerEvents="none"
                     style={{
                       position: 'absolute',
-                      top: CARD_H * 0.12 - 6,
+                      top: TEAR_BASE_Y - 10,
                       left: 0,
-                      right: 0,
-                      height: 12,
-                      backgroundColor: 'rgba(255,220,100,0.9)',
+                      width: CARD_W,
+                      height: SVG_H,
                       opacity: innerGlow,
-                      transform: [{ scaleX: innerGlowScale }],
-                      borderRadius: 6,
                     }}
-                  />
+                  >
+                    <Svg width={CARD_W} height={SVG_H} style={{ overflow: 'visible' }}>
+                      <Defs>
+                        <ClipPath id="tearClip">
+                          <Rect x={0} y={-10} width={tearClipW} height={SVG_H + 20} />
+                        </ClipPath>
+                      </Defs>
+                      {/* Soft outer glow stroke */}
+                      <Polyline
+                        points={tearPointsLocal}
+                        clipPath="url(#tearClip)"
+                        stroke="rgba(255,220,100,0.35)"
+                        strokeWidth={10}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        fill="none"
+                      />
+                      {/* Core bright line */}
+                      <Polyline
+                        points={tearPointsLocal}
+                        clipPath="url(#tearClip)"
+                        stroke="rgba(255,235,140,0.95)"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        fill="none"
+                      />
+                    </Svg>
+                  </Animated.View>
 
                   {/* BODY — bottom portion (stays in place, fades on completion) */}
                   <Animated.View
