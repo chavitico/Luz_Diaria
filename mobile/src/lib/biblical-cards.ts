@@ -767,6 +767,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     inStandardPool: false,
     albumGroup: 'secret_rewards',
     // Not part of the event set pool (reward-only)
+    imageUrl: 'https://images.composerapi.com/019c33a9-4a45-71bd-8908-f785cc52f6a1/assets/images/image_1773019559_1773019562207_019cd033-80df-71a4-82ca-cad604eec3cf.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.38,
     descriptionEs: 'Jesús venció a la muerte y se apareció a sus discípulos glorificado. Su resurrección es el fundamento de la fe cristiana.',
     descriptionEn: 'Jesus conquered death and appeared to His disciples in glory. His resurrection is the foundation of the Christian faith.',
     verseRef: 'Juan 20:17',
