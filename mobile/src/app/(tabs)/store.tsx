@@ -6785,7 +6785,7 @@ export default function StoreScreen() {
   const points = useUserPoints();
   const user = useUser();
   const router = useRouter();
-  const { openCategory } = useLocalSearchParams<{ openCategory?: string }>();
+  const { openCategory, t: openCategoryT } = useLocalSearchParams<{ openCategory?: string; t?: string }>();
   const updateUser = useAppStore((s) => s.updateUser);
   const newGiftItemIds = useAppStore((s) => s.newGiftItemIds);
   const clearNewGiftItem = useAppStore((s) => s.clearNewGiftItem);
@@ -7539,7 +7539,7 @@ export default function StoreScreen() {
       setStoreSectionModalCategory('tokens');
       setShowStoreSectionModal(true);
     }
-  }, [openCategory]);
+  }, [openCategory, openCategoryT]);
 
   // Render category content
   const renderCategoryContent = (overrideCategory?: CategoryType, disableAnimations?: boolean) => {

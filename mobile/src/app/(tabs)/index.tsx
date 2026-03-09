@@ -2296,6 +2296,7 @@ export default function HomeScreen() {
         language={language}
         colors={colors}
         onShareComplete={handleShareComplete}
+        showDate={true}
       />
     </View>
   );

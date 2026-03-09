@@ -783,7 +783,7 @@ export default function SettingsScreen() {
                           setRenameError(null);
                           setShowRenameModal(true);
                         } else {
-                          router.push({ pathname: '/(tabs)/store', params: { openCategory: 'tokens' } });
+                          router.push({ pathname: '/(tabs)/store', params: { openCategory: 'tokens', t: Date.now().toString() } });
                         }
                       }}
                       className="flex-row items-center px-2 py-0.5 rounded-lg"

@@ -38,6 +38,7 @@ interface ShareSheetProps {
     accent: string;
   };
   onShareComplete?: () => void;
+  showDate?: boolean;
 }
 
 export function ShareSheet({
@@ -47,6 +48,7 @@ export function ShareSheet({
   language,
   colors,
   onShareComplete,
+  showDate = false,
 }: ShareSheetProps) {
   const insets = useSafeAreaInsets();
   const cardRef = useRef<View>(null);
@@ -137,6 +139,7 @@ export function ShareSheet({
               devotional={devotional}
               language={language}
               displayWidth={CARD_WIDTH}
+              showDate={showDate}
             />
           </View>
 
@@ -145,6 +148,7 @@ export function ShareSheet({
             devotional={devotional}
             language={language}
             displayWidth={PREVIEW_WIDTH}
+            showDate={showDate}
           />
 
           <Text
