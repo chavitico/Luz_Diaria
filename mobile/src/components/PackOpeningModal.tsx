@@ -26,6 +26,7 @@ import {
   Dimensions,
   Easing,
   Image,
+  ImageSourcePropType,
   Modal,
   PanResponder,
   Pressable,
@@ -235,31 +236,29 @@ const RARITY_GLOW_PEAK: Record<string, number> = {
 // Number of particle dots for legendary burst
 const PARTICLE_COUNT = 6;
 
-// ─── Per-collection pack & card-back assets ──────────────────────────────────
+// ─── Per-collection pack & card-back assets (local — zero loading delay) ──────
 
-const PACK_ASSETS: Record<PackType, { pack: string; cardBack: string; glowColor: string }> = {
+const PACK_ASSETS: Record<PackType, {
+  pack: ImageSourcePropType;
+  cardBack: ImageSourcePropType;
+  glowColor: string;
+}> = {
   sobre_biblico: {
-    pack:     'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/aUNNVZuyUu4.png',
-    cardBack: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/PNtAcWRmt5c.png',
+    pack:     require('../../assets/packs/sobre_biblico_pack.jpg') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/sobre_biblico_card_back.jpg') as ImageSourcePropType,
     glowColor: '#D4A017',
   },
   pack_pascua: {
-    pack:     'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/nmhgNbYrAK0.png',
-    cardBack: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/FpVY6QG3vVQ.png',
+    pack:     require('../../assets/packs/pack_pascua_pack.jpg') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/pack_pascua_card_back.jpg') as ImageSourcePropType,
     glowColor: '#FFD700',
   },
   pack_milagros: {
-    pack:     'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/0pr3TRHc6Ks.png',
-    cardBack: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/xgYZdOUYXAw.png',
+    pack:     require('../../assets/packs/pack_milagros_pack.jpg') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/pack_milagros_card_back.jpg') as ImageSourcePropType,
     glowColor: '#60A5FA',
   },
 };
-
-// Prefetch all pack assets on module load so they are instant when user opens a pack
-Object.values(PACK_ASSETS).forEach(({ pack, cardBack }) => {
-  (Image as any).prefetch(pack).catch(() => {});
-  (Image as any).prefetch(cardBack).catch(() => {});
-});
 
 // ─── Animated Pack Visual ────────────────────────────────────────────────────
 
@@ -274,12 +273,10 @@ function PackVisual({
   scaleAnim: Animated.Value;
 }) {
   const assets = PACK_ASSETS[packType];
-  const cfg = PACK_CONFIG[packType];
   const rotate = shakeAnim.interpolate({
     inputRange: [-1, 0, 1],
     outputRange: ['-7deg', '0deg', '7deg'],
   });
-  const [loaded, setLoaded] = useState(false);
 
   return (
     <Animated.View
@@ -294,24 +291,12 @@ function PackVisual({
         height: CARD_H,
         borderRadius: 20,
         overflow: 'hidden',
-        backgroundColor: cfg.gradientBottom,
       }}
     >
-      {/* Gradient fallback — always visible, image fades in on top */}
-      <LinearGradient
-        colors={[cfg.gradientTop, cfg.gradientBottom]}
-        style={{ position: 'absolute', inset: 0 }}
-      />
-      {/* AI-generated pack artwork */}
-      <Animated.Image
-        source={{ uri: assets.pack }}
-        onLoad={() => setLoaded(true)}
-        style={{
-          position: 'absolute',
-          width: CARD_W,
-          height: CARD_H,
-          opacity: loaded ? 1 : 0,
-        } as any}
+      {/* Local asset — instant, no loading delay */}
+      <Image
+        source={assets.pack}
+        style={{ position: 'absolute', width: CARD_W, height: CARD_H }}
         resizeMode="cover"
       />
       {/* Foil sheen overlay */}
@@ -369,7 +354,7 @@ function PackHalf({
       <View style={{ width: CARD_W, height: CARD_H, overflow: 'hidden', borderRadius: 20 }}>
         {/* AI-generated pack artwork — same image, clipped to half */}
         <Image
-          source={{ uri: PACK_ASSETS[packType].pack }}
+          source={PACK_ASSETS[packType].pack}
           style={{ width: CARD_W, height: CARD_H, borderRadius: 20 } as any}
           resizeMode="cover"
         />
@@ -389,25 +374,12 @@ function PackHalf({
 
 function CardBack({ packType }: { packType: PackType }) {
   const assets = PACK_ASSETS[packType];
-  const cfg = PACK_CONFIG[packType];
-  const [loaded, setLoaded] = useState(false);
   return (
     <View style={styles.cardBack}>
-      {/* Gradient fallback — shown until image loads */}
-      <LinearGradient
-        colors={[cfg.gradientTop, cfg.gradientBottom]}
-        style={{ position: 'absolute', inset: 0, borderRadius: 20 }}
-      />
-      {/* AI-generated card back artwork */}
-      <Animated.Image
-        source={{ uri: assets.cardBack }}
-        onLoad={() => setLoaded(true)}
-        style={{
-          position: 'absolute', inset: 0,
-          width: '100%', height: '100%',
-          borderRadius: 20,
-          opacity: loaded ? 1 : 0,
-        } as any}
+      {/* Local asset — instant, no loading delay */}
+      <Image
+        source={assets.cardBack}
+        style={{ position: 'absolute', width: '100%', height: '100%', borderRadius: 20 } as any}
         resizeMode="cover"
       />
       {/* Foil sheen overlay to keep premium feel */}
