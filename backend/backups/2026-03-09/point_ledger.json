@@ -1608,5 +1608,15 @@
     "amount": 5,
     "metadata": "{}",
     "createdAt": "2026-03-09T07:17:25.079Z"
+  },
+  {
+    "id": "cmmivoj6l002zm2bn905q3vqh",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "collection_card_reward_milagros_2026_1773042425372",
+    "type": "collection_reward",
+    "dateId": "2026-03-09",
+    "amount": 2000,
+    "metadata": "{\"collectionId\":\"milagros_2026\",\"secretCardId\":\"reino_de_dios\"}",
+    "createdAt": "2026-03-09T07:47:05.373Z"
   }
 ]
