@@ -479,13 +479,19 @@ export const gamificationApi = {
     return res.json();
   },
 
-  async acceptTrade(tradeId: string, userId: string): Promise<{ success: boolean; receivedCardId?: string; receivedNew?: boolean; error?: string }> {
+  async acceptTrade(tradeId: string, userId: string): Promise<{ success: boolean; receivedCardId?: string; receivedNew?: boolean; error?: string; message?: string }> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/trades/${tradeId}/accept`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId }),
     });
-    return res.json();
+    const data = await res.json();
+    if (!res.ok) {
+      // Throw so useMutation routes to onError, never to onSuccess
+      const msg = data?.message ?? data?.error ?? 'Failed to accept trade';
+      throw new Error(msg);
+    }
+    return data;
   },
 
   async rejectTrade(tradeId: string, userId: string): Promise<{ success: boolean; error?: string }> {

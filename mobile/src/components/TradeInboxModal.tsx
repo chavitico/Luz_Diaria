@@ -241,6 +241,8 @@ function TradeRow({
   actionPending,
   justAccepted,
   acceptResult,
+  dailyLimitReached,
+  errorMessage,
   colors,
   sFont,
   es,
@@ -251,6 +253,8 @@ function TradeRow({
   actionPending: boolean;
   justAccepted: boolean;
   acceptResult: AcceptResult | null;
+  dailyLimitReached: boolean;
+  errorMessage: string | null;
   colors: ReturnType<typeof useThemeColors>;
   sFont: (n: number) => number;
   es: boolean;
@@ -481,72 +485,98 @@ function TradeRow({
 
       {/* Action buttons — only for pending */}
       {trade.status === 'pending' && (
-        <View style={{ flexDirection: 'row', gap: 8, marginTop: 2 }}>
-          {isIncoming ? (
-            <>
-              <Pressable
-                onPress={() => onAction('accept')}
-                disabled={actionPending}
-                style={{ flex: 1, opacity: actionPending ? 0.5 : 1 }}
-              >
-                <LinearGradient
-                  colors={['#22C55E', '#16A34A']}
-                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                  style={{ borderRadius: 10, paddingVertical: 10, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 5 }}
+        <View style={{ gap: 6, marginTop: 2 }}>
+          {/* Error message from failed accept */}
+          {errorMessage && (
+            <View style={{
+              backgroundColor: '#F43F5E15', borderRadius: 8,
+              borderWidth: 1, borderColor: '#F43F5E40',
+              paddingHorizontal: 10, paddingVertical: 6,
+            }}>
+              <Text style={{ fontSize: sFont(12), fontWeight: '600', color: '#F43F5E' }}>
+                {errorMessage}
+              </Text>
+            </View>
+          )}
+          {/* Daily limit reached notice */}
+          {isIncoming && dailyLimitReached && (
+            <View style={{
+              backgroundColor: '#F59E0B15', borderRadius: 8,
+              borderWidth: 1, borderColor: '#F59E0B40',
+              paddingHorizontal: 10, paddingVertical: 6,
+            }}>
+              <Text style={{ fontSize: sFont(12), fontWeight: '600', color: '#F59E0B' }}>
+                {es ? 'Has alcanzado tu límite diario de intercambios' : 'Daily trade limit reached'}
+              </Text>
+            </View>
+          )}
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            {isIncoming ? (
+              <>
+                <Pressable
+                  onPress={() => onAction('accept')}
+                  disabled={actionPending || dailyLimitReached}
+                  style={{ flex: 1, opacity: (actionPending || dailyLimitReached) ? 0.45 : 1 }}
                 >
-                  {actionPending
-                    ? <ActivityIndicator color="#FFF" size="small" />
-                    : <>
-                      <Check size={14} color="#FFF" />
-                      <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#FFF' }}>
-                        {es ? 'Aceptar' : 'Accept'}
-                      </Text>
-                    </>
-                  }
-                </LinearGradient>
-              </Pressable>
+                  <LinearGradient
+                    colors={dailyLimitReached ? ['#4B5563', '#374151'] : ['#22C55E', '#16A34A']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                    style={{ borderRadius: 10, paddingVertical: 10, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 5 }}
+                  >
+                    {actionPending
+                      ? <ActivityIndicator color="#FFF" size="small" />
+                      : <>
+                        <Check size={14} color="#FFF" />
+                        <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#FFF' }}>
+                          {es ? 'Aceptar' : 'Accept'}
+                        </Text>
+                      </>
+                    }
+                  </LinearGradient>
+                </Pressable>
+                <Pressable
+                  onPress={() => onAction('reject')}
+                  disabled={actionPending}
+                  style={{
+                    flex: 1, borderRadius: 10, paddingVertical: 10,
+                    alignItems: 'center', justifyContent: 'center',
+                    flexDirection: 'row', gap: 5,
+                    backgroundColor: '#F43F5E18',
+                    borderWidth: 1, borderColor: '#F43F5E40',
+                    opacity: actionPending ? 0.5 : 1,
+                  }}
+                >
+                  <XCircle size={14} color="#F43F5E" />
+                  <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#F43F5E' }}>
+                    {es ? 'Rechazar' : 'Reject'}
+                  </Text>
+                </Pressable>
+              </>
+            ) : (
               <Pressable
-                onPress={() => onAction('reject')}
+                onPress={() => onAction('cancel')}
                 disabled={actionPending}
                 style={{
                   flex: 1, borderRadius: 10, paddingVertical: 10,
                   alignItems: 'center', justifyContent: 'center',
                   flexDirection: 'row', gap: 5,
-                  backgroundColor: '#F43F5E18',
-                  borderWidth: 1, borderColor: '#F43F5E40',
+                  backgroundColor: colors.textMuted + '12',
+                  borderWidth: 1, borderColor: colors.textMuted + '30',
                   opacity: actionPending ? 0.5 : 1,
                 }}
               >
-                <XCircle size={14} color="#F43F5E" />
-                <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#F43F5E' }}>
-                  {es ? 'Rechazar' : 'Reject'}
-                </Text>
+                {actionPending
+                  ? <ActivityIndicator color={colors.textMuted} size="small" />
+                  : <>
+                    <XCircle size={14} color={colors.textMuted} />
+                    <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.textMuted }}>
+                      {es ? 'Cancelar' : 'Cancel'}
+                    </Text>
+                  </>
+                }
               </Pressable>
-            </>
-          ) : (
-            <Pressable
-              onPress={() => onAction('cancel')}
-              disabled={actionPending}
-              style={{
-                flex: 1, borderRadius: 10, paddingVertical: 10,
-                alignItems: 'center', justifyContent: 'center',
-                flexDirection: 'row', gap: 5,
-                backgroundColor: colors.textMuted + '12',
-                borderWidth: 1, borderColor: colors.textMuted + '30',
-                opacity: actionPending ? 0.5 : 1,
-              }}
-            >
-              {actionPending
-                ? <ActivityIndicator color={colors.textMuted} size="small" />
-                : <>
-                  <XCircle size={14} color={colors.textMuted} />
-                  <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.textMuted }}>
-                    {es ? 'Cancelar' : 'Cancel'}
-                  </Text>
-                </>
-              }
-            </Pressable>
-          )}
+            )}
+          </View>
         </View>
       )}
     </View>
@@ -572,6 +602,9 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
   const [pendingTradeId, setPendingTradeId] = useState<string | null>(null);
   const [acceptResults, setAcceptResults] = useState<Record<string, AcceptResult>>({});
   const [justAcceptedId, setJustAcceptedId] = useState<string | null>(null);
+  const [tradeErrors, setTradeErrors] = useState<Record<string, string>>({});
+  // Ref-based inflight guard — prevents double-tap before React state updates
+  const inflightTrades = useRef<Set<string>>(new Set());
   // Toast state — rendered as absolute overlay at root modal level
   const [toast, setToast] = useState<ToastInfo | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -608,12 +641,20 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
       return 0;
     });
 
-  // Accept mutation
+  // Accept mutation — NOTE: gamificationApi.acceptTrade now throws on non-ok HTTP,
+  // so onSuccess only fires when the backend actually accepted the trade.
   const { mutate: doAccept } = useMutation({
-    mutationFn: (tradeId: string) => gamificationApi.acceptTrade(tradeId, user!.id),
+    mutationFn: (tradeId: string) => {
+      console.log('[Trade] trade_accept_request_started', tradeId);
+      return gamificationApi.acceptTrade(tradeId, user!.id);
+    },
     onSuccess: (result, tradeId) => {
+      console.log('[Trade] trade_accept_response', { tradeId, success: true, receivedNew: result.receivedNew });
+      inflightTrades.current.delete(tradeId);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       setPendingTradeId(null);
+      // Clear any prior error for this trade
+      setTradeErrors(prev => { const n = { ...prev }; delete n[tradeId]; return n; });
 
       const trade = trades.find(t => t.id === tradeId);
       const receivedCardId = trade?.offeredCardId ?? '';
@@ -623,52 +664,80 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
       setAcceptResults(prev => ({ ...prev, [tradeId]: acceptResult }));
       setJustAcceptedId(tradeId);
 
-      // Show floating toast
+      // Show floating toast — animation only fires here, after confirmed success
       if (receivedCardId) showToast({ cardId: receivedCardId, isNew, es });
 
       // Clear justAccepted flag after animation window
       setTimeout(() => setJustAcceptedId(null), 2800);
 
+      // Invalidate all relevant queries so UI reflects real backend state
+      console.log('[Trade] trade_accept_query_invalidated', tradeId);
       queryClient.invalidateQueries({ queryKey: ['trades', user?.id] });
+      queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
       queryClient.invalidateQueries({ queryKey: ['tradeableCards', user?.id] });
-      queryClient.invalidateQueries({ queryKey: ['userCards', user?.id] });
-      void refetch();
+      queryClient.invalidateQueries({ queryKey: ['backendUser'] });
+      void refetch().then(() => {
+        console.log('[Trade] trade_accept_row_refreshed', tradeId);
+      });
     },
-    onError: () => {
+    onError: (err: unknown, tradeId) => {
+      const msg = err instanceof Error ? err.message : (es ? 'Error al aceptar' : 'Accept failed');
+      console.log('[Trade] trade_accept_response', { tradeId, success: false, error: msg });
+      inflightTrades.current.delete(tradeId);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       setPendingTradeId(null);
+      // Store error so the row can display it — no animation is played
+      setTradeErrors(prev => ({ ...prev, [tradeId]: msg }));
+      // Clear error after 4s
+      setTimeout(() => setTradeErrors(prev => { const n = { ...prev }; delete n[tradeId]; return n; }), 4000);
     },
   });
 
   const { mutate: doReject } = useMutation({
     mutationFn: (tradeId: string) => gamificationApi.rejectTrade(tradeId, user!.id),
-    onSuccess: () => {
+    onSuccess: (_r, tradeId) => {
+      inflightTrades.current.delete(tradeId);
       Haptics.selectionAsync();
       setPendingTradeId(null);
       queryClient.invalidateQueries({ queryKey: ['trades', user?.id] });
       void refetch();
     },
-    onError: () => { setPendingTradeId(null); },
+    onError: (_e, tradeId) => {
+      inflightTrades.current.delete(tradeId);
+      setPendingTradeId(null);
+    },
   });
 
   const { mutate: doCancel } = useMutation({
     mutationFn: (tradeId: string) => gamificationApi.cancelTrade(tradeId, user!.id),
-    onSuccess: () => {
+    onSuccess: (_r, tradeId) => {
+      inflightTrades.current.delete(tradeId);
       Haptics.selectionAsync();
       setPendingTradeId(null);
       queryClient.invalidateQueries({ queryKey: ['trades', user?.id] });
       void refetch();
     },
-    onError: () => { setPendingTradeId(null); },
+    onError: (_e, tradeId) => {
+      inflightTrades.current.delete(tradeId);
+      setPendingTradeId(null);
+    },
   });
 
   const handleAction = useCallback((trade: CardTrade, action: TradeRowAction) => {
     if (!action) return;
+    // Ref-based guard: blocks double-tap before React state re-renders
+    if (inflightTrades.current.has(trade.id)) {
+      console.log('[Trade] blocked duplicate tap for', trade.id);
+      return;
+    }
+    inflightTrades.current.add(trade.id);
+    console.log('[Trade] trade_accept_tapped', { tradeId: trade.id, action });
     setPendingTradeId(trade.id);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (action === 'accept') doAccept(trade.id);
     else if (action === 'reject') doReject(trade.id);
     else if (action === 'cancel') doCancel(trade.id);
+    // For non-accept actions, remove from inflight after mutation settles via onSuccess/onError
   }, [doAccept, doReject, doCancel]);
 
   const pendingCount = incoming.length;
@@ -716,6 +785,20 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
               </View>
             )}
           </View>
+          {/* Daily trade counter */}
+          {data != null && (
+            <View style={{
+              paddingHorizontal: 9, paddingVertical: 4, borderRadius: 10,
+              backgroundColor: dailyLimitReached ? '#F59E0B20' : colors.textMuted + '15',
+              borderWidth: 1,
+              borderColor: dailyLimitReached ? '#F59E0B50' : colors.textMuted + '25',
+              marginRight: 8,
+            }}>
+              <Text style={{ fontSize: sFont(11), fontWeight: '700', color: dailyLimitReached ? '#F59E0B' : colors.textMuted }}>
+                {es ? `Hoy: ${dailyUsed}/${dailyLimit}` : `Today: ${dailyUsed}/${dailyLimit}`}
+              </Text>
+            </View>
+          )}
           <Pressable onPress={onClose} style={{ padding: 4 }}>
             <X size={22} color={colors.textMuted} />
           </Pressable>
@@ -769,6 +852,8 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
                     actionPending={pendingTradeId === t.id}
                     justAccepted={justAcceptedId === t.id}
                     acceptResult={acceptResults[t.id] ?? null}
+                    dailyLimitReached={dailyLimitReached}
+                    errorMessage={tradeErrors[t.id] ?? null}
                     colors={colors}
                     sFont={sFont}
                     es={es}
@@ -795,6 +880,8 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
                     actionPending={pendingTradeId === t.id}
                     justAccepted={false}
                     acceptResult={null}
+                    dailyLimitReached={false}
+                    errorMessage={null}
                     colors={colors}
                     sFont={sFont}
                     es={es}
@@ -821,6 +908,8 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
                     actionPending={false}
                     justAccepted={false}
                     acceptResult={acceptResults[t.id] ?? null}
+                    dailyLimitReached={false}
+                    errorMessage={null}
                     colors={colors}
                     sFont={sFont}
                     es={es}
