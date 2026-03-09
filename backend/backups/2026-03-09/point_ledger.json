@@ -1728,5 +1728,15 @@
     "amount": 5,
     "metadata": "{}",
     "createdAt": "2026-03-09T19:14:50.929Z"
+  },
+  {
+    "id": "cmmjn4ilv001lm2p44lccslud",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "ledgerId": "prayer_2026-03-09",
+    "type": "prayer",
+    "dateId": "2026-03-09",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-09T20:35:20.756Z"
   }
 ]
