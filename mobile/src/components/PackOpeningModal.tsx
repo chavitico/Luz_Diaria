@@ -236,42 +236,34 @@ const RARITY_GLOW_PEAK: Record<string, number> = {
 // Number of particle dots for legendary burst
 const PARTICLE_COUNT = 6;
 
-// ─── Per-collection pack & card-back assets (local — zero loading delay) ──────
+// ─── Per-collection pack & card-back assets (local JPGs — fast decode) ──────
+// JPGs are ~200-300KB vs 1.7-4MB for PNGs, so decode is ~8-10x faster.
+// cardBackDelayMs = minimum ms to show card back AFTER the image is ready.
 
 const PACK_ASSETS: Record<PackType, {
   pack: ImageSourcePropType;
   cardBack: ImageSourcePropType;
   glowColor: string;
-  /** If true, pack image has transparent background (PNG) — no border radius applied */
-  transparent?: boolean;
-  /** Extra ms to show card back before flip starts (beyond the spring-in animation) */
-  cardBackDelayMs?: number;
-  /** Minimum pre-flip pause regardless of card rarity (overrides RARITY_PAUSE_MS if higher) */
-  minPauseMs?: number;
+  /** Minimum ms to hold card back visible after image loads before flipping to front */
+  cardBackDelayMs: number;
 }> = {
   sobre_biblico: {
-    pack:     require('../../assets/packs/sobre_biblico_pack.png') as ImageSourcePropType,
-    cardBack: require('../../assets/packs/sobre_biblico_card_back.png') as ImageSourcePropType,
+    pack:     require('../../assets/packs/sobre_biblico_pack.jpg') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/sobre_biblico_card_back.jpg') as ImageSourcePropType,
     glowColor: '#D4A017',
-    transparent: true,
-    cardBackDelayMs: 2200,
-    minPauseMs: 1200,
+    cardBackDelayMs: 1500,
   },
   pack_pascua: {
-    pack:     require('../../assets/packs/pack_pascua_pack.png') as ImageSourcePropType,
-    cardBack: require('../../assets/packs/pack_pascua_card_back.png') as ImageSourcePropType,
+    pack:     require('../../assets/packs/pack_pascua_pack.jpg') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/pack_pascua_card_back.jpg') as ImageSourcePropType,
     glowColor: '#FFD700',
-    transparent: true,
-    cardBackDelayMs: 2200,
-    minPauseMs: 1200,
+    cardBackDelayMs: 1500,
   },
   pack_milagros: {
-    pack:     require('../../assets/packs/pack_milagros_pack.png') as ImageSourcePropType,
-    cardBack: require('../../assets/packs/pack_milagros_card_back.png') as ImageSourcePropType,
+    pack:     require('../../assets/packs/pack_milagros_pack.jpg') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/pack_milagros_card_back.jpg') as ImageSourcePropType,
     glowColor: '#60A5FA',
-    transparent: true,
-    cardBackDelayMs: 2200,
-    minPauseMs: 1200,
+    cardBackDelayMs: 1500,
   },
 };
 
@@ -282,10 +274,12 @@ function PackVisual({
   packType,
   shakeAnim,
   scaleAnim,
+  onImageLoad,
 }: {
   packType: PackType;
   shakeAnim: Animated.Value;
   scaleAnim: Animated.Value;
+  onImageLoad?: () => void;
 }) {
   const assets = PACK_ASSETS[packType];
   const rotate = shakeAnim.interpolate({
@@ -306,21 +300,20 @@ function PackVisual({
         height: CARD_H,
       }}
     >
-      {/* Local asset — instant, no loading delay */}
+      {/* Local asset — JPG for fast decode */}
       <Image
         source={assets.pack}
         style={{ position: 'absolute', width: CARD_W, height: CARD_H }}
-        resizeMode={assets.transparent ? 'contain' : 'cover'}
+        resizeMode="cover"
+        onLoad={onImageLoad}
       />
-      {/* Foil sheen overlay — skip for transparent packs */}
-      {!assets.transparent && (
-        <LinearGradient
-          colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.03)', 'transparent']}
-          start={{ x: 0.1, y: 0 }}
-          end={{ x: 0.9, y: 1 }}
-          style={{ position: 'absolute', inset: 0 }}
-        />
-      )}
+      {/* Foil sheen overlay */}
+      <LinearGradient
+        colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.03)', 'transparent']}
+        start={{ x: 0.1, y: 0 }}
+        end={{ x: 0.9, y: 1 }}
+        style={{ position: 'absolute', inset: 0 }}
+      />
     </Animated.View>
   );
 }
@@ -386,33 +379,33 @@ function PackHalf({
 
 // ─── Card Back ────────────────────────────────────────────────────────────────
 
-function CardBack({ packType }: { packType: PackType }) {
+function CardBack({
+  packType,
+  onImageLoad,
+}: {
+  packType: PackType;
+  onImageLoad?: () => void;
+}) {
   const assets = PACK_ASSETS[packType];
-  const isTransparent = assets.transparent ?? false;
   return (
     <View style={styles.cardBack}>
-      {/* Local asset — instant, no loading delay */}
+      {/* Local JPG asset — fast decode */}
       <Image
         source={assets.cardBack}
-        style={{ position: 'absolute', width: '100%', height: '100%', borderRadius: isTransparent ? 0 : 20 } as any}
-        resizeMode={isTransparent ? 'contain' : 'cover'}
+        style={{ position: 'absolute', width: '100%', height: '100%', borderRadius: 20 } as any}
+        resizeMode="cover"
+        onLoad={onImageLoad}
       />
-      {/* Foil sheen overlay — skip for transparent card backs */}
-      {!isTransparent && (
-        <LinearGradient
-          colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.04)', 'transparent']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{ position: 'absolute', inset: 0, borderRadius: 20 }}
-        />
-      )}
-      {/* Subtle gold border glow — skip for transparent card backs */}
-      {!isTransparent && (
-        <View style={{
-          position: 'absolute', inset: 0, borderRadius: 20,
-          borderWidth: 1.5, borderColor: 'rgba(212,160,23,0.35)',
-        }} />
-      )}
+      <LinearGradient
+        colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.04)', 'transparent']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{ position: 'absolute', inset: 0, borderRadius: 20 }}
+      />
+      <View style={{
+        position: 'absolute', inset: 0, borderRadius: 20,
+        borderWidth: 1.5, borderColor: 'rgba(212,160,23,0.35)',
+      }} />
     </View>
   );
 }
@@ -565,6 +558,19 @@ export function PackOpeningModal({
   const [showCard, setShowCard] = useState(false);
   const [cardFace, setCardFace] = useState<'back' | 'front'>('back');
 
+  // ── Asset-ready gates ──
+  // packImageReady: true once the pack JPG onLoad fires — animation only starts after this
+  // cardBackReady: true once the card-back JPG onLoad fires — flip only starts after this
+  const packImageReadyRef  = useRef(false);
+  const cardBackReadyRef   = useRef(false);
+  const cardBackReadyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Timing instrumentation
+  const t_packVisible  = useRef(0);
+  const t_packReady    = useRef(0);
+  const t_cardBackShow = useRef(0);
+  const t_cardBackReady = useRef(0);
+
   // Irregular tear line — SVG clip width (0→CARD_W), driven by tearProgress listener
   const TEAR_BASE_Y = CARD_H * 0.22;  // ~22% down — midpoint between original and previous position
   const SVG_H = 20; // SVG container height; center line at y=10
@@ -599,9 +605,7 @@ export function PackOpeningModal({
   const auraColor   = RARITY_AURA_COLORS[rarity]   ?? 'transparent';
   const cardBackDelayMs = packType ? (PACK_ASSETS[packType].cardBackDelayMs ?? 0) : 0;
   cardBackDelayMsRef.current = cardBackDelayMs;
-  const effectivePauseMs = packType
-    ? Math.max(pauseMs, PACK_ASSETS[packType].minPauseMs ?? 0)
-    : pauseMs;
+  const effectivePauseMs = pauseMs;
 
   // ── Stop all loops ──
   const stopLoops = useCallback(() => {
@@ -663,6 +667,9 @@ export function PackOpeningModal({
     glowClipW.current = 0;
     setCurrentCardIndex(0);
     setShowSummary(false);
+    packImageReadyRef.current = false;
+    cardBackReadyRef.current = false;
+    if (cardBackReadyTimer.current) { clearTimeout(cardBackReadyTimer.current); cardBackReadyTimer.current = null; }
   }, [stopLoops]);
 
   // ── Reset only card animation values (for subsequent cards in a multi-card pack) ──
@@ -725,9 +732,11 @@ export function PackOpeningModal({
     // Subsequent cards in a multi-card pack: skip pack animation, go straight to card reveal
     if (currentCardIndex > 0) {
       resetCardOnly();
+      cardBackReadyRef.current = false;
       active.current = true;
       setPhaseSync('card_back');
       setShowCard(true);
+      t_cardBackShow.current = Date.now();
       console.log('[PackReveal] next_card_reveal', currentCardIndex);
 
       // Play card reveal sound for each subsequent card
@@ -742,13 +751,20 @@ export function PackOpeningModal({
         });
       }).catch(() => {});
 
-      // Small delay so resetCardOnly state flushes before starting card flip
-      const t = setTimeout(() => {
+      // Wait for card-back image to be ready, then flip after minimum display time
+      // The card-back onLoad fires handleCardBackLoad which sets the timer
+      // Fallback: if onLoad hasn't fired in 3s, flip anyway
+      const fallback = setTimeout(() => {
         if (!active.current) return;
+        if (!cardBackReadyRef.current) {
+          cardBackReadyRef.current = true;
+          console.log('[PackReveal] card_back_fallback_flip (next card)');
+        }
         startCardFlip();
-      }, 120);
+      }, 3000);
       return () => {
-        clearTimeout(t);
+        clearTimeout(fallback);
+        if (cardBackReadyTimer.current) { clearTimeout(cardBackReadyTimer.current); cardBackReadyTimer.current = null; }
         active.current = false;
         stopLoops();
       };
@@ -757,46 +773,62 @@ export function PackOpeningModal({
     // First card: full pack open animation
     resetAll();
     active.current = true;
+    packImageReadyRef.current = false;
+    t_packVisible.current = Date.now();
     setPhaseSync('pack_appear');
-    console.log('[PackReveal] pack_idle_shown');
+    console.log('[PackReveal] pack_appear_start');
 
+    // Start backdrop fade immediately — the pack JPG loads while backdrop fades
+    Animated.timing(backdropOpacity, { toValue: 1, duration: 280, useNativeDriver: true }).start();
+
+    // Preload sounds immediately so they're ready when user taps
+    Audio.Sound.createAsync(
+      require('../../assets/audio/sonido_sobre_abriendo.m4a'),
+      { shouldPlay: false, volume: 1.0 }
+    ).then(({ sound }) => {
+      soundRef.current = sound;
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync().catch(() => {});
+          if (soundRef.current === sound) soundRef.current = null;
+        }
+      });
+    }).catch(() => {});
+
+    Audio.Sound.createAsync(
+      require('../../assets/audio/revelacion_carta.m4a'),
+      { shouldPlay: false, volume: 1.0 }
+    ).then(({ sound }) => {
+      revealSoundRef.current = sound;
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync().catch(() => {});
+          if (revealSoundRef.current === sound) revealSoundRef.current = null;
+        }
+      });
+    }).catch(() => {});
+
+    return () => {
+      active.current = false;
+      stopLoops();
+    };
+  }, [visible, packType, currentCardIndex]);
+
+  // ── handlePackImageLoad — fires when the pack JPG onLoad triggers ──
+  // Only now do we spring the pack in and transition to pack_ready.
+  const handlePackImageLoad = useCallback(() => {
+    if (packImageReadyRef.current) return; // guard double-fire
+    packImageReadyRef.current = true;
+    t_packReady.current = Date.now();
+    console.log(`[PackReveal] pack_image_ready (+${t_packReady.current - t_packVisible.current}ms)`);
+    if (!active.current) return;
     try {
       Animated.parallel([
-        Animated.timing(backdropOpacity, { toValue: 1, duration: 280, useNativeDriver: true }),
         Animated.spring(packScale, { toValue: 1, tension: 80, friction: 8, useNativeDriver: true }),
-        Animated.timing(packOpacity,  { toValue: 1, duration: 220, useNativeDriver: true }),
+        Animated.timing(packOpacity, { toValue: 1, duration: 180, useNativeDriver: true }),
       ]).start(({ finished }) => {
         if (!active.current || !finished) return;
         setPhaseSync('pack_ready');
-
-        // Preload sound while user reads "Toca para abrir", so playback is instant on tap
-        Audio.Sound.createAsync(
-          require('../../assets/audio/sonido_sobre_abriendo.m4a'),
-          { shouldPlay: false, volume: 1.0 }
-        ).then(({ sound }) => {
-          soundRef.current = sound;
-          sound.setOnPlaybackStatusUpdate((status) => {
-            if (status.isLoaded && status.didJustFinish) {
-              sound.unloadAsync().catch(() => {});
-              if (soundRef.current === sound) soundRef.current = null;
-            }
-          });
-        }).catch(() => {});
-
-        // Preload card reveal sound (plays 790ms after tap, 2s before opening sound ends)
-        Audio.Sound.createAsync(
-          require('../../assets/audio/revelacion_carta.m4a'),
-          { shouldPlay: false, volume: 1.0 }
-        ).then(({ sound }) => {
-          revealSoundRef.current = sound;
-          sound.setOnPlaybackStatusUpdate((status) => {
-            if (status.isLoaded && status.didJustFinish) {
-              sound.unloadAsync().catch(() => {});
-              if (revealSoundRef.current === sound) revealSoundRef.current = null;
-            }
-          });
-        }).catch(() => {});
-
         const loop = Animated.loop(
           Animated.sequence([
             Animated.timing(packFloat, { toValue: -6, duration: 1100, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
@@ -809,12 +841,29 @@ export function PackOpeningModal({
     } catch {
       skipToFinal();
     }
+  }, []);
 
-    return () => {
-      active.current = false;
-      stopLoops();
-    };
-  }, [visible, packType, currentCardIndex]);
+  // ── handleCardBackLoad — fires when the card-back JPG onLoad triggers ──
+  // Starts the minimum visible time timer; flip only happens after both
+  // the image is loaded AND the minimum display time has elapsed.
+  const handleCardBackLoad = useCallback(() => {
+    if (cardBackReadyRef.current) return;
+    cardBackReadyRef.current = true;
+    t_cardBackReady.current = Date.now();
+    const elapsed = t_cardBackReady.current - t_cardBackShow.current;
+    console.log(`[PackReveal] card_back_image_ready (+${elapsed}ms from show)`);
+    if (!active.current) return;
+    // The cardBackDelayMs is measured from when the image becomes VISIBLE, not from pack-open
+    // So we use it as a minimum hold time after the image loads
+    const holdMs = Math.max(0, cardBackDelayMsRef.current - elapsed);
+    console.log(`[PackReveal] card_back_hold_ms=${holdMs}`);
+    cardBackReadyTimer.current = setTimeout(() => {
+      if (!active.current) return;
+      startCardFlip();
+    }, holdMs);
+  }, []);
+
+
 
   // ── Trigger the actual tear/open sequence (fires after threshold reached) ──
   const triggerTear = useCallback(() => {
@@ -893,17 +942,23 @@ export function PackOpeningModal({
       if (!active.current || !finished) return;
       console.log('[PackReveal] pack_open_completed');
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+      cardBackReadyRef.current = false;
+      t_cardBackShow.current = Date.now();
       setShowCard(true);
       setCardFace('back');
       setPhaseSync('card_back');
-      if (cardBackDelayMsRef.current > 0) {
-        setTimeout(() => {
-          if (!active.current) return;
+      // Flip is now triggered by handleCardBackLoad (image onLoad) + minimum hold timer.
+      // Fallback: if image never fires onLoad, flip after 4s.
+      const fallback = setTimeout(() => {
+        if (!active.current) return;
+        if (!cardBackReadyRef.current) {
+          cardBackReadyRef.current = true;
+          console.log('[PackReveal] card_back_fallback_flip');
           startCardFlip();
-        }, cardBackDelayMsRef.current);
-      } else {
-        startCardFlip();
-      }
+        }
+      }, 4000);
+      // Store fallback so resetAll can clear it (minor: timeout stored in closure only)
+      void fallback;
     });
   }, [flashPeak, stopLoops]);
 
@@ -1255,7 +1310,7 @@ export function PackOpeningModal({
               >
                 {/* Full pack — fades out when halves take over */}
                 <Animated.View style={{ opacity: fullPackOpacityTear }}>
-                  <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
+                  <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} onImageLoad={handlePackImageLoad} />
                 </Animated.View>
               </Pressable>
 
@@ -1322,7 +1377,7 @@ export function PackOpeningModal({
                       height: CARD_H,
                       opacity: packBodyOpacity,
                       overflow: 'hidden',
-                      borderRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
+                      borderRadius: 20,
                     }}
                   >
                     {/* Clip to show only below tear line */}
@@ -1333,8 +1388,8 @@ export function PackOpeningModal({
                       right: 0,
                       bottom: 0,
                       overflow: 'hidden',
-                      borderBottomLeftRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
-                      borderBottomRightRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
+                      borderBottomLeftRadius: 20,
+                      borderBottomRightRadius: 20,
                     }}>
                       <View style={{ width: CARD_W, height: CARD_H, marginTop: -(CARD_H * 0.22) }}>
                         <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
@@ -1360,7 +1415,7 @@ export function PackOpeningModal({
                         },
                       ],
                       overflow: 'hidden',
-                      borderRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
+                      borderRadius: 20,
                     }}
                   >
                     {/* Clip to show only above tear line */}
@@ -1371,8 +1426,8 @@ export function PackOpeningModal({
                       right: 0,
                       height: CARD_H * 0.22,
                       overflow: 'hidden',
-                      borderTopLeftRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
-                      borderTopRightRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
+                      borderTopLeftRadius: 20,
+                      borderTopRightRadius: 20,
                     }}>
                       <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
                     </View>
@@ -1435,7 +1490,7 @@ export function PackOpeningModal({
               style={{
                 transform: [{ scale: cardScale }, { scaleX: cardScaleX }],
                 opacity: cardOpacity,
-                overflow: cardFace === 'back' && packType && PACK_ASSETS[packType]?.transparent ? 'visible' : 'hidden',
+                overflow: 'hidden',
                 borderRadius: 20,
                 width: CARD_W,
                 height: CARD_H,
@@ -1459,7 +1514,7 @@ export function PackOpeningModal({
                   <RarityShimmer rarity={rarity} shimmerAnim={shimmerAnim} />
                 </>
               ) : (
-                <CardBack packType={packType ?? 'sobre_biblico'} />
+                <CardBack packType={packType ?? 'sobre_biblico'} onImageLoad={handleCardBackLoad} />
               )}
             </Animated.View>
 

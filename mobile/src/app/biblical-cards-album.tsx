@@ -22,6 +22,7 @@ import * as Haptics from 'expo-haptics';
 import { ChevronLeft, ChevronRight, X, BookOpen, Copy, Star } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { useLanguage, useUser, useAppStore } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
@@ -604,29 +605,25 @@ export default function BiblicalCardsAlbumScreen() {
   // Timing logs
   const mountTimeRef = useRef<number>(Date.now());
   useEffect(() => {
+    const t0 = Date.now();
     console.log('[Cards/Album] Screen mounted');
-    // initCardImageCache + downloadCollection are called in _layout.tsx at app start.
-    // No need to repeat here — cache is already warm by the time the user opens the album.
     return () => {
       console.log(`[Cards/Album] Screen unmounted after ${Date.now() - mountTimeRef.current}ms`);
     };
   }, []);
 
-  const updateUser = useAppStore((s) => s.updateUser);
-
   const [selectedCard, setSelectedCard] = useState<BiblicalCard | null>(null);
   const [selectedDuplicates, setSelectedDuplicates] = useState<number>(0);
   const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
-  // null = show all rarities
   const [rarityFilter, setRarityFilter] = useState<CardRarity | null>(null);
 
-  // ── Collection completion reward state ──────────────────────────────────────
+  const updateUser = useAppStore((s) => s.updateUser);
+
   const [collectionRewardModal, setCollectionRewardModal] = useState<{
     collectionName: string;
     secretCardId: string;
     bonusPoints: number;
   } | null>(null);
-  // Tracks which collections we've already tried to claim this session (avoids repeat API calls)
   const claimedThisSession = useRef<Set<string>>(new Set());
 
   const queryClient = useQueryClient();
@@ -644,12 +641,18 @@ export default function BiblicalCardsAlbumScreen() {
     refetchOnWindowFocus: true,
   });
 
-  useEffect(() => {
-    const ownedIds = cardInventory.filter((c) => c.owned).map((c) => c.cardId);
-    if (ownedIds.length > 0) {
-      preloadOwnedCardImages(ownedIds);
-    }
-  }, [cardInventory]);
+  // On every focus: kick off collection downloads + preload owned card images.
+  // This ensures newly acquired cards are cached quickly when returning from pack opening.
+  useFocusEffect(
+    useCallback(() => {
+      console.log('[Cards/Album] Focus — kicking off preloads');
+      downloadCollection('inicial');
+      downloadCollection('pascua');
+      downloadCollection('milagros');
+      const ownedIds = cardInventory.filter((c) => c.owned).map((c) => c.cardId);
+      if (ownedIds.length > 0) preloadOwnedCardImages(ownedIds);
+    }, [cardInventory])
+  );
 
   const getCardStatus = useCallback((cardId: string) => {
     const entry = cardInventory.find((c) => c.cardId === cardId);
