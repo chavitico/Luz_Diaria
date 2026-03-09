@@ -222,5 +222,13 @@
     "status": "CLAIMED",
     "claimedAt": "2026-03-09T02:32:41.393Z",
     "createdAt": "2026-03-09T02:32:36.562Z"
+  },
+  {
+    "id": "cmmivxt26001sm2tod3rxysxi",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "giftDropId": "cmmivxt25001qm2tonpx9d6ka",
+    "status": "PENDING",
+    "claimedAt": null,
+    "createdAt": "2026-03-09T07:54:18.078Z"
   }
 ]

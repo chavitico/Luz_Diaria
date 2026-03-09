@@ -1,6 +1,6 @@
 {
   "backupDate": "2026-03-09",
-  "createdAt": "2026-03-09T07:52:09.698Z",
+  "createdAt": "2026-03-09T08:09:16.096Z",
   "appEnv": "dev",
   "counts": {
     "users": 10,
@@ -15,6 +15,6 @@
     "userChapterProgress": 5,
     "weeklyProgress": 28,
     "userFavorites": 0,
-    "userGifts": 28
+    "userGifts": 29
   }
 }
