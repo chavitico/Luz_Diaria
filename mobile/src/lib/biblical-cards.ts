@@ -1546,6 +1546,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['kingdom of heaven', 'golden gates', 'light rays', 'dove', 'eternal glory'],
     gradientColors: ['#0A0A00', '#1A1A00', '#2A2A00'],
     accentColor: '#D4AF37',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/g6U8O2lx8js.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.35,
     motif: { topSymbol: '✦', subtitleEs: 'Colección Especial', subtitleEn: 'Special Collection', artEmoji: '👑', decorSymbols: ['👑', '✦', '☀️'], sheenColors: ['rgba(212,175,55,0.55)', 'rgba(42,42,0,0.15)'], cornerGlyph: '✦' },
   },
 
