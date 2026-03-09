@@ -259,8 +259,8 @@ const PACK_ASSETS: Record<PackType, {
     cardBack: require('../../assets/packs/pack_pascua_card_back.png') as ImageSourcePropType,
     glowColor: '#FFD700',
     transparent: true,
-    cardBackDelayMs: 1400,
-    minPauseMs: 800,
+    cardBackDelayMs: 2200,
+    minPauseMs: 1200,
   },
   pack_milagros: {
     pack:     require('../../assets/packs/pack_milagros_pack.jpg') as ImageSourcePropType,
@@ -1429,10 +1429,16 @@ export function PackOpeningModal({
               style={{
                 transform: [{ scale: cardScale }, { scaleX: cardScaleX }],
                 opacity: cardOpacity,
-                overflow: 'hidden',
+                overflow: cardFace === 'back' && packType && PACK_ASSETS[packType]?.transparent ? 'visible' : 'hidden',
                 borderRadius: 20,
                 width: CARD_W,
                 height: CARD_H,
+                // Golden glow while showing card back — especially visible for transparent packs
+                shadowColor: packType ? PACK_ASSETS[packType].glowColor : '#FFD700',
+                shadowOffset: { width: 0, height: 0 },
+                shadowOpacity: cardFace === 'back' ? 0.85 : 0,
+                shadowRadius: 32,
+                elevation: cardFace === 'back' ? 20 : 0,
               }}
             >
               {cardFace === 'front' ? (

@@ -1,7 +1,7 @@
 // Root Layout - App Entry Point with Splash and Onboarding
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { View, AppState, Text } from 'react-native';
+import { View, AppState, Text, Image } from 'react-native';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack, useRouter } from 'expo-router';
 import * as ExpoSplashScreen from 'expo-splash-screen';
@@ -456,6 +456,11 @@ function AppContent() {
         />
       )}
       {/* Root-level pack reveal — mounted ABOVE all navigation and pageSheet layers */}
+      {/* Pre-decode pack PNG assets: 1×1 invisible images force RN to decode before animation */}
+      <View style={{ position: 'absolute', width: 1, height: 1, opacity: 0 }} pointerEvents="none">
+        <Image source={require('../../assets/packs/pack_pascua_pack.png')} style={{ width: 1, height: 1 }} />
+        <Image source={require('../../assets/packs/pack_pascua_card_back.png')} style={{ width: 1, height: 1 }} />
+      </View>
       <PackOpeningModal
         visible={!!packRevealRequest}
         packType={packRevealRequest?.packType ?? null}
