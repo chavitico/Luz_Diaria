@@ -2957,6 +2957,22 @@ gamificationRouter.get("/biblical-cards/collection-reward/status/:userId", async
 gamificationRouter.get("/biblical-cards/trades/:userId", async (c) => {
   try {
     const userId = c.req.param("userId");
+
+    // Compute daily trade usage (server-side UTC day)
+    const DAILY_TRADE_LIMIT = 2;
+    const todayStart = new Date();
+    todayStart.setUTCHours(0, 0, 0, 0);
+    const todayEnd = new Date();
+    todayEnd.setUTCHours(23, 59, 59, 999);
+
+    const completedTodayCount = await prisma.cardTrade.count({
+      where: {
+        OR: [{ fromUserId: userId }, { toUserId: userId }],
+        status: "accepted",
+        respondedAt: { gte: todayStart, lte: todayEnd },
+      },
+    });
+
     const trades = await prisma.cardTrade.findMany({
       where: {
         OR: [{ fromUserId: userId }, { toUserId: userId }],
@@ -2969,7 +2985,11 @@ gamificationRouter.get("/biblical-cards/trades/:userId", async (c) => {
       orderBy: { createdAt: "desc" },
       take: 50,
     });
-    return c.json({ trades });
+    return c.json({
+      trades,
+      dailyLimit: DAILY_TRADE_LIMIT,
+      dailyUsed: Math.min(completedTodayCount, DAILY_TRADE_LIMIT),
+    });
   } catch (error) {
     console.error("[Trade] list error:", error);
     return c.json({ error: "Failed to fetch trades" }, 500);
@@ -3073,6 +3093,37 @@ gamificationRouter.patch("/biblical-cards/trades/:tradeId/accept", async (c) => 
     if (!trade) return c.json({ error: "Trade not found" }, 404);
     if (trade.status !== "pending") return c.json({ error: "Trade is no longer pending" }, 400);
     if (trade.toUserId !== userId) return c.json({ error: "Not authorised to accept this trade" }, 403);
+
+    // Enforce daily trade limit per user (server UTC day)
+    const DAILY_TRADE_LIMIT = 2;
+    const todayStart = new Date();
+    todayStart.setUTCHours(0, 0, 0, 0);
+    const todayEnd = new Date();
+    todayEnd.setUTCHours(23, 59, 59, 999);
+
+    const [accepterCount, initiatorCount] = await Promise.all([
+      prisma.cardTrade.count({
+        where: {
+          OR: [{ fromUserId: userId }, { toUserId: userId }],
+          status: "accepted",
+          respondedAt: { gte: todayStart, lte: todayEnd },
+        },
+      }),
+      prisma.cardTrade.count({
+        where: {
+          OR: [{ fromUserId: trade.fromUserId }, { toUserId: trade.fromUserId }],
+          status: "accepted",
+          respondedAt: { gte: todayStart, lte: todayEnd },
+        },
+      }),
+    ]);
+
+    if (accepterCount >= DAILY_TRADE_LIMIT) {
+      return c.json({ error: "DAILY_LIMIT_REACHED", message: "Has alcanzado tu límite diario de intercambios" }, 400);
+    }
+    if (initiatorCount >= DAILY_TRADE_LIMIT) {
+      return c.json({ error: "DAILY_LIMIT_REACHED", message: "El otro usuario ha alcanzado su límite diario de intercambios" }, 400);
+    }
 
     // Re-validate both sides still have duplicates
     const offeredEntry = await prisma.biblicalCardInventory.findUnique({

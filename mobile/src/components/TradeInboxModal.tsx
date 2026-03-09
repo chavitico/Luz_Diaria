@@ -595,6 +595,9 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
   });
 
   const trades = data?.trades ?? [];
+  const dailyLimit: number = data?.dailyLimit ?? 2;
+  const dailyUsed: number = data?.dailyUsed ?? 0;
+  const dailyLimitReached = dailyUsed >= dailyLimit;
   const incoming = trades.filter(t => t.toUserId === user?.id && t.status === 'pending');
   const outgoing = trades.filter(t => t.fromUserId === user?.id && t.status === 'pending');
   const history = trades

@@ -453,9 +453,9 @@ export const gamificationApi = {
 
   // ── Card Trades ──────────────────────────────────────────────────────────────
 
-  async getTrades(userId: string): Promise<{ trades: CardTrade[] }> {
+  async getTrades(userId: string): Promise<{ trades: CardTrade[]; dailyLimit: number; dailyUsed: number }> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/trades/${userId}`);
-    if (!res.ok) return { trades: [] };
+    if (!res.ok) return { trades: [], dailyLimit: 2, dailyUsed: 0 };
     return res.json();
   },
 

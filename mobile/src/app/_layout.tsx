@@ -22,7 +22,7 @@ import { ReceivedGiftModal, type ReceivedGift } from '@/components/ReceivedGiftM
 import { gamificationApi } from '@/lib/gamification-api';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { prefetchDevotionals, checkAndPrefetchOnDateChange } from '@/lib/devotional-cache';
-import { usePackRevealRequest, useClearPackRevealRequest } from '@/lib/store';
+import { usePackRevealRequest, useClearPackRevealRequest, useRequestPackReveal } from '@/lib/store';
 import { PackOpeningModal } from '@/components/PackOpeningModal';
 import { initCardImageCache, downloadCollection } from '@/lib/card-image-cache';
 
@@ -169,6 +169,7 @@ function AppContent() {
   // Root-level pack reveal — rendered above all navigation layers
   const packRevealRequest = usePackRevealRequest();
   const clearPackRevealRequest = useClearPackRevealRequest();
+  const requestPackReveal = useRequestPackReveal();
   const router = useRouter();
 
   // Gift modal state
@@ -458,10 +459,10 @@ function AppContent() {
         visible={!!packRevealRequest}
         packType={packRevealRequest?.packType ?? null}
         drawnCard={packRevealRequest?.drawnCard ?? null}
+        userPoints={user?.points ?? 0}
         onClose={() => {
           console.log('[PackReveal] closed');
           clearPackRevealRequest();
-          // Ensure album shows the new card if user navigates there
           queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
         }}
         onViewAlbum={() => {
@@ -470,6 +471,27 @@ function AppContent() {
           queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
           router.push('/biblical-cards-album' as any);
         }}
+        onOpenAnother={packRevealRequest?.packType ? async () => {
+          const pt = packRevealRequest!.packType;
+          const uid = user?.id;
+          if (!uid) return;
+          console.log('[PackReveal] open another:', pt);
+          // Close current reveal first, then purchase + re-trigger
+          clearPackRevealRequest();
+          try {
+            const res = await gamificationApi.purchaseItem(uid, pt);
+            if (res.success && res.drawnCard) {
+              queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
+              queryClient.invalidateQueries({ queryKey: ['backendUser'] });
+              // Small delay so modal fully unmounts before re-mounting
+              setTimeout(() => {
+                requestPackReveal({ drawnCard: res.drawnCard!, packType: pt });
+              }, 350);
+            }
+          } catch (err) {
+            console.log('[PackReveal] open another failed', err);
+          }
+        } : undefined}
       />
     </>
   );

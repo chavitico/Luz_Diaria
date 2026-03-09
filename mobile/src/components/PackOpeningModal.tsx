@@ -61,8 +61,11 @@ export interface PackOpeningModalProps {
   visible: boolean;
   packType: PackType | null;
   drawnCard: { cardId: string; wasNew: boolean } | null;
+  userPoints?: number;
   onClose: () => void;
   onViewAlbum: () => void;
+  /** Called when user taps "Abrir otro sobre" — parent handles purchase logic */
+  onOpenAnother?: () => void;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -764,8 +767,10 @@ export function PackOpeningModal({
   visible,
   packType,
   drawnCard,
+  userPoints,
   onClose,
   onViewAlbum,
+  onOpenAnother,
 }: PackOpeningModalProps) {
   const language = useLanguage();
   const { sFont } = useScaledFont();
@@ -1669,6 +1674,30 @@ export function PackOpeningModal({
             {/* Actions */}
             {phase === 'final' && (
               <Animated.View style={[styles.actions, { opacity: actionsOpacity }]}>
+                {onOpenAnother != null && (() => {
+                  const PACK_PRICE = 500;
+                  const canAfford = (userPoints ?? 0) >= PACK_PRICE;
+                  return (
+                    <Pressable
+                      style={[styles.openAnotherBtn, !canAfford && styles.openAnotherBtnDisabled]}
+                      onPress={canAfford ? onOpenAnother : undefined}
+                      disabled={!canAfford}
+                    >
+                      <LinearGradient
+                        colors={canAfford ? ['#1B6B3A', '#0D4422'] : ['#2A2A2A', '#1A1A1A']}
+                        style={styles.primaryBtnGradient}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                      >
+                        <Text style={[styles.primaryBtnText, !canAfford && { color: 'rgba(255,255,255,0.35)' }]}>
+                          {!canAfford
+                            ? (language === 'es' ? 'Sin puntos' : 'Not enough points')
+                            : (language === 'es' ? 'Abrir otro sobre' : 'Open another pack')}
+                        </Text>
+                      </LinearGradient>
+                    </Pressable>
+                  );
+                })()}
                 <Pressable style={styles.primaryBtn} onPress={onViewAlbum}>
                   <LinearGradient
                     colors={['#1E3A5F', '#0A1929']}
@@ -1762,6 +1791,20 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
   secondaryBtnText: { color: 'rgba(255,255,255,0.65)', fontSize: 15, fontWeight: '500' },
+  openAnotherBtn: {
+    width: '100%',
+    borderRadius: 14,
+    overflow: 'hidden',
+    shadowColor: '#22C55E',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  openAnotherBtnDisabled: {
+    shadowOpacity: 0,
+    elevation: 0,
+  },
   cardBack: {
     flex: 1,
     borderRadius: 20,
