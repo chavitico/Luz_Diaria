@@ -78,6 +78,8 @@ model User {
   sessions               UserSession[]
   biblicalCards          BiblicalCardInventory[]
   collectionCardRewards  CollectionCardReward[]
+  tradesInitiated        CardTrade[]             @relation("TradesInitiated")
+  tradesReceived         CardTrade[]             @relation("TradesReceived")
 }
 
 model UserSession {
@@ -510,4 +512,22 @@ model GiftNotification {
   @@unique([userId, giftTransactionId])
   @@index([userId])
   @@index([seen])
+}
+
+// Card trading system — phase 1: one-for-one duplicate card trades between users
+model CardTrade {
+  id              String    @id @default(cuid())
+  fromUserId      String
+  toUserId        String
+  offeredCardId   String    // cardId the initiator offers (must have duplicates > 0)
+  requestedCardId String    // cardId the initiator wants  (toUser must have duplicates > 0)
+  status          String    @default("pending") // pending | accepted | rejected | cancelled | failed
+  createdAt       DateTime  @default(now())
+  respondedAt     DateTime?
+  fromUser        User      @relation("TradesInitiated", fields: [fromUserId], references: [id], onDelete: Cascade)
+  toUser          User      @relation("TradesReceived",  fields: [toUserId],   references: [id], onDelete: Cascade)
+
+  @@index([fromUserId])
+  @@index([toUserId])
+  @@index([status])
 }

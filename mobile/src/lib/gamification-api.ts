@@ -126,6 +126,27 @@ export interface CommunityMember {
 }
 
 // Prayer types
+export interface CardTradeUser {
+  id: string;
+  nickname: string;
+  avatarId: string;
+  frameId: string | null;
+}
+
+export interface CardTrade {
+  id: string;
+  fromUserId: string;
+  toUserId: string;
+  offeredCardId: string;
+  requestedCardId: string;
+  status: 'pending' | 'accepted' | 'rejected' | 'cancelled' | 'failed';
+  createdAt: string;
+  respondedAt: string | null;
+  fromUser: CardTradeUser;
+  toUser: CardTradeUser;
+}
+
+// Prayer types
 export interface PrayerRequest {
   id: string;
   userId: string;
@@ -427,6 +448,61 @@ export const gamificationApi = {
   }> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/collection-reward/status/${userId}`);
     if (!res.ok) return { claimed: [] };
+    return res.json();
+  },
+
+  // ── Card Trades ──────────────────────────────────────────────────────────────
+
+  async getTrades(userId: string): Promise<{ trades: CardTrade[] }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/trades/${userId}`);
+    if (!res.ok) return { trades: [] };
+    return res.json();
+  },
+
+  async getUserTradeableCards(userId: string): Promise<{ cards: Array<{ cardId: string; duplicates: number }> }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/trades/user-cards/${userId}`);
+    if (!res.ok) return { cards: [] };
+    return res.json();
+  },
+
+  async createTrade(params: {
+    fromUserId: string;
+    toUserId: string;
+    offeredCardId: string;
+    requestedCardId: string;
+  }): Promise<{ success: boolean; trade?: CardTrade; error?: string }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/trades`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+    });
+    return res.json();
+  },
+
+  async acceptTrade(tradeId: string, userId: string): Promise<{ success: boolean; receivedCardId?: string; receivedNew?: boolean; error?: string }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/trades/${tradeId}/accept`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
+    return res.json();
+  },
+
+  async rejectTrade(tradeId: string, userId: string): Promise<{ success: boolean; error?: string }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/trades/${tradeId}/reject`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
+    return res.json();
+  },
+
+  async cancelTrade(tradeId: string, userId: string): Promise<{ success: boolean; error?: string }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/trades/${tradeId}/cancel`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
     return res.json();
   },
 

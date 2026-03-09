@@ -2950,6 +2950,260 @@ gamificationRouter.get("/biblical-cards/collection-reward/status/:userId", async
   }
 });
 
+// ─── Card Trade Routes ────────────────────────────────────────────────────────
+
+// GET /biblical-cards/trades/:userId
+// Returns all pending trades where the user is sender or receiver, plus recent history
+gamificationRouter.get("/biblical-cards/trades/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const trades = await prisma.cardTrade.findMany({
+      where: {
+        OR: [{ fromUserId: userId }, { toUserId: userId }],
+        NOT: { status: { in: ["cancelled", "failed"] } },
+      },
+      include: {
+        fromUser: { select: { id: true, nickname: true, avatarId: true, frameId: true } },
+        toUser:   { select: { id: true, nickname: true, avatarId: true, frameId: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 50,
+    });
+    return c.json({ trades });
+  } catch (error) {
+    console.error("[Trade] list error:", error);
+    return c.json({ error: "Failed to fetch trades" }, 500);
+  }
+});
+
+// GET /biblical-cards/trades/user-cards/:userId
+// Returns the tradable card inventory for a user (owned=true, with duplicates info)
+gamificationRouter.get("/biblical-cards/trades/user-cards/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const cards = await prisma.biblicalCardInventory.findMany({
+      where: { userId, owned: true },
+      select: { cardId: true, duplicates: true },
+    });
+    return c.json({ cards });
+  } catch (error) {
+    console.error("[Trade] user-cards error:", error);
+    return c.json({ error: "Failed to fetch user cards" }, 500);
+  }
+});
+
+// POST /biblical-cards/trades
+// Create a new trade proposal
+gamificationRouter.post("/biblical-cards/trades", async (c) => {
+  try {
+    const body = await c.req.json() as {
+      fromUserId: string;
+      toUserId: string;
+      offeredCardId: string;
+      requestedCardId: string;
+    };
+    const { fromUserId, toUserId, offeredCardId, requestedCardId } = body;
+
+    if (!fromUserId || !toUserId || !offeredCardId || !requestedCardId) {
+      return c.json({ error: "Missing required fields" }, 400);
+    }
+    if (fromUserId === toUserId) {
+      return c.json({ error: "Cannot trade with yourself" }, 400);
+    }
+    if (offeredCardId === requestedCardId) {
+      return c.json({ error: "Cannot trade a card for itself" }, 400);
+    }
+
+    // Validate fromUser has a duplicate of offeredCardId
+    const offeredEntry = await prisma.biblicalCardInventory.findUnique({
+      where: { userId_cardId: { userId: fromUserId, cardId: offeredCardId } },
+    });
+    if (!offeredEntry || !offeredEntry.owned || offeredEntry.duplicates < 1) {
+      return c.json({ error: "NO_DUPLICATE_OFFERED", message: "You don't have a duplicate of the offered card" }, 400);
+    }
+
+    // Validate toUser has a duplicate of requestedCardId
+    const requestedEntry = await prisma.biblicalCardInventory.findUnique({
+      where: { userId_cardId: { userId: toUserId, cardId: requestedCardId } },
+    });
+    if (!requestedEntry || !requestedEntry.owned || requestedEntry.duplicates < 1) {
+      return c.json({ error: "NO_DUPLICATE_REQUESTED", message: "The other user doesn't have a duplicate of the requested card" }, 400);
+    }
+
+    // Check for existing pending trade between same users for same cards
+    const existing = await prisma.cardTrade.findFirst({
+      where: { fromUserId, toUserId, offeredCardId, requestedCardId, status: "pending" },
+    });
+    if (existing) {
+      return c.json({ error: "DUPLICATE_TRADE", message: "A pending trade for these cards already exists" }, 400);
+    }
+
+    // Limit pending outbound trades per user (max 10)
+    const pendingCount = await prisma.cardTrade.count({
+      where: { fromUserId, status: "pending" },
+    });
+    if (pendingCount >= 10) {
+      return c.json({ error: "TOO_MANY_PENDING", message: "You have too many pending trades. Cancel some first." }, 400);
+    }
+
+    const trade = await prisma.cardTrade.create({
+      data: { fromUserId, toUserId, offeredCardId, requestedCardId, status: "pending" },
+      include: {
+        fromUser: { select: { id: true, nickname: true, avatarId: true, frameId: true } },
+        toUser:   { select: { id: true, nickname: true, avatarId: true, frameId: true } },
+      },
+    });
+
+    return c.json({ success: true, trade });
+  } catch (error) {
+    console.error("[Trade] create error:", error);
+    return c.json({ error: "Failed to create trade" }, 500);
+  }
+});
+
+// PATCH /biblical-cards/trades/:tradeId/accept
+// Accept a pending trade — atomic validation + card swap
+gamificationRouter.patch("/biblical-cards/trades/:tradeId/accept", async (c) => {
+  try {
+    const tradeId = c.req.param("tradeId");
+    const body = await c.req.json() as { userId: string };
+    const { userId } = body;
+
+    const trade = await prisma.cardTrade.findUnique({ where: { id: tradeId } });
+    if (!trade) return c.json({ error: "Trade not found" }, 404);
+    if (trade.status !== "pending") return c.json({ error: "Trade is no longer pending" }, 400);
+    if (trade.toUserId !== userId) return c.json({ error: "Not authorised to accept this trade" }, 403);
+
+    // Re-validate both sides still have duplicates
+    const offeredEntry = await prisma.biblicalCardInventory.findUnique({
+      where: { userId_cardId: { userId: trade.fromUserId, cardId: trade.offeredCardId } },
+    });
+    const requestedEntry = await prisma.biblicalCardInventory.findUnique({
+      where: { userId_cardId: { userId: trade.toUserId, cardId: trade.requestedCardId } },
+    });
+
+    if (!offeredEntry || !offeredEntry.owned || offeredEntry.duplicates < 1) {
+      await prisma.cardTrade.update({ where: { id: tradeId }, data: { status: "failed", respondedAt: new Date() } });
+      return c.json({ error: "TRADE_FAILED", message: "The other user no longer has a duplicate of the offered card" }, 400);
+    }
+    if (!requestedEntry || !requestedEntry.owned || requestedEntry.duplicates < 1) {
+      await prisma.cardTrade.update({ where: { id: tradeId }, data: { status: "failed", respondedAt: new Date() } });
+      return c.json({ error: "TRADE_FAILED", message: "You no longer have a duplicate of the requested card" }, 400);
+    }
+
+    // Execute swap atomically
+    await prisma.$transaction(async (tx) => {
+      // 1. fromUser loses one duplicate of offeredCard
+      await tx.biblicalCardInventory.update({
+        where: { userId_cardId: { userId: trade.fromUserId, cardId: trade.offeredCardId } },
+        data: { duplicates: { decrement: 1 } },
+      });
+
+      // 2. fromUser gains requestedCard (upsert — may already own it)
+      const fromHasRequested = await tx.biblicalCardInventory.findUnique({
+        where: { userId_cardId: { userId: trade.fromUserId, cardId: trade.requestedCardId } },
+      });
+      if (fromHasRequested) {
+        await tx.biblicalCardInventory.update({
+          where: { userId_cardId: { userId: trade.fromUserId, cardId: trade.requestedCardId } },
+          data: { duplicates: { increment: 1 } },
+        });
+      } else {
+        await tx.biblicalCardInventory.create({
+          data: { userId: trade.fromUserId, cardId: trade.requestedCardId, owned: true, duplicates: 0, isNew: true },
+        });
+      }
+
+      // 3. toUser loses one duplicate of requestedCard
+      await tx.biblicalCardInventory.update({
+        where: { userId_cardId: { userId: trade.toUserId, cardId: trade.requestedCardId } },
+        data: { duplicates: { decrement: 1 } },
+      });
+
+      // 4. toUser gains offeredCard (upsert)
+      const toHasOffered = await tx.biblicalCardInventory.findUnique({
+        where: { userId_cardId: { userId: trade.toUserId, cardId: trade.offeredCardId } },
+      });
+      if (toHasOffered) {
+        await tx.biblicalCardInventory.update({
+          where: { userId_cardId: { userId: trade.toUserId, cardId: trade.offeredCardId } },
+          data: { duplicates: { increment: 1 } },
+        });
+      } else {
+        await tx.biblicalCardInventory.create({
+          data: { userId: trade.toUserId, cardId: trade.offeredCardId, owned: true, duplicates: 0, isNew: true },
+        });
+      }
+
+      // 5. Mark trade accepted
+      await tx.cardTrade.update({
+        where: { id: tradeId },
+        data: { status: "accepted", respondedAt: new Date() },
+      });
+    });
+
+    // Determine what toUser received and whether it was new
+    const receivedNew = !requestedEntry || (requestedEntry && !requestedEntry.owned);
+
+    return c.json({
+      success: true,
+      receivedCardId: trade.offeredCardId,
+      receivedNew,
+    });
+  } catch (error) {
+    console.error("[Trade] accept error:", error);
+    return c.json({ error: "Failed to accept trade" }, 500);
+  }
+});
+
+// PATCH /biblical-cards/trades/:tradeId/reject
+gamificationRouter.patch("/biblical-cards/trades/:tradeId/reject", async (c) => {
+  try {
+    const tradeId = c.req.param("tradeId");
+    const body = await c.req.json() as { userId: string };
+    const { userId } = body;
+
+    const trade = await prisma.cardTrade.findUnique({ where: { id: tradeId } });
+    if (!trade) return c.json({ error: "Trade not found" }, 404);
+    if (trade.status !== "pending") return c.json({ error: "Trade is no longer pending" }, 400);
+    if (trade.toUserId !== userId) return c.json({ error: "Not authorised to reject this trade" }, 403);
+
+    await prisma.cardTrade.update({
+      where: { id: tradeId },
+      data: { status: "rejected", respondedAt: new Date() },
+    });
+
+    return c.json({ success: true });
+  } catch (error) {
+    console.error("[Trade] reject error:", error);
+    return c.json({ error: "Failed to reject trade" }, 500);
+  }
+});
+
+// PATCH /biblical-cards/trades/:tradeId/cancel
+gamificationRouter.patch("/biblical-cards/trades/:tradeId/cancel", async (c) => {
+  try {
+    const tradeId = c.req.param("tradeId");
+    const body = await c.req.json() as { userId: string };
+    const { userId } = body;
+
+    const trade = await prisma.cardTrade.findUnique({ where: { id: tradeId } });
+    if (!trade) return c.json({ error: "Trade not found" }, 404);
+    if (trade.status !== "pending") return c.json({ error: "Trade is no longer pending" }, 400);
+    if (trade.fromUserId !== userId) return c.json({ error: "Not authorised to cancel this trade" }, 403);
+
+    await prisma.cardTrade.update({
+      where: { id: tradeId },
+      data: { status: "cancelled", respondedAt: new Date() },
+    });
+
+    return c.json({ success: true });
+  } catch (error) {
+    console.error("[Trade] cancel error:", error);
+    return c.json({ error: "Failed to cancel trade" }, 500);
+  }
+});
+
 
 
 // GET /daily-pack/status/:userId - Check daily pack availability

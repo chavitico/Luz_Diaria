@@ -32,6 +32,8 @@ import {
   WifiOff,
   Shield,
   Coins,
+  ArrowLeftRight,
+  Inbox,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import logger from '@/lib/logger';
@@ -42,6 +44,8 @@ import { getCountryByCode } from '@/components/CountryPicker';
 import { BadgeChip } from '@/components/BadgeChip';
 import { BadgeInfoModal } from '@/components/BadgeInfoModal';
 import { CommunityGiftFlowModal } from '@/components/CommunityGiftFlowModal';
+import { TradeFlowModal } from '@/components/TradeFlowModal';
+import { TradeInboxModal } from '@/components/TradeInboxModal';
 
 // Helper: is a member active today?
 function isActiveToday(member: CommunityMember): boolean {
@@ -158,12 +162,14 @@ function MemberCard({
   index,
   onBadgePress,
   onGiftPress,
+  onTradePress,
 }: {
   member: CommunityMember;
   isCurrentUser: boolean;
   index: number;
   onBadgePress?: (badgeId: string) => void;
   onGiftPress?: (member: CommunityMember) => void;
+  onTradePress?: (member: CommunityMember) => void;
 }) {
   const colors = useThemeColors();
   const language = useLanguage();
@@ -323,6 +329,32 @@ function MemberCard({
               {member.points.toLocaleString()}
             </Text>
           </View>
+          {/* Trade button (other users only) */}
+          {!isCurrentUser && onTradePress && (
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                onTradePress(member);
+              }}
+              hitSlop={6}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 3,
+                paddingHorizontal: 7,
+                paddingVertical: 3,
+                borderRadius: 8,
+                backgroundColor: colors.primary + '15',
+                borderWidth: 1,
+                borderColor: colors.primary + '30',
+              }}
+            >
+              <ArrowLeftRight size={10} color={colors.primary} />
+              <Text style={{ fontSize: sFont(10), fontWeight: '700', color: colors.primary }}>
+                {language === 'es' ? 'Cambiar' : 'Trade'}
+              </Text>
+            </Pressable>
+          )}
         </View>
       </Pressable>
     </Animated.View>
@@ -684,6 +716,10 @@ export default function CommunityScreen() {
   const [giftTarget, setGiftTarget] = useState<CommunityMember | null>(null);
   const [showGiftFlow, setShowGiftFlow] = useState(false);
 
+  const [tradeTarget, setTradeTarget] = useState<CommunityMember | null>(null);
+  const [showTradeFlow, setShowTradeFlow] = useState(false);
+  const [showTradeInbox, setShowTradeInbox] = useState(false);
+
   // Badge info modal state
   const [badgeModalId, setBadgeModalId] = useState<string | null>(null);
 
@@ -973,6 +1009,7 @@ export default function CommunityScreen() {
           index={index}
           onBadgePress={(badgeId) => setBadgeModalId(badgeId)}
           onGiftPress={(member) => { setGiftTarget(member); setShowGiftFlow(true); }}
+          onTradePress={(member) => { setTradeTarget(member); setShowTradeFlow(true); }}
         />
       );
     },
@@ -1000,12 +1037,31 @@ export default function CommunityScreen() {
         className="px-5 pb-4"
         style={{ paddingTop: insets.top + 16 }}
       >
-        <Text
-          className="text-3xl font-bold"
-          style={{ color: colors.text }}
-        >
-          {t.community_title}
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Text
+            className="text-3xl font-bold"
+            style={{ color: colors.text }}
+          >
+            {t.community_title}
+          </Text>
+          {/* Trade inbox button */}
+          <Pressable
+            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setShowTradeInbox(true); }}
+            style={{
+              flexDirection: 'row', alignItems: 'center', gap: 5,
+              paddingHorizontal: 12, paddingVertical: 7,
+              borderRadius: 12,
+              backgroundColor: colors.surface,
+              borderWidth: 1,
+              borderColor: colors.textMuted + '25',
+            }}
+          >
+            <Inbox size={15} color={colors.primary} />
+            <Text style={{ fontSize: 13, fontWeight: '700', color: colors.primary }}>
+              {language === 'es' ? 'Trueques' : 'Trades'}
+            </Text>
+          </Pressable>
+        </View>
       </View>
 
       {/* Content */}
@@ -1064,6 +1120,19 @@ export default function CommunityScreen() {
         visible={showGiftFlow}
         recipient={giftTarget}
         onClose={() => setShowGiftFlow(false)}
+      />
+
+      {/* Trade flow modal */}
+      <TradeFlowModal
+        visible={showTradeFlow}
+        recipient={tradeTarget}
+        onClose={() => setShowTradeFlow(false)}
+      />
+
+      {/* Trade inbox modal */}
+      <TradeInboxModal
+        visible={showTradeInbox}
+        onClose={() => setShowTradeInbox(false)}
       />
     </View>
   );
