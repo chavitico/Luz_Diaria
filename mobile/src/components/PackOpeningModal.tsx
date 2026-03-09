@@ -246,6 +246,8 @@ const PACK_ASSETS: Record<PackType, {
   transparent?: boolean;
   /** Extra ms to show card back before flip starts (beyond the spring-in animation) */
   cardBackDelayMs?: number;
+  /** Minimum pre-flip pause regardless of card rarity (overrides RARITY_PAUSE_MS if higher) */
+  minPauseMs?: number;
 }> = {
   sobre_biblico: {
     pack:     require('../../assets/packs/sobre_biblico_pack.jpg') as ImageSourcePropType,
@@ -257,7 +259,8 @@ const PACK_ASSETS: Record<PackType, {
     cardBack: require('../../assets/packs/pack_pascua_card_back.png') as ImageSourcePropType,
     glowColor: '#FFD700',
     transparent: true,
-    cardBackDelayMs: 900,
+    cardBackDelayMs: 1400,
+    minPauseMs: 800,
   },
   pack_milagros: {
     pack:     require('../../assets/packs/pack_milagros_pack.jpg') as ImageSourcePropType,
@@ -495,6 +498,20 @@ export function PackOpeningModal({
     });
   }, [visible, drawnCards]);
 
+  // ── Warm the local pack PNG into the image cache before the animation starts ──
+  // resolveAssetSource extracts the URI that RN uses internally for require() assets,
+  // then prefetch forces the decoder to process it so it's ready instantly.
+  useEffect(() => {
+    if (!packType) return;
+    try {
+      const packAsset = PACK_ASSETS[packType];
+      const packUri = (Image as any).resolveAssetSource?.(packAsset.pack)?.uri;
+      const backUri = (Image as any).resolveAssetSource?.(packAsset.cardBack)?.uri;
+      if (packUri) (Image as any).prefetch(packUri).catch(() => {});
+      if (backUri) (Image as any).prefetch(backUri).catch(() => {});
+    } catch { /* ignore */ }
+  }, [packType]);
+
   // ── Stable animation values ──
   const backdropOpacity = useRef(new Animated.Value(0)).current;
   const packScale       = useRef(new Animated.Value(0.3)).current;
@@ -545,7 +562,10 @@ export function PackOpeningModal({
   // Irregular tear line — SVG clip width (0→CARD_W), driven by tearProgress listener
   const TEAR_BASE_Y = CARD_H * 0.22;  // ~22% down — midpoint between original and previous position
   const SVG_H = 20; // SVG container height; center line at y=10
-  const tearPointsAbs  = useRef(generateTearPoints(CARD_W, TEAR_BASE_Y)).current;
+  // Tear line only covers the center 70% of the pack width (15%–85%) so edges look clean
+  const TEAR_MARGIN = CARD_W * 0.15;
+  const TEAR_LINE_W = CARD_W * 0.70;
+  const tearPointsAbs  = useRef(generateTearPoints(TEAR_LINE_W, TEAR_BASE_Y)).current;
   const tearPointsLocal = useRef(translateTearPoints(tearPointsAbs, TEAR_BASE_Y, 10)).current;
   const [tearClipW, setTearClipW] = useState(0);
   const glowClipW = useRef(0);
@@ -573,6 +593,9 @@ export function PackOpeningModal({
   const auraColor   = RARITY_AURA_COLORS[rarity]   ?? 'transparent';
   const cardBackDelayMs = packType ? (PACK_ASSETS[packType].cardBackDelayMs ?? 0) : 0;
   cardBackDelayMsRef.current = cardBackDelayMs;
+  const effectivePauseMs = packType
+    ? Math.max(pauseMs, PACK_ASSETS[packType].minPauseMs ?? 0)
+    : pauseMs;
 
   // ── Stop all loops ──
   const stopLoops = useCallback(() => {
@@ -660,10 +683,8 @@ export function PackOpeningModal({
   // ── Sync tearProgress → tearClipW for SVG glow line ──
   useEffect(() => {
     const id = tearProgress.addListener(({ value }) => {
-      const w = value * CARD_W;
+      const w = value * TEAR_LINE_W;
       glowClipW.current = w;
-      // Batch setState at ~60fps via requestAnimationFrame is not needed here —
-      // tearProgress changes are already driven by gesture (live) or short timing (200ms).
       setTearClipW(w);
     });
     return () => tearProgress.removeListener(id);
@@ -995,7 +1016,7 @@ export function PackOpeningModal({
         if (rarity !== 'common') {
           Animated.timing(auraOpacity, {
             toValue: 1,
-            duration: Math.min(pauseMs * 0.6, 400),
+            duration: Math.min(effectivePauseMs * 0.6, 400),
             easing: Easing.out(Easing.quad),
             useNativeDriver: true,
           }).start();
@@ -1005,7 +1026,7 @@ export function PackOpeningModal({
             setTimeout(() => {
               if (!active.current) return;
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
-            }, pauseMs * 0.4);
+            }, effectivePauseMs * 0.4);
           }
 
           // Legendary particles fire at ~60% through the pause
@@ -1013,7 +1034,7 @@ export function PackOpeningModal({
             setTimeout(() => {
               if (!active.current) return;
               fireParticles();
-            }, pauseMs * 0.55);
+            }, effectivePauseMs * 0.55);
           }
         }
 
@@ -1042,14 +1063,14 @@ export function PackOpeningModal({
               startRarityReveal();
             });
           });
-        }, pauseMs);
+        }, effectivePauseMs);
 
         return () => clearTimeout(t);
       });
     } catch {
       skipToFinal();
     }
-  }, [rarity, pauseMs]);
+  }, [rarity, effectivePauseMs]);
 
   // ── Legendary particle burst ──
   const fireParticles = useCallback(() => {
@@ -1245,18 +1266,19 @@ export function PackOpeningModal({
                   }}
                 >
                   {/* Irregular tear line glow — SVG polyline revealed left→right via clip */}
+                  {/* Positioned in center 70% of pack width so edges stay clean */}
                   <Animated.View
                     pointerEvents="none"
                     style={{
                       position: 'absolute',
                       top: TEAR_BASE_Y - 10,
-                      left: 0,
-                      width: CARD_W,
+                      left: TEAR_MARGIN,
+                      width: TEAR_LINE_W,
                       height: SVG_H,
                       opacity: innerGlow,
                     }}
                   >
-                    <Svg width={CARD_W} height={SVG_H} style={{ overflow: 'visible' }}>
+                    <Svg width={TEAR_LINE_W} height={SVG_H} style={{ overflow: 'visible' }}>
                       <Defs>
                         <ClipPath id="tearClip">
                           <Rect x={0} y={-10} width={tearClipW} height={SVG_H + 20} />
