@@ -26,7 +26,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useLanguage, useUser, useAppStore } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi } from '@/lib/gamification-api';
-import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard, RARITY_CONFIG, type CardRarity, getEventSetCards } from '@/lib/biblical-cards';
+import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard, RARITY_CONFIG, type CardRarity, getEventSetCards, SECRET_REWARD_IDS } from '@/lib/biblical-cards';
 import { CollectibleCardVisual } from '@/components/CardRevealModal';
 import { CollectionCompleteModal } from '@/components/CollectionCompleteModal';
 import { preloadOwnedCardImages } from '@/lib/card-image-preload';
@@ -45,7 +45,7 @@ const CARD_W = (SCREEN_W - 40 - CARD_GAP) / COLS;
 const CARD_H = CARD_W * 1.5;
 
 // Collection type
-type ActiveCollection = 'inicial' | 'pascua' | null;
+type ActiveCollection = 'inicial' | 'pascua' | 'secretas' | null;
 
 // ─────────────────────────────────────────────
 // NOVEDAD scrolling ticker — runs inside album hub cards
@@ -668,6 +668,9 @@ export default function BiblicalCardsAlbumScreen() {
   // Pascua 2026 event cards in chronological order
   const pascuaCards = getEventSetCards('pascua_2026');
 
+  // Secret reward cards (albumGroup: 'secret_rewards')
+  const secretCardIds = SECRET_REWARD_IDS;
+
   // ── Collection completion detection ─────────────────────────────────────────
   // Runs whenever cardInventory changes. If the pascua collection just became
   // complete and the reward hasn't been claimed yet, call the backend once and
@@ -723,7 +726,12 @@ export default function BiblicalCardsAlbumScreen() {
     return entry?.owned ?? false;
   }).length;
 
-  // Overall progress (all collections combined) for the global header bar
+  const secretOwnedCount = secretCardIds.filter((id) => {
+    const entry = cardInventory.find((c) => c.cardId === id);
+    return entry?.owned ?? false;
+  }).length;
+
+  // Overall progress — only standard + pascua collections (secret cards are a bonus)
   const totalAllCards = standardCardIds.length + pascuaCards.length;
   const ownedAllCards = standardOwnedCount + pascuaOwnedCount;
 
@@ -737,8 +745,40 @@ export default function BiblicalCardsAlbumScreen() {
     ? pascuaCards.filter((c) => c.rarity === rarityFilter)
     : pascuaCards;
 
-  // Count of new (unseen) cards in current collection view
-  const newCardCount = cardInventory.filter((c) => c.isNew && c.owned).length;
+  // Filtered secret cards based on rarity selector
+  const filteredSecretIds = rarityFilter
+    ? secretCardIds.filter((id) => BIBLICAL_CARDS[id]?.rarity === rarityFilter)
+    : secretCardIds;
+
+  // New card counts scoped to each collection
+  const newStandardCount = cardInventory.filter((c) => c.isNew && c.owned && standardCardIds.includes(c.cardId)).length;
+  const newPascuaCount = cardInventory.filter((c) => c.isNew && c.owned && pascuaCards.some((p) => p.id === c.cardId)).length;
+  const newSecretCount = cardInventory.filter((c) => c.isNew && c.owned && secretCardIds.includes(c.cardId)).length;
+
+  // New count for the currently-open collection
+  const newCardCount = activeCollection === 'inicial'
+    ? newStandardCount
+    : activeCollection === 'pascua'
+      ? newPascuaCount
+      : activeCollection === 'secretas'
+        ? newSecretCount
+        : 0;
+
+  // First new card in current collection — used by banner tap
+  const firstNewCardInCollection: BiblicalCard | null = (() => {
+    if (activeCollection === 'inicial') {
+      const id = standardCardIds.find((id) => cardInventory.find((c) => c.cardId === id && c.isNew && c.owned));
+      return id ? (BIBLICAL_CARDS[id] ?? null) : null;
+    }
+    if (activeCollection === 'pascua') {
+      return pascuaCards.find((card) => cardInventory.find((c) => c.cardId === card.id && c.isNew && c.owned)) ?? null;
+    }
+    if (activeCollection === 'secretas') {
+      const id = secretCardIds.find((id) => cardInventory.find((c) => c.cardId === id && c.isNew && c.owned));
+      return id ? (BIBLICAL_CARDS[id] ?? null) : null;
+    }
+    return null;
+  })();
 
   const openCard = useCallback((card: BiblicalCard) => {
     const { owned, duplicates, isNew } = getCardStatus(card.id);
@@ -772,13 +812,17 @@ export default function BiblicalCardsAlbumScreen() {
     ? 'Colección Inicial'
     : activeCollection === 'pascua'
       ? 'Historia de Pascua'
-      : (language === 'es' ? 'Álbum Bíblico' : 'Biblical Album');
+      : activeCollection === 'secretas'
+        ? (language === 'es' ? 'Cartas Secretas' : 'Secret Cards')
+        : (language === 'es' ? 'Álbum Bíblico' : 'Biblical Album');
 
   const headerSubtitle = activeCollection === 'inicial'
     ? `${standardOwnedCount} / ${standardCardIds.length} ${language === 'es' ? 'cartas' : 'cards'}`
     : activeCollection === 'pascua'
       ? `${pascuaOwnedCount} / ${pascuaCards.length} ${language === 'es' ? 'cartas' : 'cards'}`
-      : `${ownedAllCards} / ${totalAllCards} ${language === 'es' ? 'cartas' : 'cards'}`;
+      : activeCollection === 'secretas'
+        ? `${secretOwnedCount} / ${secretCardIds.length} ${language === 'es' ? 'cartas' : 'cards'}`
+        : `${ownedAllCards} / ${totalAllCards} ${language === 'es' ? 'cartas' : 'cards'}`;
 
   // Overall progress for the header bar
   const progressPct = totalAllCards > 0 ? (ownedAllCards / totalAllCards) * 100 : 0;
@@ -939,7 +983,7 @@ export default function BiblicalCardsAlbumScreen() {
           </Animated.View>
 
           {/* Collection card — Historia de Pascua */}
-          <Animated.View entering={FadeInDown.delay(180).duration(380)}>
+          <Animated.View entering={FadeInDown.delay(180).duration(380)} style={{ marginBottom: 16 }}>
             <Pressable
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -1031,6 +1075,108 @@ export default function BiblicalCardsAlbumScreen() {
               </LinearGradient>
             </Pressable>
           </Animated.View>
+
+          {/* Collection card — Cartas Secretas */}
+          <Animated.View entering={FadeInDown.delay(280).duration(380)} style={{ marginTop: 16 }}>
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setActiveCollection('secretas');
+              }}
+            >
+              <LinearGradient
+                colors={['#1A1200', '#0E0C00', '#0A0800']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  borderRadius: 18,
+                  borderWidth: 1.5,
+                  borderColor: 'rgba(212,175,55,0.45)',
+                  overflow: 'hidden',
+                  shadowColor: '#D4AF37',
+                  shadowOpacity: 0.45,
+                  shadowRadius: 14,
+                  shadowOffset: { width: 0, height: 4 },
+                  elevation: 10,
+                }}
+              >
+                {/* Gold diagonal sheen */}
+                <LinearGradient
+                  colors={['rgba(212,175,55,0.14)', 'transparent', 'rgba(212,175,55,0.07)']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                />
+                {/* Shimmer line */}
+                <View style={{ position: 'absolute', top: 0, left: 24, right: 24, height: 1, backgroundColor: 'rgba(212,175,55,0.30)', borderRadius: 99 }} />
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
+                  {/* Icon */}
+                  <View style={{
+                    width: 56, height: 56, borderRadius: 16,
+                    backgroundColor: 'rgba(212,175,55,0.15)',
+                    borderWidth: 1.5, borderColor: 'rgba(212,175,55,0.45)',
+                    alignItems: 'center', justifyContent: 'center', marginRight: 16,
+                  }}>
+                    <Text style={{ fontSize: 28 }}>✦</Text>
+                  </View>
+
+                  {/* Text */}
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFE566', letterSpacing: -0.3, marginBottom: 3 }}>
+                      {language === 'es' ? 'Cartas Secretas' : 'Secret Cards'}
+                    </Text>
+                    <Text style={{ fontSize: sFont(13), color: 'rgba(212,175,55,0.60)', marginBottom: 10 }}>
+                      {language === 'es'
+                        ? 'Recompensas por completar colecciones'
+                        : 'Rewards for completing collections'}
+                    </Text>
+                    {/* Owned count */}
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                      <View style={{
+                        paddingHorizontal: 9, paddingVertical: 3,
+                        borderRadius: 99,
+                        backgroundColor: secretOwnedCount > 0 ? 'rgba(212,175,55,0.20)' : 'rgba(255,255,255,0.06)',
+                        borderWidth: 1,
+                        borderColor: secretOwnedCount > 0 ? 'rgba(212,175,55,0.50)' : 'rgba(255,255,255,0.12)',
+                      }}>
+                        <Text style={{ fontSize: sFont(11), fontWeight: '700', color: secretOwnedCount > 0 ? '#D4AF37' : 'rgba(255,255,255,0.35)' }}>
+                          {secretOwnedCount > 0
+                            ? `${secretOwnedCount} / ${secretCardIds.length} ${language === 'es' ? 'cartas' : 'cards'}`
+                            : (language === 'es' ? 'Bloqueadas' : 'Locked')}
+                        </Text>
+                      </View>
+                      {newSecretCount > 0 && (
+                        <View style={{
+                          paddingHorizontal: 8, paddingVertical: 3,
+                          borderRadius: 99,
+                          backgroundColor: 'rgba(212,175,55,0.25)',
+                          borderWidth: 1, borderColor: 'rgba(212,175,55,0.60)',
+                        }}>
+                          <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFE566' }}>
+                            ✨ {language === 'es' ? 'Nueva' : 'New'}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                    {/* Progress bar (only if unlocked) */}
+                    {secretOwnedCount > 0 && (
+                      <View style={{ height: 3, backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 99, overflow: 'hidden' }}>
+                        <View style={{
+                          width: `${secretCardIds.length > 0 ? (secretOwnedCount / secretCardIds.length) * 100 : 0}%`,
+                          height: '100%', borderRadius: 99,
+                          backgroundColor: '#D4AF37',
+                        }} />
+                      </View>
+                    )}
+                  </View>
+
+                  {/* Chevron */}
+                  <ChevronRight size={22} color="rgba(212,175,55,0.55)" style={{ marginLeft: 10 }} />
+                </View>
+              </LinearGradient>
+            </Pressable>
+          </Animated.View>
         </ScrollView>
       ) : (
         // ══════════════════════════════════════════════════════════════════
@@ -1087,35 +1233,41 @@ export default function BiblicalCardsAlbumScreen() {
             })}
           </Animated.View>
 
-          {/* ── Card grid ───────────────────────────────────────────────── */}
-          {/* New cards banner */}
+          {/* New cards banner — tappable, opens first new card directly */}
           {newCardCount > 0 && (
             <Animated.View entering={FadeIn.duration(300)} style={{ marginBottom: 16 }}>
-              <LinearGradient
-                colors={['rgba(212,175,55,0.18)', 'rgba(212,175,55,0.08)']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  borderRadius: 14,
-                  paddingHorizontal: 16,
-                  paddingVertical: 12,
-                  borderWidth: 1,
-                  borderColor: 'rgba(212,175,55,0.35)',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 10,
+              <Pressable
+                onPress={() => {
+                  if (firstNewCardInCollection) {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                    openCard(firstNewCardInCollection);
+                  }
                 }}
               >
-                <Text style={{ fontSize: 18 }}>✨</Text>
-                <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#F5D060', flex: 1 }}>
-                  {language === 'es'
-                    ? `${newCardCount} carta${newCardCount !== 1 ? 's' : ''} nueva${newCardCount !== 1 ? 's' : ''} descubierta${newCardCount !== 1 ? 's' : ''}`
-                    : `${newCardCount} new card${newCardCount !== 1 ? 's' : ''} discovered`}
-                </Text>
-                <Text style={{ fontSize: sFont(11), color: 'rgba(245,208,96,0.60)' }}>
-                  {language === 'es' ? 'Toca para ver' : 'Tap to view'}
-                </Text>
-              </LinearGradient>
+                <LinearGradient
+                  colors={['rgba(212,175,55,0.22)', 'rgba(212,175,55,0.10)']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{
+                    borderRadius: 14,
+                    paddingHorizontal: 16,
+                    paddingVertical: 12,
+                    borderWidth: 1,
+                    borderColor: 'rgba(212,175,55,0.40)',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 10,
+                  }}
+                >
+                  <Text style={{ fontSize: 18 }}>✨</Text>
+                  <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#F5D060', flex: 1 }}>
+                    {language === 'es'
+                      ? `${newCardCount} carta${newCardCount !== 1 ? 's' : ''} nueva${newCardCount !== 1 ? 's' : ''} descubierta${newCardCount !== 1 ? 's' : ''}`
+                      : `${newCardCount} new card${newCardCount !== 1 ? 's' : ''} discovered`}
+                  </Text>
+                  <ChevronRight size={16} color="rgba(245,208,96,0.70)" strokeWidth={2.5} />
+                </LinearGradient>
+              </Pressable>
             </Animated.View>
           )}
           {activeCollection === 'inicial' ? (
@@ -1141,7 +1293,7 @@ export default function BiblicalCardsAlbumScreen() {
                 );
               })}
             </View>
-          ) : (
+          ) : activeCollection === 'pascua' ? (
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: CARD_GAP }}>
               {filteredPascuaCards.map((card, index) => {
                 const { owned, duplicates, isNew } = getCardStatus(card.id);
@@ -1161,6 +1313,45 @@ export default function BiblicalCardsAlbumScreen() {
                   />
                 );
               })}
+            </View>
+          ) : (
+            /* secretas */
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: CARD_GAP }}>
+              {filteredSecretIds.length === 0 ? (
+                /* Empty state — no secret cards owned yet */
+                <View style={{ width: '100%', alignItems: 'center', paddingVertical: 48, gap: 12 }}>
+                  <Text style={{ fontSize: 40 }}>🔒</Text>
+                  <Text style={{ fontSize: sFont(16), fontWeight: '700', color: 'rgba(255,255,255,0.55)', textAlign: 'center' }}>
+                    {language === 'es' ? 'Aún no tienes cartas secretas' : 'No secret cards yet'}
+                  </Text>
+                  <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.35)', textAlign: 'center', lineHeight: 20 }}>
+                    {language === 'es'
+                      ? 'Completa una colección para desbloquear\nuna carta legendaria secreta.'
+                      : 'Complete a collection to unlock\na secret legendary card.'}
+                  </Text>
+                </View>
+              ) : (
+                filteredSecretIds.map((cardId, index) => {
+                  const card = BIBLICAL_CARDS[cardId];
+                  if (!card) return null;
+                  const { owned, duplicates, isNew } = getCardStatus(cardId);
+                  return (
+                    <StandardCardThumbnail
+                      key={cardId}
+                      card={card}
+                      owned={owned}
+                      duplicates={duplicates}
+                      isNew={isNew}
+                      cardW={CARD_W}
+                      cardH={CARD_H}
+                      onPress={() => openCard(card)}
+                      sFont={sFont}
+                      language={language}
+                      index={index}
+                    />
+                  );
+                })
+              )}
             </View>
           )}
         </ScrollView>
@@ -1302,7 +1493,7 @@ export default function BiblicalCardsAlbumScreen() {
           onClose={() => setCollectionRewardModal(null)}
           onViewAlbum={() => {
             setCollectionRewardModal(null);
-            setActiveCollection('pascua');
+            setActiveCollection('secretas');
           }}
         />
       )}

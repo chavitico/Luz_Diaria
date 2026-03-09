@@ -17,6 +17,13 @@ export interface BiblicalCard {
    * Set to false for special / event / legendary-only cards.
    */
   inStandardPool: boolean;
+  /**
+   * Album grouping — determines which collection tab the card appears in.
+   *   'starter'       → Colección Inicial
+   *   'pascua_2026'   → Historia de Pascua
+   *   'secret_rewards'→ Cartas Secretas (reward-only, not in any pack)
+   */
+  albumGroup: 'starter' | 'pascua_2026' | 'secret_rewards';
   // ── Event metadata (optional) ────────────────────────────────────────────
   /** Slug for the event this card belongs to, e.g. "pascua" */
   event?: string;
@@ -93,6 +100,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Personajes',
     rarity: 'rare',
     inStandardPool: true,
+    albumGroup: 'starter',
     descriptionEs: 'Pastor, músico, guerrero y rey. David venció a Goliat y fue llamado un hombre conforme al corazón de Dios.',
     descriptionEn: 'Shepherd, musician, warrior and king. David defeated Goliath and was called a man after God\'s own heart.',
     verseRef: 'Hechos 13:22',
@@ -125,6 +133,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Personajes',
     rarity: 'rare',
     inStandardPool: true,
+    albumGroup: 'starter',
     descriptionEs: 'Dios lo llamó desde la zarza ardiente para sacar a Israel de Egipto y guiarlo hacia la libertad.',
     descriptionEn: 'God called him from the burning bush to lead Israel out of Egypt toward freedom.',
     verseRef: 'Éxodo 3:10',
@@ -154,6 +163,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Objetos',
     rarity: 'rare',
     inStandardPool: true,
+    albumGroup: 'starter',
     descriptionEs: 'El arca preservó a Noé, su familia y la vida animal durante el diluvio.',
     descriptionEn: 'The ark preserved Noah, his family and animal life through the flood.',
     verseRef: 'Génesis 6:14',
@@ -183,6 +193,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Objetos',
     rarity: 'epic',
     inStandardPool: true,
+    albumGroup: 'starter',
     descriptionEs: 'La Palabra de Dios es llamada la espada del Espíritu, un arma espiritual para la verdad y la victoria.',
     descriptionEn: 'The Word of God is called the sword of the Spirit — a spiritual weapon for truth and victory.',
     verseRef: 'Efesios 6:17',
@@ -212,6 +223,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Objetos',
     rarity: 'rare',
     inStandardPool: true,
+    albumGroup: 'starter',
     descriptionEs: 'David tocaba el arpa y Saúl hallaba alivio. Su música ministraba paz en tiempos de tormento.',
     descriptionEn: "David played the harp and Saul found relief. His music ministered peace in times of torment.",
     verseRef: '1 Samuel 16:23',
@@ -241,6 +253,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'epic',
     inStandardPool: true,
+    albumGroup: 'starter',
     descriptionEs: 'Dios se manifestó a Moisés en una zarza que ardía sin consumirse.',
     descriptionEn: 'God revealed Himself to Moses in a bush that burned without being consumed.',
     verseRef: 'Éxodo 3:2',
@@ -275,6 +288,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Personajes',
     rarity: 'legendary',
     inStandardPool: false,
+    albumGroup: 'starter',
     descriptionEs: 'Jesús es el Hijo de Dios, Salvador y Rey de Reyes. En Él hay vida, redención y victoria eterna.',
     descriptionEn: 'Jesus is the Son of God, Savior and King of Kings. In Him there is life, redemption, and eternal victory.',
     verseRef: 'Apocalipsis 19:16',
@@ -306,6 +320,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'rare',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 1,
@@ -339,6 +354,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Objetos',
     rarity: 'common',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 2,
@@ -372,6 +388,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'epic',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 3,
@@ -405,6 +422,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'epic',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 4,
@@ -438,6 +456,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Personajes',
     rarity: 'rare',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 5,
@@ -471,6 +490,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'common',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 6,
@@ -504,6 +524,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Personajes',
     rarity: 'rare',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 7,
@@ -537,6 +558,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Personajes',
     rarity: 'common',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 8,
@@ -570,6 +592,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'common',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 9,
@@ -603,6 +626,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'legendary',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 10,
@@ -636,6 +660,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'epic',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 11,
@@ -669,6 +694,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'rare',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 12,
@@ -702,6 +728,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Eventos',
     rarity: 'legendary',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 13,
@@ -738,6 +765,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Personajes',
     rarity: 'legendary',
     inStandardPool: false,
+    albumGroup: 'secret_rewards',
     // Not part of the event set pool (reward-only)
     descriptionEs: 'Jesús venció a la muerte y se apareció a sus discípulos glorificado. Su resurrección es el fundamento de la fe cristiana.',
     descriptionEn: 'Jesus conquered death and appeared to His disciples in glory. His resurrection is the foundation of the Christian faith.',
@@ -767,6 +795,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     category: 'Personajes',
     rarity: 'rare',
     inStandardPool: false,
+    albumGroup: 'pascua_2026',
     event: 'pascua',
     eventSet: 'pascua_2026',
     eventOrder: 14,
@@ -818,4 +847,14 @@ export function getEventSetCards(eventSet: string): BiblicalCard[] {
 
 export function getCard(id: string): BiblicalCard | undefined {
   return BIBLICAL_CARDS[id];
+}
+
+/** Cards that live in the Cartas Secretas album group */
+export const SECRET_REWARD_IDS = Object.values(BIBLICAL_CARDS)
+  .filter((c) => c.albumGroup === 'secret_rewards')
+  .map((c) => c.id);
+
+/** Returns all cards for a given albumGroup */
+export function getAlbumGroupCards(group: BiblicalCard['albumGroup']): BiblicalCard[] {
+  return Object.values(BIBLICAL_CARDS).filter((c) => c.albumGroup === group);
 }

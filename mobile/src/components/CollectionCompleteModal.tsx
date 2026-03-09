@@ -299,7 +299,7 @@ export function CollectionCompleteModal({
                       }}
                     >
                       <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#1A1200' }}>
-                        {language === 'es' ? 'Ver mi álbum' : 'View my album'}
+                        {language === 'es' ? 'Ver carta secreta' : 'View secret card'}
                       </Text>
                       <ChevronRight size={16} color="#1A1200" strokeWidth={3} />
                     </LinearGradient>
