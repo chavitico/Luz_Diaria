@@ -16,6 +16,7 @@ import { giftsRouter } from "./routes/gifts";
 import { storeGiftsRouter } from "./routes/store-gifts";
 import { adminRouter } from "./routes/admin-users";
 import { adminBackupRouter } from "./routes/admin-backup";
+import { imageGenRouter } from "./routes/image-gen";
 import { startDevotionalCron } from "./cron";
 import { initializeWeeklyChallenges } from "./weekly-challenges";
 import { seedPromoCodes } from "./seed-promo-codes";
@@ -65,6 +66,7 @@ app.route("/api/gifts", giftsRouter);
 app.route("/api/store", storeGiftsRouter);
 app.route("/api/admin", adminRouter);
 app.route("/api/admin/backups", adminBackupRouter);
+app.route("/api/image-gen", imageGenRouter);
 
 // Prod guard: block any request to reset/nuke endpoints
 app.all("/api/admin/reset*", (c) => {

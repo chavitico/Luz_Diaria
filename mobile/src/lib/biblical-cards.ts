@@ -815,6 +815,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['stone jars', 'water', 'wine', 'Cana wedding'],
     gradientColors: ['#1A0533', '#3D0F6E', '#6B21A8'],
     accentColor: '#C084FC',
+    imageUrl: 'https://cyhkwpexhorr.dev.vibecode.run/cards/milagros/agua_en_vino.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '🍷', subtitleEs: 'Caná de Galilea', subtitleEn: 'Cana of Galilee', artEmoji: '🍷', decorSymbols: ['🏺', '✦', '🍇'], sheenColors: ['rgba(192,132,252,0.25)', 'rgba(107,33,168,0.08)'], cornerGlyph: '✦' },
   },
   pesca_milagrosa: {
@@ -1213,6 +1216,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Jesus on water', 'Peter sinking', 'storm', 'waves', 'boat'],
     gradientColors: ['#020A14', '#041525', '#071F38'],
     accentColor: '#60A5FA',
+    imageUrl: 'https://cyhkwpexhorr.dev.vibecode.run/cards/milagros/caminar_agua.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.38,
     motif: { topSymbol: '🌊', subtitleEs: 'Fe sobre las Aguas', subtitleEn: 'Faith on the Waters', artEmoji: '🌊', decorSymbols: ['🌊', '✦', '⚡'], sheenColors: ['rgba(96,165,250,0.35)', 'rgba(7,31,56,0.10)'], cornerGlyph: '✦' },
   },
   ciego_nacimiento: {
@@ -1369,6 +1375,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['tomb entrance', 'burial cloths', 'Lazarus emerging', 'crowd', 'Martha Mary weeping'],
     gradientColors: ['#0A0A20', '#141440', '#1E1E60'],
     accentColor: '#C084FC',
+    imageUrl: 'https://cyhkwpexhorr.dev.vibecode.run/cards/milagros/resurreccion_lazaro.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.35,
     motif: { topSymbol: '✦', subtitleEs: '¡Lázaro, Ven Fuera!', subtitleEn: 'Lazarus, Come Forth!', artEmoji: '💜', decorSymbols: ['💜', '✦', '⚡'], sheenColors: ['rgba(192,132,252,0.45)', 'rgba(30,30,96,0.12)'], cornerGlyph: '✦' },
   },
   transfiguracion: {
