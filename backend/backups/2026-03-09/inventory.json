@@ -1445,7 +1445,7 @@
     "id": "cmmi3s8n1001rm25qgzaid6io",
     "userId": "cmm9yc1nx000sm29qq8qeoai9",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-08T20:12:52.128Z",
+    "acquiredAt": "2026-03-09T14:29:06.481Z",
     "source": "store"
   },
   {
@@ -1466,7 +1466,7 @@
     "id": "cmmirjch80017m2ocpc80zwml",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "pack_milagros",
-    "acquiredAt": "2026-03-09T12:57:25.949Z",
+    "acquiredAt": "2026-03-09T14:00:14.950Z",
     "source": "store"
   },
   {
@@ -1475,5 +1475,12 @@
     "itemId": "pack_milagros",
     "acquiredAt": "2026-03-09T09:04:59.681Z",
     "source": "store"
+  },
+  {
+    "id": "cmmj9l8yj001km26ybnkalwyd",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "badge_portador_esperanza",
+    "acquiredAt": "2026-03-09T14:16:26.780Z",
+    "source": "achievement"
   }
 ]

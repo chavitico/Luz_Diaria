@@ -242,6 +242,8 @@ const PACK_ASSETS: Record<PackType, {
   pack: ImageSourcePropType;
   cardBack: ImageSourcePropType;
   glowColor: string;
+  /** If true, pack image has transparent background (PNG) — no border radius applied */
+  transparent?: boolean;
 }> = {
   sobre_biblico: {
     pack:     require('../../assets/packs/sobre_biblico_pack.jpg') as ImageSourcePropType,
@@ -249,9 +251,10 @@ const PACK_ASSETS: Record<PackType, {
     glowColor: '#D4A017',
   },
   pack_pascua: {
-    pack:     require('../../assets/packs/pack_pascua_pack.jpg') as ImageSourcePropType,
+    pack:     require('../../assets/packs/pack_pascua_pack.png') as ImageSourcePropType,
     cardBack: require('../../assets/packs/pack_pascua_card_back.jpg') as ImageSourcePropType,
     glowColor: '#FFD700',
+    transparent: true,
   },
   pack_milagros: {
     pack:     require('../../assets/packs/pack_milagros_pack.jpg') as ImageSourcePropType,
@@ -295,15 +298,17 @@ function PackVisual({
       <Image
         source={assets.pack}
         style={{ position: 'absolute', width: CARD_W, height: CARD_H }}
-        resizeMode="cover"
+        resizeMode={assets.transparent ? 'contain' : 'cover'}
       />
-      {/* Foil sheen overlay */}
-      <LinearGradient
-        colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.03)', 'transparent']}
-        start={{ x: 0.1, y: 0 }}
-        end={{ x: 0.9, y: 1 }}
-        style={{ position: 'absolute', inset: 0 }}
-      />
+      {/* Foil sheen overlay — skip for transparent packs */}
+      {!assets.transparent && (
+        <LinearGradient
+          colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.03)', 'transparent']}
+          start={{ x: 0.1, y: 0 }}
+          end={{ x: 0.9, y: 1 }}
+          style={{ position: 'absolute', inset: 0 }}
+        />
+      )}
     </Animated.View>
   );
 }
@@ -530,7 +535,7 @@ export function PackOpeningModal({
   const [cardFace, setCardFace] = useState<'back' | 'front'>('back');
 
   // Irregular tear line — SVG clip width (0→CARD_W), driven by tearProgress listener
-  const TEAR_BASE_Y = CARD_H * 0.30;  // ~30% down — matches actual pack seal/crimp in artwork
+  const TEAR_BASE_Y = CARD_H * 0.22;  // ~22% down — midpoint between original and previous position
   const SVG_H = 20; // SVG container height; center line at y=10
   const tearPointsAbs  = useRef(generateTearPoints(CARD_W, TEAR_BASE_Y)).current;
   const tearPointsLocal = useRef(translateTearPoints(tearPointsAbs, TEAR_BASE_Y, 10)).current;
@@ -823,7 +828,7 @@ export function PackOpeningModal({
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
 
     // Envelope tear: top flap flies up, body stays, then flash + card
-    const FLAP_H = CARD_H * 0.30; // height of the top flap — matches TEAR_BASE_Y
+    const FLAP_H = CARD_H * 0.22; // height of the top flap — matches TEAR_BASE_Y
     Animated.parallel([
       // Flap flies up and off screen
       Animated.timing(flapTranslateY, { toValue: -(CARD_H * 0.6), duration: 360, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
@@ -1271,21 +1276,21 @@ export function PackOpeningModal({
                       height: CARD_H,
                       opacity: packBodyOpacity,
                       overflow: 'hidden',
-                      borderRadius: 20,
+                      borderRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
                     }}
                   >
                     {/* Clip to show only below tear line */}
                     <View style={{
                       position: 'absolute',
-                      top: CARD_H * 0.30,
+                      top: CARD_H * 0.22,
                       left: 0,
                       right: 0,
                       bottom: 0,
                       overflow: 'hidden',
-                      borderBottomLeftRadius: 20,
-                      borderBottomRightRadius: 20,
+                      borderBottomLeftRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
+                      borderBottomRightRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
                     }}>
-                      <View style={{ width: CARD_W, height: CARD_H, marginTop: -(CARD_H * 0.30) }}>
+                      <View style={{ width: CARD_W, height: CARD_H, marginTop: -(CARD_H * 0.22) }}>
                         <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
                       </View>
                     </View>
@@ -1309,7 +1314,7 @@ export function PackOpeningModal({
                         },
                       ],
                       overflow: 'hidden',
-                      borderRadius: 20,
+                      borderRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
                     }}
                   >
                     {/* Clip to show only above tear line */}
@@ -1318,10 +1323,10 @@ export function PackOpeningModal({
                       top: 0,
                       left: 0,
                       right: 0,
-                      height: CARD_H * 0.30,
+                      height: CARD_H * 0.22,
                       overflow: 'hidden',
-                      borderTopLeftRadius: 20,
-                      borderTopRightRadius: 20,
+                      borderTopLeftRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
+                      borderTopRightRadius: PACK_ASSETS[packType].transparent ? 0 : 20,
                     }}>
                       <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
                     </View>

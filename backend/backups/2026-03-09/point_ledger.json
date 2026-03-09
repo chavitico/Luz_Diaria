@@ -1658,5 +1658,25 @@
     "amount": 200,
     "metadata": "{\"streakDays\":7}",
     "createdAt": "2026-03-09T13:08:38.270Z"
+  },
+  {
+    "id": "cmmja2r7m0026m26y36h8yl8q",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "prayed_community_2026-03-09",
+    "type": "prayed_community",
+    "dateId": "2026-03-09",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-09T14:30:03.587Z"
+  },
+  {
+    "id": "cmmja6tft0028m26y45skwl0f",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "share_2026-03-09_1",
+    "type": "share",
+    "dateId": "2026-03-09",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-09T14:33:13.097Z"
   }
 ]
