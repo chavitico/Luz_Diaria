@@ -23,11 +23,12 @@ import { ChevronLeft, ChevronRight, X, BookOpen, Copy, Star } from 'lucide-react
 import { useRouter } from 'expo-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { useLanguage, useUser } from '@/lib/store';
+import { useLanguage, useUser, useAppStore } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi } from '@/lib/gamification-api';
 import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard, RARITY_CONFIG, type CardRarity, getEventSetCards } from '@/lib/biblical-cards';
 import { CollectibleCardVisual } from '@/components/CardRevealModal';
+import { CollectionCompleteModal } from '@/components/CollectionCompleteModal';
 import { preloadOwnedCardImages } from '@/lib/card-image-preload';
 import {
   downloadCollection,
@@ -611,11 +612,22 @@ export default function BiblicalCardsAlbumScreen() {
     };
   }, []);
 
+  const updateUser = useAppStore((s) => s.updateUser);
+
   const [selectedCard, setSelectedCard] = useState<BiblicalCard | null>(null);
   const [selectedDuplicates, setSelectedDuplicates] = useState<number>(0);
   const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
   // null = show all rarities
   const [rarityFilter, setRarityFilter] = useState<CardRarity | null>(null);
+
+  // ── Collection completion reward state ──────────────────────────────────────
+  const [collectionRewardModal, setCollectionRewardModal] = useState<{
+    collectionName: string;
+    secretCardId: string;
+    bonusPoints: number;
+  } | null>(null);
+  // Tracks which collections we've already tried to claim this session (avoids repeat API calls)
+  const claimedThisSession = useRef<Set<string>>(new Set());
 
   const queryClient = useQueryClient();
 
@@ -655,6 +667,50 @@ export default function BiblicalCardsAlbumScreen() {
 
   // Pascua 2026 event cards in chronological order
   const pascuaCards = getEventSetCards('pascua_2026');
+
+  // ── Collection completion detection ─────────────────────────────────────────
+  // Runs whenever cardInventory changes. If the pascua collection just became
+  // complete and the reward hasn't been claimed yet, call the backend once and
+  // show the celebration modal.
+  const PASCUA_CARD_IDS = pascuaCards.map((c) => c.id);
+  useEffect(() => {
+    if (!userId || cardInventory.length === 0) return;
+    const ownedIds = cardInventory.filter((c) => c.owned).map((c) => c.cardId);
+    const allPascuaOwned = PASCUA_CARD_IDS.every((id) => ownedIds.includes(id));
+    if (!allPascuaOwned) return;
+    // Skip if already triggered this session
+    if (claimedThisSession.current.has('pascua_2026')) return;
+    // Skip if user already has the secret card (means reward was previously granted)
+    if (ownedIds.includes('jesus_resucitado')) return;
+    // Mark as attempted so we don't re-fire
+    claimedThisSession.current.add('pascua_2026');
+    // Call backend to grant reward
+    gamificationApi.claimCollectionCardReward({
+      userId,
+      collectionId: 'pascua_2026',
+      ownedCardIds: ownedIds,
+    }).then((result) => {
+      if (result.alreadyClaimed) return; // Silently ignore — already got it
+      if (result.success && result.secretCardId) {
+        // Refresh card inventory so the new card appears
+        queryClient.invalidateQueries({ queryKey: ['biblical-cards', userId] });
+        // Award points in local state
+        if (result.pointsAwarded) {
+          updateUser({ points: (useAppStore.getState().user?.points ?? 0) + result.pointsAwarded });
+        }
+        // Show celebration modal
+        setCollectionRewardModal({
+          collectionName: language === 'es' ? 'Historia de Pascua' : 'Easter Story',
+          secretCardId: result.secretCardId,
+          bonusPoints: result.pointsAwarded ?? 1000,
+        });
+      }
+    }).catch(() => {
+      // Silently fail — don't break the user experience
+      claimedThisSession.current.delete('pascua_2026');
+    });
+  }, [cardInventory, userId]);
+  // ────────────────────────────────────────────────────────────────────────────
 
   // Counts
   const standardOwnedCount = standardCardIds.filter((id) => {
@@ -1235,6 +1291,21 @@ export default function BiblicalCardsAlbumScreen() {
           )}
         </View>
       </Modal>
+
+      {/* ── Collection Completion Reward Modal ─────────────────────────── */}
+      {collectionRewardModal && (
+        <CollectionCompleteModal
+          visible={!!collectionRewardModal}
+          collectionName={collectionRewardModal.collectionName}
+          secretCardId={collectionRewardModal.secretCardId}
+          bonusPoints={collectionRewardModal.bonusPoints}
+          onClose={() => setCollectionRewardModal(null)}
+          onViewAlbum={() => {
+            setCollectionRewardModal(null);
+            setActiveCollection('pascua');
+          }}
+        />
+      )}
     </View>
   );
 }

@@ -2827,10 +2827,130 @@ gamificationRouter.patch("/biblical-cards/:userId/:cardId/seen", async (c) => {
 });
 
 // ============================================================
-// DAILY PACK CLAIM
-// Free packs every 24h. Premium users get 2/day, free users 1/day.
-// Pack type: 'sobre_biblico' for standard, 'pack_pascua' for event.
+// COLLECTION CARD REWARD
+// One-time secret card + bonus points for completing a collection.
+// Currently supports: pascua_2026 → jesus_resucitado + 1000 pts
 // ============================================================
+
+const COLLECTION_REWARD_MAP: Record<string, { secretCardId: string; bonusPoints: number }> = {
+  pascua_2026: { secretCardId: 'jesus_resucitado', bonusPoints: 1000 },
+};
+
+// POST /biblical-cards/collection-reward
+// Idempotent: second call returns 409 with alreadyClaimed=true
+gamificationRouter.post(
+  "/biblical-cards/collection-reward",
+  zValidator("json", z.object({
+    userId:       z.string(),
+    collectionId: z.string(), // e.g. "pascua_2026"
+    ownedCardIds: z.array(z.string()), // all card IDs the user currently owns for this collection
+  })),
+  async (c) => {
+    try {
+      const { userId, collectionId, ownedCardIds } = c.req.valid("json");
+
+      // Look up reward config
+      const rewardConfig = COLLECTION_REWARD_MAP[collectionId];
+      if (!rewardConfig) {
+        return c.json({ error: "Unknown collectionId" }, 400);
+      }
+
+      // Check idempotency — has this reward already been claimed?
+      const existing = await prisma.collectionCardReward.findUnique({
+        where: { userId_collectionId: { userId, collectionId } },
+      });
+      if (existing) {
+        return c.json({ alreadyClaimed: true, secretCardId: rewardConfig.secretCardId }, 409);
+      }
+
+      // Verify user actually owns all required cards for this collection
+      const COLLECTION_CARD_IDS: Record<string, string[]> = {
+        pascua_2026: [
+          'entrada_jerusalen', 'burrito', 'ultima_cena', 'getsemani', 'judas',
+          'arresto', 'poncio_pilato', 'barrabas', 'camino_calvario', 'crucifixion',
+          'velo_rasgado', 'tumba_sellada', 'resurreccion', 'tomas',
+        ],
+      };
+      const requiredCards = COLLECTION_CARD_IDS[collectionId] ?? [];
+      const ownsAll = requiredCards.every((id) => ownedCardIds.includes(id));
+      if (!ownsAll) {
+        return c.json({ error: "Collection not yet complete" }, 400);
+      }
+
+      // Grant reward in a transaction
+      const result = await prisma.$transaction(async (tx) => {
+        // Award secret card (upsert — safe if somehow already there)
+        const secretCardId = rewardConfig.secretCardId;
+        const existingCard = await tx.biblicalCardInventory.findUnique({
+          where: { userId_cardId: { userId, cardId: secretCardId } },
+        });
+        if (!existingCard) {
+          await tx.biblicalCardInventory.create({
+            data: { userId, cardId: secretCardId, owned: true, duplicates: 0, isNew: true },
+          });
+        }
+
+        // Award bonus points
+        const user = await tx.user.update({
+          where: { id: userId },
+          data: { points: { increment: rewardConfig.bonusPoints } },
+        });
+
+        // Ledger entry
+        await tx.pointLedger.create({
+          data: {
+            userId,
+            ledgerId: `collection_card_reward_${collectionId}_${Date.now()}`,
+            type:     'collection_reward',
+            dateId:   new Date().toISOString().split('T')[0] as string,
+            amount:   rewardConfig.bonusPoints,
+            metadata: JSON.stringify({ collectionId, secretCardId }),
+          },
+        });
+
+        // Record that reward was claimed
+        await tx.collectionCardReward.create({
+          data: {
+            userId,
+            collectionId,
+            secretCardId,
+            pointsAwarded: rewardConfig.bonusPoints,
+          },
+        });
+
+        return {
+          newPoints:    user.points,
+          pointsAwarded: rewardConfig.bonusPoints,
+          secretCardId,
+        };
+      });
+
+      console.log(`[CollectionReward] User ${userId} completed ${collectionId}: awarded ${result.secretCardId} + ${result.pointsAwarded}pts`);
+      return c.json({ success: true, ...result });
+    } catch (error) {
+      console.error("[CollectionReward] Error:", error);
+      return c.json({ error: "Failed to claim collection reward" }, 500);
+    }
+  }
+);
+
+// GET /biblical-cards/collection-reward/status/:userId
+// Returns which collection card rewards this user has already claimed
+gamificationRouter.get("/biblical-cards/collection-reward/status/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const claimed = await prisma.collectionCardReward.findMany({
+      where: { userId },
+      select: { collectionId: true, secretCardId: true, pointsAwarded: true, claimedAt: true },
+    });
+    return c.json({ claimed });
+  } catch (error) {
+    console.error("[CollectionReward] Error fetching status:", error);
+    return c.json({ error: "Failed to fetch collection reward status" }, 500);
+  }
+});
+
+
 
 // GET /daily-pack/status/:userId - Check daily pack availability
 gamificationRouter.get("/daily-pack/status/:userId", async (c) => {

@@ -728,6 +728,38 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     },
   },
 
+  // ─── SECRET COLLECTION REWARD CARD ─────────────────────────────────────────
+  // This card is NOT in any pack pool. It can only be obtained by completing
+  // the Historia de Pascua collection (all 14 event cards).
+  jesus_resucitado: {
+    id: 'jesus_resucitado',
+    nameEs: 'Jesús Resucitado',
+    nameEn: 'The Risen Christ',
+    category: 'Personajes',
+    rarity: 'legendary',
+    inStandardPool: false,
+    // Not part of the event set pool (reward-only)
+    descriptionEs: 'Jesús venció a la muerte y se apareció a sus discípulos glorificado. Su resurrección es el fundamento de la fe cristiana.',
+    descriptionEn: 'Jesus conquered death and appeared to His disciples in glory. His resurrection is the foundation of the Christian faith.',
+    verseRef: 'Juan 20:17',
+    verseTextEs: 'Sube a mi Padre y a vuestro Padre, a mi Dios y a vuestro Dios.',
+    datoDestacadoEs: 'Carta secreta — obtenida completando la colección "Historia de Pascua".',
+    significadoBiblicoEs: 'La resurrección es la victoria definitiva sobre el pecado y la muerte. Cristo vive, y en Él, vivimos.',
+    visualHints: ['risen Christ', 'radiant light', 'empty tomb', 'glory', 'wounds of light'],
+    gradientColors: ['#3A1800', '#6B3000', '#FFAA00'],
+    accentColor: '#FFD700',
+    motif: {
+      topSymbol: '✦',
+      subtitleEs: 'Colección Especial',
+      subtitleEn: 'Special Collection',
+      artEmoji: '☀️',
+      decorSymbols: ['✝', '☀️', '✦'],
+      sheenColors: ['rgba(255,215,0,0.38)', 'rgba(255,140,0,0.12)'],
+      cornerGlyph: '✦',
+    },
+  },
+  // ────────────────────────────────────────────────────────────────────────────
+
   tomas: {
     id: 'tomas',
     nameEs: 'Tomás el Incrédulo',

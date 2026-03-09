@@ -401,6 +401,35 @@ export const gamificationApi = {
     }).catch(() => {}); // fire-and-forget, no throw
   },
 
+  // Collection completion card reward (one-time per user per collection)
+  async claimCollectionCardReward(params: {
+    userId: string;
+    collectionId: string;
+    ownedCardIds: string[];
+  }): Promise<{
+    success?: boolean;
+    alreadyClaimed?: boolean;
+    secretCardId?: string;
+    newPoints?: number;
+    pointsAwarded?: number;
+    error?: string;
+  }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/collection-reward`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+    });
+    return res.json();
+  },
+
+  async getCollectionCardRewardStatus(userId: string): Promise<{
+    claimed: Array<{ collectionId: string; secretCardId: string; pointsAwarded: number; claimedAt: string }>;
+  }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/collection-reward/status/${userId}`);
+    if (!res.ok) return { claimed: [] };
+    return res.json();
+  },
+
   // Challenges
   async getCurrentChallenges(): Promise<WeeklyChallenge[]> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/current`);

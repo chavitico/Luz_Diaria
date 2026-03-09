@@ -77,6 +77,7 @@ model User {
   giftsReceived          GiftTransaction[] @relation("GiftsReceived")
   sessions               UserSession[]
   biblicalCards          BiblicalCardInventory[]
+  collectionCardRewards  CollectionCardReward[]
 }
 
 model UserSession {
@@ -448,6 +449,21 @@ model BiblicalCardInventory {
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, cardId])
+  @@index([userId])
+}
+
+// Tracks which secret collection-completion card rewards have been claimed.
+// One row per user per collectionId — ensures reward is only granted once.
+model CollectionCardReward {
+  id           String   @id @default(cuid())
+  userId       String
+  collectionId String   // e.g. "pascua_2026"
+  secretCardId String   // e.g. "jesus_resucitado"
+  pointsAwarded Int     @default(0)
+  claimedAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, collectionId])
   @@index([userId])
 }
 

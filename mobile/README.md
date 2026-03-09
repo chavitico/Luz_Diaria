@@ -706,6 +706,17 @@ The app connects to a Hono backend with:
 - `GET /api/gamification/collections/claims/:userId` - Get all claimed collections for user
 - `POST /api/gamification/collections/claim` - Claim a completed collection reward (server-authoritative, one-time per user+collection)
 
+### Collection Card Reward Endpoints (Secret Card System)
+- `POST /api/gamification/biblical-cards/collection-reward` - Grant secret card + bonus points for completing a card collection (idempotent, once per user per collection)
+- `GET /api/gamification/biblical-cards/collection-reward/status/:userId` - Get list of collection card rewards already claimed by user
+
+#### Collection Card Reward Logic
+- **Trigger**: Completing all 14 cards in `pascua_2026` → grants `jesus_resucitado` (Legendary) + 1000 pts
+- **Detection**: `useEffect` in album screen watches `cardInventory` changes; fires once per session via `claimedThisSession` ref
+- **Idempotency**: `CollectionCardReward` table (unique on `userId+collectionId`); backend returns 409 if already claimed
+- **Modal**: `CollectionCompleteModal` — gold gradient border, animated card glow pulse, bonus points chip, "Ver álbum" CTA
+- **Secret card `jesus_resucitado`**: Legendary rarity, NOT in any pack pool (`inStandardPool: false`), no `eventSet`
+
 ### Prayer Endpoints
 - `POST /api/prayer/request` - Submit or update a prayer request (category + mode)
 - `GET /api/prayer/request/:userId` - Get user's active prayer requests
