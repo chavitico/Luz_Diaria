@@ -586,78 +586,112 @@ function FeatureCard({
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
       >
+        {/* Outer glow border ring */}
         <LinearGradient
-          colors={gradientColors}
+          colors={[borderColor, borderColor, borderColor]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
-          style={{ borderRadius: 20, padding: 20, borderWidth: 1, borderColor, overflow: 'hidden' }}
+          style={{
+            borderRadius: 22,
+            padding: 2,
+            shadowColor: borderColor,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.70,
+            shadowRadius: 14,
+            elevation: 8,
+          }}
         >
+          {/* Inner sheen ring */}
           <LinearGradient
-            colors={[accentGlowColor, 'transparent']}
+            colors={['rgba(255,255,255,0.14)', 'transparent', 'transparent']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
-            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-          />
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-            <View style={{ position: 'relative' }}>
-              <View style={{ width: 56, height: 56, borderRadius: 16, backgroundColor: accentGlowColor, borderWidth: 1, borderColor, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 26 }}>{emoji}</Text>
-              </View>
-              {badgeCount !== undefined && badgeCount > 0 && (
-                <Animated.View
-                  style={[
-                    {
-                      position: 'absolute',
-                      top: -6,
-                      right: -6,
-                      minWidth: 20,
-                      height: 20,
-                      borderRadius: 10,
-                      backgroundColor: '#FF3B30',
-                      borderWidth: 2,
-                      borderColor: '#0E0900',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      paddingHorizontal: 4,
-                    },
-                    badgeStyle,
-                  ]}
-                >
-                  <Text style={{ fontSize: 11, fontWeight: '800', color: '#FFFFFF', lineHeight: 14 }}>
-                    {badgeCount > 9 ? '9+' : String(badgeCount)}
-                  </Text>
-                </Animated.View>
-              )}
-            </View>
-            <View style={{ flex: 1 }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 3 }}>
-                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.3 }}>
-                  {title}
-                </Text>
-                {showNewBadge && (
-                  <Animated.View
-                    style={[
-                      {
-                        backgroundColor: '#FF3B30',
-                        borderRadius: 6,
-                        paddingHorizontal: 6,
-                        paddingVertical: 2,
-                      },
-                      newBadgeStyle,
-                    ]}
-                  >
-                    <Text style={{ fontSize: 9, fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.8 }}>
-                      NOVEDAD
+            style={{ borderRadius: 21, padding: 1 }}
+          >
+            <LinearGradient
+              colors={gradientColors}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ borderRadius: 20, padding: 20, overflow: 'hidden' }}
+            >
+              {/* Shimmer top highlight */}
+              <View style={{
+                position: 'absolute',
+                top: 0,
+                left: 24,
+                right: 24,
+                height: 1.5,
+                backgroundColor: 'rgba(255,255,255,0.22)',
+                borderRadius: 99,
+              }} />
+              <LinearGradient
+                colors={[accentGlowColor, 'transparent']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+              />
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+                <View style={{ position: 'relative' }}>
+                  <View style={{ width: 56, height: 56, borderRadius: 16, backgroundColor: accentGlowColor, borderWidth: 1, borderColor, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 26 }}>{emoji}</Text>
+                  </View>
+                  {badgeCount !== undefined && badgeCount > 0 && (
+                    <Animated.View
+                      style={[
+                        {
+                          position: 'absolute',
+                          top: -6,
+                          right: -6,
+                          minWidth: 20,
+                          height: 20,
+                          borderRadius: 10,
+                          backgroundColor: '#FF3B30',
+                          borderWidth: 2,
+                          borderColor: '#0E0900',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          paddingHorizontal: 4,
+                        },
+                        badgeStyle,
+                      ]}
+                    >
+                      <Text style={{ fontSize: 11, fontWeight: '800', color: '#FFFFFF', lineHeight: 14 }}>
+                        {badgeCount > 9 ? '9+' : String(badgeCount)}
+                      </Text>
+                    </Animated.View>
+                  )}
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 3 }}>
+                    <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.3 }}>
+                      {title}
                     </Text>
-                  </Animated.View>
-                )}
+                    {showNewBadge && (
+                      <Animated.View
+                        style={[
+                          {
+                            backgroundColor: '#FF3B30',
+                            borderRadius: 6,
+                            paddingHorizontal: 6,
+                            paddingVertical: 2,
+                          },
+                          newBadgeStyle,
+                        ]}
+                      >
+                        <Text style={{ fontSize: 9, fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.8 }}>
+                          NOVEDAD
+                        </Text>
+                      </Animated.View>
+                    )}
+                  </View>
+                  <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.60)', fontWeight: '500' }}>
+                    {subtitle}
+                  </Text>
+                </View>
+                <ChevronRight size={20} color="rgba(255,255,255,0.35)" />
               </View>
-              <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.60)', fontWeight: '500' }}>
-                {subtitle}
-              </Text>
-            </View>
-            <ChevronRight size={20} color="rgba(255,255,255,0.35)" />
-          </View>
+            </LinearGradient>
+          </LinearGradient>
         </LinearGradient>
       </Pressable>
     </Animated.View>
@@ -1925,33 +1959,53 @@ function WeeklyChallengesCard({
         style={{
           marginHorizontal: 20,
           marginBottom: 20,
-          borderRadius: 24,
-          shadowColor: '#F97316',
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.15,
-          shadowRadius: 14,
-          elevation: 6,
         }}
       >
+        {/* Outer glow shadow layer */}
         <LinearGradient
-          colors={['#F9731618', '#F9731608', 'transparent']}
+          colors={['#F97316DD', '#FB923CCC', '#FDBA74AA', '#FB923CCC', '#F97316DD']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
-          style={{ borderRadius: 24, padding: 1.5 }}
+          style={{
+            borderRadius: 24,
+            padding: 2,
+            shadowColor: '#F97316',
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.65,
+            shadowRadius: 16,
+            elevation: 10,
+          }}
         >
+          {/* Inner sheen ring */}
           <LinearGradient
-            colors={['#1C1208', '#120D05', '#0E0900']}
+            colors={['rgba(255,255,255,0.16)', 'transparent', 'transparent']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
-            style={{ borderRadius: 23, overflow: 'hidden', padding: 20 }}
+            style={{ borderRadius: 23, padding: 1 }}
           >
-            {/* Inner accent glow */}
             <LinearGradient
-              colors={['#F9731612', 'transparent']}
+              colors={['#1C1208', '#120D05', '#0E0900']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
-              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-            />
+              style={{ borderRadius: 22, overflow: 'hidden', padding: 22 }}
+            >
+              {/* Shimmer top highlight */}
+              <View style={{
+                position: 'absolute',
+                top: 0,
+                left: 24,
+                right: 24,
+                height: 1.5,
+                backgroundColor: 'rgba(255,255,255,0.22)',
+                borderRadius: 99,
+              }} />
+              {/* Inner accent glow */}
+              <LinearGradient
+                colors={['#F9731618', 'transparent']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+              />
 
             {/* Header row */}
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 18 }}>
@@ -2079,6 +2133,7 @@ function WeeklyChallengesCard({
                 </View>
               );
             })}
+            </LinearGradient>
           </LinearGradient>
         </LinearGradient>
       </Animated.View>
