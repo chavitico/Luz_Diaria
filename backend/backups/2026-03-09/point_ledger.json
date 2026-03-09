@@ -1548,5 +1548,15 @@
     "amount": 1000,
     "metadata": "{\"collectionId\":\"pascua_2026\",\"secretCardId\":\"jesus_resucitado\"}",
     "createdAt": "2026-03-09T01:06:24.866Z"
+  },
+  {
+    "id": "cmmii6ldt0015m2vljqinv4uo",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "prayer_2026-03-09",
+    "type": "prayer",
+    "dateId": "2026-03-09",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-09T01:29:13.410Z"
   }
 ]

@@ -25,6 +25,7 @@ import Animated, {
   withSpring,
   withSequence,
   withRepeat,
+  withDelay,
   withTiming,
   runOnJS,
   type SharedValue,
@@ -6639,7 +6640,7 @@ function EasterPackCard({
 // Token Item Card Component
 function TokenItemCard({
   id, emoji, name, nameEs, description, descriptionEs, warning, warningEs,
-  price, rarity, isOwned, isUsed, canAfford, colors, language, onPress,
+  price, rarity, isOwned, isUsed, canAfford, colors, language, onPress, isHighlighted,
 }: {
   id: string;
   emoji: string;
@@ -6657,6 +6658,7 @@ function TokenItemCard({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
   onPress: () => void;
+  isHighlighted?: boolean;
 }) {
   const { sFont } = useScaledFont();
   const rarityColor = rarity === 'legendary' ? '#F59E0B' : RARITY_COLORS[rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
@@ -6664,7 +6666,23 @@ function TokenItemCard({
   const displayDesc = language === 'es' ? descriptionEs : description;
   const displayWarning = language === 'es' ? warningEs : warning;
   const scale = useSharedValue(1);
+  const glow = useSharedValue(0);
   const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const glowStyle = useAnimatedStyle(() => ({
+    opacity: glow.value,
+    shadowOpacity: glow.value * 0.8,
+  }));
+
+  React.useEffect(() => {
+    if (isHighlighted) {
+      glow.value = withSequence(
+        withTiming(1, { duration: 300 }),
+        withRepeat(withSequence(withTiming(0.3, { duration: 600 }), withTiming(1, { duration: 600 })), 3),
+        withTiming(0, { duration: 400 }),
+      );
+      scale.value = withSequence(withSpring(1.02), withDelay(2400, withSpring(1)));
+    }
+  }, [isHighlighted]);
 
   return (
     // Phase D fix: split entering= and useAnimatedStyle onto separate elements.
@@ -6685,7 +6703,7 @@ function TokenItemCard({
             borderRadius: 20,
             padding: 20,
             borderWidth: 1.5,
-            borderColor: isOwned ? colors.textMuted + '30' : rarityColor + '60',
+            borderColor: isHighlighted ? rarityColor : (isOwned ? colors.textMuted + '30' : rarityColor + '60'),
           }}
         >
           {/* Header */}
@@ -6795,6 +6813,7 @@ export default function StoreScreen() {
 
   const [activeCategory, setActiveCategory] = useState<CategoryType | null>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<string>('all');
+  const [highlightPincel, setHighlightPincel] = useState(false);
   const [showPointsToast, setShowPointsToast] = useState(false);
   const [toastAmount, setToastAmount] = useState(0);
   const [toastPositive, setToastPositive] = useState(false);
@@ -7536,8 +7555,11 @@ export default function StoreScreen() {
   // Handle openCategory navigation param (e.g. from settings lock button)
   useEffect(() => {
     if (openCategory === 'tokens') {
+      setActiveSubcategory('tokens');
       setStoreSectionModalCategory('tokens');
       setShowStoreSectionModal(true);
+      setHighlightPincel(true);
+      setTimeout(() => setHighlightPincel(false), 3000);
     }
   }, [openCategory, openCategoryT]);
 
@@ -8262,6 +8284,7 @@ export default function StoreScreen() {
                 canAfford={canAffordPincel}
                 colors={colors}
                 language={language}
+                isHighlighted={highlightPincel}
                 onPress={() => {
                   if (!hasPincel && canAffordPincel) {
                     handleTokenPurchase('pincel_magico', 15000);
