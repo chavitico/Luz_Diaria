@@ -57,7 +57,7 @@ type Phase =
   | 'rarity_reveal'
   | 'final';
 
-type PackType = 'sobre_biblico' | 'pack_pascua';
+type PackType = 'sobre_biblico' | 'pack_pascua' | 'pack_milagros';
 
 export interface PackOpeningModalProps {
   visible: boolean;
@@ -99,6 +99,14 @@ const PACK_CONFIG: Record<PackType, {
     borderColor: '#D4A017',
     glowColor: '#FFD700',
     emoji: '✝️',
+  },
+  pack_milagros: {
+    label: 'Sobre de Milagros',
+    gradientTop: '#091838',
+    gradientBottom: '#020810',
+    borderColor: '#1A4A8A',
+    glowColor: '#60A5FA',
+    emoji: '✨',
   },
 };
 

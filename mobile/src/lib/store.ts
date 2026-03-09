@@ -69,9 +69,9 @@ interface AppState {
   // consumed by _layout.tsx PackRevealOverlay (rendered above all navigation).
   packRevealRequest: {
     drawnCards: Array<{ cardId: string; wasNew: boolean }>;
-    packType: 'sobre_biblico' | 'pack_pascua';
+    packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros';
   } | null;
-  requestPackReveal: (req: { drawnCards: Array<{ cardId: string; wasNew: boolean }>; packType: 'sobre_biblico' | 'pack_pascua' }) => void;
+  requestPackReveal: (req: { drawnCards: Array<{ cardId: string; wasNew: boolean }>; packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' }) => void;
   clearPackRevealRequest: () => void;
 }
 

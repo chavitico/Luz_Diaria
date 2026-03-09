@@ -1107,6 +1107,62 @@ async function seedStoreItems() {
   });
   console.log('  Sobre de Pascua: processed');
 
+  // Seed Sobre de Milagros (milagros 2026 event card pack - 3 cards per pack)
+  console.log('Seeding Sobre de Milagros...');
+  await prisma.storeItem.upsert({
+    where: { id: 'pack_milagros' },
+    update: {
+      nameEn: 'Miracles Envelope',
+      nameEs: 'Sobre de Milagros',
+      descriptionEn: 'Contains 3 cards from the Miracles of Jesus collection. Signs and wonders performed by Jesus.',
+      descriptionEs: 'Contiene 3 cartas de la colección Milagros de Jesús. Señales y maravillas realizadas por Jesús.',
+      pricePoints: 1000,
+      rarity: 'epic',
+      type: 'consumable',
+      available: true,
+      category: 'special_objects',
+      subcategory: 'cartas_biblicas',
+      isNew: true,
+      metadata: JSON.stringify({
+        icon: '✨',
+        consumable: true,
+        repeatablePurchase: true,
+        cardPack: true,
+        eventPack: true,
+        eventSet: 'milagros_2026',
+        isEventActive: true,
+        cardsPerPack: 3,
+      }),
+    },
+    create: {
+      id: 'pack_milagros',
+      type: 'consumable',
+      nameEn: 'Miracles Envelope',
+      nameEs: 'Sobre de Milagros',
+      descriptionEn: 'Contains 3 cards from the Miracles of Jesus collection. Signs and wonders performed by Jesus.',
+      descriptionEs: 'Contiene 3 cartas de la colección Milagros de Jesús. Señales y maravillas realizadas por Jesús.',
+      pricePoints: 1000,
+      rarity: 'epic',
+      assetRef: 'pack_milagros',
+      category: 'special_objects',
+      subcategory: 'cartas_biblicas',
+      isNew: true,
+      metadata: JSON.stringify({
+        icon: '✨',
+        consumable: true,
+        repeatablePurchase: true,
+        cardPack: true,
+        eventPack: true,
+        eventSet: 'milagros_2026',
+        isEventActive: true,
+        cardsPerPack: 3,
+      }),
+      sortOrder: 10002,
+      available: true,
+    },
+  });
+  console.log('  Sobre de Milagros: processed');
+
   // Summary
   const totalItems = THEMES.length + THEMES_V2.length + THEMES_CHAPTER.length + FRAMES.length + FRAMES_V2.length + FRAMES_CHAPTER.length + MUSIC_TRACKS.length + TITLES.length + TITLES_CHAPTER.length + AVATARS.length + AVATARS_V2.length + AVATARS_L2.length + AVATARS_CHAPTER.length;
   console.log('\n========================================');

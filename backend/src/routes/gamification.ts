@@ -919,6 +919,28 @@ gamificationRouter.post(
           drawnCard = drawnCards[0];
         }
 
+        // === Special: pack_milagros - draw 3 random Milagros 2026 event cards ===
+        if (itemId === 'pack_milagros') {
+          // Only cards belonging to eventSet="milagros_2026".
+          // Keep this list in sync with MILAGROS_2026_POOL_IDS in mobile/src/lib/biblical-cards.ts.
+          const MILAGROS_POOL: string[] = [
+            'agua_en_vino', 'pesca_milagrosa', 'sanidad_leproso', 'sanidad_paralitico',
+            'sanidad_centurion', 'sanidad_suegra_pedro', 'mano_seca', 'diez_leprosos',
+            'sordomudo', 'ciego_betsaida', 'multiplicacion_panes', 'moneda_pez',
+            'calma_tormenta', 'higuera_maldita', 'red_peces', 'alimenta_4000',
+            'liberacion_demonio', 'nina_resucitada',
+            'caminar_agua', 'ciego_nacimiento', 'hijo_viuda_nain', 'endemoniado_gadareno',
+            'mujer_flujo', 'jesus_desaparece', 'tempestad_calmada',
+            'resurreccion_lazaro', 'transfiguracion', 'jesus_aparece_resucitado',
+            'jesus_glorificado',
+          ];
+          const CARDS_PER_PACK = 3;
+          for (let i = 0; i < CARDS_PER_PACK; i++) {
+            drawnCards.push(await drawOneCard(MILAGROS_POOL, userId, tx));
+          }
+          drawnCard = drawnCards[0];
+        }
+
         return { item, newPoints, drawnCard, drawnCards };
       });
 
@@ -3307,7 +3329,7 @@ gamificationRouter.post(
   "/daily-pack/claim",
   zValidator("json", z.object({
     userId: z.string(),
-    packType: z.enum(["sobre_biblico", "pack_pascua"]),
+    packType: z.enum(["sobre_biblico", "pack_pascua", "pack_milagros"]),
   })),
   async (c) => {
     try {
@@ -3341,8 +3363,19 @@ gamificationRouter.post(
           'arresto', 'poncio_pilato', 'barrabas', 'camino_calvario', 'crucifixion',
           'velo_rasgado', 'tumba_sellada', 'resurreccion', 'tomas',
         ];
+        const MILAGROS_POOL = [
+          'agua_en_vino', 'pesca_milagrosa', 'sanidad_leproso', 'sanidad_paralitico',
+          'sanidad_centurion', 'sanidad_suegra_pedro', 'mano_seca', 'diez_leprosos',
+          'sordomudo', 'ciego_betsaida', 'multiplicacion_panes', 'moneda_pez',
+          'calma_tormenta', 'higuera_maldita', 'red_peces', 'alimenta_4000',
+          'liberacion_demonio', 'nina_resucitada',
+          'caminar_agua', 'ciego_nacimiento', 'hijo_viuda_nain', 'endemoniado_gadareno',
+          'mujer_flujo', 'jesus_desaparece', 'tempestad_calmada',
+          'resurreccion_lazaro', 'transfiguracion', 'jesus_aparece_resucitado',
+          'jesus_glorificado',
+        ];
 
-        const pool = packType === 'pack_pascua' ? PASCUA_POOL : CARD_POOL;
+        const pool = packType === 'pack_pascua' ? PASCUA_POOL : packType === 'pack_milagros' ? MILAGROS_POOL : CARD_POOL;
         const cardId = pool[Math.floor(Math.random() * pool.length)] as string;
 
         // Check if user already has this card

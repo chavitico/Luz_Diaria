@@ -1093,7 +1093,7 @@ export const gamificationApi = {
     return res.json();
   },
 
-  async claimDailyPack(userId: string, packType: 'sobre_biblico' | 'pack_pascua'): Promise<{
+  async claimDailyPack(userId: string, packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros'): Promise<{
     success: boolean;
     drawnCard?: { cardId: string; wasNew: boolean };
     remaining?: number;
