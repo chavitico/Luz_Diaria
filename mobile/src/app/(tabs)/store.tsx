@@ -1297,17 +1297,42 @@ function ProfileHeader({
                     {points} pts
                   </Text>
                 </View>
-                {/* Badge */}
-                {activeBadgeId && (
-                  <BadgeChip badgeId={activeBadgeId} variant="profile" />
-                )}
+                {/* Badge — icon + title + description */}
+                {activeBadgeId && (() => {
+                  const badgeData = BADGES[activeBadgeId];
+                  if (!badgeData) return null;
+                  return (
+                    <View style={{
+                      flexDirection: 'row',
+                      alignItems: 'flex-start',
+                      gap: 8,
+                      marginTop: 2,
+                      paddingVertical: 8,
+                      paddingHorizontal: 10,
+                      borderRadius: 12,
+                      backgroundColor: badgeData.color + '12',
+                      borderWidth: 1,
+                      borderColor: badgeData.color + '30',
+                    }}>
+                      <BadgeChip badgeId={activeBadgeId} variant="community" />
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(13), fontWeight: '700', color: badgeData.color, marginBottom: 2 }} numberOfLines={1}>
+                          {badgeData.nameEs}
+                        </Text>
+                        <Text style={{ fontSize: sFont(11), fontWeight: '400', color: 'rgba(255,255,255,0.55)', lineHeight: 15 }} numberOfLines={2}>
+                          {badgeData.meaningEs}
+                        </Text>
+                      </View>
+                    </View>
+                  );
+                })()}
               </View>
             </View>
 
             {/* Divider */}
             <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.07)', marginBottom: 14 }} />
 
-            {/* Stats chips row — 3 chips */}
+            {/* Stats chips row — 3 chips, vertical layout: number + label */}
             <View style={{ flexDirection: 'row', gap: 8 }}>
               {/* Devotionals chip */}
               <LinearGradient
@@ -1316,22 +1341,20 @@ function ProfileHeader({
                 end={{ x: 1, y: 1 }}
                 style={{
                   flex: 1,
-                  flexDirection: 'row',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingVertical: 10,
+                  paddingVertical: 12,
+                  paddingHorizontal: 6,
                   borderRadius: 14,
                   borderWidth: 1,
                   borderColor: '#22C55E35',
-                  gap: 5,
                 }}
               >
-                <BookOpen size={14} color="#22C55E" />
-                <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#22C55E' }}>
+                <BookOpen size={14} color="#22C55E" style={{ marginBottom: 4 }} />
+                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#22C55E', marginBottom: 3 }}>
                   {devotionalsCompleted}
                 </Text>
-                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#22C55E80' }}>
-                  {language === 'es' ? 'Devoc.' : 'Dev.'}
+                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#22C55E99', textAlign: 'center', lineHeight: 13 }}>
+                  {language === 'es' ? 'Devocionales\ncompletados' : 'Devotionals\ncompleted'}
                 </Text>
               </LinearGradient>
 
@@ -1342,22 +1365,20 @@ function ProfileHeader({
                 end={{ x: 1, y: 1 }}
                 style={{
                   flex: 1,
-                  flexDirection: 'row',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingVertical: 10,
+                  paddingVertical: 12,
+                  paddingHorizontal: 6,
                   borderRadius: 14,
                   borderWidth: 1,
                   borderColor: '#F9731635',
-                  gap: 5,
                 }}
               >
-                <Flame size={14} color="#F97316" />
-                <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#F97316' }}>
+                <Flame size={14} color="#F97316" style={{ marginBottom: 4 }} />
+                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#F97316', marginBottom: 3 }}>
                   {user?.streakCurrent || 0}
                 </Text>
-                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#F9731680' }}>
-                  {language === 'es' ? 'días' : 'days'}
+                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#F9731699', textAlign: 'center', lineHeight: 13 }}>
+                  {language === 'es' ? 'Racha\nmáxima' : 'Current\nstreak'}
                 </Text>
               </LinearGradient>
 
@@ -1368,22 +1389,20 @@ function ProfileHeader({
                 end={{ x: 1, y: 1 }}
                 style={{
                   flex: 1,
-                  flexDirection: 'row',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingVertical: 10,
+                  paddingVertical: 12,
+                  paddingHorizontal: 6,
                   borderRadius: 14,
                   borderWidth: 1,
                   borderColor: '#60A5FA35',
-                  gap: 5,
                 }}
               >
-                <Share2 size={14} color="#60A5FA" />
-                <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#60A5FA' }}>
+                <Share2 size={14} color="#60A5FA" style={{ marginBottom: 4 }} />
+                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#60A5FA', marginBottom: 3 }}>
                   {totalShares}
                 </Text>
-                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#60A5FA80' }}>
-                  {language === 'es' ? 'Comp.' : 'Shared'}
+                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#60A5FA99', textAlign: 'center', lineHeight: 13 }}>
+                  {language === 'es' ? 'Compartidos' : 'Shared'}
                 </Text>
               </LinearGradient>
             </View>
@@ -7199,7 +7218,10 @@ export default function StoreScreen() {
       setRenameError(null);
       setShowRenameModal(true);
     } else {
-      setActiveCategory('tokens');
+      setStoreSectionModalCategory('tokens');
+      setShowStoreSectionModal(true);
+      setHighlightPincel(true);
+      setTimeout(() => setHighlightPincel(false), 3000);
     }
   };
 
