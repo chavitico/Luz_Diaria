@@ -6997,6 +6997,7 @@ export default function StoreScreen() {
   const storeSectionFromSubmenu = useRef<'personalizacion' | 'colecciones' | null>(null);
   const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
   const [showTradeInbox, setShowTradeInbox] = useState(false);
+  const [showPackStore, setShowPackStore] = useState(false);
   const [showCardRevealModal, setShowCardRevealModal] = useState(false);
   const [revealedCard, setRevealedCard] = useState<{ cardId: string; wasNew: boolean } | null>(null);
   // isPackTransactionActive: true = purchase in flight or reveal showing → disables all pack buttons
@@ -8148,6 +8149,7 @@ export default function StoreScreen() {
           { key: 'all', labelEs: 'Todos', label: 'All' },
           { key: 'adventures', labelEs: 'Aventuras Bíblicas', label: 'Biblical Adventures' },
           { key: 'collections', labelEs: 'Colecciones', label: 'Collections' },
+          { key: 'colecciones2', labelEs: 'Colecciones 2', label: 'Collections 2' },
           ...(seasonalBundles.length > 0 ? [{ key: 'season', labelEs: '✝ Temporada', label: '✝ Season' }] : []),
         ];
         const allBundlesRaw = Object.values(STORE_BUNDLES);
@@ -8159,8 +8161,8 @@ export default function StoreScreen() {
           ? allBundles.filter(b => (b as any).isAdventure === true)
           : activeSubcategory === 'collections'
           ? allBundles.filter(b => !(b as any).isAdventure)
-          : activeSubcategory === 'season'
-          ? [] // Only seasonal DB bundles shown below
+          : activeSubcategory === 'colecciones2' || activeSubcategory === 'season'
+          ? [] // colecciones2 shows navigation card below; season shows DB seasonal only
           : allBundles;
 
         // Seasonal bundles shown when: 'all' or 'season' tab is active
@@ -8277,6 +8279,39 @@ export default function StoreScreen() {
                   />
                 </Animated.View>
               ))}
+              {/* Colecciones 2 — navigates to Aventuras Bíblicas screen */}
+              {activeSubcategory === 'colecciones2' && (
+                <View style={{ paddingTop: 8 }}>
+                  <Pressable
+                    onPress={() => {
+                      setShowStoreSectionModal(false);
+                      setTimeout(() => router.push('/collections/adventures'), 350);
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                    }}
+                  >
+                    <LinearGradient
+                      colors={['#1A2A0D', '#0F1A07', '#080F03']}
+                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                      style={{ borderRadius: 18, padding: 20, borderWidth: 1, borderColor: 'rgba(134,239,172,0.30)', marginBottom: 12 }}
+                    >
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                        <View style={{ width: 52, height: 52, borderRadius: 14, backgroundColor: 'rgba(134,239,172,0.12)', borderWidth: 1, borderColor: 'rgba(134,239,172,0.30)', alignItems: 'center', justifyContent: 'center' }}>
+                          <Text style={{ fontSize: 24 }}>🗺️</Text>
+                        </View>
+                        <View style={{ flex: 1 }}>
+                          <Text style={{ fontSize: sFont(17), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 3 }}>
+                            {language === 'es' ? 'Aventuras Bíblicas' : 'Biblical Adventures'}
+                          </Text>
+                          <Text style={{ fontSize: sFont(12), color: 'rgba(134,239,172,0.65)', lineHeight: 17 }}>
+                            {language === 'es' ? 'Jonás, David, Ester y más aventuras' : 'Jonah, David, Esther & more'}
+                          </Text>
+                        </View>
+                        <ChevronRight size={20} color="rgba(255,255,255,0.35)" />
+                      </View>
+                    </LinearGradient>
+                  </Pressable>
+                </View>
+              )}
             </View>
           </View>
         );
@@ -8359,11 +8394,11 @@ export default function StoreScreen() {
         const EASTER_EVENT_ACTIVE = true;
 
         const TOKEN_SUBCATS = [
-          { key: 'cartas', labelEs: 'Cartas Bíblicas', label: 'Biblical Cards' },
           { key: 'tokens', labelEs: 'Tokens', label: 'Tokens' },
           { key: 'insignias', labelEs: 'Insignias', label: 'Badges' },
+          { key: 'canjear', labelEs: 'Canjear Código', label: 'Redeem Code' },
         ];
-        const activeSubcat = activeSubcategory === 'all' ? 'cartas' : activeSubcategory;
+        const activeSubcat = activeSubcategory === 'all' ? 'tokens' : activeSubcategory;
 
         return (
           <View className="px-5">
@@ -8371,8 +8406,8 @@ export default function StoreScreen() {
             <View style={{ marginBottom: 16, padding: 14, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.textMuted + '18' }}>
               <Text style={{ fontSize: sFont(13), color: colors.textMuted, lineHeight: 19 }}>
                 {language === 'es'
-                  ? 'Objetos especiales que desbloquean funciones únicas o amplían tu colección.'
-                  : 'Special objects that unlock unique features or expand your collection.'}
+                  ? 'Tokens especiales e insignias que desbloquean funciones únicas.'
+                  : 'Special tokens and badges that unlock unique features.'}
               </Text>
             </View>
 
@@ -8395,74 +8430,6 @@ export default function StoreScreen() {
                 </Pressable>
               ))}
             </ScrollView>
-
-            {/* Cartas Bíblicas subcategory */}
-            {activeSubcat === 'cartas' && (
-              <View>
-                {/* Daily free pack banner */}
-                <DailyPackBanner
-                  status={dailyPackStatus ?? null}
-                  language={language}
-                  isEventActive={EASTER_EVENT_ACTIVE}
-                  disabled={isPackTransactionActive}
-                  onClaim={handleClaimDailyPack}
-                />
-                <BiblicalPackCard
-                  canAfford={canAffordSobre}
-                  disabled={isPackTransactionActive}
-                  language={language}
-                  onPress={() => {
-                    if (canAffordSobre && !isPackTransactionActive) {
-                      handleTokenPurchase('sobre_biblico', 500);
-                    }
-                  }}
-                />
-                <EasterPackCard
-                  canAfford={canAffordEaster}
-                  disabled={isPackTransactionActive}
-                  isEventActive={EASTER_EVENT_ACTIVE}
-                  language={language}
-                  onPress={() => {
-                    if (EASTER_EVENT_ACTIVE && canAffordEaster && !isPackTransactionActive) {
-                      handleTokenPurchase('pack_pascua', 500);
-                    }
-                  }}
-                />
-                <MilagrosPackCard
-                  canAfford={canAffordMilagros}
-                  disabled={isPackTransactionActive}
-                  language={language}
-                  onPress={() => {
-                    if (canAffordMilagros && !isPackTransactionActive) {
-                      handleTokenPurchase('pack_milagros', 1000);
-                    }
-                  }}
-                />
-                {/* Link to album */}
-                <Pressable
-                  onPress={() => {
-                    setShowStoreSectionModal(false);
-                    setTimeout(() => router.push('/biblical-cards-album'), 350);
-                  }}
-                  style={{
-                    marginTop: 12,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 6,
-                    paddingVertical: 12,
-                    borderRadius: 14,
-                    backgroundColor: colors.surface,
-                    borderWidth: 1,
-                    borderColor: colors.textMuted + '25',
-                  }}
-                >
-                  <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary }}>
-                    {language === 'es' ? '📖 Ver mi álbum bíblico' : '📖 View my biblical album'}
-                  </Text>
-                </Pressable>
-              </View>
-            )}
 
             {/* Tokens subcategory */}
             {activeSubcat === 'tokens' && (
@@ -8504,8 +8471,8 @@ export default function StoreScreen() {
               </View>
             )}
 
-            {/* Promo Code */}
-            <View style={{ marginTop: 24 }}>
+            {/* Canjear Código subcategory */}
+            {activeSubcat === 'canjear' && (
               <PromoCodeCard
                 colors={colors}
                 language={language}
@@ -8516,7 +8483,7 @@ export default function StoreScreen() {
                   setShowPointsToast(true);
                 }}
               />
-            </View>
+            )}
           </View>
         );
       }
@@ -8988,11 +8955,7 @@ export default function StoreScreen() {
                 <Pressable
                   onPress={() => {
                     setShowSubMenuModal(false);
-                    setTimeout(() => {
-                      setActiveSubcategory('all');
-                      setStoreSectionModalCategory('tokens');
-                      setShowStoreSectionModal(true);
-                    }, 350);
+                    setTimeout(() => setShowPackStore(true), 350);
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                   }}
                 >
@@ -9513,6 +9476,108 @@ export default function StoreScreen() {
         visible={showTradeInbox}
         onClose={() => setShowTradeInbox(false)}
       />
+
+      {/* Pack Store Modal — exclusive card packs store from Cromos Bíblicos */}
+      <Modal
+        visible={showPackStore}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowPackStore(false)}
+      >
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
+          {/* Header */}
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: 20,
+            paddingTop: insets.top + 16,
+            paddingBottom: 16,
+            borderBottomWidth: 1,
+            borderBottomColor: colors.textMuted + '20',
+          }}>
+            <Pressable onPress={() => setShowPackStore(false)} style={{ marginRight: 12, padding: 4 }}>
+              <ChevronLeft size={24} color={colors.text} />
+            </Pressable>
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontSize: sFont(20), fontWeight: '800', color: colors.text }}>
+                {language === 'es' ? 'Tienda de Sobres' : 'Pack Store'}
+              </Text>
+              <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
+                {language === 'es' ? 'Abre sobres y amplía tu colección' : 'Open packs & grow your collection'}
+              </Text>
+            </View>
+          </View>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ padding: 20, paddingBottom: 60 }}
+          >
+            <DailyPackBanner
+              status={dailyPackStatus ?? null}
+              language={language}
+              isEventActive={true}
+              disabled={isPackTransactionActive}
+              onClaim={handleClaimDailyPack}
+            />
+            <BiblicalPackCard
+              canAfford={points >= 500}
+              disabled={isPackTransactionActive}
+              language={language}
+              onPress={() => {
+                if (points >= 500 && !isPackTransactionActive) {
+                  setShowPackStore(false);
+                  setTimeout(() => handleTokenPurchase('sobre_biblico', 500), 300);
+                }
+              }}
+            />
+            <EasterPackCard
+              canAfford={points >= 500}
+              disabled={isPackTransactionActive}
+              isEventActive={true}
+              language={language}
+              onPress={() => {
+                if (points >= 500 && !isPackTransactionActive) {
+                  setShowPackStore(false);
+                  setTimeout(() => handleTokenPurchase('pack_pascua', 500), 300);
+                }
+              }}
+            />
+            <MilagrosPackCard
+              canAfford={points >= 1000}
+              disabled={isPackTransactionActive}
+              language={language}
+              onPress={() => {
+                if (points >= 1000 && !isPackTransactionActive) {
+                  setShowPackStore(false);
+                  setTimeout(() => handleTokenPurchase('pack_milagros', 1000), 300);
+                }
+              }}
+            />
+            {/* Link to album */}
+            <Pressable
+              onPress={() => {
+                setShowPackStore(false);
+                setTimeout(() => router.push('/biblical-cards-album'), 350);
+              }}
+              style={{
+                marginTop: 12,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 6,
+                paddingVertical: 14,
+                borderRadius: 14,
+                backgroundColor: colors.surface,
+                borderWidth: 1,
+                borderColor: colors.textMuted + '25',
+              }}
+            >
+              <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.primary }}>
+                {language === 'es' ? '📖 Ver mi álbum bíblico' : '📖 View my biblical album'}
+              </Text>
+            </Pressable>
+          </ScrollView>
+        </View>
+      </Modal>
 
       {/* Pack Opening Animation Modal — disabled (stability bypass) */}
       {/* PackOpeningModal will be re-enabled once the animation state machine is stable */}
