@@ -351,6 +351,143 @@ function SeasonalItemsSection({
   );
 }
 
+// ─── Cromos Bíblicos Card ─────────────────────────────────────────────────────
+function CromosCard({
+  language,
+  colors,
+  onPress,
+  showNewBadge,
+}: {
+  language: 'en' | 'es';
+  colors: ReturnType<typeof useThemeColors>;
+  onPress: () => void;
+  showNewBadge?: boolean;
+}) {
+  const { sFont } = useScaledFont();
+  const scale = useSharedValue(1);
+  const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const newBadgeOpacity = useSharedValue(1);
+
+  React.useEffect(() => {
+    if (showNewBadge) {
+      newBadgeOpacity.value = withRepeat(
+        withSequence(
+          withTiming(0.2, { duration: 600 }),
+          withTiming(1, { duration: 600 }),
+        ),
+        -1,
+        false,
+      );
+    } else {
+      newBadgeOpacity.value = 1;
+    }
+  }, [showNewBadge]);
+
+  const newBadgeStyle = useAnimatedStyle(() => ({ opacity: newBadgeOpacity.value }));
+
+  const ACCENT = '#60A5FA';
+  const G1 = '#0D1E3D';
+  const G2 = '#071526';
+
+  return (
+    <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
+      <Animated.View style={animatedStyle}>
+        <Pressable
+          onPressIn={() => { scale.value = withSpring(0.98); }}
+          onPressOut={() => { scale.value = withSpring(1); }}
+          onPress={onPress}
+        >
+          <LinearGradient
+            colors={[ACCENT + 'DD', '#93C5FDCC', '#BFDBFEAA', '#93C5FDCC', ACCENT + 'DD']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{
+              borderRadius: 24,
+              padding: 2,
+              shadowColor: ACCENT,
+              shadowOffset: { width: 0, height: 0 },
+              shadowOpacity: 0.65,
+              shadowRadius: 14,
+              elevation: 8,
+            }}
+          >
+            <LinearGradient
+              colors={['rgba(255,255,255,0.14)', 'transparent', 'transparent']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ borderRadius: 23, padding: 1 }}
+            >
+              <LinearGradient
+                colors={[G1, G2]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{ borderRadius: 22, padding: 20, overflow: 'hidden' }}
+              >
+                {/* Shimmer highlight */}
+                <View style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 24,
+                  right: 24,
+                  height: 1.5,
+                  backgroundColor: 'rgba(255,255,255,0.28)',
+                  borderRadius: 99,
+                }} />
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+                  {/* Icon */}
+                  <View style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: 16,
+                    backgroundColor: ACCENT + '22',
+                    borderWidth: 1,
+                    borderColor: ACCENT + '55',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                    <Text style={{ fontSize: 26 }}>🃏</Text>
+                  </View>
+
+                  {/* Text */}
+                  <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 3 }}>
+                      <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.3 }}>
+                        {language === 'es' ? 'Cromos Bíblicos' : 'Biblical Cards'}
+                      </Text>
+                      {showNewBadge && (
+                        <Animated.View
+                          style={[
+                            {
+                              backgroundColor: '#FF3B30',
+                              borderRadius: 6,
+                              paddingHorizontal: 6,
+                              paddingVertical: 2,
+                            },
+                            newBadgeStyle,
+                          ]}
+                        >
+                          <Text style={{ fontSize: 9, fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.8 }}>
+                            NOVEDAD
+                          </Text>
+                        </Animated.View>
+                      )}
+                    </View>
+                    <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.60)', fontWeight: '500' }}>
+                      {language === 'es' ? 'Sobres, álbum y trueques' : 'Packs, album & trades'}
+                    </Text>
+                  </View>
+                  <ChevronRight size={20} color="rgba(255,255,255,0.35)" />
+                </View>
+              </LinearGradient>
+            </LinearGradient>
+          </LinearGradient>
+        </Pressable>
+      </Animated.View>
+    </View>
+  );
+}
+
 // ─── Feature Card ─────────────────────────────────────────────────────────────
 function FeatureCard({
   emoji,
@@ -6830,7 +6967,7 @@ export default function StoreScreen() {
   const [storeSectionModalCategory, setStoreSectionModalCategory] = useState<CategoryType | null>(null);
   // Sub-menu modal: 'personalizacion' | 'colecciones' | null
   const [showSubMenuModal, setShowSubMenuModal] = useState(false);
-  const [subMenuType, setSubMenuType] = useState<'personalizacion' | 'colecciones' | null>(null);
+  const [subMenuType, setSubMenuType] = useState<'personalizacion' | 'colecciones' | 'cromos' | null>(null);
   // Track if StoreSectionModal was opened from submenu, so Back returns to submenu
   const storeSectionFromSubmenu = useRef<'personalizacion' | 'colecciones' | null>(null);
   const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
@@ -7972,6 +8109,7 @@ export default function StoreScreen() {
         const BUNDLE_SUBCATS = [
           { key: 'all', labelEs: 'Todos', label: 'All' },
           { key: 'adventures', labelEs: 'Aventuras Bíblicas', label: 'Biblical Adventures' },
+          { key: 'collections', labelEs: 'Colecciones', label: 'Collections' },
           ...(seasonalBundles.length > 0 ? [{ key: 'season', labelEs: '✝ Temporada', label: '✝ Season' }] : []),
         ];
         const allBundlesRaw = Object.values(STORE_BUNDLES);
@@ -7981,6 +8119,8 @@ export default function StoreScreen() {
 
         const filteredBundles = activeSubcategory === 'adventures'
           ? allBundles.filter(b => (b as any).isAdventure === true)
+          : activeSubcategory === 'collections'
+          ? allBundles.filter(b => !(b as any).isAdventure)
           : activeSubcategory === 'season'
           ? [] // Only seasonal DB bundles shown below
           : allBundles;
@@ -8657,6 +8797,18 @@ export default function StoreScreen() {
           />
         )}
 
+        {/* Cromos Bíblicos Card */}
+        <CromosCard
+          language={language}
+          colors={colors}
+          showNewBadge
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            setSubMenuType('cromos');
+            setShowSubMenuModal(true);
+          }}
+        />
+
         {/* Season Banner — shown when active season; Launch Event Banner shown otherwise */}
         {primarySeason ? (
           <SeasonBanner
@@ -8703,7 +8855,7 @@ export default function StoreScreen() {
           <FeatureCard
             emoji="✨"
             title={language === 'es' ? 'Objetos Especiales' : 'Special Items'}
-            subtitle={language === 'es' ? 'Cartas, tokens e insignias' : 'Cards, tokens & badges'}
+            subtitle={language === 'es' ? 'Tokens e insignias especiales' : 'Tokens & special badges'}
             gradientColors={['#2A1F00', '#1A1200', '#0E0900']}
             borderColor="rgba(212,175,55,0.25)"
             accentGlowColor="rgba(212,175,55,0.08)"
@@ -8720,24 +8872,6 @@ export default function StoreScreen() {
               setActiveSubcategory('all');
               setStoreSectionModalCategory('tokens');
               setShowStoreSectionModal(true);
-            }}
-          />
-
-          {/* 2. COLECCIONES */}
-          <FeatureCard
-            emoji="📚"
-            title={language === 'es' ? 'Colecciones' : 'Collections'}
-            subtitle={language === 'es' ? 'Álbum bíblico y aventuras' : 'Biblical album & adventures'}
-            gradientColors={['#0D1E3D', '#071526', '#030C18']}
-            borderColor="rgba(96,165,250,0.25)"
-            accentGlowColor="rgba(96,165,250,0.08)"
-            onPress={() => {
-              const now = Date.now();
-              if (now - lastCategoryTapAt.current < 500) return;
-              lastCategoryTapAt.current = now;
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-              setSubMenuType('colecciones');
-              setShowSubMenuModal(true);
             }}
           />
 
@@ -8809,13 +8943,49 @@ export default function StoreScreen() {
             <Text style={{ fontSize: sFont(20), fontWeight: '800', color: colors.text }}>
               {subMenuType === 'colecciones'
                 ? (language === 'es' ? 'Colecciones' : 'Collections')
+                : subMenuType === 'cromos'
+                ? (language === 'es' ? 'Cromos Bíblicos' : 'Biblical Cards')
                 : (language === 'es' ? 'Personalización' : 'Personalization')}
             </Text>
           </View>
 
           <ScrollView contentContainerStyle={{ padding: 20, gap: 14 }} showsVerticalScrollIndicator={false}>
-            {subMenuType === 'colecciones' ? (
+            {subMenuType === 'cromos' ? (
               <>
+                {/* Tienda de Sobres */}
+                <Pressable
+                  onPress={() => {
+                    setShowSubMenuModal(false);
+                    setTimeout(() => {
+                      setActiveSubcategory('all');
+                      setStoreSectionModalCategory('tokens');
+                      setShowStoreSectionModal(true);
+                    }, 350);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                >
+                  <LinearGradient
+                    colors={['#1A0A2A', '#0F0518', '#08020F']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(192,132,252,0.25)' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(192,132,252,0.12)', borderWidth: 1, borderColor: 'rgba(192,132,252,0.30)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>📦</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                          {language === 'es' ? 'Tienda de Sobres' : 'Pack Store'}
+                        </Text>
+                        <Text style={{ fontSize: sFont(12), color: 'rgba(192,132,252,0.70)' }}>
+                          {language === 'es' ? 'Abre sobres de cartas' : 'Open card packs'}
+                        </Text>
+                      </View>
+                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                    </View>
+                  </LinearGradient>
+                </Pressable>
+
                 {/* Álbum Bíblico */}
                 <Pressable
                   onPress={() => {
@@ -8838,7 +9008,7 @@ export default function StoreScreen() {
                           {language === 'es' ? 'Álbum Bíblico' : 'Biblical Album'}
                         </Text>
                         <Text style={{ fontSize: sFont(12), color: 'rgba(96,165,250,0.70)' }}>
-                          {language === 'es' ? 'Cartas coleccionables' : 'Collectible cards'}
+                          {language === 'es' ? 'Tu colección de cartas' : 'Your card collection'}
                         </Text>
                       </View>
                       <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
@@ -8846,6 +9016,38 @@ export default function StoreScreen() {
                   </LinearGradient>
                 </Pressable>
 
+                {/* Trueques */}
+                <Pressable
+                  onPress={() => {
+                    setShowSubMenuModal(false);
+                    setTimeout(() => router.push('/(tabs)/community'), 350);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                >
+                  <LinearGradient
+                    colors={['#0A2A1A', '#051A0F', '#020F07']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(52,211,153,0.25)' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(52,211,153,0.10)', borderWidth: 1, borderColor: 'rgba(52,211,153,0.28)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>🔄</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                          {language === 'es' ? 'Trueques' : 'Trades'}
+                        </Text>
+                        <Text style={{ fontSize: sFont(12), color: 'rgba(52,211,153,0.65)' }}>
+                          {language === 'es' ? 'Intercambia cartas con otros' : 'Trade cards with others'}
+                        </Text>
+                      </View>
+                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                    </View>
+                  </LinearGradient>
+                </Pressable>
+              </>
+            ) : subMenuType === 'colecciones' ? (
+              <>
                 {/* Aventuras */}
                 <Pressable
                   onPress={() => {
