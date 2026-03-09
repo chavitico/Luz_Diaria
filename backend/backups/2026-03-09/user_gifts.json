@@ -227,8 +227,8 @@
     "id": "cmmivxt26001sm2tod3rxysxi",
     "userId": "cmmaqp77i000pm2686xq6bozg",
     "giftDropId": "cmmivxt25001qm2tonpx9d6ka",
-    "status": "PENDING",
-    "claimedAt": null,
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-09T12:54:22.548Z",
     "createdAt": "2026-03-09T07:54:18.078Z"
   }
 ]

@@ -1618,5 +1618,45 @@
     "amount": 2000,
     "metadata": "{\"collectionId\":\"milagros_2026\",\"secretCardId\":\"reino_de_dios\"}",
     "createdAt": "2026-03-09T07:47:05.373Z"
+  },
+  {
+    "id": "cmmj6nped001xm27clx6cjll6",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "gift_claim_cmmaqp77i000pm2686xq6bozg_1773060862549",
+    "type": "admin_grant",
+    "dateId": "2026-03-09",
+    "amount": 10000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmivxt25001qm2tonpx9d6ka\"}",
+    "createdAt": "2026-03-09T12:54:22.550Z"
+  },
+  {
+    "id": "cmmj6vud5002dm27cagpbjprp",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "tts_2026-03-09",
+    "type": "tts_complete",
+    "dateId": "2026-03-09",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-09T13:00:42.233Z"
+  },
+  {
+    "id": "cmmj6z3i7002fm27cwx5ls99g",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "prayer_2026-03-09",
+    "type": "prayer",
+    "dateId": "2026-03-09",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-09T13:03:14.047Z"
+  },
+  {
+    "id": "cmmj761oe002qm27cj9yo6vi3",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "streak_bonus_7_2026-03-09",
+    "type": "streak_bonus",
+    "dateId": "2026-03-09",
+    "amount": 200,
+    "metadata": "{\"streakDays\":7}",
+    "createdAt": "2026-03-09T13:08:38.270Z"
   }
 ]
