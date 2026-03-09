@@ -720,6 +720,18 @@ export default function CommunityScreen() {
   const [showTradeFlow, setShowTradeFlow] = useState(false);
   const [showTradeInbox, setShowTradeInbox] = useState(false);
 
+  // Live pending incoming trade count — polled every 30s
+  const { data: tradesData } = useQuery({
+    queryKey: ['trades', user?.id],
+    queryFn: () => gamificationApi.getTrades(user!.id),
+    enabled: !!user?.id,
+    staleTime: 20_000,
+    refetchInterval: 30_000,
+  });
+  const pendingIncomingCount = (tradesData?.trades ?? []).filter(
+    t => t.toUserId === user?.id && t.status === 'pending'
+  ).length;
+
   // Badge info modal state
   const [badgeModalId, setBadgeModalId] = useState<string | null>(null);
 
@@ -1051,12 +1063,31 @@ export default function CommunityScreen() {
               flexDirection: 'row', alignItems: 'center', gap: 5,
               paddingHorizontal: 12, paddingVertical: 7,
               borderRadius: 12,
-              backgroundColor: colors.surface,
+              backgroundColor: pendingIncomingCount > 0 ? colors.primary + '15' : colors.surface,
               borderWidth: 1,
-              borderColor: colors.textMuted + '25',
+              borderColor: pendingIncomingCount > 0 ? colors.primary + '50' : colors.textMuted + '25',
             }}
           >
-            <Inbox size={15} color={colors.primary} />
+            <View style={{ position: 'relative' }}>
+              <Inbox size={15} color={colors.primary} />
+              {pendingIncomingCount > 0 && (
+                <View style={{
+                  position: 'absolute',
+                  top: -5,
+                  right: -5,
+                  width: 14,
+                  height: 14,
+                  borderRadius: 7,
+                  backgroundColor: '#EF4444',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <Text style={{ fontSize: 8, fontWeight: '900', color: '#FFF' }}>
+                    {pendingIncomingCount > 9 ? '9+' : String(pendingIncomingCount)}
+                  </Text>
+                </View>
+              )}
+            </View>
             <Text style={{ fontSize: 13, fontWeight: '700', color: colors.primary }}>
               {language === 'es' ? 'Trueques' : 'Trades'}
             </Text>

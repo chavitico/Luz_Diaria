@@ -8,7 +8,7 @@
  * Step 3 — Review:     confirm + send
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   View,
   Text,
@@ -16,7 +16,6 @@ import {
   Pressable,
   ScrollView,
   ActivityIndicator,
-  FlatList,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
@@ -52,13 +51,45 @@ const RARITY_BORDER: Record<string, string> = {
   legendary: '#F59E0B',
 };
 
-// ─── Card Thumbnail chip ──────────────────────────────────────────────────────
+// ─── Context badge ────────────────────────────────────────────────────────────
+// shown on each card chip to help the user make a good trade decision
+
+function ContextBadge({
+  label,
+  positive,
+  sFont,
+}: {
+  label: string;
+  positive: boolean;
+  sFont: (n: number) => number;
+}) {
+  return (
+    <View style={{
+      paddingHorizontal: 6,
+      paddingVertical: 2,
+      borderRadius: 6,
+      backgroundColor: positive ? '#22C55E18' : '#6B728018',
+      borderWidth: 1,
+      borderColor: positive ? '#22C55E40' : '#6B728030',
+      alignSelf: 'flex-start',
+      marginTop: 3,
+    }}>
+      <Text style={{ fontSize: sFont(10), fontWeight: '700', color: positive ? '#22C55E' : '#9CA3AF' }}>
+        {label}
+      </Text>
+    </View>
+  );
+}
+
+// ─── Card Chip ────────────────────────────────────────────────────────────────
 
 function CardChip({
   cardId,
   duplicates,
   selected,
   onPress,
+  contextLabel,
+  contextPositive,
   colors,
   sFont,
 }: {
@@ -66,22 +97,23 @@ function CardChip({
   duplicates: number;
   selected: boolean;
   onPress: () => void;
+  contextLabel?: string;
+  contextPositive?: boolean;
   colors: ReturnType<typeof useThemeColors>;
   sFont: (n: number) => number;
 }) {
   const card = BIBLICAL_CARDS[cardId];
   if (!card) return null;
-  const borderColor = selected
-    ? (RARITY_BORDER[card.rarity] ?? '#F59E0B')
-    : colors.textMuted + '30';
-  const bg = selected ? (RARITY_BORDER[card.rarity] ?? '#F59E0B') + '18' : colors.surface;
+  const rarityColor = RARITY_BORDER[card.rarity] ?? '#6B7280';
+  const borderColor = selected ? rarityColor : colors.textMuted + '30';
+  const bg = selected ? rarityColor + '18' : colors.surface;
 
   return (
     <Pressable
       onPress={onPress}
       style={{
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         paddingVertical: 10,
         paddingHorizontal: 14,
         borderRadius: 14,
@@ -95,10 +127,11 @@ function CardChip({
       {/* Rarity dot */}
       <View style={{
         width: 10, height: 10, borderRadius: 5,
-        backgroundColor: RARITY_BORDER[card.rarity] ?? '#6B7280',
+        backgroundColor: rarityColor,
+        marginTop: 4,
       }} />
 
-      {/* Card name + rarity */}
+      {/* Card name + rarity + context badge */}
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text }} numberOfLines={1}>
           {card.nameEs}
@@ -106,21 +139,24 @@ function CardChip({
         <Text style={{ fontSize: sFont(11), color: colors.textMuted, marginTop: 1 }}>
           {RARITY_CONFIG[card.rarity]?.labelEs ?? card.rarity}
         </Text>
+        {contextLabel !== undefined && contextPositive !== undefined && (
+          <ContextBadge label={contextLabel} positive={contextPositive} sFont={sFont} />
+        )}
       </View>
 
       {/* Duplicate count badge */}
       <View style={{
-        backgroundColor: RARITY_BORDER[card.rarity] + '25',
+        backgroundColor: rarityColor + '25',
         borderRadius: 8,
         paddingHorizontal: 8,
         paddingVertical: 3,
       }}>
-        <Text style={{ fontSize: sFont(12), fontWeight: '800', color: RARITY_BORDER[card.rarity] ?? colors.primary }}>
+        <Text style={{ fontSize: sFont(12), fontWeight: '800', color: rarityColor }}>
           ×{duplicates + 1}
         </Text>
       </View>
 
-      {selected && <Check size={16} color={RARITY_BORDER[card.rarity] ?? colors.primary} />}
+      {selected && <Check size={16} color={rarityColor} style={{ marginTop: 2 }} />}
     </Pressable>
   );
 }
@@ -145,6 +181,8 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
   const [myCard, setMyCard]     = useState<string | null>(null);
   const [theirCard, setTheirCard] = useState<string | null>(null);
 
+  const es = language === 'es';
+
   // Reset on open
   useEffect(() => {
     if (visible) {
@@ -162,7 +200,7 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
     staleTime: 30_000,
   });
 
-  // Fetch THEIR tradable cards
+  // Fetch THEIR tradable cards + full inventory (to detect ownership)
   const { data: theirCardsData, isLoading: loadingTheirs } = useQuery({
     queryKey: ['tradeableCards', recipient?.id],
     queryFn: () => gamificationApi.getUserTradeableCards(recipient!.id),
@@ -170,8 +208,29 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
     staleTime: 30_000,
   });
 
+  // Also fetch THEIR full card inventory (includes non-duplicate cards) for context
+  const { data: theirAllCardsData } = useQuery({
+    queryKey: ['allCards', recipient?.id],
+    queryFn: () => gamificationApi.getUserTradeableCards(recipient!.id),
+    enabled: !!recipient?.id && visible,
+    staleTime: 30_000,
+  });
+
   const myTradeable: TradableCard[] = (myCardsData?.cards ?? []).filter(c => c.duplicates > 0);
   const theirTradeable: TradableCard[] = (theirCardsData?.cards ?? []).filter(c => c.duplicates > 0);
+
+  // Build ownership sets for context badges
+  // Set of cardIds that THEY own (any count)
+  const theirOwnedSet = useMemo(() => {
+    const owned = theirAllCardsData?.cards ?? [];
+    return new Set(owned.map(c => c.cardId));
+  }, [theirAllCardsData]);
+
+  // Set of cardIds that I own (any count)
+  const myOwnedSet = useMemo(() => {
+    const owned = myCardsData?.cards ?? [];
+    return new Set(owned.map(c => c.cardId));
+  }, [myCardsData]);
 
   // Create trade mutation
   const { mutate: tradeMutate, isPending: tradePending, isError: tradeIsError } = useMutation({
@@ -201,8 +260,6 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
 
   const myCardInfo    = myCard    ? BIBLICAL_CARDS[myCard]    : null;
   const theirCardInfo = theirCard ? BIBLICAL_CARDS[theirCard] : null;
-
-  const es = language === 'es';
 
   // ── Render ──────────────────────────────────────────────────────────────────
 
@@ -267,6 +324,21 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
               <Text style={{ fontSize: sFont(13), color: colors.textMuted, marginTop: 3 }}>
                 {es ? 'Elige una carta que tengas duplicada' : 'Choose a card you have a duplicate of'}
               </Text>
+              {/* Legend */}
+              <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#22C55E' }} />
+                  <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>
+                    {es ? 'Le falta' : 'They need it'}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#9CA3AF' }} />
+                  <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>
+                    {es ? 'Ya la tiene' : 'They have it'}
+                  </Text>
+                </View>
+              </View>
             </View>
 
             {loadingMine ? (
@@ -281,17 +353,25 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
               </View>
             ) : (
               <ScrollView contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 120 }}>
-                {myTradeable.map(c => (
-                  <CardChip
-                    key={c.cardId}
-                    cardId={c.cardId}
-                    duplicates={c.duplicates}
-                    selected={myCard === c.cardId}
-                    onPress={() => { Haptics.selectionAsync(); setMyCard(c.cardId); }}
-                    colors={colors}
-                    sFont={sFont}
-                  />
-                ))}
+                {myTradeable.map(c => {
+                  const theyHaveIt = theirOwnedSet.has(c.cardId);
+                  const ctxLabel = es
+                    ? (theyHaveIt ? 'Ya la tiene' : 'Le falta')
+                    : (theyHaveIt ? 'They have it' : 'They need it');
+                  return (
+                    <CardChip
+                      key={c.cardId}
+                      cardId={c.cardId}
+                      duplicates={c.duplicates}
+                      selected={myCard === c.cardId}
+                      onPress={() => { Haptics.selectionAsync(); setMyCard(c.cardId); }}
+                      contextLabel={ctxLabel}
+                      contextPositive={!theyHaveIt}
+                      colors={colors}
+                      sFont={sFont}
+                    />
+                  );
+                })}
               </ScrollView>
             )}
 
@@ -327,6 +407,21 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
               <Text style={{ fontSize: sFont(13), color: colors.textMuted, marginTop: 3 }}>
                 {es ? `Elige una carta duplicada de ${recipient?.nickname ?? ''}` : `Choose a duplicate card from ${recipient?.nickname ?? ''}`}
               </Text>
+              {/* Legend */}
+              <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#22C55E' }} />
+                  <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>
+                    {es ? 'No la tienes' : 'You don\'t have it'}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#9CA3AF' }} />
+                  <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>
+                    {es ? 'Ya la tienes' : 'You have it'}
+                  </Text>
+                </View>
+              </View>
             </View>
 
             {loadingTheirs ? (
@@ -341,17 +436,25 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
               </View>
             ) : (
               <ScrollView contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 120 }}>
-                {theirTradeable.map(c => (
-                  <CardChip
-                    key={c.cardId}
-                    cardId={c.cardId}
-                    duplicates={c.duplicates}
-                    selected={theirCard === c.cardId}
-                    onPress={() => { Haptics.selectionAsync(); setTheirCard(c.cardId); }}
-                    colors={colors}
-                    sFont={sFont}
-                  />
-                ))}
+                {theirTradeable.map(c => {
+                  const iHaveIt = myOwnedSet.has(c.cardId);
+                  const ctxLabel = es
+                    ? (iHaveIt ? 'Ya la tienes' : 'No la tienes')
+                    : (iHaveIt ? 'You have it' : 'You don\'t have it');
+                  return (
+                    <CardChip
+                      key={c.cardId}
+                      cardId={c.cardId}
+                      duplicates={c.duplicates}
+                      selected={theirCard === c.cardId}
+                      onPress={() => { Haptics.selectionAsync(); setTheirCard(c.cardId); }}
+                      contextLabel={ctxLabel}
+                      contextPositive={!iHaveIt}
+                      colors={colors}
+                      sFont={sFont}
+                    />
+                  );
+                })}
               </ScrollView>
             )}
 
@@ -408,6 +511,21 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
                     <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text }}>{myCardInfo.nameEs}</Text>
                     <Text style={{ fontSize: sFont(11), color: colors.textMuted }}>{RARITY_CONFIG[myCardInfo.rarity]?.labelEs ?? myCardInfo.rarity}</Text>
                   </View>
+                  {/* Context: does recipient need it? */}
+                  {myCard && (
+                    <View style={{
+                      paddingHorizontal: 7, paddingVertical: 3, borderRadius: 7,
+                      backgroundColor: theirOwnedSet.has(myCard) ? '#6B728018' : '#22C55E18',
+                      borderWidth: 1,
+                      borderColor: theirOwnedSet.has(myCard) ? '#6B728030' : '#22C55E40',
+                    }}>
+                      <Text style={{ fontSize: sFont(10), fontWeight: '700', color: theirOwnedSet.has(myCard) ? '#9CA3AF' : '#22C55E' }}>
+                        {es
+                          ? (theirOwnedSet.has(myCard) ? 'Ya la tiene' : 'Le falta')
+                          : (theirOwnedSet.has(myCard) ? 'They have it' : 'They need it')}
+                      </Text>
+                    </View>
+                  )}
                 </View>
               </View>
 
@@ -439,6 +557,21 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
                     <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text }}>{theirCardInfo.nameEs}</Text>
                     <Text style={{ fontSize: sFont(11), color: colors.textMuted }}>{RARITY_CONFIG[theirCardInfo.rarity]?.labelEs ?? theirCardInfo.rarity}</Text>
                   </View>
+                  {/* Context: do I already own it? */}
+                  {theirCard && (
+                    <View style={{
+                      paddingHorizontal: 7, paddingVertical: 3, borderRadius: 7,
+                      backgroundColor: myOwnedSet.has(theirCard) ? '#6B728018' : '#22C55E18',
+                      borderWidth: 1,
+                      borderColor: myOwnedSet.has(theirCard) ? '#6B728030' : '#22C55E40',
+                    }}>
+                      <Text style={{ fontSize: sFont(10), fontWeight: '700', color: myOwnedSet.has(theirCard) ? '#9CA3AF' : '#22C55E' }}>
+                        {es
+                          ? (myOwnedSet.has(theirCard) ? 'Ya la tienes' : 'No la tienes')
+                          : (myOwnedSet.has(theirCard) ? 'You have it' : 'You don\'t have it')}
+                      </Text>
+                    </View>
+                  )}
                 </View>
               </View>
             </View>
