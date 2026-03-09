@@ -32,12 +32,12 @@ import { initCardImageCache, downloadCollection } from '@/lib/card-image-cache';
 // the decode happens in the background while the user is on the home screen.
 (function prewarmPackAssets() {
   const packAssets = [
-    require('../assets/packs/sobre_biblico_pack.png'),
-    require('../assets/packs/sobre_biblico_card_back.png'),
-    require('../assets/packs/pack_pascua_pack.png'),
-    require('../assets/packs/pack_pascua_card_back.png'),
-    require('../assets/packs/pack_milagros_pack.png'),
-    require('../assets/packs/pack_milagros_card_back.png'),
+    require('../../assets/packs/sobre_biblico_pack.png'),
+    require('../../assets/packs/sobre_biblico_card_back.png'),
+    require('../../assets/packs/pack_pascua_pack.png'),
+    require('../../assets/packs/pack_pascua_card_back.png'),
+    require('../../assets/packs/pack_milagros_pack.png'),
+    require('../../assets/packs/pack_milagros_card_back.png'),
   ];
   // Image is already imported above from react-native
   for (const asset of packAssets) {
