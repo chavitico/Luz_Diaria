@@ -235,16 +235,35 @@ const RARITY_GLOW_PEAK: Record<string, number> = {
 // Number of particle dots for legendary burst
 const PARTICLE_COUNT = 6;
 
+// ─── Per-collection pack & card-back assets ──────────────────────────────────
+
+const PACK_ASSETS: Record<PackType, { pack: string; cardBack: string; glowColor: string }> = {
+  sobre_biblico: {
+    pack:     'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/aUNNVZuyUu4.png',
+    cardBack: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/PNtAcWRmt5c.png',
+    glowColor: '#D4A017',
+  },
+  pack_pascua: {
+    pack:     'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/nmhgNbYrAK0.png',
+    cardBack: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/FpVY6QG3vVQ.png',
+    glowColor: '#FFD700',
+  },
+  pack_milagros: {
+    pack:     'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/0pr3TRHc6Ks.png',
+    cardBack: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/xgYZdOUYXAw.png',
+    glowColor: '#60A5FA',
+  },
+};
+
+// Prefetch all pack assets on module load so they are instant when user opens a pack
+Object.values(PACK_ASSETS).forEach(({ pack, cardBack }) => {
+  (Image as any).prefetch(pack).catch(() => {});
+  (Image as any).prefetch(cardBack).catch(() => {});
+});
+
 // ─── Animated Pack Visual ────────────────────────────────────────────────────
 
-const PACK_IMAGE_URI = 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/0pr3TRHc6Ks.png';
-const CARD_BACK_URI_PREFETCH = 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/xgYZdOUYXAw.png';
-
-// Prefetch static pack assets on module load (fire-and-forget)
-(Image as any).prefetch(PACK_IMAGE_URI).catch(() => {});
-(Image as any).prefetch(CARD_BACK_URI_PREFETCH).catch(() => {});
-
-/** Full pack — shown during idle/zoom phases */
+/** Full pack — shown during idle/zoom/tearing phases */
 function PackVisual({
   packType,
   shakeAnim,
@@ -254,6 +273,7 @@ function PackVisual({
   shakeAnim: Animated.Value;
   scaleAnim: Animated.Value;
 }) {
+  const assets = PACK_ASSETS[packType];
   const cfg = PACK_CONFIG[packType];
   const rotate = shakeAnim.interpolate({
     inputRange: [-1, 0, 1],
@@ -264,7 +284,7 @@ function PackVisual({
     <Animated.View
       style={{
         transform: [{ rotate }, { scale: scaleAnim }],
-        shadowColor: cfg.glowColor,
+        shadowColor: assets.glowColor,
         shadowOffset: { width: 0, height: 6 },
         shadowOpacity: 0.95,
         shadowRadius: 36,
@@ -272,12 +292,14 @@ function PackVisual({
         width: CARD_W,
         height: CARD_H,
         borderRadius: 20,
+        overflow: 'hidden',
+        backgroundColor: cfg.gradientBottom,
       }}
     >
-      {/* AI-generated pack artwork */}
+      {/* AI-generated pack artwork — contain so the physical pack shape is fully visible */}
       <Image
-        source={{ uri: PACK_IMAGE_URI }}
-        style={{ width: CARD_W, height: CARD_H, borderRadius: 20 } as any}
+        source={{ uri: assets.pack }}
+        style={{ position: 'absolute', width: CARD_W, height: CARD_H } as any}
         resizeMode="cover"
       />
       {/* Foil sheen overlay */}
@@ -285,7 +307,7 @@ function PackVisual({
         colors={['rgba(255,255,255,0.10)', 'transparent', 'rgba(255,255,255,0.04)', 'transparent']}
         start={{ x: 0.1, y: 0 }}
         end={{ x: 0.9, y: 1 }}
-        style={{ position: 'absolute', inset: 0, borderRadius: 20 }}
+        style={{ position: 'absolute', inset: 0 }}
       />
     </Animated.View>
   );
@@ -335,7 +357,7 @@ function PackHalf({
       <View style={{ width: CARD_W, height: CARD_H, overflow: 'hidden', borderRadius: 20 }}>
         {/* AI-generated pack artwork — same image, clipped to half */}
         <Image
-          source={{ uri: PACK_IMAGE_URI }}
+          source={{ uri: PACK_ASSETS[packType].pack }}
           style={{ width: CARD_W, height: CARD_H, borderRadius: 20 } as any}
           resizeMode="cover"
         />
@@ -353,14 +375,13 @@ function PackHalf({
 
 // ─── Card Back ────────────────────────────────────────────────────────────────
 
-const CARD_BACK_URI = CARD_BACK_URI_PREFETCH;
-
-function CardBack() {
+function CardBack({ packType }: { packType: PackType }) {
+  const assets = PACK_ASSETS[packType];
   return (
     <View style={styles.cardBack}>
       {/* AI-generated card back artwork */}
       <Image
-        source={{ uri: CARD_BACK_URI }}
+        source={{ uri: assets.cardBack }}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', borderRadius: 20 } as any}
         resizeMode="cover"
       />
@@ -1387,7 +1408,7 @@ export function PackOpeningModal({
                   <RarityShimmer rarity={rarity} shimmerAnim={shimmerAnim} />
                 </>
               ) : (
-                <CardBack />
+                <CardBack packType={packType ?? 'sobre_biblico'} />
               )}
             </Animated.View>
 
