@@ -33,11 +33,11 @@
     "titleId": "title_renewed_strength",
     "themeId": "theme_bosque_sereno",
     "selectedMusicId": "music_free_1",
-    "points": 20640,
+    "points": 18640,
     "streakCurrent": 31,
     "streakBest": 31,
     "devotionalsCompleted": 20,
-    "totalTimeSeconds": 76740,
+    "totalTimeSeconds": 76940,
     "lastActiveAt": "2026-03-09T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-09T08:40:44.050Z"
+    "updatedAt": "2026-03-09T08:51:59.743Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
