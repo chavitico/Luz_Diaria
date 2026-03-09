@@ -2,12 +2,12 @@
  * TradeInboxModal
  *
  * Shows the current user's trade activity:
- *  - Incoming pending trades (accept / reject)
+ *  - Incoming pending trades (accept / reject) — with accept animation + success toast
  *  - Outgoing pending trades (cancel)
  *  - Recent history (accepted / rejected / cancelled)
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,19 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withSequence,
+  withTiming,
+  withRepeat,
+  withDelay,
+  runOnJS,
+  FadeIn,
+  FadeOut,
+  ZoomIn,
+} from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -28,6 +41,7 @@ import {
   XCircle,
   Clock,
   Inbox,
+  Sparkles,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
@@ -58,15 +72,116 @@ function rarityLabel(cardId: string) {
   return card ? (RARITY_CONFIG[card.rarity]?.labelEs ?? card.rarity) : '';
 }
 
+// ─── Success Toast ─────────────────────────────────────────────────────────────
+
+interface ToastInfo {
+  cardId: string;
+  isNew: boolean;
+  es: boolean;
+}
+
+function SuccessToast({
+  info,
+  colors,
+  sFont,
+}: {
+  info: ToastInfo;
+  colors: ReturnType<typeof useThemeColors>;
+  sFont: (n: number) => number;
+}) {
+  const name = cardName(info.cardId);
+  const rc = rarityColor(info.cardId);
+
+  return (
+    <Animated.View
+      entering={ZoomIn.duration(280).springify()}
+      exiting={FadeOut.duration(200)}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 16,
+        right: 16,
+        zIndex: 100,
+        borderRadius: 16,
+        overflow: 'hidden',
+        shadowColor: '#22C55E',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.4,
+        shadowRadius: 12,
+        elevation: 12,
+      }}
+    >
+      <LinearGradient
+        colors={['#16A34A', '#15803D']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 14,
+          gap: 12,
+        }}
+      >
+        {/* Card thumb */}
+        <View style={{ borderRadius: 8, overflow: 'hidden' }}>
+          <CardThumb cardId={info.cardId} height={52} />
+        </View>
+
+        {/* Text */}
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: sFont(12), fontWeight: '800', color: '#DCFCE7', letterSpacing: 0.5 }}>
+            {info.es
+              ? (info.isNew ? '✨ Nueva carta obtenida' : '✨ Intercambio completado')
+              : (info.isNew ? '✨ New card obtained' : '✨ Trade completed')}
+          </Text>
+          <Text style={{ fontSize: sFont(14), fontWeight: '900', color: '#FFF', marginTop: 1 }} numberOfLines={1}>
+            {name}
+          </Text>
+          <View style={{
+            alignSelf: 'flex-start',
+            marginTop: 4,
+            paddingHorizontal: 7,
+            paddingVertical: 2,
+            borderRadius: 6,
+            backgroundColor: '#FFF2',
+          }}>
+            <Text style={{ fontSize: sFont(10), fontWeight: '700', color: '#FFF' }}>
+              {info.isNew
+                ? (info.es ? 'Nueva' : 'New')
+                : (info.es ? 'Duplicado +1' : 'Duplicate +1')}
+            </Text>
+          </View>
+        </View>
+
+        {/* Check */}
+        <View style={{
+          width: 32, height: 32, borderRadius: 16,
+          backgroundColor: '#FFF3',
+          alignItems: 'center', justifyContent: 'center',
+        }}>
+          <Check size={18} color="#FFF" />
+        </View>
+      </LinearGradient>
+    </Animated.View>
+  );
+}
+
 // ─── TradeRow ─────────────────────────────────────────────────────────────────
 
 type TradeRowAction = 'accept' | 'reject' | 'cancel' | null;
+
+interface AcceptResult {
+  isNew: boolean;
+  receivedCardId: string;
+}
 
 function TradeRow({
   trade,
   myUserId,
   onAction,
   actionPending,
+  justAccepted,
+  acceptResult,
   colors,
   sFont,
   es,
@@ -75,6 +190,8 @@ function TradeRow({
   myUserId: string;
   onAction: (action: TradeRowAction) => void;
   actionPending: boolean;
+  justAccepted: boolean;
+  acceptResult: AcceptResult | null;
   colors: ReturnType<typeof useThemeColors>;
   sFont: (n: number) => number;
   es: boolean;
@@ -82,9 +199,11 @@ function TradeRow({
   const isIncoming = trade.toUserId === myUserId;
   const otherUser = isIncoming ? trade.fromUser : trade.toUser;
 
-  // Card I'm giving vs receiving from my perspective
+  // from my perspective
   const giveCardId    = isIncoming ? trade.requestedCardId : trade.offeredCardId;
   const receiveCardId = isIncoming ? trade.offeredCardId   : trade.requestedCardId;
+
+  const isAccepted = trade.status === 'accepted';
 
   const statusColors: Record<CardTrade['status'], string> = {
     pending:   '#F59E0B',
@@ -103,32 +222,97 @@ function TradeRow({
 
   const sc = statusColors[trade.status] ?? '#6B7280';
 
+  // ── Animations ────────────────────────────────────────────────────────────
+  // Arrow swap spin (plays on accept)
+  const arrowRot = useSharedValue(0);
+  // Receive panel glow opacity
+  const receiveGlow = useSharedValue(0);
+  // Receive panel scale pulse
+  const receiveScale = useSharedValue(1);
+  // Card glow border
+  const cardBorderOpacity = useSharedValue(isAccepted ? 1 : 0);
+
+  useEffect(() => {
+    if (justAccepted) {
+      // Arrow spins left-right
+      arrowRot.value = withSequence(
+        withTiming(-1, { duration: 120 }),
+        withTiming(1, { duration: 120 }),
+        withTiming(-0.5, { duration: 100 }),
+        withTiming(0.5, { duration: 100 }),
+        withTiming(0, { duration: 80 }),
+      );
+      // Receive panel glows then fades
+      receiveGlow.value = withSequence(
+        withTiming(1, { duration: 200 }),
+        withDelay(400, withTiming(0, { duration: 400 })),
+      );
+      // Receive panel scales up briefly
+      receiveScale.value = withSequence(
+        withDelay(100, withSpring(1.04, { damping: 6 })),
+        withDelay(200, withSpring(1, { damping: 8 })),
+      );
+      cardBorderOpacity.value = withTiming(1, { duration: 300 });
+    }
+  }, [justAccepted]);
+
+  const arrowStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: arrowRot.value * 6 }],
+  }));
+  const receiveGlowStyle = useAnimatedStyle(() => ({
+    opacity: receiveGlow.value,
+  }));
+  const receiveScaleStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: receiveScale.value }],
+  }));
+
+  // Border color for accepted cards
+  const borderColor = isAccepted
+    ? '#22C55E55'
+    : colors.textMuted + '20';
+  const bgColor = isAccepted
+    ? '#22C55E08'
+    : colors.surface;
+
   return (
     <View style={{
       borderRadius: 16,
-      borderWidth: 1,
-      borderColor: colors.textMuted + '20',
-      backgroundColor: colors.surface,
+      borderWidth: isAccepted ? 1.5 : 1,
+      borderColor,
+      backgroundColor: bgColor,
       padding: 14,
       marginBottom: 10,
       gap: 10,
     }}>
-      {/* Header row: direction label + status badge */}
+      {/* Header row */}
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           {isIncoming
-            ? <Inbox size={13} color={colors.primary} />
+            ? <Inbox size={13} color={isAccepted ? '#22C55E' : colors.primary} />
             : <ArrowLeftRight size={13} color={colors.textMuted} />
           }
-          <Text style={{ fontSize: sFont(12), fontWeight: '700', color: isIncoming ? colors.primary : colors.textMuted }}>
+          <Text style={{ fontSize: sFont(12), fontWeight: '700', color: isIncoming ? (isAccepted ? '#22C55E' : colors.primary) : colors.textMuted }}>
             {isIncoming
               ? (es ? `De ${otherUser.nickname}` : `From ${otherUser.nickname}`)
               : (es ? `Para ${otherUser.nickname}` : `To ${otherUser.nickname}`)
             }
           </Text>
         </View>
-        <View style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8, backgroundColor: sc + '20' }}>
-          <Text style={{ fontSize: sFont(11), fontWeight: '700', color: sc }}>
+
+        {/* Status chip — larger + bolder for accepted */}
+        <View style={{
+          paddingHorizontal: isAccepted ? 10 : 8,
+          paddingVertical: isAccepted ? 4 : 3,
+          borderRadius: 10,
+          backgroundColor: sc + (isAccepted ? '25' : '18'),
+          borderWidth: isAccepted ? 1 : 0,
+          borderColor: isAccepted ? sc + '60' : 'transparent',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 4,
+        }}>
+          {isAccepted && <Check size={10} color={sc} />}
+          <Text style={{ fontSize: sFont(isAccepted ? 12 : 11), fontWeight: '800', color: sc }}>
             {statusLabels[trade.status]}
           </Text>
         </View>
@@ -146,11 +330,9 @@ function TradeRow({
           <Text style={{ fontSize: sFont(9), fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5, paddingTop: 8, paddingHorizontal: 8, marginBottom: 6 }}>
             {es ? 'Das' : 'You give'}
           </Text>
-          {/* Thumbnail */}
           <View style={{ alignItems: 'center', paddingHorizontal: 8 }}>
             <CardThumb cardId={giveCardId} height={120} />
           </View>
-          {/* Info */}
           <View style={{ padding: 8, paddingTop: 6 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 2 }}>
               <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: rarityColor(giveCardId) }} />
@@ -164,41 +346,77 @@ function TradeRow({
           </View>
         </View>
 
-        {/* Center arrow */}
-        <View style={{ alignSelf: 'center', paddingTop: 20 }}>
-          <ArrowLeftRight size={14} color={colors.textMuted} />
-        </View>
+        {/* Center arrow — animates on accept */}
+        <Animated.View style={[{ alignSelf: 'center', paddingTop: 20 }, arrowStyle]}>
+          <ArrowLeftRight size={14} color={justAccepted ? '#22C55E' : colors.textMuted} />
+        </Animated.View>
 
-        {/* Receive card */}
-        <View style={{
-          flex: 1, borderRadius: 12,
-          backgroundColor: rarityColor(receiveCardId) + '10',
-          borderWidth: 1, borderColor: rarityColor(receiveCardId) + '35',
-          overflow: 'hidden',
-        }}>
-          <Text style={{ fontSize: sFont(9), fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5, paddingTop: 8, paddingHorizontal: 8, marginBottom: 6 }}>
-            {es ? 'Recibes' : 'You get'}
-          </Text>
-          {/* Thumbnail */}
-          <View style={{ alignItems: 'center', paddingHorizontal: 8 }}>
-            <CardThumb cardId={receiveCardId} height={120} />
-          </View>
-          {/* Info */}
-          <View style={{ padding: 8, paddingTop: 6 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 2 }}>
-              <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: rarityColor(receiveCardId) }} />
-              <Text style={{ fontSize: sFont(11), fontWeight: '700', color: colors.text, flex: 1 }} numberOfLines={2}>
-                {cardName(receiveCardId)}
-              </Text>
-            </View>
-            <Text style={{ fontSize: sFont(9), color: colors.textMuted }}>
-              {rarityLabel(receiveCardId)}
+        {/* Receive card — pulses + glows on accept */}
+        <Animated.View style={[{ flex: 1 }, receiveScaleStyle]}>
+          <View style={{
+            flex: 1, borderRadius: 12,
+            backgroundColor: rarityColor(receiveCardId) + (isAccepted ? '18' : '10'),
+            borderWidth: isAccepted ? 1.5 : 1,
+            borderColor: rarityColor(receiveCardId) + (isAccepted ? '60' : '35'),
+            overflow: 'hidden',
+          }}>
+            <Text style={{ fontSize: sFont(9), fontWeight: '700', color: isAccepted ? rarityColor(receiveCardId) : colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5, paddingTop: 8, paddingHorizontal: 8, marginBottom: 6 }}>
+              {es ? 'Recibes' : 'You get'}
             </Text>
+            <View style={{ alignItems: 'center', paddingHorizontal: 8 }}>
+              <CardThumb cardId={receiveCardId} height={120} />
+            </View>
+            <View style={{ padding: 8, paddingTop: 6 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 2 }}>
+                <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: rarityColor(receiveCardId) }} />
+                <Text style={{ fontSize: sFont(11), fontWeight: '700', color: colors.text, flex: 1 }} numberOfLines={2}>
+                  {cardName(receiveCardId)}
+                </Text>
+              </View>
+              <Text style={{ fontSize: sFont(9), color: colors.textMuted }}>
+                {rarityLabel(receiveCardId)}
+              </Text>
+              {/* Nueva / Duplicado +1 chip */}
+              {(isAccepted || justAccepted) && acceptResult && (
+                <View style={{
+                  alignSelf: 'flex-start',
+                  marginTop: 4,
+                  paddingHorizontal: 6,
+                  paddingVertical: 2,
+                  borderRadius: 6,
+                  backgroundColor: acceptResult.isNew ? '#22C55E20' : '#6B728018',
+                  borderWidth: 1,
+                  borderColor: acceptResult.isNew ? '#22C55E50' : '#6B728030',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 3,
+                }}>
+                  {acceptResult.isNew && <Sparkles size={9} color="#22C55E" />}
+                  <Text style={{ fontSize: sFont(9), fontWeight: '800', color: acceptResult.isNew ? '#22C55E' : '#9CA3AF' }}>
+                    {acceptResult.isNew
+                      ? (es ? 'Nueva' : 'New')
+                      : (es ? 'Duplicado +1' : 'Duplicate +1')}
+                  </Text>
+                </View>
+              )}
+            </View>
           </View>
-        </View>
+
+          {/* Glow overlay — fades out after accept */}
+          <Animated.View
+            pointerEvents="none"
+            style={[{
+              position: 'absolute', inset: 0,
+              borderRadius: 12,
+              backgroundColor: '#22C55E15',
+              borderWidth: 2,
+              borderColor: '#22C55E80',
+            }, receiveGlowStyle]}
+          />
+        </Animated.View>
       </View>
 
-      {/* Action buttons for pending trades */}
+      {/* Action buttons — only for pending */}
       {trade.status === 'pending' && (
         <View style={{ flexDirection: 'row', gap: 8, marginTop: 2 }}>
           {isIncoming ? (
@@ -245,7 +463,6 @@ function TradeRow({
               </Pressable>
             </>
           ) : (
-            /* Cancel outgoing */
             <Pressable
               onPress={() => onAction('cancel')}
               disabled={actionPending}
@@ -292,6 +509,21 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
 
   const es = language === 'es';
   const [pendingTradeId, setPendingTradeId] = useState<string | null>(null);
+  // tradeId → accept result, for showing animation + chip even after query refetch
+  const [acceptResults, setAcceptResults] = useState<Record<string, AcceptResult>>({});
+  // tradeId that just got accepted (for triggering animation)
+  const [justAcceptedId, setJustAcceptedId] = useState<string | null>(null);
+  // Toast
+  const [toast, setToast] = useState<ToastInfo | null>(null);
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showToast = useCallback((info: ToastInfo) => {
+    setToast(info);
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    toastTimer.current = setTimeout(() => setToast(null), 3500);
+  }, []);
+
+  useEffect(() => () => { if (toastTimer.current) clearTimeout(toastTimer.current); }, []);
 
   // Fetch trades
   const { data, isLoading, refetch, isRefetching } = useQuery({
@@ -304,14 +536,40 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
   const trades = data?.trades ?? [];
   const incoming = trades.filter(t => t.toUserId === user?.id && t.status === 'pending');
   const outgoing = trades.filter(t => t.fromUserId === user?.id && t.status === 'pending');
-  const history  = trades.filter(t => t.status !== 'pending');
+  // History: accepted shown first (most recent), then rest
+  const history = trades
+    .filter(t => t.status !== 'pending')
+    .sort((a, b) => {
+      if (a.status === 'accepted' && b.status !== 'accepted') return -1;
+      if (b.status === 'accepted' && a.status !== 'accepted') return 1;
+      return 0;
+    });
 
   // Accept
   const { mutate: doAccept } = useMutation({
     mutationFn: (tradeId: string) => gamificationApi.acceptTrade(tradeId, user!.id),
-    onSuccess: (_data, tradeId) => {
+    onSuccess: (result, tradeId) => {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       setPendingTradeId(null);
+
+      // Find the trade to know the received card
+      const trade = trades.find(t => t.id === tradeId);
+      const receivedCardId = trade?.offeredCardId ?? '';
+      const isNew = result.receivedNew ?? false;
+
+      // Store accept result for chip/animation
+      setAcceptResults(prev => ({ ...prev, [tradeId]: { isNew, receivedCardId } }));
+      setJustAcceptedId(tradeId);
+
+      // Show toast
+      if (receivedCardId) {
+        showToast({ cardId: receivedCardId, isNew, es });
+      }
+
+      // Clear "justAccepted" highlight after animation finishes
+      setTimeout(() => setJustAcceptedId(null), 1200);
+
+      // Refresh data
       queryClient.invalidateQueries({ queryKey: ['trades', user?.id] });
       queryClient.invalidateQueries({ queryKey: ['tradeableCards', user?.id] });
       queryClient.invalidateQueries({ queryKey: ['userCards', user?.id] });
@@ -326,29 +584,25 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
   // Reject
   const { mutate: doReject } = useMutation({
     mutationFn: (tradeId: string) => gamificationApi.rejectTrade(tradeId, user!.id),
-    onSuccess: (_data, tradeId) => {
+    onSuccess: () => {
       Haptics.selectionAsync();
       setPendingTradeId(null);
       queryClient.invalidateQueries({ queryKey: ['trades', user?.id] });
       void refetch();
     },
-    onError: () => {
-      setPendingTradeId(null);
-    },
+    onError: () => { setPendingTradeId(null); },
   });
 
   // Cancel
   const { mutate: doCancel } = useMutation({
     mutationFn: (tradeId: string) => gamificationApi.cancelTrade(tradeId, user!.id),
-    onSuccess: (_data, tradeId) => {
+    onSuccess: () => {
       Haptics.selectionAsync();
       setPendingTradeId(null);
       queryClient.invalidateQueries({ queryKey: ['trades', user?.id] });
       void refetch();
     },
-    onError: () => {
-      setPendingTradeId(null);
-    },
+    onError: () => { setPendingTradeId(null); },
   });
 
   const handleAction = useCallback((trade: CardTrade, action: TradeRowAction) => {
@@ -407,6 +661,15 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
           </Pressable>
         </View>
 
+        {/* Toast — floats over scroll content */}
+        <View style={{ position: 'relative', zIndex: 50 }}>
+          {toast && (
+            <View style={{ position: 'absolute', top: 12, left: 0, right: 0, paddingHorizontal: 16, zIndex: 100 }}>
+              <SuccessToast info={toast} colors={colors} sFont={sFont} />
+            </View>
+          )}
+        </View>
+
         {/* Body */}
         {isLoading ? (
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -423,7 +686,7 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
           </View>
         ) : (
           <ScrollView
-            contentContainerStyle={{ padding: 18, paddingBottom: insets.bottom + 24 }}
+            contentContainerStyle={{ padding: 18, paddingBottom: insets.bottom + 24, paddingTop: toast ? 90 : 18 }}
             refreshControl={
               <RefreshControl
                 refreshing={isRefetching}
@@ -440,10 +703,7 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
                   <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary, letterSpacing: 0.5 }}>
                     {es ? 'Recibidas' : 'Incoming'}
                   </Text>
-                  <View style={{
-                    backgroundColor: colors.primary + '25',
-                    borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2,
-                  }}>
+                  <View style={{ backgroundColor: colors.primary + '25', borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 }}>
                     <Text style={{ fontSize: sFont(11), fontWeight: '800', color: colors.primary }}>
                       {incoming.length}
                     </Text>
@@ -456,6 +716,8 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
                     myUserId={user!.id}
                     onAction={(action) => handleAction(t, action)}
                     actionPending={pendingTradeId === t.id}
+                    justAccepted={justAcceptedId === t.id}
+                    acceptResult={acceptResults[t.id] ?? null}
                     colors={colors}
                     sFont={sFont}
                     es={es}
@@ -480,6 +742,8 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
                     myUserId={user!.id}
                     onAction={(action) => handleAction(t, action)}
                     actionPending={pendingTradeId === t.id}
+                    justAccepted={false}
+                    acceptResult={null}
                     colors={colors}
                     sFont={sFont}
                     es={es}
@@ -504,6 +768,8 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
                     myUserId={user!.id}
                     onAction={() => {}}
                     actionPending={false}
+                    justAccepted={false}
+                    acceptResult={acceptResults[t.id] ?? null}
                     colors={colors}
                     sFont={sFont}
                     es={es}
