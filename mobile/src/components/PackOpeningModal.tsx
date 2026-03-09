@@ -279,6 +279,7 @@ function PackVisual({
     inputRange: [-1, 0, 1],
     outputRange: ['-7deg', '0deg', '7deg'],
   });
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <Animated.View
@@ -296,10 +297,21 @@ function PackVisual({
         backgroundColor: cfg.gradientBottom,
       }}
     >
-      {/* AI-generated pack artwork — contain so the physical pack shape is fully visible */}
-      <Image
+      {/* Gradient fallback — always visible, image fades in on top */}
+      <LinearGradient
+        colors={[cfg.gradientTop, cfg.gradientBottom]}
+        style={{ position: 'absolute', inset: 0 }}
+      />
+      {/* AI-generated pack artwork */}
+      <Animated.Image
         source={{ uri: assets.pack }}
-        style={{ position: 'absolute', width: CARD_W, height: CARD_H } as any}
+        onLoad={() => setLoaded(true)}
+        style={{
+          position: 'absolute',
+          width: CARD_W,
+          height: CARD_H,
+          opacity: loaded ? 1 : 0,
+        } as any}
         resizeMode="cover"
       />
       {/* Foil sheen overlay */}
@@ -329,7 +341,7 @@ function PackHalf({
   rotate: Animated.Value;
   glowColor: string;
 }) {
-  const cfg = PACK_CONFIG[packType];
+  const assets = PACK_ASSETS[packType];
   const rotateInterp = rotate.interpolate({
     inputRange: [-1, 0, 1],
     outputRange: side === 'left' ? ['-35deg', '-15deg', '0deg'] : ['0deg', '15deg', '35deg'],
@@ -377,12 +389,25 @@ function PackHalf({
 
 function CardBack({ packType }: { packType: PackType }) {
   const assets = PACK_ASSETS[packType];
+  const cfg = PACK_CONFIG[packType];
+  const [loaded, setLoaded] = useState(false);
   return (
     <View style={styles.cardBack}>
+      {/* Gradient fallback — shown until image loads */}
+      <LinearGradient
+        colors={[cfg.gradientTop, cfg.gradientBottom]}
+        style={{ position: 'absolute', inset: 0, borderRadius: 20 }}
+      />
       {/* AI-generated card back artwork */}
-      <Image
+      <Animated.Image
         source={{ uri: assets.cardBack }}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', borderRadius: 20 } as any}
+        onLoad={() => setLoaded(true)}
+        style={{
+          position: 'absolute', inset: 0,
+          width: '100%', height: '100%',
+          borderRadius: 20,
+          opacity: loaded ? 1 : 0,
+        } as any}
         resizeMode="cover"
       />
       {/* Foil sheen overlay to keep premium feel */}
@@ -536,7 +561,7 @@ export function PackOpeningModal({
   const [cardFace, setCardFace] = useState<'back' | 'front'>('back');
 
   // Irregular tear line — SVG clip width (0→CARD_W), driven by tearProgress listener
-  const TEAR_BASE_Y = CARD_H * 0.12;
+  const TEAR_BASE_Y = CARD_H * 0.15;  // ~15% down — matches top-seal position in pack artwork
   const SVG_H = 20; // SVG container height; center line at y=10
   const tearPointsAbs  = useRef(generateTearPoints(CARD_W, TEAR_BASE_Y)).current;
   const tearPointsLocal = useRef(translateTearPoints(tearPointsAbs, TEAR_BASE_Y, 10)).current;
@@ -829,7 +854,7 @@ export function PackOpeningModal({
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
 
     // Envelope tear: top flap flies up, body stays, then flash + card
-    const FLAP_H = CARD_H * 0.14; // height of the top flap (tear line position)
+    const FLAP_H = CARD_H * 0.15; // height of the top flap — matches TEAR_BASE_Y
     Animated.parallel([
       // Flap flies up and off screen
       Animated.timing(flapTranslateY, { toValue: -(CARD_H * 0.6), duration: 360, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
@@ -1283,7 +1308,7 @@ export function PackOpeningModal({
                     {/* Clip to show only below tear line */}
                     <View style={{
                       position: 'absolute',
-                      top: CARD_H * 0.12,
+                      top: CARD_H * 0.15,
                       left: 0,
                       right: 0,
                       bottom: 0,
@@ -1291,7 +1316,7 @@ export function PackOpeningModal({
                       borderBottomLeftRadius: 20,
                       borderBottomRightRadius: 20,
                     }}>
-                      <View style={{ width: CARD_W, height: CARD_H, marginTop: -(CARD_H * 0.12) }}>
+                      <View style={{ width: CARD_W, height: CARD_H, marginTop: -(CARD_H * 0.15) }}>
                         <PackVisual packType={packType} shakeAnim={packShake} scaleAnim={packBump} />
                       </View>
                     </View>
@@ -1324,7 +1349,7 @@ export function PackOpeningModal({
                       top: 0,
                       left: 0,
                       right: 0,
-                      height: CARD_H * 0.12,
+                      height: CARD_H * 0.15,
                       overflow: 'hidden',
                       borderTopLeftRadius: 20,
                       borderTopRightRadius: 20,
