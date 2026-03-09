@@ -7748,7 +7748,7 @@ export default function StoreScreen() {
         if (itemId === 'pincel_magico') {
           setPincelMagicoSource('store');
           setToastMessage(language === 'es' ? '¡Pincel Mágico adquirido!' : 'Magic Paintbrush acquired!');
-        } else if (itemId === 'sobre_biblico' || itemId === 'pack_pascua') {
+        } else if (itemId === 'sobre_biblico' || itemId === 'pack_pascua' || itemId === 'pack_milagros') {
           const drawn = res.drawnCards?.length ? res.drawnCards : (res.drawnCard ? [res.drawnCard] : null);
           console.log('[Store][Card] drawn cards', drawn);
           if (drawn) {
@@ -7771,7 +7771,7 @@ export default function StoreScreen() {
         queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
         queryClient.invalidateQueries({ queryKey: ['backendUser'] });
         // If a card was drawn, invalidate the album inventory so it appears immediately
-        if (itemId === 'sobre_biblico' || itemId === 'pack_pascua') {
+        if (itemId === 'sobre_biblico' || itemId === 'pack_pascua' || itemId === 'pack_milagros') {
           queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
         }
       }
@@ -8440,6 +8440,7 @@ export default function StoreScreen() {
         const canAffordPincel = points >= 15000;
         const canAffordSobre = points >= 500;
         const canAffordEaster = points >= 500;
+        const canAffordMilagros = points >= 1000;
         // Set to false when the Pascua 2026 event ends
         const EASTER_EVENT_ACTIVE = true;
 
@@ -8510,6 +8511,16 @@ export default function StoreScreen() {
                   onPress={() => {
                     if (EASTER_EVENT_ACTIVE && canAffordEaster && !isPackTransactionActive) {
                       handleTokenPurchase('pack_pascua', 500);
+                    }
+                  }}
+                />
+                <MilagrosPackCard
+                  canAfford={canAffordMilagros}
+                  disabled={isPackTransactionActive}
+                  language={language}
+                  onPress={() => {
+                    if (canAffordMilagros && !isPackTransactionActive) {
+                      handleTokenPurchase('pack_milagros', 1000);
                     }
                   }}
                 />

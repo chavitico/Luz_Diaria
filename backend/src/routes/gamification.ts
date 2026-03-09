@@ -2857,6 +2857,7 @@ gamificationRouter.patch("/biblical-cards/:userId/:cardId/seen", async (c) => {
 
 const COLLECTION_REWARD_MAP: Record<string, { secretCardId: string; bonusPoints: number }> = {
   pascua_2026: { secretCardId: 'jesus_resucitado', bonusPoints: 1000 },
+  milagros_2026: { secretCardId: 'reino_de_dios', bonusPoints: 2000 },
 };
 
 // POST /biblical-cards/collection-reward
