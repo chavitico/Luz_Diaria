@@ -13,6 +13,7 @@ import {
   ActivityIndicator,
   Image as RNImage,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
@@ -105,9 +106,13 @@ interface SettingRowProps {
   right?: React.ReactNode;
   onPress?: () => void;
   colors: ReturnType<typeof useThemeColors>;
+  /** When true, removes the individual row background — use inside SectionCard */
+  inCard?: boolean;
+  /** When true, shows a bottom separator line */
+  separator?: boolean;
 }
 
-function SettingRow({ icon, title, subtitle, right, onPress, colors }: SettingRowProps) {
+function SettingRow({ icon, title, subtitle, right, onPress, colors, inCard, separator }: SettingRowProps) {
   const { sFont } = useScaledFont();
   return (
     <Pressable
@@ -118,27 +123,103 @@ function SettingRow({ icon, title, subtitle, right, onPress, colors }: SettingRo
         }
       }}
       disabled={!onPress}
-      className="flex-row items-center py-4 px-5 mb-2 rounded-2xl"
-      style={{ backgroundColor: colors.surface }}
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 13,
+        paddingHorizontal: inCard ? 0 : 16,
+        backgroundColor: inCard ? 'transparent' : colors.surface,
+        borderRadius: inCard ? 0 : 16,
+        marginBottom: inCard ? 0 : 2,
+        borderBottomWidth: separator ? 0.5 : 0,
+        borderBottomColor: colors.textMuted + '20',
+      }}
     >
       <View
-        className="w-10 h-10 rounded-xl items-center justify-center mr-4"
-        style={{ backgroundColor: colors.primary + '15' }}
+        style={{
+          width: 38, height: 38, borderRadius: 12,
+          alignItems: 'center', justifyContent: 'center',
+          marginRight: 14,
+          backgroundColor: colors.primary + '15',
+        }}
       >
         {icon}
       </View>
-      <View className="flex-1">
-        <Text className="text-base font-medium" style={{ color: colors.text }}>
+      <View style={{ flex: 1 }}>
+        <Text style={{ fontSize: sFont(15), fontWeight: '500', color: colors.text }}>
           {title}
         </Text>
         {subtitle && (
-          <Text className="text-sm mt-0.5" style={{ color: colors.textMuted }}>
+          <Text style={{ fontSize: sFont(12), marginTop: 1, color: colors.textMuted }}>
             {subtitle}
           </Text>
         )}
       </View>
-      {right || (onPress && <ChevronRight size={20} color={colors.textMuted} />)}
+      {right || (onPress && <ChevronRight size={18} color={colors.textMuted} />)}
     </Pressable>
+  );
+}
+
+/** Premium section card — matches Mi Espacio card aesthetic */
+function SectionCard({
+  children,
+  colors,
+}: {
+  children: React.ReactNode;
+  colors: ReturnType<typeof useThemeColors>;
+}) {
+  return (
+    <View
+      style={{
+        borderRadius: 20,
+        marginBottom: 10,
+        shadowColor: colors.primary,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.10,
+        shadowRadius: 12,
+        elevation: 4,
+      }}
+    >
+      <LinearGradient
+        colors={[colors.primary + '18', colors.primary + '05', 'transparent']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{ borderRadius: 20, padding: 1 }}
+      >
+        <View
+          style={{
+            borderRadius: 19,
+            backgroundColor: colors.surface,
+            paddingHorizontal: 16,
+            paddingVertical: 8,
+            overflow: 'hidden',
+          }}
+        >
+          {children}
+        </View>
+      </LinearGradient>
+    </View>
+  );
+}
+
+/** Muted section label */
+function SectionLabel({ label, colors }: { label: string; colors: ReturnType<typeof useThemeColors> }) {
+  const { sFont } = useScaledFont();
+  return (
+    <Text
+      style={{
+        fontSize: sFont(11),
+        fontWeight: '700',
+        letterSpacing: 0.8,
+        textTransform: 'uppercase',
+        color: colors.textMuted,
+        marginBottom: 8,
+        marginLeft: 4,
+        marginTop: 20,
+      }}
+    >
+      {label}
+    </Text>
   );
 }
 
@@ -715,214 +796,258 @@ export default function SettingsScreen() {
             </Text>
           </View>
 
-          {/* Points History Section */}
-          <>
-            <View className="flex-row items-center justify-between mb-3 ml-1 mt-6">
-              <Text className="text-sm font-semibold uppercase tracking-wider" style={{ color: colors.textMuted }}>
-                {language === 'es' ? 'Historial de Puntos' : 'Points History'}
-              </Text>
-              {ledgerEntries.length > 5 && (
-                <Pressable
-                  onPress={() => {
+          {/* ── SECTION 1: PRIVACIDAD ─────────────────────────────── */}
+          <SectionLabel label={language === 'es' ? 'Privacidad' : 'Privacy'} colors={colors} />
+          <SectionCard colors={colors}>
+            <SettingRow
+              inCard separator
+              icon={<Users size={20} color={colors.primary} />}
+              title={language === 'es' ? 'Mostrarme en Comunidad' : 'Show me in Community'}
+              subtitle={language === 'es' ? 'Permite que otros vean tu progreso' : 'Allow others to see your progress'}
+              colors={colors}
+              right={
+                isLoadingCommunityOptIn ? (
+                  <ActivityIndicator size="small" color={colors.primary} />
+                ) : (
+                  <Switch
+                    value={communityOptIn}
+                    onValueChange={handleCommunityOptInToggle}
+                    disabled={isLoadingCommunityOptIn}
+                    trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                    thumbColor={communityOptIn ? colors.primary : '#FFFFFF'}
+                  />
+                )
+              }
+            />
+            <SettingRow
+              inCard separator
+              icon={<Heart size={20} color={colors.primary} />}
+              title={t.prayer_display_opt_in}
+              subtitle={t.prayer_display_opt_in_desc}
+              colors={colors}
+              right={
+                isLoadingPrayerOptIn ? (
+                  <ActivityIndicator size="small" color={colors.primary} />
+                ) : (
+                  <Switch
+                    value={prayerDisplayOptIn}
+                    onValueChange={handlePrayerDisplayOptInToggle}
+                    trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                    thumbColor={prayerDisplayOptIn ? colors.primary : '#FFFFFF'}
+                  />
+                )
+              }
+            />
+            <SettingRow
+              inCard separator
+              icon={
+                countryCode
+                  ? <Text style={{ fontSize: sFont(20) }}>{getCountryByCode(countryCode)?.flag ?? '🌍'}</Text>
+                  : <Globe size={20} color={colors.primary} />
+              }
+              title={language === 'es' ? 'Mi país' : 'My Country'}
+              subtitle={
+                isLoadingCountry
+                  ? '...'
+                  : countryCode
+                    ? getCountryByCode(countryCode)?.name ?? countryCode
+                    : language === 'es' ? 'No seleccionado' : 'Not selected'
+              }
+              colors={colors}
+              onPress={() => setShowCountryPicker(true)}
+            />
+            <SettingRow
+              inCard
+              icon={<Users size={20} color={colors.primary} />}
+              title={language === 'es' ? 'Mostrar mi país en Comunidad' : 'Show my country in Community'}
+              subtitle={language === 'es' ? 'Muestra tu bandera junto a tu nombre' : 'Show your flag next to your name'}
+              colors={colors}
+              right={
+                <Switch
+                  value={showCountryInCommunity}
+                  onValueChange={handleShowCountryToggle}
+                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                  thumbColor={showCountryInCommunity ? colors.primary : '#FFFFFF'}
+                />
+              }
+            />
+          </SectionCard>
+
+          {/* ── SECTION 2: NOTIFICACIONES ─────────────────────────── */}
+          <SectionLabel label={language === 'es' ? 'Notificaciones' : 'Notifications'} colors={colors} />
+          <SectionCard colors={colors}>
+            <SettingRow
+              inCard separator
+              icon={<Bell size={20} color={colors.primary} />}
+              title={language === 'es' ? 'Recordatorio diario' : 'Daily Reminder'}
+              subtitle={
+                notificationSettings.enabled
+                  ? `${language === 'es' ? 'Activo' : 'Active'} - ${formatNotificationTime(notificationSettings.hour, notificationSettings.minute)}`
+                  : language === 'es' ? 'Desactivado' : 'Disabled'
+              }
+              colors={colors}
+              right={
+                <Switch
+                  value={notificationSettings.enabled}
+                  onValueChange={handleNotificationToggle}
+                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                  thumbColor={notificationSettings.enabled ? colors.primary : '#FFFFFF'}
+                />
+              }
+            />
+            {notificationSettings.enabled && (
+              <>
+                <SettingRow
+                  inCard separator
+                  icon={<Clock size={20} color={colors.primary} />}
+                  title={language === 'es' ? 'Hora del recordatorio' : 'Reminder Time'}
+                  subtitle={formatNotificationTime(notificationSettings.hour, notificationSettings.minute)}
+                  colors={colors}
+                  onPress={() => setShowTimePickerModal(true)}
+                />
+                <SettingRow
+                  inCard separator
+                  icon={<TestTube size={20} color={colors.secondary} />}
+                  title={language === 'es' ? 'Probar notificación' : 'Test Notification'}
+                  subtitle={language === 'es' ? 'Enviar una notificación de prueba' : 'Send a test notification'}
+                  colors={colors}
+                  onPress={handleTestNotification}
+                />
+              </>
+            )}
+            <SettingRow
+              inCard
+              icon={<Flame size={20} color={colors.primary} />}
+              title={t.streak_reminders}
+              colors={colors}
+              right={
+                <Switch
+                  value={settings.streakReminders}
+                  onValueChange={(value) => {
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    setShowFullLedger((v) => !v);
+                    updateSettings({ streakReminders: value });
                   }}
-                >
-                  <Text className="text-sm font-medium" style={{ color: colors.primary }}>
-                    {showFullLedger
-                      ? (language === 'es' ? 'Ver menos' : 'Show less')
-                      : (language === 'es' ? 'Ver más' : 'Show more')}
-                  </Text>
-                </Pressable>
-              )}
-            </View>
+                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                  thumbColor={settings.streakReminders ? colors.primary : '#FFFFFF'}
+                />
+              }
+            />
+          </SectionCard>
 
-            <View className="rounded-2xl overflow-hidden" style={{ backgroundColor: colors.surface }}>
-              {ledgerEntries.length === 0 ? (
-                <View className="px-4 py-6 items-center">
-                  <View
-                    className="w-12 h-12 rounded-full items-center justify-center mb-3"
-                    style={{ backgroundColor: colors.primary + '18' }}
-                  >
-                    <Coins size={24} color={colors.primary} />
+          {/* ── SECTION 3: APARIENCIA ─────────────────────────────── */}
+          <SectionLabel label={language === 'es' ? 'Apariencia' : 'Appearance'} colors={colors} />
+          <SectionCard colors={colors}>
+            <SettingRow
+              inCard separator
+              icon={isDarkMode ? <Moon size={20} color={colors.primary} /> : <Sun size={20} color={colors.primary} />}
+              title="Dark Mode"
+              colors={colors}
+              right={
+                <Switch
+                  value={isDarkMode}
+                  onValueChange={(value) => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    setDarkMode(value);
+                  }}
+                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                  thumbColor={isDarkMode ? colors.primary : '#FFFFFF'}
+                />
+              }
+            />
+            <SettingRow
+              inCard separator
+              icon={<Globe size={20} color={colors.primary} />}
+              title={t.language}
+              subtitle={language === 'en' ? 'English' : 'Español'}
+              colors={colors}
+              onPress={() => setShowLanguageModal(true)}
+            />
+
+            {/* Text Zoom */}
+            <View style={{ paddingVertical: 13, borderBottomWidth: ownedBadgeIds.length > 0 ? 0.5 : 0, borderBottomColor: colors.textMuted + '20' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                  <View style={{ width: 38, height: 38, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary + '15' }}>
+                    <Type size={20} color={colors.primary} />
                   </View>
-                  <Text className="text-sm font-semibold mb-1" style={{ color: colors.text }}>
-                    {language === 'es' ? 'Aún no hay movimientos' : 'No movements yet'}
-                  </Text>
-                  <Text className="text-xs text-center" style={{ color: colors.textMuted }}>
-                    {language === 'es'
-                      ? 'Completa un devocional, canjea un código\no reclama una colección.'
-                      : 'Complete a devotional, redeem a code,\nor claim a collection.'}
-                  </Text>
+                  <View>
+                    <Text style={{ fontSize: sFont(15), fontWeight: '500', color: colors.text }}>
+                      {language === 'es' ? 'Zoom de texto' : 'Text zoom'}
+                    </Text>
+                    <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
+                      {language === 'es' ? 'Tamaño de letra en toda la app' : 'Font size across the app'}
+                    </Text>
+                  </View>
                 </View>
-              ) : (
-                (showFullLedger ? ledgerEntries.slice(0, 10) : ledgerEntries.slice(0, 5)).map((entry, idx, arr) => {
-                  const isPositive = entry.delta > 0;
-                  const LedgerIcon = (() => {
-                    switch (entry.kind) {
-                      case 'devotional': return LedgerBookOpen;
-                      case 'promo_code': return Tag;
-                      case 'purchase': return ShoppingBag;
-                      case 'claim': return Trophy;
-                      case 'challenge': return Zap;
-                      case 'chest': return Gift;
-                      case 'mission': return Target;
-                      default: return Coins;
-                    }
-                  })();
-                  const iconColor = isPositive ? '#22c55e' : '#ef4444';
-                  const deltaText = isPositive ? `+${entry.delta}` : `${entry.delta}`;
-
-                  return (
-                    <View
-                      key={entry.id}
-                      className="flex-row items-center px-4 py-3"
-                      style={idx < arr.length - 1 ? { borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '25' } : {}}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <Text style={{ fontSize: sFont(17), fontWeight: '800', color: colors.primary }}>
+                    {Math.round((settings.textScale ?? 1.0) * 100)}%
+                  </Text>
+                  {(settings.textScale ?? 1.0) !== 1.0 && (
+                    <Pressable
+                      onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                        updateSettings({ textScale: 1.0 });
+                      }}
+                      style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8, backgroundColor: colors.textMuted + '18' }}
                     >
-                      <View
-                        className="w-9 h-9 rounded-full items-center justify-center mr-3"
-                        style={{ backgroundColor: (isPositive ? '#22c55e' : '#ef4444') + '18' }}
-                      >
-                        <LedgerIcon size={16} color={iconColor} />
-                      </View>
-                      <View className="flex-1">
-                        <Text className="text-sm font-semibold" style={{ color: colors.text }} numberOfLines={1}>
-                          {entry.title}
-                        </Text>
-                        {entry.detail ? (
-                          <Text className="text-xs mt-0.5" style={{ color: colors.textMuted }} numberOfLines={1}>
-                            {entry.detail}
-                          </Text>
-                        ) : null}
-                      </View>
-                      <View className="items-end ml-3">
-                        <Text className="text-sm font-bold" style={{ color: iconColor }}>
-                          {deltaText}
-                        </Text>
-                        <Text className="text-xs mt-0.5" style={{ color: colors.textMuted }}>
-                          {relativeTime(entry.ts, language)}
-                        </Text>
-                      </View>
-                    </View>
-                  );
-                })
-              )}
-            </View>
-          </>
-
-          {/* Community Section */}
-          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
-            {language === 'es' ? 'Comunidad' : 'Community'}
-          </Text>
-
-          <SettingRow
-            icon={<Users size={20} color={colors.primary} />}
-            title={language === 'es' ? 'Mostrarme en Comunidad' : 'Show me in Community'}
-            subtitle={language === 'es' ? 'Permite que otros vean tu progreso' : 'Allow others to see your progress'}
-            colors={colors}
-            right={
-              isLoadingCommunityOptIn ? (
-                <ActivityIndicator size="small" color={colors.primary} />
-              ) : (
-                <Switch
-                  value={communityOptIn}
-                  onValueChange={handleCommunityOptInToggle}
-                  disabled={isLoadingCommunityOptIn}
-                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                  thumbColor={communityOptIn ? colors.primary : '#FFFFFF'}
-                />
-              )
-            }
-          />
-
-          <SettingRow
-            icon={<Heart size={20} color={colors.primary} />}
-            title={t.prayer_display_opt_in}
-            subtitle={t.prayer_display_opt_in_desc}
-            colors={colors}
-            right={
-              isLoadingPrayerOptIn ? (
-                <ActivityIndicator size="small" color={colors.primary} />
-              ) : (
-                <Switch
-                  value={prayerDisplayOptIn}
-                  onValueChange={handlePrayerDisplayOptInToggle}
-                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                  thumbColor={prayerDisplayOptIn ? colors.primary : '#FFFFFF'}
-                />
-              )
-            }
-          />
-
-          {/* Country row */}
-          <SettingRow
-            icon={
-              countryCode
-                ? <Text style={{ fontSize: sFont(20) }}>{getCountryByCode(countryCode)?.flag ?? '🌍'}</Text>
-                : <Globe size={20} color={colors.primary} />
-            }
-            title={language === 'es' ? 'Mi país' : 'My Country'}
-            subtitle={
-              isLoadingCountry
-                ? '...'
-                : countryCode
-                  ? getCountryByCode(countryCode)?.name ?? countryCode
-                  : language === 'es' ? 'No seleccionado' : 'Not selected'
-            }
-            colors={colors}
-            onPress={() => setShowCountryPicker(true)}
-          />
-
-          <SettingRow
-            icon={<Users size={20} color={colors.primary} />}
-            title={language === 'es' ? 'Mostrar mi país en Comunidad' : 'Show my country in Community'}
-            subtitle={language === 'es' ? 'Muestra tu bandera junto a tu nombre' : 'Show your flag next to your name'}
-            colors={colors}
-            right={
-              <Switch
-                value={showCountryInCommunity}
-                onValueChange={handleShowCountryToggle}
-                trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                thumbColor={showCountryInCommunity ? colors.primary : '#FFFFFF'}
+                      <Text style={{ fontSize: sFont(11), color: colors.textMuted, fontWeight: '600' }}>
+                        {language === 'es' ? 'Restablecer' : 'Reset'}
+                      </Text>
+                    </Pressable>
+                  )}
+                </View>
+              </View>
+              <Slider
+                value={settings.textScale ?? 1.0}
+                onValueChange={(value) => {
+                  const snapped = Math.round(value / 0.05) * 0.05;
+                  updateSettings({ textScale: snapped });
+                }}
+                minimumValue={0.85}
+                maximumValue={1.40}
+                minimumTrackTintColor={colors.primary}
+                maximumTrackTintColor={colors.textMuted + '40'}
+                thumbTintColor={colors.primary}
               />
-            }
-          />
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 2 }}>
+                <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>85%</Text>
+                <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>100%</Text>
+                <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>140%</Text>
+              </View>
+            </View>
 
-          {/* Badge Selection */}
-          {ownedBadgeIds.length > 0 && (
-            <>
-              <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
-                {language === 'es' ? 'Insignia activa' : 'Active Badge'}
-              </Text>
-              <View
-                className="rounded-2xl p-4 mb-2"
-                style={{ backgroundColor: colors.surface }}
-              >
-                <Text className="text-sm mb-3" style={{ color: colors.textMuted }}>
-                  {language === 'es'
-                    ? 'Elige la insignia que aparecerá junto a tu nombre en Comunidad.'
-                    : 'Choose the badge shown next to your name in Community.'}
-                </Text>
+            {/* Badge Selection — inside Apariencia */}
+            {ownedBadgeIds.length > 0 && (
+              <View style={{ paddingVertical: 13 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                  <View style={{ width: 38, height: 38, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary + '15' }}>
+                    <Crown size={20} color={colors.primary} />
+                  </View>
+                  <View>
+                    <Text style={{ fontSize: sFont(15), fontWeight: '500', color: colors.text }}>
+                      {language === 'es' ? 'Insignia activa' : 'Active Badge'}
+                    </Text>
+                    <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
+                      {language === 'es' ? 'Aparece junto a tu nombre en Comunidad' : 'Shown next to your name in Community'}
+                    </Text>
+                  </View>
+                </View>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-                  {/* "None" option */}
                   <Pressable
                     onPress={() => handleEquipBadge(null)}
                     style={{
-                      paddingVertical: 6,
-                      paddingHorizontal: 12,
-                      borderRadius: 12,
+                      paddingVertical: 6, paddingHorizontal: 12, borderRadius: 12,
                       backgroundColor: activeBadgeId === null ? colors.primary + '20' : colors.background,
                       borderWidth: 1.5,
                       borderColor: activeBadgeId === null ? colors.primary : colors.textMuted + '30',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      alignItems: 'center', justifyContent: 'center',
                     }}
                   >
                     <Text style={{ fontSize: sFont(11), fontWeight: '600', color: activeBadgeId === null ? colors.primary : colors.textMuted }}>
                       {language === 'es' ? 'Ninguna' : 'None'}
                     </Text>
                   </Pressable>
-
                   {ownedBadgeIds.map((badgeId) => {
                     const isActive = activeBadgeId === badgeId;
                     const badge = BADGES[badgeId];
@@ -932,18 +1057,14 @@ export default function SettingsScreen() {
                         key={badgeId}
                         onPress={() => handleEquipBadge(badgeId)}
                         style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          paddingVertical: 6,
-                          paddingHorizontal: 10,
-                          borderRadius: 12,
+                          flexDirection: 'row', alignItems: 'center',
+                          paddingVertical: 6, paddingHorizontal: 10, borderRadius: 12,
                           backgroundColor: isActive ? badge.color + '20' : colors.background,
                           borderWidth: 1.5,
                           borderColor: isActive ? badge.color : colors.textMuted + '30',
                           gap: 6,
                         }}
                       >
-                        {/* Medal — tap to open info */}
                         <Pressable
                           onPress={(e) => {
                             e.stopPropagation();
@@ -958,11 +1079,7 @@ export default function SettingsScreen() {
                           {badge.nameEs}
                         </Text>
                         {isActive && (
-                          <View style={{
-                            width: 14, height: 14, borderRadius: 7,
-                            backgroundColor: badge.color,
-                            alignItems: 'center', justifyContent: 'center',
-                          }}>
+                          <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: badge.color, alignItems: 'center', justifyContent: 'center' }}>
                             <Check size={8} color="#FFFFFF" strokeWidth={3} />
                           </View>
                         )}
@@ -971,303 +1088,195 @@ export default function SettingsScreen() {
                   })}
                 </View>
               </View>
-            </>
-          )}
-
-          {/* Appearance Section */}
-          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
-            {language === 'es' ? 'Apariencia' : 'Appearance'}
-          </Text>
-
-          <SettingRow
-            icon={isDarkMode ? <Moon size={20} color={colors.primary} /> : <Sun size={20} color={colors.primary} />}
-            title="Dark Mode"
-            colors={colors}
-            right={
-              <Switch
-                value={isDarkMode}
-                onValueChange={(value) => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  setDarkMode(value);
-                }}
-                trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                thumbColor={isDarkMode ? colors.primary : '#FFFFFF'}
-              />
-            }
-          />
-
-          <SettingRow
-            icon={<Globe size={20} color={colors.primary} />}
-            title={t.language}
-            subtitle={language === 'en' ? 'English' : 'Español'}
-            colors={colors}
-            onPress={() => setShowLanguageModal(true)}
-          />
-
-          {/* Text Zoom */}
-          <View
-            className="px-4 py-4 rounded-2xl mb-2"
-            style={{ backgroundColor: colors.surface }}
-          >
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                <Type size={20} color={colors.primary} />
-                <View>
-                  <Text style={{ fontSize: sFont(15), fontWeight: '600', color: colors.text }}>
-                    {language === 'es' ? 'Zoom de texto' : 'Text zoom'}
-                  </Text>
-                  <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
-                    {language === 'es' ? 'Tamaño de letra en toda la app' : 'Font size across the app'}
-                  </Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                <Text style={{ fontSize: sFont(17), fontWeight: '800', color: colors.primary }}>
-                  {Math.round((settings.textScale ?? 1.0) * 100)}%
-                </Text>
-                {(settings.textScale ?? 1.0) !== 1.0 && (
-                  <Pressable
-                    onPress={() => {
-                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                      updateSettings({ textScale: 1.0 });
-                    }}
-                    style={{
-                      paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8,
-                      backgroundColor: colors.textMuted + '18',
-                    }}
-                  >
-                    <Text style={{ fontSize: sFont(11), color: colors.textMuted, fontWeight: '600' }}>
-                      {language === 'es' ? 'Restablecer' : 'Reset'}
-                    </Text>
-                  </Pressable>
-                )}
-              </View>
-            </View>
-            <Slider
-              value={settings.textScale ?? 1.0}
-              onValueChange={(value) => {
-                const snapped = Math.round(value / 0.05) * 0.05;
-                updateSettings({ textScale: snapped });
-              }}
-              minimumValue={0.85}
-              maximumValue={1.40}
-              minimumTrackTintColor={colors.primary}
-              maximumTrackTintColor={colors.textMuted + '40'}
-              thumbTintColor={colors.primary}
-            />
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 2 }}>
-              <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>85%</Text>
-              <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>100%</Text>
-              <Text style={{ fontSize: sFont(10), color: colors.textMuted }}>140%</Text>
-            </View>
-          </View>
-
-          {/* Support Section */}
-          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
-            {language === 'es' ? 'Ayuda' : 'Help'}
-          </Text>
-
-          <SettingRow
-            icon={<LifeBuoy size={20} color={colors.primary} />}
-            title={language === 'es' ? 'Soporte' : 'Support'}
-            subtitle={language === 'es' ? 'Reporta problemas de racha o devocional' : 'Report streak or devotional issues'}
-            colors={colors}
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              router.push('/support');
-            }}
-            right={
-              pendingSupportCount > 0 ? (
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                  <View style={{
-                    minWidth: 20, height: 20, borderRadius: 10,
-                    backgroundColor: '#EF4444',
-                    alignItems: 'center', justifyContent: 'center',
-                    paddingHorizontal: 5,
-                  }}>
-                    <Text style={{ fontSize: sFont(11), fontWeight: '800', color: '#FFF' }}>
-                      {pendingSupportCount}
-                    </Text>
-                  </View>
-                  <ChevronRight size={20} color={colors.textMuted} />
-                </View>
-              ) : undefined
-            }
-          />
-
-          {/* Notifications Section */}
-          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
-            {language === 'es' ? 'Notificaciones' : 'Notifications'}
-          </Text>
-
-          <SettingRow
-            icon={<Bell size={20} color={colors.primary} />}
-            title={language === 'es' ? 'Recordatorio diario' : 'Daily Reminder'}
-            subtitle={
-              notificationSettings.enabled
-                ? `${language === 'es' ? 'Activo' : 'Active'} - ${formatNotificationTime(notificationSettings.hour, notificationSettings.minute)}`
-                : language === 'es' ? 'Desactivado' : 'Disabled'
-            }
-            colors={colors}
-            right={
-              <Switch
-                value={notificationSettings.enabled}
-                onValueChange={handleNotificationToggle}
-                trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                thumbColor={notificationSettings.enabled ? colors.primary : '#FFFFFF'}
-              />
-            }
-          />
-
-          {notificationSettings.enabled && (
-            <>
-              <SettingRow
-                icon={<Clock size={20} color={colors.primary} />}
-                title={language === 'es' ? 'Hora del recordatorio' : 'Reminder Time'}
-                subtitle={formatNotificationTime(notificationSettings.hour, notificationSettings.minute)}
-                colors={colors}
-                onPress={() => setShowTimePickerModal(true)}
-              />
-
-              <SettingRow
-                icon={<TestTube size={20} color={colors.secondary} />}
-                title={language === 'es' ? 'Probar notificación' : 'Test Notification'}
-                subtitle={language === 'es' ? 'Enviar una notificación de prueba' : 'Send a test notification'}
-                colors={colors}
-                onPress={handleTestNotification}
-              />
-            </>
-          )}
-
-          <SettingRow
-            icon={<Flame size={20} color={colors.primary} />}
-            title={t.streak_reminders}
-            colors={colors}
-            right={
-              <Switch
-                value={settings.streakReminders}
-                onValueChange={(value) => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  updateSettings({ streakReminders: value });
-                }}
-                trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                thumbColor={settings.streakReminders ? colors.primary : '#FFFFFF'}
-              />
-            }
-          />
-
-          {/* Music Section */}
-          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
-            {t.background_music}
-          </Text>
-
-          <SettingRow
-            icon={<Volume2 size={20} color={colors.primary} />}
-            title={t.background_music}
-            colors={colors}
-            right={
-              <Switch
-                value={settings.musicEnabled}
-                onValueChange={(value) => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  updateSettings({ musicEnabled: value });
-                }}
-                trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                thumbColor={settings.musicEnabled ? colors.primary : '#FFFFFF'}
-              />
-            }
-          />
-
-          {settings.musicEnabled && (
-            <View
-              className="px-5 py-4 rounded-2xl mb-2"
-              style={{ backgroundColor: colors.surface }}
-            >
-              <Text className="text-sm font-medium mb-3" style={{ color: colors.text }}>
-                {t.volume}
-              </Text>
-              <Slider
-                value={settings.musicVolume}
-                onValueChange={(value) => updateSettings({ musicVolume: value })}
-                minimumValue={0}
-                maximumValue={1}
-                minimumTrackTintColor={colors.primary}
-                maximumTrackTintColor={colors.textMuted + '40'}
-                thumbTintColor={colors.primary}
-              />
-            </View>
-          )}
-
-          {/* Account Transfer Section - accordion */}
-          <Text className="text-sm font-semibold uppercase tracking-wider mb-3 ml-1 mt-6" style={{ color: colors.textMuted }}>
-            {t.account_transfer}
-          </Text>
-
-          <Pressable
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              setTransferExpanded((v) => !v);
-            }}
-            className="rounded-2xl p-5 mb-2"
-            style={{ backgroundColor: colors.surface }}
-          >
-            <View className="flex-row items-center justify-between">
-              <View className="flex-row items-center flex-1 mr-3">
-                <Smartphone size={20} color={colors.primary} />
-                <View className="ml-3 flex-1">
-                  <Text className="text-base font-medium" style={{ color: colors.text }}>
-                    {t.account_transfer}
-                  </Text>
-                  <Text className="text-sm mt-0.5" style={{ color: colors.textMuted }}>
-                    {t.account_transfer_desc}
-                  </Text>
-                </View>
-              </View>
-              <ChevronDown
-                size={18}
-                color={colors.textMuted}
-                style={{ transform: [{ rotate: transferExpanded ? '180deg' : '0deg' }] }}
-              />
-            </View>
-
-            {transferExpanded && (
-              <Animated.View entering={FadeInDown.duration(200)} className="mt-4">
-                <View className="flex-row gap-3">
-                  <Pressable
-                    onPress={() => {
-                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                      setShowGenerateCodeModal(true);
-                    }}
-                    className="flex-1 flex-row items-center justify-center py-3 rounded-xl"
-                    style={{ backgroundColor: colors.primary }}
-                  >
-                    <Key size={16} color="#FFFFFF" />
-                    <Text className="text-sm font-semibold text-white ml-2">
-                      {t.generate_code}
-                    </Text>
-                  </Pressable>
-                </View>
-
-                <Pressable
-                  onPress={() => {
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    setEnteredCode('');
-                    setRestoreError(null);
-                    setShowEnterCodeModal(true);
-                  }}
-                  className="flex-row items-center justify-center py-3 mt-3 rounded-xl"
-                  style={{ backgroundColor: colors.primary + '15' }}
-                >
-                  <Download size={16} color={colors.primary} />
-                  <Text className="text-sm font-semibold ml-2" style={{ color: colors.primary }}>
-                    {t.enter_code}
-                  </Text>
-                </Pressable>
-              </Animated.View>
             )}
-          </Pressable>
+          </SectionCard>
 
-          {/* Branding closing section */}
+          {/* ── SECTION 4: HISTORIAL DE PUNTOS ───────────────────── */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8, marginLeft: 4, marginTop: 20 }}>
+            <Text style={{ fontSize: sFont(11), fontWeight: '700', letterSpacing: 0.8, textTransform: 'uppercase', color: colors.textMuted }}>
+              {language === 'es' ? 'Historial de Puntos' : 'Points History'}
+            </Text>
+            {ledgerEntries.length > 5 && (
+              <Pressable onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setShowFullLedger((v) => !v); }}>
+                <Text style={{ fontSize: sFont(12), fontWeight: '600', color: colors.primary }}>
+                  {showFullLedger ? (language === 'es' ? 'Ver menos' : 'Show less') : (language === 'es' ? 'Ver más' : 'Show more')}
+                </Text>
+              </Pressable>
+            )}
+          </View>
+          <SectionCard colors={colors}>
+            {ledgerEntries.length === 0 ? (
+              <View style={{ paddingVertical: 24, alignItems: 'center' }}>
+                <View style={{ width: 48, height: 48, borderRadius: 24, alignItems: 'center', justifyContent: 'center', marginBottom: 12, backgroundColor: colors.primary + '18' }}>
+                  <Coins size={24} color={colors.primary} />
+                </View>
+                <Text style={{ fontSize: sFont(14), fontWeight: '600', marginBottom: 4, color: colors.text }}>
+                  {language === 'es' ? 'Aún no hay movimientos' : 'No movements yet'}
+                </Text>
+                <Text style={{ fontSize: sFont(12), textAlign: 'center', color: colors.textMuted }}>
+                  {language === 'es'
+                    ? 'Completa un devocional, canjea un código\no reclama una colección.'
+                    : 'Complete a devotional, redeem a code,\nor claim a collection.'}
+                </Text>
+              </View>
+            ) : (
+              (showFullLedger ? ledgerEntries.slice(0, 10) : ledgerEntries.slice(0, 5)).map((entry, idx, arr) => {
+                const isPositive = entry.delta > 0;
+                const LedgerIcon = (() => {
+                  switch (entry.kind) {
+                    case 'devotional': return LedgerBookOpen;
+                    case 'promo_code': return Tag;
+                    case 'purchase': return ShoppingBag;
+                    case 'claim': return Trophy;
+                    case 'challenge': return Zap;
+                    case 'chest': return Gift;
+                    case 'mission': return Target;
+                    default: return Coins;
+                  }
+                })();
+                const iconColor = isPositive ? '#22c55e' : '#ef4444';
+                const deltaText = isPositive ? `+${entry.delta}` : `${entry.delta}`;
+                return (
+                  <View
+                    key={entry.id}
+                    style={{
+                      flexDirection: 'row', alignItems: 'center',
+                      paddingVertical: 11,
+                      borderBottomWidth: idx < arr.length - 1 ? 0.5 : 0,
+                      borderBottomColor: colors.textMuted + '20',
+                    }}
+                  >
+                    <View style={{ width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center', marginRight: 12, backgroundColor: (isPositive ? '#22c55e' : '#ef4444') + '18' }}>
+                      <LedgerIcon size={16} color={iconColor} />
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ fontSize: sFont(13), fontWeight: '600', color: colors.text }} numberOfLines={1}>
+                        {entry.title}
+                      </Text>
+                      {entry.detail ? (
+                        <Text style={{ fontSize: sFont(11), marginTop: 1, color: colors.textMuted }} numberOfLines={1}>
+                          {entry.detail}
+                        </Text>
+                      ) : null}
+                    </View>
+                    <View style={{ alignItems: 'flex-end', marginLeft: 12 }}>
+                      <Text style={{ fontSize: sFont(13), fontWeight: '700', color: iconColor }}>{deltaText}</Text>
+                      <Text style={{ fontSize: sFont(11), marginTop: 1, color: colors.textMuted }}>{relativeTime(entry.ts, language)}</Text>
+                    </View>
+                  </View>
+                );
+              })
+            )}
+          </SectionCard>
+
+          {/* ── SECTION 5: SOPORTE ───────────────────────────────── */}
+          <SectionLabel label={language === 'es' ? 'Ayuda' : 'Help'} colors={colors} />
+          <SectionCard colors={colors}>
+            <SettingRow
+              inCard
+              icon={<LifeBuoy size={20} color={colors.primary} />}
+              title={language === 'es' ? 'Soporte' : 'Support'}
+              subtitle={language === 'es' ? 'Reporta problemas de racha o devocional' : 'Report streak or devotional issues'}
+              colors={colors}
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                router.push('/support');
+              }}
+              right={
+                pendingSupportCount > 0 ? (
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                    <View style={{ minWidth: 20, height: 20, borderRadius: 10, backgroundColor: '#EF4444', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5 }}>
+                      <Text style={{ fontSize: sFont(11), fontWeight: '800', color: '#FFF' }}>{pendingSupportCount}</Text>
+                    </View>
+                    <ChevronRight size={18} color={colors.textMuted} />
+                  </View>
+                ) : undefined
+              }
+            />
+          </SectionCard>
+
+          {/* ── SECTION 6: MÚSICA ────────────────────────────────── */}
+          <SectionLabel label={t.background_music} colors={colors} />
+          <SectionCard colors={colors}>
+            <SettingRow
+              inCard separator={settings.musicEnabled}
+              icon={<Volume2 size={20} color={colors.primary} />}
+              title={t.background_music}
+              colors={colors}
+              right={
+                <Switch
+                  value={settings.musicEnabled}
+                  onValueChange={(value) => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    updateSettings({ musicEnabled: value });
+                  }}
+                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                  thumbColor={settings.musicEnabled ? colors.primary : '#FFFFFF'}
+                />
+              }
+            />
+            {settings.musicEnabled && (
+              <View style={{ paddingVertical: 13 }}>
+                <Text style={{ fontSize: sFont(13), fontWeight: '500', marginBottom: 10, color: colors.text }}>{t.volume}</Text>
+                <Slider
+                  value={settings.musicVolume}
+                  onValueChange={(value) => updateSettings({ musicVolume: value })}
+                  minimumValue={0}
+                  maximumValue={1}
+                  minimumTrackTintColor={colors.primary}
+                  maximumTrackTintColor={colors.textMuted + '40'}
+                  thumbTintColor={colors.primary}
+                />
+              </View>
+            )}
+          </SectionCard>
+
+          {/* ── SECTION 7: TRANSFERIR CUENTA ─────────────────────── */}
+          <SectionLabel label={t.account_transfer} colors={colors} />
+          <SectionCard colors={colors}>
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setTransferExpanded((v) => !v);
+              }}
+              style={{ paddingVertical: 13 }}
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 12 }}>
+                  <View style={{ width: 38, height: 38, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginRight: 14, backgroundColor: colors.primary + '15' }}>
+                    <Smartphone size={20} color={colors.primary} />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: sFont(15), fontWeight: '500', color: colors.text }}>{t.account_transfer}</Text>
+                    <Text style={{ fontSize: sFont(12), marginTop: 1, color: colors.textMuted }}>{t.account_transfer_desc}</Text>
+                  </View>
+                </View>
+                <ChevronDown size={18} color={colors.textMuted} style={{ transform: [{ rotate: transferExpanded ? '180deg' : '0deg' }] }} />
+              </View>
+              {transferExpanded && (
+                <Animated.View entering={FadeInDown.duration(200)} style={{ marginTop: 14 }}>
+                  <View style={{ flexDirection: 'row', gap: 12 }}>
+                    <Pressable
+                      onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setShowGenerateCodeModal(true); }}
+                      style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 12, borderRadius: 12, backgroundColor: colors.primary }}
+                    >
+                      <Key size={16} color="#FFFFFF" />
+                      <Text style={{ fontSize: sFont(13), fontWeight: '600', color: '#FFFFFF', marginLeft: 8 }}>{t.generate_code}</Text>
+                    </Pressable>
+                  </View>
+                  <Pressable
+                    onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setEnteredCode(''); setRestoreError(null); setShowEnterCodeModal(true); }}
+                    style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 12, marginTop: 10, borderRadius: 12, backgroundColor: colors.primary + '15' }}
+                  >
+                    <Download size={16} color={colors.primary} />
+                    <Text style={{ fontSize: sFont(13), fontWeight: '600', marginLeft: 8, color: colors.primary }}>{t.enter_code}</Text>
+                  </Pressable>
+                </Animated.View>
+              )}
+            </Pressable>
+          </SectionCard>
+
+          {/* ── BRANDING + VERSION ───────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(300).springify()} style={{ marginTop: 32, marginBottom: 8, alignItems: 'center', paddingVertical: 32 }}>
             <View style={{ alignItems: 'center' }}>
               <RNImage
