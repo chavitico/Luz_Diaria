@@ -7726,14 +7726,14 @@ export default function StoreScreen() {
     setIsPackTransactionActive(true);
     console.log('[Store][Lock] acquired — isPackTransactionActive=true');
 
-    // Failsafe: forcibly unlock after 2s in case anything gets stuck
+    // Failsafe: forcibly unlock after 5s in case anything gets truly stuck (network hang, etc.)
     if (packFailsafeTimeout.current) clearTimeout(packFailsafeTimeout.current);
     packFailsafeTimeout.current = setTimeout(() => {
-      console.log('[Store][Failsafe] 2s timeout fired — unlocking store');
+      console.log('[Store][Failsafe] 5s timeout fired — unlocking store');
       isTokenPurchasing.current = false;
       setIsPackTransactionActive(false);
-      setToastMessage(language === 'es' ? 'Carta obtenida. Revisa tu Álbum Bíblico.' : 'Card obtained. Check your Biblical Album.');
-    }, 2000);
+      setToastMessage(language === 'es' ? 'Algo salió mal. Intenta de nuevo.' : 'Something went wrong. Try again.');
+    }, 5000);
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     try {
@@ -7774,6 +7774,14 @@ export default function StoreScreen() {
         if (itemId === 'sobre_biblico' || itemId === 'pack_pascua' || itemId === 'pack_milagros') {
           queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
         }
+      } else {
+        // Purchase failed — show error feedback and release haptics
+        console.log('[Store][Error] purchase returned success:false');
+        const errorMsg = language === 'es'
+          ? 'No se pudo completar la compra. Intenta de nuevo.'
+          : 'Purchase could not be completed. Try again.';
+        setToastMessage(errorMsg);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       }
     } catch (err) {
       console.log('[Store][Error] purchaseItem failed', err);
