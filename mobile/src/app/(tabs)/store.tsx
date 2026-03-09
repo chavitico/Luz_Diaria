@@ -13,6 +13,7 @@ import {
   Dimensions,
   TouchableOpacity,
   InteractionManager,
+  Image,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -6418,109 +6419,21 @@ function EasterPackCard({
             {/* Pack illustration + info row */}
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 18, marginBottom: 16 }}>
 
-              {/* ── THE PACK VISUAL — Resurrection theme ── */}
+              {/* ── THE PACK VISUAL — real PNG asset ── */}
               <View style={{
-                shadowColor: '#FF4444',
-                shadowOpacity: 0.55,
-                shadowRadius: 16,
+                shadowColor: '#FFD700',
+                shadowOpacity: 0.70,
+                shadowRadius: 18,
                 shadowOffset: { width: 0, height: 0 },
                 elevation: 16,
+                width: 84,
+                height: 116,
               }}>
-                <LinearGradient
-                  colors={['#3D0A0A', '#200508', '#140308', '#0F0205']}
-                  start={{ x: 0.15, y: 0 }}
-                  end={{ x: 0.85, y: 1 }}
-                  style={{
-                    width: 84,
-                    height: 116,
-                    borderRadius: 12,
-                    borderWidth: 2.5,
-                    borderColor: '#B22A2A',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    overflow: 'hidden',
-                  }}
-                >
-                  {/* Foil sweep */}
-                  <LinearGradient
-                    colors={['rgba(178,42,42,0.25)', 'transparent', 'rgba(212,175,55,0.10)']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={{ position: 'absolute', width: '100%', height: '100%' }}
-                  />
-                  {/* Gloss streak */}
-                  <LinearGradient
-                    colors={['transparent', 'rgba(255,200,200,0.08)', 'transparent']}
-                    start={{ x: 0, y: 0.2 }}
-                    end={{ x: 1, y: 0.8 }}
-                    style={{ position: 'absolute', width: '100%', height: '100%' }}
-                  />
-
-                  {/* Top crimson border */}
-                  <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, backgroundColor: '#B22A2A' }} />
-                  {/* Bottom gold border */}
-                  <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, backgroundColor: '#D4AF37' }} />
-
-                  {/* Inner frame */}
-                  <View style={{
-                    position: 'absolute',
-                    top: 5, left: 5, right: 5, bottom: 5,
-                    borderRadius: 7,
-                    borderWidth: 0.75,
-                    borderColor: 'rgba(178,42,42,0.40)',
-                  }} />
-
-                  {/* Corner ornaments */}
-                  <Text style={{ position: 'absolute', top: 6, left: 6, fontSize: 7, color: '#D4AF37', opacity: 0.80 }}>✦</Text>
-                  <Text style={{ position: 'absolute', top: 6, right: 6, fontSize: 7, color: '#D4AF37', opacity: 0.80 }}>✦</Text>
-                  <Text style={{ position: 'absolute', bottom: 6, left: 6, fontSize: 7, color: '#D4AF37', opacity: 0.80 }}>✦</Text>
-                  <Text style={{ position: 'absolute', bottom: 6, right: 6, fontSize: 7, color: '#D4AF37', opacity: 0.80 }}>✦</Text>
-
-                  {/* Center emblem — empty tomb / resurrection light */}
-                  <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    {/* Glow aura */}
-                    <View style={{
-                      position: 'absolute',
-                      width: 56, height: 56,
-                      borderRadius: 28,
-                      backgroundColor: 'rgba(255,180,80,0.08)',
-                      borderWidth: 1,
-                      borderColor: 'rgba(212,175,55,0.20)',
-                    }} />
-                    {/* Radiance rays */}
-                    <Text style={{ position: 'absolute', fontSize: 38, color: 'rgba(212,175,55,0.08)', letterSpacing: 0 }}>✴</Text>
-                    {/* Cross with light */}
-                    <Text style={{
-                      fontSize: 26,
-                      color: '#D4AF37',
-                      textShadowColor: 'rgba(255,200,80,0.70)',
-                      textShadowRadius: 14,
-                      textShadowOffset: { width: 0, height: 0 },
-                      marginBottom: 2,
-                    }}>✝</Text>
-                  </View>
-
-                  {/* Decorative ray lines */}
-                  <Text style={{ position: 'absolute', top: 22, fontSize: 5, color: 'rgba(178,42,42,0.35)', letterSpacing: 5 }}>— — —</Text>
-
-                  {/* Pack label */}
-                  <View style={{ position: 'absolute', bottom: 11, alignItems: 'center' }}>
-                    <Text style={{
-                      fontSize: sFont(6),
-                      fontWeight: '900',
-                      color: '#D4AF37',
-                      letterSpacing: 1.2,
-                      textTransform: 'uppercase',
-                      textAlign: 'center',
-                      lineHeight: 9,
-                    }}>
-                      SOBRE{'\n'}PASCUA
-                    </Text>
-                    <Text style={{ fontSize: sFont(5), color: 'rgba(212,175,55,0.55)', letterSpacing: 0.5, marginTop: 2.5 }}>
-                      1 carta evento
-                    </Text>
-                  </View>
-                </LinearGradient>
+                <Image
+                  source={require('../../../assets/packs/pack_pascua_pack.png')}
+                  style={{ width: 84, height: 116 }}
+                  resizeMode="contain"
+                />
               </View>
 
               {/* Text block */}
