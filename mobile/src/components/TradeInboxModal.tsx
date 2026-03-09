@@ -825,12 +825,12 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
 
         {/* ── Filter Tabs ── */}
         {!isLoading && trades.length > 0 && (
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 10, gap: 8, flexDirection: 'row' }}
-            style={{ borderBottomWidth: 1, borderBottomColor: colors.textMuted + '15', maxHeight: 52 }}
-          >
+          <View style={{ borderBottomWidth: 1, borderBottomColor: colors.textMuted + '15' }}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 10, gap: 8, flexDirection: 'row' }}
+            >
             {([
               { key: 'all', labelEs: 'Todos', label: 'All', count: trades.length },
               { key: 'pending', labelEs: 'Recibidos', label: 'Incoming', count: incoming.length },
@@ -881,6 +881,7 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
               </Pressable>
             ))}
           </ScrollView>
+          </View>
         )}
 
         {/* ── Body ── */}
