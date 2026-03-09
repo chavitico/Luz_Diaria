@@ -1319,8 +1319,8 @@ function ProfileHeader({
                         <Text style={{ fontSize: sFont(13), fontWeight: '700', color: badgeData.color, marginBottom: 2 }} numberOfLines={1}>
                           {badgeData.nameEs}
                         </Text>
-                        <Text style={{ fontSize: sFont(11), fontWeight: '400', color: 'rgba(255,255,255,0.55)', lineHeight: 15 }} numberOfLines={2}>
-                          {badgeData.meaningEs}
+                        <Text style={{ fontSize: sFont(11), fontWeight: '400', color: 'rgba(255,255,255,0.55)', lineHeight: 15 }} numberOfLines={2} ellipsizeMode="tail">
+                          {badgeData.profileCardEs}
                         </Text>
                       </View>
                     </View>

@@ -1060,6 +1060,8 @@ export const BADGES: Record<string, {
   descriptionEs: string;
   /** Spiritual meaning shown in Community modal */
   meaningEs: string;
+  /** Short description shown in the compact profile card */
+  profileCardEs: string;
   /** How to earn — shown in Settings modal only */
   howToEarnEs: string;
   rarity: 'unique' | 'common' | 'rare' | 'epic';
@@ -1078,6 +1080,7 @@ export const BADGES: Record<string, {
     description: 'Started this community from the very beginning',
     descriptionEs: 'Inició esta comunidad desde el principio',
     meaningEs: 'Reconoce a quienes estuvieron desde el inicio sembrando esta obra con fe y entrega.',
+    profileCardEs: 'Desde el inicio, sembrando esta obra con fe y entrega.',
     howToEarnEs: 'Disponible para quienes formaron parte de los primeros pasos de esta comunidad. Un honor reservado para los que confiaron desde el principio.',
     rarity: 'unique',
     milestone: { type: 'special', value: 0 },
@@ -1091,6 +1094,7 @@ export const BADGES: Record<string, {
     description: 'One of the first members of the community',
     descriptionEs: 'Uno de los primeros miembros de la comunidad',
     meaningEs: 'Para quienes se unieron cuando todo comenzaba, caminando con esperanza hacia lo que Dios estaba construyendo.',
+    profileCardEs: 'De los primeros en caminar con esperanza hacia lo que Dios construía.',
     howToEarnEs: 'Se otorga a quienes se integraron a la comunidad en sus primeras etapas. Un símbolo de confianza y comienzo.',
     rarity: 'rare',
     milestone: { type: 'special', value: 1 },
@@ -1105,6 +1109,7 @@ export const BADGES: Record<string, {
     description: 'Planting seeds of harmony every day',
     descriptionEs: 'Sembrando semillas de paz cada día',
     meaningEs: 'Para quienes promueven la paz y la constancia en la comunidad, sembrando con paciencia y amor.',
+    profileCardEs: 'Sembrando paz y constancia con paciencia y amor.',
     howToEarnEs: 'Se otorga al perseverar día a día en la lectura y reflexión de la Palabra. La constancia es la semilla.',
     rarity: 'rare',
     milestone: { type: 'devotionals', value: 30 },
@@ -1118,6 +1123,7 @@ export const BADGES: Record<string, {
     description: 'Steps guided by trust in God',
     descriptionEs: 'Pasos guiados por confianza en Dios',
     meaningEs: 'Cada paso en fe, aunque pequeño, nos acerca más a Dios. Esta insignia celebra el caminar fiel.',
+    profileCardEs: 'Cada paso en fe nos acerca más a Dios.',
     howToEarnEs: 'Se obtiene al dar los primeros pasos firmes en la lectura devocional. No importa el ritmo, importa seguir adelante.',
     rarity: 'common',
     milestone: { type: 'devotionals', value: 7 },
@@ -1131,6 +1137,7 @@ export const BADGES: Record<string, {
     description: 'Bringing light into dark places',
     descriptionEs: 'Llevando luz a los lugares oscuros',
     meaningEs: 'Quien lleva esperanza es una luz para quienes los rodean. Esta insignia honra a los que no se rinden.',
+    profileCardEs: 'Una luz para quienes los rodean. Honra a los que no se rinden.',
     howToEarnEs: 'Se alcanza al mantener una presencia constante en la reflexión espiritual. La esperanza se fortalece con la Palabra.',
     rarity: 'rare',
     milestone: { type: 'devotionals', value: 15 },
@@ -1144,6 +1151,7 @@ export const BADGES: Record<string, {
     description: 'Keeper of sacred truth',
     descriptionEs: 'Guardián de la verdad sagrada',
     meaningEs: 'Para quienes atesoran y honran la Palabra con fidelidad y profundidad, día tras día.',
+    profileCardEs: 'Atesora y honra la Palabra con fidelidad, día tras día.',
     howToEarnEs: 'Un reconocimiento a la dedicación profunda en el estudio devocional. Quien cuida la Palabra, es guardado por ella.',
     rarity: 'epic',
     milestone: { type: 'devotionals', value: 100 },
@@ -1157,6 +1165,7 @@ export const BADGES: Record<string, {
     description: 'Fighting the good fight of faith',
     descriptionEs: 'Peleando la buena batalla de la fe',
     meaningEs: 'Esta insignia pertenece a quienes no abandonan su camino espiritual, aun en los días difíciles.',
+    profileCardEs: 'No abandona su camino espiritual, aun en los días difíciles.',
     howToEarnEs: 'Se otorga a quienes mantienen una racha sostenida de reflexión y lectura. La perseverancia es valentía.',
     rarity: 'epic',
     milestone: { type: 'streak', value: 30 },
@@ -1171,6 +1180,7 @@ export const BADGES: Record<string, {
     description: 'Standing with others in prayer',
     descriptionEs: 'Acompañando a otros en oración',
     meaningEs: 'Al acompañar fielmente a otros hermanos en oración, se convierte en un apoyo espiritual real.',
+    profileCardEs: 'Acompañando fielmente a otros hermanos en oración.',
     howToEarnEs: 'Se recibe al dar el primer paso en el camino devocional. Todo comienzo en fe es digno de celebrar.',
     rarity: 'common',
     milestone: { type: 'devotionals', value: 1 },
@@ -1184,6 +1194,7 @@ export const BADGES: Record<string, {
     description: 'A steady presence in the community',
     descriptionEs: 'Una presencia firme en la comunidad',
     meaningEs: 'Representa a quienes sostienen la comunidad con su presencia, constancia y generosidad de espíritu.',
+    profileCardEs: 'Sostiene la comunidad con presencia, constancia y generosidad.',
     howToEarnEs: 'Se obtiene al alcanzar un nivel de contribución y participación significativa dentro de la comunidad.',
     rarity: 'rare',
     milestone: { type: 'points', value: 10000 },
