@@ -263,13 +263,6 @@ export default function SettingsScreen() {
   const [ledgerEntries, setLedgerEntries] = useState<LedgerEntry[]>([]);
   const [showFullLedger, setShowFullLedger] = useState(false);
 
-  // Rename nickname state
-  const [showRenameModal, setShowRenameModal] = useState(false);
-  const [renameInput, setRenameInput] = useState('');
-  const [isRenaming, setIsRenaming] = useState(false);
-  const [renameError, setRenameError] = useState<string | null>(null);
-  const [hasRenameToken, setHasRenameToken] = useState(false);
-
   // Pending support tickets badge
   const [pendingSupportCount, setPendingSupportCount] = useState(0);
 
@@ -445,8 +438,6 @@ export default function SettingsScreen() {
         .map((inv) => inv.itemId);
       setOwnedBadgeIds(badges);
       setActiveBadgeId(profile.activeBadgeId ?? null);
-      // Check rename token ownership
-      setHasRenameToken(profile.inventory.some((inv) => inv.itemId === 'pincel_magico' && inv.source !== 'used'));
       // Sync points from backend into local store
       updateUser({ points: profile.points });
       // Sync role from backend into local store
@@ -467,31 +458,6 @@ export default function SettingsScreen() {
       queryClient.invalidateQueries({ queryKey: ['community-members'] });
     } catch {
       setActiveBadgeId(activeBadgeId); // revert
-    }
-  };
-
-  const handleRename = async () => {
-    if (!user?.id) return;
-    const trimmed = renameInput.trim();
-    if (!trimmed) return;
-    setIsRenaming(true);
-    setRenameError(null);
-    try {
-      const result = await gamificationApi.renameNickname(user.id, trimmed);
-      if (!result.success) {
-        setRenameError(result.error ?? 'Error al cambiar el nickname.');
-        return;
-      }
-      // Update local store
-      updateUser({ nickname: trimmed });
-      setHasRenameToken(false);
-      setShowRenameModal(false);
-      setRenameInput('');
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    } catch {
-      setRenameError('Error de conexión. Intenta de nuevo.');
-    } finally {
-      setIsRenaming(false);
     }
   };
 
@@ -755,115 +721,6 @@ export default function SettingsScreen() {
               {t.settings}
             </Text>
           </View>
-
-          {/* User Profile Card */}
-          {user && (
-            <Animated.View
-              entering={FadeInDown.duration(400)}
-              className="rounded-2xl p-5 mb-6"
-              style={{ backgroundColor: colors.surface }}
-            >
-              {/* Profile Header with Avatar, Name, Title */}
-              <View className="flex-row items-center mb-4">
-                <AvatarWithFrame
-                  emoji={currentAvatar?.emoji ?? '😊'}
-                  frameId={user.frameId}
-                  size={64}
-                />
-                <View className="flex-1 ml-4">
-                  <View className="flex-row items-center gap-2">
-                    <Text className="text-xl font-bold" style={{ color: colors.text }}>
-                      {user.nickname}
-                    </Text>
-                    <Pressable
-                      onPress={() => {
-                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                        if (hasRenameToken) {
-                          setRenameInput('');
-                          setRenameError(null);
-                          setShowRenameModal(true);
-                        } else {
-                          router.push({ pathname: '/(tabs)/store', params: { openCategory: 'tokens', t: Date.now().toString() } });
-                        }
-                      }}
-                      className="flex-row items-center px-2 py-0.5 rounded-lg"
-                      style={{
-                        backgroundColor: hasRenameToken ? colors.primary + '20' : colors.textMuted + '15',
-                        borderWidth: 1,
-                        borderColor: hasRenameToken ? colors.primary + '40' : colors.textMuted + '30',
-                      }}
-                    >
-                      {hasRenameToken
-                        ? <Key size={11} color={colors.primary} />
-                        : <Lock size={11} color={colors.textMuted} />}
-                    </Pressable>
-                  </View>
-                  <Text
-                    className="text-sm mt-0.5"
-                    style={{ color: equippedTitle ? colors.secondary : colors.textMuted }}
-                  >
-                    {titleDisplay}
-                  </Text>
-                  <View className="flex-row items-center mt-1">
-                    <Coins size={14} color={colors.primary} />
-                    <Text className="ml-1 font-semibold" style={{ color: colors.primary }}>
-                      {user.points} {t.points}
-                    </Text>
-                  </View>
-                  <Text className="text-xs mt-0.5" style={{ color: colors.textMuted }}>
-                    {language === 'es' ? 'Se actualiza automáticamente' : 'Updates automatically'}
-                  </Text>
-                </View>
-              </View>
-
-              {/* Quick Stats Row */}
-              <View className="flex-row gap-3 mb-4">
-                <View className="flex-1 items-center p-3 rounded-xl" style={{ backgroundColor: colors.background }}>
-                  <Flame size={18} color={colors.primary} />
-                  <Text className="text-lg font-bold mt-1" style={{ color: colors.text }}>
-                    {user.streakCurrent}
-                  </Text>
-                  <Text className="text-xs" style={{ color: colors.textMuted }}>
-                    {t.current_streak}
-                  </Text>
-                </View>
-                <View className="flex-1 items-center p-3 rounded-xl" style={{ backgroundColor: colors.background }}>
-                  <BookOpen size={18} color={colors.secondary} />
-                  <Text className="text-lg font-bold mt-1" style={{ color: colors.text }}>
-                    {user.devotionalsCompleted}
-                  </Text>
-                  <Text className="text-xs" style={{ color: colors.textMuted }}>
-                    {t.total_completed}
-                  </Text>
-                </View>
-                <View className="flex-1 items-center p-3 rounded-xl" style={{ backgroundColor: colors.background }}>
-                  <Share2 size={18} color={colors.accent} />
-                  <Text className="text-lg font-bold mt-1" style={{ color: colors.text }}>
-                    {user.totalShares ?? 0}
-                  </Text>
-                  <Text className="text-xs" style={{ color: colors.textMuted }}>
-                    {language === 'es' ? 'Compartidos' : 'Shared'}
-                  </Text>
-                </View>
-              </View>
-
-              {/* Share progress button */}
-              <Pressable
-                onPress={() => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  setShowProfileShare(true);
-                }}
-                className="flex-row items-center justify-center py-3 rounded-xl mt-1"
-                style={{ backgroundColor: colors.primary + '18', borderWidth: 1, borderColor: colors.primary + '30' }}
-              >
-                <Share2 size={16} color={colors.primary} />
-                <Text className="ml-2 font-semibold text-sm" style={{ color: colors.primary }}>
-                  {language === 'es' ? 'Compartir mi progreso' : 'Share my progress'}
-                </Text>
-              </Pressable>
-
-            </Animated.View>
-          )}
 
           {/* Points History Section */}
           <>
@@ -1943,87 +1800,6 @@ export default function SettingsScreen() {
         onClose={() => setBadgeInfoId(null)}
       />
 
-      {/* Rename Nickname Modal */}
-      <Modal
-        visible={showRenameModal}
-        transparent
-        animationType="fade"
-        onRequestClose={() => !isRenaming && setShowRenameModal(false)}
-      >
-        <View className="flex-1 justify-center items-center px-6" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <Animated.View
-            entering={FadeInDown.duration(250)}
-            className="w-full rounded-3xl p-6"
-            style={{ backgroundColor: colors.surface }}
-          >
-            {/* Header */}
-            <View className="flex-row items-center justify-between mb-5">
-              <View className="flex-row items-center gap-2">
-                <View className="w-9 h-9 rounded-full items-center justify-center" style={{ backgroundColor: colors.primary + '20' }}>
-                  <Key size={18} color={colors.primary} />
-                </View>
-                <Text className="text-lg font-bold" style={{ color: colors.text }}>
-                  {language === 'es' ? 'Cambiar nickname' : 'Change nickname'}
-                </Text>
-              </View>
-              <Pressable onPress={() => { if (!isRenaming) setShowRenameModal(false); }}>
-                <X size={22} color={colors.textMuted} />
-              </Pressable>
-            </View>
-
-            <Text className="text-sm mb-4" style={{ color: colors.textMuted }}>
-              {language === 'es'
-                ? 'Escribe tu nuevo nickname. Recuerda: este cambio consume tu Token de Cambio de Nombre.'
-                : 'Enter your new nickname. Note: this will consume your Nickname Change Token.'}
-            </Text>
-
-            <TextInput
-              value={renameInput}
-              onChangeText={(t) => { setRenameInput(t); setRenameError(null); }}
-              placeholder={language === 'es' ? 'Nuevo nickname' : 'New nickname'}
-              placeholderTextColor={colors.textMuted}
-              autoCapitalize="none"
-              autoCorrect={false}
-              maxLength={20}
-              className="rounded-2xl px-4 py-3.5 text-base mb-1"
-              style={{ backgroundColor: colors.background, color: colors.text, borderWidth: 1, borderColor: renameError ? '#ef4444' : colors.textMuted + '30' }}
-              editable={!isRenaming}
-            />
-            <Text className="text-xs mb-4 ml-1" style={{ color: colors.textMuted }}>
-              {renameInput.length}/20
-            </Text>
-
-            {renameError && (
-              <View className="flex-row items-center gap-2 mb-4 p-3 rounded-xl" style={{ backgroundColor: '#ef444420' }}>
-                <X size={14} color="#ef4444" />
-                <Text className="text-sm flex-1" style={{ color: '#ef4444' }}>{renameError}</Text>
-              </View>
-            )}
-
-            <View className="flex-row gap-3">
-              <Pressable
-                onPress={() => { if (!isRenaming) setShowRenameModal(false); }}
-                className="flex-1 py-3.5 rounded-2xl items-center"
-                style={{ backgroundColor: colors.textMuted + '20' }}
-              >
-                <Text className="font-semibold" style={{ color: colors.textMuted }}>
-                  {language === 'es' ? 'Cancelar' : 'Cancel'}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={handleRename}
-                disabled={isRenaming || renameInput.trim().length < 3}
-                className="flex-1 py-3.5 rounded-2xl items-center"
-                style={{ backgroundColor: renameInput.trim().length >= 3 ? colors.primary : colors.primary + '50' }}
-              >
-                {isRenaming
-                  ? <ActivityIndicator size="small" color="#fff" />
-                  : <Text className="font-bold text-white">{language === 'es' ? 'Confirmar' : 'Confirm'}</Text>}
-              </Pressable>
-            </View>
-          </Animated.View>
-        </View>
-      </Modal>
     </View>
   );
 }

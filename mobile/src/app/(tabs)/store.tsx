@@ -50,6 +50,8 @@ import {
   Ticket,
   Info,
   BookOpen,
+  Key,
+  Share2,
 } from 'lucide-react-native';
 import { TextInput } from 'react-native';
 import { BIBLICAL_CARDS } from '@/lib/biblical-cards';
@@ -71,6 +73,8 @@ import { GiftSendModal, type GiftSendItem } from '@/components/GiftSendModal';
 import { CardRevealModal } from '@/components/CardRevealModal';
 import { PackOpeningModal } from '@/components/PackOpeningModal';
 import { TradeInboxModal } from '@/components/TradeInboxModal';
+import { BadgeChip } from '@/components/BadgeChip';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   TRANSLATIONS,
   DEFAULT_AVATARS,
@@ -83,6 +87,7 @@ import {
   STORE_BUNDLES,
   WEEKLY_CHEST_CONFIG,
   CHAPTER_COLLECTIONS,
+  BADGES,
   type ChapterCollection,
   type CollectionChapter,
 } from '@/lib/constants';
@@ -1163,24 +1168,27 @@ function ProfileHeader({
   user,
   points,
   language,
+  hasRenameToken,
+  onRenamePress,
+  activeBadgeId,
+  devotionalsCompleted,
+  totalShares,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   user: ReturnType<typeof useUser>;
   points: number;
   language: 'en' | 'es';
+  hasRenameToken: boolean;
+  onRenamePress: () => void;
+  activeBadgeId: string | null;
+  devotionalsCompleted: number;
+  totalShares: number;
 }) {
   const { sFont } = useScaledFont();
-  const t = TRANSLATIONS[language];
 
   const frameColor = user?.frameId && AVATAR_FRAMES[user.frameId]
     ? AVATAR_FRAMES[user.frameId].color
     : colors.textMuted;
-
-  const equippedTitle = user?.titleId && SPIRITUAL_TITLES[user.titleId]
-    ? language === 'es'
-      ? SPIRITUAL_TITLES[user.titleId].nameEs
-      : SPIRITUAL_TITLES[user.titleId].name
-    : t.no_title;
 
   const avatarData = DEFAULT_AVATARS.find(a => a.id === user?.avatar);
   const avatarEmoji = avatarData?.emoji || '🕊️';
@@ -1222,10 +1230,9 @@ function ProfileHeader({
 
           <View style={{ padding: 20 }}>
             {/* Identity row */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
               {/* Avatar with elevated ring */}
               <View style={{ marginRight: 14 }}>
-                {/* Outer ring glow */}
                 <View style={{
                   width: 80,
                   height: 80,
@@ -1253,46 +1260,58 @@ function ProfileHeader({
                 </View>
               </View>
 
-              {/* Name + Title */}
+              {/* Name + Points + Badge */}
               <View style={{ flex: 1 }}>
-                <Text style={{
-                  fontSize: sFont(20),
-                  fontWeight: '800',
-                  color: '#FFFFFF',
-                  letterSpacing: -0.3,
-                  marginBottom: 3,
-                }}>
-                  {user?.nickname || 'Pilgrim'}
-                </Text>
-                <View style={{
-                  alignSelf: 'flex-start',
-                  backgroundColor: colors.primary + '20',
-                  borderWidth: 1,
-                  borderColor: colors.primary + '50',
-                  borderRadius: 99,
-                  paddingHorizontal: 10,
-                  paddingVertical: 3,
-                }}>
+                {/* Row 1: username + lock/key icon button */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <Text style={{
-                    fontSize: sFont(11),
-                    fontWeight: '600',
-                    color: colors.primary,
-                    fontStyle: 'italic',
+                    fontSize: sFont(20),
+                    fontWeight: '800',
+                    color: '#FFFFFF',
+                    letterSpacing: -0.3,
+                    flexShrink: 1,
                   }} numberOfLines={1}>
-                    {equippedTitle}
+                    {user?.nickname || 'Pilgrim'}
+                  </Text>
+                  <Pressable
+                    onPress={onRenamePress}
+                    style={{
+                      backgroundColor: hasRenameToken ? colors.primary + '20' : 'rgba(255,255,255,0.08)',
+                      borderWidth: 1,
+                      borderColor: hasRenameToken ? colors.primary + '40' : 'rgba(255,255,255,0.15)',
+                      paddingHorizontal: 8,
+                      paddingVertical: 4,
+                      borderRadius: 8,
+                    }}
+                  >
+                    {hasRenameToken
+                      ? <Key size={14} color={colors.primary} />
+                      : <Lock size={14} color="rgba(255,255,255,0.45)" />
+                    }
+                  </Pressable>
+                </View>
+                {/* Row 2: Points display */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginBottom: 6 }}>
+                  <Coins size={14} color={colors.primary} />
+                  <Text style={{ fontSize: sFont(15), fontWeight: '700', color: colors.primary }}>
+                    {points} pts
                   </Text>
                 </View>
+                {/* Badge */}
+                {activeBadgeId && (
+                  <BadgeChip badgeId={activeBadgeId} variant="profile" />
+                )}
               </View>
             </View>
 
             {/* Divider */}
-            <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.07)', marginBottom: 16 }} />
+            <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.07)', marginBottom: 14 }} />
 
-            {/* Stats chips row */}
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-              {/* Points chip */}
+            {/* Stats chips row — 3 chips */}
+            <View style={{ flexDirection: 'row', gap: 8 }}>
+              {/* Devotionals chip */}
               <LinearGradient
-                colors={[colors.primary + '30', colors.primary + '10']}
+                colors={['#22C55E25', '#22C55E08']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={{
@@ -1303,16 +1322,16 @@ function ProfileHeader({
                   paddingVertical: 10,
                   borderRadius: 14,
                   borderWidth: 1,
-                  borderColor: colors.primary + '35',
-                  gap: 6,
+                  borderColor: '#22C55E35',
+                  gap: 5,
                 }}
               >
-                <Coins size={16} color={colors.primary} />
-                <Text style={{ fontSize: sFont(17), fontWeight: '800', color: colors.primary }}>
-                  {points}
+                <BookOpen size={14} color="#22C55E" />
+                <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#22C55E' }}>
+                  {devotionalsCompleted}
                 </Text>
-                <Text style={{ fontSize: sFont(11), fontWeight: '500', color: colors.primary + 'AA' }}>
-                  {language === 'es' ? 'pts' : 'pts'}
+                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#22C55E80' }}>
+                  {language === 'es' ? 'Devoc.' : 'Dev.'}
                 </Text>
               </LinearGradient>
 
@@ -1330,15 +1349,41 @@ function ProfileHeader({
                   borderRadius: 14,
                   borderWidth: 1,
                   borderColor: '#F9731635',
-                  gap: 6,
+                  gap: 5,
                 }}
               >
-                <Flame size={16} color="#F97316" />
-                <Text style={{ fontSize: sFont(17), fontWeight: '800', color: '#F97316' }}>
+                <Flame size={14} color="#F97316" />
+                <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#F97316' }}>
                   {user?.streakCurrent || 0}
                 </Text>
-                <Text style={{ fontSize: sFont(11), fontWeight: '500', color: '#F9731680' }}>
+                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#F9731680' }}>
                   {language === 'es' ? 'días' : 'days'}
+                </Text>
+              </LinearGradient>
+
+              {/* Shares chip */}
+              <LinearGradient
+                colors={['#60A5FA25', '#60A5FA08']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingVertical: 10,
+                  borderRadius: 14,
+                  borderWidth: 1,
+                  borderColor: '#60A5FA35',
+                  gap: 5,
+                }}
+              >
+                <Share2 size={14} color="#60A5FA" />
+                <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#60A5FA' }}>
+                  {totalShares}
+                </Text>
+                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#60A5FA80' }}>
+                  {language === 'es' ? 'Comp.' : 'Shared'}
                 </Text>
               </LinearGradient>
             </View>
@@ -7008,6 +7053,14 @@ export default function StoreScreen() {
   // Failsafe timeout handle — clears stuck transaction state after 2s
   const packFailsafeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Rename nickname modal state
+  const [showRenameModal, setShowRenameModal] = useState(false);
+  const [renameInput, setRenameInput] = useState('');
+  const [isRenaming, setIsRenaming] = useState(false);
+  const [renameError, setRenameError] = useState<string | null>(null);
+  const [hasRenameToken, setHasRenameToken] = useState(false);
+  const [activeBadgeId, setActiveBadgeId] = useState<string | null>(null);
+
   // Reset transaction locks when app returns to foreground (resumeTick bumped by _layout.tsx)
   // This fixes the bug where minimizing mid-purchase leaves locks stuck and pack buttons disabled.
   useEffect(() => {
@@ -7100,6 +7153,55 @@ export default function StoreScreen() {
       }, 350);
     }
   }, []);
+
+  // Load profile data (badge, rename token)
+  const loadProfileData = useCallback(async () => {
+    if (!user?.id) return;
+    try {
+      const profile = await gamificationApi.getUser(user.id);
+      setActiveBadgeId(profile.activeBadgeId ?? null);
+      setHasRenameToken(profile.inventory.some((inv) => inv.itemId === 'pincel_magico' && inv.source !== 'used'));
+    } catch {}
+  }, [user?.id]);
+
+  useFocusEffect(useCallback(() => { loadProfileData(); }, [loadProfileData]));
+
+  // Handle rename
+  const handleRename = async () => {
+    if (!user?.id) return;
+    const trimmed = renameInput.trim();
+    if (!trimmed) return;
+    setIsRenaming(true);
+    setRenameError(null);
+    try {
+      const result = await gamificationApi.renameNickname(user.id, trimmed);
+      if (!result.success) {
+        setRenameError(result.error ?? 'Error al cambiar el nickname.');
+        return;
+      }
+      updateUser({ nickname: trimmed });
+      setHasRenameToken(false);
+      setShowRenameModal(false);
+      setRenameInput('');
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    } catch {
+      setRenameError('Error de conexión. Intenta de nuevo.');
+    } finally {
+      setIsRenaming(false);
+    }
+  };
+
+  // Handle rename or navigate to tokens section
+  const handleRenameOrPurchase = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    if (hasRenameToken) {
+      setRenameInput('');
+      setRenameError(null);
+      setShowRenameModal(true);
+    } else {
+      setActiveCategory('tokens');
+    }
+  };
 
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
@@ -8772,6 +8874,11 @@ export default function StoreScreen() {
           user={user}
           points={points}
           language={language}
+          hasRenameToken={hasRenameToken}
+          onRenamePress={handleRenameOrPurchase}
+          activeBadgeId={activeBadgeId}
+          devotionalsCompleted={user?.devotionalsCompleted ?? 0}
+          totalShares={user?.totalShares ?? 0}
         />
 
         {/* Weekly Chest */}
