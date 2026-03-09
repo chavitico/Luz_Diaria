@@ -9688,6 +9688,79 @@ export default function StoreScreen() {
 
       {/* Pack Opening Animation Modal — disabled (stability bypass) */}
       {/* PackOpeningModal will be re-enabled once the animation state machine is stable */}
+
+      {/* Rename Nickname Modal */}
+      <Modal
+        visible={showRenameModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => !isRenaming && setShowRenameModal(false)}
+      >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 24, backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <Animated.View
+            entering={FadeInDown.duration(250)}
+            style={{ width: '100%', borderRadius: 24, padding: 24, backgroundColor: colors.surface }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <View style={{ width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary + '20' }}>
+                  <Key size={18} color={colors.primary} />
+                </View>
+                <Text style={{ fontSize: 18, fontWeight: '700', color: colors.text }}>
+                  {language === 'es' ? 'Cambiar nickname' : 'Change nickname'}
+                </Text>
+              </View>
+              <Pressable onPress={() => { if (!isRenaming) setShowRenameModal(false); }}>
+                <X size={22} color={colors.textMuted} />
+              </Pressable>
+            </View>
+            <Text style={{ fontSize: 14, color: colors.textMuted, marginBottom: 16 }}>
+              {language === 'es'
+                ? 'Escribe tu nuevo nickname. Recuerda: este cambio consume tu Token de Cambio de Nombre.'
+                : 'Enter your new nickname. Note: this will consume your Nickname Change Token.'}
+            </Text>
+            <TextInput
+              value={renameInput}
+              onChangeText={(t) => { setRenameInput(t); setRenameError(null); }}
+              placeholder={language === 'es' ? 'Nuevo nickname' : 'New nickname'}
+              placeholderTextColor={colors.textMuted}
+              autoCapitalize="none"
+              autoCorrect={false}
+              maxLength={20}
+              style={{ borderRadius: 16, paddingHorizontal: 16, paddingVertical: 14, fontSize: 16, marginBottom: 4, backgroundColor: colors.background, color: colors.text, borderWidth: 1, borderColor: renameError ? '#ef4444' : colors.textMuted + '30' }}
+              editable={!isRenaming}
+            />
+            <Text style={{ fontSize: 14, marginBottom: 16, marginLeft: 4, color: colors.textMuted }}>
+              {renameInput.length}/20
+            </Text>
+            {renameError && (
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16, padding: 12, borderRadius: 12, backgroundColor: '#ef444420' }}>
+                <X size={14} color="#ef4444" />
+                <Text style={{ fontSize: 14, flex: 1, color: '#ef4444' }}>{renameError}</Text>
+              </View>
+            )}
+            <View style={{ flexDirection: 'row', gap: 12 }}>
+              <Pressable
+                onPress={() => { if (!isRenaming) setShowRenameModal(false); }}
+                style={{ flex: 1, paddingVertical: 14, borderRadius: 16, alignItems: 'center', backgroundColor: colors.textMuted + '20' }}
+              >
+                <Text style={{ fontWeight: '600', color: colors.textMuted }}>
+                  {language === 'es' ? 'Cancelar' : 'Cancel'}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={handleRename}
+                disabled={isRenaming || renameInput.trim().length < 3}
+                style={{ flex: 1, paddingVertical: 14, borderRadius: 16, alignItems: 'center', backgroundColor: renameInput.trim().length >= 3 ? colors.primary : colors.primary + '50' }}
+              >
+                {isRenaming
+                  ? <ActivityIndicator size="small" color="#fff" />
+                  : <Text style={{ fontWeight: '700', color: '#fff' }}>{language === 'es' ? 'Confirmar' : 'Confirm'}</Text>}
+              </Pressable>
+            </View>
+          </Animated.View>
+        </View>
+      </Modal>
     </View>
   );
 }

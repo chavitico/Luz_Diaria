@@ -62,7 +62,7 @@ import {
   useUserSettings,
   useAppStore,
 } from '@/lib/store';
-import { APP_BRANDING, TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES, BADGES, RARITY_COLORS } from '@/lib/constants';
+import { APP_BRANDING, TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, BADGES, RARITY_COLORS } from '@/lib/constants';
 import { fetchWithTimeout } from '@/lib/fetch';
 
 const LOGO_PNG = require('../../../assets/logo/luz-diaria-logo.png');
@@ -666,14 +666,7 @@ export default function SettingsScreen() {
     );
   };
 
-  const currentAvatar = DEFAULT_AVATARS.find((a) => a.id === user?.avatar);
   const purchasedItems = user?.purchasedItems ?? [];
-
-  // Get equipped title info
-  const equippedTitle = user?.titleId ? SPIRITUAL_TITLES[user.titleId] : null;
-  const titleDisplay = equippedTitle
-    ? (language === 'es' ? equippedTitle.nameEs : equippedTitle.name)
-    : t.no_title;
 
   // Check if avatar is available (free or purchased)
   const isAvatarAvailable = (avatar: typeof DEFAULT_AVATARS[number]) => {
