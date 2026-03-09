@@ -1588,5 +1588,25 @@
     "amount": 8,
     "metadata": "{}",
     "createdAt": "2026-03-09T07:16:42.291Z"
+  },
+  {
+    "id": "cmmium5620019m21ofapimply",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "share_2026-03-09_2",
+    "type": "share",
+    "dateId": "2026-03-09",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-09T07:17:14.283Z"
+  },
+  {
+    "id": "cmmiumdhz001bm21o6186ce1u",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "prayed_community_2026-03-09",
+    "type": "prayed_community",
+    "dateId": "2026-03-09",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-09T07:17:25.079Z"
   }
 ]

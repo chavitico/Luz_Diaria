@@ -293,6 +293,7 @@ function AppContent() {
     initCardImageCache();
     downloadCollection('inicial');
     downloadCollection('pascua');
+    downloadCollection('milagros');
   }, []);
 
   // Start heartbeat when user is ready; stop on unmount

@@ -25,6 +25,7 @@ import {
   Animated,
   Dimensions,
   Easing,
+  Image,
   Modal,
   PanResponder,
   Pressable,
@@ -42,6 +43,63 @@ import { useScaledFont } from '@/lib/textScale';
 import { useLanguage } from '@/lib/store';
 import { BIBLICAL_CARDS, RARITY_CONFIG, type BiblicalCard } from '@/lib/biblical-cards';
 import { CollectibleCardVisual } from '@/components/CardRevealModal';
+import { resolveCardImageUriSync } from '@/lib/card-image-cache';
+
+// ─── Summary thumbnail — focal-point artwork (mirrors album logic) ────────────
+function SummaryCardThumb({ card, size }: { card: BiblicalCard; size: number }) {
+  const focusX = card.imageFocusX ?? 0.5;
+  const focusY = card.imageFocusY ?? 0.5;
+  const [containerH, setContainerH] = useState<number>(0);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const imageUri = resolveCardImageUriSync(card) ?? card.imageUrl;
+
+  const OVERSIZE = 1.6;
+  const oversizeH = containerH > 0 ? containerH * OVERSIZE : 0;
+  const translateY = containerH > 0 ? (0.5 - focusY) * (oversizeH - containerH) : 0;
+  const oversizeW = size * OVERSIZE;
+  const translateX = (0.5 - focusX) * (oversizeW - size);
+
+  return (
+    <View
+      style={{ width: size, borderRadius: 10, overflow: 'hidden', aspectRatio: 2 / 3 }}
+      onLayout={(e) => setContainerH(e.nativeEvent.layout.height)}
+    >
+      {/* Gradient background while loading */}
+      <LinearGradient
+        colors={[card.gradientColors[0], card.gradientColors[2]]}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+      />
+      {imageUri ? (
+        <Animated.Image
+          source={{ uri: imageUri }}
+          onLoad={() => {
+            setImageLoaded(true);
+            Animated.timing(fadeAnim, { toValue: 1, duration: 200, useNativeDriver: true }).start();
+          }}
+          style={{
+            opacity: fadeAnim,
+            position: 'absolute',
+            width: oversizeW,
+            height: oversizeH > 0 ? oversizeH : undefined,
+            ...(oversizeH === 0 ? { top: 0, bottom: 0 } : {
+              top: (containerH - oversizeH) / 2 + translateY,
+            }),
+            left: (size - oversizeW) / 2 + translateX,
+          }}
+          resizeMode={oversizeH === 0 ? 'cover' : 'stretch'}
+        />
+      ) : null}
+      {/* Bottom vignette */}
+      <LinearGradient
+        colors={['transparent', card.gradientColors[2] + 'CC']}
+        start={{ x: 0.5, y: 0.4 }}
+        end={{ x: 0.5, y: 1 }}
+        style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%' }}
+      />
+    </View>
+  );
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -793,6 +851,19 @@ export function PackOpeningModal({
   const totalCards = drawnCards.length;
   // Summary screen shown after all cards revealed (multi-card packs only)
   const [showSummary, setShowSummary] = useState(false);
+
+  // ── Prefetch all card images as soon as the pack is opened ──
+  // This warms the RN image cache so artwork appears instantly during reveal
+  // and in the summary screen.
+  useEffect(() => {
+    if (!visible || drawnCards.length === 0) return;
+    drawnCards.forEach(({ cardId }) => {
+      const card = BIBLICAL_CARDS[cardId];
+      if (card?.imageUrl) {
+        (Image as any).prefetch(card.imageUrl).catch(() => {});
+      }
+    });
+  }, [visible, drawnCards]);
 
   // ── Stable animation values ──
   const backdropOpacity = useRef(new Animated.Value(0)).current;
@@ -1907,13 +1978,13 @@ export function PackOpeningModal({
                   }}
                 >
                   {/* Mini card thumb */}
-                  <View style={{ borderRadius: 10, overflow: 'hidden', width: 52, height: 78 }}>
-                    {c ? (
-                      <CollectibleCardVisual card={c} wasNew={dc.wasNew} language={language} sFont={sFont} size="reveal" />
-                    ) : (
+                  {c ? (
+                    <SummaryCardThumb card={c} size={60} />
+                  ) : (
+                    <View style={{ width: 60, borderRadius: 10, overflow: 'hidden', aspectRatio: 2/3 }}>
                       <LinearGradient colors={['#1E293B', '#0F172A']} style={{ flex: 1 }} />
-                    )}
-                  </View>
+                    </View>
+                  )}
 
                   {/* Card info */}
                   <View style={{ flex: 1, gap: 3 }}>
