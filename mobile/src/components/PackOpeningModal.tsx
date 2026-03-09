@@ -251,10 +251,10 @@ const PACK_ASSETS: Record<PackType, {
     glowColor: '#D4A017',
   },
   pack_pascua: {
-    pack:     require('../../assets/packs/pack_pascua_pack.png') as ImageSourcePropType,
+    pack:     require('../../assets/packs/pack_pascua_pack.jpg') as ImageSourcePropType,
     cardBack: require('../../assets/packs/pack_pascua_card_back.jpg') as ImageSourcePropType,
     glowColor: '#FFD700',
-    transparent: true,
+    // transparent: true,  // Uncomment when pack_pascua_pack.png (no background) is uploaded
   },
   pack_milagros: {
     pack:     require('../../assets/packs/pack_milagros_pack.jpg') as ImageSourcePropType,
