@@ -1708,5 +1708,25 @@
     "amount": 10,
     "metadata": "{\"categoryKey\":\"studies\"}",
     "createdAt": "2026-03-09T18:14:47.884Z"
+  },
+  {
+    "id": "cmmjk8yap003wm28zzeqq0p0g",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "ledgerId": "prayer_request_2026-03-09",
+    "type": "prayer_request",
+    "dateId": "2026-03-09",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"gratitude\"}",
+    "createdAt": "2026-03-09T19:14:48.866Z"
+  },
+  {
+    "id": "cmmjk8zw1003ym28z1av05i1z",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "ledgerId": "prayed_community_2026-03-09",
+    "type": "prayed_community",
+    "dateId": "2026-03-09",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-09T19:14:50.929Z"
   }
 ]

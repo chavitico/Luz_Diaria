@@ -70,6 +70,7 @@ import { ActionButton } from '@/components/ui/ActionButton';
 import { GiftSendModal, type GiftSendItem } from '@/components/GiftSendModal';
 import { CardRevealModal } from '@/components/CardRevealModal';
 import { PackOpeningModal } from '@/components/PackOpeningModal';
+import { TradeInboxModal } from '@/components/TradeInboxModal';
 import {
   TRANSLATIONS,
   DEFAULT_AVATARS,
@@ -357,11 +358,13 @@ function CromosCard({
   colors,
   onPress,
   showNewBadge,
+  badgeCount,
 }: {
   language: 'en' | 'es';
   colors: ReturnType<typeof useThemeColors>;
   onPress: () => void;
   showNewBadge?: boolean;
+  badgeCount?: number;
 }) {
   const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
@@ -436,17 +439,39 @@ function CromosCard({
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
                   {/* Icon */}
-                  <View style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 16,
-                    backgroundColor: ACCENT + '22',
-                    borderWidth: 1,
-                    borderColor: ACCENT + '55',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                    <Text style={{ fontSize: 26 }}>🃏</Text>
+                  <View style={{ position: 'relative' }}>
+                    <View style={{
+                      width: 56,
+                      height: 56,
+                      borderRadius: 16,
+                      backgroundColor: ACCENT + '22',
+                      borderWidth: 1,
+                      borderColor: ACCENT + '55',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                      <Text style={{ fontSize: 26 }}>🃏</Text>
+                    </View>
+                    {badgeCount !== undefined && badgeCount > 0 && (
+                      <View style={{
+                        position: 'absolute',
+                        top: -6,
+                        right: -6,
+                        minWidth: 20,
+                        height: 20,
+                        borderRadius: 10,
+                        backgroundColor: '#FF3B30',
+                        borderWidth: 2,
+                        borderColor: G1,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        paddingHorizontal: 4,
+                      }}>
+                        <Text style={{ fontSize: 11, fontWeight: '800', color: '#FFFFFF', lineHeight: 14 }}>
+                          {badgeCount > 9 ? '9+' : String(badgeCount)}
+                        </Text>
+                      </View>
+                    )}
                   </View>
 
                   {/* Text */}
@@ -6971,6 +6996,7 @@ export default function StoreScreen() {
   // Track if StoreSectionModal was opened from submenu, so Back returns to submenu
   const storeSectionFromSubmenu = useRef<'personalizacion' | 'colecciones' | null>(null);
   const [pincelMagicoSource, setPincelMagicoSource] = useState<'store' | 'used' | null>(null);
+  const [showTradeInbox, setShowTradeInbox] = useState(false);
   const [showCardRevealModal, setShowCardRevealModal] = useState(false);
   const [revealedCard, setRevealedCard] = useState<{ cardId: string; wasNew: boolean } | null>(null);
   // isPackTransactionActive: true = purchase in flight or reveal showing → disables all pack buttons
@@ -7671,6 +7697,18 @@ export default function StoreScreen() {
     refetchOnWindowFocus: true,
     refetchInterval: 5 * 60_000,
   });
+
+  // Pending trades count — for Cromos Bíblicos badge
+  const { data: tradesData } = useQuery({
+    queryKey: ['trades', userId],
+    queryFn: () => gamificationApi.getTrades(userId!),
+    enabled: !!userId,
+    staleTime: 20_000,
+    refetchInterval: 30_000,
+  });
+  const pendingTradesCount = (tradesData?.trades ?? []).filter(
+    (t: { toUserId: string; status: string }) => t.toUserId === userId && t.status === 'pending'
+  ).length;
 
   const handleClaimDailyPack = useCallback(async (packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros') => {
     if (!userId || isDailyPackClaiming.current) return;
@@ -8465,6 +8503,20 @@ export default function StoreScreen() {
                 </Text>
               </View>
             )}
+
+            {/* Promo Code */}
+            <View style={{ marginTop: 24 }}>
+              <PromoCodeCard
+                colors={colors}
+                language={language}
+                userId={userId ?? ''}
+                onSuccess={(pts) => {
+                  setToastAmount(pts);
+                  setToastPositive(true);
+                  setShowPointsToast(true);
+                }}
+              />
+            </View>
           </View>
         );
       }
@@ -8776,32 +8828,12 @@ export default function StoreScreen() {
           />
         )}
 
-        {/* Promo Code Redemption */}
-        {effectiveUserId && (
-          <PromoCodeCard
-            colors={colors}
-            language={language}
-            userId={effectiveUserId}
-            onSuccess={(pointsAwarded) => {
-              updateUser({ points: points + pointsAwarded });
-              addLedgerEntry({
-                delta: pointsAwarded,
-                kind: 'promo_code',
-                title: language === 'es' ? 'Código promocional' : 'Promo code',
-                detail: '',
-              });
-              setToastAmount(pointsAwarded);
-              setToastPositive(true);
-              setShowPointsToast(true);
-            }}
-          />
-        )}
-
         {/* Cromos Bíblicos Card */}
         <CromosCard
           language={language}
           colors={colors}
           showNewBadge
+          badgeCount={pendingTradesCount > 0 ? pendingTradesCount : undefined}
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
             setSubMenuType('cromos');
@@ -8897,7 +8929,7 @@ export default function StoreScreen() {
           <FeatureCard
             emoji="🎁"
             title={language === 'es' ? 'Paquetes' : 'Bundles'}
-            subtitle={language === 'es' ? 'Bundles especiales' : 'Special bundles'}
+            subtitle={language === 'es' ? 'Aventuras, colecciones y más' : 'Adventures, collections & more'}
             gradientColors={['#2A1400', '#1A0D00', '#0E0800']}
             borderColor="rgba(251,146,60,0.25)"
             accentGlowColor="rgba(251,146,60,0.08)"
@@ -9020,7 +9052,7 @@ export default function StoreScreen() {
                 <Pressable
                   onPress={() => {
                     setShowSubMenuModal(false);
-                    setTimeout(() => router.push('/(tabs)/community'), 350);
+                    setTimeout(() => setShowTradeInbox(true), 350);
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                   }}
                 >
@@ -9071,6 +9103,41 @@ export default function StoreScreen() {
                         </Text>
                         <Text style={{ fontSize: sFont(12), color: 'rgba(134,239,172,0.65)' }}>
                           {language === 'es' ? 'Progreso de historia y logros' : 'Story progress & achievements'}
+                        </Text>
+                      </View>
+                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                    </View>
+                  </LinearGradient>
+                </Pressable>
+
+                {/* Colecciones */}
+                <Pressable
+                  onPress={() => {
+                    storeSectionFromSubmenu.current = 'colecciones';
+                    setShowSubMenuModal(false);
+                    setTimeout(() => {
+                      setActiveSubcategory('all');
+                      setStoreSectionModalCategory('collections');
+                      setShowStoreSectionModal(true);
+                    }, 350);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                >
+                  <LinearGradient
+                    colors={['#0D1E3D', '#071526', '#030C18']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(96,165,250,0.25)' }}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(96,165,250,0.12)', borderWidth: 1, borderColor: 'rgba(96,165,250,0.30)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>📚</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                          {language === 'es' ? 'Colecciones' : 'Collections'}
+                        </Text>
+                        <Text style={{ fontSize: sFont(12), color: 'rgba(96,165,250,0.70)' }}>
+                          {language === 'es' ? 'Ester, Jonás y más' : 'Esther, Jonah & more'}
                         </Text>
                       </View>
                       <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
@@ -9439,6 +9506,12 @@ export default function StoreScreen() {
           setShowCardRevealModal(false);
           setRevealedCard(null);
         }}
+      />
+
+      {/* Trade Inbox Modal — accessible from Cromos Bíblicos */}
+      <TradeInboxModal
+        visible={showTradeInbox}
+        onClose={() => setShowTradeInbox(false)}
       />
 
       {/* Pack Opening Animation Modal — disabled (stability bypass) */}

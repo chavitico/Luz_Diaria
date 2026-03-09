@@ -599,6 +599,8 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
   const queryClient = useQueryClient();
 
   const es = language === 'es';
+  type TradeFilter = 'all' | 'pending' | 'sent' | 'received' | 'rejected';
+  const [activeFilter, setActiveFilter] = useState<TradeFilter>('all');
   const [pendingTradeId, setPendingTradeId] = useState<string | null>(null);
   const [acceptResults, setAcceptResults] = useState<Record<string, AcceptResult>>({});
   const [justAcceptedId, setJustAcceptedId] = useState<string | null>(null);
@@ -640,6 +642,23 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
       if (b.status === 'accepted' && a.status !== 'accepted') return 1;
       return 0;
     });
+
+  // Filtered views based on activeFilter
+  const filteredTrades = React.useMemo(() => {
+    switch (activeFilter) {
+      case 'pending':
+        return trades.filter(t => t.toUserId === user?.id && t.status === 'pending');
+      case 'sent':
+        return trades.filter(t => t.fromUserId === user?.id && t.status === 'pending');
+      case 'received':
+        return trades.filter(t => t.status === 'accepted');
+      case 'rejected':
+        return trades.filter(t => t.status === 'rejected' || t.status === 'cancelled' || t.status === 'failed');
+      case 'all':
+      default:
+        return trades;
+    }
+  }, [trades, activeFilter, user?.id]);
 
   // Accept mutation — NOTE: gamificationApi.acceptTrade now throws on non-ok HTTP,
   // so onSuccess only fires when the backend actually accepted the trade.
@@ -804,12 +823,72 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
           </Pressable>
         </View>
 
+        {/* ── Filter Tabs ── */}
+        {!isLoading && trades.length > 0 && (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 10, gap: 8, flexDirection: 'row' }}
+            style={{ borderBottomWidth: 1, borderBottomColor: colors.textMuted + '15', maxHeight: 52 }}
+          >
+            {([
+              { key: 'all', labelEs: 'Todos', label: 'All', count: trades.length },
+              { key: 'pending', labelEs: 'Recibidos', label: 'Incoming', count: incoming.length },
+              { key: 'sent', labelEs: 'Enviados', label: 'Sent', count: outgoing.length },
+              { key: 'received', labelEs: 'Aceptados', label: 'Accepted', count: trades.filter(t => t.status === 'accepted').length },
+              { key: 'rejected', labelEs: 'Rechazados', label: 'Rejected', count: trades.filter(t => t.status === 'rejected' || t.status === 'cancelled' || t.status === 'failed').length },
+            ] as { key: TradeFilter; labelEs: string; label: string; count: number }[]).map(tab => (
+              <Pressable
+                key={tab.key}
+                onPress={() => { Haptics.selectionAsync(); setActiveFilter(tab.key); }}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 5,
+                  paddingHorizontal: 14,
+                  paddingVertical: 6,
+                  borderRadius: 99,
+                  backgroundColor: activeFilter === tab.key ? colors.primary : colors.surface,
+                  borderWidth: 1,
+                  borderColor: activeFilter === tab.key ? colors.primary : colors.textMuted + '25',
+                }}
+              >
+                <Text style={{
+                  fontSize: sFont(12),
+                  fontWeight: '700',
+                  color: activeFilter === tab.key ? '#FFFFFF' : colors.textMuted,
+                }}>
+                  {es ? tab.labelEs : tab.label}
+                </Text>
+                {tab.count > 0 && (
+                  <View style={{
+                    backgroundColor: activeFilter === tab.key ? 'rgba(255,255,255,0.25)' : colors.primary + '20',
+                    borderRadius: 8,
+                    paddingHorizontal: 5,
+                    paddingVertical: 1,
+                    minWidth: 18,
+                    alignItems: 'center',
+                  }}>
+                    <Text style={{
+                      fontSize: sFont(10),
+                      fontWeight: '800',
+                      color: activeFilter === tab.key ? '#FFFFFF' : colors.primary,
+                    }}>
+                      {tab.count}
+                    </Text>
+                  </View>
+                )}
+              </Pressable>
+            ))}
+          </ScrollView>
+        )}
+
         {/* ── Body ── */}
         {isLoading ? (
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <ActivityIndicator color={colors.primary} />
           </View>
-        ) : trades.length === 0 ? (
+        ) : filteredTrades.length === 0 ? (
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 36, gap: 12 }}>
             <ArrowLeftRight size={40} color={colors.textMuted + '60'} />
             <Text style={{ fontSize: sFont(15), color: colors.textMuted, textAlign: 'center', lineHeight: 22 }}>
@@ -829,87 +908,112 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
               />
             }
           >
-            {/* Incoming */}
-            {incoming.length > 0 && (
+            {activeFilter === 'all' ? (
               <>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 10 }}>
-                  <Inbox size={14} color={colors.primary} />
-                  <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary, letterSpacing: 0.5 }}>
-                    {es ? 'Recibidas' : 'Incoming'}
-                  </Text>
-                  <View style={{ backgroundColor: colors.primary + '25', borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 }}>
-                    <Text style={{ fontSize: sFont(11), fontWeight: '800', color: colors.primary }}>
-                      {incoming.length}
-                    </Text>
-                  </View>
-                </View>
-                {incoming.map(t => (
+                {/* Incoming */}
+                {incoming.length > 0 && (
+                  <>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+                      <Inbox size={14} color={colors.primary} />
+                      <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary, letterSpacing: 0.5 }}>
+                        {es ? 'Recibidas' : 'Incoming'}
+                      </Text>
+                      <View style={{ backgroundColor: colors.primary + '25', borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2 }}>
+                        <Text style={{ fontSize: sFont(11), fontWeight: '800', color: colors.primary }}>
+                          {incoming.length}
+                        </Text>
+                      </View>
+                    </View>
+                    {incoming.map(t => (
+                      <TradeRow
+                        key={t.id}
+                        trade={t}
+                        myUserId={user!.id}
+                        onAction={(action) => handleAction(t, action)}
+                        actionPending={pendingTradeId === t.id}
+                        justAccepted={justAcceptedId === t.id}
+                        acceptResult={acceptResults[t.id] ?? null}
+                        dailyLimitReached={dailyLimitReached}
+                        errorMessage={tradeErrors[t.id] ?? null}
+                        colors={colors}
+                        sFont={sFont}
+                        es={es}
+                      />
+                    ))}
+                  </>
+                )}
+
+                {/* Outgoing */}
+                {outgoing.length > 0 && (
+                  <>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: incoming.length > 0 ? 14 : 0, marginBottom: 10 }}>
+                      <Clock size={14} color={colors.textMuted} />
+                      <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.textMuted, letterSpacing: 0.5 }}>
+                        {es ? 'Enviadas' : 'Outgoing'}
+                      </Text>
+                    </View>
+                    {outgoing.map(t => (
+                      <TradeRow
+                        key={t.id}
+                        trade={t}
+                        myUserId={user!.id}
+                        onAction={(action) => handleAction(t, action)}
+                        actionPending={pendingTradeId === t.id}
+                        justAccepted={false}
+                        acceptResult={null}
+                        dailyLimitReached={false}
+                        errorMessage={null}
+                        colors={colors}
+                        sFont={sFont}
+                        es={es}
+                      />
+                    ))}
+                  </>
+                )}
+
+                {/* History */}
+                {history.length > 0 && (
+                  <>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: (incoming.length + outgoing.length) > 0 ? 14 : 0, marginBottom: 10 }}>
+                      <Check size={14} color={colors.textMuted} />
+                      <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.textMuted, letterSpacing: 0.5 }}>
+                        {es ? 'Historial' : 'History'}
+                      </Text>
+                    </View>
+                    {history.slice(0, 20).map(t => (
+                      <TradeRow
+                        key={t.id}
+                        trade={t}
+                        myUserId={user!.id}
+                        onAction={() => {}}
+                        actionPending={false}
+                        justAccepted={false}
+                        acceptResult={acceptResults[t.id] ?? null}
+                        dailyLimitReached={false}
+                        errorMessage={null}
+                        colors={colors}
+                        sFont={sFont}
+                        es={es}
+                      />
+                    ))}
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                {filteredTrades.map(t => (
                   <TradeRow
                     key={t.id}
                     trade={t}
                     myUserId={user!.id}
-                    onAction={(action) => handleAction(t, action)}
+                    onAction={(action) => {
+                      if (t.status === 'pending') handleAction(t, action);
+                    }}
                     actionPending={pendingTradeId === t.id}
                     justAccepted={justAcceptedId === t.id}
                     acceptResult={acceptResults[t.id] ?? null}
-                    dailyLimitReached={dailyLimitReached}
+                    dailyLimitReached={activeFilter === 'pending' ? dailyLimitReached : false}
                     errorMessage={tradeErrors[t.id] ?? null}
-                    colors={colors}
-                    sFont={sFont}
-                    es={es}
-                  />
-                ))}
-              </>
-            )}
-
-            {/* Outgoing */}
-            {outgoing.length > 0 && (
-              <>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: incoming.length > 0 ? 14 : 0, marginBottom: 10 }}>
-                  <Clock size={14} color={colors.textMuted} />
-                  <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.textMuted, letterSpacing: 0.5 }}>
-                    {es ? 'Enviadas' : 'Outgoing'}
-                  </Text>
-                </View>
-                {outgoing.map(t => (
-                  <TradeRow
-                    key={t.id}
-                    trade={t}
-                    myUserId={user!.id}
-                    onAction={(action) => handleAction(t, action)}
-                    actionPending={pendingTradeId === t.id}
-                    justAccepted={false}
-                    acceptResult={null}
-                    dailyLimitReached={false}
-                    errorMessage={null}
-                    colors={colors}
-                    sFont={sFont}
-                    es={es}
-                  />
-                ))}
-              </>
-            )}
-
-            {/* History */}
-            {history.length > 0 && (
-              <>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: (incoming.length + outgoing.length) > 0 ? 14 : 0, marginBottom: 10 }}>
-                  <Check size={14} color={colors.textMuted} />
-                  <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.textMuted, letterSpacing: 0.5 }}>
-                    {es ? 'Historial' : 'History'}
-                  </Text>
-                </View>
-                {history.slice(0, 20).map(t => (
-                  <TradeRow
-                    key={t.id}
-                    trade={t}
-                    myUserId={user!.id}
-                    onAction={() => {}}
-                    actionPending={false}
-                    justAccepted={false}
-                    acceptResult={acceptResults[t.id] ?? null}
-                    dailyLimitReached={false}
-                    errorMessage={null}
                     colors={colors}
                     sFont={sFont}
                     es={es}
