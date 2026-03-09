@@ -1367,6 +1367,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['crowd', 'cloak touch', 'woman faith', 'healing flow', 'peace'],
     gradientColors: ['#1A0A14', '#3A1530', '#5C204A'],
     accentColor: '#F472B6',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/Z4pjSL3v4EI.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '✦', subtitleEs: 'Tu Fe te Salvó', subtitleEn: 'Your Faith Has Saved You', artEmoji: '🩸', decorSymbols: ['✦', '🌹', '🙏'], sheenColors: ['rgba(244,114,182,0.30)', 'rgba(92,32,74,0.10)'], cornerGlyph: '✦' },
   },
   jesus_desaparece: {
@@ -1389,6 +1392,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['crowd', 'cliff', 'Nazareth', 'Jesus passing through', 'amazement'],
     gradientColors: ['#0D1520', '#162540', '#1E3860'],
     accentColor: '#BAE6FD',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/s7gQn54FMSo.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '✦', subtitleEs: 'Paso en Medio', subtitleEn: 'Passed Through', artEmoji: '🌫️', decorSymbols: ['🌫️', '✦', '🏔️'], sheenColors: ['rgba(186,230,253,0.28)', 'rgba(30,56,96,0.10)'], cornerGlyph: '✦' },
   },
   tempestad_calmada: {
@@ -1411,6 +1417,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['stormy lake', 'disciples', 'Jesus standing', 'instant calm', 'amazement'],
     gradientColors: ['#030810', '#060F20', '#091830'],
     accentColor: '#7DD3FC',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/tpfxZbmoKBk.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '🌊', subtitleEs: '¿Dónde Está Tu Fe?', subtitleEn: 'Where Is Your Faith?', artEmoji: '🌊', decorSymbols: ['🌊', '⚡', '✦'], sheenColors: ['rgba(125,211,252,0.32)', 'rgba(9,24,48,0.10)'], cornerGlyph: '✦' },
   },
 
@@ -1460,6 +1469,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['mountain', 'radiant face', 'white garments', 'Moses Elijah', 'cloud of glory'],
     gradientColors: ['#1A1400', '#3D3000', '#6B5800'],
     accentColor: '#FDE68A',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/6BaexwBJHp4.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.35,
     motif: { topSymbol: '☀️', subtitleEs: 'Gloria Divina', subtitleEn: 'Divine Glory', artEmoji: '☀️', decorSymbols: ['☀️', '✦', '⛰️'], sheenColors: ['rgba(253,230,138,0.45)', 'rgba(107,88,0,0.12)'], cornerGlyph: '✦' },
   },
   jesus_aparece_resucitado: {
@@ -1482,6 +1494,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['locked room', 'risen Jesus', 'disciples', 'hands and side', 'peace'],
     gradientColors: ['#0D1A14', '#163020', '#1E4A2C'],
     accentColor: '#6EE7B7',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/7hq-04DTzyc.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.35,
     motif: { topSymbol: '✝', subtitleEs: 'La Paz Sea con Vosotros', subtitleEn: 'Peace Be With You', artEmoji: '✝', decorSymbols: ['✝', '✦', '🕊️'], sheenColors: ['rgba(110,231,183,0.40)', 'rgba(30,74,44,0.12)'], cornerGlyph: '✦' },
   },
 
@@ -1506,6 +1521,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['radiant throne', 'alpha omega', 'crown of glory', 'golden light', 'cosmic presence'],
     gradientColors: ['#1A0E00', '#3D2200', '#7A4400'],
     accentColor: '#D4AF37',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/ONSrDJ_LSfw.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.3,
     motif: { topSymbol: '✦', subtitleEs: 'Alfa y Omega', subtitleEn: 'Alpha and Omega', artEmoji: '✝', decorSymbols: ['✦', '☀️', '✝'], sheenColors: ['rgba(212,175,55,0.55)', 'rgba(122,68,0,0.15)'], cornerGlyph: '✦' },
   },
 
