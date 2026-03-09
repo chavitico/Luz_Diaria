@@ -187,31 +187,200 @@ function PackVisual({
       style={{
         transform: [{ rotate }, { scale: scaleAnim }],
         shadowColor: cfg.glowColor,
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.85,
-        shadowRadius: 28,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.9,
+        shadowRadius: 32,
         elevation: 20,
         width: CARD_W,
         height: CARD_H,
         borderRadius: 20,
-        overflow: 'hidden',
       }}
     >
+      {/* Outer gold border glow ring */}
       <LinearGradient
-        colors={[cfg.gradientTop, cfg.gradientBottom]}
-        style={styles.packGradient}
-        start={{ x: 0.3, y: 0 }}
-        end={{ x: 0.7, y: 1 }}
+        colors={['#C8952A', '#FFE589', '#C8952A', '#8A5F10', '#FFD055', '#C8952A']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: 20,
+        }}
+      />
+      {/* Main pack body */}
+      <LinearGradient
+        colors={['#1A2E50', '#0E1D38', '#081429', '#06101F']}
+        style={{
+          position: 'absolute',
+          inset: 1.5,
+          borderRadius: 19,
+          overflow: 'hidden',
+        }}
+        start={{ x: 0.2, y: 0 }}
+        end={{ x: 0.8, y: 1 }}
       >
-        <View style={[styles.packBorder, { borderColor: cfg.borderColor }]}>
-          <Text style={[styles.packCorner, { top: 8, left: 10 }]}>✦</Text>
-          <Text style={[styles.packCorner, { top: 8, right: 10 }]}>✦</Text>
-          <Text style={[styles.packCorner, { bottom: 8, left: 10 }]}>✦</Text>
-          <Text style={[styles.packCorner, { bottom: 8, right: 10 }]}>✦</Text>
-          <Text style={styles.packEmoji}>{cfg.emoji}</Text>
-          <Text style={[styles.packLabel, { color: cfg.borderColor }]}>{cfg.label}</Text>
-          <View style={[styles.packDivider, { backgroundColor: cfg.borderColor }]} />
-          <Text style={[styles.packSub, { color: cfg.borderColor + 'AA' }]}>Cartas Bíblicas</Text>
+        {/* Foil sheen — diagonal light reflection */}
+        <LinearGradient
+          colors={['transparent', 'rgba(255,255,255,0.05)', 'rgba(255,255,255,0.10)', 'rgba(255,255,255,0.03)', 'transparent']}
+          start={{ x: 0, y: 0.1 }}
+          end={{ x: 1, y: 0.9 }}
+          style={{ position: 'absolute', inset: 0 }}
+        />
+        {/* Top sheen highlight */}
+        <LinearGradient
+          colors={['rgba(255,255,255,0.12)', 'transparent']}
+          start={{ x: 0.5, y: 0 }}
+          end={{ x: 0.5, y: 1 }}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: CARD_H * 0.3 }}
+        />
+
+        {/* Inner gold border frame */}
+        <View style={{
+          position: 'absolute',
+          inset: 10,
+          borderRadius: 12,
+          borderWidth: 1,
+          borderColor: 'rgba(212,160,23,0.5)',
+        }} />
+
+        {/* Ornamental corner accents */}
+        {[
+          { top: 12, left: 12 },
+          { top: 12, right: 12 },
+          { bottom: 12, left: 12 },
+          { bottom: 12, right: 12 },
+        ].map((pos, i) => (
+          <View key={i} style={[{ position: 'absolute', width: 16, height: 16 }, pos]}>
+            <View style={{
+              width: 8, height: 1.5,
+              backgroundColor: '#FFD055',
+              position: 'absolute',
+              ...(pos.right !== undefined ? { right: 0 } : { left: 0 }),
+              ...(pos.bottom !== undefined ? { bottom: 0 } : { top: 0 }),
+            }} />
+            <View style={{
+              width: 1.5, height: 8,
+              backgroundColor: '#FFD055',
+              position: 'absolute',
+              ...(pos.right !== undefined ? { right: 0 } : { left: 0 }),
+              ...(pos.bottom !== undefined ? { bottom: 0 } : { top: 0 }),
+            }} />
+          </View>
+        ))}
+
+        {/* Horizontal gold strip — top accent band */}
+        <LinearGradient
+          colors={['transparent', 'rgba(212,160,23,0.35)', 'rgba(255,213,80,0.5)', 'rgba(212,160,23,0.35)', 'transparent']}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          style={{
+            position: 'absolute',
+            top: CARD_H * 0.08,
+            left: 0,
+            right: 0,
+            height: 1,
+          }}
+        />
+
+        {/* Main content — centered in lower 85% of pack */}
+        <View style={{
+          position: 'absolute',
+          top: CARD_H * 0.10,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 6,
+          paddingHorizontal: 20,
+        }}>
+          {/* Scroll icon */}
+          <View style={{
+            width: 44,
+            height: 44,
+            borderRadius: 22,
+            backgroundColor: 'rgba(212,160,23,0.12)',
+            borderWidth: 1,
+            borderColor: 'rgba(212,160,23,0.4)',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 2,
+          }}>
+            <Text style={{ fontSize: 22 }}>📜</Text>
+          </View>
+
+          {/* CROMO BÍBLICO title */}
+          <Text style={{
+            fontSize: 18,
+            fontWeight: '900',
+            color: '#FFD055',
+            letterSpacing: 2.5,
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            textShadowColor: 'rgba(255,200,50,0.6)',
+            textShadowOffset: { width: 0, height: 0 },
+            textShadowRadius: 8,
+          }}>
+            CROMO BÍBLICO
+          </Text>
+
+          {/* Thin gold divider with diamond center */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', width: '70%', gap: 6 }}>
+            <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(212,160,23,0.5)' }} />
+            <Text style={{ color: '#D4A017', fontSize: 8 }}>◆</Text>
+            <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(212,160,23,0.5)' }} />
+          </View>
+
+          {/* Subtitle */}
+          <Text style={{
+            fontSize: 9,
+            fontWeight: '600',
+            color: 'rgba(212,160,23,0.75)',
+            letterSpacing: 1.8,
+            textTransform: 'uppercase',
+            textAlign: 'center',
+          }}>
+            Colección de cromos bíblicos
+          </Text>
+
+          {/* Pack-type badge */}
+          <View style={{
+            marginTop: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 4,
+            borderRadius: 99,
+            backgroundColor: 'rgba(212,160,23,0.15)',
+            borderWidth: 1,
+            borderColor: 'rgba(212,160,23,0.35)',
+          }}>
+            <Text style={{
+              fontSize: 9,
+              fontWeight: '700',
+              color: cfg.borderColor,
+              letterSpacing: 1.2,
+              textTransform: 'uppercase',
+            }}>
+              {cfg.label}
+            </Text>
+          </View>
+        </View>
+
+        {/* Bottom decorative dots row */}
+        <View style={{
+          position: 'absolute',
+          bottom: 18,
+          left: 0,
+          right: 0,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          gap: 5,
+        }}>
+          {[0.3, 0.6, 1, 0.6, 0.3].map((op, i) => (
+            <View key={i} style={{
+              width: 3, height: 3, borderRadius: 1.5,
+              backgroundColor: `rgba(212,160,23,${op})`,
+            }} />
+          ))}
         </View>
       </LinearGradient>
     </Animated.View>
@@ -252,40 +421,76 @@ function PackHalf({
           { rotate: rotateInterp },
         ],
         shadowColor: glowColor,
-        shadowOffset: { width: 0, height: 0 },
+        shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.9,
         shadowRadius: 20,
         elevation: 20,
-        // Clip to left or right half
         overflow: 'hidden',
       }}
     >
-      {/* Inner content mirroring the pack */}
-      <View
-        style={{
-          width: CARD_W,
-          height: CARD_H,
-          overflow: 'hidden',
-          borderRadius: 20,
-          // Offset for right half clipping
-          ...(side === 'right' ? { marginLeft: 0 } : {}),
-        }}
-      >
+      <View style={{ width: CARD_W, height: CARD_H, overflow: 'hidden', borderRadius: 20 }}>
+        {/* Gold border ring */}
         <LinearGradient
-          colors={[cfg.gradientTop, cfg.gradientBottom]}
-          style={styles.packGradient}
-          start={{ x: 0.3, y: 0 }}
-          end={{ x: 0.7, y: 1 }}
+          colors={['#C8952A', '#FFE589', '#C8952A', '#8A5F10', '#FFD055', '#C8952A']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ position: 'absolute', inset: 0, borderRadius: 20 }}
+        />
+        {/* Dark navy body */}
+        <LinearGradient
+          colors={['#1A2E50', '#0E1D38', '#081429', '#06101F']}
+          style={{ position: 'absolute', inset: 1.5, borderRadius: 19 }}
+          start={{ x: 0.2, y: 0 }}
+          end={{ x: 0.8, y: 1 }}
         >
-          <View style={[styles.packBorder, { borderColor: cfg.borderColor }]}>
-            <Text style={[styles.packCorner, { top: 8, left: 10 }]}>✦</Text>
-            <Text style={[styles.packCorner, { top: 8, right: 10 }]}>✦</Text>
-            <Text style={[styles.packCorner, { bottom: 8, left: 10 }]}>✦</Text>
-            <Text style={[styles.packCorner, { bottom: 8, right: 10 }]}>✦</Text>
-            <Text style={styles.packEmoji}>{cfg.emoji}</Text>
-            <Text style={[styles.packLabel, { color: cfg.borderColor }]}>{cfg.label}</Text>
-            <View style={[styles.packDivider, { backgroundColor: cfg.borderColor }]} />
-            <Text style={[styles.packSub, { color: cfg.borderColor + 'AA' }]}>Cartas Bíblicas</Text>
+          {/* Foil sheen */}
+          <LinearGradient
+            colors={['transparent', 'rgba(255,255,255,0.07)', 'rgba(255,255,255,0.03)', 'transparent']}
+            start={{ x: 0, y: 0.1 }}
+            end={{ x: 1, y: 0.9 }}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+          <View style={{ position: 'absolute', inset: 10, borderRadius: 12, borderWidth: 1, borderColor: 'rgba(212,160,23,0.4)' }} />
+
+          <View style={{
+            position: 'absolute',
+            top: CARD_H * 0.10, left: 0, right: 0, bottom: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
+            paddingHorizontal: 20,
+          }}>
+            <View style={{
+              width: 44, height: 44, borderRadius: 22,
+              backgroundColor: 'rgba(212,160,23,0.12)',
+              borderWidth: 1, borderColor: 'rgba(212,160,23,0.4)',
+              alignItems: 'center', justifyContent: 'center', marginBottom: 2,
+            }}>
+              <Text style={{ fontSize: 22 }}>📜</Text>
+            </View>
+            <Text style={{
+              fontSize: 18, fontWeight: '900', color: '#FFD055',
+              letterSpacing: 2.5, textTransform: 'uppercase', textAlign: 'center',
+              textShadowColor: 'rgba(255,200,50,0.6)',
+              textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 8,
+            }}>CROMO BÍBLICO</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', width: '70%', gap: 6 }}>
+              <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(212,160,23,0.5)' }} />
+              <Text style={{ color: '#D4A017', fontSize: 8 }}>◆</Text>
+              <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(212,160,23,0.5)' }} />
+            </View>
+            <Text style={{
+              fontSize: 9, fontWeight: '600', color: 'rgba(212,160,23,0.75)',
+              letterSpacing: 1.8, textTransform: 'uppercase', textAlign: 'center',
+            }}>Colección de cromos bíblicos</Text>
+            <View style={{
+              marginTop: 8, paddingHorizontal: 12, paddingVertical: 4, borderRadius: 99,
+              backgroundColor: 'rgba(212,160,23,0.15)', borderWidth: 1, borderColor: 'rgba(212,160,23,0.35)',
+            }}>
+              <Text style={{ fontSize: 9, fontWeight: '700', color: cfg.borderColor, letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                {cfg.label}
+              </Text>
+            </View>
           </View>
         </LinearGradient>
       </View>
@@ -298,15 +503,204 @@ function PackHalf({
 function CardBack() {
   return (
     <View style={styles.cardBack}>
+      {/* Multi-layer deep blue gradient body */}
       <LinearGradient
-        colors={['#1E3A5F', '#0A1929']}
+        colors={['#0D1F3C', '#071528', '#060F20', '#0A1830']}
         style={styles.cardBackGradient}
         start={{ x: 0.2, y: 0 }}
         end={{ x: 0.8, y: 1 }}
       >
-        <View style={styles.cardBackBorder}>
-          <Text style={styles.cardBackCross}>✝</Text>
-          <Text style={styles.cardBackLabel}>Cartas{'\n'}Bíblicas</Text>
+        {/* Subtle blue-indigo texture shimmer */}
+        <LinearGradient
+          colors={['transparent', 'rgba(80,120,200,0.07)', 'rgba(100,80,220,0.05)', 'transparent']}
+          start={{ x: 0, y: 0.3 }}
+          end={{ x: 1, y: 0.7 }}
+          style={{ position: 'absolute', inset: 0 }}
+        />
+
+        {/* Outer ornamental gold border */}
+        <LinearGradient
+          colors={['#C8952A', '#FFE589', '#C8952A', '#8A5F10', '#FFD055', '#C8952A']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{
+            position: 'absolute',
+            inset: 10,
+            borderRadius: 14,
+          }}
+        />
+        <View style={{
+          position: 'absolute',
+          inset: 11.5,
+          borderRadius: 13,
+          backgroundColor: '#071528',
+        }} />
+
+        {/* Inner thin gold accent frame */}
+        <View style={{
+          position: 'absolute',
+          inset: 18,
+          borderRadius: 9,
+          borderWidth: 0.5,
+          borderColor: 'rgba(212,160,23,0.4)',
+        }} />
+
+        {/* Ornamental corner flourishes */}
+        {([
+          { top: 13, left: 13 },
+          { top: 13, right: 13 },
+          { bottom: 13, left: 13 },
+          { bottom: 13, right: 13 },
+        ] as const).map((pos, i) => {
+          const isRight = 'right' in pos;
+          const isBottom = 'bottom' in pos;
+          return (
+            <View key={i} style={[{ position: 'absolute', width: 18, height: 18 }, pos as object]}>
+              {/* Horizontal arm */}
+              <View style={{
+                position: 'absolute',
+                width: 10, height: 1.5,
+                backgroundColor: '#FFD055',
+                ...(isRight ? { right: 0 } : { left: 0 }),
+                ...(isBottom ? { bottom: 0 } : { top: 0 }),
+              }} />
+              {/* Vertical arm */}
+              <View style={{
+                position: 'absolute',
+                width: 1.5, height: 10,
+                backgroundColor: '#FFD055',
+                ...(isRight ? { right: 0 } : { left: 0 }),
+                ...(isBottom ? { bottom: 0 } : { top: 0 }),
+              }} />
+              {/* Corner dot */}
+              <View style={{
+                position: 'absolute',
+                width: 3, height: 3, borderRadius: 1.5,
+                backgroundColor: '#FFE589',
+                ...(isRight ? { right: 0 } : { left: 0 }),
+                ...(isBottom ? { bottom: 0 } : { top: 0 }),
+              }} />
+            </View>
+          );
+        })}
+
+        {/* Scattered golden sparkles */}
+        {[
+          { top: '18%', left: '12%', size: 10, opacity: 0.6 },
+          { top: '14%', right: '15%', size: 7, opacity: 0.4 },
+          { bottom: '20%', left: '10%', size: 8, opacity: 0.45 },
+          { bottom: '16%', right: '12%', size: 11, opacity: 0.55 },
+          { top: '42%', left: '6%', size: 6, opacity: 0.3 },
+          { top: '50%', right: '7%', size: 6, opacity: 0.3 },
+          { top: '28%', left: '22%', size: 5, opacity: 0.25 },
+          { bottom: '35%', right: '20%', size: 5, opacity: 0.25 },
+        ].map((sp, i) => (
+          <View key={i} style={[{ position: 'absolute' }, { top: sp.top, left: sp.left, right: sp.right as string | undefined, bottom: sp.bottom } as object]}>
+            <Text style={{ fontSize: sp.size, opacity: sp.opacity, color: '#FFD055' }}>✦</Text>
+          </View>
+        ))}
+
+        {/* Central divine light radiance */}
+        <View style={{
+          position: 'absolute',
+          alignSelf: 'center',
+          top: '50%',
+          marginTop: -60,
+          width: 120,
+          height: 120,
+          borderRadius: 60,
+          backgroundColor: 'rgba(120,60,220,0.12)',
+        }} />
+        <View style={{
+          position: 'absolute',
+          alignSelf: 'center',
+          top: '50%',
+          marginTop: -40,
+          width: 80,
+          height: 80,
+          borderRadius: 40,
+          backgroundColor: 'rgba(150,80,255,0.15)',
+        }} />
+
+        {/* Purple gem emblem */}
+        <View style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+          gap: 10,
+        }}>
+          {/* Gem shape — diamond / hexagon approximation using nested Views */}
+          <View style={{
+            width: 72,
+            height: 72,
+            borderRadius: 16,
+            transform: [{ rotate: '45deg' }],
+            backgroundColor: 'transparent',
+            borderWidth: 2,
+            borderColor: 'rgba(160,100,255,0.7)',
+            shadowColor: '#A064FF',
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.9,
+            shadowRadius: 18,
+            elevation: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <LinearGradient
+              colors={['#7B3FBF', '#9B5FE0', '#5A1FA0', '#8040D0']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                borderRadius: 14,
+              }}
+            />
+            {/* White cross inside gem — rotated back to upright */}
+            <View style={{ transform: [{ rotate: '-45deg' }], alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{
+                fontSize: 26,
+                color: '#FFFFFF',
+                fontWeight: '900',
+                textShadowColor: 'rgba(255,255,255,0.8)',
+                textShadowOffset: { width: 0, height: 0 },
+                textShadowRadius: 10,
+              }}>✝</Text>
+            </View>
+          </View>
+
+          {/* Gem glow ring */}
+          <View style={{
+            position: 'absolute',
+            alignSelf: 'center',
+            top: '50%',
+            marginTop: -44,
+            width: 88,
+            height: 88,
+            borderRadius: 44,
+            borderWidth: 1,
+            borderColor: 'rgba(160,100,255,0.25)',
+          }} />
+
+          {/* Label */}
+          <Text style={{
+            fontSize: 10,
+            fontWeight: '800',
+            color: 'rgba(212,160,23,0.9)',
+            letterSpacing: 2.5,
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            marginTop: 6,
+          }}>
+            CARTAS BÍBLICAS
+          </Text>
+
+          {/* Small divider */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', width: 80, gap: 4 }}>
+            <View style={{ flex: 1, height: 0.5, backgroundColor: 'rgba(212,160,23,0.4)' }} />
+            <Text style={{ color: 'rgba(212,160,23,0.5)', fontSize: 6 }}>◆</Text>
+            <View style={{ flex: 1, height: 0.5, backgroundColor: 'rgba(212,160,23,0.4)' }} />
+          </View>
         </View>
       </LinearGradient>
     </View>
@@ -1317,32 +1711,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 20,
   },
-  packGradient: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
-  },
-  packBorder: {
-    flex: 1,
-    width: '100%',
-    borderWidth: 1.5,
-    borderRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    position: 'relative',
-  },
-  packCorner: {
-    position: 'absolute',
-    fontSize: 11,
-    color: '#D4A017',
-    opacity: 0.7,
-  },
-  packEmoji: { fontSize: 60 },
-  packLabel: { fontSize: 17, fontWeight: '800', letterSpacing: 0.4, textAlign: 'center' },
-  packDivider: { width: 40, height: 1, opacity: 0.4 },
-  packSub: { fontSize: 11, fontWeight: '600', letterSpacing: 1.5, textTransform: 'uppercase' },
   tapHintContainer: { marginTop: 28, alignItems: 'center' },
   tapHint: { color: 'rgba(255,255,255,0.55)', fontSize: 15, letterSpacing: 0.3, textAlign: 'center' },
   swipeHint: { color: 'rgba(255,220,120,0.85)', fontWeight: '600' as const, letterSpacing: 0.8 },
@@ -1398,36 +1766,17 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 20,
     overflow: 'hidden',
-    shadowColor: '#D4A017',
+    shadowColor: '#9B5FE0',
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 20,
+    shadowOpacity: 0.9,
+    shadowRadius: 24,
     elevation: 16,
   },
   cardBackGradient: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 16,
-  },
-  cardBackBorder: {
-    flex: 1,
-    width: '100%',
-    borderWidth: 2,
-    borderColor: '#D4A017',
-    borderRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 12,
-  },
-  cardBackCross: { fontSize: 68, color: '#D4A017' },
-  cardBackLabel: {
-    color: '#D4A017',
-    fontSize: 13,
-    fontWeight: '700',
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-    textAlign: 'center',
+    padding: 0,
   },
   fallbackOverlay: {
     flex: 1,

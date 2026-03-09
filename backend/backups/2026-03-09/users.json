@@ -37,7 +37,7 @@
     "streakCurrent": 30,
     "streakBest": 30,
     "devotionalsCompleted": 19,
-    "totalTimeSeconds": 62918,
+    "totalTimeSeconds": 63237,
     "lastActiveAt": "2026-03-08T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-09T01:58:38.769Z"
+    "updatedAt": "2026-03-09T02:09:53.283Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -87,7 +87,7 @@
     "streakCurrent": 14,
     "streakBest": 14,
     "devotionalsCompleted": 14,
-    "totalTimeSeconds": 7874,
+    "totalTimeSeconds": 8551,
     "lastActiveAt": "2026-03-08T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -97,7 +97,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:51:26.062Z",
-    "updatedAt": "2026-03-09T01:58:30.319Z"
+    "updatedAt": "2026-03-09T02:09:48.213Z"
   },
   {
     "id": "cmma36c8v000qm25km7avpj84",
