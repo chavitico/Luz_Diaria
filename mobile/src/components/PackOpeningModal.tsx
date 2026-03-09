@@ -28,17 +28,19 @@ import {
   Modal,
   PanResponder,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Defs, ClipPath, Rect, Polyline } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
 import { Audio } from 'expo-av';
 import { useScaledFont } from '@/lib/textScale';
 import { useLanguage } from '@/lib/store';
-import { BIBLICAL_CARDS, type BiblicalCard } from '@/lib/biblical-cards';
+import { BIBLICAL_CARDS, RARITY_CONFIG, type BiblicalCard } from '@/lib/biblical-cards';
 import { CollectibleCardVisual } from '@/components/CardRevealModal';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -774,12 +776,15 @@ export function PackOpeningModal({
 }: PackOpeningModalProps) {
   const language = useLanguage();
   const { sFont } = useScaledFont();
+  const insets = useSafeAreaInsets();
 
   // ── Multi-card index — which card in drawnCards we're currently revealing ──
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const drawnCard = drawnCards[currentCardIndex] ?? null;
   const isLastCard = currentCardIndex >= drawnCards.length - 1;
   const totalCards = drawnCards.length;
+  // Summary screen shown after all cards revealed (multi-card packs only)
+  const [showSummary, setShowSummary] = useState(false);
 
   // ── Stable animation values ──
   const backdropOpacity = useRef(new Animated.Value(0)).current;
@@ -915,6 +920,29 @@ export function PackOpeningModal({
     setCardFace('back');
     setTearClipW(0);
     glowClipW.current = 0;
+    setCurrentCardIndex(0);
+    setShowSummary(false);
+  }, [stopLoops]);
+
+  // ── Reset only card animation values (for subsequent cards in a multi-card pack) ──
+  const resetCardOnly = useCallback(() => {
+    stopLoops();
+    flashOpacity.setValue(0);
+    auraOpacity.setValue(0);
+    cardScale.setValue(0);
+    cardScaleX.setValue(1);
+    cardOpacity.setValue(0);
+    glowOpacity.setValue(0);
+    glowScale.setValue(0.6);
+    glowPulse.setValue(1);
+    shimmerAnim.setValue(0);
+    celebOpacity.setValue(0);
+    actionsOpacity.setValue(0);
+    particleX.forEach(v => v.setValue(0));
+    particleY.forEach(v => v.setValue(0));
+    particleOp.forEach(v => v.setValue(0));
+    setShowCard(false);
+    setCardFace('back');
   }, [stopLoops]);
 
   // ── Sync tearProgress → tearClipW for SVG glow line ──
@@ -947,13 +975,34 @@ export function PackOpeningModal({
     setPhaseSync('final');
   }, [glowPeak, stopLoops]);
 
-  // ── Entry — fires when visible becomes true ──
+  // ── Entry — fires when visible becomes true OR when currentCardIndex advances ──
   useEffect(() => {
     if (!visible || !packType || !drawnCard) {
       resetAll();
       setPhaseSync('idle');
       return;
     }
+
+    // Subsequent cards in a multi-card pack: skip pack animation, go straight to card reveal
+    if (currentCardIndex > 0) {
+      resetCardOnly();
+      active.current = true;
+      setPhaseSync('card_back');
+      setShowCard(true);
+      console.log('[PackReveal] next_card_reveal', currentCardIndex);
+      // Small delay so resetCardOnly state flushes before starting card flip
+      const t = setTimeout(() => {
+        if (!active.current) return;
+        startCardFlip();
+      }, 120);
+      return () => {
+        clearTimeout(t);
+        active.current = false;
+        stopLoops();
+      };
+    }
+
+    // First card: full pack open animation
     resetAll();
     active.current = true;
     setPhaseSync('pack_appear');
@@ -1013,7 +1062,7 @@ export function PackOpeningModal({
       active.current = false;
       stopLoops();
     };
-  }, [visible, packType, drawnCard?.cardId]);
+  }, [visible, packType, currentCardIndex]);
 
   // ── Trigger the actual tear/open sequence (fires after threshold reached) ──
   const triggerTear = useCallback(() => {
@@ -1680,52 +1729,248 @@ export function PackOpeningModal({
             {/* Actions */}
             {phase === 'final' && (
               <Animated.View style={[styles.actions, { opacity: actionsOpacity }]}>
-                {onOpenAnother != null && (() => {
-                  const PACK_PRICE = 500;
-                  const canAfford = (userPoints ?? 0) >= PACK_PRICE;
-                  return (
+                {/* Multi-card: not last card → "Siguiente carta" */}
+                {!isLastCard ? (
+                  <>
+                    {totalCards > 1 && (
+                      <Text style={{ color: 'rgba(255,255,255,0.45)', fontSize: sFont(12), fontWeight: '600', textAlign: 'center', marginBottom: 4 }}>
+                        {language === 'es' ? `Carta ${currentCardIndex + 1} de ${totalCards}` : `Card ${currentCardIndex + 1} of ${totalCards}`}
+                      </Text>
+                    )}
                     <Pressable
-                      style={[styles.openAnotherBtn, !canAfford && styles.openAnotherBtnDisabled]}
-                      onPress={canAfford ? onOpenAnother : undefined}
-                      disabled={!canAfford}
+                      style={styles.openAnotherBtn}
+                      onPress={() => setCurrentCardIndex(i => i + 1)}
                     >
                       <LinearGradient
-                        colors={canAfford ? ['#1B6B3A', '#0D4422'] : ['#2A2A2A', '#1A1A1A']}
+                        colors={['#1E3A5F', '#0A1929']}
                         style={styles.primaryBtnGradient}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 1 }}
                       >
-                        <Text style={[styles.primaryBtnText, !canAfford && { color: 'rgba(255,255,255,0.35)' }]}>
-                          {!canAfford
-                            ? (language === 'es' ? 'Sin puntos' : 'Not enough points')
-                            : (language === 'es' ? 'Abrir otro sobre' : 'Open another pack')}
+                        <Text style={styles.primaryBtnText}>
+                          {language === 'es' ? 'Siguiente carta →' : 'Next card →'}
                         </Text>
                       </LinearGradient>
                     </Pressable>
-                  );
-                })()}
-                <Pressable style={styles.primaryBtn} onPress={onViewAlbum}>
-                  <LinearGradient
-                    colors={['#1E3A5F', '#0A1929']}
-                    style={styles.primaryBtnGradient}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
+                  </>
+                ) : totalCards > 1 ? (
+                  /* Multi-card: last card → show summary button */
+                  <Pressable
+                    style={styles.openAnotherBtn}
+                    onPress={() => setShowSummary(true)}
                   >
-                    <Text style={styles.primaryBtnText}>
-                      {language === 'es' ? 'Ver mi álbum' : 'View album'}
-                    </Text>
-                  </LinearGradient>
-                </Pressable>
-                <Pressable style={styles.secondaryBtn} onPress={onClose}>
-                  <Text style={styles.secondaryBtnText}>
-                    {language === 'es' ? 'Cerrar' : 'Close'}
-                  </Text>
-                </Pressable>
+                    <LinearGradient
+                      colors={['#7C3AED', '#5B21B6']}
+                      style={styles.primaryBtnGradient}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                    >
+                      <Text style={styles.primaryBtnText}>
+                        {language === 'es' ? '✨ Ver resumen' : '✨ See summary'}
+                      </Text>
+                    </LinearGradient>
+                  </Pressable>
+                ) : (
+                  /* Single-card pack: original buttons */
+                  <>
+                    {onOpenAnother != null && (() => {
+                      const PACK_PRICE = 500;
+                      const canAfford = (userPoints ?? 0) >= PACK_PRICE;
+                      return (
+                        <Pressable
+                          style={[styles.openAnotherBtn, !canAfford && styles.openAnotherBtnDisabled]}
+                          onPress={canAfford ? onOpenAnother : undefined}
+                          disabled={!canAfford}
+                        >
+                          <LinearGradient
+                            colors={canAfford ? ['#1B6B3A', '#0D4422'] : ['#2A2A2A', '#1A1A1A']}
+                            style={styles.primaryBtnGradient}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
+                          >
+                            <Text style={[styles.primaryBtnText, !canAfford && { color: 'rgba(255,255,255,0.35)' }]}>
+                              {!canAfford
+                                ? (language === 'es' ? 'Sin puntos' : 'Not enough points')
+                                : (language === 'es' ? 'Abrir otro sobre' : 'Open another pack')}
+                            </Text>
+                          </LinearGradient>
+                        </Pressable>
+                      );
+                    })()}
+                    <Pressable style={styles.primaryBtn} onPress={onViewAlbum}>
+                      <LinearGradient
+                        colors={['#1E3A5F', '#0A1929']}
+                        style={styles.primaryBtnGradient}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                      >
+                        <Text style={styles.primaryBtnText}>
+                          {language === 'es' ? 'Ver mi álbum' : 'View album'}
+                        </Text>
+                      </LinearGradient>
+                    </Pressable>
+                    <Pressable style={styles.secondaryBtn} onPress={onClose}>
+                      <Text style={styles.secondaryBtnText}>
+                        {language === 'es' ? 'Cerrar' : 'Close'}
+                      </Text>
+                    </Pressable>
+                  </>
+                )}
               </Animated.View>
             )}
           </>
         )}
       </View>
+      {/* ── Multi-card Summary Screen ────────────────────────────────────────
+          Rendered as position:absolute overlay when showSummary = true.
+          Covers the entire modal with a dark backdrop + scroll list.
+      ──────────────────────────────────────────────────────────────────── */}
+      {showSummary && (
+        <View style={StyleSheet.absoluteFill}>
+          {/* Blurred dark backdrop */}
+          <LinearGradient
+            colors={['#050508EE', '#0D0D1AEE']}
+            style={StyleSheet.absoluteFill}
+          />
+
+          <ScrollView
+            contentContainerStyle={{
+              paddingTop: insets.top + 24,
+              paddingBottom: insets.bottom + 24,
+              paddingHorizontal: 20,
+              alignItems: 'center',
+            }}
+            showsVerticalScrollIndicator={false}
+          >
+            {/* Title */}
+            <Text style={{
+              fontSize: sFont(22), fontWeight: '900', color: '#FFF',
+              textAlign: 'center', letterSpacing: 0.3, marginBottom: 4,
+            }}>
+              {language === 'es' ? '¡Obtuviste!' : 'You received!'}
+            </Text>
+            <Text style={{
+              fontSize: sFont(13), color: 'rgba(255,255,255,0.5)',
+              textAlign: 'center', marginBottom: 24,
+            }}>
+              {language === 'es'
+                ? `${drawnCards.length} cartas de este sobre`
+                : `${drawnCards.length} cards from this pack`}
+            </Text>
+
+            {/* Cards list */}
+            {drawnCards.map((dc, idx) => {
+              const c = BIBLICAL_CARDS[dc.cardId];
+              const rarityLabel = c ? (RARITY_CONFIG[c.rarity]?.labelEs ?? c.rarity) : '';
+              const RARITY_COLOR_MAP: Record<string, string> = {
+                common:    '#6B7280',
+                rare:      '#3B82F6',
+                epic:      '#A855F7',
+                legendary: '#F59E0B',
+              };
+              const rc = c ? (RARITY_COLOR_MAP[c.rarity] ?? '#6B7280') : '#6B7280';
+              return (
+                <View
+                  key={idx}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 14,
+                    width: '100%',
+                    backgroundColor: rc + '12',
+                    borderWidth: 1,
+                    borderColor: rc + '40',
+                    borderRadius: 16,
+                    padding: 12,
+                    marginBottom: 10,
+                  }}
+                >
+                  {/* Mini card thumb */}
+                  <View style={{ borderRadius: 10, overflow: 'hidden', width: 52, height: 78 }}>
+                    {c ? (
+                      <CollectibleCardVisual card={c} wasNew={dc.wasNew} language={language} sFont={sFont} size="reveal" />
+                    ) : (
+                      <LinearGradient colors={['#1E293B', '#0F172A']} style={{ flex: 1 }} />
+                    )}
+                  </View>
+
+                  {/* Card info */}
+                  <View style={{ flex: 1, gap: 3 }}>
+                    <Text style={{ fontSize: sFont(15), fontWeight: '800', color: '#FFF' }} numberOfLines={2}>
+                      {c?.nameEs ?? dc.cardId}
+                    </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                      <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: rc }} />
+                      <Text style={{ fontSize: sFont(11), color: rc, fontWeight: '700' }}>
+                        {rarityLabel}
+                      </Text>
+                    </View>
+                  </View>
+
+                  {/* Nueva / Dup chip */}
+                  <View style={{
+                    paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8,
+                    backgroundColor: dc.wasNew ? '#22C55E20' : 'rgba(255,255,255,0.08)',
+                    borderWidth: 1,
+                    borderColor: dc.wasNew ? '#22C55E50' : 'rgba(255,255,255,0.12)',
+                  }}>
+                    <Text style={{ fontSize: sFont(10), fontWeight: '800', color: dc.wasNew ? '#22C55E' : 'rgba(255,255,255,0.45)' }}>
+                      {dc.wasNew
+                        ? (language === 'es' ? '✨ Nueva' : '✨ New')
+                        : (language === 'es' ? 'Dup. +1' : 'Dup. +1')}
+                    </Text>
+                  </View>
+                </View>
+              );
+            })}
+
+            {/* Summary CTAs */}
+            <View style={{ width: '100%', gap: 10, marginTop: 8 }}>
+              {onOpenAnother != null && (() => {
+                const PACK_PRICE = 500;
+                const canAfford = (userPoints ?? 0) >= PACK_PRICE;
+                return (
+                  <Pressable
+                    style={[styles.openAnotherBtn, !canAfford && styles.openAnotherBtnDisabled]}
+                    onPress={canAfford ? onOpenAnother : undefined}
+                    disabled={!canAfford}
+                  >
+                    <LinearGradient
+                      colors={canAfford ? ['#1B6B3A', '#0D4422'] : ['#2A2A2A', '#1A1A1A']}
+                      style={styles.primaryBtnGradient}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                    >
+                      <Text style={[styles.primaryBtnText, !canAfford && { color: 'rgba(255,255,255,0.35)' }]}>
+                        {!canAfford
+                          ? (language === 'es' ? 'Sin puntos' : 'Not enough points')
+                          : (language === 'es' ? 'Abrir otro sobre' : 'Open another pack')}
+                      </Text>
+                    </LinearGradient>
+                  </Pressable>
+                );
+              })()}
+              <Pressable style={styles.primaryBtn} onPress={onViewAlbum}>
+                <LinearGradient
+                  colors={['#1E3A5F', '#0A1929']}
+                  style={styles.primaryBtnGradient}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <Text style={styles.primaryBtnText}>
+                    {language === 'es' ? 'Ver mi álbum' : 'View album'}
+                  </Text>
+                </LinearGradient>
+              </Pressable>
+              <Pressable style={styles.secondaryBtn} onPress={onClose}>
+                <Text style={styles.secondaryBtnText}>
+                  {language === 'es' ? 'Cerrar' : 'Close'}
+                </Text>
+              </Pressable>
+            </View>
+          </ScrollView>
+        </View>
+      )}
     </Modal>
   );
 }
