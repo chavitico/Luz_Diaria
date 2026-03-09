@@ -998,6 +998,19 @@ export function PackOpeningModal({
       setPhaseSync('card_back');
       setShowCard(true);
       console.log('[PackReveal] next_card_reveal', currentCardIndex);
+
+      // Play card reveal sound for each subsequent card
+      Audio.Sound.createAsync(
+        require('../../assets/audio/revelacion_carta.m4a'),
+        { shouldPlay: true, volume: 1.0 }
+      ).then(({ sound }) => {
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.isLoaded && status.didJustFinish) {
+            sound.unloadAsync().catch(() => {});
+          }
+        });
+      }).catch(() => {});
+
       // Small delay so resetCardOnly state flushes before starting card flip
       const t = setTimeout(() => {
         if (!active.current) return;
