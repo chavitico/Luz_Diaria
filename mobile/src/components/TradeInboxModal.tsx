@@ -33,6 +33,7 @@ import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi, CardTrade } from '@/lib/gamification-api';
 import { BIBLICAL_CARDS, RARITY_CONFIG } from '@/lib/biblical-cards';
+import { CardThumb } from '@/components/CardThumb';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -133,48 +134,67 @@ function TradeRow({
         </View>
       </View>
 
-      {/* Cards exchange line */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+      {/* Cards exchange line — thumbnail panels */}
+      <View style={{ flexDirection: 'row', alignItems: 'stretch', gap: 8 }}>
         {/* Give card */}
         <View style={{
-          flex: 1, padding: 10, borderRadius: 10,
-          backgroundColor: rarityColor(giveCardId) + '12',
+          flex: 1, borderRadius: 12,
+          backgroundColor: rarityColor(giveCardId) + '10',
           borderWidth: 1, borderColor: rarityColor(giveCardId) + '35',
+          overflow: 'hidden',
         }}>
-          <Text style={{ fontSize: sFont(10), color: colors.textMuted, marginBottom: 2 }}>
+          <Text style={{ fontSize: sFont(9), fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5, paddingTop: 8, paddingHorizontal: 8, marginBottom: 6 }}>
             {es ? 'Das' : 'You give'}
           </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-            <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: rarityColor(giveCardId) }} />
-            <Text style={{ fontSize: sFont(12), fontWeight: '700', color: colors.text }} numberOfLines={1}>
-              {cardName(giveCardId)}
+          {/* Thumbnail */}
+          <View style={{ alignItems: 'center', paddingHorizontal: 8 }}>
+            <CardThumb cardId={giveCardId} height={120} />
+          </View>
+          {/* Info */}
+          <View style={{ padding: 8, paddingTop: 6 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 2 }}>
+              <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: rarityColor(giveCardId) }} />
+              <Text style={{ fontSize: sFont(11), fontWeight: '700', color: colors.text, flex: 1 }} numberOfLines={2}>
+                {cardName(giveCardId)}
+              </Text>
+            </View>
+            <Text style={{ fontSize: sFont(9), color: colors.textMuted }}>
+              {rarityLabel(giveCardId)}
             </Text>
           </View>
-          <Text style={{ fontSize: sFont(10), color: colors.textMuted, marginTop: 1 }}>
-            {rarityLabel(giveCardId)}
-          </Text>
         </View>
 
-        <ArrowLeftRight size={14} color={colors.textMuted} />
+        {/* Center arrow */}
+        <View style={{ alignSelf: 'center', paddingTop: 20 }}>
+          <ArrowLeftRight size={14} color={colors.textMuted} />
+        </View>
 
         {/* Receive card */}
         <View style={{
-          flex: 1, padding: 10, borderRadius: 10,
-          backgroundColor: rarityColor(receiveCardId) + '12',
+          flex: 1, borderRadius: 12,
+          backgroundColor: rarityColor(receiveCardId) + '10',
           borderWidth: 1, borderColor: rarityColor(receiveCardId) + '35',
+          overflow: 'hidden',
         }}>
-          <Text style={{ fontSize: sFont(10), color: colors.textMuted, marginBottom: 2 }}>
+          <Text style={{ fontSize: sFont(9), fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5, paddingTop: 8, paddingHorizontal: 8, marginBottom: 6 }}>
             {es ? 'Recibes' : 'You get'}
           </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-            <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: rarityColor(receiveCardId) }} />
-            <Text style={{ fontSize: sFont(12), fontWeight: '700', color: colors.text }} numberOfLines={1}>
-              {cardName(receiveCardId)}
+          {/* Thumbnail */}
+          <View style={{ alignItems: 'center', paddingHorizontal: 8 }}>
+            <CardThumb cardId={receiveCardId} height={120} />
+          </View>
+          {/* Info */}
+          <View style={{ padding: 8, paddingTop: 6 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 2 }}>
+              <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: rarityColor(receiveCardId) }} />
+              <Text style={{ fontSize: sFont(11), fontWeight: '700', color: colors.text, flex: 1 }} numberOfLines={2}>
+                {cardName(receiveCardId)}
+              </Text>
+            </View>
+            <Text style={{ fontSize: sFont(9), color: colors.textMuted }}>
+              {rarityLabel(receiveCardId)}
             </Text>
           </View>
-          <Text style={{ fontSize: sFont(10), color: colors.textMuted, marginTop: 1 }}>
-            {rarityLabel(receiveCardId)}
-          </Text>
         </View>
       </View>
 

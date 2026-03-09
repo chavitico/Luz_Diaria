@@ -32,6 +32,7 @@ import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi, CommunityMember } from '@/lib/gamification-api';
 import { BIBLICAL_CARDS, RARITY_CONFIG } from '@/lib/biblical-cards';
+import { CardThumb } from '@/components/CardThumb';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -105,17 +106,17 @@ function CardChip({
   const card = BIBLICAL_CARDS[cardId];
   if (!card) return null;
   const rarityColor = RARITY_BORDER[card.rarity] ?? '#6B7280';
-  const borderColor = selected ? rarityColor : colors.textMuted + '30';
-  const bg = selected ? rarityColor + '18' : colors.surface;
+  const borderColor = selected ? rarityColor : colors.textMuted + '25';
+  const bg = selected ? rarityColor + '12' : colors.surface;
 
   return (
     <Pressable
       onPress={onPress}
       style={{
         flexDirection: 'row',
-        alignItems: 'flex-start',
-        paddingVertical: 10,
-        paddingHorizontal: 14,
+        alignItems: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 10,
         borderRadius: 14,
         borderWidth: selected ? 2 : 1,
         borderColor,
@@ -124,39 +125,39 @@ function CardChip({
         gap: 10,
       }}
     >
-      {/* Rarity dot */}
-      <View style={{
-        width: 10, height: 10, borderRadius: 5,
-        backgroundColor: rarityColor,
-        marginTop: 4,
-      }} />
+      {/* Thumbnail */}
+      <CardThumb cardId={cardId} height={68} />
 
-      {/* Card name + rarity + context badge */}
+      {/* Card info */}
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text }} numberOfLines={1}>
+        <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.text }} numberOfLines={2}>
           {card.nameEs}
         </Text>
-        <Text style={{ fontSize: sFont(11), color: colors.textMuted, marginTop: 1 }}>
-          {RARITY_CONFIG[card.rarity]?.labelEs ?? card.rarity}
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 2 }}>
+          <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: rarityColor }} />
+          <Text style={{ fontSize: sFont(11), color: colors.textMuted }}>
+            {RARITY_CONFIG[card.rarity]?.labelEs ?? card.rarity}
+          </Text>
+        </View>
         {contextLabel !== undefined && contextPositive !== undefined && (
           <ContextBadge label={contextLabel} positive={contextPositive} sFont={sFont} />
         )}
       </View>
 
-      {/* Duplicate count badge */}
-      <View style={{
-        backgroundColor: rarityColor + '25',
-        borderRadius: 8,
-        paddingHorizontal: 8,
-        paddingVertical: 3,
-      }}>
-        <Text style={{ fontSize: sFont(12), fontWeight: '800', color: rarityColor }}>
-          ×{duplicates + 1}
-        </Text>
+      {/* Right side: duplicate badge + check */}
+      <View style={{ alignItems: 'flex-end', gap: 6 }}>
+        <View style={{
+          backgroundColor: rarityColor + '25',
+          borderRadius: 8,
+          paddingHorizontal: 7,
+          paddingVertical: 3,
+        }}>
+          <Text style={{ fontSize: sFont(12), fontWeight: '800', color: rarityColor }}>
+            ×{duplicates + 1}
+          </Text>
+        </View>
+        {selected && <Check size={15} color={rarityColor} />}
       </View>
-
-      {selected && <Check size={16} color={rarityColor} style={{ marginTop: 2 }} />}
     </Pressable>
   );
 }
@@ -492,7 +493,7 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
               borderWidth: 1,
               borderColor: colors.textMuted + '25',
               backgroundColor: colors.surface,
-              padding: 18,
+              padding: 16,
               gap: 12,
             }}>
               {/* MY CARD → */}
@@ -501,31 +502,36 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
                   {es ? 'Ofreces' : 'You offer'}
                 </Text>
                 <View style={{
-                  flexDirection: 'row', alignItems: 'center', gap: 10,
-                  padding: 12, borderRadius: 12,
-                  backgroundColor: (RARITY_BORDER[myCardInfo.rarity] ?? colors.primary) + '12',
-                  borderWidth: 1, borderColor: (RARITY_BORDER[myCardInfo.rarity] ?? colors.primary) + '40',
+                  flexDirection: 'row', alignItems: 'center', gap: 12,
+                  padding: 10, borderRadius: 12,
+                  backgroundColor: (RARITY_BORDER[myCardInfo.rarity] ?? colors.primary) + '10',
+                  borderWidth: 1, borderColor: (RARITY_BORDER[myCardInfo.rarity] ?? colors.primary) + '35',
                 }}>
-                  <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: RARITY_BORDER[myCardInfo.rarity] ?? colors.primary }} />
+                  <CardThumb cardId={myCard!} height={80} />
                   <View style={{ flex: 1 }}>
                     <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text }}>{myCardInfo.nameEs}</Text>
-                    <Text style={{ fontSize: sFont(11), color: colors.textMuted }}>{RARITY_CONFIG[myCardInfo.rarity]?.labelEs ?? myCardInfo.rarity}</Text>
-                  </View>
-                  {/* Context: does recipient need it? */}
-                  {myCard && (
-                    <View style={{
-                      paddingHorizontal: 7, paddingVertical: 3, borderRadius: 7,
-                      backgroundColor: theirOwnedSet.has(myCard) ? '#6B728018' : '#22C55E18',
-                      borderWidth: 1,
-                      borderColor: theirOwnedSet.has(myCard) ? '#6B728030' : '#22C55E40',
-                    }}>
-                      <Text style={{ fontSize: sFont(10), fontWeight: '700', color: theirOwnedSet.has(myCard) ? '#9CA3AF' : '#22C55E' }}>
-                        {es
-                          ? (theirOwnedSet.has(myCard) ? 'Ya la tiene' : 'Le falta')
-                          : (theirOwnedSet.has(myCard) ? 'They have it' : 'They need it')}
-                      </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 3 }}>
+                      <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: RARITY_BORDER[myCardInfo.rarity] ?? colors.primary }} />
+                      <Text style={{ fontSize: sFont(11), color: colors.textMuted }}>{RARITY_CONFIG[myCardInfo.rarity]?.labelEs ?? myCardInfo.rarity}</Text>
                     </View>
-                  )}
+                    {/* Context: does recipient need it? */}
+                    {myCard && (
+                      <View style={{
+                        alignSelf: 'flex-start',
+                        marginTop: 5,
+                        paddingHorizontal: 7, paddingVertical: 3, borderRadius: 7,
+                        backgroundColor: theirOwnedSet.has(myCard) ? '#6B728018' : '#22C55E18',
+                        borderWidth: 1,
+                        borderColor: theirOwnedSet.has(myCard) ? '#6B728030' : '#22C55E40',
+                      }}>
+                        <Text style={{ fontSize: sFont(10), fontWeight: '700', color: theirOwnedSet.has(myCard) ? '#9CA3AF' : '#22C55E' }}>
+                          {es
+                            ? (theirOwnedSet.has(myCard) ? 'Ya la tiene' : 'Le falta')
+                            : (theirOwnedSet.has(myCard) ? 'They have it' : 'They need it')}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
                 </View>
               </View>
 
@@ -547,31 +553,36 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
                   {es ? 'Recibes' : 'You receive'}
                 </Text>
                 <View style={{
-                  flexDirection: 'row', alignItems: 'center', gap: 10,
-                  padding: 12, borderRadius: 12,
-                  backgroundColor: (RARITY_BORDER[theirCardInfo.rarity] ?? colors.primary) + '12',
-                  borderWidth: 1, borderColor: (RARITY_BORDER[theirCardInfo.rarity] ?? colors.primary) + '40',
+                  flexDirection: 'row', alignItems: 'center', gap: 12,
+                  padding: 10, borderRadius: 12,
+                  backgroundColor: (RARITY_BORDER[theirCardInfo.rarity] ?? colors.primary) + '10',
+                  borderWidth: 1, borderColor: (RARITY_BORDER[theirCardInfo.rarity] ?? colors.primary) + '35',
                 }}>
-                  <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: RARITY_BORDER[theirCardInfo.rarity] ?? colors.primary }} />
+                  <CardThumb cardId={theirCard!} height={80} />
                   <View style={{ flex: 1 }}>
                     <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text }}>{theirCardInfo.nameEs}</Text>
-                    <Text style={{ fontSize: sFont(11), color: colors.textMuted }}>{RARITY_CONFIG[theirCardInfo.rarity]?.labelEs ?? theirCardInfo.rarity}</Text>
-                  </View>
-                  {/* Context: do I already own it? */}
-                  {theirCard && (
-                    <View style={{
-                      paddingHorizontal: 7, paddingVertical: 3, borderRadius: 7,
-                      backgroundColor: myOwnedSet.has(theirCard) ? '#6B728018' : '#22C55E18',
-                      borderWidth: 1,
-                      borderColor: myOwnedSet.has(theirCard) ? '#6B728030' : '#22C55E40',
-                    }}>
-                      <Text style={{ fontSize: sFont(10), fontWeight: '700', color: myOwnedSet.has(theirCard) ? '#9CA3AF' : '#22C55E' }}>
-                        {es
-                          ? (myOwnedSet.has(theirCard) ? 'Ya la tienes' : 'No la tienes')
-                          : (myOwnedSet.has(theirCard) ? 'You have it' : 'You don\'t have it')}
-                      </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 3 }}>
+                      <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: RARITY_BORDER[theirCardInfo.rarity] ?? colors.primary }} />
+                      <Text style={{ fontSize: sFont(11), color: colors.textMuted }}>{RARITY_CONFIG[theirCardInfo.rarity]?.labelEs ?? theirCardInfo.rarity}</Text>
                     </View>
-                  )}
+                    {/* Context: do I already own it? */}
+                    {theirCard && (
+                      <View style={{
+                        alignSelf: 'flex-start',
+                        marginTop: 5,
+                        paddingHorizontal: 7, paddingVertical: 3, borderRadius: 7,
+                        backgroundColor: myOwnedSet.has(theirCard) ? '#6B728018' : '#22C55E18',
+                        borderWidth: 1,
+                        borderColor: myOwnedSet.has(theirCard) ? '#6B728030' : '#22C55E40',
+                      }}>
+                        <Text style={{ fontSize: sFont(10), fontWeight: '700', color: myOwnedSet.has(theirCard) ? '#9CA3AF' : '#22C55E' }}>
+                          {es
+                            ? (myOwnedSet.has(theirCard) ? 'Ya la tienes' : 'No la tienes')
+                            : (myOwnedSet.has(theirCard) ? 'You have it' : 'You don\'t have it')}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
                 </View>
               </View>
             </View>
