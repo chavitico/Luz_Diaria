@@ -840,6 +840,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['fishing nets', 'fish', 'lake', 'boat', 'Peter'],
     gradientColors: ['#0D1B2A', '#1B3A5C', '#1E6091'],
     accentColor: '#60A5FA',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/795b88mTq54.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '🐟', subtitleEs: 'Mar de Galilea', subtitleEn: 'Sea of Galilee', artEmoji: '🎣', decorSymbols: ['🐟', '✦', '🌊'], sheenColors: ['rgba(96,165,250,0.22)', 'rgba(30,96,145,0.08)'], cornerGlyph: '✦' },
   },
   sanidad_leproso: {
@@ -862,6 +865,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['leper', 'healing touch', 'light', 'cleansing'],
     gradientColors: ['#1A2E1A', '#2D5A2D', '#3A8A3A'],
     accentColor: '#86EFAC',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/sdaTL9f1kws.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '✦', subtitleEs: 'Limpio por la Gracia', subtitleEn: 'Cleansed by Grace', artEmoji: '🙌', decorSymbols: ['✦', '🌿', '☀️'], sheenColors: ['rgba(134,239,172,0.22)', 'rgba(58,138,58,0.08)'], cornerGlyph: '✦' },
   },
   sanidad_paralitico: {
@@ -884,6 +890,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['rooftop', 'mat', 'paralyzed man', 'four friends', 'crowd'],
     gradientColors: ['#1C1A0A', '#3D3A10', '#6B6218'],
     accentColor: '#FDE68A',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/QzHTRCG3T8o.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '✦', subtitleEs: 'Fe que Abre Techos', subtitleEn: 'Faith that Opens Roofs', artEmoji: '🛏️', decorSymbols: ['🏠', '✦', '🙏'], sheenColors: ['rgba(253,230,138,0.22)', 'rgba(107,98,24,0.08)'], cornerGlyph: '✦' },
   },
   sanidad_centurion: {
@@ -906,6 +915,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['centurion armor', 'Roman soldier', 'servant', 'distance healing'],
     gradientColors: ['#1E1208', '#3D2510', '#7A4920'],
     accentColor: '#F59E0B',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/fDeNPwV1l1E.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '⚔️', subtitleEs: 'Fe sin Fronteras', subtitleEn: 'Faith Without Borders', artEmoji: '⚔️', decorSymbols: ['⚔️', '✦', '🏛️'], sheenColors: ['rgba(245,158,11,0.22)', 'rgba(122,73,32,0.08)'], cornerGlyph: '✦' },
   },
   sanidad_suegra_pedro: {
@@ -928,6 +940,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['bedside', 'fever', 'hand', 'Peter', 'home'],
     gradientColors: ['#200A0A', '#4A1515', '#7A2020'],
     accentColor: '#FCA5A5',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/_5Qt71364Dw.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '🤝', subtitleEs: 'Sanada para Servir', subtitleEn: 'Healed to Serve', artEmoji: '🤝', decorSymbols: ['🤝', '✦', '🏠'], sheenColors: ['rgba(252,165,165,0.22)', 'rgba(122,32,32,0.08)'], cornerGlyph: '✦' },
   },
   mano_seca: {
@@ -950,6 +965,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['synagogue', 'hand', 'healing', 'Pharisees', 'Sabbath'],
     gradientColors: ['#0F1A2E', '#1E3558', '#2B5C8A'],
     accentColor: '#93C5FD',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/m45cYlsNe4U.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '✋', subtitleEs: 'Restaurado', subtitleEn: 'Restored', artEmoji: '✋', decorSymbols: ['✋', '✦', '🕌'], sheenColors: ['rgba(147,197,253,0.22)', 'rgba(43,92,138,0.08)'], cornerGlyph: '✦' },
   },
   diez_leprosos: {
@@ -972,6 +990,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['ten lepers', 'road', 'Samaritan', 'gratitude', 'cleansing'],
     gradientColors: ['#1A1000', '#3D2800', '#7A5000'],
     accentColor: '#FCD34D',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/QJPABuGL8Ek.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '10', subtitleEs: 'Solo Uno Volvió', subtitleEn: 'Only One Returned', artEmoji: '🙏', decorSymbols: ['🙏', '✦', '🌾'], sheenColors: ['rgba(252,211,77,0.22)', 'rgba(122,80,0,0.08)'], cornerGlyph: '✦' },
   },
   sordomudo: {
@@ -1038,6 +1059,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['loaves', 'fish', 'baskets', 'multitude', 'hillside'],
     gradientColors: ['#1A1200', '#3D2D00', '#7A5A00'],
     accentColor: '#F59E0B',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/Eug1ZcKm-oY.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '🍞', subtitleEs: '5000 Alimentados', subtitleEn: '5000 Fed', artEmoji: '🍞', decorSymbols: ['🍞', '🐟', '✦'], sheenColors: ['rgba(245,158,11,0.25)', 'rgba(122,90,0,0.08)'], cornerGlyph: '✦' },
   },
   moneda_pez: {
@@ -1060,6 +1084,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['fish mouth', 'coin', 'hook', 'Peter', 'sea'],
     gradientColors: ['#051B20', '#0A3540', '#0E5060'],
     accentColor: '#34D399',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/aOrkWiqUxFw.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '🪙', subtitleEs: 'Provisión Sobrenatural', subtitleEn: 'Supernatural Provision', artEmoji: '🪙', decorSymbols: ['🪙', '🐟', '✦'], sheenColors: ['rgba(52,211,153,0.22)', 'rgba(14,80,96,0.08)'], cornerGlyph: '✦' },
   },
   calma_tormenta: {
@@ -1082,6 +1109,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['stormy sea', 'boat', 'waves', 'sleeping Jesus', 'calm water'],
     gradientColors: ['#040E1A', '#071E38', '#0A2D54'],
     accentColor: '#7DD3FC',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/-tb914Om03w.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '⚡', subtitleEs: '¡Calla, Enmudece!', subtitleEn: 'Peace, Be Still!', artEmoji: '⚡', decorSymbols: ['⚡', '🌊', '✦'], sheenColors: ['rgba(125,211,252,0.25)', 'rgba(10,45,84,0.08)'], cornerGlyph: '✦' },
   },
   higuera_maldita: {
