@@ -1015,6 +1015,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['ears', 'tongue', 'sky', 'healing gesture', 'crowd'],
     gradientColors: ['#0A1828', '#102B48', '#164E63'],
     accentColor: '#67E8F9',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/hbtH75vd5uc.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '👂', subtitleEs: 'Efatá — Ábrete', subtitleEn: 'Ephphatha — Be Opened', artEmoji: '👂', decorSymbols: ['👂', '✦', '🌊'], sheenColors: ['rgba(103,232,249,0.22)', 'rgba(22,78,99,0.08)'], cornerGlyph: '✦' },
   },
   ciego_betsaida: {
@@ -1037,6 +1040,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['blind man', 'hands on eyes', 'two stages', 'village', 'sight'],
     gradientColors: ['#0D1117', '#1A2236', '#253252'],
     accentColor: '#A5B4FC',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/RG-peGMZ91I.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '👁️', subtitleEs: 'Betsaida', subtitleEn: 'Bethsaida', artEmoji: '👁️', decorSymbols: ['👁️', '✦', '🌅'], sheenColors: ['rgba(165,180,252,0.22)', 'rgba(37,50,82,0.08)'], cornerGlyph: '✦' },
   },
   multiplicacion_panes: {
@@ -1134,6 +1140,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['withered fig tree', 'road', 'leaves', 'dry branches', 'disciples'],
     gradientColors: ['#1A0F05', '#3D2410', '#6B3D18'],
     accentColor: '#D97706',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/atrytN-BAOA.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '🌿', subtitleEs: 'Sin Fruto', subtitleEn: 'No Fruit', artEmoji: '🌿', decorSymbols: ['🌿', '✦', '🍂'], sheenColors: ['rgba(217,119,6,0.22)', 'rgba(107,61,24,0.08)'], cornerGlyph: '✦' },
   },
   red_peces: {
@@ -1156,6 +1165,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['net', '153 fish', 'risen Jesus', 'shore', 'morning fire'],
     gradientColors: ['#060F1A', '#0D2035', '#123050'],
     accentColor: '#38BDF8',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/1ebwg22FXHU.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '🐟', subtitleEs: '153 Peces', subtitleEn: '153 Fish', artEmoji: '🐟', decorSymbols: ['🐟', '🌅', '✦'], sheenColors: ['rgba(56,189,248,0.22)', 'rgba(18,48,80,0.08)'], cornerGlyph: '✦' },
   },
   alimenta_4000: {
@@ -1178,6 +1190,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['seven loaves', 'fish', 'crowd', 'baskets', 'hillside'],
     gradientColors: ['#1A1500', '#3D3200', '#7A6400'],
     accentColor: '#FBBF24',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/B469U8C0D_g.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '🍞', subtitleEs: '4000 Alimentados', subtitleEn: '4000 Fed', artEmoji: '🍞', decorSymbols: ['🍞', '🐟', '✦'], sheenColors: ['rgba(251,191,36,0.22)', 'rgba(122,100,0,0.08)'], cornerGlyph: '✦' },
   },
   liberacion_demonio: {
@@ -1200,6 +1215,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['synagogue', 'unclean spirit', 'convulsion', 'authority', 'crowd amazed'],
     gradientColors: ['#100520', '#200A40', '#350F60'],
     accentColor: '#A78BFA',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/zP9eQrcf1ck.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '✦', subtitleEs: '¡Sal de Él!', subtitleEn: 'Come Out!', artEmoji: '⚡', decorSymbols: ['⚡', '✦', '🕌'], sheenColors: ['rgba(167,139,250,0.22)', 'rgba(53,15,96,0.08)'], cornerGlyph: '✦' },
   },
   nina_resucitada: {
@@ -1222,6 +1240,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['child', 'hand', 'bedroom', 'Jairus', 'rising'],
     gradientColors: ['#1A0820', '#350F40', '#55186A'],
     accentColor: '#E879F9',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/MF0kgoLGjWQ.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '✦', subtitleEs: 'Talita Cumi', subtitleEn: 'Talitha Cumi', artEmoji: '🌸', decorSymbols: ['🌸', '✦', '🙏'], sheenColors: ['rgba(232,121,249,0.22)', 'rgba(85,24,106,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1271,6 +1292,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['mud', 'blind man', 'pool of Siloam', 'sight restored', 'Pharisees'],
     gradientColors: ['#0C1520', '#162535', '#1E3550'],
     accentColor: '#93C5FD',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/p0jzHq9oL5Y.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '👁️', subtitleEs: 'Estanque de Siloé', subtitleEn: 'Pool of Siloam', artEmoji: '👁️', decorSymbols: ['👁️', '💧', '✦'], sheenColors: ['rgba(147,197,253,0.32)', 'rgba(30,53,80,0.10)'], cornerGlyph: '✦' },
   },
   hijo_viuda_nain: {
@@ -1293,6 +1317,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['funeral procession', 'coffin', 'widow weeping', 'Jesus touching bier', 'crowd'],
     gradientColors: ['#120A1A', '#251535', '#3A2050'],
     accentColor: '#C084FC',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/zpkqBDrQZlM.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '✦', subtitleEs: 'Nain', subtitleEn: 'Nain', artEmoji: '🕊️', decorSymbols: ['🕊️', '✦', '😢'], sheenColors: ['rgba(192,132,252,0.30)', 'rgba(58,32,80,0.10)'], cornerGlyph: '✦' },
   },
   endemoniado_gadareno: {
@@ -1315,6 +1342,9 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['cliff', 'pigs rushing', 'healed man', 'chains broken', 'sea'],
     gradientColors: ['#0E0A18', '#1C1530', '#2B2048'],
     accentColor: '#818CF8',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/k-rfPPrErvE.png',
+    imageFocusX: 0.5,
+    imageFocusY: 0.4,
     motif: { topSymbol: '⛓️', subtitleEs: 'Legión Vencida', subtitleEn: 'Legion Defeated', artEmoji: '⛓️', decorSymbols: ['⛓️', '✦', '🐖'], sheenColors: ['rgba(129,140,248,0.30)', 'rgba(43,32,72,0.10)'], cornerGlyph: '✦' },
   },
   mujer_flujo: {
