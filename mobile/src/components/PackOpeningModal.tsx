@@ -244,6 +244,8 @@ const PACK_ASSETS: Record<PackType, {
   glowColor: string;
   /** If true, pack image has transparent background (PNG) — no border radius applied */
   transparent?: boolean;
+  /** Extra ms to show card back before flip starts (beyond the spring-in animation) */
+  cardBackDelayMs?: number;
 }> = {
   sobre_biblico: {
     pack:     require('../../assets/packs/sobre_biblico_pack.jpg') as ImageSourcePropType,
@@ -251,10 +253,11 @@ const PACK_ASSETS: Record<PackType, {
     glowColor: '#D4A017',
   },
   pack_pascua: {
-    pack:     require('../../assets/packs/pack_pascua_pack.jpg') as ImageSourcePropType,
-    cardBack: require('../../assets/packs/pack_pascua_card_back.jpg') as ImageSourcePropType,
+    pack:     require('../../assets/packs/pack_pascua_pack.png') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/pack_pascua_card_back.png') as ImageSourcePropType,
     glowColor: '#FFD700',
-    // transparent: true,  // Uncomment when pack_pascua_pack.png (no background) is uploaded
+    transparent: true,
+    cardBackDelayMs: 900,
   },
   pack_milagros: {
     pack:     require('../../assets/packs/pack_milagros_pack.jpg') as ImageSourcePropType,
@@ -376,26 +379,31 @@ function PackHalf({
 
 function CardBack({ packType }: { packType: PackType }) {
   const assets = PACK_ASSETS[packType];
+  const isTransparent = assets.transparent ?? false;
   return (
     <View style={styles.cardBack}>
       {/* Local asset — instant, no loading delay */}
       <Image
         source={assets.cardBack}
-        style={{ position: 'absolute', width: '100%', height: '100%', borderRadius: 20 } as any}
-        resizeMode="cover"
+        style={{ position: 'absolute', width: '100%', height: '100%', borderRadius: isTransparent ? 0 : 20 } as any}
+        resizeMode={isTransparent ? 'contain' : 'cover'}
       />
-      {/* Foil sheen overlay to keep premium feel */}
-      <LinearGradient
-        colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.04)', 'transparent']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={{ position: 'absolute', inset: 0, borderRadius: 20 }}
-      />
-      {/* Subtle gold border glow */}
-      <View style={{
-        position: 'absolute', inset: 0, borderRadius: 20,
-        borderWidth: 1.5, borderColor: 'rgba(212,160,23,0.35)',
-      }} />
+      {/* Foil sheen overlay — skip for transparent card backs */}
+      {!isTransparent && (
+        <LinearGradient
+          colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.04)', 'transparent']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ position: 'absolute', inset: 0, borderRadius: 20 }}
+        />
+      )}
+      {/* Subtle gold border glow — skip for transparent card backs */}
+      {!isTransparent && (
+        <View style={{
+          position: 'absolute', inset: 0, borderRadius: 20,
+          borderWidth: 1.5, borderColor: 'rgba(212,160,23,0.35)',
+        }} />
+      )}
     </View>
   );
 }
@@ -554,6 +562,7 @@ export function PackOpeningModal({
   const active      = useRef(false);
   const soundRef    = useRef<Audio.Sound | null>(null);
   const revealSoundRef = useRef<Audio.Sound | null>(null);
+  const cardBackDelayMsRef = useRef(0);
 
   const card = drawnCard ? (BIBLICAL_CARDS[drawnCard.cardId] ?? null) : null;
   const rarity = card?.rarity ?? 'common';
@@ -562,6 +571,8 @@ export function PackOpeningModal({
   const flashPeak   = RARITY_FLASH_PEAK[rarity]    ?? 0.45;
   const pauseMs     = RARITY_PAUSE_MS[rarity]      ?? 0;
   const auraColor   = RARITY_AURA_COLORS[rarity]   ?? 'transparent';
+  const cardBackDelayMs = packType ? (PACK_ASSETS[packType].cardBackDelayMs ?? 0) : 0;
+  cardBackDelayMsRef.current = cardBackDelayMs;
 
   // ── Stop all loops ──
   const stopLoops = useCallback(() => {
@@ -858,7 +869,14 @@ export function PackOpeningModal({
       setShowCard(true);
       setCardFace('back');
       setPhaseSync('card_back');
-      startCardFlip();
+      if (cardBackDelayMsRef.current > 0) {
+        setTimeout(() => {
+          if (!active.current) return;
+          startCardFlip();
+        }, cardBackDelayMsRef.current);
+      } else {
+        startCardFlip();
+      }
     });
   }, [flashPeak, stopLoops]);
 
