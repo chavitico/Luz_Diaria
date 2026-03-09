@@ -762,7 +762,7 @@ export function PackOpeningModal({
     setPhaseSync('pack_appear');
     console.log('[PackReveal] pack_appear_start');
 
-    // Start backdrop fade immediately — the pack JPG loads while backdrop fades
+    // Start backdrop fade immediately — the pack PNG loads while backdrop fades
     Animated.timing(backdropOpacity, { toValue: 1, duration: 280, useNativeDriver: true }).start();
 
     // Preload sounds immediately so they're ready when user taps
@@ -792,13 +792,22 @@ export function PackOpeningModal({
       });
     }).catch(() => {});
 
+    // Safety fallback: if pack image onLoad hasn't fired within 2s, proceed anyway.
+    // This prevents the black screen freeze when PNG decode is slow.
+    const packFallback = setTimeout(() => {
+      if (!active.current || packImageReadyRef.current) return;
+      console.log('[PackReveal] pack_image_fallback — proceeding without onLoad');
+      handlePackImageLoad();
+    }, 2000);
+
     return () => {
+      clearTimeout(packFallback);
       active.current = false;
       stopLoops();
     };
   }, [visible, packType, currentCardIndex]);
 
-  // ── handlePackImageLoad — fires when the pack JPG onLoad triggers ──
+  // ── handlePackImageLoad — fires when the pack PNG onLoad triggers ──
   // Only now do we spring the pack in and transition to pack_ready.
   const handlePackImageLoad = useCallback(() => {
     if (packImageReadyRef.current) return; // guard double-fire

@@ -26,6 +26,28 @@ import { usePackRevealRequest, useClearPackRevealRequest, useRequestPackReveal }
 import { PackOpeningModal } from '@/components/PackOpeningModal';
 import { initCardImageCache, downloadCollection } from '@/lib/card-image-cache';
 
+// Pre-decode all pack/card-back PNGs immediately at module load time.
+// React Native must decode PNG RGBA data before first render — this can take
+// 15+ seconds if deferred to when the modal opens. Kicking it off here means
+// the decode happens in the background while the user is on the home screen.
+(function prewarmPackAssets() {
+  const packAssets = [
+    require('../assets/packs/sobre_biblico_pack.png'),
+    require('../assets/packs/sobre_biblico_card_back.png'),
+    require('../assets/packs/pack_pascua_pack.png'),
+    require('../assets/packs/pack_pascua_card_back.png'),
+    require('../assets/packs/pack_milagros_pack.png'),
+    require('../assets/packs/pack_milagros_card_back.png'),
+  ];
+  // Image is already imported above from react-native
+  for (const asset of packAssets) {
+    try {
+      const uri = (Image as any).resolveAssetSource?.(asset)?.uri;
+      if (uri) (Image as any).prefetch(uri).catch(() => {});
+    } catch { /* ignore */ }
+  }
+})();
+
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
 export const unstable_settings = {
