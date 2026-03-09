@@ -6104,7 +6104,7 @@ function BiblicalPackCard({
                 height: 116,
               }}>
                 <Image
-                  source={require('../../../assets/packs/sobre_biblico_pack.jpg')}
+                  source={require('../../../assets/packs/sobre_biblico_pack.png')}
                   style={{ width: 84, height: 116 }}
                   resizeMode="contain"
                 />
@@ -6321,7 +6321,7 @@ function EasterPackCard({
                 height: 116,
               }}>
                 <Image
-                  source={require('../../../assets/packs/pack_pascua_pack.jpg')}
+                  source={require('../../../assets/packs/pack_pascua_pack.png')}
                   style={{ width: 84, height: 116 }}
                   resizeMode="contain"
                 />
@@ -6531,7 +6531,7 @@ function MilagrosPackCard({
                 height: 116,
               }}>
                 <Image
-                  source={require('../../../assets/packs/pack_milagros_pack.jpg')}
+                  source={require('../../../assets/packs/pack_milagros_pack.png')}
                   style={{ width: 84, height: 116 }}
                   resizeMode="contain"
                 />

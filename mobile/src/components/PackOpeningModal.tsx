@@ -236,9 +236,9 @@ const RARITY_GLOW_PEAK: Record<string, number> = {
 // Number of particle dots for legendary burst
 const PARTICLE_COUNT = 6;
 
-// ─── Per-collection pack & card-back assets (local JPGs — fast decode) ──────
-// JPGs are ~200-300KB vs 1.7-4MB for PNGs, so decode is ~8-10x faster.
-// cardBackDelayMs = minimum ms to show card back AFTER the image is ready.
+// ─── Per-collection pack & card-back assets (local PNGs — transparent/floating look) ──────
+// Optimized to 512x768 (~400-800KB), preserving RGBA alpha channel for the no-background effect.
+// cardBackDelayMs = minimum ms to hold card back visible AFTER the image is ready.
 
 const PACK_ASSETS: Record<PackType, {
   pack: ImageSourcePropType;
@@ -248,20 +248,20 @@ const PACK_ASSETS: Record<PackType, {
   cardBackDelayMs: number;
 }> = {
   sobre_biblico: {
-    pack:     require('../../assets/packs/sobre_biblico_pack.jpg') as ImageSourcePropType,
-    cardBack: require('../../assets/packs/sobre_biblico_card_back.jpg') as ImageSourcePropType,
+    pack:     require('../../assets/packs/sobre_biblico_pack.png') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/sobre_biblico_card_back.png') as ImageSourcePropType,
     glowColor: '#D4A017',
     cardBackDelayMs: 1500,
   },
   pack_pascua: {
-    pack:     require('../../assets/packs/pack_pascua_pack.jpg') as ImageSourcePropType,
-    cardBack: require('../../assets/packs/pack_pascua_card_back.jpg') as ImageSourcePropType,
+    pack:     require('../../assets/packs/pack_pascua_pack.png') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/pack_pascua_card_back.png') as ImageSourcePropType,
     glowColor: '#FFD700',
     cardBackDelayMs: 1500,
   },
   pack_milagros: {
-    pack:     require('../../assets/packs/pack_milagros_pack.jpg') as ImageSourcePropType,
-    cardBack: require('../../assets/packs/pack_milagros_card_back.jpg') as ImageSourcePropType,
+    pack:     require('../../assets/packs/pack_milagros_pack.png') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/pack_milagros_card_back.png') as ImageSourcePropType,
     glowColor: '#60A5FA',
     cardBackDelayMs: 1500,
   },
@@ -304,16 +304,10 @@ function PackVisual({
       <Image
         source={assets.pack}
         style={{ position: 'absolute', width: CARD_W, height: CARD_H }}
-        resizeMode="cover"
+        resizeMode="contain"
         onLoad={onImageLoad}
       />
-      {/* Foil sheen overlay */}
-      <LinearGradient
-        colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.03)', 'transparent']}
-        start={{ x: 0.1, y: 0 }}
-        end={{ x: 0.9, y: 1 }}
-        style={{ position: 'absolute', inset: 0 }}
-      />
+      {/* No foil overlay — transparent PNG floats naturally */}
     </Animated.View>
   );
 }
@@ -363,7 +357,7 @@ function PackHalf({
         <Image
           source={PACK_ASSETS[packType].pack}
           style={{ width: CARD_W, height: CARD_H } as any}
-          resizeMode="cover"
+          resizeMode="contain"
         />
         {/* Foil sheen overlay */}
         <LinearGradient
@@ -388,24 +382,14 @@ function CardBack({
 }) {
   const assets = PACK_ASSETS[packType];
   return (
-    <View style={styles.cardBack}>
-      {/* Local JPG asset — fast decode */}
+    <View style={[styles.cardBack, { overflow: 'visible', backgroundColor: 'transparent' }]}>
+      {/* Optimized PNG — transparent background, floats on dark backdrop */}
       <Image
         source={assets.cardBack}
-        style={{ position: 'absolute', width: '100%', height: '100%', borderRadius: 20 } as any}
-        resizeMode="cover"
+        style={{ position: 'absolute', width: '100%', height: '100%' } as any}
+        resizeMode="contain"
         onLoad={onImageLoad}
       />
-      <LinearGradient
-        colors={['rgba(255,255,255,0.08)', 'transparent', 'rgba(255,255,255,0.04)', 'transparent']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={{ position: 'absolute', inset: 0, borderRadius: 20 }}
-      />
-      <View style={{
-        position: 'absolute', inset: 0, borderRadius: 20,
-        borderWidth: 1.5, borderColor: 'rgba(212,160,23,0.35)',
-      }} />
     </View>
   );
 }
