@@ -6288,7 +6288,7 @@ function BiblicalPackCard({
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                 <Coins size={17} color={canAfford ? '#D4AF37' : '#555'} />
                 <Text style={{ fontSize: sFont(22), fontWeight: '900', color: canAfford ? '#D4AF37' : '#555' }}>
-                  1,000
+                  500
                 </Text>
               </View>
               <LinearGradient
@@ -6592,7 +6592,7 @@ function EasterPackCard({
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                 <Coins size={17} color={isEventActive && canAfford ? '#D4AF37' : '#555'} />
                 <Text style={{ fontSize: sFont(22), fontWeight: '900', color: isEventActive && canAfford ? '#D4AF37' : '#555' }}>
-                  1,000
+                  500
                 </Text>
               </View>
               {isEventActive ? (
@@ -8165,8 +8165,8 @@ export default function StoreScreen() {
         const hasPincel = purchasedItems.includes('pincel_magico') || pincelMagicoSource !== null;
         const isUsed = pincelMagicoSource === 'used';
         const canAffordPincel = points >= 15000;
-        const canAffordSobre = points >= 1000;
-        const canAffordEaster = points >= 1000;
+        const canAffordSobre = points >= 500;
+        const canAffordEaster = points >= 500;
         // Set to false when the Pascua 2026 event ends
         const EASTER_EVENT_ACTIVE = true;
 
@@ -8225,7 +8225,7 @@ export default function StoreScreen() {
                   language={language}
                   onPress={() => {
                     if (canAffordSobre && !isPackTransactionActive) {
-                      handleTokenPurchase('sobre_biblico', 1000);
+                      handleTokenPurchase('sobre_biblico', 500);
                     }
                   }}
                 />
@@ -8236,7 +8236,7 @@ export default function StoreScreen() {
                   language={language}
                   onPress={() => {
                     if (EASTER_EVENT_ACTIVE && canAffordEaster && !isPackTransactionActive) {
-                      handleTokenPurchase('pack_pascua', 1000);
+                      handleTokenPurchase('pack_pascua', 500);
                     }
                   }}
                 />
