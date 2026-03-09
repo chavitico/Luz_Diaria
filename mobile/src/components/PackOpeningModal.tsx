@@ -60,7 +60,7 @@ type PackType = 'sobre_biblico' | 'pack_pascua';
 export interface PackOpeningModalProps {
   visible: boolean;
   packType: PackType | null;
-  drawnCard: { cardId: string; wasNew: boolean } | null;
+  drawnCards: Array<{ cardId: string; wasNew: boolean }>;
   userPoints?: number;
   onClose: () => void;
   onViewAlbum: () => void;
@@ -766,7 +766,7 @@ function LegendaryParticle({ index, translateX, translateY, opacity }: ParticleP
 export function PackOpeningModal({
   visible,
   packType,
-  drawnCard,
+  drawnCards,
   userPoints,
   onClose,
   onViewAlbum,
@@ -774,6 +774,12 @@ export function PackOpeningModal({
 }: PackOpeningModalProps) {
   const language = useLanguage();
   const { sFont } = useScaledFont();
+
+  // ── Multi-card index — which card in drawnCards we're currently revealing ──
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const drawnCard = drawnCards[currentCardIndex] ?? null;
+  const isLastCard = currentCardIndex >= drawnCards.length - 1;
+  const totalCards = drawnCards.length;
 
   // ── Stable animation values ──
   const backdropOpacity = useRef(new Animated.Value(0)).current;

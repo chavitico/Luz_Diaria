@@ -458,7 +458,7 @@ function AppContent() {
       <PackOpeningModal
         visible={!!packRevealRequest}
         packType={packRevealRequest?.packType ?? null}
-        drawnCard={packRevealRequest?.drawnCard ?? null}
+        drawnCards={packRevealRequest?.drawnCards ?? []}
         userPoints={user?.points ?? 0}
         onClose={() => {
           console.log('[PackReveal] closed');
@@ -476,16 +476,15 @@ function AppContent() {
           const uid = user?.id;
           if (!uid) return;
           console.log('[PackReveal] open another:', pt);
-          // Close current reveal first, then purchase + re-trigger
           clearPackRevealRequest();
           try {
             const res = await gamificationApi.purchaseItem(uid, pt);
-            if (res.success && res.drawnCard) {
+            const cards = res.drawnCards?.length ? res.drawnCards : (res.drawnCard ? [res.drawnCard] : null);
+            if (res.success && cards) {
               queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
               queryClient.invalidateQueries({ queryKey: ['backendUser'] });
-              // Small delay so modal fully unmounts before re-mounting
               setTimeout(() => {
-                requestPackReveal({ drawnCard: res.drawnCard!, packType: pt });
+                requestPackReveal({ drawnCards: cards, packType: pt });
               }, 350);
             }
           } catch (err) {

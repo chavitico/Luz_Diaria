@@ -365,7 +365,7 @@ export const gamificationApi = {
     return res.json();
   },
 
-  async purchaseItem(userId: string, itemId: string): Promise<{ success: boolean; item?: StoreItem; newPoints?: number; drawnCard?: { cardId: string; wasNew: boolean } | null; error?: string }> {
+  async purchaseItem(userId: string, itemId: string): Promise<{ success: boolean; item?: StoreItem; newPoints?: number; drawnCard?: { cardId: string; wasNew: boolean } | null; drawnCards?: Array<{ cardId: string; wasNew: boolean }>; error?: string }> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/store/purchase`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -68,10 +68,10 @@ interface AppState {
   // Root-level pack reveal request — set after Store sheet fully closes,
   // consumed by _layout.tsx PackRevealOverlay (rendered above all navigation).
   packRevealRequest: {
-    drawnCard: { cardId: string; wasNew: boolean };
+    drawnCards: Array<{ cardId: string; wasNew: boolean }>;
     packType: 'sobre_biblico' | 'pack_pascua';
   } | null;
-  requestPackReveal: (req: { drawnCard: { cardId: string; wasNew: boolean }; packType: 'sobre_biblico' | 'pack_pascua' }) => void;
+  requestPackReveal: (req: { drawnCards: Array<{ cardId: string; wasNew: boolean }>; packType: 'sobre_biblico' | 'pack_pascua' }) => void;
   clearPackRevealRequest: () => void;
 }
 

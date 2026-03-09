@@ -6905,7 +6905,7 @@ export default function StoreScreen() {
 
   // Pending pack reveal: set on purchase success, dispatched to root layer after sheet fully closes
   const [pendingPackReveal, setPendingPackReveal] = useState<{
-    drawnCard: { cardId: string; wasNew: boolean };
+    drawnCards: Array<{ cardId: string; wasNew: boolean }>;
     packType: 'sobre_biblico' | 'pack_pascua';
   } | null>(null);
   const requestPackReveal = useRequestPackReveal();
@@ -7476,14 +7476,14 @@ export default function StoreScreen() {
           setPincelMagicoSource('store');
           setToastMessage(language === 'es' ? '¡Pincel Mágico adquirido!' : 'Magic Paintbrush acquired!');
         } else if (itemId === 'sobre_biblico' || itemId === 'pack_pascua') {
-          const drawn = res.drawnCard ?? null;
-          console.log('[Store][Card] drawn card', drawn);
+          const drawn = res.drawnCards?.length ? res.drawnCards : (res.drawnCard ? [res.drawnCard] : null);
+          console.log('[Store][Card] drawn cards', drawn);
           if (drawn) {
             // Queue the reveal to fire AFTER the Store sheet fully closes.
             // The useEffect below dispatches it to the root-level overlay layer.
             console.log('[Store][Reveal] queuing reveal, closing sheet');
             setPendingPackReveal({
-              drawnCard: drawn,
+              drawnCards: drawn,
               packType: itemId as 'sobre_biblico' | 'pack_pascua',
             });
             setShowStoreSectionModal(false);
@@ -7540,7 +7540,7 @@ export default function StoreScreen() {
         queryClient.invalidateQueries({ queryKey: ['backendUser'] });
         console.log('[Store][DailyPack] queuing reveal, closing sheet');
         setPendingPackReveal({
-          drawnCard: res.drawnCard,
+          drawnCards: res.drawnCard ? [res.drawnCard] : [],
           packType,
         });
         setShowStoreSectionModal(false);

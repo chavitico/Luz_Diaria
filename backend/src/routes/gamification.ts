@@ -864,30 +864,43 @@ gamificationRouter.post(
         });
 
         // === Special: sobre_biblico - draw a random biblical card ===
+        // cardsPerPack = 1 (single-card pack, backward-compatible)
         let drawnCard: { cardId: string; wasNew: boolean } | undefined;
+        let drawnCards: Array<{ cardId: string; wasNew: boolean }> = [];
+
+        async function drawOneCard(
+          pool: string[],
+          targetUserId: string,
+          tx: Parameters<Parameters<typeof prisma.$transaction>[0]>[0]
+        ): Promise<{ cardId: string; wasNew: boolean }> {
+          const cardId = pool[Math.floor(Math.random() * pool.length)] as string;
+          const existing = await tx.biblicalCardInventory.findUnique({
+            where: { userId_cardId: { userId: targetUserId, cardId } },
+          });
+          if (existing) {
+            await tx.biblicalCardInventory.update({
+              where: { userId_cardId: { userId: targetUserId, cardId } },
+              data: { duplicates: { increment: 1 } },
+            });
+            return { cardId, wasNew: false };
+          } else {
+            await tx.biblicalCardInventory.create({
+              data: { userId: targetUserId, cardId, owned: true, duplicates: 0, isNew: true },
+            });
+            return { cardId, wasNew: true };
+          }
+        }
+
         if (itemId === 'sobre_biblico') {
           // Only cards with inStandardPool=true are eligible for random draws.
           // Special/legendary cards (e.g. jesus_rey_reyes) and event cards must be excluded here.
           // Keep this list in sync with STANDARD_POOL_IDS in mobile/src/lib/biblical-cards.ts.
           const CARD_POOL: string[] = ['david', 'moses', 'ark', 'espada_espiritu', 'arpa_david', 'zarza_ardiente'];
-          const cardId = CARD_POOL[Math.floor(Math.random() * CARD_POOL.length)] as string;
-
-          const existing = await tx.biblicalCardInventory.findUnique({
-            where: { userId_cardId: { userId, cardId } },
-          });
-
-          if (existing) {
-            await tx.biblicalCardInventory.update({
-              where: { userId_cardId: { userId, cardId } },
-              data: { duplicates: { increment: 1 } },
-            });
-            drawnCard = { cardId, wasNew: false };
-          } else {
-            await tx.biblicalCardInventory.create({
-              data: { userId, cardId, owned: true, duplicates: 0, isNew: true },
-            });
-            drawnCard = { cardId, wasNew: true };
+          const CARDS_PER_PACK = 1;
+          for (let i = 0; i < CARDS_PER_PACK; i++) {
+            drawnCards.push(await drawOneCard(CARD_POOL, userId, tx));
           }
+          drawnCard = drawnCards[0];
         }
 
         // === Special: pack_pascua - draw a random Pascua 2026 event card ===
@@ -899,27 +912,14 @@ gamificationRouter.post(
             'arresto', 'poncio_pilato', 'barrabas', 'camino_calvario', 'crucifixion',
             'velo_rasgado', 'tumba_sellada', 'resurreccion', 'tomas',
           ];
-          const cardId = PASCUA_POOL[Math.floor(Math.random() * PASCUA_POOL.length)] as string;
-
-          const existing = await tx.biblicalCardInventory.findUnique({
-            where: { userId_cardId: { userId, cardId } },
-          });
-
-          if (existing) {
-            await tx.biblicalCardInventory.update({
-              where: { userId_cardId: { userId, cardId } },
-              data: { duplicates: { increment: 1 } },
-            });
-            drawnCard = { cardId, wasNew: false };
-          } else {
-            await tx.biblicalCardInventory.create({
-              data: { userId, cardId, owned: true, duplicates: 0 },
-            });
-            drawnCard = { cardId, wasNew: true };
+          const CARDS_PER_PACK = 1;
+          for (let i = 0; i < CARDS_PER_PACK; i++) {
+            drawnCards.push(await drawOneCard(PASCUA_POOL, userId, tx));
           }
+          drawnCard = drawnCards[0];
         }
 
-        return { item, newPoints, drawnCard };
+        return { item, newPoints, drawnCard, drawnCards };
       });
 
       return c.json({
@@ -927,6 +927,7 @@ gamificationRouter.post(
         item: result.item,
         newPoints: result.newPoints,
         drawnCard: result.drawnCard ?? null,
+        drawnCards: result.drawnCards ?? [],
       });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
