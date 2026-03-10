@@ -457,7 +457,7 @@ function CromosCard({
               style={{ borderRadius: 23, padding: 1 }}
             >
               {/* Banner container */}
-              <View style={{ borderRadius: 22, overflow: 'hidden', minHeight: 170 }}>
+              <View style={{ borderRadius: 22, overflow: 'hidden', minHeight: 182 }}>
                 {/* Background gradient base */}
                 <LinearGradient
                   colors={[G1, G2, '#030C18']}
@@ -485,15 +485,15 @@ function CromosCard({
                   borderRadius: 99,
                 }} />
 
-                {/* Pack image — bottom right, tappable to buy */}
+                {/* Pack image — tappable, larger and higher */}
                 <Pressable
                   onPress={() => { if (onPackImagePress) onPackImagePress(); }}
                   style={{
                     position: 'absolute',
-                    bottom: -8,
-                    right: 16,
-                    width: 100,
-                    height: 138,
+                    bottom: 0,
+                    right: 12,
+                    width: 116,
+                    height: 160,
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
@@ -501,14 +501,14 @@ function CromosCard({
                 >
                   <Image
                     source={latestPackImage}
-                    style={{ width: 100, height: 138, opacity: 0.95 }}
+                    style={{ width: 116, height: 160, opacity: 0.95 }}
                     resizeMode="contain"
                   />
                 </Pressable>
 
                 {/* Content — left side */}
-                <View style={{ padding: 20, paddingRight: 130 }}>
-                  {/* Top row: NOVEDAD badge + trade count */}
+                <View style={{ padding: 20, paddingRight: 136 }}>
+                  {/* Top row: NOVEDAD + daily pack alert — same line */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 6, flexWrap: 'wrap' }}>
                     {showNewBadge && (
                       <Animated.View style={[{
@@ -532,30 +532,26 @@ function CromosCard({
                         </Text>
                       </View>
                     )}
-                  </View>
-
-                  {/* Daily pack alert */}
-                  {dailyPackLabel && (
-                    <View style={{
-                      backgroundColor: dailyPackAvailable ? 'rgba(34,197,94,0.18)' : 'rgba(255,255,255,0.07)',
-                      borderWidth: 1,
-                      borderColor: dailyPackAvailable ? 'rgba(34,197,94,0.45)' : 'rgba(255,255,255,0.12)',
-                      borderRadius: 99,
-                      paddingHorizontal: 10,
-                      paddingVertical: 3,
-                      alignSelf: 'flex-start',
-                      marginBottom: 8,
-                    }}>
-                      <Text style={{
-                        fontSize: sFont(10),
-                        fontWeight: '700',
-                        color: dailyPackAvailable ? '#4ADE80' : 'rgba(255,255,255,0.50)',
-                        letterSpacing: 0.2,
+                    {dailyPackLabel && (
+                      <View style={{
+                        backgroundColor: dailyPackAvailable ? 'rgba(34,197,94,0.18)' : 'rgba(255,255,255,0.07)',
+                        borderWidth: 1,
+                        borderColor: dailyPackAvailable ? 'rgba(34,197,94,0.45)' : 'rgba(255,255,255,0.12)',
+                        borderRadius: 6,
+                        paddingHorizontal: 7,
+                        paddingVertical: 3,
                       }}>
-                        {dailyPackLabel}
-                      </Text>
-                    </View>
-                  )}
+                        <Text style={{
+                          fontSize: sFont(9),
+                          fontWeight: '700',
+                          color: dailyPackAvailable ? '#4ADE80' : 'rgba(255,255,255,0.45)',
+                          letterSpacing: 0.3,
+                        }}>
+                          {dailyPackLabel}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
 
                   {/* Collection label */}
                   <View style={{
