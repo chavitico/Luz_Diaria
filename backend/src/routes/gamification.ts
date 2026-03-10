@@ -272,6 +272,7 @@ gamificationRouter.post(
 gamificationRouter.get("/user/:userId", async (c) => {
   try {
     const userId = c.req.param("userId");
+    console.log(`[UserProfile] Lookup userId="${userId}"`);
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
