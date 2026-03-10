@@ -150,27 +150,33 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
     setLastPrefetch(ts);
   }, []);
 
-  // Every time the modal opens, verify role directly from backend
+  // Every time the modal opens, verify role:
+  // 1. Immediately use the role already in the local store (synced by heartbeat)
+  // 2. Then confirm via network in case it changed
   useEffect(() => {
     if (!visible || !user?.id) return;
 
-    setVerifiedRole(null);
+    // Use store role immediately so UI is not blocked
+    const storeRole = (user?.role as 'OWNER' | 'MODERATOR' | 'USER') ?? 'USER';
+    setVerifiedRole(storeRole);
+    if (storeRole === 'OWNER') loadDevCacheInfo();
     setChecking(true);
 
-    fetch(`${BACKEND_URL}/api/gamification/user/${user.id}`)
+    fetch(`${BACKEND_URL}/api/gamification/me`, {
+      headers: { 'X-User-Id': user.id },
+    })
       .then(r => r.ok ? r.json() : null)
       .then((profile: { role?: string } | null) => {
-        const role = (profile?.role ?? 'USER') as 'OWNER' | 'MODERATOR' | 'USER';
+        if (!profile?.role) return; // network failed or proxied away — keep store role
+        const role = profile.role as 'OWNER' | 'MODERATOR' | 'USER';
         setVerifiedRole(role);
-        if (profile?.role && profile.role !== user.role) {
-          updateUser({ role: profile.role as 'USER' | 'MODERATOR' | 'OWNER' });
+        if (role !== user.role) {
+          updateUser({ role: role as 'USER' | 'MODERATOR' | 'OWNER' });
         }
         if (role === 'OWNER') loadDevCacheInfo();
       })
       .catch(() => {
-        const role = (user?.role as 'OWNER' | 'MODERATOR' | 'USER') ?? 'USER';
-        setVerifiedRole(role);
-        if (role === 'OWNER') loadDevCacheInfo();
+        // Network failed — store role already set above, nothing to do
       })
       .finally(() => setChecking(false));
   }, [visible, user?.id]);

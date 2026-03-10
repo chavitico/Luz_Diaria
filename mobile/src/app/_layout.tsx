@@ -182,6 +182,7 @@ function AppContent() {
   const addNewGiftItem = useAppStore(s => s.addNewGiftItem);
   const heartbeatSessionId = useAppStore(s => s.heartbeatSessionId);
   const setHeartbeatSessionId = useAppStore(s => s.setHeartbeatSessionId);
+  const updateUser = useAppStore(s => s.updateUser);
   const bumpResumeTick = useAppStore(s => s.bumpResumeTick);
   const queryClient = useQueryClient();
   const [showSplash, setShowSplash] = useState(true);
@@ -230,6 +231,10 @@ function AppContent() {
       if (result.sessionId !== sessionIdRef.current) {
         sessionIdRef.current = result.sessionId;
         setHeartbeatSessionId(result.sessionId);
+      }
+      // Sync role from server into local store so AdminHub always reflects real role
+      if (result.role) {
+        updateUser({ role: result.role as 'USER' | 'MODERATOR' | 'OWNER' });
       }
     } catch {
       // silent fail — non-critical

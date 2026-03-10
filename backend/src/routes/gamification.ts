@@ -268,6 +268,45 @@ gamificationRouter.post(
   }
 );
 
+// GET /me - Get current user profile via X-User-Id header (avoids proxy issues with ID in URL)
+gamificationRouter.get("/me", async (c) => {
+  try {
+    const userId = c.req.header("X-User-Id");
+    if (!userId) return c.json({ error: "Missing X-User-Id header" }, 400);
+    console.log(`[UserProfile/me] Lookup userId="${userId}"`);
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, nickname: true, role: true, points: true, streakCurrent: true, avatarId: true },
+    });
+
+    if (!user) return c.json({ error: "User not found" }, 404);
+    return c.json(user);
+  } catch (error) {
+    console.error("[Gamification] Error getting /me:", error);
+    return c.json({ error: "Failed to get user" }, 500);
+  }
+});
+
+// GET /user/:userId/role - Lightweight role check (works via proxy since it has two path segments)
+gamificationRouter.get("/user/:userId/role", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    console.log(`[UserProfile/role] Lookup userId="${userId}"`);
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, nickname: true, role: true },
+    });
+
+    if (!user) return c.json({ error: "User not found" }, 404);
+    return c.json(user);
+  } catch (error) {
+    console.error("[Gamification] Error getting role:", error);
+    return c.json({ error: "Failed to get role" }, 500);
+  }
+});
+
 // GET /user/:userId - Get user profile
 gamificationRouter.get("/user/:userId", async (c) => {
   try {
@@ -2688,7 +2727,7 @@ gamificationRouter.post(
           data: { lastSeenAt: serverNow },
         });
 
-        return c.json({ sessionId: newSession.id, serverNow: serverNow.toISOString() });
+        return c.json({ sessionId: newSession.id, serverNow: serverNow.toISOString(), role: user.role });
       }
 
       // Calculate delta from server clock
@@ -2714,7 +2753,7 @@ gamificationRouter.post(
         }),
       ]);
 
-      return c.json({ sessionId: session.id, serverNow: serverNow.toISOString(), deltaSeconds: delta });
+      return c.json({ sessionId: session.id, serverNow: serverNow.toISOString(), deltaSeconds: delta, role: user.role });
     } catch (error) {
       console.error("[Heartbeat] Error:", error);
       return c.json({ error: "Failed to process heartbeat" }, 500);

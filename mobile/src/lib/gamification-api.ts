@@ -1046,6 +1046,7 @@ export const gamificationApi = {
     sessionId: string;
     serverNow: string;
     deltaSeconds?: number;
+    role?: string;
   }> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/session/heartbeat`, {
       method: 'POST',
