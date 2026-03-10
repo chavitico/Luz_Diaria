@@ -45,21 +45,6 @@
     "updatedAt": "2026-03-07T14:49:01.384Z"
   },
   {
-    "id": "cmmji3rre001bm2ntyjc2asd5",
-    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
-    "periodId": "active",
-    "mode": "daily",
-    "categoryKey": "studies",
-    "nickname": "ChaViTico",
-    "avatarId": "avatar_adv_elijah_fire",
-    "frameId": "frame_v2_jade",
-    "titleId": "title_renewed_strength",
-    "displayNameOptIn": true,
-    "expiresAt": "2026-03-11T18:14:47.879Z",
-    "createdAt": "2026-03-09T18:14:47.883Z",
-    "updatedAt": "2026-03-09T18:14:47.883Z"
-  },
-  {
     "id": "cmmjk8yap003um28zpsptdvjc",
     "userId": "cmm9y71p5000km29qqx44tb91",
     "periodId": "active",
@@ -88,5 +73,20 @@
     "expiresAt": "2026-03-11T23:32:04.336Z",
     "createdAt": "2026-03-09T23:32:04.338Z",
     "updatedAt": "2026-03-09T23:32:04.338Z"
+  },
+  {
+    "id": "cmmjupxux001vm2ewd78at86i",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "work",
+    "nickname": "ChaViTico",
+    "avatarId": "avatar_adv_elijah_fire",
+    "frameId": "frame_v2_jade",
+    "titleId": "title_renewed_strength",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-12T00:07:57.606Z",
+    "createdAt": "2026-03-10T00:07:57.610Z",
+    "updatedAt": "2026-03-10T00:07:57.610Z"
   }
 ]

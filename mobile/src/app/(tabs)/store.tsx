@@ -862,11 +862,6 @@ function LaunchEventBanner({
   const G2 = '#0D1F17';
   const ACCENT = '#4A7D5E';
 
-  // Latest pack — update when a new collection is added (same source as CromosCard)
-  const LATEST_PACK_NAME_ES = 'Los Milagros de Jesús';
-  const LATEST_PACK_NAME_EN = 'The Miracles of Jesus';
-  const latestPackImage = require('../../../assets/packs/pack_milagros_pack.png');
-
   return (
     <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
       <Animated.View style={animatedStyle}>
@@ -896,24 +891,12 @@ function LaunchEventBanner({
             end={{ x: 1, y: 1 }}
             style={{ borderRadius: 23, padding: 1 }}
           >
-            {/* Banner container */}
-            <View style={{ borderRadius: 22, overflow: 'hidden', minHeight: 170 }}>
-              {/* Background gradient base */}
-              <LinearGradient
-                colors={[G1, G2, '#030F07']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-              />
-
-              {/* Overlay scrim — left side so text stays readable */}
-              <LinearGradient
-                colors={['rgba(13,31,23,0.95)', 'rgba(13,31,23,0.65)', 'transparent']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-              />
-
+            <LinearGradient
+              colors={[G1, G2, '#030F07']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ borderRadius: 22, overflow: 'hidden', padding: 20 }}
+            >
               {/* Shimmer highlight */}
               <View style={{
                 position: 'absolute',
@@ -925,89 +908,72 @@ function LaunchEventBanner({
                 borderRadius: 99,
               }} />
 
-              {/* Pack image — bottom right */}
-              <Image
-                source={latestPackImage}
-                style={{
-                  position: 'absolute',
-                  bottom: -8,
-                  right: 16,
-                  width: 100,
-                  height: 138,
-                  opacity: 0.95,
-                }}
-                resizeMode="contain"
-              />
-
-              {/* Content — left side */}
-              <View style={{ padding: 20, paddingRight: 130 }}>
-                {/* Badge row */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 6 }}>
-                  <View style={{
-                    backgroundColor: ACCENT + '33',
-                    borderWidth: 1,
-                    borderColor: ACCENT + 'AA',
-                    borderRadius: 99,
-                    paddingHorizontal: 10,
-                    paddingVertical: 3,
-                  }}>
-                    <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
-                      ✨ {language === 'es' ? 'Evento de Lanzamiento' : 'Launch Event'}
-                    </Text>
-                  </View>
-                </View>
-
-                {/* Latest collection label */}
+              {/* Badge */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
                 <View style={{
-                  backgroundColor: 'rgba(122,200,160,0.15)',
+                  backgroundColor: ACCENT + '33',
                   borderWidth: 1,
-                  borderColor: 'rgba(122,200,160,0.30)',
+                  borderColor: ACCENT + 'AA',
                   borderRadius: 99,
                   paddingHorizontal: 10,
                   paddingVertical: 3,
-                  alignSelf: 'flex-start',
-                  marginBottom: 10,
                 }}>
-                  <Text style={{ fontSize: sFont(10), fontWeight: '700', color: 'rgba(122,200,160,0.90)', letterSpacing: 0.3 }} numberOfLines={1}>
-                    {language === 'es' ? `Nueva Colección · ${LATEST_PACK_NAME_ES}` : `New Collection · ${LATEST_PACK_NAME_EN}`}
-                  </Text>
-                </View>
-
-                {/* Title */}
-                <Text style={{
-                  fontSize: sFont(22),
-                  fontWeight: '800',
-                  color: '#FFFFFF',
-                  letterSpacing: -0.3,
-                  marginBottom: 5,
-                  textShadowColor: 'rgba(0,0,0,0.4)',
-                  textShadowOffset: { width: 0, height: 1 },
-                  textShadowRadius: 4,
-                }}>
-                  {language === 'es' ? 'Camino del Crecimiento' : 'Growth Path'}
-                </Text>
-
-                {/* Description */}
-                <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.65)', lineHeight: 17, marginBottom: 16 }}>
-                  {language === 'es'
-                    ? 'La fe que siembras hoy dará fruto mañana.'
-                    : 'The faith you plant today will bear fruit tomorrow.'}
-                </Text>
-
-                {/* CTA */}
-                <View style={{
-                  backgroundColor: ACCENT,
-                  borderRadius: 99,
-                  paddingHorizontal: 18,
-                  paddingVertical: 9,
-                  alignSelf: 'flex-start',
-                }}>
-                  <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#FFFFFF' }}>
-                    {language === 'es' ? 'Ver paquetes' : 'View packages'}
+                  <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
+                    ✨ {language === 'es' ? 'Evento de Lanzamiento' : 'Launch Event'}
                   </Text>
                 </View>
               </View>
-            </View>
+
+              {/* Title */}
+              <Text style={{
+                fontSize: sFont(22),
+                fontWeight: '800',
+                color: '#FFFFFF',
+                letterSpacing: -0.3,
+                marginBottom: 6,
+                textShadowColor: 'rgba(0,0,0,0.4)',
+                textShadowOffset: { width: 0, height: 1 },
+                textShadowRadius: 4,
+              }}>
+                {language === 'es' ? 'Camino del Crecimiento' : 'Growth Path'}
+              </Text>
+
+              {/* Description */}
+              <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.75)', lineHeight: 18, marginBottom: 16 }}>
+                {language === 'es'
+                  ? 'La fe que siembras hoy dará fruto mañana.'
+                  : 'The faith you plant today will bear fruit tomorrow.'}
+              </Text>
+
+              {/* Items preview: emojis */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16 }}>
+                {['🌱', '🍇', '🌿', '👑', '🕊️'].map((emoji, i) => (
+                  <View key={i} style={{
+                    width: 32, height: 32, borderRadius: 16,
+                    backgroundColor: 'rgba(255,255,255,0.08)',
+                    alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <Text style={{ fontSize: sFont(16) }}>{emoji}</Text>
+                  </View>
+                ))}
+                <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.5)', marginLeft: 4 }}>
+                  5 {language === 'es' ? 'recompensas' : 'rewards'}
+                </Text>
+              </View>
+
+              {/* CTA */}
+              <View style={{
+                backgroundColor: ACCENT,
+                borderRadius: 99,
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+                alignSelf: 'flex-start',
+              }}>
+                <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
+                  {language === 'es' ? 'Ver paquetes' : 'View packages'}
+                </Text>
+              </View>
+            </LinearGradient>
           </LinearGradient>
         </LinearGradient>
       </Pressable>
