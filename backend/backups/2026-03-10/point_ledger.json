@@ -1858,5 +1858,25 @@
     "amount": 8,
     "metadata": "{}",
     "createdAt": "2026-03-10T06:34:05.507Z"
+  },
+  {
+    "id": "cmmkopadc001om26yovg5q3qo",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "prayer_2026-03-10",
+    "type": "prayer",
+    "dateId": "2026-03-10",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T14:07:15.648Z"
+  },
+  {
+    "id": "cmmkopawo001qm26ymjy8qtjd",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "tts_2026-03-10",
+    "type": "tts_complete",
+    "dateId": "2026-03-10",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T14:07:16.345Z"
   }
 ]
