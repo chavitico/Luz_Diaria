@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   InteractionManager,
   Image,
+  Animated as RNAnimated,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -358,6 +359,62 @@ function SeasonalItemsSection({
 }
 
 // ─── Cromos Bíblicos Card ─────────────────────────────────────────────────────
+// ─── Collection Ticker — scrolling marquee for CromosCard ─────────────────────
+const COLLECTION_TICKER_SPEED = 36; // px per second
+
+function CollectionTicker({ text, accentColor }: { text: string; accentColor: string }) {
+  const tickerX = useRef(new RNAnimated.Value(0)).current;
+  const tickerW = useRef(0);
+  const anim = useRef<RNAnimated.CompositeAnimation | null>(null);
+
+  const startScroll = useCallback((width: number) => {
+    if (width <= 0) return;
+    tickerX.setValue(0);
+    anim.current?.stop();
+    const duration = (width / COLLECTION_TICKER_SPEED) * 1000;
+    const loop = RNAnimated.loop(
+      RNAnimated.timing(tickerX, {
+        toValue: -width / 2,
+        duration,
+        easing: (t) => t,
+        useNativeDriver: true,
+      })
+    );
+    anim.current = loop;
+    loop.start();
+  }, []);
+
+  useEffect(() => {
+    return () => { anim.current?.stop(); };
+  }, []);
+
+  return (
+    <View style={{ height: 20, overflow: 'hidden', justifyContent: 'center' }}>
+      <RNAnimated.Text
+        onLayout={(e) => {
+          const w = e.nativeEvent.layout.width;
+          if (w !== tickerW.current) {
+            tickerW.current = w;
+            startScroll(w);
+          }
+        }}
+        style={{
+          transform: [{ translateX: tickerX }],
+          fontSize: 10,
+          fontWeight: '800',
+          color: accentColor,
+          letterSpacing: 1.0,
+          whiteSpace: 'nowrap',
+        } as any}
+        numberOfLines={1}
+      >
+        {text}
+      </RNAnimated.Text>
+    </View>
+  );
+}
+
+// ─── Cromos Bíblicos Card ──────────────────────────────────────────────────────
 function CromosCard({
   language,
   colors,
@@ -405,6 +462,12 @@ function CromosCard({
   const LATEST_PACK_NAME_ES = 'Los Milagros de Jesús';
   const LATEST_PACK_NAME_EN = 'The Miracles of Jesus';
   const latestPackImage = require('../../../assets/packs/pack_milagros_pack.png');
+
+  // Ticker text — repeated so it scrolls seamlessly
+  const tickerUnit = language === 'es'
+    ? `  🃏  Nueva Colección · ${LATEST_PACK_NAME_ES}  ✦ `
+    : `  🃏  New Collection · ${LATEST_PACK_NAME_EN}  ✦ `;
+  const TICKER_TEXT = tickerUnit.repeat(6);
 
   // Daily pack countdown label
   const dailyPackLabel = React.useMemo(() => {
@@ -553,19 +616,18 @@ function CromosCard({
                     )}
                   </View>
 
-                  {/* Collection label */}
+                  {/* Collection ticker — scrolling marquee */}
                   <View style={{
                     backgroundColor: ACCENT + '22',
                     borderWidth: 1,
                     borderColor: ACCENT + '55',
                     borderRadius: 99,
                     paddingHorizontal: 10,
-                    paddingVertical: 4,
+                    paddingVertical: 3,
                     marginBottom: 10,
+                    overflow: 'hidden',
                   }}>
-                    <Text style={{ fontSize: sFont(10), fontWeight: '800', color: ACCENT, letterSpacing: 0.5 }}>
-                      🃏 {language === 'es' ? `Nueva Colección · ${LATEST_PACK_NAME_ES}` : `New Collection · ${LATEST_PACK_NAME_EN}`}
-                    </Text>
+                    <CollectionTicker text={TICKER_TEXT} accentColor={ACCENT} />
                   </View>
 
                   {/* Title */}
