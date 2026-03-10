@@ -365,6 +365,7 @@ function CromosCard({
   onPackImagePress,
   showNewBadge,
   badgeCount,
+  dailyPackStatus,
 }: {
   language: 'en' | 'es';
   colors: ReturnType<typeof useThemeColors>;
@@ -372,6 +373,7 @@ function CromosCard({
   onPackImagePress?: () => void;
   showNewBadge?: boolean;
   badgeCount?: number;
+  dailyPackStatus?: { canClaim: boolean; nextAvailableMs: number | null } | null;
 }) {
   const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
@@ -403,6 +405,28 @@ function CromosCard({
   const LATEST_PACK_NAME_ES = 'Los Milagros de Jesús';
   const LATEST_PACK_NAME_EN = 'The Miracles of Jesus';
   const latestPackImage = require('../../../assets/packs/pack_milagros_pack.png');
+
+  // Daily pack countdown label
+  const dailyPackLabel = React.useMemo(() => {
+    if (!dailyPackStatus) return null;
+    if (dailyPackStatus.canClaim) {
+      return language === 'es' ? '🎁 Sobre diario disponible' : '🎁 Daily pack available';
+    }
+    if (dailyPackStatus.nextAvailableMs && dailyPackStatus.nextAvailableMs > 0) {
+      const totalSec = Math.ceil(dailyPackStatus.nextAvailableMs / 1000);
+      const h = Math.floor(totalSec / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const countdown = h > 0
+        ? `${h}h ${m}m`
+        : `${m}m`;
+      return language === 'es'
+        ? `⏱ Próximo sobre gratis en ${countdown}`
+        : `⏱ Next free pack in ${countdown}`;
+    }
+    return null;
+  }, [dailyPackStatus, language]);
+
+  const dailyPackAvailable = dailyPackStatus?.canClaim === true;
 
   return (
     <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
@@ -485,7 +509,7 @@ function CromosCard({
                 {/* Content — left side */}
                 <View style={{ padding: 20, paddingRight: 130 }}>
                   {/* Top row: NOVEDAD badge + trade count */}
-                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 6, flexWrap: 'wrap' }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 6, flexWrap: 'wrap' }}>
                     {showNewBadge && (
                       <Animated.View style={[{
                         backgroundColor: '#FF3B30',
@@ -509,6 +533,29 @@ function CromosCard({
                       </View>
                     )}
                   </View>
+
+                  {/* Daily pack alert */}
+                  {dailyPackLabel && (
+                    <View style={{
+                      backgroundColor: dailyPackAvailable ? 'rgba(34,197,94,0.18)' : 'rgba(255,255,255,0.07)',
+                      borderWidth: 1,
+                      borderColor: dailyPackAvailable ? 'rgba(34,197,94,0.45)' : 'rgba(255,255,255,0.12)',
+                      borderRadius: 99,
+                      paddingHorizontal: 10,
+                      paddingVertical: 3,
+                      alignSelf: 'flex-start',
+                      marginBottom: 8,
+                    }}>
+                      <Text style={{
+                        fontSize: sFont(10),
+                        fontWeight: '700',
+                        color: dailyPackAvailable ? '#4ADE80' : 'rgba(255,255,255,0.50)',
+                        letterSpacing: 0.2,
+                      }}>
+                        {dailyPackLabel}
+                      </Text>
+                    </View>
+                  )}
 
                   {/* Collection label */}
                   <View style={{
@@ -8982,6 +9029,7 @@ export default function StoreScreen() {
           colors={colors}
           showNewBadge
           badgeCount={pendingTradesCount > 0 ? pendingTradesCount : undefined}
+          dailyPackStatus={dailyPackStatus ?? null}
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
             setSubMenuType('cromos');
