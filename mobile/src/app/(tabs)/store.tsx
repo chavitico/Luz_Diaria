@@ -397,6 +397,11 @@ function CromosCard({
   const G1 = '#0D1E3D';
   const G2 = '#071526';
 
+  // Background art — swap require() path when banner asset is ready
+  const bannerArt = (() => {
+    try { return require('../../../assets/cromos/banner_cromos.png'); } catch { return null; }
+  })();
+
   return (
     <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
       <Animated.View style={animatedStyle}>
@@ -415,8 +420,8 @@ function CromosCard({
               shadowColor: ACCENT,
               shadowOffset: { width: 0, height: 0 },
               shadowOpacity: 0.65,
-              shadowRadius: 14,
-              elevation: 8,
+              shadowRadius: 18,
+              elevation: 10,
             }}
           >
             <LinearGradient
@@ -425,12 +430,38 @@ function CromosCard({
               end={{ x: 1, y: 1 }}
               style={{ borderRadius: 23, padding: 1 }}
             >
-              <LinearGradient
-                colors={[G1, G2]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{ borderRadius: 22, padding: 20, overflow: 'hidden' }}
-              >
+              {/* Banner container — fixed height for prominent presence */}
+              <View style={{ borderRadius: 22, overflow: 'hidden', minHeight: 160 }}>
+                {/* Background gradient base */}
+                <LinearGradient
+                  colors={[G1, G2, '#030C18']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                />
+
+                {/* Background art image — cover style */}
+                {bannerArt && (
+                  <Image
+                    source={bannerArt}
+                    style={{
+                      position: 'absolute',
+                      top: 0, left: 0, right: 0, bottom: 0,
+                      width: '100%', height: '100%',
+                      opacity: 0.35,
+                    }}
+                    resizeMode="cover"
+                  />
+                )}
+
+                {/* Overlay scrim so text is always readable */}
+                <LinearGradient
+                  colors={['transparent', 'rgba(7,21,38,0.70)']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                />
+
                 {/* Shimmer highlight */}
                 <View style={{
                   position: 'absolute',
@@ -442,74 +473,78 @@ function CromosCard({
                   borderRadius: 99,
                 }} />
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-                  {/* Icon */}
-                  <View style={{ position: 'relative' }}>
+                {/* Content */}
+                <View style={{ padding: 22 }}>
+                  {/* Top row: badge + trade count */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14, gap: 8 }}>
                     <View style={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: 16,
-                      backgroundColor: ACCENT + '22',
+                      backgroundColor: ACCENT + '25',
                       borderWidth: 1,
-                      borderColor: ACCENT + '55',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      borderColor: ACCENT + '60',
+                      borderRadius: 99,
+                      paddingHorizontal: 10,
+                      paddingVertical: 3,
                     }}>
-                      <Text style={{ fontSize: 26 }}>🃏</Text>
+                      <Text style={{ fontSize: sFont(10), fontWeight: '800', color: ACCENT, letterSpacing: 0.8, textTransform: 'uppercase' }}>
+                        🃏 {language === 'es' ? 'Colección Bíblica' : 'Biblical Collection'}
+                      </Text>
                     </View>
                     {badgeCount !== undefined && badgeCount > 0 && (
                       <View style={{
-                        position: 'absolute',
-                        top: -6,
-                        right: -6,
-                        minWidth: 20,
-                        height: 20,
-                        borderRadius: 10,
                         backgroundColor: '#FF3B30',
-                        borderWidth: 2,
-                        borderColor: G1,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingHorizontal: 4,
+                        borderRadius: 99,
+                        paddingHorizontal: 8,
+                        paddingVertical: 3,
+                        borderWidth: 1.5,
+                        borderColor: 'rgba(255,255,255,0.25)',
                       }}>
-                        <Text style={{ fontSize: 11, fontWeight: '800', color: '#FFFFFF', lineHeight: 14 }}>
-                          {badgeCount > 9 ? '9+' : String(badgeCount)}
+                        <Text style={{ fontSize: sFont(10), fontWeight: '900', color: '#FFFFFF' }}>
+                          {badgeCount > 9 ? '9+' : String(badgeCount)} {language === 'es' ? 'trueques' : 'trades'}
                         </Text>
                       </View>
                     )}
+                    {showNewBadge && (
+                      <Animated.View style={[{ backgroundColor: '#FF3B30', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 }, newBadgeStyle]}>
+                        <Text style={{ fontSize: sFont(9), fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.8 }}>NOVEDAD</Text>
+                      </Animated.View>
+                    )}
                   </View>
 
-                  {/* Text */}
-                  <View style={{ flex: 1 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 3 }}>
-                      <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.3 }}>
-                        {language === 'es' ? 'Cromos Bíblicos' : 'Biblical Cards'}
+                  {/* Title */}
+                  <Text style={{
+                    fontSize: sFont(26),
+                    fontWeight: '900',
+                    color: '#FFFFFF',
+                    letterSpacing: -0.5,
+                    marginBottom: 6,
+                    textShadowColor: 'rgba(0,0,0,0.5)',
+                    textShadowOffset: { width: 0, height: 1 },
+                    textShadowRadius: 6,
+                  }}>
+                    {language === 'es' ? 'Cromos Bíblicos' : 'Biblical Cards'}
+                  </Text>
+
+                  {/* Subtitle */}
+                  <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.65)', marginBottom: 18, fontWeight: '500' }}>
+                    {language === 'es' ? 'Sobres · Álbum · Trueques' : 'Packs · Album · Trades'}
+                  </Text>
+
+                  {/* CTA row */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <View style={{
+                      backgroundColor: ACCENT + 'EE',
+                      borderRadius: 99,
+                      paddingHorizontal: 20,
+                      paddingVertical: 9,
+                    }}>
+                      <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#0D1E3D' }}>
+                        {language === 'es' ? 'Abrir' : 'Open'}
                       </Text>
-                      {showNewBadge && (
-                        <Animated.View
-                          style={[
-                            {
-                              backgroundColor: '#FF3B30',
-                              borderRadius: 6,
-                              paddingHorizontal: 6,
-                              paddingVertical: 2,
-                            },
-                            newBadgeStyle,
-                          ]}
-                        >
-                          <Text style={{ fontSize: 9, fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.8 }}>
-                            NOVEDAD
-                          </Text>
-                        </Animated.View>
-                      )}
                     </View>
-                    <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.60)', fontWeight: '500' }}>
-                      {language === 'es' ? 'Sobres, álbum y trueques' : 'Packs, album & trades'}
-                    </Text>
+                    <ChevronRight size={22} color="rgba(255,255,255,0.40)" />
                   </View>
-                  <ChevronRight size={20} color="rgba(255,255,255,0.35)" />
                 </View>
-              </LinearGradient>
+              </View>
             </LinearGradient>
           </LinearGradient>
         </Pressable>
@@ -822,6 +857,11 @@ function LaunchEventBanner({
   const G2 = '#0D1F17';
   const ACCENT = '#4A7D5E';
 
+  // Background art — swap require() path when banner asset is ready
+  const bannerArt = (() => {
+    try { return require('../../../assets/cromos/banner_camino.png'); } catch { return null; }
+  })();
+
   return (
     <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
       <Animated.View style={animatedStyle}>
@@ -851,12 +891,38 @@ function LaunchEventBanner({
             end={{ x: 1, y: 1 }}
             style={{ borderRadius: 23, padding: 1 }}
           >
-            <LinearGradient
-              colors={[G1, G2]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={{ borderRadius: 22, padding: 20, overflow: 'hidden' }}
-            >
+            {/* Banner container with overflow hidden for bg image */}
+            <View style={{ borderRadius: 22, overflow: 'hidden' }}>
+              {/* Background gradient base */}
+              <LinearGradient
+                colors={[G1, G2, '#030F07']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+              />
+
+              {/* Background art image — cover style */}
+              {bannerArt && (
+                <Image
+                  source={bannerArt}
+                  style={{
+                    position: 'absolute',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    width: '100%', height: '100%',
+                    opacity: 0.30,
+                  }}
+                  resizeMode="cover"
+                />
+              )}
+
+              {/* Overlay scrim */}
+              <LinearGradient
+                colors={['transparent', 'rgba(13,31,23,0.65)']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+              />
+
               {/* Shimmer highlight */}
               <View style={{
                 position: 'absolute',
@@ -868,72 +934,75 @@ function LaunchEventBanner({
                 borderRadius: 99,
               }} />
 
-              {/* Badge */}
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
-                <View style={{
-                  backgroundColor: ACCENT + '33',
-                  borderWidth: 1,
-                  borderColor: ACCENT + 'AA',
-                  borderRadius: 99,
-                  paddingHorizontal: 10,
-                  paddingVertical: 3,
+              {/* Content */}
+              <View style={{ padding: 20 }}>
+                {/* Badge */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
+                  <View style={{
+                    backgroundColor: ACCENT + '33',
+                    borderWidth: 1,
+                    borderColor: ACCENT + 'AA',
+                    borderRadius: 99,
+                    paddingHorizontal: 10,
+                    paddingVertical: 3,
+                  }}>
+                    <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
+                      ✨ {language === 'es' ? 'Evento de Lanzamiento' : 'Launch Event'}
+                    </Text>
+                  </View>
+                </View>
+
+                {/* Title */}
+                <Text style={{
+                  fontSize: sFont(22),
+                  fontWeight: '800',
+                  color: '#FFFFFF',
+                  letterSpacing: -0.3,
+                  marginBottom: 6,
+                  textShadowColor: 'rgba(0,0,0,0.4)',
+                  textShadowOffset: { width: 0, height: 1 },
+                  textShadowRadius: 4,
                 }}>
-                  <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFFFFF', letterSpacing: 1, textTransform: 'uppercase' }}>
-                    ✨ {language === 'es' ? 'Evento de Lanzamiento' : 'Launch Event'}
+                  {language === 'es' ? 'Camino del Crecimiento' : 'Growth Path'}
+                </Text>
+
+                {/* Description */}
+                <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.75)', lineHeight: 18, marginBottom: 16 }}>
+                  {language === 'es'
+                    ? 'La fe que siembras hoy dará fruto mañana.'
+                    : 'The faith you plant today will bear fruit tomorrow.'}
+                </Text>
+
+                {/* Items preview: emojis */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16 }}>
+                  {['🌱', '🍇', '🌿', '👑', '🕊️'].map((emoji, i) => (
+                    <View key={i} style={{
+                      width: 32, height: 32, borderRadius: 16,
+                      backgroundColor: 'rgba(255,255,255,0.08)',
+                      alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      <Text style={{ fontSize: sFont(16) }}>{emoji}</Text>
+                    </View>
+                  ))}
+                  <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.5)', marginLeft: 4 }}>
+                    5 {language === 'es' ? 'recompensas' : 'rewards'}
+                  </Text>
+                </View>
+
+                {/* CTA */}
+                <View style={{
+                  backgroundColor: ACCENT,
+                  borderRadius: 99,
+                  paddingHorizontal: 20,
+                  paddingVertical: 10,
+                  alignSelf: 'flex-start',
+                }}>
+                  <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
+                    {language === 'es' ? 'Ver paquetes' : 'View packages'}
                   </Text>
                 </View>
               </View>
-
-              {/* Title */}
-              <Text style={{
-                fontSize: sFont(22),
-                fontWeight: '800',
-                color: '#FFFFFF',
-                letterSpacing: -0.3,
-                marginBottom: 6,
-                textShadowColor: 'rgba(0,0,0,0.4)',
-                textShadowOffset: { width: 0, height: 1 },
-                textShadowRadius: 4,
-              }}>
-                {language === 'es' ? 'Camino del Crecimiento' : 'Growth Path'}
-              </Text>
-
-              {/* Description */}
-              <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.75)', lineHeight: 18, marginBottom: 16 }}>
-                {language === 'es'
-                  ? 'La fe que siembras hoy dará fruto mañana.'
-                  : 'The faith you plant today will bear fruit tomorrow.'}
-              </Text>
-
-              {/* Items preview: emojis */}
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16 }}>
-                {['🌱', '🍇', '🌿', '👑', '🕊️'].map((emoji, i) => (
-                  <View key={i} style={{
-                    width: 32, height: 32, borderRadius: 16,
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <Text style={{ fontSize: sFont(16) }}>{emoji}</Text>
-                  </View>
-                ))}
-                <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.5)', marginLeft: 4 }}>
-                  5 {language === 'es' ? 'recompensas' : 'rewards'}
-                </Text>
-              </View>
-
-              {/* CTA */}
-              <View style={{
-                backgroundColor: ACCENT,
-                borderRadius: 99,
-                paddingHorizontal: 20,
-                paddingVertical: 10,
-                alignSelf: 'flex-start',
-              }}>
-                <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
-                  {language === 'es' ? 'Ver paquetes' : 'View packages'}
-                </Text>
-              </View>
-            </LinearGradient>
+            </View>
           </LinearGradient>
         </LinearGradient>
       </Pressable>
@@ -1958,86 +2027,59 @@ function WeeklyChallengesCard({
         entering={FadeInDown.delay(100).duration(400)}
         style={{
           marginHorizontal: 20,
-          marginBottom: 20,
+          marginBottom: 16,
         }}
       >
-        {/* Outer glow shadow layer */}
-        <LinearGradient
-          colors={['#F97316DD', '#FB923CCC', '#FDBA74AA', '#FB923CCC', '#F97316DD']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{
-            borderRadius: 24,
-            padding: 2,
-            shadowColor: '#F97316',
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.65,
-            shadowRadius: 16,
-            elevation: 10,
-          }}
-        >
-          {/* Inner sheen ring */}
+        {/* Compact card — reduced shadow/border prominence */}
+        <View style={{
+          borderRadius: 18,
+          borderWidth: 1,
+          borderColor: 'rgba(249,115,22,0.20)',
+          backgroundColor: '#120D05',
+          overflow: 'hidden',
+          shadowColor: '#F97316',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.18,
+          shadowRadius: 8,
+          elevation: 4,
+        }}>
+          {/* Subtle inner glow */}
           <LinearGradient
-            colors={['rgba(255,255,255,0.16)', 'transparent', 'transparent']}
+            colors={['#F9731610', 'transparent']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
-            style={{ borderRadius: 23, padding: 1 }}
-          >
-            <LinearGradient
-              colors={['#1C1208', '#120D05', '#0E0900']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={{ borderRadius: 22, overflow: 'hidden', padding: 22 }}
-            >
-              {/* Shimmer top highlight */}
-              <View style={{
-                position: 'absolute',
-                top: 0,
-                left: 24,
-                right: 24,
-                height: 1.5,
-                backgroundColor: 'rgba(255,255,255,0.22)',
-                borderRadius: 99,
-              }} />
-              {/* Inner accent glow */}
-              <LinearGradient
-                colors={['#F9731618', 'transparent']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-              />
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
 
-            {/* Header row */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 18 }}>
-              <LinearGradient
-                colors={['#F9731630', '#F9731615']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 14,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginRight: 12,
-                  borderWidth: 1,
-                  borderColor: '#F9731635',
-                }}
-              >
-                <Gift size={20} color="#F97316" />
-              </LinearGradient>
+          {/* Compact content */}
+          <View style={{ paddingHorizontal: 16, paddingVertical: 14 }}>
+            {/* Header row — smaller */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
+              <View style={{
+                width: 34,
+                height: 34,
+                borderRadius: 10,
+                backgroundColor: '#F9731620',
+                borderWidth: 1,
+                borderColor: '#F9731630',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: 10,
+              }}>
+                <Gift size={16} color="#F97316" />
+              </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: 16, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2 }}>
+                <Text style={{ fontSize: 14, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2 }}>
                   {t.weekly_challenges}
                 </Text>
-                <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', fontWeight: '500', marginTop: 1 }}>
-                  {language === 'es' ? 'Completa y reclama tus recompensas' : 'Complete and claim your rewards'}
+                <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.40)', fontWeight: '500', marginTop: 1 }}>
+                  {language === 'es' ? 'Completa y reclama recompensas' : 'Complete and claim rewards'}
                 </Text>
               </View>
             </View>
 
             {/* Divider */}
-            <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.07)', marginBottom: 16 }} />
+            <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.06)', marginBottom: 12 }} />
 
             {challenges.slice(0, 3).map((challenge, index) => {
               const progress = progressData.find(p => p.challengeId === challenge.id);
@@ -2049,40 +2091,38 @@ function WeeklyChallengesCard({
               const description = language === 'es' ? challenge.descriptionEs : challenge.descriptionEn;
 
               return (
-                <View key={challenge.id} style={index > 0 ? { marginTop: 16, paddingTop: 16, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.05)' } : {}}>
-                  {/* Title row */}
-                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <View key={challenge.id} style={index > 0 ? { marginTop: 10, paddingTop: 10, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.04)' } : {}}>
+                  {/* Title row — compact */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 }}>
                     <Pressable
                       onPress={() => {
                         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                         setSelectedChallenge({ title, description, type: challenge.type });
                       }}
-                      style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 8, gap: 6 }}
+                      style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 8, gap: 5 }}
                     >
                       <Text
-                        style={{ fontSize: 13, fontWeight: '600', color: 'rgba(255,255,255,0.88)', flex: 1 }}
+                        style={{ fontSize: 12, fontWeight: '600', color: 'rgba(255,255,255,0.85)', flex: 1 }}
                         numberOfLines={1}
                       >
                         {title}
                       </Text>
-                      <Info size={13} color="rgba(255,255,255,0.30)" />
+                      <Info size={11} color="rgba(255,255,255,0.25)" />
                     </Pressable>
                     <View style={{
-                      backgroundColor: isComplete ? '#22C55E20' : 'rgba(255,255,255,0.08)',
+                      backgroundColor: isComplete ? '#22C55E20' : 'rgba(255,255,255,0.07)',
                       borderRadius: 99,
-                      paddingHorizontal: 8,
+                      paddingHorizontal: 7,
                       paddingVertical: 2,
-                      borderWidth: 1,
-                      borderColor: isComplete ? '#22C55E40' : 'rgba(255,255,255,0.10)',
                     }}>
-                      <Text style={{ fontSize: 11, fontWeight: '700', color: isComplete ? '#22C55E' : 'rgba(255,255,255,0.50)' }}>
+                      <Text style={{ fontSize: 10, fontWeight: '700', color: isComplete ? '#22C55E' : 'rgba(255,255,255,0.45)' }}>
                         {currentCount}/{challenge.goalCount}
                       </Text>
                     </View>
                   </View>
 
-                  {/* Progress bar */}
-                  <View style={{ height: 6, borderRadius: 99, overflow: 'hidden', backgroundColor: 'rgba(255,255,255,0.08)', marginBottom: 8 }}>
+                  {/* Progress bar — thinner */}
+                  <View style={{ height: 4, borderRadius: 99, overflow: 'hidden', backgroundColor: 'rgba(255,255,255,0.07)', marginBottom: 5 }}>
                     <LinearGradient
                       colors={isComplete ? ['#22C55E', '#16A34A'] : [colors.primary, colors.primary + 'AA']}
                       start={{ x: 0, y: 0 }}
@@ -2091,11 +2131,11 @@ function WeeklyChallengesCard({
                     />
                   </View>
 
-                  {/* Bottom row: points + action */}
+                  {/* Bottom row: points + action — compact */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                      <Coins size={13} color={colors.primary} />
-                      <Text style={{ fontSize: 12, fontWeight: '700', color: colors.primary }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                      <Coins size={11} color={colors.primary} />
+                      <Text style={{ fontSize: 11, fontWeight: '700', color: colors.primary }}>
                         +{challenge.rewardPoints}
                       </Text>
                     </View>
@@ -2106,15 +2146,15 @@ function WeeklyChallengesCard({
                         disabled={claimMutation.isPending}
                         style={{
                           backgroundColor: '#22C55E',
-                          borderRadius: 10,
-                          paddingHorizontal: 14,
-                          paddingVertical: 6,
+                          borderRadius: 8,
+                          paddingHorizontal: 12,
+                          paddingVertical: 4,
                         }}
                       >
                         {claimMutation.isPending ? (
                           <ActivityIndicator size="small" color="#FFFFFF" />
                         ) : (
-                          <Text style={{ fontSize: 12, fontWeight: '700', color: '#FFFFFF' }}>
+                          <Text style={{ fontSize: 11, fontWeight: '700', color: '#FFFFFF' }}>
                             {t.claim_reward}
                           </Text>
                         )}
@@ -2122,9 +2162,9 @@ function WeeklyChallengesCard({
                     )}
 
                     {isClaimed && (
-                      <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#22C55E15', borderRadius: 10, paddingHorizontal: 10, paddingVertical: 5, gap: 4 }}>
-                        <Check size={12} color="#22C55E" strokeWidth={3} />
-                        <Text style={{ fontSize: 12, fontWeight: '600', color: '#22C55E' }}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#22C55E12', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3, gap: 3 }}>
+                        <Check size={10} color="#22C55E" strokeWidth={3} />
+                        <Text style={{ fontSize: 11, fontWeight: '600', color: '#22C55E' }}>
                           {t.reward_claimed}
                         </Text>
                       </View>
@@ -2133,9 +2173,8 @@ function WeeklyChallengesCard({
                 </View>
               );
             })}
-            </LinearGradient>
-          </LinearGradient>
-        </LinearGradient>
+          </View>
+        </View>
       </Animated.View>
 
       {/* Challenge Description Modal */}
@@ -8958,28 +8997,7 @@ export default function StoreScreen() {
           totalShares={user?.totalShares ?? 0}
         />
 
-        {/* Weekly Chest */}
-        {effectiveUserId && (
-          <WeeklyChestCard
-            colors={colors}
-            language={language}
-            userId={effectiveUserId}
-            allChallengesComplete={allChallengesComplete}
-            onClaim={handleChestClaim}
-          />
-        )}
-
-        {/* Weekly Challenges */}
-        {effectiveUserId && (
-          <WeeklyChallengesCard
-            colors={colors}
-            language={language}
-            userId={effectiveUserId}
-            onAllComplete={setAllChallengesComplete}
-          />
-        )}
-
-        {/* Cromos Bíblicos Card */}
+        {/* 1. CROMOS BÍBLICOS — hero banner */}
         <CromosCard
           language={language}
           colors={colors}
@@ -8992,7 +9010,7 @@ export default function StoreScreen() {
           }}
         />
 
-        {/* Season Banner — shown when active season; Launch Event Banner shown otherwise */}
+        {/* 2. CAMINO DEL CRECIMIENTO — season banner */}
         {primarySeason ? (
           <SeasonBanner
             season={primarySeason}
@@ -9023,9 +9041,41 @@ export default function StoreScreen() {
           />
         )}
 
-        {/* Feature Cards — new large card layout */}
+        {/* 3. DESAFÍOS SEMANALES — compact informational */}
+        {effectiveUserId && (
+          <WeeklyChallengesCard
+            colors={colors}
+            language={language}
+            userId={effectiveUserId}
+            onAllComplete={setAllChallengesComplete}
+          />
+        )}
+
+        {/* Weekly Chest — shown after challenges */}
+        {effectiveUserId && (
+          <WeeklyChestCard
+            colors={colors}
+            language={language}
+            userId={effectiveUserId}
+            allChallengesComplete={allChallengesComplete}
+            onClaim={handleChestClaim}
+          />
+        )}
+
+        {/* 4. EXPLORAR — separator + grid */}
+        <View style={{ marginHorizontal: 20, marginBottom: 16, marginTop: 8 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '28' }} />
+            <Text style={{ fontSize: 12, fontWeight: '700', color: colors.textMuted, letterSpacing: 1.5, textTransform: 'uppercase' }}>
+              {language === 'es' ? 'Explorar' : 'Explore'}
+            </Text>
+            <View style={{ flex: 1, height: 1, backgroundColor: colors.textMuted + '28' }} />
+          </View>
+        </View>
+
+        {/* Feature Cards Grid — Explorar section */}
         <View
-          style={{ paddingHorizontal: 20, marginBottom: 28, gap: 16 }}
+          style={{ paddingHorizontal: 20, marginBottom: 28 }}
           pointerEvents={isLoadingBackendUser ? 'none' : 'auto'}
         >
           {isLoadingBackendUser && (
@@ -9034,56 +9084,112 @@ export default function StoreScreen() {
             </View>
           )}
 
-          {/* 1. OBJETOS ESPECIALES */}
-          <FeatureCard
-            emoji="✨"
-            title={language === 'es' ? 'Objetos Especiales' : 'Special Items'}
-            subtitle={language === 'es' ? 'Tokens e insignias especiales' : 'Tokens & special badges'}
-            gradientColors={['#2A1F00', '#1A1200', '#0E0900']}
-            borderColor="rgba(212,175,55,0.25)"
-            accentGlowColor="rgba(212,175,55,0.08)"
-            badgeCount={dailyPackStatus?.canClaim ? (dailyPackStatus.remaining ?? 1) : undefined}
-            showNewBadge
-            onPress={() => {
-              const now = Date.now();
-              if (now - lastCategoryTapAt.current < 500) return;
-              lastCategoryTapAt.current = now;
-              if (isOpeningModal.current) return;
-              isOpeningModal.current = true;
-              setTimeout(() => { isOpeningModal.current = false; }, 600);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-              setActiveSubcategory('all');
-              setStoreSectionModalCategory('tokens');
-              setShowStoreSectionModal(true);
-            }}
-          />
+          {/* Top row: Objetos Especiales + Personalización — 50/50 */}
+          <View style={{ flexDirection: 'row', gap: 12, marginBottom: 12 }}>
+            {/* OBJETOS ESPECIALES */}
+            <Pressable
+              style={{ flex: 1 }}
+              onPress={() => {
+                const now = Date.now();
+                if (now - lastCategoryTapAt.current < 500) return;
+                lastCategoryTapAt.current = now;
+                if (isOpeningModal.current) return;
+                isOpeningModal.current = true;
+                setTimeout(() => { isOpeningModal.current = false; }, 600);
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                setActiveSubcategory('all');
+                setStoreSectionModalCategory('tokens');
+                setShowStoreSectionModal(true);
+              }}
+            >
+              <LinearGradient
+                colors={['#2A1F00', '#1A1200', '#0E0900']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  borderRadius: 18,
+                  padding: 16,
+                  borderWidth: 1,
+                  borderColor: 'rgba(212,175,55,0.22)',
+                  minHeight: 110,
+                  justifyContent: 'space-between',
+                }}
+              >
+                <View style={{
+                  width: 38, height: 38, borderRadius: 11,
+                  backgroundColor: 'rgba(212,175,55,0.12)',
+                  borderWidth: 1, borderColor: 'rgba(212,175,55,0.28)',
+                  alignItems: 'center', justifyContent: 'center',
+                  marginBottom: 10,
+                }}>
+                  <Text style={{ fontSize: 18 }}>✨</Text>
+                </View>
+                <View>
+                  <Text style={{ fontSize: 13, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }} numberOfLines={1}>
+                    {language === 'es' ? 'Objetos' : 'Items'}
+                  </Text>
+                  <Text style={{ fontSize: 11, color: 'rgba(212,175,55,0.65)', fontWeight: '500' }} numberOfLines={1}>
+                    {language === 'es' ? 'Tokens especiales' : 'Special tokens'}
+                  </Text>
+                </View>
+                {dailyPackStatus?.canClaim && (
+                  <View style={{
+                    position: 'absolute', top: 10, right: 10,
+                    width: 8, height: 8, borderRadius: 4,
+                    backgroundColor: '#FF3B30',
+                  }} />
+                )}
+              </LinearGradient>
+            </Pressable>
 
-          {/* 3. PERSONALIZACIÓN */}
-          <FeatureCard
-            emoji="🎨"
-            title={language === 'es' ? 'Personalización' : 'Personalization'}
-            subtitle={language === 'es' ? 'Temas, marcos, avatar y títulos' : 'Themes, frames, avatar & titles'}
-            gradientColors={['#0D2A2A', '#071A1A', '#030F0F']}
-            borderColor="rgba(45,212,191,0.25)"
-            accentGlowColor="rgba(45,212,191,0.08)"
-            onPress={() => {
-              const now = Date.now();
-              if (now - lastCategoryTapAt.current < 500) return;
-              lastCategoryTapAt.current = now;
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-              setSubMenuType('personalizacion');
-              setShowSubMenuModal(true);
-            }}
-          />
+            {/* PERSONALIZACIÓN */}
+            <Pressable
+              style={{ flex: 1 }}
+              onPress={() => {
+                const now = Date.now();
+                if (now - lastCategoryTapAt.current < 500) return;
+                lastCategoryTapAt.current = now;
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                setSubMenuType('personalizacion');
+                setShowSubMenuModal(true);
+              }}
+            >
+              <LinearGradient
+                colors={['#0D2A2A', '#071A1A', '#030F0F']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  borderRadius: 18,
+                  padding: 16,
+                  borderWidth: 1,
+                  borderColor: 'rgba(45,212,191,0.22)',
+                  minHeight: 110,
+                  justifyContent: 'space-between',
+                }}
+              >
+                <View style={{
+                  width: 38, height: 38, borderRadius: 11,
+                  backgroundColor: 'rgba(45,212,191,0.12)',
+                  borderWidth: 1, borderColor: 'rgba(45,212,191,0.28)',
+                  alignItems: 'center', justifyContent: 'center',
+                  marginBottom: 10,
+                }}>
+                  <Text style={{ fontSize: 18 }}>🎨</Text>
+                </View>
+                <View>
+                  <Text style={{ fontSize: 13, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }} numberOfLines={1}>
+                    {language === 'es' ? 'Personalizar' : 'Customize'}
+                  </Text>
+                  <Text style={{ fontSize: 11, color: 'rgba(45,212,191,0.65)', fontWeight: '500' }} numberOfLines={1}>
+                    {language === 'es' ? 'Temas y marcos' : 'Themes & frames'}
+                  </Text>
+                </View>
+              </LinearGradient>
+            </Pressable>
+          </View>
 
-          {/* 4. PAQUETES */}
-          <FeatureCard
-            emoji="🎁"
-            title={language === 'es' ? 'Paquetes' : 'Bundles'}
-            subtitle={language === 'es' ? 'Aventuras, colecciones y más' : 'Adventures, collections & more'}
-            gradientColors={['#2A1400', '#1A0D00', '#0E0800']}
-            borderColor="rgba(251,146,60,0.25)"
-            accentGlowColor="rgba(251,146,60,0.08)"
+          {/* Bottom row: Paquetes — full width */}
+          <Pressable
             onPress={() => {
               const now = Date.now();
               if (now - lastCategoryTapAt.current < 500) return;
@@ -9096,7 +9202,40 @@ export default function StoreScreen() {
               setStoreSectionModalCategory('bundles');
               setShowStoreSectionModal(true);
             }}
-          />
+          >
+            <LinearGradient
+              colors={['#2A1400', '#1A0D00', '#0E0800']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{
+                borderRadius: 18,
+                padding: 16,
+                borderWidth: 1,
+                borderColor: 'rgba(251,146,60,0.22)',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 14,
+              }}
+            >
+              <View style={{
+                width: 44, height: 44, borderRadius: 13,
+                backgroundColor: 'rgba(251,146,60,0.12)',
+                borderWidth: 1, borderColor: 'rgba(251,146,60,0.28)',
+                alignItems: 'center', justifyContent: 'center',
+              }}>
+                <Text style={{ fontSize: 20 }}>🎁</Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 14, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                  {language === 'es' ? 'Paquetes' : 'Bundles'}
+                </Text>
+                <Text style={{ fontSize: 12, color: 'rgba(251,146,60,0.65)', fontWeight: '500' }}>
+                  {language === 'es' ? 'Aventuras, colecciones y más' : 'Adventures, collections & more'}
+                </Text>
+              </View>
+              <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+            </LinearGradient>
+          </Pressable>
 
         </View>
 

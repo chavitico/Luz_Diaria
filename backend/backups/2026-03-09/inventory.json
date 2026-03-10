@@ -1214,7 +1214,7 @@
     "id": "cmmf98riw0011m2f9gbmnrvil",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-09T18:22:01.846Z",
+    "acquiredAt": "2026-03-09T22:57:36.246Z",
     "source": "store"
   },
   {
@@ -1270,7 +1270,7 @@
     "id": "cmmfrusef0015m23en1qs4i4w",
     "userId": "cmm9y71p5000km29qqx44tb91",
     "itemId": "pack_pascua",
-    "acquiredAt": "2026-03-09T18:25:12.747Z",
+    "acquiredAt": "2026-03-09T23:13:40.542Z",
     "source": "store"
   },
   {
@@ -1466,7 +1466,7 @@
     "id": "cmmirjch80017m2ocpc80zwml",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "pack_milagros",
-    "acquiredAt": "2026-03-09T22:14:49.838Z",
+    "acquiredAt": "2026-03-09T22:58:03.005Z",
     "source": "store"
   },
   {
@@ -1487,7 +1487,35 @@
     "id": "cmmjihk2w002jm28z6ejvi7ww",
     "userId": "cmm9y71p5000km29qqx44tb91",
     "itemId": "pack_milagros",
-    "acquiredAt": "2026-03-09T19:19:00.672Z",
+    "acquiredAt": "2026-03-09T23:14:33.373Z",
     "source": "store"
+  },
+  {
+    "id": "cmmjsulkx002zm29solx6o9si",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-09T23:15:35.745Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmjt8i1q0031m29s6emu11mq",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_adv_queen_esther",
+    "acquiredAt": "2026-03-09T23:26:24.351Z",
+    "source": "bundle:bundle_adv_esther"
+  },
+  {
+    "id": "cmmjt8i1r0033m29s0mm2oli7",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_adv_royal_persia",
+    "acquiredAt": "2026-03-09T23:26:24.351Z",
+    "source": "bundle:bundle_adv_esther"
+  },
+  {
+    "id": "cmmjt8i1r0035m29sm9fubrhq",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_valiente_corazon",
+    "acquiredAt": "2026-03-09T23:26:24.352Z",
+    "source": "bundle:bundle_adv_esther"
   }
 ]
