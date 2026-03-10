@@ -33,11 +33,11 @@
     "titleId": "title_renewed_strength",
     "themeId": "theme_cielo_gloria",
     "selectedMusicId": "music_free_1",
-    "points": 19150,
+    "points": 18150,
     "streakCurrent": 31,
     "streakBest": 31,
     "devotionalsCompleted": 20,
-    "totalTimeSeconds": 99329,
+    "totalTimeSeconds": 100758,
     "lastActiveAt": "2026-03-09T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-10T01:10:21.640Z"
+    "updatedAt": "2026-03-10T01:36:09.966Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -158,12 +158,12 @@
     "titleId": "title_corazon",
     "themeId": "theme_hope_dawn",
     "selectedMusicId": "music_free_1",
-    "points": 3578,
+    "points": 601,
     "streakCurrent": 4,
     "streakBest": 4,
-    "devotionalsCompleted": 6,
-    "totalTimeSeconds": 1559,
-    "lastActiveAt": "2026-03-10T01:09:45.758Z",
+    "devotionalsCompleted": 7,
+    "totalTimeSeconds": 2109,
+    "lastActiveAt": "2026-03-10T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -172,7 +172,7 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-03-03T21:02:36.231Z",
-    "updatedAt": "2026-03-10T01:10:17.123Z"
+    "updatedAt": "2026-03-10T01:19:29.887Z"
   },
   {
     "id": "cmmb46i64002im2q08tv0dw6y",

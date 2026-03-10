@@ -1214,7 +1214,7 @@
     "id": "cmmf98riw0011m2f9gbmnrvil",
     "userId": "cmm9x0ybc0002m2sr3l31uj4q",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-09T22:57:36.246Z",
+    "acquiredAt": "2026-03-10T01:32:54.541Z",
     "source": "store"
   },
   {
@@ -1517,5 +1517,19 @@
     "itemId": "title_valiente_corazon",
     "acquiredAt": "2026-03-09T23:26:24.352Z",
     "source": "bundle:bundle_adv_esther"
+  },
+  {
+    "id": "cmmjx23d8001cm24yqcyfv11t",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-10T01:13:23.853Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmjx3ijo001om24y15bhk555",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-10T01:16:21.153Z",
+    "source": "store"
   }
 ]

@@ -1,20 +1,5 @@
 [
   {
-    "id": "cmmbblvh80011m261pnc9gg88",
-    "userId": "cmmb3ggjr001jm2q06al9hwcz",
-    "periodId": "active",
-    "mode": "daily",
-    "categoryKey": "work",
-    "nickname": "Meli",
-    "avatarId": "avatar_v2_corona_vida",
-    "frameId": "frame_verde",
-    "titleId": "title_corazon",
-    "displayNameOptIn": true,
-    "expiresAt": "2026-03-06T00:50:45.786Z",
-    "createdAt": "2026-03-04T00:50:45.789Z",
-    "updatedAt": "2026-03-04T00:50:45.789Z"
-  },
-  {
     "id": "cmmbe76cm001hm25r3h53kvxp",
     "userId": "cmmbe3rik0016m25rw06b6s43",
     "periodId": "active",
@@ -88,5 +73,20 @@
     "expiresAt": "2026-03-12T00:07:57.606Z",
     "createdAt": "2026-03-10T00:07:57.610Z",
     "updatedAt": "2026-03-10T00:07:57.610Z"
+  },
+  {
+    "id": "cmmjx2iih001im24y5ds4g4sx",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "work",
+    "nickname": "Meli",
+    "avatarId": "avatar_v2_corona_vida",
+    "frameId": "frame_verde",
+    "titleId": "title_corazon",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-12T01:13:43.479Z",
+    "createdAt": "2026-03-10T01:13:43.481Z",
+    "updatedAt": "2026-03-10T01:13:43.481Z"
   }
 ]
