@@ -283,7 +283,12 @@ export const gamificationApi = {
       }
 
       throw new Error('Failed to fetch user');
-    } catch (error) {
+    } catch (error: any) {
+      // AbortError is expected when the request times out or the component unmounts — not a real error
+      if (error?.name === 'AbortError') {
+        if (__DEV__) console.log('[Gamification] ensureUserExists request aborted (timeout or unmount)');
+        return null;
+      }
       console.error('[Gamification] Error ensuring user exists:', error);
       return null;
     }
