@@ -37,7 +37,7 @@
     "streakCurrent": 32,
     "streakBest": 32,
     "devotionalsCompleted": 20,
-    "totalTimeSeconds": 118372,
+    "totalTimeSeconds": 118576,
     "lastActiveAt": "2026-03-10T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_valiente_reino",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-10T22:08:34.846Z"
+    "updatedAt": "2026-03-10T22:12:01.471Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -227,7 +227,7 @@
   {
     "id": "user_y2gpgsrn359mmcyy3c4",
     "nickname": "Laritala",
-    "role": "USER",
+    "role": "OWNER",
     "avatarId": "avatar_candle",
     "frameId": null,
     "titleId": null,
