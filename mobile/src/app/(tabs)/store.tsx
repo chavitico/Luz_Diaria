@@ -6323,6 +6323,7 @@ function DailyPackBanner({
   const colors = useThemeColors();
   const scale = useSharedValue(1);
   const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const [showPackPicker, setShowPackPicker] = React.useState(false);
 
   // Compute countdown string
   const [countdown, setCountdown] = React.useState('');
@@ -6355,62 +6356,180 @@ function DailyPackBanner({
     ? (language === 'es' ? `⏳ Próximo sobre en ${countdown}` : `⏳ Next pack in ${countdown}`)
     : (language === 'es' ? '⏳ Sobre diario reclamado' : '⏳ Daily pack claimed');
 
-  const packTypeToUse: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' = isEventActive ? 'pack_pascua' : 'sobre_biblico';
+  const PACKS: { id: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros'; nameEs: string; nameEn: string; emoji: string; image: any; gradientColors: [string, string]; borderColor: string }[] = [
+    {
+      id: 'sobre_biblico',
+      nameEs: 'Sobre Bíblico',
+      nameEn: 'Biblical Pack',
+      emoji: '📖',
+      image: require('../../../assets/packs/sobre_biblico_pack.png'),
+      gradientColors: ['#1C1205', '#0E0A02'],
+      borderColor: 'rgba(212,175,55,0.35)',
+    },
+    {
+      id: 'pack_pascua',
+      nameEs: 'Sobre de Pascua',
+      nameEn: 'Easter Pack',
+      emoji: '✝️',
+      image: require('../../../assets/packs/pack_pascua_pack.png'),
+      gradientColors: ['#1C0808', '#0E0404'],
+      borderColor: 'rgba(212,80,74,0.35)',
+    },
+    {
+      id: 'pack_milagros',
+      nameEs: 'Sobre de Milagros',
+      nameEn: 'Miracles Pack',
+      emoji: '✨',
+      image: require('../../../assets/packs/pack_milagros_pack.png'),
+      gradientColors: ['#071A1A', '#030F0F'],
+      borderColor: 'rgba(45,212,191,0.35)',
+    },
+  ];
 
   return (
-    <Animated.View style={[animStyle, { marginBottom: 12, opacity: disabled ? 0.5 : 1 }]}>
-      <Pressable
-        onPressIn={() => { if (canClaim && !disabled) scale.value = withSpring(0.97); }}
-        onPressOut={() => { scale.value = withSpring(1); }}
-        onPress={() => { if (canClaim && !disabled) onClaim(packTypeToUse); }}
-        disabled={!canClaim || disabled}
-      >
-        <LinearGradient
-          colors={canClaim
-            ? (isPremium ? ['#2D1B5E', '#1A0F3A'] : ['#0F2A1A', '#061510'])
-            : ['rgba(30,30,30,0.6)', 'rgba(20,20,20,0.6)']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{
-            borderRadius: 16,
-            padding: 16,
-            borderWidth: 1,
-            borderColor: canClaim
-              ? (isPremium ? '#7C3AED' : '#22C55E')
-              : 'rgba(255,255,255,0.08)',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 12,
+    <>
+      <Animated.View style={[animStyle, { marginBottom: 12, opacity: disabled ? 0.5 : 1 }]}>
+        <Pressable
+          onPressIn={() => { if (canClaim && !disabled) scale.value = withSpring(0.97); }}
+          onPressOut={() => { scale.value = withSpring(1); }}
+          onPress={() => {
+            if (!canClaim || disabled) return;
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            setShowPackPicker(true);
           }}
+          disabled={!canClaim || disabled}
         >
-          <Text style={{
-            fontSize: sFont(15),
-            fontWeight: '700',
-            color: canClaim
-              ? (isPremium ? '#C4B5FD' : '#86EFAC')
-              : 'rgba(255,255,255,0.35)',
-            flex: 1,
-          }}>
-            {canClaim ? labelActive : labelWaiting}
-          </Text>
-          {canClaim && (
-            <LinearGradient
-              colors={isPremium ? ['#7C3AED', '#5B21B6'] : ['#16A34A', '#15803D']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={{ borderRadius: 99 }}
-            >
-              <View style={{ paddingHorizontal: 18, paddingVertical: 9 }}>
-                <Text style={{ fontSize: sFont(13), fontWeight: '800', color: '#FFF' }}>
-                  {language === 'es' ? 'Reclamar' : 'Claim'}
-                </Text>
-              </View>
-            </LinearGradient>
-          )}
-        </LinearGradient>
-      </Pressable>
-    </Animated.View>
+          <LinearGradient
+            colors={canClaim
+              ? (isPremium ? ['#2D1B5E', '#1A0F3A'] : ['#0F2A1A', '#061510'])
+              : ['rgba(30,30,30,0.6)', 'rgba(20,20,20,0.6)']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{
+              borderRadius: 16,
+              padding: 16,
+              borderWidth: 1,
+              borderColor: canClaim
+                ? (isPremium ? '#7C3AED' : '#22C55E')
+                : 'rgba(255,255,255,0.08)',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 12,
+            }}
+          >
+            <Text style={{
+              fontSize: sFont(15),
+              fontWeight: '700',
+              color: canClaim
+                ? (isPremium ? '#C4B5FD' : '#86EFAC')
+                : 'rgba(255,255,255,0.35)',
+              flex: 1,
+            }}>
+              {canClaim ? labelActive : labelWaiting}
+            </Text>
+            {canClaim && (
+              <LinearGradient
+                colors={isPremium ? ['#7C3AED', '#5B21B6'] : ['#16A34A', '#15803D']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{ borderRadius: 99 }}
+              >
+                <View style={{ paddingHorizontal: 18, paddingVertical: 9 }}>
+                  <Text style={{ fontSize: sFont(13), fontWeight: '800', color: '#FFF' }}>
+                    {language === 'es' ? 'Reclamar' : 'Claim'}
+                  </Text>
+                </View>
+              </LinearGradient>
+            )}
+          </LinearGradient>
+        </Pressable>
+      </Animated.View>
+
+      {/* Pack picker modal */}
+      <Modal
+        visible={showPackPicker}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowPackPicker(false)}
+      >
+        <Pressable
+          style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.65)', justifyContent: 'flex-end' }}
+          onPress={() => setShowPackPicker(false)}
+        >
+          <Pressable onPress={() => {}} style={{ backgroundColor: colors.surface, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingBottom: 36 }}>
+            {/* Handle */}
+            <View style={{ alignItems: 'center', paddingTop: 12, paddingBottom: 4 }}>
+              <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40' }} />
+            </View>
+
+            {/* Title */}
+            <View style={{ paddingHorizontal: 24, paddingTop: 12, paddingBottom: 20 }}>
+              <Text style={{ fontSize: sFont(20), fontWeight: '900', color: colors.text, marginBottom: 4 }}>
+                {language === 'es' ? '¿Qué sobre quieres?' : 'Which pack do you want?'}
+              </Text>
+              <Text style={{ fontSize: sFont(13), color: colors.textMuted }}>
+                {language === 'es' ? 'Elige uno — es gratis 🎁' : 'Pick one — it\'s free 🎁'}
+              </Text>
+            </View>
+
+            {/* Pack options */}
+            <View style={{ paddingHorizontal: 20, gap: 10 }}>
+              {PACKS.map((pack) => (
+                <Pressable
+                  key={pack.id}
+                  onPress={() => {
+                    setShowPackPicker(false);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                    setTimeout(() => onClaim(pack.id), 300);
+                  }}
+                >
+                  <LinearGradient
+                    colors={pack.gradientColors}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={{
+                      borderRadius: 18,
+                      borderWidth: 1,
+                      borderColor: pack.borderColor,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      padding: 14,
+                      gap: 14,
+                    }}
+                  >
+                    <Image
+                      source={pack.image}
+                      style={{ width: 52, height: 72 }}
+                      resizeMode="contain"
+                    />
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', marginBottom: 3 }}>
+                        {language === 'es' ? pack.nameEs : pack.nameEn}
+                      </Text>
+                      <View style={{
+                        backgroundColor: 'rgba(34,197,94,0.18)',
+                        borderWidth: 1,
+                        borderColor: 'rgba(34,197,94,0.35)',
+                        borderRadius: 99,
+                        paddingHorizontal: 10,
+                        paddingVertical: 3,
+                        alignSelf: 'flex-start',
+                      }}>
+                        <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#4ADE80' }}>
+                          {language === 'es' ? '¡Gratis hoy!' : 'Free today!'}
+                        </Text>
+                      </View>
+                    </View>
+                    <ChevronRight size={20} color="rgba(255,255,255,0.30)" />
+                  </LinearGradient>
+                </Pressable>
+              ))}
+            </View>
+          </Pressable>
+        </Pressable>
+      </Modal>
+    </>
   );
 }
 
