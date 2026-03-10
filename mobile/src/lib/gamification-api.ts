@@ -324,6 +324,17 @@ export const gamificationApi = {
     return res.json();
   },
 
+  async recoverByNickname(nickname: string): Promise<UserProfile> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/me`, {
+      headers: {
+        'X-User-Nickname': nickname,
+      },
+    });
+    if (res.status === 404) throw new Error('NOT_FOUND');
+    if (!res.ok) throw new Error('FETCH_ERROR');
+    return res.json();
+  },
+
   // Points
   async awardPoints(userId: string, action: PointAction, metadata?: any): Promise<PointsResult> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/points/award`, {

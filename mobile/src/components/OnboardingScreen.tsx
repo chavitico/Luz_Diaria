@@ -1,4 +1,3 @@
-// Onboarding Screen — Spiritual intro + Nickname + Avatar Selection
 import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
@@ -9,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -21,7 +21,7 @@ import Animated, {
   FadeInUp,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Sun, ArrowRight, Check, AlertCircle, X, Heart, Users, BookOpen, MapPin } from 'lucide-react-native';
+import { Sun, ArrowRight, Check, AlertCircle, X, Heart, Users, BookOpen, MapPin, RefreshCw } from 'lucide-react-native';
 import { useAppStore } from '@/lib/store';
 import { firestoreService } from '@/lib/firestore';
 import { gamificationApi } from '@/lib/gamification-api';
@@ -411,6 +411,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
+  const [isRecovering, setIsRecovering] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Nickname availability checking state
@@ -484,6 +485,57 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
       setIsChecking(false);
     }
   }, [nickname]);
+
+  const handleRecoverAccount = useCallback(async () => {
+    const trimmed = nickname.trim();
+    if (trimmed.length < 3) return;
+    setIsRecovering(true);
+    setError(null);
+    try {
+      const profile = await gamificationApi.recoverByNickname(trimmed);
+      setUser({
+        id: profile.id,
+        nickname: profile.nickname,
+        avatar: profile.avatarId ?? 'avatar_dove',
+        role: profile.role as any,
+        points: profile.points ?? 0,
+        streakCurrent: profile.streakCurrent ?? 0,
+        streakBest: 0,
+        totalTime: 0,
+        totalShares: 0,
+        devotionalsCompleted: 0,
+        favorites: [],
+        createdAt: Date.now(),
+        lastActiveDate: new Date().toISOString().slice(0, 10),
+        purchasedItems: [],
+        settings: {
+          theme: 'dawn',
+          language: 'en',
+          musicEnabled: false,
+          musicVolume: 0.18,
+          notificationsEnabled: true,
+          streakReminders: true,
+          ttsVoice: 'default',
+          ttsSpeed: 1.0,
+          ttsVolume: 1.0,
+          textScale: 1.0,
+        },
+      });
+      setOnboarded(true);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      setTimeout(onComplete, 200);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : '';
+      if (msg === 'NOT_FOUND') {
+        setError('No se encontró esa cuenta en el servidor.');
+      } else {
+        setError('Error de conexión. Inténtalo de nuevo.');
+      }
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+    } finally {
+      setIsRecovering(false);
+    }
+  }, [nickname, setUser, setOnboarded, onComplete]);
 
   const handleSelectAvatar = useCallback((avatarId: string) => {
     setSelectedAvatar(avatarId);

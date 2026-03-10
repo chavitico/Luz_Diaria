@@ -270,30 +270,44 @@ gamificationRouter.post(
 
 // GET /me - Get current user profile via X-User-Id header (avoids proxy issues with ID in URL)
 // Falls back to X-User-Nickname lookup if the ID is not found (handles stale local IDs)
+// Also supports nickname-only lookup (no X-User-Id) for account recovery flow
 gamificationRouter.get("/me", async (c) => {
   try {
     const userId = c.req.header("X-User-Id");
-    if (!userId) return c.json({ error: "Missing X-User-Id header" }, 400);
-    console.log(`[UserProfile/me] Lookup userId="${userId}"`);
+    const nicknameHeader = c.req.header("X-User-Nickname");
 
-    let user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { id: true, nickname: true, role: true, points: true, streakCurrent: true, avatarId: true },
-    });
+    let user = null;
 
-    // Fallback: if ID not found, try to find by nickname (handles stale/mismatched local IDs)
-    if (!user) {
-      const nickname = c.req.header("X-User-Nickname");
-      if (nickname) {
-        console.log(`[UserProfile/me] ID not found, trying nickname fallback: "${nickname}"`);
+    if (userId) {
+      console.log(`[UserProfile/me] Lookup userId="${userId}"`);
+      user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { id: true, nickname: true, role: true, points: true, streakCurrent: true, avatarId: true },
+      });
+
+      // Fallback: if ID not found, try to find by nickname (handles stale/mismatched local IDs)
+      if (!user && nicknameHeader) {
+        console.log(`[UserProfile/me] ID not found, trying nickname fallback: "${nicknameHeader}"`);
         user = await prisma.user.findFirst({
-          where: { nickname },
+          where: { nickname: nicknameHeader },
           select: { id: true, nickname: true, role: true, points: true, streakCurrent: true, avatarId: true },
         });
         if (user) {
           console.log(`[UserProfile/me] Nickname fallback succeeded: found id="${user.id}" role="${user.role}"`);
         }
       }
+    } else if (nicknameHeader) {
+      // Recovery flow: no userId, lookup by nickname only
+      console.log(`[UserProfile/me] Recovery lookup by nickname="${nicknameHeader}"`);
+      user = await prisma.user.findFirst({
+        where: { nickname: nicknameHeader },
+        select: { id: true, nickname: true, role: true, points: true, streakCurrent: true, avatarId: true },
+      });
+      if (user) {
+        console.log(`[UserProfile/me] Recovery succeeded: found id="${user.id}" role="${user.role}"`);
+      }
+    } else {
+      return c.json({ error: "Missing X-User-Id or X-User-Nickname header" }, 400);
     }
 
     if (!user) return c.json({ error: "User not found" }, 404);
