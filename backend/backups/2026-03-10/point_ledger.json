@@ -1828,5 +1828,25 @@
     "amount": 6,
     "metadata": "{}",
     "createdAt": "2026-03-10T02:47:48.960Z"
+  },
+  {
+    "id": "cmmk458dw0021m275ujh7w392",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "collection_card_reward_pascua_2026_1773117107636",
+    "type": "collection_reward",
+    "dateId": "2026-03-10",
+    "amount": 1000,
+    "metadata": "{\"collectionId\":\"pascua_2026\",\"secretCardId\":\"jesus_resucitado\"}",
+    "createdAt": "2026-03-10T04:31:47.636Z"
+  },
+  {
+    "id": "cmmk4whyr002zm2751lu43bmt",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "share_2026-03-10_1",
+    "type": "share",
+    "dateId": "2026-03-10",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T04:52:59.764Z"
   }
 ]

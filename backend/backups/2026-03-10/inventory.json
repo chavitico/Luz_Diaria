@@ -1389,7 +1389,7 @@
     "id": "cmmgu49ly001lm26sfrcrt12y",
     "userId": "cmma36c8v000qm25km7avpj84",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-08T20:08:13.386Z",
+    "acquiredAt": "2026-03-10T04:56:36.612Z",
     "source": "store"
   },
   {
@@ -1530,6 +1530,13 @@
     "userId": "cmmb3ggjr001jm2q06al9hwcz",
     "itemId": "pack_milagros",
     "acquiredAt": "2026-03-10T01:16:21.153Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmk43xfd001lm275lv7774mp",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-10T04:31:17.596Z",
     "source": "store"
   }
 ]

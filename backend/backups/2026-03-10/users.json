@@ -37,7 +37,7 @@
     "streakCurrent": 31,
     "streakBest": 31,
     "devotionalsCompleted": 20,
-    "totalTimeSeconds": 104814,
+    "totalTimeSeconds": 106522,
     "lastActiveAt": "2026-03-09T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -47,7 +47,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-10T02:53:04.784Z"
+    "updatedAt": "2026-03-10T06:33:25.916Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -87,7 +87,7 @@
     "streakCurrent": 15,
     "streakBest": 15,
     "devotionalsCompleted": 15,
-    "totalTimeSeconds": 13240,
+    "totalTimeSeconds": 14533,
     "lastActiveAt": "2026-03-09T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -97,7 +97,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T01:51:26.062Z",
-    "updatedAt": "2026-03-09T20:33:44.893Z"
+    "updatedAt": "2026-03-10T04:47:40.458Z"
   },
   {
     "id": "cmma36c8v000qm25km7avpj84",
@@ -108,12 +108,12 @@
     "titleId": "title_walk_by_faith",
     "themeId": "theme_cielo_gloria",
     "selectedMusicId": "music_free_1",
-    "points": 23635,
+    "points": 22645,
     "streakCurrent": 11,
     "streakBest": 11,
     "devotionalsCompleted": 14,
-    "totalTimeSeconds": 5309,
-    "lastActiveAt": "2026-03-09T23:31:39.141Z",
+    "totalTimeSeconds": 6416,
+    "lastActiveAt": "2026-03-09T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -122,7 +122,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-03T04:06:57.919Z",
-    "updatedAt": "2026-03-09T23:33:10.955Z"
+    "updatedAt": "2026-03-10T04:57:24.501Z"
   },
   {
     "id": "cmmaqp77i000pm2686xq6bozg",
@@ -133,11 +133,11 @@
     "titleId": "title_luz",
     "themeId": "theme_promesa_violeta",
     "selectedMusicId": "music_free_1",
-    "points": 10237,
+    "points": 9237,
     "streakCurrent": 7,
     "streakBest": 7,
     "devotionalsCompleted": 8,
-    "totalTimeSeconds": 8069,
+    "totalTimeSeconds": 8786,
     "lastActiveAt": "2026-03-09T13:08:37.873Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -147,7 +147,7 @@
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-03T15:05:29.022Z",
-    "updatedAt": "2026-03-10T04:23:23.016Z"
+    "updatedAt": "2026-03-10T04:37:26.699Z"
   },
   {
     "id": "cmmb3ggjr001jm2q06al9hwcz",
