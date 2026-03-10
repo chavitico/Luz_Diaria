@@ -46,6 +46,13 @@ app.use(
 // Logging
 app.use("*", logger());
 
+// Temporary: log X-User-Id on every request to identify TestFlight user
+app.use("*", async (c, next) => {
+  const uid = c.req.header("X-User-Id");
+  if (uid) console.log(`[UserIdTrace] ${c.req.method} ${c.req.path} uid=${uid}`);
+  await next();
+});
+
 // Health check endpoint (includes APP_ENV so clients can verify)
 app.get("/health", (c) =>
   c.json({ status: "ok", appEnv: env.APP_ENV, isProd: IS_PROD })
