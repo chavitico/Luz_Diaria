@@ -163,15 +163,25 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
     setChecking(true);
 
     fetch(`${BACKEND_URL}/api/gamification/me`, {
-      headers: { 'X-User-Id': user.id },
+      headers: {
+        'X-User-Id': user.id,
+        ...(user.nickname ? { 'X-User-Nickname': user.nickname } : {}),
+      },
     })
       .then(r => r.ok ? r.json() : null)
-      .then((profile: { role?: string } | null) => {
+      .then((profile: { id?: string; role?: string } | null) => {
         if (!profile?.role) return; // network failed or proxied away — keep store role
         const role = profile.role as 'OWNER' | 'MODERATOR' | 'USER';
         setVerifiedRole(role);
-        if (role !== user.role) {
-          updateUser({ role: role as 'USER' | 'MODERATOR' | 'OWNER' });
+        const updates: Record<string, string> = {};
+        if (role !== user.role) updates.role = role;
+        // If the backend returned a different ID (nickname fallback), sync it locally
+        if (profile.id && profile.id !== user.id) {
+          console.log(`[AdminHub] ID mismatch — syncing local id from ${user.id} to ${profile.id}`);
+          updates.id = profile.id;
+        }
+        if (Object.keys(updates).length > 0) {
+          updateUser(updates as Parameters<typeof updateUser>[0]);
         }
         if (role === 'OWNER') loadDevCacheInfo();
       })

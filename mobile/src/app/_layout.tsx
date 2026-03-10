@@ -341,6 +341,34 @@ function AppContent() {
     }
   }, [appReady, isOnboarded, user?.id]);
 
+  // ID recovery: if the local userId is stale (e.g. from offline onboarding), sync it from the server
+  // using the nickname as a fallback lookup. Runs once when the app is ready and user is onboarded.
+  useEffect(() => {
+    if (!appReady || !isOnboarded || !user?.id || !user?.nickname) return;
+    const recoverUserId = async () => {
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/gamification/me`, {
+          headers: {
+            'X-User-Id': user.id,
+            'X-User-Nickname': user.nickname!,
+          },
+        });
+        if (!res.ok) return;
+        const data: { id?: string; role?: string } = await res.json();
+        if (data.id && data.id !== user.id) {
+          console.log(`[Layout] ID recovery: syncing local id ${user.id} → ${data.id}`);
+          updateUser({ id: data.id, ...(data.role ? { role: data.role as 'USER' | 'MODERATOR' | 'OWNER' } : {}) });
+        } else if (data.role && data.role !== user.role) {
+          updateUser({ role: data.role as 'USER' | 'MODERATOR' | 'OWNER' });
+        }
+      } catch {
+        // silent — non-critical
+      }
+    };
+    recoverUserId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appReady, isOnboarded]);
+
   // Check for pending gifts when app comes to foreground — registered ONCE (stable-ref pattern)
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {

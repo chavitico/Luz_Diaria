@@ -269,16 +269,32 @@ gamificationRouter.post(
 );
 
 // GET /me - Get current user profile via X-User-Id header (avoids proxy issues with ID in URL)
+// Falls back to X-User-Nickname lookup if the ID is not found (handles stale local IDs)
 gamificationRouter.get("/me", async (c) => {
   try {
     const userId = c.req.header("X-User-Id");
     if (!userId) return c.json({ error: "Missing X-User-Id header" }, 400);
     console.log(`[UserProfile/me] Lookup userId="${userId}"`);
 
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: { id: userId },
       select: { id: true, nickname: true, role: true, points: true, streakCurrent: true, avatarId: true },
     });
+
+    // Fallback: if ID not found, try to find by nickname (handles stale/mismatched local IDs)
+    if (!user) {
+      const nickname = c.req.header("X-User-Nickname");
+      if (nickname) {
+        console.log(`[UserProfile/me] ID not found, trying nickname fallback: "${nickname}"`);
+        user = await prisma.user.findFirst({
+          where: { nickname },
+          select: { id: true, nickname: true, role: true, points: true, streakCurrent: true, avatarId: true },
+        });
+        if (user) {
+          console.log(`[UserProfile/me] Nickname fallback succeeded: found id="${user.id}" role="${user.role}"`);
+        }
+      }
+    }
 
     if (!user) return c.json({ error: "User not found" }, 404);
     return c.json(user);
