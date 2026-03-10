@@ -31,23 +31,23 @@
     "avatarId": "avatar_adv_elijah_fire",
     "frameId": "frame_v2_jade",
     "titleId": "title_renewed_strength",
-    "themeId": "theme_cielo_gloria",
+    "themeId": "theme_bosque",
     "selectedMusicId": "music_free_1",
-    "points": 17164,
+    "points": 16664,
     "streakCurrent": 32,
     "streakBest": 32,
     "devotionalsCompleted": 20,
-    "totalTimeSeconds": 112023,
-    "lastActiveAt": "2026-03-10T06:36:29.391Z",
+    "totalTimeSeconds": 112959,
+    "lastActiveAt": "2026-03-10T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
     "countryCode": "CR",
     "showCountry": true,
-    "activeBadgeId": "badge_fundador",
+    "activeBadgeId": "badge_valiente_reino",
     "deviceId": null,
     "createdAt": "2026-03-03T01:14:48.888Z",
-    "updatedAt": "2026-03-10T13:05:17.878Z"
+    "updatedAt": "2026-03-10T13:21:00.725Z"
   },
   {
     "id": "cmm9y71p5000km29qqx44tb91",
@@ -137,7 +137,7 @@
     "streakCurrent": 7,
     "streakBest": 7,
     "devotionalsCompleted": 8,
-    "totalTimeSeconds": 8786,
+    "totalTimeSeconds": 8846,
     "lastActiveAt": "2026-03-09T13:08:37.873Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -147,7 +147,7 @@
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-03T15:05:29.022Z",
-    "updatedAt": "2026-03-10T04:37:26.699Z"
+    "updatedAt": "2026-03-10T13:33:14.034Z"
   },
   {
     "id": "cmmb3ggjr001jm2q06al9hwcz",
