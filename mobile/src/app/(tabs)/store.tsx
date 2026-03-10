@@ -397,9 +397,10 @@ function CromosCard({
   const G1 = '#0D1E3D';
   const G2 = '#071526';
 
-  // Background art slot — place file at assets/cromos/banner_cromos.png to enable
-  // const bannerArt = require('../../../assets/cromos/banner_cromos.png');
-  const bannerArt = null;
+  // Latest pack — update name/image here when a new collection is added
+  const LATEST_PACK_NAME_ES = 'Los Milagros de Jesús';
+  const LATEST_PACK_NAME_EN = 'The Miracles of Jesus';
+  const latestPackImage = require('../../../assets/packs/pack_milagros_pack.png');
 
   return (
     <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
@@ -429,8 +430,8 @@ function CromosCard({
               end={{ x: 1, y: 1 }}
               style={{ borderRadius: 23, padding: 1 }}
             >
-              {/* Banner container — fixed height for prominent presence */}
-              <View style={{ borderRadius: 22, overflow: 'hidden', minHeight: 160 }}>
+              {/* Banner container */}
+              <View style={{ borderRadius: 22, overflow: 'hidden', minHeight: 170 }}>
                 {/* Background gradient base */}
                 <LinearGradient
                   colors={[G1, G2, '#030C18']}
@@ -439,25 +440,11 @@ function CromosCard({
                   style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
                 />
 
-                {/* Background art image — cover style */}
-                {bannerArt && (
-                  <Image
-                    source={bannerArt}
-                    style={{
-                      position: 'absolute',
-                      top: 0, left: 0, right: 0, bottom: 0,
-                      width: '100%', height: '100%',
-                      opacity: 0.35,
-                    }}
-                    resizeMode="cover"
-                  />
-                )}
-
-                {/* Overlay scrim so text is always readable */}
+                {/* Overlay scrim — left side darker so text is readable */}
                 <LinearGradient
-                  colors={['transparent', 'rgba(7,21,38,0.70)']}
+                  colors={['rgba(7,21,38,0.95)', 'rgba(7,21,38,0.60)', 'transparent']}
                   start={{ x: 0, y: 0 }}
-                  end={{ x: 0, y: 1 }}
+                  end={{ x: 1, y: 0 }}
                   style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
                 />
 
@@ -468,54 +455,75 @@ function CromosCard({
                   left: 24,
                   right: 24,
                   height: 1.5,
-                  backgroundColor: 'rgba(255,255,255,0.28)',
+                  backgroundColor: 'rgba(255,255,255,0.22)',
                   borderRadius: 99,
                 }} />
 
-                {/* Content */}
-                <View style={{ padding: 22 }}>
-                  {/* Top row: badge + trade count */}
-                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14, gap: 8 }}>
-                    <View style={{
-                      backgroundColor: ACCENT + '25',
-                      borderWidth: 1,
-                      borderColor: ACCENT + '60',
-                      borderRadius: 99,
-                      paddingHorizontal: 10,
-                      paddingVertical: 3,
-                    }}>
-                      <Text style={{ fontSize: sFont(10), fontWeight: '800', color: ACCENT, letterSpacing: 0.8, textTransform: 'uppercase' }}>
-                        🃏 {language === 'es' ? 'Colección Bíblica' : 'Biblical Collection'}
-                      </Text>
-                    </View>
+                {/* Pack image — bottom right */}
+                <Image
+                  source={latestPackImage}
+                  style={{
+                    position: 'absolute',
+                    bottom: -8,
+                    right: 16,
+                    width: 100,
+                    height: 138,
+                    opacity: 0.95,
+                  }}
+                  resizeMode="contain"
+                />
+
+                {/* Content — left side */}
+                <View style={{ padding: 20, paddingRight: 130 }}>
+                  {/* Top row: NOVEDAD badge + trade count */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 6, flexWrap: 'wrap' }}>
+                    {showNewBadge && (
+                      <Animated.View style={[{
+                        backgroundColor: '#FF3B30',
+                        borderRadius: 6,
+                        paddingHorizontal: 7,
+                        paddingVertical: 3,
+                      }, newBadgeStyle]}>
+                        <Text style={{ fontSize: sFont(9), fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.8 }}>NOVEDAD</Text>
+                      </Animated.View>
+                    )}
                     {badgeCount !== undefined && badgeCount > 0 && (
                       <View style={{
                         backgroundColor: '#FF3B30',
                         borderRadius: 99,
-                        paddingHorizontal: 8,
-                        paddingVertical: 3,
-                        borderWidth: 1.5,
-                        borderColor: 'rgba(255,255,255,0.25)',
+                        paddingHorizontal: 7,
+                        paddingVertical: 2,
                       }}>
-                        <Text style={{ fontSize: sFont(10), fontWeight: '900', color: '#FFFFFF' }}>
+                        <Text style={{ fontSize: sFont(9), fontWeight: '900', color: '#FFFFFF' }}>
                           {badgeCount > 9 ? '9+' : String(badgeCount)} {language === 'es' ? 'trueques' : 'trades'}
                         </Text>
                       </View>
                     )}
-                    {showNewBadge && (
-                      <Animated.View style={[{ backgroundColor: '#FF3B30', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 }, newBadgeStyle]}>
-                        <Text style={{ fontSize: sFont(9), fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.8 }}>NOVEDAD</Text>
-                      </Animated.View>
-                    )}
+                  </View>
+
+                  {/* Collection label */}
+                  <View style={{
+                    backgroundColor: ACCENT + '22',
+                    borderWidth: 1,
+                    borderColor: ACCENT + '55',
+                    borderRadius: 99,
+                    paddingHorizontal: 10,
+                    paddingVertical: 3,
+                    alignSelf: 'flex-start',
+                    marginBottom: 10,
+                  }}>
+                    <Text style={{ fontSize: sFont(10), fontWeight: '800', color: ACCENT, letterSpacing: 0.5 }} numberOfLines={1}>
+                      🃏 {language === 'es' ? `Nueva Colección · ${LATEST_PACK_NAME_ES}` : `New Collection · ${LATEST_PACK_NAME_EN}`}
+                    </Text>
                   </View>
 
                   {/* Title */}
                   <Text style={{
-                    fontSize: sFont(26),
+                    fontSize: sFont(24),
                     fontWeight: '900',
                     color: '#FFFFFF',
                     letterSpacing: -0.5,
-                    marginBottom: 6,
+                    marginBottom: 5,
                     textShadowColor: 'rgba(0,0,0,0.5)',
                     textShadowOffset: { width: 0, height: 1 },
                     textShadowRadius: 6,
@@ -524,23 +532,21 @@ function CromosCard({
                   </Text>
 
                   {/* Subtitle */}
-                  <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.65)', marginBottom: 18, fontWeight: '500' }}>
+                  <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.55)', marginBottom: 18, fontWeight: '500' }}>
                     {language === 'es' ? 'Sobres · Álbum · Trueques' : 'Packs · Album · Trades'}
                   </Text>
 
-                  {/* CTA row */}
-                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <View style={{
-                      backgroundColor: ACCENT + 'EE',
-                      borderRadius: 99,
-                      paddingHorizontal: 20,
-                      paddingVertical: 9,
-                    }}>
-                      <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#0D1E3D' }}>
-                        {language === 'es' ? 'Abrir' : 'Open'}
-                      </Text>
-                    </View>
-                    <ChevronRight size={22} color="rgba(255,255,255,0.40)" />
+                  {/* CTA */}
+                  <View style={{
+                    backgroundColor: ACCENT + 'EE',
+                    borderRadius: 99,
+                    paddingHorizontal: 18,
+                    paddingVertical: 9,
+                    alignSelf: 'flex-start',
+                  }}>
+                    <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#0D1E3D' }}>
+                      {language === 'es' ? 'Abrir Sobres' : 'Open Packs'}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -856,9 +862,10 @@ function LaunchEventBanner({
   const G2 = '#0D1F17';
   const ACCENT = '#4A7D5E';
 
-  // Background art slot — place file at assets/cromos/banner_camino.png to enable
-  // const bannerArt = require('../../../assets/cromos/banner_camino.png');
-  const bannerArt = null;
+  // Latest pack — update when a new collection is added (same source as CromosCard)
+  const LATEST_PACK_NAME_ES = 'Los Milagros de Jesús';
+  const LATEST_PACK_NAME_EN = 'The Miracles of Jesus';
+  const latestPackImage = require('../../../assets/packs/pack_milagros_pack.png');
 
   return (
     <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
@@ -889,8 +896,8 @@ function LaunchEventBanner({
             end={{ x: 1, y: 1 }}
             style={{ borderRadius: 23, padding: 1 }}
           >
-            {/* Banner container with overflow hidden for bg image */}
-            <View style={{ borderRadius: 22, overflow: 'hidden' }}>
+            {/* Banner container */}
+            <View style={{ borderRadius: 22, overflow: 'hidden', minHeight: 170 }}>
               {/* Background gradient base */}
               <LinearGradient
                 colors={[G1, G2, '#030F07']}
@@ -899,25 +906,11 @@ function LaunchEventBanner({
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
               />
 
-              {/* Background art image — cover style */}
-              {bannerArt && (
-                <Image
-                  source={bannerArt}
-                  style={{
-                    position: 'absolute',
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    width: '100%', height: '100%',
-                    opacity: 0.30,
-                  }}
-                  resizeMode="cover"
-                />
-              )}
-
-              {/* Overlay scrim */}
+              {/* Overlay scrim — left side so text stays readable */}
               <LinearGradient
-                colors={['transparent', 'rgba(13,31,23,0.65)']}
+                colors={['rgba(13,31,23,0.95)', 'rgba(13,31,23,0.65)', 'transparent']}
                 start={{ x: 0, y: 0 }}
-                end={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
               />
 
@@ -932,10 +925,24 @@ function LaunchEventBanner({
                 borderRadius: 99,
               }} />
 
-              {/* Content */}
-              <View style={{ padding: 20 }}>
-                {/* Badge */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
+              {/* Pack image — bottom right */}
+              <Image
+                source={latestPackImage}
+                style={{
+                  position: 'absolute',
+                  bottom: -8,
+                  right: 16,
+                  width: 100,
+                  height: 138,
+                  opacity: 0.95,
+                }}
+                resizeMode="contain"
+              />
+
+              {/* Content — left side */}
+              <View style={{ padding: 20, paddingRight: 130 }}>
+                {/* Badge row */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 6 }}>
                   <View style={{
                     backgroundColor: ACCENT + '33',
                     borderWidth: 1,
@@ -950,13 +957,29 @@ function LaunchEventBanner({
                   </View>
                 </View>
 
+                {/* Latest collection label */}
+                <View style={{
+                  backgroundColor: 'rgba(122,200,160,0.15)',
+                  borderWidth: 1,
+                  borderColor: 'rgba(122,200,160,0.30)',
+                  borderRadius: 99,
+                  paddingHorizontal: 10,
+                  paddingVertical: 3,
+                  alignSelf: 'flex-start',
+                  marginBottom: 10,
+                }}>
+                  <Text style={{ fontSize: sFont(10), fontWeight: '700', color: 'rgba(122,200,160,0.90)', letterSpacing: 0.3 }} numberOfLines={1}>
+                    {language === 'es' ? `Nueva Colección · ${LATEST_PACK_NAME_ES}` : `New Collection · ${LATEST_PACK_NAME_EN}`}
+                  </Text>
+                </View>
+
                 {/* Title */}
                 <Text style={{
                   fontSize: sFont(22),
                   fontWeight: '800',
                   color: '#FFFFFF',
                   letterSpacing: -0.3,
-                  marginBottom: 6,
+                  marginBottom: 5,
                   textShadowColor: 'rgba(0,0,0,0.4)',
                   textShadowOffset: { width: 0, height: 1 },
                   textShadowRadius: 4,
@@ -965,37 +988,21 @@ function LaunchEventBanner({
                 </Text>
 
                 {/* Description */}
-                <Text style={{ fontSize: sFont(13), color: 'rgba(255,255,255,0.75)', lineHeight: 18, marginBottom: 16 }}>
+                <Text style={{ fontSize: sFont(12), color: 'rgba(255,255,255,0.65)', lineHeight: 17, marginBottom: 16 }}>
                   {language === 'es'
                     ? 'La fe que siembras hoy dará fruto mañana.'
                     : 'The faith you plant today will bear fruit tomorrow.'}
                 </Text>
 
-                {/* Items preview: emojis */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 16 }}>
-                  {['🌱', '🍇', '🌿', '👑', '🕊️'].map((emoji, i) => (
-                    <View key={i} style={{
-                      width: 32, height: 32, borderRadius: 16,
-                      backgroundColor: 'rgba(255,255,255,0.08)',
-                      alignItems: 'center', justifyContent: 'center',
-                    }}>
-                      <Text style={{ fontSize: sFont(16) }}>{emoji}</Text>
-                    </View>
-                  ))}
-                  <Text style={{ fontSize: sFont(11), color: 'rgba(255,255,255,0.5)', marginLeft: 4 }}>
-                    5 {language === 'es' ? 'recompensas' : 'rewards'}
-                  </Text>
-                </View>
-
                 {/* CTA */}
                 <View style={{
                   backgroundColor: ACCENT,
                   borderRadius: 99,
-                  paddingHorizontal: 20,
-                  paddingVertical: 10,
+                  paddingHorizontal: 18,
+                  paddingVertical: 9,
                   alignSelf: 'flex-start',
                 }}>
-                  <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFFFFF' }}>
+                  <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#FFFFFF' }}>
                     {language === 'es' ? 'Ver paquetes' : 'View packages'}
                   </Text>
                 </View>
