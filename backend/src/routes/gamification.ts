@@ -3377,24 +3377,31 @@ gamificationRouter.post(
         ];
 
         const pool = packType === 'pack_pascua' ? PASCUA_POOL : packType === 'pack_milagros' ? MILAGROS_POOL : CARD_POOL;
-        const cardId = pool[Math.floor(Math.random() * pool.length)] as string;
 
-        // Check if user already has this card
-        const existing = await tx.biblicalCardInventory.findUnique({
-          where: { userId_cardId: { userId, cardId } },
-        });
+        // pack_milagros gives 3 cards (same as purchased); others give 1
+        const cardsToDrawCount = packType === 'pack_milagros' ? 3 : 1;
+        const drawnCards: Array<{ cardId: string; wasNew: boolean }> = [];
 
-        let wasNew = false;
-        if (existing) {
-          await tx.biblicalCardInventory.update({
+        for (let i = 0; i < cardsToDrawCount; i++) {
+          const cardId = pool[Math.floor(Math.random() * pool.length)] as string;
+
+          const existing = await tx.biblicalCardInventory.findUnique({
             where: { userId_cardId: { userId, cardId } },
-            data: { duplicates: { increment: 1 } },
           });
-        } else {
-          await tx.biblicalCardInventory.create({
-            data: { userId, cardId, owned: true, duplicates: 0, isNew: true },
-          });
-          wasNew = true;
+
+          let wasNew = false;
+          if (existing) {
+            await tx.biblicalCardInventory.update({
+              where: { userId_cardId: { userId, cardId } },
+              data: { duplicates: { increment: 1 } },
+            });
+          } else {
+            await tx.biblicalCardInventory.create({
+              data: { userId, cardId, owned: true, duplicates: 0, isNew: true },
+            });
+            wasNew = true;
+          }
+          drawnCards.push({ cardId, wasNew });
         }
 
         // Increment daily claim count
@@ -3409,7 +3416,8 @@ gamificationRouter.post(
 
         return {
           success: true,
-          drawnCard: { cardId, wasNew },
+          drawnCard: drawnCards[0],
+          drawnCards,
           remaining,
           dailyLimit: dailyPackLimit,
           isPremium,

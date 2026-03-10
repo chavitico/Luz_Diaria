@@ -1096,6 +1096,7 @@ export const gamificationApi = {
   async claimDailyPack(userId: string, packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros'): Promise<{
     success: boolean;
     drawnCard?: { cardId: string; wasNew: boolean };
+    drawnCards?: Array<{ cardId: string; wasNew: boolean }>;
     remaining?: number;
     dailyLimit?: number;
     isPremium?: boolean;

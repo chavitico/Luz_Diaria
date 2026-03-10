@@ -8026,13 +8026,16 @@ export default function StoreScreen() {
     try {
       const res = await gamificationApi.claimDailyPack(userId, packType);
       console.log('[Store][DailyPack] claimed', res);
-      if (res.success && res.drawnCard) {
+      const cards = res.drawnCards && res.drawnCards.length > 0
+        ? res.drawnCards
+        : res.drawnCard ? [res.drawnCard] : [];
+      if (res.success && cards.length > 0) {
         refetchDailyPack();
         queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
         queryClient.invalidateQueries({ queryKey: ['backendUser'] });
         console.log('[Store][DailyPack] queuing reveal, closing sheet');
         setPendingPackReveal({
-          drawnCards: res.drawnCard ? [res.drawnCard] : [],
+          drawnCards: cards,
           packType,
         });
         setShowStoreSectionModal(false);
