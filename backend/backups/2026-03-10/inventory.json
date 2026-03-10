@@ -1,0 +1,1521 @@
+[
+  {
+    "id": "cmm9x0ygk0004m2srlqyqrhfi",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-03T01:14:49.077Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmm9x0ygn0006m2srgutvi4bi",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-03T01:14:49.080Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmm9xpoo90009m29q2avmyj6o",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-03T01:34:02.793Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmm9y737d000qm29qbvhsjwfh",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-03T01:47:34.777Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmm9yee2g000ym29q7kl5cjgj",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-03T01:53:15.448Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmm9yee2i0010m29qi1oc07tt",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-03T01:53:15.450Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmm9yee2j0012m29q6grpikom",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-03T01:53:15.452Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmm9zvms3000pm2qft96hi9mu",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_amigo",
+    "acquiredAt": "2026-03-03T02:34:39.507Z",
+    "source": "store"
+  },
+  {
+    "id": "cmm9zvrsy000rm2qfpi5urqbr",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_valiente",
+    "acquiredAt": "2026-03-03T02:34:46.019Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma012m7000vm2qfloejuap9",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "frame_v2_jade",
+    "acquiredAt": "2026-03-03T02:38:53.312Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma309zg000pm25kvjnd1bmq",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_valentia",
+    "acquiredAt": "2026-03-03T04:02:15.053Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmma36cdp000sm25kynvhwgbn",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-03T04:06:58.094Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmma36cdt000um25kxa5xqs5a",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-03T04:06:58.097Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmma36ce3000wm25kgb4jx1p3",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-03T04:06:58.107Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmma39ov9000ym25k1vkk16v6",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_buscador",
+    "acquiredAt": "2026-03-03T04:09:34.245Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma3slc40014m25kyzr3yw7d",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "theme_mar_misericordia",
+    "acquiredAt": "2026-03-03T04:24:16.133Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma3tm9s0016m25kj3aqsoq8",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "theme_cielo_gloria",
+    "acquiredAt": "2026-03-03T04:25:04.001Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma4fe5e000wm2ure6xvkxjb",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_v2_valentia",
+    "acquiredAt": "2026-03-03T04:41:59.906Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmma4hn8k0014m2urpzdo2zfp",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_covenant_rainbow",
+    "acquiredAt": "2026-03-03T04:43:44.996Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma4ig170016m2ur3d3f4rbf",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_jardin_gracia",
+    "acquiredAt": "2026-03-03T04:44:22.315Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma4sv9z0018m2urpq24qspl",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_v2_halo_azul",
+    "acquiredAt": "2026-03-03T04:52:28.631Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma4tqha001am2ur3tooa5x5",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_amigo",
+    "acquiredAt": "2026-03-03T04:53:09.070Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma4u0np001cm2urs49jw3rw",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_caminando",
+    "acquiredAt": "2026-03-03T04:53:22.262Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5bkry0028m2urzl8bs5sp",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_noche_paz",
+    "acquiredAt": "2026-03-03T05:07:01.487Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5c34p002am2ur78uzlujx",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-03T05:07:25.273Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5c4sx002cm2urp1cc9f09",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_angelito",
+    "acquiredAt": "2026-03-03T05:07:27.441Z",
+    "source": "bundle:bundle_v2_infantil"
+  },
+  {
+    "id": "cmma5c4sx002em2urtvrwwfa9",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_arcoiris",
+    "acquiredAt": "2026-03-03T05:07:27.442Z",
+    "source": "bundle:bundle_v2_infantil"
+  },
+  {
+    "id": "cmma5c4sx002gm2urelgkejqn",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_estrellita",
+    "acquiredAt": "2026-03-03T05:07:27.442Z",
+    "source": "bundle:bundle_v2_infantil"
+  },
+  {
+    "id": "cmma5c4sy002im2urfe8g7gmw",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_nube",
+    "acquiredAt": "2026-03-03T05:07:27.442Z",
+    "source": "bundle:bundle_v2_infantil"
+  },
+  {
+    "id": "cmma5c9aw002km2ur58lnz2f7",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_promesa_violeta",
+    "acquiredAt": "2026-03-03T05:07:33.273Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5cpv8002mm2ur3lyrihm3",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_luz_celestial",
+    "acquiredAt": "2026-03-03T05:07:54.741Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5d5d0002om2urxwbjs17y",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_calm_river",
+    "acquiredAt": "2026-03-03T05:08:14.820Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5eaxx002qm2urs2r1hg05",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_buscador",
+    "acquiredAt": "2026-03-03T05:09:08.710Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5ejxb002sm2ur5kcjbphf",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_corazon",
+    "acquiredAt": "2026-03-03T05:09:20.351Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5eo34002um2ur53vfkf09",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_caminando",
+    "acquiredAt": "2026-03-03T05:09:25.744Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5euj6002wm2urr3x9rp9t",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_siervo",
+    "acquiredAt": "2026-03-03T05:09:34.099Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5f1yh002ym2urw1ehmiu6",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_amigo",
+    "acquiredAt": "2026-03-03T05:09:43.721Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5f5a60030m2uriyri77a0",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_valiente",
+    "acquiredAt": "2026-03-03T05:09:48.031Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5f7cm0032m2urthrqv542",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-03T05:09:50.710Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5f9f30034m2ur6hc7qs0g",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_luz",
+    "acquiredAt": "2026-03-03T05:09:53.392Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5fl4d0036m2urpina28cf",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_constructor",
+    "acquiredAt": "2026-03-03T05:10:08.558Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5fmzv0038m2urty1mzss5",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_peregrino",
+    "acquiredAt": "2026-03-03T05:10:10.987Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5fyd3003am2urs8vdko4g",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_heir_promises",
+    "acquiredAt": "2026-03-03T05:10:25.720Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5g1jz003cm2urc6f0cj2s",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_patient_wait",
+    "acquiredAt": "2026-03-03T05:10:29.856Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5g3km003em2urj7kh8np9",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_belt_truth",
+    "acquiredAt": "2026-03-03T05:10:32.470Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5g5ef003gm2ur9oi2ea3g",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_guard_word",
+    "acquiredAt": "2026-03-03T05:10:34.839Z",
+    "source": "store"
+  },
+  {
+    "id": "cmma5host003im2uriuvg02ee",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_v2_leon",
+    "acquiredAt": "2026-03-03T05:11:46.637Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmaom5hm000xm25pdazsraud",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "avatar_v2_valentia",
+    "acquiredAt": "2026-03-03T14:07:07.595Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmaqp7bq000rm268sy6mwsjd",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-03T15:05:29.175Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmaqp7bx000tm268xwqm5wrx",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-03T15:05:29.181Z",
+    "source": "achievement"
+  },
+  {
+    "id": "founder_chavitico",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-03T18:18:55.000Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmaza56n000vm2e2xw0wst7e",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-03T19:05:43.104Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmazaku6000ym2e2ozoq712r",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-03T19:06:03.390Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmb0zon20011m2nulm8ooy9b",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_mar_misericordia",
+    "acquiredAt": "2026-03-03T19:53:34.335Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb1087i0013m2nu6oj4won8",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_jardin_gracia",
+    "acquiredAt": "2026-03-03T19:53:59.694Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb10cwo0015m2nui9ll3g4j",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_amanecer_dorado",
+    "acquiredAt": "2026-03-03T19:54:05.784Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb1bz65001fm2nu1ivkh3bk",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-03T20:03:07.853Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmb2o70l0013m2q0vql1whua",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_bosque",
+    "acquiredAt": "2026-03-03T20:40:37.509Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb2oevq0015m2q09johd4to",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-03T20:40:47.702Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb2svg8001am2q02bxm5rgo",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "avatar_l2_amor_sacrificial",
+    "acquiredAt": "2026-03-03T20:44:15.800Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmb3onrt001ym2q0g4nnerp0",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-03T21:08:58.842Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmb3ppmv0026m2q07ed94wks",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "title_corazon",
+    "acquiredAt": "2026-03-03T21:09:47.911Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb3rgl4002am2q06ebvvrk5",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "theme_desierto_suave",
+    "acquiredAt": "2026-03-03T21:11:09.496Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb3rzpk002cm2q0ytuy71cy",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "theme_hope_dawn",
+    "acquiredAt": "2026-03-03T21:11:34.280Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb3ufzc002gm2q0e4c0n2g9",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-03T21:13:28.680Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmb46ibi002km2q0i3pzbaat",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-03T21:22:51.583Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmb48v1k002mm2q06ir80m47",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "badge_primer_paso",
+    "acquiredAt": "2026-03-03T21:24:41.384Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmb49eiy002tm2q038v1vweb",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "frame_azul",
+    "acquiredAt": "2026-03-03T21:25:06.634Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb4ckr00039m2q0lpj5snik",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "avatar_v2_paloma_paz",
+    "acquiredAt": "2026-03-03T21:27:34.668Z",
+    "source": "bundle:bundle_v2_paz"
+  },
+  {
+    "id": "cmmb4ckr0003bm2q0u07xxman",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "avatar_v2_paz",
+    "acquiredAt": "2026-03-03T21:27:34.668Z",
+    "source": "bundle:bundle_v2_paz"
+  },
+  {
+    "id": "cmmb4ckr0003dm2q0vy977y4t",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-03T21:27:34.669Z",
+    "source": "bundle:bundle_v2_paz"
+  },
+  {
+    "id": "cmmb4ckr0003fm2q0pdlomftr",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-03T21:27:34.669Z",
+    "source": "bundle:bundle_v2_paz"
+  },
+  {
+    "id": "cmmb6k8d3001am2y9x3iu4m64",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "avatar_l2_ancla_alma",
+    "acquiredAt": "2026-03-03T22:29:31.095Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmb74pjp0015m29mx31jkuzu",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-03T22:45:26.485Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmb75uxk0017m29mka0cyh14",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_desierto_suave",
+    "acquiredAt": "2026-03-03T22:46:20.120Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb7jiy50013m2t2lle8jryn",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_fuego_espiritu",
+    "acquiredAt": "2026-03-03T22:56:57.774Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb7n85e0015m2t2kiciuu6z",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_amanecer_dorado",
+    "acquiredAt": "2026-03-03T22:59:50.403Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb9f0zx001vm21a82ixul31",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_l2_corona_vida",
+    "acquiredAt": "2026-03-03T23:49:27.118Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmb9l1nb001xm21a6wju0nac",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "frame_verde",
+    "acquiredAt": "2026-03-03T23:54:07.896Z",
+    "source": "bundle:bundle_gratitud"
+  },
+  {
+    "id": "cmmb9l1nb001zm21a69ytmjjm",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_bosque",
+    "acquiredAt": "2026-03-03T23:54:07.896Z",
+    "source": "bundle:bundle_gratitud"
+  },
+  {
+    "id": "cmmb9oet60022m21azzxt7gig",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_promesa",
+    "acquiredAt": "2026-03-03T23:56:44.922Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmb9pvbs0026m21abk6b75q5",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "theme_hope_dawn",
+    "acquiredAt": "2026-03-03T23:57:52.984Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmbe6s4d001fm25r5naiz3qf",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-04T02:03:00.446Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmbepu550022m25rqzag18st",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_promise_scroll",
+    "acquiredAt": "2026-03-04T02:17:49.530Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmbfc6tt002am25rkk31a65s",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_guardian",
+    "acquiredAt": "2026-03-04T02:35:12.402Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmbfdurw002fm25r1insl3az",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "frame_faithful_seal",
+    "acquiredAt": "2026-03-04T02:36:30.092Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmbffo9h002im25rnogm7fk1",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_guiding_star",
+    "acquiredAt": "2026-03-04T02:37:54.965Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcd39sl000xm2otgk93ems9",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "badge_portador_esperanza",
+    "acquiredAt": "2026-03-04T18:20:03.285Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmchmllj000xm26eccacl256",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_psalm_shepherd",
+    "acquiredAt": "2026-03-04T20:27:03.511Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcizi8p000xm2m7udyi41cs",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_v2_fuego_sagrado",
+    "acquiredAt": "2026-03-04T21:05:05.305Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcm1bii000xm2u1q824a1gy",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_rama_olivo",
+    "acquiredAt": "2026-03-04T22:30:28.747Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm1bij000zm2u1i6wj2xg5",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-04T22:30:28.747Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm1bij0011m2u1ix1smunb",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_vid_racimos",
+    "acquiredAt": "2026-03-04T22:30:28.747Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm1bij0013m2u10zxsjffs",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_corona",
+    "acquiredAt": "2026-03-04T22:30:28.748Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm1bik0015m2u15mvlotye",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-04T22:30:28.748Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmcm25vo0017m2u1to7jxwml",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_adv_david_sling",
+    "acquiredAt": "2026-03-04T22:31:08.101Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmcm25vp0019m2u1cuae4kkh",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_adv_valley_battle",
+    "acquiredAt": "2026-03-04T22:31:08.101Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmcm25vp001bm2u1fyqda9zb",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_vencedor_gigantes",
+    "acquiredAt": "2026-03-04T22:31:08.101Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmcm2c8b001dm2u1qm8y7art",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_adv_jonah_whale",
+    "acquiredAt": "2026-03-04T22:31:16.331Z",
+    "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmcm2c8b001fm2u1liv68g0p",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_adv_ocean_deep",
+    "acquiredAt": "2026-03-04T22:31:16.331Z",
+    "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmcm2c8b001hm2u1mwgt5qdv",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_mensajero_senor",
+    "acquiredAt": "2026-03-04T22:31:16.332Z",
+    "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmcokzxr0069m26bgb5vmpm0",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-04T23:41:46.095Z",
+    "source": "support_grant"
+  },
+  {
+    "id": "cmmcol6f1006dm26by5rui4yb",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "itemId": "avatar_easter_cross_light",
+    "acquiredAt": "2026-03-04T23:41:54.492Z",
+    "source": "support_grant"
+  },
+  {
+    "id": "cmmcol6f3006fm26blejawtjg",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "itemId": "frame_easter_resurrection",
+    "acquiredAt": "2026-03-04T23:41:54.495Z",
+    "source": "support_grant"
+  },
+  {
+    "id": "cmmcol6f4006hm26bkg26wtyb",
+    "userId": "cmm9wyrup0000m2ljk2gdacr0",
+    "itemId": "title_resurrection_power",
+    "acquiredAt": "2026-03-04T23:41:54.496Z",
+    "source": "support_grant"
+  },
+  {
+    "id": "cmmcq259e000xm2mxqp84mrtj",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_minimal",
+    "acquiredAt": "2026-03-05T00:23:05.762Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcq59dh0017m2mxy32a9vob",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_v2_luna_plata",
+    "acquiredAt": "2026-03-05T00:25:31.062Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcqhep7000xm2chcoim2vkz",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_biblia_abierta",
+    "acquiredAt": "2026-03-05T00:34:57.835Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcqhz5u000zm2cha55onplh",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_lampara_aceite",
+    "acquiredAt": "2026-03-05T00:35:24.354Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcrn6pv0010m26byjcivn5h",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_cordero",
+    "acquiredAt": "2026-03-05T01:07:27.043Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcupubg000xm25wdhfv71tf",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_pez_ichthys",
+    "acquiredAt": "2026-03-05T02:33:29.788Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcv8wps0018m2xc58eldgd2",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-05T02:48:19.360Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcv9vzq001am2xcfd44zxub",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_amor",
+    "acquiredAt": "2026-03-05T02:49:05.079Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvapxn001cm2xcouff7x3h",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v3_paloma_luz",
+    "acquiredAt": "2026-03-05T02:49:43.883Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvawky001em2xcbr5rclpk",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v3_leon_valiente",
+    "acquiredAt": "2026-03-05T02:49:52.498Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvrw6p001sm2xcmjrn6xxi",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_cielo_gloria",
+    "acquiredAt": "2026-03-05T03:03:05.137Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvsd04001um2xc4lp5un9x",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_portador",
+    "acquiredAt": "2026-03-05T03:03:26.932Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvuxc8001wm2xco5wm2q3n",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_all_through_christ",
+    "acquiredAt": "2026-03-05T03:05:26.600Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvv5i6001ym2xcwmzzh3zn",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_walk_by_faith",
+    "acquiredAt": "2026-03-05T03:05:37.183Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvvlv60028m2xctmppcgac",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_patient_wait",
+    "acquiredAt": "2026-03-05T03:05:58.387Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvx7wy002am2xceh4a4rme",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v3_paloma_luz",
+    "acquiredAt": "2026-03-05T03:07:13.618Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcvydu9002cm2xcvy72mqps",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "title_word_is_light",
+    "acquiredAt": "2026-03-05T03:08:07.953Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcw1mth002pm2xcl6radr14",
+    "userId": "cmmb46i64002im2q08tv0dw6y",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-05T03:10:39.557Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmcw2pgc002vm2xchylcepvp",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_azul",
+    "acquiredAt": "2026-03-05T03:11:29.628Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcw7zwq002ym2xcpcg9ncko",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "theme_promesa",
+    "acquiredAt": "2026-03-05T03:15:36.458Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcxxjfy003sm2xc7jr8686j",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "avatar_v2_cruz_radiante",
+    "acquiredAt": "2026-03-05T04:03:27.791Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcy29ll003um2xcabss4vt7",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "avatar_v3_leon_valiente",
+    "acquiredAt": "2026-03-05T04:07:08.314Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcy9a470044m2xclf61a6af",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "frame_v2_rosa_gracia",
+    "acquiredAt": "2026-03-05T04:12:35.575Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcypqz8004km2xcijf1820i",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-05T04:25:23.924Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmcyrsei004mm2xcpvz9oed7",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "theme_promesa_violeta",
+    "acquiredAt": "2026-03-05T04:26:59.082Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmczdm9z004tm2xcmf120tq5",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "avatar_v2_rama_olivo",
+    "acquiredAt": "2026-03-05T04:43:57.576Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmczdma0004vm2xcffbc4va0",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-05T04:43:57.576Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmczdma0004xm2xctrfpriyv",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "avatar_v2_vid_racimos",
+    "acquiredAt": "2026-03-05T04:43:57.576Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmczdma0004zm2xcogvlx1uh",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "frame_corona",
+    "acquiredAt": "2026-03-05T04:43:57.577Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmczdma00051m2xcstcd5fbb",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-05T04:43:57.577Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmd1x5b10013m27el6d9onhf",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_adv_lion_faith",
+    "acquiredAt": "2026-03-05T05:55:07.933Z",
+    "source": "bundle:bundle_adv_daniel"
+  },
+  {
+    "id": "cmmd1x5b20015m27eksjxfsws",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_adv_lions_den",
+    "acquiredAt": "2026-03-05T05:55:07.934Z",
+    "source": "bundle:bundle_adv_daniel"
+  },
+  {
+    "id": "cmmd1x5b20017m27ew335xb97",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_fe_inquebrantable",
+    "acquiredAt": "2026-03-05T05:55:07.935Z",
+    "source": "bundle:bundle_adv_daniel"
+  },
+  {
+    "id": "cmmd2bmxn0016m207ddcvh35z",
+    "userId": "user_y2gpgsrn359mmcyy3c4",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-05T06:06:23.963Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmd2eoio001rm207wqsxwhyt",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_fuego",
+    "acquiredAt": "2026-03-05T06:08:45.985Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmd3q442000zm23vv0cji76a",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_dorado",
+    "acquiredAt": "2026-03-05T06:45:39.026Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmd50elc0019m2btc10z7krk",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_renewed_strength",
+    "acquiredAt": "2026-03-05T07:21:38.784Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmd6cp2j001pm2btgkoqdhwx",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_l2_fe_inquebrantable",
+    "acquiredAt": "2026-03-05T07:59:11.851Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmdhcdoe000zm26bg27hyuvn",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_v2_gozo",
+    "acquiredAt": "2026-03-05T13:06:52.862Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmdkqo2l0019m261p3tv865t",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "title_guardian",
+    "acquiredAt": "2026-03-05T14:41:58.365Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmdltfnh001mm26189g554fz",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_l2_espada_espiritu",
+    "acquiredAt": "2026-03-05T15:12:07.037Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmdlto72001um26194wgvptg",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_shield_faith",
+    "acquiredAt": "2026-03-05T15:12:18.110Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmdltzs60022m261f5z9mh82",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_v2_corona_vida",
+    "acquiredAt": "2026-03-05T15:12:33.127Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmdnusxz000zm2pgu4tax8iv",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_adv_lion_faith",
+    "acquiredAt": "2026-03-05T16:09:10.152Z",
+    "source": "bundle:bundle_adv_daniel"
+  },
+  {
+    "id": "cmmdnusy00011m2pgxp54ry5p",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_adv_lions_den",
+    "acquiredAt": "2026-03-05T16:09:10.152Z",
+    "source": "bundle:bundle_adv_daniel"
+  },
+  {
+    "id": "cmmdnusy00013m2pgzcunb496",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_fe_inquebrantable",
+    "acquiredAt": "2026-03-05T16:09:10.152Z",
+    "source": "bundle:bundle_adv_daniel"
+  },
+  {
+    "id": "cmmdnvj0h0015m2pg4sg9qfr5",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_adv_elijah_fire",
+    "acquiredAt": "2026-03-05T16:09:43.937Z",
+    "source": "bundle:bundle_adv_elijah"
+  },
+  {
+    "id": "cmmdnvj0h0017m2pgnenka5dn",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_adv_fire_heaven",
+    "acquiredAt": "2026-03-05T16:09:43.938Z",
+    "source": "bundle:bundle_adv_elijah"
+  },
+  {
+    "id": "cmmdnvj0i0019m2pg3n0lnztu",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_profeta_de_fuego",
+    "acquiredAt": "2026-03-05T16:09:43.938Z",
+    "source": "bundle:bundle_adv_elijah"
+  },
+  {
+    "id": "cmmdnvqxp001bm2pg3al5bvb6",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "avatar_adv_queen_esther",
+    "acquiredAt": "2026-03-05T16:09:54.205Z",
+    "source": "bundle:bundle_adv_esther"
+  },
+  {
+    "id": "cmmdnvqxp001dm2pg9crvnfmu",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_adv_royal_persia",
+    "acquiredAt": "2026-03-05T16:09:54.206Z",
+    "source": "bundle:bundle_adv_esther"
+  },
+  {
+    "id": "cmmdnvqxq001fm2pguy94tb1w",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_valiente_corazon",
+    "acquiredAt": "2026-03-05T16:09:54.206Z",
+    "source": "bundle:bundle_adv_esther"
+  },
+  {
+    "id": "cmmdpg00g001jm26qblszwf2e",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "pincel_magico",
+    "acquiredAt": "2026-03-05T16:53:38.705Z",
+    "source": "used"
+  },
+  {
+    "id": "cmmdr373q000zm268ph2v5qol",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "avatar_v2_rama_olivo",
+    "acquiredAt": "2026-03-05T17:39:40.598Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdr373q0011m268lpj5xk7k",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-05T17:39:40.599Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdr373q0013m268oqnpbjmt",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "avatar_v2_vid_racimos",
+    "acquiredAt": "2026-03-05T17:39:40.599Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdr373r0015m268e75idsux",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "frame_corona",
+    "acquiredAt": "2026-03-05T17:39:40.599Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdr373r0017m268mqinz5ns",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-05T17:39:40.600Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmdrhyna000zm2yc35cl17ru",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_bosque_sereno",
+    "acquiredAt": "2026-03-05T17:51:09.478Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmdv5q2d002qm2xf369i7rmc",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-05T19:33:36.949Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmdxkqa50013m2o40ibciq7u",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "title_renewed_strength",
+    "acquiredAt": "2026-03-05T20:41:16.301Z",
+    "source": "store"
+  },
+  {
+    "id": "cmme8v6q5003gm26ev8edij4l",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "frame_v2_jade",
+    "acquiredAt": "2026-03-06T01:57:19.949Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmegk68p0011m26pwll6i8sq",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_rama_olivo",
+    "acquiredAt": "2026-03-06T05:32:43.034Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmegk68q0013m26papmcreyf",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_semilla_mostaza",
+    "acquiredAt": "2026-03-06T05:32:43.034Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmegk68q0015m26pomkyi0tr",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_v2_vid_racimos",
+    "acquiredAt": "2026-03-06T05:32:43.035Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmegk68q0017m26p6pke0v0u",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_corona",
+    "acquiredAt": "2026-03-06T05:32:43.035Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmegk68r0019m26phif3wfzi",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_sembrador",
+    "acquiredAt": "2026-03-06T05:32:43.035Z",
+    "source": "bundle:bundle_launch_growth"
+  },
+  {
+    "id": "cmmf6zvzr002zm25y32ts8p0y",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "title_love_never_fails",
+    "acquiredAt": "2026-03-06T17:52:46.263Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmf98riw0011m2f9gbmnrvil",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-09T22:57:36.246Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfjield000zm22zvdqdpqkw",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-07T07:13:56.937Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmflx40n0021m2lnqaow4ojc",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_fuego_espiritu",
+    "acquiredAt": "2026-03-07T00:50:30.936Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfmlkij0011m2i25duo0bm1",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-09T22:14:25.407Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfr0cz9000zm2xqtdi5wooh",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_covenant_rainbow",
+    "acquiredAt": "2026-03-07T03:13:00.597Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfr0v120011m2xq64dwyy43",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_promesa_violeta",
+    "acquiredAt": "2026-03-07T03:13:23.990Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfr12vi0013m2xqpw4czfg4",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_luz_celestial",
+    "acquiredAt": "2026-03-07T03:13:34.159Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfr1hbh0015m2xqlt5itfzv",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_bosque",
+    "acquiredAt": "2026-03-07T03:13:52.878Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfrusef0015m23en1qs4i4w",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-09T23:13:40.542Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfxxd9l0023m2u7umu57j7j",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-09T19:23:00.920Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfybhtn003vm2u75ho3p6ar",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-07T06:37:37.404Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmfzddfh0020m2xywj8ycrmb",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "pincel_magico",
+    "acquiredAt": "2026-03-07T07:07:04.637Z",
+    "source": "used"
+  },
+  {
+    "id": "cmmfzge3o002mm2xypp5h33is",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_bosque_sereno",
+    "acquiredAt": "2026-03-07T07:09:25.477Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfzgx2c002om2xyd4phs7er",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "title_grace_is_enough",
+    "acquiredAt": "2026-03-07T07:09:50.052Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfzq341003km2xy3qovjrpv",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "title_walk_by_faith",
+    "acquiredAt": "2026-03-07T07:16:57.793Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmfzzgrz0056m2xy7j7dqec3",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_adv_david_sling",
+    "acquiredAt": "2026-03-07T07:24:15.407Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmfzzgrz0058m2xyahn0zzgy",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "frame_adv_valley_battle",
+    "acquiredAt": "2026-03-07T07:24:15.407Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmfzzgrz005am2xye77rlobl",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_vencedor_gigantes",
+    "acquiredAt": "2026-03-07T07:24:15.408Z",
+    "source": "bundle:bundle_adv_david"
+  },
+  {
+    "id": "cmmg02t7a007gm2xyfffisi49",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-09T19:22:41.572Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmg0ernq008am2xymxzghfc2",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "avatar_v3_olivo_gracia",
+    "acquiredAt": "2026-03-07T07:36:09.350Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgfx5of001wm2waptapyfkm",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-09T13:03:48.900Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgfydjy0022m2waz6x4tltl",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-08T19:47:55.282Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgi1sw00015m25xac5ecqni",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-07T15:51:51.886Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgi6r3f001im25x4kn466yl",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-07T15:53:48.459Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgpz9bg0015m26bg7l4yvbd",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "theme_unshakable_rock",
+    "acquiredAt": "2026-03-07T19:31:55.756Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgu49ly001lm26sfrcrt12y",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-08T20:08:13.386Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgu515d001pm26sualgk5d9",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-08T20:05:31.171Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgz2ogx001dm26473igdjbx",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_v2_cordero",
+    "acquiredAt": "2026-03-07T23:46:31.905Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmgz3i75001fm2646c1wgb87",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "avatar_adv_jonah_whale",
+    "acquiredAt": "2026-03-07T23:47:10.434Z",
+    "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmgz3i76001hm264v04de8n2",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "frame_adv_ocean_deep",
+    "acquiredAt": "2026-03-07T23:47:10.434Z",
+    "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmgz3i76001jm264x6z0bz29",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_mensajero_senor",
+    "acquiredAt": "2026-03-07T23:47:10.434Z",
+    "source": "bundle:bundle_adv_jonas"
+  },
+  {
+    "id": "cmmhqlmo3001am27ekgdypdok",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "badge_valiente_reino",
+    "acquiredAt": "2026-03-08T12:37:05.667Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmi3rf4u001jm25qlcqetg14",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-09T20:33:19.424Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmi3s8n1001rm25qgzaid6io",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-09T14:29:06.481Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmi3vyxz002nm25qrrnuqmf7",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-08T18:49:03.144Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmi6jcqx0051m25vxobwkvz0",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "title_love_never_fails",
+    "acquiredAt": "2026-03-08T20:03:13.353Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmmirjch80017m2ocpc80zwml",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-09T22:58:03.005Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmiyfjjq0019m2e8nkjmovwl",
+    "userId": "cmmbe3rik0016m25rw06b6s43",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-09T22:41:02.607Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmj9l8yj001km26ybnkalwyd",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "itemId": "badge_portador_esperanza",
+    "acquiredAt": "2026-03-09T14:16:26.780Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmjihk2w002jm28z6ejvi7ww",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-09T23:14:33.373Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmjsulkx002zm29solx6o9si",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-09T23:15:35.745Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmjt8i1q0031m29s6emu11mq",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "avatar_adv_queen_esther",
+    "acquiredAt": "2026-03-09T23:26:24.351Z",
+    "source": "bundle:bundle_adv_esther"
+  },
+  {
+    "id": "cmmjt8i1r0033m29s0mm2oli7",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "frame_adv_royal_persia",
+    "acquiredAt": "2026-03-09T23:26:24.351Z",
+    "source": "bundle:bundle_adv_esther"
+  },
+  {
+    "id": "cmmjt8i1r0035m29sm9fubrhq",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "itemId": "title_valiente_corazon",
+    "acquiredAt": "2026-03-09T23:26:24.352Z",
+    "source": "bundle:bundle_adv_esther"
+  }
+]

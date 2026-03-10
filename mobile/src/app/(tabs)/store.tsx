@@ -397,10 +397,9 @@ function CromosCard({
   const G1 = '#0D1E3D';
   const G2 = '#071526';
 
-  // Background art — swap require() path when banner asset is ready
-  const bannerArt = (() => {
-    try { return require('../../../assets/cromos/banner_cromos.png'); } catch { return null; }
-  })();
+  // Background art slot — place file at assets/cromos/banner_cromos.png to enable
+  // const bannerArt = require('../../../assets/cromos/banner_cromos.png');
+  const bannerArt = null;
 
   return (
     <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
@@ -857,10 +856,9 @@ function LaunchEventBanner({
   const G2 = '#0D1F17';
   const ACCENT = '#4A7D5E';
 
-  // Background art — swap require() path when banner asset is ready
-  const bannerArt = (() => {
-    try { return require('../../../assets/cromos/banner_camino.png'); } catch { return null; }
-  })();
+  // Background art slot — place file at assets/cromos/banner_camino.png to enable
+  // const bannerArt = require('../../../assets/cromos/banner_camino.png');
+  const bannerArt = null;
 
   return (
     <View style={{ marginHorizontal: 20, marginBottom: 16 }}>
