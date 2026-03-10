@@ -55,6 +55,7 @@ import {
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   useThemeColors,
   useLanguage,
@@ -289,6 +290,8 @@ export default function SettingsScreen() {
   const setDarkMode = useAppStore((s) => s.setDarkMode);
   const updateSettings = useAppStore((s) => s.updateSettings);
   const updateUser = useAppStore((s) => s.updateUser);
+  const setOnboarded = useAppStore((s) => s.setOnboarded);
+  const setUser = useAppStore((s) => s.setUser);
   const queryClient = useQueryClient();
   const { sFont } = useScaledFont();
 
@@ -744,6 +747,39 @@ export default function SettingsScreen() {
         ? 'Deberías recibir una notificación de prueba en unos segundos.'
         : 'You should receive a test notification in a few seconds.',
       [{ text: 'OK' }]
+    );
+  };
+
+  const handleResetLocalData = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    Alert.alert(
+      language === 'es' ? 'Restablecer datos locales' : 'Reset Local Data',
+      language === 'es'
+        ? 'Esto borrara todos los datos guardados en este dispositivo y volveras a la pantalla de registro. Tu cuenta en el servidor NO se eliminara.'
+        : 'This will clear all locally stored data and return you to the registration screen. Your server account will NOT be deleted.',
+      [
+        {
+          text: language === 'es' ? 'Cancelar' : 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: language === 'es' ? 'Restablecer' : 'Reset',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await AsyncStorage.clear();
+              setOnboarded(false);
+              // @ts-ignore — null is valid to clear the user
+              setUser(null);
+            } catch (e) {
+              Alert.alert(
+                language === 'es' ? 'Error' : 'Error',
+                language === 'es' ? 'No se pudo restablecer. Intenta de nuevo.' : 'Could not reset. Please try again.'
+              );
+            }
+          },
+        },
+      ]
     );
   };
 
@@ -1274,6 +1310,20 @@ export default function SettingsScreen() {
                 </Animated.View>
               )}
             </Pressable>
+          </SectionCard>
+
+          {/* ── SECTION: DATOS DEL DISPOSITIVO ─────────────────── */}
+          <SectionLabel label={language === 'es' ? 'Datos del dispositivo' : 'Device Data'} colors={colors} />
+          <SectionCard colors={colors}>
+            <SettingRow
+              inCard
+              icon={<Smartphone size={20} color={'#EF4444'} />}
+              title={language === 'es' ? 'Restablecer datos locales' : 'Reset Local App Data'}
+              subtitle={language === 'es' ? 'Borra el cache del dispositivo y vuelve al registro' : 'Clears device cache and returns to registration'}
+              colors={colors}
+              onPress={handleResetLocalData}
+              right={<ChevronRight size={18} color={'#EF4444'} />}
+            />
           </SectionCard>
 
           {/* ── BRANDING + VERSION ───────────────────────────────── */}
