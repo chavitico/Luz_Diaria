@@ -362,12 +362,14 @@ function CromosCard({
   language,
   colors,
   onPress,
+  onPackImagePress,
   showNewBadge,
   badgeCount,
 }: {
   language: 'en' | 'es';
   colors: ReturnType<typeof useThemeColors>;
   onPress: () => void;
+  onPackImagePress?: () => void;
   showNewBadge?: boolean;
   badgeCount?: number;
 }) {
@@ -459,19 +461,26 @@ function CromosCard({
                   borderRadius: 99,
                 }} />
 
-                {/* Pack image — bottom right */}
-                <Image
-                  source={latestPackImage}
+                {/* Pack image — bottom right, tappable to buy */}
+                <Pressable
+                  onPress={() => { if (onPackImagePress) onPackImagePress(); }}
                   style={{
                     position: 'absolute',
                     bottom: -8,
                     right: 16,
                     width: 100,
                     height: 138,
-                    opacity: 0.95,
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
-                  resizeMode="contain"
-                />
+                  hitSlop={8}
+                >
+                  <Image
+                    source={latestPackImage}
+                    style={{ width: 100, height: 138, opacity: 0.95 }}
+                    resizeMode="contain"
+                  />
+                </Pressable>
 
                 {/* Content — left side */}
                 <View style={{ padding: 20, paddingRight: 130 }}>
@@ -508,11 +517,10 @@ function CromosCard({
                     borderColor: ACCENT + '55',
                     borderRadius: 99,
                     paddingHorizontal: 10,
-                    paddingVertical: 3,
-                    alignSelf: 'flex-start',
+                    paddingVertical: 4,
                     marginBottom: 10,
                   }}>
-                    <Text style={{ fontSize: sFont(10), fontWeight: '800', color: ACCENT, letterSpacing: 0.5 }} numberOfLines={1}>
+                    <Text style={{ fontSize: sFont(10), fontWeight: '800', color: ACCENT, letterSpacing: 0.5 }}>
                       🃏 {language === 'es' ? `Nueva Colección · ${LATEST_PACK_NAME_ES}` : `New Collection · ${LATEST_PACK_NAME_EN}`}
                     </Text>
                   </View>
@@ -8978,6 +8986,10 @@ export default function StoreScreen() {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
             setSubMenuType('cromos');
             setShowSubMenuModal(true);
+          }}
+          onPackImagePress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            setShowPackStore(true);
           }}
         />
 
