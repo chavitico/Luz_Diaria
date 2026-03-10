@@ -327,7 +327,9 @@ gamificationRouter.get("/user/:userId/role", async (c) => {
 gamificationRouter.get("/user/:userId", async (c) => {
   try {
     const userId = c.req.param("userId");
-    console.log(`[UserProfile] Lookup userId="${userId}"`);
+    const xForwardedFor = c.req.header("x-forwarded-for") ?? "unknown";
+    const userAgent = c.req.header("user-agent") ?? "unknown";
+    console.log(`[TESTFLIGHT-DEBUG] GET /user/:userId => userId="${userId}" | IP="${xForwardedFor}" | UA="${userAgent}"`);
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
