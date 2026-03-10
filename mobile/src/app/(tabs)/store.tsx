@@ -476,15 +476,15 @@ function CromosCard({
       return language === 'es' ? '🎁 Sobre diario disponible' : '🎁 Daily pack available';
     }
     if (dailyPackStatus.nextAvailableMs && dailyPackStatus.nextAvailableMs > 0) {
-      const totalSec = Math.ceil(dailyPackStatus.nextAvailableMs / 1000);
-      const h = Math.floor(totalSec / 3600);
-      const m = Math.floor((totalSec % 3600) / 60);
-      const countdown = h > 0
-        ? `${h}h ${m}m`
-        : `${m}m`;
-      return language === 'es'
-        ? `⏱ Próximo sobre gratis en ${countdown}`
-        : `⏱ Next free pack in ${countdown}`;
+      const diffMs = dailyPackStatus.nextAvailableMs - Date.now();
+      if (diffMs > 0) {
+        const h = Math.floor(diffMs / 3_600_000);
+        const m = Math.floor((diffMs % 3_600_000) / 60_000);
+        const countdown = h > 0 ? `${h}h ${m}m` : `${m}m`;
+        return language === 'es'
+          ? `⏱ Próximo sobre gratis en ${countdown}`
+          : `⏱ Next free pack in ${countdown}`;
+      }
     }
     return null;
   }, [dailyPackStatus, language]);
