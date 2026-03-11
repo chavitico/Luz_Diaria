@@ -340,6 +340,17 @@ export default function SettingsScreen() {
         setDebugBackendRole(data?.role ?? 'null');
         setDebugMeNickname(data?.nickname ?? 'null');
         setDebugMeUserId(data?.id ?? 'null');
+        // HARD FIX: if backend canonical id differs from store, overwrite immediately.
+        // This ensures the Settings footer (and all screens) show the correct id
+        // even if the bootstrap in _layout.tsx ran with the old stale-id logic.
+        if (data?.id && data.id !== user?.id) {
+          console.log(`[Settings] fetchDebugBackendRole: correcting store userId ${user?.id} → ${data.id}`);
+          const fixes: Record<string, string> = { id: data.id };
+          if (data.nickname && data.nickname !== user?.nickname) fixes.nickname = data.nickname;
+          if (data.role && data.role !== (user as { role?: string })?.role) fixes.role = data.role;
+          updateUser(fixes as Parameters<typeof updateUser>[0]);
+          queryClient.invalidateQueries();
+        }
       } else {
         setDebugBackendRole(`error-${res.status}`);
         setDebugMeUserId('error');
@@ -1536,21 +1547,23 @@ export default function SettingsScreen() {
             </Pressable>
           </View>
 
-          {/* Debug Info - User ID */}
-          {user?.id && (
+          {/* Debug Info - User ID — shows canonical backend id as primary source */}
+          {(user?.id || debugMeUserId) && (
             <View className="mb-4 px-2">
-              <Pressable
-                onPress={() => {}}
-              >
-                <Text className="text-xs" style={{ color: colors.textMuted + '60' }}>
-                  {t.user_id}: {user.id}
+              <Text className="text-xs" style={{ color: colors.textMuted + '60' }}>
+                {t.user_id}: {debugMeUserId && debugMeUserId !== '...' && debugMeUserId !== 'error' ? debugMeUserId : user?.id}
+              </Text>
+              <Text className="text-xs" style={{ color: colors.textMuted + '40' }}>
+                canonical (backend): {debugMeUserId ?? '...'}
+              </Text>
+              <Text className="text-xs" style={{ color: colors.textMuted + '40' }}>
+                rendered (store): {user?.id ?? '...'}
+              </Text>
+              {debugMeUserId && debugMeUserId !== '...' && debugMeUserId !== 'error' && user?.id && debugMeUserId !== user.id && (
+                <Text className="text-xs" style={{ color: '#EF4444' }}>
+                  MISMATCH — store stale, syncing...
                 </Text>
-                {debugMeUserId && debugMeUserId !== '...' && debugMeUserId !== 'error' && (
-                  <Text className="text-xs" style={{ color: debugMeUserId !== user.id ? '#EF4444' : '#10B981', opacity: 0.8 }}>
-                    canonical (backend): {debugMeUserId}{debugMeUserId !== user.id ? ' ← MISMATCH' : ' ✓ match'}
-                  </Text>
-                )}
-              </Pressable>
+              )}
             </View>
           )}
         </View>
