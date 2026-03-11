@@ -1587,5 +1587,61 @@
     "itemId": "pack_milagros",
     "acquiredAt": "2026-03-11T07:14:10.735Z",
     "source": "store"
+  },
+  {
+    "id": "cmmm73sz4000im2o94cg90jen",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-11T15:30:12.209Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm73sz8000km2o9ta2lin9l",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "badge_portador_esperanza",
+    "acquiredAt": "2026-03-11T15:30:12.212Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm73sza000mm2o94jbjtar9",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-11T15:30:12.215Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm74wuu000wm2o9yqxkqpe0",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-11T15:31:20.805Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmm76jmr0012m2o9i36eshc5",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-11T15:32:31.769Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmm79zef002um2o9meubcbik",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-11T15:35:00.472Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm79zej002wm2o91ftmyxpu",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "itemId": "badge_portador_esperanza",
+    "acquiredAt": "2026-03-11T15:35:00.476Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm79zeo002ym2o9guve4szu",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-11T15:35:00.481Z",
+    "source": "achievement"
   }
 ]

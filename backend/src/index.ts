@@ -95,38 +95,32 @@ app.route("/api/admin", adminRouter);
 app.route("/api/admin/backups", adminBackupRouter);
 app.route("/api/image-gen", imageGenRouter);
 
-// Bootstrap endpoint — one-time use to promote a user to OWNER when no OWNER exists
-// Protected by a hardcoded secret token. Safe to leave in (no-ops if OWNER already exists).
+// Bootstrap endpoint — promote a user to OWNER by userId or nickname.
+// Protected by a hardcoded secret token.
 app.post("/api/bootstrap/promote-owner", async (c) => {
   const body = await c.req.json().catch(() => ({}));
-  const { secret, userId } = body as { secret?: string; userId?: string };
+  const { secret, userId, nickname } = body as { secret?: string; userId?: string; nickname?: string };
 
   const BOOTSTRAP_SECRET = "viti-bootstrap-2026-owner";
 
   if (secret !== BOOTSTRAP_SECRET) {
     return c.json({ error: "Invalid secret" }, 403);
   }
-  if (!userId) {
-    return c.json({ error: "userId required" }, 400);
+
+  if (!userId && !nickname) {
+    return c.json({ error: "userId or nickname required" }, 400);
   }
 
-  // Check if any OWNER already exists
-  const existingOwner = await prisma.user.findFirst({ where: { role: "OWNER" } });
-  if (existingOwner) {
-    return c.json({
-      alreadyHasOwner: true,
-      owner: { id: existingOwner.id, nickname: existingOwner.nickname },
-    });
-  }
-
-  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const user = userId
+    ? await prisma.user.findUnique({ where: { id: userId } })
+    : await prisma.user.findFirst({ where: { nickname } });
   if (!user) {
     return c.json({ error: "User not found" }, 404);
   }
 
-  await prisma.user.update({ where: { id: userId }, data: { role: "OWNER" } });
+  await prisma.user.update({ where: { id: user.id }, data: { role: "OWNER" } });
 
-  console.log(`[Bootstrap] Promoted ${user.nickname} (${userId}) to OWNER`);
+  console.log(`[Bootstrap] Promoted ${user.nickname} (${user.id}) to OWNER`);
 
   return c.json({ success: true, promoted: { id: user.id, nickname: user.nickname, role: "OWNER" } });
 });
