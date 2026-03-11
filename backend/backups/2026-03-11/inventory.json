@@ -1573,5 +1573,12 @@
     "itemId": "badge_columna_comunidad",
     "acquiredAt": "2026-03-10T23:31:12.026Z",
     "source": "achievement"
+  },
+  {
+    "id": "cmmlbwwnh000bm26so4n5zb6q",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-11T00:57:02.285Z",
+    "source": "admin_grant"
   }
 ]
