@@ -1097,16 +1097,7 @@ export default function CommunityScreen() {
             </Text>
           </Pressable>
         </View>
-        {/* [TEMP DEBUG] Identity source annotation */}
-        <View style={{ marginTop: 4, flexDirection: 'row', flexWrap: 'wrap', gap: 4 }}>
-          <Text style={{ fontSize: 9, color: colors.textMuted + '80', fontFamily: 'monospace' }}>
-            active: <Text style={{ color: colors.primary + 'CC' }}>{user?.nickname ?? '?'}</Text>
-            {' '}({user?.id ?? '?'})
-          </Text>
-          <Text style={{ fontSize: 9, color: colors.textMuted + '80', fontFamily: 'monospace' }}>
-            · list: React Query [community-members] · {total} member{total !== 1 ? 's' : ''}
-          </Text>
-        </View>
+        {/* [DEBUG - hidden in production] Identity source annotation */}
       </View>
 
       {/* Content */}

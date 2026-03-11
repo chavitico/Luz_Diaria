@@ -310,6 +310,7 @@ export default function SettingsScreen() {
   const [showAdminHub, setShowAdminHub] = useState(false);
   const [adminTapCount, setAdminTapCount] = useState(0);
   const adminTapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [showDebugMode, setShowDebugMode] = useState(false);
   const [enteredCode, setEnteredCode] = useState('');
   const [isRestoring, setIsRestoring] = useState(false);
   const [restoreError, setRestoreError] = useState<string | null>(null);
@@ -1385,8 +1386,9 @@ export default function SettingsScreen() {
             </Pressable>
           </SectionCard>
 
-          {/* ── SECTION: DATOS DEL DISPOSITIVO ─────────────────── */}
-          <SectionLabel label={language === 'es' ? 'Datos del dispositivo' : 'Device Data'} colors={colors} />
+          {/* ── SECTION: DATOS DEL DISPOSITIVO (debug-only) ─────────────────── */}
+          {showDebugMode && (
+          <><SectionLabel label={language === 'es' ? 'Datos del dispositivo' : 'Device Data'} colors={colors} />
           <SectionCard colors={colors}>
             <SettingRow
               inCard
@@ -1397,7 +1399,8 @@ export default function SettingsScreen() {
               onPress={handleResetLocalData}
               right={<ChevronRight size={18} color={'#EF4444'} />}
             />
-          </SectionCard>
+          </SectionCard></>
+          )}
 
           {/* ── BRANDING + VERSION ───────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(300).springify()} style={{ marginTop: 32, marginBottom: 8, alignItems: 'center', paddingVertical: 32 }}>
@@ -1429,6 +1432,7 @@ export default function SettingsScreen() {
               if (next >= 5) {
                 setAdminTapCount(0);
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                setShowDebugMode(true);
                 setShowAdminHub(true);
               } else {
                 adminTapTimer.current = setTimeout(() => setAdminTapCount(0), 3000);
@@ -1442,7 +1446,8 @@ export default function SettingsScreen() {
             </Text>
           </Pressable>
 
-          {/* DEBUG PANEL */}
+          {/* DEBUG PANEL — visible only in debug mode (5-tap version unlock) */}
+          {showDebugMode && (
           <View style={{ marginBottom: 16, marginHorizontal: 8, padding: 14, borderRadius: 14, backgroundColor: '#1E1E2E', borderWidth: 1, borderColor: '#F59E0B40' }}>
             <Text style={{ color: '#F59E0B', fontSize: 11, fontWeight: '700', marginBottom: 10, letterSpacing: 1 }}>DEBUG PANEL</Text>
             <Text style={{ color: '#F59E0B', fontSize: 10, fontWeight: '600', marginBottom: 4, marginTop: 2 }}>— IDENTITY —</Text>
@@ -1546,9 +1551,10 @@ export default function SettingsScreen() {
               <Text style={{ color: '#000', fontSize: 13, fontWeight: '700' }}>Open AdminHub (debug bypass)</Text>
             </Pressable>
           </View>
+          )}
 
-          {/* Debug Info - User ID — shows canonical backend id as primary source */}
-          {(user?.id || debugMeUserId) && (
+          {/* Debug Info - User ID — visible only in debug mode */}
+          {showDebugMode && (user?.id || debugMeUserId) && (
             <View className="mb-4 px-2">
               <Text className="text-xs" style={{ color: colors.textMuted + '60' }}>
                 {t.user_id}: {debugMeUserId && debugMeUserId !== '...' && debugMeUserId !== 'error' ? debugMeUserId : user?.id}
