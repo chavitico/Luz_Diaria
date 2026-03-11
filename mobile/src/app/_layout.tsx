@@ -378,6 +378,12 @@ function AppContent() {
           updateUser(updates as Parameters<typeof updateUser>[0]);
           // Invalidate all identity-dependent queries so they refetch with the correct userId
           queryClient.invalidateQueries();
+        } else {
+          // Identity already matches — still invalidate community/profile caches
+          // so stale cached data from previous sessions gets refreshed.
+          queryClient.invalidateQueries({ queryKey: ['community-members'] });
+          queryClient.invalidateQueries({ queryKey: ['community-support-status'] });
+          queryClient.invalidateQueries({ queryKey: ['backendUser'] });
         }
       } catch {
         // silent — non-critical, app continues with local state

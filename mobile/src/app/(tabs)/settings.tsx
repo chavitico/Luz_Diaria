@@ -1491,6 +1491,23 @@ export default function SettingsScreen() {
               <Text style={{ color: '#10B981', fontSize: 11, fontWeight: '600' }}>Force sync identity from backend</Text>
             </Pressable>
             <Pressable
+              onPress={async () => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                // Invalidate all UI-feeding caches so every screen repopulates with fresh data
+                queryClient.invalidateQueries({ queryKey: ['community-members'] });
+                queryClient.invalidateQueries({ queryKey: ['community-support-status'] });
+                queryClient.invalidateQueries({ queryKey: ['backendUser'] });
+                queryClient.invalidateQueries({ queryKey: ['challengeProgress'] });
+                queryClient.invalidateQueries({ queryKey: ['trades'] });
+                // Also refresh diagnostics so debug panel shows latest
+                await fetchDebugBackendRole();
+                Alert.alert('Refreshed', 'Community + profile caches invalidated. All screens will refetch fresh data.');
+              }}
+              style={{ padding: 8, borderRadius: 8, backgroundColor: '#3B82F620', borderWidth: 1, borderColor: '#3B82F640', alignItems: 'center', marginBottom: 8 }}
+            >
+              <Text style={{ color: '#3B82F6', fontSize: 11, fontWeight: '600' }}>Refresh profile + community UI</Text>
+            </Pressable>
+            <Pressable
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                 setShowAdminHub(true);
