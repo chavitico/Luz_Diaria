@@ -1,7 +1,7 @@
 [
   {
     "id": "cmml8uiit0000m2vluztbkjwf",
-    "nickname": "ChaViTico",
+    "nickname": "Vitigrecheer",
     "role": "OWNER",
     "avatarId": "avatar_adv_elijah_fire",
     "frameId": "frame_v2_jade",
@@ -12,7 +12,7 @@
     "streakCurrent": 32,
     "streakBest": 32,
     "devotionalsCompleted": 21,
-    "totalTimeSeconds": 122459,
+    "totalTimeSeconds": 122631,
     "lastActiveAt": "2026-03-10T18:00:00.000Z",
     "communityOptIn": false,
     "prayerDisplayOptIn": true,
@@ -22,6 +22,6 @@
     "activeBadgeId": "badge_valiente_reino",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-11T00:20:20.946Z"
+    "updatedAt": "2026-03-11T00:23:15.381Z"
   }
 ]
