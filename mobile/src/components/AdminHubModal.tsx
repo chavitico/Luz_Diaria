@@ -41,10 +41,12 @@ import { fetchWithTimeout } from '@/lib/fetch';
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
 // ── EMERGENCY OVERRIDE ────────────────────────────────────────────────────────
-// Temporary: allow these userIds through regardless of cached role, so we can
-// debug role/cache mismatches.  Remove once root cause is confirmed.
+// Hard bypass: any userId in this list gets OWNER unconditionally.
+// No role check, no backend check, no cache gate.
 const EMERGENCY_OWNER_IDS: string[] = [
-  'cmml8uiit0000m2vluztbkjwf', // Vitigrecheer – known production userId
+  'cmml8uiit0000m2vluztbkjwf', // Vitigrecheer – original known production userId (preview backend)
+  'cmm18uiit0000m2vluztbkjwf', // Hard bypass – user-confirmed production userId
+  'cmmla4nvd000jpn5qgklfl7cm', // Vitigrecheer – confirmed production userId (unsealed-thirstily backend)
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -146,6 +148,17 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
   const [checking, setChecking] = useState(false);
   const [generatingSnapshots, setGeneratingSnapshots] = useState(false);
 
+  // Debug state — tracks what each gate produced
+  const [debugInfo, setDebugInfo] = useState<{
+    localId: string;
+    localRole: string;
+    backendRole: string | null;
+    isEmergencyOverride: boolean;
+    finalRole: string | null;
+    blockedBy: string | null;
+    backendStatus: string | null;
+  } | null>(null);
+
   // DevCache debug panel state (OWNER only)
   const [cachedDates, setCachedDates] = useState<string[]>([]);
   const [lastPrefetch, setLastPrefetch] = useState<number | null>(null);
@@ -176,6 +189,17 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
     console.log('[AdminHub] emergencyOverride:', isEmergencyOverride);
     console.log('[AdminHub] backendUrl   :', BACKEND_URL);
 
+    // Reset debug
+    setDebugInfo({
+      localId,
+      localRole,
+      backendRole: null,
+      isEmergencyOverride,
+      finalRole: null,
+      blockedBy: checking ? 'checking...' : null,
+      backendStatus: null,
+    });
+
     // Don't show stale "no-access" screen — wait for network first
     // But if we already know the user is an owner/mod, show it immediately
     if (localRole === 'OWNER' || localRole === 'MODERATOR' || isEmergencyOverride) {
@@ -199,6 +223,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
     })
       .then(r => {
         console.log('[AdminHub] /me response status:', r.status);
+        setDebugInfo(prev => prev ? { ...prev, backendStatus: String(r.status) } : null);
         return r.ok ? r.json() : null;
       })
       .then((profile: { id?: string; role?: string } | null) => {
@@ -207,6 +232,8 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
         if (!profile?.role && !isEmergencyOverride) {
           // Network failed — fall back to store role
           console.log('[AdminHub] /me failed — falling back to store role:', localRole);
+          const blockedReason = !profile ? 'backend returned null — ID not found in DB' : 'no role in profile — check DB record';
+          setDebugInfo(prev => prev ? { ...prev, backendRole: null, finalRole: localRole, blockedBy: localRole === 'USER' ? blockedReason : null } : null);
           setVerifiedRole(localRole);
           if (localRole === 'OWNER') loadDevCacheInfo();
           return;
@@ -219,6 +246,9 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
 
         console.log('[AdminHub] backendRole  :', backendRole);
         console.log('[AdminHub] finalRole    :', finalRole, isEmergencyOverride ? '(emergency override applied)' : '');
+
+        const blockedReason = finalRole === 'USER' ? `backend says USER — not in OWNER/MODERATOR. emergencyOverride=${isEmergencyOverride}` : null;
+        setDebugInfo(prev => prev ? { ...prev, backendRole, finalRole, blockedBy: blockedReason } : null);
 
         setVerifiedRole(finalRole);
 
@@ -242,6 +272,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
         // Network failed — use store role or emergency override
         const fallback = isEmergencyOverride ? 'OWNER' : localRole;
         console.log('[AdminHub] fallback role:', fallback);
+        setDebugInfo(prev => prev ? { ...prev, backendRole: null, finalRole: fallback, blockedBy: `network error: ${String(err)}` } : null);
         setVerifiedRole(fallback);
         if (fallback === 'OWNER') loadDevCacheInfo();
       })
@@ -476,6 +507,14 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
                 <Text style={{ color: colors.textMuted, marginTop: 12, fontSize: 13 }}>
                   Verificando acceso…
                 </Text>
+                {debugInfo && (
+                  <View style={{ marginTop: 16, padding: 12, borderRadius: 12, backgroundColor: '#F59E0B18', borderWidth: 1, borderColor: '#F59E0B40', width: '100%' }}>
+                    <Text style={{ color: '#F59E0B', fontSize: 11, fontWeight: '700', marginBottom: 6 }}>DEBUG — checking</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>id: {debugInfo.localId}</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>local role: {debugInfo.localRole}</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>emergency override: {String(debugInfo.isEmergencyOverride)}</Text>
+                  </View>
+                )}
               </View>
             ) : !isAdmin ? (
               <View style={{ alignItems: 'center', paddingVertical: 32 }}>
@@ -486,9 +525,31 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
                 <Text style={{ color: colors.textMuted, fontSize: 13, textAlign: 'center', lineHeight: 19 }}>
                   Tu cuenta no tiene permisos de administrador.
                 </Text>
+                {/* DEBUG: gate diagnostics */}
+                {debugInfo && (
+                  <View style={{ marginTop: 16, padding: 12, borderRadius: 12, backgroundColor: '#EF444418', borderWidth: 1, borderColor: '#EF444440', width: '100%' }}>
+                    <Text style={{ color: '#EF4444', fontSize: 11, fontWeight: '700', marginBottom: 6 }}>DEBUG — gate blocked</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>id: {debugInfo.localId}</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>local role: {debugInfo.localRole}</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>backend role: {debugInfo.backendRole ?? 'null'}</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>backend status: {debugInfo.backendStatus ?? 'null'}</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>emergency override: {String(debugInfo.isEmergencyOverride)}</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>final role: {debugInfo.finalRole ?? 'null'}</Text>
+                    <Text style={{ color: '#EF4444', fontSize: 10, fontFamily: 'monospace', marginTop: 4 }}>blocked by: {debugInfo.blockedBy ?? 'unknown'}</Text>
+                  </View>
+                )}
               </View>
             ) : (
               <>
+                {/* DEBUG: access granted diagnostics */}
+                {debugInfo && (
+                  <View style={{ marginBottom: 12, padding: 10, borderRadius: 10, backgroundColor: '#10B98118', borderWidth: 1, borderColor: '#10B98130' }}>
+                    <Text style={{ color: '#10B981', fontSize: 10, fontWeight: '700', marginBottom: 4 }}>DEBUG — access granted</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>id: {debugInfo.localId}</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>local: {debugInfo.localRole} | backend: {debugInfo.backendRole ?? '...'} | final: {debugInfo.finalRole ?? '...'}</Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>emergency: {String(debugInfo.isEmergencyOverride)} | http: {debugInfo.backendStatus ?? '...'}</Text>
+                  </View>
+                )}
                 <Text
                   style={{
                     fontSize: 11,

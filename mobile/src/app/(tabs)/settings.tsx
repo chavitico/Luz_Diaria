@@ -316,6 +316,30 @@ export default function SettingsScreen() {
   const [codeCopied, setCodeCopied] = useState(false);
   const [expiryCountdown, setExpiryCountdown] = useState<number>(0);
 
+  // Debug panel state
+  const BACKEND_URL_CONST = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
+  const EMERGENCY_IDS = ['cmml8uiit0000m2vluztbkjwf', 'cmm18uiit0000m2vluztbkjwf', 'cmmla4nvd000jpn5qgklfl7cm'];
+  const [debugBackendRole, setDebugBackendRole] = useState<string | null>(null);
+  const [debugBackendStatus, setDebugBackendStatus] = useState<string | null>(null);
+  const fetchDebugBackendRole = useCallback(async () => {
+    if (!user?.id) return;
+    try {
+      const res = await fetchWithTimeout(`${BACKEND_URL_CONST}/api/gamification/me`, {
+        headers: { 'X-User-Id': user.id, ...(user.nickname ? { 'X-User-Nickname': user.nickname } : {}) },
+      });
+      setDebugBackendStatus(String(res.status));
+      if (res.ok) {
+        const data = await res.json() as { role?: string };
+        setDebugBackendRole(data?.role ?? 'null');
+      } else {
+        setDebugBackendRole(`error-${res.status}`);
+      }
+    } catch (e) {
+      setDebugBackendRole(`fetch-error: ${String(e)}`);
+      setDebugBackendStatus('network-err');
+    }
+  }, [user?.id, user?.nickname]);
+
   // Notification state
   const [notificationSettings, setNotificationSettingsState] = useState<NotificationSettings>({
     enabled: false,
@@ -373,7 +397,8 @@ export default function SettingsScreen() {
       loadLedger();
       loadPendingSupport();
       loadBadgeData();
-    }, [loadLedger, loadPendingSupport])
+      fetchDebugBackendRole();
+    }, [loadLedger, loadPendingSupport, fetchDebugBackendRole])
   );
 
   // Load notification settings and community opt-in on mount
@@ -1368,6 +1393,33 @@ export default function SettingsScreen() {
               v1.0.0{adminTapCount > 0 ? ` (${adminTapCount}/5)` : ''}
             </Text>
           </Pressable>
+
+          {/* DEBUG PANEL */}
+          <View style={{ marginBottom: 16, marginHorizontal: 8, padding: 14, borderRadius: 14, backgroundColor: '#1E1E2E', borderWidth: 1, borderColor: '#F59E0B40' }}>
+            <Text style={{ color: '#F59E0B', fontSize: 11, fontWeight: '700', marginBottom: 10, letterSpacing: 1 }}>DEBUG PANEL</Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>userId: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.id ?? 'none'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>nickname: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.nickname ?? 'none'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>local role (store): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{(user as { role?: string })?.role ?? 'none'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>backend role (/me): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugBackendRole ?? '...'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>backend http status: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugBackendStatus ?? '...'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>emergency override: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{String(EMERGENCY_IDS.includes(user?.id ?? ''))}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 8 }}>backend URL: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace', fontSize: 9 }}>{BACKEND_URL_CONST}</Text></Text>
+            <Pressable
+              onPress={() => fetchDebugBackendRole()}
+              style={{ padding: 8, borderRadius: 8, backgroundColor: '#334155', alignItems: 'center', marginBottom: 8 }}
+            >
+              <Text style={{ color: '#94A3B8', fontSize: 11 }}>Refresh /me</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                setShowAdminHub(true);
+              }}
+              style={{ padding: 10, borderRadius: 10, backgroundColor: '#F59E0B', alignItems: 'center' }}
+            >
+              <Text style={{ color: '#000', fontSize: 13, fontWeight: '700' }}>Open AdminHub (debug bypass)</Text>
+            </Pressable>
+          </View>
 
           {/* Debug Info - User ID */}
           {user?.id && (
