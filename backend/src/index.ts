@@ -57,7 +57,7 @@ app.get("/health", (c) =>
 app.get("/api/debug/env", async (c) => {
   const [allUsers, communityMembers, communityTotal] = await Promise.all([
     prisma.user.findMany({
-      select: { id: true, nickname: true, role: true, communityOptIn: true, createdAt: true },
+      select: { id: true, nickname: true, role: true, communityOptIn: true, points: true, createdAt: true },
       orderBy: { createdAt: "asc" },
     }),
     prisma.user.findMany({
@@ -94,6 +94,42 @@ app.route("/api/store", storeGiftsRouter);
 app.route("/api/admin", adminRouter);
 app.route("/api/admin/backups", adminBackupRouter);
 app.route("/api/image-gen", imageGenRouter);
+
+// Bootstrap endpoint — one-time use to promote a user to OWNER when no OWNER exists
+// Protected by a hardcoded secret token. Safe to leave in (no-ops if OWNER already exists).
+app.post("/api/bootstrap/promote-owner", async (c) => {
+  const body = await c.req.json().catch(() => ({}));
+  const { secret, userId } = body as { secret?: string; userId?: string };
+
+  const BOOTSTRAP_SECRET = "viti-bootstrap-2026-owner";
+
+  if (secret !== BOOTSTRAP_SECRET) {
+    return c.json({ error: "Invalid secret" }, 403);
+  }
+  if (!userId) {
+    return c.json({ error: "userId required" }, 400);
+  }
+
+  // Check if any OWNER already exists
+  const existingOwner = await prisma.user.findFirst({ where: { role: "OWNER" } });
+  if (existingOwner) {
+    return c.json({
+      alreadyHasOwner: true,
+      owner: { id: existingOwner.id, nickname: existingOwner.nickname },
+    });
+  }
+
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user) {
+    return c.json({ error: "User not found" }, 404);
+  }
+
+  await prisma.user.update({ where: { id: userId }, data: { role: "OWNER" } });
+
+  console.log(`[Bootstrap] Promoted ${user.nickname} (${userId}) to OWNER`);
+
+  return c.json({ success: true, promoted: { id: user.id, nickname: user.nickname, role: "OWNER" } });
+});
 
 // Prod guard: block any request to reset/nuke endpoints
 app.all("/api/admin/reset*", (c) => {
