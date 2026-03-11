@@ -23,6 +23,7 @@ import { initializeWeeklyChallenges } from "./weekly-challenges";
 import { seedPromoCodes } from "./seed-promo-codes";
 import { seedBadges } from "./seed-badges";
 import { seedSeasons } from "./seed-seasons";
+import { seedStoreItems } from "./seed-store-items";
 import { runStartupSanityCheck, runDailyBackup } from "./backup-service";
 import { logger } from "hono/logger";
 
@@ -95,6 +96,29 @@ app.route("/api/admin", adminRouter);
 app.route("/api/admin/backups", adminBackupRouter);
 app.route("/api/image-gen", imageGenRouter);
 
+// Bootstrap endpoint — seed the full store item catalog.
+// Protected by the same hardcoded secret token.
+app.post("/api/bootstrap/seed-store", async (c) => {
+  const body = await c.req.json().catch(() => ({}));
+  const { secret } = body as { secret?: string };
+
+  const BOOTSTRAP_SECRET = "viti-bootstrap-2026-owner";
+
+  if (secret !== BOOTSTRAP_SECRET) {
+    return c.json({ error: "Invalid secret" }, 403);
+  }
+
+  try {
+    await seedStoreItems();
+    const totalItems = await prisma.storeItem.count();
+    console.log(`[Bootstrap] seedStoreItems complete. Total items: ${totalItems}`);
+    return c.json({ success: true, totalItems });
+  } catch (err) {
+    console.error("[Bootstrap] seedStoreItems failed:", err);
+    return c.json({ error: "Seed failed", detail: String(err) }, 500);
+  }
+});
+
 // Bootstrap endpoint — promote a user to OWNER by userId or nickname.
 // Protected by a hardcoded secret token.
 app.post("/api/bootstrap/promote-owner", async (c) => {
@@ -144,6 +168,7 @@ initDatabase().then(async () => {
   seedPromoCodes();
   seedBadges();
   seedSeasons();
+  seedStoreItems().catch((err) => console.error("[Startup] seedStoreItems failed:", err));
 
   // Run an initial backup shortly after startup (non-blocking)
   setTimeout(async () => {

@@ -784,7 +784,7 @@ async function upsertItem(item: StoreItemInput, sortOrder: number): Promise<void
   });
 }
 
-async function seedStoreItems() {
+export async function seedStoreItems() {
   console.log('Starting store items seed...\n');
 
   let sortOrder = 0;
@@ -1197,16 +1197,18 @@ async function seedStoreItems() {
   console.log(`\nTotal items in database: ${totalInDb}`);
 }
 
-// Run the seed
-seedStoreItems()
-  .then(() => {
-    console.log('\nSeed completed successfully!');
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error('Error seeding store items:', error);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+// Run the seed only when executed directly (not when imported as a module)
+if (import.meta.main) {
+  seedStoreItems()
+    .then(() => {
+      console.log('\nSeed completed successfully!');
+      process.exit(0);
+    })
+    .catch((error) => {
+      console.error('Error seeding store items:', error);
+      process.exit(1);
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+}
