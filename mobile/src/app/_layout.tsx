@@ -356,9 +356,12 @@ function AppContent() {
       const currentNickname = userNicknameRef.current;
       if (!isOnboardedRef.current || !currentId || !currentNickname) return;
       try {
+        // Query by nickname ONLY — do NOT send X-User-Id.
+        // If we send the stale local id, the backend will find that (different) user and
+        // return that stale id, so no mismatch is detected and the wrong identity persists.
+        // Querying by nickname alone forces the backend to return the CANONICAL id for this nickname.
         const res = await fetch(`${BACKEND_URL}/api/gamification/me`, {
           headers: {
-            'X-User-Id': currentId,
             'X-User-Nickname': currentNickname,
           },
         });

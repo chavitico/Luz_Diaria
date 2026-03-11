@@ -327,10 +327,12 @@ export default function SettingsScreen() {
   const [debugMeUserId, setDebugMeUserId] = useState<string | null>(null);
   const [debugEnvName, setDebugEnvName] = useState<string | null>(null);
   const fetchDebugBackendRole = useCallback(async () => {
-    if (!user?.id) return;
+    if (!user?.nickname) return;
     try {
+      // Query by nickname ONLY — sending the stale local id would return the wrong user
+      // and make the debug panel falsely show "ID MATCH" while the wrong identity is active.
       const res = await fetchWithTimeout(`${BACKEND_URL_CONST}/api/gamification/me`, {
-        headers: { 'X-User-Id': user.id, ...(user.nickname ? { 'X-User-Nickname': user.nickname } : {}) },
+        headers: { 'X-User-Nickname': user.nickname },
       });
       setDebugBackendStatus(String(res.status));
       if (res.ok) {
@@ -1481,9 +1483,10 @@ export default function SettingsScreen() {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                 await fetchDebugBackendRole();
                 // Apply any corrections from /me to the store immediately
-                if (debugMeNickname && debugMeNickname !== '...' && user?.id) {
+                if (user?.nickname) {
+                  // Query by nickname only — same reason as fetchDebugBackendRole
                   const res = await fetchWithTimeout(`${BACKEND_URL_CONST}/api/gamification/me`, {
-                    headers: { 'X-User-Id': user.id, ...(user.nickname ? { 'X-User-Nickname': user.nickname } : {}) },
+                    headers: { 'X-User-Nickname': user.nickname },
                   });
                   if (res.ok) {
                     const data = await res.json() as { id?: string; nickname?: string; role?: string };
@@ -1542,6 +1545,11 @@ export default function SettingsScreen() {
                 <Text className="text-xs" style={{ color: colors.textMuted + '60' }}>
                   {t.user_id}: {user.id}
                 </Text>
+                {debugMeUserId && debugMeUserId !== '...' && debugMeUserId !== 'error' && (
+                  <Text className="text-xs" style={{ color: debugMeUserId !== user.id ? '#EF4444' : '#10B981', opacity: 0.8 }}>
+                    canonical (backend): {debugMeUserId}{debugMeUserId !== user.id ? ' ← MISMATCH' : ' ✓ match'}
+                  </Text>
+                )}
               </Pressable>
             </View>
           )}
