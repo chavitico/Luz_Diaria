@@ -829,8 +829,8 @@ export default function SettingsScreen() {
     Alert.alert(
       language === 'es' ? 'Restablecer datos locales' : 'Reset Local Data',
       language === 'es'
-        ? 'Esto borrara todos los datos guardados en este dispositivo y volveras a la pantalla de registro. Tu cuenta en el servidor NO se eliminara.'
-        : 'This will clear all locally stored data and return you to the registration screen. Your server account will NOT be deleted.',
+        ? 'Esto borra el caché del dispositivo y te saca de la app. No elimina tu cuenta del servidor.'
+        : 'This clears the device cache and signs you out of the app. Your server account will not be deleted.',
       [
         {
           text: language === 'es' ? 'Cancelar' : 'Cancel',
