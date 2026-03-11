@@ -12,7 +12,7 @@
     "streakCurrent": 32,
     "streakBest": 32,
     "devotionalsCompleted": 21,
-    "totalTimeSeconds": 127505,
+    "totalTimeSeconds": 128214,
     "lastActiveAt": "2026-03-10T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,6 +22,6 @@
     "activeBadgeId": "badge_valiente_reino",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-11T04:04:02.113Z"
+    "updatedAt": "2026-03-11T04:26:30.419Z"
   }
 ]
