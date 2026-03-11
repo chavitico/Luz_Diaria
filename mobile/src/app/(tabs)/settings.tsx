@@ -1383,7 +1383,7 @@ export default function SettingsScreen() {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                 setShowAdminHub(true);
               } else {
-                adminTapTimer.current = setTimeout(() => setAdminTapCount(0), 1500);
+                adminTapTimer.current = setTimeout(() => setAdminTapCount(0), 3000);
               }
             }}
             style={{ alignItems: 'center', paddingVertical: 10, marginBottom: 8 }}

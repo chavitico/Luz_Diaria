@@ -215,7 +215,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
 
     setChecking(true);
 
-    fetch(`${BACKEND_URL}/api/gamification/me`, {
+    fetchWithTimeout(`${BACKEND_URL}/api/gamification/me`, {
       headers: {
         'X-User-Id': localId,
         ...(user.nickname ? { 'X-User-Nickname': user.nickname } : {}),
@@ -501,7 +501,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
             contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 48 }}
             showsVerticalScrollIndicator={false}
           >
-            {checking ? (
+            {(checking && !isAdmin) ? (
               <View style={{ alignItems: 'center', paddingVertical: 32 }}>
                 <ActivityIndicator color={colors.primary} size="large" />
                 <Text style={{ color: colors.textMuted, marginTop: 12, fontSize: 13 }}>
