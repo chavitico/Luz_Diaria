@@ -4,6 +4,7 @@ import { cors } from "hono/cors";
 import { serveStatic } from "hono/bun";
 import "./env";
 import { env, IS_PROD } from "./env";
+import { prisma } from "./prisma";
 import { initDatabase } from "./db-init";
 import { sampleRouter } from "./routes/sample";
 import { devotionalRouter } from "./routes/devotional";
@@ -50,6 +51,32 @@ app.use("*", logger());
 app.get("/health", (c) =>
   c.json({ status: "ok", appEnv: env.APP_ENV, isProd: IS_PROD })
 );
+
+// Debug endpoint — returns environment, DB identity, and community members
+// This is intentionally public (no auth) for cross-environment diagnosis
+app.get("/api/debug/env", async (c) => {
+  const [allUsers, communityMembers, communityTotal] = await Promise.all([
+    prisma.user.findMany({
+      select: { id: true, nickname: true, role: true, communityOptIn: true, createdAt: true },
+      orderBy: { createdAt: "asc" },
+    }),
+    prisma.user.findMany({
+      where: { communityOptIn: true },
+      select: { id: true, nickname: true },
+    }),
+    prisma.user.count({ where: { communityOptIn: true } }),
+  ]);
+  return c.json({
+    backendUrl: process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL ?? process.env.BACKEND_URL ?? "unknown",
+    appEnv: env.APP_ENV,
+    isProd: IS_PROD,
+    databaseUrl: env.DATABASE_URL ?? "unknown",
+    totalUsers: allUsers.length,
+    allUsers,
+    communityOptInTotal: communityTotal,
+    communityNicknames: communityMembers.map((u: { nickname: string }) => u.nickname),
+  });
+});
 
 // Static file serving for card images
 app.use("/cards/*", serveStatic({ root: "./public" }));

@@ -321,6 +321,10 @@ export default function SettingsScreen() {
   const EMERGENCY_IDS = ['cmml8uiit0000m2vluztbkjwf', 'cmm18uiit0000m2vluztbkjwf', 'cmmla4nvd000jpn5qgklfl7cm'];
   const [debugBackendRole, setDebugBackendRole] = useState<string | null>(null);
   const [debugBackendStatus, setDebugBackendStatus] = useState<string | null>(null);
+  const [debugCommunityCount, setDebugCommunityCount] = useState<number | null>(null);
+  const [debugCommunityNicknames, setDebugCommunityNicknames] = useState<string[] | null>(null);
+  const [debugMeNickname, setDebugMeNickname] = useState<string | null>(null);
+  const [debugEnvName, setDebugEnvName] = useState<string | null>(null);
   const fetchDebugBackendRole = useCallback(async () => {
     if (!user?.id) return;
     try {
@@ -329,14 +333,42 @@ export default function SettingsScreen() {
       });
       setDebugBackendStatus(String(res.status));
       if (res.ok) {
-        const data = await res.json() as { role?: string };
+        const data = await res.json() as { role?: string; nickname?: string };
         setDebugBackendRole(data?.role ?? 'null');
+        setDebugMeNickname(data?.nickname ?? 'null');
       } else {
         setDebugBackendRole(`error-${res.status}`);
       }
     } catch (e) {
       setDebugBackendRole(`fetch-error: ${String(e)}`);
       setDebugBackendStatus('network-err');
+    }
+    // Fetch community members
+    try {
+      const cr = await fetchWithTimeout(`${BACKEND_URL_CONST}/api/gamification/community/members?limit=50&offset=0`);
+      if (cr.ok) {
+        const cd = await cr.json() as { members: { nickname: string }[]; total: number };
+        setDebugCommunityCount(cd.total);
+        setDebugCommunityNicknames(cd.members.map((m) => m.nickname));
+      } else {
+        setDebugCommunityCount(-1);
+        setDebugCommunityNicknames([`error-${cr.status}`]);
+      }
+    } catch (e) {
+      setDebugCommunityCount(-1);
+      setDebugCommunityNicknames([`fetch-error: ${String(e)}`]);
+    }
+    // Fetch health/env
+    try {
+      const hr = await fetchWithTimeout(`${BACKEND_URL_CONST}/health`);
+      if (hr.ok) {
+        const hd = await hr.json() as { appEnv?: string; isProd?: boolean };
+        setDebugEnvName(`${hd.appEnv ?? '?'} (isProd=${hd.isProd})`);
+      } else {
+        setDebugEnvName(`health-err-${hr.status}`);
+      }
+    } catch (e) {
+      setDebugEnvName(`health-fetch-error`);
     }
   }, [user?.id, user?.nickname]);
 
@@ -1397,18 +1429,25 @@ export default function SettingsScreen() {
           {/* DEBUG PANEL */}
           <View style={{ marginBottom: 16, marginHorizontal: 8, padding: 14, borderRadius: 14, backgroundColor: '#1E1E2E', borderWidth: 1, borderColor: '#F59E0B40' }}>
             <Text style={{ color: '#F59E0B', fontSize: 11, fontWeight: '700', marginBottom: 10, letterSpacing: 1 }}>DEBUG PANEL</Text>
+            <Text style={{ color: '#F59E0B', fontSize: 10, fontWeight: '600', marginBottom: 4, marginTop: 2 }}>— IDENTITY —</Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>userId: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.id ?? 'none'}</Text></Text>
-            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>nickname: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.nickname ?? 'none'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>nickname (store): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.nickname ?? 'none'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>nickname (/me): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugMeNickname ?? '...'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>local role (store): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{(user as { role?: string })?.role ?? 'none'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>backend role (/me): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugBackendRole ?? '...'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>backend http status: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugBackendStatus ?? '...'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>emergency override: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{String(EMERGENCY_IDS.includes(user?.id ?? ''))}</Text></Text>
-            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 8 }}>backend URL: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace', fontSize: 9 }}>{BACKEND_URL_CONST}</Text></Text>
+            <Text style={{ color: '#F59E0B', fontSize: 10, fontWeight: '600', marginBottom: 4, marginTop: 6 }}>— BACKEND —</Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>backend URL: <Text style={{ color: '#22D3EE', fontFamily: 'monospace', fontSize: 9 }}>{BACKEND_URL_CONST}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>env/appEnv: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugEnvName ?? '...'}</Text></Text>
+            <Text style={{ color: '#F59E0B', fontSize: 10, fontWeight: '600', marginBottom: 4, marginTop: 6 }}>— COMMUNITY —</Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>communityOptIn total: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugCommunityCount !== null ? String(debugCommunityCount) : '...'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 6 }}>nicknames returned:{'\n'}<Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugCommunityNicknames !== null ? JSON.stringify(debugCommunityNicknames) : '...'}</Text></Text>
             <Pressable
               onPress={() => fetchDebugBackendRole()}
               style={{ padding: 8, borderRadius: 8, backgroundColor: '#334155', alignItems: 'center', marginBottom: 8 }}
             >
-              <Text style={{ color: '#94A3B8', fontSize: 11 }}>Refresh /me</Text>
+              <Text style={{ color: '#94A3B8', fontSize: 11 }}>Refresh all diagnostics</Text>
             </Pressable>
             <Pressable
               onPress={() => {

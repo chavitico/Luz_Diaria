@@ -536,6 +536,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
                     <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>emergency override: {String(debugInfo.isEmergencyOverride)}</Text>
                     <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>final role: {debugInfo.finalRole ?? 'null'}</Text>
                     <Text style={{ color: '#EF4444', fontSize: 10, fontFamily: 'monospace', marginTop: 4 }}>blocked by: {debugInfo.blockedBy ?? 'unknown'}</Text>
+                    <Text style={{ color: '#22D3EE', fontSize: 10, fontFamily: 'monospace', marginTop: 4 }}>backendURL: {BACKEND_URL}</Text>
                   </View>
                 )}
               </View>
@@ -548,6 +549,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
                     <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>id: {debugInfo.localId}</Text>
                     <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>local: {debugInfo.localRole} | backend: {debugInfo.backendRole ?? '...'} | final: {debugInfo.finalRole ?? '...'}</Text>
                     <Text style={{ color: colors.textMuted, fontSize: 10, fontFamily: 'monospace' }}>emergency: {String(debugInfo.isEmergencyOverride)} | http: {debugInfo.backendStatus ?? '...'}</Text>
+                    <Text style={{ color: '#22D3EE', fontSize: 10, fontFamily: 'monospace', marginTop: 4 }}>backendURL: {BACKEND_URL}</Text>
                   </View>
                 )}
                 <Text
