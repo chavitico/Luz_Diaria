@@ -3,7 +3,7 @@
     "name": "Luz Diaria",
     "slug": "luz-diaria",
     "scheme": "vibecode",
-    "version": "1.0.5",
+    "version": "1.0.7",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
