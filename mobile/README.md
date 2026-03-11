@@ -621,6 +621,26 @@ src/
 1. Splash screen with app branding (2 seconds)
 2. Nickname selection (unique, 3-15 characters)
 3. Avatar selection from 8 default options
+
+## Identity Single-Source-of-Truth
+
+**Rule:** The backend `/api/gamification/me` response is the canonical source of truth for `userId`, `nickname`, and `role`.
+
+**Bootstrap flow (every app launch):**
+- `_layout.tsx` runs `bootstrapIdentity()` once when `appReady && isOnboarded`
+- Calls `/me` with both `X-User-Id` (local) and `X-User-Nickname` (local) headers
+- Backend tries ID lookup first, falls back to nickname if ID not found (handles offline onboarding)
+- If backend returns a different `id`, `nickname`, or `role` → overwrites the Zustand store immediately
+- All React Query caches are invalidated to refetch with the corrected identity
+
+**Community sync safety:**
+- `syncCurrentUser` in community.tsx only sends `nickname` to `syncUser` if the backend's `ensureUserExists` returned a canonical nickname
+- Never pushes the local nickname directly — prevents stale local nickname from overwriting backend
+
+**Debug panel (Settings → version footer → 5 taps):**
+- Shows `IDENTITY CONSISTENT` (green) or `IDENTITY MISMATCH` (red) comparing store vs backend
+- "Force sync identity from backend" button manually applies any corrections
+- Shows exact backendURL, env/appEnv, community member count and nicknames
 4. Welcome bonus: 100 points
 
 ## Theme Options

@@ -806,7 +806,11 @@ export default function CommunityScreen() {
         titleId: user.titleId ?? null,
         frameId: user.frameId ?? null,
         avatarId: user.avatar,
-        nickname: canonicalNickname,
+        // IMPORTANT: Only send nickname if backend already confirmed it as canonical.
+        // Never push the local nickname to avoid overwriting the backend's authoritative value.
+        // canonicalNickname comes from backendUser.nickname (server), not user.nickname (local).
+        // Only include if backend returned a nickname (prevents sending stale local nickname).
+        ...(backendUser.nickname ? { nickname: backendUser.nickname } : {}),
       });
 
       const updates: Record<string, unknown> = {};

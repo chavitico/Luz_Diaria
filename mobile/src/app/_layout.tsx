@@ -341,11 +341,13 @@ function AppContent() {
     }
   }, [appReady, isOnboarded, user?.id]);
 
-  // ID recovery: if the local userId is stale (e.g. from offline onboarding), sync it from the server
-  // using the nickname as a fallback lookup. Runs once when the app is ready and user is onboarded.
+  // Identity bootstrap: on every app start, hit /me to get the authoritative identity from the backend.
+  // This overwrites any stale local userId, nickname, and role with what the backend knows.
+  // The backend /me endpoint tries X-User-Id first, then falls back to X-User-Nickname —
+  // so even if the local ID is stale, the nickname can recover the correct user.
   useEffect(() => {
     if (!appReady || !isOnboarded || !user?.id || !user?.nickname) return;
-    const recoverUserId = async () => {
+    const bootstrapIdentity = async () => {
       try {
         const res = await fetch(`${BACKEND_URL}/api/gamification/me`, {
           headers: {
@@ -353,19 +355,35 @@ function AppContent() {
             'X-User-Nickname': user.nickname!,
           },
         });
-        if (!res.ok) return;
-        const data: { id?: string; role?: string } = await res.json();
-        if (data.id && data.id !== user.id) {
-          console.log(`[Layout] ID recovery: syncing local id ${user.id} → ${data.id}`);
-          updateUser({ id: data.id, ...(data.role ? { role: data.role as 'USER' | 'MODERATOR' | 'OWNER' } : {}) });
-        } else if (data.role && data.role !== user.role) {
-          updateUser({ role: data.role as 'USER' | 'MODERATOR' | 'OWNER' });
+        if (!res.ok) {
+          console.log(`[Layout] Identity bootstrap: /me returned ${res.status} — keeping local state`);
+          return;
+        }
+        const data: { id?: string; nickname?: string; role?: string } = await res.json();
+        if (!data.id) return;
+
+        const updates: Record<string, string> = {};
+        if (data.id !== user.id) {
+          console.log(`[Layout] Identity bootstrap: correcting userId ${user.id} → ${data.id}`);
+          updates.id = data.id;
+        }
+        if (data.nickname && data.nickname !== user.nickname) {
+          console.log(`[Layout] Identity bootstrap: correcting nickname "${user.nickname}" → "${data.nickname}"`);
+          updates.nickname = data.nickname;
+        }
+        if (data.role && data.role !== user.role) {
+          updates.role = data.role;
+        }
+        if (Object.keys(updates).length > 0) {
+          updateUser(updates as Parameters<typeof updateUser>[0]);
+          // Invalidate all identity-dependent queries so they refetch with the correct userId
+          queryClient.invalidateQueries();
         }
       } catch {
-        // silent — non-critical
+        // silent — non-critical, app continues with local state
       }
     };
-    recoverUserId();
+    bootstrapIdentity();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appReady, isOnboarded]);
 

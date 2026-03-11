@@ -1430,9 +1430,21 @@ export default function SettingsScreen() {
           <View style={{ marginBottom: 16, marginHorizontal: 8, padding: 14, borderRadius: 14, backgroundColor: '#1E1E2E', borderWidth: 1, borderColor: '#F59E0B40' }}>
             <Text style={{ color: '#F59E0B', fontSize: 11, fontWeight: '700', marginBottom: 10, letterSpacing: 1 }}>DEBUG PANEL</Text>
             <Text style={{ color: '#F59E0B', fontSize: 10, fontWeight: '600', marginBottom: 4, marginTop: 2 }}>— IDENTITY —</Text>
-            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>userId: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.id ?? 'none'}</Text></Text>
+            {/* Identity consistency badge */}
+            {debugMeNickname !== null && (
+              <View style={{
+                flexDirection: 'row', alignItems: 'center', marginBottom: 6, padding: 6,
+                borderRadius: 8, backgroundColor: debugMeNickname === user?.nickname ? '#10B98120' : '#EF444420',
+                borderWidth: 1, borderColor: debugMeNickname === user?.nickname ? '#10B98140' : '#EF444440',
+              }}>
+                <Text style={{ fontSize: 10, fontWeight: '700', color: debugMeNickname === user?.nickname ? '#10B981' : '#EF4444' }}>
+                  {debugMeNickname === user?.nickname ? 'IDENTITY CONSISTENT' : 'IDENTITY MISMATCH — store vs backend differ'}
+                </Text>
+              </View>
+            )}
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>userId (store): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.id ?? 'none'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>nickname (store): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.nickname ?? 'none'}</Text></Text>
-            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>nickname (/me): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugMeNickname ?? '...'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>nickname (/me): <Text style={{ color: debugMeNickname && debugMeNickname !== user?.nickname ? '#EF4444' : '#E2E8F0', fontFamily: 'monospace' }}>{debugMeNickname ?? '...'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>local role (store): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{(user as { role?: string })?.role ?? 'none'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>backend role (/me): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugBackendRole ?? '...'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>backend http status: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{debugBackendStatus ?? '...'}</Text></Text>
@@ -1448,6 +1460,35 @@ export default function SettingsScreen() {
               style={{ padding: 8, borderRadius: 8, backgroundColor: '#334155', alignItems: 'center', marginBottom: 8 }}
             >
               <Text style={{ color: '#94A3B8', fontSize: 11 }}>Refresh all diagnostics</Text>
+            </Pressable>
+            <Pressable
+              onPress={async () => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                await fetchDebugBackendRole();
+                // Apply any corrections from /me to the store immediately
+                if (debugMeNickname && debugMeNickname !== '...' && user?.id) {
+                  const res = await fetchWithTimeout(`${BACKEND_URL_CONST}/api/gamification/me`, {
+                    headers: { 'X-User-Id': user.id, ...(user.nickname ? { 'X-User-Nickname': user.nickname } : {}) },
+                  });
+                  if (res.ok) {
+                    const data = await res.json() as { id?: string; nickname?: string; role?: string };
+                    const fixes: Record<string, string> = {};
+                    if (data.id && data.id !== user.id) fixes.id = data.id;
+                    if (data.nickname && data.nickname !== user.nickname) fixes.nickname = data.nickname;
+                    if (data.role && data.role !== (user as { role?: string }).role) fixes.role = data.role;
+                    if (Object.keys(fixes).length > 0) {
+                      updateUser(fixes as Parameters<typeof updateUser>[0]);
+                      queryClient.invalidateQueries();
+                      Alert.alert('Identity Corrected', `Applied fixes: ${JSON.stringify(fixes)}`);
+                    } else {
+                      Alert.alert('Identity OK', 'Store already matches backend — no changes needed.');
+                    }
+                  }
+                }
+              }}
+              style={{ padding: 8, borderRadius: 8, backgroundColor: '#10B98120', borderWidth: 1, borderColor: '#10B98140', alignItems: 'center', marginBottom: 8 }}
+            >
+              <Text style={{ color: '#10B981', fontSize: 11, fontWeight: '600' }}>Force sync identity from backend</Text>
             </Pressable>
             <Pressable
               onPress={() => {
