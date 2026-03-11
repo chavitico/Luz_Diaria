@@ -1580,5 +1580,12 @@
     "itemId": "badge_fundador",
     "acquiredAt": "2026-03-11T00:57:02.285Z",
     "source": "admin_grant"
+  },
+  {
+    "id": "cmmlpdwvi000bm2526aqwpavn",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-11T07:14:10.735Z",
+    "source": "store"
   }
 ]
