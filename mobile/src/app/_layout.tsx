@@ -223,6 +223,10 @@ function AppContent() {
   useEffect(() => { isOnboardedRef.current = isOnboarded; }, [isOnboarded]);
   useEffect(() => { userIdRef.current = user?.id; }, [user?.id]);
 
+  // Stable ref for current nickname (needed by resume identity bootstrap)
+  const userNicknameRef = useRef<string | undefined>(undefined);
+  useEffect(() => { userNicknameRef.current = user?.nickname ?? undefined; }, [user?.nickname]);
+
   const sendHeartbeat = useCallback(async (userId: string) => {
     if (heartbeatInFlightRef.current) return; // throttle: skip if request in flight
     heartbeatInFlightRef.current = true;
@@ -341,18 +345,21 @@ function AppContent() {
     }
   }, [appReady, isOnboarded, user?.id]);
 
-  // Identity bootstrap: on every app start, hit /me to get the authoritative identity from the backend.
+  // Identity bootstrap: on every app start AND resume, hit /me to get the authoritative identity from the backend.
   // This overwrites any stale local userId, nickname, and role with what the backend knows.
   // The backend /me endpoint tries X-User-Id first, then falls back to X-User-Nickname —
   // so even if the local ID is stale, the nickname can recover the correct user.
+  const bootstrapIdentityRef = useRef<() => Promise<void>>(async () => {});
   useEffect(() => {
-    if (!appReady || !isOnboarded || !user?.id || !user?.nickname) return;
-    const bootstrapIdentity = async () => {
+    bootstrapIdentityRef.current = async () => {
+      const currentId = userIdRef.current;
+      const currentNickname = userNicknameRef.current;
+      if (!isOnboardedRef.current || !currentId || !currentNickname) return;
       try {
         const res = await fetch(`${BACKEND_URL}/api/gamification/me`, {
           headers: {
-            'X-User-Id': user.id,
-            'X-User-Nickname': user.nickname!,
+            'X-User-Id': currentId,
+            'X-User-Nickname': currentNickname,
           },
         });
         if (!res.ok) {
@@ -363,16 +370,20 @@ function AppContent() {
         if (!data.id) return;
 
         const updates: Record<string, string> = {};
-        if (data.id !== user.id) {
-          console.log(`[Layout] Identity bootstrap: correcting userId ${user.id} → ${data.id}`);
+        if (data.id !== currentId) {
+          console.log(`[Layout] Identity bootstrap: correcting userId ${currentId} → ${data.id}`);
           updates.id = data.id;
         }
-        if (data.nickname && data.nickname !== user.nickname) {
-          console.log(`[Layout] Identity bootstrap: correcting nickname "${user.nickname}" → "${data.nickname}"`);
+        if (data.nickname && data.nickname !== currentNickname) {
+          console.log(`[Layout] Identity bootstrap: correcting nickname "${currentNickname}" → "${data.nickname}"`);
           updates.nickname = data.nickname;
         }
-        if (data.role && data.role !== user.role) {
-          updates.role = data.role;
+        if (data.role) {
+          // Always sync role from backend — source of truth
+          const currentRole = (user as { role?: string })?.role;
+          if (data.role !== currentRole) {
+            updates.role = data.role;
+          }
         }
         if (Object.keys(updates).length > 0) {
           updateUser(updates as Parameters<typeof updateUser>[0]);
@@ -389,7 +400,11 @@ function AppContent() {
         // silent — non-critical, app continues with local state
       }
     };
-    bootstrapIdentity();
+  });
+
+  useEffect(() => {
+    if (!appReady || !isOnboarded || !user?.id || !user?.nickname) return;
+    bootstrapIdentityRef.current();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appReady, isOnboarded]);
 
@@ -424,6 +439,8 @@ function AppContent() {
           checkPendingGiftRef.current();
           checkReceivedGiftsRef.current();
           startHeartbeatRef.current(userIdRef.current);
+          // Re-run identity bootstrap on every resume so stale local IDs get corrected
+          bootstrapIdentityRef.current().catch(() => {});
         }
       } else if (isNowBackground) {
         logger.debug('[Layout] App went to background → stopHeartbeat');

@@ -318,12 +318,13 @@ export default function SettingsScreen() {
 
   // Debug panel state
   const BACKEND_URL_CONST = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
-  const EMERGENCY_IDS = ['cmml8uiit0000m2vluztbkjwf', 'cmm18uiit0000m2vluztbkjwf', 'cmmla4nvd000jpn5qgklfl7cm'];
+  const EMERGENCY_IDS = ['cmml8uiit0000m2vluztbkjwf'];
   const [debugBackendRole, setDebugBackendRole] = useState<string | null>(null);
   const [debugBackendStatus, setDebugBackendStatus] = useState<string | null>(null);
   const [debugCommunityCount, setDebugCommunityCount] = useState<number | null>(null);
   const [debugCommunityNicknames, setDebugCommunityNicknames] = useState<string[] | null>(null);
   const [debugMeNickname, setDebugMeNickname] = useState<string | null>(null);
+  const [debugMeUserId, setDebugMeUserId] = useState<string | null>(null);
   const [debugEnvName, setDebugEnvName] = useState<string | null>(null);
   const fetchDebugBackendRole = useCallback(async () => {
     if (!user?.id) return;
@@ -333,11 +334,13 @@ export default function SettingsScreen() {
       });
       setDebugBackendStatus(String(res.status));
       if (res.ok) {
-        const data = await res.json() as { role?: string; nickname?: string };
+        const data = await res.json() as { role?: string; nickname?: string; id?: string };
         setDebugBackendRole(data?.role ?? 'null');
         setDebugMeNickname(data?.nickname ?? 'null');
+        setDebugMeUserId(data?.id ?? 'null');
       } else {
         setDebugBackendRole(`error-${res.status}`);
+        setDebugMeUserId('error');
       }
     } catch (e) {
       setDebugBackendRole(`fetch-error: ${String(e)}`);
@@ -1443,6 +1446,18 @@ export default function SettingsScreen() {
               </View>
             )}
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>userId (store): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.id ?? 'none'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>userId (/me backend): <Text style={{ color: debugMeUserId && debugMeUserId !== user?.id ? '#EF4444' : '#10B981', fontFamily: 'monospace' }}>{debugMeUserId ?? '...'}</Text></Text>
+            <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>footer displays: <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.id ?? 'none'}</Text></Text>
+            {debugMeUserId && debugMeUserId !== '...' && debugMeUserId !== 'null' && debugMeUserId !== 'error' && debugMeUserId !== user?.id && (
+              <View style={{ padding: 6, borderRadius: 8, backgroundColor: '#EF444420', borderWidth: 1, borderColor: '#EF444440', marginBottom: 4 }}>
+                <Text style={{ color: '#EF4444', fontSize: 10, fontWeight: '700' }}>ID MISMATCH — store has stale ID. Use "Force sync" below to fix.</Text>
+              </View>
+            )}
+            {debugMeUserId && debugMeUserId === user?.id && (
+              <View style={{ padding: 6, borderRadius: 8, backgroundColor: '#10B98120', borderWidth: 1, borderColor: '#10B98140', marginBottom: 4 }}>
+                <Text style={{ color: '#10B981', fontSize: 10, fontWeight: '700' }}>ID MATCH — store matches backend</Text>
+              </View>
+            )}
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>nickname (store): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{user?.nickname ?? 'none'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>nickname (/me): <Text style={{ color: debugMeNickname && debugMeNickname !== user?.nickname ? '#EF4444' : '#E2E8F0', fontFamily: 'monospace' }}>{debugMeNickname ?? '...'}</Text></Text>
             <Text style={{ color: '#94A3B8', fontSize: 10, marginBottom: 3 }}>local role (store): <Text style={{ color: '#E2E8F0', fontFamily: 'monospace' }}>{(user as { role?: string })?.role ?? 'none'}</Text></Text>
@@ -1525,7 +1540,7 @@ export default function SettingsScreen() {
                 onPress={() => {}}
               >
                 <Text className="text-xs" style={{ color: colors.textMuted + '60' }}>
-                  {t.user_id}: {user.id.slice(0, 8)}...
+                  {t.user_id}: {user.id}
                 </Text>
               </Pressable>
             </View>

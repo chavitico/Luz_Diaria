@@ -44,9 +44,7 @@ const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://loca
 // Hard bypass: any userId in this list gets OWNER unconditionally.
 // No role check, no backend check, no cache gate.
 const EMERGENCY_OWNER_IDS: string[] = [
-  'cmml8uiit0000m2vluztbkjwf', // Vitigrecheer – original known production userId (preview backend)
-  'cmm18uiit0000m2vluztbkjwf', // Hard bypass – user-confirmed production userId
-  'cmmla4nvd000jpn5qgklfl7cm', // Vitigrecheer – confirmed production userId (unsealed-thirstily backend)
+  'cmml8uiit0000m2vluztbkjwf', // Chavitico – canonical production userId (single source of truth)
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 

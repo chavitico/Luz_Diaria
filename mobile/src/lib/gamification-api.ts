@@ -227,21 +227,24 @@ export const gamificationApi = {
     totalTime?: number;
   }): Promise<UserProfile | null> {
     try {
-      // First, try to get the user
-      const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/${user.id}`);
+      // Use /me with both X-User-Id and X-User-Nickname headers.
+      // Backend tries ID first, then falls back to nickname — so even a stale local ID
+      // will correctly resolve to the canonical backend user via nickname fallback.
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/me`, {
+        headers: {
+          'X-User-Id': user.id,
+          'X-User-Nickname': user.nickname,
+        },
+      });
 
       if (res.ok) {
-        // User exists, return profile
         return res.json();
       }
 
       if (res.status === 404) {
-        // User doesn't exist, create them
-        if (__DEV__) console.log('[Gamification] User not found, registering:', user.id);
+        // User not found by ID or nickname — register as a new user
+        if (__DEV__) console.log('[Gamification] User not found via /me, registering:', user.nickname);
 
-        // Register with the user's existing ID by directly inserting (we need a special endpoint)
-        // For now, we'll create a new user and they'll need to use that ID
-        // Actually, let's try registering with their nickname
         const registerRes = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -257,28 +260,18 @@ export const gamificationApi = {
           return newUser;
         }
 
-        // If nickname is taken, try with a suffix
+        // If nickname is taken, the user exists — retry /me with nickname only
         if (registerRes.status === 409) {
-          const suffix = Math.random().toString(36).substring(2, 6);
-          const newNickname = `${user.nickname.slice(0, 12)}_${suffix}`;
-
-          const retryRes = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              nickname: newNickname,
-              avatarId: user.avatar || 'avatar_dove',
-            }),
+          if (__DEV__) console.log('[Gamification] Nickname taken — retrying /me with nickname only');
+          const retryRes = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/me`, {
+            headers: { 'X-User-Nickname': user.nickname },
           });
-
           if (retryRes.ok) {
-            const newUser = await retryRes.json() as UserProfile;
-            if (__DEV__) console.log('[Gamification] Created backend user with new nickname:', newUser.id);
-            return newUser;
+            return retryRes.json();
           }
         }
 
-        console.error('[Gamification] Failed to create backend user');
+        console.error('[Gamification] Failed to resolve or create backend user');
         return null;
       }
 

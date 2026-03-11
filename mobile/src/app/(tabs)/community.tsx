@@ -1101,7 +1101,7 @@ export default function CommunityScreen() {
         <View style={{ marginTop: 4, flexDirection: 'row', flexWrap: 'wrap', gap: 4 }}>
           <Text style={{ fontSize: 9, color: colors.textMuted + '80', fontFamily: 'monospace' }}>
             active: <Text style={{ color: colors.primary + 'CC' }}>{user?.nickname ?? '?'}</Text>
-            {' '}({user?.id?.slice(0, 8) ?? '?'}…)
+            {' '}({user?.id ?? '?'})
           </Text>
           <Text style={{ fontSize: 9, color: colors.textMuted + '80', fontFamily: 'monospace' }}>
             · list: React Query [community-members] · {total} member{total !== 1 ? 's' : ''}
