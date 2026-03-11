@@ -40,6 +40,14 @@ import { fetchWithTimeout } from '@/lib/fetch';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
+// ── EMERGENCY OVERRIDE ────────────────────────────────────────────────────────
+// Temporary: allow these userIds through regardless of cached role, so we can
+// debug role/cache mismatches.  Remove once root cause is confirmed.
+const EMERGENCY_OWNER_IDS: string[] = [
+  'cmml8uiit0000m2vluztbkjwf', // Vitigrecheer – known production userId
+];
+// ─────────────────────────────────────────────────────────────────────────────
+
 interface AdminSection {
   id: string;
   icon: React.ReactNode;
@@ -151,44 +159,96 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
   }, []);
 
   // Every time the modal opens, verify role:
-  // 1. Immediately use the role already in the local store (synced by heartbeat)
-  // 2. Then confirm via network in case it changed
+  // 1. Start in "checking" state — do NOT use cached role to gate access yet
+  // 2. Hit the backend for the authoritative role
+  // 3. Apply emergency override if userId matches
+  // 4. Sync any changes back to local store
   useEffect(() => {
     if (!visible || !user?.id) return;
 
-    // Use store role immediately so UI is not blocked
-    const storeRole = (user?.role as 'OWNER' | 'MODERATOR' | 'USER') ?? 'USER';
-    setVerifiedRole(storeRole);
-    if (storeRole === 'OWNER') loadDevCacheInfo();
+    const localId   = user.id;
+    const localRole = (user?.role as 'OWNER' | 'MODERATOR' | 'USER') ?? 'USER';
+    const isEmergencyOverride = EMERGENCY_OWNER_IDS.includes(localId);
+
+    console.log('[AdminHub] ── open ──────────────────────────────────');
+    console.log('[AdminHub] localUserId  :', localId);
+    console.log('[AdminHub] localRole    :', localRole, '(from Zustand store)');
+    console.log('[AdminHub] emergencyOverride:', isEmergencyOverride);
+    console.log('[AdminHub] backendUrl   :', BACKEND_URL);
+
+    // Don't show stale "no-access" screen — wait for network first
+    // But if we already know the user is an owner/mod, show it immediately
+    if (localRole === 'OWNER' || localRole === 'MODERATOR' || isEmergencyOverride) {
+      const immediateRole = isEmergencyOverride ? 'OWNER' : localRole;
+      setVerifiedRole(immediateRole);
+      if (immediateRole === 'OWNER') loadDevCacheInfo();
+      console.log('[AdminHub] decision     : IMMEDIATE ACCESS (store role or override)');
+    } else {
+      // USER role from store — hold on "checking" until backend confirms
+      setVerifiedRole(null);
+      console.log('[AdminHub] decision     : holding for network — store shows USER');
+    }
+
     setChecking(true);
 
     fetch(`${BACKEND_URL}/api/gamification/me`, {
       headers: {
-        'X-User-Id': user.id,
+        'X-User-Id': localId,
         ...(user.nickname ? { 'X-User-Nickname': user.nickname } : {}),
       },
     })
-      .then(r => r.ok ? r.json() : null)
+      .then(r => {
+        console.log('[AdminHub] /me response status:', r.status);
+        return r.ok ? r.json() : null;
+      })
       .then((profile: { id?: string; role?: string } | null) => {
-        if (!profile?.role) return; // network failed or proxied away — keep store role
-        const role = profile.role as 'OWNER' | 'MODERATOR' | 'USER';
-        setVerifiedRole(role);
+        console.log('[AdminHub] /me payload  :', JSON.stringify(profile));
+
+        if (!profile?.role && !isEmergencyOverride) {
+          // Network failed — fall back to store role
+          console.log('[AdminHub] /me failed — falling back to store role:', localRole);
+          setVerifiedRole(localRole);
+          if (localRole === 'OWNER') loadDevCacheInfo();
+          return;
+        }
+
+        const backendRole = (profile?.role as 'OWNER' | 'MODERATOR' | 'USER') ?? localRole;
+        const finalRole   = isEmergencyOverride && backendRole !== 'OWNER'
+          ? 'OWNER'  // emergency: force OWNER for debugging
+          : backendRole;
+
+        console.log('[AdminHub] backendRole  :', backendRole);
+        console.log('[AdminHub] finalRole    :', finalRole, isEmergencyOverride ? '(emergency override applied)' : '');
+
+        setVerifiedRole(finalRole);
+
         const updates: Record<string, string> = {};
-        if (role !== user.role) updates.role = role;
+        if (backendRole !== localRole) {
+          console.log('[AdminHub] role CHANGED — was:', localRole, 'now:', backendRole, '→ syncing store');
+          updates.role = backendRole;
+        }
         // If the backend returned a different ID (nickname fallback), sync it locally
-        if (profile.id && profile.id !== user.id) {
-          console.log(`[AdminHub] ID mismatch — syncing local id from ${user.id} to ${profile.id}`);
+        if (profile?.id && profile.id !== localId) {
+          console.log('[AdminHub] ID mismatch — syncing local id from', localId, 'to', profile.id);
           updates.id = profile.id;
         }
         if (Object.keys(updates).length > 0) {
           updateUser(updates as Parameters<typeof updateUser>[0]);
         }
-        if (role === 'OWNER') loadDevCacheInfo();
+        if (finalRole === 'OWNER') loadDevCacheInfo();
       })
-      .catch(() => {
-        // Network failed — store role already set above, nothing to do
+      .catch((err) => {
+        console.log('[AdminHub] /me error    :', String(err));
+        // Network failed — use store role or emergency override
+        const fallback = isEmergencyOverride ? 'OWNER' : localRole;
+        console.log('[AdminHub] fallback role:', fallback);
+        setVerifiedRole(fallback);
+        if (fallback === 'OWNER') loadDevCacheInfo();
       })
-      .finally(() => setChecking(false));
+      .finally(() => {
+        console.log('[AdminHub] check complete');
+        setChecking(false);
+      });
   }, [visible, user?.id]);
 
   const role = verifiedRole;
