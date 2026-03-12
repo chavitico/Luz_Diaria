@@ -355,28 +355,35 @@ function ContentSection({ title, content, icon, colors, isHighlighted, sectionIn
       entering={FadeInDown.delay(100 + sectionIndex * 50).duration(400)}
       className="mb-6"
     >
-      {/* Section Header — tappable */}
-      <Pressable
-        onPress={onPress}
-        style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-      >
-        <View className="flex-row items-center mb-3">
-          <View
-            className="w-8 h-8 rounded-full items-center justify-center mr-3"
-            style={{ backgroundColor: colors.primary + '20' }}
-          >
-            {icon}
-          </View>
-          <Text
-            className="text-lg font-bold"
-            style={{ color: colors.primary }}
-          >
-            {title}
-          </Text>
-        </View>
-      </Pressable>
+      {/* Section Header — icon is the tap target */}
+      <View className="flex-row items-center mb-3">
+        <TouchableOpacity
+          onPress={() => {
+            console.log(`[TTS][icon] tapped section icon index=${sectionIndex}`);
+            onPress?.();
+          }}
+          activeOpacity={0.5}
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: 18,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: colors.primary + '25',
+            marginRight: 12,
+          }}
+        >
+          {icon}
+        </TouchableOpacity>
+        <Text
+          className="text-lg font-bold"
+          style={{ color: colors.primary }}
+        >
+          {title}
+        </Text>
+      </View>
 
-      {/* Section Content — Text handles its own onPress since nested Text nodes swallow Pressable touches */}
+      {/* Section Content */}
       <View
         className="rounded-2xl p-5"
         style={{
@@ -1103,48 +1110,6 @@ export default function DevotionalDetailScreen() {
             isTTSPlaying={isTTSPlaying}
           />
 
-          {/* Section jump chips — outside CollapsibleDevotional, plain View to avoid height collapse inside ScrollView */}
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, paddingVertical: 12 }}>
-            {[
-              { label: language === 'es' ? 'Versículo' : 'Verse', index: 0 },
-              { label: language === 'es' ? 'Reflexión' : 'Reflection', index: 1 },
-              { label: language === 'es' ? 'Historia' : 'Story', index: 2 },
-              { label: language === 'es' ? 'Personaje' : 'Character', index: 3 },
-              { label: language === 'es' ? 'Aplicación' : 'Application', index: 4 },
-              { label: language === 'es' ? 'Oración' : 'Prayer', index: 5 },
-            ].map(({ label, index }) => {
-              const isActive = currentSectionIndex === index;
-              return (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    console.log(`[TTS][chip] tapped section index=${index}`);
-                    handleTTSJumpToSection(index);
-                  }}
-                  activeOpacity={0.6}
-                  style={{
-                    paddingHorizontal: 14,
-                    paddingVertical: 7,
-                    borderRadius: 20,
-                    backgroundColor: isActive ? colors.primary : colors.surface,
-                    borderWidth: 1,
-                    borderColor: isActive ? colors.primary : colors.primary + '40',
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      fontWeight: '600',
-                      color: isActive ? '#fff' : colors.primary,
-                    }}
-                  >
-                    {label}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-
           {/* Collapsible content wrapper */}
           <CollapsibleDevotional colors={colors} language={language}>
             {/* Bible Verse Card */}
@@ -1157,21 +1122,33 @@ export default function DevotionalDetailScreen() {
                 borderColor: currentSectionIndex === 0 ? colors.primary : 'transparent',
               }}
             >
-              {/* Header row — Pressable handles tap on icon/label area */}
-              <Pressable
-                onPress={() => handleTTSJumpToSection(0)}
-                style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-              >
-                <View className="flex-row items-center mb-4">
+              {/* Header row — icon is the tap target */}
+              <View className="flex-row items-center mb-4">
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log('[TTS][icon] tapped verse icon');
+                    handleTTSJumpToSection(0);
+                  }}
+                  activeOpacity={0.5}
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 18,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: colors.primary + '25',
+                    marginRight: 8,
+                  }}
+                >
                   <BookOpen size={20} color={colors.primary} />
-                  <Text
-                    className="ml-2 font-semibold"
-                    style={{ color: colors.primary }}
-                  >
-                    {t.bible_verse}
-                  </Text>
-                </View>
-              </Pressable>
+                </TouchableOpacity>
+                <Text
+                  className="font-semibold"
+                  style={{ color: colors.primary }}
+                >
+                  {t.bible_verse}
+                </Text>
+              </View>
               {/* Verse text — onPress on Text since Text nodes consume touches before parent Pressable */}
               <Text
                 className="text-xl italic leading-8 mb-3"
