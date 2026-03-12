@@ -8044,21 +8044,14 @@ export default function StoreScreen() {
   const handleBundlePurchase = useCallback((bundle: typeof STORE_BUNDLES[string]) => {
     if (bundlePurchaseMutation.isPending) return;
     const bundleName = language === 'es' ? bundle.nameEs : bundle.name;
-    const bundleId = bundle.id;
-    const items = bundle.items;
-    const price = bundle.bundlePrice;
-    // Close the section modal first to avoid stacked Modal crash on iOS
-    setShowStoreSectionModal(false);
-    setTimeout(() => {
-      requestConfirmation(bundleName, price, () => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-        bundlePurchaseMutate({
-          bundleId,
-          itemIds: items,
-          bundlePrice: price,
-        });
+    requestConfirmation(bundleName, bundle.bundlePrice, () => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+      bundlePurchaseMutate({
+        bundleId: bundle.id,
+        itemIds: bundle.items,
+        bundlePrice: bundle.bundlePrice,
       });
-    }, 350);
+    });
   }, [bundlePurchaseMutate, bundlePurchaseMutation.isPending, language, requestConfirmation]);
 
   // Handle purchase from modal
@@ -8067,18 +8060,11 @@ export default function StoreScreen() {
     if (purchaseMutation.isPending) return;
     const itemName = language === 'es' ? selectedDetailItem.nameEs : selectedDetailItem.name;
     const desc = language === 'es' ? selectedDetailItem.descriptionEs : selectedDetailItem.description;
-    const itemId = selectedDetailItem.id;
-    const price = selectedDetailItem.price;
-    // Close ALL open modals first — avoids stacked Modal crash on iOS
-    setShowDetailModal(false);
-    setShowStoreSectionModal(false);
-    setTimeout(() => {
-      requestConfirmation(itemName, price, () => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-        markNewItemSeen(itemId);
-        purchaseMutate({ itemId });
-      }, desc || undefined);
-    }, 350);
+    requestConfirmation(itemName, selectedDetailItem.price, () => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+      markNewItemSeen(selectedDetailItem.id);
+      purchaseMutate({ itemId: selectedDetailItem.id });
+    }, desc || undefined);
   }, [selectedDetailItem, purchaseMutate, markNewItemSeen, purchaseMutation.isPending, language, requestConfirmation]);
 
   // Handle equip from modal
@@ -9092,8 +9078,7 @@ export default function StoreScreen() {
                 isHighlighted={highlightPincel}
                 onPress={() => {
                   if (!hasPincel && canAffordPincel) {
-                    setShowStoreSectionModal(false);
-                    setTimeout(() => handleTokenPurchase('pincel_magico', 15000), 350);
+                    handleTokenPurchase('pincel_magico', 15000);
                   }
                 }}
               />

@@ -1655,14 +1655,35 @@
     "id": "cmmo0bwf3000nm22nd7h4n3w3",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-12T22:11:55.981Z",
+    "acquiredAt": "2026-03-12T22:38:51.972Z",
     "source": "store"
   },
   {
     "id": "cmmo1ifsx000nm2cl6yyam9yj",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "itemId": "pack_pascua",
-    "acquiredAt": "2026-03-12T22:29:09.633Z",
+    "acquiredAt": "2026-03-12T22:39:16.331Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo1t6sp000nm2x2yq09m4k7",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "frame_v2_zafiro",
+    "acquiredAt": "2026-03-12T22:37:31.178Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo1tbkl000pm2x25unm9ode",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "frame_v2_luna_plata",
+    "acquiredAt": "2026-03-12T22:37:37.366Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo1th5d000rm2x2txx0s108",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "frame_v2_fuego_sagrado",
+    "acquiredAt": "2026-03-12T22:37:44.594Z",
     "source": "store"
   }
 ]
