@@ -164,10 +164,8 @@ export async function scheduleDailyNotification(
     const identifier = await Notifications.scheduleNotificationAsync({
       content: {
         title: msg.title,
-        subtitle: undefined,
         body: msg.body,
         data: { screen: 'home' },
-        categoryIdentifier: undefined,
       },
       trigger,
     });
@@ -411,10 +409,8 @@ export async function sendTestNotification(language: 'en' | 'es' = 'es'): Promis
     await Notifications.scheduleNotificationAsync({
       content: {
         title: msg.title,
-        subtitle: undefined,
         body: msg.body,
         data: { screen: 'home' },
-        categoryIdentifier: undefined,
       },
       trigger: null,
     });
