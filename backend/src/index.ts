@@ -18,6 +18,7 @@ import { storeGiftsRouter } from "./routes/store-gifts";
 import { adminRouter } from "./routes/admin-users";
 import { adminBackupRouter } from "./routes/admin-backup";
 import { imageGenRouter } from "./routes/image-gen";
+import { testimoniesRouter } from "./routes/testimonies";
 import { startDevotionalCron } from "./cron";
 import { initializeWeeklyChallenges } from "./weekly-challenges";
 import { seedPromoCodes } from "./seed-promo-codes";
@@ -95,6 +96,7 @@ app.route("/api/store", storeGiftsRouter);
 app.route("/api/admin", adminRouter);
 app.route("/api/admin/backups", adminBackupRouter);
 app.route("/api/image-gen", imageGenRouter);
+app.route("/api/testimonies", testimoniesRouter);
 
 // Bootstrap endpoint — seed the full store item catalog.
 // Protected by the same hardcoded secret token.

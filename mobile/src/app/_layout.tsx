@@ -149,6 +149,20 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
+          name="admin/promo-codes"
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="admin/testimonies"
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="logo-preview"
           options={{
             presentation: 'modal',

@@ -29,6 +29,7 @@ import {
   Wifi,
   RefreshCw,
   Tag,
+  MessageSquareHeart,
 } from 'lucide-react-native';
 import { useThemeColors, useUser, useAppStore } from '@/lib/store';
 import {
@@ -341,6 +342,15 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
       route: '/admin/promo-codes',
       roles: ['OWNER'],
       accentColor: '#F97316',
+    },
+    {
+      id: 'testimonies',
+      icon: <MessageSquareHeart size={22} color="#EC4899" />,
+      label: 'Testimonios',
+      description: 'Revisar, aprobar o rechazar testimonios enviados por usuarios',
+      route: '/admin/testimonies',
+      roles: ['OWNER', 'MODERATOR'],
+      accentColor: '#EC4899',
     },
   ];
 

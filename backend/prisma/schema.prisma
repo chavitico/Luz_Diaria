@@ -80,6 +80,7 @@ model User {
   collectionCardRewards  CollectionCardReward[]
   tradesInitiated        CardTrade[]             @relation("TradesInitiated")
   tradesReceived         CardTrade[]             @relation("TradesReceived")
+  testimonies            Testimony[]
 }
 
 model UserSession {
@@ -481,6 +482,24 @@ model AdminAuditLog {
 
   @@index([actorUserId])
   @@index([targetUserId])
+  @@index([createdAt])
+}
+
+// User testimonies - submitted, moderated, displayed in community
+model Testimony {
+  id          String   @id @default(cuid())
+  userId      String
+  text        String   // the testimony text (max 500 chars)
+  status      String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  reviewedBy  String?  // moderator userId who reviewed
+  reviewedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
   @@index([createdAt])
 }
 
