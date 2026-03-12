@@ -1978,5 +1978,15 @@
     "amount": 10000,
     "metadata": "{\"reason\":\"Te queremos\",\"giftDropId\":\"cmmo0hbem000wm22nfwor2m0u\"}",
     "createdAt": "2026-03-12T22:01:15.521Z"
+  },
+  {
+    "id": "cmmo3i08e0025m29bupgcvol2",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773357888685",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 5000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmo3hv9w001qm29be5lxv1gn\"}",
+    "createdAt": "2026-03-12T23:24:48.686Z"
   }
 ]
