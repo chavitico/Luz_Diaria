@@ -3342,14 +3342,16 @@ function ItemDetailModal({
         <Pressable onPress={() => {}}>
           <Animated.View
             entering={FadeIn.duration(200)}
-            className="w-full rounded-3xl overflow-hidden"
+            className="w-full rounded-3xl"
             style={{
               backgroundColor: colors.surface,
               maxWidth: 340,
+              maxHeight: '90%',
               shadowColor: rarityColor,
               shadowOffset: { width: 0, height: 8 },
               shadowOpacity: 0.2,
               shadowRadius: 24,
+              overflow: 'hidden',
             }}
           >
             {/* Close button */}
@@ -3361,7 +3363,7 @@ function ItemDetailModal({
               <X size={18} color={colors.textMuted} />
             </Pressable>
 
-            {/* Header gradient */}
+            {/* Header gradient — always visible, not scrolled */}
             <LinearGradient
               colors={RARITY_GRADIENTS[item.rarity as keyof typeof RARITY_GRADIENTS] || RARITY_GRADIENTS.common}
               style={{ paddingTop: 40, paddingBottom: 24, alignItems: 'center' }}
@@ -3369,8 +3371,14 @@ function ItemDetailModal({
               {renderPreview()}
             </LinearGradient>
 
-            {/* Content */}
-            <View className="p-6">
+            {/* Scrollable content */}
+            <ScrollView
+              bounces={false}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
+              {/* Content */}
+              <View className="p-6">
               {/* Rarity badge */}
               <View className="items-center mb-3">
                 <RarityBadge rarity={item.rarity} language={language} />
@@ -3557,7 +3565,7 @@ function ItemDetailModal({
                 onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); onGift(); }}
                 style={({ pressed }) => ({
                   flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6,
-                  marginTop: 8, paddingVertical: 10,
+                  marginTop: 4, paddingVertical: 12, paddingHorizontal: 24, marginBottom: 8,
                   opacity: pressed ? 0.6 : 1,
                 })}
               >
@@ -3567,6 +3575,7 @@ function ItemDetailModal({
                 </Text>
               </Pressable>
             )}
+            </ScrollView>
           </Animated.View>
         </Pressable>
       </Pressable>
