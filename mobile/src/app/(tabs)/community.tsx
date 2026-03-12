@@ -1251,9 +1251,11 @@ function OracionesCard() {
 function TestimoniosCard({
   userId,
   onSharePress,
+  onViewAll,
 }: {
   userId: string | undefined;
   onSharePress: () => void;
+  onViewAll: () => void;
 }) {
   const colors = useThemeColors();
   const { sFont } = useScaledFont();
@@ -1363,6 +1365,29 @@ function TestimoniosCard({
           </View>
         )}
 
+        {/* View all button */}
+        {(testimonies ?? []).length > 0 && (
+          <Pressable
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              onViewAll();
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+              paddingVertical: 10,
+              marginBottom: 10,
+            }}
+          >
+            <Text style={{ fontSize: sFont(13), fontWeight: '600', color: '#8B5CF6' }}>
+              Ver todos los testimonios
+            </Text>
+            <ChevronRight size={14} color="#8B5CF6" />
+          </Pressable>
+        )}
+
         {/* Share button */}
         <Pressable
           onPress={() => {
@@ -1398,6 +1423,7 @@ export default function CommunityScreen() {
   const { sFont } = useScaledFont();
   const user = useUser();
   const queryClient = useQueryClient();
+  const router = useRouter();
   const t = TRANSLATIONS[language];
 
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -1787,6 +1813,7 @@ export default function CommunityScreen() {
         <TestimoniosCard
           userId={user?.id}
           onSharePress={() => setShowTestimonyModal(true)}
+          onViewAll={() => router.push('/community/testimonios-feed')}
         />
       </ScrollView>
 

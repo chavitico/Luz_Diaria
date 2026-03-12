@@ -12,6 +12,7 @@ testimoniesRouter.get("/approved", async (c) => {
   const page   = Math.max(1, parseInt(c.req.query("page") ?? "1", 10));
   const limit  = Math.min(50, parseInt(c.req.query("limit") ?? "20", 10));
   const offset = (page - 1) * limit;
+  const userId = c.req.header("x-user-id");
 
   const [items, total] = await Promise.all([
     prisma.testimony.findMany({
@@ -24,6 +25,7 @@ testimoniesRouter.get("/approved", async (c) => {
         text: true,
         createdAt: true,
         reviewedAt: true,
+        likeCount: true,
         user: {
           select: {
             id: true,
@@ -33,12 +35,29 @@ testimoniesRouter.get("/approved", async (c) => {
             titleId: true,
           },
         },
+        ...(userId ? {
+          likes: {
+            where: { userId },
+            select: { userId: true },
+          },
+        } : {}),
       },
     }),
     prisma.testimony.count({ where: { status: "APPROVED" } }),
   ]);
 
-  return c.json({ testimonies: items, total, page, limit });
+  // Normalize: add `likedByMe` field, remove raw `likes` array
+  const testimonies = items.map((item: any) => ({
+    id: item.id,
+    text: item.text,
+    createdAt: item.createdAt,
+    reviewedAt: item.reviewedAt,
+    likeCount: item.likeCount,
+    likedByMe: userId ? (item.likes?.length > 0) : false,
+    user: item.user,
+  }));
+
+  return c.json({ testimonies, total, page, limit });
 });
 
 // ─── GET /api/testimonies/mine  ───────────────────────────────────────────────
@@ -203,3 +222,48 @@ testimoniesRouter.delete(
     return c.json({ success: true });
   }
 );
+
+// ─── POST /api/testimonies/:id/like  ─────────────────────────────────────────
+// Toggle like on an approved testimony (one per user)
+testimoniesRouter.post("/:id/like", async (c) => {
+  const userId = c.req.header("x-user-id");
+  if (!userId) return c.json({ error: "Missing userId" }, 400);
+
+  const { id } = c.req.param();
+
+  const testimony = await prisma.testimony.findUnique({ where: { id } });
+  if (!testimony || testimony.status !== "APPROVED") {
+    return c.json({ error: "Testimony not found" }, 404);
+  }
+
+  // Check if already liked
+  const existing = await prisma.testimonyLike.findUnique({
+    where: { testimonyId_userId: { testimonyId: id, userId } },
+  });
+
+  if (existing) {
+    // Unlike: remove the like and decrement
+    await prisma.$transaction([
+      prisma.testimonyLike.delete({
+        where: { testimonyId_userId: { testimonyId: id, userId } },
+      }),
+      prisma.testimony.update({
+        where: { id },
+        data: { likeCount: { decrement: 1 } },
+      }),
+    ]);
+    const updated = await prisma.testimony.findUnique({ where: { id }, select: { likeCount: true } });
+    return c.json({ liked: false, likeCount: updated?.likeCount ?? 0 });
+  } else {
+    // Like: add the like and increment
+    await prisma.$transaction([
+      prisma.testimonyLike.create({ data: { testimonyId: id, userId } }),
+      prisma.testimony.update({
+        where: { id },
+        data: { likeCount: { increment: 1 } },
+      }),
+    ]);
+    const updated = await prisma.testimony.findUnique({ where: { id }, select: { likeCount: true } });
+    return c.json({ liked: true, likeCount: updated?.likeCount ?? 0 });
+  }
+});

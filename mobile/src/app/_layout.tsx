@@ -163,6 +163,13 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
+          name="community/testimonios-feed"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="logo-preview"
           options={{
             presentation: 'modal',

@@ -88,5 +88,20 @@
     "expiresAt": "2026-03-12T01:13:43.479Z",
     "createdAt": "2026-03-10T01:13:43.481Z",
     "updatedAt": "2026-03-10T01:13:43.481Z"
+  },
+  {
+    "id": "cmmnp7tdl000xm2703qklg716",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "peace",
+    "nickname": "Chavitico",
+    "avatarId": "avatar_adv_elijah_fire",
+    "frameId": "frame_v2_jade",
+    "titleId": "title_renewed_strength",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-14T16:44:58.614Z",
+    "createdAt": "2026-03-12T16:44:58.618Z",
+    "updatedAt": "2026-03-12T16:44:58.618Z"
   }
 ]

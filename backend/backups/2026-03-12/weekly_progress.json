@@ -291,19 +291,19 @@
     "id": "cmml8ul00000em2vl5d27xkpc",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "challengeId": "cmmh1xu540000m262en3rwiqr",
-    "currentCount": 0,
-    "completed": false,
-    "claimed": false,
-    "updatedAt": "2026-03-10T23:31:15.024Z"
+    "currentCount": 5,
+    "completed": true,
+    "claimed": true,
+    "updatedAt": "2026-03-12T16:55:02.525Z"
   },
   {
     "id": "cmml8ul00000gm2vlpfl8na1h",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "challengeId": "cmmh1xu6a0001m262l4do2a00",
-    "currentCount": 0,
-    "completed": false,
-    "claimed": false,
-    "updatedAt": "2026-03-10T23:31:15.025Z"
+    "currentCount": 7,
+    "completed": true,
+    "claimed": true,
+    "updatedAt": "2026-03-12T16:55:54.798Z"
   },
   {
     "id": "cmmm73muy000cm2o9lqi0p7rw",

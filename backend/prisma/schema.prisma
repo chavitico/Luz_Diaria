@@ -493,14 +493,30 @@ model Testimony {
   status      String   @default("PENDING") // PENDING | APPROVED | REJECTED
   reviewedBy  String?  // moderator userId who reviewed
   reviewedAt  DateTime?
+  likeCount   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes       TestimonyLike[]
 
   @@index([userId])
   @@index([status])
   @@index([createdAt])
+}
+
+// Tracks which users liked which testimonies (one like per user per testimony)
+model TestimonyLike {
+  id          String   @id @default(cuid())
+  testimonyId String
+  userId      String
+  createdAt   DateTime @default(now())
+
+  testimony   Testimony @relation(fields: [testimonyId], references: [id], onDelete: Cascade)
+
+  @@unique([testimonyId, userId])
+  @@index([userId])
+  @@index([testimonyId])
 }
 
 model GiftTransaction {
