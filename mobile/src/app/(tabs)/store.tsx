@@ -8069,8 +8069,9 @@ export default function StoreScreen() {
     const desc = language === 'es' ? selectedDetailItem.descriptionEs : selectedDetailItem.description;
     const itemId = selectedDetailItem.id;
     const price = selectedDetailItem.price;
-    // Close detail modal first to avoid stacked Modal crash on iOS
+    // Close ALL open modals first — avoids stacked Modal crash on iOS
     setShowDetailModal(false);
+    setShowStoreSectionModal(false);
     setTimeout(() => {
       requestConfirmation(itemName, price, () => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);

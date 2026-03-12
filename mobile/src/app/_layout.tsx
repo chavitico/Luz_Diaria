@@ -390,10 +390,10 @@ function AppContent() {
           console.log(`[Layout] Identity bootstrap: /me returned ${res.status} — keeping local state`);
           return;
         }
-        const data: { id?: string; nickname?: string; role?: string } = await res.json();
+        const data: { id?: string; nickname?: string; role?: string; inventory?: Array<{ itemId: string }> } = await res.json();
         if (!data.id) return;
 
-        const updates: Record<string, string> = {};
+        const updates: Record<string, unknown> = {};
         if (data.id !== currentId) {
           console.log(`[Layout] Identity bootstrap: correcting userId ${currentId} → ${data.id}`);
           updates.id = data.id;
@@ -407,6 +407,19 @@ function AppContent() {
           const currentRole = (user as { role?: string })?.role;
           if (data.role !== currentRole) {
             updates.role = data.role;
+          }
+        }
+        // Sync purchasedItems from backend inventory — removes stale local items
+        if (data.inventory) {
+          const backendItemIds = data.inventory.map((inv) => inv.itemId);
+          const localPurchased = useAppStore.getState().user?.purchasedItems ?? [];
+          // Keep only items confirmed by backend (removes ghost items like stale pincel_magico)
+          const synced = localPurchased.filter(id => backendItemIds.includes(id));
+          // Also add anything backend has that local doesn't
+          const merged = Array.from(new Set([...synced, ...backendItemIds]));
+          if (merged.length !== localPurchased.length || merged.some(id => !localPurchased.includes(id)) || localPurchased.some(id => !merged.includes(id))) {
+            console.log('[Layout] Syncing purchasedItems from backend inventory');
+            updates.purchasedItems = merged;
           }
         }
         if (Object.keys(updates).length > 0) {
