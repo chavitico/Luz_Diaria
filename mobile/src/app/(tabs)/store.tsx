@@ -8186,7 +8186,7 @@ export default function StoreScreen() {
   // STABILITY-FIRST: close sheet first, dispatch reveal to root layer after sheet dismisses.
   // isPackTransactionActive (state) disables all pack buttons during the flow.
   const executeTokenPurchase = async (itemId: string, price: number) => {
-    console.log('[Store][Lock] handleTokenPurchase pressed', { itemId, price, isTokenPurchasing: isTokenPurchasing.current, isPackTransactionActive });
+    console.log('[Store][Lock] executeTokenPurchase called', { itemId, price, isTokenPurchasing: isTokenPurchasing.current, isPackTransactionActive, points, userId });
     if (!userId || points < price) return;
     if (isTokenPurchasing.current) {
       console.log('[Store][Lock] BLOCKED — purchase already in flight');
@@ -10164,6 +10164,7 @@ export default function StoreScreen() {
         cost={confirmPurchasePending?.cost ?? 0}
         description={confirmPurchasePending?.description}
         onConfirm={() => {
+          console.log('[ConfirmModal] onConfirm tapped, pending:', confirmPurchasePending?.itemName, confirmPurchasePending?.cost);
           setConfirmPurchaseVisible(false);
           confirmPurchasePending?.onConfirm();
           setConfirmPurchasePending(null);

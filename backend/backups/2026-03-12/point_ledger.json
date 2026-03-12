@@ -1958,5 +1958,25 @@
     "amount": 8,
     "metadata": "{}",
     "createdAt": "2026-03-12T16:55:52.305Z"
+  },
+  {
+    "id": "cmmo0gg2r000vm22nucm43r0p",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773352777058",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 25000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmo0g76o000qm22nwx6s0da9\"}",
+    "createdAt": "2026-03-12T21:59:37.059Z"
+  },
+  {
+    "id": "cmmo0ik1t0011m22nb57nlljy",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773352875521",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 10000,
+    "metadata": "{\"reason\":\"Te queremos\",\"giftDropId\":\"cmmo0hbem000wm22nfwor2m0u\"}",
+    "createdAt": "2026-03-12T22:01:15.521Z"
   }
 ]
