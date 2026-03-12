@@ -892,6 +892,7 @@ export default function DevotionalDetailScreen() {
   useFocusEffect(
     useCallback(() => {
       return () => {
+        speechJobIdRef.current += 1; // invalidate any active job
         isTTSPlayingRef.current = false;
         Speech.stop();
         setIsTTSPlaying(false);

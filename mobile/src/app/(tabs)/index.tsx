@@ -1471,6 +1471,19 @@ export default function HomeScreen() {
     };
   }, []);
 
+  // Stop TTS when screen loses focus (tab switch, navigation away, etc.)
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        speechJobIdRef.current += 1; // invalidate any active job
+        isTTSPlayingRef.current = false;
+        Speech.stop();
+        setIsTTSPlaying(false);
+        setCurrentSectionIndex(-1);
+      };
+    }, [])
+  );
+
   // Handle TTS completion - award points when TTS finishes the last section (prayer)
   const handleTTSComplete = useCallback(async () => {
     if (!user || ttsCompletedTodayRef.current) return;
