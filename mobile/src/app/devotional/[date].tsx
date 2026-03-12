@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   Pressable,
+  TouchableOpacity,
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
@@ -1101,6 +1102,52 @@ export default function DevotionalDetailScreen() {
             onTTSPause={handleTTSPause}
             isTTSPlaying={isTTSPlaying}
           />
+
+          {/* Section jump chips — outside CollapsibleDevotional to avoid any overflow/Animated interference */}
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingVertical: 12, gap: 8 }}
+          >
+            {[
+              { label: language === 'es' ? 'Versículo' : 'Verse', index: 0 },
+              { label: language === 'es' ? 'Reflexión' : 'Reflection', index: 1 },
+              { label: language === 'es' ? 'Historia' : 'Story', index: 2 },
+              { label: language === 'es' ? 'Personaje' : 'Character', index: 3 },
+              { label: language === 'es' ? 'Aplicación' : 'Application', index: 4 },
+              { label: language === 'es' ? 'Oración' : 'Prayer', index: 5 },
+            ].map(({ label, index }) => {
+              const isActive = currentSectionIndex === index;
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => {
+                    console.log(`[TTS][chip] tapped section index=${index}`);
+                    handleTTSJumpToSection(index);
+                  }}
+                  activeOpacity={0.6}
+                  style={{
+                    paddingHorizontal: 14,
+                    paddingVertical: 7,
+                    borderRadius: 20,
+                    backgroundColor: isActive ? colors.primary : colors.surface,
+                    borderWidth: 1,
+                    borderColor: isActive ? colors.primary : colors.primary + '40',
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      fontWeight: '600',
+                      color: isActive ? '#fff' : colors.primary,
+                    }}
+                  >
+                    {label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
 
           {/* Collapsible content wrapper */}
           <CollapsibleDevotional colors={colors} language={language}>
