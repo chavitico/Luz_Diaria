@@ -354,45 +354,43 @@ function ContentSection({ title, content, icon, colors, isHighlighted, sectionIn
       entering={FadeInDown.delay(100 + sectionIndex * 50).duration(400)}
       className="mb-6"
     >
-      {/* Section Header */}
-      <View className="flex-row items-center mb-3">
-        <View
-          className="w-8 h-8 rounded-full items-center justify-center mr-3"
-          style={{ backgroundColor: colors.primary + '20' }}
-        >
-          {icon}
-        </View>
-        <Text
-          className="text-lg font-bold"
-          style={{ color: colors.primary }}
-        >
-          {title}
-        </Text>
-      </View>
-
-      {/* Section Content */}
+      {/* Section Header — tappable */}
       <Pressable
         onPress={onPress}
-        android_ripple={onPress ? { color: colors.primary + '20' } : undefined}
-        style={({ pressed }) => ({
-          opacity: onPress && pressed ? 0.75 : 1,
-        })}
+        style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
       >
-        <View
-          className="rounded-2xl p-5"
-          style={{
-            backgroundColor: isHighlighted ? colors.primary + '15' : colors.surface,
-            borderWidth: isHighlighted ? 2 : 0,
-            borderColor: isHighlighted ? colors.primary : 'transparent',
-          }}
-        >
-          <BibleReferenceText
-            style={{ color: colors.text, fontSize: 16, lineHeight: 28 }}
+        <View className="flex-row items-center mb-3">
+          <View
+            className="w-8 h-8 rounded-full items-center justify-center mr-3"
+            style={{ backgroundColor: colors.primary + '20' }}
           >
-            {content}
-          </BibleReferenceText>
+            {icon}
+          </View>
+          <Text
+            className="text-lg font-bold"
+            style={{ color: colors.primary }}
+          >
+            {title}
+          </Text>
         </View>
       </Pressable>
+
+      {/* Section Content — Text handles its own onPress since nested Text nodes swallow Pressable touches */}
+      <View
+        className="rounded-2xl p-5"
+        style={{
+          backgroundColor: isHighlighted ? colors.primary + '15' : colors.surface,
+          borderWidth: isHighlighted ? 2 : 0,
+          borderColor: isHighlighted ? colors.primary : 'transparent',
+        }}
+      >
+        <BibleReferenceText
+          style={{ color: colors.text, fontSize: 16, lineHeight: 28 }}
+          onPress={onPress}
+        >
+          {content}
+        </BibleReferenceText>
+      </View>
     </Animated.View>
   );
 }
@@ -820,8 +818,12 @@ export default function DevotionalDetailScreen() {
   }, []);
 
   const handleTTSJumpToSection = useCallback(async (index: number) => {
+    console.log(`[TTS][jump] tapped section index=${index}`);
     const sections = buildDevotionalText();
-    if (sections.length === 0 || index < 0 || index >= sections.length) return;
+    if (sections.length === 0 || index < 0 || index >= sections.length) {
+      console.log(`[TTS][jump] aborted — sections=${sections.length}`);
+      return;
+    }
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
@@ -1103,11 +1105,6 @@ export default function DevotionalDetailScreen() {
           {/* Collapsible content wrapper */}
           <CollapsibleDevotional colors={colors} language={language}>
             {/* Bible Verse Card */}
-            <Pressable
-              onPress={() => handleTTSJumpToSection(0)}
-              android_ripple={{ color: colors.primary + '20' }}
-              style={({ pressed }) => ({ opacity: pressed ? 0.75 : 1 })}
-            >
             <Animated.View
               entering={FadeInDown.delay(100).duration(400)}
               className="rounded-3xl p-6 mb-6"
@@ -1117,29 +1114,39 @@ export default function DevotionalDetailScreen() {
                 borderColor: currentSectionIndex === 0 ? colors.primary : 'transparent',
               }}
             >
-              <View className="flex-row items-center mb-4">
-                <BookOpen size={20} color={colors.primary} />
-                <Text
-                  className="ml-2 font-semibold"
-                  style={{ color: colors.primary }}
-                >
-                  {t.bible_verse}
-                </Text>
-              </View>
+              {/* Header row — Pressable handles tap on icon/label area */}
+              <Pressable
+                onPress={() => handleTTSJumpToSection(0)}
+                style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+              >
+                <View className="flex-row items-center mb-4">
+                  <BookOpen size={20} color={colors.primary} />
+                  <Text
+                    className="ml-2 font-semibold"
+                    style={{ color: colors.primary }}
+                  >
+                    {t.bible_verse}
+                  </Text>
+                </View>
+              </Pressable>
+              {/* Verse text — onPress on Text since Text nodes consume touches before parent Pressable */}
               <Text
                 className="text-xl italic leading-8 mb-3"
                 style={{ color: colors.text }}
+                onPress={() => handleTTSJumpToSection(0)}
+                suppressHighlighting={true}
               >
                 {verse}
               </Text>
               <Text
                 className="text-sm font-medium"
                 style={{ color: colors.textMuted }}
+                onPress={() => handleTTSJumpToSection(0)}
+                suppressHighlighting={true}
               >
                 — {language === 'es' ? (devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference)) : devotional.bibleReference}
               </Text>
             </Animated.View>
-            </Pressable>
 
             {/* All sections displayed continuously */}
             <ContentSection

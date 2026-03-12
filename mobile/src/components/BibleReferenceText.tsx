@@ -13,6 +13,7 @@ interface BibleReferenceTextProps {
   children: string;
   style?: StyleProp<TextStyle>;
   referenceStyle?: StyleProp<TextStyle>;
+  onPress?: () => void;
 }
 
 interface TextSegment {
@@ -74,6 +75,7 @@ export function BibleReferenceText({
   children,
   style,
   referenceStyle,
+  onPress,
 }: BibleReferenceTextProps) {
   const colors = useThemeColors();
   const [selectedReference, setSelectedReference] = useState<string | null>(null);
@@ -152,7 +154,7 @@ export function BibleReferenceText({
 
   return (
     <>
-      <Text style={style}>
+      <Text style={style} onPress={onPress} suppressHighlighting={true}>
         {segments.map((segment) => {
           if (segment.type === 'reference') {
             return (
