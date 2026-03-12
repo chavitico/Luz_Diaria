@@ -75,6 +75,7 @@ import { CardRevealModal } from '@/components/CardRevealModal';
 import { PackOpeningModal } from '@/components/PackOpeningModal';
 import { TradeInboxModal } from '@/components/TradeInboxModal';
 import { BadgeChip } from '@/components/BadgeChip';
+import { ConfirmPurchaseModal } from '@/components/ConfirmPurchaseModal';
 import { useFocusEffect } from '@react-navigation/native';
 import {
   TRANSLATIONS,
@@ -7510,6 +7511,25 @@ export default function StoreScreen() {
   const [hasRenameToken, setHasRenameToken] = useState(false);
   const [activeBadgeId, setActiveBadgeId] = useState<string | null>(null);
 
+  // Confirm purchase modal state — shared across all point-spending flows
+  const [confirmPurchaseVisible, setConfirmPurchaseVisible] = useState(false);
+  const [confirmPurchasePending, setConfirmPurchasePending] = useState<{
+    itemName: string;
+    cost: number;
+    description?: string;
+    onConfirm: () => void;
+  } | null>(null);
+
+  const requestConfirmation = useCallback((
+    itemName: string,
+    cost: number,
+    onConfirm: () => void,
+    description?: string,
+  ) => {
+    setConfirmPurchasePending({ itemName, cost, description, onConfirm });
+    setConfirmPurchaseVisible(true);
+  }, []);
+
   // Reset transaction locks when app returns to foreground (resumeTick bumped by _layout.tsx)
   // This fixes the bug where minimizing mid-purchase leaves locks stuck and pack buttons disabled.
   useEffect(() => {
@@ -7993,23 +8013,29 @@ export default function StoreScreen() {
   // Handle bundle purchase
   const handleBundlePurchase = useCallback((bundle: typeof STORE_BUNDLES[string]) => {
     if (bundlePurchaseMutation.isPending) return;
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-    bundlePurchaseMutate({
-      bundleId: bundle.id,
-      itemIds: bundle.items,
-      bundlePrice: bundle.bundlePrice,
+    const bundleName = language === 'es' ? bundle.nameEs : bundle.name;
+    requestConfirmation(bundleName, bundle.bundlePrice, () => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+      bundlePurchaseMutate({
+        bundleId: bundle.id,
+        itemIds: bundle.items,
+        bundlePrice: bundle.bundlePrice,
+      });
     });
-  }, [bundlePurchaseMutate, bundlePurchaseMutation.isPending]);
+  }, [bundlePurchaseMutate, bundlePurchaseMutation.isPending, language, requestConfirmation]);
 
   // Handle purchase from modal
   const handlePurchase = useCallback(() => {
     if (!selectedDetailItem) return;
-    // Guard: prevent double-tap purchase while already processing
     if (purchaseMutation.isPending) return;
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-    markNewItemSeen(selectedDetailItem.id);
-    purchaseMutate({ itemId: selectedDetailItem.id });
-  }, [selectedDetailItem, purchaseMutate, markNewItemSeen, purchaseMutation.isPending]);
+    const itemName = language === 'es' ? selectedDetailItem.nameEs : selectedDetailItem.name;
+    const desc = language === 'es' ? selectedDetailItem.descriptionEs : selectedDetailItem.description;
+    requestConfirmation(itemName, selectedDetailItem.price, () => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+      markNewItemSeen(selectedDetailItem.id);
+      purchaseMutate({ itemId: selectedDetailItem.id });
+    }, desc || undefined);
+  }, [selectedDetailItem, purchaseMutate, markNewItemSeen, purchaseMutation.isPending, language, requestConfirmation]);
 
   // Handle equip from modal
   const handleEquip = useCallback(() => {
@@ -8159,7 +8185,7 @@ export default function StoreScreen() {
   // Handle token purchases (pincel_magico, sobre_biblico, pack_pascua)
   // STABILITY-FIRST: close sheet first, dispatch reveal to root layer after sheet dismisses.
   // isPackTransactionActive (state) disables all pack buttons during the flow.
-  const handleTokenPurchase = async (itemId: string, price: number) => {
+  const executeTokenPurchase = async (itemId: string, price: number) => {
     console.log('[Store][Lock] handleTokenPurchase pressed', { itemId, price, isTokenPurchasing: isTokenPurchasing.current, isPackTransactionActive });
     if (!userId || points < price) return;
     if (isTokenPurchasing.current) {
@@ -8241,6 +8267,19 @@ export default function StoreScreen() {
       setIsPackTransactionActive(false);
       console.log('[Store][Lock] released — isPackTransactionActive=false');
     }
+  };
+
+  // Confirmation wrapper for token purchases — shows modal before executing
+  const handleTokenPurchase = (itemId: string, price: number) => {
+    const TOKEN_NAMES: Record<string, { es: string; en: string }> = {
+      sobre_biblico:  { es: 'Sobre Bíblico',  en: 'Biblical Pack' },
+      pack_pascua:    { es: 'Pack de Pascua',  en: 'Easter Pack' },
+      pack_milagros:  { es: 'Pack de Milagros', en: 'Miracles Pack' },
+      pincel_magico:  { es: 'Pincel Mágico',   en: 'Magic Paintbrush' },
+    };
+    const names = TOKEN_NAMES[itemId] ?? { es: itemId, en: itemId };
+    const itemName = language === 'es' ? names.es : names.en;
+    requestConfirmation(itemName, price, () => executeTokenPurchase(itemId, price));
   };
 
   // ── Daily free pack ──
@@ -10116,6 +10155,23 @@ export default function StoreScreen() {
         visible={showGiftSendModal}
         onClose={() => setShowGiftSendModal(false)}
         item={giftSendItem}
+      />
+
+      {/* Confirm Purchase Modal — shared for all point-spending actions */}
+      <ConfirmPurchaseModal
+        visible={confirmPurchaseVisible}
+        itemName={confirmPurchasePending?.itemName ?? ''}
+        cost={confirmPurchasePending?.cost ?? 0}
+        description={confirmPurchasePending?.description}
+        onConfirm={() => {
+          setConfirmPurchaseVisible(false);
+          confirmPurchasePending?.onConfirm();
+          setConfirmPurchasePending(null);
+        }}
+        onCancel={() => {
+          setConfirmPurchaseVisible(false);
+          setConfirmPurchasePending(null);
+        }}
       />
 
       {/* Chest Reward Modal */}
