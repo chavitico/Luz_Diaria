@@ -417,7 +417,7 @@ function CollapsibleDevotional({
       <View
         style={{
           maxHeight: isExpanded ? undefined : maxCollapsedHeight,
-          overflow: 'hidden',
+          overflow: isExpanded ? 'visible' : 'hidden',
         }}
         onLayout={(e) => {
           if (contentHeight === 0) {
