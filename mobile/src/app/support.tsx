@@ -235,7 +235,7 @@ function SubOptionPicker({
             alignItems: 'center', justifyContent: 'center',
           }}>
             {selected === opt.value && (
-              <View style={{ width: 7, height: 7, borderRadius: 3.5, backgroundColor: '#FFF' }} />
+              <View style={{ width: 7, height: 7, borderRadius: 3.5, backgroundColor: colors.primaryText }} />
             )}
           </View>
           <Text style={{
@@ -423,12 +423,12 @@ function TicketDetailModal({
           >
             <X size={22} color={colors.textMuted} />
           </Pressable>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 16, fontWeight: '700', color: colors.text }}>
+          <View style={{ flex: 1, minWidth: 0 }}>
+            <Text style={{ fontSize: 16, fontWeight: '700', color: colors.text }} numberOfLines={1}>
               {es ? 'Detalle del incidente' : 'Incident Detail'}
             </Text>
             {detail?.incidentNumber && (
-              <Text style={{ fontSize: 12, color: colors.textMuted, fontFamily: 'monospace' }}>
+              <Text style={{ fontSize: 12, color: colors.textMuted, fontFamily: 'monospace' }} numberOfLines={1}>
                 {detail.incidentNumber}
               </Text>
             )}
@@ -778,7 +778,7 @@ function TicketListItem({
       </View>
 
       {/* Category */}
-      <Text style={{ fontSize: 13, color: colors.text, fontWeight: '600', marginBottom: 4 }}>
+      <Text style={{ fontSize: 13, color: colors.text, fontWeight: '600', marginBottom: 4 }} numberOfLines={1}>
         {catDef ? (es ? catDef.titleEs : catDef.titleEn) : ticket.type}
       </Text>
 
@@ -1134,11 +1134,11 @@ export default function SupportScreen() {
                       }}>
                         {cat.renderIcon(cat.color)}
                       </View>
-                      <View style={{ flex: 1 }}>
-                        <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text, marginBottom: 2 }}>
+                      <View style={{ flex: 1, minWidth: 0 }}>
+                        <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text, marginBottom: 2 }} numberOfLines={1}>
                           {es ? cat.titleEs : cat.titleEn}
                         </Text>
-                        <Text style={{ fontSize: 12, color: colors.textMuted, lineHeight: 17 }}>
+                        <Text style={{ fontSize: 12, color: colors.textMuted, lineHeight: 17 }} numberOfLines={2}>
                           {es ? cat.subtitleEs : cat.subtitleEn}
                         </Text>
                       </View>
@@ -1228,11 +1228,11 @@ export default function SupportScreen() {
                   }}>
                     {catDef.renderIcon(catDef.color)}
                   </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 16, fontWeight: '800', color: colors.text }}>
+                  <View style={{ flex: 1, minWidth: 0 }}>
+                    <Text style={{ fontSize: 16, fontWeight: '800', color: colors.text }} numberOfLines={2}>
                       {es ? catDef.titleEs : catDef.titleEn}
                     </Text>
-                    <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 2 }}>
+                    <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 2 }} numberOfLines={2}>
                       {es ? catDef.subtitleEs : catDef.subtitleEn}
                     </Text>
                   </View>

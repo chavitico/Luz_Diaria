@@ -924,7 +924,7 @@ export default function SettingsScreen() {
                     onValueChange={handleCommunityOptInToggle}
                     disabled={isLoadingCommunityOptIn}
                     trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                    thumbColor={communityOptIn ? colors.primary : '#FFFFFF'}
+                    thumbColor={communityOptIn ? colors.primary : '#E5E7EB'}
                   />
                 )
               }
@@ -943,7 +943,7 @@ export default function SettingsScreen() {
                     value={prayerDisplayOptIn}
                     onValueChange={handlePrayerDisplayOptInToggle}
                     trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                    thumbColor={prayerDisplayOptIn ? colors.primary : '#FFFFFF'}
+                    thumbColor={prayerDisplayOptIn ? colors.primary : '#E5E7EB'}
                   />
                 )
               }
@@ -977,7 +977,7 @@ export default function SettingsScreen() {
                   value={showCountryInCommunity}
                   onValueChange={handleShowCountryToggle}
                   trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                  thumbColor={showCountryInCommunity ? colors.primary : '#FFFFFF'}
+                  thumbColor={showCountryInCommunity ? colors.primary : '#E5E7EB'}
                 />
               }
             />
@@ -1001,7 +1001,7 @@ export default function SettingsScreen() {
                   value={notificationSettings.enabled}
                   onValueChange={handleNotificationToggle}
                   trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                  thumbColor={notificationSettings.enabled ? colors.primary : '#FFFFFF'}
+                  thumbColor={notificationSettings.enabled ? colors.primary : '#E5E7EB'}
                 />
               }
             />
@@ -1038,7 +1038,7 @@ export default function SettingsScreen() {
                     updateSettings({ streakReminders: value });
                   }}
                   trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                  thumbColor={settings.streakReminders ? colors.primary : '#FFFFFF'}
+                  thumbColor={settings.streakReminders ? colors.primary : '#E5E7EB'}
                 />
               }
             />
@@ -1060,7 +1060,7 @@ export default function SettingsScreen() {
                     setDarkMode(value);
                   }}
                   trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                  thumbColor={isDarkMode ? colors.primary : '#FFFFFF'}
+                  thumbColor={isDarkMode ? colors.primary : '#E5E7EB'}
                 />
               }
             />
@@ -1076,20 +1076,20 @@ export default function SettingsScreen() {
             {/* Text Zoom */}
             <View style={{ paddingVertical: 13, borderBottomWidth: ownedBadgeIds.length > 0 ? 0.5 : 0, borderBottomColor: colors.textMuted + '20' }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                  <View style={{ width: 38, height: 38, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary + '15' }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, flex: 1, minWidth: 0 }}>
+                  <View style={{ width: 38, height: 38, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary + '15', flexShrink: 0 }}>
                     <Type size={20} color={colors.primary} />
                   </View>
-                  <View>
-                    <Text style={{ fontSize: sFont(15), fontWeight: '500', color: colors.text }}>
+                  <View style={{ flex: 1, minWidth: 0 }}>
+                    <Text style={{ fontSize: sFont(15), fontWeight: '500', color: colors.text }} numberOfLines={1}>
                       {language === 'es' ? 'Zoom de texto' : 'Text zoom'}
                     </Text>
-                    <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
+                    <Text style={{ fontSize: sFont(12), color: colors.textMuted }} numberOfLines={1}>
                       {language === 'es' ? 'Tamaño de letra en toda la app' : 'Font size across the app'}
                     </Text>
                   </View>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, flexShrink: 0 }}>
                   <Text style={{ fontSize: sFont(17), fontWeight: '800', color: colors.primary }}>
                     {Math.round((settings.textScale ?? 1.0) * 100)}%
                   </Text>
@@ -1321,7 +1321,7 @@ export default function SettingsScreen() {
                     updateSettings({ musicEnabled: value });
                   }}
                   trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                  thumbColor={settings.musicEnabled ? colors.primary : '#FFFFFF'}
+                  thumbColor={settings.musicEnabled ? colors.primary : '#E5E7EB'}
                 />
               }
             />
