@@ -7629,7 +7629,20 @@ export default function StoreScreen() {
     try {
       const profile = await gamificationApi.getUser(user.id);
       setActiveBadgeId(profile.activeBadgeId ?? null);
-      setHasRenameToken(profile.inventory.some((inv) => inv.itemId === 'pincel_magico' && inv.source !== 'used'));
+      const pincelInv = profile.inventory.find((inv) => inv.itemId === 'pincel_magico');
+      setHasRenameToken(!!pincelInv && pincelInv.source !== 'used');
+      // Sync pincelMagicoSource from backend — authoritative
+      if (pincelInv) {
+        setPincelMagicoSource(pincelInv.source as 'store' | 'used');
+      } else {
+        setPincelMagicoSource(null);
+        // Also clean up local purchasedItems if backend doesn't have it
+        const localPurchased = useAppStore.getState().user?.purchasedItems ?? [];
+        if (localPurchased.includes('pincel_magico')) {
+          console.log('[Store] loadProfileData: pincel not in backend, removing from local');
+          useAppStore.getState().updateUser({ purchasedItems: localPurchased.filter(id => id !== 'pincel_magico') });
+        }
+      }
     } catch {}
   }, [user?.id]);
 
@@ -7787,8 +7800,25 @@ export default function StoreScreen() {
         console.log('[Store] Syncing from backend:', updates);
         updateUser(updates as Parameters<typeof updateUser>[0]);
       }
+
+      // Sync purchasedItems from real backend inventory — overrides stale local state
+      if (backendUser.inventory) {
+        const backendItemIds = backendUser.inventory.map((inv: { itemId: string }) => inv.itemId);
+        const localPurchased = useAppStore.getState().user?.purchasedItems ?? [];
+        // Merge: keep anything local has (optimistic) + add everything backend has
+        const merged = Array.from(new Set([...backendItemIds, ...localPurchased]));
+        // If backend says pincel_magico is NOT there, trust the backend and remove it locally
+        const pincelInBackend = backendItemIds.includes('pincel_magico');
+        const pincelInLocal = localPurchased.includes('pincel_magico');
+        if (!pincelInBackend && pincelInLocal) {
+          console.log('[Store] pincel_magico not in backend inventory — removing from local purchasedItems');
+          updateUser({ purchasedItems: merged.filter(id => id !== 'pincel_magico') });
+        } else if (merged.length !== localPurchased.length || merged.some(id => !localPurchased.includes(id))) {
+          updateUser({ purchasedItems: merged });
+        }
+      }
     }
-  }, [backendUser?.id, backendUser?.points, backendUser?.streakCurrent, backendUser?.devotionalsCompleted]);
+  }, [backendUser?.id, backendUser?.points, backendUser?.streakCurrent, backendUser?.devotionalsCompleted, backendUser?.inventory]);
 
   const { data: collectionClaimsData, refetch: refetchCollectionClaims } = useQuery({
     queryKey: ['collectionClaims', effectiveUserId],
