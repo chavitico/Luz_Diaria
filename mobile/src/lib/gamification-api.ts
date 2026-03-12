@@ -275,7 +275,9 @@ export const gamificationApi = {
         return null;
       }
 
-      throw new Error('Failed to fetch user');
+      // Non-404 non-ok response (e.g. 500, 503, network hiccup) — don't throw, just return null
+      if (__DEV__) console.log('[Gamification] ensureUserExists: non-ok response', res.status);
+      return null;
     } catch (error: any) {
       // AbortError is expected when the request times out or the component unmounts — not a real error
       if (error?.name === 'AbortError') {
