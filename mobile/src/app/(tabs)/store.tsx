@@ -8040,14 +8040,10 @@ export default function StoreScreen() {
   const handlePurchase = useCallback(() => {
     if (!selectedDetailItem) return;
     if (purchaseMutation.isPending) return;
-    const itemName = language === 'es' ? selectedDetailItem.nameEs : selectedDetailItem.name;
-    const desc = language === 'es' ? selectedDetailItem.descriptionEs : selectedDetailItem.description;
-    requestConfirmPurchase({ itemName, cost: selectedDetailItem.price, description: desc || undefined, onConfirm: () => {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-      markNewItemSeen(selectedDetailItem.id);
-      purchaseMutate({ itemId: selectedDetailItem.id });
-    } });
-  }, [selectedDetailItem, purchaseMutate, markNewItemSeen, purchaseMutation.isPending, language, requestConfirmPurchase]);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    markNewItemSeen(selectedDetailItem.id);
+    purchaseMutate({ itemId: selectedDetailItem.id });
+  }, [selectedDetailItem, purchaseMutate, markNewItemSeen, purchaseMutation.isPending]);
 
   // Handle equip from modal
   const handleEquip = useCallback(() => {
@@ -9060,7 +9056,8 @@ export default function StoreScreen() {
                 isHighlighted={highlightPincel}
                 onPress={() => {
                   if (!hasPincel && canAffordPincel) {
-                    handleTokenPurchase('pincel_magico', 15000);
+                    setShowStoreSectionModal(false);
+                    setTimeout(() => handleTokenPurchase('pincel_magico', 15000), 350);
                   }
                 }}
               />
