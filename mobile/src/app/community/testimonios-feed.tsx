@@ -441,16 +441,16 @@ function TestimonySubmitModal({
                     gap: 8,
                     paddingVertical: 14,
                     borderRadius: 16,
-                    backgroundColor: isValid ? '#8B5CF6' : colors.textMuted + '30',
+                    backgroundColor: isValid ? colors.primary : colors.textMuted + '30',
                     opacity: pressed ? 0.85 : 1,
                   })}
                 >
                   {submitMutation.isPending ? (
-                    <ActivityIndicator size="small" color="#FFF" />
+                    <ActivityIndicator size="small" color={colors.primaryText} />
                   ) : (
                     <>
-                      <Send size={16} color={isValid ? '#FFF' : colors.textMuted} />
-                      <Text style={{ fontSize: sFont(15), fontWeight: '700', color: isValid ? '#FFF' : colors.textMuted }}>
+                      <Send size={16} color={isValid ? colors.primaryText : colors.textMuted} />
+                      <Text style={{ fontSize: sFont(15), fontWeight: '700', color: isValid ? colors.primaryText : colors.textMuted }}>
                         Enviar testimonio
                       </Text>
                     </>
@@ -582,15 +582,15 @@ export default function TestimoniosFeedScreen() {
               flexDirection: 'row',
               alignItems: 'center',
               gap: 6,
-              backgroundColor: '#8B5CF6',
+              backgroundColor: colors.primary,
               paddingHorizontal: 14,
               paddingVertical: 8,
               borderRadius: 20,
               opacity: pressed ? 0.85 : 1,
             })}
           >
-            <MessageSquareHeart size={15} color="#FFF" />
-            <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#FFF' }}>Compartir</Text>
+            <MessageSquareHeart size={15} color={colors.primaryText} />
+            <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primaryText }}>Compartir</Text>
           </Pressable>
         </View>
       </View>

@@ -90,6 +90,21 @@ The **single canonical CTA component** for all call-to-action buttons in the app
 - `ensureContrast(fg, bg, minRatio, isDark)` — adjusts color until ratio is met
 - `deriveButtonColors(primary, surface, isDark)` — derives safe fill + text color
 
+### Global Button Style Tokens (`src/lib/buttonStyles.ts`)
+
+Shared helper functions for inline-styled buttons (when `ActionButton` cannot be used):
+- `getPrimaryButtonStyles(primaryHex, isDark)` — safe fill + auto-contrast text
+- `getSecondaryButtonStyles(primaryHex, isDark)` — neutral border + readable text
+- `getDangerButtonStyles()` — solid red fill + white text
+- `BTN` — static `StyleSheet` fallback tokens (theme-agnostic, for dark modal contexts)
+
+**Rule:** All action buttons across the app must use one of:
+1. `<ActionButton>` component (preferred)
+2. `colors.primary` background + `colors.primaryText` text (not hardcoded `#FFF`)
+3. `getPrimaryButtonStyles()` from `buttonStyles.ts` for inline cases
+
+Never use hardcoded hex backgrounds (e.g. `#8B5CF6`) for action buttons — they break when users switch themes.
+
 **DEV stress test:** Navigate to `/theme-stress` to visually verify contrast across all challenging backgrounds.
 
 ### Dev vs Prod behaviors

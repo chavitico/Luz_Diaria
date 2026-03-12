@@ -463,7 +463,7 @@ export default function LibraryScreen() {
               <Text
                 className="font-semibold"
                 style={{
-                  color: filter === 'all' ? '#FFFFFF' : colors.textMuted,
+                  color: filter === 'all' ? colors.primaryText : colors.textMuted,
                 }}
               >
                 {t.all_devotionals}
@@ -484,13 +484,13 @@ export default function LibraryScreen() {
             >
               <Heart
                 size={14}
-                color={filter === 'favorites' ? '#FFFFFF' : colors.textMuted}
-                fill={filter === 'favorites' ? '#FFFFFF' : 'transparent'}
+                color={filter === 'favorites' ? colors.primaryText : colors.textMuted}
+                fill={filter === 'favorites' ? colors.primaryText : 'transparent'}
               />
               <Text
                 className="font-semibold ml-1"
                 style={{
-                  color: filter === 'favorites' ? '#FFFFFF' : colors.textMuted,
+                  color: filter === 'favorites' ? colors.primaryText : colors.textMuted,
                 }}
               >
                 {t.favorites}

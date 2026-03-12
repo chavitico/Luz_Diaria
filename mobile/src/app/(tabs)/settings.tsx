@@ -1795,7 +1795,7 @@ export default function SettingsScreen() {
                 className="flex-1 py-3 rounded-xl items-center justify-center"
                 style={{ backgroundColor: colors.primary }}
               >
-                <Text className="font-semibold text-white">
+                <Text className="font-semibold" style={{ color: colors.primaryText }}>
                   {language === 'es' ? 'Guardar' : 'Save'}
                 </Text>
               </Pressable>
@@ -1850,15 +1850,15 @@ export default function SettingsScreen() {
                 >
                   {isGeneratingCode ? (
                     <View className="flex-row items-center">
-                      <ActivityIndicator color="#FFFFFF" size="small" />
-                      <Text className="text-base font-semibold text-white ml-2">
+                      <ActivityIndicator color={colors.primaryText} size="small" />
+                      <Text className="text-base font-semibold ml-2" style={{ color: colors.primaryText }}>
                         {t.generating}
                       </Text>
                     </View>
                   ) : (
                     <View className="flex-row items-center">
-                      <Key size={20} color="#FFFFFF" />
-                      <Text className="text-base font-semibold text-white ml-2">
+                      <Key size={20} color={colors.primaryText} />
+                      <Text className="text-base font-semibold ml-2" style={{ color: colors.primaryText }}>
                         {t.generate_code}
                       </Text>
                     </View>
@@ -1918,8 +1918,8 @@ export default function SettingsScreen() {
                     </>
                   ) : (
                     <>
-                      <Copy size={18} color="#FFFFFF" />
-                      <Text className="text-base font-semibold text-white ml-2">
+                      <Copy size={18} color={colors.primaryText} />
+                      <Text className="text-base font-semibold ml-2" style={{ color: colors.primaryText }}>
                         {t.copy_code}
                       </Text>
                     </>

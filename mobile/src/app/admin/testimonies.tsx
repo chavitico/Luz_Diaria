@@ -653,7 +653,7 @@ export default function AdminTestimoniesScreen() {
             backgroundColor: colors.primary,
           }}
         >
-          <Text style={{ fontSize: 14, fontWeight: '700', color: '#FFF' }}>Volver</Text>
+          <Text style={{ fontSize: 14, fontWeight: '700', color: colors.primaryText }}>Volver</Text>
         </Pressable>
       </View>
     );

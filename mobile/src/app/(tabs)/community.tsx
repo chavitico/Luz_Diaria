@@ -795,15 +795,15 @@ function TestimonySubmitModal({
                   }}
                 >
                   {submitMutation.isPending ? (
-                    <ActivityIndicator size="small" color="#FFF" />
+                    <ActivityIndicator size="small" color={colors.primaryText} />
                   ) : (
                     <>
-                      <Send size={16} color={isValid ? '#FFF' : colors.textMuted} />
+                      <Send size={16} color={isValid ? colors.primaryText : colors.textMuted} />
                       <Text
                         style={{
                           fontSize: sFont(15),
                           fontWeight: '700',
-                          color: isValid ? '#FFF' : colors.textMuted,
+                          color: isValid ? colors.primaryText : colors.textMuted,
                         }}
                       >
                         Enviar
@@ -1316,7 +1316,7 @@ function TestimoniosCard({
         {/* Testimonies list */}
         {isLoading ? (
           <View style={{ alignItems: 'center', padding: 20 }}>
-            <ActivityIndicator size="small" color="#8B5CF6" />
+            <ActivityIndicator size="small" color={colors.primary} />
           </View>
         ) : displayTestimonies.length === 0 ? (
           <View style={{ alignItems: 'center', padding: 20 }}>
@@ -1381,10 +1381,10 @@ function TestimoniosCard({
               marginBottom: 10,
             }}
           >
-            <Text style={{ fontSize: sFont(13), fontWeight: '600', color: '#8B5CF6' }}>
+            <Text style={{ fontSize: sFont(13), fontWeight: '600', color: colors.primary }}>
               Ver todos los testimonios
             </Text>
-            <ChevronRight size={14} color="#8B5CF6" />
+            <ChevronRight size={14} color={colors.primary} />
           </Pressable>
         )}
 
@@ -1401,11 +1401,11 @@ function TestimoniosCard({
             gap: 8,
             paddingVertical: 12,
             borderRadius: 14,
-            backgroundColor: '#8B5CF6',
+            backgroundColor: colors.primary,
           }}
         >
-          <MessageSquareHeart size={16} color="#FFF" />
-          <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFF' }}>
+          <MessageSquareHeart size={16} color={colors.primaryText} />
+          <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.primaryText }}>
             Compartir testimonio
           </Text>
         </Pressable>

@@ -3494,7 +3494,7 @@ function ItemDetailModal({
                   style={{ backgroundColor: '#22C55E20' }}
                 >
                   <Check size={20} color="#22C55E" strokeWidth={3} />
-                  <Text className="text-base font-semibold text-green-600 ml-2">
+                  <Text className="text-base font-semibold ml-2" style={{ color: '#22C55E' }}>
                     {t.equipped}
                   </Text>
                 </View>
