@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   Pressable,
+  TouchableOpacity,
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
@@ -587,21 +588,34 @@ interface ContentSectionProps {
   colors: ReturnType<typeof useThemeColors>;
   isHighlighted?: boolean;
   sectionIndex: number;
+  onPress?: () => void;
 }
 
-function ContentSection({ title, content, icon, colors, isHighlighted, sectionIndex }: ContentSectionProps) {
+function ContentSection({ title, content, icon, colors, isHighlighted, sectionIndex, onPress }: ContentSectionProps) {
   return (
     <Animated.View
       entering={FadeInDown.delay(100 + sectionIndex * 50).duration(400)}
       style={{ marginBottom: IS_TABLET ? 16 : 24 }}
     >
       <View className="flex-row items-center mb-3">
-        <View
-          className="w-8 h-8 rounded-full items-center justify-center mr-3"
-          style={{ backgroundColor: colors.primary + '20' }}
+        <TouchableOpacity
+          onPress={() => {
+            console.log(`[TTS][icon] index.tsx section tap index=${sectionIndex}`);
+            onPress?.();
+          }}
+          activeOpacity={0.5}
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: 18,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: colors.primary + '25',
+            marginRight: 12,
+          }}
         >
           {icon}
-        </View>
+        </TouchableOpacity>
         <Text
           style={{ color: colors.primary, fontSize: ss(18), fontWeight: 'bold' }}
         >
@@ -620,6 +634,7 @@ function ContentSection({ title, content, icon, colors, isHighlighted, sectionIn
       >
         <BibleReferenceText
           style={{ color: colors.text, fontSize: bs(16), lineHeight: bs(28) }}
+          onPress={onPress}
         >
           {content}
         </BibleReferenceText>
@@ -1091,7 +1106,7 @@ function CollapsibleContent({
       <View
         style={{
           maxHeight: isExpanded ? undefined : maxCollapsedHeight,
-          overflow: 'hidden',
+          overflow: isExpanded ? 'visible' : 'hidden',
         }}
         onLayout={(e) => {
           if (contentHeight === 0) {
@@ -1866,6 +1881,21 @@ export default function HomeScreen() {
     setCurrentSectionIndex(-1);
   }, []);
 
+  const handleTTSJumpToSection = useCallback(async (index: number) => {
+    console.log(`[TTS][jump] index.tsx jump to section=${index}`);
+    const sections = buildDevotionalText();
+    if (sections.length === 0 || index < 0 || index >= sections.length) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    isTTSPlayingRef.current = false;
+    await Speech.stop();
+    speechJobIdRef.current += 1;
+    const jobId = speechJobIdRef.current;
+    setIsTTSPlaying(true);
+    isTTSPlayingRef.current = true;
+    currentSectionsRef.current = sections;
+    speakSection(index, sections, jobId);
+  }, [buildDevotionalText, speakSection]);
+
   // Restart current section with new settings (speed/volume/voice change while playing)
   const restartCurrentSection = useCallback(async () => {
     if (!isTTSPlayingRef.current || currentSectionIndexRef.current < 0) return;
@@ -2192,9 +2222,26 @@ export default function HomeScreen() {
               }}
             >
               <View className="flex-row items-center mb-4">
-                <BookOpen size={20} color={colors.primary} />
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log('[TTS][icon] index.tsx verse icon tap');
+                    handleTTSJumpToSection(0);
+                  }}
+                  activeOpacity={0.5}
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 18,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: colors.primary + '25',
+                    marginRight: 8,
+                  }}
+                >
+                  <BookOpen size={20} color={colors.primary} />
+                </TouchableOpacity>
                 <Text
-                  className="ml-2 font-semibold"
+                  className="font-semibold"
                   style={{ color: colors.primary }}
                 >
                   {t.bible_verse}
@@ -2203,12 +2250,16 @@ export default function HomeScreen() {
               <Text
                 className="text-xl italic leading-8 mb-3"
                 style={{ color: colors.text }}
+                onPress={() => handleTTSJumpToSection(0)}
+                suppressHighlighting={true}
               >
                 {verse}
               </Text>
               <Text
                 className="text-sm font-medium"
                 style={{ color: colors.textMuted }}
+                onPress={() => handleTTSJumpToSection(0)}
+                suppressHighlighting={true}
               >
                 - {language === 'es' ? (devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference)) : devotional.bibleReference}
               </Text>
@@ -2222,6 +2273,7 @@ export default function HomeScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 1}
               sectionIndex={1}
+              onPress={() => handleTTSJumpToSection(1)}
             />
 
             <ContentSection
@@ -2231,6 +2283,7 @@ export default function HomeScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 2}
               sectionIndex={2}
+              onPress={() => handleTTSJumpToSection(2)}
             />
 
             <ContentSection
@@ -2240,6 +2293,7 @@ export default function HomeScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 3}
               sectionIndex={3}
+              onPress={() => handleTTSJumpToSection(3)}
             />
 
             <ContentSection
@@ -2249,6 +2303,7 @@ export default function HomeScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 4}
               sectionIndex={4}
+              onPress={() => handleTTSJumpToSection(4)}
             />
 
             <ContentSection
@@ -2258,6 +2313,7 @@ export default function HomeScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 5}
               sectionIndex={5}
+              onPress={() => handleTTSJumpToSection(5)}
             />
 
             {/* Prayer Confirmation Button */}
