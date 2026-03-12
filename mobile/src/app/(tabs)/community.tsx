@@ -1454,8 +1454,16 @@ export default function CommunityScreen() {
     staleTime: 20_000,
     refetchInterval: 30_000,
   });
-  const pendingIncomingCount = (tradesData?.trades ?? []).filter(
+
+  // Track which pending trade IDs have been "seen" by opening the inbox
+  const [seenTradeIds, setSeenTradeIds] = useState<Set<string>>(new Set());
+
+  const pendingIncomingTrades = (tradesData?.trades ?? []).filter(
     (tr) => tr.toUserId === user?.id && tr.status === 'pending'
+  );
+  // Badge shows trades that exist AND haven't been seen yet
+  const unseenPendingCount = pendingIncomingTrades.filter(
+    (tr) => !seenTradeIds.has(tr.id)
   ).length;
 
   // My testimony
@@ -1726,6 +1734,12 @@ export default function CommunityScreen() {
           <Pressable
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              // Mark all current pending incoming trades as seen — clears the badge
+              setSeenTradeIds(prev => {
+                const next = new Set(prev);
+                pendingIncomingTrades.forEach(tr => next.add(tr.id));
+                return next;
+              });
               setShowTradeInbox(true);
             }}
             style={{
@@ -1735,14 +1749,14 @@ export default function CommunityScreen() {
               paddingHorizontal: 12,
               paddingVertical: 7,
               borderRadius: 12,
-              backgroundColor: pendingIncomingCount > 0 ? colors.primary + '15' : colors.surface,
+              backgroundColor: unseenPendingCount > 0 ? colors.primary + '15' : colors.surface,
               borderWidth: 1,
-              borderColor: pendingIncomingCount > 0 ? colors.primary + '50' : colors.textMuted + '25',
+              borderColor: unseenPendingCount > 0 ? colors.primary + '50' : colors.textMuted + '25',
             }}
           >
             <View style={{ position: 'relative' }}>
               <Inbox size={15} color={colors.primary} />
-              {pendingIncomingCount > 0 && (
+              {unseenPendingCount > 0 && (
                 <View
                   style={{
                     position: 'absolute',
@@ -1757,7 +1771,7 @@ export default function CommunityScreen() {
                   }}
                 >
                   <Text style={{ fontSize: 8, fontWeight: '900', color: '#FFF' }}>
-                    {pendingIncomingCount > 9 ? '9+' : String(pendingIncomingCount)}
+                    {unseenPendingCount > 9 ? '9+' : String(unseenPendingCount)}
                   </Text>
                 </View>
               )}

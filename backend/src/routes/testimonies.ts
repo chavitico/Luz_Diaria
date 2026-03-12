@@ -130,6 +130,16 @@ testimoniesRouter.delete("/mine", async (c) => {
   return c.json({ success: true });
 });
 
+// ─── ADMIN: GET /api/testimonies/admin/counts  ────────────────────────────────
+testimoniesRouter.get(
+  "/admin/counts",
+  requireRole("MODERATOR"),
+  async (c) => {
+    const count = await prisma.testimony.count({ where: { status: "PENDING" } });
+    return c.json({ pendingTestimonies: count });
+  }
+);
+
 // ─── ADMIN: GET /api/testimonies/admin/pending  ───────────────────────────────
 testimoniesRouter.get(
   "/admin/pending",

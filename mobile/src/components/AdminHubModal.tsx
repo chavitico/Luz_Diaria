@@ -58,6 +58,7 @@ interface AdminSection {
   route: string;
   roles: ('OWNER' | 'MODERATOR')[];
   accentColor: string;
+  badgeCount?: number;
 }
 
 interface AdminHubModalProps {
@@ -120,6 +121,11 @@ function SectionRow({
           }}
         >
           {section.label}
+          {(section.badgeCount ?? 0) > 0 && (
+            <Text style={{ color: '#EF4444', fontWeight: '700' }}>
+              {' '}• {section.badgeCount}
+            </Text>
+          )}
         </Text>
         <Text
           style={{
@@ -131,6 +137,21 @@ function SectionRow({
           {section.description}
         </Text>
       </View>
+      {(section.badgeCount ?? 0) > 0 && (
+        <View style={{
+          width: 20,
+          height: 20,
+          borderRadius: 10,
+          backgroundColor: '#EF4444',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginRight: 6,
+        }}>
+          <Text style={{ fontSize: 10, fontWeight: '900', color: '#FFF' }}>
+            {section.badgeCount! > 99 ? '99+' : String(section.badgeCount)}
+          </Text>
+        </View>
+      )}
       <ChevronRight size={18} color={colors.textMuted} />
     </Pressable>
   );
@@ -147,6 +168,10 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
   const [verifiedRole, setVerifiedRole] = useState<'OWNER' | 'MODERATOR' | 'USER' | null>(null);
   const [checking, setChecking] = useState(false);
   const [generatingSnapshots, setGeneratingSnapshots] = useState(false);
+
+  // Pending counts for badges
+  const [pendingTickets, setPendingTickets] = useState<number>(0);
+  const [pendingTestimonies, setPendingTestimonies] = useState<number>(0);
 
   // Debug state — tracks what each gate produced
   const [debugInfo, setDebugInfo] = useState<{
@@ -169,6 +194,29 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
     const [dates, ts] = await Promise.all([getCachedDates(), getLastPrefetchTime()]);
     setCachedDates(dates);
     setLastPrefetch(ts);
+  }, []);
+
+  const loadPendingCounts = useCallback(async (userId: string) => {
+    try {
+      const [ticketRes, testimonyRes] = await Promise.all([
+        fetchWithTimeout(`${BACKEND_URL}/api/support/admin/counts`, {
+          headers: { 'X-User-Id': userId },
+        }).catch(() => null),
+        fetchWithTimeout(`${BACKEND_URL}/api/testimonies/admin/counts`, {
+          headers: { 'X-User-Id': userId },
+        }).catch(() => null),
+      ]);
+      if (ticketRes?.ok) {
+        const data = await ticketRes.json() as { pendingTickets?: number };
+        setPendingTickets(data.pendingTickets ?? 0);
+      }
+      if (testimonyRes?.ok) {
+        const data = await testimonyRes.json() as { pendingTestimonies?: number };
+        setPendingTestimonies(data.pendingTestimonies ?? 0);
+      }
+    } catch {
+      // silently fail — badges just won't show
+    }
   }, []);
 
   // Every time the modal opens, verify role:
@@ -206,6 +254,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
       const immediateRole = isEmergencyOverride ? 'OWNER' : localRole;
       setVerifiedRole(immediateRole);
       if (immediateRole === 'OWNER') loadDevCacheInfo();
+      loadPendingCounts(localId);
       console.log('[AdminHub] decision     : IMMEDIATE ACCESS (store role or override)');
     } else {
       // USER role from store — hold on "checking" until backend confirms
@@ -266,6 +315,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
           updateUser(updates as Parameters<typeof updateUser>[0]);
         }
         if (finalRole === 'OWNER') loadDevCacheInfo();
+        if (finalRole === 'OWNER' || finalRole === 'MODERATOR') loadPendingCounts(profile?.id ?? localId);
       })
       .catch((err) => {
         console.log('[AdminHub] /me error    :', String(err));
@@ -280,7 +330,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
         console.log('[AdminHub] check complete');
         setChecking(false);
       });
-  }, [visible, user?.id]);
+  }, [visible, user?.id, loadPendingCounts]);
 
   const role = verifiedRole;
   const isOwner = role === 'OWNER';
@@ -324,6 +374,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
       route: '/admin/support',
       roles: ['OWNER', 'MODERATOR'],
       accentColor: '#10B981',
+      badgeCount: pendingTickets,
     },
     {
       id: 'users',
@@ -351,6 +402,7 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
       route: '/admin/testimonies',
       roles: ['OWNER', 'MODERATOR'],
       accentColor: '#EC4899',
+      badgeCount: pendingTestimonies,
     },
   ];
 

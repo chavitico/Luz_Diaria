@@ -840,6 +840,15 @@ supportRouter.post(
   }
 );
 
+// GET /api/support/admin/counts — lightweight pending counts for admin hub badges
+supportRouter.get("/admin/counts", requireRole("MODERATOR"), async (c) => {
+  const [openTickets, needsHumanTickets] = await Promise.all([
+    prisma.supportTicket.count({ where: { status: "open" } }),
+    prisma.supportTicket.count({ where: { status: "needs_human" } }),
+  ]);
+  return c.json({ pendingTickets: openTickets + needsHumanTickets });
+});
+
 // GET /api/support/admin/tickets — admin view with systemSnapshot enrichment
 supportRouter.get("/admin/tickets", requireRole("MODERATOR"), async (c) => {
   const limit = Math.min(parseInt(c.req.query("limit") ?? "50"), 100);

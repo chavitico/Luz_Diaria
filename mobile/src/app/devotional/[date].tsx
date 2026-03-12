@@ -13,7 +13,7 @@ import {
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter, useFocusEffect } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import Animated, {
   FadeIn,
@@ -887,6 +887,17 @@ export default function DevotionalDetailScreen() {
       Speech.stop();
     };
   }, []);
+
+  // Stop TTS when screen loses focus (user navigates away)
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        isTTSPlayingRef.current = false;
+        Speech.stop();
+        setIsTTSPlaying(false);
+      };
+    }, [])
+  );
 
   const toggleFavorite = () => {
     if (!date) return;
