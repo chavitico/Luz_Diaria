@@ -28,6 +28,7 @@ import {
   Camera,
   Wifi,
   RefreshCw,
+  Tag,
 } from 'lucide-react-native';
 import { useThemeColors, useUser, useAppStore } from '@/lib/store';
 import {
@@ -331,6 +332,15 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
       route: '/admin/moderators',
       roles: ['OWNER'],
       accentColor: '#3B82F6',
+    },
+    {
+      id: 'promo-codes',
+      icon: <Tag size={22} color="#F97316" />,
+      label: 'Códigos Promo',
+      description: 'Crear, activar y rastrear códigos canjeables de puntos',
+      route: '/admin/promo-codes',
+      roles: ['OWNER'],
+      accentColor: '#F97316',
     },
   ];
 

@@ -42,6 +42,11 @@ import {
   Save,
   RotateCcw,
   RefreshCw,
+  Target,
+  Trash2,
+  UserX,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react-native';
 import { useThemeColors, useUser } from '@/lib/store';
 import { ActionButton } from '@/components/ui/ActionButton';
@@ -88,6 +93,19 @@ interface AdminUserDetail {
   activeBadgeId: string | null;
   badges: DetailBadge[];
   createdAt: string;
+}
+
+interface ChallengeProgress {
+  id: string;
+  weekId: string;
+  type: string;
+  titleEs: string;
+  titleEn: string;
+  goalCount: number;
+  rewardPoints: number;
+  currentCount: number;
+  completed: boolean;
+  claimed: boolean;
 }
 
 interface AdminUserRow {
@@ -397,7 +415,19 @@ function UserDetailModal({
   const [editPoints,   setEditPoints]   = useState('');
   const [editCountry,  setEditCountry]  = useState('');
   const [editStreak,   setEditStreak]   = useState('');
+  const [editDevotionals, setEditDevotionals] = useState('');
   const [editRole,     setEditRole]     = useState<'USER' | 'MODERATOR' | ''>('');
+
+  // Challenge progress
+  const [challenges,         setChallenges]         = useState<ChallengeProgress[]>([]);
+  const [challengesLoading,  setChallengesLoading]  = useState(false);
+  const [challengesExpanded, setChallengesExpanded] = useState(false);
+
+  // Danger zone
+  const [dangerExpanded,   setDangerExpanded]   = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState('');
+  const [deactivating,      setDeactivating]      = useState(false);
+  const [deleting,          setDeleting]          = useState(false);
 
   // Badge edit state
   const [editBadges,   setEditBadges]   = useState<DetailBadge[]>([]);
@@ -425,6 +455,7 @@ function UserDetailModal({
       setEditPoints(String(data.points));
       setEditCountry(data.countryCode ?? '');
       setEditStreak(String(data.streakCurrent));
+      setEditDevotionals(String(data.devotionalsCompleted));
       setEditRole('');
       setEditBadges(data.badges);
     } catch (e) {
@@ -444,14 +475,30 @@ function UserDetailModal({
     } catch { /* non-critical */ }
   }, [myId]);
 
+  const fetchChallenges = useCallback(async (uid: string) => {
+    setChallengesLoading(true);
+    try {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${uid}/challenge-progress`, { headers: { 'X-User-Id': myId } });
+      if (res.ok) {
+        const data = await res.json() as { challenges: ChallengeProgress[] };
+        setChallenges(data.challenges ?? []);
+      }
+    } catch { /* non-critical */ } finally { setChallengesLoading(false); }
+  }, [myId]);
+
   useEffect(() => {
     if (userId) {
       setEditMode(false);
       setDetail(null);
+      setChallenges([]);
+      setChallengesExpanded(false);
+      setDangerExpanded(false);
+      setDeleteConfirmText('');
       fetchDetail();
       fetchBadgeCatalog();
+      fetchChallenges(userId);
     }
-  }, [userId, fetchDetail, fetchBadgeCatalog]);
+  }, [userId, fetchDetail, fetchBadgeCatalog, fetchChallenges]);
 
   // ── Toggle edit mode ────────────────────────────────────────────────────────
   const handleToggleEdit = () => {
@@ -461,6 +508,7 @@ function UserDetailModal({
         setEditPoints(String(detail.points));
         setEditCountry(detail.countryCode ?? '');
         setEditStreak(String(detail.streakCurrent));
+        setEditDevotionals(String(detail.devotionalsCompleted));
         setEditRole('');
         setEditBadges(detail.badges);
       }
@@ -475,9 +523,10 @@ function UserDetailModal({
     setSaving(true);
 
     try {
-      const newPoints  = parseInt(editPoints, 10);
-      const newStreak  = parseInt(editStreak, 10);
-      const newCountry = editCountry.trim().toUpperCase().slice(0, 2) || null;
+      const newPoints      = parseInt(editPoints, 10);
+      const newStreak      = parseInt(editStreak, 10);
+      const newDevotionals = parseInt(editDevotionals, 10);
+      const newCountry     = editCountry.trim().toUpperCase().slice(0, 2) || null;
 
       if (isNaN(newPoints) || newPoints < 0) {
         Alert.alert('Error', 'Puntos inválidos (debe ser ≥ 0).');
@@ -485,6 +534,10 @@ function UserDetailModal({
       }
       if (isNaN(newStreak) || newStreak < 0) {
         Alert.alert('Error', 'Racha inválida (debe ser ≥ 0).');
+        return;
+      }
+      if (isNaN(newDevotionals) || newDevotionals < 0) {
+        Alert.alert('Error', 'Devocionales inválidos (debe ser ≥ 0).');
         return;
       }
 
@@ -498,10 +551,11 @@ function UserDetailModal({
 
       // --- PATCH user fields ---
       const patchBody: Record<string, unknown> = {};
-      if (newPoints  !== detail.points)        patchBody.points        = newPoints;
-      if (newStreak  !== detail.streakCurrent) { patchBody.streakCurrent = newStreak; patchBody.forceStreakDecrease = force; }
-      if (newCountry !== detail.countryCode)   patchBody.countryCode   = newCountry ?? '';
-      if (editRole && editRole !== detail.role) patchBody.role         = editRole;
+      if (newPoints      !== detail.points)               patchBody.points               = newPoints;
+      if (newStreak      !== detail.streakCurrent)        { patchBody.streakCurrent = newStreak; patchBody.forceStreakDecrease = force; }
+      if (newDevotionals !== detail.devotionalsCompleted) patchBody.devotionalsCompleted = newDevotionals;
+      if (newCountry     !== detail.countryCode)          patchBody.countryCode          = newCountry ?? '';
+      if (editRole && editRole !== detail.role)           patchBody.role                 = editRole;
 
       if (Object.keys(patchBody).length > 0) {
         const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${detail.id}`, {
@@ -549,7 +603,7 @@ function UserDetailModal({
     } finally {
       setSaving(false);
     }
-  }, [detail, editPoints, editStreak, editCountry, editRole, editBadges, myId, fetchDetail, onRefreshList]);
+  }, [detail, editPoints, editStreak, editDevotionals, editCountry, editRole, editBadges, myId, fetchDetail, onRefreshList]);
 
   // ── Badge picker helpers ────────────────────────────────────────────────────
   const filteredCatalog = badgeCatalog.filter(b => {
@@ -751,8 +805,21 @@ function UserDetailModal({
                         </View>
                       </View>
                     )}
-                    {/* Read-only derived fields */}
-                    <FieldRow label="Devocionales" editMode={false} colors={colors} readValue={`${detail.devotionalsCompleted} totales`} input={null} />
+                    {/* Devocionales — editable */}
+                    <FieldRow
+                      label="Devocionales totales"
+                      editMode={editMode}
+                      colors={colors}
+                      readValue={`${detail.devotionalsCompleted} totales`}
+                      input={
+                        <TextInput
+                          value={editDevotionals}
+                          onChangeText={setEditDevotionals}
+                          keyboardType="number-pad"
+                          style={{ flex: 1, textAlign: 'right', fontSize: 14, color: colors.text, fontWeight: '600' }}
+                        />
+                      }
+                    />
                     <FieldRow label="Últimos 7 días" editMode={false} colors={colors} readValue={`${detail.completionsLast7Days} devocionales`} input={null} />
                     <FieldRow label="Creado" editMode={false} colors={colors} readValue={new Date(detail.createdAt).toLocaleDateString('es')} input={null} />
                     <FieldRow label="Último activo" editMode={false} colors={colors}
@@ -813,12 +880,213 @@ function UserDetailModal({
                         flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
                         gap: 8, paddingVertical: 15, borderRadius: 14,
                         backgroundColor: saving ? colors.textMuted + '40' : colors.primary,
+                        marginBottom: 24,
                       }}
                     >
                       {saving
                         ? <ActivityIndicator size="small" color="#FFF" />
                         : <><Save size={16} color="#FFF" /><Text style={{ color: '#FFF', fontWeight: '800', fontSize: 15 }}>Guardar cambios</Text></>}
                     </Pressable>
+                  )}
+
+                  {/* ── Challenge Progress section ── */}
+                  {amOwner && (
+                    <>
+                      <Pressable
+                        onPress={() => { setChallengesExpanded(v => !v); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); }}
+                        style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: challengesExpanded ? 10 : 16 }}
+                      >
+                        <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase' }}>
+                          Desafíos ({challenges.length})
+                        </Text>
+                        {challengesExpanded
+                          ? <ChevronUp size={14} color={colors.textMuted} />
+                          : <ChevronDown size={14} color={colors.textMuted} />}
+                      </Pressable>
+
+                      {challengesExpanded && (
+                        <View style={{ marginBottom: 24 }}>
+                          {challengesLoading ? (
+                            <ActivityIndicator color={colors.primary} style={{ marginVertical: 16 }} />
+                          ) : challenges.length === 0 ? (
+                            <Text style={{ fontSize: 13, color: colors.textMuted, fontStyle: 'italic', marginBottom: 8 }}>Sin desafíos</Text>
+                          ) : (
+                            challenges.map(ch => (
+                              <View
+                                key={ch.id}
+                                style={{
+                                  backgroundColor: colors.surface, borderRadius: 12, padding: 12, marginBottom: 8,
+                                  borderWidth: 1, borderColor: ch.claimed ? '#22C55E40' : ch.completed ? '#3B82F640' : colors.textMuted + '20',
+                                }}
+                              >
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                                  <Text style={{ fontSize: 13, fontWeight: '700', color: colors.text, flex: 1 }} numberOfLines={1}>{ch.titleEs}</Text>
+                                  <View style={{ flexDirection: 'row', gap: 4 }}>
+                                    {ch.completed && <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, backgroundColor: '#3B82F620' }}><Text style={{ fontSize: 10, fontWeight: '700', color: '#3B82F6' }}>✓ Meta</Text></View>}
+                                    {ch.claimed && <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, backgroundColor: '#22C55E20' }}><Text style={{ fontSize: 10, fontWeight: '700', color: '#22C55E' }}>Cobrado</Text></View>}
+                                  </View>
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                                  <Text style={{ fontSize: 12, color: colors.textMuted }}>{ch.currentCount}/{ch.goalCount} · {ch.rewardPoints}pts</Text>
+                                  <Text style={{ fontSize: 10, color: colors.textMuted }}>{ch.weekId}</Text>
+                                </View>
+                                {/* Adjust progress inline */}
+                                <View style={{ flexDirection: 'row', gap: 6, marginTop: 8 }}>
+                                  <Pressable
+                                    onPress={async () => {
+                                      try {
+                                        await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${detail.id}/challenge-progress/${ch.id}`, {
+                                          method: 'PATCH',
+                                          headers: { 'Content-Type': 'application/json', 'X-User-Id': myId },
+                                          body: JSON.stringify({ current: Math.max(0, ch.currentCount - 1) }),
+                                        });
+                                        fetchChallenges(detail.id);
+                                      } catch { Alert.alert('Error', 'No se pudo actualizar.'); }
+                                    }}
+                                    style={{ width: 28, height: 28, borderRadius: 8, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.textMuted + '30' }}
+                                  >
+                                    <Text style={{ fontSize: 16, color: colors.text, fontWeight: '700' }}>−</Text>
+                                  </Pressable>
+                                  <Pressable
+                                    onPress={async () => {
+                                      try {
+                                        await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${detail.id}/challenge-progress/${ch.id}`, {
+                                          method: 'PATCH',
+                                          headers: { 'Content-Type': 'application/json', 'X-User-Id': myId },
+                                          body: JSON.stringify({ current: ch.currentCount + 1 }),
+                                        });
+                                        fetchChallenges(detail.id);
+                                      } catch { Alert.alert('Error', 'No se pudo actualizar.'); }
+                                    }}
+                                    style={{ width: 28, height: 28, borderRadius: 8, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.textMuted + '30' }}
+                                  >
+                                    <Text style={{ fontSize: 16, color: colors.text, fontWeight: '700' }}>+</Text>
+                                  </Pressable>
+                                  <Pressable
+                                    onPress={async () => {
+                                      try {
+                                        await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${detail.id}/challenge-progress/${ch.id}`, {
+                                          method: 'PATCH',
+                                          headers: { 'Content-Type': 'application/json', 'X-User-Id': myId },
+                                          body: JSON.stringify({ claimed: !ch.claimed }),
+                                        });
+                                        fetchChallenges(detail.id);
+                                      } catch { Alert.alert('Error', 'No se pudo actualizar.'); }
+                                    }}
+                                    style={{ flex: 1, height: 28, borderRadius: 8, backgroundColor: ch.claimed ? '#22C55E20' : colors.background, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: ch.claimed ? '#22C55E40' : colors.textMuted + '30' }}
+                                  >
+                                    <Text style={{ fontSize: 11, fontWeight: '700', color: ch.claimed ? '#22C55E' : colors.textMuted }}>
+                                      {ch.claimed ? 'Marcar no cobrado' : 'Marcar cobrado'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                              </View>
+                            ))
+                          )}
+                        </View>
+                      )}
+                    </>
+                  )}
+
+                  {/* ── Danger Zone ── */}
+                  {amOwner && detail.role !== 'OWNER' && (
+                    <>
+                      <Pressable
+                        onPress={() => { setDangerExpanded(v => !v); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); }}
+                        style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: dangerExpanded ? 10 : 8 }}
+                      >
+                        <Text style={{ fontSize: 11, fontWeight: '700', color: '#EF4444', letterSpacing: 1, textTransform: 'uppercase' }}>
+                          Zona peligrosa
+                        </Text>
+                        {dangerExpanded
+                          ? <ChevronUp size={14} color="#EF4444" />
+                          : <ChevronDown size={14} color="#EF4444" />}
+                      </Pressable>
+
+                      {dangerExpanded && (
+                        <View style={{ backgroundColor: '#EF444408', borderRadius: 14, padding: 16, borderWidth: 1, borderColor: '#EF444430', marginBottom: 24, gap: 12 }}>
+                          {/* Deactivate */}
+                          <Pressable
+                            onPress={() => {
+                              Alert.alert(
+                                'Desactivar usuario',
+                                `¿Desactivar a ${detail.nickname}? Se borrará su vínculo de dispositivo y se degradará a USER.`,
+                                [
+                                  { text: 'Cancelar', style: 'cancel' },
+                                  {
+                                    text: 'Desactivar', style: 'destructive', onPress: async () => {
+                                      setDeactivating(true);
+                                      try {
+                                        const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${detail.id}/deactivate`, {
+                                          method: 'POST', headers: { 'X-User-Id': myId },
+                                        });
+                                        const data = await res.json() as { success?: boolean; message?: string; error?: string };
+                                        if (!res.ok || !data.success) { Alert.alert('Error', data.error ?? 'No se pudo desactivar.'); return; }
+                                        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                                        Alert.alert('Listo', data.message ?? 'Usuario desactivado.');
+                                        onClose();
+                                        onRefreshList();
+                                      } catch { Alert.alert('Error', 'No se pudo conectar.'); }
+                                      finally { setDeactivating(false); }
+                                    },
+                                  },
+                                ]
+                              );
+                            }}
+                            disabled={deactivating}
+                            style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 11, paddingHorizontal: 14, borderRadius: 10, backgroundColor: '#F9731615' }}
+                          >
+                            {deactivating ? <ActivityIndicator size="small" color="#F97316" /> : <UserX size={16} color="#F97316" />}
+                            <View style={{ flex: 1 }}>
+                              <Text style={{ fontSize: 13, fontWeight: '700', color: '#F97316' }}>Desactivar usuario</Text>
+                              <Text style={{ fontSize: 11, color: '#F9731680' }}>Borra vínculo de dispositivo · degrada a USER</Text>
+                            </View>
+                          </Pressable>
+
+                          {/* Delete */}
+                          <View style={{ gap: 8 }}>
+                            <Text style={{ fontSize: 12, color: '#EF4444', fontWeight: '600' }}>Eliminar permanentemente — escribe ELIMINAR:</Text>
+                            <TextInput
+                              value={deleteConfirmText}
+                              onChangeText={setDeleteConfirmText}
+                              placeholder="ELIMINAR"
+                              autoCapitalize="characters"
+                              style={{ backgroundColor: colors.background, borderRadius: 10, padding: 10, fontSize: 14, color: colors.text, borderWidth: 1, borderColor: '#EF444430', letterSpacing: 1 }}
+                            />
+                            <Pressable
+                              onPress={async () => {
+                                if (deleteConfirmText.trim() !== 'ELIMINAR') {
+                                  Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+                                  return;
+                                }
+                                setDeleting(true);
+                                try {
+                                  const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${detail.id}?confirm=ELIMINAR`, {
+                                    method: 'DELETE', headers: { 'X-User-Id': myId },
+                                  });
+                                  const data = await res.json() as { success?: boolean; message?: string; error?: string };
+                                  if (!res.ok || !data.success) { Alert.alert('Error', data.error ?? 'No se pudo eliminar.'); return; }
+                                  Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                                  Alert.alert('Eliminado', data.message ?? 'Usuario eliminado permanentemente.');
+                                  onClose();
+                                  onRefreshList();
+                                } catch { Alert.alert('Error', 'No se pudo conectar.'); }
+                                finally { setDeleting(false); }
+                              }}
+                              disabled={deleting || deleteConfirmText.trim() !== 'ELIMINAR'}
+                              style={{
+                                flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6,
+                                paddingVertical: 11, borderRadius: 10,
+                                backgroundColor: (deleting || deleteConfirmText.trim() !== 'ELIMINAR') ? '#EF444420' : '#EF4444',
+                              }}
+                            >
+                              {deleting ? <ActivityIndicator size="small" color="#FFF" /> : <Trash2 size={15} color="#FFF" />}
+                              <Text style={{ fontSize: 13, fontWeight: '800', color: '#FFF' }}>Eliminar permanentemente</Text>
+                            </Pressable>
+                          </View>
+                        </View>
+                      )}
+                    </>
                   )}
                 </ScrollView>
               )}
