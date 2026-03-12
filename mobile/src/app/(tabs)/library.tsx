@@ -1,6 +1,6 @@
 // Library Screen - Historical Devotionals
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,8 +13,8 @@ import {
 import { Image } from 'expo-image';
 import { FlashList } from '@shopify/flash-list';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'expo-router';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter, useFocusEffect } from 'expo-router';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check, Lock, ChevronUp } from 'lucide-react-native';
@@ -226,6 +226,7 @@ function UpcomingCard({ item, language, colors }: { item: UpcomingItem; language
 export default function LibraryScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const colors = useThemeColors();
   const language = useLanguage();
   const favorites = useUserFavorites();
@@ -265,8 +266,16 @@ export default function LibraryScreen() {
   const { data: devotionals, isLoading } = useQuery({
     queryKey: ['allDevotionals'],
     queryFn: () => firestoreService.getAllDevotionals(),
+    staleTime: 0, // always consider stale so focus refetch kicks in
     retry: 1,
   });
+
+  // Refetch when screen comes into focus (handles date-change when app left open)
+  useFocusEffect(
+    useCallback(() => {
+      queryClient.invalidateQueries({ queryKey: ['allDevotionals'] });
+    }, [queryClient])
+  );
 
   const { data: upcomingDevotionals } = useQuery({
     queryKey: ['upcomingDevotionals'],

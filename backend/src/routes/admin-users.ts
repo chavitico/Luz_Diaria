@@ -422,11 +422,12 @@ adminRouter.get("/users/:id", requireRole("OWNER"), async (c) => {
 
 // ─── PATCH /api/admin/users/:id — partial update (OWNER) ─────────────────────
 const patchUserSchema = z.object({
-  points:        z.number().int().min(0).optional(),
-  countryCode:   z.string().length(2).toUpperCase().optional(),
-  streakCurrent: z.number().int().min(0).optional(),
-  role:          z.enum(["USER", "MODERATOR"]).optional(), // can't set OWNER
-  forceStreakDecrease: z.boolean().optional(), // must be true to allow lowering streak
+  points:                 z.number().int().min(0).optional(),
+  countryCode:            z.string().length(2).toUpperCase().optional(),
+  streakCurrent:          z.number().int().min(0).optional(),
+  devotionalsCompleted:   z.number().int().min(0).optional(),
+  role:                   z.enum(["USER", "MODERATOR"]).optional(), // can't set OWNER
+  forceStreakDecrease:    z.boolean().optional(), // must be true to allow lowering streak
 });
 
 adminRouter.patch(
@@ -476,6 +477,10 @@ adminRouter.patch(
       if (body.role && body.role !== target.role) {
         before.role = target.role; after.role = body.role;
         updateData.role = body.role;
+      }
+      if (body.devotionalsCompleted !== undefined && body.devotionalsCompleted !== target.devotionalsCompleted) {
+        before.devotionalsCompleted = target.devotionalsCompleted; after.devotionalsCompleted = body.devotionalsCompleted;
+        updateData.devotionalsCompleted = body.devotionalsCompleted;
       }
 
       if (Object.keys(updateData).length === 0) {
@@ -667,6 +672,275 @@ adminRouter.post(
     } catch (err) {
       console.error("[AdminUsers] Error force renaming:", err);
       return c.json({ error: "Failed to rename user" }, 500);
+    }
+  }
+);
+
+// ─── GET /api/admin/users/:id/challenge-progress — user's challenge data (OWNER) ─
+adminRouter.get("/users/:id/challenge-progress", requireRole("OWNER"), async (c) => {
+  try {
+    const userId = c.req.param("id");
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, nickname: true },
+    });
+    if (!user) return c.json({ error: "User not found" }, 404);
+
+    // Get all weekly challenges and their progress for this user
+    const challenges = await prisma.weeklyChallenge.findMany({
+      orderBy: [{ weekId: "desc" }, { createdAt: "desc" }],
+      take: 20,
+    });
+
+    const progressRows = await prisma.weeklyProgress.findMany({
+      where: { userId },
+    });
+    const progressMap = new Map(progressRows.map(p => [p.challengeId, p]));
+
+    const result = challenges.map(ch => {
+      const progress = progressMap.get(ch.id);
+      return {
+        id: ch.id,
+        weekId: ch.weekId,
+        type: ch.type,
+        titleEs: ch.titleEs,
+        titleEn: ch.titleEn,
+        goalCount: ch.goalCount,
+        rewardPoints: ch.rewardPoints,
+        currentCount: progress?.currentCount ?? 0,
+        completed: progress?.completed ?? false,
+        claimed: progress?.claimed ?? false,
+      };
+    });
+
+    return c.json({ userId, nickname: user.nickname, challenges: result });
+  } catch (err) {
+    console.error("[AdminUsers] Error fetching challenge progress:", err);
+    return c.json({ error: "Failed to fetch challenge progress" }, 500);
+  }
+});
+
+// ─── PATCH /api/admin/users/:id/challenge-progress/:challengeId (OWNER) ──────
+const patchChallengeSchema = z.object({
+  current: z.number().int().min(0).optional(),
+  claimed: z.boolean().optional(),
+});
+
+adminRouter.patch(
+  "/users/:id/challenge-progress/:challengeId",
+  requireRole("OWNER"),
+  zValidator("json", patchChallengeSchema),
+  async (c) => {
+    try {
+      const userId = c.req.param("id");
+      const challengeId = c.req.param("challengeId");
+      const actorId = c.req.header("X-User-Id") as string;
+      const body = c.req.valid("json");
+
+      const challenge = await prisma.weeklyChallenge.findUnique({ where: { id: challengeId } });
+      if (!challenge) return c.json({ success: false, error: "Challenge not found" }, 404);
+
+      const existing = await prisma.weeklyProgress.findFirst({ where: { userId, challengeId } });
+
+      const data: Record<string, unknown> = {};
+      if (body.current !== undefined) data.currentCount = body.current;
+      if (body.claimed !== undefined) {
+        data.claimed = body.claimed;
+      }
+
+      await prisma.weeklyProgress.upsert({
+        where: existing ? { id: existing.id } : { id: "nonexistent" },
+        update: data,
+        create: { userId, challengeId, currentCount: body.current ?? 0, claimed: body.claimed ?? false },
+      });
+
+      await prisma.adminAuditLog.create({
+        data: {
+          actorUserId: actorId,
+          targetUserId: userId,
+          action: `PATCH_CHALLENGE:${challengeId} ${JSON.stringify(data)}`.slice(0, 200),
+          beforeRole: "",
+          afterRole: "",
+        },
+      });
+
+      return c.json({ success: true });
+    } catch (err) {
+      console.error("[AdminUsers] Error patching challenge progress:", err);
+      return c.json({ error: "Failed to update challenge progress" }, 500);
+    }
+  }
+);
+
+// ─── GET /api/admin/promo-codes — list all promo codes (OWNER) ───────────────
+adminRouter.get("/promo-codes", requireRole("OWNER"), async (c) => {
+  try {
+    const codes = await prisma.promoCode.findMany({
+      include: { redemptions: { select: { userId: true, redeemedAt: true } } },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return c.json({
+      codes: codes.map(c => ({
+        id: c.id,
+        displayCode: c.displayCode,
+        points: c.points,
+        isActive: c.isActive,
+        maxUses: c.maxUses,
+        totalUses: c.totalUses,
+        createdAt: c.createdAt.toISOString(),
+        redemptions: c.redemptions.map(r => ({
+          userId: r.userId,
+          redeemedAt: new Date(r.redeemedAt).toISOString(),
+        })),
+      })),
+    });
+  } catch (err) {
+    console.error("[AdminUsers] Error fetching promo codes:", err);
+    return c.json({ error: "Failed to fetch promo codes" }, 500);
+  }
+});
+
+// ─── POST /api/admin/promo-codes — create a promo code (OWNER) ───────────────
+const createPromoCodeSchema = z.object({
+  id: z.string().min(4).max(30).regex(/^[A-Z0-9_-]+$/i, "Code must be alphanumeric with - or _"),
+  points: z.number().int().min(1).max(100000),
+  maxUses: z.number().int().min(1).optional(),
+});
+
+adminRouter.post(
+  "/promo-codes",
+  requireRole("OWNER"),
+  zValidator("json", createPromoCodeSchema),
+  async (c) => {
+    try {
+      const { id, points, maxUses } = c.req.valid("json");
+      const actorId = c.req.header("X-User-Id") as string;
+
+      const displayCode = id.toUpperCase();
+      const codeId = displayCode;
+
+      const existing = await prisma.promoCode.findUnique({ where: { id: codeId } });
+      if (existing) return c.json({ success: false, error: "Code already exists" }, 409);
+
+      const code = await prisma.promoCode.create({
+        data: { id: codeId, displayCode, points, maxUses: maxUses ?? null, isActive: true },
+      });
+
+      await prisma.adminAuditLog.create({
+        data: { actorUserId: actorId, targetUserId: "", action: `CREATE_PROMO_CODE:${codeId}(${points}pts)`.slice(0, 200), beforeRole: "", afterRole: "" },
+      });
+
+      console.log(`[AdminUsers] Created promo code: ${codeId} = ${points} pts, maxUses=${maxUses ?? "unlimited"}`);
+      return c.json({ success: true, code });
+    } catch (err) {
+      console.error("[AdminUsers] Error creating promo code:", err);
+      return c.json({ error: "Failed to create promo code" }, 500);
+    }
+  }
+);
+
+// ─── PATCH /api/admin/promo-codes/:id — activate/deactivate (OWNER) ──────────
+const patchPromoCodeSchema = z.object({
+  isActive: z.boolean(),
+});
+
+adminRouter.patch(
+  "/promo-codes/:id",
+  requireRole("OWNER"),
+  zValidator("json", patchPromoCodeSchema),
+  async (c) => {
+    try {
+      const codeId = c.req.param("id");
+      const actorId = c.req.header("X-User-Id") as string;
+      const { isActive } = c.req.valid("json");
+
+      const code = await prisma.promoCode.findUnique({ where: { id: codeId } });
+      if (!code) return c.json({ success: false, error: "Code not found" }, 404);
+
+      await prisma.promoCode.update({ where: { id: codeId }, data: { isActive } });
+
+      await prisma.adminAuditLog.create({
+        data: { actorUserId: actorId, targetUserId: "", action: `${isActive ? "ACTIVATE" : "DEACTIVATE"}_PROMO_CODE:${codeId}`.slice(0, 200), beforeRole: "", afterRole: "" },
+      });
+
+      return c.json({ success: true, id: codeId, isActive });
+    } catch (err) {
+      console.error("[AdminUsers] Error patching promo code:", err);
+      return c.json({ error: "Failed to update promo code" }, 500);
+    }
+  }
+);
+
+// ─── POST /api/admin/users/:id/deactivate — soft-lock a user (OWNER) ─────────
+// Blocks the user from earning points or completing devotionals.
+// We implement this by clearing their deviceId (breaks device association) and
+// setting their role to USER if MODERATOR.
+adminRouter.post(
+  "/users/:id/deactivate",
+  requireRole("OWNER"),
+  async (c) => {
+    try {
+      const targetId = c.req.param("id");
+      const actorId = c.req.header("X-User-Id") as string;
+
+      if (targetId === actorId) return c.json({ success: false, error: "Cannot deactivate yourself" }, 400);
+
+      const target = await prisma.user.findUnique({ where: { id: targetId } });
+      if (!target) return c.json({ success: false, error: "User not found" }, 404);
+      if (target.role === "OWNER") return c.json({ success: false, error: "Cannot deactivate an OWNER" }, 400);
+
+      // Nullify deviceId to break device lock, zero out points as safety measure
+      await prisma.user.update({
+        where: { id: targetId },
+        data: { deviceId: null, role: "USER" },
+      });
+
+      await prisma.adminAuditLog.create({
+        data: { actorUserId: actorId, targetUserId: targetId, action: "DEACTIVATE_USER", beforeRole: target.role, afterRole: "USER" },
+      });
+
+      console.log(`[AdminUsers] Deactivated user ${target.nickname} (${targetId})`);
+      return c.json({ success: true, message: `User ${target.nickname} deactivated` });
+    } catch (err) {
+      console.error("[AdminUsers] Error deactivating user:", err);
+      return c.json({ error: "Failed to deactivate user" }, 500);
+    }
+  }
+);
+
+// ─── DELETE /api/admin/users/:id — hard delete (OWNER only, irreversible) ─────
+adminRouter.delete(
+  "/users/:id",
+  requireRole("OWNER"),
+  async (c) => {
+    try {
+      const targetId = c.req.param("id");
+      const actorId = c.req.header("X-User-Id") as string;
+      const confirm = c.req.query("confirm");
+
+      if (confirm !== "ELIMINAR") {
+        return c.json({ success: false, error: "Must pass confirm=ELIMINAR in query to delete" }, 400);
+      }
+      if (targetId === actorId) return c.json({ success: false, error: "Cannot delete yourself" }, 400);
+
+      const target = await prisma.user.findUnique({ where: { id: targetId } });
+      if (!target) return c.json({ success: false, error: "User not found" }, 404);
+      if (target.role === "OWNER") return c.json({ success: false, error: "Cannot delete an OWNER account" }, 400);
+
+      // Log before deleting (cascade will clean up related records)
+      await prisma.adminAuditLog.create({
+        data: { actorUserId: actorId, targetUserId: targetId, action: `DELETE_USER:${target.nickname}`.slice(0, 200), beforeRole: target.role, afterRole: "" },
+      });
+
+      await prisma.user.delete({ where: { id: targetId } });
+
+      console.log(`[AdminUsers] DELETED user ${target.nickname} (${targetId}) by actor ${actorId}`);
+      return c.json({ success: true, message: `User ${target.nickname} permanently deleted` });
+    } catch (err) {
+      console.error("[AdminUsers] Error deleting user:", err);
+      return c.json({ error: "Failed to delete user" }, 500);
     }
   }
 );

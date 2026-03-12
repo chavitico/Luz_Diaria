@@ -77,11 +77,11 @@ export const firestoreService = {
       devotionalsCompleted: 0,
       favorites: [],
       createdAt: Date.now(),
-      lastActiveDate: getTodayDate(),
+      lastActiveDate: '',
       purchasedItems: [],
       settings: {
         theme: 'dawn',
-        language: 'en',
+        language: 'es',
         musicEnabled: false,
         musicVolume: 0.18,
         notificationsEnabled: true,
