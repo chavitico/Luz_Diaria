@@ -318,8 +318,24 @@ export default function LibraryScreen() {
         const title = (language === 'es' ? d.titleEs : d.title)?.toLowerCase() ?? '';
         const topic = (language === 'es' ? d.topicEs : d.topic)?.toLowerCase() ?? '';
         const reflection = (language === 'es' ? d.reflectionEs : d.reflection)?.toLowerCase() ?? '';
+        const story = (language === 'es' ? d.storyEs : d.story)?.toLowerCase() ?? '';
+        const character = (language === 'es' ? d.biblicalCharacterEs : d.biblicalCharacter)?.toLowerCase() ?? '';
+        const application = (language === 'es' ? d.applicationEs : d.application)?.toLowerCase() ?? '';
+        const prayer = (language === 'es' ? d.prayerEs : d.prayer)?.toLowerCase() ?? '';
+        const verse = (language === 'es' ? d.bibleVerseEs : d.bibleVerse)?.toLowerCase() ?? '';
+        const reference = (language === 'es' ? d.bibleReferenceEs : d.bibleReference)?.toLowerCase() ?? '';
 
-        return title.includes(query) || topic.includes(query) || reflection.includes(query);
+        return (
+          title.includes(query) ||
+          topic.includes(query) ||
+          reflection.includes(query) ||
+          story.includes(query) ||
+          character.includes(query) ||
+          application.includes(query) ||
+          prayer.includes(query) ||
+          verse.includes(query) ||
+          reference.includes(query)
+        );
       }
 
       return true;

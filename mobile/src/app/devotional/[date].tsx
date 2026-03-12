@@ -345,9 +345,10 @@ interface ContentSectionProps {
   colors: ReturnType<typeof useThemeColors>;
   isHighlighted?: boolean;
   sectionIndex: number;
+  onPress?: () => void;
 }
 
-function ContentSection({ title, content, icon, colors, isHighlighted, sectionIndex }: ContentSectionProps) {
+function ContentSection({ title, content, icon, colors, isHighlighted, sectionIndex, onPress }: ContentSectionProps) {
   return (
     <Animated.View
       entering={FadeInDown.delay(100 + sectionIndex * 50).duration(400)}
@@ -370,20 +371,28 @@ function ContentSection({ title, content, icon, colors, isHighlighted, sectionIn
       </View>
 
       {/* Section Content */}
-      <View
-        className="rounded-2xl p-5"
-        style={{
-          backgroundColor: isHighlighted ? colors.primary + '15' : colors.surface,
-          borderWidth: isHighlighted ? 2 : 0,
-          borderColor: isHighlighted ? colors.primary : 'transparent',
-        }}
+      <Pressable
+        onPress={onPress}
+        android_ripple={onPress ? { color: colors.primary + '20' } : undefined}
+        style={({ pressed }) => ({
+          opacity: onPress && pressed ? 0.75 : 1,
+        })}
       >
-        <BibleReferenceText
-          style={{ color: colors.text, fontSize: 16, lineHeight: 28 }}
+        <View
+          className="rounded-2xl p-5"
+          style={{
+            backgroundColor: isHighlighted ? colors.primary + '15' : colors.surface,
+            borderWidth: isHighlighted ? 2 : 0,
+            borderColor: isHighlighted ? colors.primary : 'transparent',
+          }}
         >
-          {content}
-        </BibleReferenceText>
-      </View>
+          <BibleReferenceText
+            style={{ color: colors.text, fontSize: 16, lineHeight: 28 }}
+          >
+            {content}
+          </BibleReferenceText>
+        </View>
+      </Pressable>
     </Animated.View>
   );
 }
@@ -810,6 +819,25 @@ export default function DevotionalDetailScreen() {
     setCurrentSectionIndex(-1);
   }, []);
 
+  const handleTTSJumpToSection = useCallback(async (index: number) => {
+    const sections = buildDevotionalText();
+    if (sections.length === 0 || index < 0 || index >= sections.length) return;
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+    // Stop any current speech and increment job ID to invalidate ongoing sections
+    isTTSPlayingRef.current = false;
+    await Speech.stop();
+
+    // Start fresh from the tapped section
+    speechJobIdRef.current += 1;
+    const jobId = speechJobIdRef.current;
+    setIsTTSPlaying(true);
+    isTTSPlayingRef.current = true;
+    currentSectionsRef.current = sections;
+    speakSection(index, sections, jobId);
+  }, [buildDevotionalText, speakSection]);
+
   // Restart current section with new settings
   const restartCurrentSection = useCallback(async () => {
     if (!isTTSPlayingRef.current || currentSectionIndexRef.current < 0) return;
@@ -1075,6 +1103,11 @@ export default function DevotionalDetailScreen() {
           {/* Collapsible content wrapper */}
           <CollapsibleDevotional colors={colors} language={language}>
             {/* Bible Verse Card */}
+            <Pressable
+              onPress={() => handleTTSJumpToSection(0)}
+              android_ripple={{ color: colors.primary + '20' }}
+              style={({ pressed }) => ({ opacity: pressed ? 0.75 : 1 })}
+            >
             <Animated.View
               entering={FadeInDown.delay(100).duration(400)}
               className="rounded-3xl p-6 mb-6"
@@ -1106,6 +1139,7 @@ export default function DevotionalDetailScreen() {
                 — {language === 'es' ? (devotional.bibleReferenceEs || translateBibleReference(devotional.bibleReference)) : devotional.bibleReference}
               </Text>
             </Animated.View>
+            </Pressable>
 
             {/* All sections displayed continuously */}
             <ContentSection
@@ -1115,6 +1149,7 @@ export default function DevotionalDetailScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 1}
               sectionIndex={1}
+              onPress={() => handleTTSJumpToSection(1)}
             />
 
             <ContentSection
@@ -1124,6 +1159,7 @@ export default function DevotionalDetailScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 2}
               sectionIndex={2}
+              onPress={() => handleTTSJumpToSection(2)}
             />
 
             <ContentSection
@@ -1133,6 +1169,7 @@ export default function DevotionalDetailScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 3}
               sectionIndex={3}
+              onPress={() => handleTTSJumpToSection(3)}
             />
 
             <ContentSection
@@ -1142,6 +1179,7 @@ export default function DevotionalDetailScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 4}
               sectionIndex={4}
+              onPress={() => handleTTSJumpToSection(4)}
             />
 
             <ContentSection
@@ -1151,6 +1189,7 @@ export default function DevotionalDetailScreen() {
               colors={colors}
               isHighlighted={currentSectionIndex === 5}
               sectionIndex={5}
+              onPress={() => handleTTSJumpToSection(5)}
             />
           </CollapsibleDevotional>
         </View>
