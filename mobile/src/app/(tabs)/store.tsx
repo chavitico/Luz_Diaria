@@ -67,6 +67,7 @@ import {
   useUser,
   useAppStore,
   useRequestPackReveal,
+  useRequestConfirmPurchase,
 } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { ActionButton } from '@/components/ui/ActionButton';
@@ -75,7 +76,6 @@ import { CardRevealModal } from '@/components/CardRevealModal';
 import { PackOpeningModal } from '@/components/PackOpeningModal';
 import { TradeInboxModal } from '@/components/TradeInboxModal';
 import { BadgeChip } from '@/components/BadgeChip';
-import { ConfirmPurchaseModal } from '@/components/ConfirmPurchaseModal';
 import { useFocusEffect } from '@react-navigation/native';
 import {
   TRANSLATIONS,
@@ -7511,25 +7511,6 @@ export default function StoreScreen() {
   const [hasRenameToken, setHasRenameToken] = useState(false);
   const [activeBadgeId, setActiveBadgeId] = useState<string | null>(null);
 
-  // Confirm purchase modal state — shared across all point-spending flows
-  const [confirmPurchaseVisible, setConfirmPurchaseVisible] = useState(false);
-  const [confirmPurchasePending, setConfirmPurchasePending] = useState<{
-    itemName: string;
-    cost: number;
-    description?: string;
-    onConfirm: () => void;
-  } | null>(null);
-
-  const requestConfirmation = useCallback((
-    itemName: string,
-    cost: number,
-    onConfirm: () => void,
-    description?: string,
-  ) => {
-    setConfirmPurchasePending({ itemName, cost, description, onConfirm });
-    setConfirmPurchaseVisible(true);
-  }, []);
-
   // Reset transaction locks when app returns to foreground (resumeTick bumped by _layout.tsx)
   // This fixes the bug where minimizing mid-purchase leaves locks stuck and pack buttons disabled.
   useEffect(() => {
@@ -7596,6 +7577,7 @@ export default function StoreScreen() {
     packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros';
   } | null>(null);
   const requestPackReveal = useRequestPackReveal();
+  const requestConfirmPurchase = useRequestConfirmPurchase();
 
   // ScrollView ref for programmatic scrolling
   const mainScrollViewRef = useRef<ScrollView>(null);
@@ -8044,15 +8026,15 @@ export default function StoreScreen() {
   const handleBundlePurchase = useCallback((bundle: typeof STORE_BUNDLES[string]) => {
     if (bundlePurchaseMutation.isPending) return;
     const bundleName = language === 'es' ? bundle.nameEs : bundle.name;
-    requestConfirmation(bundleName, bundle.bundlePrice, () => {
+    requestConfirmPurchase({ itemName: bundleName, cost: bundle.bundlePrice, onConfirm: () => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
       bundlePurchaseMutate({
         bundleId: bundle.id,
         itemIds: bundle.items,
         bundlePrice: bundle.bundlePrice,
       });
-    });
-  }, [bundlePurchaseMutate, bundlePurchaseMutation.isPending, language, requestConfirmation]);
+    } });
+  }, [bundlePurchaseMutate, bundlePurchaseMutation.isPending, language, requestConfirmPurchase]);
 
   // Handle purchase from modal
   const handlePurchase = useCallback(() => {
@@ -8060,12 +8042,12 @@ export default function StoreScreen() {
     if (purchaseMutation.isPending) return;
     const itemName = language === 'es' ? selectedDetailItem.nameEs : selectedDetailItem.name;
     const desc = language === 'es' ? selectedDetailItem.descriptionEs : selectedDetailItem.description;
-    requestConfirmation(itemName, selectedDetailItem.price, () => {
+    requestConfirmPurchase({ itemName, cost: selectedDetailItem.price, description: desc || undefined, onConfirm: () => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
       markNewItemSeen(selectedDetailItem.id);
       purchaseMutate({ itemId: selectedDetailItem.id });
-    }, desc || undefined);
-  }, [selectedDetailItem, purchaseMutate, markNewItemSeen, purchaseMutation.isPending, language, requestConfirmation]);
+    } });
+  }, [selectedDetailItem, purchaseMutate, markNewItemSeen, purchaseMutation.isPending, language, requestConfirmPurchase]);
 
   // Handle equip from modal
   const handleEquip = useCallback(() => {
@@ -8309,7 +8291,7 @@ export default function StoreScreen() {
     };
     const names = TOKEN_NAMES[itemId] ?? { es: itemId, en: itemId };
     const itemName = language === 'es' ? names.es : names.en;
-    requestConfirmation(itemName, price, () => executeTokenPurchase(itemId, price));
+    requestConfirmPurchase({ itemName, cost: price, onConfirm: () => executeTokenPurchase(itemId, price) });
   };
 
   // ── Daily free pack ──
@@ -10185,24 +10167,6 @@ export default function StoreScreen() {
         visible={showGiftSendModal}
         onClose={() => setShowGiftSendModal(false)}
         item={giftSendItem}
-      />
-
-      {/* Confirm Purchase Modal — shared for all point-spending actions */}
-      <ConfirmPurchaseModal
-        visible={confirmPurchaseVisible}
-        itemName={confirmPurchasePending?.itemName ?? ''}
-        cost={confirmPurchasePending?.cost ?? 0}
-        description={confirmPurchasePending?.description}
-        onConfirm={() => {
-          console.log('[ConfirmModal] onConfirm tapped, pending:', confirmPurchasePending?.itemName, confirmPurchasePending?.cost);
-          setConfirmPurchaseVisible(false);
-          confirmPurchasePending?.onConfirm();
-          setConfirmPurchasePending(null);
-        }}
-        onCancel={() => {
-          setConfirmPurchaseVisible(false);
-          setConfirmPurchasePending(null);
-        }}
       />
 
       {/* Chest Reward Modal */}

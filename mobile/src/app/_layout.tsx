@@ -22,8 +22,9 @@ import { ReceivedGiftModal, type ReceivedGift } from '@/components/ReceivedGiftM
 import { gamificationApi } from '@/lib/gamification-api';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { prefetchDevotionals, checkAndPrefetchOnDateChange } from '@/lib/devotional-cache';
-import { usePackRevealRequest, useClearPackRevealRequest, useRequestPackReveal } from '@/lib/store';
+import { usePackRevealRequest, useClearPackRevealRequest, useRequestPackReveal, useConfirmPurchaseRequest, useClearConfirmPurchaseRequest } from '@/lib/store';
 import { PackOpeningModal } from '@/components/PackOpeningModal';
+import { ConfirmPurchaseModal } from '@/components/ConfirmPurchaseModal';
 import { initCardImageCache, downloadCollection } from '@/lib/card-image-cache';
 
 // Pre-decode all pack/card-back PNGs immediately at module load time.
@@ -214,6 +215,10 @@ function AppContent() {
   const packRevealRequest = usePackRevealRequest();
   const clearPackRevealRequest = useClearPackRevealRequest();
   const requestPackReveal = useRequestPackReveal();
+
+  // Root-level purchase confirmation — rendered above ALL modals and navigation
+  const confirmPurchaseRequest = useConfirmPurchaseRequest();
+  const clearConfirmPurchaseRequest = useClearConfirmPurchaseRequest();
   const router = useRouter();
 
   // Gift modal state
@@ -630,6 +635,22 @@ function AppContent() {
             console.log('[PackReveal] open another failed', err);
           }
         } : undefined}
+      />
+
+      {/* Root-level purchase confirmation — above ALL navigation and modals */}
+      <ConfirmPurchaseModal
+        visible={!!confirmPurchaseRequest}
+        itemName={confirmPurchaseRequest?.itemName ?? ''}
+        cost={confirmPurchaseRequest?.cost ?? 0}
+        description={confirmPurchaseRequest?.description}
+        onConfirm={() => {
+          const cb = confirmPurchaseRequest?.onConfirm;
+          clearConfirmPurchaseRequest();
+          cb?.();
+        }}
+        onCancel={() => {
+          clearConfirmPurchaseRequest();
+        }}
       />
     </>
   );

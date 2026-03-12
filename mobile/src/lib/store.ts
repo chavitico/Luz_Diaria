@@ -73,6 +73,16 @@ interface AppState {
   } | null;
   requestPackReveal: (req: { drawnCards: Array<{ cardId: string; wasNew: boolean }>; packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' }) => void;
   clearPackRevealRequest: () => void;
+
+  // Root-level purchase confirmation — consumed by _layout.tsx overlay (above all modals/navigation).
+  confirmPurchaseRequest: {
+    itemName: string;
+    cost: number;
+    description?: string;
+    onConfirm: () => void;
+  } | null;
+  requestConfirmPurchase: (req: { itemName: string; cost: number; description?: string; onConfirm: () => void }) => void;
+  clearConfirmPurchaseRequest: () => void;
 }
 
 const initialUserSettings: UserSettings = {
@@ -114,6 +124,9 @@ export const useAppStore = create<AppState>()(
 
       // Pack reveal request — transient, starts null each launch
       packRevealRequest: null,
+
+      // Confirm purchase request — transient, starts null each launch
+      confirmPurchaseRequest: null,
 
       setUser: (user) => set({ user }),
 
@@ -254,6 +267,9 @@ export const useAppStore = create<AppState>()(
       requestPackReveal: (req) => set({ packRevealRequest: req }),
       clearPackRevealRequest: () => set({ packRevealRequest: null }),
 
+      requestConfirmPurchase: (req) => set({ confirmPurchaseRequest: req }),
+      clearConfirmPurchaseRequest: () => set({ confirmPurchaseRequest: null }),
+
       reset: () => set({
         user: null,
         isOnboarded: false,
@@ -319,6 +335,11 @@ export const useInventory = () => useAppStore((s) => s.inventoryItems);
 export const usePackRevealRequest = () => useAppStore((s) => s.packRevealRequest);
 export const useRequestPackReveal = () => useAppStore((s) => s.requestPackReveal);
 export const useClearPackRevealRequest = () => useAppStore((s) => s.clearPackRevealRequest);
+
+// Confirm purchase request — consumed by root-level overlay in _layout.tsx
+export const useConfirmPurchaseRequest = () => useAppStore((s) => s.confirmPurchaseRequest);
+export const useRequestConfirmPurchase = () => useAppStore((s) => s.requestConfirmPurchase);
+export const useClearConfirmPurchaseRequest = () => useAppStore((s) => s.clearConfirmPurchaseRequest);
 
 // Helper: returns '#FFFFFF' or '#1A1A1A' depending on which gives better contrast on the given hex bg
 export function getContrastText(hex: string): string {
