@@ -298,3 +298,90 @@ export function sanitizeForTTS(text: string): string {
 
   return result;
 }
+
+/**
+ * Pronunciation dictionary for biblical names and terms that TTS engines
+ * commonly mispronounce. Keys are the exact words as they appear in text;
+ * values are phonetic replacements that guide the TTS engine to the correct
+ * pronunciation.
+ *
+ * Rules:
+ * - Use accented characters to hint stress (e.g., "Sílas" stresses the first syllable)
+ * - Avoid changing meaning — replacements must sound correct when spoken
+ * - This dictionary is applied ONLY to the TTS input, never to displayed text
+ * - Add entries here to expand coverage; keep them sorted alphabetically
+ */
+export const BIBLICAL_PRONUNCIATION_MAP: Record<string, string> = {
+  // English names often mispronounced
+  'Achan': 'Ay-kan',
+  'Balaam': 'Bay-lam',
+  'Bartholomew': 'Bar-thol-oh-myoo',
+  'Boaz': 'Boh-az',
+  'Caiaphas': 'Kay-uh-fus',
+  'Elijah': 'Ee-ly-jah',
+  'Elisha': 'Ee-ly-shah',
+  'Ezekiel': 'Ee-zee-kee-ul',
+  'Habakkuk': 'Huh-bak-uk',
+  'Hezekiah': 'Hez-uh-ky-uh',
+  'Hosea': 'Hoh-zee-uh',
+  'Isaiah': 'Eye-zay-uh',
+  'Jehoshaphat': 'Jeh-hosh-uh-fat',
+  'Jeremiah': 'Jer-uh-my-uh',
+  'Job': 'Johb',
+  'Josiah': 'Joh-sy-uh',
+  'Lazarus': 'Laz-uh-rus',
+  'Malachi': 'Mal-uh-ky',
+  'Methuselah': 'Muh-thyoo-zuh-luh',
+  'Micah': 'My-kuh',
+  'Naomi': 'Nay-oh-mee',
+  'Nehemiah': 'Nee-uh-my-uh',
+  'Nicodemus': 'Nik-uh-dee-mus',
+  'Obadiah': 'Oh-buh-dy-uh',
+  'Philemon': 'Fil-ee-mon',
+  'Silas': 'Sy-lus',
+  'Simeon': 'Sim-ee-un',
+  'Sinai': 'Sy-ny',
+  'Titus': 'Ty-tus',
+  'Zachariah': 'Zak-uh-ry-uh',
+  'Zebedee': 'Zeb-uh-dee',
+  'Zephaniah': 'Zef-uh-ny-uh',
+  'Zerubbabel': 'Zuh-rub-uh-bul',
+};
+
+/**
+ * Spanish-specific pronunciation map — used when TTS language is Spanish.
+ * Overrides or supplements the global map for Spanish TTS engines.
+ */
+export const BIBLICAL_PRONUNCIATION_MAP_ES: Record<string, string> = {
+  'Silas': 'Sílas',
+  'Tito': 'Títo',
+  'Ananías': 'Ananías',
+  'Onésimo': 'Onésimo',
+  'Filemón': 'Filemón',
+  'Simeón': 'Simeón',
+};
+
+/**
+ * Applies the biblical pronunciation dictionary to text before TTS synthesis.
+ * Replaces whole-word matches only (word boundaries) to avoid partial replacements.
+ * This function must be called ONLY on TTS input — never on displayed text.
+ *
+ * @param text  The raw devotional text to normalize
+ * @param language  'es' or 'en' — determines which pronunciation map to use
+ */
+export function applyBiblicalPronunciations(text: string, language: 'en' | 'es' = 'es'): string {
+  let result = text;
+
+  // Use the language-specific map for Spanish, otherwise use the English map
+  const map = language === 'es' ? BIBLICAL_PRONUNCIATION_MAP_ES : BIBLICAL_PRONUNCIATION_MAP;
+
+  for (const [original, phonetic] of Object.entries(map)) {
+    // Escape any regex special characters in the key
+    const escaped = original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // Replace whole words only (case-sensitive to respect proper nouns)
+    const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+    result = result.replace(regex, phonetic);
+  }
+
+  return result;
+}

@@ -1643,5 +1643,12 @@
     "itemId": "badge_companero_oracion",
     "acquiredAt": "2026-03-11T15:35:00.481Z",
     "source": "achievement"
+  },
+  {
+    "id": "cmmnsk5ov000nm2vuly9hti5s",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_bosque_sereno",
+    "acquiredAt": "2026-03-12T18:18:33.295Z",
+    "source": "store"
   }
 ]

@@ -20,6 +20,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
+import { Audio, InterruptionModeIOS, InterruptionModeAndroid } from 'expo-av';
 import Slider from '@react-native-community/slider';
 import {
   BookOpen,
@@ -63,6 +64,7 @@ import {
   addTTSPausesForNumberedPoints,
   sanitizeForTTS,
   preprocessNumbersForTTS,
+  applyBiblicalPronunciations,
 } from '@/lib/tts-voices';
 import { pickBestVoice, type PickedVoice } from '@/lib/voice-picker';
 
@@ -714,14 +716,16 @@ export default function DevotionalDetailScreen() {
     const formattedReference = formatBibleReferenceForSpeech(bibleRef, language);
 
     // Apply Bible reference normalization to ALL sections for proper TTS pronunciation
-    // Sanitize garbage text from cross-reference annotations, then add pauses
+    // Sanitize garbage text from cross-reference annotations, then add pauses,
+    // then apply biblical name pronunciation corrections.
+    const ttsLang = language as 'en' | 'es';
     return [
-      { key: 'verse', text: preprocessNumbersForTTS(sanitizeForTTS(`${verse}. ${formattedReference}`)) },
-      { key: 'reflection', text: preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(reflection), language))) },
-      { key: 'story', text: preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(story), language))) },
-      { key: 'character', text: preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(character), language))) },
-      { key: 'application', text: preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(application), language))) },
-      { key: 'prayer', text: preprocessNumbersForTTS(normalizeBibleRefForTTS(sanitizeForTTS(prayer), language)) },
+      { key: 'verse', text: applyBiblicalPronunciations(preprocessNumbersForTTS(sanitizeForTTS(`${verse}. ${formattedReference}`)), ttsLang) },
+      { key: 'reflection', text: applyBiblicalPronunciations(preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(reflection), language))), ttsLang) },
+      { key: 'story', text: applyBiblicalPronunciations(preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(story), language))), ttsLang) },
+      { key: 'character', text: applyBiblicalPronunciations(preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(character), language))), ttsLang) },
+      { key: 'application', text: applyBiblicalPronunciations(preprocessNumbersForTTS(addTTSPausesForNumberedPoints(normalizeBibleRefForTTS(sanitizeForTTS(application), language))), ttsLang) },
+      { key: 'prayer', text: applyBiblicalPronunciations(preprocessNumbersForTTS(normalizeBibleRefForTTS(sanitizeForTTS(prayer), language)), ttsLang) },
     ];
   }, [devotional, language]);
 
@@ -817,6 +821,27 @@ export default function DevotionalDetailScreen() {
     await Speech.stop();
     speakSection(currentIndex, sections, jobId);
   }, [speakSection]);
+
+  // Initialize audio session for TTS independently of the music provider.
+  // This ensures TTS works even when background music is muted or never started,
+  // because expo-speech (native TTS) needs the audio session configured before use.
+  useEffect(() => {
+    const initTTSAudioSession = async () => {
+      try {
+        await Audio.setAudioModeAsync({
+          playsInSilentModeIOS: true,
+          staysActiveInBackground: false,
+          shouldDuckAndroid: false,
+          interruptionModeIOS: InterruptionModeIOS.MixWithOthers,
+          interruptionModeAndroid: InterruptionModeAndroid.DuckOthers,
+        });
+      } catch (err) {
+        // Non-fatal: TTS may still work with the system default audio session
+        if (__DEV__) console.log('[TTS] Audio session init error:', err);
+      }
+    };
+    initTTSAudioSession();
+  }, []);
 
   // Cleanup TTS on unmount
   useEffect(() => {

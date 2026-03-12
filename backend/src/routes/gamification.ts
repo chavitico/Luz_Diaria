@@ -45,8 +45,9 @@ interface DailyActions {
   ttsDone?: boolean;
   devotionalDates?: string[]; // Track completed devotionals by date
   // Daily pack claims: tracks claim count and date per pack type
-  dailyPackDate?: string;       // ISO date string (YYYY-MM-DD) of last claim
-  dailyPackCount?: number;      // How many packs claimed today
+  dailyPackDate?: string;       // ISO date string (YYYY-MM-DD) of last pack interaction
+  dailyPackCount?: number;      // How many packs claimed on dailyPackDate
+  accumulatedPacks?: number;    // Unclaimed packs accumulated across missed days (hard cap: 2)
 }
 
 const POINTS_CONFIG: Record<ActionType, { points: number; dailyCap?: number }> = {
@@ -164,6 +165,59 @@ function parseDailyActions(jsonStr: string): DailyActions {
   } catch {
     return {};
   }
+}
+
+// Hard cap on accumulated free packs (applies to all users regardless of premium)
+const FREE_PACK_MAX_ACCUMULATED = 2;
+
+/**
+ * Computes available free packs taking into account:
+ * - Daily earn rate (1 per day for regular, 2 for premium)
+ * - Days elapsed since last interaction
+ * - Hard cap of FREE_PACK_MAX_ACCUMULATED regardless of days missed
+ *
+ * Returns: { available: number, updatedActions: DailyActions }
+ * The caller must persist updatedActions after using this result.
+ */
+function computeAvailablePacks(
+  dailyActions: DailyActions,
+  today: string,
+  dailyEarnRate: number
+): { available: number; updatedActions: DailyActions } {
+  const lastDate = dailyActions.dailyPackDate;
+  const lastCount = dailyActions.dailyPackCount ?? 0;
+  const prevAccumulated = dailyActions.accumulatedPacks ?? 0;
+
+  if (!lastDate || lastDate === today) {
+    // Same day — available = accumulated + (dailyEarnRate - claimedToday), capped
+    const claimedToday = lastDate === today ? lastCount : 0;
+    const earnedToday = dailyEarnRate - claimedToday;
+    const available = Math.min(FREE_PACK_MAX_ACCUMULATED, prevAccumulated + Math.max(0, earnedToday));
+    return {
+      available,
+      updatedActions: { ...dailyActions },
+    };
+  }
+
+  // New day(s) have passed — compute how many days elapsed since last interaction
+  const lastMs = new Date(lastDate).getTime();
+  const todayMs = new Date(today).getTime();
+  const daysElapsed = Math.floor((todayMs - lastMs) / (24 * 60 * 60 * 1000));
+
+  // Packs that were not claimed on previous days carry over, but cap applies
+  // Each elapsed day earns dailyEarnRate packs, capped globally at FREE_PACK_MAX_ACCUMULATED
+  const earnedSinceLast = daysElapsed * dailyEarnRate;
+  const available = Math.min(FREE_PACK_MAX_ACCUMULATED, prevAccumulated + earnedSinceLast);
+
+  return {
+    available,
+    updatedActions: {
+      ...dailyActions,
+      dailyPackDate: today,
+      dailyPackCount: 0,
+      accumulatedPacks: available,
+    },
+  };
 }
 
 // Generate a random 8-character alphanumeric code
@@ -2170,7 +2224,7 @@ const updateCommunityOptInSchema = z.object({
   optIn: z.boolean(),
 });
 
-// GET /community/members - Get community members list with non-toxic ordering
+// GET /community/members - Get community members list with activity-first ordering
 gamificationRouter.get("/community/members", async (c) => {
   try {
     const limit = parseInt(c.req.query("limit") ?? "20", 10);
@@ -2182,35 +2236,8 @@ gamificationRouter.get("/community/members", async (c) => {
       .map((s) => s.trim())
       .filter(Boolean);
 
-    // Get today's date to determine ordering strategy
-    const today = new Date();
-    const dayOfYear = Math.floor(
-      (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24)
-    );
-
-    // Rotate ordering strategy based on day:
-    // Day 0, 3, 6... = by recent activity
-    // Day 1, 4, 7... = by streak
-    // Day 2, 5, 8... = randomized (using day as seed)
-    const orderingStrategy = dayOfYear % 3;
-
-    let orderBy: Record<string, unknown>[] = [];
-
-    switch (orderingStrategy) {
-      case 0: // Recent activity first
-        orderBy = [{ lastActiveAt: "desc" }, { createdAt: "desc" }];
-        break;
-      case 1: // Current streak (mixed direction to avoid pure ranking)
-        orderBy = [{ streakCurrent: "desc" }, { lastActiveAt: "desc" }];
-        break;
-      case 2: // We'll shuffle client-side for this case
-      default:
-        orderBy = [{ createdAt: "asc" }];
-        break;
-    }
-
-    // Fetch all opted-in users
-    const [members, total] = await Promise.all([
+    // Fetch all opted-in users ordered by most recent activity first
+    const [allMembers, total] = await Promise.all([
       prisma.user.findMany({
         where: { communityOptIn: true },
         select: {
@@ -2229,29 +2256,62 @@ gamificationRouter.get("/community/members", async (c) => {
           showCountry: true,
           activeBadgeId: true,
         },
-        orderBy,
-        take: limit,
-        skip: offset,
+        orderBy: [{ lastActiveAt: "desc" }, { createdAt: "desc" }],
       }),
       prisma.user.count({
         where: { communityOptIn: true },
       }),
     ]);
 
-    // If it's randomized day, shuffle the results using the day as seed
-    let finalMembers = members;
-    if (orderingStrategy === 2) {
-      // Simple seeded shuffle
-      const seed = dayOfYear;
-      finalMembers = [...members].sort(() => {
-        // Use a simple hash based on seed for pseudo-random ordering
-        const hash = Math.sin(seed) * 10000;
-        return hash - Math.floor(hash) - 0.5;
-      });
+    // Activity-priority ordering with soft rotation:
+    // Group 1: active within last 3 days
+    // Group 2: active within last 7 days
+    // Group 3: inactive 7+ days
+    // Within each group, apply light per-request randomization so the list
+    // does not feel static while still surfacing recently active users first.
+    const now = Date.now();
+    const DAY_MS = 24 * 60 * 60 * 1000;
+
+    const group1: typeof allMembers = []; // active < 3 days
+    const group2: typeof allMembers = []; // active 3–7 days
+    const group3: typeof allMembers = []; // inactive 7+ days
+
+    for (const m of allMembers) {
+      const lastActive = m.lastActiveAt ? new Date(m.lastActiveAt).getTime() : 0;
+      const daysAgo = (now - lastActive) / DAY_MS;
+      if (daysAgo < 3) {
+        group1.push(m);
+      } else if (daysAgo < 7) {
+        group2.push(m);
+      } else {
+        group3.push(m);
+      }
     }
 
+    // Seeded shuffle within each group using a seed that changes every ~4 hours
+    // so the rotation feels fresh during the day without being completely random
+    const timeSeed = Math.floor(now / (4 * 60 * 60 * 1000));
+    function seededShuffle<T>(arr: T[], seed: number): T[] {
+      const result = [...arr];
+      for (let i = result.length - 1; i > 0; i--) {
+        // Simple deterministic hash from seed + index
+        const j = Math.abs(Math.floor(Math.sin(seed * (i + 1) * 9301 + 49297) * 233280)) % (i + 1);
+        [result[i], result[j]] = [result[j] as T, result[i] as T];
+      }
+      return result;
+    }
+
+    const ordered = [
+      ...seededShuffle(group1, timeSeed),
+      ...seededShuffle(group2, timeSeed + 1),
+      ...seededShuffle(group3, timeSeed + 2),
+    ];
+
+    // Apply pagination after ordering
+    const paginated = ordered.slice(offset, offset + limit);
+
     // Annotate each member with isAdmin flag
-    const annotatedMembers = finalMembers.map((m) => ({
+    const annotatedMembers = paginated.map((m) => ({
       ...m,
       isAdmin: adminUserIds.length > 0 ? adminUserIds.includes(m.id) : false,
     }));
@@ -2261,7 +2321,7 @@ gamificationRouter.get("/community/members", async (c) => {
       total,
       limit,
       offset,
-      orderingStrategy: ["recent", "streak", "random"][orderingStrategy],
+      orderingStrategy: "activity-rotation",
     });
   } catch (error) {
     console.error("[Community] Error getting community members:", error);
@@ -3366,17 +3426,14 @@ gamificationRouter.get("/daily-pack/status/:userId", async (c) => {
     // Premium support: isPremium will be read from metadata/role in future.
     // For now derive from role field: 'PREMIUM' or 'OWNER' = 2 packs/day.
     const isPremium = user.role === 'PREMIUM' || user.role === 'OWNER';
-    const dailyPackLimit = isPremium ? 2 : 1;
+    const dailyEarnRate = isPremium ? 2 : 1;
 
-    const claimedToday = dailyActions.dailyPackDate === today
-      ? (dailyActions.dailyPackCount ?? 0)
-      : 0;
+    // Compute available packs with accumulation cap
+    const { available } = computeAvailablePacks(dailyActions, today, dailyEarnRate);
 
-    const remaining = Math.max(0, dailyPackLimit - claimedToday);
-
-    // Compute next available time: midnight of next day UTC
+    // Compute next available time: midnight of next day UTC (only if fully capped)
     let nextAvailableMs: number | null = null;
-    if (remaining === 0) {
+    if (available === 0) {
       const tomorrow = new Date();
       tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
       tomorrow.setUTCHours(0, 0, 0, 0);
@@ -3384,12 +3441,12 @@ gamificationRouter.get("/daily-pack/status/:userId", async (c) => {
     }
 
     return c.json({
-      canClaim: remaining > 0,
-      remaining,
-      dailyLimit: dailyPackLimit,
+      canClaim: available > 0,
+      remaining: available,
+      dailyLimit: FREE_PACK_MAX_ACCUMULATED,
       isPremium,
       nextAvailableMs,
-      claimedToday,
+      claimedToday: dailyActions.dailyPackDate === today ? (dailyActions.dailyPackCount ?? 0) : 0,
     });
   } catch (error) {
     console.error("[DailyPack] Error checking status:", error);
@@ -3414,18 +3471,14 @@ gamificationRouter.post(
         if (!user) throw new Error("USER_NOT_FOUND");
 
         const isPremium = user.role === 'PREMIUM' || user.role === 'OWNER';
-        const dailyPackLimit = isPremium ? 2 : 1;
+        const dailyEarnRate = isPremium ? 2 : 1;
 
         const dailyActions = parseDailyActions(user.dailyActions);
 
-        // Reset or accumulate based on date
-        if (dailyActions.dailyPackDate !== today) {
-          dailyActions.dailyPackDate = today;
-          dailyActions.dailyPackCount = 0;
-        }
+        // Compute available packs with accumulation and hard cap
+        const { available, updatedActions } = computeAvailablePacks(dailyActions, today, dailyEarnRate);
 
-        const claimedToday = dailyActions.dailyPackCount ?? 0;
-        if (claimedToday >= dailyPackLimit) {
+        if (available <= 0) {
           throw new Error("DAILY_LIMIT_REACHED");
         }
 
@@ -3476,22 +3529,26 @@ gamificationRouter.post(
           drawnCards.push({ cardId, wasNew });
         }
 
-        // Increment daily claim count
-        dailyActions.dailyPackCount = claimedToday + 1;
+        // Deduct one pack from accumulated and track claim on today's date
+        const newAccumulated = Math.max(0, available - 1);
+        const newDailyActions: DailyActions = {
+          ...updatedActions,
+          dailyPackDate: today,
+          dailyPackCount: (updatedActions.dailyPackDate === today ? (updatedActions.dailyPackCount ?? 0) : 0) + 1,
+          accumulatedPacks: newAccumulated,
+        };
 
         await tx.user.update({
           where: { id: userId },
-          data: { dailyActions: JSON.stringify(dailyActions) },
+          data: { dailyActions: JSON.stringify(newDailyActions) },
         });
-
-        const remaining = Math.max(0, dailyPackLimit - dailyActions.dailyPackCount);
 
         return {
           success: true,
           drawnCard: drawnCards[0],
           drawnCards,
-          remaining,
-          dailyLimit: dailyPackLimit,
+          remaining: newAccumulated,
+          dailyLimit: FREE_PACK_MAX_ACCUMULATED,
           isPremium,
         };
       });
