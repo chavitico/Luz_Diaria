@@ -1103,12 +1103,8 @@ export default function DevotionalDetailScreen() {
             isTTSPlaying={isTTSPlaying}
           />
 
-          {/* Section jump chips — outside CollapsibleDevotional to avoid any overflow/Animated interference */}
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingVertical: 12, gap: 8 }}
-          >
+          {/* Section jump chips — outside CollapsibleDevotional, plain View to avoid height collapse inside ScrollView */}
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, paddingVertical: 12 }}>
             {[
               { label: language === 'es' ? 'Versículo' : 'Verse', index: 0 },
               { label: language === 'es' ? 'Reflexión' : 'Reflection', index: 1 },
@@ -1147,7 +1143,7 @@ export default function DevotionalDetailScreen() {
                 </TouchableOpacity>
               );
             })}
-          </ScrollView>
+          </View>
 
           {/* Collapsible content wrapper */}
           <CollapsibleDevotional colors={colors} language={language}>
