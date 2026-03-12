@@ -114,6 +114,7 @@ interface AdminTicket {
 }
 
 type RewardType = 'CHEST' | 'THEME' | 'TITLE' | 'AVATAR' | 'ITEM';
+type CompensateTab = 'POINTS' | 'ITEM';
 
 interface StoreItemOption {
   id: string;
@@ -200,8 +201,11 @@ interface CompensateModalProps {
 }
 
 function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colors }: CompensateModalProps) {
+  const insets = useSafeAreaInsets();
+  const [tab, setTab] = useState<CompensateTab>('POINTS');
   const [rewardType, setRewardType] = useState<RewardType>('CHEST');
   const [rewardId, setRewardId] = useState('random');
+  const [pointsAmount, setPointsAmount] = useState('5000');
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
@@ -219,9 +223,9 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
     }
   }, [ticket, es]);
 
-  // Load store items
+  // Load store items when item tab is shown
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || tab !== 'ITEM') return;
     setLoadingItems(true);
     fetch(`${BACKEND_URL}/api/gifts/admin/store-items`, {
       headers: { 'X-User-Id': userId },
@@ -230,15 +234,34 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
       .then((d: { items?: StoreItemOption[] }) => setStoreItems(d.items ?? []))
       .catch(() => {})
       .finally(() => setLoadingItems(false));
-  }, [visible, userId]);
+  }, [visible, userId, tab]);
 
   const filteredItems = storeItems.filter(i => i.type === rewardType);
 
+  // Quick point amounts for fast selection
+  const QUICK_AMOUNTS = ['500', '1000', '2500', '5000', '10000'];
+
   const handleSend = async () => {
-    if (!ticket || !title.trim() || !message.trim() || !rewardId.trim()) {
+    if (!ticket || !title.trim() || !message.trim()) {
       Alert.alert(es ? 'Completa todos los campos' : 'Fill all fields');
       return;
     }
+    // For POINTS tab: use CHEST type with numeric rewardId
+    const finalRewardType: RewardType = tab === 'POINTS' ? 'CHEST' : rewardType;
+    const finalRewardId = tab === 'POINTS' ? pointsAmount.trim() : rewardId.trim();
+
+    if (!finalRewardId) {
+      Alert.alert(es ? 'Selecciona un premio' : 'Select a reward');
+      return;
+    }
+    if (tab === 'POINTS') {
+      const pts = parseInt(finalRewardId, 10);
+      if (isNaN(pts) || pts <= 0) {
+        Alert.alert(es ? 'Cantidad de puntos inválida' : 'Invalid points amount');
+        return;
+      }
+    }
+
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setSending(true);
     try {
@@ -250,8 +273,8 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
           targetUserId: ticket.userId,
           title: title.trim(),
           message: message.trim(),
-          rewardType,
-          rewardId: rewardId.trim(),
+          rewardType: finalRewardType,
+          rewardId: finalRewardId,
         }),
       });
       const data = await res.json() as { success: boolean; error?: string };
@@ -271,198 +294,309 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={0}
       >
         <Pressable
           style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end' }}
           onPress={onClose}
         >
-          <Pressable
-            onPress={() => {}}
-            style={{
-              backgroundColor: colors.surface,
-              borderTopLeftRadius: 28,
-              borderTopRightRadius: 28,
-              padding: 24,
-              paddingBottom: 40,
-              gap: 16,
-            }}
-          >
-            {/* Handle */}
-            <View style={{ alignItems: 'center', marginBottom: 4 }}>
-              <View style={{ width: 40, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40' }} />
-            </View>
-
-            {/* Title */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-              <View style={{
-                width: 36, height: 36, borderRadius: 18,
-                backgroundColor: '#22C55E18',
-                alignItems: 'center', justifyContent: 'center',
-              }}>
-                <Gift size={18} color="#22C55E" />
+          {/* Stop touches from propagating to the backdrop */}
+          <Pressable onPress={() => {}}>
+            <View
+              style={{
+                backgroundColor: colors.surface,
+                borderTopLeftRadius: 28,
+                borderTopRightRadius: 28,
+                paddingTop: 12,
+                paddingBottom: Math.max(insets.bottom, 16) + 8,
+                maxHeight: '92%',
+              }}
+            >
+              {/* Handle */}
+              <View style={{ alignItems: 'center', marginBottom: 16 }}>
+                <View style={{ width: 40, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '40' }} />
               </View>
-              <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: 17, fontWeight: '700', color: colors.text }}>
-                  {es ? 'Compensar con regalo' : 'Compensate with gift'}
-                </Text>
-                <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 1 }}>
-                  {ticket?.systemSnapshot?.nickname} · {ticket?.userId?.slice(0, 10)}…
-                </Text>
-              </View>
-            </View>
 
-            {/* Reward Type Pills */}
-            <View>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
-                {es ? 'Tipo de premio' : 'Reward type'}
-              </Text>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <View style={{ flexDirection: 'row', gap: 8 }}>
-                  {REWARD_TYPES.map(rt => (
+              {/* Scrollable content */}
+              <ScrollView
+                bounces={false}
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingHorizontal: 22, paddingBottom: 8, gap: 18 }}
+              >
+                {/* Header row */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                  <View style={{
+                    width: 38, height: 38, borderRadius: 19,
+                    backgroundColor: '#22C55E18',
+                    alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <Gift size={19} color="#22C55E" />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 17, fontWeight: '700', color: colors.text }}>
+                      {es ? 'Compensar con regalo' : 'Compensate with gift'}
+                    </Text>
+                    <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 2 }}>
+                      {ticket?.systemSnapshot?.nickname} · {ticket?.userId?.slice(0, 10)}…
+                    </Text>
+                  </View>
+                </View>
+
+                {/* Tab switcher: Points | Item */}
+                <View style={{
+                  flexDirection: 'row',
+                  gap: 8,
+                  backgroundColor: colors.background,
+                  borderRadius: 14,
+                  padding: 4,
+                }}>
+                  {(['POINTS', 'ITEM'] as CompensateTab[]).map(t => (
                     <Pressable
-                      key={rt.value}
-                      onPress={() => { setRewardType(rt.value); setRewardId('random'); }}
-                      style={({ pressed }) => ({
-                        paddingVertical: 8,
-                        paddingHorizontal: 14,
-                        borderRadius: 20,
-                        backgroundColor: rewardType === rt.value ? colors.primary : colors.background,
-                        borderWidth: 1.5,
-                        borderColor: rewardType === rt.value ? colors.primary : colors.textMuted + '30',
-                        opacity: pressed ? 0.8 : 1,
-                        flexDirection: 'row',
+                      key={t}
+                      onPress={() => { Haptics.selectionAsync(); setTab(t); }}
+                      style={{
+                        flex: 1,
+                        paddingVertical: 9,
+                        borderRadius: 11,
                         alignItems: 'center',
-                        gap: 5,
-                      })}
+                        backgroundColor: tab === t ? colors.surface : 'transparent',
+                        shadowColor: tab === t ? '#000' : 'transparent',
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowOpacity: tab === t ? 0.08 : 0,
+                        shadowRadius: 4,
+                        elevation: tab === t ? 2 : 0,
+                      }}
                     >
-                      <Text>{rt.emoji}</Text>
-                      <Text style={{ fontSize: 13, fontWeight: '600', color: rewardType === rt.value ? colors.primaryText : colors.text }}>
-                        {rt.label}
+                      <Text style={{
+                        fontSize: 14, fontWeight: '700',
+                        color: tab === t ? colors.text : colors.textMuted,
+                      }}>
+                        {t === 'POINTS' ? (es ? '🪙 Puntos' : '🪙 Points') : (es ? '🎁 Ítem' : '🎁 Item')}
                       </Text>
                     </Pressable>
                   ))}
                 </View>
+
+                {/* POINTS TAB */}
+                {tab === 'POINTS' && (
+                  <View style={{ gap: 10 }}>
+                    <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase' }}>
+                      {es ? 'Cantidad de puntos' : 'Points amount'}
+                    </Text>
+
+                    {/* Quick amount chips */}
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                      {QUICK_AMOUNTS.map(amt => (
+                        <Pressable
+                          key={amt}
+                          onPress={() => setPointsAmount(amt)}
+                          style={({ pressed }) => ({
+                            paddingVertical: 7,
+                            paddingHorizontal: 14,
+                            borderRadius: 20,
+                            backgroundColor: pointsAmount === amt ? '#F59E0B20' : colors.background,
+                            borderWidth: 1.5,
+                            borderColor: pointsAmount === amt ? '#F59E0B' : colors.textMuted + '30',
+                            opacity: pressed ? 0.75 : 1,
+                          })}
+                        >
+                          <Text style={{
+                            fontSize: 13, fontWeight: '700',
+                            color: pointsAmount === amt ? '#F59E0B' : colors.text,
+                          }}>
+                            {parseInt(amt).toLocaleString()} pts
+                          </Text>
+                        </Pressable>
+                      ))}
+                    </View>
+
+                    {/* Custom amount input */}
+                    <TextInput
+                      value={pointsAmount}
+                      onChangeText={v => setPointsAmount(v.replace(/[^0-9]/g, ''))}
+                      placeholder={es ? 'Cantidad personalizada' : 'Custom amount'}
+                      placeholderTextColor={colors.textMuted + '80'}
+                      keyboardType="numeric"
+                      style={{
+                        backgroundColor: colors.background,
+                        borderRadius: 12,
+                        padding: 13,
+                        color: colors.text,
+                        fontSize: 15,
+                        fontWeight: '700',
+                        borderWidth: 1.5,
+                        borderColor: colors.textMuted + '25',
+                      }}
+                    />
+                  </View>
+                )}
+
+                {/* ITEM TAB */}
+                {tab === 'ITEM' && (
+                  <View style={{ gap: 14 }}>
+                    {/* Reward Type Pills */}
+                    <View>
+                      <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
+                        {es ? 'Tipo de ítem' : 'Item type'}
+                      </Text>
+                      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        <View style={{ flexDirection: 'row', gap: 8 }}>
+                          {REWARD_TYPES.map(rt => (
+                            <Pressable
+                              key={rt.value}
+                              onPress={() => { setRewardType(rt.value); setRewardId('random'); }}
+                              style={({ pressed }) => ({
+                                paddingVertical: 8,
+                                paddingHorizontal: 14,
+                                borderRadius: 20,
+                                backgroundColor: rewardType === rt.value ? colors.primary : colors.background,
+                                borderWidth: 1.5,
+                                borderColor: rewardType === rt.value ? colors.primary : colors.textMuted + '30',
+                                opacity: pressed ? 0.8 : 1,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                gap: 5,
+                              })}
+                            >
+                              <Text>{rt.emoji}</Text>
+                              <Text style={{ fontSize: 13, fontWeight: '600', color: rewardType === rt.value ? colors.primaryText : colors.text }}>
+                                {rt.label}
+                              </Text>
+                            </Pressable>
+                          ))}
+                        </View>
+                      </ScrollView>
+                    </View>
+
+                    {/* Item Picker */}
+                    <View>
+                      <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
+                        {es ? 'Ítem' : 'Item'}
+                      </Text>
+                      {loadingItems ? (
+                        <ActivityIndicator size="small" color={colors.primary} />
+                      ) : filteredItems.length > 0 ? (
+                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                          <View style={{ flexDirection: 'row', gap: 8 }}>
+                            {filteredItems.map(item => (
+                              <Pressable
+                                key={item.id}
+                                onPress={() => setRewardId(item.id)}
+                                style={({ pressed }) => ({
+                                  paddingVertical: 7,
+                                  paddingHorizontal: 12,
+                                  borderRadius: 14,
+                                  backgroundColor: rewardId === item.id ? colors.primary + '20' : colors.background,
+                                  borderWidth: 1.5,
+                                  borderColor: rewardId === item.id ? colors.primary : colors.textMuted + '25',
+                                  opacity: pressed ? 0.75 : 1,
+                                })}
+                              >
+                                <Text style={{ fontSize: 12, fontWeight: '600', color: rewardId === item.id ? colors.primary : colors.text }}>
+                                  {item.nameEs}
+                                </Text>
+                              </Pressable>
+                            ))}
+                          </View>
+                        </ScrollView>
+                      ) : (
+                        <TextInput
+                          value={rewardId}
+                          onChangeText={setRewardId}
+                          placeholder={es ? 'ID del ítem (ej: random)' : 'Item ID (e.g. random)'}
+                          placeholderTextColor={colors.textMuted + '80'}
+                          style={{
+                            backgroundColor: colors.background,
+                            borderRadius: 12,
+                            padding: 12,
+                            color: colors.text,
+                            fontSize: 14,
+                            borderWidth: 1,
+                            borderColor: colors.textMuted + '25',
+                          }}
+                        />
+                      )}
+                    </View>
+                  </View>
+                )}
+
+                {/* Title & Message — always visible */}
+                <View style={{ gap: 10 }}>
+                  <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase' }}>
+                    {es ? 'Notificación al usuario' : 'User notification'}
+                  </Text>
+                  <TextInput
+                    value={title}
+                    onChangeText={setTitle}
+                    placeholder={es ? 'Título del regalo' : 'Gift title'}
+                    placeholderTextColor={colors.textMuted + '80'}
+                    style={{
+                      backgroundColor: colors.background,
+                      borderRadius: 12,
+                      padding: 13,
+                      color: colors.text,
+                      fontSize: 14,
+                      borderWidth: 1,
+                      borderColor: colors.textMuted + '25',
+                    }}
+                  />
+                  <TextInput
+                    value={message}
+                    onChangeText={setMessage}
+                    placeholder={es ? 'Mensaje para el usuario' : 'Message for the user'}
+                    placeholderTextColor={colors.textMuted + '80'}
+                    multiline
+                    numberOfLines={3}
+                    style={{
+                      backgroundColor: colors.background,
+                      borderRadius: 12,
+                      padding: 13,
+                      color: colors.text,
+                      fontSize: 14,
+                      borderWidth: 1,
+                      borderColor: colors.textMuted + '25',
+                      minHeight: 76,
+                      textAlignVertical: 'top',
+                    }}
+                  />
+                </View>
+
+                {/* Send Button — always at bottom of scroll */}
+                <Pressable
+                  onPress={handleSend}
+                  disabled={sending}
+                  style={({ pressed }) => ({
+                    backgroundColor: '#22C55E',
+                    borderRadius: 16,
+                    paddingVertical: 16,
+                    alignItems: 'center',
+                    opacity: pressed || sending ? 0.75 : 1,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    gap: 8,
+                    shadowColor: '#22C55E',
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.35,
+                    shadowRadius: 10,
+                    elevation: 6,
+                    marginBottom: 4,
+                  })}
+                >
+                  {sending
+                    ? <ActivityIndicator size="small" color="#FFF" />
+                    : <>
+                        <Gift size={18} color="#FFF" />
+                        <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFF' }}>
+                          {tab === 'POINTS'
+                            ? (es ? `Enviar ${parseInt(pointsAmount || '0').toLocaleString()} pts` : `Send ${parseInt(pointsAmount || '0').toLocaleString()} pts`)
+                            : (es ? 'Enviar ítem' : 'Send item')}
+                        </Text>
+                      </>
+                  }
+                </Pressable>
               </ScrollView>
             </View>
-
-            {/* Reward ID Picker */}
-            <View>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
-                {es ? 'Premio' : 'Reward'}
-              </Text>
-              {loadingItems ? (
-                <ActivityIndicator size="small" color={colors.primary} />
-              ) : filteredItems.length > 0 ? (
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                  <View style={{ flexDirection: 'row', gap: 8 }}>
-                    {filteredItems.map(item => (
-                      <Pressable
-                        key={item.id}
-                        onPress={() => setRewardId(item.id)}
-                        style={({ pressed }) => ({
-                          paddingVertical: 7,
-                          paddingHorizontal: 12,
-                          borderRadius: 14,
-                          backgroundColor: rewardId === item.id ? colors.primary + '20' : colors.background,
-                          borderWidth: 1.5,
-                          borderColor: rewardId === item.id ? colors.primary : colors.textMuted + '25',
-                          opacity: pressed ? 0.75 : 1,
-                        })}
-                      >
-                        <Text style={{ fontSize: 12, fontWeight: '600', color: rewardId === item.id ? colors.primary : colors.text }}>
-                          {item.nameEs}
-                        </Text>
-                      </Pressable>
-                    ))}
-                  </View>
-                </ScrollView>
-              ) : (
-                <TextInput
-                  value={rewardId}
-                  onChangeText={setRewardId}
-                  placeholder={es ? 'ID del premio (ej: random)' : 'Reward ID (e.g. random)'}
-                  placeholderTextColor={colors.textMuted + '80'}
-                  style={{
-                    backgroundColor: colors.background,
-                    borderRadius: 12,
-                    padding: 12,
-                    color: colors.text,
-                    fontSize: 14,
-                    borderWidth: 1,
-                    borderColor: colors.textMuted + '25',
-                  }}
-                />
-              )}
-            </View>
-
-            {/* Title & Message */}
-            <View style={{ gap: 10 }}>
-              <TextInput
-                value={title}
-                onChangeText={setTitle}
-                placeholder={es ? 'Título del regalo' : 'Gift title'}
-                placeholderTextColor={colors.textMuted + '80'}
-                style={{
-                  backgroundColor: colors.background,
-                  borderRadius: 12,
-                  padding: 12,
-                  color: colors.text,
-                  fontSize: 14,
-                  borderWidth: 1,
-                  borderColor: colors.textMuted + '25',
-                }}
-              />
-              <TextInput
-                value={message}
-                onChangeText={setMessage}
-                placeholder={es ? 'Mensaje para el usuario' : 'Message for the user'}
-                placeholderTextColor={colors.textMuted + '80'}
-                multiline
-                numberOfLines={3}
-                style={{
-                  backgroundColor: colors.background,
-                  borderRadius: 12,
-                  padding: 12,
-                  color: colors.text,
-                  fontSize: 14,
-                  borderWidth: 1,
-                  borderColor: colors.textMuted + '25',
-                  minHeight: 80,
-                  textAlignVertical: 'top',
-                }}
-              />
-            </View>
-
-            {/* Send Button */}
-            <Pressable
-              onPress={handleSend}
-              disabled={sending}
-              style={({ pressed }) => ({
-                backgroundColor: '#22C55E',
-                borderRadius: 16,
-                paddingVertical: 16,
-                alignItems: 'center',
-                opacity: pressed || sending ? 0.75 : 1,
-                flexDirection: 'row',
-                justifyContent: 'center',
-                gap: 8,
-                shadowColor: '#22C55E',
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.35,
-                shadowRadius: 10,
-                elevation: 6,
-              })}
-            >
-              {sending
-                ? <ActivityIndicator size="small" color="#FFF" />
-                : <>
-                    <Gift size={18} color="#FFF" />
-                    <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFF' }}>
-                      {es ? 'Enviar regalo' : 'Send gift'}
-                    </Text>
-                  </>
-              }
-            </Pressable>
           </Pressable>
         </Pressable>
       </KeyboardAvoidingView>
