@@ -15,7 +15,7 @@ import Animated, {
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Haptics from 'expo-haptics';
 import { Send, Heart, Trash2, MessageCircle } from 'lucide-react-native';
-import { useThemeColors, useLanguage, useUser } from '@/lib/store';
+import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 import {
@@ -205,7 +205,7 @@ function CommentRow({
       <CommentAvatar avatarId={comment.user.avatarId} frameId={comment.user.frameId} />
       <View style={{ flex: 1 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 3 }}>
-          <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primaryText }}>
+          <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.text }}>
             {comment.user.nickname}
           </Text>
           <Text style={{ fontSize: sFont(11), color: colors.textMuted }}>
@@ -317,7 +317,7 @@ export function CommentsSection({
           style={{
             fontSize: sFont(15),
             fontWeight: '700',
-            color: colors.primaryText,
+            color: colors.text,
             letterSpacing: 0.3,
           }}
         >
@@ -326,13 +326,13 @@ export function CommentsSection({
         {comments.length > 0 && (
           <View
             style={{
-              backgroundColor: colors.primary + '20',
+              backgroundColor: colors.primary,
               borderRadius: 10,
               paddingHorizontal: 7,
               paddingVertical: 2,
             }}
           >
-            <Text style={{ fontSize: sFont(11), color: colors.primary, fontWeight: '700' }}>
+            <Text style={{ fontSize: sFont(11), color: getContrastText(colors.primary), fontWeight: '700' }}>
               {comments.length}
             </Text>
           </View>

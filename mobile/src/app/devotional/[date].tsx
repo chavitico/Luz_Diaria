@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Dimensions,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -1037,11 +1039,17 @@ export default function DevotionalDetailScreen() {
   const sectionKeys = ['verse', 'reflection', 'story', 'character', 'application', 'prayer'];
 
   return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={0}
+    >
     <View className="flex-1" style={{ backgroundColor: colors.background }}>
       <ScrollView
         ref={scrollViewRef}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 40 }}
+        keyboardShouldPersistTaps="handled"
       >
         {/* Hero Image */}
         <View style={{ height: height * 0.35 }}>
@@ -1263,5 +1271,6 @@ export default function DevotionalDetailScreen() {
         onShareComplete={handleShareComplete}
       />
     </View>
+    </KeyboardAvoidingView>
   );
 }

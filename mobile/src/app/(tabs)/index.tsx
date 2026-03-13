@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Dimensions,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from 'expo-router';
@@ -1967,6 +1969,11 @@ export default function HomeScreen() {
   const prayer = language === 'es' ? devotional.prayerEs : devotional.prayer;
 
   return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={0}
+    >
     <View className="flex-1" style={{ backgroundColor: colors.background }}>
       {/* Points Toast */}
       <PointsToast
@@ -2066,6 +2073,7 @@ export default function HomeScreen() {
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 120 }}
+        keyboardShouldPersistTaps="handled"
         onScroll={scrollHandler}
       >
         {/* Hero Image */}
@@ -2325,5 +2333,6 @@ export default function HomeScreen() {
         showDate={true}
       />
     </View>
+    </KeyboardAvoidingView>
   );
 }
