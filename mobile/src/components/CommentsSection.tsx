@@ -240,8 +240,11 @@ function CommentRow({
 
 export function CommentsSection({
   devotionalDate,
+  scrollViewRef,
 }: {
   devotionalDate: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  scrollViewRef?: React.RefObject<any>;
 }) {
   const colors = useThemeColors();
   const language = useLanguage();
@@ -249,7 +252,11 @@ export function CommentsSection({
   const { sFont } = useScaledFont();
   const queryClient = useQueryClient();
   const inputRef = useRef<TextInput>(null);
+  const inputContainerRef = useRef<View>(null);
   const [draft, setDraft] = useState('');
+
+  // Computed once — icon color that's always readable on the primary bg
+  const sendIconColor = getContrastText(colors.primary);
 
   const userId = user?.id ?? '';
 
@@ -295,6 +302,22 @@ export function CommentsSection({
     [removeComment]
   );
 
+  // When input is focused, scroll so the input row is visible above the keyboard
+  const handleInputFocus = useCallback(() => {
+    if (!scrollViewRef?.current || !inputContainerRef.current) return;
+    // Small delay to let the keyboard start appearing
+    setTimeout(() => {
+      inputContainerRef.current?.measureLayout(
+        // @ts-ignore — scrollView node handle
+        scrollViewRef.current as unknown as number,
+        (x, y, width, height) => {
+          scrollViewRef.current?.scrollTo({ y: y + height + 20, animated: true });
+        },
+        () => {} // error cb
+      );
+    }, 150);
+  }, [scrollViewRef]);
+
   if (!user) return null;
 
   const userAvatar = user.avatar ?? 'avatar_dove';
@@ -302,7 +325,7 @@ export function CommentsSection({
 
   return (
     <View style={{ marginTop: 32 }}>
-      {/* Header */}
+      {/* Header — plain label, no interactive element */}
       <View
         style={{
           flexDirection: 'row',
@@ -376,12 +399,14 @@ export function CommentsSection({
 
       {/* Input area */}
       <View
+        ref={inputContainerRef}
         style={{
           flexDirection: 'row',
           alignItems: 'flex-end',
           gap: 10,
           marginTop: 12,
           paddingTop: 12,
+          paddingBottom: 16,
           borderTopWidth: 1,
           borderTopColor: colors.primary + '15',
         }}
@@ -404,6 +429,7 @@ export function CommentsSection({
             ref={inputRef}
             value={draft}
             onChangeText={setDraft}
+            onFocus={handleInputFocus}
             placeholder={language === 'es' ? 'Escribe un comentario...' : 'Write a comment...'}
             placeholderTextColor={colors.textMuted}
             multiline
@@ -415,23 +441,24 @@ export function CommentsSection({
             }}
           />
         </View>
+        {/* Send button — always uses contrast-safe icon color against primary bg */}
         <Pressable
           onPress={handleSend}
-          disabled={!draft.trim() || isPosting}
+          disabled={isPosting}
           style={({ pressed }) => ({
             width: 40,
             height: 40,
             borderRadius: 20,
-            backgroundColor: draft.trim() ? colors.primary : colors.primary + '30',
+            backgroundColor: colors.primary,
             alignItems: 'center',
             justifyContent: 'center',
-            opacity: pressed ? 0.8 : 1,
+            opacity: pressed ? 0.8 : draft.trim() ? 1 : 0.45,
           })}
         >
           {isPosting ? (
-            <ActivityIndicator size="small" color="#fff" />
+            <ActivityIndicator size="small" color={sendIconColor} />
           ) : (
-            <Send size={16} color={draft.trim() ? '#fff' : colors.textMuted} />
+            <Send size={16} color={sendIconColor} />
           )}
         </Pressable>
       </View>

@@ -1241,7 +1241,7 @@ export default function DevotionalDetailScreen() {
             />
 
             {/* Comments — persistent discussion thread */}
-            {date ? <CommentsSection devotionalDate={date} /> : null}
+            {date ? <CommentsSection devotionalDate={date} scrollViewRef={scrollViewRef} /> : null}
           </CollapsibleDevotional>
         </View>
       </ScrollView>

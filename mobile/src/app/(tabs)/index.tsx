@@ -63,6 +63,7 @@ import {
   useUserFavorites,
   useUserSettings,
   useAppStore,
+  getContrastText,
 } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
 import { COMPLETION_REQUIREMENTS, POINTS } from '@/lib/types';
@@ -863,7 +864,7 @@ function PastoralClosure({
         })}
       >
         <Text style={{ fontSize: sFont(18) }}>🤲</Text>
-        <Text style={{ fontSize: sFont(15), fontWeight: '700', color: colors.primaryText, letterSpacing: 0.2 }}>
+        <Text style={{ fontSize: sFont(15), fontWeight: '700', color: getContrastText(colors.primary), letterSpacing: 0.2 }}>
           {language === 'es' ? 'Orar por la comunidad' : 'Pray for the community'}
         </Text>
       </Pressable>
@@ -1308,6 +1309,8 @@ export default function HomeScreen() {
   const scrollHandler = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
   });
+  // Ref for passing to CommentsSection so it can scroll input into view on focus
+  const homeScrollRef = useRef<Animated.ScrollView>(null);
 
   // TTS state — speed fixed at 0.90x, no user-facing slider
   const TTS_FIXED_SPEED = 0.9;
@@ -2070,6 +2073,7 @@ export default function HomeScreen() {
       />
 
       <Animated.ScrollView
+        ref={homeScrollRef}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 120 }}
@@ -2317,7 +2321,7 @@ export default function HomeScreen() {
             )}
 
             {/* Comments — always visible */}
-            <CommentsSection devotionalDate={today} />
+            <CommentsSection devotionalDate={today} scrollViewRef={homeScrollRef} />
           </CollapsibleContent>
         </View>
       </Animated.ScrollView>
