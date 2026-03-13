@@ -132,7 +132,9 @@ export function deriveDisabledColors(
   isDark: boolean,
 ): { fill: string; textColor: string } {
   if (isDark) {
-    return { fill: '#3A3A3A', textColor: '#777777' };
+    // Lighter fill so the button silhouette is visible on dark backgrounds
+    return { fill: '#4A4A4A', textColor: '#9A9A9A' };
   }
-  return { fill: '#D0D0D0', textColor: '#888888' };
+  // Slightly darker fill and darker text for better visibility on light backgrounds
+  return { fill: '#BBBBBB', textColor: '#666666' };
 }

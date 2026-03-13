@@ -1327,6 +1327,7 @@ export default function SupportScreen() {
                     loading={isSubmitting}
                     label={es ? 'Enviar reporte' : 'Submit report'}
                     size="lg"
+                    fillColor={catDef?.color ?? colors.primary}
                     surfaceColor={colors.background}
                   />
                 </View>
