@@ -99,7 +99,10 @@ export function ensureContrast(
  *
  * Algorithm:
  *  1. Start from primary.
- *  2. If contrast(primary, surface) < 3.0, adjust (darken in light mode, lighten in dark).
+ *  2. If contrast(primary, surface) < 4.5, adjust (darken in light mode, lighten in dark).
+ *     Using 4.5 as the minimum ensures the button is unmistakably visible on any background,
+ *     including warm light themes (e.g. amanecer #E8A87C on #FDF6E3) where 3.0 produces
+ *     a muted brownish fill that barely registers visually.
  *  3. Return adjusted fill + matching text color that guarantees >= 4.5:1.
  */
 export function deriveButtonColors(
@@ -107,7 +110,7 @@ export function deriveButtonColors(
   surface: string,
   isDark: boolean,
 ): { fill: string; textColor: string } {
-  const fill = ensureContrast(primary, surface, 3.0, isDark);
+  const fill = ensureContrast(primary, surface, 4.5, isDark);
   const textColor = pickReadableTextColor(fill);
   // Sanity-check text contrast; if it doesn't meet 4.5:1 force absolute
   const ratio = contrastRatio(textColor, fill);
