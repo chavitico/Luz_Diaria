@@ -3525,6 +3525,7 @@ function ItemDetailModal({
                   onPress={onEquip}
                   label={t.equip}
                   size="md"
+                  surfaceColor={colors.surface}
                 />
               ) : item.chestOnly ? (
                 <View
@@ -3547,6 +3548,7 @@ function ItemDetailModal({
                   label={language === 'es' ? 'Reclamar Gratis' : 'Claim Free'}
                   fillColor="#22C55E"
                   size="md"
+                  surfaceColor={colors.surface}
                 />
               ) : canAfford ? (
                 <ActionButton
@@ -3556,6 +3558,7 @@ function ItemDetailModal({
                   label={`${item.price} ${language === 'es' ? 'puntos' : 'points'}`}
                   icon={(color, size) => <Coins size={size} color={color} />}
                   size="md"
+                  surfaceColor={colors.surface}
                 />
               ) : (
                 <View

@@ -1825,5 +1825,26 @@
     "itemId": "theme_jardin_gracia",
     "acquiredAt": "2026-03-13T23:07:12.887Z",
     "source": "store"
+  },
+  {
+    "id": "cmmpivn7m000xm2r08jpccohs",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_bosque",
+    "acquiredAt": "2026-03-13T23:23:05.411Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpivrku000zm2r0fmmy6npk",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-13T23:23:11.071Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpiwjkm0011m2r0j7nuc0ma",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_amanecer_dorado",
+    "acquiredAt": "2026-03-13T23:23:47.350Z",
+    "source": "store"
   }
 ]
