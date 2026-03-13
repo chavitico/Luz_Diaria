@@ -467,7 +467,8 @@ export default function SettingsScreen() {
     try {
       const result = await gamificationApi.getCommunityOptIn(user.id);
       setCommunityOptIn(result.communityOptIn);
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof Error && error.name === 'AbortError') return;
       console.error('[Settings] Error loading community opt-in:', error);
     } finally {
       setIsLoadingCommunityOptIn(false);
@@ -511,7 +512,8 @@ export default function SettingsScreen() {
     try {
       const result = await gamificationApi.getPrayerDisplayOptIn(user.id);
       setPrayerDisplayOptIn(result.prayerDisplayOptIn);
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof Error && error.name === 'AbortError') return;
       console.error('[Settings] Error loading prayer display opt-in:', error);
     } finally {
       setIsLoadingPrayerOptIn(false);

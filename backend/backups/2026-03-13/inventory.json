@@ -1811,5 +1811,19 @@
     "itemId": "pack_milagros",
     "acquiredAt": "2026-03-13T21:01:21.401Z",
     "source": "store"
+  },
+  {
+    "id": "cmmpianwz001hm21hx535wk5w",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_fuego_espiritu",
+    "acquiredAt": "2026-03-13T23:06:46.548Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpib88m001jm21hvxw3f2w0",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_jardin_gracia",
+    "acquiredAt": "2026-03-13T23:07:12.887Z",
+    "source": "store"
   }
 ]
