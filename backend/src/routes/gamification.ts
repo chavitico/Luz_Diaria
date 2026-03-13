@@ -2695,6 +2695,7 @@ let communityStatsCache: {
     registeredUsers: number;
     activeUsers30d: number;
     devotionalsCompletedTotal: number;
+    devotionalsSharedTotal: number;
     pointsEarnedTotal: number;
     pointsSpentTotal: number;
     windowDays: number;
@@ -2715,7 +2716,7 @@ gamificationRouter.get("/community/stats", async (c) => {
 
     const windowDate = new Date(now - ACTIVE_DAYS * 24 * 60 * 60 * 1000);
 
-    const [registeredUsers, activeUsers30d, totals, ledgerEarned, ledgerSpent] = await Promise.all([
+    const [registeredUsers, activeUsers30d, totals, ledgerEarned, ledgerSpent, sharedCount] = await Promise.all([
       prisma.user.count(),
       prisma.user.count({
         where: { lastSeenAt: { gte: windowDate } },
@@ -2736,6 +2737,9 @@ gamificationRouter.get("/community/stats", async (c) => {
         _sum: { amount: true },
         where: { amount: { lt: 0 } },
       }),
+      prisma.pointLedger.count({
+        where: { type: 'share' },
+      }),
     ]);
 
     const earnedFromCounters = totals._sum.pointsEarnedTotal ?? 0;
@@ -2753,6 +2757,7 @@ gamificationRouter.get("/community/stats", async (c) => {
       registeredUsers,
       activeUsers30d,
       devotionalsCompletedTotal: totals._sum.devotionalsCompleted ?? 0,
+      devotionalsSharedTotal: sharedCount,
       pointsEarnedTotal,
       pointsSpentTotal,
       windowDays: ACTIVE_DAYS,

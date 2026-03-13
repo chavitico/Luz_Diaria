@@ -103,5 +103,20 @@
     "expiresAt": "2026-03-14T16:44:58.614Z",
     "createdAt": "2026-03-12T16:44:58.618Z",
     "updatedAt": "2026-03-12T16:44:58.618Z"
+  },
+  {
+    "id": "cmmo5op8b002sm2atcmcx1eug",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "peace",
+    "nickname": "Vitigre",
+    "avatarId": "avatar_v3_olivo_gracia",
+    "frameId": "frame_fuego",
+    "titleId": "title_valiente",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-15T00:26:00.249Z",
+    "createdAt": "2026-03-13T00:26:00.252Z",
+    "updatedAt": "2026-03-13T00:26:00.252Z"
   }
 ]

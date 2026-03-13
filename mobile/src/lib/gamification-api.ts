@@ -1041,6 +1041,7 @@ export const gamificationApi = {
     registeredUsers: number;
     activeUsers30d: number;
     devotionalsCompletedTotal: number;
+    devotionalsSharedTotal: number;
     pointsEarnedTotal: number;
     pointsSpentTotal: number;
     windowDays: number;

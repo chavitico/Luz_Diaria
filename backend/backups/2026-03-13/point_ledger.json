@@ -1998,5 +1998,35 @@
     "amount": 5000,
     "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmo4kd2o000mm27i3w9x5pka\"}",
     "createdAt": "2026-03-12T23:55:42.897Z"
+  },
+  {
+    "id": "cmmo5jg7n002em2at3dpl7w1c",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "prayer_2026-03-13",
+    "type": "prayer",
+    "dateId": "2026-03-13",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-13T00:21:55.283Z"
+  },
+  {
+    "id": "cmmo5op8c002um2atxm1zuz0h",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "prayer_request_2026-03-12",
+    "type": "prayer_request",
+    "dateId": "2026-03-12",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"peace\"}",
+    "createdAt": "2026-03-13T00:26:00.253Z"
+  },
+  {
+    "id": "cmmo5oq91002wm2atm0v8d074",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "prayed_community_2026-03-12",
+    "type": "prayed_community",
+    "dateId": "2026-03-12",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-13T00:26:01.573Z"
   }
 ]

@@ -1705,6 +1705,48 @@
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "itemId": "pincel_magico",
     "acquiredAt": "2026-03-12T23:21:57.368Z",
+    "source": "used"
+  },
+  {
+    "id": "cmmo57ybp000nm2att8a0lrw4",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_minimal",
+    "acquiredAt": "2026-03-13T00:12:58.885Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo5flyr001wm2at3ps7ixvp",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-13T00:18:56.115Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmo5flyv001ym2at5g1b7rhp",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-13T00:18:56.119Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmo5jz27002gm2atnswlqvc2",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-13T00:22:19.712Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo5kz4r002km2atqu9bnrbz",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "theme_amanecer_dorado",
+    "acquiredAt": "2026-03-13T00:23:06.459Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo5lvwz002mm2at9nbd3zlc",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "title_lord_my_refuge",
+    "acquiredAt": "2026-03-13T00:23:48.948Z",
     "source": "store"
   }
 ]

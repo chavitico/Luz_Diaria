@@ -859,20 +859,20 @@ function StatsCard({ language }: { language: string }) {
       border: '#FBBF2430',
     },
     {
+      icon: '🔗',
+      label: language === 'es' ? 'Compartidos' : 'Shared',
+      value: statsLoading ? '—' : fmtCompact(stats?.devotionalsSharedTotal ?? 0, language),
+      accent: '#38BDF8',
+      bg: '#38BDF812',
+      border: '#38BDF830',
+    },
+    {
       icon: '✨',
       label: language === 'es' ? 'Pts ganados' : 'Pts earned',
       value: statsLoading ? '—' : fmtCompact(stats?.pointsEarnedTotal ?? 0, language),
       accent: '#F97316',
       bg: '#F9731612',
       border: '#F9731630',
-    },
-    {
-      icon: '🛍️',
-      label: language === 'es' ? 'Pts gastados' : 'Pts spent',
-      value: statsLoading ? '—' : fmtCompact(stats?.pointsSpentTotal ?? 0, language),
-      accent: '#A78BFA',
-      bg: '#A78BFA12',
-      border: '#A78BFA30',
     },
   ];
 
