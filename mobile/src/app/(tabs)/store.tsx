@@ -617,18 +617,31 @@ function CromosCard({
                     )}
                   </View>
 
-                  {/* Collection ticker — scrolling marquee */}
+                  {/* Collection chip — static, wraps up to 2 lines */}
                   <View style={{
                     backgroundColor: ACCENT + '22',
                     borderWidth: 1,
                     borderColor: ACCENT + '55',
-                    borderRadius: 99,
+                    borderRadius: 12,
                     paddingHorizontal: 10,
-                    paddingVertical: 3,
+                    paddingVertical: 4,
                     marginBottom: 10,
-                    overflow: 'hidden',
+                    alignSelf: 'flex-start',
+                    flexShrink: 1,
+                    maxWidth: '100%',
                   }}>
-                    <CollectionTicker text={TICKER_TEXT} accentColor={ACCENT} />
+                    <Text
+                      numberOfLines={2}
+                      style={{
+                        fontSize: 10,
+                        fontWeight: '800',
+                        color: ACCENT,
+                        letterSpacing: 0.8,
+                        flexShrink: 1,
+                      }}
+                    >
+                      {'🃏  ' + (language === 'es' ? `Nueva Colección · ${LATEST_PACK_NAME_ES}` : `New Collection · ${LATEST_PACK_NAME_EN}`)}
+                    </Text>
                   </View>
 
                   {/* Title */}
