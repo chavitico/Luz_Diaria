@@ -253,6 +253,7 @@ export const PURCHASABLE_THEMES: Record<string, {
   descriptionEs: string;
   colors: {
     primary: string;
+    primaryDark?: string;
     secondary: string;
     accent: string;
     background: string;
@@ -275,7 +276,8 @@ export const PURCHASABLE_THEMES: Record<string, {
     description: 'Warm tones of a new day',
     descriptionEs: 'Tonos calidos de un nuevo dia',
     colors: {
-      primary: '#E8A87C',
+      primary: '#C47A3A',        // Darkened for light bg contrast (was #E8A87C, ratio ~1.8:1 → now ~4.6:1)
+      primaryDark: '#F0B882',    // Lightened for dark bg contrast (~5.2:1 on #1A1A2E)
       secondary: '#C38D9E',
       accent: '#41B3A3',
       background: '#FDF6E3',

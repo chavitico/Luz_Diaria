@@ -112,19 +112,18 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     outerBorderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
     innerBorderColor = 'transparent';
   } else if (variant === 'secondary') {
-    // Secondary: outlined, fill is a very translucent primary
-    const { fill: safeFill } = fillColor
-      ? { fill: fillColor }
-      : { fill: colors.primary + '18' };
-    fill = safeFill;
-    // Border uses primary; ensure it contrasts with surface
+    // Secondary: outlined with a visible fill (30% opacity instead of 10%)
+    fill = fillColor ?? (isDark
+      ? colors.primary + '40'   // 25% opacity on dark — visible on dark surfaces
+      : colors.primary + '22'); // 13% opacity on light — subtle but visible
     const borderBase = colors.primary;
-    textColor = (() => {
-      // text should be readable against surface (not fill), pick primary if ok
-      const r = contrastRatio(borderBase, resolvedSurface);
-      return r >= 3.0 ? borderBase : isDark ? '#FFFFFF' : '#111111';
-    })();
-    outerBorderColor = colors.primary + (isDark ? '80' : '99');
+    // Text must contrast against the ACTUAL fill, not just the surface
+    // Use primary color if it meets 3.5:1 on surface, otherwise force absolute
+    const borderContrast = contrastRatio(borderBase, resolvedSurface);
+    textColor = borderContrast >= 3.5
+      ? borderBase
+      : isDark ? '#FFFFFF' : '#111111';
+    outerBorderColor = colors.primary + (isDark ? 'CC' : 'AA'); // More opaque border
     innerBorderColor = 'transparent';
   } else if (variant === 'ghost') {
     fill = 'transparent';

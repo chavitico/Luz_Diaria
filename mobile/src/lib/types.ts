@@ -13,7 +13,7 @@ export interface UserSettings {
   textScale: number; // 0.85 – 1.40, default 1.0
 }
 
-export type ThemeOption = 'dawn' | 'dusk' | 'ocean' | 'forest' | 'rose';
+export type ThemeOption = string; // Theme IDs are dynamic (e.g. 'theme_amanecer', 'theme_promesa')
 export type Language = 'en' | 'es';
 
 export interface Devotional {
@@ -93,6 +93,7 @@ export interface StoreItemType {
 
 export interface ThemeColors {
   primary: string;
+  primaryDark?: string; // Dark-mode variant of primary. If omitted, resolver auto-adjusts contrast.
   secondary: string;
   accent: string;
   background: string;

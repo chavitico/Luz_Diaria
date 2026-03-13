@@ -5,6 +5,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { User, UserSettings, ThemeOption, Language, UserProgress, DailyActions } from './types';
 import { THEMES, DEFAULT_AVATARS, PURCHASABLE_THEMES } from './constants';
+import { ensureContrast } from '@/lib/contrast';
 
 interface AppState {
   // User state
@@ -356,13 +357,24 @@ export const useThemeColors = () => {
   const user = useUser();
   const isDark = useIsDarkMode();
 
-  // Use equipped theme from user, fallback to 'theme_amanecer'
   const themeId = user?.themeId || 'theme_amanecer';
   const theme = PURCHASABLE_THEMES[themeId] || PURCHASABLE_THEMES['theme_amanecer'];
 
+  // Resolve primary for current mode:
+  // - If theme defines primaryDark, use it in dark mode (explicit, best quality)
+  // - Otherwise fall back to ensureContrast auto-adjustment
+  const resolvedPrimary = isDark
+    ? (theme.colors.primaryDark ?? ensureContrast(
+        theme.colors.primary,
+        theme.colors.backgroundDark,
+        4.5,
+        true,
+      ))
+    : theme.colors.primary;
+
   return {
-    primary: theme.colors.primary,
-    primaryText: getContrastText(theme.colors.primary), // always-readable text on primary bg
+    primary: resolvedPrimary,
+    primaryText: getContrastText(resolvedPrimary),
     secondary: theme.colors.secondary,
     accent: theme.colors.accent,
     background: isDark ? theme.colors.backgroundDark : theme.colors.background,
