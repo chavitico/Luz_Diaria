@@ -39,7 +39,8 @@ import {
   Info,
   ShoppingBag,
 } from 'lucide-react-native';
-import { useThemeColors, useLanguage, useUser } from '@/lib/store';
+import { useThemeColors, useLanguage, useUser, useIsDarkMode } from '@/lib/store';
+import { pickReadableTextColor } from '@/lib/contrast';
 import { ActionButton } from '@/components/ui/ActionButton';
 import { getNotificationSettings } from '@/lib/notifications';
 import { pickBestVoice } from '@/lib/voice-picker';
@@ -819,6 +820,7 @@ export default function SupportScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const colors = useThemeColors();
+  const isDark = useIsDarkMode();
   const language = useLanguage();
   const user = useUser();
   const es = language === 'es';
@@ -1320,17 +1322,46 @@ export default function SupportScreen() {
                 )}
 
                 {/* Submit button */}
-                <View style={{ marginTop: 28 }}>
-                  <ActionButton
-                    onPress={handleSubmit}
-                    disabled={!canSubmit || isSubmitting}
-                    loading={isSubmitting}
-                    label={es ? 'Enviar reporte' : 'Submit report'}
-                    size="lg"
-                    fillColor={catDef?.color ?? colors.primary}
-                    surfaceColor={colors.background}
-                  />
-                </View>
+                {(() => {
+                  const btnColor = catDef?.color ?? colors.primary;
+                  const btnText = pickReadableTextColor(btnColor);
+                  const isDisabled = !canSubmit || isSubmitting;
+                  return (
+                    <View style={{ marginTop: 28 }}>
+                      <Pressable
+                        onPress={isDisabled ? undefined : handleSubmit}
+                        disabled={isDisabled}
+                        style={({ pressed }) => ({
+                          backgroundColor: isDisabled
+                            ? (isDark ? '#4A4A4A' : '#BBBBBB')
+                            : btnColor,
+                          borderRadius: 18,
+                          paddingVertical: 16,
+                          paddingHorizontal: 24,
+                          alignItems: 'center' as const,
+                          justifyContent: 'center' as const,
+                          opacity: pressed ? 0.85 : 1,
+                          flexDirection: 'row' as const,
+                          gap: 8,
+                        })}
+                      >
+                        {isSubmitting && (
+                          <ActivityIndicator size="small" color={isDark ? '#9A9A9A' : '#666666'} />
+                        )}
+                        <Text style={{
+                          color: isDisabled
+                            ? (isDark ? '#9A9A9A' : '#666666')
+                            : btnText,
+                          fontSize: 17,
+                          fontWeight: '700',
+                          letterSpacing: 0.2,
+                        }}>
+                          {es ? 'Enviar reporte' : 'Submit report'}
+                        </Text>
+                      </Pressable>
+                    </View>
+                  );
+                })()}
 
                 <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center', lineHeight: 18, marginTop: 16 }}>
                   {es
