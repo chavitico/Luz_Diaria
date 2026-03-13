@@ -12,7 +12,7 @@
     "streakCurrent": 34,
     "streakBest": 34,
     "devotionalsCompleted": 23,
-    "totalTimeSeconds": 154411,
+    "totalTimeSeconds": 154558,
     "lastActiveAt": "2026-03-12T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_valiente_reino",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-13T01:46:00.231Z"
+    "updatedAt": "2026-03-13T01:48:30.198Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -83,11 +83,11 @@
     "titleId": "title_lord_my_refuge",
     "themeId": "theme_amanecer_dorado",
     "selectedMusicId": "music_free_1",
-    "points": 19693,
+    "points": 16693,
     "streakCurrent": 4,
     "streakBest": 4,
     "devotionalsCompleted": 6,
-    "totalTimeSeconds": 17456,
+    "totalTimeSeconds": 17813,
     "lastActiveAt": "2026-03-12T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -97,6 +97,6 @@
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-13T00:18:55.920Z",
-    "updatedAt": "2026-03-13T00:53:13.859Z"
+    "updatedAt": "2026-03-13T01:51:43.841Z"
   }
 ]
