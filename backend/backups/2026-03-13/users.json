@@ -12,7 +12,7 @@
     "streakCurrent": 34,
     "streakBest": 34,
     "devotionalsCompleted": 23,
-    "totalTimeSeconds": 154156,
+    "totalTimeSeconds": 154215,
     "lastActiveAt": "2026-03-12T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_valiente_reino",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-13T00:50:03.222Z"
+    "updatedAt": "2026-03-13T00:51:03.288Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -87,7 +87,7 @@
     "streakCurrent": 4,
     "streakBest": 4,
     "devotionalsCompleted": 6,
-    "totalTimeSeconds": 17267,
+    "totalTimeSeconds": 17337,
     "lastActiveAt": "2026-03-12T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -97,6 +97,6 @@
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-13T00:18:55.920Z",
-    "updatedAt": "2026-03-13T00:50:03.305Z"
+    "updatedAt": "2026-03-13T00:51:13.874Z"
   }
 ]
