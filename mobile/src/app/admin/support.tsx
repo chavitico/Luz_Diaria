@@ -308,7 +308,7 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
                 borderTopLeftRadius: 28,
                 borderTopRightRadius: 28,
                 paddingTop: 12,
-                paddingBottom: Math.max(insets.bottom, 16) + 8,
+                paddingBottom: 0,
                 maxHeight: '92%',
               }}
             >
@@ -322,7 +322,7 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
                 bounces={false}
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingHorizontal: 22, paddingBottom: 8, gap: 18 }}
+                contentContainerStyle={{ paddingHorizontal: 22, paddingBottom: Math.max(insets.bottom, 12) + 4, gap: 18 }}
               >
                 {/* Header row */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
@@ -562,39 +562,61 @@ function CompensateModal({ ticket, visible, onClose, onSuccess, userId, es, colo
                   />
                 </View>
 
-                {/* Send Button — always at bottom of scroll */}
-                <Pressable
-                  onPress={handleSend}
-                  disabled={sending}
-                  style={({ pressed }) => ({
-                    backgroundColor: '#22C55E',
-                    borderRadius: 16,
-                    paddingVertical: 16,
-                    alignItems: 'center',
-                    opacity: pressed || sending ? 0.75 : 1,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    gap: 8,
-                    shadowColor: '#22C55E',
-                    shadowOffset: { width: 0, height: 4 },
-                    shadowOpacity: 0.35,
-                    shadowRadius: 10,
-                    elevation: 6,
-                    marginBottom: 4,
-                  })}
-                >
-                  {sending
-                    ? <ActivityIndicator size="small" color="#FFF" />
-                    : <>
-                        <Gift size={18} color="#FFF" />
-                        <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFF' }}>
-                          {tab === 'POINTS'
-                            ? (es ? `Enviar ${parseInt(pointsAmount || '0').toLocaleString()} pts` : `Send ${parseInt(pointsAmount || '0').toLocaleString()} pts`)
-                            : (es ? 'Enviar ítem' : 'Send item')}
-                        </Text>
-                      </>
-                  }
-                </Pressable>
+                {/* ── Action Buttons — stacked, never side-by-side ── */}
+                <View style={{ gap: 10, paddingBottom: 4 }}>
+                  {/* PRIMARY: Compensar */}
+                  <Pressable
+                    onPress={handleSend}
+                    disabled={sending}
+                    style={({ pressed }) => ({
+                      backgroundColor: '#22C55E',
+                      borderRadius: 16,
+                      paddingVertical: 16,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexDirection: 'row',
+                      gap: 8,
+                      opacity: pressed || sending ? 0.75 : 1,
+                      shadowColor: '#22C55E',
+                      shadowOffset: { width: 0, height: 4 },
+                      shadowOpacity: 0.35,
+                      shadowRadius: 10,
+                      elevation: 6,
+                    })}
+                  >
+                    {sending
+                      ? <ActivityIndicator size="small" color="#FFF" />
+                      : <>
+                          <Gift size={18} color="#FFF" />
+                          <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFF' }}>
+                            {tab === 'POINTS'
+                              ? (es ? `Compensar ${parseInt(pointsAmount || '0').toLocaleString()} pts` : `Compensate ${parseInt(pointsAmount || '0').toLocaleString()} pts`)
+                              : (es ? 'Compensar con ítem' : 'Compensate with item')}
+                          </Text>
+                        </>
+                    }
+                  </Pressable>
+
+                  {/* SECONDARY: Cancelar */}
+                  <Pressable
+                    onPress={onClose}
+                    disabled={sending}
+                    style={({ pressed }) => ({
+                      borderRadius: 16,
+                      paddingVertical: 14,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1.5,
+                      borderColor: colors.textMuted + '40',
+                      backgroundColor: 'transparent',
+                      opacity: pressed ? 0.6 : 1,
+                    })}
+                  >
+                    <Text style={{ fontSize: 15, fontWeight: '600', color: colors.textMuted }}>
+                      {es ? 'Cancelar' : 'Cancel'}
+                    </Text>
+                  </Pressable>
+                </View>
               </ScrollView>
             </View>
           </Pressable>
