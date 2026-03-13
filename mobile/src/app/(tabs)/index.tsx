@@ -791,11 +791,9 @@ function DailyPrayerSection({
 function PastoralClosure({
   colors,
   language,
-  onPrayerTab,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
-  onPrayerTab: () => void;
 }) {
   const { sFont } = useScaledFont();
   return (
@@ -809,7 +807,7 @@ function PastoralClosure({
       </View>
 
       {/* Closing message */}
-      <View style={{ alignItems: 'center', marginBottom: 28, paddingHorizontal: 8 }}>
+      <View style={{ alignItems: 'center', paddingHorizontal: 8 }}>
         <Text style={{ fontSize: sFont(18), marginBottom: 12 }}>🕊️</Text>
         <Text
           style={{
@@ -839,35 +837,6 @@ function PastoralClosure({
             : 'God honors a heart that seeks Him.'}
         </Text>
       </View>
-
-      {/* Primary — Pray for community */}
-      <Pressable
-        onPress={() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          onPrayerTab();
-        }}
-        style={({ pressed }) => ({
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingVertical: 16,
-          paddingHorizontal: 20,
-          borderRadius: 16,
-          backgroundColor: colors.primary,
-          opacity: pressed ? 0.88 : 1,
-          gap: 10,
-          shadowColor: colors.primary,
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.35,
-          shadowRadius: 10,
-          elevation: 6,
-        })}
-      >
-        <Text style={{ fontSize: sFont(18) }}>🤲</Text>
-        <Text style={{ fontSize: sFont(15), fontWeight: '700', color: getContrastText(colors.primary), letterSpacing: 0.2 }}>
-          {language === 'es' ? 'Orar por la comunidad' : 'Pray for the community'}
-        </Text>
-      </Pressable>
     </Animated.View>
   );
 }
@@ -2316,7 +2285,6 @@ export default function HomeScreen() {
               <PastoralClosure
                 colors={colors}
                 language={language}
-                onPrayerTab={() => router.push('/(tabs)/prayer')}
               />
             )}
 

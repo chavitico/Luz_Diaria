@@ -441,7 +441,7 @@ export function CommentsSection({
             }}
           />
         </View>
-        {/* Send button — always uses contrast-safe icon color against primary bg */}
+        {/* Send button — stable visible icon regardless of draft state */}
         <Pressable
           onPress={handleSend}
           disabled={isPosting}
@@ -449,16 +449,21 @@ export function CommentsSection({
             width: 40,
             height: 40,
             borderRadius: 20,
-            backgroundColor: colors.primary,
+            backgroundColor: draft.trim() ? colors.primary : 'transparent',
+            borderWidth: draft.trim() ? 0 : 1.5,
+            borderColor: colors.text + '30',
             alignItems: 'center',
             justifyContent: 'center',
-            opacity: pressed ? 0.8 : draft.trim() ? 1 : 0.45,
+            opacity: pressed ? 0.75 : 1,
           })}
         >
           {isPosting ? (
-            <ActivityIndicator size="small" color={sendIconColor} />
+            <ActivityIndicator size="small" color={draft.trim() ? getContrastText(colors.primary) : colors.text} />
           ) : (
-            <Send size={16} color={sendIconColor} />
+            <Send
+              size={16}
+              color={draft.trim() ? getContrastText(colors.primary) : colors.text}
+            />
           )}
         </Pressable>
       </View>
