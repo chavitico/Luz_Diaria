@@ -68,6 +68,7 @@ import {
   applyBiblicalPronunciations,
 } from '@/lib/tts-voices';
 import { pickBestVoice, type PickedVoice } from '@/lib/voice-picker';
+import { CommentsSection } from '@/components/CommentsSection';
 
 // Bible book translations from English to Spanish
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
@@ -1230,6 +1231,9 @@ export default function DevotionalDetailScreen() {
               sectionIndex={5}
               onPress={() => handleTTSJumpToSection(5)}
             />
+
+            {/* Comments — persistent discussion thread */}
+            {date ? <CommentsSection devotionalDate={date} /> : null}
           </CollapsibleDevotional>
         </View>
       </ScrollView>

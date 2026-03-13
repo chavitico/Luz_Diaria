@@ -81,6 +81,8 @@ model User {
   tradesInitiated        CardTrade[]             @relation("TradesInitiated")
   tradesReceived         CardTrade[]             @relation("TradesReceived")
   testimonies            Testimony[]
+  devotionalComments     DevotionalComment[]
+  devotionalCommentLikes DevotionalCommentLike[]
 }
 
 model UserSession {
@@ -517,6 +519,40 @@ model TestimonyLike {
   @@unique([testimonyId, userId])
   @@index([userId])
   @@index([testimonyId])
+}
+
+// Comments on daily devotionals — permanent, ordered oldest→newest
+model DevotionalComment {
+  id             String    @id @default(cuid())
+  devotionalDate String    // e.g. "2026-03-13" — matches Devotional.date
+  userId         String
+  text           String    // max 500 chars
+  likeCount      Int       @default(0)
+  deletedAt      DateTime? // soft-deleted by moderator
+
+  createdAt      DateTime  @default(now())
+
+  user           User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes          DevotionalCommentLike[]
+
+  @@index([devotionalDate])
+  @@index([userId])
+  @@index([createdAt])
+}
+
+// One like per user per comment
+model DevotionalCommentLike {
+  id        String   @id @default(cuid())
+  commentId String
+  userId    String
+  createdAt DateTime @default(now())
+
+  comment   DevotionalComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([commentId, userId])
+  @@index([userId])
+  @@index([commentId])
 }
 
 model GiftTransaction {

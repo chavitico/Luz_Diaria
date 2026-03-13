@@ -98,6 +98,7 @@ import {
 import { pickBestVoice, type PickedVoice } from '@/lib/voice-picker';
 import { VoiceFallbackBanner } from '@/components/VoiceFallbackBanner';
 import { VoiceSetupModal, VOICE_SETUP_SHOWN_KEY } from '@/components/VoiceSetupModal';
+import { CommentsSection } from '@/components/CommentsSection';
 
 // Bible book translations from English to Spanish
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
@@ -787,14 +788,10 @@ function DailyPrayerSection({
 function PastoralClosure({
   colors,
   language,
-  isFavorite,
-  onFavorite,
   onPrayerTab,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
-  isFavorite: boolean;
-  onFavorite: () => void;
   onPrayerTab: () => void;
 }) {
   const { sFont } = useScaledFont();
@@ -840,75 +837,34 @@ function PastoralClosure({
         </Text>
       </View>
 
-      {/* Two actions */}
-      <View style={{ gap: 12 }}>
-        {/* Primary — Pray for community */}
-        <Pressable
-          onPress={() => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            onPrayerTab();
-          }}
-          style={({ pressed }) => ({
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingVertical: 16,
-            paddingHorizontal: 20,
-            borderRadius: 16,
-            backgroundColor: colors.primary,
-            opacity: pressed ? 0.88 : 1,
-            gap: 10,
-            shadowColor: colors.primary,
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.35,
-            shadowRadius: 10,
-            elevation: 6,
-          })}
-        >
-          <Text style={{ fontSize: sFont(18) }}>🤲</Text>
-          <Text style={{ fontSize: sFont(15), fontWeight: '700', color: colors.primaryText, letterSpacing: 0.2 }}>
-            {language === 'es' ? 'Orar por la comunidad' : 'Pray for the community'}
-          </Text>
-        </Pressable>
-
-        {/* Secondary — Save for later */}
-        <Pressable
-          onPress={() => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            onFavorite();
-          }}
-          style={({ pressed }) => ({
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingVertical: 15,
-            paddingHorizontal: 20,
-            borderRadius: 16,
-            backgroundColor: isFavorite ? colors.primary + '18' : 'transparent',
-            borderWidth: 2,
-            borderColor: isFavorite ? colors.primary : colors.primary + '60',
-            opacity: pressed ? 0.85 : 1,
-            gap: 10,
-          })}
-        >
-          <Heart
-            size={18}
-            color={colors.primary}
-            fill={isFavorite ? colors.primary : 'transparent'}
-          />
-          <Text
-            style={{
-              fontSize: sFont(15),
-              fontWeight: '700',
-              color: colors.primary,
-            }}
-          >
-            {isFavorite
-              ? language === 'es' ? 'Guardado para reflexionar' : 'Saved for reflection'
-              : language === 'es' ? 'Guardar para reflexionar luego' : 'Save for later reflection'}
-          </Text>
-        </Pressable>
-      </View>
+      {/* Primary — Pray for community */}
+      <Pressable
+        onPress={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          onPrayerTab();
+        }}
+        style={({ pressed }) => ({
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingVertical: 16,
+          paddingHorizontal: 20,
+          borderRadius: 16,
+          backgroundColor: colors.primary,
+          opacity: pressed ? 0.88 : 1,
+          gap: 10,
+          shadowColor: colors.primary,
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.35,
+          shadowRadius: 10,
+          elevation: 6,
+        })}
+      >
+        <Text style={{ fontSize: sFont(18) }}>🤲</Text>
+        <Text style={{ fontSize: sFont(15), fontWeight: '700', color: colors.primaryText, letterSpacing: 0.2 }}>
+          {language === 'es' ? 'Orar por la comunidad' : 'Pray for the community'}
+        </Text>
+      </Pressable>
     </Animated.View>
   );
 }
@@ -2348,11 +2304,12 @@ export default function HomeScreen() {
               <PastoralClosure
                 colors={colors}
                 language={language}
-                isFavorite={isFavorite}
-                onFavorite={toggleFavorite}
                 onPrayerTab={() => router.push('/(tabs)/prayer')}
               />
             )}
+
+            {/* Comments — always visible */}
+            <CommentsSection devotionalDate={today} />
           </CollapsibleContent>
         </View>
       </Animated.ScrollView>
