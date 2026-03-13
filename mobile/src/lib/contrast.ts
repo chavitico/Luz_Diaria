@@ -120,15 +120,19 @@ export function deriveButtonColors(
 
 /**
  * Colors for the disabled state:
- *  - fill: neutral blend between surface and onSurface at 12% opacity effect
- *  - text: muted, low-contrast on purpose
+ *  - fill: a clearly visible but muted neutral, so the user can see the button
+ *    exists and understand it is not yet interactive
+ *  - text: medium-muted, low contrast on purpose to signal non-interactivity
+ *
+ *  In light mode: medium gray fill (#C8C8C8) with dark muted text
+ *  In dark mode:  dark-mid gray fill (#3A3A3A) with light muted text
  */
 export function deriveDisabledColors(
-  surface: string,
-  _isDark: boolean,
+  _surface: string,
+  isDark: boolean,
 ): { fill: string; textColor: string } {
-  // A neutral tint — slightly offset from surface
-  const { r, g, b } = hexToRgb(surface);
-  const fill = rgbToHex({ r: r * 0.88 + 127 * 0.12, g: g * 0.88 + 127 * 0.12, b: b * 0.88 + 127 * 0.12 });
-  return { fill, textColor: '#888888' };
+  if (isDark) {
+    return { fill: '#3A3A3A', textColor: '#777777' };
+  }
+  return { fill: '#D0D0D0', textColor: '#888888' };
 }
