@@ -877,172 +877,95 @@ function StatsCard({ language }: { language: string }) {
   ];
 
   return (
-    <Animated.View entering={FadeInDown.delay(80).duration(400)} style={{ marginHorizontal: 16, marginBottom: 16 }}>
+    <Animated.View entering={FadeInDown.delay(80).duration(400)} style={{ marginHorizontal: 16, marginBottom: 12 }}>
       <LinearGradient
         colors={[colors.primary + '18', colors.background, colors.background]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{
           borderRadius: 20,
-          padding: 18,
+          paddingHorizontal: 16,
+          paddingVertical: 14,
           borderWidth: 1,
           borderColor: colors.primary + '20',
         }}
       >
         {/* Card title */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, gap: 10 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
           <View
             style={{
-              width: 36,
-              height: 36,
-              borderRadius: 18,
+              width: 30,
+              height: 30,
+              borderRadius: 15,
               backgroundColor: colors.primary + '20',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            <Heart size={17} color={colors.primary} />
+            <Heart size={14} color={colors.primary} />
           </View>
-          <View>
-            <Text style={{ fontSize: sFont(16), fontWeight: '700', color: colors.text }}>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text, lineHeight: 18 }}>
               Caminamos Juntos
             </Text>
-            <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
+            <Text style={{ fontSize: sFont(11), color: colors.textMuted, lineHeight: 15 }}>
               Dios obra en Su pueblo
             </Text>
           </View>
         </View>
 
-        {/* 2x2 grid */}
-        <View style={{ flexDirection: 'row', gap: 10 }}>
-          <View style={{ flex: 1, gap: 10 }}>
-            {[0, 2].map((i) => {
-              const card = cardDefs[i];
-              return (
+        {/* Compact horizontal metrics row */}
+        <View style={{ flexDirection: 'row', gap: 6 }}>
+          {cardDefs.map((card, i) => (
+            <View
+              key={i}
+              style={{
+                flex: 1,
+                backgroundColor: card.bg,
+                borderRadius: 12,
+                borderWidth: 1,
+                borderColor: card.border,
+                paddingVertical: 8,
+                paddingHorizontal: 6,
+                alignItems: 'center',
+                gap: 2,
+              }}
+            >
+              <Text style={{ fontSize: 14, lineHeight: 18 }}>{card.icon}</Text>
+              {statsLoading ? (
                 <View
-                  key={i}
                   style={{
-                    backgroundColor: card.bg,
-                    borderRadius: 16,
-                    borderWidth: 1,
-                    borderColor: card.border,
-                    padding: 12,
-                    shadowColor: card.accent,
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.12,
-                    shadowRadius: 6,
-                    elevation: 3,
+                    height: 16,
+                    width: 32,
+                    borderRadius: 4,
+                    backgroundColor: card.accent + '25',
                   }}
-                >
-                  <View
-                    style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 9,
-                      backgroundColor: card.accent + '22',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: 8,
-                    }}
-                  >
-                    <Text style={{ fontSize: 14 }}>{card.icon}</Text>
-                  </View>
-                  {statsLoading ? (
-                    <View
-                      style={{
-                        height: 22,
-                        width: 44,
-                        borderRadius: 6,
-                        backgroundColor: card.accent + '20',
-                        marginBottom: 4,
-                      }}
-                    />
-                  ) : (
-                    <Text
-                      style={{
-                        fontSize: sFont(21),
-                        fontWeight: '800',
-                        color: card.accent,
-                        letterSpacing: -0.5,
-                        marginBottom: 2,
-                      }}
-                      numberOfLines={1}
-                      adjustsFontSizeToFit
-                    >
-                      {card.value}
-                    </Text>
-                  )}
-                  <Text style={{ fontSize: sFont(11), color: colors.textMuted, fontWeight: '500' }} numberOfLines={1}>
-                    {card.label}
-                  </Text>
-                </View>
-              );
-            })}
-          </View>
-          <View style={{ flex: 1, gap: 10 }}>
-            {[1, 3].map((i) => {
-              const card = cardDefs[i];
-              return (
-                <View
-                  key={i}
+                />
+              ) : (
+                <Text
                   style={{
-                    backgroundColor: card.bg,
-                    borderRadius: 16,
-                    borderWidth: 1,
-                    borderColor: card.border,
-                    padding: 12,
-                    shadowColor: card.accent,
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.12,
-                    shadowRadius: 6,
-                    elevation: 3,
+                    fontSize: sFont(14),
+                    fontWeight: '800',
+                    color: card.accent,
+                    letterSpacing: -0.3,
                   }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.7}
                 >
-                  <View
-                    style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 9,
-                      backgroundColor: card.accent + '22',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: 8,
-                    }}
-                  >
-                    <Text style={{ fontSize: 14 }}>{card.icon}</Text>
-                  </View>
-                  {statsLoading ? (
-                    <View
-                      style={{
-                        height: 22,
-                        width: 44,
-                        borderRadius: 6,
-                        backgroundColor: card.accent + '20',
-                        marginBottom: 4,
-                      }}
-                    />
-                  ) : (
-                    <Text
-                      style={{
-                        fontSize: sFont(21),
-                        fontWeight: '800',
-                        color: card.accent,
-                        letterSpacing: -0.5,
-                        marginBottom: 2,
-                      }}
-                      numberOfLines={1}
-                      adjustsFontSizeToFit
-                    >
-                      {card.value}
-                    </Text>
-                  )}
-                  <Text style={{ fontSize: sFont(11), color: colors.textMuted, fontWeight: '500' }} numberOfLines={1}>
-                    {card.label}
-                  </Text>
-                </View>
-              );
-            })}
-          </View>
+                  {card.value}
+                </Text>
+              )}
+              <Text
+                style={{ fontSize: sFont(9), color: colors.textMuted, fontWeight: '500', textAlign: 'center' }}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.8}
+              >
+                {card.label}
+              </Text>
+            </View>
+          ))}
         </View>
       </LinearGradient>
     </Animated.View>
