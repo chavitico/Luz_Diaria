@@ -1755,5 +1755,61 @@
     "itemId": "pack_milagros",
     "acquiredAt": "2026-03-13T01:47:49.339Z",
     "source": "store"
+  },
+  {
+    "id": "cmmpdep5c0010m26tgnl61hl4",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-13T20:49:56.689Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmpdep5i0012m26ttpe5ktaq",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-13T20:49:56.694Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmpdhzqe001am26tzspcdh21",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "theme_bosque_sereno",
+    "acquiredAt": "2026-03-13T20:52:30.374Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpdi6h1001cm26t6yl08ai6",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "theme_minimal",
+    "acquiredAt": "2026-03-13T20:52:39.110Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpdideu001mm26tjvfdyn4d",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-13T20:52:48.102Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmpdp71g001qm26tuxan65x7",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-13T20:58:31.746Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpdst7w001ym26tpcq9f4wf",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-13T21:00:55.148Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpdtdh50022m26trnyq0b8d",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-13T21:01:21.401Z",
+    "source": "store"
   }
 ]

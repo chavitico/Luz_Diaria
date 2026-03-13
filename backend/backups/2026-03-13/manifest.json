@@ -1,20 +1,20 @@
 {
   "backupDate": "2026-03-13",
-  "createdAt": "2026-03-13T20:47:09.742Z",
+  "createdAt": "2026-03-13T22:10:29.344Z",
   "appEnv": "dev",
   "counts": {
-    "users": 4,
+    "users": 5,
     "devotionals": 24,
     "streakSnapshots": 27,
-    "inventoryItems": 251,
-    "devotionalCompletions": 55,
+    "inventoryItems": 259,
+    "devotionalCompletions": 56,
     "supportTickets": 36,
     "prayerRequests": 8,
-    "pointLedgerEntries": 204,
+    "pointLedgerEntries": 205,
     "collectionClaims": 11,
     "userChapterProgress": 5,
-    "weeklyProgress": 40,
+    "weeklyProgress": 42,
     "userFavorites": 0,
-    "userGifts": 35
+    "userGifts": 36
   }
 }
