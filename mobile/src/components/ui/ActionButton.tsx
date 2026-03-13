@@ -95,7 +95,10 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 
   // ── Derive colors ──────────────────────────────────────────────────────────
 
-  const resolvedSurface = surfaceColor ?? colors.surface;
+  // Primary CTAs almost always sit on the page background, not inside a card.
+  // Using background (not surface) as the default contrast baseline ensures
+  // the fill is visible wherever the button is placed.
+  const resolvedSurface = surfaceColor ?? colors.background;
 
   let fill: string;
   let textColor: string;
