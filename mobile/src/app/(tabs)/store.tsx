@@ -4996,6 +4996,7 @@ function BundleCard({
                   size="sm"
                   fullWidth={false}
                   style={{ paddingHorizontal: 16, paddingVertical: 8 }}
+                  surfaceColor={colors.surface}
                 />
               </View>
             ) : (
