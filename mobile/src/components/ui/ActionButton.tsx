@@ -22,7 +22,7 @@ import {
   Platform,
   Animated,
 } from 'react-native';
-import { deriveButtonColors, deriveDisabledColors, contrastRatio } from '@/lib/contrast';
+import { deriveButtonColors, deriveDisabledColors, contrastRatio, relativeLuminance } from '@/lib/contrast';
 import { useThemeColors, useIsDarkMode } from '@/lib/store';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -100,20 +100,28 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   // the fill is visible wherever the button is placed.
   const resolvedSurface = surfaceColor ?? colors.background;
 
+  // Derive effective dark mode from the ACTUAL surface luminance, not just the
+  // store flag. Some themes (e.g. Noche de Paz) are inherently dark regardless
+  // of the system dark-mode toggle — their surface is dark even when isDark=false.
+  // Using surface luminance as the truth ensures ensureContrast always pushes
+  // the fill in the right direction (lighter on dark surfaces, darker on light).
+  const surfaceLuminance = relativeLuminance(resolvedSurface);
+  const effectiveIsDark = surfaceLuminance < 0.18;
+
   let fill: string;
   let textColor: string;
   let outerBorderColor: string;
   let innerBorderColor: string;
 
   if (disabled) {
-    const dc = deriveDisabledColors(resolvedSurface, isDark);
+    const dc = deriveDisabledColors(resolvedSurface, effectiveIsDark);
     fill = dc.fill;
     textColor = dc.textColor;
-    outerBorderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+    outerBorderColor = effectiveIsDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
     innerBorderColor = 'transparent';
   } else if (variant === 'secondary') {
     // Secondary: outlined with a visible fill (30% opacity instead of 10%)
-    fill = fillColor ?? (isDark
+    fill = fillColor ?? (effectiveIsDark
       ? colors.primary + '40'   // 25% opacity on dark — visible on dark surfaces
       : colors.primary + '22'); // 13% opacity on light — subtle but visible
     const borderBase = colors.primary;
@@ -122,32 +130,32 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     const borderContrast = contrastRatio(borderBase, resolvedSurface);
     textColor = borderContrast >= 3.5
       ? borderBase
-      : isDark ? '#FFFFFF' : '#111111';
-    outerBorderColor = colors.primary + (isDark ? 'CC' : 'AA'); // More opaque border
+      : effectiveIsDark ? '#FFFFFF' : '#111111';
+    outerBorderColor = colors.primary + (effectiveIsDark ? 'CC' : 'AA'); // More opaque border
     innerBorderColor = 'transparent';
   } else if (variant === 'ghost') {
     fill = 'transparent';
     textColor = (() => {
       const r = contrastRatio(colors.primary, resolvedSurface);
-      return r >= 3.0 ? colors.primary : isDark ? '#FFFFFF' : '#111111';
+      return r >= 3.0 ? colors.primary : effectiveIsDark ? '#FFFFFF' : '#111111';
     })();
     outerBorderColor = 'transparent';
     innerBorderColor = 'transparent';
   } else if (variant === 'danger') {
     const dangerColor = '#EF4444';
-    const { fill: df, textColor: dt } = deriveButtonColors(dangerColor, resolvedSurface, isDark);
+    const { fill: df, textColor: dt } = deriveButtonColors(dangerColor, resolvedSurface, effectiveIsDark);
     fill = df;
     textColor = dt;
-    outerBorderColor = isDark ? 'rgba(255,80,80,0.35)' : 'rgba(180,0,0,0.20)';
-    innerBorderColor = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)';
+    outerBorderColor = effectiveIsDark ? 'rgba(255,80,80,0.35)' : 'rgba(180,0,0,0.20)';
+    innerBorderColor = effectiveIsDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)';
   } else {
     // primary (default)
     const base = fillColor ?? colors.primary;
-    const { fill: pf, textColor: pt } = deriveButtonColors(base, resolvedSurface, isDark);
+    const { fill: pf, textColor: pt } = deriveButtonColors(base, resolvedSurface, effectiveIsDark);
     fill = pf;
     textColor = pt;
-    outerBorderColor = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.22)';
-    innerBorderColor = isDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.10)';
+    outerBorderColor = effectiveIsDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.22)';
+    innerBorderColor = effectiveIsDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.10)';
   }
 
   // ── Press animation ────────────────────────────────────────────────────────
