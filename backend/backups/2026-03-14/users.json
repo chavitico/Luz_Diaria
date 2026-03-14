@@ -6,13 +6,13 @@
     "avatarId": "avatar_adv_elijah_fire",
     "frameId": "frame_v2_fuego_sagrado",
     "titleId": "title_renewed_strength",
-    "themeId": "theme_amanecer_dorado",
+    "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
     "points": 36555,
     "streakCurrent": 35,
     "streakBest": 35,
     "devotionalsCompleted": 24,
-    "totalTimeSeconds": 164125,
+    "totalTimeSeconds": 164720,
     "lastActiveAt": "2026-03-13T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-14T00:49:28.692Z"
+    "updatedAt": "2026-03-14T01:05:47.763Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
