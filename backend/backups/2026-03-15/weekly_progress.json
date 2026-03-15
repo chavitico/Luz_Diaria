@@ -376,5 +376,14 @@
     "completed": false,
     "claimed": false,
     "updatedAt": "2026-03-13T20:48:56.098Z"
+  },
+  {
+    "id": "cmmr2vrzv001bm27ife7r6hst",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-15T01:30:50.114Z"
   }
 ]
