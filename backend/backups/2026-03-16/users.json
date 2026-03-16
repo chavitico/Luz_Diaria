@@ -8,11 +8,11 @@
     "titleId": "title_god_is_love",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 36265,
+    "points": 36315,
     "streakCurrent": 37,
     "streakBest": 37,
     "devotionalsCompleted": 26,
-    "totalTimeSeconds": 172905,
+    "totalTimeSeconds": 173781,
     "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-16T03:30:42.413Z"
+    "updatedAt": "2026-03-16T04:06:27.248Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -83,11 +83,11 @@
     "titleId": "title_lord_my_refuge",
     "themeId": "theme_amanecer_dorado",
     "selectedMusicId": "music_free_1",
-    "points": 16783,
+    "points": 16803,
     "streakCurrent": 4,
     "streakBest": 4,
     "devotionalsCompleted": 7,
-    "totalTimeSeconds": 18952,
+    "totalTimeSeconds": 20711,
     "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -97,7 +97,7 @@
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-13T00:18:55.920Z",
-    "updatedAt": "2026-03-16T03:34:31.356Z"
+    "updatedAt": "2026-03-16T04:04:10.845Z"
   },
   {
     "id": "cmmpdddxo000rm26toly84eiw",
@@ -108,12 +108,12 @@
     "titleId": "title_walk_by_faith",
     "themeId": "theme_minimal",
     "selectedMusicId": "music_free_1",
-    "points": 46300,
+    "points": 46340,
     "streakCurrent": 1,
     "streakBest": 8,
-    "devotionalsCompleted": 11,
-    "totalTimeSeconds": 18783,
-    "lastActiveAt": "2026-03-13T18:00:00.000Z",
+    "devotionalsCompleted": 12,
+    "totalTimeSeconds": 20060,
+    "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": false,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -122,6 +122,6 @@
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-13T20:48:55.501Z",
-    "updatedAt": "2026-03-13T22:09:59.403Z"
+    "updatedAt": "2026-03-16T04:04:11.626Z"
   }
 ]

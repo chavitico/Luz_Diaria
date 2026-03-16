@@ -412,5 +412,23 @@
     "completed": false,
     "claimed": false,
     "updatedAt": "2026-03-16T03:19:25.506Z"
+  },
+  {
+    "id": "cmmsn2tyf001hm2f5ez8vsck2",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "challengeId": "cmmr2rpzu0001m27iqma0edzl",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:43:57.736Z"
+  },
+  {
+    "id": "cmmsn2tyf001gm2f5o3nzaaqm",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:46:54.384Z"
   }
 ]

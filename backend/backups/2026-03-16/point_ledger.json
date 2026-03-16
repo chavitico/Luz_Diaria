@@ -2138,5 +2138,55 @@
     "amount": 40,
     "metadata": "{\"matchId\":\"cmmsmfa8n0026m2inqssrgw9k\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
     "createdAt": "2026-03-16T03:25:50.000Z"
+  },
+  {
+    "id": "cmmsn1ilq001dm2f5zrqs3n70",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsmzsjo000zm2f555p8s8u6",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsmzsjo000zm2f555p8s8u6\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T03:42:56.367Z"
+  },
+  {
+    "id": "cmmsn510c001vm2f5dkkf2gyp",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsn3dsu001lm2f5vlkr2m81",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsn3dsu001lm2f5vlkr2m81\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T03:45:40.188Z"
+  },
+  {
+    "id": "cmmsn5apf0021m2f5lt7wt2ie",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsn37ps001jm2f5anryel99",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsn37ps001jm2f5anryel99\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:45:52.755Z"
+  },
+  {
+    "id": "cmmsn9tec002dm2f5r7eymt3a",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "ledgerId": "duel_cmmsn94zb002am2f5c55bfg70",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsn94zb002am2f5c55bfg70\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:49:23.604Z"
+  },
+  {
+    "id": "cmmsnn2r8002tm2f5zdwnb1tv",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsnl7u7002lm2f5kiet422l",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsnl7u7002lm2f5kiet422l\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T03:59:42.261Z"
   }
 ]
