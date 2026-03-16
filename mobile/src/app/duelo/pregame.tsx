@@ -21,7 +21,7 @@ import Animated, {
 import { ChevronLeft, Swords, Trophy, Flame, BarChart2 } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useQuery } from '@tanstack/react-query';
-import { useAppStore, useUser, useEquippedFrame } from '@/lib/store';
+import { useUser, useEquippedFrame } from '@/lib/store';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import { SPIRITUAL_TITLES, DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 
@@ -41,7 +41,6 @@ export default function DueloPregame() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const user = useUser();
-  const equippedTitle = useAppStore(s => s.equippedTitle);
   const equippedFrameId = useEquippedFrame();
 
   // Resolve avatar emoji from DEFAULT_AVATARS lookup
@@ -51,9 +50,9 @@ export default function DueloPregame() {
   // Resolve frame color (null if no frame equipped)
   const frameColor = equippedFrameId ? (AVATAR_FRAMES[equippedFrameId]?.color ?? null) : null;
 
-  // Resolve title label in Spanish
-  const titleLabel = equippedTitle
-    ? (SPIRITUAL_TITLES[equippedTitle]?.nameEs ?? null)
+  // Resolve title from user.titleId (the authoritative field updated by equipTitle())
+  const titleLabel = user?.titleId
+    ? (SPIRITUAL_TITLES[user.titleId]?.nameEs ?? null)
     : null;
 
   // Fetch duel ranking from backend — always refetch on mount so stats are

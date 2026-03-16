@@ -552,21 +552,39 @@ export default function DueloLeaderboard() {
             data={rest}
             keyExtractor={keyExtractor}
             renderItem={renderItem}
+            style={{ flex: 1 }}
             ListHeaderComponent={
-              <>
+              <View>
                 {/* Podium top 3 */}
                 {top3.length > 0 && (
                   <Podium top3={top3} currentUserId={user?.id} />
                 )}
-                {/* Separator */}
+                {/* Separator + column header for rank 4+ */}
                 {rest.length > 0 && (
                   <View style={{ marginHorizontal: 16, marginBottom: 10 }}>
                     <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.06)' }} />
                   </View>
                 )}
-                {/* Column headers for rest */}
                 {rest.length > 0 && <ColumnHeader />}
-              </>
+              </View>
+            }
+            ListFooterComponent={
+              !currentUserVisible && user?.id && leaderboard.length > 0 ? (
+                <View style={{ paddingHorizontal: 16, paddingTop: 10 }}>
+                  <View style={{
+                    flexDirection: 'row', alignItems: 'center', gap: 10,
+                    backgroundColor: 'rgba(99,179,237,0.07)',
+                    borderRadius: 14, padding: 13,
+                    borderWidth: 1, borderColor: 'rgba(99,179,237,0.18)',
+                  }}>
+                    <Trophy size={15} color="rgba(99,179,237,0.6)" />
+                    <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', fontWeight: '600', flex: 1 }}>
+                      Aún no estás en el top 100
+                    </Text>
+                    <Text style={{ fontSize: 12, color: '#63B3ED', fontWeight: '700' }}>¡Sigue dueleando!</Text>
+                  </View>
+                </View>
+              ) : null
             }
             ListEmptyComponent={
               top3.length === 0 ? <ListEmpty /> : null
@@ -581,27 +599,6 @@ export default function DueloLeaderboard() {
               />
             }
           />
-        )}
-
-        {/* "Not in top 100" footer */}
-        {!isLoading && !currentUserVisible && user?.id && leaderboard.length > 0 && (
-          <View style={{
-            paddingHorizontal: 16, paddingBottom: insets.bottom + 12,
-            borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.05)',
-          }}>
-            <View style={{
-              flexDirection: 'row', alignItems: 'center', gap: 10,
-              backgroundColor: 'rgba(99,179,237,0.07)',
-              borderRadius: 14, padding: 13, marginTop: 10,
-              borderWidth: 1, borderColor: 'rgba(99,179,237,0.18)',
-            }}>
-              <Trophy size={15} color="rgba(99,179,237,0.6)" />
-              <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', fontWeight: '600', flex: 1 }}>
-                Aún no estás en el top 100
-              </Text>
-              <Text style={{ fontSize: 12, color: '#63B3ED', fontWeight: '700' }}>¡Sigue dueleando!</Text>
-            </View>
-          </View>
         )}
       </LinearGradient>
     </View>
