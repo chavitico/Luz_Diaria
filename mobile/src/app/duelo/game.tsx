@@ -1,0 +1,712 @@
+// Duelo de Sabiduría — Game Screen
+// Two-player Bible trivia duel with bot opponent
+
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { View, Text, Pressable, ScrollView } from 'react-native';
+import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  withSpring,
+  withSequence,
+  FadeIn,
+  FadeInDown,
+  FadeOut,
+  ZoomIn,
+} from 'react-native-reanimated';
+import { Check, X, Clock, Swords, Trophy, Star } from 'lucide-react-native';
+import * as Haptics from 'expo-haptics';
+import { useThemeColors, useUser, useAppStore } from '@/lib/store';
+import { addLedgerEntry } from '@/lib/points-ledger';
+import { fetchWithTimeout } from '@/lib/fetch';
+import { getRandomDuelQuestions, type DuelQuestion } from '@/lib/duel-questions';
+
+const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
+const QUESTION_TIMER_SECONDS = 30;
+const BOT_CORRECT_PROBABILITY = 0.7;
+
+type AnswerState = 'unanswered' | 'answered';
+type DuelOutcome = 'player_wins' | 'bot_wins' | null;
+type GamePhase = 'question' | 'reveal' | 'finished';
+
+interface QuestionResult {
+  questionId: string;
+  playerAnswerIndex: number | null;
+  botAnswerIndex: number | null;
+  correctIndex: number;
+  playerCorrect: boolean;
+  botCorrect: boolean;
+}
+
+const OPTION_LABELS = ['A', 'B', 'C', 'D'];
+
+export default function DueloGame() {
+  const router = useRouter();
+  const params = useLocalSearchParams<{ matchId: string; opponentName: string; isBotMatch: string }>();
+  const insets = useSafeAreaInsets();
+  const colors = useThemeColors();
+  const user = useUser();
+  const updateUser = useAppStore(s => s.updateUser);
+
+  const matchId = params.matchId ?? 'local';
+  const opponentName = params.opponentName ?? 'Juanito Bot';
+
+  // Game state
+  const [questions] = useState<DuelQuestion[]>(() => getRandomDuelQuestions(10));
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [phase, setPhase] = useState<GamePhase>('question');
+  const [playerAnswer, setPlayerAnswer] = useState<number | null>(null);
+  const [botAnswer, setBotAnswer] = useState<number | null>(null);
+  const [timeLeft, setTimeLeft] = useState(QUESTION_TIMER_SECONDS);
+  const [results, setResults] = useState<QuestionResult[]>([]);
+  const [duelOutcome, setDuelOutcome] = useState<DuelOutcome>(null);
+  const [playerScore, setPlayerScore] = useState(0);
+  const [botScore, setBotScore] = useState(0);
+  const [pointsAwarded, setPointsAwarded] = useState(0);
+  const [rewardLoading, setRewardLoading] = useState(false);
+
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const botTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const revealTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const phaseRef = useRef<GamePhase>('question');
+  const playerAnswerRef = useRef<number | null>(null);
+  const botAnswerRef = useRef<number | null>(null);
+
+  // Timer animation
+  const timerProgress = useSharedValue(1);
+  const timerStyle = useAnimatedStyle(() => ({
+    width: `${timerProgress.value * 100}%` as any,
+    backgroundColor: timerProgress.value > 0.4 ? '#68D391' : timerProgress.value > 0.2 ? '#F6E05E' : '#FC8181',
+  }));
+
+  const currentQuestion = questions[currentIndex];
+
+  const endDuel = useCallback(async (outcome: DuelOutcome, pScore: number, bScore: number, allResults: QuestionResult[]) => {
+    setPhase('finished');
+    phaseRef.current = 'finished';
+    setDuelOutcome(outcome);
+
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (botTimerRef.current) clearTimeout(botTimerRef.current);
+    if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
+
+    Haptics.notificationAsync(
+      outcome === 'player_wins'
+        ? Haptics.NotificationFeedbackType.Success
+        : Haptics.NotificationFeedbackType.Warning
+    );
+
+    const pts = outcome === 'player_wins' ? 40 : 10;
+    setPointsAwarded(pts);
+
+    // Award points on backend
+    if (user?.id && matchId !== 'local') {
+      setRewardLoading(true);
+      try {
+        const res = await fetchWithTimeout(`${BACKEND_URL}/api/duel/complete`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            matchId,
+            userId: user.id,
+            outcome: outcome === 'player_wins' ? 'win' : 'loss',
+            player1Score: pScore,
+            player2Score: bScore,
+          }),
+        });
+        if (res.ok) {
+          const data = await res.json() as { pointsAwarded: number; newTotal: number };
+          updateUser({ points: data.newTotal });
+        } else {
+          // Fallback: award locally
+          updateUser({ points: (user.points ?? 0) + pts });
+        }
+      } catch {
+        updateUser({ points: (user.points ?? 0) + pts });
+      } finally {
+        setRewardLoading(false);
+      }
+    } else if (user?.id) {
+      // Local fallback when no matchId
+      updateUser({ points: (user.points ?? 0) + pts });
+    }
+
+    // Add to local ledger
+    addLedgerEntry({
+      kind: 'challenge',
+      delta: pts,
+      title: outcome === 'player_wins' ? '¡Duelo ganado!' : 'Duelo completado',
+      detail: `Duelo de Sabiduría — ${pScore} vs ${bScore}`,
+    });
+  }, [matchId, user?.id, user?.points, updateUser]);
+
+  const evaluateAnswers = useCallback((pAns: number | null, bAns: number | null, question: DuelQuestion, pScore: number, bScore: number, prevResults: QuestionResult[]) => {
+    const playerCorrect = pAns === question.correctIndex;
+    const botCorrect = bAns === question.correctIndex;
+
+    const result: QuestionResult = {
+      questionId: question.id,
+      playerAnswerIndex: pAns,
+      botAnswerIndex: bAns,
+      correctIndex: question.correctIndex,
+      playerCorrect,
+      botCorrect,
+    };
+
+    const newResults = [...prevResults, result];
+    let newPScore = pScore;
+    let newBScore = bScore;
+
+    if (playerCorrect) newPScore += 1;
+    if (botCorrect) newBScore += 1;
+
+    // RULE: one correct, one wrong → correct player wins
+    if (playerCorrect && !botCorrect) {
+      setResults(newResults);
+      setPlayerScore(newPScore);
+      setBotScore(newBScore);
+      endDuel('player_wins', newPScore, newBScore, newResults);
+      return;
+    }
+    if (botCorrect && !playerCorrect) {
+      setResults(newResults);
+      setPlayerScore(newPScore);
+      setBotScore(newBScore);
+      endDuel('bot_wins', newPScore, newBScore, newResults);
+      return;
+    }
+
+    // Both correct OR both wrong → next question
+    setResults(newResults);
+    setPlayerScore(newPScore);
+    setBotScore(newBScore);
+
+    // Move to next question after brief reveal
+    const nextIdx = currentIndex + 1;
+    if (nextIdx >= questions.length) {
+      // All questions exhausted — decide by score
+      endDuel(newPScore >= newBScore ? 'player_wins' : 'bot_wins', newPScore, newBScore, newResults);
+      return;
+    }
+
+    revealTimerRef.current = setTimeout(() => {
+      setCurrentIndex(nextIdx);
+      setPhase('question');
+      phaseRef.current = 'question';
+      setPlayerAnswer(null);
+      setBotAnswer(null);
+      playerAnswerRef.current = null;
+      botAnswerRef.current = null;
+      setTimeLeft(QUESTION_TIMER_SECONDS);
+      timerProgress.value = 1;
+    }, 2000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, questions.length, endDuel]);
+
+  // Schedule bot answer
+  const scheduleBotAnswer = useCallback((question: DuelQuestion) => {
+    const isCorrect = Math.random() < BOT_CORRECT_PROBABILITY;
+    const delay = 3000 + Math.random() * 7000; // 3–10 seconds
+
+    botTimerRef.current = setTimeout(() => {
+      if (phaseRef.current !== 'question') return;
+
+      let chosenIndex: number;
+      if (isCorrect) {
+        chosenIndex = question.correctIndex;
+      } else {
+        const wrong = [0, 1, 2, 3].filter((i) => i !== question.correctIndex);
+        chosenIndex = wrong[Math.floor(Math.random() * wrong.length)];
+      }
+
+      botAnswerRef.current = chosenIndex;
+      setBotAnswer(chosenIndex);
+
+      // If player already answered, evaluate now
+      if (playerAnswerRef.current !== null) {
+        setPhase('reveal');
+        phaseRef.current = 'reveal';
+        if (timerRef.current) clearInterval(timerRef.current);
+        evaluateAnswers(playerAnswerRef.current, chosenIndex, question, playerScore, botScore, results);
+      }
+    }, delay);
+  }, [evaluateAnswers, playerScore, botScore, results]);
+
+  // Start question timer
+  useEffect(() => {
+    if (phase !== 'question') return;
+    timerProgress.value = withTiming(0, { duration: QUESTION_TIMER_SECONDS * 1000 });
+
+    timerRef.current = setInterval(() => {
+      setTimeLeft((t) => {
+        if (t <= 1) {
+          // Timeout
+          clearInterval(timerRef.current!);
+          timerRef.current = null;
+          if (phaseRef.current !== 'question') return 0;
+
+          setPhase('reveal');
+          phaseRef.current = 'reveal';
+          if (botTimerRef.current) clearTimeout(botTimerRef.current);
+
+          const pAns = playerAnswerRef.current;
+          const bAns = botAnswerRef.current;
+          evaluateAnswers(pAns, bAns, currentQuestion, playerScore, botScore, results);
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+
+    scheduleBotAnswer(currentQuestion);
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (botTimerRef.current) clearTimeout(botTimerRef.current);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, phase]);
+
+  const handleAnswer = (index: number) => {
+    if (phase !== 'question' || playerAnswerRef.current !== null) return;
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    playerAnswerRef.current = index;
+    setPlayerAnswer(index);
+
+    // If bot already answered, evaluate immediately
+    if (botAnswerRef.current !== null) {
+      setPhase('reveal');
+      phaseRef.current = 'reveal';
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (botTimerRef.current) clearTimeout(botTimerRef.current);
+      evaluateAnswers(index, botAnswerRef.current, currentQuestion, playerScore, botScore, results);
+    }
+    // Otherwise wait for bot
+  };
+
+  if (!currentQuestion) return null;
+
+  // ── FINISHED SCREEN ──────────────────────────────────────────────────────────
+  if (phase === 'finished') {
+    const won = duelOutcome === 'player_wins';
+    return (
+      <View style={{ flex: 1 }}>
+        <LinearGradient
+          colors={won ? ['#0a1f0e', '#0d2918', '#0a1a0e'] : ['#1a0a0a', '#291010', '#1a0a0a']}
+          style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28 }}
+        >
+          <Animated.View entering={ZoomIn.duration(500)} style={{ alignItems: 'center', marginBottom: 32 }}>
+            <View
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                backgroundColor: won ? 'rgba(104,211,145,0.15)' : 'rgba(252,129,129,0.15)',
+                borderWidth: 2,
+                borderColor: won ? 'rgba(104,211,145,0.4)' : 'rgba(252,129,129,0.4)',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 24,
+              }}
+            >
+              {won ? <Trophy size={48} color="#68D391" /> : <Star size={48} color="#FC8181" />}
+            </View>
+
+            <Text
+              style={{
+                fontSize: 34,
+                fontWeight: '900',
+                color: won ? '#68D391' : '#FC8181',
+                textAlign: 'center',
+                letterSpacing: -0.5,
+                marginBottom: 8,
+              }}
+            >
+              {won ? '¡Victoria!' : '¡Buen intento!'}
+            </Text>
+            <Text
+              style={{
+                fontSize: 15,
+                color: 'rgba(255,255,255,0.5)',
+                textAlign: 'center',
+              }}
+            >
+              {won ? `Ganaste contra ${opponentName}` : `${opponentName} fue más rápido`}
+            </Text>
+          </Animated.View>
+
+          {/* Score */}
+          <Animated.View
+            entering={FadeInDown.delay(300).duration(400)}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 20,
+              marginBottom: 32,
+              backgroundColor: 'rgba(255,255,255,0.04)',
+              borderRadius: 20,
+              padding: 20,
+              borderWidth: 1,
+              borderColor: 'rgba(255,255,255,0.08)',
+              width: '100%',
+            }}
+          >
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 4, fontWeight: '600' }}>
+                {user?.nickname ?? 'Tú'}
+              </Text>
+              <Text style={{ fontSize: 36, fontWeight: '900', color: '#FFFFFF' }}>{playerScore}</Text>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+              <Swords size={20} color="rgba(255,255,255,0.3)" />
+            </View>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 4, fontWeight: '600' }}>
+                {opponentName}
+              </Text>
+              <Text style={{ fontSize: 36, fontWeight: '900', color: '#FFFFFF' }}>{botScore}</Text>
+            </View>
+          </Animated.View>
+
+          {/* Points awarded */}
+          <Animated.View
+            entering={FadeInDown.delay(500).duration(400)}
+            style={{
+              backgroundColor: won ? 'rgba(104,211,145,0.1)' : 'rgba(246,224,94,0.1)',
+              borderRadius: 14,
+              paddingVertical: 14,
+              paddingHorizontal: 24,
+              borderWidth: 1,
+              borderColor: won ? 'rgba(104,211,145,0.25)' : 'rgba(246,224,94,0.25)',
+              marginBottom: 40,
+              alignItems: 'center',
+            }}
+          >
+            <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', marginBottom: 4 }}>
+              {rewardLoading ? 'Guardando recompensa...' : 'Puntos ganados'}
+            </Text>
+            <Text
+              style={{
+                fontSize: 28,
+                fontWeight: '900',
+                color: won ? '#68D391' : '#F6E05E',
+              }}
+            >
+              +{pointsAwarded}
+            </Text>
+          </Animated.View>
+
+          {/* Actions */}
+          <Animated.View entering={FadeInDown.delay(700).duration(400)} style={{ width: '100%', gap: 12 }}>
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                router.replace('/duelo/lobby' as any);
+              }}
+              style={{
+                backgroundColor: '#63B3ED',
+                borderRadius: 16,
+                paddingVertical: 16,
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ fontSize: 16, fontWeight: '800', color: '#000000' }}>
+                Jugar de nuevo
+              </Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                router.back();
+                router.back();
+              }}
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.06)',
+                borderRadius: 16,
+                paddingVertical: 16,
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: 'rgba(255,255,255,0.1)',
+              }}
+            >
+              <Text style={{ fontSize: 16, fontWeight: '600', color: 'rgba(255,255,255,0.6)' }}>
+                Volver al inicio
+              </Text>
+            </Pressable>
+          </Animated.View>
+        </LinearGradient>
+      </View>
+    );
+  }
+
+  // ── GAME SCREEN ───────────────────────────────────────────────────────────────
+  const lastResult = results[results.length - 1];
+
+  return (
+    <View style={{ flex: 1 }}>
+      <LinearGradient
+        colors={['#07070f', '#0d1220', '#070d18']}
+        style={{ flex: 1 }}
+      >
+        {/* Header: scores + timer */}
+        <View style={{ paddingTop: insets.top + 8, paddingHorizontal: 16, paddingBottom: 12 }}>
+          {/* Players row */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
+            {/* Player */}
+            <View style={{ flex: 1, alignItems: 'center', gap: 2 }}>
+              <View
+                style={{
+                  paddingHorizontal: 12,
+                  paddingVertical: 4,
+                  borderRadius: 8,
+                  backgroundColor: playerAnswer !== null ? 'rgba(104,211,145,0.12)' : 'rgba(255,255,255,0.06)',
+                  borderWidth: 1,
+                  borderColor: playerAnswer !== null ? 'rgba(104,211,145,0.3)' : 'rgba(255,255,255,0.08)',
+                }}
+              >
+                <Text style={{ fontSize: 12, fontWeight: '700', color: '#FFFFFF' }} numberOfLines={1}>
+                  {user?.nickname ?? 'Tú'}
+                </Text>
+              </View>
+              <Text style={{ fontSize: 22, fontWeight: '900', color: '#FFFFFF' }}>{playerScore}</Text>
+            </View>
+
+            {/* Swords */}
+            <View style={{ alignItems: 'center', paddingHorizontal: 8 }}>
+              <Swords size={18} color="rgba(255,255,255,0.3)" />
+              <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>
+                P{currentIndex + 1}/{questions.length}
+              </Text>
+            </View>
+
+            {/* Bot */}
+            <View style={{ flex: 1, alignItems: 'center', gap: 2 }}>
+              <View
+                style={{
+                  paddingHorizontal: 12,
+                  paddingVertical: 4,
+                  borderRadius: 8,
+                  backgroundColor: botAnswer !== null ? 'rgba(252,129,129,0.12)' : 'rgba(255,255,255,0.06)',
+                  borderWidth: 1,
+                  borderColor: botAnswer !== null ? 'rgba(252,129,129,0.3)' : 'rgba(255,255,255,0.08)',
+                }}
+              >
+                <Text style={{ fontSize: 12, fontWeight: '700', color: '#FFFFFF' }} numberOfLines={1}>
+                  {opponentName}
+                </Text>
+              </View>
+              <Text style={{ fontSize: 22, fontWeight: '900', color: '#FFFFFF' }}>{botScore}</Text>
+            </View>
+          </View>
+
+          {/* Timer bar */}
+          <View
+            style={{
+              height: 4,
+              backgroundColor: 'rgba(255,255,255,0.08)',
+              borderRadius: 2,
+              overflow: 'hidden',
+            }}
+          >
+            <Animated.View style={[{ height: 4, borderRadius: 2 }, timerStyle]} />
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 4 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+              <Clock size={11} color="rgba(255,255,255,0.35)" />
+              <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontWeight: '600' }}>
+                {timeLeft}s
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Question card */}
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: insets.bottom + 24 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <Animated.View
+            key={`q-${currentIndex}`}
+            entering={FadeInDown.duration(300)}
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.04)',
+              borderRadius: 20,
+              padding: 22,
+              borderWidth: 1,
+              borderColor: 'rgba(255,255,255,0.08)',
+              marginBottom: 16,
+              minHeight: 120,
+              justifyContent: 'center',
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 19,
+                fontWeight: '700',
+                color: '#FFFFFF',
+                lineHeight: 27,
+                textAlign: 'center',
+              }}
+            >
+              {currentQuestion.questionEs}
+            </Text>
+          </Animated.View>
+
+          {/* Answer options */}
+          <View style={{ gap: 10 }}>
+            {currentQuestion.options.map((option, index) => {
+              const isPlayerChoice = playerAnswer === index;
+              const isBotChoice = botAnswer === index;
+              const isCorrect = index === currentQuestion.correctIndex;
+              const showReveal = phase === 'reveal';
+
+              let borderColor = 'rgba(255,255,255,0.1)';
+              let bgColor = 'rgba(255,255,255,0.04)';
+              let textColor = '#FFFFFF';
+
+              if (showReveal) {
+                if (isCorrect) {
+                  bgColor = 'rgba(104,211,145,0.12)';
+                  borderColor = 'rgba(104,211,145,0.4)';
+                  textColor = '#68D391';
+                } else if (isPlayerChoice && !isCorrect) {
+                  bgColor = 'rgba(252,129,129,0.1)';
+                  borderColor = 'rgba(252,129,129,0.35)';
+                  textColor = '#FC8181';
+                }
+              } else if (isPlayerChoice) {
+                bgColor = 'rgba(99,179,237,0.12)';
+                borderColor = 'rgba(99,179,237,0.4)';
+                textColor = '#63B3ED';
+              }
+
+              return (
+                <Animated.View key={index} entering={FadeInDown.delay(index * 60).duration(250)}>
+                  <Pressable
+                    onPress={() => handleAnswer(index)}
+                    disabled={phase !== 'question' || playerAnswer !== null}
+                    style={({ pressed }) => ({
+                      backgroundColor: pressed && phase === 'question' ? 'rgba(99,179,237,0.08)' : bgColor,
+                      borderRadius: 14,
+                      borderWidth: 1.5,
+                      borderColor,
+                      padding: 16,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 12,
+                      opacity: phase === 'question' && playerAnswer !== null && !isPlayerChoice ? 0.5 : 1,
+                    })}
+                  >
+                    {/* Label badge */}
+                    <View
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: 8,
+                        backgroundColor: showReveal && isCorrect
+                          ? 'rgba(104,211,145,0.2)'
+                          : isPlayerChoice
+                          ? 'rgba(99,179,237,0.2)'
+                          : 'rgba(255,255,255,0.08)',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {showReveal && isCorrect ? (
+                        <Check size={14} color="#68D391" />
+                      ) : showReveal && isPlayerChoice && !isCorrect ? (
+                        <X size={14} color="#FC8181" />
+                      ) : (
+                        <Text style={{ fontSize: 12, fontWeight: '800', color: 'rgba(255,255,255,0.6)' }}>
+                          {OPTION_LABELS[index]}
+                        </Text>
+                      )}
+                    </View>
+
+                    <Text style={{ flex: 1, fontSize: 14, fontWeight: '600', color: textColor, lineHeight: 20 }}>
+                      {option}
+                    </Text>
+
+                    {/* Indicator dots for who chose this */}
+                    <View style={{ flexDirection: 'row', gap: 4 }}>
+                      {isPlayerChoice && (
+                        <View
+                          style={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: 4,
+                            backgroundColor: showReveal && !isCorrect ? '#FC8181' : '#63B3ED',
+                          }}
+                        />
+                      )}
+                      {isBotChoice && phase === 'reveal' && (
+                        <View
+                          style={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: 4,
+                            backgroundColor: isCorrect ? '#68D391' : '#FC8181',
+                          }}
+                        />
+                      )}
+                    </View>
+                  </Pressable>
+                </Animated.View>
+              );
+            })}
+          </View>
+
+          {/* Reveal status */}
+          {phase === 'reveal' && lastResult && (
+            <Animated.View
+              entering={FadeIn.duration(300)}
+              style={{
+                marginTop: 20,
+                padding: 14,
+                borderRadius: 14,
+                backgroundColor: 'rgba(255,255,255,0.04)',
+                borderWidth: 1,
+                borderColor: 'rgba(255,255,255,0.08)',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', textAlign: 'center' }}>
+                {lastResult.playerCorrect && lastResult.botCorrect
+                  ? 'Ambos acertaron — siguiente pregunta...'
+                  : !lastResult.playerCorrect && !lastResult.botCorrect
+                  ? 'Ninguno acertó — siguiente pregunta...'
+                  : 'Calculando resultado...'}
+              </Text>
+            </Animated.View>
+          )}
+
+          {/* Waiting for bot */}
+          {phase === 'question' && playerAnswer !== null && botAnswer === null && (
+            <Animated.View
+              entering={FadeIn.duration(300)}
+              style={{
+                marginTop: 20,
+                padding: 14,
+                borderRadius: 14,
+                backgroundColor: 'rgba(255,255,255,0.03)',
+                borderWidth: 1,
+                borderColor: 'rgba(255,255,255,0.06)',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)' }}>
+                Esperando a {opponentName}...
+              </Text>
+            </Animated.View>
+          )}
+        </ScrollView>
+      </LinearGradient>
+    </View>
+  );
+}

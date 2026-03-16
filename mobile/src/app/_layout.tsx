@@ -191,6 +191,20 @@ function RootLayoutNav() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="duelo/lobby"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="duelo/game"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

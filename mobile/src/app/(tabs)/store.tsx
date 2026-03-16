@@ -977,6 +977,97 @@ function LaunchEventBanner({
   );
 }
 
+// ─── Duelo de Sabiduría Card ──────────────────────────────────────────────────
+function DueloSabiduriaCard({
+  colors,
+  onPress,
+}: {
+  colors: ReturnType<typeof useThemeColors>;
+  onPress: () => void;
+}) {
+  const scale = useSharedValue(1);
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  return (
+    <Animated.View entering={FadeInDown.duration(400)} style={{ marginHorizontal: 20, marginBottom: 12 }}>
+      <Pressable
+        onPress={onPress}
+        onPressIn={() => { scale.value = withSpring(0.97); }}
+        onPressOut={() => { scale.value = withSpring(1); }}
+      >
+        <Animated.View style={animatedStyle}>
+          <LinearGradient
+            colors={['#0d1e38', '#102444', '#0a1628']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{
+              borderRadius: 20,
+              padding: 20,
+              borderWidth: 1,
+              borderColor: 'rgba(99,179,237,0.2)',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Decorative glow */}
+            <View
+              style={{
+                position: 'absolute',
+                top: -30,
+                right: -20,
+                width: 120,
+                height: 120,
+                borderRadius: 60,
+                backgroundColor: 'rgba(99,179,237,0.07)',
+              }}
+            />
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+              {/* Icon */}
+              <View
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 16,
+                  backgroundColor: 'rgba(99,179,237,0.12)',
+                  borderWidth: 1.5,
+                  borderColor: 'rgba(99,179,237,0.3)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Text style={{ fontSize: 26 }}>⚔️</Text>
+              </View>
+              {/* Text */}
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 17, fontWeight: '800', color: '#FFFFFF', marginBottom: 2, letterSpacing: -0.3 }}>
+                  Duelo de Sabiduría
+                </Text>
+                <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', fontWeight: '500' }}>
+                  Reta a otro jugador en trivia bíblica
+                </Text>
+              </View>
+              {/* Play button */}
+              <View
+                style={{
+                  paddingHorizontal: 14,
+                  paddingVertical: 9,
+                  borderRadius: 12,
+                  backgroundColor: '#63B3ED',
+                }}
+              >
+                <Text style={{ fontSize: 13, fontWeight: '800', color: '#000000' }}>
+                  Jugar
+                </Text>
+              </View>
+            </View>
+          </LinearGradient>
+        </Animated.View>
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 // ─── Seasonal Adventure Card ──────────────────────────────────────────────────
 function SeasonalAdventureCard({
   item,
@@ -4800,36 +4891,14 @@ export default function StoreScreen() {
           }}
         />
 
-        {/* 2. CAMINO DEL CRECIMIENTO — season banner */}
-        {primarySeason ? (
-          <SeasonBanner
-            season={primarySeason}
-            language={language}
-            onPress={() => {
-              if (isOpeningModal.current) return;
-              isOpeningModal.current = true;
-              setTimeout(() => { isOpeningModal.current = false; }, 600);
-              setActiveSubcategory('all');
-              setStoreSectionModalCategory('bundles');
-              setShowStoreSectionModal(true);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-            }}
-          />
-        ) : (
-          <LaunchEventBanner
-            language={language}
-            colors={colors}
-            onPress={() => {
-              if (isOpeningModal.current) return;
-              isOpeningModal.current = true;
-              setTimeout(() => { isOpeningModal.current = false; }, 600);
-              setActiveSubcategory('all');
-              setStoreSectionModalCategory('bundles');
-              setShowStoreSectionModal(true);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-            }}
-          />
-        )}
+        {/* 2. DUELO DE SABIDURÍA — community game card */}
+        <DueloSabiduriaCard
+          colors={colors}
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            router.push('/duelo/lobby' as any);
+          }}
+        />
 
         {/* 3. DESAFÍOS SEMANALES — compact informational */}
         {effectiveUserId && (

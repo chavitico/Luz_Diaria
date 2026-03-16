@@ -602,3 +602,22 @@ model CardTrade {
   @@index([toUserId])
   @@index([status])
 }
+
+// Duelo de Sabiduría — Bible trivia duel matches
+model DuelMatch {
+  id             String    @id @default(cuid())
+  player1UserId  String
+  player2UserId  String    // Can be user ID or "bot:juanito" for bot matches
+  status         String    @default("in_progress") // in_progress | completed | abandoned
+  questions      String    @default("[]") // JSON: array of question IDs used
+  player1Score   Int       @default(0)
+  player2Score   Int       @default(0)
+  winnerUserId   String?   // userId of winner, or "bot:juanito", or null for draw
+  pointsAwarded  Int       @default(0)
+  isBotMatch     Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  completedAt    DateTime?
+
+  @@index([player1UserId])
+  @@index([status])
+}

@@ -1778,5 +1778,275 @@
     "amount": 5,
     "metadata": "{}",
     "createdAt": "2026-03-09T23:32:07.117Z"
+  },
+  {
+    "id": "cmmjx28vh001gm24ytguxvpa7",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "ledgerId": "prayer_2026-03-10",
+    "type": "prayer",
+    "dateId": "2026-03-10",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T01:13:30.990Z"
+  },
+  {
+    "id": "cmmjx2iii001km24yf2c24c7j",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "ledgerId": "prayer_request_2026-03-09",
+    "type": "prayer_request",
+    "dateId": "2026-03-09",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"work\"}",
+    "createdAt": "2026-03-10T01:13:43.482Z"
+  },
+  {
+    "id": "cmmjx2jgc001mm24y52u6hkjk",
+    "userId": "cmmb3ggjr001jm2q06al9hwcz",
+    "ledgerId": "prayed_community_2026-03-09",
+    "type": "prayed_community",
+    "dateId": "2026-03-09",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T01:13:44.700Z"
+  },
+  {
+    "id": "cmmk0f738002ym2z351s80q14",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "tts_2026-03-10",
+    "type": "tts_complete",
+    "dateId": "2026-03-10",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T02:47:34.053Z"
+  },
+  {
+    "id": "cmmk0filc0030m2z3qreay3cd",
+    "userId": "cmm9y71p5000km29qqx44tb91",
+    "ledgerId": "tts_2026-03-10",
+    "type": "tts_complete",
+    "dateId": "2026-03-10",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T02:47:48.960Z"
+  },
+  {
+    "id": "cmmk458dw0021m275ujh7w392",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "collection_card_reward_pascua_2026_1773117107636",
+    "type": "collection_reward",
+    "dateId": "2026-03-10",
+    "amount": 1000,
+    "metadata": "{\"collectionId\":\"pascua_2026\",\"secretCardId\":\"jesus_resucitado\"}",
+    "createdAt": "2026-03-10T04:31:47.636Z"
+  },
+  {
+    "id": "cmmk4whyr002zm2751lu43bmt",
+    "userId": "cmma36c8v000qm25km7avpj84",
+    "ledgerId": "share_2026-03-10_1",
+    "type": "share",
+    "dateId": "2026-03-10",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T04:52:59.764Z"
+  },
+  {
+    "id": "cmmk8iibn001bm26l6vb0qcik",
+    "userId": "cmm9x0ybc0002m2sr3l31uj4q",
+    "ledgerId": "prayer_2026-03-10",
+    "type": "prayer",
+    "dateId": "2026-03-10",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T06:34:05.507Z"
+  },
+  {
+    "id": "cmmkopadc001om26yovg5q3qo",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "prayer_2026-03-10",
+    "type": "prayer",
+    "dateId": "2026-03-10",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T14:07:15.648Z"
+  },
+  {
+    "id": "cmmkopawo001qm26ymjy8qtjd",
+    "userId": "cmmaqp77i000pm2686xq6bozg",
+    "ledgerId": "tts_2026-03-10",
+    "type": "tts_complete",
+    "dateId": "2026-03-10",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T14:07:16.345Z"
+  },
+  {
+    "id": "cmmkppghf001vm26v6wq81uu3",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "tts_2026-03-10",
+    "type": "tts_complete",
+    "dateId": "2026-03-10",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T14:35:23.187Z"
+  },
+  {
+    "id": "cmmkppjxs001xm26vg7gn9sos",
+    "userId": "cmm9yc1nx000sm29qq8qeoai9",
+    "ledgerId": "prayer_2026-03-10",
+    "type": "prayer",
+    "dateId": "2026-03-10",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-10T14:35:27.665Z"
+  },
+  {
+    "id": "cmmm7a7x0003mm2o90bllggwm",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "prayer_2026-03-11",
+    "type": "prayer",
+    "dateId": "2026-03-11",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-11T15:35:11.508Z"
+  },
+  {
+    "id": "cmmm7fl3r000zm28me0g8xxpa",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "share_2026-03-11_1",
+    "type": "share",
+    "dateId": "2026-03-11",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-11T15:39:21.879Z"
+  },
+  {
+    "id": "cmmnp7tdn000zm2703423w0y1",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_request_2026-03-12",
+    "type": "prayer_request",
+    "dateId": "2026-03-12",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"peace\"}",
+    "createdAt": "2026-03-12T16:44:58.619Z"
+  },
+  {
+    "id": "cmmnp7u8k0011m270wn3gijw5",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayed_community_2026-03-12",
+    "type": "prayed_community",
+    "dateId": "2026-03-12",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-12T16:44:59.732Z"
+  },
+  {
+    "id": "cmmnpknz8003cm270c9ahl6ug",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "share_2026-03-12_1",
+    "type": "share",
+    "dateId": "2026-03-12",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-12T16:54:58.148Z"
+  },
+  {
+    "id": "cmmnpltrk003hm270nmvhtj3n",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-03-12",
+    "type": "prayer",
+    "dateId": "2026-03-12",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-12T16:55:52.305Z"
+  },
+  {
+    "id": "cmmo0gg2r000vm22nucm43r0p",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773352777058",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 25000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmo0g76o000qm22nwx6s0da9\"}",
+    "createdAt": "2026-03-12T21:59:37.059Z"
+  },
+  {
+    "id": "cmmo0ik1t0011m22nb57nlljy",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773352875521",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 10000,
+    "metadata": "{\"reason\":\"Te queremos\",\"giftDropId\":\"cmmo0hbem000wm22nfwor2m0u\"}",
+    "createdAt": "2026-03-12T22:01:15.521Z"
+  },
+  {
+    "id": "cmmo3i08e0025m29bupgcvol2",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773357888685",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 5000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmo3hv9w001qm29be5lxv1gn\"}",
+    "createdAt": "2026-03-12T23:24:48.686Z"
+  },
+  {
+    "id": "cmmo4lqy9000rm27iyph4ngeu",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773359742897",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 5000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmo4kd2o000mm27i3w9x5pka\"}",
+    "createdAt": "2026-03-12T23:55:42.897Z"
+  },
+  {
+    "id": "cmmo5jg7n002em2at3dpl7w1c",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "prayer_2026-03-13",
+    "type": "prayer",
+    "dateId": "2026-03-13",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-13T00:21:55.283Z"
+  },
+  {
+    "id": "cmmo5op8c002um2atxm1zuz0h",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "prayer_request_2026-03-12",
+    "type": "prayer_request",
+    "dateId": "2026-03-12",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"peace\"}",
+    "createdAt": "2026-03-13T00:26:00.253Z"
+  },
+  {
+    "id": "cmmo5oq91002wm2atm0v8d074",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "prayed_community_2026-03-12",
+    "type": "prayed_community",
+    "dateId": "2026-03-12",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-13T00:26:01.573Z"
+  },
+  {
+    "id": "cmmp6pr35000rm2qfazerpi29",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-03-13",
+    "type": "prayer",
+    "dateId": "2026-03-13",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-13T17:42:35.105Z"
+  },
+  {
+    "id": "cmmpdfdr10018m26t184g4hy5",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "ledgerId": "gift_claim_cmmpdddxo000rm26toly84eiw_1773435028572",
+    "type": "admin_grant",
+    "dateId": "2026-03-13",
+    "amount": 50000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmpdf6vb0013m26t6icj8eh6\"}",
+    "createdAt": "2026-03-13T20:50:28.573Z"
   }
 ]
