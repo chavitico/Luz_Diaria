@@ -192,6 +192,13 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
+          name="duelo/pregame"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="duelo/lobby"
           options={{
             presentation: 'card',

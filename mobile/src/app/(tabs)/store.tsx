@@ -4953,7 +4953,7 @@ export default function StoreScreen() {
           onlineCount={onlineCount}
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-            router.push('/duelo/lobby' as any);
+            router.push('/duelo/pregame' as any);
           }}
         />
 
