@@ -2289,3 +2289,16 @@ export const CATEGORY_LABELS_ES: Record<DuelCategory, string> = {
   antiguo_testamento: 'Antiguo Testamento',
   nuevo_testamento: 'Nuevo Testamento',
 };
+
+/**
+ * Look up questions by their IDs in order.
+ * Used in human matches where question IDs come from the backend/opponent.
+ * If an ID is not found it is silently skipped.
+ */
+export function getDuelQuestionsByIds(ids: string[]): DuelQuestion[] {
+  const map = new Map(DUEL_QUESTIONS.map((q) => [q.id, q]));
+  return ids.flatMap((id) => {
+    const q = map.get(id);
+    return q ? [q] : [];
+  });
+}

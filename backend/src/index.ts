@@ -21,6 +21,7 @@ import { imageGenRouter } from "./routes/image-gen";
 import { testimoniesRouter } from "./routes/testimonies";
 import { commentsRouter } from "./routes/comments";
 import { duelRouter } from "./routes/duel";
+import { queueRouter } from "./routes/duel-queue";
 import { startDevotionalCron } from "./cron";
 import { initializeWeeklyChallenges } from "./weekly-challenges";
 import { seedPromoCodes } from "./seed-promo-codes";
@@ -101,6 +102,7 @@ app.route("/api/image-gen", imageGenRouter);
 app.route("/api/testimonies", testimoniesRouter);
 app.route("/api/comments", commentsRouter);
 app.route("/api/duel", duelRouter);
+app.route("/api/duel/queue", queueRouter);
 
 // Bootstrap endpoint — seed the full store item catalog.
 // Protected by the same hardcoded secret token.

@@ -317,6 +317,177 @@ duelRouter.get("/ranking/:userId", async (c) => {
   }
 });
 
+// ─── POST /api/duel/round-answer ───────────────────────────────────────────────
+// Called by each player when they pick an answer (or time out).
+// Idempotent: upserts the answer so re-submits are safe.
+duelRouter.post(
+  "/round-answer",
+  zValidator(
+    "json",
+    z.object({
+      matchId: z.string(),
+      userId: z.string(),
+      questionIndex: z.number().int().min(0),
+      answerIndex: z.number().int().min(-1).max(3), // -1 = timeout
+      isCorrect: z.boolean(),
+    })
+  ),
+  async (c) => {
+    const { matchId, userId, questionIndex, answerIndex, isCorrect } = c.req.valid("json");
+
+    try {
+      const match = await prisma.duelMatch.findUnique({ where: { id: matchId } });
+      if (!match) return c.json({ error: "Match not found" }, 404);
+
+      // Upsert the answer (idempotent)
+      await prisma.duelRoundAnswer.upsert({
+        where: { matchId_userId_questionIndex: { matchId, userId, questionIndex } },
+        create: { matchId, userId, questionIndex, answerIndex, isCorrect },
+        update: { answerIndex, isCorrect, answeredAt: new Date() },
+      });
+
+      // Update heartbeat / last-seen for disconnect detection
+      const isPlayer1 = match.player1UserId === userId;
+      await prisma.duelMatch.update({
+        where: { id: matchId },
+        data: isPlayer1
+          ? { player1LastSeen: new Date() }
+          : { player2LastSeen: new Date() },
+      });
+
+      return c.json({ ok: true });
+    } catch (err) {
+      console.error("[Duel] Error submitting round answer:", err);
+      return c.json({ error: "Failed to submit answer" }, 500);
+    }
+  }
+);
+
+// ─── GET /api/duel/round-result/:matchId/:questionIndex ────────────────────────
+// Long-poll endpoint: returns 'pending' until both answers are in (or auto-resolves
+// after 38 s when one player has answered and the other hasn't).
+duelRouter.get("/round-result/:matchId/:questionIndex", async (c) => {
+  const matchId = c.req.param("matchId");
+  const questionIndex = parseInt(c.req.param("questionIndex"), 10);
+
+  try {
+    const match = await prisma.duelMatch.findUnique({ where: { id: matchId } });
+    if (!match) return c.json({ error: "Match not found" }, 404);
+
+    const answers = await prisma.duelRoundAnswer.findMany({
+      where: { matchId, questionIndex },
+    });
+
+    const p1Answer = answers.find((a) => a.userId === match.player1UserId);
+    const p2Answer = answers.find((a) => a.userId === match.player2UserId);
+
+    // Helper to build resolved result
+    const resolve = (
+      p1: { answerIndex: number; isCorrect: boolean } | null,
+      p2: { answerIndex: number; isCorrect: boolean } | null
+    ) => {
+      const p1Correct = p1?.isCorrect ?? false;
+      const p2Correct = p2?.isCorrect ?? false;
+      let roundWinner: "player1" | "player2" | "draw";
+      if (p1Correct && !p2Correct) roundWinner = "player1";
+      else if (!p1Correct && p2Correct) roundWinner = "player2";
+      else roundWinner = "draw";
+
+      return c.json({
+        status: "resolved",
+        player1Answer: p1?.answerIndex ?? -1,
+        player2Answer: p2?.answerIndex ?? -1,
+        player1Correct: p1Correct,
+        player2Correct: p2Correct,
+        roundWinner,
+      });
+    };
+
+    if (p1Answer && p2Answer) {
+      // Both answered — resolve immediately
+      return resolve(p1Answer, p2Answer);
+    }
+
+    // Only one answered — check timeout (38 s)
+    const firstAnswer = p1Answer ?? p2Answer;
+    if (firstAnswer) {
+      const elapsed = Date.now() - firstAnswer.answeredAt.getTime();
+      if (elapsed > 38_000) {
+        // Auto-fill the missing answer as a timeout (-1, incorrect)
+        const missingUserId = p1Answer ? match.player2UserId : match.player1UserId;
+        await prisma.duelRoundAnswer.upsert({
+          where: { matchId_userId_questionIndex: { matchId, userId: missingUserId, questionIndex } },
+          create: { matchId, userId: missingUserId, questionIndex, answerIndex: -1, isCorrect: false },
+          update: { answerIndex: -1, isCorrect: false },
+        });
+        return resolve(
+          p1Answer ?? { answerIndex: -1, isCorrect: false },
+          p2Answer ?? { answerIndex: -1, isCorrect: false }
+        );
+      }
+    }
+
+    return c.json({ status: "pending" });
+  } catch (err) {
+    console.error("[Duel] Error fetching round result:", err);
+    return c.json({ error: "Failed to fetch round result" }, 500);
+  }
+});
+
+// ─── POST /api/duel/heartbeat ──────────────────────────────────────────────────
+// Called every ~5 s by each player while the match is active.
+// Updates last-seen, and flags when opponent has gone silent > 20 s.
+duelRouter.post(
+  "/heartbeat",
+  zValidator(
+    "json",
+    z.object({
+      matchId: z.string(),
+      userId: z.string(),
+    })
+  ),
+  async (c) => {
+    const { matchId, userId } = c.req.valid("json");
+
+    try {
+      const match = await prisma.duelMatch.findUnique({ where: { id: matchId } });
+      if (!match) return c.json({ error: "Match not found" }, 404);
+
+      if (match.status !== "in_progress") {
+        return c.json({ opponentConnected: false, matchStatus: match.status });
+      }
+
+      const isPlayer1 = match.player1UserId === userId;
+
+      // Update caller's last-seen
+      const updatedMatch = await prisma.duelMatch.update({
+        where: { id: matchId },
+        data: isPlayer1
+          ? { player1LastSeen: new Date() }
+          : { player2LastSeen: new Date() },
+      });
+
+      // Check opponent's last-seen
+      const opponentLastSeen = isPlayer1
+        ? updatedMatch.player2LastSeen
+        : updatedMatch.player1LastSeen;
+
+      const DISCONNECT_TIMEOUT_MS = 20_000;
+      const opponentConnected =
+        opponentLastSeen !== null &&
+        Date.now() - opponentLastSeen.getTime() < DISCONNECT_TIMEOUT_MS;
+
+      return c.json({
+        opponentConnected,
+        matchStatus: updatedMatch.status,
+      });
+    } catch (err) {
+      console.error("[Duel] Error in heartbeat:", err);
+      return c.json({ error: "Heartbeat failed" }, 500);
+    }
+  }
+);
+
 // ─── GET /api/duel/online-count ────────────────────────────────────────────────
 // Returns the number of users active in the last 5 minutes.
 // Used by the Home duel card to show live player count.

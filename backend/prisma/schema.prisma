@@ -613,20 +613,51 @@ model CardTrade {
 
 // Duelo de Sabiduría — Bible trivia duel matches
 model DuelMatch {
-  id             String    @id @default(cuid())
-  player1UserId  String
-  player2UserId  String    // Can be user ID or "bot:juanito" for bot matches
-  status         String    @default("in_progress") // in_progress | completed | abandoned
-  questions      String    @default("[]") // JSON: array of question IDs used
-  player1Score   Int       @default(0)
-  player2Score   Int       @default(0)
-  winnerUserId   String?   // userId of winner, or "bot:juanito", or null for draw
-  pointsAwarded  Int       @default(0)
-  ratingChange   Int       @default(0)  // rating delta for player1 on this match
-  isBotMatch     Boolean   @default(false)
-  createdAt      DateTime  @default(now())
-  completedAt    DateTime?
+  id              String    @id @default(cuid())
+  player1UserId   String
+  player2UserId   String    // Can be user ID or "bot:juanito" for bot matches
+  status          String    @default("in_progress") // in_progress | completed | abandoned
+  questions       String    @default("[]") // JSON: array of question IDs used
+  player1Score    Int       @default(0)
+  player2Score    Int       @default(0)
+  winnerUserId    String?   // userId of winner, or "bot:juanito", or null for draw
+  pointsAwarded   Int       @default(0)
+  ratingChange    Int       @default(0)  // rating delta for player1 on this match
+  isBotMatch      Boolean   @default(false)
+  // Disconnect detection for human matches
+  player1LastSeen DateTime?
+  player2LastSeen DateTime?
+  createdAt       DateTime  @default(now())
+  completedAt     DateTime?
 
   @@index([player1UserId])
   @@index([status])
+}
+
+// Matchmaking queue entry — one per user waiting for a human opponent
+model DuelQueue {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  duelRating  Int      @default(1000)
+  questionIds String   @default("[]") // JSON: question IDs chosen by this player
+  status      String   @default("waiting") // waiting | matched | cancelled
+  matchId     String?  // set once matched
+  joinedAt    DateTime @default(now())
+
+  @@index([status])
+  @@index([joinedAt])
+}
+
+// Per-round answers for human vs human matches
+model DuelRoundAnswer {
+  id            String   @id @default(cuid())
+  matchId       String
+  userId        String
+  questionIndex Int
+  answerIndex   Int      // -1 = timed out (no answer)
+  isCorrect     Boolean  @default(false) // did this answer match the correct option?
+  answeredAt    DateTime @default(now())
+
+  @@unique([matchId, userId, questionIndex])
+  @@index([matchId, questionIndex])
 }
