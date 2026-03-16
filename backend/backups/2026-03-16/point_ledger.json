@@ -2318,5 +2318,15 @@
     "amount": 5,
     "metadata": "{}",
     "createdAt": "2026-03-16T05:45:24.443Z"
+  },
+  {
+    "id": "cmmsrfkzr006xm2dl9psl27mk",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "share_2026-03-16_1",
+    "type": "share",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-16T05:45:51.111Z"
   }
 ]
