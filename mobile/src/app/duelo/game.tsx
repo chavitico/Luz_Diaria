@@ -1,7 +1,7 @@
 // Duelo de Sabiduría — Game Screen
 // Two-player Bible trivia duel with bot opponent
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, memo } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -42,6 +42,178 @@ interface QuestionResult {
 }
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
+
+// ─── AnswerCard ────────────────────────────────────────────────────────────────
+type AnswerCardState = 'default' | 'selected' | 'correct' | 'wrong' | 'dimmed';
+
+const AnswerCard = memo(function AnswerCard({
+  index,
+  option,
+  state,
+  showBotDot,
+  botCorrect,
+  disabled,
+  onPress,
+}: {
+  index: number;
+  option: string;
+  state: AnswerCardState;
+  showBotDot: boolean;
+  botCorrect: boolean;
+  disabled: boolean;
+  onPress: () => void;
+}) {
+  const scale = useSharedValue(1);
+  const cardStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  const handlePressIn = () => {
+    if (!disabled) scale.value = withSpring(0.965, { damping: 18, stiffness: 280 });
+  };
+  const handlePressOut = () => {
+    scale.value = withSpring(1, { damping: 18, stiffness: 280 });
+  };
+
+  // ── derive visual tokens from state ──────────────────────────────────────────
+  const cardBg =
+    state === 'correct'  ? 'rgba(104,211,145,0.13)' :
+    state === 'wrong'    ? 'rgba(252,129,129,0.11)'  :
+    state === 'selected' ? 'rgba(99,179,237,0.11)'   :
+    'rgba(255,255,255,0.045)';
+
+  const cardBorder =
+    state === 'correct'  ? 'rgba(104,211,145,0.55)' :
+    state === 'wrong'    ? 'rgba(252,129,129,0.5)'   :
+    state === 'selected' ? 'rgba(99,179,237,0.5)'    :
+    state === 'dimmed'   ? 'rgba(255,255,255,0.05)'  :
+    'rgba(255,255,255,0.1)';
+
+  const textColor =
+    state === 'correct'  ? '#68D391' :
+    state === 'wrong'    ? '#FC8181' :
+    state === 'selected' ? '#93C5FD' :
+    state === 'dimmed'   ? 'rgba(255,255,255,0.28)' :
+    'rgba(255,255,255,0.92)';
+
+  const badgeBg =
+    state === 'correct'  ? 'rgba(104,211,145,0.22)' :
+    state === 'wrong'    ? 'rgba(252,129,129,0.22)'  :
+    state === 'selected' ? 'rgba(99,179,237,0.22)'   :
+    state === 'dimmed'   ? 'rgba(255,255,255,0.04)'  :
+    'rgba(255,255,255,0.09)';
+
+  const badgeBorder =
+    state === 'correct'  ? 'rgba(104,211,145,0.45)' :
+    state === 'wrong'    ? 'rgba(252,129,129,0.4)'   :
+    state === 'selected' ? 'rgba(99,179,237,0.4)'    :
+    'rgba(255,255,255,0.08)';
+
+  const badgeTextColor =
+    state === 'correct'  ? '#68D391' :
+    state === 'wrong'    ? '#FC8181' :
+    state === 'selected' ? '#93C5FD' :
+    state === 'dimmed'   ? 'rgba(255,255,255,0.2)'  :
+    'rgba(255,255,255,0.7)';
+
+  // ── badge icon ────────────────────────────────────────────────────────────────
+  const BadgeContent = () => {
+    if (state === 'correct') return <Check size={16} color="#68D391" strokeWidth={2.5} />;
+    if (state === 'wrong')   return <X     size={16} color="#FC8181" strokeWidth={2.5} />;
+    return (
+      <Text style={{ fontSize: 13, fontWeight: '800', color: badgeTextColor, letterSpacing: 0.2 }}>
+        {OPTION_LABELS[index]}
+      </Text>
+    );
+  };
+
+  return (
+    <Animated.View
+      entering={FadeInDown.delay(index * 55).duration(260)}
+      style={[cardStyle, { opacity: state === 'dimmed' ? 0.45 : 1 }]}
+    >
+      <Pressable
+        onPress={onPress}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        disabled={disabled}
+        style={{
+          backgroundColor: cardBg,
+          borderRadius: 18,
+          borderWidth: 1.5,
+          borderColor: cardBorder,
+          paddingVertical: 17,
+          paddingHorizontal: 16,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 13,
+          // iOS shadow for lifted card feel
+          shadowColor: state === 'correct' ? '#68D391' : state === 'wrong' ? '#FC8181' : '#63B3ED',
+          shadowOffset: { width: 0, height: state !== 'default' && state !== 'dimmed' ? 4 : 2 },
+          shadowOpacity: state !== 'default' && state !== 'dimmed' ? 0.18 : 0.06,
+          shadowRadius: 10,
+        }}
+      >
+        {/* Letter badge */}
+        <View
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: 11,
+            backgroundColor: badgeBg,
+            borderWidth: 1,
+            borderColor: badgeBorder,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          <BadgeContent />
+        </View>
+
+        {/* Option text */}
+        <Text
+          style={{
+            flex: 1,
+            fontSize: 15,
+            fontWeight: state === 'default' || state === 'dimmed' ? '500' : '700',
+            color: textColor,
+            lineHeight: 22,
+          }}
+        >
+          {option}
+        </Text>
+
+        {/* Right side: player dot + bot dot */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+          {(state === 'selected' || state === 'correct' || state === 'wrong') && (
+            <View
+              style={{
+                width: 9,
+                height: 9,
+                borderRadius: 5,
+                backgroundColor:
+                  state === 'correct' ? '#68D391' :
+                  state === 'wrong'   ? '#FC8181' :
+                  '#63B3ED',
+              }}
+            />
+          )}
+          {showBotDot && (
+            <View
+              style={{
+                width: 9,
+                height: 9,
+                borderRadius: 5,
+                backgroundColor: botCorrect ? '#68D391' : '#FC8181',
+                opacity: 0.8,
+              }}
+            />
+          )}
+        </View>
+      </Pressable>
+    </Animated.View>
+  );
+});
+
 
 export default function DueloGame() {
   const router = useRouter();
@@ -559,105 +731,38 @@ export default function DueloGame() {
           </Animated.View>
 
           {/* Answer options */}
-          <View style={{ gap: 10 }}>
+          <View style={{ gap: 11 }}>
             {currentQuestion.options.map((option, index) => {
               const isPlayerChoice = playerAnswer === index;
-              const isBotChoice = botAnswer === index;
-              const isCorrect = index === currentQuestion.correctIndex;
-              const showReveal = phase === 'reveal';
+              const isBotChoice    = botAnswer === index;
+              const isCorrect      = index === currentQuestion.correctIndex;
+              const showReveal     = phase === 'reveal';
+              const anyAnswered    = playerAnswer !== null;
 
-              let borderColor = 'rgba(255,255,255,0.1)';
-              let bgColor = 'rgba(255,255,255,0.04)';
-              let textColor = '#FFFFFF';
-
+              let cardState: AnswerCardState;
               if (showReveal) {
-                if (isCorrect) {
-                  bgColor = 'rgba(104,211,145,0.12)';
-                  borderColor = 'rgba(104,211,145,0.4)';
-                  textColor = '#68D391';
-                } else if (isPlayerChoice && !isCorrect) {
-                  bgColor = 'rgba(252,129,129,0.1)';
-                  borderColor = 'rgba(252,129,129,0.35)';
-                  textColor = '#FC8181';
-                }
+                if (isCorrect)                   cardState = 'correct';
+                else if (isPlayerChoice)          cardState = 'wrong';
+                else                              cardState = 'dimmed';
               } else if (isPlayerChoice) {
-                bgColor = 'rgba(99,179,237,0.12)';
-                borderColor = 'rgba(99,179,237,0.4)';
-                textColor = '#63B3ED';
+                cardState = 'selected';
+              } else if (anyAnswered) {
+                cardState = 'dimmed';
+              } else {
+                cardState = 'default';
               }
 
               return (
-                <Animated.View key={index} entering={FadeInDown.delay(index * 60).duration(250)}>
-                  <Pressable
-                    onPress={() => handleAnswer(index)}
-                    disabled={phase !== 'question' || playerAnswer !== null}
-                    style={({ pressed }) => ({
-                      backgroundColor: pressed && phase === 'question' ? 'rgba(99,179,237,0.08)' : bgColor,
-                      borderRadius: 14,
-                      borderWidth: 1.5,
-                      borderColor,
-                      padding: 16,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 12,
-                      opacity: phase === 'question' && playerAnswer !== null && !isPlayerChoice ? 0.5 : 1,
-                    })}
-                  >
-                    {/* Label badge */}
-                    <View
-                      style={{
-                        width: 28,
-                        height: 28,
-                        borderRadius: 8,
-                        backgroundColor: showReveal && isCorrect
-                          ? 'rgba(104,211,145,0.2)'
-                          : isPlayerChoice
-                          ? 'rgba(99,179,237,0.2)'
-                          : 'rgba(255,255,255,0.08)',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      {showReveal && isCorrect ? (
-                        <Check size={14} color="#68D391" />
-                      ) : showReveal && isPlayerChoice && !isCorrect ? (
-                        <X size={14} color="#FC8181" />
-                      ) : (
-                        <Text style={{ fontSize: 12, fontWeight: '800', color: 'rgba(255,255,255,0.6)' }}>
-                          {OPTION_LABELS[index]}
-                        </Text>
-                      )}
-                    </View>
-
-                    <Text style={{ flex: 1, fontSize: 14, fontWeight: '600', color: textColor, lineHeight: 20 }}>
-                      {option}
-                    </Text>
-
-                    {/* Indicator dots for who chose this */}
-                    <View style={{ flexDirection: 'row', gap: 4 }}>
-                      {isPlayerChoice && (
-                        <View
-                          style={{
-                            width: 8,
-                            height: 8,
-                            borderRadius: 4,
-                            backgroundColor: showReveal && !isCorrect ? '#FC8181' : '#63B3ED',
-                          }}
-                        />
-                      )}
-                      {isBotChoice && phase === 'reveal' && (
-                        <View
-                          style={{
-                            width: 8,
-                            height: 8,
-                            borderRadius: 4,
-                            backgroundColor: isCorrect ? '#68D391' : '#FC8181',
-                          }}
-                        />
-                      )}
-                    </View>
-                  </Pressable>
-                </Animated.View>
+                <AnswerCard
+                  key={index}
+                  index={index}
+                  option={option}
+                  state={cardState}
+                  showBotDot={isBotChoice && showReveal}
+                  botCorrect={isCorrect}
+                  disabled={phase !== 'question' || anyAnswered}
+                  onPress={() => handleAnswer(index)}
+                />
               );
             })}
           </View>
