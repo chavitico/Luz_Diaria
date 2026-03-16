@@ -557,11 +557,13 @@ duelRouter.post(
 duelRouter.get("/leaderboard", async (c) => {
   const limitParam = parseInt(c.req.query("limit") ?? "100", 10);
   const limit = Math.min(Math.max(1, isNaN(limitParam) ? 100 : limitParam), 200);
+  const country = c.req.query("country") ?? null; // ISO 3166-1 alpha-2, e.g. "MX"
 
   try {
     const players = await prisma.user.findMany({
       where: {
-        duelWins: { gt: 0 }, // only show players who have played at least once
+        duelWins: { gt: 0 },
+        ...(country ? { countryCode: country } : {}),
       },
       orderBy: [
         { duelRating: "desc" },

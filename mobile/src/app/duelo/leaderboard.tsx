@@ -1,7 +1,7 @@
 // Duelo de Sabiduría — Leaderboard Screen
 // Shows top duelists sorted by rating. Global ranking only.
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -20,6 +20,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useUser } from '@/lib/store';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import { SPIRITUAL_TITLES, DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
+import { countryCodeToFlag } from '@/components/CountryPicker';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -378,14 +379,35 @@ export default function DueloLeaderboard() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const user = useUser();
+  const [tab, setTab] = useState<'global' | 'local'>('global');
+
+  // Fetch user's country code from backend
+  const { data: countryData } = useQuery<{ countryCode: string | null; showCountry: boolean }>({
+    queryKey: ['user-country', user?.id],
+    queryFn: async () => {
+      if (!user?.id) return { countryCode: null, showCountry: false };
+      const res = await fetch(`${BACKEND_URL}/api/gamification/user/${user.id}/country`);
+      if (!res.ok) return { countryCode: null, showCountry: false };
+      return res.json();
+    },
+    enabled: !!user?.id,
+    staleTime: 5 * 60_000,
+  });
+
+  const userCountryCode = countryData?.countryCode ?? null;
 
   const { data, isLoading, isError, refetch, isFetching } = useQuery<LeaderboardResponse>({
-    queryKey: ['duel-leaderboard'],
+    queryKey: ['duel-leaderboard', tab, userCountryCode],
     queryFn: async () => {
-      const res = await fetch(`${BACKEND_URL}/api/duel/leaderboard?limit=100`);
+      const params = new URLSearchParams({ limit: '100' });
+      if (tab === 'local' && userCountryCode) {
+        params.set('country', userCountryCode);
+      }
+      const res = await fetch(`${BACKEND_URL}/api/duel/leaderboard?${params.toString()}`);
       if (!res.ok) throw new Error('Failed to fetch leaderboard');
       return res.json();
     },
+    enabled: tab === 'global' || !!userCountryCode,
     staleTime: 60_000,
   });
 
@@ -510,32 +532,79 @@ export default function DueloLeaderboard() {
           <View style={{ width: 38 }} />
         </View>
 
-        {/* Global badge */}
+        {/* Tab switcher */}
         <Animated.View
           entering={ZoomIn.delay(200).duration(400)}
-          style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}
+          style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20, paddingHorizontal: 20 }}
         >
-          <View style={{
-            flexDirection: 'row', alignItems: 'center', gap: 5,
-            backgroundColor: 'rgba(99,179,237,0.1)',
-            borderRadius: 20, paddingHorizontal: 14, paddingVertical: 6,
-            borderWidth: 1, borderColor: 'rgba(99,179,237,0.2)',
-          }}>
-            <Trophy size={12} color="#63B3ED" />
-            <Text style={{ fontSize: 12, color: '#63B3ED', fontWeight: '700', letterSpacing: 0.4 }}>Global</Text>
-          </View>
+          {/* Global tab */}
+          <Pressable
+            onPress={() => { setTab('global'); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); }}
+            style={{
+              flexDirection: 'row', alignItems: 'center', gap: 6,
+              paddingHorizontal: 18, paddingVertical: 8,
+              borderRadius: 20,
+              backgroundColor: tab === 'global' ? 'rgba(99,179,237,0.18)' : 'rgba(255,255,255,0.04)',
+              borderWidth: 1.5,
+              borderColor: tab === 'global' ? 'rgba(99,179,237,0.4)' : 'rgba(255,255,255,0.08)',
+            }}
+          >
+            <Trophy size={12} color={tab === 'global' ? '#63B3ED' : 'rgba(255,255,255,0.3)'} />
+            <Text style={{ fontSize: 13, fontWeight: '700', color: tab === 'global' ? '#63B3ED' : 'rgba(255,255,255,0.3)', letterSpacing: 0.3 }}>
+              Global
+            </Text>
+          </Pressable>
+
+          {/* Local tab */}
+          <Pressable
+            onPress={() => {
+              if (!userCountryCode) return;
+              setTab('local');
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            }}
+            style={{
+              flexDirection: 'row', alignItems: 'center', gap: 6,
+              paddingHorizontal: 18, paddingVertical: 8,
+              borderRadius: 20,
+              backgroundColor: tab === 'local' ? 'rgba(104,211,145,0.15)' : 'rgba(255,255,255,0.04)',
+              borderWidth: 1.5,
+              borderColor: tab === 'local' ? 'rgba(104,211,145,0.35)' : 'rgba(255,255,255,0.08)',
+              opacity: userCountryCode ? 1 : 0.4,
+            }}
+          >
+            <Text style={{ fontSize: 14 }}>
+              {userCountryCode ? countryCodeToFlag(userCountryCode) : '🌍'}
+            </Text>
+            <Text style={{ fontSize: 13, fontWeight: '700', color: tab === 'local' ? '#68D391' : 'rgba(255,255,255,0.3)', letterSpacing: 0.3 }}>
+              Local
+            </Text>
+          </Pressable>
+
+          {/* Player count */}
           {!isLoading && data && (
             <View style={{
               backgroundColor: 'rgba(255,255,255,0.04)',
-              borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6,
-              borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)',
+              borderRadius: 20, paddingHorizontal: 10, paddingVertical: 6,
+              borderWidth: 1, borderColor: 'rgba(255,255,255,0.07)',
             }}>
-              <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', fontWeight: '600' }}>
-                {data.total} jugadores
+              <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', fontWeight: '600' }}>
+                {data.total}
               </Text>
             </View>
           )}
         </Animated.View>
+
+        {/* Local tab: prompt to set country if not configured */}
+        {tab === 'local' && !userCountryCode && (
+          <Animated.View
+            entering={FadeIn.duration(300)}
+            style={{ marginHorizontal: 20, marginBottom: 16, padding: 16, borderRadius: 16, backgroundColor: 'rgba(104,211,145,0.06)', borderWidth: 1, borderColor: 'rgba(104,211,145,0.15)', alignItems: 'center', gap: 6 }}
+          >
+            <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', textAlign: 'center', lineHeight: 20 }}>
+              Configura tu país en Ajustes para ver el ranking local
+            </Text>
+          </Animated.View>
+        )}
 
         {/* Loading */}
         {isLoading ? (
