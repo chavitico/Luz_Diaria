@@ -2088,5 +2088,55 @@
     "amount": 40,
     "metadata": "{\"matchId\":\"cmmsktq6b000wm2hntce3ytxx\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
     "createdAt": "2026-03-16T02:41:46.250Z"
+  },
+  {
+    "id": "cmmsm53xv0013m2ino5sa4j1a",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsm4vmg0011m2inncxtn07v",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsm4vmg0011m2inncxtn07v\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:17:44.372Z"
+  },
+  {
+    "id": "cmmsm6lhh0017m2in3eyj3ya1",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsm6d4m0015m2inz2cttrxf",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsm6d4m0015m2inz2cttrxf\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:18:53.765Z"
+  },
+  {
+    "id": "cmmsm9819001im2inrkfc2e65",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsm8voa001gm2in8aiiqs1c",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsm8voa001gm2in8aiiqs1c\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:20:56.301Z"
+  },
+  {
+    "id": "cmmsmb85a001mm2in5liz9s6i",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsm9laa001km2inw6jr0i1d",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsm9laa001km2inw6jr0i1d\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T03:22:29.759Z"
+  },
+  {
+    "id": "cmmsmfinj0028m2invzk4veoq",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsmfa8n0026m2inqssrgw9k",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsmfa8n0026m2inqssrgw9k\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:25:50.000Z"
   }
 ]

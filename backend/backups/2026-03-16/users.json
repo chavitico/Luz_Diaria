@@ -8,11 +8,11 @@
     "titleId": "title_god_is_love",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 36185,
+    "points": 36265,
     "streakCurrent": 37,
     "streakBest": 37,
     "devotionalsCompleted": 26,
-    "totalTimeSeconds": 172109,
+    "totalTimeSeconds": 172905,
     "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-16T02:56:19.322Z"
+    "updatedAt": "2026-03-16T03:30:42.413Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -83,12 +83,12 @@
     "titleId": "title_lord_my_refuge",
     "themeId": "theme_amanecer_dorado",
     "selectedMusicId": "music_free_1",
-    "points": 16693,
+    "points": 16783,
     "streakCurrent": 4,
     "streakBest": 4,
-    "devotionalsCompleted": 6,
-    "totalTimeSeconds": 17813,
-    "lastActiveAt": "2026-03-12T18:00:00.000Z",
+    "devotionalsCompleted": 7,
+    "totalTimeSeconds": 18952,
+    "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -97,7 +97,7 @@
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-13T00:18:55.920Z",
-    "updatedAt": "2026-03-13T01:51:43.841Z"
+    "updatedAt": "2026-03-16T03:34:31.356Z"
   },
   {
     "id": "cmmpdddxo000rm26toly84eiw",
