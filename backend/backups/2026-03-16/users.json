@@ -8,11 +8,11 @@
     "titleId": "title_god_is_love",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 36405,
+    "points": 36445,
     "streakCurrent": 37,
     "streakBest": 37,
     "devotionalsCompleted": 26,
-    "totalTimeSeconds": 174933,
+    "totalTimeSeconds": 175463,
     "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-16T05:25:52.161Z"
+    "updatedAt": "2026-03-16T05:45:26.627Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -58,11 +58,11 @@
     "titleId": "title_walk_by_faith",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 128,
+    "points": 151,
     "streakCurrent": 1,
     "streakBest": 11,
     "devotionalsCompleted": 16,
-    "totalTimeSeconds": 7191,
+    "totalTimeSeconds": 7280,
     "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -72,7 +72,7 @@
     "activeBadgeId": "badge_portador_esperanza",
     "deviceId": null,
     "createdAt": "2026-03-11T15:32:38.767Z",
-    "updatedAt": "2026-03-16T05:18:19.699Z"
+    "updatedAt": "2026-03-16T05:45:24.443Z"
   },
   {
     "id": "cmmo5fltc001um2atni8c6y21",
@@ -83,11 +83,11 @@
     "titleId": "title_lord_my_refuge",
     "themeId": "theme_amanecer_dorado",
     "selectedMusicId": "music_free_1",
-    "points": 16893,
+    "points": 16903,
     "streakCurrent": 4,
     "streakBest": 4,
     "devotionalsCompleted": 7,
-    "totalTimeSeconds": 22120,
+    "totalTimeSeconds": 22547,
     "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -97,7 +97,7 @@
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-13T00:18:55.920Z",
-    "updatedAt": "2026-03-16T05:29:43.996Z"
+    "updatedAt": "2026-03-16T05:40:36.695Z"
   },
   {
     "id": "cmmpdddxo000rm26toly84eiw",

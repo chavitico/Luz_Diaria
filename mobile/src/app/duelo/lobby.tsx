@@ -27,6 +27,7 @@ import { getDuelUsedQuestionIds } from '@/lib/duel-anti-repeat';
 import { getRandomBotName } from '@/lib/duel-bot-names';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import { SPIRITUAL_TITLES, DEFAULT_AVATARS } from '@/lib/constants';
+import { countryCodeToFlag } from '@/components/CountryPicker';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 const HUMAN_SEARCH_TIMEOUT_MS = 7000;
@@ -38,6 +39,7 @@ interface OpponentInfo {
   name: string;
   avatarId: string;
   titleId: string | null;
+  countryCode?: string | null;
 }
 
 function getAvatarEmoji(avatarId: string): string {
@@ -49,11 +51,13 @@ function IdentityCard({
   nickname,
   avatarId,
   titleId,
+  countryCode,
   isCurrentUser,
 }: {
   nickname: string;
   avatarId: string;
   titleId: string | null;
+  countryCode?: string | null;
   isCurrentUser: boolean;
 }) {
   const emoji = getAvatarEmoji(avatarId);
@@ -61,6 +65,7 @@ function IdentityCard({
   const borderColor = isCurrentUser ? 'rgba(99,179,237,0.6)' : 'rgba(246,173,85,0.6)';
   const glowColor = isCurrentUser ? 'rgba(99,179,237,0.12)' : 'rgba(246,173,85,0.1)';
   const nameColor = isCurrentUser ? '#63B3ED' : '#F6AD55';
+  const flagEmoji = countryCode ? countryCodeToFlag(countryCode) : null;
 
   return (
     <View style={{ alignItems: 'center', flex: 1, gap: 8 }}>
@@ -87,13 +92,18 @@ function IdentityCard({
         <IllustratedAvatar avatarId={avatarId} emoji={emoji} size={62} />
       </View>
 
-      {/* Nickname */}
-      <Text style={{
-        fontSize: 14, fontWeight: '800', color: '#FFFFFF',
-        letterSpacing: -0.2, textAlign: 'center',
-      }} numberOfLines={1}>
-        {nickname}
-      </Text>
+      {/* Nickname + flag */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, maxWidth: '100%' }}>
+        {flagEmoji ? (
+          <Text style={{ fontSize: 13 }}>{flagEmoji}</Text>
+        ) : null}
+        <Text style={{
+          fontSize: 14, fontWeight: '800', color: '#FFFFFF',
+          letterSpacing: -0.2, textAlign: 'center', flexShrink: 1,
+        }} numberOfLines={1}>
+          {nickname}
+        </Text>
+      </View>
 
       {/* Title badge */}
       {titleLabel ? (
@@ -118,7 +128,7 @@ function MatchFoundCards({
   currentUser,
   opponent,
 }: {
-  currentUser: { nickname: string; avatarId: string; titleId: string | null };
+  currentUser: { nickname: string; avatarId: string; titleId: string | null; countryCode?: string | null };
   opponent: OpponentInfo;
 }) {
   return (
@@ -134,6 +144,7 @@ function MatchFoundCards({
           nickname={currentUser.nickname}
           avatarId={currentUser.avatarId}
           titleId={currentUser.titleId}
+          countryCode={currentUser.countryCode}
           isCurrentUser
         />
 
@@ -155,6 +166,7 @@ function MatchFoundCards({
           nickname={opponent.name}
           avatarId={opponent.avatarId}
           titleId={opponent.titleId}
+          countryCode={opponent.countryCode}
           isCurrentUser={false}
         />
       </View>
@@ -171,6 +183,7 @@ export default function DueloLobby() {
   const [phase, setPhase] = useState<LobbyPhase>('searching');
   const [dotCount, setDotCount] = useState(1);
   const [opponentInfo, setOpponentInfo] = useState<OpponentInfo | null>(null);
+  const [myCountryCode, setMyCountryCode] = useState<string | null>(null);
 
   const cancelled = useRef(false);
   const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -178,6 +191,17 @@ export default function DueloLobby() {
   const dotIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const hasNavigatedRef = useRef(false);
   const questionIdsRef = useRef<string[]>([]);
+
+  // ── Fetch current user's country code ───────────────────────────────────────
+  useEffect(() => {
+    if (!user?.id) return;
+    fetchWithTimeout(`${BACKEND_URL}/api/gamification/user/${user.id}/country`, { method: 'GET' })
+      .then(r => r.ok ? r.json() : null)
+      .then((d: { countryCode?: string | null } | null) => {
+        if (d?.countryCode) setMyCountryCode(d.countryCode);
+      })
+      .catch(() => { /* silent */ });
+  }, [user?.id]);
 
   // ── Animations ─────────────────────────────────────────────────────────────
   const ring1Scale = useSharedValue(1);
@@ -235,7 +259,7 @@ export default function DueloLobby() {
 
     const botName = getRandomBotName();
 
-    setOpponentInfo({ name: botName, avatarId: 'avatar_dove', titleId: null });
+    setOpponentInfo({ name: botName, avatarId: 'avatar_dove', titleId: null, countryCode: null });
     setPhase('found_bot');
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
 
@@ -283,7 +307,7 @@ export default function DueloLobby() {
           rewardedDuelsLeft: String(rewardedDuelsLeft),
         });
       }, 800);
-    }, 1800);
+    }, 2500); // 2.5 s reveal → 0.8 s "¡Que comience!" → navigate
   }, [user, navigateToGame]);
 
   // ── Leave queue ──────────────────────────────────────────────────────────────
@@ -307,6 +331,7 @@ export default function DueloLobby() {
     opponentId?: string;
     opponentAvatarId?: string;
     opponentTitleId?: string | null;
+    opponentCountryCode?: string | null;
     questionIds?: string[];
     playerNumber?: number;
     userRating?: number;
@@ -317,6 +342,7 @@ export default function DueloLobby() {
       name: rivalName,
       avatarId: data.opponentAvatarId ?? 'avatar_dove',
       titleId: data.opponentTitleId ?? null,
+      countryCode: data.opponentCountryCode ?? null,
     });
     setPhase('found_human');
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -336,7 +362,7 @@ export default function DueloLobby() {
           rewardedDuelsLeft: String(data.rewardedDuelsLeft ?? 10),
         });
       }, 800);
-    }, 1500);
+    }, 2500); // 2.5 s reveal → 0.8 s "¡Que comience!" → navigate
   }, [navigateToGame]);
 
   // ── Poll queue status ────────────────────────────────────────────────────────
@@ -357,6 +383,7 @@ export default function DueloLobby() {
           opponentId?: string;
           opponentAvatarId?: string;
           opponentTitleId?: string | null;
+          opponentCountryCode?: string | null;
           questionIds?: string[];
           playerNumber?: number;
           userRating?: number;
@@ -428,6 +455,7 @@ export default function DueloLobby() {
             opponentId?: string;
             opponentAvatarId?: string;
             opponentTitleId?: string | null;
+            opponentCountryCode?: string | null;
             questionIds?: string[];
             playerNumber?: number;
             userRating?: number;
@@ -543,7 +571,7 @@ export default function DueloLobby() {
           {/* Identity cards when match found */}
           {showMatchCards && opponentInfo && (
             <MatchFoundCards
-              currentUser={{ nickname: myNickname, avatarId: myAvatarId, titleId: myTitleId }}
+              currentUser={{ nickname: myNickname, avatarId: myAvatarId, titleId: myTitleId, countryCode: myCountryCode }}
               opponent={opponentInfo}
             />
           )}

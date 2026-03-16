@@ -118,5 +118,20 @@
     "expiresAt": "2026-03-15T00:26:00.249Z",
     "createdAt": "2026-03-13T00:26:00.252Z",
     "updatedAt": "2026-03-13T00:26:00.252Z"
+  },
+  {
+    "id": "cmmsrezdd006rm2dl163bok7a",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "work",
+    "nickname": "Victoria",
+    "avatarId": "avatar_v3_paloma_luz",
+    "frameId": "frame_luz",
+    "titleId": "title_walk_by_faith",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-18T05:45:23.082Z",
+    "createdAt": "2026-03-16T05:45:23.090Z",
+    "updatedAt": "2026-03-16T05:45:23.090Z"
   }
 ]

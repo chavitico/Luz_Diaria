@@ -27,6 +27,7 @@ async function tryMatch(
   opponentName: string;
   opponentAvatarId: string;
   opponentTitleId: string | null;
+  opponentCountryCode: string | null;
   finalQuestionIds: string[];
   playerNumber: 2;
 } | { matched: false }> {
@@ -81,7 +82,7 @@ async function tryMatch(
       // Fetch opponent nickname + cosmetics
       const opponentUser = await tx.user.findUnique({
         where: { id: opponent.userId },
-        select: { nickname: true, avatarId: true, titleId: true },
+        select: { nickname: true, avatarId: true, titleId: true, countryCode: true },
       });
 
       return {
@@ -91,6 +92,7 @@ async function tryMatch(
         opponentName: opponentUser?.nickname ?? "Rival",
         opponentAvatarId: opponentUser?.avatarId ?? "avatar_dove",
         opponentTitleId: opponentUser?.titleId ?? null,
+        opponentCountryCode: opponentUser?.countryCode ?? null,
         finalQuestionIds,
         playerNumber: 2 as const,
       };
@@ -153,6 +155,7 @@ queueRouter.post(
           opponentId: result.opponentId,
           opponentAvatarId: result.opponentAvatarId,
           opponentTitleId: result.opponentTitleId,
+          opponentCountryCode: result.opponentCountryCode,
           questionIds: result.finalQuestionIds,
           playerNumber: result.playerNumber,
           userRating: user.duelRating,
@@ -191,7 +194,7 @@ queueRouter.get("/status/:userId", async (c) => {
       const [opponentUser, userRec] = await Promise.all([
         prisma.user.findUnique({
           where: { id: opponentId },
-          select: { nickname: true, avatarId: true, titleId: true },
+          select: { nickname: true, avatarId: true, titleId: true, countryCode: true },
         }),
         prisma.user.findUnique({
           where: { id: userId },
@@ -217,6 +220,7 @@ queueRouter.get("/status/:userId", async (c) => {
         opponentId,
         opponentAvatarId: opponentUser?.avatarId ?? "avatar_dove",
         opponentTitleId: opponentUser?.titleId ?? null,
+        opponentCountryCode: opponentUser?.countryCode ?? null,
         questionIds,
         playerNumber,
         userRating: userRec?.duelRating ?? 1000,
