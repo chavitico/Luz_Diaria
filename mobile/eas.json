@@ -15,10 +15,10 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_VIBECODE_BACKEND_URL": "https://unsealed-thirstily.vibecode.run",
         "EXPO_PUBLIC_APP_ENV": "prod",
         "BACKEND_URL": "https://unsealed-thirstily.vibecode.run",
-        "EXPO_PUBLIC_BACKEND_URL": "https://unsealed-thirstily.vibecode.run"
+        "EXPO_PUBLIC_BACKEND_URL": "https://unsealed-thirstily.vibecode.run",
+        "EXPO_PUBLIC_VIBECODE_BACKEND_URL": "https://unsealed-thirstily.vibecode.run"
       },
       "ios": {
         "distribution": "store"
