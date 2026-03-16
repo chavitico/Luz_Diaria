@@ -18,7 +18,7 @@ import Animated, {
   FadeIn,
   ZoomIn,
 } from 'react-native-reanimated';
-import { ChevronLeft, Swords, Trophy, Flame } from 'lucide-react-native';
+import { ChevronLeft, Swords, Trophy, Flame, BarChart2 } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useQuery } from '@tanstack/react-query';
 import { useAppStore, useUser } from '@/lib/store';
@@ -92,6 +92,11 @@ export default function DueloPregame() {
   const handleSearch = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     router.push('/duelo/lobby' as any);
+  };
+
+  const handleLeaderboard = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push('/duelo/leaderboard' as any);
   };
 
   const duelRating = ranking?.duelRating ?? 1000;
@@ -500,6 +505,27 @@ export default function DueloPregame() {
               </LinearGradient>
             </Pressable>
           </Animated.View>
+
+          {/* Ver ranking */}
+          <Pressable
+            onPress={handleLeaderboard}
+            style={{
+              paddingVertical: 14,
+              alignItems: 'center',
+              borderRadius: 16,
+              backgroundColor: 'rgba(99,179,237,0.08)',
+              borderWidth: 1,
+              borderColor: 'rgba(99,179,237,0.2)',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              gap: 8,
+            }}
+          >
+            <BarChart2 size={17} color="#63B3ED" />
+            <Text style={{ fontSize: 15, color: '#63B3ED', fontWeight: '700' }}>
+              Ver ranking
+            </Text>
+          </Pressable>
 
           {/* Back */}
           <Pressable
