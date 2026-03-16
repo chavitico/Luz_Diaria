@@ -8,11 +8,11 @@
     "titleId": "title_god_is_love",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 36445,
+    "points": 36485,
     "streakCurrent": 37,
     "streakBest": 37,
     "devotionalsCompleted": 26,
-    "totalTimeSeconds": 175699,
+    "totalTimeSeconds": 176050,
     "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-16T05:49:23.229Z"
+    "updatedAt": "2026-03-16T05:58:02.944Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -87,17 +87,17 @@
     "streakCurrent": 4,
     "streakBest": 4,
     "devotionalsCompleted": 7,
-    "totalTimeSeconds": 22547,
+    "totalTimeSeconds": 22973,
     "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
-    "countryCode": "CR",
+    "countryCode": "CA",
     "showCountry": true,
     "activeBadgeId": "badge_columna_comunidad",
     "deviceId": null,
     "createdAt": "2026-03-13T00:18:55.920Z",
-    "updatedAt": "2026-03-16T05:40:36.695Z"
+    "updatedAt": "2026-03-16T05:55:43.938Z"
   },
   {
     "id": "cmmpdddxo000rm26toly84eiw",
