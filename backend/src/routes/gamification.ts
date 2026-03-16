@@ -114,7 +114,7 @@ const equipSchema = z.object({
 
 const updateChallengeSchema = z.object({
   userId: z.string(),
-  type: z.enum(['devotional_complete', 'share', 'prayer']),
+  type: z.enum(['devotional_complete', 'share', 'prayer', 'duel_play', 'duel_win', 'duel_win_streak']),
 });
 
 const claimChallengeSchema = z.object({

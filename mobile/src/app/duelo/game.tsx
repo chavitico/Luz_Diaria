@@ -263,6 +263,7 @@ export default function DueloGame() {
   const [rewardLoading, setRewardLoading] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(3);
   const [opponentDisconnected, setOpponentDisconnected] = useState(false);
+  const [completedMissions, setCompletedMissions] = useState<{ titleEs: string; rewardPoints: number }[]>([]);
 
   // Stable refs for closures
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -344,10 +345,16 @@ export default function DueloGame() {
             pointsAwarded: number;
             newTotal: number;
             capReached?: boolean;
+            completedMissions?: { titleEs: string; rewardPoints: number }[];
           };
           setPointsAwarded(data.pointsAwarded);
           setCapReached(data.capReached ?? false);
           updateUser({ points: data.newTotal });
+          if (data.completedMissions && data.completedMissions.length > 0) {
+            setCompletedMissions(data.completedMissions);
+            // Invalidate weekly challenge progress cache so the store card refreshes
+            queryClient.invalidateQueries({ queryKey: ['challengeProgress'] });
+          }
         } else {
           updateUser({ points: (user.points ?? 0) + pts });
         }
@@ -766,6 +773,39 @@ export default function DueloGame() {
               </Text>
             )}
           </Animated.View>
+
+          {/* Completed missions banner */}
+          {completedMissions.length > 0 && (
+            <Animated.View
+              entering={FadeInDown.delay(600).duration(400)}
+              style={{ width: '100%', marginBottom: 16, gap: 8 }}
+            >
+              {completedMissions.map((m, i) => (
+                <View
+                  key={i}
+                  style={{
+                    flexDirection: 'row', alignItems: 'center', gap: 10,
+                    backgroundColor: 'rgba(246,173,85,0.12)',
+                    borderRadius: 14, paddingVertical: 11, paddingHorizontal: 16,
+                    borderWidth: 1, borderColor: 'rgba(246,173,85,0.3)',
+                  }}
+                >
+                  <Swords size={18} color="#F6AD55" />
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', fontWeight: '500' }}>
+                      Misión completada
+                    </Text>
+                    <Text style={{ fontSize: 14, color: '#F6AD55', fontWeight: '700' }}>
+                      {m.titleEs}
+                    </Text>
+                  </View>
+                  <Text style={{ fontSize: 14, fontWeight: '800', color: '#F6AD55' }}>
+                    +{m.rewardPoints}
+                  </Text>
+                </View>
+              ))}
+            </Animated.View>
+          )}
 
           {/* Actions */}
           <Animated.View entering={FadeInDown.delay(700).duration(400)} style={{ width: '100%', gap: 12 }}>

@@ -30,6 +30,7 @@ export function getWeekEnd(): Date {
 
 // Challenge templates
 const CHALLENGE_TEMPLATES = [
+  // ── Traditional challenges ──────────────────────────────────────────────────
   {
     type: 'devotional_complete',
     goalCount: 5,
@@ -86,6 +87,82 @@ const CHALLENGE_TEMPLATES = [
   },
 ];
 
+// Duel challenge templates — always included every week (2 selected)
+const DUEL_CHALLENGE_TEMPLATES = [
+  {
+    type: 'duel_play',
+    goalCount: 1,
+    rewardPoints: 50,
+    titleEn: 'First Duel',
+    titleEs: 'Primer Duelo',
+    descriptionEn: 'Play your first duel this week',
+    descriptionEs: 'Juega tu primer duelo esta semana',
+  },
+  {
+    type: 'duel_play',
+    goalCount: 5,
+    rewardPoints: 120,
+    titleEn: 'Biblical Training',
+    titleEs: 'Entrenamiento Bíblico',
+    descriptionEn: 'Play 5 duels this week',
+    descriptionEs: 'Juega 5 duelos esta semana',
+  },
+  {
+    type: 'duel_win',
+    goalCount: 3,
+    rewardPoints: 150,
+    titleEn: 'Apprentice Duelist',
+    titleEs: 'Duelista Aprendiz',
+    descriptionEn: 'Win 3 duels this week',
+    descriptionEs: 'Gana 3 duelos esta semana',
+  },
+  {
+    type: 'duel_play',
+    goalCount: 10,
+    rewardPoints: 200,
+    titleEn: 'Knowledge in Action',
+    titleEs: 'Conocimiento en Acción',
+    descriptionEn: 'Play 10 duels this week',
+    descriptionEs: 'Juega 10 duelos esta semana',
+  },
+  {
+    type: 'duel_win',
+    goalCount: 5,
+    rewardPoints: 250,
+    titleEn: 'Biblical Strategist',
+    titleEs: 'Estratega Bíblico',
+    descriptionEn: 'Win 5 duels this week',
+    descriptionEs: 'Gana 5 duelos esta semana',
+  },
+  {
+    type: 'duel_win_streak',
+    goalCount: 3,
+    rewardPoints: 300,
+    titleEn: 'Wisdom Streak',
+    titleEs: 'Racha de Sabiduría',
+    descriptionEn: 'Win 3 duels in a row',
+    descriptionEs: 'Gana 3 duelos consecutivos',
+  },
+  {
+    type: 'duel_play',
+    goalCount: 20,
+    rewardPoints: 350,
+    titleEn: 'Duel Master',
+    titleEs: 'Maestro del Duelo',
+    descriptionEn: 'Play 20 duels this week',
+    descriptionEs: 'Juega 20 duelos esta semana',
+  },
+  {
+    type: 'duel_win',
+    goalCount: 10,
+    rewardPoints: 500,
+    titleEn: 'Weekly Champion',
+    titleEs: 'Campeón Semanal',
+    descriptionEn: 'Win 10 duels this week',
+    descriptionEs: 'Gana 10 duelos esta semana',
+  },
+];
+
 export async function generateWeeklyChallenges(): Promise<void> {
   const weekId = getCurrentWeekId();
   const startDate = getWeekStart();
@@ -103,18 +180,32 @@ export async function generateWeeklyChallenges(): Promise<void> {
     return;
   }
 
-  // Select 2 random challenges (different types if possible)
-  const shuffled = [...CHALLENGE_TEMPLATES].sort(() => Math.random() - 0.5);
-  const selected: typeof CHALLENGE_TEMPLATES = [];
-  const usedTypes = new Set<string>();
+  // Select 2 traditional (different types) + 2 duel (different types) = 4 total
+  const shuffledTraditional = [...CHALLENGE_TEMPLATES].sort(() => Math.random() - 0.5);
+  const shuffledDuel = [...DUEL_CHALLENGE_TEMPLATES].sort(() => Math.random() - 0.5);
 
-  for (const template of shuffled) {
-    if (selected.length >= 2) break;
-    if (!usedTypes.has(template.type) || selected.length === 1) {
-      selected.push(template);
-      usedTypes.add(template.type);
+  const pickDistinct = (pool: typeof CHALLENGE_TEMPLATES, count: number) => {
+    const picked: typeof CHALLENGE_TEMPLATES = [];
+    const usedTypes = new Set<string>();
+    for (const t of pool) {
+      if (picked.length >= count) break;
+      if (!usedTypes.has(t.type)) {
+        picked.push(t);
+        usedTypes.add(t.type);
+      }
     }
-  }
+    // Fill remaining slots even if types overlap
+    for (const t of pool) {
+      if (picked.length >= count) break;
+      if (!picked.includes(t)) picked.push(t);
+    }
+    return picked;
+  };
+
+  const selected = [
+    ...pickDistinct(shuffledTraditional, 2),
+    ...pickDistinct(shuffledDuel, 2),
+  ];
 
   // Create challenges
   for (let i = 0; i < selected.length; i++) {

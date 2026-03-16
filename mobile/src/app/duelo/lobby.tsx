@@ -23,6 +23,7 @@ import { useUser } from '@/lib/store';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { getRandomDuelQuestions } from '@/lib/duel-questions';
 import { getDuelUsedQuestionIds } from '@/lib/duel-anti-repeat';
+import { getRandomBotName } from '@/lib/duel-bot-names';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 const HUMAN_SEARCH_TIMEOUT_MS = 7000; // 7 s before falling back to bot
@@ -100,6 +101,9 @@ export default function DueloLobby() {
   const startBotMatch = useCallback(async () => {
     if (cancelled.current || hasNavigatedRef.current) return;
 
+    // Pick a random biblical bot name once — stays fixed for this match
+    const botName = getRandomBotName();
+
     setPhase('found_bot');
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
 
@@ -138,7 +142,7 @@ export default function DueloLobby() {
       setTimeout(() => {
         navigateToGame({
           matchId: resolvedMatchId,
-          opponentName: 'Juanito Bot',
+          opponentName: botName,
           isBotMatch: '1',
           isHumanMatch: '0',
           questionIds: JSON.stringify(questionIdsRef.current),

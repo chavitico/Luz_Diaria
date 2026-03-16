@@ -9,6 +9,7 @@ import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { prisma } from "../prisma";
+import { getCurrentWeekId } from "../weekly-challenges";
 
 const duelRouter = new Hono();
 
@@ -214,6 +215,65 @@ duelRouter.post(
 
       const rewardedDuelsLeft = Math.max(0, DAILY_REWARD_CAP - newRewardCount);
 
+      // ── Weekly mission progress ──────────────────────────────────────────────
+      const completedMissions: { titleEs: string; rewardPoints: number }[] = [];
+      try {
+        const weekId = getCurrentWeekId();
+        const isWin = outcome === "win";
+
+        const duelChallenges = await prisma.weeklyChallenge.findMany({
+          where: { weekId, type: { in: ["duel_play", "duel_win", "duel_win_streak"] } },
+        });
+
+        for (const challenge of duelChallenges) {
+          let progress = await prisma.weeklyProgress.findUnique({
+            where: { userId_challengeId: { userId, challengeId: challenge.id } },
+          });
+          if (!progress) {
+            progress = await prisma.weeklyProgress.create({
+              data: { userId, challengeId: challenge.id },
+            });
+          }
+          if (progress.completed) continue;
+
+          let newCount = progress.currentCount;
+
+          if (challenge.type === "duel_play") {
+            newCount += 1;
+          } else if (challenge.type === "duel_win") {
+            if (isWin) newCount += 1;
+            else continue; // no change on loss
+          } else if (challenge.type === "duel_win_streak") {
+            if (isWin) {
+              newCount += 1;
+            } else {
+              // Reset streak on loss
+              await prisma.weeklyProgress.update({
+                where: { id: progress.id },
+                data: { currentCount: 0 },
+              });
+              continue;
+            }
+          }
+
+          const isNowCompleted = newCount >= challenge.goalCount;
+          await prisma.weeklyProgress.update({
+            where: { id: progress.id },
+            data: { currentCount: newCount, completed: isNowCompleted },
+          });
+
+          if (isNowCompleted) {
+            completedMissions.push({
+              titleEs: challenge.titleEs,
+              rewardPoints: challenge.rewardPoints,
+            });
+          }
+        }
+      } catch (missionErr) {
+        // Mission tracking is non-critical — log and continue
+        console.error("[Duel] Failed to update weekly missions:", missionErr);
+      }
+
       return c.json({
         success: true,
         pointsAwarded,
@@ -226,6 +286,7 @@ duelRouter.post(
         duelLosses: newLosses,
         duelWinStreak: newStreak,
         ratingChange,
+        completedMissions,
       });
     } catch (err) {
       console.error("[Duel] Error completing match:", err);

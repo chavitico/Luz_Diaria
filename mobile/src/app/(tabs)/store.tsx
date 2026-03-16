@@ -1768,6 +1768,9 @@ function WeeklyChallengesCard({
         case 'prayer': return 'Toca el botón "Ya oré" en la pantalla principal para registrar tu oración diaria.';
         case 'share': return 'Toca el botón de compartir en el devocional y envíalo por WhatsApp u otras apps.';
         case 'devotional_complete': return 'Lee el devocional completo del día en la pantalla principal.';
+        case 'duel_play': return 'Juega duelos bíblicos desde la sección de Duelo de Sabiduría. Cuentan tanto las victorias como las derrotas.';
+        case 'duel_win': return 'Demuestra tu conocimiento bíblico y gana duelos en la sección de Duelo de Sabiduría.';
+        case 'duel_win_streak': return 'Gana duelos consecutivos sin perder. Si pierdes uno, el contador se reinicia.';
         default: return '';
       }
     } else {
@@ -1775,6 +1778,9 @@ function WeeklyChallengesCard({
         case 'prayer': return 'Tap the "I prayed" button on the main screen to register your daily prayer.';
         case 'share': return 'Tap the share button on the devotional and send it via WhatsApp or other apps.';
         case 'devotional_complete': return 'Read the full daily devotional on the main screen.';
+        case 'duel_play': return 'Play biblical duels in the Duelo de Sabiduría section. Both wins and losses count.';
+        case 'duel_win': return 'Demonstrate your biblical knowledge and win duels in the Duelo de Sabiduría section.';
+        case 'duel_win_streak': return 'Win duels consecutively without losing. If you lose one, the counter resets.';
         default: return '';
       }
     }
@@ -1862,8 +1868,11 @@ function WeeklyChallengesCard({
                       }}
                       style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 8, gap: 5 }}
                     >
+                      {challenge.type.startsWith('duel_') && (
+                        <Swords size={11} color="#F6AD55" style={{ flexShrink: 0 }} />
+                      )}
                       <Text
-                        style={{ fontSize: 12, fontWeight: '600', color: 'rgba(255,255,255,0.85)', flex: 1 }}
+                        style={{ fontSize: 12, fontWeight: '600', color: challenge.type.startsWith('duel_') ? '#F6AD55' : 'rgba(255,255,255,0.85)', flex: 1 }}
                         numberOfLines={1}
                       >
                         {title}
