@@ -53,6 +53,7 @@ import {
   BookOpen,
   Key,
   Share2,
+  Swords,
 } from 'lucide-react-native';
 import { TextInput } from 'react-native';
 import { BIBLICAL_CARDS } from '@/lib/biblical-cards';
@@ -94,7 +95,7 @@ import {
   type CollectionChapter,
 } from '@/lib/constants';
 import { cn } from '@/lib/cn';
-import { addLedgerEntry } from '@/lib/points-ledger';
+import { addLedgerEntry, getLedgerEntries } from '@/lib/points-ledger';
 
 import {
   gamificationApi,
@@ -1044,8 +1045,15 @@ function DueloSabiduriaCard({
                   Duelo de Sabiduría
                 </Text>
                 <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', fontWeight: '500' }}>
-                  Reta a otro jugador en trivia bíblica
+                  Pon a prueba tu conocimiento bíblico
                 </Text>
+                {/* Online indicator */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 6 }}>
+                  <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: '#68D391' }} />
+                  <Text style={{ fontSize: 11, color: '#68D391', fontWeight: '700' }}>
+                    Jugadores en línea
+                  </Text>
+                </View>
               </View>
               {/* Play button */}
               <View
@@ -1231,6 +1239,14 @@ function ProfileHeader({
   totalShares: number;
 }) {
   const { sFont } = useScaledFont();
+  const [duelWins, setDuelWins] = useState(0);
+
+  useEffect(() => {
+    getLedgerEntries().then(entries => {
+      const wins = entries.filter(e => e.title === '¡Duelo ganado!').length;
+      setDuelWins(wins);
+    }).catch(() => {});
+  }, []);
 
   const frameColor = user?.frameId && AVATAR_FRAMES[user.frameId]
     ? AVATAR_FRAMES[user.frameId].color
@@ -1449,6 +1465,30 @@ function ProfileHeader({
                 </Text>
                 <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#60A5FA99', textAlign: 'center', lineHeight: 13 }}>
                   {language === 'es' ? 'Compartidos' : 'Shared'}
+                </Text>
+              </LinearGradient>
+
+              {/* Duels won chip */}
+              <LinearGradient
+                colors={['#A78BFA25', '#A78BFA08']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  paddingVertical: 12,
+                  paddingHorizontal: 6,
+                  borderRadius: 14,
+                  borderWidth: 1,
+                  borderColor: '#A78BFA35',
+                }}
+              >
+                <Swords size={14} color="#A78BFA" style={{ marginBottom: 4 }} />
+                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#A78BFA', marginBottom: 3 }}>
+                  {duelWins}
+                </Text>
+                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#A78BFA99', textAlign: 'center', lineHeight: 13 }}>
+                  {language === 'es' ? 'Duelos\nganados' : 'Duels\nwon'}
                 </Text>
               </LinearGradient>
             </View>

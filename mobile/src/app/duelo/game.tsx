@@ -67,10 +67,16 @@ const AnswerCard = memo(function AnswerCard({
   const cardStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
   const handlePressIn = () => {
-    if (!disabled) scale.value = withSpring(0.965, { damping: 18, stiffness: 280 });
+    if (!disabled) {
+      scale.value = withSequence(
+        withTiming(0.96, { duration: 80 }),
+        withSpring(1.02, { damping: 10, stiffness: 320 }),
+        withSpring(1.0, { damping: 16, stiffness: 280 })
+      );
+    }
   };
   const handlePressOut = () => {
-    scale.value = withSpring(1, { damping: 18, stiffness: 280 });
+    // animation is self-completing via sequence
   };
 
   // ── derive visual tokens from state ──────────────────────────────────────────
@@ -239,6 +245,7 @@ export default function DueloGame() {
   const [botScore, setBotScore] = useState(0);
   const [pointsAwarded, setPointsAwarded] = useState(0);
   const [rewardLoading, setRewardLoading] = useState(false);
+  const [countdown, setCountdown] = useState<number | null>(3);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const botTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -340,14 +347,20 @@ export default function DueloGame() {
       setResults(newResults);
       setPlayerScore(newPScore);
       setBotScore(newBScore);
-      endDuel('player_wins', newPScore, newBScore, newResults);
+      // Show result for 1.5s so user sees correct answer highlighted
+      revealTimerRef.current = setTimeout(() => {
+        endDuel('player_wins', newPScore, newBScore, newResults);
+      }, 1500);
       return;
     }
     if (botCorrect && !playerCorrect) {
       setResults(newResults);
       setPlayerScore(newPScore);
       setBotScore(newBScore);
-      endDuel('bot_wins', newPScore, newBScore, newResults);
+      // Show result for 1.5s so user sees the correct answer
+      revealTimerRef.current = setTimeout(() => {
+        endDuel('bot_wins', newPScore, newBScore, newResults);
+      }, 1500);
       return;
     }
 
@@ -407,9 +420,26 @@ export default function DueloGame() {
     }, delay);
   }, [evaluateAnswers, playerScore, botScore, results]);
 
+  // Countdown before first question
+  useEffect(() => {
+    let n = 3;
+    setCountdown(n);
+    const id = setInterval(() => {
+      n -= 1;
+      if (n <= 0) {
+        clearInterval(id);
+        setCountdown(null);
+      } else {
+        setCountdown(n);
+      }
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
   // Start question timer
   useEffect(() => {
     if (phase !== 'question') return;
+    if (countdown !== null) return; // wait for countdown
     timerProgress.value = withTiming(0, { duration: QUESTION_TIMER_SECONDS * 1000 });
 
     timerRef.current = setInterval(() => {
@@ -440,10 +470,10 @@ export default function DueloGame() {
       if (botTimerRef.current) clearTimeout(botTimerRef.current);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex, phase]);
+  }, [currentIndex, phase, countdown]);
 
   const handleAnswer = (index: number) => {
-    if (phase !== 'question' || playerAnswerRef.current !== null) return;
+    if (phase !== 'question' || playerAnswerRef.current !== null || countdown !== null) return;
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     playerAnswerRef.current = index;
@@ -568,7 +598,7 @@ export default function DueloGame() {
                 color: won ? '#68D391' : '#F6E05E',
               }}
             >
-              +{pointsAwarded}
+              +{pointsAwarded} Sabiduría
             </Text>
           </Animated.View>
 
@@ -786,7 +816,9 @@ export default function DueloGame() {
                   ? 'Ambos acertaron — siguiente pregunta...'
                   : !lastResult.playerCorrect && !lastResult.botCorrect
                   ? 'Ninguno acertó — siguiente pregunta...'
-                  : 'Calculando resultado...'}
+                  : lastResult.playerCorrect && !lastResult.botCorrect
+                  ? '¡Correcto! Ganaste este round'
+                  : '¡Incorrecto! El bot acertó'}
               </Text>
             </Animated.View>
           )}
@@ -811,6 +843,40 @@ export default function DueloGame() {
             </Animated.View>
           )}
         </ScrollView>
+
+        {/* 3-2-1 Countdown overlay */}
+        {countdown !== null && (
+          <Animated.View
+            entering={FadeIn.duration(200)}
+            exiting={FadeOut.duration(200)}
+            style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0, bottom: 0,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'rgba(7,7,15,0.88)',
+            }}
+          >
+            <Animated.Text
+              key={countdown}
+              entering={ZoomIn.duration(250)}
+              style={{
+                fontSize: 96,
+                fontWeight: '900',
+                color: countdown === 1 ? '#68D391' : '#FFFFFF',
+                letterSpacing: -4,
+                textShadowColor: countdown === 1 ? 'rgba(104,211,145,0.6)' : 'rgba(99,179,237,0.4)',
+                textShadowOffset: { width: 0, height: 0 },
+                textShadowRadius: 24,
+              }}
+            >
+              {countdown}
+            </Animated.Text>
+            <Text style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 12, fontWeight: '600', letterSpacing: 1 }}>
+              PREPÁRATE
+            </Text>
+          </Animated.View>
+        )}
       </LinearGradient>
     </View>
   );
