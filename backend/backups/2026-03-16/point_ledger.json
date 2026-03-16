@@ -2338,5 +2338,15 @@
     "amount": 40,
     "metadata": "{\"matchId\":\"cmmsrkzir0015m2lg8prgf3mb\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
     "createdAt": "2026-03-16T05:50:36.724Z"
+  },
+  {
+    "id": "cmmss5u2a001um2bo3h4yu1ca",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-03-16",
+    "type": "prayer",
+    "dateId": "2026-03-16",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-16T06:06:15.922Z"
   }
 ]
