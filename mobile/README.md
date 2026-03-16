@@ -832,3 +832,13 @@ The app connects to a Hono backend with:
 - ContentSection applies tablet-responsive fontSize and reduced vertical margins on tablet
 - Mobile behavior is 100% unchanged (scaling functions return input unchanged when not tablet)
 - Fetches from Bible API on demand, caches for future requests
+
+### Duel Leaderboard (feature/duel-leaderboard)
+- **Entry point**: Pregame screen (`duelo/pregame.tsx`) — "Ver ranking" button navigates to `duelo/leaderboard`
+- **Screen**: `duelo/leaderboard.tsx` — full-screen dark leaderboard matching duel aesthetic
+- **Backend**: `GET /api/duel/leaderboard?limit=100` — returns top players with `duelWins > 0`, sorted by `duelRating DESC`, then `duelWins DESC`
+- **Data per row**: rank, avatarId, nickname, titleId, duelRating, duelWins, duelLosses, duelWinStreak
+- **Highlights**: Top 3 rows use gold/silver/bronze styling with Crown/Trophy/Star icons
+- **Current user**: Highlighted in cyan anywhere in the list; "not in top 100" banner shown if absent
+- **Scope**: Global only — Local tab skipped (countryCode field exists but not reliably populated)
+- **Navigation**: Registered in `_layout.tsx` as `presentation: 'card'`

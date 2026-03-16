@@ -25,6 +25,9 @@ async function tryMatch(
   matchId: string;
   opponentId: string;
   opponentName: string;
+  opponentAvatarId: string;
+  opponentTitleId: string | null;
+  opponentCountryCode: string | null;
   finalQuestionIds: string[];
   playerNumber: 2;
 } | { matched: false }> {
@@ -76,10 +79,10 @@ async function tryMatch(
         data: { status: "matched", matchId: match.id },
       });
 
-      // Fetch opponent nickname
+      // Fetch opponent nickname + cosmetics
       const opponentUser = await tx.user.findUnique({
         where: { id: opponent.userId },
-        select: { nickname: true },
+        select: { nickname: true, avatarId: true, titleId: true, countryCode: true },
       });
 
       return {
@@ -87,6 +90,9 @@ async function tryMatch(
         matchId: match.id,
         opponentId: opponent.userId,
         opponentName: opponentUser?.nickname ?? "Rival",
+        opponentAvatarId: opponentUser?.avatarId ?? "avatar_dove",
+        opponentTitleId: opponentUser?.titleId ?? null,
+        opponentCountryCode: opponentUser?.countryCode ?? null,
         finalQuestionIds,
         playerNumber: 2 as const,
       };
@@ -147,6 +153,9 @@ queueRouter.post(
           matchId: result.matchId,
           opponentName: result.opponentName,
           opponentId: result.opponentId,
+          opponentAvatarId: result.opponentAvatarId,
+          opponentTitleId: result.opponentTitleId,
+          opponentCountryCode: result.opponentCountryCode,
           questionIds: result.finalQuestionIds,
           playerNumber: result.playerNumber,
           userRating: user.duelRating,
@@ -185,7 +194,7 @@ queueRouter.get("/status/:userId", async (c) => {
       const [opponentUser, userRec] = await Promise.all([
         prisma.user.findUnique({
           where: { id: opponentId },
-          select: { nickname: true },
+          select: { nickname: true, avatarId: true, titleId: true, countryCode: true },
         }),
         prisma.user.findUnique({
           where: { id: userId },
@@ -209,6 +218,9 @@ queueRouter.get("/status/:userId", async (c) => {
         matchId: entry.matchId,
         opponentName: opponentUser?.nickname ?? "Rival",
         opponentId,
+        opponentAvatarId: opponentUser?.avatarId ?? "avatar_dove",
+        opponentTitleId: opponentUser?.titleId ?? null,
+        opponentCountryCode: opponentUser?.countryCode ?? null,
         questionIds,
         playerNumber,
         userRating: userRec?.duelRating ?? 1000,

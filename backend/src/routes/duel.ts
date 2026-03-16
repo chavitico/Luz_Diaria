@@ -551,6 +551,56 @@ duelRouter.post(
   }
 );
 
+// ─── GET /api/duel/leaderboard ─────────────────────────────────────────────────
+// Returns the top duelists sorted by rating descending (global only).
+// Query params: limit (default 100, max 200)
+duelRouter.get("/leaderboard", async (c) => {
+  const limitParam = parseInt(c.req.query("limit") ?? "100", 10);
+  const limit = Math.min(Math.max(1, isNaN(limitParam) ? 100 : limitParam), 200);
+  const country = c.req.query("country") ?? null; // ISO 3166-1 alpha-2, e.g. "MX"
+
+  try {
+    const players = await prisma.user.findMany({
+      where: {
+        duelWins: { gt: 0 },
+        ...(country ? { countryCode: country } : {}),
+      },
+      orderBy: [
+        { duelRating: "desc" },
+        { duelWins: "desc" },
+      ],
+      take: limit,
+      select: {
+        id: true,
+        nickname: true,
+        avatarId: true,
+        titleId: true,
+        duelRating: true,
+        duelWins: true,
+        duelLosses: true,
+        duelWinStreak: true,
+      },
+    });
+
+    const leaderboard = players.map((p, index) => ({
+      rank: index + 1,
+      userId: p.id,
+      nickname: p.nickname,
+      avatarId: p.avatarId,
+      titleId: p.titleId ?? null,
+      duelRating: p.duelRating,
+      duelWins: p.duelWins,
+      duelLosses: p.duelLosses,
+      duelWinStreak: p.duelWinStreak,
+    }));
+
+    return c.json({ leaderboard, total: leaderboard.length });
+  } catch (err) {
+    console.error("[Duel] Error fetching leaderboard:", err);
+    return c.json({ error: "Failed to fetch leaderboard" }, 500);
+  }
+});
+
 // ─── GET /api/duel/online-count ────────────────────────────────────────────────
 // Returns the number of users active in the last 5 minutes.
 // Uses lastSeenAt (updated by session heartbeat) — not lastActiveAt which is
