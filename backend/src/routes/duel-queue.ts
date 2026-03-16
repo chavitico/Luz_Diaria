@@ -55,7 +55,9 @@ async function tryMatch(
       const opponentQIds = JSON.parse(opponent.questionIds) as string[];
       const finalQuestionIds = opponentQIds.length >= 10 ? opponentQIds : questionIds;
 
-      // Create the human match
+      // Create the human match — seed lastSeen timestamps so heartbeat
+      // doesn't immediately see null and falsely declare a disconnect.
+      const now = new Date();
       const match = await tx.duelMatch.create({
         data: {
           player1UserId: opponent.userId,
@@ -63,6 +65,8 @@ async function tryMatch(
           status: "in_progress",
           questions: JSON.stringify(finalQuestionIds),
           isBotMatch: false,
+          player1LastSeen: now,
+          player2LastSeen: now,
         },
       });
 

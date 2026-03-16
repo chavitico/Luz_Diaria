@@ -467,14 +467,16 @@ duelRouter.post(
           : { player2LastSeen: new Date() },
       });
 
-      // Check opponent's last-seen
+      // Check opponent's last-seen.
+      // null means the match just started and the opponent hasn't sent their
+      // first heartbeat yet — treat as connected during that window.
       const opponentLastSeen = isPlayer1
         ? updatedMatch.player2LastSeen
         : updatedMatch.player1LastSeen;
 
       const DISCONNECT_TIMEOUT_MS = 20_000;
       const opponentConnected =
-        opponentLastSeen !== null &&
+        opponentLastSeen === null || // not yet seen → assume connected
         Date.now() - opponentLastSeen.getTime() < DISCONNECT_TIMEOUT_MS;
 
       return c.json({
@@ -490,21 +492,21 @@ duelRouter.post(
 
 // ─── GET /api/duel/online-count ────────────────────────────────────────────────
 // Returns the number of users active in the last 5 minutes.
-// Used by the Home duel card to show live player count.
+// Uses lastSeenAt (updated by session heartbeat) — not lastActiveAt which is
+// only updated on discrete actions (devotionals, etc.).
 duelRouter.get("/online-count", async (c) => {
   try {
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
     const count = await prisma.user.count({
       where: {
-        lastActiveAt: { gte: fiveMinutesAgo },
+        lastSeenAt: { gte: fiveMinutesAgo },
       },
     });
 
-    // Return at least 1 (the current user) to avoid "0 jugadores"
-    return c.json({ count: Math.max(1, count) });
+    return c.json({ count });
   } catch (err) {
     console.error("[Duel] Error fetching online count:", err);
-    return c.json({ count: 1 });
+    return c.json({ count: 0 });
   }
 });
 

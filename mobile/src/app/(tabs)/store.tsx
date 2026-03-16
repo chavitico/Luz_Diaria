@@ -3258,18 +3258,18 @@ export default function StoreScreen() {
     };
   }, [user?.id, user?.nickname, user?.avatar]);
 
-  // Duel online player count (refreshes every 60s)
+  // Duel online player count (refreshes every 30s)
   const { data: onlineCountData } = useQuery({
     queryKey: ['duel-online-count'],
     queryFn: async () => {
       const res = await fetch(`${DUEL_BACKEND_URL}/api/duel/online-count`);
-      if (!res.ok) return { count: 1 };
+      if (!res.ok) return { count: 0 };
       return res.json() as Promise<{ count: number }>;
     },
-    staleTime: 60_000,
-    refetchInterval: 60_000,
+    staleTime: 30_000,
+    refetchInterval: 30_000,
   });
-  const onlineCount = onlineCountData?.count ?? 1;
+  const onlineCount = onlineCountData?.count ?? 0;
 
   // Sync/create user in backend on mount
   const { data: backendUser, isLoading: isLoadingBackendUser } = useQuery({

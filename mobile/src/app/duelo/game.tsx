@@ -24,6 +24,7 @@ import { addLedgerEntry } from '@/lib/points-ledger';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { addDuelUsedQuestions } from '@/lib/duel-anti-repeat';
 import { getRandomDuelQuestions, getDuelQuestionsByIds, type DuelQuestion } from '@/lib/duel-questions';
+import { useQueryClient } from '@tanstack/react-query';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 const QUESTION_TIMER_SECONDS = 30;
@@ -222,6 +223,7 @@ export default function DueloGame() {
   const insets = useSafeAreaInsets();
   const user = useUser();
   const updateUser = useAppStore(s => s.updateUser);
+  const queryClient = useQueryClient();
 
   const matchId = params.matchId ?? 'local';
   const opponentName = params.opponentName ?? 'Juanito Bot';
@@ -364,7 +366,12 @@ export default function DueloGame() {
       title: outcome === 'player_wins' ? '¡Duelo ganado!' : 'Duelo completado',
       detail: `Duelo de Sabiduría — ${pScore} vs ${bScore}`,
     });
-  }, [matchId, questions, user?.id, user?.points, updateUser]);
+
+    // Invalidate duel ranking so the pregame screen shows fresh stats next visit
+    if (user?.id) {
+      queryClient.invalidateQueries({ queryKey: ['duel-ranking', user.id] });
+    }
+  }, [matchId, questions, user?.id, user?.points, updateUser, queryClient]);
 
   const evaluateAnswers = useCallback((pAns: number | null, bAns: number | null, question: DuelQuestion, pScore: number, bScore: number, prevResults: QuestionResult[]) => {
     const playerCorrect = pAns !== null && pAns !== -1 && pAns === question.correctIndex;

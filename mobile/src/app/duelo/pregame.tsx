@@ -48,7 +48,8 @@ export default function DueloPregame() {
     ? (SPIRITUAL_TITLES[equippedTitle]?.nameEs ?? null)
     : null;
 
-  // Fetch duel ranking from backend (light, cached 30s)
+  // Fetch duel ranking from backend — always refetch on mount so stats are
+  // fresh after returning from a completed duel.
   const { data: ranking, isLoading: rankingLoading } = useQuery<DuelRanking>({
     queryKey: ['duel-ranking', user?.id],
     queryFn: async () => {
@@ -58,7 +59,8 @@ export default function DueloPregame() {
       return res.json();
     },
     enabled: !!user?.id,
-    staleTime: 30_000,
+    staleTime: 0,
+    refetchOnMount: 'always',
   });
 
   // VS glow pulse
