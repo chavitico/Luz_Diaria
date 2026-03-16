@@ -21,9 +21,9 @@ import Animated, {
 import { ChevronLeft, Swords, Trophy, Flame, BarChart2 } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useQuery } from '@tanstack/react-query';
-import { useAppStore, useUser } from '@/lib/store';
+import { useAppStore, useUser, useEquippedFrame } from '@/lib/store';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
-import { SPIRITUAL_TITLES } from '@/lib/constants';
+import { SPIRITUAL_TITLES, DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -42,6 +42,14 @@ export default function DueloPregame() {
   const insets = useSafeAreaInsets();
   const user = useUser();
   const equippedTitle = useAppStore(s => s.equippedTitle);
+  const equippedFrameId = useEquippedFrame();
+
+  // Resolve avatar emoji from DEFAULT_AVATARS lookup
+  const avatarId = user?.avatar ?? 'avatar_dove';
+  const avatarEmoji = DEFAULT_AVATARS.find(a => a.id === avatarId)?.emoji ?? '😊';
+
+  // Resolve frame color (null if no frame equipped)
+  const frameColor = equippedFrameId ? (AVATAR_FRAMES[equippedFrameId]?.color ?? null) : null;
 
   // Resolve title label in Spanish
   const titleLabel = equippedTitle
@@ -220,15 +228,15 @@ export default function DueloPregame() {
               >
                 {/* Avatar + identity */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginBottom: 18 }}>
-                  {/* Avatar with frame glow */}
+                  {/* Avatar with frame */}
                   <View style={{ position: 'relative' }}>
                     <View
                       style={{
                         width: 74,
                         height: 74,
                         borderRadius: 37,
-                        borderWidth: 2.5,
-                        borderColor: 'rgba(99,179,237,0.5)',
+                        borderWidth: frameColor ? 3 : 2.5,
+                        borderColor: frameColor ?? 'rgba(99,179,237,0.5)',
                         overflow: 'hidden',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -236,7 +244,8 @@ export default function DueloPregame() {
                       }}
                     >
                       <IllustratedAvatar
-                        avatarId={user?.avatar ?? 'avatar_dove'}
+                        avatarId={avatarId}
+                        emoji={avatarEmoji}
                         size={68}
                       />
                     </View>
