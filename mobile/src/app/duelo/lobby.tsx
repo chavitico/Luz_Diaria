@@ -98,7 +98,10 @@ export default function DueloLobby() {
       setPhase('found');
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
 
-      // Create match on backend
+      // Create match on backend and get ranking info
+      let resolvedMatchId = 'local';
+      let userRating = 1000;
+      let rewardedDuelsLeft = 10;
       if (user?.id) {
         try {
           const res = await fetchWithTimeout(`${BACKEND_URL}/api/duel/start`, {
@@ -107,8 +110,15 @@ export default function DueloLobby() {
             body: JSON.stringify({ userId: user.id, isBotMatch: true }),
           });
           if (res.ok) {
-            const data = await res.json() as { matchId: string };
+            const data = await res.json() as {
+              matchId: string;
+              userRating?: number;
+              rewardedDuelsLeft?: number;
+            };
+            resolvedMatchId = data.matchId;
             setMatchId(data.matchId);
+            userRating = data.userRating ?? 1000;
+            rewardedDuelsLeft = data.rewardedDuelsLeft ?? 10;
           }
         } catch {
           // Silent — game continues without backend matchId
@@ -122,7 +132,13 @@ export default function DueloLobby() {
           if (cancelled.current) return;
           router.replace({
             pathname: '/duelo/game',
-            params: { matchId: matchId ?? 'local', opponentName: 'Juanito Bot', isBotMatch: '1' },
+            params: {
+              matchId: resolvedMatchId,
+              opponentName: 'Juanito Bot',
+              isBotMatch: '1',
+              userRating: String(userRating),
+              rewardedDuelsLeft: String(rewardedDuelsLeft),
+            },
           } as any);
         }, 800);
       }, 1500);

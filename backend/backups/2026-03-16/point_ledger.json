@@ -2048,5 +2048,15 @@
     "amount": 50000,
     "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmpdf6vb0013m26t6icj8eh6\"}",
     "createdAt": "2026-03-13T20:50:28.573Z"
+  },
+  {
+    "id": "cmmsj4ufe000ym2e2uyd3w7cc",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "share_2026-03-16_1",
+    "type": "share",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-16T01:53:33.195Z"
   }
 ]

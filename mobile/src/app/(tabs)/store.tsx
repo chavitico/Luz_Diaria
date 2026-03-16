@@ -136,6 +136,7 @@ import { EasterPackCard } from '@/components/store/cards/EasterPackCard';
 import { MilagrosPackCard } from '@/components/store/cards/MilagrosPackCard';
 import { TokenItemCard } from '@/components/store/cards/TokenItemCard';
 
+const DUEL_BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
 // ─── Seasonal Items Section Banner ────────────────────────────────────────────
 function SeasonalItemsSection({
@@ -981,9 +982,11 @@ function LaunchEventBanner({
 // ─── Duelo de Sabiduría Card ──────────────────────────────────────────────────
 function DueloSabiduriaCard({
   colors,
+  onlineCount,
   onPress,
 }: {
   colors: ReturnType<typeof useThemeColors>;
+  onlineCount: number;
   onPress: () => void;
 }) {
   const scale = useSharedValue(1);
@@ -1051,7 +1054,7 @@ function DueloSabiduriaCard({
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 6 }}>
                   <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: '#68D391' }} />
                   <Text style={{ fontSize: 11, color: '#68D391', fontWeight: '700' }}>
-                    Jugadores en línea
+                    {onlineCount === 1 ? '1 jugador en línea' : `${onlineCount} jugadores en línea`}
                   </Text>
                 </View>
               </View>
@@ -3255,6 +3258,19 @@ export default function StoreScreen() {
     };
   }, [user?.id, user?.nickname, user?.avatar]);
 
+  // Duel online player count (refreshes every 60s)
+  const { data: onlineCountData } = useQuery({
+    queryKey: ['duel-online-count'],
+    queryFn: async () => {
+      const res = await fetch(`${DUEL_BACKEND_URL}/api/duel/online-count`);
+      if (!res.ok) return { count: 1 };
+      return res.json() as Promise<{ count: number }>;
+    },
+    staleTime: 60_000,
+    refetchInterval: 60_000,
+  });
+  const onlineCount = onlineCountData?.count ?? 1;
+
   // Sync/create user in backend on mount
   const { data: backendUser, isLoading: isLoadingBackendUser } = useQuery({
     queryKey: ['backendUser', userDataForSync],
@@ -4934,6 +4950,7 @@ export default function StoreScreen() {
         {/* 2. DUELO DE SABIDURÍA — community game card */}
         <DueloSabiduriaCard
           colors={colors}
+          onlineCount={onlineCount}
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
             router.push('/duelo/lobby' as any);

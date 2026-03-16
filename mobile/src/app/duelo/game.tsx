@@ -22,11 +22,19 @@ import * as Haptics from 'expo-haptics';
 import { useThemeColors, useUser, useAppStore } from '@/lib/store';
 import { addLedgerEntry } from '@/lib/points-ledger';
 import { fetchWithTimeout } from '@/lib/fetch';
+import { addDuelUsedQuestions, getDuelUsedQuestionIds } from '@/lib/duel-anti-repeat';
 import { getRandomDuelQuestions, type DuelQuestion } from '@/lib/duel-questions';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 const QUESTION_TIMER_SECONDS = 30;
-const BOT_CORRECT_PROBABILITY = 0.7;
+
+/** Bot accuracy and speed per rating tier */
+function getBotParams(rating: number): { correctProb: number; minDelay: number; maxDelay: number } {
+  if (rating < 900)  return { correctProb: 0.50, minDelay: 2000, maxDelay: 6000 };
+  if (rating < 1100) return { correctProb: 0.65, minDelay: 3000, maxDelay: 8000 };
+  if (rating < 1300) return { correctProb: 0.75, minDelay: 2500, maxDelay: 7000 };
+  return                    { correctProb: 0.85, minDelay: 1500, maxDelay: 5000 };
+}
 
 type AnswerState = 'unanswered' | 'answered';
 type DuelOutcome = 'player_wins' | 'bot_wins' | null;
@@ -223,7 +231,7 @@ const AnswerCard = memo(function AnswerCard({
 
 export default function DueloGame() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ matchId: string; opponentName: string; isBotMatch: string }>();
+  const params = useLocalSearchParams<{ matchId: string; opponentName: string; isBotMatch: string; userRating: string; rewardedDuelsLeft: string }>();
   const insets = useSafeAreaInsets();
   const colors = useThemeColors();
   const user = useUser();
@@ -231,6 +239,9 @@ export default function DueloGame() {
 
   const matchId = params.matchId ?? 'local';
   const opponentName = params.opponentName ?? 'Juanito Bot';
+  const userRating = parseInt(params.userRating ?? '1000', 10);
+  const initialRewardedDuelsLeft = parseInt(params.rewardedDuelsLeft ?? '10', 10);
+  const botParams = getBotParams(userRating);
 
   // Game state
   const [questions] = useState<DuelQuestion[]>(() => getRandomDuelQuestions(10));
@@ -244,6 +255,7 @@ export default function DueloGame() {
   const [playerScore, setPlayerScore] = useState(0);
   const [botScore, setBotScore] = useState(0);
   const [pointsAwarded, setPointsAwarded] = useState(0);
+  const [capReached, setCapReached] = useState(false);
   const [rewardLoading, setRewardLoading] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(3);
 
@@ -281,6 +293,10 @@ export default function DueloGame() {
     const pts = outcome === 'player_wins' ? 40 : 10;
     setPointsAwarded(pts);
 
+    // Track used question IDs for anti-repetition
+    const usedIds = questions.map(q => q.id);
+    addDuelUsedQuestions(usedIds).catch(() => {});
+
     // Award points on backend
     if (user?.id && matchId !== 'local') {
       setRewardLoading(true);
@@ -297,10 +313,15 @@ export default function DueloGame() {
           }),
         });
         if (res.ok) {
-          const data = await res.json() as { pointsAwarded: number; newTotal: number };
+          const data = await res.json() as {
+            pointsAwarded: number;
+            newTotal: number;
+            capReached?: boolean;
+          };
+          setPointsAwarded(data.pointsAwarded);
+          setCapReached(data.capReached ?? false);
           updateUser({ points: data.newTotal });
         } else {
-          // Fallback: award locally
           updateUser({ points: (user.points ?? 0) + pts });
         }
       } catch {
@@ -309,7 +330,6 @@ export default function DueloGame() {
         setRewardLoading(false);
       }
     } else if (user?.id) {
-      // Local fallback when no matchId
       updateUser({ points: (user.points ?? 0) + pts });
     }
 
@@ -320,7 +340,7 @@ export default function DueloGame() {
       title: outcome === 'player_wins' ? '¡Duelo ganado!' : 'Duelo completado',
       detail: `Duelo de Sabiduría — ${pScore} vs ${bScore}`,
     });
-  }, [matchId, user?.id, user?.points, updateUser]);
+  }, [matchId, questions, user?.id, user?.points, updateUser]);
 
   const evaluateAnswers = useCallback((pAns: number | null, bAns: number | null, question: DuelQuestion, pScore: number, bScore: number, prevResults: QuestionResult[]) => {
     const playerCorrect = pAns === question.correctIndex;
@@ -391,10 +411,10 @@ export default function DueloGame() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, questions.length, endDuel]);
 
-  // Schedule bot answer
+  // Schedule bot answer — difficulty adapts to userRating
   const scheduleBotAnswer = useCallback((question: DuelQuestion) => {
-    const isCorrect = Math.random() < BOT_CORRECT_PROBABILITY;
-    const delay = 3000 + Math.random() * 7000; // 3–10 seconds
+    const isCorrect = Math.random() < botParams.correctProb;
+    const delay = botParams.minDelay + Math.random() * (botParams.maxDelay - botParams.minDelay);
 
     botTimerRef.current = setTimeout(() => {
       if (phaseRef.current !== 'question') return;
@@ -418,7 +438,7 @@ export default function DueloGame() {
         evaluateAnswers(playerAnswerRef.current, chosenIndex, question, playerScore, botScore, results);
       }
     }, delay);
-  }, [evaluateAnswers, playerScore, botScore, results]);
+  }, [botParams, evaluateAnswers, playerScore, botScore, results]);
 
   // Countdown before first question
   useEffect(() => {
@@ -578,28 +598,34 @@ export default function DueloGame() {
           <Animated.View
             entering={FadeInDown.delay(500).duration(400)}
             style={{
-              backgroundColor: won ? 'rgba(104,211,145,0.1)' : 'rgba(246,224,94,0.1)',
+              backgroundColor: capReached ? 'rgba(255,255,255,0.05)' : won ? 'rgba(104,211,145,0.1)' : 'rgba(246,224,94,0.1)',
               borderRadius: 14,
               paddingVertical: 14,
               paddingHorizontal: 24,
               borderWidth: 1,
-              borderColor: won ? 'rgba(104,211,145,0.25)' : 'rgba(246,224,94,0.25)',
+              borderColor: capReached ? 'rgba(255,255,255,0.1)' : won ? 'rgba(104,211,145,0.25)' : 'rgba(246,224,94,0.25)',
               marginBottom: 40,
               alignItems: 'center',
             }}
           >
             <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', marginBottom: 4 }}>
-              {rewardLoading ? 'Guardando recompensa...' : 'Puntos ganados'}
+              {rewardLoading ? 'Guardando recompensa...' : capReached ? 'Límite diario alcanzado' : 'Puntos ganados'}
             </Text>
-            <Text
-              style={{
-                fontSize: 28,
-                fontWeight: '900',
-                color: won ? '#68D391' : '#F6E05E',
-              }}
-            >
-              +{pointsAwarded} Sabiduría
-            </Text>
+            {capReached ? (
+              <Text style={{ fontSize: 15, fontWeight: '700', color: 'rgba(255,255,255,0.4)', textAlign: 'center' }}>
+                Sin puntos — ya completaste{'\n'}10 duelos recompensados hoy
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  fontSize: 28,
+                  fontWeight: '900',
+                  color: won ? '#68D391' : '#F6E05E',
+                }}
+              >
+                +{pointsAwarded} Sabiduría
+              </Text>
+            )}
           </Animated.View>
 
           {/* Actions */}

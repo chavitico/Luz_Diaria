@@ -54,6 +54,14 @@ model User {
   lastActiveAt           DateTime?
   lastSeenAt             DateTime?
   dailyActions           String            @default("{}")
+  // Duel ranking & daily cap
+  duelRating             Int               @default(1000)
+  duelWins               Int               @default(0)
+  duelLosses             Int               @default(0)
+  duelWinStreak          Int               @default(0)
+  duelBestStreak         Int               @default(0)
+  duelRewardCount        Int               @default(0)  // resets daily
+  duelRewardDate         String            @default("") // YYYY-MM-DD
   deviceId               String?
   migratedFromUserId     String?
   communityOptIn         Boolean           @default(false)
@@ -614,6 +622,7 @@ model DuelMatch {
   player2Score   Int       @default(0)
   winnerUserId   String?   // userId of winner, or "bot:juanito", or null for draw
   pointsAwarded  Int       @default(0)
+  ratingChange   Int       @default(0)  // rating delta for player1 on this match
   isBotMatch     Boolean   @default(false)
   createdAt      DateTime  @default(now())
   completedAt    DateTime?
