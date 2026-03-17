@@ -923,11 +923,6 @@ export default function BibleScreen() {
                     : <Volume2 size={20} color={colors.textMuted} />}
                 </Pressable>
               )}
-              {view === 'verses' && chapterData && (
-                <View style={{ alignItems: 'flex-end', marginTop: 0 }}>
-                  {/* Highlight hint */}
-                </View>
-              )}
             </View>
           </View>
         </View>
@@ -959,20 +954,6 @@ export default function BibleScreen() {
               <BookItem book={item} onPress={() => handleSelectBook(item)} colors={colors} lang={lang} />
             )}
             contentContainerStyle={{ paddingBottom: 120 }}
-            ListHeaderComponent={
-              <View
-                style={{
-                  backgroundColor: colors.surface,
-                  marginHorizontal: 16,
-                  marginTop: 12,
-                  marginBottom: 4,
-                  borderRadius: 14,
-                  overflow: 'hidden',
-                  borderWidth: 1,
-                  borderColor: colors.textMuted + '25',
-                }}
-              />
-            }
             ListEmptyComponent={
               <View style={{ alignItems: 'center', paddingVertical: 60 }}>
                 <Text style={{ color: colors.textMuted, fontSize: 15 }}>Sin resultados</Text>

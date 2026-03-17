@@ -609,6 +609,7 @@ src/
 │   │   ├── library.tsx    # Library
 │   │   ├── store.tsx      # Store
 │   │   ├── community.tsx  # Community
+│   │   ├── bible.tsx      # Bible Hub (home → testament → books → chapters → verses)
 │   │   ├── prayer.tsx     # Prayer Requests
 │   │   └── settings.tsx   # Settings
 │   ├── devotional/
@@ -804,6 +805,39 @@ The app connects to a Hono backend with:
 - `GET /api/bible/books` - Full list of all 66 canonical Bible books
 - `GET /api/bible/chapter?bookId=GEN&chapter=1&lang=es` - All verses of a chapter (parsed verse array)
 - Supports both Spanish and English Bibles (Reina Valera 1960, KJV)
+
+## Bible Module (feature/bible-hub-polish)
+
+### Navigation Flow
+Bible Hub Home → Testament List (OT/NT) → Book List → Chapter Grid → Verse Reader
+
+### Bible Home Screen (`src/app/(tabs)/bible.tsx`)
+- **Hero section**: devotional image with verse-of-the-day overlay (reuses `['todayDevotional']` React Query cache — same source as Home screen, zero duplicate fetches)
+- **Search bar**: always-visible, filters books by name (Spanish/English). Submit navigates to books view with search results
+- **Version selector**: pill UI with RVR60 (active), NVI, Lenguaje Actual (both marked "PRONTO" — UI built, API connection pending)
+- **Testament cards**: "Antiguo Testamento" (📜, 39 books) and "Nuevo Testamento" (✝️, 27 books) — tap to navigate to filtered book list
+- **Stats bar**: 66 books / 1,189 chapters / 31,102 versículos
+
+### Verse Highlighting
+- **Trigger**: long press any verse (400ms, haptic feedback)
+- **Colors**: Amarillo (`#FEF08A`), Verde (`#BBF7D0`), Azul (`#BFDBFE`)
+- **Persistence**: AsyncStorage key `bible_highlights_v1` → `Record<"${bookId}_${chapter}_${verse}", HighlightColor>`
+- **Operations**: apply color, change color, remove highlight
+- Highlights survive app restarts and persist per-verse
+
+### Bible Versions
+| Version | Label | Status |
+|---------|-------|--------|
+| Reina-Valera 1960 | RVR60 | ✅ Active (BibleGateway RVR1960 via backend) |
+| Nueva Versión Internacional | NVI | 🔜 UI built, API not yet connected |
+| Lenguaje Actual | L.A. | 🔜 UI built, API not yet connected |
+
+### Types (`src/lib/bible/types.ts`)
+- `BibleNavView`: `'home' | 'books' | 'chapters' | 'verses'`
+- `BibleVersion`: `'RVR60' | 'NVI' | 'LA'`
+- `BibleVersionInfo`: version metadata with `available` flag
+- `HighlightColor`: `'yellow' | 'green' | 'blue'`
+- `HighlightMap`: `Record<string, HighlightColor>`
 - Server-side caching in SQLite database; chapter results cached 30 days on device
 
 ### Support Ticket System
