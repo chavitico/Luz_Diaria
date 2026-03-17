@@ -46,9 +46,10 @@ async function writeToDisk(key: string, data: BibleChapterData): Promise<void> {
 export async function fetchBibleChapter(
   bookId: string,
   chapter: number,
-  lang: 'en' | 'es' = 'es'
+  lang: 'en' | 'es' = 'es',
+  version = 'RVR60'
 ): Promise<{ success: true; data: BibleChapterData } | { success: false; error: string }> {
-  const key = chapterCacheKey(bookId, chapter, lang);
+  const key = chapterCacheKey(bookId, chapter, lang) + `_${version}`;
 
   // 1. Session cache
   const inMemory = sessionCache.get(key);
@@ -68,7 +69,7 @@ export async function fetchBibleChapter(
   // 3. Backend
   try {
     console.log(`[Bible] Fetching from backend: ${bookId} ${chapter} (${lang})`);
-    const url = `${BACKEND_URL}/api/bible/chapter?bookId=${encodeURIComponent(bookId)}&chapter=${chapter}&lang=${lang}`;
+    const url = `${BACKEND_URL}/api/bible/chapter?bookId=${encodeURIComponent(bookId)}&chapter=${chapter}&lang=${lang}&version=${version}`;
     const res = await fetch(url);
 
     if (!res.ok) {
@@ -183,11 +184,12 @@ export async function loadLastRead(): Promise<BibleLastRead | null> {
 export async function searchBibleVerses(
   query: string,
   lang: 'en' | 'es' = 'es',
-  limit = 15
+  limit = 15,
+  version = 'RVR60'
 ): Promise<BibleSearchResult[]> {
   if (query.trim().length < 2) return [];
   try {
-    const url = `${BACKEND_URL}/api/bible/search?q=${encodeURIComponent(query)}&lang=${lang}&limit=${limit}`;
+    const url = `${BACKEND_URL}/api/bible/search?q=${encodeURIComponent(query)}&lang=${lang}&limit=${limit}&version=${version}`;
     const res = await fetch(url);
     if (!res.ok) return [];
     const json = await res.json() as { results?: BibleSearchResult[] };

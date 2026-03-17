@@ -80,7 +80,7 @@ const HIGHLIGHTS_KEY = 'bible_highlights_v1';
 
 const BIBLE_VERSIONS: BibleVersionInfo[] = [
   { id: 'RVR60', label: 'RVR60', fullName: 'Reina-Valera 1960', available: true },
-  { id: 'NVI',   label: 'NVI',   fullName: 'Nueva Versión Internacional', available: false },
+  { id: 'NVI',   label: 'NVI',   fullName: 'Nueva Versión Internacional', available: true },
   { id: 'LA',    label: 'L.A.',  fullName: 'Lenguaje Actual', available: false },
 ];
 
@@ -454,8 +454,8 @@ function BibleHomeScreen({
 
   // Verse content search (backend)
   const { data: verseResults = [], isFetching: searchingVerses } = useQuery({
-    queryKey: ['bibleSearch', debouncedQuery, lang],
-    queryFn: () => searchBibleVerses(debouncedQuery, lang as 'en' | 'es', 15),
+    queryKey: ['bibleSearch', debouncedQuery, lang, selectedVersion],
+    queryFn: () => searchBibleVerses(debouncedQuery, lang as 'en' | 'es', 15, selectedVersion),
     enabled: debouncedQuery.length >= 2,
     staleTime: 5 * 60 * 1000,
   });
@@ -742,7 +742,7 @@ export default function BibleScreen() {
     setLastRead(newLastRead);
     saveLastRead(newLastRead);
 
-    const result = await fetchBibleChapter(book.id, chapter, lang as 'en' | 'es');
+    const result = await fetchBibleChapter(book.id, chapter, lang as 'en' | 'es', selectedVersion);
     if (result.success) {
       setChapterData(result.data);
       if (targetVerse != null) {

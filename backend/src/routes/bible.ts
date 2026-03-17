@@ -6,6 +6,12 @@ import {
   BIBLE_BOOKS_LIST,
 } from "../bible-service";
 import { prisma } from "../prisma";
+import {
+  getChapterFromSqlite,
+  searchSqliteVerses,
+  isSqliteVersionAvailable,
+  type SqliteVersion,
+} from "../bible-sqlite-service";
 
 export const bibleRouter = new Hono();
 
@@ -87,13 +93,18 @@ bibleRouter.get("/books", (c) => {
  *   - bookId  : USFM book identifier, e.g. "GEN", "MAT"  (required)
  *   - chapter : chapter number (required, integer >= 1)
  *   - lang    : "en" | "es"  (default "es")
+ *   - version : "RVR60" | "NVI"  (default "RVR60") — selects the SQLite corpus
  *
- * Response: { success, bookName, chapter, verses: [{number, text}] }
+ * Strategy: prefer bundled SQLite database (full corpus), fall back to
+ * BibleGateway scraper only if the SQLite file is unavailable.
+ *
+ * Response: { success, bookName, chapter, verses: [{number, text}], version? }
  */
 bibleRouter.get("/chapter", async (c) => {
   const bookId = c.req.query("bookId");
   const chapterParam = c.req.query("chapter");
   const lang = (c.req.query("lang") || "es") as "en" | "es";
+  const versionParam = (c.req.query("version") || "RVR60") as string;
 
   if (!bookId) {
     return c.json(
@@ -129,15 +140,36 @@ bibleRouter.get("/chapter", async (c) => {
     );
   }
 
-  console.log(`[Bible API] Chapter request: ${bookId} ${chapter} (${lang})`);
+  // Determine SQLite version to use
+  const sqliteVersion: SqliteVersion =
+    versionParam === "NVI" && isSqliteVersionAvailable("NVI") ? "NVI" : "RVR60";
 
+  // Try SQLite first (always available for es content)
+  if (lang === "es" && isSqliteVersionAvailable(sqliteVersion)) {
+    console.log(
+      `[Bible API] Chapter request: ${bookId} ${chapter} (${lang}) [${sqliteVersion} SQLite]`
+    );
+    const result = getChapterFromSqlite(sqliteVersion, bookId, chapter);
+    if (result.success) {
+      return c.json({
+        success: true,
+        bookName: result.bookName,
+        chapter: result.chapter,
+        verses: result.verses,
+        version: sqliteVersion,
+      });
+    }
+    // Fall through to legacy scraper on SQLite miss
+    console.warn(`[Bible API] SQLite miss for ${bookId} ${chapter}, falling back`);
+  }
+
+  // Fallback: legacy BibleGateway scraper (English or SQLite unavailable)
+  console.log(`[Bible API] Chapter request: ${bookId} ${chapter} (${lang}) [BibleGateway fallback]`);
   const result = await getBibleChapterVerses(bookId, chapter, lang);
-
   if (!result.success) {
     return c.json(result, 404);
   }
-
-  return c.json(result);
+  return c.json({ ...result, version: "RVR60" });
 });
 
 // ---------------------------------------------------------------------------
@@ -364,18 +396,23 @@ interface SearchResponse {
 
 /**
  * GET /api/bible/search
- * Search Bible verses across Devotionals and BiblePassages.
+ * Full-corpus Bible verse search.
+ *
+ * Primary: searches all ~31,000 verses in the bundled SQLite database for the
+ * requested version.  Falls back to the Devotional cache if SQLite is unavailable.
  *
  * Query params:
- *   - q     : search query (min 2 chars, required)
- *   - lang  : "en" | "es" (default "es")
- *   - limit : max results to return (default 15, max 30)
+ *   - q       : search term (min 2 chars, required)
+ *   - lang    : "en" | "es" (default "es")
+ *   - version : "RVR60" | "NVI"  (default "RVR60")
+ *   - limit   : max results (default 15, max 30)
  *
- * Response: { results, query, total }
+ * Response: { results, query, total, version, source }
  */
 bibleRouter.get("/search", async (c) => {
   const q = c.req.query("q") ?? "";
   const lang = (c.req.query("lang") || "es") as "en" | "es";
+  const versionParam = (c.req.query("version") || "RVR60") as string;
   const limitParam = c.req.query("limit");
   const rawLimit = limitParam ? parseInt(limitParam, 10) : 15;
   const limit = Math.min(isNaN(rawLimit) || rawLimit < 1 ? 15 : rawLimit, 30);
@@ -392,32 +429,46 @@ bibleRouter.get("/search", async (c) => {
     );
   }
 
+  const sqliteVersion: SqliteVersion =
+    versionParam === "NVI" && isSqliteVersionAvailable("NVI") ? "NVI" : "RVR60";
+
+  // ── Primary: full-corpus SQLite search ────────────────────────────────
+  if (lang === "es" && isSqliteVersionAvailable(sqliteVersion)) {
+    const sqliteResults = searchSqliteVerses(sqliteVersion, q.trim(), limit);
+
+    console.log(
+      `[Bible API] Search: "${q}" (${lang}, ${sqliteVersion}) → ${sqliteResults.length} results [SQLite full-corpus]`
+    );
+
+    return c.json({
+      results: sqliteResults,
+      query: q.trim(),
+      total: sqliteResults.length,
+      version: sqliteVersion,
+      source: "sqlite",
+    });
+  }
+
+  // ── Fallback: Devotional + BiblePassage cache ──────────────────────────
   const qLower = q.trim().toLowerCase();
 
-  // --- 1. Search Devotionals ---
-  const verseField =
-    lang === "es" ? "bibleVerseEs" : "bibleVerse";
-  const refField =
-    lang === "es" ? "bibleReferenceEs" : "bibleReference";
+  const verseField = lang === "es" ? "bibleVerseEs" : "bibleVerse";
+  const refField   = lang === "es" ? "bibleReferenceEs" : "bibleReference";
 
   const devotionals = await prisma.devotional.findMany({
     where: {
       OR: [
         { [verseField]: { contains: q } },
-        { [refField]: { contains: q } },
+        { [refField]:   { contains: q } },
       ],
     },
     select: {
-      bibleVerse: true,
-      bibleVerseEs: true,
-      bibleReference: true,
-      bibleReferenceEs: true,
+      bibleVerse: true, bibleVerseEs: true,
+      bibleReference: true, bibleReferenceEs: true,
     },
-    // Fetch more than limit to allow dedup; we'll trim afterwards
     take: limit * 3,
   });
 
-  // --- 2. Search BiblePassages ---
   const passages = await prisma.biblePassage.findMany({
     where: {
       lang,
@@ -426,21 +477,13 @@ bibleRouter.get("/search", async (c) => {
         { referenceDisplay: { contains: q } },
       ],
     },
-    select: {
-      referenceDisplay: true,
-      text: true,
-      book: true,
-      chapterStart: true,
-      verseStart: true,
-    },
+    select: { referenceDisplay: true, text: true, book: true, chapterStart: true, verseStart: true },
     take: limit * 3,
   });
 
-  // --- 3. Build result list ---
   const seen = new Set<string>();
   const results: SearchResult[] = [];
 
-  // Helper: add a result if not already seen (dedup by reference string)
   function addResult(item: SearchResult): void {
     const key = item.reference.toLowerCase().trim();
     if (seen.has(key)) return;
@@ -448,70 +491,45 @@ bibleRouter.get("/search", async (c) => {
     results.push(item);
   }
 
-  // Process devotionals
   for (const d of devotionals) {
     const reference = lang === "es" ? d.bibleReferenceEs : d.bibleReference;
     const text = lang === "es" ? d.bibleVerseEs : d.bibleVerse;
-
     if (!reference || !text) continue;
-
     const parsed = parseReference(reference, lang);
     if (!parsed) continue;
-
     addResult({
       reference,
       text: text.length > 200 ? text.slice(0, 200) + "…" : text,
-      bookId: parsed.bookId,
-      chapter: parsed.chapter,
-      verse: parsed.verse,
+      bookId: parsed.bookId, chapter: parsed.chapter, verse: parsed.verse,
       source: "devotional",
     });
   }
 
-  // Process passages
   for (const p of passages) {
-    const reference = p.referenceDisplay;
-    const text = p.text;
-
-    if (!reference || !text) continue;
-
-    // BiblePassage already has structured fields we can use directly
+    if (!p.referenceDisplay || !p.text) continue;
     addResult({
-      reference,
-      text: text.length > 200 ? text.slice(0, 200) + "…" : text,
-      bookId: p.book,
-      chapter: p.chapterStart,
-      verse: p.verseStart,
+      reference: p.referenceDisplay,
+      text: p.text.length > 200 ? p.text.slice(0, 200) + "…" : p.text,
+      bookId: p.book, chapter: p.chapterStart, verse: p.verseStart,
       source: "passage",
     });
   }
 
-  // --- 4. Sort: exact-match references first, then by source order ---
   results.sort((a, b) => {
-    const aRefLower = a.reference.toLowerCase();
-    const bRefLower = b.reference.toLowerCase();
-    const aExact = aRefLower === qLower ? 0 : aRefLower.startsWith(qLower) ? 1 : 2;
-    const bExact = bRefLower === qLower ? 0 : bRefLower.startsWith(qLower) ? 1 : 2;
-
-    if (aExact !== bExact) return aExact - bExact;
-
-    // Secondary: text contains the query term
-    const aTextMatch = a.text.toLowerCase().includes(qLower) ? 0 : 1;
-    const bTextMatch = b.text.toLowerCase().includes(qLower) ? 0 : 1;
-    return aTextMatch - bTextMatch;
+    const aL = a.reference.toLowerCase();
+    const bL = b.reference.toLowerCase();
+    const aE = aL === qLower ? 0 : aL.startsWith(qLower) ? 1 : 2;
+    const bE = bL === qLower ? 0 : bL.startsWith(qLower) ? 1 : 2;
+    if (aE !== bE) return aE - bE;
+    return (a.text.toLowerCase().includes(qLower) ? 0 : 1) -
+           (b.text.toLowerCase().includes(qLower) ? 0 : 1);
   });
 
   const trimmed = results.slice(0, limit);
+  console.log(`[Bible API] Search: "${q}" (${lang}) → ${trimmed.length} results [cache fallback]`);
 
-  const response: SearchResponse = {
-    results: trimmed,
-    query: q.trim(),
-    total: trimmed.length,
-  };
-
-  console.log(
-    `[Bible API] Search: "${q}" (${lang}) → ${trimmed.length} results`
-  );
-
-  return c.json(response);
+  return c.json({
+    results: trimmed, query: q.trim(), total: trimmed.length,
+    version: "RVR60", source: "cache",
+  });
 });
