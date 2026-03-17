@@ -632,31 +632,66 @@ function BibleHomeScreen({
     </View>
   );
 
-  // ── SEARCH MODE: focused layout with results above keyboard ───
-  if (isSearchActive) {
-    return (
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={0}
+  // ── UNIFIED LAYOUT: passive inline suggestions + home content ────────────
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}
+      keyboardVerticalOffset={0}
+    >
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 120 }}
+        keyboardShouldPersistTaps="handled"
       >
-        <View style={{ flex: 1 }}>
-          {/* Fixed search bar + version pills at top */}
-          <View style={{
-            borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '22',
-            backgroundColor: colors.background,
-          }}>
-            {searchBarUI}
-          </View>
 
-          {/* Scrollable results — fills space above keyboard */}
-          <ScrollView
-            style={{ flex: 1 }}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 12, paddingBottom: 32 }}
-          >
-            {/* Book matches */}
+        {/* ── Hero — collapses while typing to give results space ── */}
+        {!isSearchActive && (
+          <View style={{ height: 190, overflow: 'hidden' }}>
+            <Image
+              source={{ uri: devotional?.imageUrl ?? 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=800&q=80' }}
+              style={{ width: '100%', height: '100%' }}
+              contentFit="cover"
+            />
+            <LinearGradient
+              colors={['transparent', 'rgba(0,0,0,0.76)']}
+              style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 140 }}
+            />
+            <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 16 }}>
+              {verseText ? (
+                <>
+                  <Text
+                    style={{
+                      color: '#fff', fontSize: 13, lineHeight: 19, fontStyle: 'italic', marginBottom: 4,
+                      fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+                    }}
+                    numberOfLines={3}
+                  >
+                    {verseText}
+                  </Text>
+                  {verseRef && (
+                    <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, fontWeight: '600' }}>
+                      — {verseRef}
+                    </Text>
+                  )}
+                </>
+              ) : (
+                <Text style={{ color: '#fff', fontSize: 22, fontWeight: '800' }}>
+                  {lang === 'es' ? 'Biblia' : 'Bible'}
+                </Text>
+              )}
+            </View>
+          </View>
+        )}
+
+        {/* Search bar + version pills (always visible) */}
+        {searchBarUI}
+
+        {/* ── Passive suggestions — inline below bar, no screen swap ── */}
+        {isSearchActive && (
+          <View style={{ paddingHorizontal: 16, paddingTop: 8 }}>
+
+            {/* Book name matches */}
             {bookMatches.length > 0 && (
               <Animated.View entering={FadeIn} style={{ marginBottom: 12 }}>
                 <Text style={{
@@ -704,8 +739,8 @@ function BibleHomeScreen({
               </Animated.View>
             )}
 
-            {/* No results state */}
-            {!searchingVerses && !hasAnyResults && debouncedQuery.length >= 2 && (
+            {/* No results */}
+            {!searchingVerses && !hasAnyResults && debouncedQuery.length >= 3 && (
               <View style={{ alignItems: 'center', paddingVertical: 32 }}>
                 <Search size={28} color={colors.textMuted} strokeWidth={1.5} />
                 <Text style={{ color: colors.textMuted, fontSize: 15, marginTop: 10, fontWeight: '600' }}>
@@ -717,8 +752,8 @@ function BibleHomeScreen({
               </View>
             )}
 
-            {/* Still loading state */}
-            {searchingVerses && debouncedQuery.length >= 2 && verseResults.length === 0 && (
+            {/* Loading */}
+            {searchingVerses && debouncedQuery.length >= 3 && verseResults.length === 0 && (
               <View style={{ alignItems: 'center', paddingVertical: 24 }}>
                 <ActivityIndicator color={colors.primary} />
                 <Text style={{ color: colors.textMuted, fontSize: 13, marginTop: 8 }}>
@@ -726,130 +761,88 @@ function BibleHomeScreen({
                 </Text>
               </View>
             )}
-          </ScrollView>
-        </View>
-      </KeyboardAvoidingView>
-    );
-  }
 
-  // ── NORMAL MODE: full home layout ─────────────────────────────
-  return (
-    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
-
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <View style={{ height: 190, overflow: 'hidden' }}>
-        <Image
-          source={{ uri: devotional?.imageUrl ?? 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=800&q=80' }}
-          style={{ width: '100%', height: '100%' }}
-          contentFit="cover"
-        />
-        <LinearGradient
-          colors={['transparent', 'rgba(0,0,0,0.76)']}
-          style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 140 }}
-        />
-        <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 16 }}>
-          {verseText ? (
-            <>
-              <Text
-                style={{
-                  color: '#fff', fontSize: 13, lineHeight: 19, fontStyle: 'italic', marginBottom: 4,
-                  fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-                }}
-                numberOfLines={3}
-              >
-                {verseText}
-              </Text>
-              {verseRef && (
-                <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, fontWeight: '600' }}>
-                  — {verseRef}
-                </Text>
-              )}
-            </>
-          ) : (
-            <Text style={{ color: '#fff', fontSize: 22, fontWeight: '800' }}>
-              {lang === 'es' ? 'Biblia' : 'Bible'}
-            </Text>
-          )}
-        </View>
-      </View>
-
-      {/* Search bar + version pills (rendered from shared UI above) */}
-      {searchBarUI}
-
-      <View style={{ paddingHorizontal: 16, paddingTop: 8 }}>
-
-        {/* ── Testament Cards ──────────────────────────────────────── */}
-        <View style={{ flexDirection: 'row', gap: 12, marginBottom: 16, alignItems: 'stretch' }}>
-          <TestamentCard
-            title={i.oldTestament}
-            subtitle={i.oldTestamentSub}
-            bookCount={OT_BOOKS.length}
-            emoji="📜"
-            onPress={() => onSelectTestament('OT')}
-            colors={colors}
-            lang={lang}
-          />
-          <TestamentCard
-            title={i.newTestament}
-            subtitle={i.newTestamentSub}
-            bookCount={NT_BOOKS.length}
-            emoji="✝️"
-            onPress={() => onSelectTestament('NT')}
-            colors={colors}
-            lang={lang}
-          />
-        </View>
-
-        {/* ── Continue Reading + Recent Highlights ─── */}
-        <Animated.View entering={FadeIn} style={{ gap: 16 }}>
-
-          {/* Continue Reading */}
-          {lastRead && (
-            <ContinueReadingCard lastRead={lastRead} onPress={onContinueReading} colors={colors} lang={lang} />
-          )}
-
-          {/* Recent Highlights */}
-          <View>
-            <Text style={{
-              fontSize: 11, fontWeight: '700', color: colors.textMuted,
-              textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
-            }}>
-              {i.recentHighlights}
-            </Text>
-            {recentHighlights.length === 0 ? (
-              <View style={{
-                backgroundColor: colors.surface, borderRadius: 14, padding: 20,
-                alignItems: 'center', borderWidth: 1, borderColor: colors.textMuted + '22',
-              }}>
-                <Highlighter size={22} color={colors.textMuted} strokeWidth={1.5} />
-                <Text style={{ color: colors.textMuted, fontSize: 14, fontWeight: '600', marginTop: 8 }}>
-                  {i.noHighlights}
-                </Text>
-                <Text style={{ color: colors.textMuted, fontSize: 12, marginTop: 4, textAlign: 'center' }}>
-                  {i.noHighlightsSub}
-                </Text>
-              </View>
-            ) : (
-              <View style={{
-                backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
-                borderWidth: 1, borderColor: colors.textMuted + '22',
-              }}>
-                {recentHighlights.slice(0, 5).map(item => (
-                  <RecentHighlightItem
-                    key={item.key}
-                    item={item}
-                    onPress={() => onSelectRecentHighlight(item)}
-                    colors={colors}
-                    lang={lang}
-                  />
-                ))}
-              </View>
-            )}
           </View>
-        </Animated.View>
+        )}
 
-      </View>
-    </ScrollView>
+        {/* ── Home content — visible only when not searching ────── */}
+        {!isSearchActive && (
+          <View style={{ paddingHorizontal: 16, paddingTop: 8 }}>
+
+            {/* ── Testament Cards ──────────────────────────────────── */}
+            <View style={{ flexDirection: 'row', gap: 12, marginBottom: 16, alignItems: 'stretch' }}>
+              <TestamentCard
+                title={i.oldTestament}
+                subtitle={i.oldTestamentSub}
+                bookCount={OT_BOOKS.length}
+                emoji="📜"
+                onPress={() => onSelectTestament('OT')}
+                colors={colors}
+                lang={lang}
+              />
+              <TestamentCard
+                title={i.newTestament}
+                subtitle={i.newTestamentSub}
+                bookCount={NT_BOOKS.length}
+                emoji="✝️"
+                onPress={() => onSelectTestament('NT')}
+                colors={colors}
+                lang={lang}
+              />
+            </View>
+
+            {/* ── Continue Reading + Recent Highlights ─── */}
+            <Animated.View entering={FadeIn} style={{ gap: 16 }}>
+
+              {/* Continue Reading */}
+              {lastRead && (
+                <ContinueReadingCard lastRead={lastRead} onPress={onContinueReading} colors={colors} lang={lang} />
+              )}
+
+              {/* Recent Highlights */}
+              <View>
+                <Text style={{
+                  fontSize: 11, fontWeight: '700', color: colors.textMuted,
+                  textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
+                }}>
+                  {i.recentHighlights}
+                </Text>
+                {recentHighlights.length === 0 ? (
+                  <View style={{
+                    backgroundColor: colors.surface, borderRadius: 14, padding: 20,
+                    alignItems: 'center', borderWidth: 1, borderColor: colors.textMuted + '22',
+                  }}>
+                    <Highlighter size={22} color={colors.textMuted} strokeWidth={1.5} />
+                    <Text style={{ color: colors.textMuted, fontSize: 14, fontWeight: '600', marginTop: 8 }}>
+                      {i.noHighlights}
+                    </Text>
+                    <Text style={{ color: colors.textMuted, fontSize: 12, marginTop: 4, textAlign: 'center' }}>
+                      {i.noHighlightsSub}
+                    </Text>
+                  </View>
+                ) : (
+                  <View style={{
+                    backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
+                    borderWidth: 1, borderColor: colors.textMuted + '22',
+                  }}>
+                    {recentHighlights.slice(0, 5).map(item => (
+                      <RecentHighlightItem
+                        key={item.key}
+                        item={item}
+                        onPress={() => onSelectRecentHighlight(item)}
+                        colors={colors}
+                        lang={lang}
+                      />
+                    ))}
+                  </View>
+                )}
+              </View>
+            </Animated.View>
+
+          </View>
+        )}
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
