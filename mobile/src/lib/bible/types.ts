@@ -22,4 +22,16 @@ export interface BibleChapterData {
   lang: 'en' | 'es';
 }
 
-export type BibleNavView = 'books' | 'chapters' | 'verses';
+export type BibleNavView = 'home' | 'books' | 'chapters' | 'verses';
+
+export type BibleVersion = 'RVR60' | 'NVI' | 'LA';
+
+export interface BibleVersionInfo {
+  id: BibleVersion;
+  label: string;
+  fullName: string;
+  available: boolean;
+}
+
+export type HighlightColor = 'yellow' | 'green' | 'blue';
+export type HighlightMap = Record<string, HighlightColor>; // key: `${bookId}_${chapter}_${verse}`
