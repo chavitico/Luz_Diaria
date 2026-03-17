@@ -20,6 +20,7 @@ import Animated, {
 import { Check, X, Clock, Swords, Trophy, Star } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useUser, useAppStore } from '@/lib/store';
+import { preloadDuelSounds, unloadDuelSounds, playSound, setSfxEnabled } from '@/lib/audio';
 import { addLedgerEntry } from '@/lib/points-ledger';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { addDuelUsedQuestions } from '@/lib/duel-anti-repeat';
@@ -223,6 +224,7 @@ export default function DueloGame() {
   const insets = useSafeAreaInsets();
   const user = useUser();
   const updateUser = useAppStore(s => s.updateUser);
+  const sfxEnabled = useAppStore(s => s.user?.settings?.sfxEnabled ?? true);
   const queryClient = useQueryClient();
 
   const matchId = params.matchId ?? 'local';
@@ -286,6 +288,16 @@ export default function DueloGame() {
   useEffect(() => { botScoreRef.current = botScore; }, [botScore]);
   useEffect(() => { resultsRef.current = results; }, [results]);
 
+  // ── Audio: preload on mount, unload on exit ───────────────────────────────────
+  useEffect(() => {
+    preloadDuelSounds();
+    return () => { unloadDuelSounds(); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ── Audio: keep sfx toggle in sync with settings ─────────────────────────────
+  useEffect(() => { setSfxEnabled(sfxEnabled); }, [sfxEnabled]);
+
   // Timer animation
   const timerProgress = useSharedValue(1);
   const timerStyle = useAnimatedStyle(() => ({
@@ -318,6 +330,7 @@ export default function DueloGame() {
         ? Haptics.NotificationFeedbackType.Success
         : Haptics.NotificationFeedbackType.Warning
     );
+    playSound(outcome === 'player_wins' ? 'win' : 'lose');
 
     const pts = outcome === 'player_wins' ? 40 : 10;
     setPointsAwarded(pts);
@@ -383,6 +396,11 @@ export default function DueloGame() {
   const evaluateAnswers = useCallback((pAns: number | null, bAns: number | null, question: DuelQuestion, pScore: number, bScore: number, prevResults: QuestionResult[]) => {
     const playerCorrect = pAns !== null && pAns !== -1 && pAns === question.correctIndex;
     const botCorrect = bAns !== null && bAns !== -1 && bAns === question.correctIndex;
+
+    // Play answer result sound (only when player actually answered, not timed out)
+    if (pAns !== null && pAns !== -1) {
+      playSound(playerCorrect ? 'correct' : 'wrong');
+    }
 
     const result: QuestionResult = {
       questionId: question.id,
@@ -586,6 +604,7 @@ export default function DueloGame() {
   useEffect(() => {
     let n = 3;
     setCountdown(n);
+    playSound('tick');
     const id = setInterval(() => {
       n -= 1;
       if (n <= 0) {
@@ -594,6 +613,7 @@ export default function DueloGame() {
         if (isHumanMatch) startHeartbeat();
       } else {
         setCountdown(n);
+        playSound('tick');
       }
     }, 1000);
     return () => clearInterval(id);
@@ -608,6 +628,9 @@ export default function DueloGame() {
 
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => {
+        const next = t - 1;
+        // Tick on last 5 seconds of question timer
+        if (next > 0 && next <= 5) playSound('tick');
         if (t <= 1) {
           clearInterval(timerRef.current!);
           timerRef.current = null;
@@ -634,7 +657,7 @@ export default function DueloGame() {
           }
           return 0;
         }
-        return t - 1;
+        return next;
       });
     }, 1000);
 
@@ -654,6 +677,7 @@ export default function DueloGame() {
     if (phase !== 'question' || playerAnswerRef.current !== null || countdown !== null) return;
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    playSound('tap');
     playerAnswerRef.current = index;
     setPlayerAnswer(index);
 

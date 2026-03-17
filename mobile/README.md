@@ -586,6 +586,13 @@ Users can send store items as gifts directly to other community members.
   - 5 instrumental Christian tracks
   - Volume control (synced with Settings)
   - Track selection
+- **Duel Sound Effects (SFX)** — branch: `feature/game-audio-polish`
+  - Module: `src/lib/audio/index.ts` — lightweight preload/play/debounce system
+  - 7 WAV files generated at `assets/audio/`: `tap.wav`, `tick.wav`, `match_found.wav`, `correct.wav`, `wrong.wav`, `win.wav`, `lose.wav`
+  - Events: button tap → `tap`, 3-2-1 countdown → `tick`, last 5s timer → `tick`, match found → `match_found`, correct answer → `correct`, wrong answer → `wrong`, win → `win`, lose → `lose`
+  - Preloaded in lobby on entry (no lag on first play)
+  - Debounced per-sound to prevent spam
+  - Global toggle in Settings → "Efectos de sonido" (persisted via `UserSettings.sfxEnabled`)
 
 ## Tech Stack
 

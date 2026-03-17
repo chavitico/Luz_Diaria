@@ -11,6 +11,7 @@ export interface UserSettings {
   ttsSpeed: number;
   ttsVolume: number;
   textScale: number; // 0.85 – 1.40, default 1.0
+  sfxEnabled: boolean; // Duel sound effects toggle, default true
 }
 
 export type ThemeOption = string; // Theme IDs are dynamic (e.g. 'theme_amanecer', 'theme_promesa')

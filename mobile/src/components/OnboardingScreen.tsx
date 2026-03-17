@@ -519,6 +519,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
           ttsSpeed: 1.0,
           ttsVolume: 1.0,
           textScale: 1.0,
+          sfxEnabled: true,
         },
       });
       setOnboarded(true);

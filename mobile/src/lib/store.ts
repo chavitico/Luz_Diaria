@@ -97,6 +97,7 @@ const initialUserSettings: UserSettings = {
   ttsSpeed: 1.0,
   ttsVolume: 1.0,
   textScale: 1.0,
+  sfxEnabled: true,
 };
 
 export const useAppStore = create<AppState>()(

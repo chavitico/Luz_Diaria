@@ -52,6 +52,7 @@ import {
   ChevronDown,
   LifeBuoy,
   Type,
+  Swords,
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
@@ -1341,6 +1342,28 @@ export default function SettingsScreen() {
                 />
               </View>
             )}
+          </SectionCard>
+
+          {/* ── SECTION 6b: EFECTOS DE SONIDO ────────────────────── */}
+          <SectionCard colors={colors}>
+            <SettingRow
+              inCard
+              icon={<Swords size={20} color={colors.primary} />}
+              title={language === 'es' ? 'Efectos de sonido' : 'Sound Effects'}
+              subtitle={language === 'es' ? 'Sonidos del Duelo de Sabiduría' : 'Duel of Wisdom sound effects'}
+              colors={colors}
+              right={
+                <Switch
+                  value={settings.sfxEnabled ?? true}
+                  onValueChange={(value) => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    updateSettings({ sfxEnabled: value });
+                  }}
+                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
+                  thumbColor={(settings.sfxEnabled ?? true) ? colors.primary : '#E5E7EB'}
+                />
+              }
+            />
           </SectionCard>
 
           {/* ── SECTION 7: TRANSFERIR CUENTA ─────────────────────── */}

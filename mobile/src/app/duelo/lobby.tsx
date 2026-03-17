@@ -20,7 +20,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import { X, Swords } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
-import { useUser } from '@/lib/store';
+import { useUser, useAppStore } from '@/lib/store';
+import { preloadDuelSounds, playSound, setSfxEnabled } from '@/lib/audio';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { getRandomDuelQuestions } from '@/lib/duel-questions';
 import { getDuelUsedQuestionIds } from '@/lib/duel-anti-repeat';
@@ -179,6 +180,14 @@ export default function DueloLobby() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const user = useUser();
+  const sfxEnabled = useAppStore(s => s.user?.settings?.sfxEnabled ?? true);
+
+  // Preload SFX here so game screen has them ready immediately
+  useEffect(() => {
+    setSfxEnabled(sfxEnabled);
+    preloadDuelSounds();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sfxEnabled]);
 
   const [phase, setPhase] = useState<LobbyPhase>('searching');
   const [dotCount, setDotCount] = useState(1);
@@ -262,6 +271,7 @@ export default function DueloLobby() {
     setOpponentInfo({ name: botName, avatarId: 'avatar_dove', titleId: null, countryCode: null });
     setPhase('found_bot');
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    playSound('match_found');
 
     let resolvedMatchId = 'local';
     let userRating = 1000;
@@ -346,6 +356,7 @@ export default function DueloLobby() {
     });
     setPhase('found_human');
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    playSound('match_found');
 
     setTimeout(() => {
       setPhase('starting');
