@@ -13,6 +13,7 @@ import {
   Platform,
   Modal,
   Dimensions,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -569,6 +570,169 @@ function BibleHomeScreen({
     searching:         lang === 'es' ? 'Buscando versículos...'      : 'Searching verses...',
   };
 
+  // ── Shared search bar + version pills UI ──────────────────────
+  const searchBarUI = (
+    <View style={{ paddingHorizontal: 16, paddingTop: 14, paddingBottom: 2 }}>
+      {/* Search Bar */}
+      <View style={{
+        flexDirection: 'row', alignItems: 'center',
+        backgroundColor: colors.surface, borderRadius: 14,
+        paddingHorizontal: 14, paddingVertical: 11,
+        borderWidth: 1, borderColor: colors.textMuted + '28', marginBottom: 10,
+      }}>
+        <Search size={16} color={colors.textMuted} />
+        <TextInput
+          style={{ flex: 1, marginLeft: 10, fontSize: 15, color: colors.text }}
+          placeholder={i.searchPlaceholder}
+          placeholderTextColor={colors.textMuted}
+          value={searchQuery}
+          onChangeText={onSearchChange}
+          onSubmitEditing={onSearchSubmit}
+          returnKeyType="search"
+          autoCorrect={false} autoCapitalize="none"
+        />
+        {searchQuery.length > 0 && (
+          <Pressable onPress={() => onSearchChange('')} hitSlop={10}>
+            <X size={16} color={colors.textMuted} />
+          </Pressable>
+        )}
+        {searchingVerses && <ActivityIndicator size="small" color={colors.textMuted} style={{ marginLeft: 8 }} />}
+      </View>
+
+      {/* Version Pills */}
+      <View style={{ flexDirection: 'row', gap: 8, marginBottom: 10 }}>
+        {BIBLE_VERSIONS.map(v => {
+          const active = selectedVersion === v.id;
+          return (
+            <Pressable key={v.id}
+              onPress={() => v.available && onVersionChange(v.id)}
+              style={({ pressed }) => ({ opacity: pressed && v.available ? 0.7 : 1 })}>
+              <View style={{
+                paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20,
+                backgroundColor: active ? colors.primary : v.available ? colors.surface : colors.textMuted + '14',
+                borderWidth: 1,
+                borderColor: active ? 'transparent' : v.available ? colors.textMuted + '28' : colors.textMuted + '44',
+                flexDirection: 'row', alignItems: 'center', gap: 5,
+              }}>
+                <Text style={{ fontSize: 13, fontWeight: '700', color: active ? '#fff' : v.available ? colors.text : colors.textMuted }}>
+                  {v.label}
+                </Text>
+                {!v.available && (
+                  <View style={{ backgroundColor: colors.primary + '33', borderRadius: 5, paddingHorizontal: 5, paddingVertical: 2 }}>
+                    <Text style={{ fontSize: 8, color: colors.primary, fontWeight: '800', letterSpacing: 0.4 }}>
+                      {lang === 'es' ? 'PRONTO' : 'SOON'}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </Pressable>
+          );
+        })}
+      </View>
+    </View>
+  );
+
+  // ── SEARCH MODE: focused layout with results above keyboard ───
+  if (isSearchActive) {
+    return (
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={0}
+      >
+        <View style={{ flex: 1 }}>
+          {/* Fixed search bar + version pills at top */}
+          <View style={{
+            borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '22',
+            backgroundColor: colors.background,
+          }}>
+            {searchBarUI}
+          </View>
+
+          {/* Scrollable results — fills space above keyboard */}
+          <ScrollView
+            style={{ flex: 1 }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 12, paddingBottom: 32 }}
+          >
+            {/* Book matches */}
+            {bookMatches.length > 0 && (
+              <Animated.View entering={FadeIn} style={{ marginBottom: 12 }}>
+                <Text style={{
+                  fontSize: 11, fontWeight: '700', color: colors.textMuted,
+                  textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
+                }}>
+                  {i.booksLabel}
+                </Text>
+                <View style={{
+                  backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
+                  borderWidth: 1, borderColor: colors.textMuted + '22',
+                }}>
+                  {bookMatches.map(b => (
+                    <BookItem
+                      key={b.id} book={b} colors={colors} lang={lang}
+                      onPress={() => onSearchSubmit()}
+                    />
+                  ))}
+                </View>
+              </Animated.View>
+            )}
+
+            {/* Verse content matches */}
+            {verseResults.length > 0 && (
+              <Animated.View entering={FadeIn}>
+                <Text style={{
+                  fontSize: 11, fontWeight: '700', color: colors.textMuted,
+                  textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
+                }}>
+                  {i.versesLabel} · {selectedVersion}
+                </Text>
+                <View style={{
+                  backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
+                  borderWidth: 1, borderColor: colors.textMuted + '22',
+                }}>
+                  {verseResults.map((r, idx) => (
+                    <VerseResultItem
+                      key={`${r.reference}_${idx}`}
+                      result={r}
+                      onPress={() => onSelectVerseResult(r)}
+                      colors={colors}
+                    />
+                  ))}
+                </View>
+              </Animated.View>
+            )}
+
+            {/* No results state */}
+            {!searchingVerses && !hasAnyResults && debouncedQuery.length >= 2 && (
+              <View style={{ alignItems: 'center', paddingVertical: 32 }}>
+                <Search size={28} color={colors.textMuted} strokeWidth={1.5} />
+                <Text style={{ color: colors.textMuted, fontSize: 15, marginTop: 10, fontWeight: '600' }}>
+                  {i.noResults} "{searchQuery}"
+                </Text>
+                <Text style={{ color: colors.textMuted, fontSize: 13, marginTop: 4, textAlign: 'center' }}>
+                  {i.tryWords}
+                </Text>
+              </View>
+            )}
+
+            {/* Still loading state */}
+            {searchingVerses && debouncedQuery.length >= 2 && verseResults.length === 0 && (
+              <View style={{ alignItems: 'center', paddingVertical: 24 }}>
+                <ActivityIndicator color={colors.primary} />
+                <Text style={{ color: colors.textMuted, fontSize: 13, marginTop: 8 }}>
+                  {i.searching}
+                </Text>
+              </View>
+            )}
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
+    );
+  }
+
+  // ── NORMAL MODE: full home layout ─────────────────────────────
   return (
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
 
@@ -609,63 +773,10 @@ function BibleHomeScreen({
         </View>
       </View>
 
-      <View style={{ paddingHorizontal: 16, paddingTop: 16 }}>
+      {/* Search bar + version pills (rendered from shared UI above) */}
+      {searchBarUI}
 
-        {/* ── Search Bar ───────────────────────────────────────── */}
-        <View style={{
-          flexDirection: 'row', alignItems: 'center',
-          backgroundColor: colors.surface, borderRadius: 14,
-          paddingHorizontal: 14, paddingVertical: 11,
-          borderWidth: 1, borderColor: colors.textMuted + '28', marginBottom: 14,
-        }}>
-          <Search size={16} color={colors.textMuted} />
-          <TextInput
-            style={{ flex: 1, marginLeft: 10, fontSize: 15, color: colors.text }}
-            placeholder={i.searchPlaceholder}
-            placeholderTextColor={colors.textMuted}
-            value={searchQuery}
-            onChangeText={onSearchChange}
-            onSubmitEditing={onSearchSubmit}
-            returnKeyType="search"
-            autoCorrect={false} autoCapitalize="none"
-          />
-          {searchQuery.length > 0 && (
-            <Pressable onPress={() => onSearchChange('')} hitSlop={10}>
-              <X size={16} color={colors.textMuted} />
-            </Pressable>
-          )}
-          {searchingVerses && <ActivityIndicator size="small" color={colors.textMuted} style={{ marginLeft: 8 }} />}
-        </View>
-
-        {/* ── Version Pills ─────────────────────────────────────── */}
-        <View style={{ flexDirection: 'row', gap: 8, marginBottom: 18 }}>
-          {BIBLE_VERSIONS.map(v => {
-            const active = selectedVersion === v.id;
-            return (
-              <Pressable key={v.id}
-                onPress={() => v.available && onVersionChange(v.id)}
-                style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
-                <View style={{
-                  paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20,
-                  backgroundColor: active ? colors.primary : colors.surface,
-                  borderWidth: active ? 0 : 1, borderColor: colors.textMuted + '28',
-                  flexDirection: 'row', alignItems: 'center', gap: 5,
-                }}>
-                  <Text style={{ fontSize: 13, fontWeight: '700', color: active ? '#fff' : v.available ? colors.text : colors.textMuted }}>
-                    {v.label}
-                  </Text>
-                  {!v.available && (
-                    <View style={{ backgroundColor: colors.textMuted + '22', borderRadius: 5, paddingHorizontal: 4, paddingVertical: 1 }}>
-                      <Text style={{ fontSize: 8, color: colors.textMuted, fontWeight: '700' }}>
-                        {lang === 'es' ? 'PRONTO' : 'SOON'}
-                      </Text>
-                    </View>
-                  )}
-                </View>
-              </Pressable>
-            );
-          })}
-        </View>
+      <View style={{ paddingHorizontal: 16, paddingTop: 8 }}>
 
         {/* ── Testament Cards ──────────────────────────────────────── */}
         <View style={{ flexDirection: 'row', gap: 12, marginBottom: 16, alignItems: 'stretch' }}>
@@ -689,132 +800,53 @@ function BibleHomeScreen({
           />
         </View>
 
-        {/* ── Continue Reading + Recent Highlights (when no search) ─── */}
-        {!isSearchActive && (
-          <Animated.View entering={FadeIn} style={{ gap: 16 }}>
+        {/* ── Continue Reading + Recent Highlights ─── */}
+        <Animated.View entering={FadeIn} style={{ gap: 16 }}>
 
-            {/* Continue Reading */}
-            {lastRead && (
-              <ContinueReadingCard lastRead={lastRead} onPress={onContinueReading} colors={colors} lang={lang} />
-            )}
+          {/* Continue Reading */}
+          {lastRead && (
+            <ContinueReadingCard lastRead={lastRead} onPress={onContinueReading} colors={colors} lang={lang} />
+          )}
 
-            {/* Recent Highlights */}
-            <View>
-              <Text style={{
-                fontSize: 11, fontWeight: '700', color: colors.textMuted,
-                textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
+          {/* Recent Highlights */}
+          <View>
+            <Text style={{
+              fontSize: 11, fontWeight: '700', color: colors.textMuted,
+              textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
+            }}>
+              {i.recentHighlights}
+            </Text>
+            {recentHighlights.length === 0 ? (
+              <View style={{
+                backgroundColor: colors.surface, borderRadius: 14, padding: 20,
+                alignItems: 'center', borderWidth: 1, borderColor: colors.textMuted + '22',
               }}>
-                {i.recentHighlights}
-              </Text>
-              {recentHighlights.length === 0 ? (
-                <View style={{
-                  backgroundColor: colors.surface, borderRadius: 14, padding: 20,
-                  alignItems: 'center', borderWidth: 1, borderColor: colors.textMuted + '22',
-                }}>
-                  <Highlighter size={22} color={colors.textMuted} strokeWidth={1.5} />
-                  <Text style={{ color: colors.textMuted, fontSize: 14, fontWeight: '600', marginTop: 8 }}>
-                    {i.noHighlights}
-                  </Text>
-                  <Text style={{ color: colors.textMuted, fontSize: 12, marginTop: 4, textAlign: 'center' }}>
-                    {i.noHighlightsSub}
-                  </Text>
-                </View>
-              ) : (
-                <View style={{
-                  backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
-                  borderWidth: 1, borderColor: colors.textMuted + '22',
-                }}>
-                  {recentHighlights.slice(0, 5).map(item => (
-                    <RecentHighlightItem
-                      key={item.key}
-                      item={item}
-                      onPress={() => onSelectRecentHighlight(item)}
-                      colors={colors}
-                      lang={lang}
-                    />
-                  ))}
-                </View>
-              )}
-            </View>
-          </Animated.View>
-        )}
-
-        {/* ── Search Results (when query active) ────────────────── */}
-        {isSearchActive && (
-          <Animated.View entering={FadeIn}>
-
-            {/* Book matches */}
-            {bookMatches.length > 0 && (
-              <View style={{ marginBottom: 12 }}>
-                <Text style={{
-                  fontSize: 11, fontWeight: '700', color: colors.textMuted,
-                  textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
-                }}>
-                  {i.booksLabel}
+                <Highlighter size={22} color={colors.textMuted} strokeWidth={1.5} />
+                <Text style={{ color: colors.textMuted, fontSize: 14, fontWeight: '600', marginTop: 8 }}>
+                  {i.noHighlights}
                 </Text>
-                <View style={{
-                  backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
-                  borderWidth: 1, borderColor: colors.textMuted + '22',
-                }}>
-                  {bookMatches.map(b => (
-                    <BookItem
-                      key={b.id} book={b} colors={colors} lang={lang}
-                      onPress={() => onSearchSubmit()}
-                    />
-                  ))}
-                </View>
-              </View>
-            )}
-
-            {/* Verse content matches */}
-            {verseResults.length > 0 && (
-              <View>
-                <Text style={{
-                  fontSize: 11, fontWeight: '700', color: colors.textMuted,
-                  textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
-                }}>
-                  {i.versesLabel} · {selectedVersion}
-                </Text>
-                <View style={{
-                  backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
-                  borderWidth: 1, borderColor: colors.textMuted + '22',
-                }}>
-                  {verseResults.map((r, idx) => (
-                    <VerseResultItem
-                      key={`${r.reference}_${idx}`}
-                      result={r}
-                      onPress={() => onSelectVerseResult(r)}
-                      colors={colors}
-                    />
-                  ))}
-                </View>
-              </View>
-            )}
-
-            {/* No results state */}
-            {!searchingVerses && !hasAnyResults && debouncedQuery.length >= 2 && (
-              <View style={{ alignItems: 'center', paddingVertical: 32 }}>
-                <Search size={28} color={colors.textMuted} strokeWidth={1.5} />
-                <Text style={{ color: colors.textMuted, fontSize: 15, marginTop: 10, fontWeight: '600' }}>
-                  {i.noResults} "{searchQuery}"
-                </Text>
-                <Text style={{ color: colors.textMuted, fontSize: 13, marginTop: 4, textAlign: 'center' }}>
-                  {i.tryWords}
+                <Text style={{ color: colors.textMuted, fontSize: 12, marginTop: 4, textAlign: 'center' }}>
+                  {i.noHighlightsSub}
                 </Text>
               </View>
-            )}
-
-            {/* Still loading state */}
-            {searchingVerses && debouncedQuery.length >= 2 && verseResults.length === 0 && (
-              <View style={{ alignItems: 'center', paddingVertical: 24 }}>
-                <ActivityIndicator color={colors.primary} />
-                <Text style={{ color: colors.textMuted, fontSize: 13, marginTop: 8 }}>
-                  {i.searching}
-                </Text>
+            ) : (
+              <View style={{
+                backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
+                borderWidth: 1, borderColor: colors.textMuted + '22',
+              }}>
+                {recentHighlights.slice(0, 5).map(item => (
+                  <RecentHighlightItem
+                    key={item.key}
+                    item={item}
+                    onPress={() => onSelectRecentHighlight(item)}
+                    colors={colors}
+                    lang={lang}
+                  />
+                ))}
               </View>
             )}
-          </Animated.View>
-        )}
+          </View>
+        </Animated.View>
 
       </View>
     </ScrollView>
@@ -1261,15 +1293,17 @@ export default function BibleScreen() {
                       return (
                         <View key={v.id} style={{
                           flexDirection: 'row', alignItems: 'center',
-                          paddingHorizontal: 8, paddingVertical: 4, borderRadius: 10,
-                          backgroundColor: colors.textMuted + '10',
-                          gap: 3,
+                          paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10,
+                          backgroundColor: colors.textMuted + '18',
+                          borderWidth: 1,
+                          borderColor: colors.textMuted + '30',
+                          gap: 4,
                         }}>
-                          <Text style={{ fontSize: 10, fontWeight: '600', color: colors.textMuted + '60' }}>
+                          <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted }}>
                             {v.label}
                           </Text>
-                          <View style={{ backgroundColor: colors.textMuted + '25', borderRadius: 3, paddingHorizontal: 3, paddingVertical: 1 }}>
-                            <Text style={{ fontSize: 7, color: colors.textMuted + '80', fontWeight: '700' }}>
+                          <View style={{ backgroundColor: colors.primary + '2E', borderRadius: 3, paddingHorizontal: 4, paddingVertical: 1 }}>
+                            <Text style={{ fontSize: 7, color: colors.primary, fontWeight: '800', letterSpacing: 0.3 }}>
                               {lang === 'es' ? 'PRONTO' : 'SOON'}
                             </Text>
                           </View>

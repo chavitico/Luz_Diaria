@@ -814,7 +814,7 @@ Bible Hub Home → Testament List (OT/NT) → Book List → Chapter Grid → Ver
 ### Bible Home Screen (`src/app/(tabs)/bible.tsx`)
 - **Hero section**: devotional image with verse-of-the-day overlay (reuses `['todayDevotional']` React Query cache — same source as Home screen, zero duplicate fetches)
 - **Search bar**: always-visible, filters books by name (Spanish/English). Submit navigates to books view with search results
-- **Version selector**: pill UI with RVR60 (active), NVI, Lenguaje Actual (both marked "PRONTO" — UI built, API connection pending)
+- **Version selector**: pill UI with RVR60 (active), NVI, Lenguaje Actual — LA shows "PRONTO"/"SOON" badge with primary-tinted color, clearly visible but disabled/non-interactive
 - **Testament cards**: "Antiguo Testamento" (📜, 39 books) and "Nuevo Testamento" (✝️, 27 books) — tap to navigate to filtered book list
 - **Stats bar**: 66 books / 1,189 chapters / 31,102 versículos
 
@@ -858,7 +858,23 @@ Bible Hub Home → Testament List (OT/NT) → Book List → Chapter Grid → Ver
   "Continue reading", "Recent highlights", empty states, chapter counts, back labels
 - Spanish behavior unchanged (default)
 
-### Reader Controls Bar (anti-overlap fix)
+### Search UX — Focused Search Mode
+- When query has ≥2 characters, the Bible home switches to a "focused search mode":
+  - Hero and testament cards are hidden; layout becomes search-bar-first
+  - `KeyboardAvoidingView` (behavior `padding` on iOS, `height` on Android) wraps the layout
+  - Search bar + version pills fixed at top, results in a `flex: 1` ScrollView immediately below
+  - Results remain visible above the keyboard — no scrolling past cards required
+  - `keyboardShouldPersistTaps="handled"` on results ScrollView allows tap-through
+- When query is cleared or keyboard closes, normal home layout (hero + cards + highlights) resumes
+
+### Lenguaje Actual Pill Visibility
+- LA pill rendered in both home screen and in-reader version bar
+- Styling: slightly tinted background (`textMuted + '14'`), readable border (`textMuted + '44'`), full-opacity muted text
+- PRONTO/SOON badge uses `primary + '33'` background with `primary` text — clearly readable, not hidden
+- In-reader LA pill also has border and visible badge
+- Pill is non-interactive (no Pressable, `v.available` guard on home screen press handler)
+
+
 - Version switcher pills on first row
 - Highlight hint on second row — no longer shares the same row, eliminates overlap on narrow iPhones
 
