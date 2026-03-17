@@ -3,6 +3,102 @@
 
 import { prisma } from "./prisma";
 
+// ─── Bible Books List ────────────────────────────────────────────────────────
+
+export interface BibleBookInfo {
+  id: string;       // "GEN"
+  name: string;     // Spanish display name, e.g. "Génesis"
+  nameEn: string;   // English display name, e.g. "Genesis"
+  chapters: number; // total chapter count
+  testament: "OT" | "NT";
+}
+
+export const BIBLE_BOOKS_LIST: BibleBookInfo[] = [
+  // Old Testament
+  { id: "GEN", name: "Génesis",          nameEn: "Genesis",          chapters: 50, testament: "OT" },
+  { id: "EXO", name: "Éxodo",            nameEn: "Exodus",            chapters: 40, testament: "OT" },
+  { id: "LEV", name: "Levítico",         nameEn: "Leviticus",         chapters: 27, testament: "OT" },
+  { id: "NUM", name: "Números",          nameEn: "Numbers",           chapters: 36, testament: "OT" },
+  { id: "DEU", name: "Deuteronomio",     nameEn: "Deuteronomy",       chapters: 34, testament: "OT" },
+  { id: "JOS", name: "Josué",            nameEn: "Joshua",            chapters: 24, testament: "OT" },
+  { id: "JDG", name: "Jueces",           nameEn: "Judges",            chapters: 21, testament: "OT" },
+  { id: "RUT", name: "Rut",              nameEn: "Ruth",              chapters:  4, testament: "OT" },
+  { id: "1SA", name: "1 Samuel",         nameEn: "1 Samuel",          chapters: 31, testament: "OT" },
+  { id: "2SA", name: "2 Samuel",         nameEn: "2 Samuel",          chapters: 24, testament: "OT" },
+  { id: "1KI", name: "1 Reyes",          nameEn: "1 Kings",           chapters: 22, testament: "OT" },
+  { id: "2KI", name: "2 Reyes",          nameEn: "2 Kings",           chapters: 25, testament: "OT" },
+  { id: "1CH", name: "1 Crónicas",       nameEn: "1 Chronicles",      chapters: 29, testament: "OT" },
+  { id: "2CH", name: "2 Crónicas",       nameEn: "2 Chronicles",      chapters: 36, testament: "OT" },
+  { id: "EZR", name: "Esdras",           nameEn: "Ezra",              chapters: 10, testament: "OT" },
+  { id: "NEH", name: "Nehemías",         nameEn: "Nehemiah",          chapters: 13, testament: "OT" },
+  { id: "EST", name: "Ester",            nameEn: "Esther",            chapters: 10, testament: "OT" },
+  { id: "JOB", name: "Job",              nameEn: "Job",               chapters: 42, testament: "OT" },
+  { id: "PSA", name: "Salmos",           nameEn: "Psalms",            chapters: 150, testament: "OT" },
+  { id: "PRO", name: "Proverbios",       nameEn: "Proverbs",          chapters: 31, testament: "OT" },
+  { id: "ECC", name: "Eclesiastés",      nameEn: "Ecclesiastes",      chapters: 12, testament: "OT" },
+  { id: "SNG", name: "Cantares",         nameEn: "Song of Solomon",   chapters:  8, testament: "OT" },
+  { id: "ISA", name: "Isaías",           nameEn: "Isaiah",            chapters: 66, testament: "OT" },
+  { id: "JER", name: "Jeremías",         nameEn: "Jeremiah",          chapters: 52, testament: "OT" },
+  { id: "LAM", name: "Lamentaciones",    nameEn: "Lamentations",      chapters:  5, testament: "OT" },
+  { id: "EZK", name: "Ezequiel",         nameEn: "Ezekiel",           chapters: 48, testament: "OT" },
+  { id: "DAN", name: "Daniel",           nameEn: "Daniel",            chapters: 12, testament: "OT" },
+  { id: "HOS", name: "Oseas",            nameEn: "Hosea",             chapters: 14, testament: "OT" },
+  { id: "JOL", name: "Joel",             nameEn: "Joel",              chapters:  3, testament: "OT" },
+  { id: "AMO", name: "Amós",             nameEn: "Amos",              chapters:  9, testament: "OT" },
+  { id: "OBA", name: "Abdías",           nameEn: "Obadiah",           chapters:  1, testament: "OT" },
+  { id: "JON", name: "Jonás",            nameEn: "Jonah",             chapters:  4, testament: "OT" },
+  { id: "MIC", name: "Miqueas",          nameEn: "Micah",             chapters:  7, testament: "OT" },
+  { id: "NAM", name: "Nahúm",            nameEn: "Nahum",             chapters:  3, testament: "OT" },
+  { id: "HAB", name: "Habacuc",          nameEn: "Habakkuk",          chapters:  3, testament: "OT" },
+  { id: "ZEP", name: "Sofonías",         nameEn: "Zephaniah",         chapters:  3, testament: "OT" },
+  { id: "HAG", name: "Hageo",            nameEn: "Haggai",            chapters:  2, testament: "OT" },
+  { id: "ZEC", name: "Zacarías",         nameEn: "Zechariah",         chapters: 14, testament: "OT" },
+  { id: "MAL", name: "Malaquías",        nameEn: "Malachi",           chapters:  4, testament: "OT" },
+  // New Testament
+  { id: "MAT", name: "Mateo",            nameEn: "Matthew",           chapters: 28, testament: "NT" },
+  { id: "MRK", name: "Marcos",           nameEn: "Mark",              chapters: 16, testament: "NT" },
+  { id: "LUK", name: "Lucas",            nameEn: "Luke",              chapters: 24, testament: "NT" },
+  { id: "JHN", name: "Juan",             nameEn: "John",              chapters: 21, testament: "NT" },
+  { id: "ACT", name: "Hechos",           nameEn: "Acts",              chapters: 28, testament: "NT" },
+  { id: "ROM", name: "Romanos",          nameEn: "Romans",            chapters: 16, testament: "NT" },
+  { id: "1CO", name: "1 Corintios",      nameEn: "1 Corinthians",     chapters: 16, testament: "NT" },
+  { id: "2CO", name: "2 Corintios",      nameEn: "2 Corinthians",     chapters: 13, testament: "NT" },
+  { id: "GAL", name: "Gálatas",          nameEn: "Galatians",         chapters:  6, testament: "NT" },
+  { id: "EPH", name: "Efesios",          nameEn: "Ephesians",         chapters:  6, testament: "NT" },
+  { id: "PHP", name: "Filipenses",       nameEn: "Philippians",       chapters:  4, testament: "NT" },
+  { id: "COL", name: "Colosenses",       nameEn: "Colossians",        chapters:  4, testament: "NT" },
+  { id: "1TH", name: "1 Tesalonicenses", nameEn: "1 Thessalonians",   chapters:  5, testament: "NT" },
+  { id: "2TH", name: "2 Tesalonicenses", nameEn: "2 Thessalonians",   chapters:  3, testament: "NT" },
+  { id: "1TI", name: "1 Timoteo",        nameEn: "1 Timothy",         chapters:  6, testament: "NT" },
+  { id: "2TI", name: "2 Timoteo",        nameEn: "2 Timothy",         chapters:  4, testament: "NT" },
+  { id: "TIT", name: "Tito",             nameEn: "Titus",             chapters:  3, testament: "NT" },
+  { id: "PHM", name: "Filemón",          nameEn: "Philemon",          chapters:  1, testament: "NT" },
+  { id: "HEB", name: "Hebreos",          nameEn: "Hebrews",           chapters: 13, testament: "NT" },
+  { id: "JAS", name: "Santiago",         nameEn: "James",             chapters:  5, testament: "NT" },
+  { id: "1PE", name: "1 Pedro",          nameEn: "1 Peter",           chapters:  5, testament: "NT" },
+  { id: "2PE", name: "2 Pedro",          nameEn: "2 Peter",           chapters:  3, testament: "NT" },
+  { id: "1JN", name: "1 Juan",           nameEn: "1 John",            chapters:  5, testament: "NT" },
+  { id: "2JN", name: "2 Juan",           nameEn: "2 John",            chapters:  1, testament: "NT" },
+  { id: "3JN", name: "3 Juan",           nameEn: "3 John",            chapters:  1, testament: "NT" },
+  { id: "JUD", name: "Judas",            nameEn: "Jude",              chapters:  1, testament: "NT" },
+  { id: "REV", name: "Apocalipsis",      nameEn: "Revelation",        chapters: 22, testament: "NT" },
+];
+
+// ─── Verse Array Type ────────────────────────────────────────────────────────
+
+export interface BibleVerse {
+  number: number;
+  text: string;
+}
+
+export interface BibleChapterResult {
+  success: boolean;
+  verses?: BibleVerse[];
+  bookName: string;
+  chapter: number;
+  error?: string;
+}
+
 // Book name mappings for normalization
 const BOOK_MAPPINGS: Record<string, { en: string; es: string; apiKey: string }> = {
   // Old Testament
@@ -542,6 +638,251 @@ export async function getBiblePassage(
     return {
       success: false,
       error: lang === "es" ? "Error al obtener el pasaje" : "Error fetching passage",
+    };
+  }
+}
+
+// ─── Chapter Verses ──────────────────────────────────────────────────────────
+
+/**
+ * Parse a raw text blob that contains inline verse markers like
+ * "[1] In the beginning... [2] And the earth..."
+ * into a structured array of { number, text }.
+ */
+function parseVersesFromText(raw: string): BibleVerse[] {
+  // Normalise whitespace first
+  const normalised = raw.replace(/\s+/g, " ").trim();
+
+  // Split on every "[N]" marker (keeping the delimiter via a lookahead)
+  const parts = normalised.split(/(?=\[\d+\])/).filter(Boolean);
+
+  const verses: BibleVerse[] = [];
+
+  for (const part of parts) {
+    // Each part should start with "[N]"
+    const match = part.match(/^\[(\d+)\]\s*([\s\S]*)$/);
+    if (!match) continue;
+
+    const number = parseInt(match[1]!, 10);
+    const text = match[2]!.trim();
+
+    if (text.length > 0) {
+      verses.push({ number, text });
+    }
+  }
+
+  return verses;
+}
+
+/**
+ * Fetch a full chapter as plain verse-numbered text from API.bible.
+ * Returns null on failure so the caller can fall back.
+ */
+async function fetchChapterFromBibleAPI(
+  bookId: string,
+  chapter: number,
+  lang: "en" | "es"
+): Promise<string | null> {
+  const apiKey = process.env.BIBLE_API_KEY;
+  if (!apiKey) {
+    console.log("[Bible] No BIBLE_API_KEY configured for chapter fetch");
+    return null;
+  }
+
+  const bibleId = lang === "es" ? "592420522e16049f-01" : "de4e12af7f28f599-02";
+  const chapterId = `${bookId}.${chapter}`;
+  const url =
+    `https://api.scripture.api.bible/v1/bibles/${bibleId}/chapters/${chapterId}` +
+    `?content-type=text&include-notes=false&include-titles=false` +
+    `&include-chapter-numbers=false&include-verse-numbers=true`;
+
+  try {
+    const response = await fetch(url, {
+      headers: { "api-key": apiKey },
+    });
+
+    if (!response.ok) {
+      console.log(`[Bible] API.bible chapter error: ${response.status}`);
+      return null;
+    }
+
+    const data = (await response.json()) as { data?: { content?: string } };
+    const content = data.data?.content;
+    if (!content) return null;
+
+    return content.replace(/\s+/g, " ").trim();
+  } catch (error) {
+    console.error("[Bible] Error fetching chapter from API.bible:", error);
+    return null;
+  }
+}
+
+/**
+ * BibleGateway fallback for a full chapter.
+ * Fetches "{BookName} {chapter}" and extracts all verses.
+ */
+async function fetchChapterFromBibleGateway(
+  bookId: string,
+  chapter: number,
+  lang: "en" | "es"
+): Promise<string | null> {
+  try {
+    const bookName = getBookName(bookId, lang);
+    const version = lang === "es" ? "RVR1960" : "KJV";
+    const search = `${bookName} ${chapter}`;
+    const url = `https://www.biblegateway.com/passage/?search=${encodeURIComponent(search)}&version=${version}`;
+
+    console.log(`[Bible] BibleGateway chapter fetch: ${url}`);
+
+    const response = await fetch(url, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; DailyLight/1.0)" },
+    });
+
+    if (!response.ok) {
+      console.log(`[Bible] BibleGateway chapter error: ${response.status}`);
+      return null;
+    }
+
+    const html = await response.text();
+
+    // ---- strategy 1: passage-text container ----
+    const passageMatch = html.match(/<div class="passage-text"[^>]*>([\s\S]*?)<\/div>\s*<\/div>/);
+    if (passageMatch?.[1]) {
+      const chunk: string = passageMatch[1];
+      return buildVerseTextFromBGChunk(chunk, chapter);
+    }
+
+    // ---- strategy 2: paragraph tags ----
+    const paraMatches = html.match(/<p[^>]*>([\s\S]*?)<\/p>/g);
+    if (paraMatches) {
+      const chunk = paraMatches.join(" ");
+      const result = buildVerseTextFromBGChunk(chunk, chapter);
+      if (result && result.length > 20) return result;
+    }
+
+    console.log("[Bible] Could not extract chapter from BibleGateway");
+    return null;
+  } catch (error) {
+    console.error("[Bible] Error fetching chapter from BibleGateway:", error);
+    return null;
+  }
+}
+
+/**
+ * Convert a BibleGateway HTML chunk into a "[1] text [2] text ..." string.
+ *
+ * BibleGateway uses two different elements for verse numbers:
+ *  - Verse 1 of a chapter: <span class="chapternum">N\xa0</span>
+ *  - All other verses:     <sup class="versenum">N\xa0</sup>
+ *
+ * Both end in a Unicode non-breaking space (\xa0) before the closing tag.
+ */
+function buildVerseTextFromBGChunk(chunk: string, _chapter: number): string | null {
+  let text: string = chunk;
+  // Replace chapternum spans (verse 1 marker) with [1]
+  // The chapternum span contains the chapter number, NOT verse 1 — it IS verse 1.
+  text = text.replace(/<span[^>]*class="chapternum"[^>]*>[\s\S]*?<\/span>/g, "[1] ");
+  // Replace versenum sups — digit(s) optionally followed by \xa0 before </sup>
+  text = text.replace(/<sup[^>]*class="versenum"[^>]*>(\d+)[^\d<]*<\/sup>/g, "[$1] ");
+  // Strip remaining tags
+  text = text.replace(/<[^>]+>/g, " ");
+  // Decode common HTML entities
+  text = text.replace(/&nbsp;/g, " ").replace(/&#xa0;/gi, " ").replace(/\xa0/g, " ");
+  text = text.replace(/\s+/g, " ").trim();
+  return text.length > 10 ? text : null;
+}
+
+/**
+ * Get all verses for a full Bible chapter.
+ * Checks the BiblePassage cache first (using a "full_chapter" refKey),
+ * then tries API.bible, then falls back to BibleGateway scraping.
+ *
+ * The cached text uses the same "[1] ... [2] ..." format so it can be
+ * re-parsed on every cache hit without a separate schema change.
+ */
+export async function getBibleChapterVerses(
+  bookId: string,
+  chapter: number,
+  lang: "en" | "es"
+): Promise<BibleChapterResult> {
+  const bookIdUpper = bookId.toUpperCase();
+  const refKey = `${bookIdUpper.toLowerCase()}_${chapter}_full_chapter_${lang}`;
+  const bookName = getBookName(bookIdUpper, lang);
+
+  try {
+    // ---- cache lookup ----
+    const cached = await prisma.biblePassage.findUnique({
+      where: { refKey_lang: { refKey, lang } },
+    });
+
+    if (cached) {
+      console.log(`[Bible] Chapter cache hit: ${refKey}`);
+      const verses = parseVersesFromText(cached.text);
+      return { success: true, verses, bookName, chapter };
+    }
+
+    // ---- fetch ----
+    console.log(`[Bible] Chapter cache miss, fetching ${refKey}`);
+
+    let rawText: string | null = await fetchChapterFromBibleAPI(bookIdUpper, chapter, lang);
+
+    if (!rawText) {
+      rawText = await fetchChapterFromBibleGateway(bookIdUpper, chapter, lang);
+    }
+
+    if (!rawText) {
+      return {
+        success: false,
+        bookName,
+        chapter,
+        error: lang === "es"
+          ? "No se pudo obtener el capítulo"
+          : "Could not fetch chapter",
+      };
+    }
+
+    const verses = parseVersesFromText(rawText);
+
+    if (verses.length === 0) {
+      return {
+        success: false,
+        bookName,
+        chapter,
+        error: lang === "es"
+          ? "No se encontraron versículos en el capítulo"
+          : "No verses found in chapter",
+      };
+    }
+
+    // ---- persist to cache ----
+    const referenceDisplay = `${bookName} ${chapter}`;
+    await prisma.biblePassage.create({
+      data: {
+        refKey,
+        lang,
+        book: bookName,
+        chapterStart: chapter,
+        verseStart: 1,
+        chapterEnd: null,
+        verseEnd: null,
+        referenceDisplay,
+        text: rawText,
+        source: "api",
+      },
+    });
+
+    console.log(`[Bible] Cached chapter: ${refKey}`);
+
+    return { success: true, verses, bookName, chapter };
+  } catch (error) {
+    console.error("[Bible] Error getting chapter verses:", error);
+    return {
+      success: false,
+      bookName,
+      chapter,
+      error: lang === "es"
+        ? "Error al obtener el capítulo"
+        : "Error fetching chapter",
     };
   }
 }

@@ -2103,6 +2103,7 @@ export const TRANSLATIONS = {
     tab_library: 'Library',
     tab_store: 'My Space',
     tab_community: 'Community',
+    tab_bible: 'Bible',
     tab_settings: 'Settings',
 
     // Community
@@ -2270,6 +2271,7 @@ export const TRANSLATIONS = {
     tab_library: 'Biblioteca',
     tab_store: 'Mi Espacio',
     tab_community: 'Comunidad',
+    tab_bible: 'Biblia',
     tab_settings: 'Ajustes',
 
     // Community

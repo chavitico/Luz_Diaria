@@ -246,5 +246,45 @@
     "status": "CLAIMED",
     "claimedAt": "2026-03-10T02:37:45.061Z",
     "createdAt": "2026-03-10T02:37:18.684Z"
+  },
+  {
+    "id": "cmmo0g76o000sm22nsjmkj2ve",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "giftDropId": "cmmo0g76o000qm22nwx6s0da9",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-12T21:59:37.056Z",
+    "createdAt": "2026-03-12T21:59:25.537Z"
+  },
+  {
+    "id": "cmmo0hbem000ym22n4gzusm4e",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "giftDropId": "cmmo0hbem000wm22nfwor2m0u",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-12T22:01:15.519Z",
+    "createdAt": "2026-03-12T22:00:17.663Z"
+  },
+  {
+    "id": "cmmo3hv9z001sm29b62pnsmz5",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "giftDropId": "cmmo3hv9w001qm29be5lxv1gn",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-12T23:24:48.684Z",
+    "createdAt": "2026-03-12T23:24:42.263Z"
+  },
+  {
+    "id": "cmmo4kd2t000om27itz78qyxu",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "giftDropId": "cmmo4kd2o000mm27i3w9x5pka",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-12T23:55:42.894Z",
+    "createdAt": "2026-03-12T23:54:38.262Z"
+  },
+  {
+    "id": "cmmpdf6vc0015m26t0svtd3eo",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "giftDropId": "cmmpdf6vb0013m26t6icj8eh6",
+    "status": "CLAIMED",
+    "claimedAt": "2026-03-13T20:50:28.571Z",
+    "createdAt": "2026-03-13T20:50:19.656Z"
   }
 ]

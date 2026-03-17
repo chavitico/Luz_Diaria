@@ -801,8 +801,10 @@ The app connects to a Hono backend with:
 
 ### Bible Passage Endpoints
 - `GET /api/bible/passage?reference=Lucas+10:25-37&lang=es` - Get Bible passage text
+- `GET /api/bible/books` - Full list of all 66 canonical Bible books
+- `GET /api/bible/chapter?bookId=GEN&chapter=1&lang=es` - All verses of a chapter (parsed verse array)
 - Supports both Spanish and English Bibles (Reina Valera 1960, KJV)
-- Server-side caching in SQLite database
+- Server-side caching in SQLite database; chapter results cached 30 days on device
 
 ### Support Ticket System
 - **Streak Snapshots**: Daily cron generates snapshots for ALL users at 4 AM Costa Rica time

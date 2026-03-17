@@ -1573,5 +1573,285 @@
     "itemId": "badge_columna_comunidad",
     "acquiredAt": "2026-03-10T23:31:12.026Z",
     "source": "achievement"
+  },
+  {
+    "id": "cmmlbwwnh000bm26so4n5zb6q",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "badge_fundador",
+    "acquiredAt": "2026-03-11T00:57:02.285Z",
+    "source": "admin_grant"
+  },
+  {
+    "id": "cmmlpdwvi000bm2526aqwpavn",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-12T23:20:51.091Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmm73sz4000im2o94cg90jen",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-11T15:30:12.209Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm73sz8000km2o9ta2lin9l",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "badge_portador_esperanza",
+    "acquiredAt": "2026-03-11T15:30:12.212Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm73sza000mm2o94jbjtar9",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-11T15:30:12.215Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm74wuu000wm2o9yqxkqpe0",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-11T15:31:20.805Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmm76jmr0012m2o9i36eshc5",
+    "userId": "cmmm73mlb000am2o9etdf038g",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-11T15:32:31.769Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmm79zef002um2o9meubcbik",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-11T15:35:00.472Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm79zej002wm2o91ftmyxpu",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "itemId": "badge_portador_esperanza",
+    "acquiredAt": "2026-03-11T15:35:00.476Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmm79zeo002ym2o9guve4szu",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-11T15:35:00.481Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmnsk5ov000nm2vuly9hti5s",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_bosque_sereno",
+    "acquiredAt": "2026-03-12T18:18:33.295Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo0bwf3000nm22nd7h4n3w3",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-12T23:11:25.104Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo1ifsx000nm2cl6yyam9yj",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-16T01:53:57.576Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo1t6sp000nm2x2yq09m4k7",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "frame_v2_zafiro",
+    "acquiredAt": "2026-03-12T22:37:31.178Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo1tbkl000pm2x25unm9ode",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "frame_v2_luna_plata",
+    "acquiredAt": "2026-03-12T22:37:37.366Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo1th5d000rm2x2txx0s108",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "frame_v2_fuego_sagrado",
+    "acquiredAt": "2026-03-12T22:37:44.594Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo3dnhl000rm29bi11zjuuj",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "title_grace_is_enough",
+    "acquiredAt": "2026-03-12T23:21:25.545Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo3dy8v000tm29b49geock0",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "frame_v2_plata_brillo",
+    "acquiredAt": "2026-03-12T23:21:39.487Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo3ec1j000vm29b3vvs0q9d",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "pincel_magico",
+    "acquiredAt": "2026-03-12T23:21:57.368Z",
+    "source": "used"
+  },
+  {
+    "id": "cmmo57ybp000nm2att8a0lrw4",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_minimal",
+    "acquiredAt": "2026-03-13T00:12:58.885Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo5flyr001wm2at3ps7ixvp",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-13T00:18:56.115Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmo5flyv001ym2at5g1b7rhp",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-13T00:18:56.119Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmo5jz27002gm2atnswlqvc2",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-13T00:22:19.712Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo5kz4r002km2atqu9bnrbz",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "theme_amanecer_dorado",
+    "acquiredAt": "2026-03-13T00:23:06.459Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo5lvwz002mm2at9nbd3zlc",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "title_lord_my_refuge",
+    "acquiredAt": "2026-03-13T00:23:48.948Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmo8kzce001fm26y2npqfe0o",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-13T01:47:49.339Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpdep5c0010m26tgnl61hl4",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-13T20:49:56.689Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmpdep5i0012m26ttpe5ktaq",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-03-13T20:49:56.694Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmpdhzqe001am26tzspcdh21",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "theme_bosque_sereno",
+    "acquiredAt": "2026-03-13T20:52:30.374Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpdi6h1001cm26t6yl08ai6",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "theme_minimal",
+    "acquiredAt": "2026-03-13T20:52:39.110Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpdideu001mm26tjvfdyn4d",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "badge_columna_comunidad",
+    "acquiredAt": "2026-03-13T20:52:48.102Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmmpdp71g001qm26tuxan65x7",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-03-13T20:58:31.746Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpdst7w001ym26tpcq9f4wf",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "pack_pascua",
+    "acquiredAt": "2026-03-13T21:00:55.148Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpdtdh50022m26trnyq0b8d",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "itemId": "pack_milagros",
+    "acquiredAt": "2026-03-13T21:01:21.401Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpianwz001hm21hx535wk5w",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_fuego_espiritu",
+    "acquiredAt": "2026-03-13T23:06:46.548Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpib88m001jm21hvxw3f2w0",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_jardin_gracia",
+    "acquiredAt": "2026-03-13T23:07:12.887Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpivn7m000xm2r08jpccohs",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_bosque",
+    "acquiredAt": "2026-03-13T23:23:05.411Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpivrku000zm2r0fmmy6npk",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_noche_profunda",
+    "acquiredAt": "2026-03-13T23:23:11.071Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmpiwjkm0011m2r0j7nuc0ma",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_amanecer_dorado",
+    "acquiredAt": "2026-03-13T23:23:47.350Z",
+    "source": "store"
+  },
+  {
+    "id": "cmmsm79mb001am2in1b2o62ve",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "itemId": "badge_caminando_fe",
+    "acquiredAt": "2026-03-16T03:19:25.043Z",
+    "source": "achievement"
   }
 ]
