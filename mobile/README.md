@@ -828,9 +828,9 @@ Bible Hub Home → Testament List (OT/NT) → Book List → Chapter Grid → Ver
 ### Bible Versions
 | Version | Label | Status |
 |---------|-------|--------|
-| Reina-Valera 1960 | RVR60 | ✅ Active (BibleGateway fallback, no API key needed) |
-| Nueva Versión Internacional | NVI | 🔜 UI built — unavailable. Needs `BIBLE_API_KEY` + new Bible ID from api.scripture.api.bible |
-| Lenguaje Actual | L.A. | 🔜 UI built — unavailable. Same requirement as NVI |
+| Reina-Valera 1960 | RVR60 | ✅ Active — bundled SQLite (`RVR1960_es.SQLite3`) |
+| Nueva Versión Internacional | NVI | ✅ Active — bundled SQLite (`NVI_es.SQLite3`) |
+| Lenguaje Actual | L.A. | ❌ Unavailable — no SQLite file; full-corpus search not possible via BibleGateway |
 
 ### Verse Content Search (`GET /api/bible/search`)
 - Searches `Devotional.bibleVerseEs` and `BiblePassage.text` in SQLite
@@ -843,6 +843,27 @@ Bible Hub Home → Testament List (OT/NT) → Book List → Chapter Grid → Ver
 - Last-read chapter persisted in AsyncStorage key `bible_last_read_v1`
 - Written every time a chapter is opened (from any path: testament nav, search result, direct)
 - Shows as a card on the Bible home screen when no search is active
+
+### Recent Highlights
+- Persisted in AsyncStorage key `bible_recent_highlights_v1` as ordered array (newest first, max 10)
+- Each entry: `{ key, bookId, chapter, verse, color, text?, timestamp }`
+- Shown on Bible home below "Continue Reading" when no search is active
+- Tapping navigates to the chapter and flashes the highlighted verse
+- Updated on apply + on remove
+- Empty state shown when no highlights exist yet
+
+### Bible Home i18n
+- Bible home fully respects app language setting (EN/ES)
+- Translated: title, search placeholder, testament card titles/subtitles, version labels,
+  "Continue reading", "Recent highlights", empty states, chapter counts, back labels
+- Spanish behavior unchanged (default)
+
+### Reader Controls Bar (anti-overlap fix)
+- Version switcher pills on first row
+- Highlight hint on second row — no longer shares the same row, eliminates overlap on narrow iPhones
+
+### Testament Cards
+- Both cards use `flex: 1` + LinearGradient `flex: 1` — guaranteed equal height on all screen widths
 
 ### Types (`src/lib/bible/types.ts`)
 - `BibleNavView`: `'home' | 'books' | 'chapters' | 'verses'`

@@ -77,6 +77,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const HIGHLIGHTS_KEY = 'bible_highlights_v1';
+const RECENT_HIGHLIGHTS_KEY = 'bible_recent_highlights_v1';
 
 const BIBLE_VERSIONS: BibleVersionInfo[] = [
   { id: 'RVR60', label: 'RVR60', fullName: 'Reina-Valera 1960', available: true },
@@ -84,11 +85,23 @@ const BIBLE_VERSIONS: BibleVersionInfo[] = [
   { id: 'LA',    label: 'L.A.',  fullName: 'Lenguaje Actual', available: false },
 ];
 
-const HIGHLIGHT_COLORS: { key: HighlightColor; bg: string; label: string }[] = [
-  { key: 'yellow', bg: '#FEF08A', label: 'Amarillo' },
-  { key: 'green',  bg: '#BBF7D0', label: 'Verde' },
-  { key: 'blue',   bg: '#BFDBFE', label: 'Azul' },
+const HIGHLIGHT_COLORS: { key: HighlightColor; bg: string; label: string; labelEn: string }[] = [
+  { key: 'yellow', bg: '#FEF08A', label: 'Amarillo', labelEn: 'Yellow' },
+  { key: 'green',  bg: '#BBF7D0', label: 'Verde',    labelEn: 'Green' },
+  { key: 'blue',   bg: '#BFDBFE', label: 'Azul',     labelEn: 'Blue' },
 ];
+
+// ─── Recent Highlight type ──────────────────────────────────────────────────
+
+interface RecentHighlight {
+  key: string;
+  bookId: string;
+  chapter: number;
+  verse: number;
+  color: HighlightColor;
+  text?: string;
+  timestamp: number;
+}
 
 // ─── Highlight persistence ─────────────────────────────────────────────────────
 
@@ -105,6 +118,30 @@ async function saveHighlights(map: HighlightMap): Promise<void> {
 
 function hlKey(bookId: string, chapter: number, verse: number): string {
   return `${bookId}_${chapter}_${verse}`;
+}
+
+async function loadRecentHighlights(): Promise<RecentHighlight[]> {
+  try {
+    const raw = await AsyncStorage.getItem(RECENT_HIGHLIGHTS_KEY);
+    return raw ? (JSON.parse(raw) as RecentHighlight[]) : [];
+  } catch { return []; }
+}
+
+async function persistRecentHighlight(item: RecentHighlight): Promise<void> {
+  try {
+    const existing = await loadRecentHighlights();
+    const filtered = existing.filter(r => r.key !== item.key);
+    const updated = [item, ...filtered].slice(0, 10);
+    await AsyncStorage.setItem(RECENT_HIGHLIGHTS_KEY, JSON.stringify(updated));
+  } catch {}
+}
+
+async function removeFromRecentHighlights(key: string): Promise<void> {
+  try {
+    const existing = await loadRecentHighlights();
+    const updated = existing.filter(r => r.key !== key);
+    await AsyncStorage.setItem(RECENT_HIGHLIGHTS_KEY, JSON.stringify(updated));
+  } catch {}
 }
 
 // ─── Verse Row ────────────────────────────────────────────────────────────────
@@ -182,11 +219,11 @@ function VerseRow({
 // ─── Highlight Picker ─────────────────────────────────────────────────────────
 
 function HighlightPicker({
-  visible, currentColor, onSelect, onRemove, onClose, colors,
+  visible, currentColor, onSelect, onRemove, onClose, colors, lang,
 }: {
   visible: boolean; currentColor: HighlightColor | undefined;
   onSelect: (c: HighlightColor) => void; onRemove: () => void;
-  onClose: () => void; colors: ReturnType<typeof useThemeColors>;
+  onClose: () => void; colors: ReturnType<typeof useThemeColors>; lang: string;
 }) {
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
@@ -202,7 +239,7 @@ function HighlightPicker({
           }}>
             <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '60', alignSelf: 'center', marginBottom: 20 }} />
             <Text style={{ fontSize: 13, fontWeight: '700', color: colors.textMuted, letterSpacing: 1.1, textTransform: 'uppercase', marginBottom: 16 }}>
-              Resaltar versículo
+              {lang === 'es' ? 'Resaltar versículo' : 'Highlight verse'}
             </Text>
             <View style={{ flexDirection: 'row', gap: 12, marginBottom: 16 }}>
               {HIGHLIGHT_COLORS.map(h => (
@@ -212,7 +249,9 @@ function HighlightPicker({
                     backgroundColor: h.bg, borderRadius: 14, paddingVertical: 14,
                     alignItems: 'center', borderWidth: currentColor === h.key ? 2.5 : 0, borderColor: '#000',
                   }}>
-                    <Text style={{ fontSize: 13, fontWeight: '700', color: '#1C1917' }}>{h.label}</Text>
+                    <Text style={{ fontSize: 13, fontWeight: '700', color: '#1C1917' }}>
+                      {lang === 'es' ? h.label : h.labelEn}
+                    </Text>
                   </View>
                 </Pressable>
               ))}
@@ -223,7 +262,9 @@ function HighlightPicker({
                   opacity: pressed ? 0.7 : 1, paddingVertical: 14, borderRadius: 14,
                   backgroundColor: colors.textMuted + '20', alignItems: 'center',
                 })}>
-                <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted }}>Quitar resaltado</Text>
+                <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted }}>
+                  {lang === 'es' ? 'Quitar resaltado' : 'Remove highlight'}
+                </Text>
               </Pressable>
             )}
           </View>
@@ -240,6 +281,9 @@ function BookItem({ book, onPress, colors, lang }: {
   colors: ReturnType<typeof useThemeColors>; lang: string;
 }) {
   const name = lang === 'es' ? book.name : book.nameEn;
+  const chaptersLabel = lang === 'es'
+    ? `${book.chapters} ${book.chapters === 1 ? 'capítulo' : 'capítulos'}`
+    : `${book.chapters} ${book.chapters === 1 ? 'chapter' : 'chapters'}`;
   return (
     <Pressable onPress={onPress} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
       <View style={{
@@ -250,7 +294,7 @@ function BookItem({ book, onPress, colors, lang }: {
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 16, fontWeight: '600', color: colors.text }}>{name}</Text>
           <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 2 }}>
-            {book.chapters} {book.chapters === 1 ? 'capítulo' : 'capítulos'}
+            {chaptersLabel}
           </Text>
         </View>
         <ChevronRight size={16} color={colors.textMuted} />
@@ -294,12 +338,13 @@ function ChapterGrid({ book, onSelect, colors, lang }: {
 
 // ─── Testament Card ───────────────────────────────────────────────────────────
 
-function TestamentCard({ title, subtitle, bookCount, emoji, onPress, colors }: {
+function TestamentCard({ title, subtitle, bookCount, emoji, onPress, colors, lang }: {
   title: string; subtitle: string; bookCount: number; emoji: string;
-  onPress: () => void; colors: ReturnType<typeof useThemeColors>;
+  onPress: () => void; colors: ReturnType<typeof useThemeColors>; lang: string;
 }) {
   const scale = useSharedValue(1);
   const anim = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const booksLabel = lang === 'es' ? `${bookCount} libros` : `${bookCount} books`;
 
   return (
     <Pressable onPress={onPress}
@@ -310,7 +355,7 @@ function TestamentCard({ title, subtitle, bookCount, emoji, onPress, colors }: {
         <LinearGradient
           colors={[colors.primary + 'EE', colors.primary + 'AA']}
           start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-          style={{ borderRadius: 20, padding: 20, minHeight: 150, justifyContent: 'space-between' }}
+          style={{ borderRadius: 20, padding: 20, flex: 1, minHeight: 150, justifyContent: 'space-between' }}
         >
           <Text style={{ fontSize: 34 }}>{emoji}</Text>
           <View>
@@ -318,7 +363,7 @@ function TestamentCard({ title, subtitle, bookCount, emoji, onPress, colors }: {
               {title}
             </Text>
             <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.75)', marginTop: 4, fontWeight: '500' }}>
-              {bookCount} libros
+              {booksLabel}
             </Text>
             <Text style={{ fontSize: 10, color: 'rgba(255,255,255,0.55)', marginTop: 2 }}>
               {subtitle}
@@ -367,9 +412,9 @@ function VerseResultItem({ result, onPress, colors }: {
 
 // ─── Continue Reading Card ─────────────────────────────────────────────────────
 
-function ContinueReadingCard({ lastRead, onPress, colors }: {
+function ContinueReadingCard({ lastRead, onPress, colors, lang }: {
   lastRead: BibleLastRead; onPress: () => void;
-  colors: ReturnType<typeof useThemeColors>;
+  colors: ReturnType<typeof useThemeColors>; lang: string;
 }) {
   const scale = useSharedValue(1);
   const anim = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
@@ -395,7 +440,7 @@ function ContinueReadingCard({ lastRead, onPress, colors }: {
         </View>
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 11, color: colors.textMuted, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 2 }}>
-            Continuar leyendo
+            {lang === 'es' ? 'Continuar leyendo' : 'Continue reading'}
           </Text>
           <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text }}>
             {lastRead.bookName} {lastRead.chapter}
@@ -407,11 +452,53 @@ function ContinueReadingCard({ lastRead, onPress, colors }: {
   );
 }
 
+// ─── Recent Highlight Item ────────────────────────────────────────────────────
+
+function RecentHighlightItem({ item, onPress, colors, lang }: {
+  item: RecentHighlight; onPress: () => void;
+  colors: ReturnType<typeof useThemeColors>; lang: string;
+}) {
+  const book = BIBLE_BOOKS.find(b => b.id === item.bookId);
+  if (!book) return null;
+  const bookName = lang === 'es' ? book.name : book.nameEn;
+  const reference = `${bookName} ${item.chapter}:${item.verse}`;
+  const hlColor = HIGHLIGHT_COLORS.find(h => h.key === item.color);
+
+  return (
+    <Pressable onPress={onPress} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+      <View style={{
+        flexDirection: 'row', alignItems: 'center', gap: 12,
+        paddingHorizontal: 16, paddingVertical: 12,
+        borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '20',
+      }}>
+        <View style={{
+          width: 14, height: 14, borderRadius: 7,
+          backgroundColor: hlColor?.bg ?? '#FEF08A',
+          borderWidth: 1, borderColor: colors.textMuted + '40',
+          flexShrink: 0,
+        }} />
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 13, fontWeight: '700', color: colors.primary, marginBottom: 1 }}>
+            {reference}
+          </Text>
+          {!!item.text && (
+            <Text style={{ fontSize: 12, color: colors.textMuted, lineHeight: 17 }} numberOfLines={2}>
+              {item.text}
+            </Text>
+          )}
+        </View>
+        <ChevronRight size={14} color={colors.textMuted} />
+      </View>
+    </Pressable>
+  );
+}
+
 // ─── Bible Home Screen ────────────────────────────────────────────────────────
 
 function BibleHomeScreen({
   colors, lang, searchQuery, onSearchChange, selectedVersion, onVersionChange,
   onSelectTestament, onSearchSubmit, lastRead, onContinueReading, onSelectVerseResult,
+  recentHighlights, onSelectRecentHighlight,
 }: {
   colors: ReturnType<typeof useThemeColors>; lang: string;
   searchQuery: string; onSearchChange: (q: string) => void;
@@ -420,6 +507,8 @@ function BibleHomeScreen({
   lastRead: BibleLastRead | null;
   onContinueReading: () => void;
   onSelectVerseResult: (result: BibleSearchResult) => void;
+  recentHighlights: RecentHighlight[];
+  onSelectRecentHighlight: (item: RecentHighlight) => void;
 }) {
   // Reuse the same query key as Home screen — hits cache instantly
   const { data: devotionalMeta } = useQuery({
@@ -463,6 +552,23 @@ function BibleHomeScreen({
   const isSearchActive = searchQuery.length >= 2;
   const hasAnyResults = bookMatches.length > 0 || verseResults.length > 0;
 
+  // i18n helpers
+  const i = {
+    searchPlaceholder: lang === 'es' ? 'Buscar libro o versículo...' : 'Search book or verse...',
+    oldTestament:      lang === 'es' ? 'Antiguo Testamento'          : 'Old Testament',
+    oldTestamentSub:   lang === 'es' ? 'Génesis → Malaquías'         : 'Genesis → Malachi',
+    newTestament:      lang === 'es' ? 'Nuevo Testamento'            : 'New Testament',
+    newTestamentSub:   lang === 'es' ? 'Mateo → Apocalipsis'         : 'Matthew → Revelation',
+    recentHighlights:  lang === 'es' ? 'Resaltados recientes'        : 'Recent highlights',
+    noHighlights:      lang === 'es' ? 'Aún no tienes resaltados'    : 'No highlights yet',
+    noHighlightsSub:   lang === 'es' ? 'Mantén presionado un versículo para resaltar' : 'Long-press any verse to highlight it',
+    booksLabel:        lang === 'es' ? 'Libros'                      : 'Books',
+    versesLabel:       lang === 'es' ? 'Versículos'                  : 'Verses',
+    noResults:         lang === 'es' ? 'Sin resultados para'         : 'No results for',
+    tryWords:          lang === 'es' ? 'Intenta con palabras como: amor, fe, paz, misericordia' : 'Try words like: love, faith, peace, grace',
+    searching:         lang === 'es' ? 'Buscando versículos...'      : 'Searching verses...',
+  };
+
   return (
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
 
@@ -496,7 +602,9 @@ function BibleHomeScreen({
               )}
             </>
           ) : (
-            <Text style={{ color: '#fff', fontSize: 22, fontWeight: '800' }}>Biblia</Text>
+            <Text style={{ color: '#fff', fontSize: 22, fontWeight: '800' }}>
+              {lang === 'es' ? 'Biblia' : 'Bible'}
+            </Text>
           )}
         </View>
       </View>
@@ -513,7 +621,7 @@ function BibleHomeScreen({
           <Search size={16} color={colors.textMuted} />
           <TextInput
             style={{ flex: 1, marginLeft: 10, fontSize: 15, color: colors.text }}
-            placeholder="Buscar libro o versículo..."
+            placeholder={i.searchPlaceholder}
             placeholderTextColor={colors.textMuted}
             value={searchQuery}
             onChangeText={onSearchChange}
@@ -548,7 +656,9 @@ function BibleHomeScreen({
                   </Text>
                   {!v.available && (
                     <View style={{ backgroundColor: colors.textMuted + '22', borderRadius: 5, paddingHorizontal: 4, paddingVertical: 1 }}>
-                      <Text style={{ fontSize: 8, color: colors.textMuted, fontWeight: '700' }}>PRONTO</Text>
+                      <Text style={{ fontSize: 8, color: colors.textMuted, fontWeight: '700' }}>
+                        {lang === 'es' ? 'PRONTO' : 'SOON'}
+                      </Text>
                     </View>
                   )}
                 </View>
@@ -558,29 +668,74 @@ function BibleHomeScreen({
         </View>
 
         {/* ── Testament Cards ──────────────────────────────────────── */}
-        <View style={{ flexDirection: 'row', gap: 12, marginBottom: 16 }}>
+        <View style={{ flexDirection: 'row', gap: 12, marginBottom: 16, alignItems: 'stretch' }}>
           <TestamentCard
-            title="Antiguo Testamento"
-            subtitle="Génesis → Malaquías"
+            title={i.oldTestament}
+            subtitle={i.oldTestamentSub}
             bookCount={OT_BOOKS.length}
             emoji="📜"
             onPress={() => onSelectTestament('OT')}
             colors={colors}
+            lang={lang}
           />
           <TestamentCard
-            title="Nuevo Testamento"
-            subtitle="Mateo → Apocalipsis"
+            title={i.newTestament}
+            subtitle={i.newTestamentSub}
             bookCount={NT_BOOKS.length}
             emoji="✝️"
             onPress={() => onSelectTestament('NT')}
             colors={colors}
+            lang={lang}
           />
         </View>
 
-        {/* ── Continue Reading (when no search) ─────────────────── */}
-        {!isSearchActive && lastRead && (
-          <Animated.View entering={FadeIn}>
-            <ContinueReadingCard lastRead={lastRead} onPress={onContinueReading} colors={colors} />
+        {/* ── Continue Reading + Recent Highlights (when no search) ─── */}
+        {!isSearchActive && (
+          <Animated.View entering={FadeIn} style={{ gap: 16 }}>
+
+            {/* Continue Reading */}
+            {lastRead && (
+              <ContinueReadingCard lastRead={lastRead} onPress={onContinueReading} colors={colors} lang={lang} />
+            )}
+
+            {/* Recent Highlights */}
+            <View>
+              <Text style={{
+                fontSize: 11, fontWeight: '700', color: colors.textMuted,
+                textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
+              }}>
+                {i.recentHighlights}
+              </Text>
+              {recentHighlights.length === 0 ? (
+                <View style={{
+                  backgroundColor: colors.surface, borderRadius: 14, padding: 20,
+                  alignItems: 'center', borderWidth: 1, borderColor: colors.textMuted + '22',
+                }}>
+                  <Highlighter size={22} color={colors.textMuted} strokeWidth={1.5} />
+                  <Text style={{ color: colors.textMuted, fontSize: 14, fontWeight: '600', marginTop: 8 }}>
+                    {i.noHighlights}
+                  </Text>
+                  <Text style={{ color: colors.textMuted, fontSize: 12, marginTop: 4, textAlign: 'center' }}>
+                    {i.noHighlightsSub}
+                  </Text>
+                </View>
+              ) : (
+                <View style={{
+                  backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
+                  borderWidth: 1, borderColor: colors.textMuted + '22',
+                }}>
+                  {recentHighlights.slice(0, 5).map(item => (
+                    <RecentHighlightItem
+                      key={item.key}
+                      item={item}
+                      onPress={() => onSelectRecentHighlight(item)}
+                      colors={colors}
+                      lang={lang}
+                    />
+                  ))}
+                </View>
+              )}
+            </View>
           </Animated.View>
         )}
 
@@ -595,7 +750,7 @@ function BibleHomeScreen({
                   fontSize: 11, fontWeight: '700', color: colors.textMuted,
                   textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
                 }}>
-                  Libros
+                  {i.booksLabel}
                 </Text>
                 <View style={{
                   backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
@@ -618,15 +773,15 @@ function BibleHomeScreen({
                   fontSize: 11, fontWeight: '700', color: colors.textMuted,
                   textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
                 }}>
-                  Versículos · {selectedVersion}
+                  {i.versesLabel} · {selectedVersion}
                 </Text>
                 <View style={{
                   backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
                   borderWidth: 1, borderColor: colors.textMuted + '22',
                 }}>
-                  {verseResults.map((r, i) => (
+                  {verseResults.map((r, idx) => (
                     <VerseResultItem
-                      key={`${r.reference}_${i}`}
+                      key={`${r.reference}_${idx}`}
                       result={r}
                       onPress={() => onSelectVerseResult(r)}
                       colors={colors}
@@ -641,10 +796,10 @@ function BibleHomeScreen({
               <View style={{ alignItems: 'center', paddingVertical: 32 }}>
                 <Search size={28} color={colors.textMuted} strokeWidth={1.5} />
                 <Text style={{ color: colors.textMuted, fontSize: 15, marginTop: 10, fontWeight: '600' }}>
-                  Sin resultados para "{searchQuery}"
+                  {i.noResults} "{searchQuery}"
                 </Text>
                 <Text style={{ color: colors.textMuted, fontSize: 13, marginTop: 4, textAlign: 'center' }}>
-                  Intenta con palabras como: amor, fe, paz, misericordia
+                  {i.tryWords}
                 </Text>
               </View>
             )}
@@ -654,7 +809,7 @@ function BibleHomeScreen({
               <View style={{ alignItems: 'center', paddingVertical: 24 }}>
                 <ActivityIndicator color={colors.primary} />
                 <Text style={{ color: colors.textMuted, fontSize: 13, marginTop: 8 }}>
-                  Buscando versículos...
+                  {i.searching}
                 </Text>
               </View>
             )}
@@ -691,6 +846,7 @@ export default function BibleScreen() {
   // Highlights
   const [highlights, setHighlights] = useState<HighlightMap>({});
   const [highlightPickerVerse, setHighlightPickerVerse] = useState<number | null>(null);
+  const [recentHighlights, setRecentHighlights] = useState<RecentHighlight[]>([]);
 
   // Flash verse (from search result navigation)
   const [flashVerse, setFlashVerse] = useState<number | null>(null);
@@ -710,6 +866,7 @@ export default function BibleScreen() {
   useEffect(() => {
     loadHighlights().then(setHighlights);
     loadLastRead().then(setLastRead);
+    loadRecentHighlights().then(setRecentHighlights);
     validateBibleDataLoad();
     return () => { if (flashTimerRef.current) clearTimeout(flashTimerRef.current); };
   }, []);
@@ -756,7 +913,7 @@ export default function BibleScreen() {
         flashTimerRef.current = setTimeout(() => setFlashVerse(null), 3000);
       }
     } else {
-      setError(result.error ?? 'No se pudo cargar');
+      setError(result.error ?? (lang === 'es' ? 'No se pudo cargar' : 'Could not load chapter'));
     }
     setLoading(false);
   }, [lang, selectedVersion]);
@@ -791,6 +948,13 @@ export default function BibleScreen() {
     if (!book) return;
     setSearchQuery('');
     loadChapter(book, result.chapter, result.verse);
+  }, [loadChapter]);
+
+  // Navigate from recent highlight → direct to chapter + flash verse
+  const handleSelectRecentHighlight = useCallback((item: RecentHighlight) => {
+    const book = BIBLE_BOOKS.find(b => b.id === item.bookId);
+    if (!book) return;
+    loadChapter(book, item.chapter, item.verse);
   }, [loadChapter]);
 
   // Continue reading
@@ -839,7 +1003,7 @@ export default function BibleScreen() {
       setChapterData(result.data);
       setContentKey(k => k + 1);
     } else {
-      setError(result.error ?? 'No se pudo cargar');
+      setError(result.error ?? (lang === 'es' ? 'No se pudo cargar' : 'Could not load'));
     }
     setVersionSwitching(false);
   }, [selectedVersion, selectedBook, selectedChapter, lang, isSpeaking]);
@@ -855,8 +1019,26 @@ export default function BibleScreen() {
     const next = { ...highlights, [key]: color };
     setHighlights(next);
     saveHighlights(next);
+
+    // Capture verse text for recent highlights display
+    const verseText = chapterData?.verses.find(v => v.number === highlightPickerVerse)?.text;
+    const recent: RecentHighlight = {
+      key,
+      bookId: selectedBook.id,
+      chapter: selectedChapter,
+      verse: highlightPickerVerse,
+      color,
+      text: verseText ? verseText.slice(0, 100) : undefined,
+      timestamp: Date.now(),
+    };
+    setRecentHighlights(prev => {
+      const filtered = prev.filter(r => r.key !== key);
+      return [recent, ...filtered].slice(0, 10);
+    });
+    persistRecentHighlight(recent);
+
     setHighlightPickerVerse(null);
-  }, [selectedBook, selectedChapter, highlightPickerVerse, highlights]);
+  }, [selectedBook, selectedChapter, highlightPickerVerse, highlights, chapterData]);
 
   const handleRemoveHighlight = useCallback(() => {
     if (!selectedBook || !selectedChapter || highlightPickerVerse == null) return;
@@ -865,6 +1047,10 @@ export default function BibleScreen() {
     delete next[key];
     setHighlights(next);
     saveHighlights(next);
+
+    setRecentHighlights(prev => prev.filter(r => r.key !== key));
+    removeFromRecentHighlights(key);
+
     setHighlightPickerVerse(null);
   }, [selectedBook, selectedChapter, highlightPickerVerse, highlights]);
 
@@ -902,10 +1088,10 @@ export default function BibleScreen() {
   }, [view, testamentFilter, selectedBook, selectedChapter, searchQuery, lang, selectedVersion]);
 
   const backLabel = useMemo(() => {
-    if (view === 'books') return 'Biblia';
+    if (view === 'books') return lang === 'es' ? 'Biblia' : 'Bible';
     if (view === 'chapters') return lang === 'es' ? 'Libros' : 'Books';
     if (view === 'verses' && selectedBook) return lang === 'es' ? selectedBook.name : selectedBook.nameEn;
-    return 'Atrás';
+    return lang === 'es' ? 'Atrás' : 'Back';
   }, [view, selectedBook, lang]);
 
   const showBack = view !== 'home';
@@ -937,7 +1123,9 @@ export default function BibleScreen() {
             ) : (
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <BookMarked size={20} color={colors.primary} strokeWidth={2} />
-                <Text style={{ fontSize: 20, fontWeight: '800', color: colors.text }}>Biblia</Text>
+                <Text style={{ fontSize: 20, fontWeight: '800', color: colors.text }}>
+                  {lang === 'es' ? 'Biblia' : 'Bible'}
+                </Text>
               </View>
             )}
 
@@ -980,6 +1168,8 @@ export default function BibleScreen() {
             onSelectTestament={handleSelectTestament} onSearchSubmit={handleSearchSubmit}
             lastRead={lastRead} onContinueReading={handleContinueReading}
             onSelectVerseResult={handleSelectVerseResult}
+            recentHighlights={recentHighlights}
+            onSelectRecentHighlight={handleSelectRecentHighlight}
           />
         </Animated.View>
       )}
@@ -995,7 +1185,9 @@ export default function BibleScreen() {
             contentContainerStyle={{ paddingBottom: 120 }}
             ListEmptyComponent={
               <View style={{ alignItems: 'center', paddingVertical: 60 }}>
-                <Text style={{ color: colors.textMuted, fontSize: 15 }}>Sin resultados</Text>
+                <Text style={{ color: colors.textMuted, fontSize: 15 }}>
+                  {lang === 'es' ? 'Sin resultados' : 'No results'}
+                </Text>
               </View>
             }
             style={{
@@ -1019,7 +1211,7 @@ export default function BibleScreen() {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
               <ActivityIndicator size="large" color={colors.primary} />
               <Text style={{ marginTop: 12, fontSize: 14, color: colors.textMuted }}>
-                Cargando capítulo...
+                {lang === 'es' ? 'Cargando capítulo...' : 'Loading chapter...'}
               </Text>
             </View>
           )}
@@ -1028,7 +1220,7 @@ export default function BibleScreen() {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
               <ActivityIndicator size="large" color={colors.primary} />
               <Text style={{ marginTop: 12, fontSize: 14, color: colors.textMuted }}>
-                Cambiando traducción...
+                {lang === 'es' ? 'Cambiando traducción...' : 'Switching translation...'}
               </Text>
             </View>
           )}
@@ -1037,13 +1229,15 @@ export default function BibleScreen() {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32 }}>
               <BookOpen size={48} color={colors.textMuted} strokeWidth={1.5} />
               <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 16, color: colors.text, textAlign: 'center' }}>
-                No se pudo cargar
+                {lang === 'es' ? 'No se pudo cargar' : 'Could not load'}
               </Text>
               <Text style={{ fontSize: 14, marginTop: 6, color: colors.textMuted, textAlign: 'center' }}>{error}</Text>
               <Pressable
                 onPress={() => selectedBook && selectedChapter && loadChapter(selectedBook, selectedChapter)}
                 style={{ marginTop: 20, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.primary }}>
-                <Text style={{ color: '#fff', fontWeight: '600', fontSize: 14 }}>Reintentar</Text>
+                <Text style={{ color: '#fff', fontWeight: '600', fontSize: 14 }}>
+                  {lang === 'es' ? 'Reintentar' : 'Retry'}
+                </Text>
               </Pressable>
             </View>
           )}
@@ -1052,21 +1246,15 @@ export default function BibleScreen() {
             <>
               {/* ── In-reader controls bar ── */}
               <View style={{
-                flexDirection: 'row', alignItems: 'center',
-                paddingHorizontal: 16, paddingVertical: 8,
+                paddingHorizontal: 16,
+                paddingTop: 8,
+                paddingBottom: 6,
                 backgroundColor: colors.surface,
-                borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '20',
+                borderBottomWidth: 0.5,
+                borderBottomColor: colors.textMuted + '20',
               }}>
-                {/* Highlight hint */}
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                  <Highlighter size={12} color={colors.textMuted} />
-                  <Text style={{ fontSize: 11, color: colors.textMuted, fontWeight: '500' }}>
-                    Mantén presionado para resaltar
-                  </Text>
-                </View>
-
-                {/* Version switcher pills */}
-                <View style={{ flexDirection: 'row', gap: 5, alignItems: 'center' }}>
+                {/* Version switcher row */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                   {BIBLE_VERSIONS.map(v => {
                     const active = selectedVersion === v.id;
                     if (!v.available) {
@@ -1081,7 +1269,9 @@ export default function BibleScreen() {
                             {v.label}
                           </Text>
                           <View style={{ backgroundColor: colors.textMuted + '25', borderRadius: 3, paddingHorizontal: 3, paddingVertical: 1 }}>
-                            <Text style={{ fontSize: 7, color: colors.textMuted + '80', fontWeight: '700' }}>PRONTO</Text>
+                            <Text style={{ fontSize: 7, color: colors.textMuted + '80', fontWeight: '700' }}>
+                              {lang === 'es' ? 'PRONTO' : 'SOON'}
+                            </Text>
                           </View>
                         </View>
                       );
@@ -1109,6 +1299,14 @@ export default function BibleScreen() {
                       </Pressable>
                     );
                   })}
+                </View>
+
+                {/* Highlight hint row — sits below version pills, never overlaps */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 5 }}>
+                  <Highlighter size={11} color={colors.textMuted} />
+                  <Text style={{ fontSize: 11, color: colors.textMuted, fontWeight: '500' }}>
+                    {lang === 'es' ? 'Mantén presionado para resaltar' : 'Long-press to highlight'}
+                  </Text>
                 </View>
               </View>
 
@@ -1146,6 +1344,7 @@ export default function BibleScreen() {
         onRemove={handleRemoveHighlight}
         onClose={() => setHighlightPickerVerse(null)}
         colors={colors}
+        lang={lang}
       />
     </View>
   );
