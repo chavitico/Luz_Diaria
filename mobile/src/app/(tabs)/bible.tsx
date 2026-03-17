@@ -528,14 +528,14 @@ function BibleHomeScreen({
   // Debounced search query
   const [debouncedQuery, setDebouncedQuery] = useState('');
   useEffect(() => {
-    if (searchQuery.length < 2) { setDebouncedQuery(''); return; }
-    const t = setTimeout(() => setDebouncedQuery(searchQuery), 500);
+    if (searchQuery.trim().length < 3) { setDebouncedQuery(''); return; }
+    const t = setTimeout(() => setDebouncedQuery(searchQuery.trim()), 500);
     return () => clearTimeout(t);
   }, [searchQuery]);
 
   // Book name matches (instant, local)
   const bookMatches = useMemo(() => {
-    if (!searchQuery.trim() || searchQuery.length < 2) return [];
+    if (searchQuery.trim().length < 3) return [];
     const q = searchQuery.toLowerCase();
     return BIBLE_BOOKS.filter(b =>
       b.name.toLowerCase().includes(q) || b.nameEn.toLowerCase().includes(q)
@@ -546,11 +546,11 @@ function BibleHomeScreen({
   const { data: verseResults = [], isFetching: searchingVerses } = useQuery({
     queryKey: ['bibleSearch', debouncedQuery, lang, selectedVersion],
     queryFn: () => searchBibleVerses(debouncedQuery, lang as 'en' | 'es', 15, selectedVersion),
-    enabled: debouncedQuery.length >= 2,
+    enabled: debouncedQuery.length >= 3,
     staleTime: 5 * 60 * 1000,
   });
 
-  const isSearchActive = searchQuery.length >= 2;
+  const isSearchActive = searchQuery.trim().length >= 3;
   const hasAnyResults = bookMatches.length > 0 || verseResults.length > 0;
 
   // i18n helpers

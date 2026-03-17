@@ -187,7 +187,7 @@ export async function searchBibleVerses(
   limit = 15,
   version = 'RVR60'
 ): Promise<BibleSearchResult[]> {
-  if (query.trim().length < 2) return [];
+  if (query.trim().length < 3) return [];
   try {
     const url = `${BACKEND_URL}/api/bible/search?q=${encodeURIComponent(query)}&lang=${lang}&limit=${limit}&version=${version}`;
     const res = await fetch(url);
