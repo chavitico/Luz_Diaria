@@ -618,7 +618,7 @@ function BibleHomeScreen({
                   fontSize: 11, fontWeight: '700', color: colors.textMuted,
                   textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
                 }}>
-                  Versículos · RVR60
+                  Versículos · {selectedVersion}
                 </Text>
                 <View style={{
                   backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
@@ -703,6 +703,10 @@ export default function BibleScreen() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const ttsJobRef = useRef(0);
 
+  // In-reader version switching animation
+  const [contentKey, setContentKey] = useState(0);
+  const [versionSwitching, setVersionSwitching] = useState(false);
+
   useEffect(() => {
     loadHighlights().then(setHighlights);
     loadLastRead().then(setLastRead);
@@ -724,7 +728,8 @@ export default function BibleScreen() {
   }, [searchQuery, testamentFilter]);
 
   // ── Chapter loader ────────────────────────────────────────────────
-  const loadChapter = useCallback(async (book: BibleBook, chapter: number, targetVerse?: number) => {
+  const loadChapter = useCallback(async (book: BibleBook, chapter: number, targetVerse?: number, versionOverride?: BibleVersion) => {
+    const version = versionOverride ?? selectedVersion;
     setSelectedBook(book);
     setSelectedChapter(chapter);
     setView('verses');
@@ -742,18 +747,19 @@ export default function BibleScreen() {
     setLastRead(newLastRead);
     saveLastRead(newLastRead);
 
-    const result = await fetchBibleChapter(book.id, chapter, lang as 'en' | 'es', selectedVersion);
+    const result = await fetchBibleChapter(book.id, chapter, lang as 'en' | 'es', version);
     if (result.success) {
       setChapterData(result.data);
+      setContentKey(k => k + 1);
       if (targetVerse != null) {
         setFlashVerse(targetVerse);
         flashTimerRef.current = setTimeout(() => setFlashVerse(null), 3000);
       }
     } else {
-      setError(result.error);
+      setError(result.error ?? 'No se pudo cargar');
     }
     setLoading(false);
-  }, [lang]);
+  }, [lang, selectedVersion]);
 
   const handleSelectTestament = useCallback((t: 'OT' | 'NT') => {
     setTestamentFilter(t);
@@ -812,6 +818,32 @@ export default function BibleScreen() {
     }
   }, [view, isSpeaking]);
 
+  // In-reader version switch — reloads the current chapter with the new translation
+  const handleInReaderVersionChange = useCallback(async (newVersion: BibleVersion) => {
+    if (newVersion === selectedVersion) return;
+    const vInfo = BIBLE_VERSIONS.find(v => v.id === newVersion);
+    if (!vInfo?.available) return;
+    if (!selectedBook || !selectedChapter) return;
+
+    if (isSpeaking) { Speech.stop(); setIsSpeaking(false); }
+
+    setSelectedVersion(newVersion);
+    setVersionSwitching(true);
+    setChapterData(null);
+    setError(null);
+
+    const result = await fetchBibleChapter(
+      selectedBook.id, selectedChapter, lang as 'en' | 'es', newVersion
+    );
+    if (result.success) {
+      setChapterData(result.data);
+      setContentKey(k => k + 1);
+    } else {
+      setError(result.error ?? 'No se pudo cargar');
+    }
+    setVersionSwitching(false);
+  }, [selectedVersion, selectedBook, selectedChapter, lang, isSpeaking]);
+
   // Highlighting
   const handleLongPressVerse = useCallback((verse: number) => {
     setHighlightPickerVerse(verse);
@@ -865,9 +897,9 @@ export default function BibleScreen() {
     }
     if (view === 'chapters' && selectedBook) return lang === 'es' ? selectedBook.name : selectedBook.nameEn;
     if (view === 'verses' && selectedBook && selectedChapter)
-      return `${lang === 'es' ? selectedBook.name : selectedBook.nameEn} ${selectedChapter}`;
+      return `${lang === 'es' ? selectedBook.name : selectedBook.nameEn} ${selectedChapter}  ·  ${selectedVersion}`;
     return '';
-  }, [view, testamentFilter, selectedBook, selectedChapter, searchQuery, lang]);
+  }, [view, testamentFilter, selectedBook, selectedChapter, searchQuery, lang, selectedVersion]);
 
   const backLabel = useMemo(() => {
     if (view === 'books') return 'Biblia';
@@ -992,6 +1024,15 @@ export default function BibleScreen() {
             </View>
           )}
 
+          {versionSwitching && !chapterData && (
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <ActivityIndicator size="large" color={colors.primary} />
+              <Text style={{ marginTop: 12, fontSize: 14, color: colors.textMuted }}>
+                Cambiando traducción...
+              </Text>
+            </View>
+          )}
+
           {error && !loading && (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32 }}>
               <BookOpen size={48} color={colors.textMuted} strokeWidth={1.5} />
@@ -1009,38 +1050,90 @@ export default function BibleScreen() {
 
           {chapterData && !loading && (
             <>
+              {/* ── In-reader controls bar ── */}
               <View style={{
-                flexDirection: 'row', alignItems: 'center', gap: 6,
-                paddingHorizontal: 20, paddingVertical: 8,
+                flexDirection: 'row', alignItems: 'center',
+                paddingHorizontal: 16, paddingVertical: 8,
                 backgroundColor: colors.surface,
                 borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '20',
               }}>
-                <Highlighter size={12} color={colors.textMuted} />
-                <Text style={{ fontSize: 11, color: colors.textMuted, fontWeight: '500' }}>
-                  Mantén presionado un versículo para resaltarlo
-                </Text>
+                {/* Highlight hint */}
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                  <Highlighter size={12} color={colors.textMuted} />
+                  <Text style={{ fontSize: 11, color: colors.textMuted, fontWeight: '500' }}>
+                    Mantén presionado para resaltar
+                  </Text>
+                </View>
+
+                {/* Version switcher pills */}
+                <View style={{ flexDirection: 'row', gap: 5, alignItems: 'center' }}>
+                  {BIBLE_VERSIONS.map(v => {
+                    const active = selectedVersion === v.id;
+                    if (!v.available) {
+                      return (
+                        <View key={v.id} style={{
+                          flexDirection: 'row', alignItems: 'center',
+                          paddingHorizontal: 8, paddingVertical: 4, borderRadius: 10,
+                          backgroundColor: colors.textMuted + '10',
+                          gap: 3,
+                        }}>
+                          <Text style={{ fontSize: 10, fontWeight: '600', color: colors.textMuted + '60' }}>
+                            {v.label}
+                          </Text>
+                          <View style={{ backgroundColor: colors.textMuted + '25', borderRadius: 3, paddingHorizontal: 3, paddingVertical: 1 }}>
+                            <Text style={{ fontSize: 7, color: colors.textMuted + '80', fontWeight: '700' }}>PRONTO</Text>
+                          </View>
+                        </View>
+                      );
+                    }
+                    return (
+                      <Pressable
+                        key={v.id}
+                        onPress={() => handleInReaderVersionChange(v.id as BibleVersion)}
+                        style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+                        hitSlop={6}
+                      >
+                        <View style={{
+                          paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10,
+                          backgroundColor: active ? colors.primary : colors.textMuted + '18',
+                          borderWidth: active ? 0 : 1,
+                          borderColor: colors.textMuted + '25',
+                        }}>
+                          <Text style={{
+                            fontSize: 11, fontWeight: '700',
+                            color: active ? '#fff' : colors.textMuted,
+                          }}>
+                            {v.label}
+                          </Text>
+                        </View>
+                      </Pressable>
+                    );
+                  })}
+                </View>
               </View>
 
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingTop: 12, paddingBottom: 120 }}
-              >
-                {chapterData.verses.map(verse => (
-                  <VerseRow
-                    key={verse.number}
-                    number={verse.number}
-                    text={verse.text}
-                    colors={colors}
-                    highlightColor={
-                      selectedBook && selectedChapter
-                        ? highlights[hlKey(selectedBook.id, selectedChapter, verse.number)]
-                        : undefined
-                    }
-                    isFlashing={flashVerse === verse.number}
-                    onLongPress={handleLongPressVerse}
-                  />
-                ))}
-              </ScrollView>
+              <Animated.View key={contentKey} entering={FadeIn.duration(250)} style={{ flex: 1 }}>
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{ paddingTop: 12, paddingBottom: 120 }}
+                >
+                  {chapterData.verses.map(verse => (
+                    <VerseRow
+                      key={verse.number}
+                      number={verse.number}
+                      text={verse.text}
+                      colors={colors}
+                      highlightColor={
+                        selectedBook && selectedChapter
+                          ? highlights[hlKey(selectedBook.id, selectedChapter, verse.number)]
+                          : undefined
+                      }
+                      isFlashing={flashVerse === verse.number}
+                      onLongPress={handleLongPressVerse}
+                    />
+                  ))}
+                </ScrollView>
+              </Animated.View>
             </>
           )}
         </Animated.View>
