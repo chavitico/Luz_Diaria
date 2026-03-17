@@ -54,21 +54,18 @@ export async function fetchBibleChapter(
   // 1. Session cache
   const inMemory = sessionCache.get(key);
   if (inMemory) {
-    console.log(`[Bible] Session cache hit: ${bookId} ${chapter} (${lang})`);
     return { success: true, data: inMemory };
   }
 
   // 2. Disk cache
   const onDisk = await readFromDisk(key);
   if (onDisk) {
-    console.log(`[Bible] Disk cache hit: ${bookId} ${chapter} (${lang})`);
     sessionCache.set(key, onDisk);
     return { success: true, data: onDisk };
   }
 
   // 3. Backend
   try {
-    console.log(`[Bible] Fetching from backend: ${bookId} ${chapter} (${lang})`);
     const url = `${BACKEND_URL}/api/bible/chapter?bookId=${encodeURIComponent(bookId)}&chapter=${chapter}&lang=${lang}&version=${version}`;
     const res = await fetch(url);
 
@@ -149,7 +146,6 @@ export async function clearBibleChapterCache(): Promise<void> {
     const keys = await AsyncStorage.getAllKeys();
     const bibleKeys = keys.filter(k => k.startsWith(CHAPTER_CACHE_PREFIX));
     await AsyncStorage.multiRemove(bibleKeys);
-    console.log('[Bible] Chapter cache cleared');
   } catch {
     // ignore
   }
