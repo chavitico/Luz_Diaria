@@ -35,3 +35,20 @@ export interface BibleVersionInfo {
 
 export type HighlightColor = 'yellow' | 'green' | 'blue';
 export type HighlightMap = Record<string, HighlightColor>; // key: `${bookId}_${chapter}_${verse}`
+
+export interface BibleSearchResult {
+  reference: string;       // e.g. "Juan 3:16"
+  text: string;            // verse snippet
+  bookId: string;          // e.g. "JHN"
+  chapter: number;
+  verse: number;
+  source: 'devotional' | 'passage';
+}
+
+export interface BibleLastRead {
+  bookId: string;
+  bookName: string;
+  chapter: number;
+  lang: string;
+  timestamp: number;
+}

@@ -1,5 +1,5 @@
-// BibleScreen — Bible navigation hub with home screen, testament nav, highlights
-// Flow: Home → Testament Books List → Chapter Grid → Verse Reader
+// BibleScreen — Bible navigation hub
+// Flow: Home (hero + search + versions + testament cards) → Books → Chapters → Verses
 
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import {
@@ -28,6 +28,7 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 import {
   ChevronRight,
@@ -39,11 +40,19 @@ import {
   X,
   BookMarked,
   Highlighter,
+  BookText,
+  ArrowRight,
 } from 'lucide-react-native';
 
 import { useThemeColors, useLanguage } from '@/lib/store';
 import { BIBLE_BOOKS, OT_BOOKS, NT_BOOKS } from '@/lib/bible/books';
-import { fetchBibleChapter, validateBibleDataLoad } from '@/lib/bible/api';
+import {
+  fetchBibleChapter,
+  validateBibleDataLoad,
+  saveLastRead,
+  loadLastRead,
+  searchBibleVerses,
+} from '@/lib/bible/api';
 import { pickBestVoice } from '@/lib/voice-picker';
 import {
   sanitizeForTTS,
@@ -59,13 +68,15 @@ import type {
   BibleVersionInfo,
   HighlightColor,
   HighlightMap,
+  BibleSearchResult,
+  BibleLastRead,
 } from '@/lib/bible/types';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const HIGHLIGHTS_STORAGE_KEY = 'bible_highlights_v1';
+const HIGHLIGHTS_KEY = 'bible_highlights_v1';
 
 const BIBLE_VERSIONS: BibleVersionInfo[] = [
   { id: 'RVR60', label: 'RVR60', fullName: 'Reina-Valera 1960', available: true },
@@ -79,80 +90,76 @@ const HIGHLIGHT_COLORS: { key: HighlightColor; bg: string; label: string }[] = [
   { key: 'blue',   bg: '#BFDBFE', label: 'Azul' },
 ];
 
-// ─── Highlight persistence ────────────────────────────────────────────────────
+// ─── Highlight persistence ─────────────────────────────────────────────────────
 
 async function loadHighlights(): Promise<HighlightMap> {
   try {
-    const raw = await AsyncStorage.getItem(HIGHLIGHTS_STORAGE_KEY);
+    const raw = await AsyncStorage.getItem(HIGHLIGHTS_KEY);
     return raw ? (JSON.parse(raw) as HighlightMap) : {};
-  } catch {
-    return {};
-  }
+  } catch { return {}; }
 }
 
 async function saveHighlights(map: HighlightMap): Promise<void> {
-  try {
-    await AsyncStorage.setItem(HIGHLIGHTS_STORAGE_KEY, JSON.stringify(map));
-  } catch {
-    // silent
-  }
+  try { await AsyncStorage.setItem(HIGHLIGHTS_KEY, JSON.stringify(map)); } catch {}
 }
 
-function highlightKey(bookId: string, chapter: number, verse: number): string {
+function hlKey(bookId: string, chapter: number, verse: number): string {
   return `${bookId}_${chapter}_${verse}`;
 }
 
 // ─── Verse Row ────────────────────────────────────────────────────────────────
 
 function VerseRow({
-  bookId,
-  chapter,
-  number,
-  text,
-  colors,
-  highlightColor,
-  onLongPress,
+  number, text, colors, highlightColor, isFlashing, onLongPress,
 }: {
-  bookId: string;
-  chapter: number;
-  number: number;
-  text: string;
+  number: number; text: string;
   colors: ReturnType<typeof useThemeColors>;
   highlightColor: HighlightColor | undefined;
-  onLongPress: (verse: number) => void;
+  isFlashing: boolean;
+  onLongPress: (v: number) => void;
 }) {
   const scale = useSharedValue(1);
-  const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const flashBg = useSharedValue(0);
+  const anim = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    backgroundColor: isFlashing
+      ? `rgba(253,224,71,${flashBg.value})`
+      : highlightColor
+        ? HIGHLIGHT_COLORS.find(h => h.key === highlightColor)!.bg + 'CC'
+        : 'transparent',
+  }));
 
-  const bgColor = highlightColor
-    ? HIGHLIGHT_COLORS.find(h => h.key === highlightColor)?.bg + 'CC'
-    : undefined;
+  useEffect(() => {
+    if (isFlashing) {
+      flashBg.value = withTiming(0.85, { duration: 300 });
+      setTimeout(() => { flashBg.value = withTiming(0, { duration: 1500 }); }, 1200);
+    }
+  }, [isFlashing]);
 
   return (
     <Pressable
-      onLongPress={() => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-        onLongPress(number);
-      }}
+      onLongPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); onLongPress(number); }}
       onPressIn={() => { scale.value = withSpring(0.99); }}
       onPressOut={() => { scale.value = withSpring(1); }}
       delayLongPress={400}
     >
       <Animated.View
         style={[
-          animStyle,
-          { flexDirection: 'row', paddingHorizontal: 20, paddingVertical: 8 },
-          bgColor ? { backgroundColor: bgColor, borderRadius: 6, marginHorizontal: 8, marginVertical: 1 } : undefined,
+          anim,
+          {
+            flexDirection: 'row',
+            paddingHorizontal: 20,
+            paddingVertical: 8,
+            borderRadius: (highlightColor || isFlashing) ? 6 : 0,
+            marginHorizontal: (highlightColor || isFlashing) ? 8 : 0,
+            marginVertical: (highlightColor || isFlashing) ? 1 : 0,
+          },
         ]}
       >
         <Text
           style={{
-            fontSize: 12,
-            fontWeight: '700',
-            marginRight: 12,
-            marginTop: 2,
-            width: 22,
-            textAlign: 'right',
+            fontSize: 12, fontWeight: '700', marginRight: 12, marginTop: 3,
+            width: 22, textAlign: 'right',
             color: highlightColor ? '#78350F' : colors.primary,
           }}
         >
@@ -160,9 +167,7 @@ function VerseRow({
         </Text>
         <Text
           style={{
-            flex: 1,
-            fontSize: 17,
-            lineHeight: 28,
+            flex: 1, fontSize: 17, lineHeight: 28,
             color: highlightColor ? '#1C1917' : colors.text,
             fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
           }}
@@ -174,91 +179,51 @@ function VerseRow({
   );
 }
 
-// ─── Highlight Picker Modal ───────────────────────────────────────────────────
+// ─── Highlight Picker ─────────────────────────────────────────────────────────
 
 function HighlightPicker({
-  visible,
-  currentColor,
-  onSelect,
-  onRemove,
-  onClose,
-  colors,
+  visible, currentColor, onSelect, onRemove, onClose, colors,
 }: {
-  visible: boolean;
-  currentColor: HighlightColor | undefined;
-  onSelect: (color: HighlightColor) => void;
-  onRemove: () => void;
-  onClose: () => void;
-  colors: ReturnType<typeof useThemeColors>;
+  visible: boolean; currentColor: HighlightColor | undefined;
+  onSelect: (c: HighlightColor) => void; onRemove: () => void;
+  onClose: () => void; colors: ReturnType<typeof useThemeColors>;
 }) {
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onClose}
-    >
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <Pressable
         style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'flex-end' }}
         onPress={onClose}
       >
         <Pressable onPress={() => {}}>
-          <View
-            style={{
-              backgroundColor: colors.surface,
-              borderTopLeftRadius: 24,
-              borderTopRightRadius: 24,
-              paddingTop: 12,
-              paddingBottom: 40,
-              paddingHorizontal: 24,
-            }}
-          >
-            {/* Handle */}
+          <View style={{
+            backgroundColor: colors.surface,
+            borderTopLeftRadius: 24, borderTopRightRadius: 24,
+            paddingTop: 12, paddingBottom: 40, paddingHorizontal: 24,
+          }}>
             <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: colors.textMuted + '60', alignSelf: 'center', marginBottom: 20 }} />
-
             <Text style={{ fontSize: 13, fontWeight: '700', color: colors.textMuted, letterSpacing: 1.1, textTransform: 'uppercase', marginBottom: 16 }}>
               Resaltar versículo
             </Text>
-
             <View style={{ flexDirection: 'row', gap: 12, marginBottom: 16 }}>
               {HIGHLIGHT_COLORS.map(h => (
-                <Pressable
-                  key={h.key}
-                  onPress={() => { onSelect(h.key); onClose(); }}
-                  style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1, flex: 1 })}
-                >
-                  <View
-                    style={{
-                      backgroundColor: h.bg,
-                      borderRadius: 14,
-                      paddingVertical: 14,
-                      alignItems: 'center',
-                      borderWidth: currentColor === h.key ? 2.5 : 0,
-                      borderColor: '#000',
-                    }}
-                  >
-                    <Text style={{ fontSize: 13, fontWeight: '700', color: '#1C1917' }}>
-                      {h.label}
-                    </Text>
+                <Pressable key={h.key} onPress={() => { onSelect(h.key); onClose(); }}
+                  style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1, flex: 1 })}>
+                  <View style={{
+                    backgroundColor: h.bg, borderRadius: 14, paddingVertical: 14,
+                    alignItems: 'center', borderWidth: currentColor === h.key ? 2.5 : 0, borderColor: '#000',
+                  }}>
+                    <Text style={{ fontSize: 13, fontWeight: '700', color: '#1C1917' }}>{h.label}</Text>
                   </View>
                 </Pressable>
               ))}
             </View>
-
             {currentColor && (
-              <Pressable
-                onPress={() => { onRemove(); onClose(); }}
+              <Pressable onPress={() => { onRemove(); onClose(); }}
                 style={({ pressed }) => ({
-                  opacity: pressed ? 0.7 : 1,
-                  paddingVertical: 14,
-                  borderRadius: 14,
-                  backgroundColor: colors.textMuted + '20',
-                  alignItems: 'center',
-                })}
-              >
-                <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted }}>
-                  Quitar resaltado
-                </Text>
+                  opacity: pressed ? 0.7 : 1, paddingVertical: 14, borderRadius: 14,
+                  backgroundColor: colors.textMuted + '20', alignItems: 'center',
+                })}>
+                <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted }}>Quitar resaltado</Text>
               </Pressable>
             )}
           </View>
@@ -268,36 +233,20 @@ function HighlightPicker({
   );
 }
 
-// ─── Book Item ────────────────────────────────────────────────────────────────
+// ─── Book Item ─────────────────────────────────────────────────────────────────
 
-function BookItem({
-  book,
-  onPress,
-  colors,
-  lang,
-}: {
-  book: BibleBook;
-  onPress: () => void;
-  colors: ReturnType<typeof useThemeColors>;
-  lang: string;
+function BookItem({ book, onPress, colors, lang }: {
+  book: BibleBook; onPress: () => void;
+  colors: ReturnType<typeof useThemeColors>; lang: string;
 }) {
   const name = lang === 'es' ? book.name : book.nameEn;
   return (
-    <Pressable
-      onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-    >
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 16,
-          paddingVertical: 13,
-          borderBottomWidth: 0.5,
-          borderBottomColor: colors.textMuted + '25',
-        }}
-      >
+    <Pressable onPress={onPress} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+      <View style={{
+        flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+        paddingHorizontal: 16, paddingVertical: 13,
+        borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '22',
+      }}>
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 16, fontWeight: '600', color: colors.text }}>{name}</Text>
           <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 2 }}>
@@ -312,57 +261,29 @@ function BookItem({
 
 // ─── Chapter Grid ─────────────────────────────────────────────────────────────
 
-function ChapterGrid({
-  book,
-  onSelect,
-  colors,
-  lang,
-}: {
-  book: BibleBook;
-  onSelect: (chapter: number) => void;
-  colors: ReturnType<typeof useThemeColors>;
-  lang: string;
+function ChapterGrid({ book, onSelect, colors, lang }: {
+  book: BibleBook; onSelect: (ch: number) => void;
+  colors: ReturnType<typeof useThemeColors>; lang: string;
 }) {
   const chapters = Array.from({ length: book.chapters }, (_, i) => i + 1);
-  const bookName = lang === 'es' ? book.name : book.nameEn;
   const cols = 6;
+  const cell = (SCREEN_WIDTH - 32 - 8 * (cols - 1)) / cols;
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 16, paddingBottom: 120 }}>
-      <Text
-        style={{
-          fontSize: 11,
-          fontWeight: '700',
-          textTransform: 'uppercase',
-          letterSpacing: 1.3,
-          color: colors.textMuted,
-          marginBottom: 12,
-        }}
-      >
-        {bookName}
+      <Text style={{ fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1.3, color: colors.textMuted, marginBottom: 12 }}>
+        {lang === 'es' ? book.name : book.nameEn}
       </Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         {chapters.map(ch => (
-          <Pressable
-            key={ch}
-            onPress={() => onSelect(ch)}
-            style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-          >
-            <View
-              style={{
-                width: (SCREEN_WIDTH - 32 - 8 * (cols - 1)) / cols,
-                height: (SCREEN_WIDTH - 32 - 8 * (cols - 1)) / cols,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 12,
-                backgroundColor: colors.surface,
-                borderWidth: 1,
-                borderColor: colors.textMuted + '28',
-              }}
-            >
-              <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text }}>
-                {ch}
-              </Text>
+          <Pressable key={ch} onPress={() => onSelect(ch)}
+            style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+            <View style={{
+              width: cell, height: cell, alignItems: 'center', justifyContent: 'center',
+              borderRadius: 12, backgroundColor: colors.surface,
+              borderWidth: 1, borderColor: colors.textMuted + '28',
+            }}>
+              <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text }}>{ch}</Text>
             </View>
           </Pressable>
         ))}
@@ -371,52 +292,36 @@ function ChapterGrid({
   );
 }
 
-// ─── Testament Card ────────────────────────────────────────────────────────────
+// ─── Testament Card ───────────────────────────────────────────────────────────
 
-function TestamentCard({
-  title,
-  subtitle,
-  bookCount,
-  emoji,
-  onPress,
-  colors,
-}: {
-  title: string;
-  subtitle: string;
-  bookCount: number;
-  emoji: string;
-  onPress: () => void;
-  colors: ReturnType<typeof useThemeColors>;
+function TestamentCard({ title, subtitle, bookCount, emoji, onPress, colors }: {
+  title: string; subtitle: string; bookCount: number; emoji: string;
+  onPress: () => void; colors: ReturnType<typeof useThemeColors>;
 }) {
   const scale = useSharedValue(1);
   const anim = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
 
   return (
-    <Pressable
-      onPress={onPress}
+    <Pressable onPress={onPress}
       onPressIn={() => { scale.value = withSpring(0.97); }}
       onPressOut={() => { scale.value = withSpring(1); }}
-      style={{ flex: 1 }}
-    >
+      style={{ flex: 1 }}>
       <Animated.View style={[anim, { flex: 1 }]}>
         <LinearGradient
-          colors={[colors.primary + 'CC', colors.primary + '99']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{
-            borderRadius: 18,
-            padding: 18,
-            minHeight: 110,
-            justifyContent: 'space-between',
-          }}
+          colors={[colors.primary + 'EE', colors.primary + 'AA']}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+          style={{ borderRadius: 20, padding: 20, minHeight: 150, justifyContent: 'space-between' }}
         >
-          <Text style={{ fontSize: 28 }}>{emoji}</Text>
+          <Text style={{ fontSize: 34 }}>{emoji}</Text>
           <View>
-            <Text style={{ fontSize: 15, fontWeight: '800', color: '#fff', letterSpacing: 0.2 }}>
+            <Text style={{ fontSize: 14, fontWeight: '800', color: '#fff', lineHeight: 19 }}>
               {title}
             </Text>
-            <Text style={{ fontSize: 11, color: '#ffffff99', marginTop: 2, fontWeight: '500' }}>
-              {bookCount} libros · {subtitle}
+            <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.75)', marginTop: 4, fontWeight: '500' }}>
+              {bookCount} libros
+            </Text>
+            <Text style={{ fontSize: 10, color: 'rgba(255,255,255,0.55)', marginTop: 2 }}>
+              {subtitle}
             </Text>
           </View>
         </LinearGradient>
@@ -425,28 +330,98 @@ function TestamentCard({
   );
 }
 
+// ─── Search Result Item ───────────────────────────────────────────────────────
+
+function VerseResultItem({ result, onPress, colors }: {
+  result: BibleSearchResult;
+  onPress: () => void;
+  colors: ReturnType<typeof useThemeColors>;
+}) {
+  return (
+    <Pressable onPress={onPress} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+      <View style={{
+        paddingHorizontal: 16, paddingVertical: 14,
+        borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '22',
+        flexDirection: 'row', alignItems: 'flex-start', gap: 12,
+      }}>
+        <View style={{
+          width: 36, height: 36, borderRadius: 10,
+          backgroundColor: colors.primary + '18',
+          alignItems: 'center', justifyContent: 'center', marginTop: 1, flexShrink: 0,
+        }}>
+          <BookText size={16} color={colors.primary} strokeWidth={2} />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 12, fontWeight: '700', color: colors.primary, marginBottom: 4, letterSpacing: 0.3 }}>
+            {result.reference}
+          </Text>
+          <Text style={{ fontSize: 14, color: colors.text, lineHeight: 20 }} numberOfLines={3}>
+            {result.text.length > 160 ? result.text.slice(0, 160) + '…' : result.text}
+          </Text>
+        </View>
+        <ChevronRight size={14} color={colors.textMuted} style={{ marginTop: 2 }} />
+      </View>
+    </Pressable>
+  );
+}
+
+// ─── Continue Reading Card ─────────────────────────────────────────────────────
+
+function ContinueReadingCard({ lastRead, onPress, colors }: {
+  lastRead: BibleLastRead; onPress: () => void;
+  colors: ReturnType<typeof useThemeColors>;
+}) {
+  const scale = useSharedValue(1);
+  const anim = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  return (
+    <Pressable
+      onPress={onPress}
+      onPressIn={() => { scale.value = withSpring(0.98); }}
+      onPressOut={() => { scale.value = withSpring(1); }}
+    >
+      <Animated.View style={[anim, {
+        flexDirection: 'row', alignItems: 'center', gap: 14,
+        backgroundColor: colors.surface,
+        borderRadius: 16, padding: 16,
+        borderWidth: 1, borderColor: colors.primary + '30',
+      }]}>
+        <View style={{
+          width: 44, height: 44, borderRadius: 12,
+          backgroundColor: colors.primary + '18',
+          alignItems: 'center', justifyContent: 'center',
+        }}>
+          <BookOpen size={20} color={colors.primary} strokeWidth={2} />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 11, color: colors.textMuted, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 2 }}>
+            Continuar leyendo
+          </Text>
+          <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text }}>
+            {lastRead.bookName} {lastRead.chapter}
+          </Text>
+        </View>
+        <ArrowRight size={18} color={colors.primary} />
+      </Animated.View>
+    </Pressable>
+  );
+}
+
 // ─── Bible Home Screen ────────────────────────────────────────────────────────
 
 function BibleHomeScreen({
-  colors,
-  lang,
-  searchQuery,
-  onSearchChange,
-  selectedVersion,
-  onVersionChange,
-  onSelectTestament,
-  onSearchSubmit,
+  colors, lang, searchQuery, onSearchChange, selectedVersion, onVersionChange,
+  onSelectTestament, onSearchSubmit, lastRead, onContinueReading, onSelectVerseResult,
 }: {
-  colors: ReturnType<typeof useThemeColors>;
-  lang: string;
-  searchQuery: string;
-  onSearchChange: (q: string) => void;
-  selectedVersion: BibleVersion;
-  onVersionChange: (v: BibleVersion) => void;
-  onSelectTestament: (t: 'OT' | 'NT') => void;
-  onSearchSubmit: () => void;
+  colors: ReturnType<typeof useThemeColors>; lang: string;
+  searchQuery: string; onSearchChange: (q: string) => void;
+  selectedVersion: BibleVersion; onVersionChange: (v: BibleVersion) => void;
+  onSelectTestament: (t: 'OT' | 'NT') => void; onSearchSubmit: () => void;
+  lastRead: BibleLastRead | null;
+  onContinueReading: () => void;
+  onSelectVerseResult: (result: BibleSearchResult) => void;
 }) {
-  // Reuse the same devotional query key as the home screen
+  // Reuse the same query key as Home screen — hits cache instantly
   const { data: devotionalMeta } = useQuery({
     queryKey: ['todayDevotional'],
     queryFn: () => firestoreService.getTodayDevotional(),
@@ -460,167 +435,130 @@ function BibleHomeScreen({
     ? (devotional?.bibleReferenceEs ?? devotional?.bibleReference ?? null)
     : (devotional?.bibleReference ?? null);
 
+  // Debounced search query
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+  useEffect(() => {
+    if (searchQuery.length < 2) { setDebouncedQuery(''); return; }
+    const t = setTimeout(() => setDebouncedQuery(searchQuery), 500);
+    return () => clearTimeout(t);
+  }, [searchQuery]);
+
+  // Book name matches (instant, local)
+  const bookMatches = useMemo(() => {
+    if (!searchQuery.trim() || searchQuery.length < 2) return [];
+    const q = searchQuery.toLowerCase();
+    return BIBLE_BOOKS.filter(b =>
+      b.name.toLowerCase().includes(q) || b.nameEn.toLowerCase().includes(q)
+    ).slice(0, 6);
+  }, [searchQuery]);
+
+  // Verse content search (backend)
+  const { data: verseResults = [], isFetching: searchingVerses } = useQuery({
+    queryKey: ['bibleSearch', debouncedQuery, lang],
+    queryFn: () => searchBibleVerses(debouncedQuery, lang as 'en' | 'es', 15),
+    enabled: debouncedQuery.length >= 2,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const isSearchActive = searchQuery.length >= 2;
+  const hasAnyResults = bookMatches.length > 0 || verseResults.length > 0;
+
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 120 }}
-    >
-      {/* ── Hero Card ─────────────────────────────────────────────── */}
-      <View style={{ height: 200, marginHorizontal: 0, overflow: 'hidden' }}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
+
+      {/* ── Hero ─────────────────────────────────────────────── */}
+      <View style={{ height: 190, overflow: 'hidden' }}>
         <Image
           source={{ uri: devotional?.imageUrl ?? 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=800&q=80' }}
           style={{ width: '100%', height: '100%' }}
           contentFit="cover"
         />
         <LinearGradient
-          colors={['transparent', 'rgba(0,0,0,0.72)']}
-          style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 130 }}
+          colors={['transparent', 'rgba(0,0,0,0.76)']}
+          style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 140 }}
         />
         <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 16 }}>
           {verseText ? (
             <>
               <Text
                 style={{
-                  color: '#fff',
-                  fontSize: 13,
-                  lineHeight: 19,
-                  fontStyle: 'italic',
+                  color: '#fff', fontSize: 13, lineHeight: 19, fontStyle: 'italic', marginBottom: 4,
                   fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-                  marginBottom: 4,
                 }}
                 numberOfLines={3}
               >
                 {verseText}
               </Text>
               {verseRef && (
-                <Text style={{ color: 'rgba(255,255,255,0.72)', fontSize: 11, fontWeight: '600' }}>
+                <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, fontWeight: '600' }}>
                   — {verseRef}
                 </Text>
               )}
             </>
           ) : (
-            <Text style={{ color: '#fff', fontSize: 22, fontWeight: '800', letterSpacing: 0.5 }}>
-              Biblia
-            </Text>
+            <Text style={{ color: '#fff', fontSize: 22, fontWeight: '800' }}>Biblia</Text>
           )}
         </View>
       </View>
 
       <View style={{ paddingHorizontal: 16, paddingTop: 16 }}>
 
-        {/* ── Search Bar ────────────────────────────────────────────── */}
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            backgroundColor: colors.surface,
-            borderRadius: 14,
-            paddingHorizontal: 14,
-            paddingVertical: 11,
-            borderWidth: 1,
-            borderColor: colors.textMuted + '28',
-            marginBottom: 16,
-          }}
-        >
+        {/* ── Search Bar ───────────────────────────────────────── */}
+        <View style={{
+          flexDirection: 'row', alignItems: 'center',
+          backgroundColor: colors.surface, borderRadius: 14,
+          paddingHorizontal: 14, paddingVertical: 11,
+          borderWidth: 1, borderColor: colors.textMuted + '28', marginBottom: 14,
+        }}>
           <Search size={16} color={colors.textMuted} />
           <TextInput
             style={{ flex: 1, marginLeft: 10, fontSize: 15, color: colors.text }}
-            placeholder="Buscar libro..."
+            placeholder="Buscar libro o versículo..."
             placeholderTextColor={colors.textMuted}
             value={searchQuery}
             onChangeText={onSearchChange}
             onSubmitEditing={onSearchSubmit}
             returnKeyType="search"
-            autoCorrect={false}
-            autoCapitalize="none"
+            autoCorrect={false} autoCapitalize="none"
           />
           {searchQuery.length > 0 && (
             <Pressable onPress={() => onSearchChange('')} hitSlop={10}>
               <X size={16} color={colors.textMuted} />
             </Pressable>
           )}
+          {searchingVerses && <ActivityIndicator size="small" color={colors.textMuted} style={{ marginLeft: 8 }} />}
         </View>
 
-        {/* ── Version Selector ──────────────────────────────────────── */}
-        <View style={{ marginBottom: 20 }}>
-          <Text
-            style={{
-              fontSize: 11,
-              fontWeight: '700',
-              color: colors.textMuted,
-              textTransform: 'uppercase',
-              letterSpacing: 1.1,
-              marginBottom: 10,
-            }}
-          >
-            Versión
-          </Text>
-          <View style={{ flexDirection: 'row', gap: 8 }}>
-            {BIBLE_VERSIONS.map(v => {
-              const active = selectedVersion === v.id;
-              return (
-                <Pressable
-                  key={v.id}
-                  onPress={() => v.available && onVersionChange(v.id)}
-                  style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-                >
-                  <View
-                    style={{
-                      paddingHorizontal: 14,
-                      paddingVertical: 8,
-                      borderRadius: 20,
-                      backgroundColor: active ? colors.primary : colors.surface,
-                      borderWidth: active ? 0 : 1,
-                      borderColor: colors.textMuted + '30',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 6,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        fontWeight: '700',
-                        color: active ? '#fff' : v.available ? colors.text : colors.textMuted,
-                      }}
-                    >
-                      {v.label}
-                    </Text>
-                    {!v.available && (
-                      <View
-                        style={{
-                          backgroundColor: colors.textMuted + '25',
-                          borderRadius: 6,
-                          paddingHorizontal: 5,
-                          paddingVertical: 2,
-                        }}
-                      >
-                        <Text style={{ fontSize: 9, color: colors.textMuted, fontWeight: '600' }}>
-                          PRONTO
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-                </Pressable>
-              );
-            })}
-          </View>
+        {/* ── Version Pills ─────────────────────────────────────── */}
+        <View style={{ flexDirection: 'row', gap: 8, marginBottom: 18 }}>
+          {BIBLE_VERSIONS.map(v => {
+            const active = selectedVersion === v.id;
+            return (
+              <Pressable key={v.id}
+                onPress={() => v.available && onVersionChange(v.id)}
+                style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+                <View style={{
+                  paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20,
+                  backgroundColor: active ? colors.primary : colors.surface,
+                  borderWidth: active ? 0 : 1, borderColor: colors.textMuted + '28',
+                  flexDirection: 'row', alignItems: 'center', gap: 5,
+                }}>
+                  <Text style={{ fontSize: 13, fontWeight: '700', color: active ? '#fff' : v.available ? colors.text : colors.textMuted }}>
+                    {v.label}
+                  </Text>
+                  {!v.available && (
+                    <View style={{ backgroundColor: colors.textMuted + '22', borderRadius: 5, paddingHorizontal: 4, paddingVertical: 1 }}>
+                      <Text style={{ fontSize: 8, color: colors.textMuted, fontWeight: '700' }}>PRONTO</Text>
+                    </View>
+                  )}
+                </View>
+              </Pressable>
+            );
+          })}
         </View>
 
-        {/* ── Testament Cards ────────────────────────────────────────── */}
-        <Text
-          style={{
-            fontSize: 11,
-            fontWeight: '700',
-            color: colors.textMuted,
-            textTransform: 'uppercase',
-            letterSpacing: 1.1,
-            marginBottom: 10,
-          }}
-        >
-          Navegar
-        </Text>
-        <View style={{ flexDirection: 'row', gap: 12, marginBottom: 8 }}>
+        {/* ── Testament Cards ──────────────────────────────────────── */}
+        <View style={{ flexDirection: 'row', gap: 12, marginBottom: 16 }}>
           <TestamentCard
             title="Antiguo Testamento"
             subtitle="Génesis → Malaquías"
@@ -639,42 +577,90 @@ function BibleHomeScreen({
           />
         </View>
 
-        {/* ── Quick Stats ────────────────────────────────────────────── */}
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 16,
-            backgroundColor: colors.surface,
-            borderRadius: 16,
-            borderWidth: 1,
-            borderColor: colors.textMuted + '20',
-            overflow: 'hidden',
-          }}
-        >
-          {[
-            { label: 'Libros', value: '66' },
-            { label: 'Capítulos', value: '1,189' },
-            { label: 'Versículos', value: '31,102' },
-          ].map((stat, i) => (
-            <View
-              key={stat.label}
-              style={{
-                flex: 1,
-                alignItems: 'center',
-                paddingVertical: 14,
-                borderRightWidth: i < 2 ? 0.5 : 0,
-                borderRightColor: colors.textMuted + '25',
-              }}
-            >
-              <Text style={{ fontSize: 18, fontWeight: '800', color: colors.text }}>
-                {stat.value}
-              </Text>
-              <Text style={{ fontSize: 11, color: colors.textMuted, marginTop: 2, fontWeight: '500' }}>
-                {stat.label}
-              </Text>
-            </View>
-          ))}
-        </View>
+        {/* ── Continue Reading (when no search) ─────────────────── */}
+        {!isSearchActive && lastRead && (
+          <Animated.View entering={FadeIn}>
+            <ContinueReadingCard lastRead={lastRead} onPress={onContinueReading} colors={colors} />
+          </Animated.View>
+        )}
+
+        {/* ── Search Results (when query active) ────────────────── */}
+        {isSearchActive && (
+          <Animated.View entering={FadeIn}>
+
+            {/* Book matches */}
+            {bookMatches.length > 0 && (
+              <View style={{ marginBottom: 12 }}>
+                <Text style={{
+                  fontSize: 11, fontWeight: '700', color: colors.textMuted,
+                  textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
+                }}>
+                  Libros
+                </Text>
+                <View style={{
+                  backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
+                  borderWidth: 1, borderColor: colors.textMuted + '22',
+                }}>
+                  {bookMatches.map(b => (
+                    <BookItem
+                      key={b.id} book={b} colors={colors} lang={lang}
+                      onPress={() => onSearchSubmit()}
+                    />
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {/* Verse content matches */}
+            {verseResults.length > 0 && (
+              <View>
+                <Text style={{
+                  fontSize: 11, fontWeight: '700', color: colors.textMuted,
+                  textTransform: 'uppercase', letterSpacing: 1.1, marginBottom: 8,
+                }}>
+                  Versículos · RVR60
+                </Text>
+                <View style={{
+                  backgroundColor: colors.surface, borderRadius: 14, overflow: 'hidden',
+                  borderWidth: 1, borderColor: colors.textMuted + '22',
+                }}>
+                  {verseResults.map((r, i) => (
+                    <VerseResultItem
+                      key={`${r.reference}_${i}`}
+                      result={r}
+                      onPress={() => onSelectVerseResult(r)}
+                      colors={colors}
+                    />
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {/* No results state */}
+            {!searchingVerses && !hasAnyResults && debouncedQuery.length >= 2 && (
+              <View style={{ alignItems: 'center', paddingVertical: 32 }}>
+                <Search size={28} color={colors.textMuted} strokeWidth={1.5} />
+                <Text style={{ color: colors.textMuted, fontSize: 15, marginTop: 10, fontWeight: '600' }}>
+                  Sin resultados para "{searchQuery}"
+                </Text>
+                <Text style={{ color: colors.textMuted, fontSize: 13, marginTop: 4, textAlign: 'center' }}>
+                  Intenta con palabras como: amor, fe, paz, misericordia
+                </Text>
+              </View>
+            )}
+
+            {/* Still loading state */}
+            {searchingVerses && debouncedQuery.length >= 2 && verseResults.length === 0 && (
+              <View style={{ alignItems: 'center', paddingVertical: 24 }}>
+                <ActivityIndicator color={colors.primary} />
+                <Text style={{ color: colors.textMuted, fontSize: 13, marginTop: 8 }}>
+                  Buscando versículos...
+                </Text>
+              </View>
+            )}
+          </Animated.View>
+        )}
+
       </View>
     </ScrollView>
   );
@@ -687,7 +673,7 @@ export default function BibleScreen() {
   const language = useLanguage();
   const lang = (language as 'en' | 'es') || 'es';
 
-  // Navigation
+  // Navigation state
   const [view, setView] = useState<BibleNavView>('home');
   const [testamentFilter, setTestamentFilter] = useState<'OT' | 'NT' | null>(null);
   const [selectedBook, setSelectedBook] = useState<BibleBook | null>(null);
@@ -696,7 +682,7 @@ export default function BibleScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Search (home screen)
+  // Search
   const [searchQuery, setSearchQuery] = useState('');
 
   // Version
@@ -706,32 +692,68 @@ export default function BibleScreen() {
   const [highlights, setHighlights] = useState<HighlightMap>({});
   const [highlightPickerVerse, setHighlightPickerVerse] = useState<number | null>(null);
 
+  // Flash verse (from search result navigation)
+  const [flashVerse, setFlashVerse] = useState<number | null>(null);
+  const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Last read
+  const [lastRead, setLastRead] = useState<BibleLastRead | null>(null);
+
   // TTS
   const [isSpeaking, setIsSpeaking] = useState(false);
   const ttsJobRef = useRef(0);
 
-  // Load highlights on mount
   useEffect(() => {
     loadHighlights().then(setHighlights);
+    loadLastRead().then(setLastRead);
     validateBibleDataLoad();
+    return () => { if (flashTimerRef.current) clearTimeout(flashTimerRef.current); };
   }, []);
 
-  // Search filtered books (used when on home and query is active → shows in books view)
-  const searchFilteredBooks = useMemo(() => {
-    if (!searchQuery.trim()) return null;
-    const q = searchQuery.toLowerCase();
-    return BIBLE_BOOKS.filter(
-      b => b.name.toLowerCase().includes(q) || b.nameEn.toLowerCase().includes(q)
-    );
-  }, [searchQuery]);
-
-  // Books to show in the books list view
+  // Filtered books for 'books' view
   const booksToShow = useMemo(() => {
-    if (searchFilteredBooks) return searchFilteredBooks;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      return BIBLE_BOOKS.filter(b =>
+        b.name.toLowerCase().includes(q) || b.nameEn.toLowerCase().includes(q)
+      );
+    }
     if (testamentFilter === 'OT') return OT_BOOKS;
     if (testamentFilter === 'NT') return NT_BOOKS;
     return BIBLE_BOOKS;
-  }, [searchFilteredBooks, testamentFilter]);
+  }, [searchQuery, testamentFilter]);
+
+  // ── Chapter loader ────────────────────────────────────────────────
+  const loadChapter = useCallback(async (book: BibleBook, chapter: number, targetVerse?: number) => {
+    setSelectedBook(book);
+    setSelectedChapter(chapter);
+    setView('verses');
+    setLoading(true);
+    setError(null);
+    setChapterData(null);
+    if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
+    setFlashVerse(null);
+
+    const newLastRead: BibleLastRead = {
+      bookId: book.id,
+      bookName: lang === 'es' ? book.name : book.nameEn,
+      chapter, lang, timestamp: Date.now(),
+    };
+    setLastRead(newLastRead);
+    saveLastRead(newLastRead);
+
+    const result = await fetchBibleChapter(book.id, chapter, lang as 'en' | 'es');
+    if (result.success) {
+      setChapterData(result.data);
+      if (targetVerse != null) {
+        setFlashVerse(targetVerse);
+        flashTimerRef.current = setTimeout(() => setFlashVerse(null), 3000);
+      }
+    } else {
+      setError(result.error);
+    }
+    setLoading(false);
+  }, [lang]);
 
   const handleSelectTestament = useCallback((t: 'OT' | 'NT') => {
     setTestamentFilter(t);
@@ -752,22 +774,26 @@ export default function BibleScreen() {
     setSearchQuery('');
   }, []);
 
-  const handleSelectChapter = useCallback(async (chapter: number) => {
+  const handleSelectChapter = useCallback((chapter: number) => {
     if (!selectedBook) return;
-    setSelectedChapter(chapter);
-    setView('verses');
-    setLoading(true);
-    setError(null);
-    setChapterData(null);
+    loadChapter(selectedBook, chapter);
+  }, [selectedBook, loadChapter]);
 
-    const result = await fetchBibleChapter(selectedBook.id, chapter, lang);
-    if (result.success) {
-      setChapterData(result.data);
-    } else {
-      setError(result.error);
-    }
-    setLoading(false);
-  }, [selectedBook, lang]);
+  // Navigate from verse search result → direct to chapter
+  const handleSelectVerseResult = useCallback((result: BibleSearchResult) => {
+    const book = BIBLE_BOOKS.find(b => b.id === result.bookId);
+    if (!book) return;
+    setSearchQuery('');
+    loadChapter(book, result.chapter, result.verse);
+  }, [loadChapter]);
+
+  // Continue reading
+  const handleContinueReading = useCallback(() => {
+    if (!lastRead) return;
+    const book = BIBLE_BOOKS.find(b => b.id === lastRead.bookId);
+    if (!book) return;
+    loadChapter(book, lastRead.chapter);
+  }, [lastRead, loadChapter]);
 
   const handleBack = useCallback(() => {
     if (isSpeaking) { Speech.stop(); setIsSpeaking(false); }
@@ -775,6 +801,7 @@ export default function BibleScreen() {
       setView('chapters');
       setChapterData(null);
       setSelectedChapter(null);
+      setFlashVerse(null);
     } else if (view === 'chapters') {
       setView('books');
       setSelectedBook(null);
@@ -792,7 +819,7 @@ export default function BibleScreen() {
 
   const handleApplyHighlight = useCallback((color: HighlightColor) => {
     if (!selectedBook || !selectedChapter || highlightPickerVerse == null) return;
-    const key = highlightKey(selectedBook.id, selectedChapter, highlightPickerVerse);
+    const key = hlKey(selectedBook.id, selectedChapter, highlightPickerVerse);
     const next = { ...highlights, [key]: color };
     setHighlights(next);
     saveHighlights(next);
@@ -801,7 +828,7 @@ export default function BibleScreen() {
 
   const handleRemoveHighlight = useCallback(() => {
     if (!selectedBook || !selectedChapter || highlightPickerVerse == null) return;
-    const key = highlightKey(selectedBook.id, selectedChapter, highlightPickerVerse);
+    const key = hlKey(selectedBook.id, selectedChapter, highlightPickerVerse);
     const next = { ...highlights };
     delete next[key];
     setHighlights(next);
@@ -818,13 +845,10 @@ export default function BibleScreen() {
     try {
       const picked = await pickBestVoice(lang);
       const fullText = chapterData.verses.map(v => `${v.number}. ${v.text}`).join(' ');
-      const processedText = applyBiblicalPronunciations(
-        preprocessNumbersForTTS(sanitizeForTTS(fullText)), lang
-      );
-      Speech.speak(processedText, {
+      const processed = applyBiblicalPronunciations(preprocessNumbersForTTS(sanitizeForTTS(fullText)), lang);
+      Speech.speak(processed, {
         language: lang === 'es' ? 'es-MX' : 'en-US',
-        voice: picked.voiceIdentifier ?? undefined,
-        rate: 0.9,
+        voice: picked.voiceIdentifier ?? undefined, rate: 0.9,
         onDone: () => { if (ttsJobRef.current === jobId) setIsSpeaking(false); },
         onStopped: () => { if (ttsJobRef.current === jobId) setIsSpeaking(false); },
         onError: () => { if (ttsJobRef.current === jobId) setIsSpeaking(false); },
@@ -832,21 +856,18 @@ export default function BibleScreen() {
     } catch { setIsSpeaking(false); }
   }, [isSpeaking, chapterData, lang]);
 
-  // Header title logic
+  // Header
   const headerTitle = useMemo(() => {
-    if (view === 'home') return 'Biblia';
     if (view === 'books') {
-      if (searchFilteredBooks) return lang === 'es' ? 'Resultados' : 'Results';
+      if (searchQuery.trim()) return lang === 'es' ? 'Resultados' : 'Results';
       if (testamentFilter === 'OT') return lang === 'es' ? 'Antiguo Testamento' : 'Old Testament';
       if (testamentFilter === 'NT') return lang === 'es' ? 'Nuevo Testamento' : 'New Testament';
-      return 'Biblia';
     }
     if (view === 'chapters' && selectedBook) return lang === 'es' ? selectedBook.name : selectedBook.nameEn;
-    if (view === 'verses' && selectedBook && selectedChapter) {
+    if (view === 'verses' && selectedBook && selectedChapter)
       return `${lang === 'es' ? selectedBook.name : selectedBook.nameEn} ${selectedChapter}`;
-    }
-    return 'Biblia';
-  }, [view, testamentFilter, selectedBook, selectedChapter, searchFilteredBooks, lang]);
+    return '';
+  }, [view, testamentFilter, selectedBook, selectedChapter, searchQuery, lang]);
 
   const backLabel = useMemo(() => {
     if (view === 'books') return 'Biblia';
@@ -857,32 +878,25 @@ export default function BibleScreen() {
 
   const showBack = view !== 'home';
 
-  // Current highlight for picker
   const currentHighlightColor = useMemo(() => {
     if (!selectedBook || !selectedChapter || highlightPickerVerse == null) return undefined;
-    return highlights[highlightKey(selectedBook.id, selectedChapter, highlightPickerVerse)];
+    return highlights[hlKey(selectedBook.id, selectedChapter, highlightPickerVerse)];
   }, [highlights, selectedBook, selectedChapter, highlightPickerVerse]);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       <SafeAreaView edges={['top']} style={{ backgroundColor: colors.background }}>
-        {/* ── Header ─────────────────────────────────────────────── */}
-        <View
-          style={{
-            paddingHorizontal: 16,
-            paddingBottom: 10,
-            borderBottomWidth: 0.5,
-            borderBottomColor: colors.textMuted + '28',
-          }}
-        >
+        {/* ── Header ─────────────────────────────────────────── */}
+        <View style={{
+          paddingHorizontal: 16, paddingBottom: 10,
+          borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '28',
+        }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
             {/* Left */}
             {showBack ? (
-              <Pressable
-                onPress={handleBack}
+              <Pressable onPress={handleBack}
                 style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1, flexDirection: 'row', alignItems: 'center' })}
-                hitSlop={12}
-              >
+                hitSlop={12}>
                 <ChevronLeft size={22} color={colors.primary} strokeWidth={2.5} />
                 <Text style={{ fontSize: 15, fontWeight: '500', color: colors.primary, marginLeft: 2 }}>
                   {backLabel}
@@ -895,18 +909,12 @@ export default function BibleScreen() {
               </View>
             )}
 
-            {/* Center title (only when navigated) */}
-            {showBack && (
+            {/* Center */}
+            {showBack && headerTitle.length > 0 && (
               <Text
                 style={{
-                  fontSize: 17,
-                  fontWeight: '700',
-                  color: colors.text,
-                  position: 'absolute',
-                  left: 0,
-                  right: 0,
-                  textAlign: 'center',
-                  zIndex: -1,
+                  fontSize: 17, fontWeight: '700', color: colors.text,
+                  position: 'absolute', left: 0, right: 0, textAlign: 'center', zIndex: -1,
                 }}
                 numberOfLines={1}
               >
@@ -917,7 +925,8 @@ export default function BibleScreen() {
             {/* Right */}
             <View style={{ width: 60, alignItems: 'flex-end' }}>
               {view === 'verses' && chapterData && (
-                <Pressable onPress={handleTTS} hitSlop={12} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
+                <Pressable onPress={handleTTS} hitSlop={12}
+                  style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
                   {isSpeaking
                     ? <VolumeX size={20} color={colors.primary} />
                     : <Volume2 size={20} color={colors.textMuted} />}
@@ -928,19 +937,17 @@ export default function BibleScreen() {
         </View>
       </SafeAreaView>
 
-      {/* ── Content ────────────────────────────────────────────────── */}
+      {/* ── Views ──────────────────────────────────────────────── */}
 
       {view === 'home' && (
         <Animated.View entering={FadeIn} style={{ flex: 1 }}>
           <BibleHomeScreen
-            colors={colors}
-            lang={lang}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            selectedVersion={selectedVersion}
-            onVersionChange={setSelectedVersion}
-            onSelectTestament={handleSelectTestament}
-            onSearchSubmit={handleSearchSubmit}
+            colors={colors} lang={lang}
+            searchQuery={searchQuery} onSearchChange={setSearchQuery}
+            selectedVersion={selectedVersion} onVersionChange={setSelectedVersion}
+            onSelectTestament={handleSelectTestament} onSearchSubmit={handleSearchSubmit}
+            lastRead={lastRead} onContinueReading={handleContinueReading}
+            onSelectVerseResult={handleSelectVerseResult}
           />
         </Animated.View>
       )}
@@ -960,13 +967,9 @@ export default function BibleScreen() {
               </View>
             }
             style={{
-              marginHorizontal: 16,
-              marginTop: 12,
-              borderRadius: 14,
-              backgroundColor: colors.surface,
-              borderWidth: 1,
-              borderColor: colors.textMuted + '25',
-              overflow: 'hidden',
+              marginHorizontal: 16, marginTop: 12,
+              borderRadius: 14, backgroundColor: colors.surface,
+              borderWidth: 1, borderColor: colors.textMuted + '22', overflow: 'hidden',
             }}
           />
         </Animated.View>
@@ -995,13 +998,10 @@ export default function BibleScreen() {
               <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 16, color: colors.text, textAlign: 'center' }}>
                 No se pudo cargar
               </Text>
-              <Text style={{ fontSize: 14, marginTop: 6, color: colors.textMuted, textAlign: 'center' }}>
-                {error}
-              </Text>
+              <Text style={{ fontSize: 14, marginTop: 6, color: colors.textMuted, textAlign: 'center' }}>{error}</Text>
               <Pressable
-                onPress={() => selectedChapter && handleSelectChapter(selectedChapter)}
-                style={{ marginTop: 20, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.primary }}
-              >
+                onPress={() => selectedBook && selectedChapter && loadChapter(selectedBook, selectedChapter)}
+                style={{ marginTop: 20, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.primary }}>
                 <Text style={{ color: '#fff', fontWeight: '600', fontSize: 14 }}>Reintentar</Text>
               </Pressable>
             </View>
@@ -1009,19 +1009,12 @@ export default function BibleScreen() {
 
           {chapterData && !loading && (
             <>
-              {/* Highlight hint banner */}
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 6,
-                  paddingHorizontal: 20,
-                  paddingVertical: 8,
-                  backgroundColor: colors.surface,
-                  borderBottomWidth: 0.5,
-                  borderBottomColor: colors.textMuted + '20',
-                }}
-              >
+              <View style={{
+                flexDirection: 'row', alignItems: 'center', gap: 6,
+                paddingHorizontal: 20, paddingVertical: 8,
+                backgroundColor: colors.surface,
+                borderBottomWidth: 0.5, borderBottomColor: colors.textMuted + '20',
+              }}>
                 <Highlighter size={12} color={colors.textMuted} />
                 <Text style={{ fontSize: 11, color: colors.textMuted, fontWeight: '500' }}>
                   Mantén presionado un versículo para resaltarlo
@@ -1035,16 +1028,15 @@ export default function BibleScreen() {
                 {chapterData.verses.map(verse => (
                   <VerseRow
                     key={verse.number}
-                    bookId={selectedBook?.id ?? ''}
-                    chapter={selectedChapter ?? 1}
                     number={verse.number}
                     text={verse.text}
                     colors={colors}
                     highlightColor={
                       selectedBook && selectedChapter
-                        ? highlights[highlightKey(selectedBook.id, selectedChapter, verse.number)]
+                        ? highlights[hlKey(selectedBook.id, selectedChapter, verse.number)]
                         : undefined
                     }
+                    isFlashing={flashVerse === verse.number}
                     onLongPress={handleLongPressVerse}
                   />
                 ))}
@@ -1054,7 +1046,6 @@ export default function BibleScreen() {
         </Animated.View>
       )}
 
-      {/* ── Highlight Picker ─────────────────────────────────────────── */}
       <HighlightPicker
         visible={highlightPickerVerse != null}
         currentColor={currentHighlightColor}

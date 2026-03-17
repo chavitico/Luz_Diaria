@@ -828,9 +828,21 @@ Bible Hub Home → Testament List (OT/NT) → Book List → Chapter Grid → Ver
 ### Bible Versions
 | Version | Label | Status |
 |---------|-------|--------|
-| Reina-Valera 1960 | RVR60 | ✅ Active (BibleGateway RVR1960 via backend) |
-| Nueva Versión Internacional | NVI | 🔜 UI built, API not yet connected |
-| Lenguaje Actual | L.A. | 🔜 UI built, API not yet connected |
+| Reina-Valera 1960 | RVR60 | ✅ Active (BibleGateway fallback, no API key needed) |
+| Nueva Versión Internacional | NVI | 🔜 UI built — unavailable. Needs `BIBLE_API_KEY` + new Bible ID from api.scripture.api.bible |
+| Lenguaje Actual | L.A. | 🔜 UI built — unavailable. Same requirement as NVI |
+
+### Verse Content Search (`GET /api/bible/search`)
+- Searches `Devotional.bibleVerseEs` and `BiblePassage.text` in SQLite
+- Reference parser maps Spanish/English book names → USFM bookIds (66 books each)
+- Client debounces 500ms before calling; results cached 5 min via React Query
+- Tapping a result navigates directly to the chapter and flashes the target verse yellow (3s)
+- Search depth grows as users read (BiblePassage cache fills organically)
+
+### Continue Reading
+- Last-read chapter persisted in AsyncStorage key `bible_last_read_v1`
+- Written every time a chapter is opened (from any path: testament nav, search result, direct)
+- Shows as a card on the Bible home screen when no search is active
 
 ### Types (`src/lib/bible/types.ts`)
 - `BibleNavView`: `'home' | 'books' | 'chapters' | 'verses'`
@@ -838,7 +850,8 @@ Bible Hub Home → Testament List (OT/NT) → Book List → Chapter Grid → Ver
 - `BibleVersionInfo`: version metadata with `available` flag
 - `HighlightColor`: `'yellow' | 'green' | 'blue'`
 - `HighlightMap`: `Record<string, HighlightColor>`
-- Server-side caching in SQLite database; chapter results cached 30 days on device
+- `BibleSearchResult`: `{ reference, text, bookId, chapter, verse, source }`
+- `BibleLastRead`: `{ bookId, bookName, chapter, lang, timestamp }`
 
 ### Support Ticket System
 - **Streak Snapshots**: Daily cron generates snapshots for ALL users at 4 AM Costa Rica time

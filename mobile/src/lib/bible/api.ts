@@ -2,10 +2,11 @@
 // The backend integrates API.bible (with BibleGateway fallback) and caches results
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { BibleChapterData, BibleVerse } from './types';
+import type { BibleChapterData, BibleVerse, BibleSearchResult, BibleLastRead } from './types';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 const CHAPTER_CACHE_PREFIX = 'bible_chapter_v1_';
+const LAST_READ_KEY = 'bible_last_read_v1';
 const CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days — Bible text is immutable
 
 // ─── In-memory session cache ──────────────────────────────────────────────────
@@ -150,5 +151,48 @@ export async function clearBibleChapterCache(): Promise<void> {
     console.log('[Bible] Chapter cache cleared');
   } catch {
     // ignore
+  }
+}
+
+// ─── Last-read persistence ─────────────────────────────────────────────────────
+
+export async function saveLastRead(data: BibleLastRead): Promise<void> {
+  try {
+    await AsyncStorage.setItem(LAST_READ_KEY, JSON.stringify(data));
+  } catch {
+    // silent
+  }
+}
+
+export async function loadLastRead(): Promise<BibleLastRead | null> {
+  try {
+    const raw = await AsyncStorage.getItem(LAST_READ_KEY);
+    return raw ? (JSON.parse(raw) as BibleLastRead) : null;
+  } catch {
+    return null;
+  }
+}
+
+// ─── Verse content search ──────────────────────────────────────────────────────
+
+/**
+ * Search Bible verse content on the backend.
+ * Searches through cached devotional verses and Bible passages.
+ * Returns up to `limit` matching results.
+ */
+export async function searchBibleVerses(
+  query: string,
+  lang: 'en' | 'es' = 'es',
+  limit = 15
+): Promise<BibleSearchResult[]> {
+  if (query.trim().length < 2) return [];
+  try {
+    const url = `${BACKEND_URL}/api/bible/search?q=${encodeURIComponent(query)}&lang=${lang}&limit=${limit}`;
+    const res = await fetch(url);
+    if (!res.ok) return [];
+    const json = await res.json() as { results?: BibleSearchResult[] };
+    return json.results ?? [];
+  } catch {
+    return [];
   }
 }
