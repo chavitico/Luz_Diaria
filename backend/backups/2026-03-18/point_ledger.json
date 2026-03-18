@@ -1918,5 +1918,485 @@
     "amount": 10,
     "metadata": "{}",
     "createdAt": "2026-03-11T15:39:21.879Z"
+  },
+  {
+    "id": "cmmnp7tdn000zm2703423w0y1",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_request_2026-03-12",
+    "type": "prayer_request",
+    "dateId": "2026-03-12",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"peace\"}",
+    "createdAt": "2026-03-12T16:44:58.619Z"
+  },
+  {
+    "id": "cmmnp7u8k0011m270wn3gijw5",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayed_community_2026-03-12",
+    "type": "prayed_community",
+    "dateId": "2026-03-12",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-12T16:44:59.732Z"
+  },
+  {
+    "id": "cmmnpknz8003cm270c9ahl6ug",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "share_2026-03-12_1",
+    "type": "share",
+    "dateId": "2026-03-12",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-12T16:54:58.148Z"
+  },
+  {
+    "id": "cmmnpltrk003hm270nmvhtj3n",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-03-12",
+    "type": "prayer",
+    "dateId": "2026-03-12",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-12T16:55:52.305Z"
+  },
+  {
+    "id": "cmmo0gg2r000vm22nucm43r0p",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773352777058",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 25000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmo0g76o000qm22nwx6s0da9\"}",
+    "createdAt": "2026-03-12T21:59:37.059Z"
+  },
+  {
+    "id": "cmmo0ik1t0011m22nb57nlljy",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773352875521",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 10000,
+    "metadata": "{\"reason\":\"Te queremos\",\"giftDropId\":\"cmmo0hbem000wm22nfwor2m0u\"}",
+    "createdAt": "2026-03-12T22:01:15.521Z"
+  },
+  {
+    "id": "cmmo3i08e0025m29bupgcvol2",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773357888685",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 5000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmo3hv9w001qm29be5lxv1gn\"}",
+    "createdAt": "2026-03-12T23:24:48.686Z"
+  },
+  {
+    "id": "cmmo4lqy9000rm27iyph4ngeu",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_claim_cmml8uiit0000m2vluztbkjwf_1773359742897",
+    "type": "admin_grant",
+    "dateId": "2026-03-12",
+    "amount": 5000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmo4kd2o000mm27i3w9x5pka\"}",
+    "createdAt": "2026-03-12T23:55:42.897Z"
+  },
+  {
+    "id": "cmmo5jg7n002em2at3dpl7w1c",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "prayer_2026-03-13",
+    "type": "prayer",
+    "dateId": "2026-03-13",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-13T00:21:55.283Z"
+  },
+  {
+    "id": "cmmo5op8c002um2atxm1zuz0h",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "prayer_request_2026-03-12",
+    "type": "prayer_request",
+    "dateId": "2026-03-12",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"peace\"}",
+    "createdAt": "2026-03-13T00:26:00.253Z"
+  },
+  {
+    "id": "cmmo5oq91002wm2atm0v8d074",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "prayed_community_2026-03-12",
+    "type": "prayed_community",
+    "dateId": "2026-03-12",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-13T00:26:01.573Z"
+  },
+  {
+    "id": "cmmp6pr35000rm2qfazerpi29",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-03-13",
+    "type": "prayer",
+    "dateId": "2026-03-13",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-13T17:42:35.105Z"
+  },
+  {
+    "id": "cmmpdfdr10018m26t184g4hy5",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "ledgerId": "gift_claim_cmmpdddxo000rm26toly84eiw_1773435028572",
+    "type": "admin_grant",
+    "dateId": "2026-03-13",
+    "amount": 50000,
+    "metadata": "{\"reason\":\"¡Puntos para ti!\",\"giftDropId\":\"cmmpdf6vb0013m26t6icj8eh6\"}",
+    "createdAt": "2026-03-13T20:50:28.573Z"
+  },
+  {
+    "id": "cmmsj4ufe000ym2e2uyd3w7cc",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "share_2026-03-16_1",
+    "type": "share",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-16T01:53:33.195Z"
+  },
+  {
+    "id": "cmmskfvmc000ym2vgskf0nlsk",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmskeroz000wm2vghjv8um7k",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmskeroz000wm2vghjv8um7k\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T02:30:07.573Z"
+  },
+  {
+    "id": "cmmskgx3y0011m2vg0ly49n1m",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmskg5ci000zm2vg31ymn4bn",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmskg5ci000zm2vg31ymn4bn\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T02:30:56.159Z"
+  },
+  {
+    "id": "cmmskuuq1000ym2hnoej8kj5a",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsktq6b000wm2hntce3ytxx",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsktq6b000wm2hntce3ytxx\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T02:41:46.250Z"
+  },
+  {
+    "id": "cmmsm53xv0013m2ino5sa4j1a",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsm4vmg0011m2inncxtn07v",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsm4vmg0011m2inncxtn07v\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:17:44.372Z"
+  },
+  {
+    "id": "cmmsm6lhh0017m2in3eyj3ya1",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsm6d4m0015m2inz2cttrxf",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsm6d4m0015m2inz2cttrxf\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:18:53.765Z"
+  },
+  {
+    "id": "cmmsm9819001im2inrkfc2e65",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsm8voa001gm2in8aiiqs1c",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsm8voa001gm2in8aiiqs1c\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:20:56.301Z"
+  },
+  {
+    "id": "cmmsmb85a001mm2in5liz9s6i",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsm9laa001km2inw6jr0i1d",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsm9laa001km2inw6jr0i1d\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T03:22:29.759Z"
+  },
+  {
+    "id": "cmmsmfinj0028m2invzk4veoq",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsmfa8n0026m2inqssrgw9k",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsmfa8n0026m2inqssrgw9k\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:25:50.000Z"
+  },
+  {
+    "id": "cmmsn1ilq001dm2f5zrqs3n70",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsmzsjo000zm2f555p8s8u6",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsmzsjo000zm2f555p8s8u6\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T03:42:56.367Z"
+  },
+  {
+    "id": "cmmsn510c001vm2f5dkkf2gyp",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsn3dsu001lm2f5vlkr2m81",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsn3dsu001lm2f5vlkr2m81\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T03:45:40.188Z"
+  },
+  {
+    "id": "cmmsn5apf0021m2f5lt7wt2ie",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsn37ps001jm2f5anryel99",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsn37ps001jm2f5anryel99\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:45:52.755Z"
+  },
+  {
+    "id": "cmmsn9tec002dm2f5r7eymt3a",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "ledgerId": "duel_cmmsn94zb002am2f5c55bfg70",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsn94zb002am2f5c55bfg70\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T03:49:23.604Z"
+  },
+  {
+    "id": "cmmsnn2r8002tm2f5zdwnb1tv",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsnl7u7002lm2f5kiet422l",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsnl7u7002lm2f5kiet422l\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T03:59:42.261Z"
+  },
+  {
+    "id": "cmmsq3g4l001zm2fw3ij46mwj",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "duel_cmmsq32qe001rm2fwopm83riy",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsq32qe001rm2fwopm83riy\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T05:08:25.318Z"
+  },
+  {
+    "id": "cmmsq4y01002um2fwzp0b256o",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "duel_cmmsq3omf0021m2fwbh6whfo7",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsq3omf0021m2fwbh6whfo7\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T05:09:35.138Z"
+  },
+  {
+    "id": "cmmsq5mm1003ym2fwbqtzt9hf",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "duel_cmmsq5bhh003gm2fwfdkufyd9",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsq5bhh003gm2fwfdkufyd9\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T05:10:07.033Z"
+  },
+  {
+    "id": "cmmsq8l0p004qm2fwvuqt9bdg",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "duel_cmmsq88do004mm2fwr2d8iu37",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsq88do004mm2fwr2d8iu37\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T05:12:24.937Z"
+  },
+  {
+    "id": "cmmsq8tqj004sm2fwa8o8wzgm",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsq8g2a004om2fw1eg6i68k",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsq8g2a004om2fw1eg6i68k\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T05:12:36.235Z"
+  },
+  {
+    "id": "cmmsq9qta005am2fws5m3c77u",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsq9d9c0050m2fwju4bj94i",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsq9d9c0050m2fwju4bj94i\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T05:13:19.103Z"
+  },
+  {
+    "id": "cmmsqfxmp0064m2fwlo25eio8",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "duel_cmmsqfjea0060m2fwd9g3a2c3",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsqfjea0060m2fwd9g3a2c3\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T05:18:07.874Z"
+  },
+  {
+    "id": "cmmsqkb6l006em2fw3mlnk49l",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsqk07i006cm2fwkgraa7vv",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsqk07i006cm2fwkgraa7vv\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T05:21:32.061Z"
+  },
+  {
+    "id": "cmmsr2h59001jm2dli3sar6l7",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "ledgerId": "duel_cmmsr29bm001fm2dlqd8lsnm3",
+    "type": "duel_loss",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmsr29bm001fm2dlqd8lsnm3\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-16T05:35:39.597Z"
+  },
+  {
+    "id": "cmmsr2h5l001lm2dlib54qzhx",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsr29bm001fm2dlqd8lsnm3",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsr29bm001fm2dlqd8lsnm3\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T05:35:39.609Z"
+  },
+  {
+    "id": "cmmsreagm004nm2dlmm9i702w",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "prayer_2026-03-16",
+    "type": "prayer",
+    "dateId": "2026-03-16",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-16T05:44:50.807Z"
+  },
+  {
+    "id": "cmmsrezde006tm2dlneuajbx4",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "prayer_request_2026-03-15",
+    "type": "prayer_request",
+    "dateId": "2026-03-15",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"work\"}",
+    "createdAt": "2026-03-16T05:45:23.091Z"
+  },
+  {
+    "id": "cmmsrf0ey006vm2dlbbybfrxd",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "prayed_community_2026-03-15",
+    "type": "prayed_community",
+    "dateId": "2026-03-15",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-03-16T05:45:24.443Z"
+  },
+  {
+    "id": "cmmsrfkzr006xm2dl9psl27mk",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "ledgerId": "share_2026-03-16_1",
+    "type": "share",
+    "dateId": "2026-03-16",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-03-16T05:45:51.111Z"
+  },
+  {
+    "id": "cmmsrlpdg001bm2lgj864dm4d",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmsrkzir0015m2lg8prgf3mb",
+    "type": "duel_win",
+    "dateId": "2026-03-16",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmsrkzir0015m2lg8prgf3mb\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-16T05:50:36.724Z"
+  },
+  {
+    "id": "cmmss5u2a001um2bo3h4yu1ca",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-03-16",
+    "type": "prayer",
+    "dateId": "2026-03-16",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-16T06:06:15.922Z"
+  },
+  {
+    "id": "cmmuxixz2001dm27f494gfcaq",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-03-17",
+    "type": "prayer",
+    "dateId": "2026-03-17",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-03-17T18:11:57.950Z"
+  },
+  {
+    "id": "cmmuxiz6t001fm27fiver6d36",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "tts_2026-03-17",
+    "type": "tts_complete",
+    "dateId": "2026-03-17",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-03-17T18:11:59.525Z"
+  },
+  {
+    "id": "cmmv9vx4w001lm27gilazemf5",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmv9ux52001jm27gawfoqes9",
+    "type": "duel_loss",
+    "dateId": "2026-03-17",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmv9ux52001jm27gawfoqes9\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-17T23:57:58.785Z"
+  },
+  {
+    "id": "cmmv9yl7z002tm27g855y66yy",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmv9y4sm002rm27g5hbfd764",
+    "type": "duel_loss",
+    "dateId": "2026-03-18",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmv9y4sm002rm27g5hbfd764\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-18T00:00:03.311Z"
+  },
+  {
+    "id": "cmmv9z2ti002xm27guik6naql",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmv9ysqo002vm27gcstnc6e4",
+    "type": "duel_loss",
+    "dateId": "2026-03-18",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmv9ysqo002vm27gcstnc6e4\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-18T00:00:26.118Z"
   }
 ]

@@ -88,5 +88,50 @@
     "expiresAt": "2026-03-12T01:13:43.479Z",
     "createdAt": "2026-03-10T01:13:43.481Z",
     "updatedAt": "2026-03-10T01:13:43.481Z"
+  },
+  {
+    "id": "cmmnp7tdl000xm2703qklg716",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "peace",
+    "nickname": "Chavitico",
+    "avatarId": "avatar_adv_elijah_fire",
+    "frameId": "frame_v2_jade",
+    "titleId": "title_renewed_strength",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-14T16:44:58.614Z",
+    "createdAt": "2026-03-12T16:44:58.618Z",
+    "updatedAt": "2026-03-12T16:44:58.618Z"
+  },
+  {
+    "id": "cmmo5op8b002sm2atcmcx1eug",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "peace",
+    "nickname": "Vitigre",
+    "avatarId": "avatar_v3_olivo_gracia",
+    "frameId": "frame_fuego",
+    "titleId": "title_valiente",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-15T00:26:00.249Z",
+    "createdAt": "2026-03-13T00:26:00.252Z",
+    "updatedAt": "2026-03-13T00:26:00.252Z"
+  },
+  {
+    "id": "cmmsrezdd006rm2dl163bok7a",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "work",
+    "nickname": "Victoria",
+    "avatarId": "avatar_v3_paloma_luz",
+    "frameId": "frame_luz",
+    "titleId": "title_walk_by_faith",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-03-18T05:45:23.082Z",
+    "createdAt": "2026-03-16T05:45:23.090Z",
+    "updatedAt": "2026-03-16T05:45:23.090Z"
   }
 ]

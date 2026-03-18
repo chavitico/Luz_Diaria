@@ -1235,6 +1235,7 @@ export default function SettingsScreen() {
             ) : (
               (showFullLedger ? ledgerEntries.slice(0, 10) : ledgerEntries.slice(0, 5)).map((entry, idx, arr) => {
                 const isPositive = entry.delta > 0;
+                const isNeutral  = entry.delta === 0;
                 const LedgerIcon = (() => {
                   switch (entry.kind) {
                     case 'devotional': return LedgerBookOpen;
@@ -1247,8 +1248,12 @@ export default function SettingsScreen() {
                     default: return Coins;
                   }
                 })();
-                const iconColor = isPositive ? '#22c55e' : '#ef4444';
-                const deltaText = isPositive ? `+${entry.delta}` : `${entry.delta}`;
+                const iconColor  = isNeutral  ? colors.textMuted
+                                 : isPositive ? '#22c55e'
+                                 : '#ef4444';
+                const deltaText  = isNeutral  ? (language === 'es' ? 'Sin puntos' : 'No points')
+                                 : isPositive ? `+${entry.delta}`
+                                 : `${entry.delta}`;
                 return (
                   <View
                     key={entry.id}
@@ -1259,7 +1264,7 @@ export default function SettingsScreen() {
                       borderBottomColor: colors.textMuted + '20',
                     }}
                   >
-                    <View style={{ width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center', marginRight: 12, backgroundColor: (isPositive ? '#22c55e' : '#ef4444') + '18' }}>
+                    <View style={{ width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center', marginRight: 12, backgroundColor: iconColor + '18' }}>
                       <LedgerIcon size={16} color={iconColor} />
                     </View>
                     <View style={{ flex: 1 }}>

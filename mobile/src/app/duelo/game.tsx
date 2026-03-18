@@ -404,6 +404,11 @@ export default function DueloGame() {
     // Track used question IDs for anti-repetition
     addDuelUsedQuestions(questions.map(q => q.id)).catch(() => {});
 
+    // finalPts / finalCapReached track the REAL outcome after backend resolves.
+    // These are used for the ledger entry so history is always truthful.
+    let finalPts = pts;
+    let finalCapReached = false;
+
     // Award points on backend
     if (user?.id && matchId !== 'local') {
       setRewardLoading(true);
@@ -426,8 +431,11 @@ export default function DueloGame() {
             capReached?: boolean;
             completedMissions?: { titleEs: string; rewardPoints: number }[];
           };
-          setPointsAwarded(data.pointsAwarded);
-          setCapReached(data.capReached ?? false);
+          // Update local vars with real backend values before writing ledger
+          finalPts = data.pointsAwarded;
+          finalCapReached = data.capReached ?? false;
+          setPointsAwarded(finalPts);
+          setCapReached(finalCapReached);
           updateUser({ points: data.newTotal });
           if (data.completedMissions && data.completedMissions.length > 0) {
             setCompletedMissions(data.completedMissions);
@@ -445,10 +453,14 @@ export default function DueloGame() {
       updateUser({ points: (user.points ?? 0) + pts });
     }
 
+    // Record ledger entry with the REAL awarded amount.
+    // If cap was reached, delta = 0 and title reflects that so history is not misleading.
     addLedgerEntry({
       kind: 'challenge',
-      delta: pts,
-      title: outcome === 'player_wins' ? t.duelWon : t.duelCompleted,
+      delta: finalCapReached ? 0 : finalPts,
+      title: finalCapReached
+        ? t.dailyCapReached
+        : outcome === 'player_wins' ? t.duelWon : t.duelCompleted,
       detail: t.duelDetail(pScore, bScore),
     });
 

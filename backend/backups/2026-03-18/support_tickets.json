@@ -663,5 +663,24 @@
     "snapshotId": "cmmeq40qv0027m26lw8k8fl3o",
     "createdAt": "2026-03-10T02:36:22.863Z",
     "updatedAt": "2026-03-10T02:37:18.687Z"
+  },
+  {
+    "id": "cmmnyyqzq0016m2l6bxht9915",
+    "incidentNumber": "LD-20260312-0001",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "type": "notification",
+    "claimedStreak": 34,
+    "claimedDate": "2026-03-12",
+    "clientClaim": "{\"issue\":\"not_received\",\"scheduledHour\":6,\"enabled\":true}",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmml8uiit0000m2vluztbkjwf",
+    "rating": null,
+    "beforeState": "{\"streakCurrent\":34,\"devotionalsCompleted\":23}",
+    "afterState": "{\"streakCurrent\":34,\"devotionalsCompleted\":23}",
+    "botPreview": "{\"summary\":\"Notificación: not_received (habilitado: true)\",\"userMessageEs\":\"Hola, recibimos tu reporte de notificaciones (not_received). 1) Verifica que las notificaciones estén activadas en Ajustes > Notificaciones. 2) Hora programada: 6:00. 3) En iOS, ve a Configuración > Luz Diaria > Notificaciones y confirma que estén habilitadas.\",\"userMessageEn\":\"Hello, we received your notification report (not_received). Please check your device notification settings and make sure notifications are enabled for Luz Diaria.\",\"action\":\"info_only\",\"snapshotComparison\":{\"snapshotDate\":null,\"snapshotId\":null,\"snapshotStreak\":null,\"currentStreak\":34,\"claimedStreak\":34,\"diffDays\":null,\"devotionalTodayCR\":false,\"lastDevotionalDate\":null,\"escalationReason\":\"notification — no auto-fix available\"}}",
+    "snapshotDate": null,
+    "snapshotId": null,
+    "createdAt": "2026-03-12T21:17:51.782Z",
+    "updatedAt": "2026-03-15T23:49:25.107Z"
   }
 ]

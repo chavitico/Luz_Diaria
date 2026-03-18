@@ -291,19 +291,19 @@
     "id": "cmml8ul00000em2vl5d27xkpc",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "challengeId": "cmmh1xu540000m262en3rwiqr",
-    "currentCount": 0,
-    "completed": false,
-    "claimed": false,
-    "updatedAt": "2026-03-10T23:31:15.024Z"
+    "currentCount": 5,
+    "completed": true,
+    "claimed": true,
+    "updatedAt": "2026-03-12T16:55:02.525Z"
   },
   {
     "id": "cmml8ul00000gm2vlpfl8na1h",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "challengeId": "cmmh1xu6a0001m262l4do2a00",
-    "currentCount": 0,
-    "completed": false,
-    "claimed": false,
-    "updatedAt": "2026-03-10T23:31:15.025Z"
+    "currentCount": 7,
+    "completed": true,
+    "claimed": true,
+    "updatedAt": "2026-03-12T16:55:54.798Z"
   },
   {
     "id": "cmmm73muy000cm2o9lqi0p7rw",
@@ -340,5 +340,113 @@
     "completed": false,
     "claimed": false,
     "updatedAt": "2026-03-11T15:35:11.657Z"
+  },
+  {
+    "id": "cmmo5fu170022m2ato8xogfue",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "challengeId": "cmmh1xu6a0001m262l4do2a00",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-13T00:21:55.638Z"
+  },
+  {
+    "id": "cmmo5fu180024m2ats5zfjqob",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "challengeId": "cmmh1xu540000m262en3rwiqr",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-13T00:19:06.572Z"
+  },
+  {
+    "id": "cmmpddee9000tm26t5syh6nd3",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "challengeId": "cmmh1xu540000m262en3rwiqr",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-13T20:48:56.098Z"
+  },
+  {
+    "id": "cmmpddeea000vm26t0al83y8g",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "challengeId": "cmmh1xu6a0001m262l4do2a00",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-13T20:48:56.098Z"
+  },
+  {
+    "id": "cmmr2vrzv001bm27ife7r6hst",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 4,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-17T18:11:53.918Z"
+  },
+  {
+    "id": "cmmsgt9p4000xm275z2vn4u30",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "challengeId": "cmmr2rpzu0001m27iqma0edzl",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T01:53:33.390Z"
+  },
+  {
+    "id": "cmmsm3e1z000xm2inl7lf1www",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "challengeId": "cmmr2rpzu0001m27iqma0edzl",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:16:24.167Z"
+  },
+  {
+    "id": "cmmsm3e1z000zm2inp1qxuixh",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:19:25.506Z"
+  },
+  {
+    "id": "cmmsn2tyf001hm2f5ez8vsck2",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "challengeId": "cmmr2rpzu0001m27iqma0edzl",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:43:57.736Z"
+  },
+  {
+    "id": "cmmsn2tyf001gm2f5o3nzaaqm",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:46:54.384Z"
+  },
+  {
+    "id": "cmmsq1ebr000zm2fwbo36p85j",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T05:09:26.151Z"
+  },
+  {
+    "id": "cmmsq1ebr0011m2fwx333ro3q",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "challengeId": "cmmr2rpzu0001m27iqma0edzl",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T05:45:51.270Z"
   }
 ]
