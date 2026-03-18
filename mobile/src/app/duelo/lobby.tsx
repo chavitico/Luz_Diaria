@@ -20,7 +20,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { X, Swords } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
-import { useUser, useAppStore } from '@/lib/store';
+import { useUser, useAppStore, useLanguage } from '@/lib/store';
 import { preloadDuelSounds, playSound, setSfxEnabled } from '@/lib/audio';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { getRandomDuelQuestions } from '@/lib/duel-questions';
@@ -43,6 +43,34 @@ interface OpponentInfo {
   countryCode?: string | null;
 }
 
+// ── Translations ─────────────────────────────────────────────────────────────
+const T = {
+  es: {
+    title:          'Duelo de Sabiduría',
+    youLabel:       'Tú',
+    rivalLabel:     'Rival',
+    searching:      'Buscando rival',
+    rivalFound:     '¡Rival encontrado!',
+    noHumanRival:   'No se encontró rival humano',
+    botDuel:        '¡Duelo contra bot!',
+    letsGo:         '¡Que comience!',
+    tip:            'Responde preguntas bíblicas más\nrápido que tu rival para ganar',
+    cancelSearch:   'Cancelar búsqueda',
+  },
+  en: {
+    title:          'Duel of Wisdom',
+    youLabel:       'You',
+    rivalLabel:     'Rival',
+    searching:      'Searching for rival',
+    rivalFound:     'Rival found!',
+    noHumanRival:   'No human rival found',
+    botDuel:        'Bot duel!',
+    letsGo:         "Let's go!",
+    tip:            'Answer biblical questions faster\nthan your rival to win',
+    cancelSearch:   'Cancel search',
+  },
+} as const;
+
 function getAvatarEmoji(avatarId: string): string {
   return DEFAULT_AVATARS.find(a => a.id === avatarId)?.emoji ?? '😊';
 }
@@ -54,15 +82,19 @@ function IdentityCard({
   titleId,
   countryCode,
   isCurrentUser,
+  lang,
 }: {
   nickname: string;
   avatarId: string;
   titleId: string | null;
   countryCode?: string | null;
   isCurrentUser: boolean;
+  lang: 'es' | 'en';
 }) {
   const emoji = getAvatarEmoji(avatarId);
-  const titleLabel = titleId ? (SPIRITUAL_TITLES[titleId]?.nameEs ?? null) : null;
+  const t = T[lang];
+  const titleData = titleId ? SPIRITUAL_TITLES[titleId] : null;
+  const titleLabel = titleData ? (lang === 'es' ? titleData.nameEs : titleData.name) : null;
   const borderColor = isCurrentUser ? 'rgba(99,179,237,0.6)' : 'rgba(246,173,85,0.6)';
   const glowColor = isCurrentUser ? 'rgba(99,179,237,0.12)' : 'rgba(246,173,85,0.1)';
   const nameColor = isCurrentUser ? '#63B3ED' : '#F6AD55';
@@ -78,7 +110,7 @@ function IdentityCard({
         borderColor: isCurrentUser ? 'rgba(99,179,237,0.25)' : 'rgba(246,173,85,0.2)',
       }}>
         <Text style={{ fontSize: 9, fontWeight: '800', color: nameColor, letterSpacing: 1.5, textTransform: 'uppercase' }}>
-          {isCurrentUser ? 'Tú' : 'Rival'}
+          {isCurrentUser ? t.youLabel : t.rivalLabel}
         </Text>
       </View>
 
@@ -128,9 +160,11 @@ function IdentityCard({
 function MatchFoundCards({
   currentUser,
   opponent,
+  lang,
 }: {
   currentUser: { nickname: string; avatarId: string; titleId: string | null; countryCode?: string | null };
   opponent: OpponentInfo;
+  lang: 'es' | 'en';
 }) {
   return (
     <Animated.View
@@ -147,6 +181,7 @@ function MatchFoundCards({
           titleId={currentUser.titleId}
           countryCode={currentUser.countryCode}
           isCurrentUser
+          lang={lang}
         />
 
         {/* VS divider */}
@@ -169,6 +204,7 @@ function MatchFoundCards({
           titleId={opponent.titleId}
           countryCode={opponent.countryCode}
           isCurrentUser={false}
+          lang={lang}
         />
       </View>
     </Animated.View>
@@ -181,6 +217,8 @@ export default function DueloLobby() {
   const insets = useSafeAreaInsets();
   const user = useUser();
   const sfxEnabled = useAppStore(s => s.user?.settings?.sfxEnabled ?? true);
+  const lang = useLanguage() as 'es' | 'en';
+  const t = T[lang];
 
   // Preload SFX here so game screen has them ready immediately
   useEffect(() => {
@@ -198,8 +236,35 @@ export default function DueloLobby() {
   const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const dotIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const searchSoundRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const hasNavigatedRef = useRef(false);
   const questionIdsRef = useRef<string[]>([]);
+
+  // ── Searching sound pulse — subtle, every ~2 s while phase === 'searching' ──
+  useEffect(() => {
+    if (phase !== 'searching') {
+      if (searchSoundRef.current) {
+        clearInterval(searchSoundRef.current);
+        searchSoundRef.current = null;
+      }
+      return;
+    }
+    // Delay first pulse slightly so it doesn't stack with match_found
+    const startDelay = setTimeout(() => {
+      playSound('searching');
+      searchSoundRef.current = setInterval(() => {
+        playSound('searching');
+      }, 2000);
+    }, 600);
+
+    return () => {
+      clearTimeout(startDelay);
+      if (searchSoundRef.current) {
+        clearInterval(searchSoundRef.current);
+        searchSoundRef.current = null;
+      }
+    };
+  }, [phase]);
 
   // ── Fetch current user's country code ───────────────────────────────────────
   useEffect(() => {
@@ -236,6 +301,10 @@ export default function DueloLobby() {
     if (searchTimerRef.current) clearTimeout(searchTimerRef.current);
     if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
     if (dotIntervalRef.current) clearInterval(dotIntervalRef.current);
+    if (searchSoundRef.current) {
+      clearInterval(searchSoundRef.current);
+      searchSoundRef.current = null;
+    }
   }, []);
 
   // ── Navigate to game ────────────────────────────────────────────────────────
@@ -317,7 +386,7 @@ export default function DueloLobby() {
           rewardedDuelsLeft: String(rewardedDuelsLeft),
         });
       }, 800);
-    }, 2500); // 2.5 s reveal → 0.8 s "¡Que comience!" → navigate
+    }, 2500); // 2.5 s reveal → 0.8 s "Let's go!" → navigate
   }, [user, navigateToGame]);
 
   // ── Leave queue ──────────────────────────────────────────────────────────────
@@ -347,7 +416,7 @@ export default function DueloLobby() {
     userRating?: number;
     rewardedDuelsLeft?: number;
   }) => {
-    const rivalName = data.opponentName ?? 'Rival';
+    const rivalName = data.opponentName ?? (lang === 'es' ? 'Rival' : 'Rival');
     setOpponentInfo({
       name: rivalName,
       avatarId: data.opponentAvatarId ?? 'avatar_dove',
@@ -373,8 +442,8 @@ export default function DueloLobby() {
           rewardedDuelsLeft: String(data.rewardedDuelsLeft ?? 10),
         });
       }, 800);
-    }, 2500); // 2.5 s reveal → 0.8 s "¡Que comience!" → navigate
-  }, [navigateToGame]);
+    }, 2500); // 2.5 s reveal → 0.8 s "Let's go!" → navigate
+  }, [navigateToGame, lang]);
 
   // ── Poll queue status ────────────────────────────────────────────────────────
   const startPolling = useCallback(() => {
@@ -514,7 +583,7 @@ export default function DueloLobby() {
   // Current user's display data for identity card
   const myAvatarId = user?.avatar ?? 'avatar_dove';
   const myTitleId = user?.titleId ?? null;
-  const myNickname = user?.nickname ?? 'Tú';
+  const myNickname = user?.nickname ?? (lang === 'es' ? 'Tú' : 'You');
 
   const showMatchCards = phase === 'found_human' || phase === 'found_bot' || phase === 'starting';
 
@@ -576,7 +645,7 @@ export default function DueloLobby() {
               marginBottom: showMatchCards ? 24 : 12,
             }}
           >
-            Duelo de Sabiduría
+            {t.title}
           </Animated.Text>
 
           {/* Identity cards when match found */}
@@ -584,6 +653,7 @@ export default function DueloLobby() {
             <MatchFoundCards
               currentUser={{ nickname: myNickname, avatarId: myAvatarId, titleId: myTitleId, countryCode: myCountryCode }}
               opponent={opponentInfo}
+              lang={lang}
             />
           )}
 
@@ -593,7 +663,7 @@ export default function DueloLobby() {
               entering={FadeIn.duration(400)}
               style={{ fontSize: 16, color: 'rgba(255,255,255,0.55)', textAlign: 'center', marginBottom: 8 }}
             >
-              Buscando rival{dots}
+              {t.searching}{dots}
             </Animated.Text>
           )}
 
@@ -603,7 +673,7 @@ export default function DueloLobby() {
                 fontSize: 20, fontWeight: '800', color: '#68D391',
                 textAlign: 'center', letterSpacing: -0.3,
               }}>
-                ¡Rival encontrado!
+                {t.rivalFound}
               </Text>
             </Animated.View>
           )}
@@ -611,10 +681,10 @@ export default function DueloLobby() {
           {phase === 'found_bot' && (
             <Animated.View entering={FadeIn.duration(400)} style={{ alignItems: 'center', gap: 4 }}>
               <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', textAlign: 'center' }}>
-                No se encontró rival humano
+                {t.noHumanRival}
               </Text>
               <Text style={{ fontSize: 17, fontWeight: '700', color: '#F6AD55', textAlign: 'center' }}>
-                ¡Duelo contra bot!
+                {t.botDuel}
               </Text>
             </Animated.View>
           )}
@@ -624,7 +694,7 @@ export default function DueloLobby() {
               entering={FadeIn.duration(300)}
               style={{ fontSize: 22, fontWeight: '800', color: '#F6E05E', textAlign: 'center', letterSpacing: 2 }}
             >
-              ¡Que comience!
+              {t.letsGo}
             </Animated.Text>
           )}
 
@@ -640,7 +710,7 @@ export default function DueloLobby() {
               }}
             >
               <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', textAlign: 'center', lineHeight: 20 }}>
-                Responde preguntas bíblicas más{'\n'}rápido que tu rival para ganar
+                {t.tip}
               </Text>
             </Animated.View>
           )}
@@ -662,7 +732,7 @@ export default function DueloLobby() {
               }}
             >
               <Text style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', fontWeight: '600' }}>
-                Cancelar búsqueda
+                {t.cancelSearch}
               </Text>
             </Pressable>
           </Animated.View>

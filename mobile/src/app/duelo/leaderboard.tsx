@@ -17,12 +17,52 @@ import Animated, { FadeInDown, FadeIn, ZoomIn } from 'react-native-reanimated';
 import { ChevronLeft, Trophy, Crown, Flame, Star } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useQuery } from '@tanstack/react-query';
-import { useUser } from '@/lib/store';
+import { useUser, useLanguage } from '@/lib/store';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import { SPIRITUAL_TITLES, DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 import { countryCodeToFlag } from '@/components/CountryPicker';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
+
+// ── Translations ─────────────────────────────────────────────────────────────
+const T = {
+  es: {
+    subtitle:         'Duelo de Sabiduría',
+    title:            'Ranking de Duelistas',
+    global:           'Global',
+    local:            'Local',
+    player:           'Jugador',
+    rating:           'Rating',
+    youBadge:         'TÚ',
+    winsLabel:        (n: number) => `${n} victorias`,
+    loadFailed:       'No se pudo cargar el ranking',
+    retry:            'Reintentar',
+    beFirst:          'Sé el primero en el ranking',
+    firstDuel:        '¡Completa tu primer duelo!',
+    loading:          'Cargando ranking...',
+    notInTop:         'Aún no estás en el top 100',
+    keepDueling:      '¡Sigue dueleando!',
+    setCountry:       'Configura tu país en Ajustes para ver el ranking local',
+  },
+  en: {
+    subtitle:         'Duel of Wisdom',
+    title:            'Duelist Ranking',
+    global:           'Global',
+    local:            'Local',
+    player:           'Player',
+    rating:           'Rating',
+    youBadge:         'YOU',
+    winsLabel:        (n: number) => `${n} wins`,
+    loadFailed:       'Failed to load ranking',
+    retry:            'Retry',
+    beFirst:          'Be first on the ranking',
+    firstDuel:        'Complete your first duel!',
+    loading:          'Loading ranking...',
+    notInTop:         'Not in the top 100 yet',
+    keepDueling:      'Keep dueling!',
+    setCountry:       'Set your country in Settings to see the local ranking',
+  },
+} as const;
 
 interface LeaderboardEntry {
   rank: number;
@@ -91,14 +131,17 @@ function PodiumCard({
   entry,
   isCurrentUser,
   delay,
+  lang,
 }: {
   entry: LeaderboardEntry;
   isCurrentUser: boolean;
   delay: number;
+  lang: 'es' | 'en';
 }) {
   const cfg = PODIUM_CONFIG[entry.rank as 1 | 2 | 3];
   const emoji = getAvatarEmoji(entry.avatarId);
-  const titleLabel = entry.titleId ? (SPIRITUAL_TITLES[entry.titleId]?.nameEs ?? null) : null;
+  const titleData = entry.titleId ? SPIRITUAL_TITLES[entry.titleId] : null;
+  const titleLabel = titleData ? (lang === 'es' ? titleData.nameEs : titleData.name) : null;
 
   return (
     <Animated.View
@@ -182,7 +225,7 @@ function PodiumCard({
           </Text>
         ) : (
           <Text style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', fontWeight: '600', textAlign: 'center' }}>
-            {entry.duelWins}V
+            {entry.duelWins}{lang === 'es' ? 'V' : 'W'}
           </Text>
         )}
 
@@ -237,9 +280,11 @@ function PodiumCard({
 function Podium({
   top3,
   currentUserId,
+  lang,
 }: {
   top3: LeaderboardEntry[];
   currentUserId?: string;
+  lang: 'es' | 'en';
 }) {
   // Arrange: 2nd | 1st | 3rd
   const sorted = [
@@ -267,6 +312,7 @@ function Podium({
           entry={entry}
           isCurrentUser={entry.userId === currentUserId}
           delay={i * 80}
+          lang={lang}
         />
       ))}
     </Animated.View>
@@ -279,13 +325,17 @@ function LeaderboardRow({
   entry,
   isCurrentUser,
   index,
+  lang,
 }: {
   entry: LeaderboardEntry;
   isCurrentUser: boolean;
   index: number;
+  lang: 'es' | 'en';
 }) {
+  const t = T[lang];
   const emoji = getAvatarEmoji(entry.avatarId);
-  const titleLabel = entry.titleId ? (SPIRITUAL_TITLES[entry.titleId]?.nameEs ?? null) : null;
+  const titleData = entry.titleId ? SPIRITUAL_TITLES[entry.titleId] : null;
+  const titleLabel = titleData ? (lang === 'es' ? titleData.nameEs : titleData.name) : null;
 
   return (
     <Animated.View entering={FadeInDown.delay(index * 35).duration(320)}>
@@ -341,7 +391,7 @@ function LeaderboardRow({
                 backgroundColor: 'rgba(99,179,237,0.18)',
                 borderRadius: 5, paddingHorizontal: 4, paddingVertical: 1,
               }}>
-                <Text style={{ fontSize: 8, color: '#63B3ED', fontWeight: '800', letterSpacing: 0.5 }}>TÚ</Text>
+                <Text style={{ fontSize: 8, color: '#63B3ED', fontWeight: '800', letterSpacing: 0.5 }}>{t.youBadge}</Text>
               </View>
             )}
           </View>
@@ -351,7 +401,7 @@ function LeaderboardRow({
             </Text>
           ) : (
             <Text style={{ fontSize: 10, color: 'rgba(255,255,255,0.22)', fontWeight: '600' }}>
-              {entry.duelWins} victorias
+              {t.winsLabel(entry.duelWins)}
             </Text>
           )}
         </View>
@@ -379,6 +429,8 @@ export default function DueloLeaderboard() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const user = useUser();
+  const lang = useLanguage() as 'es' | 'en';
+  const t = T[lang];
   const [tab, setTab] = useState<'global' | 'local'>('global');
 
   // Fetch user's country code from backend
@@ -423,8 +475,9 @@ export default function DueloLeaderboard() {
       entry={item}
       isCurrentUser={item.userId === user?.id}
       index={index}
+      lang={lang}
     />
-  ), [user?.id]);
+  ), [user?.id, lang]);
 
   const keyExtractor = useCallback((item: LeaderboardEntry) => item.userId, []);
 
@@ -435,10 +488,10 @@ export default function DueloLeaderboard() {
       <Text style={{ width: 28, fontSize: 9, color: 'rgba(255,255,255,0.2)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center' }}>#</Text>
       <View style={{ width: 40, marginLeft: 10 }} />
       <Text style={{ flex: 1, fontSize: 9, color: 'rgba(255,255,255,0.2)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.5, marginLeft: 10 }}>
-        Jugador
+        {t.player}
       </Text>
       <Text style={{ fontSize: 9, color: 'rgba(255,255,255,0.2)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.5 }}>
-        Rating
+        {t.rating}
       </Text>
     </View>
   );
@@ -449,23 +502,23 @@ export default function DueloLeaderboard() {
         <>
           <Text style={{ fontSize: 32 }}>⚔️</Text>
           <Text style={{ fontSize: 15, color: 'rgba(255,255,255,0.4)', fontWeight: '600', textAlign: 'center' }}>
-            No se pudo cargar el ranking
+            {t.loadFailed}
           </Text>
           <Pressable
             onPress={() => refetch()}
             style={{ marginTop: 4, paddingHorizontal: 20, paddingVertical: 10, backgroundColor: 'rgba(99,179,237,0.12)', borderRadius: 12, borderWidth: 1, borderColor: 'rgba(99,179,237,0.2)' }}
           >
-            <Text style={{ color: '#63B3ED', fontWeight: '700', fontSize: 14 }}>Reintentar</Text>
+            <Text style={{ color: '#63B3ED', fontWeight: '700', fontSize: 14 }}>{t.retry}</Text>
           </Pressable>
         </>
       ) : (
         <>
           <Text style={{ fontSize: 32 }}>⚔️</Text>
           <Text style={{ fontSize: 15, color: 'rgba(255,255,255,0.4)', fontWeight: '600', textAlign: 'center' }}>
-            Sé el primero en el ranking
+            {t.beFirst}
           </Text>
           <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.2)', textAlign: 'center' }}>
-            ¡Completa tu primer duelo!
+            {t.firstDuel}
           </Text>
         </>
       )}
@@ -519,13 +572,13 @@ export default function DueloLeaderboard() {
               entering={FadeIn.delay(100).duration(400)}
               style={{ fontSize: 11, fontWeight: '700', color: 'rgba(255,255,255,0.3)', letterSpacing: 2, textTransform: 'uppercase' }}
             >
-              Duelo de Sabiduría
+              {t.subtitle}
             </Animated.Text>
             <Animated.Text
               entering={FadeIn.delay(150).duration(400)}
               style={{ fontSize: 19, fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.5, marginTop: 2 }}
             >
-              Ranking de Duelistas
+              {t.title}
             </Animated.Text>
           </View>
 
@@ -551,7 +604,7 @@ export default function DueloLeaderboard() {
           >
             <Trophy size={12} color={tab === 'global' ? '#63B3ED' : 'rgba(255,255,255,0.3)'} />
             <Text style={{ fontSize: 13, fontWeight: '700', color: tab === 'global' ? '#63B3ED' : 'rgba(255,255,255,0.3)', letterSpacing: 0.3 }}>
-              Global
+              {t.global}
             </Text>
           </Pressable>
 
@@ -576,7 +629,7 @@ export default function DueloLeaderboard() {
               {userCountryCode ? countryCodeToFlag(userCountryCode) : '🌍'}
             </Text>
             <Text style={{ fontSize: 13, fontWeight: '700', color: tab === 'local' ? '#68D391' : 'rgba(255,255,255,0.3)', letterSpacing: 0.3 }}>
-              Local
+              {t.local}
             </Text>
           </Pressable>
 
@@ -601,7 +654,7 @@ export default function DueloLeaderboard() {
             style={{ marginHorizontal: 20, marginBottom: 16, padding: 16, borderRadius: 16, backgroundColor: 'rgba(104,211,145,0.06)', borderWidth: 1, borderColor: 'rgba(104,211,145,0.15)', alignItems: 'center', gap: 6 }}
           >
             <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', textAlign: 'center', lineHeight: 20 }}>
-              Configura tu país en Ajustes para ver el ranking local
+              {t.setCountry}
             </Text>
           </Animated.View>
         )}
@@ -611,7 +664,7 @@ export default function DueloLeaderboard() {
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 12 }}>
             <ActivityIndicator size="large" color="rgba(99,179,237,0.5)" />
             <Text style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', fontWeight: '600' }}>
-              Cargando ranking...
+              {t.loading}
             </Text>
           </View>
         ) : leaderboard.length === 0 ? (
@@ -626,7 +679,7 @@ export default function DueloLeaderboard() {
               <View>
                 {/* Podium top 3 */}
                 {top3.length > 0 && (
-                  <Podium top3={top3} currentUserId={user?.id} />
+                  <Podium top3={top3} currentUserId={user?.id} lang={lang} />
                 )}
                 {/* Separator + column header for rank 4+ */}
                 {rest.length > 0 && (
@@ -648,9 +701,9 @@ export default function DueloLeaderboard() {
                   }}>
                     <Trophy size={15} color="rgba(99,179,237,0.6)" />
                     <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', fontWeight: '600', flex: 1 }}>
-                      Aún no estás en el top 100
+                      {t.notInTop}
                     </Text>
-                    <Text style={{ fontSize: 12, color: '#63B3ED', fontWeight: '700' }}>¡Sigue dueleando!</Text>
+                    <Text style={{ fontSize: 12, color: '#63B3ED', fontWeight: '700' }}>{t.keepDueling}</Text>
                   </View>
                 </View>
               ) : null

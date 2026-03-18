@@ -1,6 +1,6 @@
 // Duelo de Sabiduría — Pre-game screen
 // Shows player identity card + duel stats before matchmaking starts.
-// Matchmaking only begins after pressing "Buscar oponente".
+// Matchmaking only begins after pressing the search button.
 
 import React, { useEffect } from 'react';
 import { View, Text, Pressable, ActivityIndicator } from 'react-native';
@@ -21,11 +21,41 @@ import Animated, {
 import { ChevronLeft, Swords, Trophy, Flame, BarChart2 } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useQuery } from '@tanstack/react-query';
-import { useUser, useEquippedFrame } from '@/lib/store';
+import { useUser, useEquippedFrame, useLanguage } from '@/lib/store';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import { SPIRITUAL_TITLES, DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
+
+// ── Translations ─────────────────────────────────────────────────────────────
+const T = {
+  es: {
+    screenTitle:    'Duelo de Sabiduría',
+    subtitle:       'Prepárate para poner a prueba\ntu conocimiento bíblico',
+    player:         'Jugador',
+    readyForDuel:   'Listo para el duelo',
+    rating:         'Rating',
+    wins:           'Victorias',
+    streak:         'Racha',
+    opponentSlot:   'Oponente por encontrar',
+    findOpponent:   'Buscar oponente',
+    viewRanking:    'Ver ranking',
+    back:           'Volver',
+  },
+  en: {
+    screenTitle:    'Duel of Wisdom',
+    subtitle:       'Get ready to test your\nbiblical knowledge',
+    player:         'Player',
+    readyForDuel:   'Ready for the duel',
+    rating:         'Rating',
+    wins:           'Wins',
+    streak:         'Streak',
+    opponentSlot:   'Opponent to be found',
+    findOpponent:   'Find opponent',
+    viewRanking:    'View ranking',
+    back:           'Back',
+  },
+} as const;
 
 interface DuelRanking {
   duelRating: number;
@@ -42,6 +72,8 @@ export default function DueloPregame() {
   const insets = useSafeAreaInsets();
   const user = useUser();
   const equippedFrameId = useEquippedFrame();
+  const lang = useLanguage() as 'es' | 'en';
+  const t = T[lang];
 
   // Resolve avatar emoji from DEFAULT_AVATARS lookup
   const avatarId = user?.avatar ?? 'avatar_dove';
@@ -50,10 +82,9 @@ export default function DueloPregame() {
   // Resolve frame color (null if no frame equipped)
   const frameColor = equippedFrameId ? (AVATAR_FRAMES[equippedFrameId]?.color ?? null) : null;
 
-  // Resolve title from user.titleId (the authoritative field updated by equipTitle())
-  const titleLabel = user?.titleId
-    ? (SPIRITUAL_TITLES[user.titleId]?.nameEs ?? null)
-    : null;
+  // Resolve title in the active language
+  const titleData = user?.titleId ? SPIRITUAL_TITLES[user.titleId] : null;
+  const titleLabel = titleData ? (lang === 'es' ? titleData.nameEs : titleData.name) : null;
 
   // Fetch duel ranking from backend — always refetch on mount so stats are
   // fresh after returning from a completed duel.
@@ -184,7 +215,7 @@ export default function DueloPregame() {
           </Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
             <Text style={{ fontSize: 13, fontWeight: '700', color: 'rgba(255,255,255,0.35)', letterSpacing: 2, textTransform: 'uppercase' }}>
-              Duelo de Sabiduría
+              {t.screenTitle}
             </Text>
           </View>
           {/* Spacer to center the title */}
@@ -206,7 +237,7 @@ export default function DueloPregame() {
               lineHeight: 20,
             }}
           >
-            Prepárate para poner a prueba{'\n'}tu conocimiento bíblico
+            {t.subtitle}
           </Animated.Text>
 
           {/* Player card */}
@@ -276,7 +307,7 @@ export default function DueloPregame() {
                       }}
                       numberOfLines={1}
                     >
-                      {user?.nickname ?? 'Jugador'}
+                      {user?.nickname ?? t.player}
                     </Text>
                     {titleLabel ? (
                       <View
@@ -296,7 +327,7 @@ export default function DueloPregame() {
                       </View>
                     ) : (
                       <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', fontWeight: '500' }}>
-                        Listo para el duelo
+                        {t.readyForDuel}
                       </Text>
                     )}
                   </View>
@@ -341,7 +372,7 @@ export default function DueloPregame() {
                       }}
                     >
                       <Text style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 4 }}>
-                        Rating
+                        {t.rating}
                       </Text>
                       <Text style={{ fontSize: 20, fontWeight: '900', color: '#63B3ED', letterSpacing: -0.5 }}>
                         {duelRating}
@@ -363,7 +394,7 @@ export default function DueloPregame() {
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 4 }}>
                         <Trophy size={10} color="rgba(104,211,145,0.6)" />
                         <Text style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' }}>
-                          Victorias
+                          {t.wins}
                         </Text>
                       </View>
                       <Text style={{ fontSize: 20, fontWeight: '900', color: '#68D391', letterSpacing: -0.5 }}>
@@ -386,7 +417,7 @@ export default function DueloPregame() {
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 4 }}>
                         <Flame size={10} color={duelWinStreak > 0 ? '#F6AD55' : 'rgba(255,255,255,0.35)'} />
                         <Text style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' }}>
-                          Racha
+                          {t.streak}
                         </Text>
                       </View>
                       <Text
@@ -468,7 +499,7 @@ export default function DueloPregame() {
                 <Text style={{ fontSize: 22 }}>⚔️</Text>
               </View>
               <Text style={{ fontSize: 14, color: 'rgba(255,255,255,0.25)', fontWeight: '600' }}>
-                Oponente por encontrar
+                {t.opponentSlot}
               </Text>
             </View>
           </Animated.View>
@@ -508,7 +539,7 @@ export default function DueloPregame() {
               >
                 <Swords size={20} color="#FFFFFF" />
                 <Text style={{ fontSize: 17, fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3 }}>
-                  Buscar oponente
+                  {t.findOpponent}
                 </Text>
               </LinearGradient>
             </Pressable>
@@ -531,7 +562,7 @@ export default function DueloPregame() {
           >
             <BarChart2 size={17} color="#63B3ED" />
             <Text style={{ fontSize: 15, color: '#63B3ED', fontWeight: '700' }}>
-              Ver ranking
+              {t.viewRanking}
             </Text>
           </Pressable>
 
@@ -551,7 +582,7 @@ export default function DueloPregame() {
             }}
           >
             <Text style={{ fontSize: 15, color: 'rgba(255,255,255,0.4)', fontWeight: '600' }}>
-              Volver
+              {t.back}
             </Text>
           </Pressable>
         </Animated.View>

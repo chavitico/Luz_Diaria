@@ -983,16 +983,25 @@ function LaunchEventBanner({
 function DueloSabiduriaCard({
   colors,
   onlineCount,
+  language,
   onPress,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   onlineCount: number;
+  language: 'en' | 'es';
   onPress: () => void;
 }) {
   const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
+
+  const cardTitle    = language === 'es' ? 'Duelo de Sabiduría'                : 'Duel of Wisdom';
+  const cardSubtitle = language === 'es' ? 'Pon a prueba tu conocimiento bíblico' : 'Test your biblical knowledge';
+  const playLabel    = language === 'es' ? 'Jugar'                              : 'Play';
+  const onlineLabel  = language === 'es'
+    ? (onlineCount === 1 ? '1 jugador en línea' : `${onlineCount} jugadores en línea`)
+    : (onlineCount === 1 ? '1 player online'    : `${onlineCount} players online`);
 
   return (
     <Animated.View entering={FadeInDown.duration(400)} style={{ marginHorizontal: 20, marginBottom: 12 }}>
@@ -1045,16 +1054,16 @@ function DueloSabiduriaCard({
               {/* Text */}
               <View style={{ flex: 1 }}>
                 <Text style={{ fontSize: 17, fontWeight: '800', color: '#FFFFFF', marginBottom: 2, letterSpacing: -0.3 }}>
-                  Duelo de Sabiduría
+                  {cardTitle}
                 </Text>
                 <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', fontWeight: '500' }}>
-                  Pon a prueba tu conocimiento bíblico
+                  {cardSubtitle}
                 </Text>
                 {/* Online indicator */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 6 }}>
                   <View style={{ width: 7, height: 7, borderRadius: 4, backgroundColor: '#68D391' }} />
                   <Text style={{ fontSize: 11, color: '#68D391', fontWeight: '700' }}>
-                    {onlineCount === 1 ? '1 jugador en línea' : `${onlineCount} jugadores en línea`}
+                    {onlineLabel}
                   </Text>
                 </View>
               </View>
@@ -1068,7 +1077,7 @@ function DueloSabiduriaCard({
                 }}
               >
                 <Text style={{ fontSize: 13, fontWeight: '800', color: '#000000' }}>
-                  Jugar
+                  {playLabel}
                 </Text>
               </View>
             </View>
@@ -4960,6 +4969,7 @@ export default function StoreScreen() {
         <DueloSabiduriaCard
           colors={colors}
           onlineCount={onlineCount}
+          language={language}
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
             router.push('/duelo/pregame' as any);

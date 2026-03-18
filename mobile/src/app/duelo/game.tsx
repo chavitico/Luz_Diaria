@@ -19,7 +19,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Check, X, Clock, Swords, Trophy, Star } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
-import { useUser, useAppStore } from '@/lib/store';
+import { useUser, useAppStore, useLanguage } from '@/lib/store';
 import { preloadDuelSounds, unloadDuelSounds, playSound, setSfxEnabled } from '@/lib/audio';
 import { addLedgerEntry } from '@/lib/points-ledger';
 import { fetchWithTimeout } from '@/lib/fetch';
@@ -31,6 +31,60 @@ const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://loca
 const QUESTION_TIMER_SECONDS = 30;
 const ROUND_POLL_INTERVAL_MS = 800;
 const HEARTBEAT_INTERVAL_MS = 5000;
+
+// ── Translations ─────────────────────────────────────────────────────────────
+const T = {
+  es: {
+    victory:            '¡Victoria!',
+    goodEffort:         '¡Buen intento!',
+    disconnected:       (name: string) => `${name} se desconectó`,
+    youBeat:            (name: string) => `Ganaste contra ${name}`,
+    fasterRival:        (name: string) => `${name} fue más rápido`,
+    savingReward:       'Guardando recompensa...',
+    dailyCapReached:    'Límite diario alcanzado',
+    pointsEarned:       'Puntos ganados',
+    noPointsCap:        'Sin puntos — ya completaste\n10 duelos recompensados hoy',
+    wisdom:             'Sabiduría',
+    missionCompleted:   'Misión completada',
+    playAgain:          'Jugar de nuevo',
+    goHome:             'Volver al inicio',
+    bothCorrect:        'Ambos acertaron — siguiente pregunta...',
+    noneCorrect:        'Ninguno acertó — siguiente pregunta...',
+    youWonRound:        '¡Correcto! Ganaste este round',
+    rivalWonRound:      '¡Incorrecto! El rival acertó',
+    waitingFor:         (name: string) => `Esperando a ${name}...`,
+    getReady:           'PREPÁRATE',
+    roundLabel:         (cur: number, total: number) => `P${cur}/${total}`,
+    duelWon:            '¡Duelo ganado!',
+    duelCompleted:      'Duelo completado',
+    duelDetail:         (p: number, b: number) => `Duelo de Sabiduría — ${p} vs ${b}`,
+  },
+  en: {
+    victory:            'Victory!',
+    goodEffort:         'Good effort!',
+    disconnected:       (name: string) => `${name} disconnected`,
+    youBeat:            (name: string) => `You beat ${name}`,
+    fasterRival:        (name: string) => `${name} was faster`,
+    savingReward:       'Saving reward...',
+    dailyCapReached:    'Daily limit reached',
+    pointsEarned:       'Points earned',
+    noPointsCap:        "No points — you've completed\n10 rewarded duels today",
+    wisdom:             'Wisdom',
+    missionCompleted:   'Mission completed',
+    playAgain:          'Play again',
+    goHome:             'Go home',
+    bothCorrect:        'Both correct — next question...',
+    noneCorrect:        'Both wrong — next question...',
+    youWonRound:        'Correct! You won this round',
+    rivalWonRound:      'Wrong! Rival got it',
+    waitingFor:         (name: string) => `Waiting for ${name}...`,
+    getReady:           'GET READY',
+    roundLabel:         (cur: number, total: number) => `R${cur}/${total}`,
+    duelWon:            'Duel won!',
+    duelCompleted:      'Duel completed',
+    duelDetail:         (p: number, b: number) => `Duel of Wisdom — ${p} vs ${b}`,
+  },
+} as const;
 
 /** Bot accuracy and speed per rating tier */
 function getBotParams(rating: number): { correctProb: number; minDelay: number; maxDelay: number } {
@@ -225,10 +279,12 @@ export default function DueloGame() {
   const user = useUser();
   const updateUser = useAppStore(s => s.updateUser);
   const sfxEnabled = useAppStore(s => s.user?.settings?.sfxEnabled ?? true);
+  const lang = useLanguage() as 'es' | 'en';
+  const t = T[lang];
   const queryClient = useQueryClient();
 
   const matchId = params.matchId ?? 'local';
-  const opponentName = params.opponentName ?? 'Juanito Bot';
+  const opponentName = params.opponentName ?? 'Bot';
   const isHumanMatch = params.isHumanMatch === '1';
   const playerNumber = parseInt(params.playerNumber ?? '1', 10);
   const userRating = parseInt(params.userRating ?? '1000', 10);
@@ -273,6 +329,7 @@ export default function DueloGame() {
   const revealTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const roundPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const heartbeatRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const fastTickRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const phaseRef = useRef<GamePhase>('question');
   const playerAnswerRef = useRef<number | null>(null);
   const botAnswerRef = useRef<number | null>(null);
@@ -307,6 +364,14 @@ export default function DueloGame() {
 
   const currentQuestion = questions[currentIndex];
 
+  // ── Stop fast-tick interval helper ─────────────────────────────────────────
+  const stopFastTick = useCallback(() => {
+    if (fastTickRef.current) {
+      clearInterval(fastTickRef.current);
+      fastTickRef.current = null;
+    }
+  }, []);
+
   const stopRoundPoll = useCallback(() => {
     if (roundPollRef.current) {
       clearInterval(roundPollRef.current);
@@ -324,6 +389,7 @@ export default function DueloGame() {
     if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
     if (roundPollRef.current) clearInterval(roundPollRef.current);
     if (heartbeatRef.current) clearInterval(heartbeatRef.current);
+    stopFastTick();
 
     Haptics.notificationAsync(
       outcome === 'player_wins'
@@ -365,7 +431,6 @@ export default function DueloGame() {
           updateUser({ points: data.newTotal });
           if (data.completedMissions && data.completedMissions.length > 0) {
             setCompletedMissions(data.completedMissions);
-            // Invalidate weekly challenge progress cache so the store card refreshes
             queryClient.invalidateQueries({ queryKey: ['challengeProgress'] });
           }
         } else {
@@ -383,15 +448,15 @@ export default function DueloGame() {
     addLedgerEntry({
       kind: 'challenge',
       delta: pts,
-      title: outcome === 'player_wins' ? '¡Duelo ganado!' : 'Duelo completado',
-      detail: `Duelo de Sabiduría — ${pScore} vs ${bScore}`,
+      title: outcome === 'player_wins' ? t.duelWon : t.duelCompleted,
+      detail: t.duelDetail(pScore, bScore),
     });
 
     // Invalidate duel ranking so the pregame screen shows fresh stats next visit
     if (user?.id) {
       queryClient.invalidateQueries({ queryKey: ['duel-ranking', user.id] });
     }
-  }, [matchId, questions, user?.id, user?.points, updateUser, queryClient]);
+  }, [matchId, questions, user?.id, user?.points, updateUser, queryClient, t, stopFastTick]);
 
   const evaluateAnswers = useCallback((pAns: number | null, bAns: number | null, question: DuelQuestion, pScore: number, bScore: number, prevResults: QuestionResult[]) => {
     const playerCorrect = pAns !== null && pAns !== -1 && pAns === question.correctIndex;
@@ -527,6 +592,7 @@ export default function DueloGame() {
           setPhase('reveal');
           phaseRef.current = 'reveal';
           if (timerRef.current) clearInterval(timerRef.current);
+          stopFastTick();
 
           const q = questions[idx];
           evaluateAnswers(
@@ -538,7 +604,7 @@ export default function DueloGame() {
         // retry next tick
       }
     }, ROUND_POLL_INTERVAL_MS);
-  }, [matchId, playerNumber, stopRoundPoll, evaluateAnswers, questions]);
+  }, [matchId, playerNumber, stopRoundPoll, stopFastTick, evaluateAnswers, questions]);
 
   // ── Human match: heartbeat for disconnect detection ──────────────────────────
   const startHeartbeat = useCallback(() => {
@@ -592,13 +658,14 @@ export default function DueloGame() {
         setPhase('reveal');
         phaseRef.current = 'reveal';
         if (timerRef.current) clearInterval(timerRef.current);
+        stopFastTick();
         evaluateAnswers(
           playerAnswerRef.current, chosenIndex, question,
           playerScoreRef.current, botScoreRef.current, resultsRef.current
         );
       }
     }, delay);
-  }, [botParams, evaluateAnswers]);
+  }, [botParams, evaluateAnswers, stopFastTick]);
 
   // ── Countdown ────────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -629,11 +696,28 @@ export default function DueloGame() {
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => {
         const next = t - 1;
-        // Tick on last 5 seconds of question timer
-        if (next > 0 && next <= 5) playSound('tick');
+
+        // ── Timer tension audio ──
+        // Seconds 10–6: regular tick once per second
+        if (next > 0 && next <= 10 && next > 5) {
+          playSound('tick');
+        }
+        // Seconds 5–1: start fast-tick sub-interval on transition to 5
+        if (next === 5) {
+          stopFastTick();
+          fastTickRef.current = setInterval(() => {
+            if (phaseRef.current !== 'question') {
+              stopFastTick();
+              return;
+            }
+            playSound('tick_fast');
+          }, 450); // ~2 ticks per second
+        }
+
         if (t <= 1) {
           clearInterval(timerRef.current!);
           timerRef.current = null;
+          stopFastTick();
           if (phaseRef.current !== 'question') return 0;
 
           if (isHumanMatch) {
@@ -668,6 +752,7 @@ export default function DueloGame() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
       if (botTimerRef.current) clearTimeout(botTimerRef.current);
+      stopFastTick();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, phase, countdown]);
@@ -695,6 +780,7 @@ export default function DueloGame() {
         phaseRef.current = 'reveal';
         if (timerRef.current) clearInterval(timerRef.current);
         if (botTimerRef.current) clearTimeout(botTimerRef.current);
+        stopFastTick();
         evaluateAnswers(
           index, botAnswerRef.current, currentQuestion,
           playerScoreRef.current, botScoreRef.current, resultsRef.current
@@ -735,14 +821,14 @@ export default function DueloGame() {
                 textAlign: 'center', letterSpacing: -0.5, marginBottom: 8,
               }}
             >
-              {won ? '¡Victoria!' : '¡Buen intento!'}
+              {won ? t.victory : t.goodEffort}
             </Text>
             <Text style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', textAlign: 'center' }}>
               {opponentDisconnected
-                ? `${opponentName} se desconectó`
+                ? t.disconnected(opponentName)
                 : won
-                ? `Ganaste contra ${opponentName}`
-                : `${opponentName} fue más rápido`}
+                ? t.youBeat(opponentName)
+                : t.fasterRival(opponentName)}
             </Text>
           </Animated.View>
 
@@ -758,7 +844,7 @@ export default function DueloGame() {
           >
             <View style={{ flex: 1, alignItems: 'center' }}>
               <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 4, fontWeight: '600' }}>
-                {user?.nickname ?? 'Tú'}
+                {user?.nickname ?? (lang === 'es' ? 'Tú' : 'You')}
               </Text>
               <Text style={{ fontSize: 36, fontWeight: '900', color: '#FFFFFF' }}>{playerScore}</Text>
             </View>
@@ -785,15 +871,15 @@ export default function DueloGame() {
             }}
           >
             <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', marginBottom: 4 }}>
-              {rewardLoading ? 'Guardando recompensa...' : capReached ? 'Límite diario alcanzado' : 'Puntos ganados'}
+              {rewardLoading ? t.savingReward : capReached ? t.dailyCapReached : t.pointsEarned}
             </Text>
             {capReached ? (
               <Text style={{ fontSize: 15, fontWeight: '700', color: 'rgba(255,255,255,0.4)', textAlign: 'center' }}>
-                Sin puntos — ya completaste{'\n'}10 duelos recompensados hoy
+                {t.noPointsCap}
               </Text>
             ) : (
               <Text style={{ fontSize: 28, fontWeight: '900', color: won ? '#68D391' : '#F6E05E' }}>
-                +{pointsAwarded} Sabiduría
+                +{pointsAwarded} {t.wisdom}
               </Text>
             )}
           </Animated.View>
@@ -817,7 +903,7 @@ export default function DueloGame() {
                   <Swords size={18} color="#F6AD55" />
                   <View style={{ flex: 1 }}>
                     <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', fontWeight: '500' }}>
-                      Misión completada
+                      {t.missionCompleted}
                     </Text>
                     <Text style={{ fontSize: 14, color: '#F6AD55', fontWeight: '700' }}>
                       {m.titleEs}
@@ -840,7 +926,7 @@ export default function DueloGame() {
               }}
               style={{ backgroundColor: '#63B3ED', borderRadius: 16, paddingVertical: 16, alignItems: 'center' }}
             >
-              <Text style={{ fontSize: 16, fontWeight: '800', color: '#000000' }}>Jugar de nuevo</Text>
+              <Text style={{ fontSize: 16, fontWeight: '800', color: '#000000' }}>{t.playAgain}</Text>
             </Pressable>
 
             <Pressable
@@ -854,7 +940,7 @@ export default function DueloGame() {
                 alignItems: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)',
               }}
             >
-              <Text style={{ fontSize: 16, fontWeight: '600', color: 'rgba(255,255,255,0.6)' }}>Volver al inicio</Text>
+              <Text style={{ fontSize: 16, fontWeight: '600', color: 'rgba(255,255,255,0.6)' }}>{t.goHome}</Text>
             </Pressable>
           </Animated.View>
         </LinearGradient>
@@ -885,7 +971,7 @@ export default function DueloGame() {
                 }}
               >
                 <Text style={{ fontSize: 12, fontWeight: '700', color: '#FFFFFF' }} numberOfLines={1}>
-                  {user?.nickname ?? 'Tú'}
+                  {user?.nickname ?? (lang === 'es' ? 'Tú' : 'You')}
                 </Text>
               </View>
               <Text style={{ fontSize: 22, fontWeight: '900', color: '#FFFFFF' }}>{playerScore}</Text>
@@ -894,7 +980,7 @@ export default function DueloGame() {
             <View style={{ alignItems: 'center', paddingHorizontal: 8 }}>
               <Swords size={18} color="rgba(255,255,255,0.3)" />
               <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>
-                P{currentIndex + 1}/{questions.length}
+                {t.roundLabel(currentIndex + 1, questions.length)}
               </Text>
             </View>
 
@@ -994,12 +1080,12 @@ export default function DueloGame() {
             >
               <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', textAlign: 'center' }}>
                 {lastResult.playerCorrect && lastResult.botCorrect
-                  ? 'Ambos acertaron — siguiente pregunta...'
+                  ? t.bothCorrect
                   : !lastResult.playerCorrect && !lastResult.botCorrect
-                  ? 'Ninguno acertó — siguiente pregunta...'
+                  ? t.noneCorrect
                   : lastResult.playerCorrect && !lastResult.botCorrect
-                  ? '¡Correcto! Ganaste este round'
-                  : '¡Incorrecto! El rival acertó'}
+                  ? t.youWonRound
+                  : t.rivalWonRound}
               </Text>
             </Animated.View>
           )}
@@ -1015,7 +1101,7 @@ export default function DueloGame() {
               }}
             >
               <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)' }}>
-                Esperando a {opponentName}...
+                {t.waitingFor(opponentName)}
               </Text>
             </Animated.View>
           )}
@@ -1031,7 +1117,7 @@ export default function DueloGame() {
               }}
             >
               <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)' }}>
-                Esperando a {opponentName}...
+                {t.waitingFor(opponentName)}
               </Text>
             </Animated.View>
           )}
@@ -1063,7 +1149,7 @@ export default function DueloGame() {
               {countdown}
             </Animated.Text>
             <Text style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 12, fontWeight: '600', letterSpacing: 1 }}>
-              PREPÁRATE
+              {t.getReady}
             </Text>
           </Animated.View>
         )}

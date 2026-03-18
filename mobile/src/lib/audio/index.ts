@@ -13,6 +13,8 @@ import { Audio } from 'expo-av';
 export type SoundName =
   | 'tap'
   | 'tick'
+  | 'tick_fast'
+  | 'searching'
   | 'match_found'
   | 'correct'
   | 'wrong'
@@ -23,6 +25,8 @@ export type SoundName =
 const SOUND_FILES: Record<SoundName, any> = {
   tap:         require('../../../assets/audio/tap.wav'),
   tick:        require('../../../assets/audio/tick.wav'),
+  tick_fast:   require('../../../assets/audio/tick.wav'),   // same file, tighter debounce
+  searching:   require('../../../assets/audio/tick.wav'),   // subtle pulse during matchmaking
   match_found: require('../../../assets/audio/match_found.wav'),
   correct:     require('../../../assets/audio/correct.wav'),
   wrong:       require('../../../assets/audio/wrong.wav'),
@@ -34,6 +38,8 @@ const SOUND_FILES: Record<SoundName, any> = {
 const VOLUMES: Record<SoundName, number> = {
   tap:         0.55,
   tick:        0.50,
+  tick_fast:   0.65,
+  searching:   0.25,   // subtle — not annoying
   match_found: 0.65,
   correct:     0.65,
   wrong:       0.60,
@@ -45,6 +51,8 @@ const VOLUMES: Record<SoundName, number> = {
 const DEBOUNCE_MS: Record<SoundName, number> = {
   tap:         120,
   tick:        900,
+  tick_fast:   350,    // allows ~2 ticks per second
+  searching:   1800,   // ~2 s between pulses
   match_found: 2000,
   correct:     500,
   wrong:       500,
