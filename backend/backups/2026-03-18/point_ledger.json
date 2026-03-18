@@ -2408,5 +2408,65 @@
     "amount": 10,
     "metadata": "{\"matchId\":\"cmmvami95001jm24zmmya7wed\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
     "createdAt": "2026-03-18T00:18:54.782Z"
+  },
+  {
+    "id": "cmmvaxyiv0011m2pabwj3ntsa",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmvax1wb000zm2pa7oiiyck4",
+    "type": "duel_win",
+    "dateId": "2026-03-18",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmvax1wb000zm2pa7oiiyck4\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-18T00:27:33.511Z"
+  },
+  {
+    "id": "cmmvazcoi0015m2pa7ziy3sfw",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmvay82t0013m2pai8yjkigz",
+    "type": "duel_loss",
+    "dateId": "2026-03-18",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmvay82t0013m2pai8yjkigz\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-18T00:28:38.515Z"
+  },
+  {
+    "id": "cmmvb00es0019m2pa7fhs5klp",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmvazk4l0017m2paak961jpb",
+    "type": "duel_win",
+    "dateId": "2026-03-18",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmvazk4l0017m2paak961jpb\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-18T00:29:09.269Z"
+  },
+  {
+    "id": "cmmvb1jo5001dm2pa975ct8t1",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmvb07nv001bm2pazkxxa312",
+    "type": "duel_win",
+    "dateId": "2026-03-18",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmmvb07nv001bm2pazkxxa312\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-03-18T00:30:20.885Z"
+  },
+  {
+    "id": "cmmvb2sah001hm2paa8po38jc",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmvb1qwk001fm2pamwpqk5ep",
+    "type": "duel_loss",
+    "dateId": "2026-03-18",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmvb1qwk001fm2pamwpqk5ep\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-18T00:31:18.714Z"
+  },
+  {
+    "id": "cmmvb65zx001lm2pagu39tuw0",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmvb5i5b001jm2parjm4z8rb",
+    "type": "duel_loss",
+    "dateId": "2026-03-18",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmvb5i5b001jm2parjm4z8rb\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-18T00:33:56.446Z"
   }
 ]
