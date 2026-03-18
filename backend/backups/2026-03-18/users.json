@@ -12,7 +12,7 @@
     "streakCurrent": 39,
     "streakBest": 39,
     "devotionalsCompleted": 28,
-    "totalTimeSeconds": 185504,
+    "totalTimeSeconds": 185623,
     "lastActiveAt": "2026-03-17T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-18T02:40:55.762Z"
+    "updatedAt": "2026-03-18T02:44:29.177Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -62,7 +62,7 @@
     "streakCurrent": 1,
     "streakBest": 11,
     "devotionalsCompleted": 16,
-    "totalTimeSeconds": 7369,
+    "totalTimeSeconds": 7429,
     "lastActiveAt": "2026-03-15T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -72,7 +72,7 @@
     "activeBadgeId": "badge_portador_esperanza",
     "deviceId": null,
     "createdAt": "2026-03-11T15:32:38.767Z",
-    "updatedAt": "2026-03-16T05:46:38.294Z"
+    "updatedAt": "2026-03-18T05:30:54.047Z"
   },
   {
     "id": "cmmo5fltc001um2atni8c6y21",
