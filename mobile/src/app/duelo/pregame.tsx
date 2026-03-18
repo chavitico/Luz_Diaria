@@ -41,6 +41,7 @@ const T = {
     findOpponent:   'Buscar oponente',
     viewRanking:    'Ver ranking',
     back:           'Volver',
+    questionsNote:  null,
   },
   en: {
     screenTitle:    'Duel of Wisdom',
@@ -54,6 +55,7 @@ const T = {
     findOpponent:   'Find opponent',
     viewRanking:    'View ranking',
     back:           'Back',
+    questionsNote:  'Questions are in Spanish — English coming soon',
   },
 } as const;
 
@@ -504,6 +506,31 @@ export default function DueloPregame() {
             </View>
           </Animated.View>
         </View>
+
+        {/* Language notice — shown only when app is English (questions are Spanish-only) */}
+        {t.questionsNote && (
+          <Animated.View
+            entering={FadeIn.delay(400).duration(400)}
+            style={{
+              marginHorizontal: 24,
+              marginBottom: 12,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+              backgroundColor: 'rgba(246,173,85,0.08)',
+              borderRadius: 12,
+              paddingVertical: 9,
+              paddingHorizontal: 13,
+              borderWidth: 1,
+              borderColor: 'rgba(246,173,85,0.2)',
+            }}
+          >
+            <Text style={{ fontSize: 14 }}>🌐</Text>
+            <Text style={{ fontSize: 12, color: 'rgba(246,173,85,0.85)', fontWeight: '600', flex: 1 }}>
+              {t.questionsNote}
+            </Text>
+          </Animated.View>
+        )}
 
         {/* Bottom actions */}
         <Animated.View

@@ -1042,6 +1042,17 @@ export default function DueloGame() {
             <Text style={{ fontSize: 19, fontWeight: '700', color: '#FFFFFF', lineHeight: 27, textAlign: 'center' }}>
               {currentQuestion.questionEs}
             </Text>
+            {/* Language badge — only shown when app is in English so users know questions are in Spanish */}
+            {lang === 'en' && (
+              <View style={{
+                position: 'absolute', top: 10, right: 12,
+                backgroundColor: 'rgba(246,173,85,0.15)',
+                borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2,
+                borderWidth: 1, borderColor: 'rgba(246,173,85,0.25)',
+              }}>
+                <Text style={{ fontSize: 9, fontWeight: '800', color: 'rgba(246,173,85,0.8)', letterSpacing: 0.5 }}>ES</Text>
+              </View>
+            )}
           </Animated.View>
 
           <View style={{ gap: 11 }}>
