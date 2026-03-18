@@ -2468,5 +2468,15 @@
     "amount": 10,
     "metadata": "{\"matchId\":\"cmmvb5i5b001jm2parjm4z8rb\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
     "createdAt": "2026-03-18T00:33:56.446Z"
+  },
+  {
+    "id": "cmmvcn5770011m27qmy5o2ipf",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmmvcm37b000zm27qav49kvpz",
+    "type": "duel_loss",
+    "dateId": "2026-03-18",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmmvcm37b000zm27qav49kvpz\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-03-18T01:15:08.179Z"
   }
 ]
