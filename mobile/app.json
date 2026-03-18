@@ -20,7 +20,13 @@
       }
     },
     "android": {
-      "edgeToEdgeEnabled": true
+      "package": "com.luzdiaria.app",
+      "versionCode": 13,
+      "edgeToEdgeEnabled": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./icon.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "plugins": [
       "expo-router"
