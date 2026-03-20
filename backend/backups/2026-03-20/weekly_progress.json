@@ -376,5 +376,77 @@
     "completed": false,
     "claimed": false,
     "updatedAt": "2026-03-13T20:48:56.098Z"
+  },
+  {
+    "id": "cmmr2vrzv001bm27ife7r6hst",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 5,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-18T17:56:20.212Z"
+  },
+  {
+    "id": "cmmsgt9p4000xm275z2vn4u30",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "challengeId": "cmmr2rpzu0001m27iqma0edzl",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T01:53:33.390Z"
+  },
+  {
+    "id": "cmmsm3e1z000xm2inl7lf1www",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "challengeId": "cmmr2rpzu0001m27iqma0edzl",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:16:24.167Z"
+  },
+  {
+    "id": "cmmsm3e1z000zm2inp1qxuixh",
+    "userId": "cmmo5fltc001um2atni8c6y21",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:19:25.506Z"
+  },
+  {
+    "id": "cmmsn2tyf001hm2f5ez8vsck2",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "challengeId": "cmmr2rpzu0001m27iqma0edzl",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:43:57.736Z"
+  },
+  {
+    "id": "cmmsn2tyf001gm2f5o3nzaaqm",
+    "userId": "cmmpdddxo000rm26toly84eiw",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T03:46:54.384Z"
+  },
+  {
+    "id": "cmmsq1ebr000zm2fwbo36p85j",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "challengeId": "cmmr2rpzi0000m27iy7scw3mg",
+    "currentCount": 2,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-18T05:33:57.777Z"
+  },
+  {
+    "id": "cmmsq1ebr0011m2fwx333ro3q",
+    "userId": "cmmm76y270019m2o96a4bj4lb",
+    "challengeId": "cmmr2rpzu0001m27iqma0edzl",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-16T05:45:51.270Z"
   }
 ]
