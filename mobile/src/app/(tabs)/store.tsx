@@ -1727,31 +1727,36 @@ function WeeklyChallengesCard({
     type: string;
   } | null>(null);
 
-  const { data: challenges = [] } = useQuery({
+  const { data: challenges = [], isLoading: challengesLoading } = useQuery({
     queryKey: ['weeklyChallenges'],
     queryFn: () => gamificationApi.getCurrentChallenges(),
-    staleTime: 5 * 60 * 1000,
-    retry: 1,
-  });
-
-  const { data: progressData = [] } = useQuery({
-    queryKey: ['challengeProgress', userId],
-    queryFn: () => gamificationApi.getChallengeProgress(userId),
-    enabled: !!userId,
     staleTime: 60 * 1000,
     retry: 1,
   });
 
-  // Check if all challenges complete
+  const { data: progressData = [], isLoading: progressLoading } = useQuery({
+    queryKey: ['challengeProgress', userId],
+    queryFn: () => gamificationApi.getChallengeProgress(userId),
+    enabled: !!userId,
+    staleTime: 30 * 1000,
+    retry: 1,
+  });
+
+  // Only use the first 3 challenges (matching what is rendered in the UI)
+  const visibleChallenges = challenges.slice(0, 3);
+
+  // Check if all VISIBLE challenges are complete + claimed
   React.useEffect(() => {
-    if (challenges.length > 0 && progressData.length > 0) {
-      const allComplete = challenges.every(c => {
+    if (visibleChallenges.length > 0 && progressData.length > 0) {
+      const allComplete = visibleChallenges.every(c => {
         const progress = progressData.find(p => p.challengeId === c.id);
         return progress?.completed && progress?.claimed;
       });
       onAllComplete(allComplete);
+    } else if (visibleChallenges.length === 0 && challenges.length === 0) {
+      // No challenges loaded yet — don't change state
     }
-  }, [challenges, progressData, onAllComplete]);
+  }, [visibleChallenges, progressData, onAllComplete, challenges.length]);
 
   const claimMutation = useMutation({
     mutationFn: ({ challengeId }: { challengeId: string }) =>
@@ -1795,7 +1800,30 @@ function WeeklyChallengesCard({
     }
   };
 
-  if (challenges.length === 0) return null;
+  if (!challengesLoading && challenges.length === 0) return null;
+
+  // Show skeleton while loading
+  if (challengesLoading || progressLoading) {
+    return (
+      <Animated.View
+        entering={FadeInDown.delay(100).duration(400)}
+        style={{ marginHorizontal: 20, marginBottom: 16 }}
+      >
+        <View style={{
+          borderRadius: 18,
+          borderWidth: 1,
+          borderColor: 'rgba(249,115,22,0.20)',
+          backgroundColor: '#120D05',
+          padding: 16,
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: 90,
+        }}>
+          <ActivityIndicator size="small" color="#F97316" />
+        </View>
+      </Animated.View>
+    );
+  }
 
   return (
     <>
@@ -1857,7 +1885,7 @@ function WeeklyChallengesCard({
             {/* Divider */}
             <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.06)', marginBottom: 12 }} />
 
-            {challenges.slice(0, 3).map((challenge, index) => {
+            {visibleChallenges.map((challenge, index) => {
               const progress = progressData.find(p => p.challengeId === challenge.id);
               const currentCount = progress?.currentCount || 0;
               const progressPercent = Math.min((currentCount / challenge.goalCount) * 100, 100);

@@ -827,6 +827,56 @@ export function AdminHubModal({ visible, onClose }: AdminHubModalProps) {
                         </Pressable>
                       </View>
                     )}
+
+                    {/* ── Challenges testing ───────────────────── */}
+                    <View style={{ marginTop: 16, padding: 12, borderRadius: 12, borderWidth: 1, borderColor: '#F9731630', backgroundColor: '#F9731608' }}>
+                      <Text style={{ fontSize: 12, fontWeight: '700', color: '#F97316', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 10 }}>
+                        Desafíos (testing)
+                      </Text>
+                      <View style={{ flexDirection: 'row', gap: 8 }}>
+                        <Pressable
+                          onPress={async () => {
+                            if (!user?.id) return;
+                            try {
+                              const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/admin/force-complete`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ userId: user.id }),
+                              });
+                              const data = await res.json() as { success?: boolean; challengesCompleted?: number; error?: string };
+                              Alert.alert('Desafíos completados', data.success ? `${data.challengesCompleted} desafíos marcados como completos y reclamados.` : (data.error ?? 'Error'));
+                            } catch (e) {
+                              Alert.alert('Error', String(e));
+                            }
+                          }}
+                          style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 8, borderRadius: 8, backgroundColor: '#F9731618', borderWidth: 1, borderColor: '#F9731640' }}
+                        >
+                          <Text style={{ fontSize: 12, fontWeight: '700', color: '#F97316' }}>Completar todos</Text>
+                        </Pressable>
+                        <Pressable
+                          onPress={async () => {
+                            if (!user?.id) return;
+                            try {
+                              const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/admin/reset`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ userId: user.id }),
+                              });
+                              const data = await res.json() as { success?: boolean; error?: string };
+                              Alert.alert('Progreso reseteado', data.success ? 'Progreso de desafíos eliminado.' : (data.error ?? 'Error'));
+                            } catch (e) {
+                              Alert.alert('Error', String(e));
+                            }
+                          }}
+                          style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 8, borderRadius: 8, backgroundColor: '#EF444418', borderWidth: 1, borderColor: '#EF444440' }}
+                        >
+                          <Text style={{ fontSize: 12, fontWeight: '700', color: '#EF4444' }}>Resetear</Text>
+                        </Pressable>
+                      </View>
+                      <Text style={{ fontSize: 10, color: colors.textMuted, marginTop: 6, fontStyle: 'italic' }}>
+                        Completar todos → muestra el cofre. Resetear → vuelve a 0.
+                      </Text>
+                    </View>
                   </View>
                 )}
               </>
