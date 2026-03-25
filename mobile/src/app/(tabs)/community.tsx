@@ -368,8 +368,12 @@ function MemberCard({
           </View>
         </View>
 
-        {/* Right: badge + points + trade */}
-        <View style={{ flexShrink: 0, alignItems: 'flex-end', marginLeft: 8, gap: 4 }}>
+        {/* Right: badge + points + trade — wrapped to stop touch propagation to outer Pressable */}
+        <View
+          style={{ flexShrink: 0, alignItems: 'flex-end', marginLeft: 8, gap: 4 }}
+          onStartShouldSetResponder={() => true}
+          onTouchEnd={(e) => e.stopPropagation()}
+        >
           {member.activeBadgeId && (
             <Pressable
               onPress={() => {
