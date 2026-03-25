@@ -436,8 +436,6 @@ function FullCommunityModal({
   currentUserId,
   getSupportState,
   onBadgePress,
-  onGiftPress,
-  onTradePress,
 }: {
   visible: boolean;
   onClose: () => void;
@@ -448,12 +446,26 @@ function FullCommunityModal({
   currentUserId: string | undefined;
   getSupportState: (memberId: string, serverCount: number) => { count: number; supported: boolean };
   onBadgePress: (badgeId: string) => void;
-  onGiftPress: (member: CommunityMember) => void;
-  onTradePress: (member: CommunityMember) => void;
 }) {
   const colors = useThemeColors();
   const insets = useSafeAreaInsets();
   const { sFont } = useScaledFont();
+
+  // Local trade/gift state — modals rendered inside this sheet so iOS can stack them correctly
+  const [localTradeTarget, setLocalTradeTarget] = useState<CommunityMember | null>(null);
+  const [showLocalTradeFlow, setShowLocalTradeFlow] = useState<boolean>(false);
+  const [localGiftTarget, setLocalGiftTarget] = useState<CommunityMember | null>(null);
+  const [showLocalGiftFlow, setShowLocalGiftFlow] = useState<boolean>(false);
+
+  const handleLocalTradePress = useCallback((member: CommunityMember) => {
+    setLocalTradeTarget(member);
+    setShowLocalTradeFlow(true);
+  }, []);
+
+  const handleLocalGiftPress = useCallback((member: CommunityMember) => {
+    setLocalGiftTarget(member);
+    setShowLocalGiftFlow(true);
+  }, []);
 
   const renderItem = useCallback(
     ({ item, index }: { item: CommunityMember; index: number }) => {
@@ -465,12 +477,12 @@ function FullCommunityModal({
           isCurrentUser={item.id === currentUserId}
           index={index}
           onBadgePress={onBadgePress}
-          onGiftPress={onGiftPress}
-          onTradePress={onTradePress}
+          onGiftPress={handleLocalGiftPress}
+          onTradePress={handleLocalTradePress}
         />
       );
     },
-    [currentUserId, getSupportState, onBadgePress, onGiftPress, onTradePress]
+    [currentUserId, getSupportState, onBadgePress, handleLocalGiftPress, handleLocalTradePress]
   );
 
   const keyExtractor = useCallback((item: CommunityMember) => item.id, []);
@@ -545,6 +557,18 @@ function FullCommunityModal({
           />
         )}
       </View>
+
+      {/* Trade and gift modals rendered INSIDE this sheet so iOS stacks them correctly */}
+      <TradeFlowModal
+        visible={showLocalTradeFlow}
+        recipient={localTradeTarget}
+        onClose={() => setShowLocalTradeFlow(false)}
+      />
+      <CommunityGiftFlowModal
+        visible={showLocalGiftFlow}
+        recipient={localGiftTarget}
+        onClose={() => setShowLocalGiftFlow(false)}
+      />
     </Modal>
   );
 }
@@ -1769,8 +1793,6 @@ export default function CommunityScreen() {
         currentUserId={user?.id}
         getSupportState={getSupportState}
         onBadgePress={handleBadgePress}
-        onGiftPress={handleGiftPress}
-        onTradePress={handleTradePress}
       />
 
       {/* Testimony submit modal */}
