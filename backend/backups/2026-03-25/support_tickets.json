@@ -672,8 +672,8 @@
     "claimedStreak": 34,
     "claimedDate": "2026-03-12",
     "clientClaim": "{\"issue\":\"not_received\",\"scheduledHour\":6,\"enabled\":true}",
-    "status": "needs_human",
-    "resolutionNote": "Problema tipo notification reportado. En espera de revisión de moderador.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmml8uiit0000m2vluztbkjwf",
     "rating": null,
     "beforeState": "{\"streakCurrent\":34,\"devotionalsCompleted\":23}",
     "afterState": "{\"streakCurrent\":34,\"devotionalsCompleted\":23}",
@@ -681,6 +681,25 @@
     "snapshotDate": null,
     "snapshotId": null,
     "createdAt": "2026-03-12T21:17:51.782Z",
-    "updatedAt": "2026-03-12T21:18:16.798Z"
+    "updatedAt": "2026-03-15T23:49:25.107Z"
+  },
+  {
+    "id": "cmmyuqun4001dm27fby6uo9sk",
+    "incidentNumber": "LD-20260320-0001",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "type": "streak_missing",
+    "claimedStreak": 1,
+    "claimedDate": "2026-03-20",
+    "clientClaim": "{\"claimedStreak\":1}",
+    "status": "needs_human",
+    "resolutionNote": "Sin snapshot disponible para verificación. Revisión manual requerida.",
+    "rating": null,
+    "beforeState": "{\"streakCurrent\":40,\"devotionalsCompleted\":29}",
+    "afterState": "{\"streakCurrent\":40,\"devotionalsCompleted\":29}",
+    "botPreview": "{\"summary\":\"Racha perdida — requiere revisión manual\",\"userMessageEs\":\"Hola, recibimos tu reporte sobre tu racha. La diferencia detectada es demasiado grande para una corrección automática, por lo que un moderador revisará tu caso pronto. Gracias por reportarlo.\",\"userMessageEn\":\"Hello, we received your streak report. The detected difference is too large for an automatic fix, so a moderator will review your case soon. Thank you for reporting it.\",\"action\":\"needs_human\",\"snapshotComparison\":{\"snapshotDate\":null,\"snapshotId\":null,\"snapshotStreak\":null,\"currentStreak\":40,\"claimedStreak\":1,\"diffDays\":null,\"devotionalTodayCR\":false,\"lastDevotionalDate\":null,\"escalationReason\":\"No snapshot found for this user\"}}",
+    "snapshotDate": null,
+    "snapshotId": null,
+    "createdAt": "2026-03-20T12:05:12.737Z",
+    "updatedAt": "2026-03-20T12:05:12.737Z"
   }
 ]
