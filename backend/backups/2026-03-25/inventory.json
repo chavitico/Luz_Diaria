@@ -1853,5 +1853,12 @@
     "itemId": "badge_caminando_fe",
     "acquiredAt": "2026-03-16T03:19:25.043Z",
     "source": "achievement"
+  },
+  {
+    "id": "cmn5tza7c001gm2qxa708y5mf",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "badge_sembrador_paz",
+    "acquiredAt": "2026-03-25T09:18:09.768Z",
+    "source": "achievement"
   }
 ]
