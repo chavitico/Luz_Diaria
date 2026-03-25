@@ -5,6 +5,7 @@ import { prisma } from "../prisma";
 import { checkAndAwardBadges } from "../seed-badges";
 import { validateNickname, normalizeNickname } from "../lib/nickname-safety";
 import { IS_DEV } from "../env";
+import { generateNextRound } from "../weekly-challenges";
 
 export const gamificationRouter = new Hono();
 
@@ -1319,11 +1320,12 @@ gamificationRouter.get("/challenges/current", async (c) => {
   }
 });
 
-// GET /challenges/progress/:userId - Get user's challenge progress
+// GET /challenges/progress/:userId - Get user's challenge progress (optionally for a specific weekId/round)
 gamificationRouter.get("/challenges/progress/:userId", async (c) => {
   try {
     const userId = c.req.param("userId");
-    const currentWeekId = getCurrentWeekId();
+    const weekIdParam = c.req.query("weekId");
+    const currentWeekId = weekIdParam ?? getCurrentWeekId();
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
@@ -1565,6 +1567,77 @@ gamificationRouter.post(
     }
   }
 );
+
+// GET /challenges/active-round/:userId - Returns challenges for user's current active (incomplete) round
+gamificationRouter.get("/challenges/active-round/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const baseWeekId = getCurrentWeekId();
+
+    // Find all rounds for this week (base + suffixed)
+    const allWeekChallenges = await prisma.weeklyChallenge.findMany({
+      where: { weekId: { startsWith: baseWeekId } },
+      orderBy: [{ weekId: "asc" }, { challengeIndex: "asc" }],
+    });
+
+    // Group by weekId (each weekId = one round)
+    const roundMap = new Map<string, typeof allWeekChallenges>();
+    for (const c of allWeekChallenges) {
+      if (!roundMap.has(c.weekId)) roundMap.set(c.weekId, []);
+      roundMap.get(c.weekId)!.push(c);
+    }
+
+    // Sort rounds: base first, then r2, r3...
+    const sortedRoundIds = [...roundMap.keys()].sort((a, b) => {
+      if (a === baseWeekId) return -1;
+      if (b === baseWeekId) return 1;
+      const na = parseInt(a.match(/-r(\d+)$/)?.[1] ?? "1");
+      const nb = parseInt(b.match(/-r(\d+)$/)?.[1] ?? "1");
+      return na - nb;
+    });
+
+    // Find the first round where the user has NOT yet claimed all visible challenges (first 3)
+    for (const weekId of sortedRoundIds) {
+      const challenges = (roundMap.get(weekId) ?? []).slice(0, 3);
+      if (challenges.length === 0) continue;
+
+      const progressList = await prisma.weeklyProgress.findMany({
+        where: { userId, challengeId: { in: challenges.map(c => c.id) } },
+      });
+
+      const allClaimed = challenges.every(ch =>
+        progressList.find(p => p.challengeId === ch.id)?.claimed === true
+      );
+
+      if (!allClaimed) {
+        const roundMatch = weekId.match(/-r(\d+)$/);
+        const roundNumber = roundMatch?.[1] ? parseInt(roundMatch[1]) : 1;
+        return c.json({ challenges, weekId, roundNumber });
+      }
+    }
+
+    // All existing rounds are fully claimed — return the last round so UI can show "all done"
+    const lastRoundId = sortedRoundIds[sortedRoundIds.length - 1] ?? baseWeekId;
+    const lastChallenges = (roundMap.get(lastRoundId) ?? []).slice(0, 3);
+    const roundMatch = lastRoundId.match(/-r(\d+)$/);
+    const roundNumber = roundMatch?.[1] ? parseInt(roundMatch[1]) : 1;
+    return c.json({ challenges: lastChallenges, weekId: lastRoundId, roundNumber });
+  } catch (error) {
+    console.error("[Gamification] Error getting active round:", error);
+    return c.json({ error: "Failed to get active round" }, 500);
+  }
+});
+
+// POST /challenges/next-round - Generate the next round of challenges (called after chest claim)
+gamificationRouter.post("/challenges/next-round", async (c) => {
+  try {
+    const result = await generateNextRound();
+    return c.json(result);
+  } catch (error) {
+    console.error("[Gamification] Error generating next round:", error);
+    return c.json({ error: "Failed to generate next round" }, 500);
+  }
+});
 
 // POST /challenges/admin/force-complete - Mark all current week challenges as completed+claimed (admin/testing)
 gamificationRouter.post("/challenges/admin/force-complete", async (c) => {

@@ -1727,25 +1727,31 @@ function WeeklyChallengesCard({
     type: string;
   } | null>(null);
 
-  const { data: challenges = [], isLoading: challengesLoading } = useQuery({
-    queryKey: ['weeklyChallenges'],
-    queryFn: () => gamificationApi.getCurrentChallenges(),
-    staleTime: 60 * 1000,
-    retry: 1,
-  });
-
-  const { data: progressData = [], isLoading: progressLoading } = useQuery({
-    queryKey: ['challengeProgress', userId],
-    queryFn: () => gamificationApi.getChallengeProgress(userId),
+  // Use round-aware endpoint: returns the user's current active round of challenges
+  const { data: activeRound, isLoading: challengesLoading } = useQuery({
+    queryKey: ['weeklyChallenges', userId],
+    queryFn: () => gamificationApi.getActiveRoundChallenges(userId),
     enabled: !!userId,
     staleTime: 30 * 1000,
     retry: 1,
   });
 
-  // Only use the first 3 challenges (matching what is rendered in the UI)
+  const challenges = activeRound?.challenges ?? [];
+  const activeWeekId = activeRound?.weekId;
+  const roundNumber = activeRound?.roundNumber ?? 1;
+
+  const { data: progressData = [], isLoading: progressLoading } = useQuery({
+    queryKey: ['challengeProgress', userId, activeWeekId],
+    queryFn: () => gamificationApi.getChallengeProgress(userId, activeWeekId),
+    enabled: !!userId && !!activeWeekId,
+    staleTime: 30 * 1000,
+    retry: 1,
+  });
+
+  // All challenges in the current round are visible (max 3)
   const visibleChallenges = challenges.slice(0, 3);
 
-  // Check if all VISIBLE challenges are complete + claimed
+  // Check if all visible challenges are complete + claimed
   React.useEffect(() => {
     if (visibleChallenges.length > 0 && progressData.length > 0) {
       const allComplete = visibleChallenges.every(c => {
@@ -1753,10 +1759,10 @@ function WeeklyChallengesCard({
         return progress?.completed && progress?.claimed;
       });
       onAllComplete(allComplete);
-    } else if (visibleChallenges.length === 0 && challenges.length === 0) {
-      // No challenges loaded yet — don't change state
+    } else if (!challengesLoading && challenges.length === 0) {
+      // No challenges loaded — don't change state
     }
-  }, [visibleChallenges, progressData, onAllComplete, challenges.length]);
+  }, [visibleChallenges, progressData, onAllComplete, challengesLoading, challenges.length]);
 
   const claimMutation = useMutation({
     mutationFn: ({ challengeId }: { challengeId: string }) =>
@@ -1877,7 +1883,9 @@ function WeeklyChallengesCard({
                   {t.weekly_challenges}
                 </Text>
                 <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.40)', fontWeight: '500', marginTop: 1 }}>
-                  {language === 'es' ? 'Completa y reclama recompensas' : 'Complete and claim rewards'}
+                  {roundNumber > 1
+                    ? (language === 'es' ? `Ronda ${roundNumber} · Nuevas misiones` : `Round ${roundNumber} · New missions`)
+                    : (language === 'es' ? 'Completa y reclama recompensas' : 'Complete and claim rewards')}
                 </Text>
               </View>
             </View>
@@ -3647,7 +3655,7 @@ export default function StoreScreen() {
   }, [selectedDetailItem, equipMutate, markNewItemSeen]);
 
   // Handle weekly chest claim
-  const handleChestClaim = useCallback(() => {
+  const handleChestClaim = useCallback(async () => {
     // Deterministic reward based on week + userId
     const now = new Date();
     const startOfYear = new Date(now.getFullYear(), 0, 1);
@@ -3731,7 +3739,17 @@ export default function StoreScreen() {
 
     setChestReward(rewardInfo);
     setShowChestModal(true);
-  }, [userId, points, purchasedItems, updateUser, chestReward]);
+
+    // Generate next round of challenges after claiming the chest
+    try {
+      await gamificationApi.generateNextRound();
+      queryClient.invalidateQueries({ queryKey: ['weeklyChallenges', userId] });
+      queryClient.invalidateQueries({ queryKey: ['challengeProgress', userId] });
+      setAllChallengesComplete(false);
+    } catch (_e) {
+      // Non-critical — next round will appear on next app open
+    }
+  }, [userId, points, purchasedItems, updateUser, chestReward, queryClient, setAllChallengesComplete]);
 
   // Check item ownership and equipped status
   const getItemStatus = useCallback((itemId: string, type: string, price: number) => {

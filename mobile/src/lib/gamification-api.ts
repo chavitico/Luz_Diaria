@@ -530,8 +530,26 @@ export const gamificationApi = {
     return res.json();
   },
 
-  async getChallengeProgress(userId: string): Promise<WeeklyProgress[]> {
-    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/progress/${userId}`);
+  async getActiveRoundChallenges(userId: string): Promise<{ challenges: WeeklyChallenge[]; weekId: string; roundNumber: number }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/active-round/${userId}`);
+    if (!res.ok) throw new Error('Failed to fetch active round');
+    return res.json();
+  },
+
+  async generateNextRound(): Promise<{ challenges: WeeklyChallenge[]; weekId: string; roundNumber: number }> {
+    const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/challenges/next-round`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!res.ok) throw new Error('Failed to generate next round');
+    return res.json();
+  },
+
+  async getChallengeProgress(userId: string, weekId?: string): Promise<WeeklyProgress[]> {
+    const url = weekId
+      ? `${BACKEND_URL}/api/gamification/challenges/progress/${userId}?weekId=${encodeURIComponent(weekId)}`
+      : `${BACKEND_URL}/api/gamification/challenges/progress/${userId}`;
+    const res = await fetchWithTimeout(url);
     if (!res.ok) throw new Error('Failed to fetch challenge progress');
     return res.json();
   },
