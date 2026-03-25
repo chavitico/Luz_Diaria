@@ -16,6 +16,7 @@ export interface DuelQuestion {
   questionEs: string;
   options: [string, string, string, string]; // exactly 4 options
   correctIndex: 0 | 1 | 2 | 3; // index of the correct answer
+  difficulty?: 'baja' | 'media' | 'alta';
 }
 
 export const DUEL_QUESTIONS: DuelQuestion[] = [
