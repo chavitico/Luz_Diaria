@@ -502,5 +502,41 @@
     "completed": false,
     "claimed": false,
     "updatedAt": "2026-03-25T16:19:44.663Z"
+  },
+  {
+    "id": "cmnekza0s0012m2795kpgthxc",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "challengeId": "cmnejpr7p0000m2763bn7r861",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-31T12:16:08.573Z"
+  },
+  {
+    "id": "cmnekza0t0015m279avfcypd2",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "challengeId": "cmnejpr8a0003m276zed8ovoq",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-31T12:16:08.574Z"
+  },
+  {
+    "id": "cmnekza0s0013m279wyxro3qv",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "challengeId": "cmnejpr7z0001m276ee48anux",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-31T12:16:08.573Z"
+  },
+  {
+    "id": "cmnekza0u0017m279t3hy5bia",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "challengeId": "cmnejpr860002m276hvad0z5f",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-03-31T12:16:08.574Z"
   }
 ]
