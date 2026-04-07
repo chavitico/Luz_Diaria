@@ -175,8 +175,8 @@ export default function StrongOccurrencesScreen() {
             </Text>
             <Text style={[styles.emptyBody, { color: colors.textMuted }]}>
               Esta entrada tiene {entry?.occurrencesCount ?? '—'} apariciones en la Biblia.
-              La integración de alineación palabra↔Strong es progresiva; actualmente cubre
-              Génesis 1, Éxodo 1, Salmos 23, Juan 1, Juan 3 y Romanos 8.
+              La alineación palabra↔Strong está disponible en más de 30 libros y ~6.700 versículos.
+              Este término aún no aparece en los pasajes cubiertos.
             </Text>
           </View>
         )}
@@ -185,7 +185,8 @@ export default function StrongOccurrencesScreen() {
         {appearances.length > 0 && (
           <View style={[styles.footerNote, { borderColor: colors.textMuted + '30' }]}>
             <Text style={[styles.footerText, { color: colors.textMuted }]}>
-              Cobertura actual: Gn 1 · Éx 1 · Sal 23 · Jn 1 · Jn 3 · Ro 8.{'\n'}
+              Cobertura: AT (Gn · Éx · Lv · Nm · Dt · Jos · Sal · Pro · Is · Jr · Ez · Dn) ·
+              NT (Mt · Mr · Lc · Jn · Hch · Ro · 1Co · 2Co · Gá · Ef · Flp · Col · Heb · 1Jn · Ap){'\n'}
               Toca cualquier versículo para abrirlo en el lector bíblico.
             </Text>
           </View>
