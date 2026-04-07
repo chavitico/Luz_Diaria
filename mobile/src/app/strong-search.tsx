@@ -148,14 +148,14 @@ function EmptyHint({ colors, hasQuery }: { colors: ReturnType<typeof useThemeCol
         Léxico Strong
       </Text>
       <Text style={{ fontSize: 13, color: colors.textMuted, marginTop: 8, textAlign: 'center', lineHeight: 20 }}>
-        Busca cualquier palabra del griego o hebreo bíblico por su número Strong, transliteración o significado.
+        Busca por número Strong, transliteración o significado (en inglés).
       </Text>
       <View style={{ marginTop: 24, gap: 8, alignSelf: 'stretch' }}>
         {[
-          { label: 'H430 — Elohim, Dios', color: '#C47F2E' },
-          { label: 'G25 — agapaō, amar', color: '#4A7CBF' },
+          { label: 'H430 · elohiym · Dios', color: '#C47F2E' },
+          { label: 'G25 · agapaō · love', color: '#4A7CBF' },
           { label: 'logos', color: '#4A7CBF' },
-          { label: 'poner', color: '#C47F2E' },
+          { label: 'earth · put · faith', color: '#C47F2E' },
         ].map(({ label, color }) => (
           <Text key={label} style={{
             fontSize: 12, color, textAlign: 'center',
@@ -296,7 +296,7 @@ export default function StrongSearchScreen() {
             ref={inputRef}
             value={query}
             onChangeText={setQuery}
-            placeholder="Buscar por ID, palabra o significado…"
+            placeholder="H430, logos, love, faith…"
             placeholderTextColor={colors.textMuted}
             autoCorrect={false}
             autoCapitalize="none"
