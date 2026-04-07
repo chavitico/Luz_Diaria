@@ -8,7 +8,7 @@
 //   - './service'    for data-access functions
 //   - './repository' if it needs to swap/extend the data source
 //
-// Do NOT import from './mockData' outside this module.
+// Do NOT import from './mockData' or './data/*' outside this module.
 export * from './types';
 export * from './repository';
 export * from './service';

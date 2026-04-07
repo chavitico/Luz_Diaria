@@ -1,0 +1,156 @@
+// Strong's Concordance — JSON Block Repository
+//
+// Loads Strong entries from pre-built JSON block files (see data/ directory).
+// Blocks are ~400 KB each. A block is required and parsed only on first access,
+// then held in an in-memory cache for the lifetime of the app session.
+//
+// Satisfies IStrongRepository. Drop-in replacement for MockStrongRepository.
+
+import type { IStrongRepository } from './repository';
+import type { StrongEntry, VerseWordLink } from './types';
+import type { BlockStrongEntry } from './data/blockTypes';
+import { VERSE_STRONG_LINKS } from './mockData'; // verse links still from mock (Etapa 4+)
+
+// ─── Block registry ───────────────────────────────────────────────────────────
+// Metro requires statically-analyzable require() calls.
+// We wrap each in an arrow function so they're called lazily, not at module load.
+
+const BLOCK_LOADERS: Record<string, () => Record<string, BlockStrongEntry>> = {
+  h_0001_1000: () => require('./data/strong_h_0001_1000.json'),
+  h_1001_2000: () => require('./data/strong_h_1001_2000.json'),
+  h_2001_3000: () => require('./data/strong_h_2001_3000.json'),
+  h_3001_4000: () => require('./data/strong_h_3001_4000.json'),
+  h_4001_5000: () => require('./data/strong_h_4001_5000.json'),
+  h_5001_6000: () => require('./data/strong_h_5001_6000.json'),
+  h_6001_7000: () => require('./data/strong_h_6001_7000.json'),
+  h_7001_8000: () => require('./data/strong_h_7001_8000.json'),
+  h_8001_8674: () => require('./data/strong_h_8001_8674.json'),
+  g_0001_1000: () => require('./data/strong_g_0001_1000.json'),
+  g_1001_2000: () => require('./data/strong_g_1001_2000.json'),
+  g_2001_3001: () => require('./data/strong_g_2001_3001.json'),
+  g_3002_4101: () => require('./data/strong_g_3002_4101.json'),
+  g_4102_5101: () => require('./data/strong_g_4102_5101.json'),
+  g_5102_5624: () => require('./data/strong_g_5102_5624.json'),
+};
+
+// Block ranges — sorted for binary search
+const HEBREW_BLOCKS: [string, number, number][] = [
+  ['h_0001_1000', 1,    1000],
+  ['h_1001_2000', 1001, 2000],
+  ['h_2001_3000', 2001, 3000],
+  ['h_3001_4000', 3001, 4000],
+  ['h_4001_5000', 4001, 5000],
+  ['h_5001_6000', 5001, 6000],
+  ['h_6001_7000', 6001, 7000],
+  ['h_7001_8000', 7001, 8000],
+  ['h_8001_8674', 8001, 8674],
+];
+
+const GREEK_BLOCKS: [string, number, number][] = [
+  ['g_0001_1000', 1,    1000],
+  ['g_1001_2000', 1001, 2000],
+  ['g_2001_3001', 2001, 3001],
+  ['g_3002_4101', 3002, 4101],
+  ['g_4102_5101', 4102, 5101],
+  ['g_5102_5624', 5102, 5624],
+];
+
+// ─── Adapter: BlockStrongEntry → StrongEntry ──────────────────────────────────
+
+function toStrongEntry(b: BlockStrongEntry): StrongEntry {
+  return {
+    id:                b.id,
+    testament:         b.testament,
+    lemmaOriginal:     b.lemmaOriginal,
+    transliteration:   b.transliteration,
+    language:          b.language,
+    grammarCategory:   b.grammarCategory,
+    shortDefinition:   b.shortDefinition,
+    longDefinition:    b.longDefinition,
+    occurrencesCount:  b.occurrencesCount,
+    relatedVerses:     b.relatedVerses,
+    isFavorite:        false, // managed externally by AsyncStorage
+  };
+}
+
+// ─── Repository ───────────────────────────────────────────────────────────────
+
+export class JsonBlockStrongRepository implements IStrongRepository {
+  /** Loaded block data, keyed by blockId */
+  private cache = new Map<string, Record<string, BlockStrongEntry>>();
+
+  // ── Block routing ─────────────────────────────────────────────────────────
+
+  private resolveBlockId(strongId: string): string | null {
+    const isHebrew = strongId.startsWith('H') || strongId.startsWith('h');
+    const isGreek  = strongId.startsWith('G') || strongId.startsWith('g');
+    if (!isHebrew && !isGreek) return null;
+
+    const num = parseInt(strongId.slice(1), 10);
+    if (isNaN(num)) return null;
+
+    const blocks = isHebrew ? HEBREW_BLOCKS : GREEK_BLOCKS;
+    for (const [id, start, end] of blocks) {
+      if (num >= start && num <= end) return id;
+    }
+    return null;
+  }
+
+  private loadBlock(blockId: string): Record<string, BlockStrongEntry> {
+    if (this.cache.has(blockId)) {
+      return this.cache.get(blockId)!;
+    }
+    const loader = BLOCK_LOADERS[blockId];
+    if (!loader) {
+      console.warn('[Strong] no loader for block:', blockId);
+      return {};
+    }
+    const data = loader();
+    this.cache.set(blockId, data);
+    return data;
+  }
+
+  // ── IStrongRepository ────────────────────────────────────────────────────
+
+  getEntryById(strongId: string): StrongEntry | null {
+    const blockId = this.resolveBlockId(strongId);
+    if (!blockId) return null;
+    const block = this.loadBlock(blockId);
+    const raw = block[strongId];
+    return raw ? toStrongEntry(raw) : null;
+  }
+
+  getVerseWordLinks(verseId: string): VerseWordLink[] {
+    // Verse links still come from mock until Etapa 4 integrates alignment data
+    return VERSE_STRONG_LINKS[verseId] ?? [];
+  }
+
+  getRelatedVerses(strongId: string): string[] {
+    const entry = this.getEntryById(strongId);
+    return entry?.relatedVerses ?? [];
+  }
+
+  searchEntries(query: string, limit = 20): StrongEntry[] {
+    if (!query.trim()) return [];
+    const q = query.toLowerCase();
+    const results: StrongEntry[] = [];
+
+    // Search is currently O(n) across loaded blocks.
+    // For a future dedicated search screen, add an inverted-index block or SQLite FTS.
+    for (const blockId of Object.keys(BLOCK_LOADERS)) {
+      const block = this.loadBlock(blockId);
+      for (const raw of Object.values(block)) {
+        if (
+          raw.id.toLowerCase().includes(q) ||
+          raw.transliteration.toLowerCase().includes(q) ||
+          raw.shortDefinition.toLowerCase().includes(q) ||
+          raw.longDefinition.toLowerCase().includes(q)
+        ) {
+          results.push(toStrongEntry(raw));
+          if (results.length >= limit) return results;
+        }
+      }
+    }
+    return results;
+  }
+}

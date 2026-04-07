@@ -2,48 +2,36 @@
 //
 // This layer decouples all Strong data access from the raw data sources.
 // UI and service code must ONLY access Strong data through this interface —
-// never by importing mockData.ts directly.
+// never by importing mockData.ts or block files directly.
 //
 // ─── Architecture overview ────────────────────────────────────────────────────
 //
 //  ┌──────────────────────────────────────────────────────────────────────────┐
 //  │  UI (bible.tsx, StrongSheet.tsx)                                         │
 //  │       ↓ imports only from service.ts                                     │
-//  │  service.ts  ──→  IStrongRepository  ←─── MockStrongRepository  (now)   │
+//  │  service.ts  ──→  IStrongRepository  ←─── JsonBlockStrongRepository (✓) │
 //  │                                      ←─── SQLiteStrongRepository (later) │
-//  │                   mockData.ts  ← MockStrongRepository only               │
+//  │             JsonBlockStrongRepository ──→ data/strong_*.json (15 blocks) │
+//  │             JsonBlockStrongRepository ──→ mockData.ts (verse links only) │
 //  └──────────────────────────────────────────────────────────────────────────┘
 //
-// ─── Scaling strategy (Etapa 3+) ─────────────────────────────────────────────
+// ─── Dataset status ───────────────────────────────────────────────────────────
 //
-//  Option A — Bundled JSON blocks (recommended for offline-first MVP):
-//    Split the full Strong dataset (~8 800 Hebrew + ~5 600 Greek entries) into
-//    language/testament blocks (e.g. strong_ot_h0001-h2000.json). Lazy-load the
-//    relevant block when the user enters a testament. Keep a small LRU cache in
-//    memory (e.g. last 30 entries). Total storage: ~8 MB, zero server cost.
+//  ✅  Strong entries (H1–H8674, G1–G5624): loaded from JSON blocks (real data)
+//  ⏳  Verse word links: still from mockData.ts (needs alignment data in Etapa 4)
+//  ⏳  relatedVerses per entry: empty until alignment data (Etapa 4)
 //
-//    Migration path: implement `JsonBlockStrongRepository` that satisfies
-//    IStrongRepository, swap the singleton assignment below. Zero changes to
-//    service.ts or UI code.
+// ─── To swap the backing store ────────────────────────────────────────────────
 //
-//  Option B — SQLite via expo-sqlite (recommended when user library is large):
-//    Pre-bundle a SQLite DB with the full Strong dataset. Use expo-sqlite
-//    FTS5 for full-text search across definitions. Async API — service.ts
-//    helper functions will need async variants (already prepared via AsyncStorage
-//    pattern used for favorites). Typical DB size: ~12 MB.
-//
-//    Migration path: implement `SQLiteStrongRepository` satisfying
-//    IStrongRepository, swap the singleton. Only service.ts async wrappers
-//    need updating; UI is unaffected.
-//
-//  Decision criteria:
-//    - Offline required + simple lookup → Option A (JSON blocks)
-//    - Full-text search + annotations needed → Option B (SQLite)
+//  1. Implement a class that satisfies IStrongRepository
+//  2. Replace the singleton assignment at the bottom of this file
+//  3. No other files need to change
 //
 // ─────────────────────────────────────────────────────────────────────────────
 
 import type { StrongEntry, VerseWordLink } from './types';
 import { STRONG_ENTRIES, VERSE_STRONG_LINKS } from './mockData';
+import { JsonBlockStrongRepository } from './jsonBlockRepository';
 
 // ─── Interface ────────────────────────────────────────────────────────────────
 
@@ -107,9 +95,10 @@ class MockStrongRepository implements IStrongRepository {
 }
 
 // ─── Singleton ─────────────────────────────────────────────────────────────────
-// To swap in a different backing store (SQLite, JSON blocks, remote API):
-//   1. Implement a class that satisfies IStrongRepository
-//   2. Replace `new MockStrongRepository()` with your new class
-//   3. No other files need to change.
+// Active: JsonBlockStrongRepository — reads from 15 bundled JSON block files.
+// Fallback: MockStrongRepository — kept for testing and development only.
+//
+// To switch back to mock (e.g. during tests):
+//   export const strongRepository: IStrongRepository = new MockStrongRepository();
 
-export const strongRepository: IStrongRepository = new MockStrongRepository();
+export const strongRepository: IStrongRepository = new JsonBlockStrongRepository();
