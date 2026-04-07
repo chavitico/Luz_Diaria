@@ -1,26 +1,25 @@
 // Strong's Concordance — Data Service
-// MVP: resolves StrongEntry and VerseWordLink from mock dataset.
-// TODO: Replace mock lookups with real API/dataset calls.
+// All Strong data access is routed through IStrongRepository (repository.ts).
+// This keeps UI and feature code decoupled from the backing data source.
+// To swap to a real dataset: update the singleton in repository.ts — nothing
+// else needs to change.
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BIBLE_BOOKS } from '@/lib/bible/books';
-import {
-  STRONG_ENTRIES,
-  VERSE_STRONG_LINKS,
-  STRONG_FAVORITES_KEY,
-} from './mockData';
+import { STRONG_FAVORITES_KEY } from './mockData';
+import { strongRepository } from './repository';
 import type { StrongEntry, VerseWordLink, VerseToken } from './types';
 
 // ─── Verse lookup ──────────────────────────────────────────────────────────────
 
 /** Returns all word links for a given verse, or empty array if none. */
 export function getVerseWordLinks(verseId: string): VerseWordLink[] {
-  return VERSE_STRONG_LINKS[verseId] ?? [];
+  return strongRepository.getVerseWordLinks(verseId);
 }
 
 /** Returns the StrongEntry for a given id, or null if not found. */
 export function getStrongEntry(strongId: string): StrongEntry | null {
-  return STRONG_ENTRIES[strongId] ?? null;
+  return strongRepository.getEntryById(strongId);
 }
 
 // ─── Reference parser ─────────────────────────────────────────────────────────
