@@ -43,9 +43,22 @@ import {
   Highlighter,
   BookText,
   ArrowRight,
+  FlaskConical,
 } from 'lucide-react-native';
 
 import { useThemeColors, useLanguage } from '@/lib/store';
+import { StrongSheet } from '@/components/StrongSheet';
+import {
+  getVerseWordLinks,
+  getStrongEntry,
+  tokenizeVerse,
+  enrichTokensWithStrong,
+  loadStrongFavorites,
+  toggleStrongFavorite,
+  saveStrongModeState,
+  loadStrongModeState,
+} from '@/lib/strong/service';
+import type { StrongEntry, VerseToken } from '@/lib/strong/types';
 import { BIBLE_BOOKS, OT_BOOKS, NT_BOOKS } from '@/lib/bible/books';
 import {
   fetchBibleChapter,
@@ -149,12 +162,16 @@ async function removeFromRecentHighlights(key: string): Promise<void> {
 
 function VerseRow({
   number, text, colors, highlightColor, isFlashing, onLongPress,
+  strongMode, verseId, onStrongWordPress,
 }: {
   number: number; text: string;
   colors: ReturnType<typeof useThemeColors>;
   highlightColor: HighlightColor | undefined;
   isFlashing: boolean;
   onLongPress: (v: number) => void;
+  strongMode: boolean;
+  verseId: string;
+  onStrongWordPress: (strongId: string) => void;
 }) {
   const scale = useSharedValue(1);
   const flashBg = useSharedValue(0);
@@ -173,6 +190,18 @@ function VerseRow({
       setTimeout(() => { flashBg.value = withTiming(0, { duration: 1500 }); }, 1200);
     }
   }, [isFlashing]);
+
+  // Compute tokens with Strong links once per render
+  const tokens: VerseToken[] = useMemo(() => {
+    if (!strongMode) return [];
+    const raw = tokenizeVerse(text);
+    const links = getVerseWordLinks(verseId);
+    return enrichTokensWithStrong(raw, links);
+  }, [strongMode, text, verseId]);
+
+  const hasAnyLink = strongMode && tokens.some(t => t.strongId != null);
+
+  const textColor = highlightColor ? '#1C1917' : colors.text;
 
   return (
     <Pressable
@@ -194,6 +223,7 @@ function VerseRow({
           },
         ]}
       >
+        {/* Verse number */}
         <Text
           style={{
             fontSize: 12, fontWeight: '700', marginRight: 12, marginTop: 3,
@@ -203,15 +233,65 @@ function VerseRow({
         >
           {number}
         </Text>
-        <Text
-          style={{
-            flex: 1, fontSize: 17, lineHeight: 28,
-            color: highlightColor ? '#1C1917' : colors.text,
-            fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-          }}
-        >
-          {text}
-        </Text>
+
+        {/* Verse text — plain or Strong-enriched */}
+        {strongMode && hasAnyLink ? (
+          // Strong mode: render each token, linked ones are tappable
+          <Text
+            style={{
+              flex: 1, fontSize: 17, lineHeight: 28,
+              color: textColor,
+              fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+            }}
+          >
+            {tokens.map((token, i) => {
+              if (token.strongId) {
+                return (
+                  <Text key={i}>
+                    <Text
+                      onPress={() => {
+                        Haptics.selectionAsync();
+                        onStrongWordPress(token.strongId!);
+                      }}
+                      style={{
+                        color: textColor,
+                        borderBottomWidth: 1.5,
+                        borderBottomColor: colors.primary + 'AA',
+                        // Subtle underline indicator for linked words
+                        textDecorationLine: 'underline',
+                        textDecorationColor: colors.primary + 'BB',
+                        textDecorationStyle: 'dotted',
+                      }}
+                    >
+                      {token.word}
+                    </Text>
+                    {/* Superscript Strong ID indicator */}
+                    <Text style={{ fontSize: 9, color: colors.primary + 'CC', lineHeight: 10 }}>
+                      {'  '}
+                    </Text>
+                    {token.hasSpace ? ' ' : ''}
+                  </Text>
+                );
+              }
+              return (
+                <Text key={i} style={{ color: textColor }}>
+                  {token.word}{token.hasSpace ? ' ' : ''}
+                </Text>
+              );
+            })}
+          </Text>
+        ) : (
+          // Normal mode or no links: plain text
+          <Text
+            style={{
+              flex: 1, fontSize: 17, lineHeight: 28,
+              color: textColor,
+              fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+            }}
+          >
+            {text}
+          </Text>
+        )}
       </Animated.View>
     </Pressable>
   );
@@ -888,10 +968,35 @@ export default function BibleScreen() {
   const [contentKey, setContentKey] = useState(0);
   const [versionSwitching, setVersionSwitching] = useState(false);
 
+  // ── Strong Mode ─────────────────────────────────────────────────────────────
+  const [strongModeActive, setStrongModeActive] = useState(false);
+  const [strongFavorites, setStrongFavorites] = useState<Set<string>>(new Set());
+  const [strongSheetEntry, setStrongSheetEntry] = useState<StrongEntry | null>(null);
+
+  const handleStrongWordPress = useCallback((strongId: string) => {
+    const entry = getStrongEntry(strongId);
+    if (entry) setStrongSheetEntry(entry);
+  }, []);
+
+  const handleStrongFavoriteToggle = useCallback(async (strongId: string) => {
+    const next = await toggleStrongFavorite(strongId, strongFavorites);
+    setStrongFavorites(next);
+  }, [strongFavorites]);
+
+  const handleToggleStrongMode = useCallback(() => {
+    setStrongModeActive(prev => {
+      const next = !prev;
+      saveStrongModeState(next);
+      return next;
+    });
+  }, []);
+
   useEffect(() => {
     loadHighlights().then(setHighlights);
     loadLastRead().then(setLastRead);
     loadRecentHighlights().then(setRecentHighlights);
+    loadStrongModeState().then(setStrongModeActive);
+    loadStrongFavorites().then(setStrongFavorites);
     validateBibleDataLoad();
     return () => { if (flashTimerRef.current) clearTimeout(flashTimerRef.current); };
   }, []);
@@ -1329,11 +1434,44 @@ export default function BibleScreen() {
                 </View>
 
                 {/* Highlight hint row — sits below version pills, never overlaps */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 5 }}>
-                  <Highlighter size={11} color={colors.textMuted} />
-                  <Text style={{ fontSize: 11, color: colors.textMuted, fontWeight: '500' }}>
-                    {lang === 'es' ? 'Mantén presionado para resaltar' : 'Long-press to highlight'}
-                  </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 5 }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                    <Highlighter size={11} color={colors.textMuted} />
+                    <Text style={{ fontSize: 11, color: colors.textMuted, fontWeight: '500' }}>
+                      {lang === 'es' ? 'Mantén presionado para resaltar' : 'Long-press to highlight'}
+                    </Text>
+                  </View>
+
+                  {/* Strong Mode toggle */}
+                  <Pressable
+                    onPress={handleToggleStrongMode}
+                    hitSlop={8}
+                    style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+                  >
+                    <View style={{
+                      flexDirection: 'row', alignItems: 'center', gap: 5,
+                      paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10,
+                      backgroundColor: strongModeActive ? colors.primary + '18' : colors.textMuted + '14',
+                      borderWidth: 1,
+                      borderColor: strongModeActive ? colors.primary + '40' : colors.textMuted + '25',
+                    }}>
+                      <FlaskConical size={11} color={strongModeActive ? colors.primary : colors.textMuted} strokeWidth={2} />
+                      <Text style={{
+                        fontSize: 11, fontWeight: '700',
+                        color: strongModeActive ? colors.primary : colors.textMuted,
+                      }}>
+                        Strong
+                      </Text>
+                      <View style={{
+                        width: 22, height: 12, borderRadius: 6,
+                        backgroundColor: strongModeActive ? colors.primary : colors.textMuted + '40',
+                        alignItems: strongModeActive ? 'flex-end' : 'flex-start',
+                        justifyContent: 'center', paddingHorizontal: 2,
+                      }}>
+                        <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: '#fff' }} />
+                      </View>
+                    </View>
+                  </Pressable>
                 </View>
               </View>
 
@@ -1355,6 +1493,9 @@ export default function BibleScreen() {
                       }
                       isFlashing={flashVerse === verse.number}
                       onLongPress={handleLongPressVerse}
+                      strongMode={strongModeActive}
+                      verseId={selectedBook && selectedChapter ? `${selectedBook.id}_${selectedChapter}_${verse.number}` : ''}
+                      onStrongWordPress={handleStrongWordPress}
                     />
                   ))}
                 </ScrollView>
