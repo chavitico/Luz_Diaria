@@ -1514,6 +1514,17 @@ export default function BibleScreen() {
         colors={colors}
         lang={lang}
       />
+
+      {/* ── Strong Sheet ─────────────────────────────────────────────── */}
+      <StrongSheet
+        visible={strongSheetEntry != null}
+        entry={strongSheetEntry}
+        isFavorite={strongSheetEntry != null && strongFavorites.has(strongSheetEntry.id)}
+        onToggleFavorite={handleStrongFavoriteToggle}
+        onClose={() => setStrongSheetEntry(null)}
+        colors={colors}
+        lang={lang}
+      />
     </View>
   );
 }
