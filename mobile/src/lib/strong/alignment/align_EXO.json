@@ -1,0 +1,36 @@
+{
+  "EXO_1_1": [
+    { "verseId": "EXO_1_1", "wordIndex": 3,  "displayedWord": "nombres",    "strongId": "H8034" },
+    { "verseId": "EXO_1_1", "wordIndex": 6,  "displayedWord": "hijos",      "strongId": "H1121" }
+  ],
+  "EXO_1_7": [
+    { "verseId": "EXO_1_7", "wordIndex": 2,  "displayedWord": "hijos",      "strongId": "H1121" },
+    { "verseId": "EXO_1_7", "wordIndex": 22, "displayedWord": "tierra.",    "strongId": "H776"  }
+  ],
+  "EXO_1_8": [
+    { "verseId": "EXO_1_8", "wordIndex": 8,  "displayedWord": "rey",        "strongId": "H4428" },
+    { "verseId": "EXO_1_8", "wordIndex": 11, "displayedWord": "conocía",    "strongId": "H3045" }
+  ],
+  "EXO_1_10": [
+    { "verseId": "EXO_1_10", "wordIndex": 2, "displayedWord": "seamos",     "strongId": "H7760" }
+  ],
+  "EXO_1_11": [
+    { "verseId": "EXO_1_11", "wordIndex": 1, "displayedWord": "pusieron",   "strongId": "H7760" }
+  ],
+  "EXO_1_13": [
+    { "verseId": "EXO_1_13", "wordIndex": 4, "displayedWord": "hijos",      "strongId": "H1121" }
+  ],
+  "EXO_1_14": [
+    { "verseId": "EXO_1_14", "wordIndex": 6, "displayedWord": "tierra.",    "strongId": "H127"  }
+  ],
+  "EXO_1_17": [
+    { "verseId": "EXO_1_17", "wordIndex": 4, "displayedWord": "Dios",       "strongId": "H430"  }
+  ],
+  "EXO_1_20": [
+    { "verseId": "EXO_1_20", "wordIndex": 5, "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "EXO_1_20", "wordIndex": 10, "displayedWord": "hijos",     "strongId": "H1121" }
+  ],
+  "EXO_1_21": [
+    { "verseId": "EXO_1_21", "wordIndex": 4, "displayedWord": "Dios,",      "strongId": "H430"  }
+  ]
+}

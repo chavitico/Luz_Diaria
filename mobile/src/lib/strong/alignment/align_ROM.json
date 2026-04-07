@@ -1,0 +1,97 @@
+{
+  "ROM_8_1": [
+    { "verseId": "ROM_8_1", "wordIndex": 10, "displayedWord": "Cristo",     "strongId": "G5547" },
+    { "verseId": "ROM_8_1", "wordIndex": 11, "displayedWord": "Jesús,",     "strongId": "G2424" }
+  ],
+  "ROM_8_2": [
+    { "verseId": "ROM_8_2", "wordIndex": 4,  "displayedWord": "Espíritu",   "strongId": "G4151" },
+    { "verseId": "ROM_8_2", "wordIndex": 6,  "displayedWord": "vida",       "strongId": "G2222" },
+    { "verseId": "ROM_8_2", "wordIndex": 8,  "displayedWord": "Cristo",     "strongId": "G5547" },
+    { "verseId": "ROM_8_2", "wordIndex": 9,  "displayedWord": "Jesús",      "strongId": "G2424" }
+  ],
+  "ROM_8_3": [
+    { "verseId": "ROM_8_3", "wordIndex": 5,  "displayedWord": "Dios,",      "strongId": "G2316" },
+    { "verseId": "ROM_8_3", "wordIndex": 8,  "displayedWord": "Hijo",       "strongId": "G5207" }
+  ],
+  "ROM_8_4": [
+    { "verseId": "ROM_8_4", "wordIndex": 1,  "displayedWord": "ley",        "strongId": "G3551" },
+    { "verseId": "ROM_8_4", "wordIndex": 11, "displayedWord": "Espíritu.",  "strongId": "G4151" }
+  ],
+  "ROM_8_6": [
+    { "verseId": "ROM_8_6", "wordIndex": 6,  "displayedWord": "vida",       "strongId": "G2222" },
+    { "verseId": "ROM_8_6", "wordIndex": 8,  "displayedWord": "paz.",       "strongId": "G1515" }
+  ],
+  "ROM_8_9": [
+    { "verseId": "ROM_8_9", "wordIndex": 3,  "displayedWord": "Espíritu,",  "strongId": "G4151" },
+    { "verseId": "ROM_8_9", "wordIndex": 9,  "displayedWord": "Dios",       "strongId": "G2316" },
+    { "verseId": "ROM_8_9", "wordIndex": 14, "displayedWord": "Espíritu",   "strongId": "G4151" },
+    { "verseId": "ROM_8_9", "wordIndex": 16, "displayedWord": "Cristo.",    "strongId": "G5547" }
+  ],
+  "ROM_8_11": [
+    { "verseId": "ROM_8_11", "wordIndex": 3,  "displayedWord": "Espíritu",  "strongId": "G4151" },
+    { "verseId": "ROM_8_11", "wordIndex": 8,  "displayedWord": "Dios",      "strongId": "G2316" },
+    { "verseId": "ROM_8_11", "wordIndex": 14, "displayedWord": "Cristo",    "strongId": "G5547" }
+  ],
+  "ROM_8_14": [
+    { "verseId": "ROM_8_14", "wordIndex": 3,  "displayedWord": "Espíritu",  "strongId": "G4151" },
+    { "verseId": "ROM_8_14", "wordIndex": 5,  "displayedWord": "Dios,",     "strongId": "G2316" },
+    { "verseId": "ROM_8_14", "wordIndex": 7,  "displayedWord": "hijos",     "strongId": "G5207" },
+    { "verseId": "ROM_8_14", "wordIndex": 9,  "displayedWord": "Dios.",     "strongId": "G2316" }
+  ],
+  "ROM_8_15": [
+    { "verseId": "ROM_8_15", "wordIndex": 7,  "displayedWord": "Espíritu",  "strongId": "G4151" },
+    { "verseId": "ROM_8_15", "wordIndex": 12, "displayedWord": "Padre.",    "strongId": "G3962" }
+  ],
+  "ROM_8_16": [
+    { "verseId": "ROM_8_16", "wordIndex": 1,  "displayedWord": "Espíritu",  "strongId": "G4151" },
+    { "verseId": "ROM_8_16", "wordIndex": 8,  "displayedWord": "hijos",     "strongId": "G5207" },
+    { "verseId": "ROM_8_16", "wordIndex": 10, "displayedWord": "Dios.",     "strongId": "G2316" }
+  ],
+  "ROM_8_17": [
+    { "verseId": "ROM_8_17", "wordIndex": 4,  "displayedWord": "Dios,",     "strongId": "G2316" },
+    { "verseId": "ROM_8_17", "wordIndex": 7,  "displayedWord": "Cristo;",   "strongId": "G5547" }
+  ],
+  "ROM_8_26": [
+    { "verseId": "ROM_8_26", "wordIndex": 1,  "displayedWord": "Espíritu",  "strongId": "G4151" }
+  ],
+  "ROM_8_27": [
+    { "verseId": "ROM_8_27", "wordIndex": 6,  "displayedWord": "Espíritu,", "strongId": "G4151" },
+    { "verseId": "ROM_8_27", "wordIndex": 10, "displayedWord": "Dios.",     "strongId": "G2316" }
+  ],
+  "ROM_8_28": [
+    { "verseId": "ROM_8_28", "wordIndex": 5,  "displayedWord": "aman",      "strongId": "G25"   },
+    { "verseId": "ROM_8_28", "wordIndex": 7,  "displayedWord": "Dios,",     "strongId": "G2316" }
+  ],
+  "ROM_8_29": [
+    { "verseId": "ROM_8_29", "wordIndex": 6,  "displayedWord": "Hijo,",     "strongId": "G5207" }
+  ],
+  "ROM_8_31": [
+    { "verseId": "ROM_8_31", "wordIndex": 6,  "displayedWord": "Dios",      "strongId": "G2316" }
+  ],
+  "ROM_8_32": [
+    { "verseId": "ROM_8_32", "wordIndex": 4,  "displayedWord": "Hijo,",     "strongId": "G5207" },
+    { "verseId": "ROM_8_32", "wordIndex": 8,  "displayedWord": "Dios",      "strongId": "G2316" }
+  ],
+  "ROM_8_33": [
+    { "verseId": "ROM_8_33", "wordIndex": 5,  "displayedWord": "Dios",      "strongId": "G2316" }
+  ],
+  "ROM_8_35": [
+    { "verseId": "ROM_8_35", "wordIndex": 4,  "displayedWord": "amor",      "strongId": "G26"   },
+    { "verseId": "ROM_8_35", "wordIndex": 6,  "displayedWord": "Cristo?",   "strongId": "G5547" }
+  ],
+  "ROM_8_37": [
+    { "verseId": "ROM_8_37", "wordIndex": 15, "displayedWord": "amó.",      "strongId": "G25"   }
+  ],
+  "ROM_8_38": [
+    { "verseId": "ROM_8_38", "wordIndex": 9,  "displayedWord": "muerte,",   "strongId": "G2288" },
+    { "verseId": "ROM_8_38", "wordIndex": 12, "displayedWord": "vida,",     "strongId": "G2222" },
+    { "verseId": "ROM_8_38", "wordIndex": 14, "displayedWord": "ángeles,",  "strongId": "G32"   }
+  ],
+  "ROM_8_39": [
+    { "verseId": "ROM_8_39", "wordIndex": 15, "displayedWord": "amor",      "strongId": "G26"   },
+    { "verseId": "ROM_8_39", "wordIndex": 17, "displayedWord": "Dios,",     "strongId": "G2316" },
+    { "verseId": "ROM_8_39", "wordIndex": 21, "displayedWord": "Cristo",    "strongId": "G5547" },
+    { "verseId": "ROM_8_39", "wordIndex": 22, "displayedWord": "Jesús",     "strongId": "G2424" },
+    { "verseId": "ROM_8_39", "wordIndex": 23, "displayedWord": "Señor",     "strongId": "G2962" }
+  ]
+}

@@ -14,7 +14,7 @@
 import type { IStrongRepository } from './repository';
 import type { StrongEntry, VerseWordLink } from './types';
 import type { BlockStrongEntry } from './data/blockTypes';
-import { VERSE_STRONG_LINKS } from './mockData'; // verse links still from mock (Etapa 4+)
+import { VERSE_STRONG_LINKS } from './mockData'; // fallback for verses not in alignment files
 import {
   normalizeEs,
   SPANISH_GLOSS_INDEX,
@@ -65,6 +65,20 @@ const GREEK_BLOCKS: [string, number, number][] = [
   ['g_5102_5624', 5102, 5624],
 ];
 
+// ─── Alignment registry ───────────────────────────────────────────────────────
+// Maps book prefix → lazy loader for the alignment JSON file.
+// Each file is a VerseStrongMap: Record<verseId, VerseWordLink[]>.
+
+type AlignmentMap = Record<string, VerseWordLink[]>;
+
+const ALIGNMENT_LOADERS: Record<string, () => AlignmentMap> = {
+  GEN: () => require('./alignment/align_GEN.json'),
+  EXO: () => require('./alignment/align_EXO.json'),
+  PSA: () => require('./alignment/align_PSA.json'),
+  JHN: () => require('./alignment/align_JHN.json'),
+  ROM: () => require('./alignment/align_ROM.json'),
+};
+
 // ─── Adapter: BlockStrongEntry → StrongEntry ──────────────────────────────────
 
 function toStrongEntry(b: BlockStrongEntry): StrongEntry {
@@ -88,6 +102,8 @@ function toStrongEntry(b: BlockStrongEntry): StrongEntry {
 export class JsonBlockStrongRepository implements IStrongRepository {
   /** Loaded block data, keyed by blockId */
   private cache = new Map<string, Record<string, BlockStrongEntry>>();
+  /** Loaded alignment data, keyed by book prefix (e.g. "GEN") */
+  private alignmentCache = new Map<string, AlignmentMap>();
 
   // ── Block routing ─────────────────────────────────────────────────────────
 
@@ -131,7 +147,22 @@ export class JsonBlockStrongRepository implements IStrongRepository {
   }
 
   getVerseWordLinks(verseId: string): VerseWordLink[] {
-    // Verse links still come from mock until Etapa 4 integrates alignment data
+    // Extract book prefix: "GEN_1_1" → "GEN"
+    const bookPrefix = verseId.split('_')[0];
+    const loader = ALIGNMENT_LOADERS[bookPrefix];
+
+    if (loader) {
+      // Lazy-load alignment file for this book
+      let alignmentMap = this.alignmentCache.get(bookPrefix);
+      if (!alignmentMap) {
+        alignmentMap = loader();
+        this.alignmentCache.set(bookPrefix, alignmentMap);
+      }
+      const links = alignmentMap[verseId];
+      if (links && links.length > 0) return links;
+    }
+
+    // Fallback: mock data for verses not yet in alignment files
     return VERSE_STRONG_LINKS[verseId] ?? [];
   }
 

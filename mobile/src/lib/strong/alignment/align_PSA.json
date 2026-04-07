@@ -1,0 +1,28 @@
+{
+  "PSA_23_1": [
+    { "verseId": "PSA_23_1", "wordIndex": 0, "displayedWord": "Jehová",      "strongId": "H3068" },
+    { "verseId": "PSA_23_1", "wordIndex": 3, "displayedWord": "pastor;",     "strongId": "H7462" }
+  ],
+  "PSA_23_2": [
+    { "verseId": "PSA_23_2", "wordIndex": 10, "displayedWord": "aguas",      "strongId": "H4325" },
+    { "verseId": "PSA_23_2", "wordIndex": 14, "displayedWord": "pastoreará.", "strongId": "H7462" }
+  ],
+  "PSA_23_3": [
+    { "verseId": "PSA_23_3", "wordIndex": 2,  "displayedWord": "alma;",      "strongId": "H5315" },
+    { "verseId": "PSA_23_3", "wordIndex": 8,  "displayedWord": "justicia",   "strongId": "H6664" },
+    { "verseId": "PSA_23_3", "wordIndex": 10, "displayedWord": "amor",       "strongId": "H157"  },
+    { "verseId": "PSA_23_3", "wordIndex": 13, "displayedWord": "nombre.",    "strongId": "H8034" }
+  ],
+  "PSA_23_4": [
+    { "verseId": "PSA_23_4", "wordIndex": 7,  "displayedWord": "muerte,",    "strongId": "H4194" }
+  ],
+  "PSA_23_6": [
+    { "verseId": "PSA_23_6", "wordIndex": 2,  "displayedWord": "bien",       "strongId": "H2896" },
+    { "verseId": "PSA_23_6", "wordIndex": 5,  "displayedWord": "misericordia", "strongId": "H2617" },
+    { "verseId": "PSA_23_6", "wordIndex": 10, "displayedWord": "días",       "strongId": "H3117" },
+    { "verseId": "PSA_23_6", "wordIndex": 13, "displayedWord": "vida,",      "strongId": "H2416" },
+    { "verseId": "PSA_23_6", "wordIndex": 17, "displayedWord": "casa",       "strongId": "H1004" },
+    { "verseId": "PSA_23_6", "wordIndex": 19, "displayedWord": "Jehová",     "strongId": "H3068" },
+    { "verseId": "PSA_23_6", "wordIndex": 23, "displayedWord": "días.",      "strongId": "H3117" }
+  ]
+}

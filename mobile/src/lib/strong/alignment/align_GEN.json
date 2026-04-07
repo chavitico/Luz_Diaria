@@ -1,0 +1,134 @@
+{
+  "GEN_1_1": [
+    { "verseId": "GEN_1_1", "wordIndex": 2,  "displayedWord": "principio",   "strongId": "H7225" },
+    { "verseId": "GEN_1_1", "wordIndex": 3,  "displayedWord": "creó",        "strongId": "H1254" },
+    { "verseId": "GEN_1_1", "wordIndex": 4,  "displayedWord": "Dios",        "strongId": "H430"  },
+    { "verseId": "GEN_1_1", "wordIndex": 6,  "displayedWord": "cielos",      "strongId": "H8064" },
+    { "verseId": "GEN_1_1", "wordIndex": 9,  "displayedWord": "tierra.",     "strongId": "H776"  }
+  ],
+  "GEN_1_2": [
+    { "verseId": "GEN_1_2", "wordIndex": 2,  "displayedWord": "tierra",      "strongId": "H776"  },
+    { "verseId": "GEN_1_2", "wordIndex": 9,  "displayedWord": "tinieblas",   "strongId": "H2822" },
+    { "verseId": "GEN_1_2", "wordIndex": 18, "displayedWord": "Espíritu",    "strongId": "H7307" },
+    { "verseId": "GEN_1_2", "wordIndex": 20, "displayedWord": "Dios",        "strongId": "H430"  },
+    { "verseId": "GEN_1_2", "wordIndex": 28, "displayedWord": "aguas.",      "strongId": "H4325" }
+  ],
+  "GEN_1_3": [
+    { "verseId": "GEN_1_3", "wordIndex": 2,  "displayedWord": "Dios:",       "strongId": "H430"  },
+    { "verseId": "GEN_1_3", "wordIndex": 5,  "displayedWord": "luz;",        "strongId": "H216"  },
+    { "verseId": "GEN_1_3", "wordIndex": 9,  "displayedWord": "luz.",        "strongId": "H216"  }
+  ],
+  "GEN_1_4": [
+    { "verseId": "GEN_1_4", "wordIndex": 2,  "displayedWord": "Dios",        "strongId": "H430"  },
+    { "verseId": "GEN_1_4", "wordIndex": 5,  "displayedWord": "luz",         "strongId": "H216"  },
+    { "verseId": "GEN_1_4", "wordIndex": 7,  "displayedWord": "buena;",      "strongId": "H2896" },
+    { "verseId": "GEN_1_4", "wordIndex": 10, "displayedWord": "Dios",        "strongId": "H430"  },
+    { "verseId": "GEN_1_4", "wordIndex": 12, "displayedWord": "luz",         "strongId": "H216"  },
+    { "verseId": "GEN_1_4", "wordIndex": 15, "displayedWord": "tinieblas.",  "strongId": "H2822" }
+  ],
+  "GEN_1_5": [
+    { "verseId": "GEN_1_5", "wordIndex": 2,  "displayedWord": "Dios",        "strongId": "H430"  },
+    { "verseId": "GEN_1_5", "wordIndex": 5,  "displayedWord": "luz",         "strongId": "H216"  },
+    { "verseId": "GEN_1_5", "wordIndex": 6,  "displayedWord": "Día,",        "strongId": "H3117" },
+    { "verseId": "GEN_1_5", "wordIndex": 10, "displayedWord": "tinieblas",   "strongId": "H2822" },
+    { "verseId": "GEN_1_5", "wordIndex": 12, "displayedWord": "Noche.",      "strongId": "H3915" },
+    { "verseId": "GEN_1_5", "wordIndex": 21, "displayedWord": "día.",        "strongId": "H3117" }
+  ],
+  "GEN_1_6": [
+    { "verseId": "GEN_1_6", "wordIndex": 2,  "displayedWord": "Dios:",       "strongId": "H430"  },
+    { "verseId": "GEN_1_6", "wordIndex": 9,  "displayedWord": "aguas,",      "strongId": "H4325" },
+    { "verseId": "GEN_1_6", "wordIndex": 13, "displayedWord": "aguas",       "strongId": "H4325" },
+    { "verseId": "GEN_1_6", "wordIndex": 16, "displayedWord": "aguas.",      "strongId": "H4325" }
+  ],
+  "GEN_1_7": [
+    { "verseId": "GEN_1_7", "wordIndex": 2,  "displayedWord": "Dios",        "strongId": "H430"  },
+    { "verseId": "GEN_1_7", "wordIndex": 8,  "displayedWord": "aguas",       "strongId": "H4325" },
+    { "verseId": "GEN_1_7", "wordIndex": 17, "displayedWord": "aguas",       "strongId": "H4325" }
+  ],
+  "GEN_1_8": [
+    { "verseId": "GEN_1_8", "wordIndex": 2,  "displayedWord": "Dios",        "strongId": "H430"  },
+    { "verseId": "GEN_1_8", "wordIndex": 6,  "displayedWord": "Cielos.",     "strongId": "H8064" },
+    { "verseId": "GEN_1_8", "wordIndex": 15, "displayedWord": "día",         "strongId": "H3117" }
+  ],
+  "GEN_1_9": [
+    { "verseId": "GEN_1_9", "wordIndex": 2,  "displayedWord": "Dios:",       "strongId": "H430"  },
+    { "verseId": "GEN_1_9", "wordIndex": 5,  "displayedWord": "aguas",       "strongId": "H4325" },
+    { "verseId": "GEN_1_9", "wordIndex": 11, "displayedWord": "cielos",      "strongId": "H8064" }
+  ],
+  "GEN_1_10": [
+    { "verseId": "GEN_1_10", "wordIndex": 2,  "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_10", "wordIndex": 6,  "displayedWord": "Tierra,",    "strongId": "H776"  },
+    { "verseId": "GEN_1_10", "wordIndex": 13, "displayedWord": "aguas",      "strongId": "H4325" },
+    { "verseId": "GEN_1_10", "wordIndex": 18, "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_10", "wordIndex": 21, "displayedWord": "bueno.",     "strongId": "H2896" }
+  ],
+  "GEN_1_11": [
+    { "verseId": "GEN_1_11", "wordIndex": 1,  "displayedWord": "Dios:",      "strongId": "H430"  },
+    { "verseId": "GEN_1_11", "wordIndex": 5,  "displayedWord": "tierra",     "strongId": "H776"  }
+  ],
+  "GEN_1_12": [
+    { "verseId": "GEN_1_12", "wordIndex": 5,  "displayedWord": "tierra",     "strongId": "H776"  },
+    { "verseId": "GEN_1_12", "wordIndex": 15, "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_12", "wordIndex": 18, "displayedWord": "bueno.",     "strongId": "H2896" }
+  ],
+  "GEN_1_14": [
+    { "verseId": "GEN_1_14", "wordIndex": 1,  "displayedWord": "Dios:",      "strongId": "H430"  },
+    { "verseId": "GEN_1_14", "wordIndex": 10, "displayedWord": "cielos",     "strongId": "H8064" },
+    { "verseId": "GEN_1_14", "wordIndex": 13, "displayedWord": "días",       "strongId": "H3117" }
+  ],
+  "GEN_1_16": [
+    { "verseId": "GEN_1_16", "wordIndex": 2,  "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_16", "wordIndex": 9,  "displayedWord": "luz;",       "strongId": "H216"  },
+    { "verseId": "GEN_1_16", "wordIndex": 15, "displayedWord": "noche.",     "strongId": "H3915" }
+  ],
+  "GEN_1_18": [
+    { "verseId": "GEN_1_18", "wordIndex": 4,  "displayedWord": "luz",        "strongId": "H216"  },
+    { "verseId": "GEN_1_18", "wordIndex": 7,  "displayedWord": "tinieblas,", "strongId": "H2822" },
+    { "verseId": "GEN_1_18", "wordIndex": 10, "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_18", "wordIndex": 13, "displayedWord": "bueno.",     "strongId": "H2896" }
+  ],
+  "GEN_1_20": [
+    { "verseId": "GEN_1_20", "wordIndex": 1,  "displayedWord": "Dios:",      "strongId": "H430"  },
+    { "verseId": "GEN_1_20", "wordIndex": 4,  "displayedWord": "aguas",      "strongId": "H4325" },
+    { "verseId": "GEN_1_20", "wordIndex": 12, "displayedWord": "cielos.",    "strongId": "H8064" }
+  ],
+  "GEN_1_21": [
+    { "verseId": "GEN_1_21", "wordIndex": 1,  "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_21", "wordIndex": 2,  "displayedWord": "creó",       "strongId": "H1254" },
+    { "verseId": "GEN_1_21", "wordIndex": 19, "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_21", "wordIndex": 22, "displayedWord": "bueno.",     "strongId": "H2896" }
+  ],
+  "GEN_1_24": [
+    { "verseId": "GEN_1_24", "wordIndex": 1,  "displayedWord": "Dios:",      "strongId": "H430"  },
+    { "verseId": "GEN_1_24", "wordIndex": 5,  "displayedWord": "tierra",     "strongId": "H776"  }
+  ],
+  "GEN_1_25": [
+    { "verseId": "GEN_1_25", "wordIndex": 1,  "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_25", "wordIndex": 13, "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_25", "wordIndex": 16, "displayedWord": "bueno.",     "strongId": "H2896" }
+  ],
+  "GEN_1_26": [
+    { "verseId": "GEN_1_26", "wordIndex": 1,  "displayedWord": "Dios:",      "strongId": "H430"  },
+    { "verseId": "GEN_1_26", "wordIndex": 5,  "displayedWord": "imagen,",    "strongId": "H6754" },
+    { "verseId": "GEN_1_26", "wordIndex": 13, "displayedWord": "tierra,",    "strongId": "H776"  }
+  ],
+  "GEN_1_27": [
+    { "verseId": "GEN_1_27", "wordIndex": 1,  "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_27", "wordIndex": 3,  "displayedWord": "hombre",     "strongId": "H120"  },
+    { "verseId": "GEN_1_27", "wordIndex": 4,  "displayedWord": "a",          "strongId": "H430"  },
+    { "verseId": "GEN_1_27", "wordIndex": 5,  "displayedWord": "imagen",     "strongId": "H6754" },
+    { "verseId": "GEN_1_27", "wordIndex": 7,  "displayedWord": "Dios;",      "strongId": "H430"  }
+  ],
+  "GEN_1_28": [
+    { "verseId": "GEN_1_28", "wordIndex": 1,  "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_28", "wordIndex": 17, "displayedWord": "tierra",     "strongId": "H776"  }
+  ],
+  "GEN_1_29": [
+    { "verseId": "GEN_1_29", "wordIndex": 1,  "displayedWord": "Dios:",      "strongId": "H430"  },
+    { "verseId": "GEN_1_29", "wordIndex": 9,  "displayedWord": "tierra,",    "strongId": "H776"  }
+  ],
+  "GEN_1_31": [
+    { "verseId": "GEN_1_31", "wordIndex": 1,  "displayedWord": "Dios",       "strongId": "H430"  },
+    { "verseId": "GEN_1_31", "wordIndex": 6,  "displayedWord": "día",        "strongId": "H3117" }
+  ]
+}
