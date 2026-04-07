@@ -8,12 +8,12 @@
     "titleId": "title_god_is_love",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 36697,
-    "streakCurrent": 39,
-    "streakBest": 39,
-    "devotionalsCompleted": 28,
-    "totalTimeSeconds": 183532,
-    "lastActiveAt": "2026-03-17T18:00:00.000Z",
+    "points": 37345,
+    "streakCurrent": 42,
+    "streakBest": 42,
+    "devotionalsCompleted": 40,
+    "totalTimeSeconds": 207502,
+    "lastActiveAt": "2026-03-25T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-03-17T23:54:22.314Z"
+    "updatedAt": "2026-04-07T00:18:22.633Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -58,12 +58,12 @@
     "titleId": "title_walk_by_faith",
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 161,
+    "points": 169,
     "streakCurrent": 1,
     "streakBest": 11,
-    "devotionalsCompleted": 16,
-    "totalTimeSeconds": 7369,
-    "lastActiveAt": "2026-03-15T18:00:00.000Z",
+    "devotionalsCompleted": 17,
+    "totalTimeSeconds": 7607,
+    "lastActiveAt": "2026-03-18T05:33:57.463Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -72,7 +72,7 @@
     "activeBadgeId": "badge_portador_esperanza",
     "deviceId": null,
     "createdAt": "2026-03-11T15:32:38.767Z",
-    "updatedAt": "2026-03-16T05:46:38.294Z"
+    "updatedAt": "2026-03-18T05:33:57.546Z"
   },
   {
     "id": "cmmo5fltc001um2atni8c6y21",
