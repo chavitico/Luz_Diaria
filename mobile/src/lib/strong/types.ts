@@ -60,6 +60,8 @@ export interface VerseAppearance {
   verse: number;
   /** The Spanish word in the verse that carries this Strong tag */
   displayedWord: string;
+  /** 0-based index of the word within the verse token array */
+  wordIndex: number;
 }
 
 /** A word token within a verse, enriched with Strong link data */

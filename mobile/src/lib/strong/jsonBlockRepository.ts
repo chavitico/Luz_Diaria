@@ -302,7 +302,7 @@ export class JsonBlockStrongRepository implements IStrongRepository {
         const verse = parseInt(parts[2], 10);
         for (const link of links) {
           const list = index.get(link.strongId) ?? [];
-          list.push({ verseId, bookId, chapter, verse, displayedWord: link.displayedWord });
+          list.push({ verseId, bookId, chapter, verse, displayedWord: link.displayedWord, wordIndex: link.wordIndex });
           index.set(link.strongId, list);
         }
       }
