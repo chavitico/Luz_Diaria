@@ -248,12 +248,9 @@ function VerseRow({
                   <Pressable
                     key={i}
                     onPress={() => {
-                      console.log('[Strong] word tapped:', token.word, '→ strongId:', sid);
-                      const entry = getStrongEntry(sid);
-                      console.log('[Strong] lookup result:', entry ? entry.id : 'NOT FOUND');
+                      console.log('[Strong] tapped:', token.word, '→', sid);
                       Haptics.selectionAsync();
                       onStrongWordPress(sid);
-                      console.log('[Strong] onStrongWordPress called');
                     }}
                     hitSlop={4}
                     style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
@@ -984,14 +981,12 @@ export default function BibleScreen() {
   const [strongSheetEntry, setStrongSheetEntry] = useState<StrongEntry | null>(null);
 
   const handleStrongWordPress = useCallback((strongId: string) => {
-    console.log('[Strong] handleStrongWordPress called with:', strongId);
     const entry = getStrongEntry(strongId);
-    console.log('[Strong] entry found:', entry?.id ?? 'null');
     if (entry) {
+      console.log('[Strong] opening sheet for:', strongId);
       setStrongSheetEntry(entry);
-      console.log('[Strong] sheet should open now');
     } else {
-      console.log('[Strong] no entry found for', strongId, '— sheet not opened');
+      console.warn('[Strong] no entry found for strongId:', strongId);
     }
   }, []);
 

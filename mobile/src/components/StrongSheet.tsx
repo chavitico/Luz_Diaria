@@ -9,8 +9,13 @@ import {
   Pressable,
   ScrollView,
   Platform,
-  Animated as RNAnimated,
 } from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
 import {
   X,
   Star,
@@ -46,7 +51,10 @@ function SectionLabel({ icon, text, color }: {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
       {icon}
-      <Text style={{ fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1.1, color }}>
+      <Text style={{
+        fontSize: 11, fontWeight: '700', textTransform: 'uppercase',
+        letterSpacing: 1.1, color,
+      }}>
         {text}
       </Text>
     </View>
@@ -58,44 +66,52 @@ function SectionLabel({ icon, text, color }: {
 export function StrongSheet({
   visible, entry, isFavorite, onToggleFavorite, onClose, onNavigateToVerse, colors, lang,
 }: StrongSheetProps) {
-  const slideAnim = useRef(new RNAnimated.Value(500)).current;
+  // ── Animation (Reanimated v3) ──────────────────────────────────────────────
+  const translateY = useSharedValue(600);
 
   useEffect(() => {
-    console.log('[StrongSheet] visible:', visible, '| entry:', entry?.id ?? 'null');
     if (visible) {
-      RNAnimated.spring(slideAnim, {
-        toValue: 0, useNativeDriver: true, tension: 65, friction: 11,
-      }).start();
+      translateY.value = withSpring(0, { damping: 18, stiffness: 200, mass: 0.8 });
     } else {
-      RNAnimated.timing(slideAnim, {
-        toValue: 500, duration: 220, useNativeDriver: true,
-      }).start();
+      translateY.value = withTiming(600, { duration: 260 });
     }
-  }, [visible, slideAnim]);
+  }, [visible]);
 
-  // Persist the last non-null entry so content stays during close animation
+  const sheetStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+  }));
+
+  // ── Preserve entry during close animation ─────────────────────────────────
+  // lastEntryRef holds the last non-null entry so content stays visible
+  // while the sheet slides out.
   const lastEntryRef = useRef<StrongEntry | null>(null);
   if (entry !== null) lastEntryRef.current = entry;
   const e = lastEntryRef.current;
 
+  // ── Favorite — uses current entry from ref, not stale closure ─────────────
+  const entryRef = useRef<StrongEntry | null>(null);
+  entryRef.current = e;
   const handleFavorite = useCallback(() => {
-    if (e) onToggleFavorite(e.id);
-  }, [e, onToggleFavorite]);
+    if (entryRef.current) onToggleFavorite(entryRef.current.id);
+  }, [onToggleFavorite]);
 
+  // ── i18n ──────────────────────────────────────────────────────────────────
   const isHebrew = e?.language === 'Hebrew';
   const accentColor = isHebrew ? '#7C3AED' : '#0369A1';
 
-  const i18n = {
-    language:       lang === 'es' ? 'Idioma'              : 'Language',
-    grammar:        lang === 'es' ? 'Categoría gram.'     : 'Grammar',
-    longDef:        lang === 'es' ? 'Definición ampliada' : 'Full definition',
-    occurrences:    lang === 'es' ? 'Apariciones'         : 'Occurrences',
-    relatedVerses:  lang === 'es' ? 'Versículos relacionados' : 'Related verses',
-    favorite:       lang === 'es' ? 'Guardar en favoritos'    : 'Save to favorites',
-    unfavorite:     lang === 'es' ? 'Quitar de favoritos'     : 'Remove from favorites',
+  const t = {
+    language:       lang === 'es' ? 'Idioma'                   : 'Language',
+    grammar:        lang === 'es' ? 'Categoría gram.'           : 'Grammar',
+    longDef:        lang === 'es' ? 'Definición ampliada'       : 'Full definition',
+    occurrences:    lang === 'es' ? 'Apariciones'               : 'Occurrences',
+    relatedVerses:  lang === 'es' ? 'Versículos relacionados'   : 'Related verses',
+    favorite:       lang === 'es' ? 'Guardar en favoritos'      : 'Save to favorites',
+    unfavorite:     lang === 'es' ? 'Quitar de favoritos'       : 'Remove from favorites',
     allAppearances: lang === 'es' ? 'Ver todas las apariciones' : 'See all occurrences',
-    timesLabel:     lang === 'es' ? 'veces en la Biblia'  : 'times in the Bible',
-    comingSoon:     lang === 'es' ? 'Próximamente'        : 'Coming soon',
+    timesLabel:     lang === 'es' ? 'veces en la Biblia'        : 'times in the Bible',
+    comingSoon:     lang === 'es' ? 'Próximamente'              : 'Coming soon',
+    hebreo:         lang === 'es' ? 'Hebreo'                   : 'Hebrew',
+    griego:         lang === 'es' ? 'Griego'                   : 'Greek',
   };
 
   return (
@@ -106,20 +122,25 @@ export function StrongSheet({
       onRequestClose={onClose}
       statusBarTranslucent
     >
+      {/* Backdrop — tap closes sheet */}
       <Pressable
         style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'flex-end' }}
         onPress={onClose}
       >
+        {/* Stop touches inside the sheet from closing it */}
         <Pressable onPress={() => {}}>
-          <RNAnimated.View
-            style={{
-              transform: [{ translateY: slideAnim }],
-              backgroundColor: colors.surface,
-              borderTopLeftRadius: 28,
-              borderTopRightRadius: 28,
-              maxHeight: '85%',
-              paddingBottom: Platform.OS === 'ios' ? 36 : 24,
-            }}
+          <Animated.View
+            style={[
+              sheetStyle,
+              {
+                backgroundColor: colors.surface,
+                borderTopLeftRadius: 28,
+                borderTopRightRadius: 28,
+                maxHeight: '88%',
+                overflow: 'hidden',
+                paddingBottom: Platform.OS === 'ios' ? 36 : 24,
+              },
+            ]}
           >
             {/* Drag handle */}
             <View style={{
@@ -128,12 +149,12 @@ export function StrongSheet({
               alignSelf: 'center', marginTop: 10, marginBottom: 4,
             }} />
 
-            {/* Close button */}
+            {/* Close button — absolute so it stays above content */}
             <Pressable
               onPress={onClose}
               hitSlop={12}
               style={({ pressed }) => ({
-                position: 'absolute', top: 14, right: 16,
+                position: 'absolute', top: 14, right: 16, zIndex: 10,
                 opacity: pressed ? 0.6 : 1,
                 width: 30, height: 30, borderRadius: 15,
                 backgroundColor: colors.textMuted + '22',
@@ -143,17 +164,19 @@ export function StrongSheet({
               <X size={15} color={colors.textMuted} />
             </Pressable>
 
-            {/* Guard: nothing to render yet */}
+            {/* Guard: show placeholder height until entry is available */}
             {!e ? (
               <View style={{ height: 80 }} />
             ) : (
               <>
                 {/* ── Header ─────────────────────────────────────────────── */}
                 <View style={{ paddingHorizontal: 22, paddingTop: 10, paddingBottom: 18 }}>
+                  {/* Strong ID + language chip */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
                     <View style={{
                       paddingHorizontal: 10, paddingVertical: 4,
-                      borderRadius: 8, backgroundColor: accentColor + '18',
+                      borderRadius: 8,
+                      backgroundColor: accentColor + '18',
                       borderWidth: 1, borderColor: accentColor + '35',
                     }}>
                       <Text style={{ fontSize: 13, fontWeight: '800', color: accentColor, letterSpacing: 0.5 }}>
@@ -164,52 +187,75 @@ export function StrongSheet({
                       paddingHorizontal: 8, paddingVertical: 3,
                       borderRadius: 6, backgroundColor: colors.textMuted + '18',
                     }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.8 }}>
-                        {isHebrew ? 'Hebreo' : 'Griego'}
+                      <Text style={{
+                        fontSize: 10, fontWeight: '700', color: colors.textMuted,
+                        textTransform: 'uppercase', letterSpacing: 0.8,
+                      }}>
+                        {isHebrew ? t.hebreo : t.griego}
                       </Text>
                     </View>
                   </View>
 
+                  {/* Original word */}
                   <Text style={{
-                    fontSize: 32, fontWeight: '800', color: colors.text,
+                    fontSize: 34, fontWeight: '800', color: colors.text,
                     fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
                     marginBottom: 4,
-                    writingDirection: isHebrew ? 'rtl' : 'ltr',
+                    textAlign: isHebrew ? 'right' : 'left',
                   }}>
                     {e.lemmaOriginal}
                   </Text>
-                  <Text style={{ fontSize: 17, color: accentColor, fontWeight: '600', fontStyle: 'italic', marginBottom: 2 }}>
+                  <Text style={{
+                    fontSize: 17, color: accentColor, fontWeight: '600',
+                    fontStyle: 'italic', marginBottom: 4,
+                  }}>
                     {e.transliteration}
                   </Text>
-                  <Text style={{ fontSize: 14, color: colors.textMuted, fontWeight: '500' }}>
+                  <Text style={{ fontSize: 14, color: colors.textMuted, fontWeight: '500', lineHeight: 20 }}>
                     {e.shortDefinition}
                   </Text>
                 </View>
 
-                <View style={{ height: 0.5, backgroundColor: colors.textMuted + '22', marginHorizontal: 20, marginBottom: 18 }} />
+                {/* Divider */}
+                <View style={{
+                  height: 0.5,
+                  backgroundColor: colors.textMuted + '22',
+                  marginHorizontal: 20, marginBottom: 18,
+                }} />
 
-                {/* ── Body ───────────────────────────────────────────────── */}
+                {/* ── Scrollable body ─────────────────────────────────────── */}
                 <ScrollView
                   showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{ paddingHorizontal: 22, paddingBottom: 12 }}
+                  contentContainerStyle={{ paddingHorizontal: 22, paddingBottom: 16 }}
+                  keyboardShouldPersistTaps="handled"
                 >
-                  {/* Language + Grammar */}
+                  {/* Language + Grammar row */}
                   <View style={{ flexDirection: 'row', gap: 12, marginBottom: 20 }}>
                     <View style={{
                       flex: 1, backgroundColor: colors.background,
                       borderRadius: 12, padding: 12,
                       borderWidth: 1, borderColor: colors.textMuted + '20',
                     }}>
-                      <SectionLabel icon={<Globe size={11} color={colors.textMuted} />} text={i18n.language} color={colors.textMuted} />
-                      <Text style={{ fontSize: 14, fontWeight: '600', color: colors.text }}>{e.language}</Text>
+                      <SectionLabel
+                        icon={<Globe size={11} color={colors.textMuted} />}
+                        text={t.language} color={colors.textMuted}
+                      />
+                      <Text style={{ fontSize: 14, fontWeight: '600', color: colors.text }}>
+                        {e.language}
+                      </Text>
                     </View>
                     <View style={{
                       flex: 1, backgroundColor: colors.background,
                       borderRadius: 12, padding: 12,
                       borderWidth: 1, borderColor: colors.textMuted + '20',
                     }}>
-                      <SectionLabel icon={<Tag size={11} color={colors.textMuted} />} text={i18n.grammar} color={colors.textMuted} />
-                      <Text style={{ fontSize: 13, fontWeight: '600', color: colors.text }} numberOfLines={2}>{e.grammarCategory}</Text>
+                      <SectionLabel
+                        icon={<Tag size={11} color={colors.textMuted} />}
+                        text={t.grammar} color={colors.textMuted}
+                      />
+                      <Text style={{ fontSize: 13, fontWeight: '600', color: colors.text }} numberOfLines={2}>
+                        {e.grammarCategory}
+                      </Text>
                     </View>
                   </View>
 
@@ -221,25 +267,31 @@ export function StrongSheet({
                     borderWidth: 1, borderColor: accentColor + '25',
                   }}>
                     <View style={{
-                      width: 36, height: 36, borderRadius: 10,
+                      width: 40, height: 40, borderRadius: 10,
                       backgroundColor: accentColor + '20',
                       alignItems: 'center', justifyContent: 'center',
                     }}>
-                      <Text style={{ fontSize: 16, fontWeight: '800', color: accentColor }}>
+                      <Text style={{ fontSize: 15, fontWeight: '800', color: accentColor }}>
                         {e.occurrencesCount > 999 ? '999+' : e.occurrencesCount}
                       </Text>
                     </View>
-                    <View>
-                      <SectionLabel icon={<List size={10} color={accentColor + 'AA'} />} text={i18n.occurrences} color={accentColor + 'AA'} />
+                    <View style={{ flex: 1 }}>
+                      <SectionLabel
+                        icon={<List size={10} color={accentColor + 'BB'} />}
+                        text={t.occurrences} color={accentColor + 'BB'}
+                      />
                       <Text style={{ fontSize: 13, fontWeight: '500', color: accentColor, marginTop: -2 }}>
-                        {e.occurrencesCount.toLocaleString()} {i18n.timesLabel}
+                        {e.occurrencesCount.toLocaleString()} {t.timesLabel}
                       </Text>
                     </View>
                   </View>
 
                   {/* Long definition */}
                   <View style={{ marginBottom: 20 }}>
-                    <SectionLabel icon={<AlignLeft size={11} color={colors.textMuted} />} text={i18n.longDef} color={colors.textMuted} />
+                    <SectionLabel
+                      icon={<AlignLeft size={11} color={colors.textMuted} />}
+                      text={t.longDef} color={colors.textMuted}
+                    />
                     <Text style={{
                       fontSize: 15, lineHeight: 24, color: colors.text,
                       fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
@@ -251,44 +303,48 @@ export function StrongSheet({
                   {/* Related verses */}
                   {e.relatedVerses.length > 0 && (
                     <View style={{ marginBottom: 24 }}>
-                      <SectionLabel icon={<BookOpen size={11} color={colors.textMuted} />} text={i18n.relatedVerses} color={colors.textMuted} />
+                      <SectionLabel
+                        icon={<BookOpen size={11} color={colors.textMuted} />}
+                        text={t.relatedVerses} color={colors.textMuted}
+                      />
                       <View style={{
-                        backgroundColor: colors.background, borderRadius: 12, overflow: 'hidden',
+                        backgroundColor: colors.background,
+                        borderRadius: 12, overflow: 'hidden',
                         borderWidth: 1, borderColor: colors.textMuted + '20',
                       }}>
                         {e.relatedVerses.map((ref, idx) => (
-                        <Pressable
-                          key={ref}
-                          onPress={() => {
-                            console.log('[Strong] related verse tapped:', ref);
-                            const parsed = parseVerseReference(ref);
-                            console.log('[Strong] parsed ref:', parsed);
-                            if (parsed) {
-                              console.log('[Strong] navigating →', parsed.bookId, parsed.chapter, parsed.verse);
-                              onNavigateToVerse(parsed.bookId, parsed.chapter, parsed.verse);
-                            }
-                          }}
-                          style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
-                        >
-                          <View
-                            style={{
+                          <Pressable
+                            key={ref}
+                            onPress={() => {
+                              console.log('[Strong] related verse tapped:', ref);
+                              const parsed = parseVerseReference(ref);
+                              if (parsed) {
+                                console.log('[Strong] navigating to related verse →', parsed.bookId, parsed.chapter, parsed.verse);
+                                onNavigateToVerse(parsed.bookId, parsed.chapter, parsed.verse);
+                              }
+                            }}
+                            style={({ pressed }) => ({ opacity: pressed ? 0.55 : 1 })}
+                          >
+                            <View style={{
                               flexDirection: 'row', alignItems: 'center',
-                              paddingHorizontal: 14, paddingVertical: 11,
+                              paddingHorizontal: 14, paddingVertical: 12,
                               borderBottomWidth: idx < e.relatedVerses.length - 1 ? 0.5 : 0,
                               borderBottomColor: colors.textMuted + '20',
-                            }}
-                          >
-                            <Text style={{ flex: 1, fontSize: 14, fontWeight: '600', color: accentColor }}>{ref}</Text>
-                            <ChevronRight size={13} color={colors.textMuted} />
-                          </View>
-                        </Pressable>
-                      ))}
+                            }}>
+                              <Text style={{ flex: 1, fontSize: 14, fontWeight: '600', color: accentColor }}>
+                                {ref}
+                              </Text>
+                              <ChevronRight size={14} color={accentColor + '80'} />
+                            </View>
+                          </Pressable>
+                        ))}
                       </View>
                     </View>
                   )}
 
                   {/* Action buttons */}
                   <View style={{ gap: 10 }}>
+                    {/* Favorite toggle */}
                     <Pressable
                       onPress={handleFavorite}
                       style={({ pressed }) => ({
@@ -298,30 +354,43 @@ export function StrongSheet({
                         backgroundColor: isFavorite ? accentColor : colors.textMuted + '18',
                       })}
                     >
-                      <Star size={16} color={isFavorite ? '#fff' : colors.textMuted} fill={isFavorite ? '#fff' : 'transparent'} strokeWidth={2} />
+                      <Star
+                        size={16}
+                        color={isFavorite ? '#fff' : colors.textMuted}
+                        fill={isFavorite ? '#fff' : 'transparent'}
+                        strokeWidth={2}
+                      />
                       <Text style={{ fontSize: 14, fontWeight: '700', color: isFavorite ? '#fff' : colors.textMuted }}>
-                        {isFavorite ? i18n.unfavorite : i18n.favorite}
+                        {isFavorite ? t.unfavorite : t.favorite}
                       </Text>
                     </Pressable>
 
-                    {/* TODO: Enable when "all appearances" feature is built */}
+                    {/* See all occurrences — placeholder until feature is built */}
+                    {/* TODO: wire this to a full occurrences browser screen */}
                     <View style={{
                       flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
                       gap: 8, paddingVertical: 14, borderRadius: 14,
                       backgroundColor: colors.textMuted + '10',
                       borderWidth: 1, borderColor: colors.textMuted + '20',
                     }}>
-                      <BookOpen size={15} color={colors.textMuted + '80'} />
-                      <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted + '80' }}>{i18n.allAppearances}</Text>
-                      <View style={{ backgroundColor: colors.primary + '20', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                        <Text style={{ fontSize: 9, fontWeight: '800', color: colors.primary, letterSpacing: 0.4 }}>{i18n.comingSoon}</Text>
+                      <BookOpen size={15} color={colors.textMuted + '70'} />
+                      <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted + '70' }}>
+                        {t.allAppearances}
+                      </Text>
+                      <View style={{
+                        backgroundColor: colors.primary + '20',
+                        borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1,
+                      }}>
+                        <Text style={{ fontSize: 9, fontWeight: '800', color: colors.primary, letterSpacing: 0.4 }}>
+                          {t.comingSoon}
+                        </Text>
                       </View>
                     </View>
                   </View>
                 </ScrollView>
               </>
             )}
-          </RNAnimated.View>
+          </Animated.View>
         </Pressable>
       </Pressable>
     </Modal>
