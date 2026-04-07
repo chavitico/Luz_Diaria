@@ -130,14 +130,29 @@ export class JsonBlockStrongRepository implements IStrongRepository {
     return entry?.relatedVerses ?? [];
   }
 
-  searchEntries(query: string, limit = 20): StrongEntry[] {
+  searchEntries(query: string, options?: { limit?: number; language?: 'Hebrew' | 'Greek' }): StrongEntry[] {
     if (!query.trim()) return [];
+    const limit = options?.limit ?? 50;
+    const lang = options?.language;
+
+    // Fast path: exact ID lookup (e.g. "H430", "g25")
+    const normalized = query.trim().toUpperCase();
+    if (/^[HG]\d+$/.test(normalized)) {
+      const entry = this.getEntryById(normalized);
+      return entry ? [entry] : [];
+    }
+
     const q = query.toLowerCase();
     const results: StrongEntry[] = [];
 
-    // Search is currently O(n) across loaded blocks.
-    // For a future dedicated search screen, add an inverted-index block or SQLite FTS.
-    for (const blockId of Object.keys(BLOCK_LOADERS)) {
+    // Filter block list by language to skip irrelevant blocks
+    const blockIds = lang === 'Hebrew'
+      ? Object.keys(BLOCK_LOADERS).filter(id => id.startsWith('h_'))
+      : lang === 'Greek'
+      ? Object.keys(BLOCK_LOADERS).filter(id => id.startsWith('g_'))
+      : Object.keys(BLOCK_LOADERS);
+
+    for (const blockId of blockIds) {
       const block = this.loadBlock(blockId);
       for (const raw of Object.values(block)) {
         if (

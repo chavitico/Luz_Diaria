@@ -47,6 +47,7 @@ import {
 } from 'lucide-react-native';
 
 import { useThemeColors, useLanguage } from '@/lib/store';
+import { useRouter } from 'expo-router';
 import { StrongSheet } from '@/components/StrongSheet';
 import {
   getVerseWordLinks,
@@ -939,6 +940,7 @@ export default function BibleScreen() {
   const colors = useThemeColors();
   const language = useLanguage();
   const lang = (language as 'en' | 'es') || 'es';
+  const router = useRouter();
 
   // Navigation state
   const [view, setView] = useState<BibleNavView>('home');
@@ -1465,36 +1467,47 @@ export default function BibleScreen() {
                     </Text>
                   </View>
 
-                  {/* Strong Mode toggle */}
-                  <Pressable
-                    onPress={handleToggleStrongMode}
-                    hitSlop={8}
-                    style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-                  >
-                    <View style={{
-                      flexDirection: 'row', alignItems: 'center', gap: 5,
-                      paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10,
-                      backgroundColor: strongModeActive ? colors.primary + '18' : colors.textMuted + '14',
-                      borderWidth: 1,
-                      borderColor: strongModeActive ? colors.primary + '40' : colors.textMuted + '25',
-                    }}>
-                      <FlaskConical size={11} color={strongModeActive ? colors.primary : colors.textMuted} strokeWidth={2} />
-                      <Text style={{
-                        fontSize: 11, fontWeight: '700',
-                        color: strongModeActive ? colors.primary : colors.textMuted,
-                      }}>
-                        Strong
-                      </Text>
+                  {/* Strong Mode toggle + search */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                    {/* Search icon — opens full Strong lexicon */}
+                    <Pressable
+                      onPress={() => router.push('/strong-search' as any)}
+                      hitSlop={8}
+                      style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1, padding: 4 })}
+                    >
+                      <Search size={13} color={colors.primary} strokeWidth={2.5} />
+                    </Pressable>
+                    {/* Strong Mode on/off toggle chip */}
+                    <Pressable
+                      onPress={handleToggleStrongMode}
+                      hitSlop={8}
+                      style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+                    >
                       <View style={{
-                        width: 22, height: 12, borderRadius: 6,
-                        backgroundColor: strongModeActive ? colors.primary : colors.textMuted + '40',
-                        alignItems: strongModeActive ? 'flex-end' : 'flex-start',
-                        justifyContent: 'center', paddingHorizontal: 2,
+                        flexDirection: 'row', alignItems: 'center', gap: 5,
+                        paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10,
+                        backgroundColor: strongModeActive ? colors.primary + '18' : colors.textMuted + '14',
+                        borderWidth: 1,
+                        borderColor: strongModeActive ? colors.primary + '40' : colors.textMuted + '25',
                       }}>
-                        <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: '#fff' }} />
+                        <FlaskConical size={11} color={strongModeActive ? colors.primary : colors.textMuted} strokeWidth={2} />
+                        <Text style={{
+                          fontSize: 11, fontWeight: '700',
+                          color: strongModeActive ? colors.primary : colors.textMuted,
+                        }}>
+                          Strong
+                        </Text>
+                        <View style={{
+                          width: 22, height: 12, borderRadius: 6,
+                          backgroundColor: strongModeActive ? colors.primary : colors.textMuted + '40',
+                          alignItems: strongModeActive ? 'flex-end' : 'flex-start',
+                          justifyContent: 'center', paddingHorizontal: 2,
+                        }}>
+                          <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: '#fff' }} />
+                        </View>
                       </View>
-                    </View>
-                  </Pressable>
+                    </Pressable>
+                  </View>
                 </View>
               </View>
 

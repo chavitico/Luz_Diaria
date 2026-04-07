@@ -50,10 +50,11 @@ export interface IStrongRepository {
 
   /**
    * Search entries by query string (id, transliteration, or definition).
-   * Returns up to `limit` results (default 20).
-   * Intended for a future search screen; currently backed by in-memory scan.
+   * - Exact ID match (H430, g25) is handled as a fast path.
+   * - options.language narrows the scan to Hebrew or Greek blocks only.
+   * - options.limit caps results (default 50).
    */
-  searchEntries(query: string, limit?: number): StrongEntry[];
+  searchEntries(query: string, options?: { limit?: number; language?: 'Hebrew' | 'Greek' }): StrongEntry[];
 }
 
 // ─── Mock implementation ──────────────────────────────────────────────────────
@@ -75,11 +76,14 @@ class MockStrongRepository implements IStrongRepository {
     return STRONG_ENTRIES[strongId]?.relatedVerses ?? [];
   }
 
-  searchEntries(query: string, limit = 20): StrongEntry[] {
+  searchEntries(query: string, options?: { limit?: number; language?: 'Hebrew' | 'Greek' }): StrongEntry[] {
     if (!query.trim()) return [];
+    const limit = options?.limit ?? 50;
+    const lang = options?.language;
     const q = query.toLowerCase();
     const results: StrongEntry[] = [];
     for (const entry of Object.values(STRONG_ENTRIES)) {
+      if (lang && entry.language !== lang) continue;
       if (
         entry.id.toLowerCase().includes(q) ||
         entry.transliteration.toLowerCase().includes(q) ||
