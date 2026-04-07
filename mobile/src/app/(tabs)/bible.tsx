@@ -47,7 +47,8 @@ import {
 } from 'lucide-react-native';
 
 import { useThemeColors, useLanguage } from '@/lib/store';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
+import { consumeStrongNavTarget } from '@/lib/strong/navigationBridge';
 import { StrongSheet } from '@/components/StrongSheet';
 import {
   getVerseWordLinks,
@@ -1073,6 +1074,15 @@ export default function BibleScreen() {
     loadChapter(book, chapter, verse);
   }, [loadChapter]);
 
+  // Handle navigation triggered from strong-occurrences screen via navigationBridge
+  useFocusEffect(useCallback(() => {
+    const nav = consumeStrongNavTarget();
+    if (nav) {
+      const book = BIBLE_BOOKS.find(b => b.id === nav.bookId);
+      if (book) loadChapter(book, nav.chapter, nav.verse);
+    }
+  }, [loadChapter]));
+
   const handleSelectTestament = useCallback((t: 'OT' | 'NT') => {
     setTestamentFilter(t);
     setSearchQuery('');
@@ -1559,6 +1569,10 @@ export default function BibleScreen() {
         onToggleFavorite={handleStrongFavoriteToggle}
         onClose={() => setStrongSheetEntry(null)}
         onNavigateToVerse={handleNavigateFromStrong}
+        onViewAppearances={(strongId) => {
+          setStrongSheetEntry(null);
+          router.push(`/strong-occurrences?strongId=${strongId}` as any);
+        }}
         colors={colors}
         lang={lang}
       />

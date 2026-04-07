@@ -48,6 +48,20 @@ export interface VerseWordLink {
 /** Map of verseId → array of word links for quick lookup */
 export type VerseStrongMap = Record<string, VerseWordLink[]>;
 
+/** One entry in the "all appearances" list for a Strong ID */
+export interface VerseAppearance {
+  /** Full verse key, e.g. "GEN_1_1" */
+  verseId: string;
+  /** Book code, e.g. "GEN" */
+  bookId: string;
+  /** Chapter number (1-based) */
+  chapter: number;
+  /** Verse number (1-based) */
+  verse: number;
+  /** The Spanish word in the verse that carries this Strong tag */
+  displayedWord: string;
+}
+
 /** A word token within a verse, enriched with Strong link data */
 export interface VerseToken {
   /** The word text as it appears */

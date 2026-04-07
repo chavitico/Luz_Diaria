@@ -391,6 +391,10 @@ export default function StrongSearchScreen() {
           setSheetEntry(null);
           router.back();
         }}
+        onViewAppearances={(strongId) => {
+          setSheetEntry(null);
+          router.push(`/strong-occurrences?strongId=${strongId}` as any);
+        }}
         colors={colors}
         lang={lang}
       />

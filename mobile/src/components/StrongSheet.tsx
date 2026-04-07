@@ -39,6 +39,7 @@ interface StrongSheetProps {
   onToggleFavorite: (strongId: string) => void;
   onClose: () => void;
   onNavigateToVerse: (bookId: string, chapter: number, verse: number) => void;
+  onViewAppearances: (strongId: string) => void;
   colors: ReturnType<typeof useThemeColors>;
   lang: string;
 }
@@ -64,7 +65,7 @@ function SectionLabel({ icon, text, color }: {
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 export function StrongSheet({
-  visible, entry, isFavorite, onToggleFavorite, onClose, onNavigateToVerse, colors, lang,
+  visible, entry, isFavorite, onToggleFavorite, onClose, onNavigateToVerse, onViewAppearances, colors, lang,
 }: StrongSheetProps) {
   // ── Animation (Reanimated v3) ──────────────────────────────────────────────
   const translateY = useSharedValue(600);
@@ -109,7 +110,6 @@ export function StrongSheet({
     unfavorite:     lang === 'es' ? 'Quitar de favoritos'       : 'Remove from favorites',
     allAppearances: lang === 'es' ? 'Ver todas las apariciones' : 'See all occurrences',
     timesLabel:     lang === 'es' ? 'veces en la Biblia'        : 'times in the Bible',
-    comingSoon:     lang === 'es' ? 'Próximamente'              : 'Coming soon',
     hebreo:         lang === 'es' ? 'Hebreo'                   : 'Hebrew',
     griego:         lang === 'es' ? 'Griego'                   : 'Greek',
   };
@@ -365,27 +365,24 @@ export function StrongSheet({
                       </Text>
                     </Pressable>
 
-                    {/* See all occurrences — placeholder until feature is built */}
-                    {/* TODO: wire this to a full occurrences browser screen */}
-                    <View style={{
-                      flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                      gap: 8, paddingVertical: 14, borderRadius: 14,
-                      backgroundColor: colors.textMuted + '10',
-                      borderWidth: 1, borderColor: colors.textMuted + '20',
-                    }}>
-                      <BookOpen size={15} color={colors.textMuted + '70'} />
-                      <Text style={{ fontSize: 14, fontWeight: '600', color: colors.textMuted + '70' }}>
+                    {/* See all occurrences */}
+                    <Pressable
+                      onPress={() => entry && onViewAppearances(entry.id)}
+                      style={({ pressed }) => ({
+                        flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+                        gap: 8, paddingVertical: 14, borderRadius: 14,
+                        backgroundColor: pressed
+                          ? colors.primary + '20'
+                          : colors.primary + '10',
+                        borderWidth: 1,
+                        borderColor: colors.primary + '30',
+                      })}
+                    >
+                      <BookOpen size={15} color={colors.primary} />
+                      <Text style={{ fontSize: 14, fontWeight: '600', color: colors.primary }}>
                         {t.allAppearances}
                       </Text>
-                      <View style={{
-                        backgroundColor: colors.primary + '20',
-                        borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1,
-                      }}>
-                        <Text style={{ fontSize: 9, fontWeight: '800', color: colors.primary, letterSpacing: 0.4 }}>
-                          {t.comingSoon}
-                        </Text>
-                      </View>
-                    </View>
+                    </Pressable>
                   </View>
                 </ScrollView>
               </>

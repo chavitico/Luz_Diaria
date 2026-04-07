@@ -12,7 +12,7 @@
 // Satisfies IStrongRepository. Drop-in replacement for MockStrongRepository.
 
 import type { IStrongRepository } from './repository';
-import type { StrongEntry, VerseWordLink } from './types';
+import type { StrongEntry, VerseWordLink, VerseAppearance } from './types';
 import type { BlockStrongEntry } from './data/blockTypes';
 import { VERSE_STRONG_LINKS } from './mockData'; // fallback for verses not in alignment files
 import {
@@ -250,5 +250,39 @@ export class JsonBlockStrongRepository implements IStrongRepository {
     }
 
     return results;
+  }
+
+  // ── Inverted index (strongId → appearances) ───────────────────────────────
+  // Built lazily the first time getVerseAppearances() is called.
+  // Scans all 5 alignment files once, then caches the result.
+
+  private occurrenceIndex: Map<string, VerseAppearance[]> | null = null;
+
+  private buildOccurrenceIndex(): void {
+    const index = new Map<string, VerseAppearance[]>();
+    for (const [bookPrefix, loader] of Object.entries(ALIGNMENT_LOADERS)) {
+      let alignmentMap = this.alignmentCache.get(bookPrefix);
+      if (!alignmentMap) {
+        alignmentMap = loader();
+        this.alignmentCache.set(bookPrefix, alignmentMap);
+      }
+      for (const [verseId, links] of Object.entries(alignmentMap)) {
+        const parts = verseId.split('_');
+        const bookId = parts[0];
+        const chapter = parseInt(parts[1], 10);
+        const verse = parseInt(parts[2], 10);
+        for (const link of links) {
+          const list = index.get(link.strongId) ?? [];
+          list.push({ verseId, bookId, chapter, verse, displayedWord: link.displayedWord });
+          index.set(link.strongId, list);
+        }
+      }
+    }
+    this.occurrenceIndex = index;
+  }
+
+  getVerseAppearances(strongId: string): VerseAppearance[] {
+    if (!this.occurrenceIndex) this.buildOccurrenceIndex();
+    return this.occurrenceIndex!.get(strongId) ?? [];
   }
 }

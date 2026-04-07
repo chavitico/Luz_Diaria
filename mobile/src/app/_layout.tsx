@@ -108,6 +108,13 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
+          name="strong-occurrences"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="devotional/[date]"
           options={{
             presentation: 'card',

@@ -29,7 +29,7 @@
 //
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { StrongEntry, VerseWordLink } from './types';
+import type { StrongEntry, VerseWordLink, VerseAppearance } from './types';
 import { STRONG_ENTRIES, VERSE_STRONG_LINKS } from './mockData';
 import { JsonBlockStrongRepository } from './jsonBlockRepository';
 
@@ -55,6 +55,13 @@ export interface IStrongRepository {
    * - options.limit caps results (default 50).
    */
   searchEntries(query: string, options?: { limit?: number; language?: 'Hebrew' | 'Greek' }): StrongEntry[];
+
+  /**
+   * Return all verse appearances from the alignment dataset for a given Strong ID.
+   * Results are ordered by canonical Bible order (book → chapter → verse).
+   * Returns [] when the entry has no coverage in the current alignment files.
+   */
+  getVerseAppearances(strongId: string): VerseAppearance[];
 }
 
 // ─── Mock implementation ──────────────────────────────────────────────────────
@@ -95,6 +102,10 @@ class MockStrongRepository implements IStrongRepository {
       }
     }
     return results;
+  }
+
+  getVerseAppearances(_strongId: string): VerseAppearance[] {
+    return []; // mock has no alignment data
   }
 }
 
