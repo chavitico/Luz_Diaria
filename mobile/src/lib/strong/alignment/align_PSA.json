@@ -1,28 +1,7152 @@
 {
   "PSA_23_1": [
-    { "verseId": "PSA_23_1", "wordIndex": 0, "displayedWord": "Jehová",      "strongId": "H3068" },
-    { "verseId": "PSA_23_1", "wordIndex": 3, "displayedWord": "pastor;",     "strongId": "H7462" }
+    {
+      "verseId": "PSA_23_1",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_23_1",
+      "wordIndex": 3,
+      "displayedWord": "pastor;",
+      "strongId": "H7462"
+    }
   ],
   "PSA_23_2": [
-    { "verseId": "PSA_23_2", "wordIndex": 10, "displayedWord": "aguas",      "strongId": "H4325" },
-    { "verseId": "PSA_23_2", "wordIndex": 14, "displayedWord": "pastoreará.", "strongId": "H7462" }
+    {
+      "verseId": "PSA_23_2",
+      "wordIndex": 10,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "PSA_23_2",
+      "wordIndex": 14,
+      "displayedWord": "pastoreará.",
+      "strongId": "H7462"
+    }
   ],
   "PSA_23_3": [
-    { "verseId": "PSA_23_3", "wordIndex": 2,  "displayedWord": "alma;",      "strongId": "H5315" },
-    { "verseId": "PSA_23_3", "wordIndex": 8,  "displayedWord": "justicia",   "strongId": "H6664" },
-    { "verseId": "PSA_23_3", "wordIndex": 10, "displayedWord": "amor",       "strongId": "H157"  },
-    { "verseId": "PSA_23_3", "wordIndex": 13, "displayedWord": "nombre.",    "strongId": "H8034" }
+    {
+      "verseId": "PSA_23_3",
+      "wordIndex": 2,
+      "displayedWord": "alma;",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_23_3",
+      "wordIndex": 8,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PSA_23_3",
+      "wordIndex": 10,
+      "displayedWord": "amor",
+      "strongId": "H157"
+    },
+    {
+      "verseId": "PSA_23_3",
+      "wordIndex": 13,
+      "displayedWord": "nombre.",
+      "strongId": "H8034"
+    }
   ],
   "PSA_23_4": [
-    { "verseId": "PSA_23_4", "wordIndex": 7,  "displayedWord": "muerte,",    "strongId": "H4194" }
+    {
+      "verseId": "PSA_23_4",
+      "wordIndex": 7,
+      "displayedWord": "muerte,",
+      "strongId": "H4194"
+    }
   ],
   "PSA_23_6": [
-    { "verseId": "PSA_23_6", "wordIndex": 2,  "displayedWord": "bien",       "strongId": "H2896" },
-    { "verseId": "PSA_23_6", "wordIndex": 5,  "displayedWord": "misericordia", "strongId": "H2617" },
-    { "verseId": "PSA_23_6", "wordIndex": 10, "displayedWord": "días",       "strongId": "H3117" },
-    { "verseId": "PSA_23_6", "wordIndex": 13, "displayedWord": "vida,",      "strongId": "H2416" },
-    { "verseId": "PSA_23_6", "wordIndex": 17, "displayedWord": "casa",       "strongId": "H1004" },
-    { "verseId": "PSA_23_6", "wordIndex": 19, "displayedWord": "Jehová",     "strongId": "H3068" },
-    { "verseId": "PSA_23_6", "wordIndex": 23, "displayedWord": "días.",      "strongId": "H3117" }
+    {
+      "verseId": "PSA_23_6",
+      "wordIndex": 2,
+      "displayedWord": "bien",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "PSA_23_6",
+      "wordIndex": 5,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_23_6",
+      "wordIndex": 10,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_23_6",
+      "wordIndex": 13,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_23_6",
+      "wordIndex": 17,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "PSA_23_6",
+      "wordIndex": 19,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_23_6",
+      "wordIndex": 23,
+      "displayedWord": "días.",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_1_2": [
+    {
+      "verseId": "PSA_1_2",
+      "wordIndex": 4,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "PSA_1_2",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_1_2",
+      "wordIndex": 13,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "PSA_1_2",
+      "wordIndex": 16,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_1_2",
+      "wordIndex": 19,
+      "displayedWord": "noche.",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_1_3": [
+    {
+      "verseId": "PSA_1_3",
+      "wordIndex": 8,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    }
+  ],
+  "PSA_1_6": [
+    {
+      "verseId": "PSA_1_6",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_2_2": [
+    {
+      "verseId": "PSA_2_2",
+      "wordIndex": 6,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_2_2",
+      "wordIndex": 12,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_2_4": [
+    {
+      "verseId": "PSA_2_4",
+      "wordIndex": 5,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "PSA_2_4",
+      "wordIndex": 9,
+      "displayedWord": "Señor",
+      "strongId": "H136"
+    }
+  ],
+  "PSA_2_6": [
+    {
+      "verseId": "PSA_2_6",
+      "wordIndex": 5,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PSA_2_6",
+      "wordIndex": 9,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    }
+  ],
+  "PSA_2_7": [
+    {
+      "verseId": "PSA_2_7",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_2_7",
+      "wordIndex": 9,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_2_8": [
+    {
+      "verseId": "PSA_2_8",
+      "wordIndex": 7,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "PSA_2_8",
+      "wordIndex": 16,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_2_10": [
+    {
+      "verseId": "PSA_2_10",
+      "wordIndex": 11,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_2_11": [
+    {
+      "verseId": "PSA_2_11",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_2_11",
+      "wordIndex": 4,
+      "displayedWord": "temor,",
+      "strongId": "H3374"
+    }
+  ],
+  "PSA_2_12": [
+    {
+      "verseId": "PSA_2_12",
+      "wordIndex": 2,
+      "displayedWord": "Hijo,",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_8_1": [
+    {
+      "verseId": "PSA_8_1",
+      "wordIndex": 10,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_8_1",
+      "wordIndex": 11,
+      "displayedWord": "Señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "PSA_8_1",
+      "wordIndex": 17,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PSA_8_1",
+      "wordIndex": 21,
+      "displayedWord": "tierra!",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_8_1",
+      "wordIndex": 25,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "PSA_8_1",
+      "wordIndex": 28,
+      "displayedWord": "cielos;",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_8_3": [
+    {
+      "verseId": "PSA_8_3",
+      "wordIndex": 3,
+      "displayedWord": "cielos,",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_8_4": [
+    {
+      "verseId": "PSA_8_4",
+      "wordIndex": 4,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_8_4",
+      "wordIndex": 13,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PSA_8_4",
+      "wordIndex": 15,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    }
+  ],
+  "PSA_8_5": [
+    {
+      "verseId": "PSA_8_5",
+      "wordIndex": 7,
+      "displayedWord": "ángeles,",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "PSA_8_5",
+      "wordIndex": 12,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_8_8": [
+    {
+      "verseId": "PSA_8_8",
+      "wordIndex": 4,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "PSA_8_8",
+      "wordIndex": 9,
+      "displayedWord": "mar;",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "PSA_8_8",
+      "wordIndex": 17,
+      "displayedWord": "mar.",
+      "strongId": "H3220"
+    }
+  ],
+  "PSA_8_9": [
+    {
+      "verseId": "PSA_8_9",
+      "wordIndex": 1,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_8_9",
+      "wordIndex": 2,
+      "displayedWord": "Señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "PSA_8_9",
+      "wordIndex": 8,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PSA_8_9",
+      "wordIndex": 12,
+      "displayedWord": "tierra!",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_16_1": [
+    {
+      "verseId": "PSA_16_1",
+      "wordIndex": 6,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_16_2": [
+    {
+      "verseId": "PSA_16_2",
+      "wordIndex": 1,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_16_2",
+      "wordIndex": 5,
+      "displayedWord": "Jehová:",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_16_2",
+      "wordIndex": 9,
+      "displayedWord": "Señor;",
+      "strongId": "H136"
+    }
+  ],
+  "PSA_16_3": [
+    {
+      "verseId": "PSA_16_3",
+      "wordIndex": 2,
+      "displayedWord": "santos",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "PSA_16_3",
+      "wordIndex": 7,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_16_4": [
+    {
+      "verseId": "PSA_16_4",
+      "wordIndex": 11,
+      "displayedWord": "dios.",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_16_4",
+      "wordIndex": 18,
+      "displayedWord": "sangre,",
+      "strongId": "H1818"
+    }
+  ],
+  "PSA_16_5": [
+    {
+      "verseId": "PSA_16_5",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_16_7": [
+    {
+      "verseId": "PSA_16_7",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_16_8": [
+    {
+      "verseId": "PSA_16_8",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_16_9": [
+    {
+      "verseId": "PSA_16_9",
+      "wordIndex": 5,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_16_9",
+      "wordIndex": 10,
+      "displayedWord": "alma;",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_16_9",
+      "wordIndex": 12,
+      "displayedWord": "carne",
+      "strongId": "H1320"
+    }
+  ],
+  "PSA_16_10": [
+    {
+      "verseId": "PSA_16_10",
+      "wordIndex": 4,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_16_10",
+      "wordIndex": 13,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    }
+  ],
+  "PSA_16_11": [
+    {
+      "verseId": "PSA_16_11",
+      "wordIndex": 6,
+      "displayedWord": "vida;",
+      "strongId": "H2416"
+    }
+  ],
+  "PSA_19_1": [
+    {
+      "verseId": "PSA_19_1",
+      "wordIndex": 8,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "PSA_19_1",
+      "wordIndex": 11,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "PSA_19_1",
+      "wordIndex": 13,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_19_2": [
+    {
+      "verseId": "PSA_19_2",
+      "wordIndex": 1,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_19_2",
+      "wordIndex": 3,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "PSA_19_2",
+      "wordIndex": 6,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_19_2",
+      "wordIndex": 9,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    },
+    {
+      "verseId": "PSA_19_2",
+      "wordIndex": 12,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_19_4": [
+    {
+      "verseId": "PSA_19_4",
+      "wordIndex": 3,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_19_6": [
+    {
+      "verseId": "PSA_19_6",
+      "wordIndex": 5,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_19_7": [
+    {
+      "verseId": "PSA_19_7",
+      "wordIndex": 1,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "PSA_19_7",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_19_7",
+      "wordIndex": 9,
+      "displayedWord": "alma;",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_19_7",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_19_8": [
+    {
+      "verseId": "PSA_19_8",
+      "wordIndex": 1,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "PSA_19_8",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_19_8",
+      "wordIndex": 9,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_19_8",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_19_9": [
+    {
+      "verseId": "PSA_19_9",
+      "wordIndex": 1,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PSA_19_9",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_19_9",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_19_9",
+      "wordIndex": 15,
+      "displayedWord": "verdad,",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_19_14": [
+    {
+      "verseId": "PSA_19_14",
+      "wordIndex": 12,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_19_14",
+      "wordIndex": 17,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_22_1": [
+    {
+      "verseId": "PSA_22_1",
+      "wordIndex": 9,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_22_1",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_22_1",
+      "wordIndex": 26,
+      "displayedWord": "salvación,",
+      "strongId": "H3444"
+    }
+  ],
+  "PSA_22_2": [
+    {
+      "verseId": "PSA_22_2",
+      "wordIndex": 0,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_22_2",
+      "wordIndex": 4,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_22_2",
+      "wordIndex": 10,
+      "displayedWord": "noche,",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_22_3": [
+    {
+      "verseId": "PSA_22_3",
+      "wordIndex": 3,
+      "displayedWord": "santo,",
+      "strongId": "H6918"
+    }
+  ],
+  "PSA_22_6": [
+    {
+      "verseId": "PSA_22_6",
+      "wordIndex": 6,
+      "displayedWord": "hombre;",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_22_6",
+      "wordIndex": 14,
+      "displayedWord": "pueblo.",
+      "strongId": "H5971"
+    }
+  ],
+  "PSA_22_8": [
+    {
+      "verseId": "PSA_22_8",
+      "wordIndex": 3,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_22_10": [
+    {
+      "verseId": "PSA_22_10",
+      "wordIndex": 17,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_22_14": [
+    {
+      "verseId": "PSA_22_14",
+      "wordIndex": 4,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "PSA_22_14",
+      "wordIndex": 12,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_22_15": [
+    {
+      "verseId": "PSA_22_15",
+      "wordIndex": 24,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "PSA_22_19": [
+    {
+      "verseId": "PSA_22_19",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_22_20": [
+    {
+      "verseId": "PSA_22_20",
+      "wordIndex": 5,
+      "displayedWord": "alma,",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_22_20",
+      "wordIndex": 11,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "PSA_22_22": [
+    {
+      "verseId": "PSA_22_22",
+      "wordIndex": 2,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_22_23": [
+    {
+      "verseId": "PSA_22_23",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_22_23",
+      "wordIndex": 7,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "PSA_22_23",
+      "wordIndex": 14,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "PSA_22_25": [
+    {
+      "verseId": "PSA_22_25",
+      "wordIndex": 4,
+      "displayedWord": "alabanza",
+      "strongId": "H8416"
+    }
+  ],
+  "PSA_22_26": [
+    {
+      "verseId": "PSA_22_26",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_22_26",
+      "wordIndex": 15,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_22_27": [
+    {
+      "verseId": "PSA_22_27",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_22_27",
+      "wordIndex": 12,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_22_27",
+      "wordIndex": 19,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    }
+  ],
+  "PSA_22_28": [
+    {
+      "verseId": "PSA_22_28",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_22_28",
+      "wordIndex": 10,
+      "displayedWord": "naciones.",
+      "strongId": "H1471"
+    }
+  ],
+  "PSA_22_29": [
+    {
+      "verseId": "PSA_22_29",
+      "wordIndex": 8,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_22_29",
+      "wordIndex": 27,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_22_29",
+      "wordIndex": 31,
+      "displayedWord": "alma.",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_22_30": [
+    {
+      "verseId": "PSA_22_30",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_22_31": [
+    {
+      "verseId": "PSA_22_31",
+      "wordIndex": 4,
+      "displayedWord": "justicia;",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PSA_22_31",
+      "wordIndex": 6,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    }
+  ],
+  "PSA_24_1": [
+    {
+      "verseId": "PSA_24_1",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_24_1",
+      "wordIndex": 8,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_24_2": [
+    {
+      "verseId": "PSA_24_2",
+      "wordIndex": 6,
+      "displayedWord": "mares,",
+      "strongId": "H3220"
+    }
+  ],
+  "PSA_24_3": [
+    {
+      "verseId": "PSA_24_3",
+      "wordIndex": 5,
+      "displayedWord": "Jehová?",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_24_3",
+      "wordIndex": 12,
+      "displayedWord": "santo?",
+      "strongId": "H6918"
+    }
+  ],
+  "PSA_24_4": [
+    {
+      "verseId": "PSA_24_4",
+      "wordIndex": 7,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_24_4",
+      "wordIndex": 15,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_24_5": [
+    {
+      "verseId": "PSA_24_5",
+      "wordIndex": 2,
+      "displayedWord": "bendición",
+      "strongId": "H1293"
+    },
+    {
+      "verseId": "PSA_24_5",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_24_5",
+      "wordIndex": 6,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PSA_24_5",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_24_5",
+      "wordIndex": 10,
+      "displayedWord": "salvación.",
+      "strongId": "H3444"
+    }
+  ],
+  "PSA_24_6": [
+    {
+      "verseId": "PSA_24_6",
+      "wordIndex": 16,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_24_7": [
+    {
+      "verseId": "PSA_24_7",
+      "wordIndex": 13,
+      "displayedWord": "Rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PSA_24_7",
+      "wordIndex": 15,
+      "displayedWord": "gloria.",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_24_8": [
+    {
+      "verseId": "PSA_24_8",
+      "wordIndex": 3,
+      "displayedWord": "Rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PSA_24_8",
+      "wordIndex": 5,
+      "displayedWord": "gloria?",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "PSA_24_8",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_24_8",
+      "wordIndex": 11,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_24_9": [
+    {
+      "verseId": "PSA_24_9",
+      "wordIndex": 13,
+      "displayedWord": "Rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PSA_24_9",
+      "wordIndex": 15,
+      "displayedWord": "gloria.",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_24_10": [
+    {
+      "verseId": "PSA_24_10",
+      "wordIndex": 3,
+      "displayedWord": "Rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PSA_24_10",
+      "wordIndex": 5,
+      "displayedWord": "gloria?",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "PSA_24_10",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_24_10",
+      "wordIndex": 13,
+      "displayedWord": "Rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PSA_24_10",
+      "wordIndex": 16,
+      "displayedWord": "gloria.",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_25_1": [
+    {
+      "verseId": "PSA_25_1",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_25_1",
+      "wordIndex": 10,
+      "displayedWord": "alma.",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_25_2": [
+    {
+      "verseId": "PSA_25_2",
+      "wordIndex": 0,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_25_4": [
+    {
+      "verseId": "PSA_25_4",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_25_5": [
+    {
+      "verseId": "PSA_25_5",
+      "wordIndex": 3,
+      "displayedWord": "verdad,",
+      "strongId": "H571"
+    },
+    {
+      "verseId": "PSA_25_5",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_25_5",
+      "wordIndex": 13,
+      "displayedWord": "salvación;",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_25_5",
+      "wordIndex": 20,
+      "displayedWord": "día.",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_25_6": [
+    {
+      "verseId": "PSA_25_6",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_25_7": [
+    {
+      "verseId": "PSA_25_7",
+      "wordIndex": 2,
+      "displayedWord": "pecados",
+      "strongId": "H2403"
+    },
+    {
+      "verseId": "PSA_25_7",
+      "wordIndex": 16,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_25_7",
+      "wordIndex": 24,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_25_8": [
+    {
+      "verseId": "PSA_25_8",
+      "wordIndex": 0,
+      "displayedWord": "Bueno",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "PSA_25_8",
+      "wordIndex": 4,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_25_10": [
+    {
+      "verseId": "PSA_25_10",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_25_10",
+      "wordIndex": 6,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_25_10",
+      "wordIndex": 8,
+      "displayedWord": "verdad,",
+      "strongId": "H571"
+    },
+    {
+      "verseId": "PSA_25_10",
+      "wordIndex": 14,
+      "displayedWord": "pacto",
+      "strongId": "H1285"
+    }
+  ],
+  "PSA_25_11": [
+    {
+      "verseId": "PSA_25_11",
+      "wordIndex": 1,
+      "displayedWord": "amor",
+      "strongId": "H157"
+    },
+    {
+      "verseId": "PSA_25_11",
+      "wordIndex": 4,
+      "displayedWord": "nombre,",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PSA_25_11",
+      "wordIndex": 6,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_25_11",
+      "wordIndex": 10,
+      "displayedWord": "pecado,",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_25_12": [
+    {
+      "verseId": "PSA_25_12",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_25_12",
+      "wordIndex": 7,
+      "displayedWord": "Jehová?",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_25_13": [
+    {
+      "verseId": "PSA_25_13",
+      "wordIndex": 6,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "PSA_25_13",
+      "wordIndex": 9,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_25_14": [
+    {
+      "verseId": "PSA_25_14",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_25_14",
+      "wordIndex": 17,
+      "displayedWord": "pacto.",
+      "strongId": "H1285"
+    }
+  ],
+  "PSA_25_15": [
+    {
+      "verseId": "PSA_25_15",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_25_16": [
+    {
+      "verseId": "PSA_25_16",
+      "wordIndex": 3,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_25_17": [
+    {
+      "verseId": "PSA_25_17",
+      "wordIndex": 4,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_25_18": [
+    {
+      "verseId": "PSA_25_18",
+      "wordIndex": 10,
+      "displayedWord": "pecados.",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_25_20": [
+    {
+      "verseId": "PSA_25_20",
+      "wordIndex": 2,
+      "displayedWord": "alma,",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_25_22": [
+    {
+      "verseId": "PSA_25_22",
+      "wordIndex": 2,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_27_1": [
+    {
+      "verseId": "PSA_27_1",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_27_1",
+      "wordIndex": 7,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "PSA_27_1",
+      "wordIndex": 10,
+      "displayedWord": "salvación;",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_27_1",
+      "wordIndex": 14,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_27_1",
+      "wordIndex": 20,
+      "displayedWord": "vida;",
+      "strongId": "H2416"
+    }
+  ],
+  "PSA_27_3": [
+    {
+      "verseId": "PSA_27_3",
+      "wordIndex": 9,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_27_4": [
+    {
+      "verseId": "PSA_27_4",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_27_4",
+      "wordIndex": 13,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "PSA_27_4",
+      "wordIndex": 15,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_27_4",
+      "wordIndex": 18,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_27_4",
+      "wordIndex": 21,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_27_4",
+      "wordIndex": 27,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_27_5": [
+    {
+      "verseId": "PSA_27_5",
+      "wordIndex": 9,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_27_6": [
+    {
+      "verseId": "PSA_27_6",
+      "wordIndex": 24,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_27_7": [
+    {
+      "verseId": "PSA_27_7",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_27_7",
+      "wordIndex": 11,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_27_8": [
+    {
+      "verseId": "PSA_27_8",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_27_8",
+      "wordIndex": 13,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_27_9": [
+    {
+      "verseId": "PSA_27_9",
+      "wordIndex": 23,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_27_9",
+      "wordIndex": 26,
+      "displayedWord": "salvación.",
+      "strongId": "H3444"
+    }
+  ],
+  "PSA_27_10": [
+    {
+      "verseId": "PSA_27_10",
+      "wordIndex": 10,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_27_11": [
+    {
+      "verseId": "PSA_27_11",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_27_13": [
+    {
+      "verseId": "PSA_27_13",
+      "wordIndex": 11,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_27_13",
+      "wordIndex": 14,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_27_14": [
+    {
+      "verseId": "PSA_27_14",
+      "wordIndex": 2,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_27_14",
+      "wordIndex": 7,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_27_14",
+      "wordIndex": 11,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_31_1": [
+    {
+      "verseId": "PSA_31_1",
+      "wordIndex": 10,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_31_1",
+      "wordIndex": 21,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_31_3": [
+    {
+      "verseId": "PSA_31_3",
+      "wordIndex": 10,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_31_5": [
+    {
+      "verseId": "PSA_31_5",
+      "wordIndex": 5,
+      "displayedWord": "espíritu;",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "PSA_31_5",
+      "wordIndex": 12,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_31_5",
+      "wordIndex": 13,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_31_5",
+      "wordIndex": 15,
+      "displayedWord": "verdad.",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_31_6": [
+    {
+      "verseId": "PSA_31_6",
+      "wordIndex": 11,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_31_7": [
+    {
+      "verseId": "PSA_31_7",
+      "wordIndex": 6,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_31_7",
+      "wordIndex": 15,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_31_9": [
+    {
+      "verseId": "PSA_31_9",
+      "wordIndex": 1,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_31_9",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_31_9",
+      "wordIndex": 18,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_31_10": [
+    {
+      "verseId": "PSA_31_10",
+      "wordIndex": 2,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PSA_31_12": [
+    {
+      "verseId": "PSA_31_12",
+      "wordIndex": 5,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_31_12",
+      "wordIndex": 8,
+      "displayedWord": "muerto;",
+      "strongId": "H4194"
+    }
+  ],
+  "PSA_31_13": [
+    {
+      "verseId": "PSA_31_13",
+      "wordIndex": 22,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "PSA_31_14": [
+    {
+      "verseId": "PSA_31_14",
+      "wordIndex": 6,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_31_14",
+      "wordIndex": 11,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_31_16": [
+    {
+      "verseId": "PSA_31_16",
+      "wordIndex": 10,
+      "displayedWord": "misericordia.",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_31_17": [
+    {
+      "verseId": "PSA_31_17",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_31_18": [
+    {
+      "verseId": "PSA_31_18",
+      "wordIndex": 8,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "PSA_31_19": [
+    {
+      "verseId": "PSA_31_19",
+      "wordIndex": 25,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_31_20": [
+    {
+      "verseId": "PSA_31_20",
+      "wordIndex": 12,
+      "displayedWord": "hombre;",
+      "strongId": "H120"
+    }
+  ],
+  "PSA_31_21": [
+    {
+      "verseId": "PSA_31_21",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_31_21",
+      "wordIndex": 8,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_31_23": [
+    {
+      "verseId": "PSA_31_23",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_31_23",
+      "wordIndex": 6,
+      "displayedWord": "santos;",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "PSA_31_23",
+      "wordIndex": 11,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_31_24": [
+    {
+      "verseId": "PSA_31_24",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_31_24",
+      "wordIndex": 12,
+      "displayedWord": "corazón.",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_32_1": [
+    {
+      "verseId": "PSA_32_1",
+      "wordIndex": 15,
+      "displayedWord": "pecado.",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_32_2": [
+    {
+      "verseId": "PSA_32_2",
+      "wordIndex": 2,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_32_2",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_32_2",
+      "wordIndex": 14,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "PSA_32_3": [
+    {
+      "verseId": "PSA_32_3",
+      "wordIndex": 11,
+      "displayedWord": "día.",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_32_4": [
+    {
+      "verseId": "PSA_32_4",
+      "wordIndex": 2,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_32_4",
+      "wordIndex": 5,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_32_5": [
+    {
+      "verseId": "PSA_32_5",
+      "wordIndex": 1,
+      "displayedWord": "pecado",
+      "strongId": "H2403"
+    },
+    {
+      "verseId": "PSA_32_5",
+      "wordIndex": 14,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_32_5",
+      "wordIndex": 22,
+      "displayedWord": "pecado.",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_32_6": [
+    {
+      "verseId": "PSA_32_6",
+      "wordIndex": 6,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "PSA_32_6",
+      "wordIndex": 21,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    }
+  ],
+  "PSA_32_10": [
+    {
+      "verseId": "PSA_32_10",
+      "wordIndex": 11,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_32_10",
+      "wordIndex": 15,
+      "displayedWord": "misericordia.",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_32_11": [
+    {
+      "verseId": "PSA_32_11",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_32_11",
+      "wordIndex": 15,
+      "displayedWord": "corazón.",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_34_1": [
+    {
+      "verseId": "PSA_34_1",
+      "wordIndex": 21,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_34_1",
+      "wordIndex": 26,
+      "displayedWord": "alabanza",
+      "strongId": "H8416"
+    }
+  ],
+  "PSA_34_2": [
+    {
+      "verseId": "PSA_34_2",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_34_2",
+      "wordIndex": 5,
+      "displayedWord": "alma;",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_34_3": [
+    {
+      "verseId": "PSA_34_3",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_34_3",
+      "wordIndex": 9,
+      "displayedWord": "nombre.",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_34_4": [
+    {
+      "verseId": "PSA_34_4",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_34_6": [
+    {
+      "verseId": "PSA_34_6",
+      "wordIndex": 6,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_34_7": [
+    {
+      "verseId": "PSA_34_7",
+      "wordIndex": 1,
+      "displayedWord": "ángel",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "PSA_34_7",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_34_8": [
+    {
+      "verseId": "PSA_34_8",
+      "wordIndex": 5,
+      "displayedWord": "bueno",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "PSA_34_8",
+      "wordIndex": 6,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_34_8",
+      "wordIndex": 10,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PSA_34_9": [
+    {
+      "verseId": "PSA_34_9",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_34_9",
+      "wordIndex": 5,
+      "displayedWord": "santos,",
+      "strongId": "H6918"
+    }
+  ],
+  "PSA_34_10": [
+    {
+      "verseId": "PSA_34_10",
+      "wordIndex": 11,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_34_11": [
+    {
+      "verseId": "PSA_34_11",
+      "wordIndex": 1,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PSA_34_11",
+      "wordIndex": 4,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PSA_34_11",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_34_12": [
+    {
+      "verseId": "PSA_34_12",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_34_12",
+      "wordIndex": 6,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_34_12",
+      "wordIndex": 10,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_34_14": [
+    {
+      "verseId": "PSA_34_14",
+      "wordIndex": 9,
+      "displayedWord": "paz,",
+      "strongId": "H7965"
+    }
+  ],
+  "PSA_34_15": [
+    {
+      "verseId": "PSA_34_15",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_34_16": [
+    {
+      "verseId": "PSA_34_16",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_34_16",
+      "wordIndex": 14,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_34_17": [
+    {
+      "verseId": "PSA_34_17",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_34_18": [
+    {
+      "verseId": "PSA_34_18",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_34_18",
+      "wordIndex": 7,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_34_18",
+      "wordIndex": 14,
+      "displayedWord": "espíritu.",
+      "strongId": "H7307"
+    }
+  ],
+  "PSA_34_19": [
+    {
+      "verseId": "PSA_34_19",
+      "wordIndex": 5,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PSA_34_19",
+      "wordIndex": 12,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_34_21": [
+    {
+      "verseId": "PSA_34_21",
+      "wordIndex": 2,
+      "displayedWord": "malo",
+      "strongId": "H7451"
+    },
+    {
+      "verseId": "PSA_34_21",
+      "wordIndex": 10,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "PSA_34_22": [
+    {
+      "verseId": "PSA_34_22",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_34_22",
+      "wordIndex": 3,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_37_3": [
+    {
+      "verseId": "PSA_37_3",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_37_3",
+      "wordIndex": 11,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_37_3",
+      "wordIndex": 17,
+      "displayedWord": "verdad.",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_37_4": [
+    {
+      "verseId": "PSA_37_4",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_37_4",
+      "wordIndex": 12,
+      "displayedWord": "corazón.",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_37_5": [
+    {
+      "verseId": "PSA_37_5",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_37_6": [
+    {
+      "verseId": "PSA_37_6",
+      "wordIndex": 2,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PSA_37_6",
+      "wordIndex": 5,
+      "displayedWord": "luz,",
+      "strongId": "H216"
+    }
+  ],
+  "PSA_37_7": [
+    {
+      "verseId": "PSA_37_7",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_37_7",
+      "wordIndex": 21,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PSA_37_8": [
+    {
+      "verseId": "PSA_37_8",
+      "wordIndex": 16,
+      "displayedWord": "malo.",
+      "strongId": "H7451"
+    }
+  ],
+  "PSA_37_9": [
+    {
+      "verseId": "PSA_37_9",
+      "wordIndex": 10,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_37_9",
+      "wordIndex": 14,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_37_10": [
+    {
+      "verseId": "PSA_37_10",
+      "wordIndex": 8,
+      "displayedWord": "malo;",
+      "strongId": "H7451"
+    }
+  ],
+  "PSA_37_11": [
+    {
+      "verseId": "PSA_37_11",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_37_11",
+      "wordIndex": 13,
+      "displayedWord": "paz.",
+      "strongId": "H7965"
+    }
+  ],
+  "PSA_37_12": [
+    {
+      "verseId": "PSA_37_12",
+      "wordIndex": 5,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    }
+  ],
+  "PSA_37_13": [
+    {
+      "verseId": "PSA_37_13",
+      "wordIndex": 1,
+      "displayedWord": "Señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "PSA_37_13",
+      "wordIndex": 11,
+      "displayedWord": "día.",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_37_15": [
+    {
+      "verseId": "PSA_37_15",
+      "wordIndex": 6,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_37_16": [
+    {
+      "verseId": "PSA_37_16",
+      "wordIndex": 5,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    }
+  ],
+  "PSA_37_17": [
+    {
+      "verseId": "PSA_37_17",
+      "wordIndex": 16,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_37_18": [
+    {
+      "verseId": "PSA_37_18",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_37_18",
+      "wordIndex": 3,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_37_19": [
+    {
+      "verseId": "PSA_37_19",
+      "wordIndex": 10,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_37_20": [
+    {
+      "verseId": "PSA_37_20",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_37_21": [
+    {
+      "verseId": "PSA_37_21",
+      "wordIndex": 9,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PSA_37_21",
+      "wordIndex": 11,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_37_22": [
+    {
+      "verseId": "PSA_37_22",
+      "wordIndex": 7,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_37_23": [
+    {
+      "verseId": "PSA_37_23",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_37_23",
+      "wordIndex": 7,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    }
+  ],
+  "PSA_37_24": [
+    {
+      "verseId": "PSA_37_24",
+      "wordIndex": 2,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_37_24",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_37_25": [
+    {
+      "verseId": "PSA_37_25",
+      "wordIndex": 9,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PSA_37_25",
+      "wordIndex": 13,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "PSA_37_25",
+      "wordIndex": 16,
+      "displayedWord": "pan.",
+      "strongId": "H3899"
+    }
+  ],
+  "PSA_37_26": [
+    {
+      "verseId": "PSA_37_26",
+      "wordIndex": 4,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_37_26",
+      "wordIndex": 9,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "PSA_37_26",
+      "wordIndex": 12,
+      "displayedWord": "bendición.",
+      "strongId": "H1293"
+    }
+  ],
+  "PSA_37_28": [
+    {
+      "verseId": "PSA_37_28",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_37_28",
+      "wordIndex": 10,
+      "displayedWord": "santos.",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "PSA_37_28",
+      "wordIndex": 17,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "PSA_37_29": [
+    {
+      "verseId": "PSA_37_29",
+      "wordIndex": 4,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_37_30": [
+    {
+      "verseId": "PSA_37_30",
+      "wordIndex": 3,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PSA_37_30",
+      "wordIndex": 10,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_37_31": [
+    {
+      "verseId": "PSA_37_31",
+      "wordIndex": 1,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "PSA_37_31",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_37_31",
+      "wordIndex": 8,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_37_32": [
+    {
+      "verseId": "PSA_37_32",
+      "wordIndex": 4,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    }
+  ],
+  "PSA_37_33": [
+    {
+      "verseId": "PSA_37_33",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_37_34": [
+    {
+      "verseId": "PSA_37_34",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_37_34",
+      "wordIndex": 14,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_37_37": [
+    {
+      "verseId": "PSA_37_37",
+      "wordIndex": 6,
+      "displayedWord": "justo;",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PSA_37_37",
+      "wordIndex": 14,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_37_37",
+      "wordIndex": 16,
+      "displayedWord": "paz.",
+      "strongId": "H7965"
+    }
+  ],
+  "PSA_37_39": [
+    {
+      "verseId": "PSA_37_39",
+      "wordIndex": 2,
+      "displayedWord": "salvación",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_37_39",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_37_40": [
+    {
+      "verseId": "PSA_37_40",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_46_1": [
+    {
+      "verseId": "PSA_46_1",
+      "wordIndex": 5,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PSA_46_1",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_46_2": [
+    {
+      "verseId": "PSA_46_2",
+      "wordIndex": 6,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_46_2",
+      "wordIndex": 15,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_46_2",
+      "wordIndex": 17,
+      "displayedWord": "mar;",
+      "strongId": "H3220"
+    }
+  ],
+  "PSA_46_3": [
+    {
+      "verseId": "PSA_46_3",
+      "wordIndex": 6,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    }
+  ],
+  "PSA_46_4": [
+    {
+      "verseId": "PSA_46_4",
+      "wordIndex": 8,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_46_5": [
+    {
+      "verseId": "PSA_46_5",
+      "wordIndex": 0,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_46_5",
+      "wordIndex": 9,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_46_5",
+      "wordIndex": 15,
+      "displayedWord": "mañana.",
+      "strongId": "H1242"
+    }
+  ],
+  "PSA_46_6": [
+    {
+      "verseId": "PSA_46_6",
+      "wordIndex": 2,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "PSA_46_6",
+      "wordIndex": 13,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_46_7": [
+    {
+      "verseId": "PSA_46_7",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_46_7",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_46_8": [
+    {
+      "verseId": "PSA_46_8",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_46_8",
+      "wordIndex": 12,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_46_9": [
+    {
+      "verseId": "PSA_46_9",
+      "wordIndex": 10,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_46_10": [
+    {
+      "verseId": "PSA_46_10",
+      "wordIndex": 7,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_46_10",
+      "wordIndex": 12,
+      "displayedWord": "naciones;",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "PSA_46_10",
+      "wordIndex": 17,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_46_11": [
+    {
+      "verseId": "PSA_46_11",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_46_11",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_51_1": [
+    {
+      "verseId": "PSA_51_1",
+      "wordIndex": 26,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_51_1",
+      "wordIndex": 30,
+      "displayedWord": "misericordia;",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_51_2": [
+    {
+      "verseId": "PSA_51_2",
+      "wordIndex": 11,
+      "displayedWord": "pecado.",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_51_3": [
+    {
+      "verseId": "PSA_51_3",
+      "wordIndex": 7,
+      "displayedWord": "pecado",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_51_4": [
+    {
+      "verseId": "PSA_51_4",
+      "wordIndex": 6,
+      "displayedWord": "pecado,",
+      "strongId": "H2403"
+    },
+    {
+      "verseId": "PSA_51_4",
+      "wordIndex": 11,
+      "displayedWord": "malo",
+      "strongId": "H7451"
+    },
+    {
+      "verseId": "PSA_51_4",
+      "wordIndex": 20,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PSA_51_4",
+      "wordIndex": 23,
+      "displayedWord": "palabra,",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_51_5": [
+    {
+      "verseId": "PSA_51_5",
+      "wordIndex": 9,
+      "displayedWord": "pecado",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_51_6": [
+    {
+      "verseId": "PSA_51_6",
+      "wordIndex": 5,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_51_9": [
+    {
+      "verseId": "PSA_51_9",
+      "wordIndex": 5,
+      "displayedWord": "pecados,",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_51_10": [
+    {
+      "verseId": "PSA_51_10",
+      "wordIndex": 4,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_51_10",
+      "wordIndex": 6,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_51_10",
+      "wordIndex": 11,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "PSA_51_11": [
+    {
+      "verseId": "PSA_51_11",
+      "wordIndex": 13,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "PSA_51_11",
+      "wordIndex": 14,
+      "displayedWord": "Espíritu.",
+      "strongId": "H7307"
+    }
+  ],
+  "PSA_51_12": [
+    {
+      "verseId": "PSA_51_12",
+      "wordIndex": 5,
+      "displayedWord": "salvación,",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_51_12",
+      "wordIndex": 7,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "PSA_51_14": [
+    {
+      "verseId": "PSA_51_14",
+      "wordIndex": 4,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_51_14",
+      "wordIndex": 5,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_51_14",
+      "wordIndex": 8,
+      "displayedWord": "salvación;",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_51_14",
+      "wordIndex": 13,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_51_15": [
+    {
+      "verseId": "PSA_51_15",
+      "wordIndex": 0,
+      "displayedWord": "Señor,",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "PSA_51_15",
+      "wordIndex": 9,
+      "displayedWord": "alabanza.",
+      "strongId": "H8416"
+    }
+  ],
+  "PSA_51_17": [
+    {
+      "verseId": "PSA_51_17",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_51_17",
+      "wordIndex": 6,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "PSA_51_17",
+      "wordIndex": 9,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_51_17",
+      "wordIndex": 17,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_51_19": [
+    {
+      "verseId": "PSA_51_19",
+      "wordIndex": 6,
+      "displayedWord": "justicia,",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_63_1": [
+    {
+      "verseId": "PSA_63_1",
+      "wordIndex": 12,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_63_1",
+      "wordIndex": 13,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_63_1",
+      "wordIndex": 22,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_63_1",
+      "wordIndex": 28,
+      "displayedWord": "carne",
+      "strongId": "H1320"
+    },
+    {
+      "verseId": "PSA_63_1",
+      "wordIndex": 32,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_63_1",
+      "wordIndex": 39,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    }
+  ],
+  "PSA_63_2": [
+    {
+      "verseId": "PSA_63_2",
+      "wordIndex": 6,
+      "displayedWord": "gloria,",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_63_3": [
+    {
+      "verseId": "PSA_63_3",
+      "wordIndex": 4,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_63_3",
+      "wordIndex": 7,
+      "displayedWord": "vida;",
+      "strongId": "H2416"
+    }
+  ],
+  "PSA_63_4": [
+    {
+      "verseId": "PSA_63_4",
+      "wordIndex": 5,
+      "displayedWord": "vida;",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_63_4",
+      "wordIndex": 8,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_63_5": [
+    {
+      "verseId": "PSA_63_5",
+      "wordIndex": 9,
+      "displayedWord": "alma,",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_63_6": [
+    {
+      "verseId": "PSA_63_6",
+      "wordIndex": 17,
+      "displayedWord": "noche.",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_63_8": [
+    {
+      "verseId": "PSA_63_8",
+      "wordIndex": 2,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_63_9": [
+    {
+      "verseId": "PSA_63_9",
+      "wordIndex": 7,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_63_9",
+      "wordIndex": 15,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_63_11": [
+    {
+      "verseId": "PSA_63_11",
+      "wordIndex": 2,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PSA_63_11",
+      "wordIndex": 6,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_84_1": [
+    {
+      "verseId": "PSA_84_1",
+      "wordIndex": 8,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PSA_84_1",
+      "wordIndex": 18,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_84_2": [
+    {
+      "verseId": "PSA_84_2",
+      "wordIndex": 2,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_84_2",
+      "wordIndex": 10,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_84_2",
+      "wordIndex": 12,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_84_2",
+      "wordIndex": 15,
+      "displayedWord": "carne",
+      "strongId": "H1320"
+    },
+    {
+      "verseId": "PSA_84_2",
+      "wordIndex": 18,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_84_3": [
+    {
+      "verseId": "PSA_84_3",
+      "wordIndex": 4,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "PSA_84_3",
+      "wordIndex": 20,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_84_3",
+      "wordIndex": 24,
+      "displayedWord": "Rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PSA_84_3",
+      "wordIndex": 27,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_84_4": [
+    {
+      "verseId": "PSA_84_4",
+      "wordIndex": 6,
+      "displayedWord": "casa;",
+      "strongId": "H1004"
+    }
+  ],
+  "PSA_84_5": [
+    {
+      "verseId": "PSA_84_5",
+      "wordIndex": 2,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_84_5",
+      "wordIndex": 11,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_84_7": [
+    {
+      "verseId": "PSA_84_7",
+      "wordIndex": 7,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_84_8": [
+    {
+      "verseId": "PSA_84_8",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_84_8",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_84_8",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_84_9": [
+    {
+      "verseId": "PSA_84_9",
+      "wordIndex": 2,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_84_10": [
+    {
+      "verseId": "PSA_84_10",
+      "wordIndex": 4,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_84_10",
+      "wordIndex": 21,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "PSA_84_10",
+      "wordIndex": 24,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_84_11": [
+    {
+      "verseId": "PSA_84_11",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_84_11",
+      "wordIndex": 6,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_84_11",
+      "wordIndex": 9,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "PSA_84_11",
+      "wordIndex": 11,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_84_12": [
+    {
+      "verseId": "PSA_84_12",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_84_12",
+      "wordIndex": 6,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PSA_90_1": [
+    {
+      "verseId": "PSA_90_1",
+      "wordIndex": 5,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_90_1",
+      "wordIndex": 7,
+      "displayedWord": "Señor,",
+      "strongId": "H136"
+    }
+  ],
+  "PSA_90_2": [
+    {
+      "verseId": "PSA_90_2",
+      "wordIndex": 8,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_90_2",
+      "wordIndex": 21,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_90_3": [
+    {
+      "verseId": "PSA_90_3",
+      "wordIndex": 2,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_90_3",
+      "wordIndex": 9,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_90_4": [
+    {
+      "verseId": "PSA_90_4",
+      "wordIndex": 10,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_90_4",
+      "wordIndex": 24,
+      "displayedWord": "noche.",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_90_5": [
+    {
+      "verseId": "PSA_90_5",
+      "wordIndex": 6,
+      "displayedWord": "aguas;",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "PSA_90_5",
+      "wordIndex": 17,
+      "displayedWord": "mañana.",
+      "strongId": "H1242"
+    }
+  ],
+  "PSA_90_6": [
+    {
+      "verseId": "PSA_90_6",
+      "wordIndex": 2,
+      "displayedWord": "mañana",
+      "strongId": "H1242"
+    }
+  ],
+  "PSA_90_8": [
+    {
+      "verseId": "PSA_90_8",
+      "wordIndex": 10,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "PSA_90_9": [
+    {
+      "verseId": "PSA_90_9",
+      "wordIndex": 3,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_90_10": [
+    {
+      "verseId": "PSA_90_10",
+      "wordIndex": 1,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_90_12": [
+    {
+      "verseId": "PSA_90_12",
+      "wordIndex": 7,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_90_12",
+      "wordIndex": 11,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_90_13": [
+    {
+      "verseId": "PSA_90_13",
+      "wordIndex": 2,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_90_14": [
+    {
+      "verseId": "PSA_90_14",
+      "wordIndex": 1,
+      "displayedWord": "mañana",
+      "strongId": "H1242"
+    },
+    {
+      "verseId": "PSA_90_14",
+      "wordIndex": 5,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_90_14",
+      "wordIndex": 13,
+      "displayedWord": "días.",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_90_15": [
+    {
+      "verseId": "PSA_90_15",
+      "wordIndex": 4,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_90_16": [
+    {
+      "verseId": "PSA_90_16",
+      "wordIndex": 8,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "PSA_90_16",
+      "wordIndex": 11,
+      "displayedWord": "hijos.",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_90_17": [
+    {
+      "verseId": "PSA_90_17",
+      "wordIndex": 2,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "PSA_90_17",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_90_17",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_91_2": [
+    {
+      "verseId": "PSA_91_2",
+      "wordIndex": 3,
+      "displayedWord": "Jehová:",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_91_2",
+      "wordIndex": 10,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_91_4": [
+    {
+      "verseId": "PSA_91_4",
+      "wordIndex": 17,
+      "displayedWord": "verdad.",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_91_5": [
+    {
+      "verseId": "PSA_91_5",
+      "wordIndex": 10,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_91_6": [
+    {
+      "verseId": "PSA_91_6",
+      "wordIndex": 12,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_91_9": [
+    {
+      "verseId": "PSA_91_9",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_91_11": [
+    {
+      "verseId": "PSA_91_11",
+      "wordIndex": 3,
+      "displayedWord": "ángeles",
+      "strongId": "H4397"
+    }
+  ],
+  "PSA_91_14": [
+    {
+      "verseId": "PSA_91_14",
+      "wordIndex": 7,
+      "displayedWord": "amor,",
+      "strongId": "H157"
+    },
+    {
+      "verseId": "PSA_91_14",
+      "wordIndex": 21,
+      "displayedWord": "nombre.",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_91_16": [
+    {
+      "verseId": "PSA_91_16",
+      "wordIndex": 4,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_91_16",
+      "wordIndex": 9,
+      "displayedWord": "salvación.",
+      "strongId": "H3444"
+    }
+  ],
+  "PSA_96_1": [
+    {
+      "verseId": "PSA_96_1",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_1",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_1",
+      "wordIndex": 10,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_96_2": [
+    {
+      "verseId": "PSA_96_2",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_2",
+      "wordIndex": 5,
+      "displayedWord": "nombre;",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PSA_96_2",
+      "wordIndex": 8,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_96_2",
+      "wordIndex": 10,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_96_2",
+      "wordIndex": 12,
+      "displayedWord": "salvación.",
+      "strongId": "H3444"
+    }
+  ],
+  "PSA_96_3": [
+    {
+      "verseId": "PSA_96_3",
+      "wordIndex": 3,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "PSA_96_3",
+      "wordIndex": 5,
+      "displayedWord": "gloria,",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_96_4": [
+    {
+      "verseId": "PSA_96_4",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_4",
+      "wordIndex": 8,
+      "displayedWord": "alabanza;",
+      "strongId": "H8416"
+    }
+  ],
+  "PSA_96_5": [
+    {
+      "verseId": "PSA_96_5",
+      "wordIndex": 10,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_5",
+      "wordIndex": 13,
+      "displayedWord": "cielos.",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_96_6": [
+    {
+      "verseId": "PSA_96_6",
+      "wordIndex": 0,
+      "displayedWord": "Alabanza",
+      "strongId": "H8416"
+    },
+    {
+      "verseId": "PSA_96_6",
+      "wordIndex": 8,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_96_7": [
+    {
+      "verseId": "PSA_96_7",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_7",
+      "wordIndex": 10,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_7",
+      "wordIndex": 12,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_96_8": [
+    {
+      "verseId": "PSA_96_8",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_8",
+      "wordIndex": 8,
+      "displayedWord": "nombre;",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_96_9": [
+    {
+      "verseId": "PSA_96_9",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_9",
+      "wordIndex": 16,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_96_10": [
+    {
+      "verseId": "PSA_96_10",
+      "wordIndex": 3,
+      "displayedWord": "naciones:",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "PSA_96_10",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_10",
+      "wordIndex": 18,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_96_11": [
+    {
+      "verseId": "PSA_96_11",
+      "wordIndex": 2,
+      "displayedWord": "cielos,",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "PSA_96_11",
+      "wordIndex": 6,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_96_11",
+      "wordIndex": 9,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "PSA_96_13": [
+    {
+      "verseId": "PSA_96_13",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_96_13",
+      "wordIndex": 10,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_96_13",
+      "wordIndex": 15,
+      "displayedWord": "justicia,",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PSA_96_13",
+      "wordIndex": 22,
+      "displayedWord": "verdad.",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_100_1": [
+    {
+      "verseId": "PSA_100_1",
+      "wordIndex": 2,
+      "displayedWord": "alabanza.",
+      "strongId": "H8416"
+    },
+    {
+      "verseId": "PSA_100_1",
+      "wordIndex": 7,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_100_1",
+      "wordIndex": 12,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_100_2": [
+    {
+      "verseId": "PSA_100_2",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_100_3": [
+    {
+      "verseId": "PSA_100_3",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_100_3",
+      "wordIndex": 4,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_100_3",
+      "wordIndex": 14,
+      "displayedWord": "Pueblo",
+      "strongId": "H5971"
+    }
+  ],
+  "PSA_100_4": [
+    {
+      "verseId": "PSA_100_4",
+      "wordIndex": 12,
+      "displayedWord": "alabanza;",
+      "strongId": "H8416"
+    },
+    {
+      "verseId": "PSA_100_4",
+      "wordIndex": 16,
+      "displayedWord": "nombre.",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_100_5": [
+    {
+      "verseId": "PSA_100_5",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_100_5",
+      "wordIndex": 3,
+      "displayedWord": "bueno;",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "PSA_100_5",
+      "wordIndex": 8,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_100_5",
+      "wordIndex": 12,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_103_1": [
+    {
+      "verseId": "PSA_103_1",
+      "wordIndex": 5,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_103_1",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_103_1",
+      "wordIndex": 15,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "PSA_103_1",
+      "wordIndex": 16,
+      "displayedWord": "nombre.",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_103_2": [
+    {
+      "verseId": "PSA_103_2",
+      "wordIndex": 1,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_103_2",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_103_4": [
+    {
+      "verseId": "PSA_103_4",
+      "wordIndex": 6,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    }
+  ],
+  "PSA_103_6": [
+    {
+      "verseId": "PSA_103_6",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_103_6",
+      "wordIndex": 5,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_103_7": [
+    {
+      "verseId": "PSA_103_7",
+      "wordIndex": 8,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_103_8": [
+    {
+      "verseId": "PSA_103_8",
+      "wordIndex": 4,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_103_8",
+      "wordIndex": 13,
+      "displayedWord": "misericordia.",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_103_10": [
+    {
+      "verseId": "PSA_103_10",
+      "wordIndex": 16,
+      "displayedWord": "pecados.",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_103_11": [
+    {
+      "verseId": "PSA_103_11",
+      "wordIndex": 6,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "PSA_103_11",
+      "wordIndex": 9,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_103_11",
+      "wordIndex": 12,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_103_13": [
+    {
+      "verseId": "PSA_103_13",
+      "wordIndex": 7,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PSA_103_13",
+      "wordIndex": 10,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_103_15": [
+    {
+      "verseId": "PSA_103_15",
+      "wordIndex": 1,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_103_15",
+      "wordIndex": 7,
+      "displayedWord": "días;",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_103_17": [
+    {
+      "verseId": "PSA_103_17",
+      "wordIndex": 2,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_103_17",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_103_17",
+      "wordIndex": 20,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PSA_103_17",
+      "wordIndex": 23,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PSA_103_17",
+      "wordIndex": 26,
+      "displayedWord": "hijos;",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_103_18": [
+    {
+      "verseId": "PSA_103_18",
+      "wordIndex": 5,
+      "displayedWord": "pacto,",
+      "strongId": "H1285"
+    },
+    {
+      "verseId": "PSA_103_18",
+      "wordIndex": 13,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_103_19": [
+    {
+      "verseId": "PSA_103_19",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_103_19",
+      "wordIndex": 4,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_103_20": [
+    {
+      "verseId": "PSA_103_20",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_103_20",
+      "wordIndex": 5,
+      "displayedWord": "ángeles,",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "PSA_103_20",
+      "wordIndex": 12,
+      "displayedWord": "palabra,",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_103_21": [
+    {
+      "verseId": "PSA_103_21",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_103_22": [
+    {
+      "verseId": "PSA_103_22",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_103_22",
+      "wordIndex": 15,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_103_22",
+      "wordIndex": 18,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_104_1": [
+    {
+      "verseId": "PSA_104_1",
+      "wordIndex": 1,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_104_1",
+      "wordIndex": 4,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_104_1",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_104_1",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_104_1",
+      "wordIndex": 16,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_104_2": [
+    {
+      "verseId": "PSA_104_2",
+      "wordIndex": 5,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "PSA_104_2",
+      "wordIndex": 12,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_104_3": [
+    {
+      "verseId": "PSA_104_3",
+      "wordIndex": 6,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    }
+  ],
+  "PSA_104_5": [
+    {
+      "verseId": "PSA_104_5",
+      "wordIndex": 3,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_104_6": [
+    {
+      "verseId": "PSA_104_6",
+      "wordIndex": 13,
+      "displayedWord": "aguas.",
+      "strongId": "H4325"
+    }
+  ],
+  "PSA_104_9": [
+    {
+      "verseId": "PSA_104_9",
+      "wordIndex": 12,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_104_12": [
+    {
+      "verseId": "PSA_104_12",
+      "wordIndex": 8,
+      "displayedWord": "cielos;",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_104_13": [
+    {
+      "verseId": "PSA_104_13",
+      "wordIndex": 15,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_104_14": [
+    {
+      "verseId": "PSA_104_14",
+      "wordIndex": 15,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_104_14",
+      "wordIndex": 18,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "PSA_104_14",
+      "wordIndex": 21,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_104_15": [
+    {
+      "verseId": "PSA_104_15",
+      "wordIndex": 6,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_104_15",
+      "wordIndex": 8,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_104_15",
+      "wordIndex": 18,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "PSA_104_15",
+      "wordIndex": 22,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_104_15",
+      "wordIndex": 24,
+      "displayedWord": "hombre.",
+      "strongId": "H120"
+    }
+  ],
+  "PSA_104_16": [
+    {
+      "verseId": "PSA_104_16",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_104_17": [
+    {
+      "verseId": "PSA_104_17",
+      "wordIndex": 9,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "PSA_104_20": [
+    {
+      "verseId": "PSA_104_20",
+      "wordIndex": 2,
+      "displayedWord": "tinieblas,",
+      "strongId": "H2822"
+    },
+    {
+      "verseId": "PSA_104_20",
+      "wordIndex": 6,
+      "displayedWord": "noche;",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_104_21": [
+    {
+      "verseId": "PSA_104_21",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_104_23": [
+    {
+      "verseId": "PSA_104_23",
+      "wordIndex": 2,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PSA_104_24": [
+    {
+      "verseId": "PSA_104_24",
+      "wordIndex": 6,
+      "displayedWord": "Jehová!",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_104_24",
+      "wordIndex": 13,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_104_25": [
+    {
+      "verseId": "PSA_104_25",
+      "wordIndex": 6,
+      "displayedWord": "mar,",
+      "strongId": "H3220"
+    }
+  ],
+  "PSA_104_30": [
+    {
+      "verseId": "PSA_104_30",
+      "wordIndex": 2,
+      "displayedWord": "Espíritu,",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "PSA_104_30",
+      "wordIndex": 11,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_104_31": [
+    {
+      "verseId": "PSA_104_31",
+      "wordIndex": 2,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "PSA_104_31",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_104_31",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_104_32": [
+    {
+      "verseId": "PSA_104_32",
+      "wordIndex": 4,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_104_33": [
+    {
+      "verseId": "PSA_104_33",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_104_33",
+      "wordIndex": 5,
+      "displayedWord": "vida;",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_104_33",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_104_34": [
+    {
+      "verseId": "PSA_104_34",
+      "wordIndex": 10,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_104_35": [
+    {
+      "verseId": "PSA_104_35",
+      "wordIndex": 4,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_104_35",
+      "wordIndex": 14,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_104_35",
+      "wordIndex": 17,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_107_1": [
+    {
+      "verseId": "PSA_107_1",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_107_1",
+      "wordIndex": 6,
+      "displayedWord": "bueno;",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "PSA_107_1",
+      "wordIndex": 12,
+      "displayedWord": "misericordia.",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_107_2": [
+    {
+      "verseId": "PSA_107_2",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_107_5": [
+    {
+      "verseId": "PSA_107_5",
+      "wordIndex": 4,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_107_6": [
+    {
+      "verseId": "PSA_107_6",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_107_8": [
+    {
+      "verseId": "PSA_107_8",
+      "wordIndex": 2,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_107_8",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_107_8",
+      "wordIndex": 11,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_107_9": [
+    {
+      "verseId": "PSA_107_9",
+      "wordIndex": 3,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_107_9",
+      "wordIndex": 10,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_107_10": [
+    {
+      "verseId": "PSA_107_10",
+      "wordIndex": 3,
+      "displayedWord": "tinieblas",
+      "strongId": "H2822"
+    },
+    {
+      "verseId": "PSA_107_10",
+      "wordIndex": 7,
+      "displayedWord": "muerte,",
+      "strongId": "H4194"
+    }
+  ],
+  "PSA_107_11": [
+    {
+      "verseId": "PSA_107_11",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_107_13": [
+    {
+      "verseId": "PSA_107_13",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_107_14": [
+    {
+      "verseId": "PSA_107_14",
+      "wordIndex": 4,
+      "displayedWord": "tinieblas",
+      "strongId": "H2822"
+    },
+    {
+      "verseId": "PSA_107_14",
+      "wordIndex": 10,
+      "displayedWord": "muerte,",
+      "strongId": "H4194"
+    }
+  ],
+  "PSA_107_15": [
+    {
+      "verseId": "PSA_107_15",
+      "wordIndex": 2,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_107_15",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_107_15",
+      "wordIndex": 11,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_107_18": [
+    {
+      "verseId": "PSA_107_18",
+      "wordIndex": 1,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_107_18",
+      "wordIndex": 12,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "PSA_107_19": [
+    {
+      "verseId": "PSA_107_19",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_107_20": [
+    {
+      "verseId": "PSA_107_20",
+      "wordIndex": 2,
+      "displayedWord": "palabra,",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_107_21": [
+    {
+      "verseId": "PSA_107_21",
+      "wordIndex": 2,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_107_21",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_107_21",
+      "wordIndex": 11,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_107_22": [
+    {
+      "verseId": "PSA_107_22",
+      "wordIndex": 3,
+      "displayedWord": "alabanza,",
+      "strongId": "H8416"
+    }
+  ],
+  "PSA_107_23": [
+    {
+      "verseId": "PSA_107_23",
+      "wordIndex": 4,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "PSA_107_23",
+      "wordIndex": 13,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    }
+  ],
+  "PSA_107_24": [
+    {
+      "verseId": "PSA_107_24",
+      "wordIndex": 6,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_107_26": [
+    {
+      "verseId": "PSA_107_26",
+      "wordIndex": 3,
+      "displayedWord": "cielos,",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_107_28": [
+    {
+      "verseId": "PSA_107_28",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_107_31": [
+    {
+      "verseId": "PSA_107_31",
+      "wordIndex": 2,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_107_31",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_107_31",
+      "wordIndex": 11,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_107_32": [
+    {
+      "verseId": "PSA_107_32",
+      "wordIndex": 5,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    }
+  ],
+  "PSA_107_33": [
+    {
+      "verseId": "PSA_107_33",
+      "wordIndex": 11,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    }
+  ],
+  "PSA_107_34": [
+    {
+      "verseId": "PSA_107_34",
+      "wordIndex": 1,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_107_35": [
+    {
+      "verseId": "PSA_107_35",
+      "wordIndex": 6,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "PSA_107_35",
+      "wordIndex": 9,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_107_43": [
+    {
+      "verseId": "PSA_107_43",
+      "wordIndex": 12,
+      "displayedWord": "Jehová?",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_110_1": [
+    {
+      "verseId": "PSA_110_1",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_110_1",
+      "wordIndex": 8,
+      "displayedWord": "Señor:",
+      "strongId": "H136"
+    }
+  ],
+  "PSA_110_2": [
+    {
+      "verseId": "PSA_110_2",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_110_3": [
+    {
+      "verseId": "PSA_110_3",
+      "wordIndex": 1,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "PSA_110_3",
+      "wordIndex": 8,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_110_4": [
+    {
+      "verseId": "PSA_110_4",
+      "wordIndex": 1,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_110_5": [
+    {
+      "verseId": "PSA_110_5",
+      "wordIndex": 1,
+      "displayedWord": "Señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "PSA_110_5",
+      "wordIndex": 12,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_110_6": [
+    {
+      "verseId": "PSA_110_6",
+      "wordIndex": 3,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    }
+  ],
+  "PSA_116_1": [
+    {
+      "verseId": "PSA_116_1",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_116_2": [
+    {
+      "verseId": "PSA_116_2",
+      "wordIndex": 14,
+      "displayedWord": "días.",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_116_3": [
+    {
+      "verseId": "PSA_116_3",
+      "wordIndex": 4,
+      "displayedWord": "muerte,",
+      "strongId": "H4194"
+    }
+  ],
+  "PSA_116_4": [
+    {
+      "verseId": "PSA_116_4",
+      "wordIndex": 3,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PSA_116_4",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_116_4",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_116_4",
+      "wordIndex": 12,
+      "displayedWord": "alma.",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_116_5": [
+    {
+      "verseId": "PSA_116_5",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_116_5",
+      "wordIndex": 4,
+      "displayedWord": "justo;",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PSA_116_5",
+      "wordIndex": 9,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_116_6": [
+    {
+      "verseId": "PSA_116_6",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_116_7": [
+    {
+      "verseId": "PSA_116_7",
+      "wordIndex": 2,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_116_7",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_116_8": [
+    {
+      "verseId": "PSA_116_8",
+      "wordIndex": 5,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_116_8",
+      "wordIndex": 8,
+      "displayedWord": "muerte,",
+      "strongId": "H4194"
+    }
+  ],
+  "PSA_116_9": [
+    {
+      "verseId": "PSA_116_9",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_116_9",
+      "wordIndex": 6,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_116_11": [
+    {
+      "verseId": "PSA_116_11",
+      "wordIndex": 6,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PSA_116_12": [
+    {
+      "verseId": "PSA_116_12",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_116_13": [
+    {
+      "verseId": "PSA_116_13",
+      "wordIndex": 5,
+      "displayedWord": "salvación,",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_116_13",
+      "wordIndex": 9,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PSA_116_13",
+      "wordIndex": 11,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_116_14": [
+    {
+      "verseId": "PSA_116_14",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_116_14",
+      "wordIndex": 10,
+      "displayedWord": "pueblo.",
+      "strongId": "H5971"
+    }
+  ],
+  "PSA_116_15": [
+    {
+      "verseId": "PSA_116_15",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_116_15",
+      "wordIndex": 8,
+      "displayedWord": "muerte",
+      "strongId": "H4194"
+    },
+    {
+      "verseId": "PSA_116_15",
+      "wordIndex": 11,
+      "displayedWord": "santos.",
+      "strongId": "H6918"
+    }
+  ],
+  "PSA_116_16": [
+    {
+      "verseId": "PSA_116_16",
+      "wordIndex": 1,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_116_16",
+      "wordIndex": 10,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PSA_116_17": [
+    {
+      "verseId": "PSA_116_17",
+      "wordIndex": 4,
+      "displayedWord": "alabanza,",
+      "strongId": "H8416"
+    },
+    {
+      "verseId": "PSA_116_17",
+      "wordIndex": 8,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PSA_116_17",
+      "wordIndex": 10,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_116_18": [
+    {
+      "verseId": "PSA_116_18",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_116_18",
+      "wordIndex": 10,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    }
+  ],
+  "PSA_116_19": [
+    {
+      "verseId": "PSA_116_19",
+      "wordIndex": 5,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "PSA_116_19",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_1": [
+    {
+      "verseId": "PSA_119_1",
+      "wordIndex": 12,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "PSA_119_1",
+      "wordIndex": 14,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_2": [
+    {
+      "verseId": "PSA_119_2",
+      "wordIndex": 10,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_119_4": [
+    {
+      "verseId": "PSA_119_4",
+      "wordIndex": 7,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_6": [
+    {
+      "verseId": "PSA_119_6",
+      "wordIndex": 10,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_7": [
+    {
+      "verseId": "PSA_119_7",
+      "wordIndex": 5,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_119_9": [
+    {
+      "verseId": "PSA_119_9",
+      "wordIndex": 10,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_10": [
+    {
+      "verseId": "PSA_119_10",
+      "wordIndex": 3,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_119_10",
+      "wordIndex": 13,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_11": [
+    {
+      "verseId": "PSA_119_11",
+      "wordIndex": 2,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_119_12": [
+    {
+      "verseId": "PSA_119_12",
+      "wordIndex": 3,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_15": [
+    {
+      "verseId": "PSA_119_15",
+      "wordIndex": 2,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_17": [
+    {
+      "verseId": "PSA_119_17",
+      "wordIndex": 10,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_18": [
+    {
+      "verseId": "PSA_119_18",
+      "wordIndex": 9,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_19": [
+    {
+      "verseId": "PSA_119_19",
+      "wordIndex": 5,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_119_19",
+      "wordIndex": 11,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_20": [
+    {
+      "verseId": "PSA_119_20",
+      "wordIndex": 3,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_119_21": [
+    {
+      "verseId": "PSA_119_21",
+      "wordIndex": 11,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_25": [
+    {
+      "verseId": "PSA_119_25",
+      "wordIndex": 6,
+      "displayedWord": "alma;",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_119_25",
+      "wordIndex": 10,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_27": [
+    {
+      "verseId": "PSA_119_27",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos,",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_28": [
+    {
+      "verseId": "PSA_119_28",
+      "wordIndex": 3,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_119_28",
+      "wordIndex": 9,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_29": [
+    {
+      "verseId": "PSA_119_29",
+      "wordIndex": 11,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_119_29",
+      "wordIndex": 14,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_30": [
+    {
+      "verseId": "PSA_119_30",
+      "wordIndex": 5,
+      "displayedWord": "verdad;",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_119_31": [
+    {
+      "verseId": "PSA_119_31",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_32": [
+    {
+      "verseId": "PSA_119_32",
+      "wordIndex": 5,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "PSA_119_32",
+      "wordIndex": 10,
+      "displayedWord": "corazón.",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_119_33": [
+    {
+      "verseId": "PSA_119_33",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_34": [
+    {
+      "verseId": "PSA_119_34",
+      "wordIndex": 5,
+      "displayedWord": "ley,",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "PSA_119_34",
+      "wordIndex": 11,
+      "displayedWord": "corazón.",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_119_35": [
+    {
+      "verseId": "PSA_119_35",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos,",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_36": [
+    {
+      "verseId": "PSA_119_36",
+      "wordIndex": 2,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_119_38": [
+    {
+      "verseId": "PSA_119_38",
+      "wordIndex": 2,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_40": [
+    {
+      "verseId": "PSA_119_40",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos;",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "PSA_119_40",
+      "wordIndex": 10,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_119_41": [
+    {
+      "verseId": "PSA_119_41",
+      "wordIndex": 4,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_119_41",
+      "wordIndex": 6,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_41",
+      "wordIndex": 8,
+      "displayedWord": "salvación,",
+      "strongId": "H3444"
+    }
+  ],
+  "PSA_119_42": [
+    {
+      "verseId": "PSA_119_42",
+      "wordIndex": 10,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_43": [
+    {
+      "verseId": "PSA_119_43",
+      "wordIndex": 9,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "PSA_119_43",
+      "wordIndex": 11,
+      "displayedWord": "verdad,",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_119_44": [
+    {
+      "verseId": "PSA_119_44",
+      "wordIndex": 2,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_45": [
+    {
+      "verseId": "PSA_119_45",
+      "wordIndex": 7,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_47": [
+    {
+      "verseId": "PSA_119_47",
+      "wordIndex": 5,
+      "displayedWord": "mandamientos,",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_48": [
+    {
+      "verseId": "PSA_119_48",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_49": [
+    {
+      "verseId": "PSA_119_49",
+      "wordIndex": 3,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_51": [
+    {
+      "verseId": "PSA_119_51",
+      "wordIndex": 14,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_52": [
+    {
+      "verseId": "PSA_119_52",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_53": [
+    {
+      "verseId": "PSA_119_53",
+      "wordIndex": 13,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_54": [
+    {
+      "verseId": "PSA_119_54",
+      "wordIndex": 8,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "PSA_119_55": [
+    {
+      "verseId": "PSA_119_55",
+      "wordIndex": 4,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    },
+    {
+      "verseId": "PSA_119_55",
+      "wordIndex": 7,
+      "displayedWord": "nombre,",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PSA_119_55",
+      "wordIndex": 9,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_55",
+      "wordIndex": 13,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_56": [
+    {
+      "verseId": "PSA_119_56",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_57": [
+    {
+      "verseId": "PSA_119_57",
+      "wordIndex": 3,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_58": [
+    {
+      "verseId": "PSA_119_58",
+      "wordIndex": 5,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_119_58",
+      "wordIndex": 7,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_119_58",
+      "wordIndex": 12,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_60": [
+    {
+      "verseId": "PSA_119_60",
+      "wordIndex": 9,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_61": [
+    {
+      "verseId": "PSA_119_61",
+      "wordIndex": 13,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_63": [
+    {
+      "verseId": "PSA_119_63",
+      "wordIndex": 12,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_64": [
+    {
+      "verseId": "PSA_119_64",
+      "wordIndex": 2,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_119_64",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_64",
+      "wordIndex": 8,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_119_65": [
+    {
+      "verseId": "PSA_119_65",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_65",
+      "wordIndex": 11,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_66": [
+    {
+      "verseId": "PSA_119_66",
+      "wordIndex": 7,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_67": [
+    {
+      "verseId": "PSA_119_67",
+      "wordIndex": 11,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_68": [
+    {
+      "verseId": "PSA_119_68",
+      "wordIndex": 0,
+      "displayedWord": "Bueno",
+      "strongId": "H2896"
+    }
+  ],
+  "PSA_119_69": [
+    {
+      "verseId": "PSA_119_69",
+      "wordIndex": 11,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_119_69",
+      "wordIndex": 13,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_70": [
+    {
+      "verseId": "PSA_119_70",
+      "wordIndex": 3,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_119_70",
+      "wordIndex": 12,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_71": [
+    {
+      "verseId": "PSA_119_71",
+      "wordIndex": 0,
+      "displayedWord": "Bueno",
+      "strongId": "H2896"
+    }
+  ],
+  "PSA_119_72": [
+    {
+      "verseId": "PSA_119_72",
+      "wordIndex": 4,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_73": [
+    {
+      "verseId": "PSA_119_73",
+      "wordIndex": 12,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_74": [
+    {
+      "verseId": "PSA_119_74",
+      "wordIndex": 12,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_75": [
+    {
+      "verseId": "PSA_119_75",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_76": [
+    {
+      "verseId": "PSA_119_76",
+      "wordIndex": 3,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_119_77": [
+    {
+      "verseId": "PSA_119_77",
+      "wordIndex": 10,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_78": [
+    {
+      "verseId": "PSA_119_78",
+      "wordIndex": 15,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_80": [
+    {
+      "verseId": "PSA_119_80",
+      "wordIndex": 2,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_119_81": [
+    {
+      "verseId": "PSA_119_81",
+      "wordIndex": 2,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_119_81",
+      "wordIndex": 5,
+      "displayedWord": "salvación,",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_119_81",
+      "wordIndex": 10,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_82": [
+    {
+      "verseId": "PSA_119_82",
+      "wordIndex": 5,
+      "displayedWord": "palabra,",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_84": [
+    {
+      "verseId": "PSA_119_84",
+      "wordIndex": 3,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_119_85": [
+    {
+      "verseId": "PSA_119_85",
+      "wordIndex": 11,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_86": [
+    {
+      "verseId": "PSA_119_86",
+      "wordIndex": 2,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "PSA_119_86",
+      "wordIndex": 4,
+      "displayedWord": "verdad;",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_119_87": [
+    {
+      "verseId": "PSA_119_87",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_119_87",
+      "wordIndex": 11,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_88": [
+    {
+      "verseId": "PSA_119_88",
+      "wordIndex": 4,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_119_89": [
+    {
+      "verseId": "PSA_119_89",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_89",
+      "wordIndex": 6,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "PSA_119_89",
+      "wordIndex": 9,
+      "displayedWord": "cielos.",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_119_90": [
+    {
+      "verseId": "PSA_119_90",
+      "wordIndex": 10,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_119_92": [
+    {
+      "verseId": "PSA_119_92",
+      "wordIndex": 2,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_93": [
+    {
+      "verseId": "PSA_119_93",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos,",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_94": [
+    {
+      "verseId": "PSA_119_94",
+      "wordIndex": 8,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_96": [
+    {
+      "verseId": "PSA_119_96",
+      "wordIndex": 10,
+      "displayedWord": "mandamiento.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_97": [
+    {
+      "verseId": "PSA_119_97",
+      "wordIndex": 5,
+      "displayedWord": "ley!",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "PSA_119_97",
+      "wordIndex": 8,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_119_98": [
+    {
+      "verseId": "PSA_119_98",
+      "wordIndex": 10,
+      "displayedWord": "mandamientos,",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_100": [
+    {
+      "verseId": "PSA_119_100",
+      "wordIndex": 10,
+      "displayedWord": "mandamientos;",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_101": [
+    {
+      "verseId": "PSA_119_101",
+      "wordIndex": 10,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_104": [
+    {
+      "verseId": "PSA_119_104",
+      "wordIndex": 2,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_105": [
+    {
+      "verseId": "PSA_119_105",
+      "wordIndex": 6,
+      "displayedWord": "palabra,",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_107": [
+    {
+      "verseId": "PSA_119_107",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_107",
+      "wordIndex": 11,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_108": [
+    {
+      "verseId": "PSA_119_108",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_109": [
+    {
+      "verseId": "PSA_119_109",
+      "wordIndex": 1,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_119_109",
+      "wordIndex": 14,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_110": [
+    {
+      "verseId": "PSA_119_110",
+      "wordIndex": 12,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_111": [
+    {
+      "verseId": "PSA_119_111",
+      "wordIndex": 14,
+      "displayedWord": "corazón.",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_119_112": [
+    {
+      "verseId": "PSA_119_112",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_119_113": [
+    {
+      "verseId": "PSA_119_113",
+      "wordIndex": 8,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_114": [
+    {
+      "verseId": "PSA_119_114",
+      "wordIndex": 9,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_115": [
+    {
+      "verseId": "PSA_119_115",
+      "wordIndex": 8,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "PSA_119_115",
+      "wordIndex": 11,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_119_116": [
+    {
+      "verseId": "PSA_119_116",
+      "wordIndex": 4,
+      "displayedWord": "palabra,",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_119": [
+    {
+      "verseId": "PSA_119_119",
+      "wordIndex": 10,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_119_120": [
+    {
+      "verseId": "PSA_119_120",
+      "wordIndex": 1,
+      "displayedWord": "carne",
+      "strongId": "H1320"
+    },
+    {
+      "verseId": "PSA_119_120",
+      "wordIndex": 6,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    }
+  ],
+  "PSA_119_121": [
+    {
+      "verseId": "PSA_119_121",
+      "wordIndex": 2,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_119_123": [
+    {
+      "verseId": "PSA_119_123",
+      "wordIndex": 5,
+      "displayedWord": "salvación,",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_119_123",
+      "wordIndex": 9,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "PSA_119_123",
+      "wordIndex": 12,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_119_124": [
+    {
+      "verseId": "PSA_119_124",
+      "wordIndex": 6,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_119_126": [
+    {
+      "verseId": "PSA_119_126",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_126",
+      "wordIndex": 10,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_127": [
+    {
+      "verseId": "PSA_119_127",
+      "wordIndex": 5,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_128": [
+    {
+      "verseId": "PSA_119_128",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_129": [
+    {
+      "verseId": "PSA_119_129",
+      "wordIndex": 10,
+      "displayedWord": "alma.",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_119_131": [
+    {
+      "verseId": "PSA_119_131",
+      "wordIndex": 8,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_132": [
+    {
+      "verseId": "PSA_119_132",
+      "wordIndex": 3,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_119_132",
+      "wordIndex": 13,
+      "displayedWord": "nombre.",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_119_133": [
+    {
+      "verseId": "PSA_119_133",
+      "wordIndex": 5,
+      "displayedWord": "palabra,",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_134": [
+    {
+      "verseId": "PSA_119_134",
+      "wordIndex": 10,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_136": [
+    {
+      "verseId": "PSA_119_136",
+      "wordIndex": 2,
+      "displayedWord": "agua",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "PSA_119_136",
+      "wordIndex": 11,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_137": [
+    {
+      "verseId": "PSA_119_137",
+      "wordIndex": 0,
+      "displayedWord": "Justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PSA_119_137",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_140": [
+    {
+      "verseId": "PSA_119_140",
+      "wordIndex": 4,
+      "displayedWord": "palabra,",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_141": [
+    {
+      "verseId": "PSA_119_141",
+      "wordIndex": 12,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_142": [
+    {
+      "verseId": "PSA_119_142",
+      "wordIndex": 1,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PSA_119_142",
+      "wordIndex": 3,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PSA_119_142",
+      "wordIndex": 7,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "PSA_119_142",
+      "wordIndex": 9,
+      "displayedWord": "verdad.",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_119_143": [
+    {
+      "verseId": "PSA_119_143",
+      "wordIndex": 10,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_144": [
+    {
+      "verseId": "PSA_119_144",
+      "wordIndex": 0,
+      "displayedWord": "Justicia",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_119_145": [
+    {
+      "verseId": "PSA_119_145",
+      "wordIndex": 4,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_119_145",
+      "wordIndex": 6,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_147": [
+    {
+      "verseId": "PSA_119_147",
+      "wordIndex": 9,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_148": [
+    {
+      "verseId": "PSA_119_148",
+      "wordIndex": 9,
+      "displayedWord": "noche,",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_119_149": [
+    {
+      "verseId": "PSA_119_149",
+      "wordIndex": 6,
+      "displayedWord": "misericordia;",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PSA_119_149",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_150": [
+    {
+      "verseId": "PSA_119_150",
+      "wordIndex": 13,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_151": [
+    {
+      "verseId": "PSA_119_151",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_151",
+      "wordIndex": 8,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "PSA_119_151",
+      "wordIndex": 10,
+      "displayedWord": "verdad.",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_119_153": [
+    {
+      "verseId": "PSA_119_153",
+      "wordIndex": 8,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_154": [
+    {
+      "verseId": "PSA_119_154",
+      "wordIndex": 8,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_155": [
+    {
+      "verseId": "PSA_119_155",
+      "wordIndex": 6,
+      "displayedWord": "salvación,",
+      "strongId": "H3444"
+    }
+  ],
+  "PSA_119_156": [
+    {
+      "verseId": "PSA_119_156",
+      "wordIndex": 5,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_119_159": [
+    {
+      "verseId": "PSA_119_159",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_159",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos;",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "PSA_119_159",
+      "wordIndex": 11,
+      "displayedWord": "misericordia.",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_119_160": [
+    {
+      "verseId": "PSA_119_160",
+      "wordIndex": 4,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "PSA_119_160",
+      "wordIndex": 6,
+      "displayedWord": "verdad,",
+      "strongId": "H571"
+    },
+    {
+      "verseId": "PSA_119_160",
+      "wordIndex": 14,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_119_161": [
+    {
+      "verseId": "PSA_119_161",
+      "wordIndex": 8,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PSA_119_161",
+      "wordIndex": 10,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    }
+  ],
+  "PSA_119_162": [
+    {
+      "verseId": "PSA_119_162",
+      "wordIndex": 4,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_163": [
+    {
+      "verseId": "PSA_119_163",
+      "wordIndex": 6,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_164": [
+    {
+      "verseId": "PSA_119_164",
+      "wordIndex": 3,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_119_165": [
+    {
+      "verseId": "PSA_119_165",
+      "wordIndex": 1,
+      "displayedWord": "paz",
+      "strongId": "H7965"
+    },
+    {
+      "verseId": "PSA_119_165",
+      "wordIndex": 7,
+      "displayedWord": "ley,",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_166": [
+    {
+      "verseId": "PSA_119_166",
+      "wordIndex": 1,
+      "displayedWord": "salvación",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_119_166",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_166",
+      "wordIndex": 8,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_167": [
+    {
+      "verseId": "PSA_119_167",
+      "wordIndex": 1,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_119_168": [
+    {
+      "verseId": "PSA_119_168",
+      "wordIndex": 3,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_169": [
+    {
+      "verseId": "PSA_119_169",
+      "wordIndex": 7,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_169",
+      "wordIndex": 13,
+      "displayedWord": "palabra.",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_119_171": [
+    {
+      "verseId": "PSA_119_171",
+      "wordIndex": 3,
+      "displayedWord": "alabanza",
+      "strongId": "H8416"
+    }
+  ],
+  "PSA_119_172": [
+    {
+      "verseId": "PSA_119_172",
+      "wordIndex": 8,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "PSA_119_172",
+      "wordIndex": 10,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_119_173": [
+    {
+      "verseId": "PSA_119_173",
+      "wordIndex": 8,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_119_174": [
+    {
+      "verseId": "PSA_119_174",
+      "wordIndex": 3,
+      "displayedWord": "salvación,",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "PSA_119_174",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_119_174",
+      "wordIndex": 8,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PSA_119_175": [
+    {
+      "verseId": "PSA_119_175",
+      "wordIndex": 2,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_119_176": [
+    {
+      "verseId": "PSA_119_176",
+      "wordIndex": 17,
+      "displayedWord": "mandamientos.",
+      "strongId": "H4687"
+    }
+  ],
+  "PSA_121_2": [
+    {
+      "verseId": "PSA_121_2",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_121_2",
+      "wordIndex": 8,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "PSA_121_2",
+      "wordIndex": 11,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_121_5": [
+    {
+      "verseId": "PSA_121_5",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_121_5",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_121_6": [
+    {
+      "verseId": "PSA_121_6",
+      "wordIndex": 6,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_121_6",
+      "wordIndex": 11,
+      "displayedWord": "noche.",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_121_7": [
+    {
+      "verseId": "PSA_121_7",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_121_7",
+      "wordIndex": 9,
+      "displayedWord": "alma.",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_121_8": [
+    {
+      "verseId": "PSA_121_8",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_130_1": [
+    {
+      "verseId": "PSA_130_1",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_130_2": [
+    {
+      "verseId": "PSA_130_2",
+      "wordIndex": 0,
+      "displayedWord": "Señor,",
+      "strongId": "H136"
+    }
+  ],
+  "PSA_130_3": [
+    {
+      "verseId": "PSA_130_3",
+      "wordIndex": 5,
+      "displayedWord": "pecados,",
+      "strongId": "H2403"
+    },
+    {
+      "verseId": "PSA_130_3",
+      "wordIndex": 8,
+      "displayedWord": "Señor,",
+      "strongId": "H136"
+    }
+  ],
+  "PSA_130_5": [
+    {
+      "verseId": "PSA_130_5",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_130_5",
+      "wordIndex": 6,
+      "displayedWord": "alma;",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_130_5",
+      "wordIndex": 9,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "PSA_130_6": [
+    {
+      "verseId": "PSA_130_6",
+      "wordIndex": 1,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_130_6",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_130_6",
+      "wordIndex": 11,
+      "displayedWord": "mañana,",
+      "strongId": "H1242"
+    },
+    {
+      "verseId": "PSA_130_6",
+      "wordIndex": 18,
+      "displayedWord": "mañana.",
+      "strongId": "H1242"
+    }
+  ],
+  "PSA_130_7": [
+    {
+      "verseId": "PSA_130_7",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_130_7",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_130_7",
+      "wordIndex": 8,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_130_8": [
+    {
+      "verseId": "PSA_130_8",
+      "wordIndex": 8,
+      "displayedWord": "pecados.",
+      "strongId": "H2403"
+    }
+  ],
+  "PSA_133_1": [
+    {
+      "verseId": "PSA_133_1",
+      "wordIndex": 7,
+      "displayedWord": "bueno",
+      "strongId": "H2896"
+    }
+  ],
+  "PSA_133_3": [
+    {
+      "verseId": "PSA_133_3",
+      "wordIndex": 15,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_133_3",
+      "wordIndex": 16,
+      "displayedWord": "bendición,",
+      "strongId": "H1293"
+    },
+    {
+      "verseId": "PSA_133_3",
+      "wordIndex": 18,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PSA_139_1": [
+    {
+      "verseId": "PSA_139_1",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_139_4": [
+    {
+      "verseId": "PSA_139_4",
+      "wordIndex": 5,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "PSA_139_4",
+      "wordIndex": 13,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_139_7": [
+    {
+      "verseId": "PSA_139_7",
+      "wordIndex": 6,
+      "displayedWord": "Espíritu?",
+      "strongId": "H7307"
+    }
+  ],
+  "PSA_139_8": [
+    {
+      "verseId": "PSA_139_8",
+      "wordIndex": 4,
+      "displayedWord": "cielos,",
+      "strongId": "H8064"
+    }
+  ],
+  "PSA_139_9": [
+    {
+      "verseId": "PSA_139_9",
+      "wordIndex": 12,
+      "displayedWord": "mar,",
+      "strongId": "H3220"
+    }
+  ],
+  "PSA_139_11": [
+    {
+      "verseId": "PSA_139_11",
+      "wordIndex": 4,
+      "displayedWord": "tinieblas",
+      "strongId": "H2822"
+    },
+    {
+      "verseId": "PSA_139_11",
+      "wordIndex": 9,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    }
+  ],
+  "PSA_139_12": [
+    {
+      "verseId": "PSA_139_12",
+      "wordIndex": 2,
+      "displayedWord": "tinieblas",
+      "strongId": "H2822"
+    },
+    {
+      "verseId": "PSA_139_12",
+      "wordIndex": 9,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    },
+    {
+      "verseId": "PSA_139_12",
+      "wordIndex": 13,
+      "displayedWord": "día;",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_139_12",
+      "wordIndex": 19,
+      "displayedWord": "tinieblas",
+      "strongId": "H2822"
+    },
+    {
+      "verseId": "PSA_139_12",
+      "wordIndex": 22,
+      "displayedWord": "luz.",
+      "strongId": "H216"
+    }
+  ],
+  "PSA_139_14": [
+    {
+      "verseId": "PSA_139_14",
+      "wordIndex": 12,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PSA_139_15": [
+    {
+      "verseId": "PSA_139_15",
+      "wordIndex": 21,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PSA_139_17": [
+    {
+      "verseId": "PSA_139_17",
+      "wordIndex": 5,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_139_19": [
+    {
+      "verseId": "PSA_139_19",
+      "wordIndex": 3,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_139_20": [
+    {
+      "verseId": "PSA_139_20",
+      "wordIndex": 12,
+      "displayedWord": "nombre.",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_139_21": [
+    {
+      "verseId": "PSA_139_21",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_139_23": [
+    {
+      "verseId": "PSA_139_23",
+      "wordIndex": 2,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_139_23",
+      "wordIndex": 6,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    }
+  ],
+  "PSA_145_1": [
+    {
+      "verseId": "PSA_145_1",
+      "wordIndex": 2,
+      "displayedWord": "alabanza;",
+      "strongId": "H8416"
+    },
+    {
+      "verseId": "PSA_145_1",
+      "wordIndex": 9,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_145_1",
+      "wordIndex": 11,
+      "displayedWord": "Rey,",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PSA_145_1",
+      "wordIndex": 15,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_145_2": [
+    {
+      "verseId": "PSA_145_2",
+      "wordIndex": 1,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PSA_145_2",
+      "wordIndex": 7,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_145_3": [
+    {
+      "verseId": "PSA_145_3",
+      "wordIndex": 2,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_145_3",
+      "wordIndex": 7,
+      "displayedWord": "alabanza;",
+      "strongId": "H8416"
+    }
+  ],
+  "PSA_145_5": [
+    {
+      "verseId": "PSA_145_5",
+      "wordIndex": 5,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_145_7": [
+    {
+      "verseId": "PSA_145_7",
+      "wordIndex": 10,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PSA_145_8": [
+    {
+      "verseId": "PSA_145_8",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_145_8",
+      "wordIndex": 12,
+      "displayedWord": "misericordia.",
+      "strongId": "H2617"
+    }
+  ],
+  "PSA_145_9": [
+    {
+      "verseId": "PSA_145_9",
+      "wordIndex": 0,
+      "displayedWord": "Bueno",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "PSA_145_9",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_145_10": [
+    {
+      "verseId": "PSA_145_10",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_145_10",
+      "wordIndex": 9,
+      "displayedWord": "santos",
+      "strongId": "H6918"
+    }
+  ],
+  "PSA_145_11": [
+    {
+      "verseId": "PSA_145_11",
+      "wordIndex": 1,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_145_12": [
+    {
+      "verseId": "PSA_145_12",
+      "wordIndex": 5,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PSA_145_12",
+      "wordIndex": 14,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    }
+  ],
+  "PSA_145_14": [
+    {
+      "verseId": "PSA_145_14",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_145_16": [
+    {
+      "verseId": "PSA_145_16",
+      "wordIndex": 6,
+      "displayedWord": "bendición",
+      "strongId": "H1293"
+    },
+    {
+      "verseId": "PSA_145_16",
+      "wordIndex": 10,
+      "displayedWord": "viviente.",
+      "strongId": "H2416"
+    }
+  ],
+  "PSA_145_17": [
+    {
+      "verseId": "PSA_145_17",
+      "wordIndex": 0,
+      "displayedWord": "Justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PSA_145_17",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_145_18": [
+    {
+      "verseId": "PSA_145_18",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_145_20": [
+    {
+      "verseId": "PSA_145_20",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_145_21": [
+    {
+      "verseId": "PSA_145_21",
+      "wordIndex": 1,
+      "displayedWord": "alabanza",
+      "strongId": "H8416"
+    },
+    {
+      "verseId": "PSA_145_21",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_145_21",
+      "wordIndex": 11,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "PSA_145_21",
+      "wordIndex": 12,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "PSA_146_1": [
+    {
+      "verseId": "PSA_146_1",
+      "wordIndex": 4,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PSA_146_1",
+      "wordIndex": 7,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_146_2": [
+    {
+      "verseId": "PSA_146_2",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_146_2",
+      "wordIndex": 5,
+      "displayedWord": "vida;",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PSA_146_2",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_146_3": [
+    {
+      "verseId": "PSA_146_3",
+      "wordIndex": 7,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PSA_146_3",
+      "wordIndex": 9,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PSA_146_3",
+      "wordIndex": 15,
+      "displayedWord": "salvación.",
+      "strongId": "H3444"
+    }
+  ],
+  "PSA_146_4": [
+    {
+      "verseId": "PSA_146_4",
+      "wordIndex": 8,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_146_4",
+      "wordIndex": 12,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "PSA_146_5": [
+    {
+      "verseId": "PSA_146_5",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "PSA_146_5",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_146_5",
+      "wordIndex": 15,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_146_6": [
+    {
+      "verseId": "PSA_146_6",
+      "wordIndex": 4,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "PSA_146_6",
+      "wordIndex": 7,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PSA_146_6",
+      "wordIndex": 9,
+      "displayedWord": "mar,",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "PSA_146_6",
+      "wordIndex": 19,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    }
+  ],
+  "PSA_146_7": [
+    {
+      "verseId": "PSA_146_7",
+      "wordIndex": 2,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PSA_146_7",
+      "wordIndex": 8,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "PSA_146_7",
+      "wordIndex": 12,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_146_8": [
+    {
+      "verseId": "PSA_146_8",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_146_8",
+      "wordIndex": 7,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_146_8",
+      "wordIndex": 12,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_146_9": [
+    {
+      "verseId": "PSA_146_9",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PSA_146_10": [
+    {
+      "verseId": "PSA_146_10",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PSA_146_10",
+      "wordIndex": 5,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "PSA_150_1": [
+    {
+      "verseId": "PSA_150_1",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
   ]
 }

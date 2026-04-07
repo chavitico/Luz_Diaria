@@ -72,11 +72,40 @@ const GREEK_BLOCKS: [string, number, number][] = [
 type AlignmentMap = Record<string, VerseWordLink[]>;
 
 const ALIGNMENT_LOADERS: Record<string, () => AlignmentMap> = {
+  // Original pilot books
   GEN: () => require('./alignment/align_GEN.json'),
   EXO: () => require('./alignment/align_EXO.json'),
   PSA: () => require('./alignment/align_PSA.json'),
   JHN: () => require('./alignment/align_JHN.json'),
   ROM: () => require('./alignment/align_ROM.json'),
+  // OT expansions
+  LEV: () => require('./alignment/align_LEV.json'),
+  NUM: () => require('./alignment/align_NUM.json'),
+  DEU: () => require('./alignment/align_DEU.json'),
+  JOS: () => require('./alignment/align_JOS.json'),
+  PRO: () => require('./alignment/align_PRO.json'),
+  ISA: () => require('./alignment/align_ISA.json'),
+  JER: () => require('./alignment/align_JER.json'),
+  EZK: () => require('./alignment/align_EZK.json'),
+  DAN: () => require('./alignment/align_DAN.json'),
+  // NT expansions
+  MAT: () => require('./alignment/align_MAT.json'),
+  MRK: () => require('./alignment/align_MRK.json'),
+  LUK: () => require('./alignment/align_LUK.json'),
+  ACT: () => require('./alignment/align_ACT.json'),
+  '1CO': () => require('./alignment/align_1CO.json'),
+  '2CO': () => require('./alignment/align_2CO.json'),
+  GAL: () => require('./alignment/align_GAL.json'),
+  EPH: () => require('./alignment/align_EPH.json'),
+  PHP: () => require('./alignment/align_PHP.json'),
+  COL: () => require('./alignment/align_COL.json'),
+  '1TH': () => require('./alignment/align_1TH.json'),
+  HEB: () => require('./alignment/align_HEB.json'),
+  JAS: () => require('./alignment/align_JAS.json'),
+  '1PE': () => require('./alignment/align_1PE.json'),
+  '1JN': () => require('./alignment/align_1JN.json'),
+  REV: () => require('./alignment/align_REV.json'),
+  '2TI': () => require('./alignment/align_2TI.json'),
 };
 
 // ─── Adapter: BlockStrongEntry → StrongEntry ──────────────────────────────────

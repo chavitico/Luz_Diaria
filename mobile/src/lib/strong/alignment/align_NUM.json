@@ -1,0 +1,724 @@
+{
+  "NUM_6_1": [
+    {
+      "verseId": "NUM_6_1",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_6_2": [
+    {
+      "verseId": "NUM_6_2",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "NUM_6_2",
+      "wordIndex": 9,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "NUM_6_2",
+      "wordIndex": 24,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_6_5": [
+    {
+      "verseId": "NUM_6_5",
+      "wordIndex": 19,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "NUM_6_5",
+      "wordIndex": 24,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_6_5",
+      "wordIndex": 26,
+      "displayedWord": "santo;",
+      "strongId": "H6918"
+    }
+  ],
+  "NUM_6_6": [
+    {
+      "verseId": "NUM_6_6",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_6_7": [
+    {
+      "verseId": "NUM_6_7",
+      "wordIndex": 26,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "NUM_6_8": [
+    {
+      "verseId": "NUM_6_8",
+      "wordIndex": 7,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "NUM_6_8",
+      "wordIndex": 9,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_6_9": [
+    {
+      "verseId": "NUM_6_9",
+      "wordIndex": 15,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "NUM_6_9",
+      "wordIndex": 24,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "NUM_6_10": [
+    {
+      "verseId": "NUM_6_10",
+      "wordIndex": 2,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "NUM_6_11": [
+    {
+      "verseId": "NUM_6_11",
+      "wordIndex": 23,
+      "displayedWord": "muerto,",
+      "strongId": "H4194"
+    },
+    {
+      "verseId": "NUM_6_11",
+      "wordIndex": 30,
+      "displayedWord": "día.",
+      "strongId": "H3117"
+    }
+  ],
+  "NUM_6_12": [
+    {
+      "verseId": "NUM_6_12",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_6_12",
+      "wordIndex": 5,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "NUM_6_12",
+      "wordIndex": 23,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "NUM_6_13": [
+    {
+      "verseId": "NUM_6_13",
+      "wordIndex": 4,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "NUM_6_13",
+      "wordIndex": 8,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "NUM_6_14": [
+    {
+      "verseId": "NUM_6_14",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_6_14",
+      "wordIndex": 33,
+      "displayedWord": "paz.",
+      "strongId": "H7965"
+    }
+  ],
+  "NUM_6_16": [
+    {
+      "verseId": "NUM_6_16",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_6_17": [
+    {
+      "verseId": "NUM_6_17",
+      "wordIndex": 7,
+      "displayedWord": "paz",
+      "strongId": "H7965"
+    },
+    {
+      "verseId": "NUM_6_17",
+      "wordIndex": 9,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_6_18": [
+    {
+      "verseId": "NUM_6_18",
+      "wordIndex": 35,
+      "displayedWord": "paz.",
+      "strongId": "H7965"
+    }
+  ],
+  "NUM_6_20": [
+    {
+      "verseId": "NUM_6_20",
+      "wordIndex": 10,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_6_20",
+      "wordIndex": 15,
+      "displayedWord": "santa",
+      "strongId": "H6918"
+    }
+  ],
+  "NUM_6_21": [
+    {
+      "verseId": "NUM_6_21",
+      "wordIndex": 3,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "NUM_6_21",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_6_21",
+      "wordIndex": 35,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "NUM_6_22": [
+    {
+      "verseId": "NUM_6_22",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_6_23": [
+    {
+      "verseId": "NUM_6_23",
+      "wordIndex": 6,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "NUM_6_23",
+      "wordIndex": 13,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "NUM_6_24": [
+    {
+      "verseId": "NUM_6_24",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_6_25": [
+    {
+      "verseId": "NUM_6_25",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_6_25",
+      "wordIndex": 11,
+      "displayedWord": "misericordia;",
+      "strongId": "H2617"
+    }
+  ],
+  "NUM_6_26": [
+    {
+      "verseId": "NUM_6_26",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_6_26",
+      "wordIndex": 10,
+      "displayedWord": "paz.",
+      "strongId": "H7965"
+    }
+  ],
+  "NUM_6_27": [
+    {
+      "verseId": "NUM_6_27",
+      "wordIndex": 3,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "NUM_6_27",
+      "wordIndex": 6,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "NUM_23_3": [
+    {
+      "verseId": "NUM_23_3",
+      "wordIndex": 14,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_23_4": [
+    {
+      "verseId": "NUM_23_4",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "NUM_23_5": [
+    {
+      "verseId": "NUM_23_5",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_23_5",
+      "wordIndex": 3,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "NUM_23_7": [
+    {
+      "verseId": "NUM_23_7",
+      "wordIndex": 12,
+      "displayedWord": "Rey",
+      "strongId": "H4428"
+    }
+  ],
+  "NUM_23_8": [
+    {
+      "verseId": "NUM_23_8",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "NUM_23_8",
+      "wordIndex": 17,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_23_9": [
+    {
+      "verseId": "NUM_23_9",
+      "wordIndex": 18,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "NUM_23_9",
+      "wordIndex": 29,
+      "displayedWord": "naciones.",
+      "strongId": "H1471"
+    }
+  ],
+  "NUM_23_10": [
+    {
+      "verseId": "NUM_23_10",
+      "wordIndex": 18,
+      "displayedWord": "muerte",
+      "strongId": "H4194"
+    }
+  ],
+  "NUM_23_12": [
+    {
+      "verseId": "NUM_23_12",
+      "wordIndex": 10,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_23_15": [
+    {
+      "verseId": "NUM_23_15",
+      "wordIndex": 17,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "NUM_23_16": [
+    {
+      "verseId": "NUM_23_16",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_23_16",
+      "wordIndex": 9,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "NUM_23_17": [
+    {
+      "verseId": "NUM_23_17",
+      "wordIndex": 28,
+      "displayedWord": "Jehová?",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_23_18": [
+    {
+      "verseId": "NUM_23_18",
+      "wordIndex": 14,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "NUM_23_19": [
+    {
+      "verseId": "NUM_23_19",
+      "wordIndex": 0,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "NUM_23_19",
+      "wordIndex": 3,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "NUM_23_19",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "NUM_23_19",
+      "wordIndex": 10,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "NUM_23_20": [
+    {
+      "verseId": "NUM_23_20",
+      "wordIndex": 9,
+      "displayedWord": "bendición,",
+      "strongId": "H1293"
+    }
+  ],
+  "NUM_23_21": [
+    {
+      "verseId": "NUM_23_21",
+      "wordIndex": 12,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_23_21",
+      "wordIndex": 14,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "NUM_23_21",
+      "wordIndex": 21,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "NUM_23_22": [
+    {
+      "verseId": "NUM_23_22",
+      "wordIndex": 0,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "NUM_23_23": [
+    {
+      "verseId": "NUM_23_23",
+      "wordIndex": 23,
+      "displayedWord": "Dios!",
+      "strongId": "H430"
+    }
+  ],
+  "NUM_23_24": [
+    {
+      "verseId": "NUM_23_24",
+      "wordIndex": 3,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "NUM_23_24",
+      "wordIndex": 25,
+      "displayedWord": "sangre",
+      "strongId": "H1818"
+    },
+    {
+      "verseId": "NUM_23_24",
+      "wordIndex": 28,
+      "displayedWord": "muertos.",
+      "strongId": "H4194"
+    }
+  ],
+  "NUM_23_26": [
+    {
+      "verseId": "NUM_23_26",
+      "wordIndex": 14,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_23_27": [
+    {
+      "verseId": "NUM_23_27",
+      "wordIndex": 19,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "NUM_24_1": [
+    {
+      "verseId": "NUM_24_1",
+      "wordIndex": 7,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_24_2": [
+    {
+      "verseId": "NUM_24_2",
+      "wordIndex": 13,
+      "displayedWord": "Espíritu",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "NUM_24_2",
+      "wordIndex": 15,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "NUM_24_3": [
+    {
+      "verseId": "NUM_24_3",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "NUM_24_4": [
+    {
+      "verseId": "NUM_24_4",
+      "wordIndex": 7,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "NUM_24_6": [
+    {
+      "verseId": "NUM_24_6",
+      "wordIndex": 13,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_24_6",
+      "wordIndex": 19,
+      "displayedWord": "aguas.",
+      "strongId": "H4325"
+    }
+  ],
+  "NUM_24_7": [
+    {
+      "verseId": "NUM_24_7",
+      "wordIndex": 4,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "NUM_24_7",
+      "wordIndex": 7,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "NUM_24_7",
+      "wordIndex": 11,
+      "displayedWord": "aguas;",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "NUM_24_7",
+      "wordIndex": 14,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "NUM_24_8": [
+    {
+      "verseId": "NUM_24_8",
+      "wordIndex": 0,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "NUM_24_8",
+      "wordIndex": 13,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    }
+  ],
+  "NUM_24_11": [
+    {
+      "verseId": "NUM_24_11",
+      "wordIndex": 14,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_24_13": [
+    {
+      "verseId": "NUM_24_13",
+      "wordIndex": 5,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "NUM_24_13",
+      "wordIndex": 18,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NUM_24_13",
+      "wordIndex": 22,
+      "displayedWord": "buena",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "NUM_24_13",
+      "wordIndex": 24,
+      "displayedWord": "mala",
+      "strongId": "H7451"
+    },
+    {
+      "verseId": "NUM_24_13",
+      "wordIndex": 32,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_24_14": [
+    {
+      "verseId": "NUM_24_14",
+      "wordIndex": 8,
+      "displayedWord": "pueblo;",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "NUM_24_14",
+      "wordIndex": 17,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "NUM_24_14",
+      "wordIndex": 23,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "NUM_24_14",
+      "wordIndex": 27,
+      "displayedWord": "días.",
+      "strongId": "H3117"
+    }
+  ],
+  "NUM_24_15": [
+    {
+      "verseId": "NUM_24_15",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "NUM_24_16": [
+    {
+      "verseId": "NUM_24_16",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "NUM_24_17": [
+    {
+      "verseId": "NUM_24_17",
+      "wordIndex": 32,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "NUM_24_20": [
+    {
+      "verseId": "NUM_24_20",
+      "wordIndex": 12,
+      "displayedWord": "naciones;",
+      "strongId": "H1471"
+    }
+  ],
+  "NUM_24_23": [
+    {
+      "verseId": "NUM_24_23",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ]
+}

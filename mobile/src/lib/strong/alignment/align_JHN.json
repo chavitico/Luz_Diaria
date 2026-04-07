@@ -1,135 +1,8092 @@
 {
   "JHN_1_1": [
-    { "verseId": "JHN_1_1", "wordIndex": 2,  "displayedWord": "principio",  "strongId": "G746"  },
-    { "verseId": "JHN_1_1", "wordIndex": 5,  "displayedWord": "Verbo,",     "strongId": "G3056" },
-    { "verseId": "JHN_1_1", "wordIndex": 8,  "displayedWord": "Verbo",      "strongId": "G3056" },
-    { "verseId": "JHN_1_1", "wordIndex": 11, "displayedWord": "Dios,",      "strongId": "G2316" },
-    { "verseId": "JHN_1_1", "wordIndex": 14, "displayedWord": "Verbo",      "strongId": "G3056" },
-    { "verseId": "JHN_1_1", "wordIndex": 16, "displayedWord": "Dios.",      "strongId": "G2316" }
+    {
+      "verseId": "JHN_1_1",
+      "wordIndex": 2,
+      "displayedWord": "principio",
+      "strongId": "G746"
+    },
+    {
+      "verseId": "JHN_1_1",
+      "wordIndex": 5,
+      "displayedWord": "Verbo,",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_1_1",
+      "wordIndex": 8,
+      "displayedWord": "Verbo",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_1_1",
+      "wordIndex": 11,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_1_1",
+      "wordIndex": 14,
+      "displayedWord": "Verbo",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_1_1",
+      "wordIndex": 16,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
   ],
   "JHN_1_2": [
-    { "verseId": "JHN_1_2", "wordIndex": 3, "displayedWord": "principio",   "strongId": "G746"  },
-    { "verseId": "JHN_1_2", "wordIndex": 6, "displayedWord": "Dios.",       "strongId": "G2316" }
+    {
+      "verseId": "JHN_1_2",
+      "wordIndex": 3,
+      "displayedWord": "principio",
+      "strongId": "G746"
+    },
+    {
+      "verseId": "JHN_1_2",
+      "wordIndex": 6,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
   ],
   "JHN_1_4": [
-    { "verseId": "JHN_1_4", "wordIndex": 4,  "displayedWord": "vida,",      "strongId": "G2222" },
-    { "verseId": "JHN_1_4", "wordIndex": 7,  "displayedWord": "vida",       "strongId": "G2222" },
-    { "verseId": "JHN_1_4", "wordIndex": 10, "displayedWord": "luz",        "strongId": "G5457" },
-    { "verseId": "JHN_1_4", "wordIndex": 13, "displayedWord": "hombres.",   "strongId": "G444"  }
+    {
+      "verseId": "JHN_1_4",
+      "wordIndex": 4,
+      "displayedWord": "vida,",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_1_4",
+      "wordIndex": 7,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_1_4",
+      "wordIndex": 10,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_1_4",
+      "wordIndex": 13,
+      "displayedWord": "hombres.",
+      "strongId": "G444"
+    }
   ],
   "JHN_1_5": [
-    { "verseId": "JHN_1_5", "wordIndex": 1, "displayedWord": "luz",         "strongId": "G5457" },
-    { "verseId": "JHN_1_5", "wordIndex": 4, "displayedWord": "tinieblas",   "strongId": "G4655" },
-    { "verseId": "JHN_1_5", "wordIndex": 8, "displayedWord": "tinieblas",   "strongId": "G4655" }
+    {
+      "verseId": "JHN_1_5",
+      "wordIndex": 1,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_1_5",
+      "wordIndex": 4,
+      "displayedWord": "tinieblas",
+      "strongId": "G4655"
+    },
+    {
+      "verseId": "JHN_1_5",
+      "wordIndex": 8,
+      "displayedWord": "tinieblas",
+      "strongId": "G4655"
+    }
   ],
   "JHN_1_7": [
-    { "verseId": "JHN_1_7", "wordIndex": 6, "displayedWord": "luz.",        "strongId": "G5457" }
+    {
+      "verseId": "JHN_1_7",
+      "wordIndex": 6,
+      "displayedWord": "luz.",
+      "strongId": "G5457"
+    }
   ],
   "JHN_1_8": [
-    { "verseId": "JHN_1_8", "wordIndex": 3, "displayedWord": "luz,",        "strongId": "G5457" }
+    {
+      "verseId": "JHN_1_8",
+      "wordIndex": 3,
+      "displayedWord": "luz,",
+      "strongId": "G5457"
+    }
   ],
   "JHN_1_9": [
-    { "verseId": "JHN_1_9", "wordIndex": 1, "displayedWord": "luz",         "strongId": "G5457" },
-    { "verseId": "JHN_1_9", "wordIndex": 9, "displayedWord": "mundo.",      "strongId": "G2889" }
+    {
+      "verseId": "JHN_1_9",
+      "wordIndex": 1,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_1_9",
+      "wordIndex": 9,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
   ],
   "JHN_1_10": [
-    { "verseId": "JHN_1_10", "wordIndex": 2,  "displayedWord": "mundo",     "strongId": "G2889" },
-    { "verseId": "JHN_1_10", "wordIndex": 6,  "displayedWord": "mundo",     "strongId": "G2889" },
-    { "verseId": "JHN_1_10", "wordIndex": 13, "displayedWord": "mundo",     "strongId": "G2889" }
+    {
+      "verseId": "JHN_1_10",
+      "wordIndex": 2,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_1_10",
+      "wordIndex": 6,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_1_10",
+      "wordIndex": 13,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
   ],
   "JHN_1_12": [
-    { "verseId": "JHN_1_12", "wordIndex": 10, "displayedWord": "creen",     "strongId": "G4100" },
-    { "verseId": "JHN_1_12", "wordIndex": 13, "displayedWord": "nombre,",   "strongId": "G3686" },
-    { "verseId": "JHN_1_12", "wordIndex": 16, "displayedWord": "potestad",  "strongId": "G1849" },
-    { "verseId": "JHN_1_12", "wordIndex": 20, "displayedWord": "hijos",     "strongId": "G5207" },
-    { "verseId": "JHN_1_12", "wordIndex": 22, "displayedWord": "Dios;",     "strongId": "G2316" }
+    {
+      "verseId": "JHN_1_12",
+      "wordIndex": 10,
+      "displayedWord": "creen",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_1_12",
+      "wordIndex": 13,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_1_12",
+      "wordIndex": 16,
+      "displayedWord": "potestad",
+      "strongId": "G1849"
+    },
+    {
+      "verseId": "JHN_1_12",
+      "wordIndex": 20,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_1_12",
+      "wordIndex": 22,
+      "displayedWord": "Dios;",
+      "strongId": "G2316"
+    }
   ],
   "JHN_1_14": [
-    { "verseId": "JHN_1_14", "wordIndex": 2,  "displayedWord": "Verbo",     "strongId": "G3056" },
-    { "verseId": "JHN_1_14", "wordIndex": 13, "displayedWord": "gloria,",   "strongId": "G1391" },
-    { "verseId": "JHN_1_14", "wordIndex": 14, "displayedWord": "gloria",    "strongId": "G1391" },
-    { "verseId": "JHN_1_14", "wordIndex": 17, "displayedWord": "unigénito", "strongId": "G3439" },
-    { "verseId": "JHN_1_14", "wordIndex": 19, "displayedWord": "Padre),",   "strongId": "G3962" },
-    { "verseId": "JHN_1_14", "wordIndex": 22, "displayedWord": "gracia",    "strongId": "G5485" },
-    { "verseId": "JHN_1_14", "wordIndex": 25, "displayedWord": "verdad.",   "strongId": "G225"  }
+    {
+      "verseId": "JHN_1_14",
+      "wordIndex": 2,
+      "displayedWord": "Verbo",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_1_14",
+      "wordIndex": 13,
+      "displayedWord": "gloria,",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_1_14",
+      "wordIndex": 14,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_1_14",
+      "wordIndex": 17,
+      "displayedWord": "unigénito",
+      "strongId": "G3439"
+    },
+    {
+      "verseId": "JHN_1_14",
+      "wordIndex": 19,
+      "displayedWord": "Padre),",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_1_14",
+      "wordIndex": 22,
+      "displayedWord": "gracia",
+      "strongId": "G5485"
+    },
+    {
+      "verseId": "JHN_1_14",
+      "wordIndex": 25,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
   ],
   "JHN_1_16": [
-    { "verseId": "JHN_1_16", "wordIndex": 7,  "displayedWord": "gracia",    "strongId": "G5485" },
-    { "verseId": "JHN_1_16", "wordIndex": 9,  "displayedWord": "gracia.",   "strongId": "G5485" }
+    {
+      "verseId": "JHN_1_16",
+      "wordIndex": 7,
+      "displayedWord": "gracia",
+      "strongId": "G5485"
+    },
+    {
+      "verseId": "JHN_1_16",
+      "wordIndex": 9,
+      "displayedWord": "gracia.",
+      "strongId": "G5485"
+    }
   ],
   "JHN_1_17": [
-    { "verseId": "JHN_1_17", "wordIndex": 2,  "displayedWord": "ley",       "strongId": "G3551" },
-    { "verseId": "JHN_1_17", "wordIndex": 9,  "displayedWord": "gracia",    "strongId": "G5485" },
-    { "verseId": "JHN_1_17", "wordIndex": 12, "displayedWord": "verdad",    "strongId": "G225"  }
+    {
+      "verseId": "JHN_1_17",
+      "wordIndex": 2,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "JHN_1_17",
+      "wordIndex": 9,
+      "displayedWord": "gracia",
+      "strongId": "G5485"
+    },
+    {
+      "verseId": "JHN_1_17",
+      "wordIndex": 12,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    }
   ],
   "JHN_1_18": [
-    { "verseId": "JHN_1_18", "wordIndex": 1,  "displayedWord": "Dios",      "strongId": "G2316" },
-    { "verseId": "JHN_1_18", "wordIndex": 7,  "displayedWord": "unigénito", "strongId": "G3439" },
-    { "verseId": "JHN_1_18", "wordIndex": 8,  "displayedWord": "Hijo,",     "strongId": "G5207" },
-    { "verseId": "JHN_1_18", "wordIndex": 15, "displayedWord": "Padre,",    "strongId": "G3962" }
+    {
+      "verseId": "JHN_1_18",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_1_18",
+      "wordIndex": 7,
+      "displayedWord": "unigénito",
+      "strongId": "G3439"
+    },
+    {
+      "verseId": "JHN_1_18",
+      "wordIndex": 8,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_1_18",
+      "wordIndex": 15,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
   ],
   "JHN_3_3": [
-    { "verseId": "JHN_3_3", "wordIndex": 1,  "displayedWord": "Jesús",      "strongId": "G2424" },
-    { "verseId": "JHN_3_3", "wordIndex": 15, "displayedWord": "naciere",    "strongId": "G1080" },
-    { "verseId": "JHN_3_3", "wordIndex": 22, "displayedWord": "reino",      "strongId": "G932"  },
-    { "verseId": "JHN_3_3", "wordIndex": 24, "displayedWord": "Dios.",      "strongId": "G2316" }
+    {
+      "verseId": "JHN_3_3",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_3_3",
+      "wordIndex": 15,
+      "displayedWord": "naciere",
+      "strongId": "G1080"
+    },
+    {
+      "verseId": "JHN_3_3",
+      "wordIndex": 22,
+      "displayedWord": "reino",
+      "strongId": "G932"
+    },
+    {
+      "verseId": "JHN_3_3",
+      "wordIndex": 24,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
   ],
   "JHN_3_5": [
-    { "verseId": "JHN_3_5", "wordIndex": 1,  "displayedWord": "Jesús:",     "strongId": "G2424" },
-    { "verseId": "JHN_3_5", "wordIndex": 12, "displayedWord": "naciere",    "strongId": "G1080" },
-    { "verseId": "JHN_3_5", "wordIndex": 14, "displayedWord": "agua",       "strongId": "G5204" },
-    { "verseId": "JHN_3_5", "wordIndex": 17, "displayedWord": "Espíritu,",  "strongId": "G4151" },
-    { "verseId": "JHN_3_5", "wordIndex": 23, "displayedWord": "reino",      "strongId": "G932"  },
-    { "verseId": "JHN_3_5", "wordIndex": 25, "displayedWord": "Dios.",      "strongId": "G2316" }
+    {
+      "verseId": "JHN_3_5",
+      "wordIndex": 1,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_3_5",
+      "wordIndex": 12,
+      "displayedWord": "naciere",
+      "strongId": "G1080"
+    },
+    {
+      "verseId": "JHN_3_5",
+      "wordIndex": 14,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "JHN_3_5",
+      "wordIndex": 17,
+      "displayedWord": "Espíritu,",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_3_5",
+      "wordIndex": 23,
+      "displayedWord": "reino",
+      "strongId": "G932"
+    },
+    {
+      "verseId": "JHN_3_5",
+      "wordIndex": 25,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
   ],
   "JHN_3_8": [
-    { "verseId": "JHN_3_8", "wordIndex": 1,  "displayedWord": "viento",     "strongId": "G4151" }
+    {
+      "verseId": "JHN_3_8",
+      "wordIndex": 1,
+      "displayedWord": "viento",
+      "strongId": "G4151"
+    }
   ],
   "JHN_3_16": [
-    { "verseId": "JHN_3_16", "wordIndex": 4,  "displayedWord": "amó",       "strongId": "G25"   },
-    { "verseId": "JHN_3_16", "wordIndex": 5,  "displayedWord": "Dios",      "strongId": "G2316" },
-    { "verseId": "JHN_3_16", "wordIndex": 7,  "displayedWord": "mundo,",    "strongId": "G2889" },
-    { "verseId": "JHN_3_16", "wordIndex": 14, "displayedWord": "unigénito,", "strongId": "G3439" },
-    { "verseId": "JHN_3_16", "wordIndex": 22, "displayedWord": "cree,",     "strongId": "G4100" },
-    { "verseId": "JHN_3_16", "wordIndex": 29, "displayedWord": "eterna.",   "strongId": "G166"  }
+    {
+      "verseId": "JHN_3_16",
+      "wordIndex": 4,
+      "displayedWord": "amó",
+      "strongId": "G25"
+    },
+    {
+      "verseId": "JHN_3_16",
+      "wordIndex": 5,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_3_16",
+      "wordIndex": 7,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_3_16",
+      "wordIndex": 14,
+      "displayedWord": "unigénito,",
+      "strongId": "G3439"
+    },
+    {
+      "verseId": "JHN_3_16",
+      "wordIndex": 22,
+      "displayedWord": "cree,",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_3_16",
+      "wordIndex": 29,
+      "displayedWord": "eterna.",
+      "strongId": "G166"
+    }
   ],
   "JHN_3_17": [
-    { "verseId": "JHN_3_17", "wordIndex": 3,  "displayedWord": "Dios",      "strongId": "G2316" },
-    { "verseId": "JHN_3_17", "wordIndex": 6,  "displayedWord": "Hijo",      "strongId": "G5207" },
-    { "verseId": "JHN_3_17", "wordIndex": 8,  "displayedWord": "mundo",     "strongId": "G2889" },
-    { "verseId": "JHN_3_17", "wordIndex": 12, "displayedWord": "mundo,",    "strongId": "G2889" },
-    { "verseId": "JHN_3_17", "wordIndex": 17, "displayedWord": "mundo",     "strongId": "G2889" },
-    { "verseId": "JHN_3_17", "wordIndex": 19, "displayedWord": "salvo",     "strongId": "G4982" }
+    {
+      "verseId": "JHN_3_17",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_3_17",
+      "wordIndex": 6,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_3_17",
+      "wordIndex": 8,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_3_17",
+      "wordIndex": 12,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_3_17",
+      "wordIndex": 17,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_3_17",
+      "wordIndex": 19,
+      "displayedWord": "salvo",
+      "strongId": "G4982"
+    }
   ],
   "JHN_3_18": [
-    { "verseId": "JHN_3_18", "wordIndex": 4,  "displayedWord": "cree,",     "strongId": "G4100" },
-    { "verseId": "JHN_3_18", "wordIndex": 12, "displayedWord": "cree,",     "strongId": "G4100" },
-    { "verseId": "JHN_3_18", "wordIndex": 20, "displayedWord": "creído",    "strongId": "G4100" },
-    { "verseId": "JHN_3_18", "wordIndex": 23, "displayedWord": "nombre",    "strongId": "G3686" },
-    { "verseId": "JHN_3_18", "wordIndex": 25, "displayedWord": "unigénito", "strongId": "G3439" },
-    { "verseId": "JHN_3_18", "wordIndex": 26, "displayedWord": "Hijo",      "strongId": "G5207" },
-    { "verseId": "JHN_3_18", "wordIndex": 28, "displayedWord": "Dios.",     "strongId": "G2316" }
+    {
+      "verseId": "JHN_3_18",
+      "wordIndex": 4,
+      "displayedWord": "cree,",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_3_18",
+      "wordIndex": 12,
+      "displayedWord": "cree,",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_3_18",
+      "wordIndex": 20,
+      "displayedWord": "creído",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_3_18",
+      "wordIndex": 23,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_3_18",
+      "wordIndex": 25,
+      "displayedWord": "unigénito",
+      "strongId": "G3439"
+    },
+    {
+      "verseId": "JHN_3_18",
+      "wordIndex": 26,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_3_18",
+      "wordIndex": 28,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
   ],
   "JHN_3_19": [
-    { "verseId": "JHN_3_19", "wordIndex": 7,  "displayedWord": "luz",       "strongId": "G5457" },
-    { "verseId": "JHN_3_19", "wordIndex": 10, "displayedWord": "mundo,",    "strongId": "G2889" },
-    { "verseId": "JHN_3_19", "wordIndex": 13, "displayedWord": "hombres",   "strongId": "G444"  },
-    { "verseId": "JHN_3_19", "wordIndex": 14, "displayedWord": "amaron",    "strongId": "G25"   },
-    { "verseId": "JHN_3_19", "wordIndex": 17, "displayedWord": "tinieblas", "strongId": "G4655" },
-    { "verseId": "JHN_3_19", "wordIndex": 20, "displayedWord": "luz,",      "strongId": "G5457" }
+    {
+      "verseId": "JHN_3_19",
+      "wordIndex": 7,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_3_19",
+      "wordIndex": 10,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_3_19",
+      "wordIndex": 13,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_3_19",
+      "wordIndex": 14,
+      "displayedWord": "amaron",
+      "strongId": "G25"
+    },
+    {
+      "verseId": "JHN_3_19",
+      "wordIndex": 17,
+      "displayedWord": "tinieblas",
+      "strongId": "G4655"
+    },
+    {
+      "verseId": "JHN_3_19",
+      "wordIndex": 20,
+      "displayedWord": "luz,",
+      "strongId": "G5457"
+    }
   ],
   "JHN_3_21": [
-    { "verseId": "JHN_3_21", "wordIndex": 6,  "displayedWord": "luz,",      "strongId": "G5457" },
-    { "verseId": "JHN_3_21", "wordIndex": 11, "displayedWord": "Dios.",     "strongId": "G2316" }
+    {
+      "verseId": "JHN_3_21",
+      "wordIndex": 6,
+      "displayedWord": "luz,",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_3_21",
+      "wordIndex": 11,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
   ],
   "JHN_3_36": [
-    { "verseId": "JHN_3_36", "wordIndex": 2,  "displayedWord": "cree",      "strongId": "G4100" },
-    { "verseId": "JHN_3_36", "wordIndex": 5,  "displayedWord": "Hijo",      "strongId": "G5207" },
-    { "verseId": "JHN_3_36", "wordIndex": 7,  "displayedWord": "vida",      "strongId": "G2222" },
-    { "verseId": "JHN_3_36", "wordIndex": 8,  "displayedWord": "eterna;",   "strongId": "G166"  },
-    { "verseId": "JHN_3_36", "wordIndex": 13, "displayedWord": "creer",     "strongId": "G4100" },
-    { "verseId": "JHN_3_36", "wordIndex": 16, "displayedWord": "Hijo",      "strongId": "G5207" },
-    { "verseId": "JHN_3_36", "wordIndex": 20, "displayedWord": "vida,",     "strongId": "G2222" },
-    { "verseId": "JHN_3_36", "wordIndex": 26, "displayedWord": "Dios",      "strongId": "G2316" }
+    {
+      "verseId": "JHN_3_36",
+      "wordIndex": 2,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_3_36",
+      "wordIndex": 5,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_3_36",
+      "wordIndex": 7,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_3_36",
+      "wordIndex": 8,
+      "displayedWord": "eterna;",
+      "strongId": "G166"
+    },
+    {
+      "verseId": "JHN_3_36",
+      "wordIndex": 13,
+      "displayedWord": "creer",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_3_36",
+      "wordIndex": 16,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_3_36",
+      "wordIndex": 20,
+      "displayedWord": "vida,",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_3_36",
+      "wordIndex": 26,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_2_1": [
+    {
+      "verseId": "JHN_2_1",
+      "wordIndex": 17,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_2_2": [
+    {
+      "verseId": "JHN_2_2",
+      "wordIndex": 7,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_2_3": [
+    {
+      "verseId": "JHN_2_3",
+      "wordIndex": 7,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_2_4": [
+    {
+      "verseId": "JHN_2_4",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_2_6": [
+    {
+      "verseId": "JHN_2_6",
+      "wordIndex": 8,
+      "displayedWord": "agua,",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_2_7": [
+    {
+      "verseId": "JHN_2_7",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_2_7",
+      "wordIndex": 7,
+      "displayedWord": "agua.",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_2_9": [
+    {
+      "verseId": "JHN_2_9",
+      "wordIndex": 5,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "JHN_2_9",
+      "wordIndex": 23,
+      "displayedWord": "agua,",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_2_10": [
+    {
+      "verseId": "JHN_2_10",
+      "wordIndex": 4,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_2_11": [
+    {
+      "verseId": "JHN_2_11",
+      "wordIndex": 1,
+      "displayedWord": "principio",
+      "strongId": "G746"
+    },
+    {
+      "verseId": "JHN_2_11",
+      "wordIndex": 5,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_2_11",
+      "wordIndex": 13,
+      "displayedWord": "gloria;",
+      "strongId": "G1391"
+    }
+  ],
+  "JHN_2_12": [
+    {
+      "verseId": "JHN_2_12",
+      "wordIndex": 11,
+      "displayedWord": "hermanos",
+      "strongId": "G80"
+    }
+  ],
+  "JHN_2_13": [
+    {
+      "verseId": "JHN_2_13",
+      "wordIndex": 10,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_2_16": [
+    {
+      "verseId": "JHN_2_16",
+      "wordIndex": 19,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_2_19": [
+    {
+      "verseId": "JHN_2_19",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_2_22": [
+    {
+      "verseId": "JHN_2_22",
+      "wordIndex": 7,
+      "displayedWord": "muertos,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_2_22",
+      "wordIndex": 22,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_2_22",
+      "wordIndex": 24,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_2_23": [
+    {
+      "verseId": "JHN_2_23",
+      "wordIndex": 13,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_2_24": [
+    {
+      "verseId": "JHN_2_24",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_2_25": [
+    {
+      "verseId": "JHN_2_25",
+      "wordIndex": 11,
+      "displayedWord": "hombre,",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_2_25",
+      "wordIndex": 20,
+      "displayedWord": "hombre.",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_4_1": [
+    {
+      "verseId": "JHN_4_1",
+      "wordIndex": 3,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_4_1",
+      "wordIndex": 11,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_2": [
+    {
+      "verseId": "JHN_4_2",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_5": [
+    {
+      "verseId": "JHN_4_5",
+      "wordIndex": 18,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_4_6": [
+    {
+      "verseId": "JHN_4_6",
+      "wordIndex": 8,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_7": [
+    {
+      "verseId": "JHN_4_7",
+      "wordIndex": 7,
+      "displayedWord": "agua;",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "JHN_4_7",
+      "wordIndex": 9,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_10": [
+    {
+      "verseId": "JHN_4_10",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_4_10",
+      "wordIndex": 10,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_4_10",
+      "wordIndex": 28,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_4_11": [
+    {
+      "verseId": "JHN_4_11",
+      "wordIndex": 4,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_4_11",
+      "wordIndex": 20,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_4_12": [
+    {
+      "verseId": "JHN_4_12",
+      "wordIndex": 6,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_4_12",
+      "wordIndex": 18,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_4_13": [
+    {
+      "verseId": "JHN_4_13",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_4_13",
+      "wordIndex": 10,
+      "displayedWord": "agua,",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_4_14": [
+    {
+      "verseId": "JHN_4_14",
+      "wordIndex": 5,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "JHN_4_14",
+      "wordIndex": 17,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "JHN_4_14",
+      "wordIndex": 28,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "JHN_4_14",
+      "wordIndex": 32,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_4_14",
+      "wordIndex": 33,
+      "displayedWord": "eterna.",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_4_15": [
+    {
+      "verseId": "JHN_4_15",
+      "wordIndex": 4,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_4_15",
+      "wordIndex": 7,
+      "displayedWord": "agua,",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_4_16": [
+    {
+      "verseId": "JHN_4_16",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_17": [
+    {
+      "verseId": "JHN_4_17",
+      "wordIndex": 8,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_18": [
+    {
+      "verseId": "JHN_4_18",
+      "wordIndex": 18,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_4_19": [
+    {
+      "verseId": "JHN_4_19",
+      "wordIndex": 4,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_4_21": [
+    {
+      "verseId": "JHN_4_21",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_4_21",
+      "wordIndex": 19,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_4_22": [
+    {
+      "verseId": "JHN_4_22",
+      "wordIndex": 13,
+      "displayedWord": "salvación",
+      "strongId": "G4991"
+    }
+  ],
+  "JHN_4_23": [
+    {
+      "verseId": "JHN_4_23",
+      "wordIndex": 13,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_4_23",
+      "wordIndex": 15,
+      "displayedWord": "espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_4_23",
+      "wordIndex": 18,
+      "displayedWord": "verdad;",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_4_23",
+      "wordIndex": 22,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_4_24": [
+    {
+      "verseId": "JHN_4_24",
+      "wordIndex": 0,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_4_24",
+      "wordIndex": 2,
+      "displayedWord": "Espíritu;",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_4_24",
+      "wordIndex": 9,
+      "displayedWord": "espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_4_24",
+      "wordIndex": 12,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_4_25": [
+    {
+      "verseId": "JHN_4_25",
+      "wordIndex": 13,
+      "displayedWord": "Cristo;",
+      "strongId": "G5547"
+    }
+  ],
+  "JHN_4_26": [
+    {
+      "verseId": "JHN_4_26",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_28": [
+    {
+      "verseId": "JHN_4_28",
+      "wordIndex": 15,
+      "displayedWord": "hombres:",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_4_29": [
+    {
+      "verseId": "JHN_4_29",
+      "wordIndex": 4,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_4_29",
+      "wordIndex": 17,
+      "displayedWord": "Cristo?",
+      "strongId": "G5547"
+    }
+  ],
+  "JHN_4_34": [
+    {
+      "verseId": "JHN_4_34",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_36": [
+    {
+      "verseId": "JHN_4_36",
+      "wordIndex": 10,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_4_36",
+      "wordIndex": 11,
+      "displayedWord": "eterna,",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_4_39": [
+    {
+      "verseId": "JHN_4_39",
+      "wordIndex": 13,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_4_41": [
+    {
+      "verseId": "JHN_4_41",
+      "wordIndex": 6,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_4_42": [
+    {
+      "verseId": "JHN_4_42",
+      "wordIndex": 26,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_4_42",
+      "wordIndex": 28,
+      "displayedWord": "Cristo.",
+      "strongId": "G5547"
+    }
+  ],
+  "JHN_4_44": [
+    {
+      "verseId": "JHN_4_44",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_4_44",
+      "wordIndex": 15,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_4_46": [
+    {
+      "verseId": "JHN_4_46",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_4_46",
+      "wordIndex": 13,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "JHN_4_46",
+      "wordIndex": 24,
+      "displayedWord": "rey,",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "JHN_4_46",
+      "wordIndex": 26,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_4_47": [
+    {
+      "verseId": "JHN_4_47",
+      "wordIndex": 4,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_4_47",
+      "wordIndex": 23,
+      "displayedWord": "hijo,",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_4_48": [
+    {
+      "verseId": "JHN_4_48",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_49": [
+    {
+      "verseId": "JHN_4_49",
+      "wordIndex": 3,
+      "displayedWord": "rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "JHN_4_49",
+      "wordIndex": 6,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_4_49",
+      "wordIndex": 11,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_4_50": [
+    {
+      "verseId": "JHN_4_50",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_4_50",
+      "wordIndex": 5,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_4_50",
+      "wordIndex": 9,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_4_50",
+      "wordIndex": 12,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_4_50",
+      "wordIndex": 14,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_4_51": [
+    {
+      "verseId": "JHN_4_51",
+      "wordIndex": 15,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_4_53": [
+    {
+      "verseId": "JHN_4_53",
+      "wordIndex": 1,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_4_53",
+      "wordIndex": 11,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_4_53",
+      "wordIndex": 16,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_4_54": [
+    {
+      "verseId": "JHN_4_54",
+      "wordIndex": 4,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_5_1": [
+    {
+      "verseId": "JHN_5_1",
+      "wordIndex": 12,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_5_3": [
+    {
+      "verseId": "JHN_5_3",
+      "wordIndex": 16,
+      "displayedWord": "agua.",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_5_4": [
+    {
+      "verseId": "JHN_5_4",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "JHN_5_4",
+      "wordIndex": 13,
+      "displayedWord": "agua;",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "JHN_5_4",
+      "wordIndex": 25,
+      "displayedWord": "agua,",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_5_5": [
+    {
+      "verseId": "JHN_5_5",
+      "wordIndex": 4,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_5_6": [
+    {
+      "verseId": "JHN_5_6",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_5_7": [
+    {
+      "verseId": "JHN_5_7",
+      "wordIndex": 0,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_5_7",
+      "wordIndex": 17,
+      "displayedWord": "agua;",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_5_8": [
+    {
+      "verseId": "JHN_5_8",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_5_9": [
+    {
+      "verseId": "JHN_5_9",
+      "wordIndex": 4,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_5_13": [
+    {
+      "verseId": "JHN_5_13",
+      "wordIndex": 11,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_5_14": [
+    {
+      "verseId": "JHN_5_14",
+      "wordIndex": 3,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_5_15": [
+    {
+      "verseId": "JHN_5_15",
+      "wordIndex": 1,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_5_15",
+      "wordIndex": 11,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_5_16": [
+    {
+      "verseId": "JHN_5_16",
+      "wordIndex": 8,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_5_17": [
+    {
+      "verseId": "JHN_5_17",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_5_17",
+      "wordIndex": 5,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_5_18": [
+    {
+      "verseId": "JHN_5_18",
+      "wordIndex": 22,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_5_18",
+      "wordIndex": 26,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_18",
+      "wordIndex": 30,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_5_19": [
+    {
+      "verseId": "JHN_5_19",
+      "wordIndex": 2,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_5_19",
+      "wordIndex": 15,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_5_19",
+      "wordIndex": 27,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_19",
+      "wordIndex": 33,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_19",
+      "wordIndex": 39,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_5_20": [
+    {
+      "verseId": "JHN_5_20",
+      "wordIndex": 2,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_20",
+      "wordIndex": 5,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_5_21": [
+    {
+      "verseId": "JHN_5_21",
+      "wordIndex": 3,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_21",
+      "wordIndex": 7,
+      "displayedWord": "muertos,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_5_21",
+      "wordIndex": 11,
+      "displayedWord": "vida,",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_5_21",
+      "wordIndex": 15,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_5_21",
+      "wordIndex": 21,
+      "displayedWord": "vida.",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_5_22": [
+    {
+      "verseId": "JHN_5_22",
+      "wordIndex": 2,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_22",
+      "wordIndex": 13,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_5_23": [
+    {
+      "verseId": "JHN_5_23",
+      "wordIndex": 5,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_5_23",
+      "wordIndex": 9,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_23",
+      "wordIndex": 15,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_5_23",
+      "wordIndex": 19,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_5_24": [
+    {
+      "verseId": "JHN_5_24",
+      "wordIndex": 10,
+      "displayedWord": "palabra,",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_5_24",
+      "wordIndex": 12,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_5_24",
+      "wordIndex": 18,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_5_24",
+      "wordIndex": 19,
+      "displayedWord": "eterna;",
+      "strongId": "G166"
+    },
+    {
+      "verseId": "JHN_5_24",
+      "wordIndex": 29,
+      "displayedWord": "muerte",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_5_24",
+      "wordIndex": 31,
+      "displayedWord": "vida.",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_5_25": [
+    {
+      "verseId": "JHN_5_25",
+      "wordIndex": 14,
+      "displayedWord": "muertos",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_5_25",
+      "wordIndex": 19,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_5_25",
+      "wordIndex": 21,
+      "displayedWord": "Dios;",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_5_26": [
+    {
+      "verseId": "JHN_5_26",
+      "wordIndex": 3,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_26",
+      "wordIndex": 5,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_5_26",
+      "wordIndex": 14,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_5_26",
+      "wordIndex": 17,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_5_27": [
+    {
+      "verseId": "JHN_5_27",
+      "wordIndex": 12,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_5_27",
+      "wordIndex": 14,
+      "displayedWord": "Hombre.",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_5_29": [
+    {
+      "verseId": "JHN_5_29",
+      "wordIndex": 8,
+      "displayedWord": "resurrección",
+      "strongId": "G386"
+    },
+    {
+      "verseId": "JHN_5_29",
+      "wordIndex": 10,
+      "displayedWord": "vida;",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_5_29",
+      "wordIndex": 18,
+      "displayedWord": "resurrección",
+      "strongId": "G386"
+    }
+  ],
+  "JHN_5_30": [
+    {
+      "verseId": "JHN_5_30",
+      "wordIndex": 16,
+      "displayedWord": "justo,",
+      "strongId": "G1342"
+    },
+    {
+      "verseId": "JHN_5_30",
+      "wordIndex": 31,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_5_33": [
+    {
+      "verseId": "JHN_5_33",
+      "wordIndex": 11,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_5_34": [
+    {
+      "verseId": "JHN_5_34",
+      "wordIndex": 6,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_5_35": [
+    {
+      "verseId": "JHN_5_35",
+      "wordIndex": 16,
+      "displayedWord": "luz.",
+      "strongId": "G5457"
+    }
+  ],
+  "JHN_5_36": [
+    {
+      "verseId": "JHN_5_36",
+      "wordIndex": 14,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_36",
+      "wordIndex": 32,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_5_37": [
+    {
+      "verseId": "JHN_5_37",
+      "wordIndex": 2,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_5_38": [
+    {
+      "verseId": "JHN_5_38",
+      "wordIndex": 3,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_5_38",
+      "wordIndex": 14,
+      "displayedWord": "creéis.",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_5_39": [
+    {
+      "verseId": "JHN_5_39",
+      "wordIndex": 13,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_5_39",
+      "wordIndex": 14,
+      "displayedWord": "eterna;",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_5_40": [
+    {
+      "verseId": "JHN_5_40",
+      "wordIndex": 9,
+      "displayedWord": "vida.",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_5_41": [
+    {
+      "verseId": "JHN_5_41",
+      "wordIndex": 0,
+      "displayedWord": "Gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_5_41",
+      "wordIndex": 3,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_5_42": [
+    {
+      "verseId": "JHN_5_42",
+      "wordIndex": 7,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "JHN_5_42",
+      "wordIndex": 9,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_5_43": [
+    {
+      "verseId": "JHN_5_43",
+      "wordIndex": 4,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_5_43",
+      "wordIndex": 7,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_43",
+      "wordIndex": 18,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_5_44": [
+    {
+      "verseId": "JHN_5_44",
+      "wordIndex": 3,
+      "displayedWord": "creer,",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_5_44",
+      "wordIndex": 6,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_5_44",
+      "wordIndex": 16,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_5_44",
+      "wordIndex": 20,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_5_45": [
+    {
+      "verseId": "JHN_5_45",
+      "wordIndex": 9,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_5_45",
+      "wordIndex": 19,
+      "displayedWord": "esperanza.",
+      "strongId": "G1680"
+    }
+  ],
+  "JHN_5_47": [
+    {
+      "verseId": "JHN_5_47",
+      "wordIndex": 3,
+      "displayedWord": "creéis",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_6_1": [
+    {
+      "verseId": "JHN_6_1",
+      "wordIndex": 3,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_3": [
+    {
+      "verseId": "JHN_6_3",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_5": [
+    {
+      "verseId": "JHN_6_5",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_5",
+      "wordIndex": 20,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    }
+  ],
+  "JHN_6_7": [
+    {
+      "verseId": "JHN_6_7",
+      "wordIndex": 6,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    }
+  ],
+  "JHN_6_8": [
+    {
+      "verseId": "JHN_6_8",
+      "wordIndex": 5,
+      "displayedWord": "hermano",
+      "strongId": "G80"
+    }
+  ],
+  "JHN_6_10": [
+    {
+      "verseId": "JHN_6_10",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_11": [
+    {
+      "verseId": "JHN_6_11",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_14": [
+    {
+      "verseId": "JHN_6_14",
+      "wordIndex": 1,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_6_14",
+      "wordIndex": 7,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_14",
+      "wordIndex": 21,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_6_15": [
+    {
+      "verseId": "JHN_6_15",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_15",
+      "wordIndex": 13,
+      "displayedWord": "rey,",
+      "strongId": "G935"
+    }
+  ],
+  "JHN_6_17": [
+    {
+      "verseId": "JHN_6_17",
+      "wordIndex": 15,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_19": [
+    {
+      "verseId": "JHN_6_19",
+      "wordIndex": 10,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_21": [
+    {
+      "verseId": "JHN_6_21",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_6_22": [
+    {
+      "verseId": "JHN_6_22",
+      "wordIndex": 25,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_23": [
+    {
+      "verseId": "JHN_6_23",
+      "wordIndex": 14,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_23",
+      "wordIndex": 21,
+      "displayedWord": "Señor.",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_6_24": [
+    {
+      "verseId": "JHN_6_24",
+      "wordIndex": 6,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_24",
+      "wordIndex": 23,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_26": [
+    {
+      "verseId": "JHN_6_26",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_26",
+      "wordIndex": 24,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    }
+  ],
+  "JHN_6_27": [
+    {
+      "verseId": "JHN_6_27",
+      "wordIndex": 13,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_6_27",
+      "wordIndex": 14,
+      "displayedWord": "eterna",
+      "strongId": "G166"
+    },
+    {
+      "verseId": "JHN_6_27",
+      "wordIndex": 19,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_6_27",
+      "wordIndex": 21,
+      "displayedWord": "Hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_6_27",
+      "wordIndex": 28,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_6_27",
+      "wordIndex": 30,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_6_28": [
+    {
+      "verseId": "JHN_6_28",
+      "wordIndex": 13,
+      "displayedWord": "Dios?",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_6_29": [
+    {
+      "verseId": "JHN_6_29",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_29",
+      "wordIndex": 10,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_6_30": [
+    {
+      "verseId": "JHN_6_30",
+      "wordIndex": 13,
+      "displayedWord": "creamos?",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_6_31": [
+    {
+      "verseId": "JHN_6_31",
+      "wordIndex": 12,
+      "displayedWord": "Pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_31",
+      "wordIndex": 14,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    }
+  ],
+  "JHN_6_32": [
+    {
+      "verseId": "JHN_6_32",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_32",
+      "wordIndex": 15,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_32",
+      "wordIndex": 17,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "JHN_6_32",
+      "wordIndex": 20,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_6_32",
+      "wordIndex": 25,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_32",
+      "wordIndex": 27,
+      "displayedWord": "cielo.",
+      "strongId": "G3772"
+    }
+  ],
+  "JHN_6_33": [
+    {
+      "verseId": "JHN_6_33",
+      "wordIndex": 2,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_33",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_6_33",
+      "wordIndex": 10,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "JHN_6_33",
+      "wordIndex": 13,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_6_33",
+      "wordIndex": 15,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_6_34": [
+    {
+      "verseId": "JHN_6_34",
+      "wordIndex": 2,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_6_34",
+      "wordIndex": 6,
+      "displayedWord": "pan.",
+      "strongId": "G740"
+    }
+  ],
+  "JHN_6_35": [
+    {
+      "verseId": "JHN_6_35",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_35",
+      "wordIndex": 6,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_35",
+      "wordIndex": 8,
+      "displayedWord": "vida;",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_6_35",
+      "wordIndex": 22,
+      "displayedWord": "cree,",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_6_36": [
+    {
+      "verseId": "JHN_6_36",
+      "wordIndex": 10,
+      "displayedWord": "creéis.",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_6_37": [
+    {
+      "verseId": "JHN_6_37",
+      "wordIndex": 4,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_6_38": [
+    {
+      "verseId": "JHN_6_38",
+      "wordIndex": 4,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    }
+  ],
+  "JHN_6_39": [
+    {
+      "verseId": "JHN_6_39",
+      "wordIndex": 6,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_6_40": [
+    {
+      "verseId": "JHN_6_40",
+      "wordIndex": 16,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_6_40",
+      "wordIndex": 18,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_6_40",
+      "wordIndex": 22,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_6_40",
+      "wordIndex": 23,
+      "displayedWord": "eterna;",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_6_41": [
+    {
+      "verseId": "JHN_6_41",
+      "wordIndex": 12,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_41",
+      "wordIndex": 16,
+      "displayedWord": "cielo.",
+      "strongId": "G3772"
+    }
+  ],
+  "JHN_6_42": [
+    {
+      "verseId": "JHN_6_42",
+      "wordIndex": 5,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_42",
+      "wordIndex": 7,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_6_42",
+      "wordIndex": 11,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_6_42",
+      "wordIndex": 21,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    }
+  ],
+  "JHN_6_43": [
+    {
+      "verseId": "JHN_6_43",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_44": [
+    {
+      "verseId": "JHN_6_44",
+      "wordIndex": 7,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_6_45": [
+    {
+      "verseId": "JHN_6_45",
+      "wordIndex": 10,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_6_45",
+      "wordIndex": 19,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_6_46": [
+    {
+      "verseId": "JHN_6_46",
+      "wordIndex": 6,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_6_46",
+      "wordIndex": 12,
+      "displayedWord": "Dios;",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_6_46",
+      "wordIndex": 17,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_6_47": [
+    {
+      "verseId": "JHN_6_47",
+      "wordIndex": 8,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_6_47",
+      "wordIndex": 12,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_6_47",
+      "wordIndex": 13,
+      "displayedWord": "eterna.",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_6_48": [
+    {
+      "verseId": "JHN_6_48",
+      "wordIndex": 3,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_48",
+      "wordIndex": 5,
+      "displayedWord": "vida.",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_6_50": [
+    {
+      "verseId": "JHN_6_50",
+      "wordIndex": 3,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_50",
+      "wordIndex": 7,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    }
+  ],
+  "JHN_6_51": [
+    {
+      "verseId": "JHN_6_51",
+      "wordIndex": 3,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_51",
+      "wordIndex": 8,
+      "displayedWord": "cielo;",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "JHN_6_51",
+      "wordIndex": 14,
+      "displayedWord": "pan,",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_51",
+      "wordIndex": 20,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_51",
+      "wordIndex": 26,
+      "displayedWord": "carne,",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "JHN_6_51",
+      "wordIndex": 33,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_6_51",
+      "wordIndex": 35,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_6_52": [
+    {
+      "verseId": "JHN_6_52",
+      "wordIndex": 14,
+      "displayedWord": "carne?",
+      "strongId": "G4561"
+    }
+  ],
+  "JHN_6_53": [
+    {
+      "verseId": "JHN_6_53",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_53",
+      "wordIndex": 13,
+      "displayedWord": "carne",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "JHN_6_53",
+      "wordIndex": 15,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_6_53",
+      "wordIndex": 17,
+      "displayedWord": "Hombre,",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_6_53",
+      "wordIndex": 21,
+      "displayedWord": "sangre,",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "JHN_6_53",
+      "wordIndex": 24,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_6_54": [
+    {
+      "verseId": "JHN_6_54",
+      "wordIndex": 4,
+      "displayedWord": "carne",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "JHN_6_54",
+      "wordIndex": 8,
+      "displayedWord": "sangre,",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "JHN_6_54",
+      "wordIndex": 10,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_6_54",
+      "wordIndex": 11,
+      "displayedWord": "eterna;",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_6_55": [
+    {
+      "verseId": "JHN_6_55",
+      "wordIndex": 2,
+      "displayedWord": "carne",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "JHN_6_55",
+      "wordIndex": 8,
+      "displayedWord": "sangre",
+      "strongId": "G129"
+    }
+  ],
+  "JHN_6_56": [
+    {
+      "verseId": "JHN_6_56",
+      "wordIndex": 4,
+      "displayedWord": "carne",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "JHN_6_56",
+      "wordIndex": 8,
+      "displayedWord": "sangre,",
+      "strongId": "G129"
+    }
+  ],
+  "JHN_6_57": [
+    {
+      "verseId": "JHN_6_57",
+      "wordIndex": 4,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_6_57",
+      "wordIndex": 11,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_6_58": [
+    {
+      "verseId": "JHN_6_58",
+      "wordIndex": 3,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_6_58",
+      "wordIndex": 7,
+      "displayedWord": "cielo;",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "JHN_6_58",
+      "wordIndex": 22,
+      "displayedWord": "pan,",
+      "strongId": "G740"
+    }
+  ],
+  "JHN_6_60": [
+    {
+      "verseId": "JHN_6_60",
+      "wordIndex": 10,
+      "displayedWord": "palabra;",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_6_61": [
+    {
+      "verseId": "JHN_6_61",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_62": [
+    {
+      "verseId": "JHN_6_62",
+      "wordIndex": 5,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_6_62",
+      "wordIndex": 7,
+      "displayedWord": "Hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_6_63": [
+    {
+      "verseId": "JHN_6_63",
+      "wordIndex": 1,
+      "displayedWord": "espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_6_63",
+      "wordIndex": 6,
+      "displayedWord": "vida;",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_6_63",
+      "wordIndex": 8,
+      "displayedWord": "carne",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "JHN_6_63",
+      "wordIndex": 20,
+      "displayedWord": "espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_6_63",
+      "wordIndex": 23,
+      "displayedWord": "vida.",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_6_64": [
+    {
+      "verseId": "JHN_6_64",
+      "wordIndex": 7,
+      "displayedWord": "creen.",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_6_64",
+      "wordIndex": 9,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_6_64",
+      "wordIndex": 13,
+      "displayedWord": "principio",
+      "strongId": "G746"
+    }
+  ],
+  "JHN_6_65": [
+    {
+      "verseId": "JHN_6_65",
+      "wordIndex": 19,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_6_67": [
+    {
+      "verseId": "JHN_6_67",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_68": [
+    {
+      "verseId": "JHN_6_68",
+      "wordIndex": 4,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_6_68",
+      "wordIndex": 12,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_6_68",
+      "wordIndex": 13,
+      "displayedWord": "eterna.",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_6_69": [
+    {
+      "verseId": "JHN_6_69",
+      "wordIndex": 3,
+      "displayedWord": "creído",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_6_69",
+      "wordIndex": 10,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "JHN_6_69",
+      "wordIndex": 12,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_6_69",
+      "wordIndex": 14,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_6_70": [
+    {
+      "verseId": "JHN_6_70",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_6_71": [
+    {
+      "verseId": "JHN_6_71",
+      "wordIndex": 4,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_7_1": [
+    {
+      "verseId": "JHN_7_1",
+      "wordIndex": 5,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_7_3": [
+    {
+      "verseId": "JHN_7_3",
+      "wordIndex": 4,
+      "displayedWord": "hermanos:",
+      "strongId": "G80"
+    }
+  ],
+  "JHN_7_4": [
+    {
+      "verseId": "JHN_7_4",
+      "wordIndex": 17,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_7_5": [
+    {
+      "verseId": "JHN_7_5",
+      "wordIndex": 4,
+      "displayedWord": "hermanos",
+      "strongId": "G80"
+    }
+  ],
+  "JHN_7_6": [
+    {
+      "verseId": "JHN_7_6",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_7_7": [
+    {
+      "verseId": "JHN_7_7",
+      "wordIndex": 3,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_7_10": [
+    {
+      "verseId": "JHN_7_10",
+      "wordIndex": 4,
+      "displayedWord": "hermanos",
+      "strongId": "G80"
+    }
+  ],
+  "JHN_7_14": [
+    {
+      "verseId": "JHN_7_14",
+      "wordIndex": 8,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_7_16": [
+    {
+      "verseId": "JHN_7_16",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_7_17": [
+    {
+      "verseId": "JHN_7_17",
+      "wordIndex": 7,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_7_17",
+      "wordIndex": 14,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_7_18": [
+    {
+      "verseId": "JHN_7_18",
+      "wordIndex": 9,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_7_18",
+      "wordIndex": 16,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    }
+  ],
+  "JHN_7_19": [
+    {
+      "verseId": "JHN_7_19",
+      "wordIndex": 5,
+      "displayedWord": "ley,",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "JHN_7_19",
+      "wordIndex": 12,
+      "displayedWord": "ley?",
+      "strongId": "G3551"
+    }
+  ],
+  "JHN_7_21": [
+    {
+      "verseId": "JHN_7_21",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_7_22": [
+    {
+      "verseId": "JHN_7_22",
+      "wordIndex": 27,
+      "displayedWord": "hombre.",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_7_23": [
+    {
+      "verseId": "JHN_7_23",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_7_23",
+      "wordIndex": 15,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "JHN_7_23",
+      "wordIndex": 35,
+      "displayedWord": "hombre?",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_7_24": [
+    {
+      "verseId": "JHN_7_24",
+      "wordIndex": 8,
+      "displayedWord": "justo",
+      "strongId": "G1342"
+    }
+  ],
+  "JHN_7_26": [
+    {
+      "verseId": "JHN_7_26",
+      "wordIndex": 12,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_7_26",
+      "wordIndex": 19,
+      "displayedWord": "Cristo?",
+      "strongId": "G5547"
+    }
+  ],
+  "JHN_7_27": [
+    {
+      "verseId": "JHN_7_27",
+      "wordIndex": 10,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    }
+  ],
+  "JHN_7_28": [
+    {
+      "verseId": "JHN_7_28",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_7_31": [
+    {
+      "verseId": "JHN_7_31",
+      "wordIndex": 11,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    }
+  ],
+  "JHN_7_33": [
+    {
+      "verseId": "JHN_7_33",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_7_37": [
+    {
+      "verseId": "JHN_7_37",
+      "wordIndex": 10,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_7_38": [
+    {
+      "verseId": "JHN_7_38",
+      "wordIndex": 2,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_7_38",
+      "wordIndex": 15,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_7_39": [
+    {
+      "verseId": "JHN_7_39",
+      "wordIndex": 3,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_7_39",
+      "wordIndex": 19,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_7_39",
+      "wordIndex": 20,
+      "displayedWord": "Santo,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "JHN_7_39",
+      "wordIndex": 22,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_7_41": [
+    {
+      "verseId": "JHN_7_41",
+      "wordIndex": 5,
+      "displayedWord": "Cristo.",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "JHN_7_41",
+      "wordIndex": 15,
+      "displayedWord": "Cristo?",
+      "strongId": "G5547"
+    }
+  ],
+  "JHN_7_42": [
+    {
+      "verseId": "JHN_7_42",
+      "wordIndex": 24,
+      "displayedWord": "Cristo?",
+      "strongId": "G5547"
+    }
+  ],
+  "JHN_7_46": [
+    {
+      "verseId": "JHN_7_46",
+      "wordIndex": 4,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_7_46",
+      "wordIndex": 10,
+      "displayedWord": "hombre!",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_7_48": [
+    {
+      "verseId": "JHN_7_48",
+      "wordIndex": 2,
+      "displayedWord": "creído",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_7_49": [
+    {
+      "verseId": "JHN_7_49",
+      "wordIndex": 7,
+      "displayedWord": "ley,",
+      "strongId": "G3551"
+    }
+  ],
+  "JHN_7_51": [
+    {
+      "verseId": "JHN_7_51",
+      "wordIndex": 3,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "JHN_7_51",
+      "wordIndex": 6,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_8_1": [
+    {
+      "verseId": "JHN_8_1",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_8_5": [
+    {
+      "verseId": "JHN_8_5",
+      "wordIndex": 3,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    }
+  ],
+  "JHN_8_6": [
+    {
+      "verseId": "JHN_8_6",
+      "wordIndex": 8,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_6",
+      "wordIndex": 15,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_8_7": [
+    {
+      "verseId": "JHN_8_7",
+      "wordIndex": 16,
+      "displayedWord": "pecado",
+      "strongId": "G266"
+    }
+  ],
+  "JHN_8_8": [
+    {
+      "verseId": "JHN_8_8",
+      "wordIndex": 10,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_8_9": [
+    {
+      "verseId": "JHN_8_9",
+      "wordIndex": 24,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_8_10": [
+    {
+      "verseId": "JHN_8_10",
+      "wordIndex": 1,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_8_11": [
+    {
+      "verseId": "JHN_8_11",
+      "wordIndex": 3,
+      "displayedWord": "Señor.",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_8_11",
+      "wordIndex": 5,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_8_12": [
+    {
+      "verseId": "JHN_8_12",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_12",
+      "wordIndex": 9,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_8_12",
+      "wordIndex": 11,
+      "displayedWord": "mundo;",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_8_12",
+      "wordIndex": 20,
+      "displayedWord": "tinieblas,",
+      "strongId": "G4655"
+    },
+    {
+      "verseId": "JHN_8_12",
+      "wordIndex": 25,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_8_12",
+      "wordIndex": 28,
+      "displayedWord": "vida.",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_8_14": [
+    {
+      "verseId": "JHN_8_14",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_8_15": [
+    {
+      "verseId": "JHN_8_15",
+      "wordIndex": 4,
+      "displayedWord": "carne;",
+      "strongId": "G4561"
+    }
+  ],
+  "JHN_8_16": [
+    {
+      "verseId": "JHN_8_16",
+      "wordIndex": 21,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_17": [
+    {
+      "verseId": "JHN_8_17",
+      "wordIndex": 3,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "JHN_8_17",
+      "wordIndex": 11,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_8_18": [
+    {
+      "verseId": "JHN_8_18",
+      "wordIndex": 11,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_19": [
+    {
+      "verseId": "JHN_8_19",
+      "wordIndex": 6,
+      "displayedWord": "Padre?",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_19",
+      "wordIndex": 8,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_19",
+      "wordIndex": 17,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_19",
+      "wordIndex": 26,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_20": [
+    {
+      "verseId": "JHN_8_20",
+      "wordIndex": 3,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_8_21": [
+    {
+      "verseId": "JHN_8_21",
+      "wordIndex": 4,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_21",
+      "wordIndex": 14,
+      "displayedWord": "pecado",
+      "strongId": "G266"
+    }
+  ],
+  "JHN_8_23": [
+    {
+      "verseId": "JHN_8_23",
+      "wordIndex": 15,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_8_23",
+      "wordIndex": 21,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_8_24": [
+    {
+      "verseId": "JHN_8_24",
+      "wordIndex": 8,
+      "displayedWord": "pecados;",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "JHN_8_24",
+      "wordIndex": 12,
+      "displayedWord": "creéis",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_8_24",
+      "wordIndex": 18,
+      "displayedWord": "pecados",
+      "strongId": "G266"
+    }
+  ],
+  "JHN_8_25": [
+    {
+      "verseId": "JHN_8_25",
+      "wordIndex": 7,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_25",
+      "wordIndex": 14,
+      "displayedWord": "principio",
+      "strongId": "G746"
+    }
+  ],
+  "JHN_8_26": [
+    {
+      "verseId": "JHN_8_26",
+      "wordIndex": 27,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_8_27": [
+    {
+      "verseId": "JHN_8_27",
+      "wordIndex": 7,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_28": [
+    {
+      "verseId": "JHN_8_28",
+      "wordIndex": 3,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_28",
+      "wordIndex": 8,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_8_28",
+      "wordIndex": 10,
+      "displayedWord": "Hombre,",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_8_28",
+      "wordIndex": 29,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_29": [
+    {
+      "verseId": "JHN_8_29",
+      "wordIndex": 13,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_31": [
+    {
+      "verseId": "JHN_8_31",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_31",
+      "wordIndex": 8,
+      "displayedWord": "creído",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_8_31",
+      "wordIndex": 16,
+      "displayedWord": "palabra,",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_8_32": [
+    {
+      "verseId": "JHN_8_32",
+      "wordIndex": 3,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_8_32",
+      "wordIndex": 6,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_8_34": [
+    {
+      "verseId": "JHN_8_34",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_34",
+      "wordIndex": 14,
+      "displayedWord": "pecado,",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "JHN_8_34",
+      "wordIndex": 18,
+      "displayedWord": "pecado.",
+      "strongId": "G266"
+    }
+  ],
+  "JHN_8_35": [
+    {
+      "verseId": "JHN_8_35",
+      "wordIndex": 11,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_8_36": [
+    {
+      "verseId": "JHN_8_36",
+      "wordIndex": 4,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_8_37": [
+    {
+      "verseId": "JHN_8_37",
+      "wordIndex": 11,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_8_38": [
+    {
+      "verseId": "JHN_8_38",
+      "wordIndex": 8,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_38",
+      "wordIndex": 19,
+      "displayedWord": "padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_39": [
+    {
+      "verseId": "JHN_8_39",
+      "wordIndex": 5,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_39",
+      "wordIndex": 8,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_39",
+      "wordIndex": 13,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_8_40": [
+    {
+      "verseId": "JHN_8_40",
+      "wordIndex": 6,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_8_40",
+      "wordIndex": 12,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_8_40",
+      "wordIndex": 18,
+      "displayedWord": "Dios;",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_8_41": [
+    {
+      "verseId": "JHN_8_41",
+      "wordIndex": 6,
+      "displayedWord": "padre.",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_41",
+      "wordIndex": 17,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_41",
+      "wordIndex": 21,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_8_42": [
+    {
+      "verseId": "JHN_8_42",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_42",
+      "wordIndex": 6,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_42",
+      "wordIndex": 8,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_8_42",
+      "wordIndex": 15,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_8_43": [
+    {
+      "verseId": "JHN_8_43",
+      "wordIndex": 11,
+      "displayedWord": "palabra.",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_8_44": [
+    {
+      "verseId": "JHN_8_44",
+      "wordIndex": 4,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_44",
+      "wordIndex": 12,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_44",
+      "wordIndex": 21,
+      "displayedWord": "principio,",
+      "strongId": "G746"
+    },
+    {
+      "verseId": "JHN_8_44",
+      "wordIndex": 28,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_8_44",
+      "wordIndex": 32,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_8_44",
+      "wordIndex": 45,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_45": [
+    {
+      "verseId": "JHN_8_45",
+      "wordIndex": 6,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_8_45",
+      "wordIndex": 9,
+      "displayedWord": "creéis.",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_8_46": [
+    {
+      "verseId": "JHN_8_46",
+      "wordIndex": 6,
+      "displayedWord": "pecado?",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "JHN_8_46",
+      "wordIndex": 11,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_8_46",
+      "wordIndex": 17,
+      "displayedWord": "creéis?",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_8_47": [
+    {
+      "verseId": "JHN_8_47",
+      "wordIndex": 4,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_8_47",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_8_47",
+      "wordIndex": 20,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_8_49": [
+    {
+      "verseId": "JHN_8_49",
+      "wordIndex": 1,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_49",
+      "wordIndex": 10,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_50": [
+    {
+      "verseId": "JHN_8_50",
+      "wordIndex": 5,
+      "displayedWord": "gloria;",
+      "strongId": "G1391"
+    }
+  ],
+  "JHN_8_51": [
+    {
+      "verseId": "JHN_8_51",
+      "wordIndex": 11,
+      "displayedWord": "palabra,",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_8_51",
+      "wordIndex": 14,
+      "displayedWord": "muerte.",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_8_52": [
+    {
+      "verseId": "JHN_8_52",
+      "wordIndex": 22,
+      "displayedWord": "palabra,",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_8_52",
+      "wordIndex": 25,
+      "displayedWord": "muerte.",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_8_53": [
+    {
+      "verseId": "JHN_8_53",
+      "wordIndex": 6,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_8_54": [
+    {
+      "verseId": "JHN_8_54",
+      "wordIndex": 1,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_8_54",
+      "wordIndex": 10,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_8_54",
+      "wordIndex": 14,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_54",
+      "wordIndex": 27,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_8_55": [
+    {
+      "verseId": "JHN_8_55",
+      "wordIndex": 26,
+      "displayedWord": "palabra.",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_8_56": [
+    {
+      "verseId": "JHN_8_56",
+      "wordIndex": 2,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_8_56",
+      "wordIndex": 4,
+      "displayedWord": "gozó",
+      "strongId": "G5479"
+    },
+    {
+      "verseId": "JHN_8_56",
+      "wordIndex": 17,
+      "displayedWord": "gozó.",
+      "strongId": "G5479"
+    }
+  ],
+  "JHN_8_58": [
+    {
+      "verseId": "JHN_8_58",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_8_59": [
+    {
+      "verseId": "JHN_8_59",
+      "wordIndex": 6,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_9_1": [
+    {
+      "verseId": "JHN_9_1",
+      "wordIndex": 2,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_9_1",
+      "wordIndex": 6,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_9_3": [
+    {
+      "verseId": "JHN_9_3",
+      "wordIndex": 1,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_9_3",
+      "wordIndex": 16,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_9_5": [
+    {
+      "verseId": "JHN_9_5",
+      "wordIndex": 6,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_9_5",
+      "wordIndex": 7,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_9_5",
+      "wordIndex": 10,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_9_6": [
+    {
+      "verseId": "JHN_9_6",
+      "wordIndex": 4,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_9_11": [
+    {
+      "verseId": "JHN_9_11",
+      "wordIndex": 5,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_9_11",
+      "wordIndex": 9,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_9_14": [
+    {
+      "verseId": "JHN_9_14",
+      "wordIndex": 7,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_9_16": [
+    {
+      "verseId": "JHN_9_16",
+      "wordIndex": 7,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_9_16",
+      "wordIndex": 11,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_9_16",
+      "wordIndex": 25,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_9_19": [
+    {
+      "verseId": "JHN_9_19",
+      "wordIndex": 7,
+      "displayedWord": "hijo,",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_9_20": [
+    {
+      "verseId": "JHN_9_20",
+      "wordIndex": 11,
+      "displayedWord": "hijo,",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_9_22": [
+    {
+      "verseId": "JHN_9_22",
+      "wordIndex": 22,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_9_24": [
+    {
+      "verseId": "JHN_9_24",
+      "wordIndex": 5,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_9_24",
+      "wordIndex": 14,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_9_24",
+      "wordIndex": 16,
+      "displayedWord": "Dios;",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_9_24",
+      "wordIndex": 21,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_9_29": [
+    {
+      "verseId": "JHN_9_29",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_9_30": [
+    {
+      "verseId": "JHN_9_30",
+      "wordIndex": 2,
+      "displayedWord": "hombre,",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_9_31": [
+    {
+      "verseId": "JHN_9_31",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_9_31",
+      "wordIndex": 15,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_9_32": [
+    {
+      "verseId": "JHN_9_32",
+      "wordIndex": 2,
+      "displayedWord": "principio",
+      "strongId": "G746"
+    }
+  ],
+  "JHN_9_33": [
+    {
+      "verseId": "JHN_9_33",
+      "wordIndex": 5,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_9_34": [
+    {
+      "verseId": "JHN_9_34",
+      "wordIndex": 9,
+      "displayedWord": "pecado,",
+      "strongId": "G266"
+    }
+  ],
+  "JHN_9_35": [
+    {
+      "verseId": "JHN_9_35",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_9_35",
+      "wordIndex": 14,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_9_35",
+      "wordIndex": 16,
+      "displayedWord": "Dios?",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_9_36": [
+    {
+      "verseId": "JHN_9_36",
+      "wordIndex": 6,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_9_37": [
+    {
+      "verseId": "JHN_9_37",
+      "wordIndex": 2,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_9_38": [
+    {
+      "verseId": "JHN_9_38",
+      "wordIndex": 4,
+      "displayedWord": "Señor;",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_9_39": [
+    {
+      "verseId": "JHN_9_39",
+      "wordIndex": 1,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_9_39",
+      "wordIndex": 9,
+      "displayedWord": "mundo;",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_9_41": [
+    {
+      "verseId": "JHN_9_41",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_9_41",
+      "wordIndex": 8,
+      "displayedWord": "pecado;",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "JHN_9_41",
+      "wordIndex": 15,
+      "displayedWord": "pecado",
+      "strongId": "G266"
+    }
+  ],
+  "JHN_10_3": [
+    {
+      "verseId": "JHN_10_3",
+      "wordIndex": 17,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_10_6": [
+    {
+      "verseId": "JHN_10_6",
+      "wordIndex": 4,
+      "displayedWord": "Jesús;",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_10_7": [
+    {
+      "verseId": "JHN_10_7",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_10_9": [
+    {
+      "verseId": "JHN_10_9",
+      "wordIndex": 10,
+      "displayedWord": "salvo;",
+      "strongId": "G4982"
+    }
+  ],
+  "JHN_10_10": [
+    {
+      "verseId": "JHN_10_10",
+      "wordIndex": 17,
+      "displayedWord": "vida,",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_10_11": [
+    {
+      "verseId": "JHN_10_11",
+      "wordIndex": 10,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_10_15": [
+    {
+      "verseId": "JHN_10_15",
+      "wordIndex": 3,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_10_15",
+      "wordIndex": 10,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_10_15",
+      "wordIndex": 15,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_10_17": [
+    {
+      "verseId": "JHN_10_17",
+      "wordIndex": 5,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_10_17",
+      "wordIndex": 10,
+      "displayedWord": "vida,",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_10_18": [
+    {
+      "verseId": "JHN_10_18",
+      "wordIndex": 28,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_10_23": [
+    {
+      "verseId": "JHN_10_23",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_10_24": [
+    {
+      "verseId": "JHN_10_24",
+      "wordIndex": 13,
+      "displayedWord": "alma?",
+      "strongId": "G5590"
+    },
+    {
+      "verseId": "JHN_10_24",
+      "wordIndex": 18,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    }
+  ],
+  "JHN_10_25": [
+    {
+      "verseId": "JHN_10_25",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_10_25",
+      "wordIndex": 9,
+      "displayedWord": "creéis;",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_10_25",
+      "wordIndex": 16,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_10_25",
+      "wordIndex": 19,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_10_26": [
+    {
+      "verseId": "JHN_10_26",
+      "wordIndex": 3,
+      "displayedWord": "creéis,",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_10_28": [
+    {
+      "verseId": "JHN_10_28",
+      "wordIndex": 4,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_10_28",
+      "wordIndex": 5,
+      "displayedWord": "eterna;",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_10_29": [
+    {
+      "verseId": "JHN_10_29",
+      "wordIndex": 1,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_10_29",
+      "wordIndex": 20,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_10_30": [
+    {
+      "verseId": "JHN_10_30",
+      "wordIndex": 3,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_10_32": [
+    {
+      "verseId": "JHN_10_32",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_10_32",
+      "wordIndex": 11,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_10_33": [
+    {
+      "verseId": "JHN_10_33",
+      "wordIndex": 19,
+      "displayedWord": "hombre,",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_10_33",
+      "wordIndex": 22,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_10_34": [
+    {
+      "verseId": "JHN_10_34",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_10_34",
+      "wordIndex": 8,
+      "displayedWord": "ley:",
+      "strongId": "G3551"
+    }
+  ],
+  "JHN_10_35": [
+    {
+      "verseId": "JHN_10_35",
+      "wordIndex": 9,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_10_35",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_10_36": [
+    {
+      "verseId": "JHN_10_36",
+      "wordIndex": 3,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_10_36",
+      "wordIndex": 8,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_10_36",
+      "wordIndex": 15,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_10_36",
+      "wordIndex": 17,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_10_37": [
+    {
+      "verseId": "JHN_10_37",
+      "wordIndex": 7,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_10_38": [
+    {
+      "verseId": "JHN_10_38",
+      "wordIndex": 21,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_10_38",
+      "wordIndex": 29,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_10_41": [
+    {
+      "verseId": "JHN_10_41",
+      "wordIndex": 10,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_10_41",
+      "wordIndex": 23,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_11_2": [
+    {
+      "verseId": "JHN_11_2",
+      "wordIndex": 2,
+      "displayedWord": "hermano",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "JHN_11_2",
+      "wordIndex": 11,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_11_3": [
+    {
+      "verseId": "JHN_11_3",
+      "wordIndex": 7,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_3",
+      "wordIndex": 8,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_11_4": [
+    {
+      "verseId": "JHN_11_4",
+      "wordIndex": 1,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_4",
+      "wordIndex": 8,
+      "displayedWord": "muerte,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_11_4",
+      "wordIndex": 12,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_11_4",
+      "wordIndex": 14,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_11_4",
+      "wordIndex": 18,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_11_4",
+      "wordIndex": 20,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_11_5": [
+    {
+      "verseId": "JHN_11_5",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_9": [
+    {
+      "verseId": "JHN_11_9",
+      "wordIndex": 1,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_9",
+      "wordIndex": 18,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_11_9",
+      "wordIndex": 21,
+      "displayedWord": "mundo;",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_11_10": [
+    {
+      "verseId": "JHN_11_10",
+      "wordIndex": 10,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    }
+  ],
+  "JHN_11_12": [
+    {
+      "verseId": "JHN_11_12",
+      "wordIndex": 4,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_11_13": [
+    {
+      "verseId": "JHN_11_13",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_13",
+      "wordIndex": 6,
+      "displayedWord": "muerte",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_11_14": [
+    {
+      "verseId": "JHN_11_14",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_14",
+      "wordIndex": 7,
+      "displayedWord": "muerto;",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_11_17": [
+    {
+      "verseId": "JHN_11_17",
+      "wordIndex": 2,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_19": [
+    {
+      "verseId": "JHN_11_19",
+      "wordIndex": 16,
+      "displayedWord": "hermano.",
+      "strongId": "G80"
+    }
+  ],
+  "JHN_11_20": [
+    {
+      "verseId": "JHN_11_20",
+      "wordIndex": 5,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_21": [
+    {
+      "verseId": "JHN_11_21",
+      "wordIndex": 4,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_21",
+      "wordIndex": 5,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_11_21",
+      "wordIndex": 11,
+      "displayedWord": "hermano",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "JHN_11_21",
+      "wordIndex": 14,
+      "displayedWord": "muerto.",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_11_22": [
+    {
+      "verseId": "JHN_11_22",
+      "wordIndex": 10,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_11_22",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_11_23": [
+    {
+      "verseId": "JHN_11_23",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_23",
+      "wordIndex": 4,
+      "displayedWord": "hermano",
+      "strongId": "G80"
+    }
+  ],
+  "JHN_11_24": [
+    {
+      "verseId": "JHN_11_24",
+      "wordIndex": 9,
+      "displayedWord": "resurrección,",
+      "strongId": "G386"
+    }
+  ],
+  "JHN_11_25": [
+    {
+      "verseId": "JHN_11_25",
+      "wordIndex": 2,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_25",
+      "wordIndex": 6,
+      "displayedWord": "resurrección",
+      "strongId": "G386"
+    },
+    {
+      "verseId": "JHN_11_25",
+      "wordIndex": 9,
+      "displayedWord": "vida;",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_11_25",
+      "wordIndex": 12,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_11_25",
+      "wordIndex": 17,
+      "displayedWord": "muerto,",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_11_26": [
+    {
+      "verseId": "JHN_11_26",
+      "wordIndex": 6,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_11_27": [
+    {
+      "verseId": "JHN_11_27",
+      "wordIndex": 3,
+      "displayedWord": "Señor;",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_11_27",
+      "wordIndex": 6,
+      "displayedWord": "creído",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_11_27",
+      "wordIndex": 11,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "JHN_11_27",
+      "wordIndex": 13,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_11_27",
+      "wordIndex": 15,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_11_27",
+      "wordIndex": 20,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_11_30": [
+    {
+      "verseId": "JHN_11_30",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_32": [
+    {
+      "verseId": "JHN_11_32",
+      "wordIndex": 6,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_32",
+      "wordIndex": 15,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_11_32",
+      "wordIndex": 22,
+      "displayedWord": "muerto",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_11_32",
+      "wordIndex": 24,
+      "displayedWord": "hermano.",
+      "strongId": "G80"
+    }
+  ],
+  "JHN_11_33": [
+    {
+      "verseId": "JHN_11_33",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_33",
+      "wordIndex": 17,
+      "displayedWord": "espíritu",
+      "strongId": "G4151"
+    }
+  ],
+  "JHN_11_34": [
+    {
+      "verseId": "JHN_11_34",
+      "wordIndex": 7,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_11_35": [
+    {
+      "verseId": "JHN_11_35",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_38": [
+    {
+      "verseId": "JHN_11_38",
+      "wordIndex": 0,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_39": [
+    {
+      "verseId": "JHN_11_39",
+      "wordIndex": 1,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_39",
+      "wordIndex": 11,
+      "displayedWord": "muerto,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_11_39",
+      "wordIndex": 14,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_11_40": [
+    {
+      "verseId": "JHN_11_40",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_40",
+      "wordIndex": 12,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_11_40",
+      "wordIndex": 14,
+      "displayedWord": "Dios?",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_11_41": [
+    {
+      "verseId": "JHN_11_41",
+      "wordIndex": 10,
+      "displayedWord": "muerto.",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_11_41",
+      "wordIndex": 12,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_11_41",
+      "wordIndex": 20,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_11_44": [
+    {
+      "verseId": "JHN_11_44",
+      "wordIndex": 4,
+      "displayedWord": "muerto",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_11_44",
+      "wordIndex": 21,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_45": [
+    {
+      "verseId": "JHN_11_45",
+      "wordIndex": 17,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_46": [
+    {
+      "verseId": "JHN_11_46",
+      "wordIndex": 13,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_47": [
+    {
+      "verseId": "JHN_11_47",
+      "wordIndex": 16,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_11_48": [
+    {
+      "verseId": "JHN_11_48",
+      "wordIndex": 16,
+      "displayedWord": "santo",
+      "strongId": "G40"
+    }
+  ],
+  "JHN_11_50": [
+    {
+      "verseId": "JHN_11_50",
+      "wordIndex": 7,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_11_51": [
+    {
+      "verseId": "JHN_11_51",
+      "wordIndex": 18,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_52": [
+    {
+      "verseId": "JHN_11_52",
+      "wordIndex": 14,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_11_52",
+      "wordIndex": 16,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_11_54": [
+    {
+      "verseId": "JHN_11_54",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_11_56": [
+    {
+      "verseId": "JHN_11_56",
+      "wordIndex": 3,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_1": [
+    {
+      "verseId": "JHN_12_1",
+      "wordIndex": 7,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_12_1",
+      "wordIndex": 17,
+      "displayedWord": "muerto,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_12_1",
+      "wordIndex": 25,
+      "displayedWord": "muertos.",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_12_3": [
+    {
+      "verseId": "JHN_12_3",
+      "wordIndex": 18,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_4": [
+    {
+      "verseId": "JHN_12_4",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_12_7": [
+    {
+      "verseId": "JHN_12_7",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_9": [
+    {
+      "verseId": "JHN_12_9",
+      "wordIndex": 18,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_12_9",
+      "wordIndex": 31,
+      "displayedWord": "muertos.",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_12_10": [
+    {
+      "verseId": "JHN_12_10",
+      "wordIndex": 6,
+      "displayedWord": "muerte",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_12_11": [
+    {
+      "verseId": "JHN_12_11",
+      "wordIndex": 14,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_12": [
+    {
+      "verseId": "JHN_12_12",
+      "wordIndex": 14,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_13": [
+    {
+      "verseId": "JHN_12_13",
+      "wordIndex": 18,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_12_13",
+      "wordIndex": 20,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_12_13",
+      "wordIndex": 23,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    }
+  ],
+  "JHN_12_14": [
+    {
+      "verseId": "JHN_12_14",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_15": [
+    {
+      "verseId": "JHN_12_15",
+      "wordIndex": 8,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    }
+  ],
+  "JHN_12_16": [
+    {
+      "verseId": "JHN_12_16",
+      "wordIndex": 8,
+      "displayedWord": "principio;",
+      "strongId": "G746"
+    },
+    {
+      "verseId": "JHN_12_16",
+      "wordIndex": 11,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_17": [
+    {
+      "verseId": "JHN_12_17",
+      "wordIndex": 20,
+      "displayedWord": "muertos.",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_12_19": [
+    {
+      "verseId": "JHN_12_19",
+      "wordIndex": 14,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_12_21": [
+    {
+      "verseId": "JHN_12_21",
+      "wordIndex": 16,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_12_21",
+      "wordIndex": 20,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_22": [
+    {
+      "verseId": "JHN_12_22",
+      "wordIndex": 16,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_23": [
+    {
+      "verseId": "JHN_12_23",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_12_23",
+      "wordIndex": 11,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_12_23",
+      "wordIndex": 13,
+      "displayedWord": "Hombre",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_12_24": [
+    {
+      "verseId": "JHN_12_24",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_12_25": [
+    {
+      "verseId": "JHN_12_25",
+      "wordIndex": 4,
+      "displayedWord": "vida,",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_12_25",
+      "wordIndex": 12,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_12_25",
+      "wordIndex": 15,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_12_25",
+      "wordIndex": 17,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_12_25",
+      "wordIndex": 18,
+      "displayedWord": "eterna",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_12_26": [
+    {
+      "verseId": "JHN_12_26",
+      "wordIndex": 19,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_12_27": [
+    {
+      "verseId": "JHN_12_27",
+      "wordIndex": 4,
+      "displayedWord": "alma;",
+      "strongId": "G5590"
+    },
+    {
+      "verseId": "JHN_12_27",
+      "wordIndex": 8,
+      "displayedWord": "¿Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_12_28": [
+    {
+      "verseId": "JHN_12_28",
+      "wordIndex": 0,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_12_28",
+      "wordIndex": 3,
+      "displayedWord": "nombre.",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_12_28",
+      "wordIndex": 9,
+      "displayedWord": "cielo:",
+      "strongId": "G3772"
+    }
+  ],
+  "JHN_12_29": [
+    {
+      "verseId": "JHN_12_29",
+      "wordIndex": 20,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    }
+  ],
+  "JHN_12_30": [
+    {
+      "verseId": "JHN_12_30",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_31": [
+    {
+      "verseId": "JHN_12_31",
+      "wordIndex": 6,
+      "displayedWord": "mundo;",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_12_31",
+      "wordIndex": 12,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_12_32": [
+    {
+      "verseId": "JHN_12_32",
+      "wordIndex": 7,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_12_33": [
+    {
+      "verseId": "JHN_12_33",
+      "wordIndex": 8,
+      "displayedWord": "muerte",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_12_34": [
+    {
+      "verseId": "JHN_12_34",
+      "wordIndex": 9,
+      "displayedWord": "ley,",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "JHN_12_34",
+      "wordIndex": 12,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "JHN_12_34",
+      "wordIndex": 26,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_12_34",
+      "wordIndex": 28,
+      "displayedWord": "Hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_12_34",
+      "wordIndex": 34,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_12_34",
+      "wordIndex": 36,
+      "displayedWord": "Hombre?",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_12_35": [
+    {
+      "verseId": "JHN_12_35",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_12_35",
+      "wordIndex": 10,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_12_35",
+      "wordIndex": 18,
+      "displayedWord": "luz,",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_12_35",
+      "wordIndex": 25,
+      "displayedWord": "tinieblas;",
+      "strongId": "G4655"
+    },
+    {
+      "verseId": "JHN_12_35",
+      "wordIndex": 31,
+      "displayedWord": "tinieblas,",
+      "strongId": "G4655"
+    }
+  ],
+  "JHN_12_36": [
+    {
+      "verseId": "JHN_12_36",
+      "wordIndex": 5,
+      "displayedWord": "luz,",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_12_36",
+      "wordIndex": 9,
+      "displayedWord": "luz,",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_12_36",
+      "wordIndex": 13,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_12_36",
+      "wordIndex": 15,
+      "displayedWord": "luz.",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_12_36",
+      "wordIndex": 19,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_12_38": [
+    {
+      "verseId": "JHN_12_38",
+      "wordIndex": 5,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_12_38",
+      "wordIndex": 11,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_12_38",
+      "wordIndex": 14,
+      "displayedWord": "creído",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_12_38",
+      "wordIndex": 27,
+      "displayedWord": "Señor?",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_12_39": [
+    {
+      "verseId": "JHN_12_39",
+      "wordIndex": 4,
+      "displayedWord": "creer,",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_12_40": [
+    {
+      "verseId": "JHN_12_40",
+      "wordIndex": 8,
+      "displayedWord": "corazón;",
+      "strongId": "G2588"
+    },
+    {
+      "verseId": "JHN_12_40",
+      "wordIndex": 20,
+      "displayedWord": "corazón,",
+      "strongId": "G2588"
+    }
+  ],
+  "JHN_12_41": [
+    {
+      "verseId": "JHN_12_41",
+      "wordIndex": 6,
+      "displayedWord": "gloria,",
+      "strongId": "G1391"
+    }
+  ],
+  "JHN_12_43": [
+    {
+      "verseId": "JHN_12_43",
+      "wordIndex": 4,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_12_43",
+      "wordIndex": 7,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_12_43",
+      "wordIndex": 10,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_12_43",
+      "wordIndex": 12,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_12_44": [
+    {
+      "verseId": "JHN_12_44",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_12_44",
+      "wordIndex": 6,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_12_44",
+      "wordIndex": 10,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_12_46": [
+    {
+      "verseId": "JHN_12_46",
+      "wordIndex": 2,
+      "displayedWord": "luz,",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_12_46",
+      "wordIndex": 6,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_12_46",
+      "wordIndex": 12,
+      "displayedWord": "cree",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_12_46",
+      "wordIndex": 18,
+      "displayedWord": "tinieblas.",
+      "strongId": "G4655"
+    }
+  ],
+  "JHN_12_47": [
+    {
+      "verseId": "JHN_12_47",
+      "wordIndex": 20,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_12_47",
+      "wordIndex": 25,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_12_48": [
+    {
+      "verseId": "JHN_12_48",
+      "wordIndex": 14,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_12_49": [
+    {
+      "verseId": "JHN_12_49",
+      "wordIndex": 10,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_12_50": [
+    {
+      "verseId": "JHN_12_50",
+      "wordIndex": 6,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_12_50",
+      "wordIndex": 7,
+      "displayedWord": "eterna.",
+      "strongId": "G166"
+    },
+    {
+      "verseId": "JHN_12_50",
+      "wordIndex": 18,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_13_1": [
+    {
+      "verseId": "JHN_13_1",
+      "wordIndex": 8,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_13_1",
+      "wordIndex": 19,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_13_1",
+      "wordIndex": 21,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_13_1",
+      "wordIndex": 32,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_13_1",
+      "wordIndex": 34,
+      "displayedWord": "amó",
+      "strongId": "G25"
+    }
+  ],
+  "JHN_13_2": [
+    {
+      "verseId": "JHN_13_2",
+      "wordIndex": 11,
+      "displayedWord": "corazón",
+      "strongId": "G2588"
+    },
+    {
+      "verseId": "JHN_13_2",
+      "wordIndex": 15,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_13_3": [
+    {
+      "verseId": "JHN_13_3",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_13_3",
+      "wordIndex": 4,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_13_3",
+      "wordIndex": 19,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_13_3",
+      "wordIndex": 22,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_13_5": [
+    {
+      "verseId": "JHN_13_5",
+      "wordIndex": 2,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_13_6": [
+    {
+      "verseId": "JHN_13_6",
+      "wordIndex": 9,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_13_7": [
+    {
+      "verseId": "JHN_13_7",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_13_8": [
+    {
+      "verseId": "JHN_13_8",
+      "wordIndex": 9,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_13_9": [
+    {
+      "verseId": "JHN_13_9",
+      "wordIndex": 4,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_13_10": [
+    {
+      "verseId": "JHN_13_10",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_13_13": [
+    {
+      "verseId": "JHN_13_13",
+      "wordIndex": 5,
+      "displayedWord": "Señor;",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_13_14": [
+    {
+      "verseId": "JHN_13_14",
+      "wordIndex": 4,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_13_16": [
+    {
+      "verseId": "JHN_13_16",
+      "wordIndex": 13,
+      "displayedWord": "señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_13_18": [
+    {
+      "verseId": "JHN_13_18",
+      "wordIndex": 21,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    }
+  ],
+  "JHN_13_21": [
+    {
+      "verseId": "JHN_13_21",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_13_21",
+      "wordIndex": 7,
+      "displayedWord": "espíritu,",
+      "strongId": "G4151"
+    }
+  ],
+  "JHN_13_23": [
+    {
+      "verseId": "JHN_13_23",
+      "wordIndex": 7,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_13_23",
+      "wordIndex": 14,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_13_25": [
+    {
+      "verseId": "JHN_13_25",
+      "wordIndex": 7,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_13_25",
+      "wordIndex": 10,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_13_26": [
+    {
+      "verseId": "JHN_13_26",
+      "wordIndex": 1,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_13_26",
+      "wordIndex": 7,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_13_26",
+      "wordIndex": 14,
+      "displayedWord": "pan,",
+      "strongId": "G740"
+    },
+    {
+      "verseId": "JHN_13_26",
+      "wordIndex": 20,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_13_27": [
+    {
+      "verseId": "JHN_13_27",
+      "wordIndex": 9,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_13_29": [
+    {
+      "verseId": "JHN_13_29",
+      "wordIndex": 10,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_13_31": [
+    {
+      "verseId": "JHN_13_31",
+      "wordIndex": 5,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_13_31",
+      "wordIndex": 10,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_13_31",
+      "wordIndex": 12,
+      "displayedWord": "Hombre,",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_13_31",
+      "wordIndex": 14,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_13_32": [
+    {
+      "verseId": "JHN_13_32",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_13_32",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_13_35": [
+    {
+      "verseId": "JHN_13_35",
+      "wordIndex": 10,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    }
+  ],
+  "JHN_13_36": [
+    {
+      "verseId": "JHN_13_36",
+      "wordIndex": 4,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_13_36",
+      "wordIndex": 8,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_13_37": [
+    {
+      "verseId": "JHN_13_37",
+      "wordIndex": 3,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_13_37",
+      "wordIndex": 12,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_13_38": [
+    {
+      "verseId": "JHN_13_38",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_13_38",
+      "wordIndex": 4,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_14_1": [
+    {
+      "verseId": "JHN_14_1",
+      "wordIndex": 4,
+      "displayedWord": "corazón;",
+      "strongId": "G2588"
+    },
+    {
+      "verseId": "JHN_14_1",
+      "wordIndex": 5,
+      "displayedWord": "creéis",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_14_1",
+      "wordIndex": 7,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_14_2": [
+    {
+      "verseId": "JHN_14_2",
+      "wordIndex": 5,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_5": [
+    {
+      "verseId": "JHN_14_5",
+      "wordIndex": 3,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_14_6": [
+    {
+      "verseId": "JHN_14_6",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_14_6",
+      "wordIndex": 9,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_14_6",
+      "wordIndex": 12,
+      "displayedWord": "vida;",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_14_6",
+      "wordIndex": 16,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_7": [
+    {
+      "verseId": "JHN_14_7",
+      "wordIndex": 6,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_8": [
+    {
+      "verseId": "JHN_14_8",
+      "wordIndex": 3,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_14_8",
+      "wordIndex": 6,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_9": [
+    {
+      "verseId": "JHN_14_9",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_14_9",
+      "wordIndex": 26,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_14_9",
+      "wordIndex": 33,
+      "displayedWord": "Padre?",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_10": [
+    {
+      "verseId": "JHN_14_10",
+      "wordIndex": 7,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_14_10",
+      "wordIndex": 10,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_14_10",
+      "wordIndex": 29,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_11": [
+    {
+      "verseId": "JHN_14_11",
+      "wordIndex": 6,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_14_11",
+      "wordIndex": 9,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_12": [
+    {
+      "verseId": "JHN_14_12",
+      "wordIndex": 10,
+      "displayedWord": "cree,",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_14_12",
+      "wordIndex": 28,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_13": [
+    {
+      "verseId": "JHN_14_13",
+      "wordIndex": 6,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_14_13",
+      "wordIndex": 9,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_14_13",
+      "wordIndex": 15,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_14_13",
+      "wordIndex": 20,
+      "displayedWord": "Hijo.",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_14_14": [
+    {
+      "verseId": "JHN_14_14",
+      "wordIndex": 5,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_14_16": [
+    {
+      "verseId": "JHN_14_16",
+      "wordIndex": 4,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_17": [
+    {
+      "verseId": "JHN_14_17",
+      "wordIndex": 1,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_14_17",
+      "wordIndex": 3,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_14_17",
+      "wordIndex": 7,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_14_19": [
+    {
+      "verseId": "JHN_14_19",
+      "wordIndex": 5,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_14_20": [
+    {
+      "verseId": "JHN_14_20",
+      "wordIndex": 10,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_21": [
+    {
+      "verseId": "JHN_14_21",
+      "wordIndex": 23,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_22": [
+    {
+      "verseId": "JHN_14_22",
+      "wordIndex": 6,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_14_22",
+      "wordIndex": 17,
+      "displayedWord": "mundo?",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_14_23": [
+    {
+      "verseId": "JHN_14_23",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_14_23",
+      "wordIndex": 10,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_14_23",
+      "wordIndex": 14,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_24": [
+    {
+      "verseId": "JHN_14_24",
+      "wordIndex": 11,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_14_24",
+      "wordIndex": 20,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_26": [
+    {
+      "verseId": "JHN_14_26",
+      "wordIndex": 4,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_14_26",
+      "wordIndex": 5,
+      "displayedWord": "Santo,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "JHN_14_26",
+      "wordIndex": 9,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_14_26",
+      "wordIndex": 13,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_14_27": [
+    {
+      "verseId": "JHN_14_27",
+      "wordIndex": 1,
+      "displayedWord": "paz",
+      "strongId": "G1515"
+    },
+    {
+      "verseId": "JHN_14_27",
+      "wordIndex": 5,
+      "displayedWord": "paz",
+      "strongId": "G1515"
+    },
+    {
+      "verseId": "JHN_14_27",
+      "wordIndex": 15,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_14_27",
+      "wordIndex": 22,
+      "displayedWord": "corazón,",
+      "strongId": "G2588"
+    }
+  ],
+  "JHN_14_28": [
+    {
+      "verseId": "JHN_14_28",
+      "wordIndex": 24,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_14_28",
+      "wordIndex": 27,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_14_30": [
+    {
+      "verseId": "JHN_14_30",
+      "wordIndex": 12,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_14_31": [
+    {
+      "verseId": "JHN_14_31",
+      "wordIndex": 4,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_14_31",
+      "wordIndex": 7,
+      "displayedWord": "amo",
+      "strongId": "G25"
+    },
+    {
+      "verseId": "JHN_14_31",
+      "wordIndex": 9,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_14_31",
+      "wordIndex": 13,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_15_1": [
+    {
+      "verseId": "JHN_15_1",
+      "wordIndex": 7,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_15_3": [
+    {
+      "verseId": "JHN_15_3",
+      "wordIndex": 6,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_15_8": [
+    {
+      "verseId": "JHN_15_8",
+      "wordIndex": 5,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_15_9": [
+    {
+      "verseId": "JHN_15_9",
+      "wordIndex": 2,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_15_9",
+      "wordIndex": 15,
+      "displayedWord": "amor.",
+      "strongId": "G26"
+    }
+  ],
+  "JHN_15_10": [
+    {
+      "verseId": "JHN_15_10",
+      "wordIndex": 7,
+      "displayedWord": "amor;",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "JHN_15_10",
+      "wordIndex": 17,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_15_10",
+      "wordIndex": 22,
+      "displayedWord": "amor.",
+      "strongId": "G26"
+    }
+  ],
+  "JHN_15_11": [
+    {
+      "verseId": "JHN_15_11",
+      "wordIndex": 8,
+      "displayedWord": "gozo",
+      "strongId": "G5479"
+    },
+    {
+      "verseId": "JHN_15_11",
+      "wordIndex": 14,
+      "displayedWord": "gozo",
+      "strongId": "G5479"
+    }
+  ],
+  "JHN_15_13": [
+    {
+      "verseId": "JHN_15_13",
+      "wordIndex": 3,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "JHN_15_13",
+      "wordIndex": 10,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    }
+  ],
+  "JHN_15_15": [
+    {
+      "verseId": "JHN_15_15",
+      "wordIndex": 14,
+      "displayedWord": "señor;",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_15_15",
+      "wordIndex": 28,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_15_16": [
+    {
+      "verseId": "JHN_15_16",
+      "wordIndex": 34,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_15_16",
+      "wordIndex": 37,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_15_18": [
+    {
+      "verseId": "JHN_15_18",
+      "wordIndex": 2,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_15_19": [
+    {
+      "verseId": "JHN_15_19",
+      "wordIndex": 3,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_15_19",
+      "wordIndex": 5,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_15_19",
+      "wordIndex": 14,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_15_19",
+      "wordIndex": 20,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_15_19",
+      "wordIndex": 24,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_15_20": [
+    {
+      "verseId": "JHN_15_20",
+      "wordIndex": 3,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_15_20",
+      "wordIndex": 16,
+      "displayedWord": "señor.",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_15_20",
+      "wordIndex": 33,
+      "displayedWord": "palabra,",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_15_21": [
+    {
+      "verseId": "JHN_15_21",
+      "wordIndex": 9,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_15_22": [
+    {
+      "verseId": "JHN_15_22",
+      "wordIndex": 11,
+      "displayedWord": "pecado;",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "JHN_15_22",
+      "wordIndex": 19,
+      "displayedWord": "pecado.",
+      "strongId": "G266"
+    }
+  ],
+  "JHN_15_23": [
+    {
+      "verseId": "JHN_15_23",
+      "wordIndex": 9,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_15_24": [
+    {
+      "verseId": "JHN_15_24",
+      "wordIndex": 15,
+      "displayedWord": "pecado;",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "JHN_15_24",
+      "wordIndex": 28,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_15_25": [
+    {
+      "verseId": "JHN_15_25",
+      "wordIndex": 8,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_15_25",
+      "wordIndex": 14,
+      "displayedWord": "ley:",
+      "strongId": "G3551"
+    }
+  ],
+  "JHN_15_26": [
+    {
+      "verseId": "JHN_15_26",
+      "wordIndex": 11,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_15_26",
+      "wordIndex": 13,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_15_26",
+      "wordIndex": 15,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_15_26",
+      "wordIndex": 20,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_15_27": [
+    {
+      "verseId": "JHN_15_27",
+      "wordIndex": 11,
+      "displayedWord": "principio.",
+      "strongId": "G746"
+    }
+  ],
+  "JHN_16_2": [
+    {
+      "verseId": "JHN_16_2",
+      "wordIndex": 20,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_16_3": [
+    {
+      "verseId": "JHN_16_3",
+      "wordIndex": 7,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_16_4": [
+    {
+      "verseId": "JHN_16_4",
+      "wordIndex": 27,
+      "displayedWord": "principio,",
+      "strongId": "G746"
+    }
+  ],
+  "JHN_16_6": [
+    {
+      "verseId": "JHN_16_6",
+      "wordIndex": 11,
+      "displayedWord": "corazón.",
+      "strongId": "G2588"
+    }
+  ],
+  "JHN_16_7": [
+    {
+      "verseId": "JHN_16_7",
+      "wordIndex": 5,
+      "displayedWord": "verdad:",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_16_8": [
+    {
+      "verseId": "JHN_16_8",
+      "wordIndex": 6,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_16_8",
+      "wordIndex": 8,
+      "displayedWord": "pecado,",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "JHN_16_8",
+      "wordIndex": 10,
+      "displayedWord": "justicia",
+      "strongId": "G1343"
+    }
+  ],
+  "JHN_16_9": [
+    {
+      "verseId": "JHN_16_9",
+      "wordIndex": 1,
+      "displayedWord": "pecado,",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "JHN_16_9",
+      "wordIndex": 5,
+      "displayedWord": "creen",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_16_10": [
+    {
+      "verseId": "JHN_16_10",
+      "wordIndex": 1,
+      "displayedWord": "justicia,",
+      "strongId": "G1343"
+    },
+    {
+      "verseId": "JHN_16_10",
+      "wordIndex": 6,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_16_11": [
+    {
+      "verseId": "JHN_16_11",
+      "wordIndex": 9,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_16_13": [
+    {
+      "verseId": "JHN_16_13",
+      "wordIndex": 4,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_16_13",
+      "wordIndex": 6,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_16_13",
+      "wordIndex": 13,
+      "displayedWord": "verdad;",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_16_15": [
+    {
+      "verseId": "JHN_16_15",
+      "wordIndex": 5,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_16_16": [
+    {
+      "verseId": "JHN_16_16",
+      "wordIndex": 19,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_16_17": [
+    {
+      "verseId": "JHN_16_17",
+      "wordIndex": 36,
+      "displayedWord": "Padre?",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_16_19": [
+    {
+      "verseId": "JHN_16_19",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_16_20": [
+    {
+      "verseId": "JHN_16_20",
+      "wordIndex": 13,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_16_20",
+      "wordIndex": 26,
+      "displayedWord": "gozo.",
+      "strongId": "G5479"
+    }
+  ],
+  "JHN_16_21": [
+    {
+      "verseId": "JHN_16_21",
+      "wordIndex": 5,
+      "displayedWord": "luz,",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_16_21",
+      "wordIndex": 19,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "JHN_16_21",
+      "wordIndex": 31,
+      "displayedWord": "gozo",
+      "strongId": "G5479"
+    },
+    {
+      "verseId": "JHN_16_21",
+      "wordIndex": 37,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_16_21",
+      "wordIndex": 40,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_16_22": [
+    {
+      "verseId": "JHN_16_22",
+      "wordIndex": 14,
+      "displayedWord": "corazón,",
+      "strongId": "G2588"
+    },
+    {
+      "verseId": "JHN_16_22",
+      "wordIndex": 20,
+      "displayedWord": "gozo.",
+      "strongId": "G5479"
+    }
+  ],
+  "JHN_16_23": [
+    {
+      "verseId": "JHN_16_23",
+      "wordIndex": 18,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_16_23",
+      "wordIndex": 21,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_16_24": [
+    {
+      "verseId": "JHN_16_24",
+      "wordIndex": 7,
+      "displayedWord": "nombre;",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_16_24",
+      "wordIndex": 14,
+      "displayedWord": "gozo",
+      "strongId": "G5479"
+    }
+  ],
+  "JHN_16_25": [
+    {
+      "verseId": "JHN_16_25",
+      "wordIndex": 24,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_16_26": [
+    {
+      "verseId": "JHN_16_26",
+      "wordIndex": 6,
+      "displayedWord": "nombre;",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_16_26",
+      "wordIndex": 15,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_16_27": [
+    {
+      "verseId": "JHN_16_27",
+      "wordIndex": 2,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_16_27",
+      "wordIndex": 13,
+      "displayedWord": "creído",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_16_27",
+      "wordIndex": 18,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_16_28": [
+    {
+      "verseId": "JHN_16_28",
+      "wordIndex": 2,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_16_28",
+      "wordIndex": 7,
+      "displayedWord": "mundo;",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_16_28",
+      "wordIndex": 12,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_16_28",
+      "wordIndex": 16,
+      "displayedWord": "Padre.",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_16_30": [
+    {
+      "verseId": "JHN_16_30",
+      "wordIndex": 21,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_16_31": [
+    {
+      "verseId": "JHN_16_31",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_16_31",
+      "wordIndex": 4,
+      "displayedWord": "creéis?",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_16_32": [
+    {
+      "verseId": "JHN_16_32",
+      "wordIndex": 28,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_16_33": [
+    {
+      "verseId": "JHN_16_33",
+      "wordIndex": 10,
+      "displayedWord": "paz.",
+      "strongId": "G1515"
+    },
+    {
+      "verseId": "JHN_16_33",
+      "wordIndex": 13,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_16_33",
+      "wordIndex": 22,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_1": [
+    {
+      "verseId": "JHN_17_1",
+      "wordIndex": 3,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_17_1",
+      "wordIndex": 9,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "JHN_17_1",
+      "wordIndex": 11,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_17_1",
+      "wordIndex": 19,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_17_1",
+      "wordIndex": 24,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_17_2": [
+    {
+      "verseId": "JHN_17_2",
+      "wordIndex": 7,
+      "displayedWord": "carne,",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "JHN_17_2",
+      "wordIndex": 11,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_17_2",
+      "wordIndex": 12,
+      "displayedWord": "eterna",
+      "strongId": "G166"
+    }
+  ],
+  "JHN_17_3": [
+    {
+      "verseId": "JHN_17_3",
+      "wordIndex": 4,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_17_3",
+      "wordIndex": 5,
+      "displayedWord": "eterna:",
+      "strongId": "G166"
+    },
+    {
+      "verseId": "JHN_17_3",
+      "wordIndex": 13,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_17_4": [
+    {
+      "verseId": "JHN_17_4",
+      "wordIndex": 6,
+      "displayedWord": "tierra;",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_17_5": [
+    {
+      "verseId": "JHN_17_5",
+      "wordIndex": 2,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_17_5",
+      "wordIndex": 10,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_17_5",
+      "wordIndex": 17,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_6": [
+    {
+      "verseId": "JHN_17_6",
+      "wordIndex": 3,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_17_6",
+      "wordIndex": 6,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "JHN_17_6",
+      "wordIndex": 9,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_17_6",
+      "wordIndex": 22,
+      "displayedWord": "palabra.",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_17_8": [
+    {
+      "verseId": "JHN_17_8",
+      "wordIndex": 23,
+      "displayedWord": "creído",
+      "strongId": "G4100"
+    }
+  ],
+  "JHN_17_9": [
+    {
+      "verseId": "JHN_17_9",
+      "wordIndex": 8,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_11": [
+    {
+      "verseId": "JHN_17_11",
+      "wordIndex": 6,
+      "displayedWord": "mundo;",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_17_11",
+      "wordIndex": 12,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_17_11",
+      "wordIndex": 18,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_17_11",
+      "wordIndex": 19,
+      "displayedWord": "santo,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "JHN_17_11",
+      "wordIndex": 29,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_17_12": [
+    {
+      "verseId": "JHN_17_12",
+      "wordIndex": 6,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_17_12",
+      "wordIndex": 12,
+      "displayedWord": "nombre;",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_17_12",
+      "wordIndex": 29,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_17_13": [
+    {
+      "verseId": "JHN_17_13",
+      "wordIndex": 10,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_17_13",
+      "wordIndex": 15,
+      "displayedWord": "gozo",
+      "strongId": "G5479"
+    }
+  ],
+  "JHN_17_14": [
+    {
+      "verseId": "JHN_17_14",
+      "wordIndex": 5,
+      "displayedWord": "palabra;",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_17_14",
+      "wordIndex": 8,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_17_14",
+      "wordIndex": 15,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_17_14",
+      "wordIndex": 21,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_15": [
+    {
+      "verseId": "JHN_17_15",
+      "wordIndex": 6,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_16": [
+    {
+      "verseId": "JHN_17_16",
+      "wordIndex": 3,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_17_16",
+      "wordIndex": 9,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_17": [
+    {
+      "verseId": "JHN_17_17",
+      "wordIndex": 3,
+      "displayedWord": "verdad;",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "JHN_17_17",
+      "wordIndex": 5,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "JHN_17_17",
+      "wordIndex": 7,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_17_18": [
+    {
+      "verseId": "JHN_17_18",
+      "wordIndex": 5,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "JHN_17_18",
+      "wordIndex": 12,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_19": [
+    {
+      "verseId": "JHN_17_19",
+      "wordIndex": 17,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_17_20": [
+    {
+      "verseId": "JHN_17_20",
+      "wordIndex": 13,
+      "displayedWord": "creer",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "JHN_17_20",
+      "wordIndex": 18,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    }
+  ],
+  "JHN_17_21": [
+    {
+      "verseId": "JHN_17_21",
+      "wordIndex": 8,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_17_21",
+      "wordIndex": 25,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_22": [
+    {
+      "verseId": "JHN_17_22",
+      "wordIndex": 1,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    }
+  ],
+  "JHN_17_23": [
+    {
+      "verseId": "JHN_17_23",
+      "wordIndex": 16,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_24": [
+    {
+      "verseId": "JHN_17_24",
+      "wordIndex": 0,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_17_24",
+      "wordIndex": 19,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "JHN_17_24",
+      "wordIndex": 34,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_25": [
+    {
+      "verseId": "JHN_17_25",
+      "wordIndex": 0,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_17_25",
+      "wordIndex": 1,
+      "displayedWord": "justo,",
+      "strongId": "G1342"
+    },
+    {
+      "verseId": "JHN_17_25",
+      "wordIndex": 3,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "JHN_17_26": [
+    {
+      "verseId": "JHN_17_26",
+      "wordIndex": 7,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "JHN_17_26",
+      "wordIndex": 17,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    }
+  ],
+  "JHN_19_1": [
+    {
+      "verseId": "JHN_19_1",
+      "wordIndex": 6,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_3": [
+    {
+      "verseId": "JHN_19_3",
+      "wordIndex": 4,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    }
+  ],
+  "JHN_19_5": [
+    {
+      "verseId": "JHN_19_5",
+      "wordIndex": 2,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_19_5",
+      "wordIndex": 20,
+      "displayedWord": "hombre!",
+      "strongId": "G444"
+    }
+  ],
+  "JHN_19_7": [
+    {
+      "verseId": "JHN_19_7",
+      "wordIndex": 7,
+      "displayedWord": "ley,",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "JHN_19_7",
+      "wordIndex": 11,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "JHN_19_7",
+      "wordIndex": 20,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_19_7",
+      "wordIndex": 22,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_19_9": [
+    {
+      "verseId": "JHN_19_9",
+      "wordIndex": 10,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_19_9",
+      "wordIndex": 16,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_11": [
+    {
+      "verseId": "JHN_19_11",
+      "wordIndex": 1,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_19_11",
+      "wordIndex": 24,
+      "displayedWord": "pecado",
+      "strongId": "G266"
+    }
+  ],
+  "JHN_19_12": [
+    {
+      "verseId": "JHN_19_12",
+      "wordIndex": 25,
+      "displayedWord": "rey,",
+      "strongId": "G935"
+    }
+  ],
+  "JHN_19_13": [
+    {
+      "verseId": "JHN_19_13",
+      "wordIndex": 7,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_14": [
+    {
+      "verseId": "JHN_19_14",
+      "wordIndex": 19,
+      "displayedWord": "Rey!",
+      "strongId": "G935"
+    }
+  ],
+  "JHN_19_15": [
+    {
+      "verseId": "JHN_19_15",
+      "wordIndex": 11,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "JHN_19_15",
+      "wordIndex": 22,
+      "displayedWord": "rey",
+      "strongId": "G935"
+    }
+  ],
+  "JHN_19_16": [
+    {
+      "verseId": "JHN_19_16",
+      "wordIndex": 14,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_18": [
+    {
+      "verseId": "JHN_19_18",
+      "wordIndex": 15,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_19": [
+    {
+      "verseId": "JHN_19_19",
+      "wordIndex": 13,
+      "displayedWord": "JESÚS",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_19_19",
+      "wordIndex": 15,
+      "displayedWord": "REY",
+      "strongId": "G935"
+    }
+  ],
+  "JHN_19_20": [
+    {
+      "verseId": "JHN_19_20",
+      "wordIndex": 12,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_21": [
+    {
+      "verseId": "JHN_19_21",
+      "wordIndex": 11,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "JHN_19_21",
+      "wordIndex": 20,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    }
+  ],
+  "JHN_19_23": [
+    {
+      "verseId": "JHN_19_23",
+      "wordIndex": 6,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_25": [
+    {
+      "verseId": "JHN_19_25",
+      "wordIndex": 6,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_26": [
+    {
+      "verseId": "JHN_19_26",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_19_26",
+      "wordIndex": 24,
+      "displayedWord": "hijo.",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_19_28": [
+    {
+      "verseId": "JHN_19_28",
+      "wordIndex": 4,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_30": [
+    {
+      "verseId": "JHN_19_30",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_19_30",
+      "wordIndex": 16,
+      "displayedWord": "espíritu.",
+      "strongId": "G4151"
+    }
+  ],
+  "JHN_19_33": [
+    {
+      "verseId": "JHN_19_33",
+      "wordIndex": 4,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_19_33",
+      "wordIndex": 9,
+      "displayedWord": "muerto,",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_19_34": [
+    {
+      "verseId": "JHN_19_34",
+      "wordIndex": 16,
+      "displayedWord": "sangre",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "JHN_19_34",
+      "wordIndex": 18,
+      "displayedWord": "agua.",
+      "strongId": "G5204"
+    }
+  ],
+  "JHN_19_35": [
+    {
+      "verseId": "JHN_19_35",
+      "wordIndex": 17,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    }
+  ],
+  "JHN_19_38": [
+    {
+      "verseId": "JHN_19_38",
+      "wordIndex": 11,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_19_38",
+      "wordIndex": 29,
+      "displayedWord": "Jesús;",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_19_38",
+      "wordIndex": 43,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_39": [
+    {
+      "verseId": "JHN_19_39",
+      "wordIndex": 8,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_40": [
+    {
+      "verseId": "JHN_19_40",
+      "wordIndex": 5,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_19_42": [
+    {
+      "verseId": "JHN_19_42",
+      "wordIndex": 21,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_20_2": [
+    {
+      "verseId": "JHN_20_2",
+      "wordIndex": 15,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_20_2",
+      "wordIndex": 25,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_20_7": [
+    {
+      "verseId": "JHN_20_7",
+      "wordIndex": 10,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_20_9": [
+    {
+      "verseId": "JHN_20_9",
+      "wordIndex": 15,
+      "displayedWord": "muertos.",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_20_12": [
+    {
+      "verseId": "JHN_20_12",
+      "wordIndex": 4,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "JHN_20_12",
+      "wordIndex": 26,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_20_13": [
+    {
+      "verseId": "JHN_20_13",
+      "wordIndex": 15,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_20_14": [
+    {
+      "verseId": "JHN_20_14",
+      "wordIndex": 9,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_20_14",
+      "wordIndex": 18,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_20_15": [
+    {
+      "verseId": "JHN_20_15",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_20_15",
+      "wordIndex": 18,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_20_16": [
+    {
+      "verseId": "JHN_20_16",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_20_17": [
+    {
+      "verseId": "JHN_20_17",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_20_17",
+      "wordIndex": 13,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_20_17",
+      "wordIndex": 18,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "JHN_20_17",
+      "wordIndex": 24,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_20_17",
+      "wordIndex": 28,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "JHN_20_17",
+      "wordIndex": 31,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_20_17",
+      "wordIndex": 35,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_20_18": [
+    {
+      "verseId": "JHN_20_18",
+      "wordIndex": 16,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_20_19": [
+    {
+      "verseId": "JHN_20_19",
+      "wordIndex": 31,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_20_19",
+      "wordIndex": 38,
+      "displayedWord": "Paz",
+      "strongId": "G1515"
+    }
+  ],
+  "JHN_20_20": [
+    {
+      "verseId": "JHN_20_20",
+      "wordIndex": 20,
+      "displayedWord": "Señor.",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_20_21": [
+    {
+      "verseId": "JHN_20_21",
+      "wordIndex": 1,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_20_21",
+      "wordIndex": 6,
+      "displayedWord": "Paz",
+      "strongId": "G1515"
+    },
+    {
+      "verseId": "JHN_20_21",
+      "wordIndex": 13,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    }
+  ],
+  "JHN_20_22": [
+    {
+      "verseId": "JHN_20_22",
+      "wordIndex": 10,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "JHN_20_22",
+      "wordIndex": 11,
+      "displayedWord": "Santo.",
+      "strongId": "G40"
+    }
+  ],
+  "JHN_20_23": [
+    {
+      "verseId": "JHN_20_23",
+      "wordIndex": 4,
+      "displayedWord": "pecados,",
+      "strongId": "G266"
+    }
+  ],
+  "JHN_20_24": [
+    {
+      "verseId": "JHN_20_24",
+      "wordIndex": 13,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_20_25": [
+    {
+      "verseId": "JHN_20_25",
+      "wordIndex": 7,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_20_26": [
+    {
+      "verseId": "JHN_20_26",
+      "wordIndex": 14,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_20_26",
+      "wordIndex": 27,
+      "displayedWord": "Paz",
+      "strongId": "G1515"
+    }
+  ],
+  "JHN_20_28": [
+    {
+      "verseId": "JHN_20_28",
+      "wordIndex": 6,
+      "displayedWord": "¡Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_20_28",
+      "wordIndex": 9,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_20_29": [
+    {
+      "verseId": "JHN_20_29",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_20_30": [
+    {
+      "verseId": "JHN_20_30",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_20_31": [
+    {
+      "verseId": "JHN_20_31",
+      "wordIndex": 9,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_20_31",
+      "wordIndex": 12,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "JHN_20_31",
+      "wordIndex": 14,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_20_31",
+      "wordIndex": 16,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "JHN_20_31",
+      "wordIndex": 22,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "JHN_20_31",
+      "wordIndex": 25,
+      "displayedWord": "nombre.",
+      "strongId": "G3686"
+    }
+  ],
+  "JHN_21_1": [
+    {
+      "verseId": "JHN_21_1",
+      "wordIndex": 3,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_21_2": [
+    {
+      "verseId": "JHN_21_2",
+      "wordIndex": 15,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    }
+  ],
+  "JHN_21_4": [
+    {
+      "verseId": "JHN_21_4",
+      "wordIndex": 6,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_21_4",
+      "wordIndex": 17,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_21_7": [
+    {
+      "verseId": "JHN_21_7",
+      "wordIndex": 5,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_21_7",
+      "wordIndex": 12,
+      "displayedWord": "Señor!",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_21_7",
+      "wordIndex": 20,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_21_8": [
+    {
+      "verseId": "JHN_21_8",
+      "wordIndex": 17,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_21_9": [
+    {
+      "verseId": "JHN_21_9",
+      "wordIndex": 3,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "JHN_21_9",
+      "wordIndex": 14,
+      "displayedWord": "pan.",
+      "strongId": "G740"
+    }
+  ],
+  "JHN_21_10": [
+    {
+      "verseId": "JHN_21_10",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_21_11": [
+    {
+      "verseId": "JHN_21_11",
+      "wordIndex": 8,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    }
+  ],
+  "JHN_21_12": [
+    {
+      "verseId": "JHN_21_12",
+      "wordIndex": 2,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_21_12",
+      "wordIndex": 21,
+      "displayedWord": "Señor.",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_21_13": [
+    {
+      "verseId": "JHN_21_13",
+      "wordIndex": 2,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_21_13",
+      "wordIndex": 6,
+      "displayedWord": "pan",
+      "strongId": "G740"
+    }
+  ],
+  "JHN_21_14": [
+    {
+      "verseId": "JHN_21_14",
+      "wordIndex": 7,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_21_14",
+      "wordIndex": 19,
+      "displayedWord": "muertos.",
+      "strongId": "G2288"
+    }
+  ],
+  "JHN_21_15": [
+    {
+      "verseId": "JHN_21_15",
+      "wordIndex": 3,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_21_15",
+      "wordIndex": 9,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_21_15",
+      "wordIndex": 20,
+      "displayedWord": "Señor;",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_21_15",
+      "wordIndex": 25,
+      "displayedWord": "amo.",
+      "strongId": "G25"
+    }
+  ],
+  "JHN_21_16": [
+    {
+      "verseId": "JHN_21_16",
+      "wordIndex": 7,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_21_16",
+      "wordIndex": 16,
+      "displayedWord": "Señor;",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_21_16",
+      "wordIndex": 21,
+      "displayedWord": "amo.",
+      "strongId": "G25"
+    }
+  ],
+  "JHN_21_17": [
+    {
+      "verseId": "JHN_21_17",
+      "wordIndex": 6,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "JHN_21_17",
+      "wordIndex": 26,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "JHN_21_17",
+      "wordIndex": 35,
+      "displayedWord": "amo.",
+      "strongId": "G25"
+    },
+    {
+      "verseId": "JHN_21_17",
+      "wordIndex": 36,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_21_19": [
+    {
+      "verseId": "JHN_21_19",
+      "wordIndex": 7,
+      "displayedWord": "muerte",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "JHN_21_19",
+      "wordIndex": 12,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "JHN_21_20": [
+    {
+      "verseId": "JHN_21_20",
+      "wordIndex": 11,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_21_20",
+      "wordIndex": 29,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_21_21": [
+    {
+      "verseId": "JHN_21_21",
+      "wordIndex": 6,
+      "displayedWord": "Jesús:",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_21_21",
+      "wordIndex": 7,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "JHN_21_22": [
+    {
+      "verseId": "JHN_21_22",
+      "wordIndex": 0,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_21_23": [
+    {
+      "verseId": "JHN_21_23",
+      "wordIndex": 7,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "JHN_21_23",
+      "wordIndex": 14,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    }
+  ],
+  "JHN_21_25": [
+    {
+      "verseId": "JHN_21_25",
+      "wordIndex": 8,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "JHN_21_25",
+      "wordIndex": 23,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
   ]
 }

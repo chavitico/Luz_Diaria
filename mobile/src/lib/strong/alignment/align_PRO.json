@@ -1,0 +1,2906 @@
+{
+  "PRO_1_1": [
+    {
+      "verseId": "PRO_1_1",
+      "wordIndex": 5,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_1_1",
+      "wordIndex": 8,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "PRO_1_3": [
+    {
+      "verseId": "PRO_1_3",
+      "wordIndex": 6,
+      "displayedWord": "Justicia,",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_1_7": [
+    {
+      "verseId": "PRO_1_7",
+      "wordIndex": 1,
+      "displayedWord": "principio",
+      "strongId": "H7225"
+    },
+    {
+      "verseId": "PRO_1_7",
+      "wordIndex": 7,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_1_7",
+      "wordIndex": 9,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_1_8": [
+    {
+      "verseId": "PRO_1_8",
+      "wordIndex": 1,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_1_10": [
+    {
+      "verseId": "PRO_1_10",
+      "wordIndex": 0,
+      "displayedWord": "Hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_1_11": [
+    {
+      "verseId": "PRO_1_11",
+      "wordIndex": 9,
+      "displayedWord": "sangre,",
+      "strongId": "H1818"
+    }
+  ],
+  "PRO_1_15": [
+    {
+      "verseId": "PRO_1_15",
+      "wordIndex": 0,
+      "displayedWord": "Hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_1_16": [
+    {
+      "verseId": "PRO_1_16",
+      "wordIndex": 12,
+      "displayedWord": "sangre.",
+      "strongId": "H1818"
+    }
+  ],
+  "PRO_1_18": [
+    {
+      "verseId": "PRO_1_18",
+      "wordIndex": 5,
+      "displayedWord": "sangre",
+      "strongId": "H1818"
+    }
+  ],
+  "PRO_1_19": [
+    {
+      "verseId": "PRO_1_19",
+      "wordIndex": 17,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_1_23": [
+    {
+      "verseId": "PRO_1_23",
+      "wordIndex": 9,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "PRO_1_28": [
+    {
+      "verseId": "PRO_1_28",
+      "wordIndex": 9,
+      "displayedWord": "mañana,",
+      "strongId": "H1242"
+    }
+  ],
+  "PRO_1_29": [
+    {
+      "verseId": "PRO_1_29",
+      "wordIndex": 9,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_1_29",
+      "wordIndex": 11,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_1_33": [
+    {
+      "verseId": "PRO_1_33",
+      "wordIndex": 11,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    }
+  ],
+  "PRO_2_1": [
+    {
+      "verseId": "PRO_2_1",
+      "wordIndex": 0,
+      "displayedWord": "Hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_2_1",
+      "wordIndex": 8,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    }
+  ],
+  "PRO_2_2": [
+    {
+      "verseId": "PRO_2_2",
+      "wordIndex": 11,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_2_5": [
+    {
+      "verseId": "PRO_2_5",
+      "wordIndex": 3,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_2_5",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_2_5",
+      "wordIndex": 11,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    }
+  ],
+  "PRO_2_6": [
+    {
+      "verseId": "PRO_2_6",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_2_8": [
+    {
+      "verseId": "PRO_2_8",
+      "wordIndex": 14,
+      "displayedWord": "santos.",
+      "strongId": "H6918"
+    }
+  ],
+  "PRO_2_9": [
+    {
+      "verseId": "PRO_2_9",
+      "wordIndex": 2,
+      "displayedWord": "justicia,",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_2_10": [
+    {
+      "verseId": "PRO_2_10",
+      "wordIndex": 6,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_2_10",
+      "wordIndex": 14,
+      "displayedWord": "alma,",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_2_17": [
+    {
+      "verseId": "PRO_2_17",
+      "wordIndex": 12,
+      "displayedWord": "pacto",
+      "strongId": "H1285"
+    },
+    {
+      "verseId": "PRO_2_17",
+      "wordIndex": 15,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    }
+  ],
+  "PRO_2_18": [
+    {
+      "verseId": "PRO_2_18",
+      "wordIndex": 4,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "PRO_2_18",
+      "wordIndex": 9,
+      "displayedWord": "muerte,",
+      "strongId": "H4194"
+    },
+    {
+      "verseId": "PRO_2_18",
+      "wordIndex": 15,
+      "displayedWord": "muertos;",
+      "strongId": "H4194"
+    }
+  ],
+  "PRO_2_19": [
+    {
+      "verseId": "PRO_2_19",
+      "wordIndex": 17,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_2_21": [
+    {
+      "verseId": "PRO_2_21",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "PRO_2_22": [
+    {
+      "verseId": "PRO_2_22",
+      "wordIndex": 7,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "PRO_3_1": [
+    {
+      "verseId": "PRO_3_1",
+      "wordIndex": 0,
+      "displayedWord": "Hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_3_1",
+      "wordIndex": 7,
+      "displayedWord": "ley,",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "PRO_3_1",
+      "wordIndex": 10,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_3_1",
+      "wordIndex": 13,
+      "displayedWord": "mandamientos;",
+      "strongId": "H4687"
+    }
+  ],
+  "PRO_3_2": [
+    {
+      "verseId": "PRO_3_2",
+      "wordIndex": 3,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PRO_3_2",
+      "wordIndex": 7,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PRO_3_2",
+      "wordIndex": 9,
+      "displayedWord": "paz",
+      "strongId": "H7965"
+    }
+  ],
+  "PRO_3_3": [
+    {
+      "verseId": "PRO_3_3",
+      "wordIndex": 6,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PRO_3_3",
+      "wordIndex": 9,
+      "displayedWord": "verdad;",
+      "strongId": "H571"
+    },
+    {
+      "verseId": "PRO_3_3",
+      "wordIndex": 20,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_3_4": [
+    {
+      "verseId": "PRO_3_4",
+      "wordIndex": 4,
+      "displayedWord": "buena",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "PRO_3_4",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "PRO_3_5": [
+    {
+      "verseId": "PRO_3_5",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_3_5",
+      "wordIndex": 6,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_3_7": [
+    {
+      "verseId": "PRO_3_7",
+      "wordIndex": 10,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_3_9": [
+    {
+      "verseId": "PRO_3_9",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_3_11": [
+    {
+      "verseId": "PRO_3_11",
+      "wordIndex": 2,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_3_11",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_3_12": [
+    {
+      "verseId": "PRO_3_12",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_3_12",
+      "wordIndex": 11,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_3_13": [
+    {
+      "verseId": "PRO_3_13",
+      "wordIndex": 2,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_3_16": [
+    {
+      "verseId": "PRO_3_16",
+      "wordIndex": 2,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "PRO_3_17": [
+    {
+      "verseId": "PRO_3_17",
+      "wordIndex": 9,
+      "displayedWord": "paz.",
+      "strongId": "H7965"
+    }
+  ],
+  "PRO_3_18": [
+    {
+      "verseId": "PRO_3_18",
+      "wordIndex": 4,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_3_19": [
+    {
+      "verseId": "PRO_3_19",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_3_19",
+      "wordIndex": 5,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PRO_3_19",
+      "wordIndex": 8,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    }
+  ],
+  "PRO_3_20": [
+    {
+      "verseId": "PRO_3_20",
+      "wordIndex": 11,
+      "displayedWord": "cielos.",
+      "strongId": "H8064"
+    }
+  ],
+  "PRO_3_21": [
+    {
+      "verseId": "PRO_3_21",
+      "wordIndex": 0,
+      "displayedWord": "Hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_3_21",
+      "wordIndex": 12,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PRO_3_22": [
+    {
+      "verseId": "PRO_3_22",
+      "wordIndex": 2,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PRO_3_22",
+      "wordIndex": 5,
+      "displayedWord": "alma,",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_3_24": [
+    {
+      "verseId": "PRO_3_24",
+      "wordIndex": 5,
+      "displayedWord": "temor,",
+      "strongId": "H3374"
+    }
+  ],
+  "PRO_3_25": [
+    {
+      "verseId": "PRO_3_25",
+      "wordIndex": 2,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    }
+  ],
+  "PRO_3_26": [
+    {
+      "verseId": "PRO_3_26",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_3_28": [
+    {
+      "verseId": "PRO_3_28",
+      "wordIndex": 9,
+      "displayedWord": "mañana",
+      "strongId": "H1242"
+    }
+  ],
+  "PRO_3_31": [
+    {
+      "verseId": "PRO_3_31",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_3_32": [
+    {
+      "verseId": "PRO_3_32",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_3_33": [
+    {
+      "verseId": "PRO_3_33",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_3_33",
+      "wordIndex": 7,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "PRO_4_1": [
+    {
+      "verseId": "PRO_4_1",
+      "wordIndex": 1,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_4_2": [
+    {
+      "verseId": "PRO_4_2",
+      "wordIndex": 3,
+      "displayedWord": "buena",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "PRO_4_2",
+      "wordIndex": 8,
+      "displayedWord": "ley.",
+      "strongId": "H8451"
+    }
+  ],
+  "PRO_4_3": [
+    {
+      "verseId": "PRO_4_3",
+      "wordIndex": 4,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_4_4": [
+    {
+      "verseId": "PRO_4_4",
+      "wordIndex": 9,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_4_4",
+      "wordIndex": 14,
+      "displayedWord": "mandamientos,",
+      "strongId": "H4687"
+    }
+  ],
+  "PRO_4_10": [
+    {
+      "verseId": "PRO_4_10",
+      "wordIndex": 1,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_4_10",
+      "wordIndex": 13,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_4_13": [
+    {
+      "verseId": "PRO_4_13",
+      "wordIndex": 11,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_4_17": [
+    {
+      "verseId": "PRO_4_17",
+      "wordIndex": 2,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    }
+  ],
+  "PRO_4_18": [
+    {
+      "verseId": "PRO_4_18",
+      "wordIndex": 9,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "PRO_4_18",
+      "wordIndex": 20,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "PRO_4_20": [
+    {
+      "verseId": "PRO_4_20",
+      "wordIndex": 0,
+      "displayedWord": "Hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_4_21": [
+    {
+      "verseId": "PRO_4_21",
+      "wordIndex": 11,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_4_22": [
+    {
+      "verseId": "PRO_4_22",
+      "wordIndex": 2,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_4_23": [
+    {
+      "verseId": "PRO_4_23",
+      "wordIndex": 6,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_4_23",
+      "wordIndex": 12,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_8_4": [
+    {
+      "verseId": "PRO_8_4",
+      "wordIndex": 10,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_8_7": [
+    {
+      "verseId": "PRO_8_7",
+      "wordIndex": 4,
+      "displayedWord": "verdad,",
+      "strongId": "H571"
+    }
+  ],
+  "PRO_8_13": [
+    {
+      "verseId": "PRO_8_13",
+      "wordIndex": 1,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_8_13",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_8_15": [
+    {
+      "verseId": "PRO_8_15",
+      "wordIndex": 9,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_8_16": [
+    {
+      "verseId": "PRO_8_16",
+      "wordIndex": 11,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PRO_8_18": [
+    {
+      "verseId": "PRO_8_18",
+      "wordIndex": 10,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_8_20": [
+    {
+      "verseId": "PRO_8_20",
+      "wordIndex": 3,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_8_22": [
+    {
+      "verseId": "PRO_8_22",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_8_22",
+      "wordIndex": 5,
+      "displayedWord": "principio,",
+      "strongId": "H7225"
+    }
+  ],
+  "PRO_8_23": [
+    {
+      "verseId": "PRO_8_23",
+      "wordIndex": 6,
+      "displayedWord": "principio,",
+      "strongId": "H7225"
+    },
+    {
+      "verseId": "PRO_8_23",
+      "wordIndex": 10,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PRO_8_24": [
+    {
+      "verseId": "PRO_8_24",
+      "wordIndex": 14,
+      "displayedWord": "aguas.",
+      "strongId": "H4325"
+    }
+  ],
+  "PRO_8_26": [
+    {
+      "verseId": "PRO_8_26",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PRO_8_26",
+      "wordIndex": 11,
+      "displayedWord": "principio",
+      "strongId": "H7225"
+    }
+  ],
+  "PRO_8_27": [
+    {
+      "verseId": "PRO_8_27",
+      "wordIndex": 3,
+      "displayedWord": "cielos,",
+      "strongId": "H8064"
+    }
+  ],
+  "PRO_8_28": [
+    {
+      "verseId": "PRO_8_28",
+      "wordIndex": 3,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    }
+  ],
+  "PRO_8_29": [
+    {
+      "verseId": "PRO_8_29",
+      "wordIndex": 3,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "PRO_8_29",
+      "wordIndex": 9,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "PRO_8_29",
+      "wordIndex": 13,
+      "displayedWord": "mandamiento;",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "PRO_8_29",
+      "wordIndex": 20,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "PRO_8_30": [
+    {
+      "verseId": "PRO_8_30",
+      "wordIndex": 11,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PRO_8_30",
+      "wordIndex": 13,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    }
+  ],
+  "PRO_8_31": [
+    {
+      "verseId": "PRO_8_31",
+      "wordIndex": 8,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "PRO_8_31",
+      "wordIndex": 15,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_8_32": [
+    {
+      "verseId": "PRO_8_32",
+      "wordIndex": 2,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_8_34": [
+    {
+      "verseId": "PRO_8_34",
+      "wordIndex": 2,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_8_34",
+      "wordIndex": 11,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    }
+  ],
+  "PRO_8_35": [
+    {
+      "verseId": "PRO_8_35",
+      "wordIndex": 7,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PRO_8_35",
+      "wordIndex": 13,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_8_36": [
+    {
+      "verseId": "PRO_8_36",
+      "wordIndex": 8,
+      "displayedWord": "alma;",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "PRO_8_36",
+      "wordIndex": 16,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "PRO_9_1": [
+    {
+      "verseId": "PRO_9_1",
+      "wordIndex": 4,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    }
+  ],
+  "PRO_9_5": [
+    {
+      "verseId": "PRO_9_5",
+      "wordIndex": 3,
+      "displayedWord": "pan,",
+      "strongId": "H3899"
+    }
+  ],
+  "PRO_9_9": [
+    {
+      "verseId": "PRO_9_9",
+      "wordIndex": 9,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_9_10": [
+    {
+      "verseId": "PRO_9_10",
+      "wordIndex": 1,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_9_10",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_9_10",
+      "wordIndex": 6,
+      "displayedWord": "principio",
+      "strongId": "H7225"
+    }
+  ],
+  "PRO_9_11": [
+    {
+      "verseId": "PRO_9_11",
+      "wordIndex": 6,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PRO_9_11",
+      "wordIndex": 10,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_9_14": [
+    {
+      "verseId": "PRO_9_14",
+      "wordIndex": 10,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    }
+  ],
+  "PRO_9_17": [
+    {
+      "verseId": "PRO_9_17",
+      "wordIndex": 1,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "PRO_9_17",
+      "wordIndex": 7,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    }
+  ],
+  "PRO_9_18": [
+    {
+      "verseId": "PRO_9_18",
+      "wordIndex": 7,
+      "displayedWord": "muertos;",
+      "strongId": "H4194"
+    }
+  ],
+  "PRO_10_1": [
+    {
+      "verseId": "PRO_10_1",
+      "wordIndex": 5,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_10_1",
+      "wordIndex": 12,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_10_2": [
+    {
+      "verseId": "PRO_10_2",
+      "wordIndex": 10,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PRO_10_2",
+      "wordIndex": 13,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "PRO_10_3": [
+    {
+      "verseId": "PRO_10_3",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_10_3",
+      "wordIndex": 6,
+      "displayedWord": "justo;",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_10_5": [
+    {
+      "verseId": "PRO_10_5",
+      "wordIndex": 7,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_10_5",
+      "wordIndex": 19,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_10_6": [
+    {
+      "verseId": "PRO_10_6",
+      "wordIndex": 6,
+      "displayedWord": "justo;",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_10_7": [
+    {
+      "verseId": "PRO_10_7",
+      "wordIndex": 3,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PRO_10_7",
+      "wordIndex": 8,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "PRO_10_8": [
+    {
+      "verseId": "PRO_10_8",
+      "wordIndex": 3,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_10_8",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos;",
+      "strongId": "H4687"
+    }
+  ],
+  "PRO_10_11": [
+    {
+      "verseId": "PRO_10_11",
+      "wordIndex": 2,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PRO_10_11",
+      "wordIndex": 7,
+      "displayedWord": "justo;",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_10_12": [
+    {
+      "verseId": "PRO_10_12",
+      "wordIndex": 6,
+      "displayedWord": "amor",
+      "strongId": "H157"
+    }
+  ],
+  "PRO_10_16": [
+    {
+      "verseId": "PRO_10_16",
+      "wordIndex": 3,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PRO_10_16",
+      "wordIndex": 6,
+      "displayedWord": "vida;",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PRO_10_16",
+      "wordIndex": 14,
+      "displayedWord": "pecado.",
+      "strongId": "H2403"
+    }
+  ],
+  "PRO_10_17": [
+    {
+      "verseId": "PRO_10_17",
+      "wordIndex": 3,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_10_19": [
+    {
+      "verseId": "PRO_10_19",
+      "wordIndex": 6,
+      "displayedWord": "pecado;",
+      "strongId": "H2403"
+    }
+  ],
+  "PRO_10_20": [
+    {
+      "verseId": "PRO_10_20",
+      "wordIndex": 6,
+      "displayedWord": "justo;",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PRO_10_20",
+      "wordIndex": 9,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_10_21": [
+    {
+      "verseId": "PRO_10_21",
+      "wordIndex": 3,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_10_22": [
+    {
+      "verseId": "PRO_10_22",
+      "wordIndex": 1,
+      "displayedWord": "bendición",
+      "strongId": "H1293"
+    },
+    {
+      "verseId": "PRO_10_22",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_10_23": [
+    {
+      "verseId": "PRO_10_23",
+      "wordIndex": 14,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_10_25": [
+    {
+      "verseId": "PRO_10_25",
+      "wordIndex": 6,
+      "displayedWord": "malo",
+      "strongId": "H7451"
+    },
+    {
+      "verseId": "PRO_10_25",
+      "wordIndex": 11,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_10_27": [
+    {
+      "verseId": "PRO_10_27",
+      "wordIndex": 1,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_10_27",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_10_27",
+      "wordIndex": 6,
+      "displayedWord": "días;",
+      "strongId": "H3117"
+    }
+  ],
+  "PRO_10_29": [
+    {
+      "verseId": "PRO_10_29",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_10_30": [
+    {
+      "verseId": "PRO_10_30",
+      "wordIndex": 1,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PRO_10_30",
+      "wordIndex": 12,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PRO_10_31": [
+    {
+      "verseId": "PRO_10_31",
+      "wordIndex": 3,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_10_32": [
+    {
+      "verseId": "PRO_10_32",
+      "wordIndex": 3,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_14_1": [
+    {
+      "verseId": "PRO_14_1",
+      "wordIndex": 5,
+      "displayedWord": "casa;",
+      "strongId": "H1004"
+    }
+  ],
+  "PRO_14_2": [
+    {
+      "verseId": "PRO_14_2",
+      "wordIndex": 8,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_14_4": [
+    {
+      "verseId": "PRO_14_4",
+      "wordIndex": 15,
+      "displayedWord": "pan.",
+      "strongId": "H3899"
+    }
+  ],
+  "PRO_14_6": [
+    {
+      "verseId": "PRO_14_6",
+      "wordIndex": 11,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_14_7": [
+    {
+      "verseId": "PRO_14_7",
+      "wordIndex": 4,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_14_9": [
+    {
+      "verseId": "PRO_14_9",
+      "wordIndex": 5,
+      "displayedWord": "pecado;",
+      "strongId": "H2403"
+    },
+    {
+      "verseId": "PRO_14_9",
+      "wordIndex": 11,
+      "displayedWord": "buena",
+      "strongId": "H2896"
+    }
+  ],
+  "PRO_14_10": [
+    {
+      "verseId": "PRO_14_10",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_14_10",
+      "wordIndex": 7,
+      "displayedWord": "alma;",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_14_11": [
+    {
+      "verseId": "PRO_14_11",
+      "wordIndex": 1,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "PRO_14_12": [
+    {
+      "verseId": "PRO_14_12",
+      "wordIndex": 4,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_14_12",
+      "wordIndex": 14,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "PRO_14_13": [
+    {
+      "verseId": "PRO_14_13",
+      "wordIndex": 7,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_14_14": [
+    {
+      "verseId": "PRO_14_14",
+      "wordIndex": 8,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_14_14",
+      "wordIndex": 11,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_14_17": [
+    {
+      "verseId": "PRO_14_17",
+      "wordIndex": 9,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_14_19": [
+    {
+      "verseId": "PRO_14_19",
+      "wordIndex": 15,
+      "displayedWord": "justo.",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_14_21": [
+    {
+      "verseId": "PRO_14_21",
+      "wordIndex": 11,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    }
+  ],
+  "PRO_14_22": [
+    {
+      "verseId": "PRO_14_22",
+      "wordIndex": 7,
+      "displayedWord": "Misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PRO_14_22",
+      "wordIndex": 9,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    }
+  ],
+  "PRO_14_26": [
+    {
+      "verseId": "PRO_14_26",
+      "wordIndex": 2,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_14_26",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_14_26",
+      "wordIndex": 13,
+      "displayedWord": "hijos.",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_14_27": [
+    {
+      "verseId": "PRO_14_27",
+      "wordIndex": 1,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_14_27",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_14_27",
+      "wordIndex": 7,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PRO_14_27",
+      "wordIndex": 15,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "PRO_14_28": [
+    {
+      "verseId": "PRO_14_28",
+      "wordIndex": 4,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "PRO_14_28",
+      "wordIndex": 7,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "PRO_14_28",
+      "wordIndex": 9,
+      "displayedWord": "rey;",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PRO_14_28",
+      "wordIndex": 15,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    }
+  ],
+  "PRO_14_29": [
+    {
+      "verseId": "PRO_14_29",
+      "wordIndex": 15,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "PRO_14_30": [
+    {
+      "verseId": "PRO_14_30",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_14_30",
+      "wordIndex": 4,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PRO_14_30",
+      "wordIndex": 7,
+      "displayedWord": "carne;",
+      "strongId": "H1320"
+    }
+  ],
+  "PRO_14_31": [
+    {
+      "verseId": "PRO_14_31",
+      "wordIndex": 13,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    }
+  ],
+  "PRO_14_32": [
+    {
+      "verseId": "PRO_14_32",
+      "wordIndex": 9,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PRO_14_32",
+      "wordIndex": 12,
+      "displayedWord": "muerte",
+      "strongId": "H4194"
+    }
+  ],
+  "PRO_14_33": [
+    {
+      "verseId": "PRO_14_33",
+      "wordIndex": 2,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_14_34": [
+    {
+      "verseId": "PRO_14_34",
+      "wordIndex": 1,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    },
+    {
+      "verseId": "PRO_14_34",
+      "wordIndex": 8,
+      "displayedWord": "pecado",
+      "strongId": "H2403"
+    },
+    {
+      "verseId": "PRO_14_34",
+      "wordIndex": 13,
+      "displayedWord": "naciones.",
+      "strongId": "H1471"
+    }
+  ],
+  "PRO_14_35": [
+    {
+      "verseId": "PRO_14_35",
+      "wordIndex": 3,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "PRO_15_1": [
+    {
+      "verseId": "PRO_15_1",
+      "wordIndex": 8,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "PRO_15_3": [
+    {
+      "verseId": "PRO_15_3",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_15_4": [
+    {
+      "verseId": "PRO_15_4",
+      "wordIndex": 6,
+      "displayedWord": "vida;",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PRO_15_4",
+      "wordIndex": 15,
+      "displayedWord": "espíritu.",
+      "strongId": "H7307"
+    }
+  ],
+  "PRO_15_6": [
+    {
+      "verseId": "PRO_15_6",
+      "wordIndex": 2,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "PRO_15_6",
+      "wordIndex": 4,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_15_7": [
+    {
+      "verseId": "PRO_15_7",
+      "wordIndex": 10,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_15_8": [
+    {
+      "verseId": "PRO_15_8",
+      "wordIndex": 8,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_15_9": [
+    {
+      "verseId": "PRO_15_9",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_15_9",
+      "wordIndex": 14,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_15_11": [
+    {
+      "verseId": "PRO_15_11",
+      "wordIndex": 8,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_15_13": [
+    {
+      "verseId": "PRO_15_13",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_15_13",
+      "wordIndex": 11,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_15_13",
+      "wordIndex": 13,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "PRO_15_14": [
+    {
+      "verseId": "PRO_15_14",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_15_15": [
+    {
+      "verseId": "PRO_15_15",
+      "wordIndex": 2,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PRO_15_15",
+      "wordIndex": 10,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_15_16": [
+    {
+      "verseId": "PRO_15_16",
+      "wordIndex": 6,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_15_16",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_15_17": [
+    {
+      "verseId": "PRO_15_17",
+      "wordIndex": 8,
+      "displayedWord": "amor,",
+      "strongId": "H157"
+    }
+  ],
+  "PRO_15_18": [
+    {
+      "verseId": "PRO_15_18",
+      "wordIndex": 1,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_15_20": [
+    {
+      "verseId": "PRO_15_20",
+      "wordIndex": 1,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_15_20",
+      "wordIndex": 8,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_15_21": [
+    {
+      "verseId": "PRO_15_21",
+      "wordIndex": 10,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_15_23": [
+    {
+      "verseId": "PRO_15_23",
+      "wordIndex": 1,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_15_23",
+      "wordIndex": 12,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "PRO_15_23",
+      "wordIndex": 17,
+      "displayedWord": "buena",
+      "strongId": "H2896"
+    }
+  ],
+  "PRO_15_24": [
+    {
+      "verseId": "PRO_15_24",
+      "wordIndex": 4,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_15_25": [
+    {
+      "verseId": "PRO_15_25",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_15_25",
+      "wordIndex": 3,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "PRO_15_26": [
+    {
+      "verseId": "PRO_15_26",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_15_26",
+      "wordIndex": 7,
+      "displayedWord": "malo;",
+      "strongId": "H7451"
+    }
+  ],
+  "PRO_15_27": [
+    {
+      "verseId": "PRO_15_27",
+      "wordIndex": 2,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "PRO_15_28": [
+    {
+      "verseId": "PRO_15_28",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_15_28",
+      "wordIndex": 3,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_15_29": [
+    {
+      "verseId": "PRO_15_29",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_15_30": [
+    {
+      "verseId": "PRO_15_30",
+      "wordIndex": 1,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "PRO_15_30",
+      "wordIndex": 7,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_15_30",
+      "wordIndex": 10,
+      "displayedWord": "buena",
+      "strongId": "H2896"
+    }
+  ],
+  "PRO_15_31": [
+    {
+      "verseId": "PRO_15_31",
+      "wordIndex": 8,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_15_32": [
+    {
+      "verseId": "PRO_15_32",
+      "wordIndex": 9,
+      "displayedWord": "alma;",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_15_33": [
+    {
+      "verseId": "PRO_15_33",
+      "wordIndex": 1,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_15_33",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_16_1": [
+    {
+      "verseId": "PRO_16_1",
+      "wordIndex": 1,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_16_1",
+      "wordIndex": 6,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_16_1",
+      "wordIndex": 9,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_16_2": [
+    {
+      "verseId": "PRO_16_2",
+      "wordIndex": 4,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_16_2",
+      "wordIndex": 12,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_16_3": [
+    {
+      "verseId": "PRO_16_3",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_16_4": [
+    {
+      "verseId": "PRO_16_4",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_16_4",
+      "wordIndex": 15,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PRO_16_4",
+      "wordIndex": 16,
+      "displayedWord": "malo.",
+      "strongId": "H7451"
+    }
+  ],
+  "PRO_16_5": [
+    {
+      "verseId": "PRO_16_5",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_16_5",
+      "wordIndex": 7,
+      "displayedWord": "corazón;",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_16_6": [
+    {
+      "verseId": "PRO_16_6",
+      "wordIndex": 1,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "PRO_16_6",
+      "wordIndex": 3,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    },
+    {
+      "verseId": "PRO_16_6",
+      "wordIndex": 7,
+      "displayedWord": "pecado,",
+      "strongId": "H2403"
+    },
+    {
+      "verseId": "PRO_16_6",
+      "wordIndex": 11,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_16_6",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_16_7": [
+    {
+      "verseId": "PRO_16_7",
+      "wordIndex": 4,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_16_7",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_16_7",
+      "wordIndex": 16,
+      "displayedWord": "paz",
+      "strongId": "H7965"
+    }
+  ],
+  "PRO_16_8": [
+    {
+      "verseId": "PRO_16_8",
+      "wordIndex": 5,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_16_9": [
+    {
+      "verseId": "PRO_16_9",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_16_9",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_16_9",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_16_10": [
+    {
+      "verseId": "PRO_16_10",
+      "wordIndex": 6,
+      "displayedWord": "rey;",
+      "strongId": "H4428"
+    }
+  ],
+  "PRO_16_11": [
+    {
+      "verseId": "PRO_16_11",
+      "wordIndex": 6,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_16_12": [
+    {
+      "verseId": "PRO_16_12",
+      "wordIndex": 9,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_16_14": [
+    {
+      "verseId": "PRO_16_14",
+      "wordIndex": 3,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PRO_16_14",
+      "wordIndex": 7,
+      "displayedWord": "muerte;",
+      "strongId": "H4194"
+    },
+    {
+      "verseId": "PRO_16_14",
+      "wordIndex": 10,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_16_15": [
+    {
+      "verseId": "PRO_16_15",
+      "wordIndex": 6,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "PRO_16_15",
+      "wordIndex": 9,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_16_17": [
+    {
+      "verseId": "PRO_16_17",
+      "wordIndex": 10,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_16_18": [
+    {
+      "verseId": "PRO_16_18",
+      "wordIndex": 14,
+      "displayedWord": "espíritu.",
+      "strongId": "H7307"
+    }
+  ],
+  "PRO_16_19": [
+    {
+      "verseId": "PRO_16_19",
+      "wordIndex": 4,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "PRO_16_20": [
+    {
+      "verseId": "PRO_16_20",
+      "wordIndex": 4,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "PRO_16_20",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_16_21": [
+    {
+      "verseId": "PRO_16_21",
+      "wordIndex": 3,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_16_22": [
+    {
+      "verseId": "PRO_16_22",
+      "wordIndex": 2,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_16_23": [
+    {
+      "verseId": "PRO_16_23",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_16_24": [
+    {
+      "verseId": "PRO_16_24",
+      "wordIndex": 9,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_16_25": [
+    {
+      "verseId": "PRO_16_25",
+      "wordIndex": 6,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_16_25",
+      "wordIndex": 13,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "PRO_16_26": [
+    {
+      "verseId": "PRO_16_26",
+      "wordIndex": 1,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_16_27": [
+    {
+      "verseId": "PRO_16_27",
+      "wordIndex": 1,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_16_28": [
+    {
+      "verseId": "PRO_16_28",
+      "wordIndex": 1,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_16_29": [
+    {
+      "verseId": "PRO_16_29",
+      "wordIndex": 1,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "PRO_16_29",
+      "wordIndex": 2,
+      "displayedWord": "malo",
+      "strongId": "H7451"
+    },
+    {
+      "verseId": "PRO_16_29",
+      "wordIndex": 14,
+      "displayedWord": "bueno.",
+      "strongId": "H2896"
+    }
+  ],
+  "PRO_16_31": [
+    {
+      "verseId": "PRO_16_31",
+      "wordIndex": 13,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_16_32": [
+    {
+      "verseId": "PRO_16_32",
+      "wordIndex": 17,
+      "displayedWord": "espíritu,",
+      "strongId": "H7307"
+    }
+  ],
+  "PRO_16_33": [
+    {
+      "verseId": "PRO_16_33",
+      "wordIndex": 9,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_17_1": [
+    {
+      "verseId": "PRO_17_1",
+      "wordIndex": 7,
+      "displayedWord": "paz,",
+      "strongId": "H7965"
+    },
+    {
+      "verseId": "PRO_17_1",
+      "wordIndex": 9,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "PRO_17_2": [
+    {
+      "verseId": "PRO_17_2",
+      "wordIndex": 6,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_17_3": [
+    {
+      "verseId": "PRO_17_3",
+      "wordIndex": 12,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_17_4": [
+    {
+      "verseId": "PRO_17_4",
+      "wordIndex": 1,
+      "displayedWord": "malo",
+      "strongId": "H7451"
+    }
+  ],
+  "PRO_17_6": [
+    {
+      "verseId": "PRO_17_6",
+      "wordIndex": 12,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_17_13": [
+    {
+      "verseId": "PRO_17_13",
+      "wordIndex": 13,
+      "displayedWord": "casa.",
+      "strongId": "H1004"
+    }
+  ],
+  "PRO_17_14": [
+    {
+      "verseId": "PRO_17_14",
+      "wordIndex": 10,
+      "displayedWord": "aguas;",
+      "strongId": "H4325"
+    }
+  ],
+  "PRO_17_15": [
+    {
+      "verseId": "PRO_17_15",
+      "wordIndex": 10,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PRO_17_15",
+      "wordIndex": 16,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_17_18": [
+    {
+      "verseId": "PRO_17_18",
+      "wordIndex": 1,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_17_20": [
+    {
+      "verseId": "PRO_17_20",
+      "wordIndex": 3,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_17_22": [
+    {
+      "verseId": "PRO_17_22",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_17_22",
+      "wordIndex": 8,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "PRO_17_23": [
+    {
+      "verseId": "PRO_17_23",
+      "wordIndex": 12,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_17_24": [
+    {
+      "verseId": "PRO_17_24",
+      "wordIndex": 19,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PRO_17_25": [
+    {
+      "verseId": "PRO_17_25",
+      "wordIndex": 1,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_17_25",
+      "wordIndex": 16,
+      "displayedWord": "luz.",
+      "strongId": "H216"
+    }
+  ],
+  "PRO_17_26": [
+    {
+      "verseId": "PRO_17_26",
+      "wordIndex": 3,
+      "displayedWord": "bueno",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "PRO_17_26",
+      "wordIndex": 6,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_17_27": [
+    {
+      "verseId": "PRO_17_27",
+      "wordIndex": 8,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "PRO_17_27",
+      "wordIndex": 12,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_18_2": [
+    {
+      "verseId": "PRO_18_2",
+      "wordIndex": 12,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_18_4": [
+    {
+      "verseId": "PRO_18_4",
+      "wordIndex": 0,
+      "displayedWord": "Aguas",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "PRO_18_4",
+      "wordIndex": 9,
+      "displayedWord": "hombre;",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_18_5": [
+    {
+      "verseId": "PRO_18_5",
+      "wordIndex": 12,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "PRO_18_5",
+      "wordIndex": 15,
+      "displayedWord": "bueno.",
+      "strongId": "H2896"
+    }
+  ],
+  "PRO_18_7": [
+    {
+      "verseId": "PRO_18_7",
+      "wordIndex": 15,
+      "displayedWord": "alma.",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_18_9": [
+    {
+      "verseId": "PRO_18_9",
+      "wordIndex": 11,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_18_10": [
+    {
+      "verseId": "PRO_18_10",
+      "wordIndex": 4,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PRO_18_10",
+      "wordIndex": 6,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_18_10",
+      "wordIndex": 11,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_18_12": [
+    {
+      "verseId": "PRO_18_12",
+      "wordIndex": 6,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_18_12",
+      "wordIndex": 8,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_18_13": [
+    {
+      "verseId": "PRO_18_13",
+      "wordIndex": 3,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    }
+  ],
+  "PRO_18_14": [
+    {
+      "verseId": "PRO_18_14",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_18_15": [
+    {
+      "verseId": "PRO_18_15",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_18_16": [
+    {
+      "verseId": "PRO_18_16",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_18_17": [
+    {
+      "verseId": "PRO_18_17",
+      "wordIndex": 0,
+      "displayedWord": "Justo",
+      "strongId": "H6662"
+    }
+  ],
+  "PRO_18_20": [
+    {
+      "verseId": "PRO_18_20",
+      "wordIndex": 6,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_18_21": [
+    {
+      "verseId": "PRO_18_21",
+      "wordIndex": 1,
+      "displayedWord": "muerte",
+      "strongId": "H4194"
+    },
+    {
+      "verseId": "PRO_18_21",
+      "wordIndex": 4,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_18_22": [
+    {
+      "verseId": "PRO_18_22",
+      "wordIndex": 12,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_18_24": [
+    {
+      "verseId": "PRO_18_24",
+      "wordIndex": 1,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_22_1": [
+    {
+      "verseId": "PRO_22_1",
+      "wordIndex": 6,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "PRO_22_1",
+      "wordIndex": 13,
+      "displayedWord": "buena",
+      "strongId": "H2896"
+    }
+  ],
+  "PRO_22_2": [
+    {
+      "verseId": "PRO_22_2",
+      "wordIndex": 11,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_22_4": [
+    {
+      "verseId": "PRO_22_4",
+      "wordIndex": 3,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "PRO_22_4",
+      "wordIndex": 12,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "PRO_22_4",
+      "wordIndex": 14,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_22_5": [
+    {
+      "verseId": "PRO_22_5",
+      "wordIndex": 13,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_22_9": [
+    {
+      "verseId": "PRO_22_9",
+      "wordIndex": 9,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    }
+  ],
+  "PRO_22_11": [
+    {
+      "verseId": "PRO_22_11",
+      "wordIndex": 6,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "PRO_22_11",
+      "wordIndex": 17,
+      "displayedWord": "rey.",
+      "strongId": "H4428"
+    }
+  ],
+  "PRO_22_12": [
+    {
+      "verseId": "PRO_22_12",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_22_13": [
+    {
+      "verseId": "PRO_22_13",
+      "wordIndex": 8,
+      "displayedWord": "muerto",
+      "strongId": "H4194"
+    }
+  ],
+  "PRO_22_14": [
+    {
+      "verseId": "PRO_22_14",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_22_15": [
+    {
+      "verseId": "PRO_22_15",
+      "wordIndex": 6,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_22_17": [
+    {
+      "verseId": "PRO_22_17",
+      "wordIndex": 13,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_22_19": [
+    {
+      "verseId": "PRO_22_19",
+      "wordIndex": 6,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "PRO_22_21": [
+    {
+      "verseId": "PRO_22_21",
+      "wordIndex": 9,
+      "displayedWord": "verdad,",
+      "strongId": "H571"
+    },
+    {
+      "verseId": "PRO_22_21",
+      "wordIndex": 19,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    }
+  ],
+  "PRO_22_23": [
+    {
+      "verseId": "PRO_22_23",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "PRO_22_23",
+      "wordIndex": 10,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_22_24": [
+    {
+      "verseId": "PRO_22_24",
+      "wordIndex": 11,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_22_25": [
+    {
+      "verseId": "PRO_22_25",
+      "wordIndex": 11,
+      "displayedWord": "alma.",
+      "strongId": "H5315"
+    }
+  ],
+  "PRO_22_29": [
+    {
+      "verseId": "PRO_22_29",
+      "wordIndex": 2,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "PRO_31_1": [
+    {
+      "verseId": "PRO_31_1",
+      "wordIndex": 2,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "PRO_31_2": [
+    {
+      "verseId": "PRO_31_2",
+      "wordIndex": 1,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_31_2",
+      "wordIndex": 5,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "PRO_31_2",
+      "wordIndex": 11,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_31_5": [
+    {
+      "verseId": "PRO_31_5",
+      "wordIndex": 6,
+      "displayedWord": "ley,",
+      "strongId": "H8451"
+    }
+  ],
+  "PRO_31_9": [
+    {
+      "verseId": "PRO_31_9",
+      "wordIndex": 5,
+      "displayedWord": "justicia,",
+      "strongId": "H6664"
+    }
+  ],
+  "PRO_31_11": [
+    {
+      "verseId": "PRO_31_11",
+      "wordIndex": 1,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "PRO_31_12": [
+    {
+      "verseId": "PRO_31_12",
+      "wordIndex": 9,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "PRO_31_12",
+      "wordIndex": 12,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "PRO_31_14": [
+    {
+      "verseId": "PRO_31_14",
+      "wordIndex": 7,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    }
+  ],
+  "PRO_31_15": [
+    {
+      "verseId": "PRO_31_15",
+      "wordIndex": 4,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    }
+  ],
+  "PRO_31_18": [
+    {
+      "verseId": "PRO_31_18",
+      "wordIndex": 12,
+      "displayedWord": "noche.",
+      "strongId": "H3915"
+    }
+  ],
+  "PRO_31_21": [
+    {
+      "verseId": "PRO_31_21",
+      "wordIndex": 2,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    }
+  ],
+  "PRO_31_23": [
+    {
+      "verseId": "PRO_31_23",
+      "wordIndex": 15,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "PRO_31_26": [
+    {
+      "verseId": "PRO_31_26",
+      "wordIndex": 7,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "PRO_31_27": [
+    {
+      "verseId": "PRO_31_27",
+      "wordIndex": 5,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "PRO_31_27",
+      "wordIndex": 10,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    }
+  ],
+  "PRO_31_28": [
+    {
+      "verseId": "PRO_31_28",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "PRO_31_30": [
+    {
+      "verseId": "PRO_31_30",
+      "wordIndex": 13,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ]
+}
