@@ -4,12 +4,22 @@
 // Blocks are ~400 KB each. A block is required and parsed only on first access,
 // then held in an in-memory cache for the lifetime of the app session.
 //
+// Spanish search is handled via SPANISH_GLOSS_INDEX (spanishIndex.ts):
+//   query → normalizeEs() → scan gloss keys → fetch matching IDs from blocks
+// English search scans transliteration + shortDefinition + longDefinition.
+// Both result sets are merged and deduplicated before returning.
+//
 // Satisfies IStrongRepository. Drop-in replacement for MockStrongRepository.
 
 import type { IStrongRepository } from './repository';
 import type { StrongEntry, VerseWordLink } from './types';
 import type { BlockStrongEntry } from './data/blockTypes';
 import { VERSE_STRONG_LINKS } from './mockData'; // verse links still from mock (Etapa 4+)
+import {
+  normalizeEs,
+  SPANISH_GLOSS_INDEX,
+  SPANISH_GLOSS_KEYS,
+} from './spanishIndex';
 
 // ─── Block registry ───────────────────────────────────────────────────────────
 // Metro requires statically-analyzable require() calls.
@@ -135,37 +145,79 @@ export class JsonBlockStrongRepository implements IStrongRepository {
     const limit = options?.limit ?? 50;
     const lang = options?.language;
 
-    // Fast path: exact ID lookup (e.g. "H430", "g25")
+    // ── Fast path: exact Strong ID (H430, g25) ────────────────────────────
     const normalized = query.trim().toUpperCase();
     if (/^[HG]\d+$/.test(normalized)) {
       const entry = this.getEntryById(normalized);
       return entry ? [entry] : [];
     }
 
-    const q = query.toLowerCase();
+    const seenIds = new Set<string>();
     const results: StrongEntry[] = [];
 
-    // Filter block list by language to skip irrelevant blocks
-    const blockIds = lang === 'Hebrew'
-      ? Object.keys(BLOCK_LOADERS).filter(id => id.startsWith('h_'))
-      : lang === 'Greek'
-      ? Object.keys(BLOCK_LOADERS).filter(id => id.startsWith('g_'))
-      : Object.keys(BLOCK_LOADERS);
+    const addEntry = (e: StrongEntry | null) => {
+      if (!e || seenIds.has(e.id)) return;
+      if (lang && e.language !== lang) return;
+      seenIds.add(e.id);
+      results.push(e);
+    };
 
-    for (const blockId of blockIds) {
-      const block = this.loadBlock(blockId);
-      for (const raw of Object.values(block)) {
-        if (
-          raw.id.toLowerCase().includes(q) ||
-          raw.transliteration.toLowerCase().includes(q) ||
-          raw.shortDefinition.toLowerCase().includes(q) ||
-          raw.longDefinition.toLowerCase().includes(q)
-        ) {
-          results.push(toStrongEntry(raw));
-          if (results.length >= limit) return results;
+    // ── Phase 1: Spanish gloss index ──────────────────────────────────────
+    // Normalize and match against Spanish keyword keys.
+    // Exact match first, then prefix/substring match.
+    const qEs = normalizeEs(query);
+
+    // Exact key match
+    if (SPANISH_GLOSS_INDEX[qEs]) {
+      for (const id of SPANISH_GLOSS_INDEX[qEs]) {
+        if (results.length >= limit) break;
+        addEntry(this.getEntryById(id));
+      }
+    }
+
+    // Substring match on remaining gloss keys (e.g. "amor" finds "amar", "amor de dios", …)
+    if (results.length < limit) {
+      for (const key of SPANISH_GLOSS_KEYS) {
+        if (results.length >= limit) break;
+        if (key === qEs) continue; // already handled above
+        if (key.includes(qEs) || qEs.includes(key)) {
+          for (const id of SPANISH_GLOSS_INDEX[key]) {
+            if (results.length >= limit) break;
+            addEntry(this.getEntryById(id));
+          }
         }
       }
     }
+
+    // ── Phase 2: English field scan ───────────────────────────────────────
+    // Only loaded blocks are scanned first (already in cache); then unloaded.
+    // Searches transliteration, shortDefinition, longDefinition.
+    if (results.length < limit) {
+      const qEn = query.toLowerCase();
+
+      const blockIds = lang === 'Hebrew'
+        ? Object.keys(BLOCK_LOADERS).filter(id => id.startsWith('h_'))
+        : lang === 'Greek'
+        ? Object.keys(BLOCK_LOADERS).filter(id => id.startsWith('g_'))
+        : Object.keys(BLOCK_LOADERS);
+
+      for (const blockId of blockIds) {
+        if (results.length >= limit) break;
+        const block = this.loadBlock(blockId);
+        for (const raw of Object.values(block)) {
+          if (results.length >= limit) break;
+          if (
+            raw.id.toLowerCase().includes(qEn) ||
+            raw.transliteration.toLowerCase().includes(qEn) ||
+            raw.shortDefinition.toLowerCase().includes(qEn) ||
+            raw.longDefinition.toLowerCase().includes(qEn)
+          ) {
+            addEntry(toStrongEntry(raw));
+          }
+        }
+      }
+    }
+
     return results;
   }
 }
