@@ -57,6 +57,7 @@ import {
   toggleStrongFavorite,
   saveStrongModeState,
   loadStrongModeState,
+  parseVerseReference,
 } from '@/lib/strong/service';
 import type { StrongEntry, VerseToken } from '@/lib/strong/types';
 import { BIBLE_BOOKS, OT_BOOKS, NT_BOOKS } from '@/lib/bible/books';
@@ -1064,6 +1065,17 @@ export default function BibleScreen() {
     setLoading(false);
   }, [lang, selectedVersion]);
 
+  const handleNavigateFromStrong = useCallback((bookId: string, chapter: number, verse: number) => {
+    const book = BIBLE_BOOKS.find(b => b.id === bookId);
+    if (!book) {
+      console.warn('[Strong] handleNavigateFromStrong: book not found →', bookId);
+      return;
+    }
+    console.log('[Strong] navigating to:', bookId, chapter, verse);
+    setStrongSheetEntry(null);
+    loadChapter(book, chapter, verse);
+  }, [loadChapter]);
+
   const handleSelectTestament = useCallback((t: 'OT' | 'NT') => {
     setTestamentFilter(t);
     setSearchQuery('');
@@ -1538,6 +1550,7 @@ export default function BibleScreen() {
         isFavorite={strongSheetEntry != null && strongFavorites.has(strongSheetEntry.id)}
         onToggleFavorite={handleStrongFavoriteToggle}
         onClose={() => setStrongSheetEntry(null)}
+        onNavigateToVerse={handleNavigateFromStrong}
         colors={colors}
         lang={lang}
       />

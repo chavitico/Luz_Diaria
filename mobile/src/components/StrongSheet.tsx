@@ -22,6 +22,7 @@ import {
   ChevronRight,
 } from 'lucide-react-native';
 import type { StrongEntry } from '@/lib/strong/types';
+import { parseVerseReference } from '@/lib/strong/service';
 import type { useThemeColors } from '@/lib/store';
 
 // ─── Props ─────────────────────────────────────────────────────────────────────
@@ -32,6 +33,7 @@ interface StrongSheetProps {
   isFavorite: boolean;
   onToggleFavorite: (strongId: string) => void;
   onClose: () => void;
+  onNavigateToVerse: (bookId: string, chapter: number, verse: number) => void;
   colors: ReturnType<typeof useThemeColors>;
   lang: string;
 }
@@ -54,7 +56,7 @@ function SectionLabel({ icon, text, color }: {
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 export function StrongSheet({
-  visible, entry, isFavorite, onToggleFavorite, onClose, colors, lang,
+  visible, entry, isFavorite, onToggleFavorite, onClose, onNavigateToVerse, colors, lang,
 }: StrongSheetProps) {
   const slideAnim = useRef(new RNAnimated.Value(500)).current;
 
@@ -255,8 +257,20 @@ export function StrongSheet({
                         borderWidth: 1, borderColor: colors.textMuted + '20',
                       }}>
                         {e.relatedVerses.map((ref, idx) => (
+                        <Pressable
+                          key={ref}
+                          onPress={() => {
+                            console.log('[Strong] related verse tapped:', ref);
+                            const parsed = parseVerseReference(ref);
+                            console.log('[Strong] parsed ref:', parsed);
+                            if (parsed) {
+                              console.log('[Strong] navigating →', parsed.bookId, parsed.chapter, parsed.verse);
+                              onNavigateToVerse(parsed.bookId, parsed.chapter, parsed.verse);
+                            }
+                          }}
+                          style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+                        >
                           <View
-                            key={ref}
                             style={{
                               flexDirection: 'row', alignItems: 'center',
                               paddingHorizontal: 14, paddingVertical: 11,
@@ -267,7 +281,8 @@ export function StrongSheet({
                             <Text style={{ flex: 1, fontSize: 14, fontWeight: '600', color: accentColor }}>{ref}</Text>
                             <ChevronRight size={13} color={colors.textMuted} />
                           </View>
-                        ))}
+                        </Pressable>
+                      ))}
                       </View>
                     </View>
                   )}

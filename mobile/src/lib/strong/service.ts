@@ -3,6 +3,7 @@
 // TODO: Replace mock lookups with real API/dataset calls.
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BIBLE_BOOKS } from '@/lib/bible/books';
 import {
   STRONG_ENTRIES,
   VERSE_STRONG_LINKS,
@@ -20,6 +21,64 @@ export function getVerseWordLinks(verseId: string): VerseWordLink[] {
 /** Returns the StrongEntry for a given id, or null if not found. */
 export function getStrongEntry(strongId: string): StrongEntry | null {
   return STRONG_ENTRIES[strongId] ?? null;
+}
+
+// ─── Reference parser ─────────────────────────────────────────────────────────
+
+export interface ParsedVerseRef {
+  bookId: string;
+  chapter: number;
+  verse: number;
+}
+
+/**
+ * Parses a human-readable verse reference (Spanish or English) into
+ * { bookId, chapter, verse } suitable for loadChapter().
+ *
+ * Supported formats:
+ *   "Génesis 1:1"        → { bookId: 'GEN', chapter: 1, verse: 1 }
+ *   "Salmos 23:1"        → { bookId: 'PSA', chapter: 23, verse: 1 }
+ *   "1 Juan 4:8"         → { bookId: '1JN', chapter: 4, verse: 8 }
+ *   "Éxodo 1:10"         → { bookId: 'EXO', chapter: 1, verse: 10 }
+ *   "Genesis 1:1"        (English names also accepted)
+ *
+ * Returns null if the reference cannot be parsed or the book is not found.
+ * Logs a warning in that case so callers can track it.
+ */
+export function parseVerseReference(ref: string): ParsedVerseRef | null {
+  // Match: <book name> <chapter>:<verse>  or  <book name> <chapter>
+  const match = ref.trim().match(/^(.+?)\s+(\d+)(?::(\d+))?$/);
+  if (!match) {
+    console.warn('[Strong] parseVerseReference: unrecognised format →', ref);
+    return null;
+  }
+
+  const rawBook = match[1].trim();
+  const chapter = parseInt(match[2], 10);
+  const verse   = match[3] != null ? parseInt(match[3], 10) : 1;
+
+  if (isNaN(chapter) || chapter < 1 || isNaN(verse) || verse < 1) {
+    console.warn('[Strong] parseVerseReference: invalid numbers →', ref);
+    return null;
+  }
+
+  // Normalize: remove accent marks for a looser comparison
+  const normalize = (s: string) =>
+    s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  const normRaw = normalize(rawBook);
+
+  const book = BIBLE_BOOKS.find(
+    b => normalize(b.name) === normRaw || normalize(b.nameEn) === normRaw
+  );
+
+  if (!book) {
+    console.warn('[Strong] parseVerseReference: book not found →', rawBook, '(from:', ref, ')');
+    return null;
+  }
+
+  console.log('[Strong] parseVerseReference:', ref, '→', book.id, chapter, verse);
+  return { bookId: book.id, chapter, verse };
 }
 
 // ─── Tokenizer ────────────────────────────────────────────────────────────────
