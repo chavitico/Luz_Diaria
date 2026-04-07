@@ -5,10 +5,11 @@
 // Sample verses covered:
 //  - GEN_1_1  (Génesis 1:1)
 //  - GEN_1_2  (Génesis 1:2)
-//  - JHN_3_16 (Juan 3:16)
-//  - ROM_8_28 (Romanos 8:28)
+//  - EXO_1_10 (Éxodo 1:10)   ← H7760 caso de estudio
 //  - PSA_23_1 (Salmos 23:1)
 //  - JHN_1_1  (Juan 1:1)
+//  - JHN_3_16 (Juan 3:16)
+//  - ROM_8_28 (Romanos 8:28)
 
 import type { StrongEntry, VerseWordLink, VerseStrongMap } from './types';
 
@@ -16,6 +17,20 @@ import type { StrongEntry, VerseWordLink, VerseStrongMap } from './types';
 
 export const STRONG_ENTRIES: Record<string, StrongEntry> = {
   // ── Hebrew (OT) ──────────────────────────────────────────────────────────────
+
+  H7760: {
+    id: 'H7760',
+    testament: 'OT',
+    lemmaOriginal: 'שׂוּם',
+    transliteration: 'sum',
+    language: 'Hebrew',
+    grammarCategory: 'Verbo',
+    shortDefinition: 'Poner, colocar, establecer, disponer',
+    longDefinition:
+      'Un verbo primitivo; poner (en muchas aplicaciones, literal, figurativa, inferencialmente e idiomáticamente): aplicar, asignar, colocar, comprometerse, considerar, designar, destinar, disponer, establecer, fijar, imponer, nombrar, ordenar, poner. Es uno de los verbos más versátiles del hebreo bíblico. En Éxodo 1 describe la acción de "poner/establecer" capataces sobre el pueblo (v.11), pero el mismo verbo subyace al plan que Faraón propone en el v.10: disponer una estrategia sabia contra Israel. Aparece también en el establecimiento de pactos, leyes y mandatos divinos a lo largo del AT.',
+    occurrencesCount: 589,
+    relatedVerses: ['Éxodo 1:10', 'Éxodo 1:11', 'Génesis 2:8', 'Deuteronomio 1:13'],
+  },
 
   H7225: {
     id: 'H7225',
@@ -250,6 +265,15 @@ export const VERSE_STRONG_LINKS: VerseStrongMap = {
   // Tokens: 0:Y 1:la 2:tierra 3:estaba ...
   GEN_1_2: [
     { verseId: 'GEN_1_2', wordIndex: 2, displayedWord: 'tierra', strongId: 'H776' },
+  ],
+
+  // Éxodo 1:10 — "Ahora, pues, seamos sabios [3†] para con él, para que no se multiplique..."
+  // Texto real RVR60 con nota footnote [3†] en posición 4.
+  // Tokens: 0:Ahora, 1:pues, 2:seamos 3:sabios 4:[3†] 5:para 6:con 7:él, ...
+  // H7760 (שׂוּם) subyace al acto de Faraón de "establecer/disponer" un plan contra Israel.
+  // TODO: con dataset real, mapear también las formas verbales de v.11 ("pusieron capataces").
+  EXO_1_10: [
+    { verseId: 'EXO_1_10', wordIndex: 2, displayedWord: 'seamos', strongId: 'H7760' },
   ],
 
   // Salmos 23:1 — "Jehová es mi pastor; nada me faltará."
