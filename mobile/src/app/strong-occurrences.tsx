@@ -91,6 +91,16 @@ function HighlightedVerse({
   mutedColor: string;
 }) {
   const tokens = text.split(' ');
+
+  // Guard: if wordIndex is out of range, show full text without highlighting
+  if (wordIndex < 0 || wordIndex >= tokens.length) {
+    return (
+      <Text style={{ fontSize: 13, lineHeight: 20, color: mutedColor, flexShrink: 1 }}>
+        {text}
+      </Text>
+    );
+  }
+
   const start = Math.max(0, wordIndex - WINDOW);
   const end = Math.min(tokens.length - 1, wordIndex + WINDOW);
   const window = tokens.slice(start, end + 1);

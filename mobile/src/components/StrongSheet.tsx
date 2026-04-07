@@ -241,7 +241,7 @@ export function StrongSheet({
                         text={t.language} color={colors.textMuted}
                       />
                       <Text style={{ fontSize: 14, fontWeight: '600', color: colors.text }}>
-                        {e.language}
+                        {isHebrew ? t.hebreo : t.griego}
                       </Text>
                     </View>
                     <View style={{
@@ -316,10 +316,8 @@ export function StrongSheet({
                           <Pressable
                             key={ref}
                             onPress={() => {
-                              console.log('[Strong] related verse tapped:', ref);
                               const parsed = parseVerseReference(ref);
                               if (parsed) {
-                                console.log('[Strong] navigating to related verse →', parsed.bookId, parsed.chapter, parsed.verse);
                                 onNavigateToVerse(parsed.bookId, parsed.chapter, parsed.verse);
                               }
                             }}
@@ -367,7 +365,7 @@ export function StrongSheet({
 
                     {/* See all occurrences */}
                     <Pressable
-                      onPress={() => entry && onViewAppearances(entry.id)}
+                      onPress={() => e && onViewAppearances(e.id)}
                       style={({ pressed }) => ({
                         flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
                         gap: 8, paddingVertical: 14, borderRadius: 14,

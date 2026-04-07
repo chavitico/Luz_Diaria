@@ -16,7 +16,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
-import { ArrowLeft, Search, X, FlaskConical } from 'lucide-react-native';
+import { ArrowLeft, Search, X, FlaskConical, ChevronRight } from 'lucide-react-native';
 
 import { useThemeColors, useLanguage } from '@/lib/store';
 import { strongRepository } from '@/lib/strong/repository';
@@ -26,6 +26,7 @@ import {
 } from '@/lib/strong/service';
 import type { StrongEntry } from '@/lib/strong/types';
 import { StrongSheet } from '@/components/StrongSheet';
+import { setStrongNavTarget } from '@/lib/strong/navigationBridge';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -115,10 +116,10 @@ function ResultRow({
       </View>
 
       {/* Arrow */}
-      <ArrowLeft
+      <ChevronRight
         size={14}
         color={colors.textMuted + '80'}
-        style={{ transform: [{ rotate: '180deg' }], marginLeft: 8 }}
+        style={{ marginLeft: 8 }}
       />
     </Pressable>
   );
@@ -148,7 +149,7 @@ function EmptyHint({ colors, hasQuery }: { colors: ReturnType<typeof useThemeCol
         Léxico Strong
       </Text>
       <Text style={{ fontSize: 13, color: colors.textMuted, marginTop: 8, textAlign: 'center', lineHeight: 20 }}>
-        Busca por número Strong, transliteración o significado (en inglés).
+        Busca por número Strong, transliteración o significado.
       </Text>
       <View style={{ marginTop: 24, gap: 8, alignSelf: 'stretch' }}>
         {[
@@ -385,11 +386,10 @@ export default function StrongSearchScreen() {
         isFavorite={sheetEntry != null && favorites.has(sheetEntry.id)}
         onToggleFavorite={handleToggleFavorite}
         onClose={() => setSheetEntry(null)}
-        onNavigateToVerse={() => {
-          // Navigation from search to Bible reader:
-          // close sheet, go back to bible tab, then navigate to verse
+        onNavigateToVerse={(bookId, chapter, verse) => {
           setSheetEntry(null);
-          router.back();
+          setStrongNavTarget(bookId, chapter, verse);
+          router.navigate('/(tabs)/bible' as any);
         }}
         onViewAppearances={(strongId) => {
           setSheetEntry(null);

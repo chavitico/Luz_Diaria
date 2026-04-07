@@ -1065,11 +1065,7 @@ export default function BibleScreen() {
 
   const handleNavigateFromStrong = useCallback((bookId: string, chapter: number, verse: number) => {
     const book = BIBLE_BOOKS.find(b => b.id === bookId);
-    if (!book) {
-      console.warn('[Strong] handleNavigateFromStrong: book not found →', bookId);
-      return;
-    }
-    console.log('[Strong] navigating to:', bookId, chapter, verse);
+    if (!book) return;
     setStrongSheetEntry(null);
     loadChapter(book, chapter, verse);
   }, [loadChapter]);
