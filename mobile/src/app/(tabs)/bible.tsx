@@ -236,50 +236,59 @@ function VerseRow({
 
         {/* Verse text — plain or Strong-enriched */}
         {strongMode && hasAnyLink ? (
-          // Strong mode: render each token, linked ones are tappable
-          <Text
-            style={{
-              flex: 1, fontSize: 17, lineHeight: 28,
-              color: textColor,
-              fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-            }}
-          >
+          // Strong mode: flex-wrap row so each linked word is an independent Pressable.
+          // This avoids the parent Pressable (onLongPress) absorbing child touch events on iOS.
+          <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
             {tokens.map((token, i) => {
+              const wordText = token.word + (token.hasSpace ? ' ' : '');
               if (token.strongId) {
+                const sid = token.strongId;
                 return (
-                  <Text key={i}>
+                  <Pressable
+                    key={i}
+                    onPress={() => {
+                      console.log('[Strong] word tapped:', token.word, '→ strongId:', sid);
+                      const entry = getStrongEntry(sid);
+                      console.log('[Strong] lookup result:', entry ? entry.id : 'NOT FOUND');
+                      Haptics.selectionAsync();
+                      onStrongWordPress(sid);
+                      console.log('[Strong] onStrongWordPress called');
+                    }}
+                    hitSlop={4}
+                    style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
+                  >
                     <Text
-                      onPress={() => {
-                        Haptics.selectionAsync();
-                        onStrongWordPress(token.strongId!);
-                      }}
                       style={{
-                        color: textColor,
-                        borderBottomWidth: 1.5,
-                        borderBottomColor: colors.primary + 'AA',
-                        // Subtle underline indicator for linked words
+                        fontSize: 17,
+                        lineHeight: 28,
+                        color: colors.primary,
+                        fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
                         textDecorationLine: 'underline',
-                        textDecorationColor: colors.primary + 'BB',
+                        textDecorationColor: colors.primary + '80',
                         textDecorationStyle: 'dotted',
+                        fontWeight: '600',
                       }}
                     >
-                      {token.word}
+                      {wordText}
                     </Text>
-                    {/* Superscript Strong ID indicator */}
-                    <Text style={{ fontSize: 9, color: colors.primary + 'CC', lineHeight: 10 }}>
-                      {'  '}
-                    </Text>
-                    {token.hasSpace ? ' ' : ''}
-                  </Text>
+                  </Pressable>
                 );
               }
               return (
-                <Text key={i} style={{ color: textColor }}>
-                  {token.word}{token.hasSpace ? ' ' : ''}
+                <Text
+                  key={i}
+                  style={{
+                    fontSize: 17,
+                    lineHeight: 28,
+                    color: textColor,
+                    fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+                  }}
+                >
+                  {wordText}
                 </Text>
               );
             })}
-          </Text>
+          </View>
         ) : (
           // Normal mode or no links: plain text
           <Text
@@ -974,8 +983,15 @@ export default function BibleScreen() {
   const [strongSheetEntry, setStrongSheetEntry] = useState<StrongEntry | null>(null);
 
   const handleStrongWordPress = useCallback((strongId: string) => {
+    console.log('[Strong] handleStrongWordPress called with:', strongId);
     const entry = getStrongEntry(strongId);
-    if (entry) setStrongSheetEntry(entry);
+    console.log('[Strong] entry found:', entry?.id ?? 'null');
+    if (entry) {
+      setStrongSheetEntry(entry);
+      console.log('[Strong] sheet should open now');
+    } else {
+      console.log('[Strong] no entry found for', strongId, '— sheet not opened');
+    }
   }, []);
 
   const handleStrongFavoriteToggle = useCallback(async (strongId: string) => {
