@@ -1,4 +1,335 @@
 {
+  "G3002": {
+    "shortDefinitionEs": "Lebeo, un cristiano (Lebbâios)",
+    "glossesEs": [
+      "Lebeo",
+      "apóstol"
+    ]
+  },
+  "G3003": {
+    "shortDefinitionEs": "Legión, regimiento romano (legeón)",
+    "glossesEs": [
+      "legión",
+      "multitud"
+    ]
+  },
+  "G3004": {
+    "shortDefinitionEs": "Hablar, decir en discurso sistemático (légō)",
+    "glossesEs": [
+      "decir",
+      "hablar",
+      "contar"
+    ]
+  },
+  "G3005": {
+    "shortDefinitionEs": "Remanente, lo que queda (leímma)",
+    "glossesEs": [
+      "remanente",
+      "resto"
+    ]
+  },
+  "G3006": {
+    "shortDefinitionEs": "Liso, llano (leîos)",
+    "glossesEs": [
+      "liso",
+      "llano"
+    ]
+  },
+  "G3007": {
+    "shortDefinitionEs": "Faltar, carecer, estar ausente (leípō)",
+    "glossesEs": [
+      "faltar",
+      "carecer"
+    ]
+  },
+  "G3008": {
+    "shortDefinitionEs": "Servir, ejercer funciones religiosas (leitourgéō)",
+    "glossesEs": [
+      "servir",
+      "ministrar"
+    ]
+  },
+  "G3009": {
+    "shortDefinitionEs": "Ministerio, servicio sacerdotal (leitourgía)",
+    "glossesEs": [
+      "ministerio",
+      "servicio",
+      "liturgia"
+    ]
+  },
+  "G3010": {
+    "shortDefinitionEs": "Que ministra, servidor (leitourgikós)",
+    "glossesEs": [
+      "ministerial",
+      "servidor"
+    ]
+  },
+  "G3011": {
+    "shortDefinitionEs": "Ministro, servidor del templo (leitourgós)",
+    "glossesEs": [
+      "ministro",
+      "servidor"
+    ]
+  },
+  "G3012": {
+    "shortDefinitionEs": "Lienzo, paño de lino (léntion)",
+    "glossesEs": [
+      "toalla",
+      "lienzo"
+    ]
+  },
+  "G3013": {
+    "shortDefinitionEs": "Escama, costra (lepís)",
+    "glossesEs": [
+      "escama",
+      "costra"
+    ]
+  },
+  "G3014": {
+    "shortDefinitionEs": "Lepra, enfermedad de la piel (lépra)",
+    "glossesEs": [
+      "lepra"
+    ]
+  },
+  "G3015": {
+    "shortDefinitionEs": "Leproso, afectado de lepra (leprós)",
+    "glossesEs": [
+      "leproso"
+    ]
+  },
+  "G3016": {
+    "shortDefinitionEs": "Blanca, moneda pequeña romana (leptón)",
+    "glossesEs": [
+      "blanca",
+      "moneda"
+    ]
+  },
+  "G3017": {
+    "shortDefinitionEs": "Leví: tres israelitas con este nombre (Leuî)",
+    "glossesEs": [
+      "Leví"
+    ]
+  },
+  "G3018": {
+    "shortDefinitionEs": "Leví, cristiano; también llamado Mateo (Leuîs)",
+    "glossesEs": [
+      "Leví",
+      "Mateo"
+    ]
+  },
+  "G3019": {
+    "shortDefinitionEs": "Levita, descendiente de Leví (Leuîtēs)",
+    "glossesEs": [
+      "levita"
+    ]
+  },
+  "G3020": {
+    "shortDefinitionEs": "Levítico, relativo a levitas (Leuïtikós)",
+    "glossesEs": [
+      "levítico"
+    ]
+  },
+  "G3021": {
+    "shortDefinitionEs": "Blanquear, hacer blanco (leukaínō)",
+    "glossesEs": [
+      "blanquear",
+      "embellecer"
+    ]
+  },
+  "G3022": {
+    "shortDefinitionEs": "Blanco, de color blanco (leukós)",
+    "glossesEs": [
+      "blanco"
+    ]
+  },
+  "G3023": {
+    "shortDefinitionEs": "León, animal salvaje (léōn)",
+    "glossesEs": [
+      "león"
+    ]
+  },
+  "G3024": {
+    "shortDefinitionEs": "Olvido, pérdida de memoria (lḗthē)",
+    "glossesEs": [
+      "olvido"
+    ]
+  },
+  "G3025": {
+    "shortDefinitionEs": "Lagar, depósito para vino (lēnós)",
+    "glossesEs": [
+      "lagar"
+    ]
+  },
+  "G3026": {
+    "shortDefinitionEs": "Palabrería, relato increíble (lēros)",
+    "glossesEs": [
+      "palabrería",
+      "vana charla"
+    ]
+  },
+  "G3027": {
+    "shortDefinitionEs": "Bandido, ladrón de caminos (lēistḗs)",
+    "glossesEs": [
+      "bandido",
+      "ladrón"
+    ]
+  },
+  "G3028": {
+    "shortDefinitionEs": "Recepción, acto de recibir (lēmpsis)",
+    "glossesEs": [
+      "recepción",
+      "recibimiento"
+    ]
+  },
+  "G3029": {
+    "shortDefinitionEs": "Mucho, en gran manera (lían)",
+    "glossesEs": [
+      "mucho",
+      "sobremanera"
+    ]
+  },
+  "G3030": {
+    "shortDefinitionEs": "Incienso, árbol aromático (líbanos)",
+    "glossesEs": [
+      "incienso"
+    ]
+  },
+  "G3031": {
+    "shortDefinitionEs": "Incensario, recipiente para incienso (libanōtós)",
+    "glossesEs": [
+      "incensario"
+    ]
+  },
+  "G3032": {
+    "shortDefinitionEs": "Liberto, esclavo liberado romano (Libertînos)",
+    "glossesEs": [
+      "liberto"
+    ]
+  },
+  "G3033": {
+    "shortDefinitionEs": "Libia: región del norte de África (Libýē)",
+    "glossesEs": [
+      "Libia"
+    ]
+  },
+  "G3034": {
+    "shortDefinitionEs": "Apedrear, matar a pedradas (litházō)",
+    "glossesEs": [
+      "apedrear"
+    ]
+  },
+  "G3035": {
+    "shortDefinitionEs": "De piedra, hecho de piedra (líthinos)",
+    "glossesEs": [
+      "de piedra"
+    ]
+  },
+  "G3036": {
+    "shortDefinitionEs": "Apedrear, lanzar piedras (lithoboléō)",
+    "glossesEs": [
+      "apedrear"
+    ]
+  },
+  "G3037": {
+    "shortDefinitionEs": "Piedra, roca (líthos)",
+    "glossesEs": [
+      "piedra"
+    ]
+  },
+  "G3038": {
+    "shortDefinitionEs": "Enlosado, piso de mosaico (lithóstrōtos)",
+    "glossesEs": [
+      "enlosado",
+      "pavimento"
+    ]
+  },
+  "G3039": {
+    "shortDefinitionEs": "Moler, pulverizar (likmáō)",
+    "glossesEs": [
+      "moler",
+      "pulverizar"
+    ]
+  },
+  "G3040": {
+    "shortDefinitionEs": "Puerto, ancladero (limḗn)",
+    "glossesEs": [
+      "puerto"
+    ]
+  },
+  "G3041": {
+    "shortDefinitionEs": "Lago, depósito de agua (límnē)",
+    "glossesEs": [
+      "lago"
+    ]
+  },
+  "G3042": {
+    "shortDefinitionEs": "Hambre, escasez de alimento (limós)",
+    "glossesEs": [
+      "hambre",
+      "hambruna"
+    ]
+  },
+  "G3043": {
+    "shortDefinitionEs": "Lino, tela de lino (línon)",
+    "glossesEs": [
+      "lino"
+    ]
+  },
+  "G3044": {
+    "shortDefinitionEs": "Lino, un cristiano primitivo (Línos)",
+    "glossesEs": [
+      "Lino"
+    ]
+  },
+  "G3045": {
+    "shortDefinitionEs": "Delicioso, suntuoso (liparós)",
+    "glossesEs": [
+      "delicioso",
+      "suntuoso"
+    ]
+  },
+  "G3046": {
+    "shortDefinitionEs": "Libra, unidad de peso (lítra)",
+    "glossesEs": [
+      "libra",
+      "peso"
+    ]
+  },
+  "G3047": {
+    "shortDefinitionEs": "Viento del suroeste (líps)",
+    "glossesEs": [
+      "suroeste"
+    ]
+  },
+  "G3048": {
+    "shortDefinitionEs": "Colecta, contribución monetaria (logía)",
+    "glossesEs": [
+      "colecta",
+      "ofrenda"
+    ]
+  },
+  "G3049": {
+    "shortDefinitionEs": "Contar, considerar, estimar (logízomai)",
+    "glossesEs": [
+      "contar",
+      "considerar",
+      "imputar"
+    ]
+  },
+  "G3050": {
+    "shortDefinitionEs": "Racional, conforme a razón (logikós)",
+    "glossesEs": [
+      "racional",
+      "razonable"
+    ]
+  },
+  "G3051": {
+    "shortDefinitionEs": "Oráculo, palabra de Dios (lógion)",
+    "glossesEs": [
+      "oráculo",
+      "palabra"
+    ]
+  },
   "G3052": {
     "shortDefinitionEs": "Elocuente, que habla con fluidez (lógios)",
     "glossesEs": [

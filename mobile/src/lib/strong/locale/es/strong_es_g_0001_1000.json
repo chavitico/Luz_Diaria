@@ -1,9 +1,161 @@
 {
+  "G1": {
+    "shortDefinitionEs": "alfa, primera letra del alfabeto (A)",
+    "glossesEs": [
+      "alfa",
+      "primero"
+    ]
+  },
+  "G2": {
+    "shortDefinitionEs": "Aarón: hermano de Moisés (Aarṓn)",
+    "glossesEs": [
+      "Aarón"
+    ]
+  },
+  "G3": {
+    "shortDefinitionEs": "Abadón: ángel destructor (Abaddṓn)",
+    "glossesEs": [
+      "Abadón",
+      "destrucción"
+    ]
+  },
+  "G4": {
+    "shortDefinitionEs": "sin peso, no gravoso (abarḗs)",
+    "glossesEs": [
+      "liviano",
+      "no gravoso"
+    ]
+  },
+  "G5": {
+    "shortDefinitionEs": "Abbá: padre (vocativo) (Abbâ)",
+    "glossesEs": [
+      "Abbá",
+      "padre"
+    ]
+  },
+  "G6": {
+    "shortDefinitionEs": "Abel: hijo de Adán (Ábel)",
+    "glossesEs": [
+      "Abel"
+    ]
+  },
+  "G7": {
+    "shortDefinitionEs": "Abías: nombre de dos israelitas (Abiá)",
+    "glossesEs": [
+      "Abías"
+    ]
+  },
+  "G8": {
+    "shortDefinitionEs": "Abiatar: sacerdote israelita (Abiathár)",
+    "glossesEs": [
+      "Abiatar"
+    ]
+  },
+  "G9": {
+    "shortDefinitionEs": "Abilene: región de Siria (Abilēnḗ)",
+    "glossesEs": [
+      "Abilene"
+    ]
+  },
+  "G10": {
+    "shortDefinitionEs": "Abiud: israelita (Abioúd)",
+    "glossesEs": [
+      "Abiud"
+    ]
+  },
+  "G11": {
+    "shortDefinitionEs": "Abraham: patriarca hebreo (Abraám)",
+    "glossesEs": [
+      "Abraham"
+    ]
+  },
+  "G12": {
+    "shortDefinitionEs": "abismo, sima, pozo sin fondo (ábyssos)",
+    "glossesEs": [
+      "abismo",
+      "pozo"
+    ]
+  },
+  "G13": {
+    "shortDefinitionEs": "Ágabo: profeta israelita (Ágabos)",
+    "glossesEs": [
+      "Ágabo"
+    ]
+  },
+  "G14": {
+    "shortDefinitionEs": "hacer el bien (agathoergéō)",
+    "glossesEs": [
+      "hacer bien"
+    ]
+  },
+  "G15": {
+    "shortDefinitionEs": "hacer bien, obrar correctamente (agathopoiéō)",
+    "glossesEs": [
+      "hacer bien",
+      "obrar bien"
+    ]
+  },
+  "G16": {
+    "shortDefinitionEs": "bien obrar, virtud (agathopoiḯa)",
+    "glossesEs": [
+      "bien obrar",
+      "virtud"
+    ]
+  },
+  "G17": {
+    "shortDefinitionEs": "quien obra bien, virtuoso (agathopoiós)",
+    "glossesEs": [
+      "virtuoso",
+      "bien obrador"
+    ]
+  },
   "G18": {
     "shortDefinitionEs": "bueno, bondadoso, benéfico (agathos)",
     "glossesEs": [
       "bien",
       "bueno"
+    ]
+  },
+  "G19": {
+    "shortDefinitionEs": "bondad, virtud, beneficencia (agathōsýnē)",
+    "glossesEs": [
+      "bondad",
+      "virtud"
+    ]
+  },
+  "G20": {
+    "shortDefinitionEs": "gozo, exultación, alegría (agallíasis)",
+    "glossesEs": [
+      "gozo",
+      "alegría",
+      "exultación"
+    ]
+  },
+  "G21": {
+    "shortDefinitionEs": "regocijarse, exultarse, alegrarse (agalliáō)",
+    "glossesEs": [
+      "regocijarse",
+      "alegrarse"
+    ]
+  },
+  "G22": {
+    "shortDefinitionEs": "soltero, sin casar (ágamos)",
+    "glossesEs": [
+      "soltero",
+      "sin casar"
+    ]
+  },
+  "G23": {
+    "shortDefinitionEs": "estar indignado, muy descontento (aganaktéō)",
+    "glossesEs": [
+      "indignarse",
+      "descontento"
+    ]
+  },
+  "G24": {
+    "shortDefinitionEs": "indignación (aganáctēsis)",
+    "glossesEs": [
+      "indignación"
     ]
   },
   "G25": {
@@ -20,11 +172,72 @@
       "ágape"
     ]
   },
+  "G27": {
+    "shortDefinitionEs": "amado, querido, bien amado (agapētós)",
+    "glossesEs": [
+      "amado",
+      "querido"
+    ]
+  },
+  "G28": {
+    "shortDefinitionEs": "Agar: concubina de Abraham (Ágar)",
+    "glossesEs": [
+      "Agar"
+    ]
+  },
+  "G29": {
+    "shortDefinitionEs": "forzar, constreñir, requisar (angareúō)",
+    "glossesEs": [
+      "forzar",
+      "constreñir"
+    ]
+  },
+  "G30": {
+    "shortDefinitionEs": "vasija, recipiente (angeîon)",
+    "glossesEs": [
+      "vasija",
+      "recipiente"
+    ]
+  },
+  "G31": {
+    "shortDefinitionEs": "mensaje, anuncio (angelía)",
+    "glossesEs": [
+      "mensaje",
+      "anuncio"
+    ]
+  },
   "G32": {
     "shortDefinitionEs": "ángel, mensajero celestial (angelos)",
     "glossesEs": [
       "ángel",
       "ángeles"
+    ]
+  },
+  "G33": {
+    "shortDefinitionEs": "anda, vamos, adelante (áge)",
+    "glossesEs": [
+      "adelante",
+      "vamos"
+    ]
+  },
+  "G34": {
+    "shortDefinitionEs": "manada, rebaño (agélē)",
+    "glossesEs": [
+      "manada",
+      "rebaño"
+    ]
+  },
+  "G35": {
+    "shortDefinitionEs": "sin genealogía registrada (agenealógētos)",
+    "glossesEs": [
+      "sin genealogía"
+    ]
+  },
+  "G36": {
+    "shortDefinitionEs": "de linaje bajo, vil, innoble (agenḗs)",
+    "glossesEs": [
+      "vil",
+      "innoble"
     ]
   },
   "G37": {
@@ -40,6 +253,13 @@
       "santificación"
     ]
   },
+  "G39": {
+    "shortDefinitionEs": "lugar sagrado, santuario, templo (hágion)",
+    "glossesEs": [
+      "santuario",
+      "lugar sagrado"
+    ]
+  },
   "G40": {
     "shortDefinitionEs": "santo, sagrado; el Espíritu Santo (hagios)",
     "glossesEs": [
@@ -48,10 +268,109 @@
       "espíritu santo"
     ]
   },
+  "G41": {
+    "shortDefinitionEs": "santidad (hagiótēs)",
+    "glossesEs": [
+      "santidad"
+    ]
+  },
   "G42": {
     "shortDefinitionEs": "santidad, pureza (hagiotes)",
     "glossesEs": [
       "santidad"
+    ]
+  },
+  "G43": {
+    "shortDefinitionEs": "brazo (ankálē)",
+    "glossesEs": [
+      "brazo"
+    ]
+  },
+  "G44": {
+    "shortDefinitionEs": "gancho, anzuelo (ánkistron)",
+    "glossesEs": [
+      "gancho",
+      "anzuelo"
+    ]
+  },
+  "G45": {
+    "shortDefinitionEs": "ancla (ánkyra)",
+    "glossesEs": [
+      "ancla"
+    ]
+  },
+  "G46": {
+    "shortDefinitionEs": "nuevo, sin usar (ágnaphos)",
+    "glossesEs": [
+      "nuevo"
+    ]
+  },
+  "G47": {
+    "shortDefinitionEs": "pureza, castidad (hagneía)",
+    "glossesEs": [
+      "pureza",
+      "castidad"
+    ]
+  },
+  "G48": {
+    "shortDefinitionEs": "purificar, santificar (hagnízō)",
+    "glossesEs": [
+      "purificar",
+      "santificar"
+    ]
+  },
+  "G49": {
+    "shortDefinitionEs": "purificación, ablución (hagnismós)",
+    "glossesEs": [
+      "purificación"
+    ]
+  },
+  "G50": {
+    "shortDefinitionEs": "ignorar, no saber, desconocer (agnoéō)",
+    "glossesEs": [
+      "ignorar",
+      "no saber"
+    ]
+  },
+  "G51": {
+    "shortDefinitionEs": "error, falta, ignorancia (agnóēma)",
+    "glossesEs": [
+      "error",
+      "falta"
+    ]
+  },
+  "G52": {
+    "shortDefinitionEs": "ignorancia (ágnoia)",
+    "glossesEs": [
+      "ignorancia"
+    ]
+  },
+  "G53": {
+    "shortDefinitionEs": "puro, casto, inocente, limpio (hagnós)",
+    "glossesEs": [
+      "puro",
+      "casto",
+      "limpio"
+    ]
+  },
+  "G54": {
+    "shortDefinitionEs": "pureza, integridad (hagnótēs)",
+    "glossesEs": [
+      "pureza",
+      "integridad"
+    ]
+  },
+  "G55": {
+    "shortDefinitionEs": "puramente, sinceramente (hagnōs)",
+    "glossesEs": [
+      "sinceramente",
+      "puramente"
+    ]
+  },
+  "G56": {
+    "shortDefinitionEs": "ignorancia (agnōsía)",
+    "glossesEs": [
+      "ignorancia"
     ]
   },
   "G57": {
@@ -223,6 +542,13 @@
     "shortDefinitionEs": "Hermana, mujer hermana (adelphḗ)",
     "glossesEs": [
       "hermana"
+    ]
+  },
+  "G80": {
+    "shortDefinitionEs": "hermano, pariente cercano o lejano (adelphós)",
+    "glossesEs": [
+      "hermano",
+      "pariente"
     ]
   },
   "G81": {
@@ -4933,6 +5259,13 @@
     "glossesEs": [
       "completo",
       "perfecto"
+    ]
+  },
+  "G740": {
+    "shortDefinitionEs": "pan, hogaza de pan (ártos)",
+    "glossesEs": [
+      "pan",
+      "hogaza"
     ]
   },
   "G741": {

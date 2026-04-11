@@ -51,12 +51,12 @@
     {
       "file": "strong_es_g_0001_1000.json",
       "range": "G1–G1000",
-      "entries": 950
+      "entries": 1000
     },
     {
       "file": "strong_es_g_1001_2000.json",
       "range": "G1001–G2000",
-      "entries": 950
+      "entries": 1000
     },
     {
       "file": "strong_es_g_2001_3001.json",
@@ -66,7 +66,7 @@
     {
       "file": "strong_es_g_3002_4101.json",
       "range": "G3002–G4101",
-      "entries": 950
+      "entries": 1000
     },
     {
       "file": "strong_es_g_4102_5101.json",
@@ -76,15 +76,15 @@
     {
       "file": "strong_es_g_5102_5624.json",
       "range": "G5102–G5624",
-      "entries": 473
+      "entries": 523
     }
   ],
   "coverage": {
-    "entriesWithShortDefinitionEs": 13997,
+    "entriesWithShortDefinitionEs": 14197,
     "entriesWithLongDefinitionEs": 0,
-    "entriesWithGlossesEs": 13997,
-    "entriesEnglishOnly": 200,
-    "percentageWithSpanish": "98.6%",
+    "entriesWithGlossesEs": 14197,
+    "entriesEnglishOnly": 0,
+    "percentageWithSpanish": "100.0%",
     "note": "Coverage grows by adding entries to the JSON block files — no code changes required."
   }
 }

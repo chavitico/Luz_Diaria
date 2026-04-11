@@ -1,4 +1,381 @@
 {
+  "G5102": {
+    "shortDefinitionEs": "Inscripción, letrero con título (títlos)",
+    "glossesEs": [
+      "letrero",
+      "inscripción",
+      "título"
+    ]
+  },
+  "G5103": {
+    "shortDefinitionEs": "Tito: cristiano y colaborador de Pablo (Títos)",
+    "glossesEs": [
+      "Tito",
+      "apóstol"
+    ]
+  },
+  "G5104": {
+    "shortDefinitionEs": "Partícula enfática de contraste (toí)",
+    "glossesEs": [
+      "partícula",
+      "contraste"
+    ]
+  },
+  "G5105": {
+    "shortDefinitionEs": "Por tanto, en consecuencia (toigaroûn)",
+    "glossesEs": [
+      "por tanto",
+      "luego",
+      "consecuencia"
+    ]
+  },
+  "G5106": {
+    "shortDefinitionEs": "Entonces, por lo tanto, así (toínyn)",
+    "glossesEs": [
+      "entonces",
+      "por tanto"
+    ]
+  },
+  "G5107": {
+    "shortDefinitionEs": "Tal, semejante, tan grande (toiósde)",
+    "glossesEs": [
+      "tal",
+      "semejante"
+    ]
+  },
+  "G5108": {
+    "shortDefinitionEs": "De este género, tal, semejante (toioûtos)",
+    "glossesEs": [
+      "tal",
+      "semejante",
+      "género"
+    ]
+  },
+  "G5109": {
+    "shortDefinitionEs": "Pared, muro (toîchos)",
+    "glossesEs": [
+      "muro",
+      "pared"
+    ]
+  },
+  "G5110": {
+    "shortDefinitionEs": "Interés, usura sobre dinero prestado (tókos)",
+    "glossesEs": [
+      "usura",
+      "interés",
+      "ganancia"
+    ]
+  },
+  "G5111": {
+    "shortDefinitionEs": "Atreverse, osar, ser audaz (tolmáō)",
+    "glossesEs": [
+      "osar",
+      "atreverse",
+      "audacia"
+    ]
+  },
+  "G5112": {
+    "shortDefinitionEs": "Más osadamente, con mayor atrevimiento (tolmēróteron)",
+    "glossesEs": [
+      "osadamente",
+      "atrevimiento"
+    ]
+  },
+  "G5113": {
+    "shortDefinitionEs": "Atrevido, presuntuoso, audaz (tolmētḗs)",
+    "glossesEs": [
+      "atrevido",
+      "presuntuoso"
+    ]
+  },
+  "G5114": {
+    "shortDefinitionEs": "Más penetrante, agudo, cortante (tomṓteros)",
+    "glossesEs": [
+      "agudo",
+      "cortante"
+    ]
+  },
+  "G5115": {
+    "shortDefinitionEs": "Arco para disparar flechas (tóxon)",
+    "glossesEs": [
+      "arco",
+      "flecha"
+    ]
+  },
+  "G5116": {
+    "shortDefinitionEs": "Topacio, gema de color amarillo-verde (topázion)",
+    "glossesEs": [
+      "topacio",
+      "piedra preciosa"
+    ]
+  },
+  "G5117": {
+    "shortDefinitionEs": "Lugar, sitio, región, localidad (tópos)",
+    "glossesEs": [
+      "lugar",
+      "sitio",
+      "región"
+    ]
+  },
+  "G5118": {
+    "shortDefinitionEs": "Tan grande, tan vasto, tanto (tosoûtos)",
+    "glossesEs": [
+      "tan grande",
+      "tanto",
+      "mucho"
+    ]
+  },
+  "G5119": {
+    "shortDefinitionEs": "Entonces, en aquel tiempo, cuando (tóte)",
+    "glossesEs": [
+      "entonces",
+      "cuando",
+      "tiempo"
+    ]
+  },
+  "G5120": {
+    "shortDefinitionEs": "Su, de este, de él (toû)",
+    "glossesEs": [
+      "su",
+      "de él"
+    ]
+  },
+  "G5121": {
+    "shortDefinitionEs": "Al contrario, por el contrario (tounantíon)",
+    "glossesEs": [
+      "contrario",
+      "opuesto"
+    ]
+  },
+  "G5122": {
+    "shortDefinitionEs": "Se llama, por nombre, llamado (toúnoma)",
+    "glossesEs": [
+      "llamado",
+      "nombre"
+    ]
+  },
+  "G5123": {
+    "shortDefinitionEs": "Es decir, o sea, esto es (toutésti)",
+    "glossesEs": [
+      "es decir",
+      "o sea"
+    ]
+  },
+  "G5124": {
+    "shortDefinitionEs": "Esto, eso, lo mismo (toûto)",
+    "glossesEs": [
+      "esto",
+      "eso",
+      "lo mismo"
+    ]
+  },
+  "G5125": {
+    "shortDefinitionEs": "A estos, en estos, con estos (toútois)",
+    "glossesEs": [
+      "estos",
+      "aquellos"
+    ]
+  },
+  "G5126": {
+    "shortDefinitionEs": "A este, a ese, al mismo (toûton)",
+    "glossesEs": [
+      "este",
+      "ese",
+      "al mismo"
+    ]
+  },
+  "G5127": {
+    "shortDefinitionEs": "De este, de ese, del mismo (toútou)",
+    "glossesEs": [
+      "de este",
+      "de ese"
+    ]
+  },
+  "G5128": {
+    "shortDefinitionEs": "A estos, a aquellos, a los mismos (toútous)",
+    "glossesEs": [
+      "estos",
+      "aquellos",
+      "los mismos"
+    ]
+  },
+  "G5129": {
+    "shortDefinitionEs": "A esto, en esto, con esto, al mismo (toútōi)",
+    "glossesEs": [
+      "esto",
+      "en esto"
+    ]
+  },
+  "G5130": {
+    "shortDefinitionEs": "De estos, de aquellos, de los mismos (toútōn)",
+    "glossesEs": [
+      "de estos",
+      "de aquellos"
+    ]
+  },
+  "G5131": {
+    "shortDefinitionEs": "Macho cabrío, chivo (trágos)",
+    "glossesEs": [
+      "chivo",
+      "macho cabrío",
+      "cabrón"
+    ]
+  },
+  "G5132": {
+    "shortDefinitionEs": "Mesa, mostrador, banco de cambista (trápeza)",
+    "glossesEs": [
+      "mesa",
+      "banco",
+      "mostrador"
+    ]
+  },
+  "G5133": {
+    "shortDefinitionEs": "Cambista, banquero (trapezítēs)",
+    "glossesEs": [
+      "cambista",
+      "banquero"
+    ]
+  },
+  "G5134": {
+    "shortDefinitionEs": "Herida, llaga (traûma)",
+    "glossesEs": [
+      "herida",
+      "llaga",
+      "lesión"
+    ]
+  },
+  "G5135": {
+    "shortDefinitionEs": "Herir, causar herida (traumatízō)",
+    "glossesEs": [
+      "herir",
+      "lesionar"
+    ]
+  },
+  "G5136": {
+    "shortDefinitionEs": "Desentrañar, exponer, abrir (trachēlízō)",
+    "glossesEs": [
+      "abrir",
+      "exponer",
+      "desentrañar"
+    ]
+  },
+  "G5137": {
+    "shortDefinitionEs": "Cuello, garganta, pescuezo (tráchēlos)",
+    "glossesEs": [
+      "cuello",
+      "garganta",
+      "pescuezo"
+    ]
+  },
+  "G5138": {
+    "shortDefinitionEs": "Áspero, pedregoso, rocoso (trachýs)",
+    "glossesEs": [
+      "áspero",
+      "rocoso",
+      "pedregoso"
+    ]
+  },
+  "G5139": {
+    "shortDefinitionEs": "Traconitis: región montañosa de Siria (Trachōnîtis)",
+    "glossesEs": [
+      "Traconitis",
+      "región",
+      "Siria"
+    ]
+  },
+  "G5140": {
+    "shortDefinitionEs": "Tres, número tres (treîs)",
+    "glossesEs": [
+      "tres",
+      "número"
+    ]
+  },
+  "G5141": {
+    "shortDefinitionEs": "Temblar, tener miedo, estremecerse (trémō)",
+    "glossesEs": [
+      "temblar",
+      "temor",
+      "miedo"
+    ]
+  },
+  "G5142": {
+    "shortDefinitionEs": "Alimentar, nutrir, criar, sustentar (tréphō)",
+    "glossesEs": [
+      "alimentar",
+      "nutrir",
+      "criar"
+    ]
+  },
+  "G5143": {
+    "shortDefinitionEs": "Correr, apresurarse, andar de prisa (tréchō)",
+    "glossesEs": [
+      "correr",
+      "correr rápido",
+      "apresurarse"
+    ]
+  },
+  "G5144": {
+    "shortDefinitionEs": "Treinta, número treinta (triákonta)",
+    "glossesEs": [
+      "treinta",
+      "número"
+    ]
+  },
+  "G5145": {
+    "shortDefinitionEs": "Trescientos, número trescientos (triakósioi)",
+    "glossesEs": [
+      "trescientos",
+      "número"
+    ]
+  },
+  "G5146": {
+    "shortDefinitionEs": "Espina, cardo, arpeo de guerra (tríbolos)",
+    "glossesEs": [
+      "espina",
+      "cardo",
+      "espinoso"
+    ]
+  },
+  "G5147": {
+    "shortDefinitionEs": "Senda, camino trillado, vereda (tríbos)",
+    "glossesEs": [
+      "senda",
+      "camino",
+      "vereda"
+    ]
+  },
+  "G5148": {
+    "shortDefinitionEs": "Período de tres años, trienio (trietía)",
+    "glossesEs": [
+      "tres años",
+      "trienio",
+      "período"
+    ]
+  },
+  "G5149": {
+    "shortDefinitionEs": "Rechinar, crujir los dientes (trízō)",
+    "glossesEs": [
+      "rechinar",
+      "crujir dientes",
+      "gnashir"
+    ]
+  },
+  "G5150": {
+    "shortDefinitionEs": "Espacio de tres meses (trímēnon)",
+    "glossesEs": [
+      "tres meses",
+      "período",
+      "trimestre"
+    ]
+  },
+  "G5151": {
+    "shortDefinitionEs": "Tres veces, trece (trís)",
+    "glossesEs": [
+      "tres veces",
+      "trece",
+      "número"
+    ]
+  },
   "G5152": {
     "shortDefinitionEs": "Tercer piso o azotea de un edificio (trístegon)",
     "glossesEs": [

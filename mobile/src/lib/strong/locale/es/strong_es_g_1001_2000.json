@@ -1,4 +1,345 @@
 {
+  "G1001": {
+    "shortDefinitionEs": "Medir la profundidad del agua (bolízō)",
+    "glossesEs": [
+      "sondear",
+      "medir profundidad"
+    ]
+  },
+  "G1002": {
+    "shortDefinitionEs": "Dardo, proyectil (bolís)",
+    "glossesEs": [
+      "dardo",
+      "lanza"
+    ]
+  },
+  "G1003": {
+    "shortDefinitionEs": "Booz: israelita (Boóz)",
+    "glossesEs": [
+      "Booz"
+    ]
+  },
+  "G1004": {
+    "shortDefinitionEs": "Lodo, cieno (bórboros)",
+    "glossesEs": [
+      "lodo",
+      "cieno"
+    ]
+  },
+  "G1005": {
+    "shortDefinitionEs": "Norte, viento del norte (borrhâs)",
+    "glossesEs": [
+      "norte"
+    ]
+  },
+  "G1006": {
+    "shortDefinitionEs": "Apacentar, alimentar ganado (bóskō)",
+    "glossesEs": [
+      "apacentar",
+      "alimentar",
+      "pacer"
+    ]
+  },
+  "G1007": {
+    "shortDefinitionEs": "Bosor: moabita (Bosór)",
+    "glossesEs": [
+      "Bosor"
+    ]
+  },
+  "G1008": {
+    "shortDefinitionEs": "Hierba, pasto (botánē)",
+    "glossesEs": [
+      "hierba",
+      "pasto"
+    ]
+  },
+  "G1009": {
+    "shortDefinitionEs": "Racimo de uvas (bótrys)",
+    "glossesEs": [
+      "racimo",
+      "uvas"
+    ]
+  },
+  "G1010": {
+    "shortDefinitionEs": "Consejero, miembro del Sanedrín (bouleutḗs)",
+    "glossesEs": [
+      "consejero",
+      "Sanedrín"
+    ]
+  },
+  "G1011": {
+    "shortDefinitionEs": "Aconsejar, deliberar, resolver (bouleúō)",
+    "glossesEs": [
+      "aconsejar",
+      "deliberar",
+      "proponer"
+    ]
+  },
+  "G1012": {
+    "shortDefinitionEs": "Voluntad, consejo, propósito (boulḗ)",
+    "glossesEs": [
+      "voluntad",
+      "consejo",
+      "propósito"
+    ]
+  },
+  "G1013": {
+    "shortDefinitionEs": "Resolución, propósito (boúlēma)",
+    "glossesEs": [
+      "propósito",
+      "voluntad"
+    ]
+  },
+  "G1014": {
+    "shortDefinitionEs": "Querer, estar dispuesto, intentar (boúlomai)",
+    "glossesEs": [
+      "querer",
+      "desear",
+      "intentar"
+    ]
+  },
+  "G1015": {
+    "shortDefinitionEs": "Colina, cerro (bounós)",
+    "glossesEs": [
+      "colina",
+      "cerro",
+      "monte"
+    ]
+  },
+  "G1016": {
+    "shortDefinitionEs": "Buey, res (boûs)",
+    "glossesEs": [
+      "buey",
+      "res"
+    ]
+  },
+  "G1017": {
+    "shortDefinitionEs": "Premio, galardón de los juegos (brabeîon)",
+    "glossesEs": [
+      "premio",
+      "galardón"
+    ]
+  },
+  "G1018": {
+    "shortDefinitionEs": "Arbitrar, gobernar, prevalecer (brabeúō)",
+    "glossesEs": [
+      "gobernar",
+      "arbitrar",
+      "reinar"
+    ]
+  },
+  "G1019": {
+    "shortDefinitionEs": "Tardar, demorarse (bradýnō)",
+    "glossesEs": [
+      "tardar",
+      "demorar"
+    ]
+  },
+  "G1020": {
+    "shortDefinitionEs": "Navegar lentamente (bradyploéō)",
+    "glossesEs": [
+      "navegar lentamente"
+    ]
+  },
+  "G1021": {
+    "shortDefinitionEs": "Lento, tardo (bradýs)",
+    "glossesEs": [
+      "lento",
+      "tardo",
+      "lentitud"
+    ]
+  },
+  "G1022": {
+    "shortDefinitionEs": "Lentitud, tardanza (bradýtēs)",
+    "glossesEs": [
+      "lentitud",
+      "tardanza"
+    ]
+  },
+  "G1023": {
+    "shortDefinitionEs": "Brazo; fuerza (brachíōn)",
+    "glossesEs": [
+      "brazo",
+      "fuerza"
+    ]
+  },
+  "G1024": {
+    "shortDefinitionEs": "Corto, breve, poco (brachýs)",
+    "glossesEs": [
+      "corto",
+      "breve",
+      "poco"
+    ]
+  },
+  "G1025": {
+    "shortDefinitionEs": "Bebé, infante, niño pequeño (bréphos)",
+    "glossesEs": [
+      "bebé",
+      "infante",
+      "niño"
+    ]
+  },
+  "G1026": {
+    "shortDefinitionEs": "Llover, regar, humedecer (bréchō)",
+    "glossesEs": [
+      "llover",
+      "lluvia"
+    ]
+  },
+  "G1027": {
+    "shortDefinitionEs": "Trueno (brontḗ)",
+    "glossesEs": [
+      "trueno"
+    ]
+  },
+  "G1028": {
+    "shortDefinitionEs": "Lluvia (brochḗ)",
+    "glossesEs": [
+      "lluvia"
+    ]
+  },
+  "G1029": {
+    "shortDefinitionEs": "Lazo, trampa (bróchos)",
+    "glossesEs": [
+      "lazo",
+      "trampa",
+      "snare"
+    ]
+  },
+  "G1030": {
+    "shortDefinitionEs": "Rechinamiento de dientes (brygmós)",
+    "glossesEs": [
+      "rechinar dientes"
+    ]
+  },
+  "G1031": {
+    "shortDefinitionEs": "Rechinar los dientes (brýchō)",
+    "glossesEs": [
+      "rechinar",
+      "dientes"
+    ]
+  },
+  "G1032": {
+    "shortDefinitionEs": "Brotar, producir (brýō)",
+    "glossesEs": [
+      "brotar",
+      "producir"
+    ]
+  },
+  "G1033": {
+    "shortDefinitionEs": "Comida, alimento (brōma)",
+    "glossesEs": [
+      "comida",
+      "alimento",
+      "comestible"
+    ]
+  },
+  "G1034": {
+    "shortDefinitionEs": "Comible, que se puede comer (brṓsimos)",
+    "glossesEs": [
+      "comestible",
+      "comible"
+    ]
+  },
+  "G1035": {
+    "shortDefinitionEs": "Comer, comida, alimento (brōsis)",
+    "glossesEs": [
+      "comida",
+      "comer",
+      "alimento"
+    ]
+  },
+  "G1036": {
+    "shortDefinitionEs": "Hundirse, ahogarse (bythízō)",
+    "glossesEs": [
+      "hundirse",
+      "ahogarse"
+    ]
+  },
+  "G1037": {
+    "shortDefinitionEs": "Profundidad, mar (bythós)",
+    "glossesEs": [
+      "profundidad",
+      "mar",
+      "abismo"
+    ]
+  },
+  "G1038": {
+    "shortDefinitionEs": "Curtidor de cueros (byrseús)",
+    "glossesEs": [
+      "curtidor"
+    ]
+  },
+  "G1039": {
+    "shortDefinitionEs": "De lino fino (býssinos)",
+    "glossesEs": [
+      "lino fino"
+    ]
+  },
+  "G1040": {
+    "shortDefinitionEs": "Lino blanco fino (býssos)",
+    "glossesEs": [
+      "lino fino"
+    ]
+  },
+  "G1041": {
+    "shortDefinitionEs": "Altar (bōmós)",
+    "glossesEs": [
+      "altar"
+    ]
+  },
+  "G1042": {
+    "shortDefinitionEs": "Gábata: tribunal romano en Jerusalén (gabbathá)",
+    "glossesEs": [
+      "Gábata",
+      "tribunal"
+    ]
+  },
+  "G1043": {
+    "shortDefinitionEs": "Gabriel: arcángel (Gabriḗl)",
+    "glossesEs": [
+      "Gabriel"
+    ]
+  },
+  "G1044": {
+    "shortDefinitionEs": "Úlcera, gangrena (gángraina)",
+    "glossesEs": [
+      "úlcera",
+      "gangrena"
+    ]
+  },
+  "G1045": {
+    "shortDefinitionEs": "Gad: tribu de Israel (Gád)",
+    "glossesEs": [
+      "Gad"
+    ]
+  },
+  "G1046": {
+    "shortDefinitionEs": "Gadareno: habitante de Gadara (Gadarēnós)",
+    "glossesEs": [
+      "Gadareno"
+    ]
+  },
+  "G1047": {
+    "shortDefinitionEs": "Tesoro (gáza)",
+    "glossesEs": [
+      "tesoro"
+    ]
+  },
+  "G1048": {
+    "shortDefinitionEs": "Gaza: región de Palestina (Gáza)",
+    "glossesEs": [
+      "Gaza"
+    ]
+  },
+  "G1049": {
+    "shortDefinitionEs": "Tesorería del templo (gazophylákion)",
+    "glossesEs": [
+      "tesorería",
+      "templo",
+      "ofrendas"
+    ]
+  },
   "G1050": {
     "shortDefinitionEs": "Gayo, un cristiano (Gáïos)",
     "glossesEs": [
@@ -5908,6 +6249,14 @@
     "glossesEs": [
       "fiesta",
       "festividad"
+    ]
+  },
+  "G1860": {
+    "shortDefinitionEs": "Anuncio, promesa divina de bien (epangelía)",
+    "glossesEs": [
+      "promesa",
+      "mensaje",
+      "anuncio"
     ]
   },
   "G1861": {
