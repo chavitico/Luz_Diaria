@@ -1,7 +1,7 @@
 // StrongSheet — Bottom sheet showing Strong's Concordance entry details
 // Opens when user taps an interactive word in Strong Mode.
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Pressable,
   ScrollView,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -25,9 +26,12 @@ import {
   AlignLeft,
   List,
   ChevronRight,
+  Languages,
 } from 'lucide-react-native';
-import type { StrongEntry } from '@/lib/strong/types';
-import { parseVerseReference } from '@/lib/strong/service';
+import type { StrongEntry, VerseAppearance } from '@/lib/strong/types';
+import { strongRepository } from '@/lib/strong/repository';
+import { getSpanishGlosses } from '@/lib/strong/spanishIndex';
+import { BIBLE_BOOKS } from '@/lib/bible/books';
 import type { useThemeColors } from '@/lib/store';
 
 // ─── Props ─────────────────────────────────────────────────────────────────────
@@ -88,6 +92,33 @@ export function StrongSheet({
   const lastEntryRef = useRef<StrongEntry | null>(null);
   if (entry !== null) lastEntryRef.current = entry;
   const e = lastEntryRef.current;
+
+  // ── Dynamic verse appearances ─────────────────────────────────────────────
+  const [previewAppearances, setPreviewAppearances] = useState<VerseAppearance[]>([]);
+  const [appearancesLoading, setAppearancesLoading] = useState(false);
+  const [realOccurrencesCount, setRealOccurrencesCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!entry) return;
+    setPreviewAppearances([]);
+    setRealOccurrencesCount(null);
+    setAppearancesLoading(true);
+    // Run off the JS event loop tick so the sheet opens smoothly first
+    const timer = setTimeout(() => {
+      const all = strongRepository.getVerseAppearances(entry.id);
+      // Deduplicate by verseId
+      const seen = new Set<string>();
+      const deduped = all.filter(a => {
+        if (seen.has(a.verseId)) return false;
+        seen.add(a.verseId);
+        return true;
+      });
+      setRealOccurrencesCount(deduped.length);
+      setPreviewAppearances(deduped.slice(0, 4));
+      setAppearancesLoading(false);
+    }, 80);
+    return () => clearTimeout(timer);
+  }, [entry?.id]);
 
   // ── Favorite — uses current entry from ref, not stale closure ─────────────
   const entryRef = useRef<StrongEntry | null>(null);
@@ -271,9 +302,15 @@ export function StrongSheet({
                       backgroundColor: accentColor + '20',
                       alignItems: 'center', justifyContent: 'center',
                     }}>
-                      <Text style={{ fontSize: 15, fontWeight: '800', color: accentColor }}>
-                        {e.occurrencesCount > 999 ? '999+' : e.occurrencesCount}
-                      </Text>
+                      {appearancesLoading ? (
+                        <ActivityIndicator size="small" color={accentColor} />
+                      ) : (
+                        <Text style={{ fontSize: 15, fontWeight: '800', color: accentColor }}>
+                          {realOccurrencesCount !== null
+                            ? (realOccurrencesCount > 999 ? '999+' : String(realOccurrencesCount))
+                            : '—'}
+                        </Text>
+                      )}
                     </View>
                     <View style={{ flex: 1 }}>
                       <SectionLabel
@@ -281,10 +318,43 @@ export function StrongSheet({
                         text={t.occurrences} color={accentColor + 'BB'}
                       />
                       <Text style={{ fontSize: 13, fontWeight: '500', color: accentColor, marginTop: -2 }}>
-                        {e.occurrencesCount.toLocaleString()} {t.timesLabel}
+                        {realOccurrencesCount !== null
+                          ? `${realOccurrencesCount.toLocaleString()} ${t.timesLabel}`
+                          : t.timesLabel}
                       </Text>
                     </View>
                   </View>
+
+                  {/* Spanish glosses */}
+                  {(() => {
+                    const glosses = getSpanishGlosses(e.id);
+                    if (glosses.length === 0) return null;
+                    return (
+                      <View style={{ marginBottom: 20 }}>
+                        <SectionLabel
+                          icon={<Languages size={11} color={colors.textMuted} />}
+                          text="Significado en español" color={colors.textMuted}
+                        />
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                          {glosses.map(g => (
+                            <View
+                              key={g}
+                              style={{
+                                paddingHorizontal: 12, paddingVertical: 5,
+                                borderRadius: 20, borderWidth: 1,
+                                backgroundColor: accentColor + '12',
+                                borderColor: accentColor + '30',
+                              }}
+                            >
+                              <Text style={{ fontSize: 13, fontWeight: '600', color: accentColor }}>
+                                {g.charAt(0).toUpperCase() + g.slice(1)}
+                              </Text>
+                            </View>
+                          ))}
+                        </View>
+                      </View>
+                    );
+                  })()}
 
                   {/* Long definition */}
                   <View style={{ marginBottom: 20 }}>
@@ -300,43 +370,55 @@ export function StrongSheet({
                     </Text>
                   </View>
 
-                  {/* Related verses */}
-                  {e.relatedVerses.length > 0 && (
+                  {/* Dynamic verse appearances preview */}
+                  {(appearancesLoading || previewAppearances.length > 0) && (
                     <View style={{ marginBottom: 24 }}>
                       <SectionLabel
                         icon={<BookOpen size={11} color={colors.textMuted} />}
-                        text={t.relatedVerses} color={colors.textMuted}
+                        text="Apariciones en la Biblia" color={colors.textMuted}
                       />
-                      <View style={{
-                        backgroundColor: colors.background,
-                        borderRadius: 12, overflow: 'hidden',
-                        borderWidth: 1, borderColor: colors.textMuted + '20',
-                      }}>
-                        {e.relatedVerses.map((ref, idx) => (
-                          <Pressable
-                            key={ref}
-                            onPress={() => {
-                              const parsed = parseVerseReference(ref);
-                              if (parsed) {
-                                onNavigateToVerse(parsed.bookId, parsed.chapter, parsed.verse);
-                              }
-                            }}
-                            style={({ pressed }) => ({ opacity: pressed ? 0.55 : 1 })}
-                          >
-                            <View style={{
-                              flexDirection: 'row', alignItems: 'center',
-                              paddingHorizontal: 14, paddingVertical: 12,
-                              borderBottomWidth: idx < e.relatedVerses.length - 1 ? 0.5 : 0,
-                              borderBottomColor: colors.textMuted + '20',
-                            }}>
-                              <Text style={{ flex: 1, fontSize: 14, fontWeight: '600', color: accentColor }}>
-                                {ref}
-                              </Text>
-                              <ChevronRight size={14} color={accentColor + '80'} />
-                            </View>
-                          </Pressable>
-                        ))}
-                      </View>
+                      {appearancesLoading ? (
+                        <View style={{ paddingVertical: 12, alignItems: 'center' }}>
+                          <ActivityIndicator size="small" color={colors.textMuted} />
+                        </View>
+                      ) : (
+                        <View style={{
+                          backgroundColor: colors.background,
+                          borderRadius: 12, overflow: 'hidden',
+                          borderWidth: 1, borderColor: colors.textMuted + '20',
+                        }}>
+                          {previewAppearances.map((a, idx) => {
+                            const bookName = BIBLE_BOOKS.find(b => b.id === a.bookId)?.name ?? a.bookId;
+                            const ref = `${bookName} ${a.chapter}:${a.verse}`;
+                            return (
+                              <Pressable
+                                key={a.verseId}
+                                onPress={() => {
+                                  onNavigateToVerse(a.bookId, a.chapter, a.verse);
+                                }}
+                                style={({ pressed }) => ({ opacity: pressed ? 0.55 : 1 })}
+                              >
+                                <View style={{
+                                  flexDirection: 'row', alignItems: 'center',
+                                  paddingHorizontal: 14, paddingVertical: 11,
+                                  borderBottomWidth: idx < previewAppearances.length - 1 ? 0.5 : 0,
+                                  borderBottomColor: colors.textMuted + '20',
+                                }}>
+                                  <View style={{ flex: 1 }}>
+                                    <Text style={{ fontSize: 13, fontWeight: '700', color: accentColor }}>
+                                      {ref}
+                                    </Text>
+                                    <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 1 }} numberOfLines={1}>
+                                      {a.displayedWord.replace(/[.,;:!?()]/g, '')}
+                                    </Text>
+                                  </View>
+                                  <ChevronRight size={14} color={accentColor + '80'} />
+                                </View>
+                              </Pressable>
+                            );
+                          })}
+                        </View>
+                      )}
                     </View>
                   )}
 

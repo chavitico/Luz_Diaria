@@ -241,3 +241,29 @@ export const SPANISH_GLOSS_INDEX: Record<string, string[]> = {
  * Used for partial/substring matching ("amor" matches "amar", "amor", etc.).
  */
 export const SPANISH_GLOSS_KEYS: string[] = Object.keys(SPANISH_GLOSS_INDEX);
+
+// ─── Reverse lookup: Strong ID → Spanish glosses ─────────────────────────────
+
+let _reverseCache: Map<string, string[]> | null = null;
+
+function buildReverseCache(): Map<string, string[]> {
+  const map = new Map<string, string[]>();
+  for (const [gloss, ids] of Object.entries(SPANISH_GLOSS_INDEX)) {
+    for (const id of ids) {
+      const existing = map.get(id) ?? [];
+      // Only add the first (most canonical) gloss per ID to avoid duplicates
+      if (!existing.includes(gloss)) existing.push(gloss);
+      map.set(id, existing);
+    }
+  }
+  return map;
+}
+
+/**
+ * Returns Spanish gloss keywords for a given Strong ID.
+ * E.g. getSpanishGlosses('H430') → ['dios', 'elohim']
+ */
+export function getSpanishGlosses(strongId: string): string[] {
+  if (!_reverseCache) _reverseCache = buildReverseCache();
+  return _reverseCache.get(strongId) ?? [];
+}
