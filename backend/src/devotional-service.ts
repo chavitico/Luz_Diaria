@@ -3,6 +3,7 @@ import { env } from "./env";
 
 // Topics for devotionals - cycles through these
 const TOPICS = [
+  // Classic spiritual virtues
   { en: "Faith", es: "Fe" },
   { en: "Love", es: "Amor" },
   { en: "Hope", es: "Esperanza" },
@@ -34,7 +35,108 @@ const TOPICS = [
   { en: "Prayer", es: "Oración" },
   { en: "Community", es: "Comunidad" },
   { en: "Service", es: "Servicio" },
+  // Real-life human and Christian contexts
+  { en: "Waiting on God", es: "Fe en la espera" },
+  { en: "Hard Decisions", es: "Decisiones difíciles" },
+  { en: "Spiritual Weariness", es: "Cansancio espiritual" },
+  { en: "Family", es: "Familia" },
+  { en: "Guilt and Grace", es: "Culpa y gracia" },
+  { en: "Fear", es: "Temor" },
+  { en: "Spiritual Discipline", es: "Disciplina espiritual" },
+  { en: "Work and Calling", es: "Trabajo y vocación" },
+  { en: "Youth and Identity", es: "Juventud e identidad" },
+  { en: "Grief and Loss", es: "Duelo y pérdida" },
+  { en: "Everyday Faithfulness", es: "Fidelidad en la rutina" },
+  { en: "New Beginnings", es: "Nuevos comienzos" },
+  { en: "Loneliness", es: "Soledad" },
+  { en: "Doubt and Questions", es: "Dudas y preguntas" },
+  { en: "Identity in Christ", es: "Identidad en Cristo" },
+  { en: "Letting Go", es: "Soltar el control" },
+  { en: "Broken Relationships", es: "Relaciones rotas" },
+  { en: "Anxiety", es: "Ansiedad" },
+  { en: "Disappointment with God", es: "Desilusión con Dios" },
+  { en: "Serving Unseen", es: "Servir sin ser visto" },
 ];
+
+// Words severely overused in devotional titles — quarantine these
+// They can appear occasionally but the AI must treat them as last resort
+const QUARANTINE_WORDS = [
+  'susurro', 'susurros', 'silencio', 'medianoche', 'sagrado', 'sagrada',
+  'penumbra', 'sombras', 'nocturno', 'nocturna', 'quietud', 'tinieblas',
+  'crepúsculo', 'alborada', 'bruma',
+];
+
+// Title format types for rotating variety
+const TITLE_FORMATS = [
+  {
+    id: 'AFIRMACION',
+    instruction: 'FORMATO DE TÍTULO — Afirmación directa: una verdad declarada con fuerza y convicción. Ejemplos del estilo correcto: "Dios no desperdicia tu proceso", "La fe que sigue caminando", "Dios también habla en días comunes". Debe sonar como una declaración que alguien necesita escuchar hoy.',
+  },
+  {
+    id: 'PREGUNTA',
+    instruction: 'FORMATO DE TÍTULO — Pregunta genuina: que invite a detenerse y reflexionar. No retórica — debe sentirse como una pregunta real. Ejemplos: "¿Qué haces cuando ya no puedes más?", "¿Y si Dios está en lo que no entiendes?", "¿Cuánto tiempo más, Señor?". La pregunta debe tocar algo que el lector ya se ha preguntado en secreto.',
+  },
+  {
+    id: 'CONTRASTE',
+    instruction: 'FORMATO DE TÍTULO — Contraste o tensión: dos realidades opuestas en una sola frase. Ejemplos: "Cuando el cansancio se convierte en oración", "Lo que aprendes cuando ya no controlas nada", "A veces la paz llega paso a paso". La tensión entre las dos ideas es lo que engancha al lector.',
+  },
+  {
+    id: 'ESCENA_CONCRETA',
+    instruction: 'FORMATO DE TÍTULO — Escena cotidiana concreta: un momento de vida real que el lector reconoce. Ejemplos: "Cuando el corazón se cansa de esperar", "En los días que nadie ve", "El día que Dios llegó tarde (y no llegó tarde)". Debe evocar una situación específica, no un concepto abstracto.',
+  },
+  {
+    id: 'APLICACION',
+    instruction: 'FORMATO DE TÍTULO — Aplicación espiritual: una acción, actitud o disposición del creyente. Ejemplos: "La obediencia que nadie aplaude", "Servir también es una forma de amar", "Volver a empezar no es rendirse". Debe sonar como algo que el lector puede y debe hacer o encarnar.',
+  },
+] as const;
+
+// Tone styles for rotating variety — no two consecutive devotionals should use the same tone
+const TONE_STYLES = [
+  {
+    id: 'PASTORAL',
+    instruction: 'TONO DEL DEVOCIONAL — Pastoral y cálido: Escribe como un pastor que conoce de cerca a su congregación. Voz cercana, afectuosa, que acompaña sin juzgar. Como un abrazo escrito. La persona debe sentir que alguien la ve y la cuida mientras lee.',
+  },
+  {
+    id: 'PRACTICO',
+    instruction: 'TONO DEL DEVOCIONAL — Directo y práctico: Ve al grano. Menos poesía, más claridad y acción. Habla claro sobre el problema real de hoy y ofrece verdad bíblica aplicable ahora. Que cada párrafo tenga peso y dirección. El lector debe terminar sabiendo exactamente qué hacer.',
+  },
+  {
+    id: 'ESPERANZADOR',
+    instruction: 'TONO DEL DEVOCIONAL — Esperanzador y alentador: El peso del camino es real y no lo minimices. Pero la mirada siempre apunta hacia adelante. Cada párrafo debe dejar al lector con más esperanza que al comenzar. El tono es el de alguien que ya salió del túnel y le cuenta al que todavía está adentro.',
+  },
+  {
+    id: 'CONFRONTATIVO',
+    instruction: 'TONO DEL DEVOCIONAL — Confrontativo con amor: Di lo que necesita escucharse aunque incomode. Habla a la comodidad espiritual disfrazada de paz, al orgullo disfrazado de humildad, a la postergación de la obediencia. Pero siempre desde el amor genuino, nunca desde el juicio. Como un amigo que te dice la verdad porque te quiere.',
+  },
+  {
+    id: 'REFLEXIVO',
+    instruction: 'TONO DEL DEVOCIONAL — Reflexivo y contemplativo: Invita al lector a detenerse, respirar y mirar hacia adentro con honestidad. No hay prisa. Espacio para la introspección, las preguntas sin respuesta fácil y el silencio interior ante Dios. Que el devocional se sienta como una conversación lenta y profunda.',
+  },
+  {
+    id: 'COTIDIANO',
+    instruction: 'TONO DEL DEVOCIONAL — Sencillo y cotidiano: Como una conversación honesta entre amigos un martes por la mañana. Sin lenguaje religioso elevado, sin palabras que suenen a sermón. Simple, directo, humano. La fe vivida en la rutina real de los días ordinarios. Que cualquier persona lo entienda sin glosario.',
+  },
+] as const;
+
+// Content structure templates — rotate to avoid monotony
+const CONTENT_STRUCTURES = [
+  {
+    id: 'PROBLEMA_VERDAD_APLICACION',
+    instruction: 'ESTRUCTURA DEL CONTENIDO — Problema real → Verdad bíblica → Aplicación: Comienza identificando una lucha, tensión o dolor real que el lector reconoce en su vida. No lo suavices demasiado rápido. Luego deja que la Escritura entre como respuesta viva y concreta. Cierra con pasos reales para hoy, no ideales abstractos.',
+  },
+  {
+    id: 'HISTORIA_BIBLICA_LECCION_ORACION',
+    instruction: 'ESTRUCTURA DEL CONTENIDO — Personaje bíblico → Lección → Oración de aplicación: El personaje bíblico es el punto de entrada y el espejo. Muestra su humanidad, su lucha, su transformación. Extrae la lección como algo que el lector también puede vivir. La oración cierra el ciclo conectando la historia antigua con el corazón de hoy.',
+  },
+  {
+    id: 'ESCENA_COTIDIANA_REFLEXION_ACCION',
+    instruction: 'ESTRUCTURA DEL CONTENIDO — Escena de vida diaria → Reflexión espiritual → Acción concreta: Empieza con un momento específico de vida cotidiana (el café de la mañana, un mensaje sin respuesta, una decisión pendiente, el cansancio del trabajo). Desde esa escena construye la verdad espiritual. Termina con algo concreto que el lector puede hacer hoy mismo.',
+  },
+  {
+    id: 'PREGUNTA_DESARROLLO_ESPERANZA',
+    instruction: 'ESTRUCTURA DEL CONTENIDO — Pregunta fuerte → Desarrollo honesto → Esperanza final: Abre con una pregunta que el lector ya se ha hecho pero quizás no se ha atrevido a decir en voz alta. Desarrolla la tensión sin resolverla demasiado rápido — honra el peso de la pregunta. Llega a la esperanza como quien llega al amanecer después de una larga noche: gradual, real, ganada.',
+  },
+] as const;
 
 // Devotional images from Unsplash
 const IMAGES = [
@@ -124,16 +226,78 @@ function extractProtagonistName(story: string): string | null {
   return words.find(w => !SKIP.has(w)) ?? null;
 }
 
+/** Extracts significant words (4+ chars, lowercase) from a title for frequency analysis */
+function extractTitleWords(title: string): string[] {
+  const STOP = new Set([
+    'para','como','cuando','donde','desde','hasta','entre','sobre','también','después',
+    'antes','aunque','porque','pero','sino','pues','más','menos','muy','todo','toda',
+    'todos','todas','este','esta','esto','ese','esa','eso','por','que','del','los','las',
+    'con','una','unos','unas','ser','fue','era','han','has','hay','hoy','bien','sólo','solo',
+    'algo','nada','cada','otro','otra','ellos','ellas','ello','aquí','allí','ahí',
+  ]);
+  return title
+    .toLowerCase()
+    .replace(/[¿?¡!.,;:]/g, '')
+    .split(/\s+/)
+    .filter(w => w.length >= 4 && !STOP.has(w));
+}
+
+/** Determines which tone style to use for a given date to avoid consecutive repetition */
+function selectToneStyle(date: string): typeof TONE_STYLES[number] {
+  // Use a combination of day-of-year and week number to vary tones
+  const day = dayOfYearUTC(date);
+  const idx = Math.floor(day / 2) % TONE_STYLES.length;
+  return TONE_STYLES[idx]!;
+}
+
+/** Determines which title format to use for a given date */
+function selectTitleFormat(date: string): typeof TITLE_FORMATS[number] {
+  const day = dayOfYearUTC(date);
+  const idx = Math.floor(day / 3) % TITLE_FORMATS.length;
+  return TITLE_FORMATS[idx]!;
+}
+
+/** Determines which content structure to use for a given date */
+function selectContentStructure(date: string): typeof CONTENT_STRUCTURES[number] {
+  const day = dayOfYearUTC(date);
+  const idx = Math.floor(day / 5) % CONTENT_STRUCTURES.length;
+  return CONTENT_STRUCTURES[idx]!;
+}
+
+interface GenerationContext {
+  usedNames?: string[];
+  /** Words that appear frequently in recent titles — avoid repeating these */
+  overusedTitleWords?: string[];
+  toneStyle?: typeof TONE_STYLES[number];
+  titleFormat?: typeof TITLE_FORMATS[number];
+  contentStructure?: typeof CONTENT_STRUCTURES[number];
+}
+
 export async function generateDevotionalWithAI(
   topic: { en: string; es: string },
-  usedNames: string[] = [],
+  context: GenerationContext = {},
 ): Promise<DevotionalContent> {
   storyGenerationCount++;
+
+  const {
+    usedNames = [],
+    overusedTitleWords = [],
+    toneStyle = TONE_STYLES[storyGenerationCount % TONE_STYLES.length]!,
+    titleFormat = TITLE_FORMATS[storyGenerationCount % TITLE_FORMATS.length]!,
+    contentStructure = CONTENT_STRUCTURES[storyGenerationCount % CONTENT_STRUCTURES.length]!,
+  } = context;
 
   // Determine story style variation based on count
   const useNoName = storyGenerationCount % 5 === 0; // 1 in 5: no names at all
   const useFirstPerson = storyGenerationCount % 10 === 0; // 1 in 10: first person "I felt..."
   const endWithQuestion = storyGenerationCount % 3 === 0; // ~1 in 3: end with a question instead of conclusion
+
+  // Build anti-repetition word block for the title
+  const allRestrictedWords = [...new Set([...QUARANTINE_WORDS, ...overusedTitleWords])];
+  const titleWordRestrictions = allRestrictedWords.length > 0
+    ? `PALABRAS PROHIBIDAS EN EL TÍTULO (no usar ninguna de estas): ${allRestrictedWords.join(', ')}.
+Estas palabras están sobre-representadas en los devocionales recientes. Usar cualquiera de ellas se considerará un error de calidad.`
+    : `PALABRAS EN CUARENTENA (evitar casi siempre): ${QUARANTINE_WORDS.join(', ')}.`;
 
   const storyStyleInstructions = `
 === INSTRUCCIONES ESPECÍFICAS PARA ESTA HISTORIA (seguir al pie de la letra) ===
@@ -142,12 +306,12 @@ ${useNoName
   : `IDENTIDAD DEL PROTAGONISTA: Usa un nombre POCO COMÚN o INUSUAL para el protagonista — evita absolutamente nombres comunes como María, Juan, Pedro, Ana, Carlos, Laura, José. Elige un nombre bíblico o inusual. Considera nombres como: Tadeo, Noa, Lía, Adara, Simei, Tomás, Hadasa, Zoe, Caleb, Débora, Rufina, Isamar, Leví, Jada, Eliú, Selah, Jairo, Neftalí, Abigaíl, Gersón, Tamar, Rut, Booz, Amós, Priscila, Aquila, Epafras, Tíquico, Onésimo, Clemente, Lidia, Febe, Dorcas, Cornelio, Esteban, Felipe, Bernabé. También puedes mezclar: nombre para el protagonista y descripciones para los demás.`}
 
 ${useFirstPerson
-  ? `VOZ NARRATIVA: Escribe en PRIMERA PERSONA — como un testimonio personal íntimo. Usa frases como "Yo sentí…", "Recuerdo cuando…", "Fue una noche que…", "No supe cómo explicarlo, pero…", "Algo dentro de mí se quebró…". Debe sentirse como alguien contando su historia más vulnerable ante Dios.`
+  ? `VOZ NARRATIVA: Escribe en PRIMERA PERSONA — como un testimonio personal íntimo. Usa frases como "Yo sentí…", "Recuerdo cuando…", "Fue una mañana que…", "No supe cómo explicarlo, pero…", "Algo dentro de mí se quebró…". Debe sentirse como alguien contando su historia más vulnerable ante Dios.`
   : `VOZ NARRATIVA: Escribe en tercera persona, pero desde lo MÁS PROFUNDO del mundo interior del protagonista. No narres hechos externos — narra lo que él/ella sentía, temía, esperaba, callaba. El lector debe olvidar que está leyendo una historia y sentir que está dentro del alma de esa persona.`}
 
 ${endWithQuestion
   ? `CIERRE: NO termines con una conclusión, moraleja ni frase esperanzadora directa. Cierra con una PREGUNTA ESPIRITUAL PODEROSA Y ABIERTA que haga al lector detenerse y preguntarse algo sobre su propia fe, su propio corazón o su relación con Dios. La pregunta no debe ser retórica — debe sentirse genuina, profunda, casi incómoda en su honestidad.`
-  : `CIERRE: Termina con UN INSTANTE QUIETO Y SAGRADO — no una lección, sino una verdad sentida. Un momento donde Dios y el protagonista están en silencio juntos, y en ese silencio todo cambia. Cierra con una frase breve, poderosa y esperanzadora que haga al lector sentir que Dios también está cerca de él.`}
+  : `CIERRE: Termina con un instante humano y real — no una lección teológica, sino una verdad sentida en el cuerpo. Un momento donde algo cambia dentro del protagonista. Cierra con una frase breve y poderosa que haga al lector sentir que Dios también está cerca de él ahora mismo.`}
 `;
 
   const prompt = `Eres un escritor devocional cristiano con un don extraordinario para historias profundamente conmovedoras, espiritualmente íntimas y emocionalmente devastadoras en el mejor sentido — historias que hacen llorar, que restauran el alma, que hacen sentir a quien las lee que Dios lo vio, lo conoce y lo ama.
@@ -157,30 +321,40 @@ Genera un devocional diario completo sobre el tema "${topic.en}" / "${topic.es}"
 Devuelve ÚNICAMENTE un objeto JSON válido con esta estructura exacta (sin markdown, sin bloques de código, solo JSON puro):
 
 {
-  "title": "Un título en inglés que capture la esencia emocional y espiritual del devocional (5-8 palabras). Evita títulos genéricos. Que sea memorable.",
-  "titleEs": "Mismo título en español — que suene natural, poético y poderoso, no como traducción literal",
+  "title": "Título en inglés — ver instrucciones de formato más abajo.",
+  "titleEs": "Título en español — ver instrucciones de formato más abajo.",
   "bibleVerse": "Un versículo bíblico relevante en inglés, entre comillas. Elige versículos que sean profundamente consoladores, transformadores o que generen impacto emocional real.",
   "bibleVerseEs": "Mismo versículo en español — versión Reina-Valera o NVI, entre comillas",
   "bibleReference": "Referencia bíblica en inglés (ej: 'Psalm 23:1' o '1 Corinthians 13:4-7')",
   "bibleReferenceEs": "Misma referencia en español con nombre del libro traducido (ej: 'Salmo 23:1' o '1 Corintios 13:4-7')",
-  "reflection": "Una reflexión profunda, espiritual y accesible sobre el tema (3-4 párrafos, aprox. 200-250 palabras). NO expliques el versículo académicamente. Conecta la Escritura con el dolor real de las personas, con sus miedos cotidianos, con esos momentos de las 3am cuando todo parece perdido. Habla como alguien que ha sufrido y ha encontrado a Dios en el sufrimiento.",
+  "reflection": "Una reflexión profunda, espiritual y accesible sobre el tema (3-4 párrafos, aprox. 200-250 palabras). NO expliques el versículo académicamente. Conecta la Escritura con el dolor real de las personas, con sus miedos cotidianos. Habla como alguien que ha sufrido y ha encontrado a Dios en el sufrimiento.",
   "reflectionEs": "Misma reflexión en español — que fluya de manera natural y emocionalmente resonante, no como traducción",
-  "storyEs": "UNA HISTORIA DEVOCIONAL INSPIRADORA E IMPACTANTE (3-4 párrafos, aprox. 220-270 palabras). SIGUE LAS INSTRUCCIONES DE ESTILO A CONTINUACIÓN. Esta es la versión PRINCIPAL de la historia — compuesta directamente en español con toda la riqueza emocional, espiritual y narrativa. Debe sentirse como un TESTIMONIO REAL DE VIDA — no como una parábola ni un ejemplo ilustrativo. Debe tener: (1) un momento de crisis o quiebre genuino con detalles cotidianos concretos como lugar, hora, pequeño gesto; (2) una intervención clara y emocionante de Dios — puede ser a través de una oración, un versículo que llega en el momento justo, un acto de fe, un pequeño milagro o una transformación interior profunda; (3) una transformación visible del antes al después. Prioriza las emociones internas intensas: miedo, dolor, esperanza, culpa, alivio, gozo, fe renovada. Incluye al menos una frase que se quede grabada en el corazón del lector. El lector debe sentir que esto le pudo pasar a alguien como él.",
-  "story": "Misma historia adaptada al inglés — preservando cada matiz emocional y espiritual de la versión en español. La versión en inglés debe sentirse tan íntima y poderosa como el original en español, no como una traducción literal.",
-  "biblicalCharacter": "Una sección sobre un personaje bíblico que ejemplificó esta virtud de manera profunda y humana (2-3 párrafos, aprox. 150-200 palabras). No hagas un resumen biográfico — muestra el momento de quiebre y transformación de ese personaje. Incluye referencias bíblicas específicas. Que el lector sienta que ese personaje también fue humano, frágil, y fue sostenido por Dios.",
+  "storyEs": "UNA HISTORIA DEVOCIONAL INSPIRADORA E IMPACTANTE (3-4 párrafos, aprox. 220-270 palabras). SIGUE LAS INSTRUCCIONES DE ESTILO A CONTINUACIÓN. Esta es la versión PRINCIPAL de la historia — compuesta directamente en español con toda la riqueza emocional, espiritual y narrativa. Debe sentirse como un TESTIMONIO REAL DE VIDA — no como una parábola ni un ejemplo ilustrativo. Debe tener: (1) un momento de crisis o quiebre genuino con detalles cotidianos concretos como lugar, hora, pequeño gesto; (2) una intervención clara de Dios — puede ser a través de una oración, un versículo que llega en el momento justo, un acto de fe, un pequeño milagro o una transformación interior profunda; (3) una transformación visible del antes al después. Prioriza las emociones internas intensas: miedo, dolor, esperanza, culpa, alivio, gozo, fe renovada. Incluye al menos una frase que se quede grabada en el corazón del lector.",
+  "story": "Misma historia adaptada al inglés — preservando cada matiz emocional y espiritual de la versión en español. La versión en inglés debe sentirse tan íntima y poderosa como el original, no como una traducción literal.",
+  "biblicalCharacter": "Una sección sobre un personaje bíblico que ejemplificó esta virtud de manera profunda y humana (2-3 párrafos, aprox. 150-200 palabras). No hagas un resumen biográfico — muestra el momento de quiebre y transformación de ese personaje. Incluye referencias bíblicas específicas.",
   "biblicalCharacterEs": "Misma sección en español",
   "application": "2-3 aplicaciones prácticas para hoy — concretas, específicas y alcanzables. No ideales abstractos. Acciones reales que una persona puede hacer hoy, ahora, en su vida cotidiana. Escríbelas con calidez, no como mandatos.",
   "applicationEs": "Mismas aplicaciones en español",
-  "prayer": "Una oración de aprox. 100-120 palabras. Que sea una conversación REAL, íntima y profunda con Dios — no un texto litúrgico formal. Que incluya el peso emocional del tema: nombra el dolor, el miedo o la esperanza. Que el lector sienta que alguien escribió esta oración desde sus propias rodillas, llorando y creyendo al mismo tiempo.",
+  "prayer": "Una oración de aprox. 100-120 palabras. Que sea una conversación REAL, íntima y profunda con Dios — no un texto litúrgico formal. Que incluya el peso emocional del tema: nombra el dolor, el miedo o la esperanza. Que el lector sienta que alguien escribió esta oración desde sus propias rodillas.",
   "prayerEs": "Misma oración en español — que fluya con naturalidad, emoción y fe auténtica"
 }
 
 ${storyStyleInstructions}
 
+=== SISTEMA ANTI-REPETICIÓN (CRÍTICO — respetar al máximo) ===
+
+${titleWordRestrictions}
+
+${toneStyle.instruction}
+
+${titleFormat.instruction}
+
+${contentStructure.instruction}
+
 === LINEAMIENTOS GLOBALES (aplicar siempre, sin excepción) ===
 
-TONO Y VOZ:
-- Escribe como un testimonio íntimo y humano, NUNCA como un texto informativo o documental
+AUTENTICIDAD HUMANA:
+- Escribe como un testimonio íntimo y humano, NUNCA como un texto informativo, documental o de sermón genérico
 - El lector debe sentir: "esto le pudo pasar a alguien como yo" — o incluso "esto ME pasó a mí"
 - Prioriza emociones internas intensas: miedo real, dolor auténtico, esperanza frágil, culpa que aplasta, alivio que libera, gozo que sorprende, fe renovada contra toda lógica
 - Evita explicaciones largas o moralizantes — la enseñanza debe surgir naturalmente de la historia
@@ -189,20 +363,16 @@ TONO Y VOZ:
 DETALLES CONCRETOS:
 - Incluye detalles cotidianos específicos que hagan la historia sentirse real: el lugar exacto, la hora del día, un gesto pequeño, una frase dicha en voz baja, el olor de algo, la textura de un momento
 - Los detalles específicos son los que hacen llorar — no los conceptos abstractos
+- Evita ambientaciones que suenen a "escena de película cristiana": amanecer en el campo, montaña en la niebla, lago tranquilo. Usa escenas de vida real: la cocina, el trabajo, el carro, el hospital, la mesa de noche
 
-AUTENTICIDAD Y VARIEDAD:
-- NUNCA repitas nombres comunes en múltiples historias
-- Cada historia debe iniciar de manera diferente — varía la apertura: a veces con una imagen, a veces con una emoción, a veces con un diálogo, a veces con una pregunta, a veces con un objeto concreto
+VARIEDAD DE APERTURA:
+- Cada historia debe iniciar de manera diferente — varía la apertura: a veces con una imagen concreta, a veces con una emoción sin nombre, a veces con un diálogo real, a veces con una pregunta, a veces con un objeto específico
 - Varía el ritmo: algunas historias pueden ser lentas y contemplativas, otras urgentes y angustiantes
-
-CIERRE ESPIRITUAL:
-- Todas las historias deben cerrar con una frase poderosa, breve y esperanzadora que haga sentir al lector que Dios está presente y cerca — incluso ahora mismo, mientras lee esto
-- Que la última frase sea memorable: algo que el lector repita para sí mismo antes de dormir
 
 OBJETIVO FINAL:
 - Que cada historia se sienta ÚNICA, MEMORABLE e IMPACTANTE
-- Que el lector NO sienta que leyó "otro devocional más", sino un TESTIMONIO QUE TOCÓ SU CORAZÓN
-- Que después de leer, el lector quiera orar — o llorar — o simplemente quedarse en silencio ante Dios
+- Que el lector NO sienta que leyó "otro devocional más", sino algo que tocó su corazón hoy
+- Que después de leer, el lector quiera orar — o simplemente quedarse en silencio ante Dios
 
 IDIOMA Y CALIDAD:
 - El español debe ser el idioma principal de calidad — natural, emocionalmente resonante, NUNCA traducción literal
@@ -360,13 +530,15 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
   }
 
   try {
-    // Fetch protagonist names used in recent devotionals (last 30 entries) for post-generation validation
+    // Fetch recent devotionals for anti-repetition context (last 30 entries)
     const recentDevotionals = await prisma.devotional.findMany({
       where: { date: { lte: date } },
       orderBy: { date: 'desc' },
       take: 30,
-      select: { story: true },
+      select: { story: true, titleEs: true },
     });
+
+    // Collect used protagonist names
     const usedNames: string[] = [];
     for (const dev of recentDevotionals) {
       const name = extractProtagonistName(dev.story);
@@ -374,10 +546,34 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
     }
     console.log(`[Devotional] Used names for ${date}: ${usedNames.join(', ')}`);
 
+    // Collect overused title words from last 15 devotionals
+    const recentTitles = recentDevotionals.slice(0, 15).map(d => d.titleEs);
+    const wordFreq: Record<string, number> = {};
+    for (const title of recentTitles) {
+      for (const word of extractTitleWords(title)) {
+        wordFreq[word] = (wordFreq[word] ?? 0) + 1;
+      }
+    }
+    // Words appearing 3+ times in last 15 titles are considered overused
+    const overusedTitleWords = Object.entries(wordFreq)
+      .filter(([, count]) => count >= 3)
+      .map(([word]) => word);
+    if (overusedTitleWords.length > 0) {
+      console.log(`[Devotional] Overused title words for ${date}: ${overusedTitleWords.join(', ')}`);
+    }
+
+    // Select variety parameters deterministically by date
+    const toneStyle = selectToneStyle(date);
+    const titleFormat = selectTitleFormat(date);
+    const contentStructure = selectContentStructure(date);
+    console.log(`[Devotional] Variety for ${date}: tone=${toneStyle.id}, format=${titleFormat.id}, structure=${contentStructure.id}`);
+
+    const genContext: GenerationContext = { usedNames, overusedTitleWords, toneStyle, titleFormat, contentStructure };
+
     // Generate with up to 3 retries if protagonist name is a duplicate
     let content: DevotionalContent | null = null;
     for (let attempt = 1; attempt <= 3; attempt++) {
-      const candidate = await generateDevotionalWithAI(topic, usedNames);
+      const candidate = await generateDevotionalWithAI(topic, genContext);
       const generatedName = extractProtagonistName(candidate.story);
       const generatedNameEs = extractProtagonistName(candidate.storyEs ?? '');
       const isDuplicate = generatedName && usedNames.includes(generatedName);
@@ -391,7 +587,7 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
     }
     if (!content) {
       // All retries exhausted — use last attempt anyway
-      content = await generateDevotionalWithAI(topic, usedNames);
+      content = await generateDevotionalWithAI(topic, genContext);
       console.warn(`[Devotional] All retries exhausted for ${date} — using last generated content`);
     }
 
