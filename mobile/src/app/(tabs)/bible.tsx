@@ -1561,7 +1561,7 @@ export default function BibleScreen() {
       <StrongSheet
         visible={strongSheetEntry != null}
         entry={strongSheetEntry}
-        isFavorite={strongSheetEntry != null && strongFavorites.has(strongSheetEntry.id)}
+        isFavoriteOf={(id) => strongFavorites.has(id)}
         onToggleFavorite={handleStrongFavoriteToggle}
         onClose={() => setStrongSheetEntry(null)}
         onNavigateToVerse={handleNavigateFromStrong}

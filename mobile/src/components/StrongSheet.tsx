@@ -1,7 +1,14 @@
-// StrongSheet — Bottom sheet showing Strong's Concordance entry details
-// Opens when user taps an interactive word in Strong Mode.
+// StrongSheet — Bottom sheet showing Strong's Concordance entry details.
+// Features:
+//   • Internal navigation stack (back button when browsing related entries)
+//   • Spanish definitions from SPANISH_LEXICON (fallback to English)
+//   • Spanish gloss chips
+//   • Related Strong entries (same Spanish gloss family)
+//   • Pressable occurrences card → opens full appearances list
+//   • Verse preview (first 4 appearances)
+//   • Favorite toggle
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -27,10 +34,12 @@ import {
   List,
   ChevronRight,
   Languages,
+  ArrowLeft,
 } from 'lucide-react-native';
 import type { StrongEntry, VerseAppearance } from '@/lib/strong/types';
 import { strongRepository } from '@/lib/strong/repository';
-import { getSpanishGlosses } from '@/lib/strong/spanishIndex';
+import { getSpanishGlosses, SPANISH_GLOSS_INDEX } from '@/lib/strong/spanishIndex';
+import { getSpanishShortDef } from '@/lib/strong/spanishLexicon';
 import { BIBLE_BOOKS } from '@/lib/bible/books';
 import type { useThemeColors } from '@/lib/store';
 
@@ -39,7 +48,8 @@ import type { useThemeColors } from '@/lib/store';
 interface StrongSheetProps {
   visible: boolean;
   entry: StrongEntry | null;
-  isFavorite: boolean;
+  /** Returns true if the given Strong ID is saved as a favorite */
+  isFavoriteOf: (strongId: string) => boolean;
   onToggleFavorite: (strongId: string) => void;
   onClose: () => void;
   onNavigateToVerse: (bookId: string, chapter: number, verse: number) => void;
@@ -69,44 +79,74 @@ function SectionLabel({ icon, text, color }: {
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 export function StrongSheet({
-  visible, entry, isFavorite, onToggleFavorite, onClose, onNavigateToVerse, onViewAppearances, colors, lang,
+  visible, entry, isFavoriteOf, onToggleFavorite, onClose,
+  onNavigateToVerse, onViewAppearances, colors, lang,
 }: StrongSheetProps) {
-  // ── Animation (Reanimated v3) ──────────────────────────────────────────────
+
+  // ── Animation ────────────────────────────────────────────────────────────
   const translateY = useSharedValue(600);
-
   useEffect(() => {
-    if (visible) {
-      translateY.value = withSpring(0, { damping: 18, stiffness: 200, mass: 0.8 });
-    } else {
-      translateY.value = withTiming(600, { duration: 260 });
-    }
+    translateY.value = visible
+      ? withSpring(0, { damping: 18, stiffness: 200, mass: 0.8 })
+      : withTiming(600, { duration: 260 });
   }, [visible]);
-
   const sheetStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }));
 
-  // ── Preserve entry during close animation ─────────────────────────────────
-  // lastEntryRef holds the last non-null entry so content stays visible
-  // while the sheet slides out.
+  // ── Preserve entry during close animation ─────────────────────────────
   const lastEntryRef = useRef<StrongEntry | null>(null);
   if (entry !== null) lastEntryRef.current = entry;
-  const e = lastEntryRef.current;
+  const baseEntry = lastEntryRef.current;
 
-  // ── Dynamic verse appearances ─────────────────────────────────────────────
+  // ── Internal navigation stack ─────────────────────────────────────────
+  const [entryStack, setEntryStack] = useState<StrongEntry[]>([]);
+
+  // Reset stack when a new external entry arrives
+  useEffect(() => {
+    setEntryStack([]);
+  }, [entry?.id]);
+
+  // Clear stack after close animation completes
+  useEffect(() => {
+    if (!visible) {
+      const t = setTimeout(() => setEntryStack([]), 350);
+      return () => clearTimeout(t);
+    }
+  }, [visible]);
+
+  // Currently displayed entry = top of stack or the external prop entry
+  const e = entryStack.length > 0 ? entryStack[entryStack.length - 1] : baseEntry;
+  const canGoBack = entryStack.length > 0;
+
+  const pushEntry = useCallback((strongId: string) => {
+    const found = strongRepository.getEntryById(strongId);
+    if (found) setEntryStack(prev => [...prev, found]);
+  }, []);
+
+  const popEntry = useCallback(() => {
+    setEntryStack(prev => prev.slice(0, -1));
+  }, []);
+
+  // ── ScrollView reset when entry changes ──────────────────────────────
+  const scrollRef = useRef<ScrollView>(null);
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
+  }, [e?.id]);
+
+  // ── Dynamic verse appearances ─────────────────────────────────────────
   const [previewAppearances, setPreviewAppearances] = useState<VerseAppearance[]>([]);
   const [appearancesLoading, setAppearancesLoading] = useState(false);
   const [realOccurrencesCount, setRealOccurrencesCount] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!entry) return;
+    const id = e?.id;
+    if (!id) return;
     setPreviewAppearances([]);
     setRealOccurrencesCount(null);
     setAppearancesLoading(true);
-    // Run off the JS event loop tick so the sheet opens smoothly first
     const timer = setTimeout(() => {
-      const all = strongRepository.getVerseAppearances(entry.id);
-      // Deduplicate by verseId
+      const all = strongRepository.getVerseAppearances(id);
       const seen = new Set<string>();
       const deduped = all.filter(a => {
         if (seen.has(a.verseId)) return false;
@@ -118,31 +158,48 @@ export function StrongSheet({
       setAppearancesLoading(false);
     }, 80);
     return () => clearTimeout(timer);
-  }, [entry?.id]);
+  }, [e?.id]);
 
-  // ── Favorite — uses current entry from ref, not stale closure ─────────────
+  // ── Related Strong entries (same Spanish gloss family) ────────────────
+  const relatedIds = useMemo((): string[] => {
+    if (!e) return [];
+    const glosses = getSpanishGlosses(e.id);
+    const ids = new Set<string>();
+    for (const gloss of glosses) {
+      for (const id of (SPANISH_GLOSS_INDEX[gloss] ?? [])) {
+        if (id !== e.id) ids.add(id);
+      }
+    }
+    return Array.from(ids).slice(0, 8);
+  }, [e?.id]);
+
+  // ── Favorite (reads from isFavoriteOf for the current displayed entry) ─
   const entryRef = useRef<StrongEntry | null>(null);
   entryRef.current = e;
   const handleFavorite = useCallback(() => {
     if (entryRef.current) onToggleFavorite(entryRef.current.id);
   }, [onToggleFavorite]);
 
-  // ── i18n ──────────────────────────────────────────────────────────────────
+  // ── Derived display values ────────────────────────────────────────────
   const isHebrew = e?.language === 'Hebrew';
   const accentColor = isHebrew ? '#7C3AED' : '#0369A1';
+  const spanishShort = e ? getSpanishShortDef(e.id) : null;
+  const glosses = e ? getSpanishGlosses(e.id) : [];
+  const isCurrentFavorite = e ? isFavoriteOf(e.id) : false;
 
+  // ── i18n labels ───────────────────────────────────────────────────────
   const t = {
-    language:       lang === 'es' ? 'Idioma'                   : 'Language',
-    grammar:        lang === 'es' ? 'Categoría gram.'           : 'Grammar',
-    longDef:        lang === 'es' ? 'Definición ampliada'       : 'Full definition',
-    occurrences:    lang === 'es' ? 'Apariciones'               : 'Occurrences',
-    relatedVerses:  lang === 'es' ? 'Versículos relacionados'   : 'Related verses',
-    favorite:       lang === 'es' ? 'Guardar en favoritos'      : 'Save to favorites',
-    unfavorite:     lang === 'es' ? 'Quitar de favoritos'       : 'Remove from favorites',
-    allAppearances: lang === 'es' ? 'Ver todas las apariciones' : 'See all occurrences',
-    timesLabel:     lang === 'es' ? 'veces en la Biblia'        : 'times in the Bible',
-    hebreo:         lang === 'es' ? 'Hebreo'                   : 'Hebrew',
-    griego:         lang === 'es' ? 'Griego'                   : 'Greek',
+    language:  lang === 'es' ? 'Idioma'           : 'Language',
+    grammar:   lang === 'es' ? 'Categoría gram.'  : 'Grammar',
+    longDef:   lang === 'es' ? 'Definición'       : 'Definition',
+    occurrences: lang === 'es' ? 'Apariciones'    : 'Occurrences',
+    favorite:  lang === 'es' ? 'Guardar en favoritos' : 'Save to favorites',
+    unfavorite:lang === 'es' ? 'Quitar de favoritos'  : 'Remove from favorites',
+    timesLabel:lang === 'es' ? 'versículos cubiertos'  : 'covered verses',
+    hebreo:    lang === 'es' ? 'Hebreo'           : 'Hebrew',
+    griego:    lang === 'es' ? 'Griego'           : 'Greek',
+    related:   lang === 'es' ? 'Palabras relacionadas' : 'Related entries',
+    appearances: lang === 'es' ? 'Apariciones en la Biblia' : 'Bible appearances',
   };
 
   return (
@@ -153,12 +210,11 @@ export function StrongSheet({
       onRequestClose={onClose}
       statusBarTranslucent
     >
-      {/* Backdrop — tap closes sheet */}
+      {/* Backdrop */}
       <Pressable
         style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'flex-end' }}
         onPress={onClose}
       >
-        {/* Stop touches inside the sheet from closing it */}
         <Pressable onPress={() => {}}>
           <Animated.View
             style={[
@@ -180,7 +236,28 @@ export function StrongSheet({
               alignSelf: 'center', marginTop: 10, marginBottom: 4,
             }} />
 
-            {/* Close button — absolute so it stays above content */}
+            {/* Back button — absolute top-left, only when navigating internally */}
+            {canGoBack && (
+              <Pressable
+                onPress={popEntry}
+                hitSlop={12}
+                style={({ pressed }) => ({
+                  position: 'absolute', top: 12, left: 14, zIndex: 10,
+                  opacity: pressed ? 0.6 : 1,
+                  flexDirection: 'row', alignItems: 'center', gap: 4,
+                  paddingHorizontal: 10, paddingVertical: 6,
+                  borderRadius: 20,
+                  backgroundColor: accentColor + '15',
+                })}
+              >
+                <ArrowLeft size={14} color={accentColor} strokeWidth={2.5} />
+                <Text style={{ fontSize: 13, fontWeight: '700', color: accentColor }}>
+                  Atrás
+                </Text>
+              </Pressable>
+            )}
+
+            {/* Close button — absolute top-right */}
             <Pressable
               onPress={onClose}
               hitSlop={12}
@@ -195,12 +272,12 @@ export function StrongSheet({
               <X size={15} color={colors.textMuted} />
             </Pressable>
 
-            {/* Guard: show placeholder height until entry is available */}
+            {/* Guard */}
             {!e ? (
               <View style={{ height: 80 }} />
             ) : (
               <>
-                {/* ── Header ─────────────────────────────────────────────── */}
+                {/* ── Header ───────────────────────────────────────────── */}
                 <View style={{ paddingHorizontal: 22, paddingTop: 10, paddingBottom: 18 }}>
                   {/* Strong ID + language chip */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
@@ -242,20 +319,22 @@ export function StrongSheet({
                   }}>
                     {e.transliteration}
                   </Text>
+
+                  {/* Definition: Spanish (primary) or English (fallback) */}
                   <Text style={{ fontSize: 14, color: colors.textMuted, fontWeight: '500', lineHeight: 20 }}>
-                    {e.shortDefinition}
+                    {spanishShort ?? e.shortDefinition}
                   </Text>
                 </View>
 
                 {/* Divider */}
                 <View style={{
-                  height: 0.5,
-                  backgroundColor: colors.textMuted + '22',
+                  height: 0.5, backgroundColor: colors.textMuted + '22',
                   marginHorizontal: 20, marginBottom: 18,
                 }} />
 
-                {/* ── Scrollable body ─────────────────────────────────────── */}
+                {/* ── Scrollable body ──────────────────────────────────── */}
                 <ScrollView
+                  ref={scrollRef}
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{ paddingHorizontal: 22, paddingBottom: 16 }}
                   keyboardShouldPersistTaps="handled"
@@ -290,15 +369,19 @@ export function StrongSheet({
                     </View>
                   </View>
 
-                  {/* Occurrences */}
-                  <View style={{
-                    flexDirection: 'row', alignItems: 'center', gap: 10,
-                    backgroundColor: accentColor + '10',
-                    borderRadius: 12, padding: 12, marginBottom: 20,
-                    borderWidth: 1, borderColor: accentColor + '25',
-                  }}>
+                  {/* ── Occurrences card — PRESSABLE → opens full list ── */}
+                  <Pressable
+                    onPress={() => e && onViewAppearances(e.id)}
+                    style={({ pressed }) => ({
+                      flexDirection: 'row', alignItems: 'center', gap: 10,
+                      backgroundColor: pressed ? accentColor + '18' : accentColor + '10',
+                      borderRadius: 12, padding: 12, marginBottom: 20,
+                      borderWidth: 1, borderColor: accentColor + '30',
+                    })}
+                  >
+                    {/* Count circle */}
                     <View style={{
-                      width: 40, height: 40, borderRadius: 10,
+                      width: 44, height: 44, borderRadius: 12,
                       backgroundColor: accentColor + '20',
                       alignItems: 'center', justifyContent: 'center',
                     }}>
@@ -312,6 +395,8 @@ export function StrongSheet({
                         </Text>
                       )}
                     </View>
+
+                    {/* Label */}
                     <View style={{ flex: 1 }}>
                       <SectionLabel
                         icon={<List size={10} color={accentColor + 'BB'} />}
@@ -323,40 +408,39 @@ export function StrongSheet({
                           : t.timesLabel}
                       </Text>
                     </View>
-                  </View>
 
-                  {/* Spanish glosses */}
-                  {(() => {
-                    const glosses = getSpanishGlosses(e.id);
-                    if (glosses.length === 0) return null;
-                    return (
-                      <View style={{ marginBottom: 20 }}>
-                        <SectionLabel
-                          icon={<Languages size={11} color={colors.textMuted} />}
-                          text="Significado en español" color={colors.textMuted}
-                        />
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-                          {glosses.map(g => (
-                            <View
-                              key={g}
-                              style={{
-                                paddingHorizontal: 12, paddingVertical: 5,
-                                borderRadius: 20, borderWidth: 1,
-                                backgroundColor: accentColor + '12',
-                                borderColor: accentColor + '30',
-                              }}
-                            >
-                              <Text style={{ fontSize: 13, fontWeight: '600', color: accentColor }}>
-                                {g.charAt(0).toUpperCase() + g.slice(1)}
-                              </Text>
-                            </View>
-                          ))}
-                        </View>
+                    {/* Arrow — signals interactivity */}
+                    <ChevronRight size={16} color={accentColor} strokeWidth={2} />
+                  </Pressable>
+
+                  {/* ── Spanish gloss chips ───────────────────────────── */}
+                  {glosses.length > 0 && (
+                    <View style={{ marginBottom: 20 }}>
+                      <SectionLabel
+                        icon={<Languages size={11} color={colors.textMuted} />}
+                        text="Significado en español" color={colors.textMuted}
+                      />
+                      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                        {glosses.map(g => (
+                          <View
+                            key={g}
+                            style={{
+                              paddingHorizontal: 12, paddingVertical: 5,
+                              borderRadius: 20, borderWidth: 1,
+                              backgroundColor: accentColor + '12',
+                              borderColor: accentColor + '30',
+                            }}
+                          >
+                            <Text style={{ fontSize: 13, fontWeight: '600', color: accentColor }}>
+                              {g.charAt(0).toUpperCase() + g.slice(1)}
+                            </Text>
+                          </View>
+                        ))}
                       </View>
-                    );
-                  })()}
+                    </View>
+                  )}
 
-                  {/* Long definition */}
+                  {/* ── Long definition ───────────────────────────────── */}
                   <View style={{ marginBottom: 20 }}>
                     <SectionLabel
                       icon={<AlignLeft size={11} color={colors.textMuted} />}
@@ -370,12 +454,12 @@ export function StrongSheet({
                     </Text>
                   </View>
 
-                  {/* Dynamic verse appearances preview */}
+                  {/* ── Verse appearances preview ────────────────────── */}
                   {(appearancesLoading || previewAppearances.length > 0) && (
-                    <View style={{ marginBottom: 24 }}>
+                    <View style={{ marginBottom: 20 }}>
                       <SectionLabel
                         icon={<BookOpen size={11} color={colors.textMuted} />}
-                        text="Apariciones en la Biblia" color={colors.textMuted}
+                        text={t.appearances} color={colors.textMuted}
                       />
                       {appearancesLoading ? (
                         <View style={{ paddingVertical: 12, alignItems: 'center' }}>
@@ -393,9 +477,7 @@ export function StrongSheet({
                             return (
                               <Pressable
                                 key={a.verseId}
-                                onPress={() => {
-                                  onNavigateToVerse(a.bookId, a.chapter, a.verse);
-                                }}
+                                onPress={() => onNavigateToVerse(a.bookId, a.chapter, a.verse)}
                                 style={({ pressed }) => ({ opacity: pressed ? 0.55 : 1 })}
                               >
                                 <View style={{
@@ -422,48 +504,94 @@ export function StrongSheet({
                     </View>
                   )}
 
-                  {/* Action buttons */}
-                  <View style={{ gap: 10 }}>
-                    {/* Favorite toggle */}
-                    <Pressable
-                      onPress={handleFavorite}
-                      style={({ pressed }) => ({
-                        opacity: pressed ? 0.75 : 1,
-                        flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                        gap: 8, paddingVertical: 14, borderRadius: 14,
-                        backgroundColor: isFavorite ? accentColor : colors.textMuted + '18',
-                      })}
-                    >
-                      <Star
-                        size={16}
-                        color={isFavorite ? '#fff' : colors.textMuted}
-                        fill={isFavorite ? '#fff' : 'transparent'}
-                        strokeWidth={2}
+                  {/* ── Related Strong entries (same gloss family) ────── */}
+                  {relatedIds.length > 0 && (
+                    <View style={{ marginBottom: 24 }}>
+                      <SectionLabel
+                        icon={<Languages size={11} color={colors.textMuted} />}
+                        text={t.related} color={colors.textMuted}
                       />
-                      <Text style={{ fontSize: 14, fontWeight: '700', color: isFavorite ? '#fff' : colors.textMuted }}>
-                        {isFavorite ? t.unfavorite : t.favorite}
-                      </Text>
-                    </Pressable>
+                      <View style={{
+                        backgroundColor: colors.background,
+                        borderRadius: 12, overflow: 'hidden',
+                        borderWidth: 1, borderColor: colors.textMuted + '20',
+                      }}>
+                        {relatedIds.map((relId, idx) => {
+                          const rel = strongRepository.getEntryById(relId);
+                          if (!rel) return null;
+                          const relIsHebrew = rel.language === 'Hebrew';
+                          const relColor = relIsHebrew ? '#7C3AED' : '#0369A1';
+                          const relSpanish = getSpanishShortDef(relId)?.split(',')[0].trim() ?? null;
+                          return (
+                            <Pressable
+                              key={relId}
+                              onPress={() => pushEntry(relId)}
+                              style={({ pressed }) => ({
+                                opacity: pressed ? 0.6 : 1,
+                              })}
+                            >
+                              <View style={{
+                                flexDirection: 'row', alignItems: 'center',
+                                paddingHorizontal: 14, paddingVertical: 12,
+                                borderBottomWidth: idx < relatedIds.length - 1 ? 0.5 : 0,
+                                borderBottomColor: colors.textMuted + '20',
+                                gap: 10,
+                              }}>
+                                {/* ID badge */}
+                                <View style={{
+                                  paddingHorizontal: 8, paddingVertical: 3,
+                                  borderRadius: 6,
+                                  backgroundColor: relColor + '15',
+                                }}>
+                                  <Text style={{ fontSize: 12, fontWeight: '800', color: relColor }}>
+                                    {relId}
+                                  </Text>
+                                </View>
 
-                    {/* See all occurrences */}
-                    <Pressable
-                      onPress={() => e && onViewAppearances(e.id)}
-                      style={({ pressed }) => ({
-                        flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                        gap: 8, paddingVertical: 14, borderRadius: 14,
-                        backgroundColor: pressed
-                          ? colors.primary + '20'
-                          : colors.primary + '10',
-                        borderWidth: 1,
-                        borderColor: colors.primary + '30',
-                      })}
-                    >
-                      <BookOpen size={15} color={colors.primary} />
-                      <Text style={{ fontSize: 14, fontWeight: '600', color: colors.primary }}>
-                        {t.allAppearances}
-                      </Text>
-                    </Pressable>
-                  </View>
+                                {/* Original word + Spanish gloss */}
+                                <View style={{ flex: 1 }}>
+                                  <Text style={{
+                                    fontSize: 15, fontWeight: '700', color: colors.text,
+                                    fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+                                  }} numberOfLines={1}>
+                                    {rel.lemmaOriginal}
+                                  </Text>
+                                  {relSpanish && (
+                                    <Text style={{ fontSize: 12, color: colors.textMuted }} numberOfLines={1}>
+                                      {relSpanish}
+                                    </Text>
+                                  )}
+                                </View>
+
+                                <ChevronRight size={14} color={colors.textMuted} strokeWidth={2} />
+                              </View>
+                            </Pressable>
+                          );
+                        })}
+                      </View>
+                    </View>
+                  )}
+
+                  {/* ── Favorite button ───────────────────────────────── */}
+                  <Pressable
+                    onPress={handleFavorite}
+                    style={({ pressed }) => ({
+                      opacity: pressed ? 0.75 : 1,
+                      flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+                      gap: 8, paddingVertical: 14, borderRadius: 14,
+                      backgroundColor: isCurrentFavorite ? accentColor : colors.textMuted + '18',
+                    })}
+                  >
+                    <Star
+                      size={16}
+                      color={isCurrentFavorite ? '#fff' : colors.textMuted}
+                      fill={isCurrentFavorite ? '#fff' : 'transparent'}
+                      strokeWidth={2}
+                    />
+                    <Text style={{ fontSize: 14, fontWeight: '700', color: isCurrentFavorite ? '#fff' : colors.textMuted }}>
+                      {isCurrentFavorite ? t.unfavorite : t.favorite}
+                    </Text>
+                  </Pressable>
                 </ScrollView>
               </>
             )}

@@ -243,10 +243,6 @@ export default function StrongSearchScreen() {
   const handleToggleFavorite = useCallback(async (strongId: string) => {
     const next = await toggleStrongFavorite(strongId, favorites);
     setFavorites(next);
-    // Reflect favorite state on the currently displayed entry
-    setSheetEntry(prev =>
-      prev?.id === strongId ? { ...prev, isFavorite: next.has(strongId) } : prev
-    );
   }, [favorites]);
 
   const handleClearQuery = useCallback(() => {
@@ -383,7 +379,7 @@ export default function StrongSearchScreen() {
       <StrongSheet
         visible={sheetEntry != null}
         entry={sheetEntry}
-        isFavorite={sheetEntry != null && favorites.has(sheetEntry.id)}
+        isFavoriteOf={(id) => favorites.has(id)}
         onToggleFavorite={handleToggleFavorite}
         onClose={() => setSheetEntry(null)}
         onNavigateToVerse={(bookId, chapter, verse) => {
