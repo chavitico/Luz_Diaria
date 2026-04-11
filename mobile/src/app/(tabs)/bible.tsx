@@ -1223,7 +1223,8 @@ export default function BibleScreen() {
     setIsSpeaking(true);
     try {
       const picked = await pickBestVoice(lang);
-      const fullText = chapterData.verses.map(v => `${v.number}. ${v.text}`).join(' ');
+      // Join verses with a natural pause — no verse numbers so TTS doesn't read them
+      const fullText = chapterData.verses.map(v => v.text).join(' ');
       const processed = applyBiblicalPronunciations(preprocessNumbersForTTS(sanitizeForTTS(fullText)), lang);
       Speech.speak(processed, {
         language: lang === 'es' ? 'es-MX' : 'en-US',
@@ -1234,6 +1235,19 @@ export default function BibleScreen() {
       });
     } catch { setIsSpeaking(false); }
   }, [isSpeaking, chapterData, lang]);
+
+  // Chapter prev/next navigation
+  const handlePrevChapter = useCallback(() => {
+    if (!selectedBook || !selectedChapter || selectedChapter <= 1) return;
+    if (isSpeaking) { Speech.stop(); setIsSpeaking(false); }
+    loadChapter(selectedBook, selectedChapter - 1);
+  }, [selectedBook, selectedChapter, isSpeaking, loadChapter]);
+
+  const handleNextChapter = useCallback(() => {
+    if (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) return;
+    if (isSpeaking) { Speech.stop(); setIsSpeaking(false); }
+    loadChapter(selectedBook, selectedChapter + 1);
+  }, [selectedBook, selectedChapter, isSpeaking, loadChapter]);
 
   // Header
   const headerTitle = useMemo(() => {
@@ -1404,7 +1418,7 @@ export default function BibleScreen() {
           )}
 
           {chapterData && !loading && (
-            <>
+            <View style={{ flex: 1 }}>
               {/* ── In-reader controls bar ── */}
               <View style={{
                 paddingHorizontal: 16,
@@ -1520,7 +1534,7 @@ export default function BibleScreen() {
               <Animated.View key={contentKey} entering={FadeIn.duration(250)} style={{ flex: 1 }}>
                 <ScrollView
                   showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{ paddingTop: 12, paddingBottom: 120 }}
+                  contentContainerStyle={{ paddingTop: 12, paddingBottom: 40 }}
                 >
                   {chapterData.verses.map(verse => (
                     <VerseRow
@@ -1542,7 +1556,47 @@ export default function BibleScreen() {
                   ))}
                 </ScrollView>
               </Animated.View>
-            </>
+
+              {/* ── Chapter navigation bar ── */}
+              <View style={{
+                flexDirection: 'row',
+                borderTopWidth: 0.5,
+                borderTopColor: colors.textMuted + '20',
+                backgroundColor: colors.surface,
+              }}>
+                <Pressable
+                  onPress={handlePrevChapter}
+                  disabled={!selectedChapter || selectedChapter <= 1}
+                  style={({ pressed }) => ({
+                    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+                    paddingVertical: 13, gap: 5,
+                    opacity: (!selectedChapter || selectedChapter <= 1) ? 0.25 : (pressed ? 0.55 : 1),
+                  })}
+                >
+                  <ChevronLeft size={15} color={colors.primary} strokeWidth={2.5} />
+                  <Text style={{ fontSize: 13, fontWeight: '600', color: colors.primary }}>
+                    {lang === 'es' ? 'Anterior' : 'Previous'}
+                  </Text>
+                </Pressable>
+
+                <View style={{ width: 0.5, backgroundColor: colors.textMuted + '20' }} />
+
+                <Pressable
+                  onPress={handleNextChapter}
+                  disabled={!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters}
+                  style={({ pressed }) => ({
+                    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+                    paddingVertical: 13, gap: 5,
+                    opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.25 : (pressed ? 0.55 : 1),
+                  })}
+                >
+                  <Text style={{ fontSize: 13, fontWeight: '600', color: colors.primary }}>
+                    {lang === 'es' ? 'Siguiente' : 'Next'}
+                  </Text>
+                  <ChevronRight size={15} color={colors.primary} strokeWidth={2.5} />
+                </Pressable>
+              </View>
+            </View>
           )}
         </Animated.View>
       )}
