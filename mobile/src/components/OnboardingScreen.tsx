@@ -36,9 +36,9 @@ interface OnboardingScreenProps {
 
 // ── Soft background gradient per slide ───────────────────────────────────────
 const SLIDE_GRADIENTS: Record<string, [string, string, string]> = {
-  welcome: ['#FDF6E3', '#F5E6D3', '#EDD9C8'],
-  expect:  ['#F0EAF8', '#E8DFF5', '#DDD4EE'],
-  invite:  ['#E8F4F0', '#DCF0E8', '#CFE8DF'],
+  welcome: ['#FBF0E4', '#F5E4D0', '#EDD6C0'],
+  expect:  ['#F2EBF8', '#EBE2F4', '#E2D6EE'],
+  invite:  ['#E6F2EE', '#D8EDE6', '#CCE5DA'],
   nickname: ['#FDF6E3', '#F5E6D3', '#E8D5C4'],
   avatar:   ['#FDF6E3', '#F5E6D3', '#E8D5C4'],
   country:  ['#EAF4F8', '#DCE8F0', '#CFD5E8'],
@@ -54,74 +54,95 @@ function WelcomeSlide({
 }) {
   const buttonScale = useSharedValue(1);
   const buttonStyle = useAnimatedStyle(() => ({ transform: [{ scale: buttonScale.value }] }));
+  const glowOpacity = useSharedValue(0.4);
+
+  useEffect(() => {
+    const animate = () => {
+      glowOpacity.value = withSpring(0.8, { duration: 2000 });
+      setTimeout(() => { glowOpacity.value = withSpring(0.4, { duration: 2000 }); }, 2000);
+    };
+    animate();
+    const interval = setInterval(animate, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const glowStyle = useAnimatedStyle(() => ({ opacity: glowOpacity.value }));
 
   return (
-    <View style={{ flex: 1, paddingHorizontal: 28, paddingTop: insets.top + 48, paddingBottom: insets.bottom + 32 }}>
-      {/* Icon */}
-      <Animated.View entering={FadeInDown.delay(100).duration(700)} style={{ alignItems: 'center', marginBottom: 48 }}>
-        <View
-          style={{
-            width: 88,
-            height: 88,
-            borderRadius: 44,
-            backgroundColor: 'rgba(255,255,255,0.85)',
-            alignItems: 'center',
-            justifyContent: 'center',
-            shadowColor: '#E8A87C',
-            shadowOpacity: 0.25,
-            shadowRadius: 16,
-            shadowOffset: { width: 0, height: 6 },
-            elevation: 6,
-            marginBottom: 32,
-          }}
-        >
-          <Sun size={42} color="#E8A87C" strokeWidth={1.4} />
-        </View>
+    <View style={{ flex: 1, paddingHorizontal: 32, paddingTop: insets.top + 20, paddingBottom: insets.bottom + 36 }}>
+      {/* Decorative glow halo behind sun */}
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Animated.View
+          style={[glowStyle, {
+            position: 'absolute',
+            width: 220,
+            height: 220,
+            borderRadius: 110,
+            backgroundColor: 'rgba(232,168,124,0.18)',
+          }]}
+        />
+        <Animated.View
+          style={[glowStyle, {
+            position: 'absolute',
+            width: 160,
+            height: 160,
+            borderRadius: 80,
+            backgroundColor: 'rgba(232,168,124,0.22)',
+          }]}
+        />
 
-        <Animated.View entering={FadeInDown.delay(250).duration(600)} style={{ alignItems: 'center' }}>
+        <Animated.View entering={FadeInDown.delay(200).duration(900)} style={{ alignItems: 'center' }}>
+          <Sun size={72} color="#D4884A" strokeWidth={1.1} style={{ marginBottom: 36 }} />
+
           <Text
             style={{
-              fontSize: 28,
+              fontSize: 38,
               fontWeight: '800',
-              color: '#2D2D2D',
+              color: '#2A1F1A',
               textAlign: 'center',
-              letterSpacing: -0.5,
-              marginBottom: 14,
-              lineHeight: 36,
+              letterSpacing: -1,
+              lineHeight: 46,
+              marginBottom: 20,
             }}
           >
-            Bienvenido/a a{'\n'}Luz Diaria
+            Luz Diaria
           </Text>
-          <Text
-            style={{
-              fontSize: 16,
-              color: '#6B5B4E',
-              textAlign: 'center',
-              lineHeight: 24,
-              marginBottom: 10,
-            }}
-          >
-            Un espacio para encontrarte con Dios, cada día.
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              color: '#9C8070',
-              textAlign: 'center',
-              lineHeight: 21,
-              fontStyle: 'italic',
-            }}
-          >
-            No es prisa. No es obligación.{'\n'}Es un encuentro.
-          </Text>
+
+          <View style={{ width: 40, height: 2, backgroundColor: '#D4884A', borderRadius: 1, marginBottom: 24, opacity: 0.6 }} />
+
+          <Animated.View entering={FadeInDown.delay(450).duration(700)}>
+            <Text
+              style={{
+                fontSize: 17,
+                color: '#5C4A3E',
+                textAlign: 'center',
+                lineHeight: 27,
+                fontStyle: 'italic',
+                fontWeight: '400',
+              }}
+            >
+              Un espacio para encontrarte{'\n'}con Dios, cada día.
+            </Text>
+          </Animated.View>
+
+          <Animated.View entering={FadeInDown.delay(650).duration(600)} style={{ marginTop: 18 }}>
+            <Text
+              style={{
+                fontSize: 13,
+                color: '#9C8070',
+                textAlign: 'center',
+                lineHeight: 20,
+                letterSpacing: 0.8,
+                textTransform: 'uppercase',
+              }}
+            >
+              No es prisa · Es un encuentro
+            </Text>
+          </Animated.View>
         </Animated.View>
-      </Animated.View>
+      </View>
 
-      {/* Spacer */}
-      <View style={{ flex: 1 }} />
-
-      {/* CTA */}
-      <Animated.View entering={FadeInUp.delay(500).duration(500)} style={buttonStyle}>
+      <Animated.View entering={FadeInUp.delay(800).duration(600)} style={buttonStyle}>
         <Pressable
           onPressIn={() => { buttonScale.value = withSpring(0.96); }}
           onPressOut={() => { buttonScale.value = withSpring(1); }}
@@ -129,25 +150,20 @@ function WelcomeSlide({
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             onNext();
           }}
-          style={{ borderRadius: 18, overflow: 'hidden' }}
+          style={{
+            backgroundColor: '#D4884A',
+            borderRadius: 16,
+            paddingVertical: 18,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+          }}
         >
-          <LinearGradient
-            colors={['#E8A87C', '#C38D9E']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={{
-              paddingVertical: 18,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 10,
-            }}
-          >
-            <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff', letterSpacing: 0.2 }}>
-              Continuar
-            </Text>
-            <ArrowRight size={18} color="#fff" />
-          </LinearGradient>
+          <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
+            Comenzar
+          </Text>
+          <ArrowRight size={17} color="#fff" strokeWidth={2.5} />
         </Pressable>
       </Animated.View>
     </View>
@@ -166,83 +182,84 @@ function ExpectSlide({
   const buttonStyle = useAnimatedStyle(() => ({ transform: [{ scale: buttonScale.value }] }));
 
   const items = [
-    { icon: <BookOpen size={22} color="#E8A87C" />, text: 'Un devocional corto cada mañana' },
-    { icon: <Heart size={22} color="#C38D9E" />, text: 'Un momento de oración personal' },
-    { icon: <Users size={22} color="#41B3A3" />, text: 'Una comunidad que ora contigo' },
+    { icon: <BookOpen size={18} color="#D4884A" strokeWidth={1.8} />, label: 'Devocional', text: 'Un texto corto cada mañana para empezar el día con propósito.' },
+    { icon: <Heart size={18} color="#B87090" strokeWidth={1.8} />, label: 'Oración', text: 'Un momento tuyo, tranquilo y personal, para hablar con Dios.' },
+    { icon: <Users size={18} color="#41B3A3" strokeWidth={1.8} />, label: 'Comunidad', text: 'Personas reales que oran y crecen a tu lado cada día.' },
   ];
 
   return (
-    <View style={{ flex: 1, paddingHorizontal: 28, paddingTop: insets.top + 48, paddingBottom: insets.bottom + 32 }}>
-      <Animated.View entering={FadeInDown.delay(100).duration(600)}>
+    <View style={{ flex: 1, paddingHorizontal: 32, paddingTop: insets.top + 24, paddingBottom: insets.bottom + 36 }}>
+      <Animated.View entering={FadeInDown.delay(100).duration(600)} style={{ marginBottom: 44 }}>
         <Text
           style={{
-            fontSize: 26,
-            fontWeight: '800',
-            color: '#2D2D2D',
+            fontSize: 13,
+            color: '#B09480',
+            letterSpacing: 1.8,
+            textTransform: 'uppercase',
             textAlign: 'center',
-            letterSpacing: -0.5,
-            lineHeight: 34,
-            marginBottom: 10,
+            marginBottom: 14,
           }}
         >
-          Cada día, una luz{'\n'}para tu camino
+          Cada día encontrarás
         </Text>
         <Text
           style={{
-            fontSize: 14,
-            color: '#9C8070',
+            fontSize: 32,
+            fontWeight: '800',
+            color: '#2A1F1A',
             textAlign: 'center',
-            lineHeight: 21,
-            fontStyle: 'italic',
-            marginBottom: 48,
+            letterSpacing: -0.8,
+            lineHeight: 40,
           }}
         >
-          Simple. Sincero. Sagrado.
+          Una luz{'\n'}para tu camino
         </Text>
       </Animated.View>
 
-      {/* Feature items */}
-      <View style={{ gap: 18, marginBottom: 40 }}>
+      {/* Informational rows — no card border, pure text */}
+      <View style={{ gap: 32, flex: 1 }}>
         {items.map((item, i) => (
           <Animated.View
             key={i}
-            entering={FadeInDown.delay(200 + i * 120).duration(500)}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 16,
-              backgroundColor: 'rgba(255,255,255,0.7)',
-              borderRadius: 16,
-              paddingVertical: 16,
-              paddingHorizontal: 18,
-              shadowColor: '#000',
-              shadowOpacity: 0.05,
-              shadowRadius: 8,
-              shadowOffset: { width: 0, height: 2 },
-            }}
+            entering={FadeInDown.delay(250 + i * 130).duration(550)}
+            style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 18 }}
           >
-            <View
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 22,
-                backgroundColor: 'rgba(255,255,255,0.9)',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
+            {/* Accent dot + icon */}
+            <View style={{
+              width: 36,
+              height: 36,
+              borderRadius: 10,
+              backgroundColor: 'rgba(255,255,255,0.55)',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 2,
+            }}>
               {item.icon}
             </View>
-            <Text style={{ fontSize: 15, color: '#3D3530', lineHeight: 22, flex: 1, fontWeight: '500' }}>
-              {item.text}
-            </Text>
+            <View style={{ flex: 1 }}>
+              <Text style={{
+                fontSize: 15,
+                fontWeight: '700',
+                color: '#2A1F1A',
+                marginBottom: 4,
+                letterSpacing: -0.2,
+              }}>
+                {item.label}
+              </Text>
+              <Text style={{
+                fontSize: 14,
+                color: '#6B5548',
+                lineHeight: 21,
+                fontWeight: '400',
+              }}>
+                {item.text}
+              </Text>
+            </View>
           </Animated.View>
         ))}
       </View>
 
-      <View style={{ flex: 1 }} />
-
-      <Animated.View entering={FadeInUp.delay(600).duration(500)} style={buttonStyle}>
+      <Animated.View entering={FadeInUp.delay(700).duration(500)} style={buttonStyle}>
         <Pressable
           onPressIn={() => { buttonScale.value = withSpring(0.96); }}
           onPressOut={() => { buttonScale.value = withSpring(1); }}
@@ -250,25 +267,20 @@ function ExpectSlide({
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             onNext();
           }}
-          style={{ borderRadius: 18, overflow: 'hidden' }}
+          style={{
+            backgroundColor: '#7B6AAE',
+            borderRadius: 16,
+            paddingVertical: 18,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+          }}
         >
-          <LinearGradient
-            colors={['#9B7DCA', '#6B5B9E']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={{
-              paddingVertical: 18,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 10,
-            }}
-          >
-            <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff', letterSpacing: 0.2 }}>
-              Continuar
-            </Text>
-            <ArrowRight size={18} color="#fff" />
-          </LinearGradient>
+          <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff', letterSpacing: 0.3 }}>
+            Continuar
+          </Text>
+          <ArrowRight size={17} color="#fff" strokeWidth={2.5} />
         </Pressable>
       </Animated.View>
     </View>
@@ -287,67 +299,76 @@ function InviteSlide({
   const buttonStyle = useAnimatedStyle(() => ({ transform: [{ scale: buttonScale.value }] }));
 
   return (
-    <View style={{ flex: 1, paddingHorizontal: 28, paddingTop: insets.top + 56, paddingBottom: insets.bottom + 32 }}>
-      <Animated.View entering={FadeInDown.delay(100).duration(700)} style={{ alignItems: 'center', marginBottom: 52 }}>
-        {/* Dove / nature symbol */}
-        <Text style={{ fontSize: 52, marginBottom: 28 }}>🌿</Text>
+    <View style={{ flex: 1, paddingHorizontal: 32, paddingTop: insets.top + 20, paddingBottom: insets.bottom + 36 }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Animated.View entering={FadeInDown.delay(100).duration(800)} style={{ alignItems: 'center', marginBottom: 52 }}>
+          <Text style={{ fontSize: 64, marginBottom: 32 }}>🌿</Text>
 
-        <Text
-          style={{
-            fontSize: 27,
-            fontWeight: '800',
-            color: '#1E3A30',
-            textAlign: 'center',
-            letterSpacing: -0.5,
-            lineHeight: 36,
-            marginBottom: 16,
-          }}
-        >
-          Aparta un momento{'\n'}cada día.
-        </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            color: '#4A7060',
-            textAlign: 'center',
-            lineHeight: 25,
-            fontStyle: 'italic',
-          }}
-        >
-          Dios se encargará del resto.
-        </Text>
-      </Animated.View>
-
-      <View style={{ flex: 1 }} />
-
-      <Animated.View entering={FadeInUp.delay(400).duration(600)}>
-        {/* Intro message preview */}
-        <View
-          style={{
-            backgroundColor: 'rgba(255,255,255,0.65)',
-            borderRadius: 14,
-            paddingVertical: 14,
-            paddingHorizontal: 18,
-            marginBottom: 22,
-            borderWidth: 1,
-            borderColor: 'rgba(65,179,163,0.25)',
-          }}
-        >
           <Text
             style={{
               fontSize: 13,
-              color: '#4A7060',
+              color: '#5A8A78',
+              letterSpacing: 2,
+              textTransform: 'uppercase',
               textAlign: 'center',
-              lineHeight: 20,
+              marginBottom: 18,
+            }}
+          >
+            Una última cosa
+          </Text>
+
+          <Text
+            style={{
+              fontSize: 33,
+              fontWeight: '800',
+              color: '#1A3628',
+              textAlign: 'center',
+              letterSpacing: -0.8,
+              lineHeight: 42,
+              marginBottom: 24,
+            }}
+          >
+            Solo necesitas{'\n'}unos minutos.
+          </Text>
+
+          <Text
+            style={{
+              fontSize: 16,
+              color: '#3D6856',
+              textAlign: 'center',
+              lineHeight: 26,
               fontStyle: 'italic',
             }}
           >
-            "Detente un momento. Respira.{'\n'}Dios quiere hablarte hoy."
+            Aparta ese momento cada día.{'\n'}Dios se encargará del resto.
           </Text>
-        </View>
-      </Animated.View>
+        </Animated.View>
 
-      <Animated.View entering={FadeInUp.delay(500).duration(500)} style={buttonStyle}>
+        <Animated.View entering={FadeInDown.delay(500).duration(600)} style={{ alignItems: 'center' }}>
+          <View style={{
+            paddingVertical: 18,
+            paddingHorizontal: 24,
+            borderTopWidth: 1,
+            borderBottomWidth: 1,
+            borderColor: 'rgba(65,179,163,0.2)',
+          }}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: '#4A7060',
+                textAlign: 'center',
+                lineHeight: 22,
+                fontStyle: 'italic',
+                letterSpacing: 0.1,
+              }}
+            >
+              "Detente. Respira.{'\n'}Dios quiere hablarte hoy."
+            </Text>
+          </View>
+        </Animated.View>
+      </View>
+
+      <Animated.View entering={FadeInUp.delay(700).duration(550)} style={buttonStyle}>
         <Pressable
           onPressIn={() => { buttonScale.value = withSpring(0.96); }}
           onPressOut={() => { buttonScale.value = withSpring(1); }}
@@ -355,24 +376,17 @@ function InviteSlide({
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
             onNext();
           }}
-          style={{ borderRadius: 18, overflow: 'hidden' }}
+          style={{
+            backgroundColor: '#2D8E80',
+            borderRadius: 16,
+            paddingVertical: 18,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
-          <LinearGradient
-            colors={['#41B3A3', '#2D8E80']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={{
-              paddingVertical: 18,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 10,
-            }}
-          >
-            <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff', letterSpacing: 0.2 }}>
-              Comenzar mi primer devocional
-            </Text>
-          </LinearGradient>
+          <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff', letterSpacing: 0.2 }}>
+            Crear mi perfil
+          </Text>
         </Pressable>
       </Animated.View>
     </View>
@@ -382,15 +396,15 @@ function InviteSlide({
 // ── Progress dots ────────────────────────────────────────────────────────────
 function ProgressDots({ current, total }: { current: number; total: number }) {
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 6, paddingTop: 16 }}>
+    <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 5, paddingTop: 14, paddingBottom: 4 }}>
       {Array.from({ length: total }).map((_, i) => (
         <View
           key={i}
           style={{
-            width: i === current ? 20 : 6,
-            height: 6,
-            borderRadius: 3,
-            backgroundColor: i === current ? '#E8A87C' : 'rgba(232,168,124,0.3)',
+            width: i === current ? 18 : 5,
+            height: 4,
+            borderRadius: 2,
+            backgroundColor: i === current ? '#C47840' : 'rgba(196,120,64,0.22)',
           }}
         />
       ))}
