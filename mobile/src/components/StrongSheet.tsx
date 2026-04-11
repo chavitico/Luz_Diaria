@@ -441,10 +441,25 @@ export function StrongSheet({
 
                   {/* ── Long definition ───────────────────────────────── */}
                   <View style={{ marginBottom: 20 }}>
-                    <SectionLabel
-                      icon={<AlignLeft size={11} color={colors.textMuted} />}
-                      text={t.longDef} color={colors.textMuted}
-                    />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+                      <AlignLeft size={11} color={colors.textMuted} />
+                      <Text style={{
+                        fontSize: 11, fontWeight: '700', textTransform: 'uppercase',
+                        letterSpacing: 1.1, color: colors.textMuted,
+                      }}>
+                        {t.longDef}
+                      </Text>
+                      {!e.longDefinitionEs && (
+                        <View style={{
+                          paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4,
+                          backgroundColor: colors.textMuted + '18',
+                        }}>
+                          <Text style={{ fontSize: 9, fontWeight: '600', color: colors.textMuted, letterSpacing: 0.5 }}>
+                            EN
+                          </Text>
+                        </View>
+                      )}
+                    </View>
                     <Text style={{
                       fontSize: 15, lineHeight: 24, color: colors.text,
                       fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
