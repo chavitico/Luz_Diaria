@@ -1,21 +1,6967 @@
 {
-  "H1":   { "shortDefinitionEs": "padre, antecesor, progenitor", "glossesEs": ["padre"] },
-  "H120": { "shortDefinitionEs": "hombre, humanidad; Adán (el de la tierra)", "glossesEs": ["hombre", "hombres"] },
-  "H127": { "shortDefinitionEs": "tierra cultivable, suelo, terreno", "glossesEs": ["tierra"] },
-  "H136": { "shortDefinitionEs": "Señor soberano, Adonai", "glossesEs": ["señor"] },
-  "H157": { "shortDefinitionEs": "amar, tener afecto, apreciar", "glossesEs": ["amar", "amor"] },
-  "H160": { "shortDefinitionEs": "amor, afecto", "glossesEs": ["amor"] },
-  "H215": { "shortDefinitionEs": "brillar, iluminar, dar luz", "glossesEs": ["luz"] },
-  "H216": { "shortDefinitionEs": "luz, resplandor, claridad", "glossesEs": ["luz"] },
-  "H376": { "shortDefinitionEs": "hombre, varón, persona", "glossesEs": ["hombre", "hombres"] },
-  "H410": { "shortDefinitionEs": "Dios (El), el Poderoso, el Fuerte", "glossesEs": ["dios"] },
-  "H430": { "shortDefinitionEs": "Dios (Elohim), divinidad, seres poderosos", "glossesEs": ["dios", "elohim"] },
-  "H517": { "shortDefinitionEs": "madre, origen, fuente de vida", "glossesEs": ["madre"] },
-  "H530": { "shortDefinitionEs": "fidelidad, firmeza, confianza (emunah)", "glossesEs": ["fe", "fidelidad"] },
-  "H539": { "shortDefinitionEs": "creer, confiar, ser fiel", "glossesEs": ["creer"] },
-  "H543": { "shortDefinitionEs": "amén, así sea, verdaderamente", "glossesEs": ["amén"] },
-  "H571": { "shortDefinitionEs": "verdad, fidelidad, integridad (emet)", "glossesEs": ["verdad"] },
-  "H653": { "shortDefinitionEs": "oscuridad, tiniebla profunda", "glossesEs": ["oscuridad", "tinieblas"] },
-  "H776": { "shortDefinitionEs": "tierra, suelo, nación, país", "glossesEs": ["tierra"] },
-  "H802": { "shortDefinitionEs": "mujer, esposa", "glossesEs": ["mujer"] }
+  "H1": {
+    "shortDefinitionEs": "padre, antecesor, progenitor",
+    "glossesEs": [
+      "padre"
+    ]
+  },
+  "H2": {
+    "shortDefinitionEs": "padre, progenitor, ancestro (ʼab)",
+    "glossesEs": [
+      "padre",
+      "progenitor"
+    ]
+  },
+  "H3": {
+    "shortDefinitionEs": "planta verde, verdor, fruto (ʼêb)",
+    "glossesEs": [
+      "verdor",
+      "planta verde"
+    ]
+  },
+  "H4": {
+    "shortDefinitionEs": "fruto, producto de la tierra (ʼêb)",
+    "glossesEs": [
+      "fruto"
+    ]
+  },
+  "H5": {
+    "shortDefinitionEs": "Abagta: eunuco de Jerjes (ʼĂbagthâʼ)",
+    "glossesEs": [
+      "Abagta"
+    ]
+  },
+  "H6": {
+    "shortDefinitionEs": "perderse, perecer, destruir, desaparecer (ʼâbad)",
+    "glossesEs": [
+      "perecer",
+      "destruir",
+      "perder"
+    ]
+  },
+  "H7": {
+    "shortDefinitionEs": "destruir, perecer, aniquilar (ʼăbad)",
+    "glossesEs": [
+      "destruir",
+      "perecer"
+    ]
+  },
+  "H8": {
+    "shortDefinitionEs": "miserable, perdición, ruina (ʼôbêd)",
+    "glossesEs": [
+      "perdición",
+      "ruina"
+    ]
+  },
+  "H9": {
+    "shortDefinitionEs": "cosa perdida, destrucción, Hades (ʼăbêdâh)",
+    "glossesEs": [
+      "pérdida",
+      "destrucción"
+    ]
+  },
+  "H10": {
+    "shortDefinitionEs": "destrucción, ruina, perdición (ʼăbaddôh)",
+    "glossesEs": [
+      "destrucción"
+    ]
+  },
+  "H11": {
+    "shortDefinitionEs": "perdición, Hades, abismo (ʼăbaddôwn)",
+    "glossesEs": [
+      "abismo",
+      "perdición",
+      "Hades"
+    ]
+  },
+  "H12": {
+    "shortDefinitionEs": "destrucción, ruina, aniquilamiento (ʼabdân)",
+    "glossesEs": [
+      "destrucción"
+    ]
+  },
+  "H13": {
+    "shortDefinitionEs": "perdición, destrucción total (ʼobdan)",
+    "glossesEs": [
+      "destrucción"
+    ]
+  },
+  "H14": {
+    "shortDefinitionEs": "consentir, querer, estar dispuesto (ʼâbâh)",
+    "glossesEs": [
+      "consentir",
+      "querer"
+    ]
+  },
+  "H15": {
+    "shortDefinitionEs": "deseo, anhelo, ansia (ʼâbeh)",
+    "glossesEs": [
+      "deseo"
+    ]
+  },
+  "H16": {
+    "shortDefinitionEs": "papiro, caña acuática (ʼêbeh)",
+    "glossesEs": [
+      "papiro"
+    ]
+  },
+  "H17": {
+    "shortDefinitionEs": "necesidad, dolor, miseria (ʼăbôwy)",
+    "glossesEs": [
+      "dolor",
+      "tristeza"
+    ]
+  },
+  "H18": {
+    "shortDefinitionEs": "pesebre, establo, comedero (ʼêbûwç)",
+    "glossesEs": [
+      "pesebre"
+    ]
+  },
+  "H19": {
+    "shortDefinitionEs": "punta de espada, filo brillante (ʼibchâh)",
+    "glossesEs": [
+      "punta"
+    ]
+  },
+  "H20": {
+    "shortDefinitionEs": "melón, calabaza (ʼăbaṭṭîyach)",
+    "glossesEs": [
+      "melón"
+    ]
+  },
+  "H21": {
+    "shortDefinitionEs": "Abí: madre del rey Ezequías (ʼĂbîy)",
+    "glossesEs": [
+      "Abí"
+    ]
+  },
+  "H22": {
+    "shortDefinitionEs": "Abiel: nombre de dos israelitas (ʼĂbîyʼêl)",
+    "glossesEs": [
+      "Abiel"
+    ]
+  },
+  "H23": {
+    "shortDefinitionEs": "Abiasaf: levita israelita (ʼĂbîyʼâçâph)",
+    "glossesEs": [
+      "Abiasaf"
+    ]
+  },
+  "H24": {
+    "shortDefinitionEs": "Abib: mes de grano tierno, primavera (ʼâbîyb)",
+    "glossesEs": [
+      "Abib",
+      "grano tierno"
+    ]
+  },
+  "H25": {
+    "shortDefinitionEs": "Abigibón: israelita, padre de Gibón (ʼĂbîy Gibʻôwn)",
+    "glossesEs": [
+      "Abigibón"
+    ]
+  },
+  "H26": {
+    "shortDefinitionEs": "Abigaíl: nombre de dos mujeres israelitas (ʼĂbîygayil)",
+    "glossesEs": [
+      "Abigaíl"
+    ]
+  },
+  "H27": {
+    "shortDefinitionEs": "Abidán: israelita (ʼĂbîydân)",
+    "glossesEs": [
+      "Abidán"
+    ]
+  },
+  "H28": {
+    "shortDefinitionEs": "Abida: hijo de Abraham por Cetura (ʼĂbîydâʻ)",
+    "glossesEs": [
+      "Abida"
+    ]
+  },
+  "H29": {
+    "shortDefinitionEs": "Abías: nombre de varios israelitas (ʼĂbîyâh)",
+    "glossesEs": [
+      "Abías"
+    ]
+  },
+  "H30": {
+    "shortDefinitionEs": "Abiú: hijo de Aarón (ʼĂbîyhûwʼ)",
+    "glossesEs": [
+      "Abiú"
+    ]
+  },
+  "H31": {
+    "shortDefinitionEs": "Abihud: nombre de dos israelitas (ʼĂbîyhûwd)",
+    "glossesEs": [
+      "Abihud"
+    ]
+  },
+  "H32": {
+    "shortDefinitionEs": "Abihail: nombre de varios israelitas (ʼĂbîyhayil)",
+    "glossesEs": [
+      "Abihail"
+    ]
+  },
+  "H33": {
+    "shortDefinitionEs": "abiezerita: descendiente de Abiezer (ʼĂbîy hâ-ʻEzrîy)",
+    "glossesEs": [
+      "abiezerita"
+    ]
+  },
+  "H34": {
+    "shortDefinitionEs": "indigente, pobre, necesitado, mendigo (ʼebyôwn)",
+    "glossesEs": [
+      "pobre",
+      "necesitado"
+    ]
+  },
+  "H35": {
+    "shortDefinitionEs": "baya de alcaparra, deseo (ʼăbîyôwnâh)",
+    "glossesEs": [
+      "deseo"
+    ]
+  },
+  "H36": {
+    "shortDefinitionEs": "Abitub: israelita (ʼĂbîyṭûwb)",
+    "glossesEs": [
+      "Abitub"
+    ]
+  },
+  "H37": {
+    "shortDefinitionEs": "Abital: esposa del rey David (ʼĂbîyṭâl)",
+    "glossesEs": [
+      "Abital"
+    ]
+  },
+  "H38": {
+    "shortDefinitionEs": "Abijam: rey de Judá (ʼĂbîyâm)",
+    "glossesEs": [
+      "Abijam"
+    ]
+  },
+  "H39": {
+    "shortDefinitionEs": "Abimael: hijo de Joktán (ʼĂbîymâʼêl)",
+    "glossesEs": [
+      "Abimael"
+    ]
+  },
+  "H40": {
+    "shortDefinitionEs": "Abimelec: rey filisteo e israelita (ʼĂbîymelek)",
+    "glossesEs": [
+      "Abimelec"
+    ]
+  },
+  "H41": {
+    "shortDefinitionEs": "Abinadab: nombre de cuatro israelitas (ʼĂbîynâdâb)",
+    "glossesEs": [
+      "Abinadab"
+    ]
+  },
+  "H42": {
+    "shortDefinitionEs": "Abinoam: israelita (ʼĂbîynôʻam)",
+    "glossesEs": [
+      "Abinoam"
+    ]
+  },
+  "H43": {
+    "shortDefinitionEs": "Ebiasaf: israelita levita (ʼEbyâçâph)",
+    "glossesEs": [
+      "Ebiasaf"
+    ]
+  },
+  "H44": {
+    "shortDefinitionEs": "Abiezer: nombre de dos israelitas (ʼĂbîyʻezer)",
+    "glossesEs": [
+      "Abiezer"
+    ]
+  },
+  "H45": {
+    "shortDefinitionEs": "Abialbon: israelita (ʼĂbîy-ʻalbôwn)",
+    "glossesEs": [
+      "Abialbon"
+    ]
+  },
+  "H46": {
+    "shortDefinitionEs": "poderoso, poderoso, fuerte en Dios (ʼâbîyr)",
+    "glossesEs": [
+      "poderoso"
+    ]
+  },
+  "H47": {
+    "shortDefinitionEs": "ángel, toro, fuerte, poderoso, valiente (ʼabbîyr)",
+    "glossesEs": [
+      "ángel",
+      "toro",
+      "poderoso"
+    ]
+  },
+  "H48": {
+    "shortDefinitionEs": "Abiram: nombre de dos israelitas (ʼĂbîyrâm)",
+    "glossesEs": [
+      "Abiram"
+    ]
+  },
+  "H49": {
+    "shortDefinitionEs": "Abisag: concubina del rey David (ʼĂbîyshag)",
+    "glossesEs": [
+      "Abisag"
+    ]
+  },
+  "H50": {
+    "shortDefinitionEs": "Abisuá: nombre de dos israelitas (ʼĂbîyshûwaʻ)",
+    "glossesEs": [
+      "Abisuá"
+    ]
+  },
+  "H51": {
+    "shortDefinitionEs": "Abisur: israelita (ʼĂbîyshûwr)",
+    "glossesEs": [
+      "Abisur"
+    ]
+  },
+  "H52": {
+    "shortDefinitionEs": "Abishai, israelita (ʼĂbîyshay)",
+    "glossesEs": [
+      "Abishai",
+      "nombre propio"
+    ]
+  },
+  "H53": {
+    "shortDefinitionEs": "Absalón, hijo de David (ʼĂbîyshâlôwm)",
+    "glossesEs": [
+      "Absalón",
+      "nombre propio"
+    ]
+  },
+  "H54": {
+    "shortDefinitionEs": "Abiatar, sacerdote israelita (ʼEbyâthâr)",
+    "glossesEs": [
+      "Abiatar",
+      "nombre propio"
+    ]
+  },
+  "H55": {
+    "shortDefinitionEs": "Enrollarse hacia arriba, elevarse (ʼâbak)",
+    "glossesEs": [
+      "subir",
+      "enrollarse"
+    ]
+  },
+  "H56": {
+    "shortDefinitionEs": "Lamentar, llorar (ʼâbal)",
+    "glossesEs": [
+      "lamentar",
+      "llorar",
+      "duelo"
+    ]
+  },
+  "H57": {
+    "shortDefinitionEs": "Que lamenta, doliente (ʼâbêl)",
+    "glossesEs": [
+      "lamentador",
+      "doliente",
+      "duelo"
+    ]
+  },
+  "H58": {
+    "shortDefinitionEs": "Pradera, prado (ʼâbêl)",
+    "glossesEs": [
+      "pradera",
+      "prado"
+    ]
+  },
+  "H59": {
+    "shortDefinitionEs": "Abel: lugar en Palestina (ʼÂbêl)",
+    "glossesEs": [
+      "Abel",
+      "lugar"
+    ]
+  },
+  "H60": {
+    "shortDefinitionEs": "Lamentación, duelo (ʼêbel)",
+    "glossesEs": [
+      "lamentación",
+      "duelo",
+      "llanto"
+    ]
+  },
+  "H61": {
+    "shortDefinitionEs": "No, verdaderamente, sin embargo (ʼăbâl)",
+    "glossesEs": [
+      "pero",
+      "verdaderamente",
+      "sin embargo"
+    ]
+  },
+  "H62": {
+    "shortDefinitionEs": "Abel de Bet-maaca: lugar en Palestina (ʼÂbêl Bêyth-Măʻakâh)",
+    "glossesEs": [
+      "Abel",
+      "lugar"
+    ]
+  },
+  "H63": {
+    "shortDefinitionEs": "Abel-sitim: lugar en Palestina (ʼÂbêl hash-Shiṭṭîym)",
+    "glossesEs": [
+      "Abel-sitim",
+      "lugar"
+    ]
+  },
+  "H64": {
+    "shortDefinitionEs": "Abel-keramim: lugar en Palestina (ʼÂbêl Kᵉrâmîym)",
+    "glossesEs": [
+      "Abel-keramim",
+      "lugar"
+    ]
+  },
+  "H65": {
+    "shortDefinitionEs": "Abel-mehola: lugar en Palestina (ʼÂbêl Mᵉchôwlâh)",
+    "glossesEs": [
+      "Abel-mehola",
+      "lugar"
+    ]
+  },
+  "H66": {
+    "shortDefinitionEs": "Abel-majim: lugar en Palestina (ʼAbêl Mayim)",
+    "glossesEs": [
+      "Abel-majim",
+      "lugar"
+    ]
+  },
+  "H67": {
+    "shortDefinitionEs": "Abel-mizraim: lugar en Palestina (ʼÂbêl Mitsrayim)",
+    "glossesEs": [
+      "Abel-mizraim",
+      "lugar"
+    ]
+  },
+  "H68": {
+    "shortDefinitionEs": "Piedra (ʼeben)",
+    "glossesEs": [
+      "piedra",
+      "roca"
+    ]
+  },
+  "H69": {
+    "shortDefinitionEs": "Piedra (ʼeben)",
+    "glossesEs": [
+      "piedra",
+      "roca"
+    ]
+  },
+  "H70": {
+    "shortDefinitionEs": "Rueda de alfarero, asiento de partera (ʼôben)",
+    "glossesEs": [
+      "rueda",
+      "asiento"
+    ]
+  },
+  "H71": {
+    "shortDefinitionEs": "Abanah: río cerca de Damasco (ʼĂbânâh)",
+    "glossesEs": [
+      "Abanah",
+      "río"
+    ]
+  },
+  "H72": {
+    "shortDefinitionEs": "Ebenezer: lugar en Palestina (ʼEben hâ-ʻÊzer)",
+    "glossesEs": [
+      "Ebenezer",
+      "lugar"
+    ]
+  },
+  "H73": {
+    "shortDefinitionEs": "Cinturón, faja (ʼabnêṭ)",
+    "glossesEs": [
+      "cinturón",
+      "faja"
+    ]
+  },
+  "H74": {
+    "shortDefinitionEs": "Abner: israelita (ʼAbnêr)",
+    "glossesEs": [
+      "Abner",
+      "nombre propio"
+    ]
+  },
+  "H75": {
+    "shortDefinitionEs": "Alimentar, engordar (ʼâbaç)",
+    "glossesEs": [
+      "alimentar",
+      "engordar"
+    ]
+  },
+  "H76": {
+    "shortDefinitionEs": "Llaga inflamatoria, úlcera (ʼăbaʻbuʻâh)",
+    "glossesEs": [
+      "llaga",
+      "úlcera",
+      "llaga de fuego"
+    ]
+  },
+  "H77": {
+    "shortDefinitionEs": "Abez: lugar en Palestina (ʼEbets)",
+    "glossesEs": [
+      "Abez",
+      "lugar"
+    ]
+  },
+  "H78": {
+    "shortDefinitionEs": "Ibsán: israelita, juez (ʼIbtsân)",
+    "glossesEs": [
+      "Ibsán",
+      "nombre propio"
+    ]
+  },
+  "H79": {
+    "shortDefinitionEs": "Revolcarse en polvo, luchar (ʼâbaq)",
+    "glossesEs": [
+      "luchar",
+      "forcejear"
+    ]
+  },
+  "H80": {
+    "shortDefinitionEs": "Polvo fino, partículas (ʼâbâq)",
+    "glossesEs": [
+      "polvo",
+      "polvareda"
+    ]
+  },
+  "H81": {
+    "shortDefinitionEs": "Polvo (ʼăbâqâh)",
+    "glossesEs": [
+      "polvo"
+    ]
+  },
+  "H82": {
+    "shortDefinitionEs": "Volar, remontarse (ʼâbar)",
+    "glossesEs": [
+      "volar",
+      "elevarse"
+    ]
+  },
+  "H83": {
+    "shortDefinitionEs": "Ala, pluma (ʼêber)",
+    "glossesEs": [
+      "ala",
+      "pluma"
+    ]
+  },
+  "H84": {
+    "shortDefinitionEs": "Pluma, ala (ʼebrâh)",
+    "glossesEs": [
+      "pluma",
+      "ala"
+    ]
+  },
+  "H85": {
+    "shortDefinitionEs": "Abraham: patriarca (ʼAbrâhâm)",
+    "glossesEs": [
+      "Abraham",
+      "nombre propio"
+    ]
+  },
+  "H86": {
+    "shortDefinitionEs": "Inclinarse, doblar la rodilla (ʼabrêk)",
+    "glossesEs": [
+      "inclinarse",
+      "arrodillarse"
+    ]
+  },
+  "H87": {
+    "shortDefinitionEs": "Abram: patriarca (ʼAbrâm)",
+    "glossesEs": [
+      "Abram",
+      "nombre propio"
+    ]
+  },
+  "H88": {
+    "shortDefinitionEs": "Oboth: lugar en el desierto (ʼôbôth)",
+    "glossesEs": [
+      "Oboth",
+      "lugar"
+    ]
+  },
+  "H89": {
+    "shortDefinitionEs": "Agee: israelita (ʼÂgêʼ)",
+    "glossesEs": [
+      "Agee",
+      "nombre propio"
+    ]
+  },
+  "H90": {
+    "shortDefinitionEs": "Agag: título de reyes amalecitas (ʼĂgag)",
+    "glossesEs": [
+      "Agag",
+      "nombre propio"
+    ]
+  },
+  "H91": {
+    "shortDefinitionEs": "Agagita: descendiente de Agag (ʼĂgâgîy)",
+    "glossesEs": [
+      "agagita",
+      "nombre propio"
+    ]
+  },
+  "H92": {
+    "shortDefinitionEs": "Banda, atadura, manojo (ʼăguddâh)",
+    "glossesEs": [
+      "manojo",
+      "banda",
+      "carga"
+    ]
+  },
+  "H93": {
+    "shortDefinitionEs": "Nuez (ʼĕgôwz)",
+    "glossesEs": [
+      "nuez"
+    ]
+  },
+  "H94": {
+    "shortDefinitionEs": "Agur: nombre de Salomón (ʼÂgûwr)",
+    "glossesEs": [
+      "Agur",
+      "nombre propio"
+    ]
+  },
+  "H95": {
+    "shortDefinitionEs": "Moneda de plata pequeña (ʼăgôwrâh)",
+    "glossesEs": [
+      "moneda",
+      "plata"
+    ]
+  },
+  "H96": {
+    "shortDefinitionEs": "Gota de agua, depósito (ʼegel)",
+    "glossesEs": [
+      "gota",
+      "depósito"
+    ]
+  },
+  "H97": {
+    "shortDefinitionEs": "Eglain: lugar en Moab (ʼEglayim)",
+    "glossesEs": [
+      "Eglain",
+      "lugar"
+    ]
+  },
+  "H98": {
+    "shortDefinitionEs": "Pantano, estanque, caña (ʼăgam)",
+    "glossesEs": [
+      "pantano",
+      "estanque",
+      "agua estancada"
+    ]
+  },
+  "H99": {
+    "shortDefinitionEs": "Triste, oscuro (ʼâgêm)",
+    "glossesEs": [
+      "triste"
+    ]
+  },
+  "H100": {
+    "shortDefinitionEs": "Junco, caña, cuerda de juncos (ʼagmôwn)",
+    "glossesEs": [
+      "junco",
+      "caña"
+    ]
+  },
+  "H101": {
+    "shortDefinitionEs": "Tazón, copa, cáliz (ʼaggân)",
+    "glossesEs": [
+      "tazón",
+      "copa",
+      "cáliz"
+    ]
+  },
+  "H102": {
+    "shortDefinitionEs": "alas, tropas militares en formación (ʼaggâph)",
+    "glossesEs": [
+      "tropas",
+      "bandas militares",
+      "alas"
+    ]
+  },
+  "H103": {
+    "shortDefinitionEs": "cosechar, recoger frutos (ʼâgar)",
+    "glossesEs": [
+      "cosechar",
+      "recoger"
+    ]
+  },
+  "H104": {
+    "shortDefinitionEs": "carta, misiva oficial (ʼiggᵉrâʼ)",
+    "glossesEs": [
+      "carta",
+      "misiva",
+      "epístola"
+    ]
+  },
+  "H105": {
+    "shortDefinitionEs": "cuenco, bandeja para servir (ʼăgarṭâl)",
+    "glossesEs": [
+      "cuenco",
+      "bandeja"
+    ]
+  },
+  "H106": {
+    "shortDefinitionEs": "puño cerrado de la mano (ʼegrôph)",
+    "glossesEs": [
+      "puño"
+    ]
+  },
+  "H107": {
+    "shortDefinitionEs": "carta, epístola (ʼiggereth)",
+    "glossesEs": [
+      "carta",
+      "epístola"
+    ]
+  },
+  "H108": {
+    "shortDefinitionEs": "niebla, vapor (ʼêd)",
+    "glossesEs": [
+      "niebla",
+      "vapor"
+    ]
+  },
+  "H109": {
+    "shortDefinitionEs": "languidecer, afligirse (ʼâdab)",
+    "glossesEs": [
+      "afligirse",
+      "languidecer"
+    ]
+  },
+  "H110": {
+    "shortDefinitionEs": "Adbeel: hijo de Ismael (ʼAdbᵉʼêl)",
+    "glossesEs": [
+      "Adbeel"
+    ]
+  },
+  "H111": {
+    "shortDefinitionEs": "Hadad: edomita (ʼĂdad)",
+    "glossesEs": [
+      "Hadad",
+      "Adad"
+    ]
+  },
+  "H112": {
+    "shortDefinitionEs": "Iddo: israelita (ʼIddôw)",
+    "glossesEs": [
+      "Iddo"
+    ]
+  },
+  "H113": {
+    "shortDefinitionEs": "señor, amo, dueño, soberano (ʼâdôwn)",
+    "glossesEs": [
+      "señor",
+      "amo",
+      "dueño"
+    ]
+  },
+  "H114": {
+    "shortDefinitionEs": "Addón: israelita (ʼAddôwn)",
+    "glossesEs": [
+      "Addón"
+    ]
+  },
+  "H115": {
+    "shortDefinitionEs": "Adoraim: lugar en Palestina (ʼĂdôwrayim)",
+    "glossesEs": [
+      "Adoraim"
+    ]
+  },
+  "H116": {
+    "shortDefinitionEs": "entonces, en ese tiempo (ʼĕdayin)",
+    "glossesEs": [
+      "entonces",
+      "luego"
+    ]
+  },
+  "H117": {
+    "shortDefinitionEs": "magnífico, poderoso, glorious (ʼaddîyr)",
+    "glossesEs": [
+      "magnífico",
+      "glorioso",
+      "poderoso"
+    ]
+  },
+  "H118": {
+    "shortDefinitionEs": "Adalia: hijo de Amán (ʼĂdalyâʼ)",
+    "glossesEs": [
+      "Adalia"
+    ]
+  },
+  "H119": {
+    "shortDefinitionEs": "enrojecerse, teñirse rojo (ʼâdam)",
+    "glossesEs": [
+      "enrojecer",
+      "ruborizarse"
+    ]
+  },
+  "H120": {
+    "shortDefinitionEs": "hombre, humanidad; Adán (el de la tierra)",
+    "glossesEs": [
+      "hombre",
+      "hombres"
+    ]
+  },
+  "H121": {
+    "shortDefinitionEs": "Adán: primer hombre, lugar (ʼÂdâm)",
+    "glossesEs": [
+      "Adán"
+    ]
+  },
+  "H122": {
+    "shortDefinitionEs": "rojo, rubicundo (ʼâdôm)",
+    "glossesEs": [
+      "rojo",
+      "rubicundo"
+    ]
+  },
+  "H123": {
+    "shortDefinitionEs": "Edom: región, pueblo (ʼĔdôm)",
+    "glossesEs": [
+      "Edom",
+      "Edomitas",
+      "Idumea"
+    ]
+  },
+  "H124": {
+    "shortDefinitionEs": "rubí o piedra roja preciosa (ʼôdem)",
+    "glossesEs": [
+      "rubí",
+      "piedra roja",
+      "sardio"
+    ]
+  },
+  "H125": {
+    "shortDefinitionEs": "rojizo, de color rojo claro (ʼădamdâm)",
+    "glossesEs": [
+      "rojizo"
+    ]
+  },
+  "H126": {
+    "shortDefinitionEs": "Admá: lugar cerca del Mar Muerto (ʼAdmâh)",
+    "glossesEs": [
+      "Admá"
+    ]
+  },
+  "H127": {
+    "shortDefinitionEs": "tierra cultivable, suelo, terreno",
+    "glossesEs": [
+      "tierra"
+    ]
+  },
+  "H128": {
+    "shortDefinitionEs": "Adamá: lugar en Palestina (ʼĂdâmâh)",
+    "glossesEs": [
+      "Adamá"
+    ]
+  },
+  "H129": {
+    "shortDefinitionEs": "Adami: lugar en Palestina (ʼĂdâmîy)",
+    "glossesEs": [
+      "Adami"
+    ]
+  },
+  "H130": {
+    "shortDefinitionEs": "edomita, habitante de Edom (ʼĔdômîy)",
+    "glossesEs": [
+      "edomita"
+    ]
+  },
+  "H131": {
+    "shortDefinitionEs": "Adumim: paso en Palestina (ʼĂdummîym)",
+    "glossesEs": [
+      "Adumim"
+    ]
+  },
+  "H132": {
+    "shortDefinitionEs": "rojizo, de cabello o tez roja (ʼadmônîy)",
+    "glossesEs": [
+      "rojizo",
+      "pelirrojo"
+    ]
+  },
+  "H133": {
+    "shortDefinitionEs": "Admata: noble persa (ʼAdmâthâʼ)",
+    "glossesEs": [
+      "Admata"
+    ]
+  },
+  "H134": {
+    "shortDefinitionEs": "base, fundamento, zócalo (ʼeden)",
+    "glossesEs": [
+      "base",
+      "fundamento",
+      "zócalo"
+    ]
+  },
+  "H135": {
+    "shortDefinitionEs": "Addán: israelita (ʼAddân)",
+    "glossesEs": [
+      "Addán"
+    ]
+  },
+  "H136": {
+    "shortDefinitionEs": "Señor soberano, Adonai",
+    "glossesEs": [
+      "señor"
+    ]
+  },
+  "H137": {
+    "shortDefinitionEs": "Adoní-Bezec: rey cananeo (ʼĂdônîy-Bezeq)",
+    "glossesEs": [
+      "Adoní-Bezec"
+    ]
+  },
+  "H138": {
+    "shortDefinitionEs": "Adonías: israelita (ʼĂdônîyâh)",
+    "glossesEs": [
+      "Adonías"
+    ]
+  },
+  "H139": {
+    "shortDefinitionEs": "Adoní-Sedec: rey cananeo (ʼĂdônîy-Tsedeq)",
+    "glossesEs": [
+      "Adoní-Sedec"
+    ]
+  },
+  "H140": {
+    "shortDefinitionEs": "Adonicam: israelita (ʼĂdônîyqâm)",
+    "glossesEs": [
+      "Adonicam"
+    ]
+  },
+  "H141": {
+    "shortDefinitionEs": "Adonirám: israelita (ʼĂdônîyrâm)",
+    "glossesEs": [
+      "Adonirám"
+    ]
+  },
+  "H142": {
+    "shortDefinitionEs": "ser magnífico, hacerse glorioso (ʼâdar)",
+    "glossesEs": [
+      "glorificarse",
+      "engrandecerse"
+    ]
+  },
+  "H143": {
+    "shortDefinitionEs": "Adar: duodécimo mes hebreo (ʼĂdâr)",
+    "glossesEs": [
+      "Adar",
+      "mes"
+    ]
+  },
+  "H144": {
+    "shortDefinitionEs": "Adar: duodécimo mes hebreo (ʼĂdâr)",
+    "glossesEs": [
+      "Adar",
+      "mes"
+    ]
+  },
+  "H145": {
+    "shortDefinitionEs": "manto, vestidura, esplendor (ʼeder)",
+    "glossesEs": [
+      "manto",
+      "ropa",
+      "esplendor"
+    ]
+  },
+  "H146": {
+    "shortDefinitionEs": "Addar: lugar e israelita (ʼAddâr)",
+    "glossesEs": [
+      "Addar"
+    ]
+  },
+  "H147": {
+    "shortDefinitionEs": "era, lugar para trillar (ʼiddar)",
+    "glossesEs": [
+      "era",
+      "trillador"
+    ]
+  },
+  "H148": {
+    "shortDefinitionEs": "juez, jefe de magos (ʼădargâzêr)",
+    "glossesEs": [
+      "juez",
+      "mago"
+    ]
+  },
+  "H149": {
+    "shortDefinitionEs": "diligentemente, con cuidado (ʼadrazdâʼ)",
+    "glossesEs": [
+      "diligentemente"
+    ]
+  },
+  "H150": {
+    "shortDefinitionEs": "dárico, moneda persa (ʼădarkôn)",
+    "glossesEs": [
+      "dárico",
+      "moneda"
+    ]
+  },
+  "H151": {
+    "shortDefinitionEs": "Adorám: israelita (ʼĂdôrâm)",
+    "glossesEs": [
+      "Adorám"
+    ]
+  },
+  "H152": {
+    "shortDefinitionEs": "Adramelec: ídolo asirio (ʼĂdrammelek)",
+    "glossesEs": [
+      "Adramelec"
+    ]
+  },
+  "H153": {
+    "shortDefinitionEs": "brazo, poder, fuerza (ʼedrâʻ)",
+    "glossesEs": [
+      "brazo",
+      "poder",
+      "fuerza"
+    ]
+  },
+  "H154": {
+    "shortDefinitionEs": "Edrei: lugares en Palestina (ʼedreʻîy)",
+    "glossesEs": [
+      "Edrei"
+    ]
+  },
+  "H155": {
+    "shortDefinitionEs": "Vestidura amplia, manto, túnica elegante (ʼaddereth)",
+    "glossesEs": [
+      "manto",
+      "túnica",
+      "ropa"
+    ]
+  },
+  "H156": {
+    "shortDefinitionEs": "Trillar, desgranar grano pisándolo (ʼâdash)",
+    "glossesEs": [
+      "trillar",
+      "grano"
+    ]
+  },
+  "H157": {
+    "shortDefinitionEs": "amar, tener afecto, apreciar",
+    "glossesEs": [
+      "amar",
+      "amor"
+    ]
+  },
+  "H158": {
+    "shortDefinitionEs": "Amor, afecto, sentimiento (ʼahab)",
+    "glossesEs": [
+      "amor",
+      "amar"
+    ]
+  },
+  "H159": {
+    "shortDefinitionEs": "Amor, sentimiento de afección (ʼôhab)",
+    "glossesEs": [
+      "amor"
+    ]
+  },
+  "H160": {
+    "shortDefinitionEs": "amor, afecto",
+    "glossesEs": [
+      "amor"
+    ]
+  },
+  "H161": {
+    "shortDefinitionEs": "Nombre: Ohad, israelita (ʼÔhad)",
+    "glossesEs": [
+      "Ohad"
+    ]
+  },
+  "H162": {
+    "shortDefinitionEs": "Interjección de lamento o sorpresa (ʼăhâhh)",
+    "glossesEs": [
+      "ay",
+      "ay de mí"
+    ]
+  },
+  "H163": {
+    "shortDefinitionEs": "Nombre: Ahava, río de Babilonia (ʼAhăvâʼ)",
+    "glossesEs": [
+      "Ahava"
+    ]
+  },
+  "H164": {
+    "shortDefinitionEs": "Nombre: Ehud, israelita (ʼÊhûwd)",
+    "glossesEs": [
+      "Ehud"
+    ]
+  },
+  "H165": {
+    "shortDefinitionEs": "Dónde, en qué lugar (ʼĕhîy)",
+    "glossesEs": [
+      "dónde"
+    ]
+  },
+  "H166": {
+    "shortDefinitionEs": "Resplandecer, brillar, ser claro (ʼâhal)",
+    "glossesEs": [
+      "brillar",
+      "resplandecer"
+    ]
+  },
+  "H167": {
+    "shortDefinitionEs": "Acampar, armar tienda (ʼâhal)",
+    "glossesEs": [
+      "tienda",
+      "acampar"
+    ]
+  },
+  "H168": {
+    "shortDefinitionEs": "Tienda, tabernáculo, habitación (ʼôhel)",
+    "glossesEs": [
+      "tienda",
+      "tabernáculo",
+      "casa"
+    ]
+  },
+  "H169": {
+    "shortDefinitionEs": "Nombre: Ohel, israelita (ʼÔhel)",
+    "glossesEs": [
+      "Ohel"
+    ]
+  },
+  "H170": {
+    "shortDefinitionEs": "Nombre: Oholá, nombre simbólico de Samaria (ʼOhŏlâh)",
+    "glossesEs": [
+      "Oholá",
+      "Samaria"
+    ]
+  },
+  "H171": {
+    "shortDefinitionEs": "Nombre: Oholiab, israelita (ʼOhŏlîyʼâb)",
+    "glossesEs": [
+      "Oholiab"
+    ]
+  },
+  "H172": {
+    "shortDefinitionEs": "Nombre: Oholibá, nombre simbólico de Judá (ʼOhŏlîybâh)",
+    "glossesEs": [
+      "Oholibá",
+      "Judá"
+    ]
+  },
+  "H173": {
+    "shortDefinitionEs": "Nombre: Oholibamá, esposa de Esaú (ʼOhŏlîybâmâh)",
+    "glossesEs": [
+      "Oholibamá"
+    ]
+  },
+  "H174": {
+    "shortDefinitionEs": "Madera de áloe, leño aromático (ʼăhâlîym)",
+    "glossesEs": [
+      "áloe",
+      "madera aromática"
+    ]
+  },
+  "H175": {
+    "shortDefinitionEs": "Nombre: Aarón, hermano de Moisés (ʼAhărôwn)",
+    "glossesEs": [
+      "Aarón"
+    ]
+  },
+  "H176": {
+    "shortDefinitionEs": "O, también, si; disyunción o alternativa (ʼôw)",
+    "glossesEs": [
+      "o",
+      "si",
+      "también"
+    ]
+  },
+  "H177": {
+    "shortDefinitionEs": "Nombre: Uel, israelita (ʼÛwʼêl)",
+    "glossesEs": [
+      "Uel"
+    ]
+  },
+  "H178": {
+    "shortDefinitionEs": "Odre, espíritu familiar, nigromancia (ʼôwb)",
+    "glossesEs": [
+      "odre",
+      "nigromancia"
+    ]
+  },
+  "H179": {
+    "shortDefinitionEs": "Nombre: Obil, ismaelita (ʼôwbîyl)",
+    "glossesEs": [
+      "Obil"
+    ]
+  },
+  "H180": {
+    "shortDefinitionEs": "Corriente, arroyo, río (ʼûwbâl)",
+    "glossesEs": [
+      "río",
+      "arroyo"
+    ]
+  },
+  "H181": {
+    "shortDefinitionEs": "Tizón, vara de fuego para las brasas (ʼûwd)",
+    "glossesEs": [
+      "tizón",
+      "fuego"
+    ]
+  },
+  "H182": {
+    "shortDefinitionEs": "Causa, razón, por tanto, a causa de (ʼôwdôwth)",
+    "glossesEs": [
+      "causa",
+      "razón",
+      "por tanto"
+    ]
+  },
+  "H183": {
+    "shortDefinitionEs": "Desear, codiciar, anhelar (ʼâvâh)",
+    "glossesEs": [
+      "desear",
+      "codiciar",
+      "anhelar"
+    ]
+  },
+  "H184": {
+    "shortDefinitionEs": "Señalar, indicar, extender (ʼâvâh)",
+    "glossesEs": [
+      "señalar",
+      "indicar"
+    ]
+  },
+  "H185": {
+    "shortDefinitionEs": "Deseo, codicia, lujuria (ʼavvâh)",
+    "glossesEs": [
+      "deseo",
+      "codicia"
+    ]
+  },
+  "H186": {
+    "shortDefinitionEs": "Nombre: Uzai, israelita (ʼÛwzay)",
+    "glossesEs": [
+      "Uzai"
+    ]
+  },
+  "H187": {
+    "shortDefinitionEs": "Nombre: Uzal, hijo de Joktán (ʼÛwzâl)",
+    "glossesEs": [
+      "Uzal"
+    ]
+  },
+  "H188": {
+    "shortDefinitionEs": "Ay, lamento, expresión de dolor (ʼôwy)",
+    "glossesEs": [
+      "ay",
+      "lamento"
+    ]
+  },
+  "H189": {
+    "shortDefinitionEs": "Nombre: Evi, jefe madianita (ʼĔvîy)",
+    "glossesEs": [
+      "Evi"
+    ]
+  },
+  "H190": {
+    "shortDefinitionEs": "Ay, lamento, expresión de dolor (ʼôwyâh)",
+    "glossesEs": [
+      "ay",
+      "lamento"
+    ]
+  },
+  "H191": {
+    "shortDefinitionEs": "Necio, insensato, tonto (ʼĕvîyl)",
+    "glossesEs": [
+      "necio",
+      "tonto"
+    ]
+  },
+  "H192": {
+    "shortDefinitionEs": "Nombre: Evil-merodac, rey babilónico (ʼĔvîyl Mᵉrôdak)",
+    "glossesEs": [
+      "Evil-merodac"
+    ]
+  },
+  "H193": {
+    "shortDefinitionEs": "Fuerza, poder, fortaleza (ʼûwl)",
+    "glossesEs": [
+      "fuerza",
+      "poder"
+    ]
+  },
+  "H194": {
+    "shortDefinitionEs": "Si acaso, quizá, tal vez (ʼûwlay)",
+    "glossesEs": [
+      "quizá",
+      "si acaso"
+    ]
+  },
+  "H195": {
+    "shortDefinitionEs": "Nombre: Ulai, río de Persia (ʼÛwlay)",
+    "glossesEs": [
+      "Ulai"
+    ]
+  },
+  "H196": {
+    "shortDefinitionEs": "Necio, insensato, impío (ʼĕvilîy)",
+    "glossesEs": [
+      "necio",
+      "impío"
+    ]
+  },
+  "H197": {
+    "shortDefinitionEs": "Pórtico, vestíbulo de templo (ʼûwlâm)",
+    "glossesEs": [
+      "pórtico",
+      "vestíbulo"
+    ]
+  },
+  "H198": {
+    "shortDefinitionEs": "Nombre: Ulam, israelita (ʼÛwlâm)",
+    "glossesEs": [
+      "Ulam"
+    ]
+  },
+  "H199": {
+    "shortDefinitionEs": "Pero, sin embargo, verdaderamente (ʼûwlâm)",
+    "glossesEs": [
+      "pero",
+      "sin embargo"
+    ]
+  },
+  "H200": {
+    "shortDefinitionEs": "Necedad, tontería, insensatez (ʼivveleth)",
+    "glossesEs": [
+      "necedad",
+      "tontería"
+    ]
+  },
+  "H201": {
+    "shortDefinitionEs": "Nombre: Omar, nieto de Esaú (ʼÔwmâr)",
+    "glossesEs": [
+      "Omar"
+    ]
+  },
+  "H202": {
+    "shortDefinitionEs": "Poder, fuerza, riqueza, bienes (ʼôwn)",
+    "glossesEs": [
+      "poder",
+      "fuerza",
+      "riqueza"
+    ]
+  },
+  "H203": {
+    "shortDefinitionEs": "Nombre: On, israelita (ʼÔwn)",
+    "glossesEs": [
+      "On"
+    ]
+  },
+  "H204": {
+    "shortDefinitionEs": "Nombre: On, ciudad de Egipto (ʼÔwn)",
+    "glossesEs": [
+      "On"
+    ]
+  },
+  "H205": {
+    "shortDefinitionEs": "Vanidad, maldad, ídolo, iniquidad (ʼâven)",
+    "glossesEs": [
+      "vanidad",
+      "maldad",
+      "ídolo"
+    ]
+  },
+  "H206": {
+    "shortDefinitionEs": "Nombre: Aven, sinónimo despectivo de ciudades (ʼÂven)",
+    "glossesEs": [
+      "Aven"
+    ]
+  },
+  "H207": {
+    "shortDefinitionEs": "Ono: lugar en Palestina (ʼÔwnôw)",
+    "glossesEs": [
+      "Ono",
+      "lugar"
+    ]
+  },
+  "H208": {
+    "shortDefinitionEs": "Onam: nombre de edomita e israelita (ʼÔwnâm)",
+    "glossesEs": [
+      "Onam",
+      "nombre"
+    ]
+  },
+  "H209": {
+    "shortDefinitionEs": "Onán: hijo de Judá (ʼÔwnân)",
+    "glossesEs": [
+      "Onán",
+      "hijo de Judá"
+    ]
+  },
+  "H210": {
+    "shortDefinitionEs": "Ufaz: región famosa por oro (ʼÛwphâz)",
+    "glossesEs": [
+      "Ufaz",
+      "oro"
+    ]
+  },
+  "H211": {
+    "shortDefinitionEs": "Ofir: región de oro en Oriente (ʼÔwphîyr)",
+    "glossesEs": [
+      "Ofir",
+      "oro"
+    ]
+  },
+  "H212": {
+    "shortDefinitionEs": "rueda (ʼôwphân)",
+    "glossesEs": [
+      "rueda"
+    ]
+  },
+  "H213": {
+    "shortDefinitionEs": "apresurarse, estrechar, presionar (ʼûwts)",
+    "glossesEs": [
+      "prisa",
+      "apresurarse",
+      "estrechar"
+    ]
+  },
+  "H214": {
+    "shortDefinitionEs": "depósito, almacén, tesorería (ʼôwtsâr)",
+    "glossesEs": [
+      "tesoro",
+      "almacén",
+      "depósito"
+    ]
+  },
+  "H215": {
+    "shortDefinitionEs": "brillar, iluminar, dar luz",
+    "glossesEs": [
+      "luz"
+    ]
+  },
+  "H216": {
+    "shortDefinitionEs": "luz, resplandor, claridad",
+    "glossesEs": [
+      "luz"
+    ]
+  },
+  "H217": {
+    "shortDefinitionEs": "fuego, llama, luz; oriente (ʼûwr)",
+    "glossesEs": [
+      "fuego",
+      "luz",
+      "oriente"
+    ]
+  },
+  "H218": {
+    "shortDefinitionEs": "Ur: lugar en Caldea (ʼÛwr)",
+    "glossesEs": [
+      "Ur",
+      "Caldea"
+    ]
+  },
+  "H219": {
+    "shortDefinitionEs": "luminosidad, prosperidad; planta (ʼôwrâh)",
+    "glossesEs": [
+      "luz",
+      "hierba",
+      "prosperidad"
+    ]
+  },
+  "H220": {
+    "shortDefinitionEs": "redil, aprisco (ʼăvêrâh)",
+    "glossesEs": [
+      "redil",
+      "aprisco"
+    ]
+  },
+  "H221": {
+    "shortDefinitionEs": "Uri: nombre de tres israelitas (ʼÛwrîy)",
+    "glossesEs": [
+      "Uri",
+      "nombre"
+    ]
+  },
+  "H222": {
+    "shortDefinitionEs": "Uriel: nombre de dos israelitas (ʼÛwrîyʼêl)",
+    "glossesEs": [
+      "Uriel",
+      "nombre"
+    ]
+  },
+  "H223": {
+    "shortDefinitionEs": "Urías: hitita e israelitas (ʼÛwrîyâh)",
+    "glossesEs": [
+      "Urías",
+      "nombre"
+    ]
+  },
+  "H224": {
+    "shortDefinitionEs": "Urim: brillo oracular del pectoral (ʼÛwrîym)",
+    "glossesEs": [
+      "Urim",
+      "pectoral"
+    ]
+  },
+  "H225": {
+    "shortDefinitionEs": "consentir, asegurar (ʼûwth)",
+    "glossesEs": [
+      "consentir",
+      "asegurar"
+    ]
+  },
+  "H226": {
+    "shortDefinitionEs": "señal, milagro, prodigio, signo (ʼôwth)",
+    "glossesEs": [
+      "señal",
+      "milagro",
+      "signo",
+      "prodigio"
+    ]
+  },
+  "H227": {
+    "shortDefinitionEs": "entonces, luego; por lo tanto (ʼâz)",
+    "glossesEs": [
+      "entonces",
+      "luego",
+      "por lo tanto"
+    ]
+  },
+  "H228": {
+    "shortDefinitionEs": "encender, calentar (ʼăzâʼ)",
+    "glossesEs": [
+      "encender",
+      "calentar"
+    ]
+  },
+  "H229": {
+    "shortDefinitionEs": "Ezbai: israelita (ʼEzbay)",
+    "glossesEs": [
+      "Ezbai",
+      "nombre"
+    ]
+  },
+  "H230": {
+    "shortDefinitionEs": "firme, fuerte (ʼăzâd)",
+    "glossesEs": [
+      "firme",
+      "fuerte"
+    ]
+  },
+  "H231": {
+    "shortDefinitionEs": "hisopo: planta (ʼêzôwb)",
+    "glossesEs": [
+      "hisopo",
+      "planta"
+    ]
+  },
+  "H232": {
+    "shortDefinitionEs": "cinturón, ceñidor, faja (ʼêzôwr)",
+    "glossesEs": [
+      "cinturón",
+      "faja",
+      "ceñidor"
+    ]
+  },
+  "H233": {
+    "shortDefinitionEs": "entonces, en ese tiempo (ʼăzay)",
+    "glossesEs": [
+      "entonces"
+    ]
+  },
+  "H234": {
+    "shortDefinitionEs": "memorial, ofrenda de memorial (ʼazkârâh)",
+    "glossesEs": [
+      "memorial",
+      "ofrenda",
+      "recuerdo"
+    ]
+  },
+  "H235": {
+    "shortDefinitionEs": "desaparecer, fallar, irse (ʼâzal)",
+    "glossesEs": [
+      "desaparecer",
+      "fallar",
+      "irse"
+    ]
+  },
+  "H236": {
+    "shortDefinitionEs": "partir, marcharse (ʼăzal)",
+    "glossesEs": [
+      "partir",
+      "ir",
+      "marcharse"
+    ]
+  },
+  "H237": {
+    "shortDefinitionEs": "Ezel: piedra memorial en Palestina (ʼezel)",
+    "glossesEs": [
+      "Ezel",
+      "piedra"
+    ]
+  },
+  "H238": {
+    "shortDefinitionEs": "escuchar, dar oído (ʼâzan)",
+    "glossesEs": [
+      "escuchar",
+      "oído",
+      "oír"
+    ]
+  },
+  "H239": {
+    "shortDefinitionEs": "pesar, considerar, ponderar (ʼâzan)",
+    "glossesEs": [
+      "ponderar",
+      "considerar"
+    ]
+  },
+  "H240": {
+    "shortDefinitionEs": "pala, paleta (ʼâzên)",
+    "glossesEs": [
+      "pala",
+      "arma",
+      "paleta"
+    ]
+  },
+  "H241": {
+    "shortDefinitionEs": "oído: órgano del cuerpo (ʼôzen)",
+    "glossesEs": [
+      "oído",
+      "oír",
+      "audición"
+    ]
+  },
+  "H242": {
+    "shortDefinitionEs": "Uzén-Seera: lugar en Palestina (ʼUzzên Sheʼĕrâh)",
+    "glossesEs": [
+      "Uzén-Seera",
+      "lugar"
+    ]
+  },
+  "H243": {
+    "shortDefinitionEs": "Aznot-Tabor: lugar en Palestina (ʼAznôwth Tâbôwr)",
+    "glossesEs": [
+      "Aznot-Tabor",
+      "lugar"
+    ]
+  },
+  "H244": {
+    "shortDefinitionEs": "Ozni: israelita y su descendencia (ʼOznîy)",
+    "glossesEs": [
+      "Ozni",
+      "ozní",
+      "descendencia"
+    ]
+  },
+  "H245": {
+    "shortDefinitionEs": "Azanías: israelita (ʼĂzanyâh)",
+    "glossesEs": [
+      "Azanías",
+      "nombre"
+    ]
+  },
+  "H246": {
+    "shortDefinitionEs": "grillos, cadenas (ʼăziqqîym)",
+    "glossesEs": [
+      "cadenas",
+      "grillos"
+    ]
+  },
+  "H247": {
+    "shortDefinitionEs": "ceñir, rodear, atar (ʼâzar)",
+    "glossesEs": [
+      "ceñir",
+      "atar",
+      "rodear"
+    ]
+  },
+  "H248": {
+    "shortDefinitionEs": "brazo: miembro del cuerpo (ʼezrôwaʻ)",
+    "glossesEs": [
+      "brazo"
+    ]
+  },
+  "H249": {
+    "shortDefinitionEs": "nativo, originario, árbol silvestre (ʼezrâch)",
+    "glossesEs": [
+      "nativo",
+      "originario",
+      "árbol"
+    ]
+  },
+  "H250": {
+    "shortDefinitionEs": "ezraíta: descendiente de Zera (ʼEzrâchîy)",
+    "glossesEs": [
+      "ezraíta",
+      "Zera"
+    ]
+  },
+  "H251": {
+    "shortDefinitionEs": "hermano: pariente, semejante (ʼâch)",
+    "glossesEs": [
+      "hermano",
+      "pariente"
+    ]
+  },
+  "H252": {
+    "shortDefinitionEs": "hermano (ʼach)",
+    "glossesEs": [
+      "hermano"
+    ]
+  },
+  "H253": {
+    "shortDefinitionEs": "¡ay!, ¡oh! interjección de lamento (ʼâch)",
+    "glossesEs": [
+      "ay",
+      "oh",
+      "interjección"
+    ]
+  },
+  "H254": {
+    "shortDefinitionEs": "brasero, hornillo, hogar (ʼâch)",
+    "glossesEs": [
+      "brasero",
+      "hogar",
+      "fuego"
+    ]
+  },
+  "H255": {
+    "shortDefinitionEs": "animal salvaje solitario (ʼôach)",
+    "glossesEs": [
+      "animal salvaje",
+      "bestia",
+      "aullador"
+    ]
+  },
+  "H256": {
+    "shortDefinitionEs": "Acab: rey de Israel y profeta (ʼAchʼâb)",
+    "glossesEs": [
+      "Acab",
+      "rey"
+    ]
+  },
+  "H257": {
+    "shortDefinitionEs": "Acbán: israelita (ʼAchbân)",
+    "glossesEs": [
+      "Acbán",
+      "nombre"
+    ]
+  },
+  "H258": {
+    "shortDefinitionEs": "unificar, recopilar pensamientos (ʼâchad)",
+    "glossesEs": [
+      "unificar",
+      "ir por un camino"
+    ]
+  },
+  "H259": {
+    "shortDefinitionEs": "uno; primero, unido (ʼechâd)",
+    "glossesEs": [
+      "uno",
+      "primero",
+      "unido"
+    ]
+  },
+  "H260": {
+    "shortDefinitionEs": "caña, junco o hierba palustre (ʼâchûw)",
+    "glossesEs": [
+      "junco",
+      "caña",
+      "hierba"
+    ]
+  },
+  "H261": {
+    "shortDefinitionEs": "Ehud: nombre de tres israelitas (ʼÊchûwd)",
+    "glossesEs": [
+      "Ehud"
+    ]
+  },
+  "H262": {
+    "shortDefinitionEs": "declaración, enunciado (ʼachvâh)",
+    "glossesEs": [
+      "declaración",
+      "enunciado"
+    ]
+  },
+  "H263": {
+    "shortDefinitionEs": "solución de acertijos (ʼachăvâh)",
+    "glossesEs": [
+      "solución",
+      "respuesta"
+    ]
+  },
+  "H264": {
+    "shortDefinitionEs": "fraternidad, hermandad (ʼachăvâh)",
+    "glossesEs": [
+      "hermandad",
+      "fraternidad"
+    ]
+  },
+  "H265": {
+    "shortDefinitionEs": "Ahoá: nombre de un israelita (ʼĂchôwach)",
+    "glossesEs": [
+      "Ahoá"
+    ]
+  },
+  "H266": {
+    "shortDefinitionEs": "ahohita: descendiente de Ahoá (ʼĂchôwchîy)",
+    "glossesEs": [
+      "ahohita"
+    ]
+  },
+  "H267": {
+    "shortDefinitionEs": "Ahumai: nombre de un israelita (ʼĂchûwmay)",
+    "glossesEs": [
+      "Ahumai"
+    ]
+  },
+  "H268": {
+    "shortDefinitionEs": "atrás, parte trasera, occidente (ʼâchôwr)",
+    "glossesEs": [
+      "atrás",
+      "tras",
+      "occidente"
+    ]
+  },
+  "H269": {
+    "shortDefinitionEs": "hermana, otra (ʼâchôwth)",
+    "glossesEs": [
+      "hermana",
+      "otra"
+    ]
+  },
+  "H270": {
+    "shortDefinitionEs": "agarrar, coger, tomar, retener (ʼâchaz)",
+    "glossesEs": [
+      "agarrar",
+      "coger",
+      "retener"
+    ]
+  },
+  "H271": {
+    "shortDefinitionEs": "Acaz: nombre de reyes judío e israelita (ʼÂchâz)",
+    "glossesEs": [
+      "Acaz"
+    ]
+  },
+  "H272": {
+    "shortDefinitionEs": "posesión, heredad, tierra (ʼăchuzzâh)",
+    "glossesEs": [
+      "posesión",
+      "heredad",
+      "propiedad"
+    ]
+  },
+  "H273": {
+    "shortDefinitionEs": "Ahasai: nombre de un israelita (ʼAchzay)",
+    "glossesEs": [
+      "Ahasai"
+    ]
+  },
+  "H274": {
+    "shortDefinitionEs": "Ocozías: nombre de reyes judío e israelita (ʼĂchazyâh)",
+    "glossesEs": [
+      "Ocozías"
+    ]
+  },
+  "H275": {
+    "shortDefinitionEs": "Ahuzam: nombre de un israelita (ʼĂchuzzâm)",
+    "glossesEs": [
+      "Ahuzam"
+    ]
+  },
+  "H276": {
+    "shortDefinitionEs": "Ahuzat: nombre de un filisteo (ʼĂchuzzâth)",
+    "glossesEs": [
+      "Ahuzat"
+    ]
+  },
+  "H277": {
+    "shortDefinitionEs": "Ahí: nombre de dos israelitas (ʼĂchîy)",
+    "glossesEs": [
+      "Ahí"
+    ]
+  },
+  "H278": {
+    "shortDefinitionEs": "Ehi: nombre de un israelita (ʼÊchîy)",
+    "glossesEs": [
+      "Ehi"
+    ]
+  },
+  "H279": {
+    "shortDefinitionEs": "Ahiam: nombre de un israelita (ʼĂchîyʼâm)",
+    "glossesEs": [
+      "Ahiam"
+    ]
+  },
+  "H280": {
+    "shortDefinitionEs": "enigma, adivinanza difícil (ʼăchîydâh)",
+    "glossesEs": [
+      "enigma",
+      "adivinanza"
+    ]
+  },
+  "H281": {
+    "shortDefinitionEs": "Ahías: nombre de nueve israelitas (ʼĂchîyâh)",
+    "glossesEs": [
+      "Ahías"
+    ]
+  },
+  "H282": {
+    "shortDefinitionEs": "Ahihud: nombre de un israelita (ʼĂchîyhûwd)",
+    "glossesEs": [
+      "Ahihud"
+    ]
+  },
+  "H283": {
+    "shortDefinitionEs": "Ahío: nombre de tres israelitas (ʼAchyôw)",
+    "glossesEs": [
+      "Ahío"
+    ]
+  },
+  "H284": {
+    "shortDefinitionEs": "Ahihud: nombre de un israelita (ʼĂchîychud)",
+    "glossesEs": [
+      "Ahihud"
+    ]
+  },
+  "H285": {
+    "shortDefinitionEs": "Ahitub: nombre de varios sacerdotes (ʼĂchîyṭûwb)",
+    "glossesEs": [
+      "Ahitub"
+    ]
+  },
+  "H286": {
+    "shortDefinitionEs": "Ahilud: nombre de un israelita (ʼĂchîylûwd)",
+    "glossesEs": [
+      "Ahilud"
+    ]
+  },
+  "H287": {
+    "shortDefinitionEs": "Ahimot: nombre de un israelita (ʼĂchîymôwth)",
+    "glossesEs": [
+      "Ahimot"
+    ]
+  },
+  "H288": {
+    "shortDefinitionEs": "Ahimelec: israelita e hitita (ʼĂchîymelek)",
+    "glossesEs": [
+      "Ahimelec"
+    ]
+  },
+  "H289": {
+    "shortDefinitionEs": "Ahimán: anaquita e israelita (ʼĂchîyman)",
+    "glossesEs": [
+      "Ahimán"
+    ]
+  },
+  "H290": {
+    "shortDefinitionEs": "Ahimaas: nombre de tres israelitas (ʼĂchîymaʻats)",
+    "glossesEs": [
+      "Ahimaas"
+    ]
+  },
+  "H291": {
+    "shortDefinitionEs": "Ahian: nombre de un israelita (ʼAchyân)",
+    "glossesEs": [
+      "Ahian"
+    ]
+  },
+  "H292": {
+    "shortDefinitionEs": "Ahinadab: nombre de un israelita (ʼĂchîynâdâb)",
+    "glossesEs": [
+      "Ahinadab"
+    ]
+  },
+  "H293": {
+    "shortDefinitionEs": "Ahinoam: nombre de dos israelitas (ʼĂchîynôʻam)",
+    "glossesEs": [
+      "Ahinoam"
+    ]
+  },
+  "H294": {
+    "shortDefinitionEs": "Ahisamac: nombre de un israelita (ʼĂchîyçâmâk)",
+    "glossesEs": [
+      "Ahisamac"
+    ]
+  },
+  "H295": {
+    "shortDefinitionEs": "Ahiezer: nombre de dos israelitas (ʼĂchîyʻezer)",
+    "glossesEs": [
+      "Ahiezer"
+    ]
+  },
+  "H296": {
+    "shortDefinitionEs": "Ahicam: nombre de un israelita (ʼĂchîyqâm)",
+    "glossesEs": [
+      "Ahicam"
+    ]
+  },
+  "H297": {
+    "shortDefinitionEs": "Ahirram: nombre de un israelita (ʼĂchîyrâm)",
+    "glossesEs": [
+      "Ahirram"
+    ]
+  },
+  "H298": {
+    "shortDefinitionEs": "ahiramitas: descendientes de Ahirram (ʼĂchîyrâmîy)",
+    "glossesEs": [
+      "ahiramitas"
+    ]
+  },
+  "H299": {
+    "shortDefinitionEs": "Ahira: nombre de un israelita (ʼĂchîyraʻ)",
+    "glossesEs": [
+      "Ahira"
+    ]
+  },
+  "H300": {
+    "shortDefinitionEs": "Ahishar: nombre de un israelita (ʼĂchîyshachar)",
+    "glossesEs": [
+      "Ahishar"
+    ]
+  },
+  "H301": {
+    "shortDefinitionEs": "Ahishar: nombre de un israelita (ʼĂchîyshâr)",
+    "glossesEs": [
+      "Ahishar"
+    ]
+  },
+  "H302": {
+    "shortDefinitionEs": "Ahitofel: nombre de un israelita (ʼĂchîythôphel)",
+    "glossesEs": [
+      "Ahitofel"
+    ]
+  },
+  "H303": {
+    "shortDefinitionEs": "Ahlab: lugar en Palestina (ʼAchlâb)",
+    "glossesEs": [
+      "Ahlab"
+    ]
+  },
+  "H304": {
+    "shortDefinitionEs": "Ahlai: israelita e israelitesa (ʼAchlay)",
+    "glossesEs": [
+      "Ahlai"
+    ]
+  },
+  "H305": {
+    "shortDefinitionEs": "¡ojalá! expresión de deseo (ʼachălay)",
+    "glossesEs": [
+      "ojalá",
+      "deseo"
+    ]
+  },
+  "H306": {
+    "shortDefinitionEs": "amatista: piedra preciosa (ʼachlâmâh)",
+    "glossesEs": [
+      "amatista"
+    ]
+  },
+  "H307": {
+    "shortDefinitionEs": "Ecbatana: capital estival de Persia (ʼAchmᵉthâʼ)",
+    "glossesEs": [
+      "Ecbatana"
+    ]
+  },
+  "H308": {
+    "shortDefinitionEs": "Ahasbai: nombre de un israelita (ʼĂchaçbay)",
+    "glossesEs": [
+      "Ahasbai"
+    ]
+  },
+  "H309": {
+    "shortDefinitionEs": "tardar, demorar, aplazar (ʼâchar)",
+    "glossesEs": [
+      "tardar",
+      "demorar",
+      "aplazar"
+    ]
+  },
+  "H310": {
+    "shortDefinitionEs": "después, luego; adverbio o conjunción (ʼachar)",
+    "glossesEs": [
+      "después",
+      "luego",
+      "posteriormente"
+    ]
+  },
+  "H311": {
+    "shortDefinitionEs": "después, posteriormente (ʼachar)",
+    "glossesEs": [
+      "después"
+    ]
+  },
+  "H312": {
+    "shortDefinitionEs": "otro, siguiente, extraño (ʼachêr)",
+    "glossesEs": [
+      "otro",
+      "siguiente",
+      "próximo"
+    ]
+  },
+  "H313": {
+    "shortDefinitionEs": "Acer: israelita (ʼAchêr)",
+    "glossesEs": [
+      "Acer",
+      "nombre propio"
+    ]
+  },
+  "H314": {
+    "shortDefinitionEs": "postrero, último; occidental (ʼachărôwn)",
+    "glossesEs": [
+      "último",
+      "postrero",
+      "final"
+    ]
+  },
+  "H315": {
+    "shortDefinitionEs": "Acrac: israelita (ʼAchrach)",
+    "glossesEs": [
+      "Acrac",
+      "nombre propio"
+    ]
+  },
+  "H316": {
+    "shortDefinitionEs": "Acarjel: israelita (ʼĂcharchêl)",
+    "glossesEs": [
+      "Acarjel",
+      "nombre propio"
+    ]
+  },
+  "H317": {
+    "shortDefinitionEs": "otro (ʼochŏrîy)",
+    "glossesEs": [
+      "otro"
+    ]
+  },
+  "H318": {
+    "shortDefinitionEs": "al fin, al último (ʼochŏrêyn)",
+    "glossesEs": [
+      "último",
+      "fin"
+    ]
+  },
+  "H319": {
+    "shortDefinitionEs": "fin, último, futuro; posteridad (ʼachărîyth)",
+    "glossesEs": [
+      "fin",
+      "último",
+      "posteridad",
+      "futuro"
+    ]
+  },
+  "H320": {
+    "shortDefinitionEs": "posterior, más reciente (ʼachărîyth)",
+    "glossesEs": [
+      "posterior",
+      "último"
+    ]
+  },
+  "H321": {
+    "shortDefinitionEs": "otro (ʼochŏrân)",
+    "glossesEs": [
+      "otro"
+    ]
+  },
+  "H322": {
+    "shortDefinitionEs": "hacia atrás, al revés (ʼăchôrannîyth)",
+    "glossesEs": [
+      "atrás",
+      "al revés"
+    ]
+  },
+  "H323": {
+    "shortDefinitionEs": "sátrapa, gobernador persa (ʼăchashdarpan)",
+    "glossesEs": [
+      "sátrapa",
+      "gobernador"
+    ]
+  },
+  "H324": {
+    "shortDefinitionEs": "príncipe, magistrado (ʼăchashdarpan)",
+    "glossesEs": [
+      "príncipe",
+      "magistrado"
+    ]
+  },
+  "H325": {
+    "shortDefinitionEs": "Asuero: rey persa (ʼĂchashvêrôwsh)",
+    "glossesEs": [
+      "Asuero",
+      "rey persa"
+    ]
+  },
+  "H326": {
+    "shortDefinitionEs": "el Acasarí: correo o designación israelita (ʼăchashtârîy)",
+    "glossesEs": [
+      "correo",
+      "mensajero"
+    ]
+  },
+  "H327": {
+    "shortDefinitionEs": "mula de carga (ʼăchashtârân)",
+    "glossesEs": [
+      "mula",
+      "bestia"
+    ]
+  },
+  "H328": {
+    "shortDefinitionEs": "nigromante; suavemente (ʼaṭ)",
+    "glossesEs": [
+      "nigromante",
+      "suavemente"
+    ]
+  },
+  "H329": {
+    "shortDefinitionEs": "árbol espinoso, zarza (ʼâṭâd)",
+    "glossesEs": [
+      "zarza",
+      "espino",
+      "árbol espinoso"
+    ]
+  },
+  "H330": {
+    "shortDefinitionEs": "lino fino tejido (ʼêṭûwn)",
+    "glossesEs": [
+      "lino fino",
+      "tejido"
+    ]
+  },
+  "H331": {
+    "shortDefinitionEs": "cerrar, estrechar; clausurar (ʼâṭam)",
+    "glossesEs": [
+      "cerrar",
+      "estrechar"
+    ]
+  },
+  "H332": {
+    "shortDefinitionEs": "cerrar, tapar (ʼâṭar)",
+    "glossesEs": [
+      "cerrar"
+    ]
+  },
+  "H333": {
+    "shortDefinitionEs": "Ater: israelita (ʼÂṭêr)",
+    "glossesEs": [
+      "Ater",
+      "nombre propio"
+    ]
+  },
+  "H334": {
+    "shortDefinitionEs": "zurdo, manco del lado derecho (ʼiṭṭêr)",
+    "glossesEs": [
+      "zurdo",
+      "manco"
+    ]
+  },
+  "H335": {
+    "shortDefinitionEs": "¿dónde? ¿cómo? (ʼay)",
+    "glossesEs": [
+      "dónde",
+      "cómo"
+    ]
+  },
+  "H336": {
+    "shortDefinitionEs": "isla, tierra seca (ʼîy)",
+    "glossesEs": [
+      "isla",
+      "tierra"
+    ]
+  },
+  "H337": {
+    "shortDefinitionEs": "¡ay! lamento (ʼîy)",
+    "glossesEs": [
+      "ay",
+      "lamento"
+    ]
+  },
+  "H338": {
+    "shortDefinitionEs": "fiera salvaje de las islas (ʼîy)",
+    "glossesEs": [
+      "fiera salvaje",
+      "animal"
+    ]
+  },
+  "H339": {
+    "shortDefinitionEs": "isla, tierra seca, costa (ʼîy)",
+    "glossesEs": [
+      "isla",
+      "costa",
+      "tierra"
+    ]
+  },
+  "H340": {
+    "shortDefinitionEs": "odiar, ser enemigo (ʼâyab)",
+    "glossesEs": [
+      "odiar",
+      "enemistad"
+    ]
+  },
+  "H341": {
+    "shortDefinitionEs": "enemigo, adversario (ʼôyêb)",
+    "glossesEs": [
+      "enemigo",
+      "adversario"
+    ]
+  },
+  "H342": {
+    "shortDefinitionEs": "enemistad, odio (ʼêybâh)",
+    "glossesEs": [
+      "enemistad",
+      "odio"
+    ]
+  },
+  "H343": {
+    "shortDefinitionEs": "opresión, calamidad, ruina (ʼêyd)",
+    "glossesEs": [
+      "calamidad",
+      "destrucción",
+      "ruina"
+    ]
+  },
+  "H344": {
+    "shortDefinitionEs": "halcón, ave rapaz (ʼayâh)",
+    "glossesEs": [
+      "halcón",
+      "ave rapaz"
+    ]
+  },
+  "H345": {
+    "shortDefinitionEs": "Aja: israelita (ʼAyâh)",
+    "glossesEs": [
+      "Aja",
+      "nombre propio"
+    ]
+  },
+  "H346": {
+    "shortDefinitionEs": "¿dónde? (ʼayêh)",
+    "glossesEs": [
+      "dónde"
+    ]
+  },
+  "H347": {
+    "shortDefinitionEs": "Job: patriarca de paciencia (ʼÎyôwb)",
+    "glossesEs": [
+      "Job",
+      "patriarca"
+    ]
+  },
+  "H348": {
+    "shortDefinitionEs": "Jezabel: esposa del rey Acab (ʼÎyzebel)",
+    "glossesEs": [
+      "Jezabel",
+      "reina"
+    ]
+  },
+  "H349": {
+    "shortDefinitionEs": "¿cómo? ¿dónde? (ʼêyk)",
+    "glossesEs": [
+      "cómo",
+      "dónde"
+    ]
+  },
+  "H350": {
+    "shortDefinitionEs": "Icabod: hijo de Finees (ʼÎy-kâbôwd)",
+    "glossesEs": [
+      "Icabod",
+      "nombre propio"
+    ]
+  },
+  "H351": {
+    "shortDefinitionEs": "¿dónde? (ʼêykôh)",
+    "glossesEs": [
+      "dónde"
+    ]
+  },
+  "H352": {
+    "shortDefinitionEs": "carnero, jefe, poste; fuerte (ʼayil)",
+    "glossesEs": [
+      "carnero",
+      "jefe",
+      "poste"
+    ]
+  },
+  "H353": {
+    "shortDefinitionEs": "fuerza, vigor (ʼĕyâl)",
+    "glossesEs": [
+      "fuerza",
+      "vigor"
+    ]
+  },
+  "H354": {
+    "shortDefinitionEs": "ciervo macho (ʼayâl)",
+    "glossesEs": [
+      "ciervo",
+      "macho"
+    ]
+  },
+  "H355": {
+    "shortDefinitionEs": "cierva hembra (ʼayâlâh)",
+    "glossesEs": [
+      "cierva",
+      "hembra"
+    ]
+  },
+  "H356": {
+    "shortDefinitionEs": "Elón: lugar y nombre en Palestina (ʼÊylôwn)",
+    "glossesEs": [
+      "Elón",
+      "nombre propio"
+    ]
+  },
+  "H357": {
+    "shortDefinitionEs": "Ajalón: lugares en Palestina (ʼAyâlôwn)",
+    "glossesEs": [
+      "Ajalón",
+      "lugar"
+    ]
+  },
+  "H358": {
+    "shortDefinitionEs": "Elón de Bet-anán: lugar en Palestina (ʼÊylôwn Bêyth Chânân)",
+    "glossesEs": [
+      "Elón Bet-anán",
+      "lugar"
+    ]
+  },
+  "H359": {
+    "shortDefinitionEs": "Elot o Elat, lugar en el Mar Rojo (ʼÊylôwth)",
+    "glossesEs": [
+      "Elot",
+      "Elat",
+      "Mar Rojo"
+    ]
+  },
+  "H360": {
+    "shortDefinitionEs": "Poder, fuerza; por implicación, protección (ʼĕyâlûwth)",
+    "glossesEs": [
+      "fuerza",
+      "poder",
+      "protección"
+    ]
+  },
+  "H361": {
+    "shortDefinitionEs": "Espacio de columnas, pórtico o galería (ʼêylâm)",
+    "glossesEs": [
+      "pórtico",
+      "galería",
+      "arco"
+    ]
+  },
+  "H362": {
+    "shortDefinitionEs": "Elim, lugar en el desierto (ʼÊylim)",
+    "glossesEs": [
+      "Elim",
+      "desierto"
+    ]
+  },
+  "H363": {
+    "shortDefinitionEs": "Árbol (ʼîylân)",
+    "glossesEs": [
+      "árbol"
+    ]
+  },
+  "H364": {
+    "shortDefinitionEs": "El-Parán, región en el desierto (ʼÊyl Pâʼrân)",
+    "glossesEs": [
+      "El-Parán",
+      "Parán"
+    ]
+  },
+  "H365": {
+    "shortDefinitionEs": "Cierva, gama (ʼayeleth)",
+    "glossesEs": [
+      "cierva",
+      "gama",
+      "hembra"
+    ]
+  },
+  "H366": {
+    "shortDefinitionEs": "Terrible, espantoso, aterrador (ʼâyôm)",
+    "glossesEs": [
+      "terrible",
+      "espantoso",
+      "aterrador"
+    ]
+  },
+  "H367": {
+    "shortDefinitionEs": "Miedo, terror; ídolo usado para espantar (ʼêymâh)",
+    "glossesEs": [
+      "miedo",
+      "terror",
+      "horror",
+      "ídolo"
+    ]
+  },
+  "H368": {
+    "shortDefinitionEs": "Emim, tribu primitiva cananea o moabita (ʼÊymîym)",
+    "glossesEs": [
+      "Emim",
+      "tribu"
+    ]
+  },
+  "H369": {
+    "shortDefinitionEs": "Negación; nada, falta; partícula negativa (ʼayin)",
+    "glossesEs": [
+      "no",
+      "nada",
+      "negación"
+    ]
+  },
+  "H370": {
+    "shortDefinitionEs": "¿Dónde? interrogativo de lugar (ʼayin)",
+    "glossesEs": [
+      "dónde",
+      "de dónde"
+    ]
+  },
+  "H371": {
+    "shortDefinitionEs": "¿No es así? interrogación negativa (ʼîyn)",
+    "glossesEs": [
+      "¿no?"
+    ]
+  },
+  "H372": {
+    "shortDefinitionEs": "Iezer: israelita, padre de una tribu (ʼÎyʻezêr)",
+    "glossesEs": [
+      "Iezer",
+      "israelita"
+    ]
+  },
+  "H373": {
+    "shortDefinitionEs": "Iezrita: descendiente de Iezer (ʼÎyʻezrîy)",
+    "glossesEs": [
+      "Iezrita",
+      "descendiente"
+    ]
+  },
+  "H374": {
+    "shortDefinitionEs": "Efa: medida de grano (ʼêyphâh)",
+    "glossesEs": [
+      "efa",
+      "medida",
+      "grano"
+    ]
+  },
+  "H375": {
+    "shortDefinitionEs": "¿Qué lugar?, ¿cuándo?, ¿cómo? (ʼêyphôh)",
+    "glossesEs": [
+      "dónde",
+      "cuándo",
+      "cómo"
+    ]
+  },
+  "H376": {
+    "shortDefinitionEs": "hombre, varón, persona",
+    "glossesEs": [
+      "hombre",
+      "hombres"
+    ]
+  },
+  "H377": {
+    "shortDefinitionEs": "Ser hombre, actuar varonilmente (ʼîysh)",
+    "glossesEs": [
+      "hombre",
+      "varonilmente"
+    ]
+  },
+  "H378": {
+    "shortDefinitionEs": "Is-Boset: hijo del rey Saúl (ʼÎysh-Bôsheth)",
+    "glossesEs": [
+      "Is-Boset",
+      "Saúl"
+    ]
+  },
+  "H379": {
+    "shortDefinitionEs": "Isod: israelita (ʼÎyshᵉhôwd)",
+    "glossesEs": [
+      "Isod",
+      "israelita"
+    ]
+  },
+  "H380": {
+    "shortDefinitionEs": "Pupila del ojo; centro, lo más oscuro (ʼîyshôwn)",
+    "glossesEs": [
+      "pupila",
+      "ojo",
+      "oscuridad"
+    ]
+  },
+  "H381": {
+    "shortDefinitionEs": "Is-Jail: israelita, hombre valiente (ʼÎysh-Chayil)",
+    "glossesEs": [
+      "Is-Jail",
+      "valiente"
+    ]
+  },
+  "H382": {
+    "shortDefinitionEs": "Is-Tob: lugar en Palestina (ʼÎysh-Ṭôwb)",
+    "glossesEs": [
+      "Is-Tob",
+      "Palestina"
+    ]
+  },
+  "H383": {
+    "shortDefinitionEs": "Hay, existe; partícula de afirmación (ʼîythay)",
+    "glossesEs": [
+      "hay",
+      "existe",
+      "afirmación"
+    ]
+  },
+  "H384": {
+    "shortDefinitionEs": "Itiel: israelita y persona simbólica (ʼÎythîyʼêl)",
+    "glossesEs": [
+      "Itiel",
+      "israelita"
+    ]
+  },
+  "H385": {
+    "shortDefinitionEs": "Itamar: hijo del sacerdote Aarón (ʼÎythâmâr)",
+    "glossesEs": [
+      "Itamar",
+      "Aarón"
+    ]
+  },
+  "H386": {
+    "shortDefinitionEs": "Permanencia; duradero, fuerte; caudillo (ʼêythân)",
+    "glossesEs": [
+      "fuerte",
+      "duro",
+      "caudillo"
+    ]
+  },
+  "H387": {
+    "shortDefinitionEs": "Etán: nombre de cuatro israelitas (ʼÊythân)",
+    "glossesEs": [
+      "Etán",
+      "israelita"
+    ]
+  },
+  "H388": {
+    "shortDefinitionEs": "Etanim: nombre de un mes hebreo (ʼÊythânîym)",
+    "glossesEs": [
+      "Etanim",
+      "mes"
+    ]
+  },
+  "H389": {
+    "shortDefinitionEs": "Ciertamente, seguro; solo, solamente (ʼak)",
+    "glossesEs": [
+      "ciertamente",
+      "solo",
+      "solamente"
+    ]
+  },
+  "H390": {
+    "shortDefinitionEs": "Acad: lugar en Babilonia (ʼAkkad)",
+    "glossesEs": [
+      "Acad",
+      "Babilonia"
+    ]
+  },
+  "H391": {
+    "shortDefinitionEs": "Falsedad, mentira; por implicación, traición (ʼakzâb)",
+    "glossesEs": [
+      "mentira",
+      "falsedad",
+      "traición"
+    ]
+  },
+  "H392": {
+    "shortDefinitionEs": "Aczib: dos lugares en Palestina (ʼAkzîyb)",
+    "glossesEs": [
+      "Aczib",
+      "Palestina"
+    ]
+  },
+  "H393": {
+    "shortDefinitionEs": "Violento, feroz, mortal; valiente (ʼakzâr)",
+    "glossesEs": [
+      "feroz",
+      "cruel",
+      "violento"
+    ]
+  },
+  "H394": {
+    "shortDefinitionEs": "Terrible, cruel, salvaje (ʼakzârîy)",
+    "glossesEs": [
+      "terrible",
+      "cruel"
+    ]
+  },
+  "H395": {
+    "shortDefinitionEs": "Fiereza, crueldad, violencia (ʼakzᵉrîyûwth)",
+    "glossesEs": [
+      "fiereza",
+      "crueldad"
+    ]
+  },
+  "H396": {
+    "shortDefinitionEs": "Algo comestible, alimento (ʼăkîylâh)",
+    "glossesEs": [
+      "alimento",
+      "comida"
+    ]
+  },
+  "H397": {
+    "shortDefinitionEs": "Aquis: rey filisteo (ʼĂkîysh)",
+    "glossesEs": [
+      "Aquis",
+      "filisteo",
+      "rey"
+    ]
+  },
+  "H398": {
+    "shortDefinitionEs": "Comer, consumir, devorar (ʼâkal)",
+    "glossesEs": [
+      "comer",
+      "consumir",
+      "devorar"
+    ]
+  },
+  "H399": {
+    "shortDefinitionEs": "Acusar, devorar, comer (ʼăkal)",
+    "glossesEs": [
+      "comer",
+      "devorar",
+      "acusar"
+    ]
+  },
+  "H400": {
+    "shortDefinitionEs": "Alimento, comida, presa (ʼôkel)",
+    "glossesEs": [
+      "alimento",
+      "comida",
+      "presa"
+    ]
+  },
+  "H401": {
+    "shortDefinitionEs": "Ucal: nombre propio (ʼUkâl)",
+    "glossesEs": [
+      "Ucal"
+    ]
+  },
+  "H402": {
+    "shortDefinitionEs": "Alimento, comida, sustento (ʼoklâh)",
+    "glossesEs": [
+      "alimento",
+      "comida",
+      "sustento"
+    ]
+  },
+  "H403": {
+    "shortDefinitionEs": "Ciertamente, verdaderamente, pero (ʼâkên)",
+    "glossesEs": [
+      "ciertamente",
+      "verdaderamente",
+      "pero"
+    ]
+  },
+  "H404": {
+    "shortDefinitionEs": "Instar, solicitar, desear (ʼâkaph)",
+    "glossesEs": [
+      "instar",
+      "desear",
+      "solicitar"
+    ]
+  },
+  "H405": {
+    "shortDefinitionEs": "Carga, golpe, mano (ʼekeph)",
+    "glossesEs": [
+      "carga",
+      "golpe",
+      "mano"
+    ]
+  },
+  "H406": {
+    "shortDefinitionEs": "Labrador, agricultor (ʼikkâr)",
+    "glossesEs": [
+      "labrador",
+      "agricultor"
+    ]
+  },
+  "H407": {
+    "shortDefinitionEs": "Acsaf: lugar en Palestina (ʼAkshâph)",
+    "glossesEs": [
+      "Acsaf",
+      "Palestina"
+    ]
+  },
+  "H408": {
+    "shortDefinitionEs": "No, negación con matiz deprecativo (ʼal)",
+    "glossesEs": [
+      "no",
+      "ni",
+      "negación"
+    ]
+  },
+  "H409": {
+    "shortDefinitionEs": "No, negación (ʼal)",
+    "glossesEs": [
+      "no"
+    ]
+  },
+  "H410": {
+    "shortDefinitionEs": "Dios (El), el Poderoso, el Fuerte",
+    "glossesEs": [
+      "dios"
+    ]
+  },
+  "H411": {
+    "shortDefinitionEs": "Estos o aquellos (ʼêl)",
+    "glossesEs": [
+      "estos",
+      "aquellos"
+    ]
+  },
+  "H412": {
+    "shortDefinitionEs": "Estos (ʼêl)",
+    "glossesEs": [
+      "estos"
+    ]
+  },
+  "H413": {
+    "shortDefinitionEs": "Preposición: cerca, con, entre; hacia (ʼêl)",
+    "glossesEs": [
+      "a",
+      "hacia",
+      "entre"
+    ]
+  },
+  "H414": {
+    "shortDefinitionEs": "Nombre: Ela, israelita (ʼÊlâʼ)",
+    "glossesEs": [
+      "Ela"
+    ]
+  },
+  "H415": {
+    "shortDefinitionEs": "Nombre: El-Elohi-Israel, lugar consagrado (ʼÊl ʼĕlôhêy Yisrâʼêl)",
+    "glossesEs": [
+      "Elelohe-israel"
+    ]
+  },
+  "H416": {
+    "shortDefinitionEs": "Nombre: El-Bethel, lugar consagrado (ʼÊl Bêyth-ʼÊl)",
+    "glossesEs": [
+      "El-beth-el"
+    ]
+  },
+  "H417": {
+    "shortDefinitionEs": "Granizo, piedras de hielo grandes (ʼelgâbîysh)",
+    "glossesEs": [
+      "granizo",
+      "piedras de hielo"
+    ]
+  },
+  "H418": {
+    "shortDefinitionEs": "Madera de almug, árbol precioso (ʼalgûwmmîym)",
+    "glossesEs": [
+      "almug",
+      "árbol precioso"
+    ]
+  },
+  "H419": {
+    "shortDefinitionEs": "Nombre: Eldad, israelita (ʼEldâd)",
+    "glossesEs": [
+      "Eldad"
+    ]
+  },
+  "H420": {
+    "shortDefinitionEs": "Nombre: Eldaa, hijo de Madián (ʼEldâʻâh)",
+    "glossesEs": [
+      "Eldaa"
+    ]
+  },
+  "H421": {
+    "shortDefinitionEs": "Llorar, lamentar, plañir (ʼâlâh)",
+    "glossesEs": [
+      "lamentar",
+      "llorar",
+      "plañir"
+    ]
+  },
+  "H422": {
+    "shortDefinitionEs": "Maldecir, adjurar, jurar (ʼâlâh)",
+    "glossesEs": [
+      "maldecir",
+      "jurar",
+      "adjurar"
+    ]
+  },
+  "H423": {
+    "shortDefinitionEs": "Maldición, execración, juramento (ʼâlâh)",
+    "glossesEs": [
+      "maldición",
+      "juramento",
+      "execración"
+    ]
+  },
+  "H424": {
+    "shortDefinitionEs": "Encina, roble, árbol fuerte (ʼêlâh)",
+    "glossesEs": [
+      "encina",
+      "roble",
+      "árbol"
+    ]
+  },
+  "H425": {
+    "shortDefinitionEs": "Nombre: Elá, edomita e israelitas (ʼÊlâh)",
+    "glossesEs": [
+      "Elá"
+    ]
+  },
+  "H426": {
+    "shortDefinitionEs": "Dios, deidad, el Altísimo (ʼĕlâhh)",
+    "glossesEs": [
+      "Dios",
+      "deidad"
+    ]
+  },
+  "H427": {
+    "shortDefinitionEs": "Encina, roble (ʼallâh)",
+    "glossesEs": [
+      "encina",
+      "roble"
+    ]
+  },
+  "H428": {
+    "shortDefinitionEs": "Estos o aquellos, alguno, tal (ʼêl-leh)",
+    "glossesEs": [
+      "estos",
+      "aquellos",
+      "algunos"
+    ]
+  },
+  "H429": {
+    "shortDefinitionEs": "Estos (ʼêlleh)",
+    "glossesEs": [
+      "estos"
+    ]
+  },
+  "H430": {
+    "shortDefinitionEs": "Dios (Elohim), divinidad, seres poderosos",
+    "glossesEs": [
+      "dios",
+      "elohim"
+    ]
+  },
+  "H431": {
+    "shortDefinitionEs": "He aquí, mira (ʼălûw)",
+    "glossesEs": [
+      "he aquí",
+      "mira"
+    ]
+  },
+  "H432": {
+    "shortDefinitionEs": "Pero si, aunque, si (ʼillûw)",
+    "glossesEs": [
+      "si",
+      "aunque",
+      "pero si"
+    ]
+  },
+  "H433": {
+    "shortDefinitionEs": "Dios, deidad, divinidad (ʼĕlôwahh)",
+    "glossesEs": [
+      "Dios",
+      "divinidad"
+    ]
+  },
+  "H434": {
+    "shortDefinitionEs": "Cosa de ningún valor, inútil (ʼĕlûwl)",
+    "glossesEs": [
+      "inútil",
+      "sin valor"
+    ]
+  },
+  "H435": {
+    "shortDefinitionEs": "Nombre: Elul, sexto mes judío (ʼĔlûwl)",
+    "glossesEs": [
+      "Elul",
+      "mes"
+    ]
+  },
+  "H436": {
+    "shortDefinitionEs": "Encina, roble, árbol fuerte (ʼêlôwn)",
+    "glossesEs": [
+      "encina",
+      "roble",
+      "árbol"
+    ]
+  },
+  "H437": {
+    "shortDefinitionEs": "Encina, roble (ʼallôwn)",
+    "glossesEs": [
+      "encina",
+      "roble"
+    ]
+  },
+  "H438": {
+    "shortDefinitionEs": "Nombre: Alón, israelita y lugar (ʼAllôwn)",
+    "glossesEs": [
+      "Alón"
+    ]
+  },
+  "H439": {
+    "shortDefinitionEs": "Nombre: Alón-bacut, árbol monumental (ʼAllôwn Bâkûwth)",
+    "glossesEs": [
+      "Alón-bacut"
+    ]
+  },
+  "H440": {
+    "shortDefinitionEs": "Nombre: Elonita, descendiente de Elón (ʼÊlôwnîy)",
+    "glossesEs": [
+      "Elonita"
+    ]
+  },
+  "H441": {
+    "shortDefinitionEs": "Amigo, jefe, guía, toro mansotorso (ʼallûwph)",
+    "glossesEs": [
+      "jefe",
+      "amigo",
+      "guía"
+    ]
+  },
+  "H442": {
+    "shortDefinitionEs": "Nombre: Alus, lugar en el desierto (ʼÂlûwsh)",
+    "glossesEs": [
+      "Alus"
+    ]
+  },
+  "H443": {
+    "shortDefinitionEs": "Nombre: Elzabad, israelita (ʼElzâbâd)",
+    "glossesEs": [
+      "Elzabad"
+    ]
+  },
+  "H444": {
+    "shortDefinitionEs": "Corromperse moralmente, ensuciarse (ʼâlach)",
+    "glossesEs": [
+      "corromperse",
+      "ensuciarse"
+    ]
+  },
+  "H445": {
+    "shortDefinitionEs": "Nombre: Elcanán, israelita (ʼElchânân)",
+    "glossesEs": [
+      "Elcanán"
+    ]
+  },
+  "H446": {
+    "shortDefinitionEs": "Nombre: Eliab, seis israelitas (ʼĔlîyʼâb)",
+    "glossesEs": [
+      "Eliab"
+    ]
+  },
+  "H447": {
+    "shortDefinitionEs": "Nombre: Eliel, nueve israelitas (ʼĔlîyʼêl)",
+    "glossesEs": [
+      "Eliel"
+    ]
+  },
+  "H448": {
+    "shortDefinitionEs": "Nombre: Eliata, israelita (ʼĔlîyʼâthâh)",
+    "glossesEs": [
+      "Eliata"
+    ]
+  },
+  "H449": {
+    "shortDefinitionEs": "Nombre: Elidad, israelita (ʼĔlîydâd)",
+    "glossesEs": [
+      "Elidad"
+    ]
+  },
+  "H450": {
+    "shortDefinitionEs": "Nombre: Eliada, israelitas y arameo (ʼElyâdâʻ)",
+    "glossesEs": [
+      "Eliada"
+    ]
+  },
+  "H451": {
+    "shortDefinitionEs": "Cola gorda de la oveja oriental (ʼalyâh)",
+    "glossesEs": [
+      "cola gorda",
+      "oveja"
+    ]
+  },
+  "H452": {
+    "shortDefinitionEs": "Nombre: Elías, profeta e israelitas (ʼÊlîyâh)",
+    "glossesEs": [
+      "Elías",
+      "profeta"
+    ]
+  },
+  "H453": {
+    "shortDefinitionEs": "Nombre: Eliú, amigo de Job (ʼĔlîyhûw)",
+    "glossesEs": [
+      "Eliú"
+    ]
+  },
+  "H454": {
+    "shortDefinitionEs": "Nombre: Elioenai, siete israelitas (ʼElyᵉhôwʻêynay)",
+    "glossesEs": [
+      "Elioenai"
+    ]
+  },
+  "H455": {
+    "shortDefinitionEs": "Nombre: Eliajba, israelita (ʼElyachbâʼ)",
+    "glossesEs": [
+      "Eliajba"
+    ]
+  },
+  "H456": {
+    "shortDefinitionEs": "Nombre: Elihoref, israelita (ʼĔlîychôreph)",
+    "glossesEs": [
+      "Elihoref"
+    ]
+  },
+  "H457": {
+    "shortDefinitionEs": "Ídolo, cosa vana, sin valor (ʼĕlîyl)",
+    "glossesEs": [
+      "ídolo",
+      "vano",
+      "sin valor"
+    ]
+  },
+  "H458": {
+    "shortDefinitionEs": "Nombre: Elimelec, israelita (ʼĔlîymelek)",
+    "glossesEs": [
+      "Elimelec"
+    ]
+  },
+  "H459": {
+    "shortDefinitionEs": "Estos, aquello (ʼillêyn)",
+    "glossesEs": [
+      "estos"
+    ]
+  },
+  "H460": {
+    "shortDefinitionEs": "Nombre: Eliasaf, dos israelitas (ʼElyâçâph)",
+    "glossesEs": [
+      "Eliasaf"
+    ]
+  },
+  "H461": {
+    "shortDefinitionEs": "Nombre: Eliezer, damasceno e israelitas (ʼĔlîyʻezer)",
+    "glossesEs": [
+      "Eliezer"
+    ]
+  },
+  "H462": {
+    "shortDefinitionEs": "Elienai, israelita (ʼĔlîyʻêynay)",
+    "glossesEs": [
+      "Elienai",
+      "nombre propio"
+    ]
+  },
+  "H463": {
+    "shortDefinitionEs": "Eliam, israelita (ʼĔlîyʻâm)",
+    "glossesEs": [
+      "Eliam",
+      "nombre propio"
+    ]
+  },
+  "H464": {
+    "shortDefinitionEs": "Elifaz, amigo de Job e hijo de Esaú (ʼĔlîyphaz)",
+    "glossesEs": [
+      "Elifaz",
+      "nombre propio"
+    ]
+  },
+  "H465": {
+    "shortDefinitionEs": "Elifal, israelita (ʼĔlîyphâl)",
+    "glossesEs": [
+      "Elifal",
+      "nombre propio"
+    ]
+  },
+  "H466": {
+    "shortDefinitionEs": "Elifelehu, israelita (ʼĔlîyphᵉlêhûw)",
+    "glossesEs": [
+      "Elifelehu",
+      "nombre propio"
+    ]
+  },
+  "H467": {
+    "shortDefinitionEs": "Elifelet, seis israelitas con este nombre (ʼĔlîypheleṭ)",
+    "glossesEs": [
+      "Elifelet",
+      "nombre propio"
+    ]
+  },
+  "H468": {
+    "shortDefinitionEs": "Elisur, israelita (ʼĔlîytsûwr)",
+    "glossesEs": [
+      "Elisur",
+      "nombre propio"
+    ]
+  },
+  "H469": {
+    "shortDefinitionEs": "Elitsafán, israelita (ʼĔlîytsâphân)",
+    "glossesEs": [
+      "Elitsafán",
+      "nombre propio"
+    ]
+  },
+  "H470": {
+    "shortDefinitionEs": "Elica, israelita (ʼĔlîyqâʼ)",
+    "glossesEs": [
+      "Elica",
+      "nombre propio"
+    ]
+  },
+  "H471": {
+    "shortDefinitionEs": "Eliaquim, cuatro israelitas (ʼElyâqîym)",
+    "glossesEs": [
+      "Eliaquim",
+      "nombre propio"
+    ]
+  },
+  "H472": {
+    "shortDefinitionEs": "Eliseba, esposa de Aarón (ʼĔlîyshebaʻ)",
+    "glossesEs": [
+      "Eliseba",
+      "nombre propio"
+    ]
+  },
+  "H473": {
+    "shortDefinitionEs": "Elisá, hijo de Javán (ʼĔlîyshâh)",
+    "glossesEs": [
+      "Elisá",
+      "nombre propio"
+    ]
+  },
+  "H474": {
+    "shortDefinitionEs": "Elisúa, hijo del rey David (ʼĔlîyshûwaʻ)",
+    "glossesEs": [
+      "Elisúa",
+      "nombre propio"
+    ]
+  },
+  "H475": {
+    "shortDefinitionEs": "Eliasib, seis israelitas (ʼElyâshîyb)",
+    "glossesEs": [
+      "Eliasib",
+      "nombre propio"
+    ]
+  },
+  "H476": {
+    "shortDefinitionEs": "Elisama, siete israelitas (ʼĔlîyshâmâʻ)",
+    "glossesEs": [
+      "Elisama",
+      "nombre propio"
+    ]
+  },
+  "H477": {
+    "shortDefinitionEs": "Eliseo, profeta famoso (ʼĔlîyshâʻ)",
+    "glossesEs": [
+      "Eliseo",
+      "profeta"
+    ]
+  },
+  "H478": {
+    "shortDefinitionEs": "Elisafat, israelita (ʼĔlîyshâphâṭ)",
+    "glossesEs": [
+      "Elisafat",
+      "nombre propio"
+    ]
+  },
+  "H479": {
+    "shortDefinitionEs": "estos, esos (ʼillêk)",
+    "glossesEs": [
+      "estos",
+      "esos"
+    ]
+  },
+  "H480": {
+    "shortDefinitionEs": "¡ay! ¡ay de mí! (ʼalᵉlay)",
+    "glossesEs": [
+      "ay",
+      "lamentación"
+    ]
+  },
+  "H481": {
+    "shortDefinitionEs": "atar fuerte; enmudecer, silenciar (ʼâlam)",
+    "glossesEs": [
+      "atar",
+      "enmudecer",
+      "silenciar"
+    ]
+  },
+  "H482": {
+    "shortDefinitionEs": "silencio, mudez (ʼêlem)",
+    "glossesEs": [
+      "silencio",
+      "mudez"
+    ]
+  },
+  "H483": {
+    "shortDefinitionEs": "mudo, silencioso (ʼillêm)",
+    "glossesEs": [
+      "mudo",
+      "silencioso"
+    ]
+  },
+  "H484": {
+    "shortDefinitionEs": "madera de almúg, sándalo (ʼalmuggîym)",
+    "glossesEs": [
+      "almúg",
+      "madera",
+      "sándalo"
+    ]
+  },
+  "H485": {
+    "shortDefinitionEs": "gavilla, fardo atado (ʼălummâh)",
+    "glossesEs": [
+      "gavilla",
+      "fardo"
+    ]
+  },
+  "H486": {
+    "shortDefinitionEs": "Almodad, hijo de Joctán (ʼAlmôwdâd)",
+    "glossesEs": [
+      "Almodad",
+      "nombre propio"
+    ]
+  },
+  "H487": {
+    "shortDefinitionEs": "Alamelec, lugar en Palestina (ʼAllammelek)",
+    "glossesEs": [
+      "Alamelec",
+      "lugar",
+      "Palestina"
+    ]
+  },
+  "H488": {
+    "shortDefinitionEs": "abandonado, divorciado (ʼalmân)",
+    "glossesEs": [
+      "abandonado",
+      "divorciado"
+    ]
+  },
+  "H489": {
+    "shortDefinitionEs": "viudez, desolación (ʼalmôn)",
+    "glossesEs": [
+      "viudez",
+      "desolación"
+    ]
+  },
+  "H490": {
+    "shortDefinitionEs": "viuda; lugar desolado (ʼalmânâh)",
+    "glossesEs": [
+      "viuda",
+      "desolado"
+    ]
+  },
+  "H491": {
+    "shortDefinitionEs": "viuda; viudez (ʼalmânûwth)",
+    "glossesEs": [
+      "viuda",
+      "viudez"
+    ]
+  },
+  "H492": {
+    "shortDefinitionEs": "alguien, tal persona (sin nombre) (ʼalmônîy)",
+    "glossesEs": [
+      "alguien",
+      "tal"
+    ]
+  },
+  "H493": {
+    "shortDefinitionEs": "Elnaam, israelita (ʼElnaʻam)",
+    "glossesEs": [
+      "Elnaam",
+      "nombre propio"
+    ]
+  },
+  "H494": {
+    "shortDefinitionEs": "Elnatán, cuatro israelitas (ʼElnâthân)",
+    "glossesEs": [
+      "Elnatán",
+      "nombre propio"
+    ]
+  },
+  "H495": {
+    "shortDefinitionEs": "Elasár, región antigua de Asia (ʼEllâçâr)",
+    "glossesEs": [
+      "Elasár",
+      "región",
+      "Asia"
+    ]
+  },
+  "H496": {
+    "shortDefinitionEs": "Elad, israelita (ʼElʻâd)",
+    "glossesEs": [
+      "Elad",
+      "nombre propio"
+    ]
+  },
+  "H497": {
+    "shortDefinitionEs": "Eladá, israelita (ʼElʻâdâh)",
+    "glossesEs": [
+      "Eladá",
+      "nombre propio"
+    ]
+  },
+  "H498": {
+    "shortDefinitionEs": "Eluzay, israelita (ʼElʻûwzay)",
+    "glossesEs": [
+      "Eluzay",
+      "nombre propio"
+    ]
+  },
+  "H499": {
+    "shortDefinitionEs": "Eleazar, siete israelitas (ʼElʻâzâr)",
+    "glossesEs": [
+      "Eleazar",
+      "nombre propio"
+    ]
+  },
+  "H500": {
+    "shortDefinitionEs": "Elalé, lugar al este del Jordán (ʼElʻâlêʼ)",
+    "glossesEs": [
+      "Elalé",
+      "lugar",
+      "Jordán"
+    ]
+  },
+  "H501": {
+    "shortDefinitionEs": "Elasá, cuatro israelitas (ʼElʻâsâh)",
+    "glossesEs": [
+      "Elasá",
+      "nombre propio"
+    ]
+  },
+  "H502": {
+    "shortDefinitionEs": "aprender; enseñar, proferir (ʼâlaph)",
+    "glossesEs": [
+      "aprender",
+      "enseñar"
+    ]
+  },
+  "H503": {
+    "shortDefinitionEs": "multiplicar por miles (ʼâlaph)",
+    "glossesEs": [
+      "multiplicar",
+      "miles"
+    ]
+  },
+  "H504": {
+    "shortDefinitionEs": "familia; buey, vaca (ʼeleph)",
+    "glossesEs": [
+      "familia",
+      "buey",
+      "vaca"
+    ]
+  },
+  "H505": {
+    "shortDefinitionEs": "mil (ʼeleph)",
+    "glossesEs": [
+      "mil"
+    ]
+  },
+  "H506": {
+    "shortDefinitionEs": "mil (ʼălaph)",
+    "glossesEs": [
+      "mil"
+    ]
+  },
+  "H507": {
+    "shortDefinitionEs": "Elef, lugar en Palestina (ʼEleph)",
+    "glossesEs": [
+      "Elef",
+      "lugar",
+      "Palestina"
+    ]
+  },
+  "H508": {
+    "shortDefinitionEs": "Elpaal, israelita (ʼElpaʻal)",
+    "glossesEs": [
+      "Elpaal",
+      "nombre propio"
+    ]
+  },
+  "H509": {
+    "shortDefinitionEs": "presionar, urgir (ʼâlats)",
+    "glossesEs": [
+      "presionar",
+      "urgir"
+    ]
+  },
+  "H510": {
+    "shortDefinitionEs": "irresistibilidad, no hay levantamiento (ʼalqûwm)",
+    "glossesEs": [
+      "resistencia",
+      "levantamiento"
+    ]
+  },
+  "H511": {
+    "shortDefinitionEs": "Elcaná, varios israelitas (ʼElqânâh)",
+    "glossesEs": [
+      "Elcaná",
+      "nombre propio"
+    ]
+  },
+  "H512": {
+    "shortDefinitionEs": "Natural de Elkos (ʼElqôshîy)",
+    "glossesEs": [
+      "Elkosita"
+    ]
+  },
+  "H513": {
+    "shortDefinitionEs": "Eltolad: lugar en Palestina (ʼEltôwlad)",
+    "glossesEs": [
+      "Eltolad"
+    ]
+  },
+  "H514": {
+    "shortDefinitionEs": "Eltekeh: lugar en Palestina (ʼEltᵉqêʼ)",
+    "glossesEs": [
+      "Eltekeh"
+    ]
+  },
+  "H515": {
+    "shortDefinitionEs": "Eltecon: lugar en Palestina (ʼEltᵉqôn)",
+    "glossesEs": [
+      "Eltecon"
+    ]
+  },
+  "H516": {
+    "shortDefinitionEs": "\"No destruyas\": probablemente título de canción (ʼAl tashchêth)",
+    "glossesEs": [
+      "Al-tasquית"
+    ]
+  },
+  "H517": {
+    "shortDefinitionEs": "madre, origen, fuente de vida",
+    "glossesEs": [
+      "madre"
+    ]
+  },
+  "H518": {
+    "shortDefinitionEs": "Si, aunque, o si acaso; particula condicional (ʼim)",
+    "glossesEs": [
+      "si",
+      "aunque",
+      "si acaso"
+    ]
+  },
+  "H519": {
+    "shortDefinitionEs": "Sierva, esclava (ʼâmâh)",
+    "glossesEs": [
+      "sierva",
+      "esclava",
+      "criada"
+    ]
+  },
+  "H520": {
+    "shortDefinitionEs": "Codo, medida de longitud (ʼammâh)",
+    "glossesEs": [
+      "codo",
+      "medida",
+      "antebrazo"
+    ]
+  },
+  "H521": {
+    "shortDefinitionEs": "Codo, medida de longitud (ʼammâh)",
+    "glossesEs": [
+      "codo"
+    ]
+  },
+  "H522": {
+    "shortDefinitionEs": "Amma: colina en Palestina (ʼAmmâh)",
+    "glossesEs": [
+      "Amma"
+    ]
+  },
+  "H523": {
+    "shortDefinitionEs": "Nación, pueblo, comunidad (ʼummah)",
+    "glossesEs": [
+      "nación",
+      "pueblo"
+    ]
+  },
+  "H524": {
+    "shortDefinitionEs": "Nación, pueblo (ʼummâh)",
+    "glossesEs": [
+      "nación"
+    ]
+  },
+  "H525": {
+    "shortDefinitionEs": "Maestro, arquitecto experto (ʼâmôwn)",
+    "glossesEs": [
+      "maestro",
+      "experto",
+      "criado"
+    ]
+  },
+  "H526": {
+    "shortDefinitionEs": "Amón: nombre de tres israelitas (ʼÂmôwn)",
+    "glossesEs": [
+      "Amón"
+    ]
+  },
+  "H527": {
+    "shortDefinitionEs": "Multitud, muchedumbre (ʼâmôwn)",
+    "glossesEs": [
+      "multitud",
+      "muchedumbre"
+    ]
+  },
+  "H528": {
+    "shortDefinitionEs": "Amón: deidad egipcia (ʼÂmôwn)",
+    "glossesEs": [
+      "Amón"
+    ]
+  },
+  "H529": {
+    "shortDefinitionEs": "Fe, fidelidad, verdad, confiable (ʼêmûwn)",
+    "glossesEs": [
+      "fe",
+      "fidelidad",
+      "verdad"
+    ]
+  },
+  "H530": {
+    "shortDefinitionEs": "fidelidad, firmeza, confianza (emunah)",
+    "glossesEs": [
+      "fe",
+      "fidelidad"
+    ]
+  },
+  "H531": {
+    "shortDefinitionEs": "Amoz: israelita, padre del profeta Isaías (ʼÂmôwts)",
+    "glossesEs": [
+      "Amoz"
+    ]
+  },
+  "H532": {
+    "shortDefinitionEs": "Ami: israelita (ʼÂmîy)",
+    "glossesEs": [
+      "Ami"
+    ]
+  },
+  "H533": {
+    "shortDefinitionEs": "Fuerte, poderoso, valiente (ʼammîyts)",
+    "glossesEs": [
+      "fuerte",
+      "poderoso",
+      "valiente"
+    ]
+  },
+  "H534": {
+    "shortDefinitionEs": "Rama, rama de árbol (ʼâmîyr)",
+    "glossesEs": [
+      "rama",
+      "ramo"
+    ]
+  },
+  "H535": {
+    "shortDefinitionEs": "Debilitarse, enfermarse, flaquear (ʼâmal)",
+    "glossesEs": [
+      "debilitarse",
+      "enfermarse",
+      "flaquear"
+    ]
+  },
+  "H536": {
+    "shortDefinitionEs": "Débil, enfermizo (ʼumlal)",
+    "glossesEs": [
+      "débil",
+      "enfermizo"
+    ]
+  },
+  "H537": {
+    "shortDefinitionEs": "Débil, lánguido (ʼămêlâl)",
+    "glossesEs": [
+      "débil",
+      "lánguido"
+    ]
+  },
+  "H538": {
+    "shortDefinitionEs": "Amam: lugar en Palestina (ʼĂmâm)",
+    "glossesEs": [
+      "Amam"
+    ]
+  },
+  "H539": {
+    "shortDefinitionEs": "creer, confiar, ser fiel",
+    "glossesEs": [
+      "creer"
+    ]
+  },
+  "H540": {
+    "shortDefinitionEs": "Creer, confiar, estar seguro (ʼăman)",
+    "glossesEs": [
+      "creer",
+      "confiar",
+      "fiel"
+    ]
+  },
+  "H541": {
+    "shortDefinitionEs": "Girar a la derecha (ʼâman)",
+    "glossesEs": [
+      "girar",
+      "derecha"
+    ]
+  },
+  "H542": {
+    "shortDefinitionEs": "Artesano experto, maestro (ʼâmân)",
+    "glossesEs": [
+      "maestro",
+      "artesano",
+      "experto"
+    ]
+  },
+  "H543": {
+    "shortDefinitionEs": "amén, así sea, verdaderamente",
+    "glossesEs": [
+      "amén"
+    ]
+  },
+  "H544": {
+    "shortDefinitionEs": "Verdad, veracidad (ʼômen)",
+    "glossesEs": [
+      "verdad"
+    ]
+  },
+  "H545": {
+    "shortDefinitionEs": "Crianza, tutelaje (ʼomnâh)",
+    "glossesEs": [
+      "crianza",
+      "educación"
+    ]
+  },
+  "H546": {
+    "shortDefinitionEs": "Ciertamente, en verdad, seguro (ʼomnâh)",
+    "glossesEs": [
+      "ciertamente",
+      "en verdad"
+    ]
+  },
+  "H547": {
+    "shortDefinitionEs": "Columna, pilar (ʼômᵉnâh)",
+    "glossesEs": [
+      "columna",
+      "pilar"
+    ]
+  },
+  "H548": {
+    "shortDefinitionEs": "Pacto, asignación fija (ʼămânâh)",
+    "glossesEs": [
+      "pacto",
+      "asignación",
+      "seguro"
+    ]
+  },
+  "H549": {
+    "shortDefinitionEs": "Amanà: montaña cerca de Damasco (ʼĂmânâh)",
+    "glossesEs": [
+      "Amanà"
+    ]
+  },
+  "H550": {
+    "shortDefinitionEs": "Amnón: hijo del rey David (ʼAmnôwn)",
+    "glossesEs": [
+      "Amnón"
+    ]
+  },
+  "H551": {
+    "shortDefinitionEs": "Verdaderamente, de cierto, seguro (ʼomnâm)",
+    "glossesEs": [
+      "verdaderamente",
+      "ciertamente",
+      "seguro"
+    ]
+  },
+  "H552": {
+    "shortDefinitionEs": "En verdad, de seguro (ʼumnâm)",
+    "glossesEs": [
+      "verdaderamente",
+      "seguro"
+    ]
+  },
+  "H553": {
+    "shortDefinitionEs": "Ser valiente, fuerte, confirmarse (ʼâmats)",
+    "glossesEs": [
+      "ser valiente",
+      "fortalecerse",
+      "confirmarse"
+    ]
+  },
+  "H554": {
+    "shortDefinitionEs": "Bayo, de color rojo fuerte (ʼâmôts)",
+    "glossesEs": [
+      "bayo",
+      "rojo"
+    ]
+  },
+  "H555": {
+    "shortDefinitionEs": "Fuerza, fortaleza (ʼômets)",
+    "glossesEs": [
+      "fuerza",
+      "fortaleza"
+    ]
+  },
+  "H556": {
+    "shortDefinitionEs": "Fuerza, vigor, poder (amtsâh)",
+    "glossesEs": [
+      "fuerza",
+      "poder"
+    ]
+  },
+  "H557": {
+    "shortDefinitionEs": "Amzi: israelita (ʼAmtsîy)",
+    "glossesEs": [
+      "Amzi"
+    ]
+  },
+  "H558": {
+    "shortDefinitionEs": "Amasías: nombre de cuatro israelitas (ʼĂmatsyâh)",
+    "glossesEs": [
+      "Amasías"
+    ]
+  },
+  "H559": {
+    "shortDefinitionEs": "Decir, hablar, responder (ʼâmar)",
+    "glossesEs": [
+      "decir",
+      "hablar",
+      "responder"
+    ]
+  },
+  "H560": {
+    "shortDefinitionEs": "Decir, hablar, declarar, mandar (ʼămar)",
+    "glossesEs": [
+      "decir",
+      "hablar",
+      "declarar"
+    ]
+  },
+  "H561": {
+    "shortDefinitionEs": "Palabra, dicho, respuesta, discurso (ʼêmer)",
+    "glossesEs": [
+      "palabra",
+      "dicho",
+      "respuesta"
+    ]
+  },
+  "H562": {
+    "shortDefinitionEs": "Palabra, promesa, cosa dicha (ʼômer)",
+    "glossesEs": [
+      "palabra",
+      "promesa"
+    ]
+  },
+  "H563": {
+    "shortDefinitionEs": "Cordero, borrego (ʼimmar)",
+    "glossesEs": [
+      "cordero",
+      "borrego"
+    ]
+  },
+  "H564": {
+    "shortDefinitionEs": "Imer: nombre de cinco israelitas (ʼImmêr)",
+    "glossesEs": [
+      "Imer"
+    ]
+  },
+  "H565": {
+    "shortDefinitionEs": "Palabra, mandamiento, discurso (ʼimrâh)",
+    "glossesEs": [
+      "palabra",
+      "mandamiento"
+    ]
+  },
+  "H566": {
+    "shortDefinitionEs": "Nombre: Imri, nombre de dos israelitas (ʼImrîy)",
+    "glossesEs": [
+      "Imri"
+    ]
+  },
+  "H567": {
+    "shortDefinitionEs": "Amorreo, una de las tribus cananeas (ʼĔmôrîy)",
+    "glossesEs": [
+      "amorreo"
+    ]
+  },
+  "H568": {
+    "shortDefinitionEs": "Nombre: Amarías, nombre de nueve israelitas (ʼĂmaryâh)",
+    "glossesEs": [
+      "Amarías"
+    ]
+  },
+  "H569": {
+    "shortDefinitionEs": "Nombre: Amrafel, rey de Sinar (ʼĂmrâphel)",
+    "glossesEs": [
+      "Amrafel"
+    ]
+  },
+  "H570": {
+    "shortDefinitionEs": "Ayer o la noche pasada (ʼemesh)",
+    "glossesEs": [
+      "ayer",
+      "tiempo pasado"
+    ]
+  },
+  "H571": {
+    "shortDefinitionEs": "Algo expansivo; bolsa o saco (ʼamtachath)",
+    "glossesEs": [
+      "saco",
+      "bolsa"
+    ]
+  },
+  "H572": {
+    "shortDefinitionEs": "bolsa, saco para llevar provisiones (ʼamtachath)",
+    "glossesEs": [
+      "bolsa",
+      "saco"
+    ]
+  },
+  "H573": {
+    "shortDefinitionEs": "Nombre: Amitai, un israelita (ʼĂmittay)",
+    "glossesEs": [
+      "Amitai"
+    ]
+  },
+  "H574": {
+    "shortDefinitionEs": "Fornido, poderoso, terrible (ʼêmᵉtânîy)",
+    "glossesEs": [
+      "poderoso",
+      "terrible"
+    ]
+  },
+  "H575": {
+    "shortDefinitionEs": "¿Dónde? ¿Adónde? ¿Cuándo? (ʼân)",
+    "glossesEs": [
+      "dónde",
+      "adónde",
+      "cuándo"
+    ]
+  },
+  "H576": {
+    "shortDefinitionEs": "Yo (ʼănâʼ)",
+    "glossesEs": [
+      "yo"
+    ]
+  },
+  "H577": {
+    "shortDefinitionEs": "¡Oh ahora! Interjección de súplica (ʼânnâʼ)",
+    "glossesEs": [
+      "oh",
+      "te ruego"
+    ]
+  },
+  "H578": {
+    "shortDefinitionEs": "Gemir, lamentarse (ʼânâh)",
+    "glossesEs": [
+      "gemir",
+      "lamentar"
+    ]
+  },
+  "H579": {
+    "shortDefinitionEs": "Acercarse, encontrarse, acontecer (ʼânâh)",
+    "glossesEs": [
+      "acercarse",
+      "acontecer"
+    ]
+  },
+  "H580": {
+    "shortDefinitionEs": "Nosotros (ʼănûw)",
+    "glossesEs": [
+      "nosotros"
+    ]
+  },
+  "H581": {
+    "shortDefinitionEs": "Ellos (ʼinnûwn)",
+    "glossesEs": [
+      "ellos"
+    ]
+  },
+  "H582": {
+    "shortDefinitionEs": "Hombre en general, persona (ʼĕnôwsh)",
+    "glossesEs": [
+      "hombre",
+      "persona"
+    ]
+  },
+  "H583": {
+    "shortDefinitionEs": "Nombre: Enós, hijo de Set (ʼĔnôwsh)",
+    "glossesEs": [
+      "Enós"
+    ]
+  },
+  "H584": {
+    "shortDefinitionEs": "Suspirar, gemir, lamentarse (ʼânach)",
+    "glossesEs": [
+      "suspirar",
+      "gemir"
+    ]
+  },
+  "H585": {
+    "shortDefinitionEs": "Suspiro, gemido, lamentación (ʼănâchâh)",
+    "glossesEs": [
+      "suspiro",
+      "gemido"
+    ]
+  },
+  "H586": {
+    "shortDefinitionEs": "Nosotros (ʼănachnâʼ)",
+    "glossesEs": [
+      "nosotros"
+    ]
+  },
+  "H587": {
+    "shortDefinitionEs": "Nosotros (ʼănachnûw)",
+    "glossesEs": [
+      "nosotros"
+    ]
+  },
+  "H588": {
+    "shortDefinitionEs": "Nombre: Anacarath, lugar en Palestina (ʼĂnâchărâth)",
+    "glossesEs": [
+      "Anacarath"
+    ]
+  },
+  "H589": {
+    "shortDefinitionEs": "Yo, me, mí mismo (ʼănîy)",
+    "glossesEs": [
+      "yo"
+    ]
+  },
+  "H590": {
+    "shortDefinitionEs": "Nave, barco o flota (ʼŏnîy)",
+    "glossesEs": [
+      "nave",
+      "barco",
+      "flota"
+    ]
+  },
+  "H591": {
+    "shortDefinitionEs": "Nave, barco (ʼŏnîyâh)",
+    "glossesEs": [
+      "nave",
+      "barco"
+    ]
+  },
+  "H592": {
+    "shortDefinitionEs": "Gemido, lamentación, tristeza (ʼănîyâh)",
+    "glossesEs": [
+      "gemido",
+      "lamentación"
+    ]
+  },
+  "H593": {
+    "shortDefinitionEs": "Nombre: Aniam, un israelita (ʼĂnîyʻâm)",
+    "glossesEs": [
+      "Aniam"
+    ]
+  },
+  "H594": {
+    "shortDefinitionEs": "Plomada o gancho de pesca (ʼănâk)",
+    "glossesEs": [
+      "plomada"
+    ]
+  },
+  "H595": {
+    "shortDefinitionEs": "Yo, me (ʼânôkîy)",
+    "glossesEs": [
+      "yo"
+    ]
+  },
+  "H596": {
+    "shortDefinitionEs": "Lamentarse, quejarse (ʼânan)",
+    "glossesEs": [
+      "quejarse",
+      "lamentarse"
+    ]
+  },
+  "H597": {
+    "shortDefinitionEs": "Insistir, obligar (ʼânaç)",
+    "glossesEs": [
+      "obligar",
+      "insistir"
+    ]
+  },
+  "H598": {
+    "shortDefinitionEs": "Afligir, angustiar (ʼănaç)",
+    "glossesEs": [
+      "afligir",
+      "angustiar"
+    ]
+  },
+  "H599": {
+    "shortDefinitionEs": "Respirar con fuerza, enojarse (ʼânaph)",
+    "glossesEs": [
+      "enojarse",
+      "airar"
+    ]
+  },
+  "H600": {
+    "shortDefinitionEs": "Rostro, semblante, cara (ʼănaph)",
+    "glossesEs": [
+      "rostro",
+      "cara"
+    ]
+  },
+  "H601": {
+    "shortDefinitionEs": "Ave inmunda, quizá garza (ʼănâphâh)",
+    "glossesEs": [
+      "garza"
+    ]
+  },
+  "H602": {
+    "shortDefinitionEs": "Gritar, gemir, clamar (ʼânaq)",
+    "glossesEs": [
+      "gritar",
+      "gemir"
+    ]
+  },
+  "H603": {
+    "shortDefinitionEs": "Grito, gemido, suspiro (ʼănâqâh)",
+    "glossesEs": [
+      "grito",
+      "gemido"
+    ]
+  },
+  "H604": {
+    "shortDefinitionEs": "Clase de lagartija, quizá geco (ʼănâqâh)",
+    "glossesEs": [
+      "lagartija"
+    ]
+  },
+  "H605": {
+    "shortDefinitionEs": "Ser débil, enfermo, desesperado (ʼânash)",
+    "glossesEs": [
+      "débil",
+      "desesperado"
+    ]
+  },
+  "H606": {
+    "shortDefinitionEs": "Hombre, persona, ser humano (ʼĕnâsh)",
+    "glossesEs": [
+      "hombre",
+      "persona"
+    ]
+  },
+  "H607": {
+    "shortDefinitionEs": "Tú (ʼantâh)",
+    "glossesEs": [
+      "tú"
+    ]
+  },
+  "H608": {
+    "shortDefinitionEs": "Vosotros, ustedes (ʼantûwn)",
+    "glossesEs": [
+      "vosotros"
+    ]
+  },
+  "H609": {
+    "shortDefinitionEs": "Nombre: Asa, rey o levita (ʼÂçâʼ)",
+    "glossesEs": [
+      "Asa"
+    ]
+  },
+  "H610": {
+    "shortDefinitionEs": "Ungüento, vasija de aceite (ʼâçûwk)",
+    "glossesEs": [
+      "vasija",
+      "aceite"
+    ]
+  },
+  "H611": {
+    "shortDefinitionEs": "Daño, maldad, infortunio (ʼâçôwn)",
+    "glossesEs": [
+      "daño",
+      "maldad"
+    ]
+  },
+  "H612": {
+    "shortDefinitionEs": "Cadena, grillete, prisión (ʼêçûwr)",
+    "glossesEs": [
+      "cadena",
+      "prisión"
+    ]
+  },
+  "H613": {
+    "shortDefinitionEs": "Cadena, encarcelamiento (ʼĕçûwr)",
+    "glossesEs": [
+      "cadena",
+      "prisión"
+    ]
+  },
+  "H614": {
+    "shortDefinitionEs": "Cosecha reunida, recolección (ʼâçîyph)",
+    "glossesEs": [
+      "cosecha",
+      "recolección"
+    ]
+  },
+  "H615": {
+    "shortDefinitionEs": "Cautivo, prisionero encadenado (ʼâçîyr)",
+    "glossesEs": [
+      "prisionero",
+      "cautivo"
+    ]
+  },
+  "H616": {
+    "shortDefinitionEs": "Prisionero, cautivo (ʼaççîyr)",
+    "glossesEs": [
+      "prisionero"
+    ]
+  },
+  "H617": {
+    "shortDefinitionEs": "Asir: nombre de dos israelitas (ʼAççîyr)",
+    "glossesEs": [
+      "Asir",
+      "nombre propio"
+    ]
+  },
+  "H618": {
+    "shortDefinitionEs": "granero, almacén para depósito de grano (ʼâçâm)",
+    "glossesEs": [
+      "granero",
+      "almacén"
+    ]
+  },
+  "H619": {
+    "shortDefinitionEs": "Asnah: uno de los sirvientes del templo (ʼAçnâh)",
+    "glossesEs": [
+      "Asnah",
+      "nombre propio"
+    ]
+  },
+  "H620": {
+    "shortDefinitionEs": "Osnappar: rey asirio (ʼOçnappar)",
+    "glossesEs": [
+      "Osnappar",
+      "Asnapper",
+      "nombre propio"
+    ]
+  },
+  "H621": {
+    "shortDefinitionEs": "Asenath: esposa de José (ʼÂçᵉnath)",
+    "glossesEs": [
+      "Asenath",
+      "nombre propio"
+    ]
+  },
+  "H622": {
+    "shortDefinitionEs": "juntar, recoger, reunir, apartar, quitar (ʼâçaph)",
+    "glossesEs": [
+      "recoger",
+      "juntar",
+      "reunir",
+      "quitar"
+    ]
+  },
+  "H623": {
+    "shortDefinitionEs": "Asaf: nombre de tres israelitas y su familia (ʼÂçâph)",
+    "glossesEs": [
+      "Asaf",
+      "nombre propio"
+    ]
+  },
+  "H624": {
+    "shortDefinitionEs": "colecta, ofrenda recogida (ʼâçuph)",
+    "glossesEs": [
+      "colecta",
+      "ofrenda",
+      "Asuppim"
+    ]
+  },
+  "H625": {
+    "shortDefinitionEs": "cosecha, recolección de frutos (ʼôçeph)",
+    "glossesEs": [
+      "cosecha",
+      "recolección"
+    ]
+  },
+  "H626": {
+    "shortDefinitionEs": "reunión, conjunto de personas (ʼăçêphâh)",
+    "glossesEs": [
+      "juntos",
+      "reunión"
+    ]
+  },
+  "H627": {
+    "shortDefinitionEs": "asamblea, congregación de personas (ʼăçuppâh)",
+    "glossesEs": [
+      "asamblea",
+      "congregación"
+    ]
+  },
+  "H628": {
+    "shortDefinitionEs": "multitud mixta, muchedumbre mezclada (ʼăçpᵉçuph)",
+    "glossesEs": [
+      "multitud",
+      "muchedumbre"
+    ]
+  },
+  "H629": {
+    "shortDefinitionEs": "apriesa, diligentemente, con rapidez (ʼoçparnâʼ)",
+    "glossesEs": [
+      "apriesa",
+      "rápidamente",
+      "diligentemente"
+    ]
+  },
+  "H630": {
+    "shortDefinitionEs": "Asphata: hijo de Amán (ʼAçpâthâʼ)",
+    "glossesEs": [
+      "Asphata",
+      "nombre propio"
+    ]
+  },
+  "H631": {
+    "shortDefinitionEs": "atar, uncir, ajustar, juntar en batalla (ʼâçar)",
+    "glossesEs": [
+      "atar",
+      "uncir",
+      "ajustar"
+    ]
+  },
+  "H632": {
+    "shortDefinitionEs": "obligación, voto, promesa de abstinencia (ʼĕçâr)",
+    "glossesEs": [
+      "voto",
+      "promesa",
+      "obligación"
+    ]
+  },
+  "H633": {
+    "shortDefinitionEs": "edicto, decreto, interdición (ʼĕçâr)",
+    "glossesEs": [
+      "decreto",
+      "edicto"
+    ]
+  },
+  "H634": {
+    "shortDefinitionEs": "Esar-hadón: rey asirio (ʼÊçar-Chaddôwn)",
+    "glossesEs": [
+      "Esar-hadón",
+      "nombre propio"
+    ]
+  },
+  "H635": {
+    "shortDefinitionEs": "Ester: reina judía heroína (ʼEçtêr)",
+    "glossesEs": [
+      "Ester",
+      "nombre propio"
+    ]
+  },
+  "H636": {
+    "shortDefinitionEs": "árbol, madera (ʼâʻ)",
+    "glossesEs": [
+      "árbol",
+      "madera"
+    ]
+  },
+  "H637": {
+    "shortDefinitionEs": "también, además, pero; conjunción y adverbio (ʼaph)",
+    "glossesEs": [
+      "también",
+      "además",
+      "pero"
+    ]
+  },
+  "H638": {
+    "shortDefinitionEs": "también (ʼaph)",
+    "glossesEs": [
+      "también"
+    ]
+  },
+  "H639": {
+    "shortDefinitionEs": "nariz, faz, rostro; ira, cólera (ʼaph)",
+    "glossesEs": [
+      "nariz",
+      "rostro",
+      "ira",
+      "cólera"
+    ]
+  },
+  "H640": {
+    "shortDefinitionEs": "ceñir, ajustarse el efod (ʼâphad)",
+    "glossesEs": [
+      "ceñir",
+      "ajustarse"
+    ]
+  },
+  "H641": {
+    "shortDefinitionEs": "Efod: nombre de un israelita (ʼÊphôd)",
+    "glossesEs": [
+      "Efod",
+      "nombre propio"
+    ]
+  },
+  "H642": {
+    "shortDefinitionEs": "efod, adorno; capa de metal (ʼêphuddâh)",
+    "glossesEs": [
+      "efod",
+      "adorno"
+    ]
+  },
+  "H643": {
+    "shortDefinitionEs": "pabellón, tienda palacio (ʼappeden)",
+    "glossesEs": [
+      "pabellón",
+      "palacio"
+    ]
+  },
+  "H644": {
+    "shortDefinitionEs": "cocer, hornear pan (ʼâphâh)",
+    "glossesEs": [
+      "hornear",
+      "cocer",
+      "pan"
+    ]
+  },
+  "H645": {
+    "shortDefinitionEs": "aquí, ahora; partícula demostrativa (ʼêphôw)",
+    "glossesEs": [
+      "aquí",
+      "ahora",
+      "allí"
+    ]
+  },
+  "H646": {
+    "shortDefinitionEs": "efod: prenda del sumo sacerdote (ʼêphôwd)",
+    "glossesEs": [
+      "efod",
+      "sacerdote"
+    ]
+  },
+  "H647": {
+    "shortDefinitionEs": "Aphias: nombre de un israelita (ʼĂphîyach)",
+    "glossesEs": [
+      "Aphias",
+      "nombre propio"
+    ]
+  },
+  "H648": {
+    "shortDefinitionEs": "verde, sin madurar (ʼâphîyl)",
+    "glossesEs": [
+      "verde",
+      "inmaduro"
+    ]
+  },
+  "H649": {
+    "shortDefinitionEs": "Apaim: nombre de un israelita (ʼAppayim)",
+    "glossesEs": [
+      "Apaim",
+      "nombre propio"
+    ]
+  },
+  "H650": {
+    "shortDefinitionEs": "torrente, cauce, lecho de río, fuerte (ʼâphîyq)",
+    "glossesEs": [
+      "torrente",
+      "río",
+      "cauce"
+    ]
+  },
+  "H651": {
+    "shortDefinitionEs": "oscurísimo, muy oscuro (ʼâphêl)",
+    "glossesEs": [
+      "oscuro",
+      "tenebroso"
+    ]
+  },
+  "H652": {
+    "shortDefinitionEs": "oscuridad, penumbra (ʼôphel)",
+    "glossesEs": [
+      "oscuridad",
+      "tinieblas"
+    ]
+  },
+  "H653": {
+    "shortDefinitionEs": "oscuridad, tiniebla profunda",
+    "glossesEs": [
+      "oscuridad",
+      "tinieblas"
+    ]
+  },
+  "H654": {
+    "shortDefinitionEs": "Eflal: nombre de un israelita (ʼEphlâl)",
+    "glossesEs": [
+      "Eflal",
+      "nombre propio"
+    ]
+  },
+  "H655": {
+    "shortDefinitionEs": "turno, ocasión, temporada (ʼôphen)",
+    "glossesEs": [
+      "ocasión",
+      "temporada"
+    ]
+  },
+  "H656": {
+    "shortDefinitionEs": "desaparecer, cesar, acabarse (ʼâphêç)",
+    "glossesEs": [
+      "cesar",
+      "acabarse",
+      "desaparecer"
+    ]
+  },
+  "H657": {
+    "shortDefinitionEs": "fin, término, tobillo; apenas (ʼepheç)",
+    "glossesEs": [
+      "fin",
+      "término",
+      "tobillo"
+    ]
+  },
+  "H658": {
+    "shortDefinitionEs": "Efes-dammim: lugar en Palestina (ʼEpheç Dammîym)",
+    "glossesEs": [
+      "Efes-dammim",
+      "nombre propio"
+    ]
+  },
+  "H659": {
+    "shortDefinitionEs": "aliento, nada; lo insignificante (ʼêphaʻ)",
+    "glossesEs": [
+      "nada",
+      "insignificante"
+    ]
+  },
+  "H660": {
+    "shortDefinitionEs": "áspid, serpiente venenosa (ʼephʻeh)",
+    "glossesEs": [
+      "áspid",
+      "serpiente",
+      "víbora"
+    ]
+  },
+  "H661": {
+    "shortDefinitionEs": "rodear, cercar, circundar (ʼâphaph)",
+    "glossesEs": [
+      "rodear",
+      "cercar"
+    ]
+  },
+  "H662": {
+    "shortDefinitionEs": "contener, contenerse, abstenerse (ʼâphaq)",
+    "glossesEs": [
+      "contener",
+      "abstenerse"
+    ]
+  },
+  "H663": {
+    "shortDefinitionEs": "Afec: nombre de tres lugares en Palestina (ʼĂphêq)",
+    "glossesEs": [
+      "Afec",
+      "nombre propio"
+    ]
+  },
+  "H664": {
+    "shortDefinitionEs": "Afecá: lugar en Palestina (ʼĂphêqâh)",
+    "glossesEs": [
+      "Afecá",
+      "nombre propio"
+    ]
+  },
+  "H665": {
+    "shortDefinitionEs": "ceniza (ʼêpher)",
+    "glossesEs": [
+      "ceniza"
+    ]
+  },
+  "H666": {
+    "shortDefinitionEs": "turbante, tocado (ʼăphêr)",
+    "glossesEs": [
+      "turbante",
+      "tocado"
+    ]
+  },
+  "H667": {
+    "shortDefinitionEs": "polluelo, cría de ave (ʼephrôach)",
+    "glossesEs": [
+      "polluelo",
+      "cría"
+    ]
+  },
+  "H668": {
+    "shortDefinitionEs": "Palanquín, silla portátil de transporte (ʼappiryôwn)",
+    "glossesEs": [
+      "palanquín",
+      "silla"
+    ]
+  },
+  "H669": {
+    "shortDefinitionEs": "Efraín: hijo de José y tribu de Israel (ʼEphrayim)",
+    "glossesEs": [
+      "Efraín",
+      "tribu"
+    ]
+  },
+  "H670": {
+    "shortDefinitionEs": "Habitante de región desconocida de Asiria (ʼĂphârᵉçay)",
+    "glossesEs": [
+      "Afarsita"
+    ]
+  },
+  "H671": {
+    "shortDefinitionEs": "Tribu asiria desconocida (ʼĂpharçᵉkay)",
+    "glossesEs": [
+      "Afarsaquita"
+    ]
+  },
+  "H672": {
+    "shortDefinitionEs": "Efrata: otro nombre de Belén (ʼEphrâth)",
+    "glossesEs": [
+      "Efrata",
+      "Belén"
+    ]
+  },
+  "H673": {
+    "shortDefinitionEs": "Efratita o descendiente de Efraín (ʼEphrâthîy)",
+    "glossesEs": [
+      "efratita"
+    ]
+  },
+  "H674": {
+    "shortDefinitionEs": "Ingresos, rentas o ganancias (ʼappᵉthôm)",
+    "glossesEs": [
+      "rentas",
+      "ingresos"
+    ]
+  },
+  "H675": {
+    "shortDefinitionEs": "Esbon: nombre de dos israelitas (ʼEtsbôwn)",
+    "glossesEs": [
+      "Esbon"
+    ]
+  },
+  "H676": {
+    "shortDefinitionEs": "Dedo de mano o pie (ʼetsbaʻ)",
+    "glossesEs": [
+      "dedo"
+    ]
+  },
+  "H677": {
+    "shortDefinitionEs": "Dedo de mano o pie (ʼetsbaʻ)",
+    "glossesEs": [
+      "dedo"
+    ]
+  },
+  "H678": {
+    "shortDefinitionEs": "Extremidad; persona noble o principal (ʼâtsîyl)",
+    "glossesEs": [
+      "noble",
+      "príncipe"
+    ]
+  },
+  "H679": {
+    "shortDefinitionEs": "Articulación de la mano o nudillo (ʼatstsîyl)",
+    "glossesEs": [
+      "articulación",
+      "nudillo"
+    ]
+  },
+  "H680": {
+    "shortDefinitionEs": "Separar, apartar, reservar o seleccionar (ʼâtsal)",
+    "glossesEs": [
+      "separar",
+      "reservar"
+    ]
+  },
+  "H681": {
+    "shortDefinitionEs": "Lado, costado; junto a, cerca de (ʼêtsel)",
+    "glossesEs": [
+      "lado",
+      "junto a",
+      "cerca"
+    ]
+  },
+  "H682": {
+    "shortDefinitionEs": "Atsel: israelita y lugar en Palestina (ʼÂtsêl)",
+    "glossesEs": [
+      "Atsel",
+      "Azel"
+    ]
+  },
+  "H683": {
+    "shortDefinitionEs": "Atsalías: israelita (ʼĂtsalyâhûw)",
+    "glossesEs": [
+      "Atsalías"
+    ]
+  },
+  "H684": {
+    "shortDefinitionEs": "Ozem: nombre de dos israelitas (ʼÔtsem)",
+    "glossesEs": [
+      "Ozem"
+    ]
+  },
+  "H685": {
+    "shortDefinitionEs": "Pulsera o brazalete, cadena (ʼetsʻâdâh)",
+    "glossesEs": [
+      "pulsera",
+      "brazalete"
+    ]
+  },
+  "H686": {
+    "shortDefinitionEs": "Guardar, almacenar o tesoreríar (ʼâtsar)",
+    "glossesEs": [
+      "almacenar",
+      "guardar",
+      "tesoro"
+    ]
+  },
+  "H687": {
+    "shortDefinitionEs": "Etser: idumeo (ʼEtser)",
+    "glossesEs": [
+      "Etser"
+    ]
+  },
+  "H688": {
+    "shortDefinitionEs": "Carbunclo o piedra preciosa brillante (ʼeqdâch)",
+    "glossesEs": [
+      "carbunclo",
+      "piedra preciosa"
+    ]
+  },
+  "H689": {
+    "shortDefinitionEs": "Cabra montés o íbice salvaje (ʼaqqôw)",
+    "glossesEs": [
+      "cabra montés",
+      "íbice"
+    ]
+  },
+  "H690": {
+    "shortDefinitionEs": "Ara: israelita (ʼărâʼ)",
+    "glossesEs": [
+      "Ara"
+    ]
+  },
+  "H691": {
+    "shortDefinitionEs": "Valiente o héroe colectivamente (ʼerʼêl)",
+    "glossesEs": [
+      "valiente",
+      "héroe"
+    ]
+  },
+  "H692": {
+    "shortDefinitionEs": "Areli: israelita y sus descendientes (ʼArʼêlîy)",
+    "glossesEs": [
+      "Areli"
+    ]
+  },
+  "H693": {
+    "shortDefinitionEs": "Acechar, emboscarse o poner asechanza (ʼârab)",
+    "glossesEs": [
+      "emboscada",
+      "acechar"
+    ]
+  },
+  "H694": {
+    "shortDefinitionEs": "Arab: lugar en Palestina (ʼĂrâb)",
+    "glossesEs": [
+      "Arab"
+    ]
+  },
+  "H695": {
+    "shortDefinitionEs": "Emboscada o asechanza (ʼereb)",
+    "glossesEs": [
+      "emboscada",
+      "asechanza"
+    ]
+  },
+  "H696": {
+    "shortDefinitionEs": "Esperar o acecho (ʼôreb)",
+    "glossesEs": [
+      "esperar",
+      "acecho"
+    ]
+  },
+  "H697": {
+    "shortDefinitionEs": "Langosta o saltamontes (ʼarbeh)",
+    "glossesEs": [
+      "langosta",
+      "saltamontes"
+    ]
+  },
+  "H698": {
+    "shortDefinitionEs": "Despojos o botín de guerra (ʼorŏbâh)",
+    "glossesEs": [
+      "despojos",
+      "botín"
+    ]
+  },
+  "H699": {
+    "shortDefinitionEs": "Celosía, ventana o respiradero (ʼărubbâh)",
+    "glossesEs": [
+      "ventana",
+      "celosía"
+    ]
+  },
+  "H700": {
+    "shortDefinitionEs": "Aruboth: lugar en Palestina (ʼĂrubbôwth)",
+    "glossesEs": [
+      "Aruboth"
+    ]
+  },
+  "H701": {
+    "shortDefinitionEs": "Arbita: natural de Arab (ʼArbîy)",
+    "glossesEs": [
+      "arbita"
+    ]
+  },
+  "H702": {
+    "shortDefinitionEs": "Cuatro (número) (ʼarbaʻ)",
+    "glossesEs": [
+      "cuatro"
+    ]
+  },
+  "H703": {
+    "shortDefinitionEs": "Cuatro (número) (ʼarbaʻ)",
+    "glossesEs": [
+      "cuatro"
+    ]
+  },
+  "H704": {
+    "shortDefinitionEs": "Arba: uno de los anaceos (ʼArbaʻ)",
+    "glossesEs": [
+      "Arba"
+    ]
+  },
+  "H705": {
+    "shortDefinitionEs": "Cuarenta (número) (ʼarbâʻîym)",
+    "glossesEs": [
+      "cuarenta"
+    ]
+  },
+  "H706": {
+    "shortDefinitionEs": "Cuádruplo o multiplicado por cuatro (ʼarbaʻtayim)",
+    "glossesEs": [
+      "cuádruplo"
+    ]
+  },
+  "H707": {
+    "shortDefinitionEs": "Tejer o entretejer (ʼârag)",
+    "glossesEs": [
+      "tejer",
+      "entrelazar"
+    ]
+  },
+  "H708": {
+    "shortDefinitionEs": "Tejido, trenza o lanzadera (ʼereg)",
+    "glossesEs": [
+      "tejido",
+      "lanzadera"
+    ]
+  },
+  "H709": {
+    "shortDefinitionEs": "Argob: distrito de Palestina (ʼArgôb)",
+    "glossesEs": [
+      "Argob"
+    ]
+  },
+  "H710": {
+    "shortDefinitionEs": "Púrpura (color o tejido teñido) (ʼargᵉvân)",
+    "glossesEs": [
+      "púrpura"
+    ]
+  },
+  "H711": {
+    "shortDefinitionEs": "Púrpura (color o tejido teñido) (ʼargᵉvân)",
+    "glossesEs": [
+      "púrpura"
+    ]
+  },
+  "H712": {
+    "shortDefinitionEs": "Cofre o caja como canasta (ʼargâz)",
+    "glossesEs": [
+      "cofre",
+      "caja"
+    ]
+  },
+  "H713": {
+    "shortDefinitionEs": "Púrpura (color o materia teñida) (ʼargâmân)",
+    "glossesEs": [
+      "púrpura"
+    ]
+  },
+  "H714": {
+    "shortDefinitionEs": "Ard: nombre de dos israelitas (ʼArd)",
+    "glossesEs": [
+      "Ard"
+    ]
+  },
+  "H715": {
+    "shortDefinitionEs": "Ardón: israelita (ʼArdôwn)",
+    "glossesEs": [
+      "Ardón"
+    ]
+  },
+  "H716": {
+    "shortDefinitionEs": "Ardita: descendientes de Ard (ʼArdîy)",
+    "glossesEs": [
+      "ardita"
+    ]
+  },
+  "H717": {
+    "shortDefinitionEs": "Arrancar o coger frutas (ʼârâh)",
+    "glossesEs": [
+      "arrancar",
+      "recoger"
+    ]
+  },
+  "H718": {
+    "shortDefinitionEs": "¡He aquí!, ¡mira! (ʼărûw)",
+    "glossesEs": [
+      "he aquí",
+      "mira",
+      "interjección"
+    ]
+  },
+  "H719": {
+    "shortDefinitionEs": "Arvad: ciudad-isla de Palestina (ʼArvad)",
+    "glossesEs": [
+      "Arvad",
+      "ciudad",
+      "isla"
+    ]
+  },
+  "H720": {
+    "shortDefinitionEs": "Arod: israelita (ʼĂrôwd)",
+    "glossesEs": [
+      "Arod",
+      "nombre propio"
+    ]
+  },
+  "H721": {
+    "shortDefinitionEs": "Arvadita: habitante de Arvad (ʼArvâdîy)",
+    "glossesEs": [
+      "Arvadita",
+      "habitante"
+    ]
+  },
+  "H722": {
+    "shortDefinitionEs": "Arodita: descendiente de Arod (ʼĂrôwdîy)",
+    "glossesEs": [
+      "Arodita",
+      "descendiente"
+    ]
+  },
+  "H723": {
+    "shortDefinitionEs": "Establo: lugar de pastoreo para animales (ʼurvâh)",
+    "glossesEs": [
+      "establo",
+      "pesebre",
+      "corral"
+    ]
+  },
+  "H724": {
+    "shortDefinitionEs": "Sanidad: integridad, plenitud (ʼărûwkâh)",
+    "glossesEs": [
+      "sanidad",
+      "salud",
+      "integridad"
+    ]
+  },
+  "H725": {
+    "shortDefinitionEs": "Aruma: lugar en Palestina (ʼĂrûwmâh)",
+    "glossesEs": [
+      "Aruma",
+      "lugar"
+    ]
+  },
+  "H726": {
+    "shortDefinitionEs": "Sirio: edomita o arameo (ʼĂrôwmîy)",
+    "glossesEs": [
+      "sirio",
+      "arameo",
+      "edomita"
+    ]
+  },
+  "H727": {
+    "shortDefinitionEs": "Arca: caja, cofre, féretro (ʼârôwn)",
+    "glossesEs": [
+      "arca",
+      "cofre",
+      "caja"
+    ]
+  },
+  "H728": {
+    "shortDefinitionEs": "Arauna: jebuseo (ʼĂravnâh)",
+    "glossesEs": [
+      "Arauna",
+      "jebuseo"
+    ]
+  },
+  "H729": {
+    "shortDefinitionEs": "Cedro: de madera de cedro (ʼâraz)",
+    "glossesEs": [
+      "cedro",
+      "madera"
+    ]
+  },
+  "H730": {
+    "shortDefinitionEs": "Cedro: árbol de cedro (ʼerez)",
+    "glossesEs": [
+      "cedro",
+      "árbol"
+    ]
+  },
+  "H731": {
+    "shortDefinitionEs": "Obra de cedro: revestimiento de cedro (ʼarzâh)",
+    "glossesEs": [
+      "cedro",
+      "revestimiento",
+      "obra"
+    ]
+  },
+  "H732": {
+    "shortDefinitionEs": "Viajar: andar, hacer camino (ʼârach)",
+    "glossesEs": [
+      "viajar",
+      "andar",
+      "caminar"
+    ]
+  },
+  "H733": {
+    "shortDefinitionEs": "Arac: nombre de tres israelitas (ʼÂrach)",
+    "glossesEs": [
+      "Arac",
+      "nombre propio"
+    ]
+  },
+  "H734": {
+    "shortDefinitionEs": "Camino: ruta transitada, caravana (ʼôrach)",
+    "glossesEs": [
+      "camino",
+      "sendero",
+      "caravana"
+    ]
+  },
+  "H735": {
+    "shortDefinitionEs": "Camino: ruta, vía (ʼôrach)",
+    "glossesEs": [
+      "camino",
+      "vía",
+      "ruta"
+    ]
+  },
+  "H736": {
+    "shortDefinitionEs": "Caravana: compañía de viajeros (ʼôrᵉchâh)",
+    "glossesEs": [
+      "caravana",
+      "compañía",
+      "caravana"
+    ]
+  },
+  "H737": {
+    "shortDefinitionEs": "Ración: porción de alimento (ʼăruchâh)",
+    "glossesEs": [
+      "ración",
+      "alimento",
+      "porción"
+    ]
+  },
+  "H738": {
+    "shortDefinitionEs": "León: animal feroz (ʼărîy)",
+    "glossesEs": [
+      "león",
+      "animal"
+    ]
+  },
+  "H739": {
+    "shortDefinitionEs": "Varón fuerte: león de Dios, heroico (ʼărîyʼêl)",
+    "glossesEs": [
+      "varón fuerte",
+      "heroico",
+      "león"
+    ]
+  },
+  "H740": {
+    "shortDefinitionEs": "Ariel: nombre simbólico de Jerusalén (ʼĂrîyʼêl)",
+    "glossesEs": [
+      "Ariel",
+      "Jerusalén"
+    ]
+  },
+  "H741": {
+    "shortDefinitionEs": "Altar: ara del templo (ʼăriʼêyl)",
+    "glossesEs": [
+      "altar",
+      "ara"
+    ]
+  },
+  "H742": {
+    "shortDefinitionEs": "Aridai: hijo de Amán (ʼĂrîyday)",
+    "glossesEs": [
+      "Aridai",
+      "nombre propio"
+    ]
+  },
+  "H743": {
+    "shortDefinitionEs": "Aridatha: hijo de Amán (ʼĂrîydâthâʼ)",
+    "glossesEs": [
+      "Aridatha",
+      "nombre propio"
+    ]
+  },
+  "H744": {
+    "shortDefinitionEs": "León: felino, animal feroz (ʼaryêh)",
+    "glossesEs": [
+      "león",
+      "animal"
+    ]
+  },
+  "H745": {
+    "shortDefinitionEs": "Arieh: israelita (ʼAryêh)",
+    "glossesEs": [
+      "Arieh",
+      "nombre propio"
+    ]
+  },
+  "H746": {
+    "shortDefinitionEs": "Arioc: babilonio (ʼĂryôwk)",
+    "glossesEs": [
+      "Arioc",
+      "babilonio"
+    ]
+  },
+  "H747": {
+    "shortDefinitionEs": "Arisai: hijo de Amán (ʼĂrîyçay)",
+    "glossesEs": [
+      "Arisai",
+      "nombre propio"
+    ]
+  },
+  "H748": {
+    "shortDefinitionEs": "Alargar: prolongar, extender (ʼârak)",
+    "glossesEs": [
+      "alargar",
+      "prolongar",
+      "extender"
+    ]
+  },
+  "H749": {
+    "shortDefinitionEs": "Convenir: ser apropiado, ajustarse (ʼărak)",
+    "glossesEs": [
+      "convenir",
+      "apropiado"
+    ]
+  },
+  "H750": {
+    "shortDefinitionEs": "Largo: sufrido, paciente, lento (ʼârêk)",
+    "glossesEs": [
+      "largo",
+      "paciente",
+      "sufrido"
+    ]
+  },
+  "H751": {
+    "shortDefinitionEs": "Erec: ciudad de Babilonia (ʼErek)",
+    "glossesEs": [
+      "Erec",
+      "ciudad"
+    ]
+  },
+  "H752": {
+    "shortDefinitionEs": "Largo: extenso, prolongado (ʼârôk)",
+    "glossesEs": [
+      "largo",
+      "extenso"
+    ]
+  },
+  "H753": {
+    "shortDefinitionEs": "Largo: extensión, duración (ʼôrek)",
+    "glossesEs": [
+      "largo",
+      "longitud",
+      "duración"
+    ]
+  },
+  "H754": {
+    "shortDefinitionEs": "Prolongación: alargamiento (ʼarkâʼ)",
+    "glossesEs": [
+      "prolongación",
+      "alargamiento"
+    ]
+  },
+  "H755": {
+    "shortDefinitionEs": "Rodilla: articulación de la pierna (ʼarkubâh)",
+    "glossesEs": [
+      "rodilla"
+    ]
+  },
+  "H756": {
+    "shortDefinitionEs": "Arquevita: natural de Erec (ʼArkᵉvay)",
+    "glossesEs": [
+      "arquevita",
+      "natural"
+    ]
+  },
+  "H757": {
+    "shortDefinitionEs": "Arquita: natural de Erec (ʼArkîy)",
+    "glossesEs": [
+      "arquita",
+      "natural"
+    ]
+  },
+  "H758": {
+    "shortDefinitionEs": "Aram: Siria y sus habitantes (ʼĂrâm)",
+    "glossesEs": [
+      "Aram",
+      "Siria",
+      "arameos"
+    ]
+  },
+  "H759": {
+    "shortDefinitionEs": "Ciudadela: fortaleza, palacio (ʼarmôwn)",
+    "glossesEs": [
+      "ciudadela",
+      "fortaleza",
+      "palacio"
+    ]
+  },
+  "H760": {
+    "shortDefinitionEs": "Aram-Soba: región de Siria (ʼĂram Tsôwbâh)",
+    "glossesEs": [
+      "Aram-Soba",
+      "región"
+    ]
+  },
+  "H761": {
+    "shortDefinitionEs": "Aramita: habitante de Aram (ʼĂrammîy)",
+    "glossesEs": [
+      "aramita",
+      "sirio"
+    ]
+  },
+  "H762": {
+    "shortDefinitionEs": "Arameo: idioma arameo (ʼĂrâmîyth)",
+    "glossesEs": [
+      "arameo",
+      "idioma",
+      "lengua"
+    ]
+  },
+  "H763": {
+    "shortDefinitionEs": "Mesopotamia: tierra entre ríos (ʼĂram Nahărayim)",
+    "glossesEs": [
+      "Mesopotamia",
+      "región"
+    ]
+  },
+  "H764": {
+    "shortDefinitionEs": "Armoni: israelita (ʼArmônîy)",
+    "glossesEs": [
+      "Armoni",
+      "nombre propio"
+    ]
+  },
+  "H765": {
+    "shortDefinitionEs": "Arán: edomita (ʼĂrân)",
+    "glossesEs": [
+      "Arán",
+      "edomita"
+    ]
+  },
+  "H766": {
+    "shortDefinitionEs": "Fresno: árbol resistente (ʼôren)",
+    "glossesEs": [
+      "fresno",
+      "árbol"
+    ]
+  },
+  "H767": {
+    "shortDefinitionEs": "Oren: israelita (ʼÔren)",
+    "glossesEs": [
+      "Oren",
+      "nombre propio"
+    ]
+  },
+  "H768": {
+    "shortDefinitionEs": "Liebre, animal de cuatro patas (ʼarnebeth)",
+    "glossesEs": [
+      "liebre",
+      "animal"
+    ]
+  },
+  "H769": {
+    "shortDefinitionEs": "Arnón: río al este del Jordán (ʼArnôwn)",
+    "glossesEs": [
+      "Arnón",
+      "río"
+    ]
+  },
+  "H770": {
+    "shortDefinitionEs": "Arnán: israelita (ʼArnân)",
+    "glossesEs": [
+      "Arnán",
+      "persona"
+    ]
+  },
+  "H771": {
+    "shortDefinitionEs": "Ornán: jebuseo (ʼOrnân)",
+    "glossesEs": [
+      "Ornán",
+      "jebuseo"
+    ]
+  },
+  "H772": {
+    "shortDefinitionEs": "Tierra; fig. lo profundo (ʼăraʻ)",
+    "glossesEs": [
+      "tierra",
+      "profundo"
+    ]
+  },
+  "H773": {
+    "shortDefinitionEs": "Fondo, lo más bajo (ʼarʻîyth)",
+    "glossesEs": [
+      "fondo",
+      "base"
+    ]
+  },
+  "H774": {
+    "shortDefinitionEs": "Arpad: lugar en Siria (ʼArpâd)",
+    "glossesEs": [
+      "Arpad",
+      "ciudad"
+    ]
+  },
+  "H775": {
+    "shortDefinitionEs": "Arfaxad: hijo de Noé y su región (ʼArpakshad)",
+    "glossesEs": [
+      "Arfaxad",
+      "región"
+    ]
+  },
+  "H776": {
+    "shortDefinitionEs": "tierra, suelo, nación, país",
+    "glossesEs": [
+      "tierra"
+    ]
+  },
+  "H777": {
+    "shortDefinitionEs": "Arza: israelita (ʼartsâʼ)",
+    "glossesEs": [
+      "Arza",
+      "persona"
+    ]
+  },
+  "H778": {
+    "shortDefinitionEs": "Tierra, suelo (ʼăraq)",
+    "glossesEs": [
+      "tierra",
+      "suelo"
+    ]
+  },
+  "H779": {
+    "shortDefinitionEs": "Maldecir amargamente (ʼârar)",
+    "glossesEs": [
+      "maldecir",
+      "execración"
+    ]
+  },
+  "H780": {
+    "shortDefinitionEs": "Ararat: región en Armenia (ʼĂrâraṭ)",
+    "glossesEs": [
+      "Ararat",
+      "Armenia"
+    ]
+  },
+  "H781": {
+    "shortDefinitionEs": "Desposar, comprometerse en matrimonio (ʼâras)",
+    "glossesEs": [
+      "desposar",
+      "prometida"
+    ]
+  },
+  "H782": {
+    "shortDefinitionEs": "Anhelo, petición (ʼăresheth)",
+    "glossesEs": [
+      "petición",
+      "anhelo"
+    ]
+  },
+  "H783": {
+    "shortDefinitionEs": "Artajerjes: título de reyes persas (ʼArtachshashtâʼ)",
+    "glossesEs": [
+      "Artajerjes",
+      "rey persa"
+    ]
+  },
+  "H784": {
+    "shortDefinitionEs": "Fuego, llama (literal o figurado) (ʼêsh)",
+    "glossesEs": [
+      "fuego",
+      "llama"
+    ]
+  },
+  "H785": {
+    "shortDefinitionEs": "Llama, fuego ardiente (ʼêsh)",
+    "glossesEs": [
+      "llama",
+      "fuego"
+    ]
+  },
+  "H786": {
+    "shortDefinitionEs": "Hay, existe (adverbio de existencia) (ʼish)",
+    "glossesEs": [
+      "hay",
+      "existe"
+    ]
+  },
+  "H787": {
+    "shortDefinitionEs": "Fundamento, base (ʼôsh)",
+    "glossesEs": [
+      "fundamento",
+      "base"
+    ]
+  },
+  "H788": {
+    "shortDefinitionEs": "Asbel: israelita (ʼAshbêl)",
+    "glossesEs": [
+      "Asbel",
+      "persona"
+    ]
+  },
+  "H789": {
+    "shortDefinitionEs": "Asbeles: descendientes de Asbel (ʼAshbêlîy)",
+    "glossesEs": [
+      "asbeles",
+      "descendientes"
+    ]
+  },
+  "H790": {
+    "shortDefinitionEs": "Esbán: idumeo (ʼEshbân)",
+    "glossesEs": [
+      "Esbán",
+      "idumeo"
+    ]
+  },
+  "H791": {
+    "shortDefinitionEs": "Asbea: israelita (ʼAshbêaʻ)",
+    "glossesEs": [
+      "Asbea",
+      "persona"
+    ]
+  },
+  "H792": {
+    "shortDefinitionEs": "Esbaal: hijo de Saúl (ʼEshbaʻal)",
+    "glossesEs": [
+      "Esbaal",
+      "Saúl"
+    ]
+  },
+  "H793": {
+    "shortDefinitionEs": "Arroyo, corriente de agua (ʼeshed)",
+    "glossesEs": [
+      "arroyo",
+      "corriente"
+    ]
+  },
+  "H794": {
+    "shortDefinitionEs": "Barranco, cañada (ʼăshêdâh)",
+    "glossesEs": [
+      "barranco",
+      "cañada"
+    ]
+  },
+  "H795": {
+    "shortDefinitionEs": "Asdod: ciudad en Palestina (ʼAshdôwd)",
+    "glossesEs": [
+      "Asdod",
+      "ciudad"
+    ]
+  },
+  "H796": {
+    "shortDefinitionEs": "Asdodita: habitante de Asdod (ʼAshdôwdîy)",
+    "glossesEs": [
+      "asdodita",
+      "habitante"
+    ]
+  },
+  "H797": {
+    "shortDefinitionEs": "En idioma asdodita (adv.) (ʼAshdôwdîyth)",
+    "glossesEs": [
+      "idioma asdodita",
+      "lengua"
+    ]
+  },
+  "H798": {
+    "shortDefinitionEs": "Asdot-Pisga: lugar al este del Jordán (ʼAshdôwth hap-Piçgâh)",
+    "glossesEs": [
+      "Asdot-Pisga",
+      "región"
+    ]
+  },
+  "H799": {
+    "shortDefinitionEs": "Ley de fuego (ʼeshdâth)",
+    "glossesEs": [
+      "ley",
+      "fuego"
+    ]
+  },
+  "H800": {
+    "shortDefinitionEs": "Fuego, llama ardiente (ʼeshshâh)",
+    "glossesEs": [
+      "fuego",
+      "llama"
+    ]
+  },
+  "H801": {
+    "shortDefinitionEs": "Ofrenda quemada, sacrificio (ʼishshâh)",
+    "glossesEs": [
+      "ofrenda",
+      "sacrificio",
+      "quemada"
+    ]
+  },
+  "H802": {
+    "shortDefinitionEs": "mujer, esposa",
+    "glossesEs": [
+      "mujer"
+    ]
+  },
+  "H803": {
+    "shortDefinitionEs": "Fundamento, base (ʼăshûwyâh)",
+    "glossesEs": [
+      "fundamento",
+      "cimiento"
+    ]
+  },
+  "H804": {
+    "shortDefinitionEs": "Asiria: imperio y región antigua (ʼAshshûwr)",
+    "glossesEs": [
+      "Asiria",
+      "Asur"
+    ]
+  },
+  "H805": {
+    "shortDefinitionEs": "Asuritas: habitantes de Asur (ʼĂshûrîy)",
+    "glossesEs": [
+      "asuritas",
+      "habitantes"
+    ]
+  },
+  "H806": {
+    "shortDefinitionEs": "Asur: israelita (ʼAshchûwr)",
+    "glossesEs": [
+      "Asur",
+      "persona"
+    ]
+  },
+  "H807": {
+    "shortDefinitionEs": "Asima: deidad de Hamat (ʼAshîymâʼ)",
+    "glossesEs": [
+      "Asima",
+      "deidad"
+    ]
+  },
+  "H808": {
+    "shortDefinitionEs": "Fundamento arruinado (ʼâshîysh)",
+    "glossesEs": [
+      "fundamento",
+      "ruina"
+    ]
+  },
+  "H809": {
+    "shortDefinitionEs": "Torta o pastel apretado (ʼăshîyshâh)",
+    "glossesEs": [
+      "torta",
+      "pastel"
+    ]
+  },
+  "H810": {
+    "shortDefinitionEs": "Testículo (ʼeshek)",
+    "glossesEs": [
+      "testículo",
+      "piedra"
+    ]
+  },
+  "H811": {
+    "shortDefinitionEs": "Racimo de uvas o frutos (ʼeshkôwl)",
+    "glossesEs": [
+      "racimo",
+      "uvas"
+    ]
+  },
+  "H812": {
+    "shortDefinitionEs": "Escol: amorreo y valle en Palestina (ʼEshkôl)",
+    "glossesEs": [
+      "Escol",
+      "valle"
+    ]
+  },
+  "H813": {
+    "shortDefinitionEs": "Askenaz: jafetita y su descendencia (ʼAshkᵉnaz)",
+    "glossesEs": [
+      "Askenaz",
+      "descendencia"
+    ]
+  },
+  "H814": {
+    "shortDefinitionEs": "Dádiva, presente, regalo (ʼeshkâr)",
+    "glossesEs": [
+      "regalo",
+      "dádiva",
+      "presente"
+    ]
+  },
+  "H815": {
+    "shortDefinitionEs": "Tamarisco; bosque, arboleda (ʼêshel)",
+    "glossesEs": [
+      "tamarisco",
+      "árbol",
+      "bosque"
+    ]
+  },
+  "H816": {
+    "shortDefinitionEs": "Ser culpable; ser castigado (ʼâsham)",
+    "glossesEs": [
+      "culpable",
+      "pecar"
+    ]
+  },
+  "H817": {
+    "shortDefinitionEs": "Culpa, falta, ofrenda por la culpa (ʼâshâm)",
+    "glossesEs": [
+      "culpa",
+      "ofrenda",
+      "transgresión"
+    ]
+  },
+  "H818": {
+    "shortDefinitionEs": "Culpable; que presenta ofrenda (ʼâshêm)",
+    "glossesEs": [
+      "culpable",
+      "ofensor"
+    ]
+  },
+  "H819": {
+    "shortDefinitionEs": "Culpabilidad, falta, ofrenda por culpa (ʼashmâh)",
+    "glossesEs": [
+      "culpa",
+      "falta",
+      "ofrenda"
+    ]
+  },
+  "H820": {
+    "shortDefinitionEs": "lugar desolado, campo árido (ʼashmân)",
+    "glossesEs": [
+      "desolado",
+      "árido"
+    ]
+  },
+  "H821": {
+    "shortDefinitionEs": "vigilancia nocturna, turno de noche (ʼashmurâh)",
+    "glossesEs": [
+      "vigilia",
+      "noche"
+    ]
+  },
+  "H822": {
+    "shortDefinitionEs": "ventana enrejada, celosía (ʼeshnâb)",
+    "glossesEs": [
+      "ventana",
+      "celosía"
+    ]
+  },
+  "H823": {
+    "shortDefinitionEs": "Asná: nombre de dos lugares en Palestina (ʼAshnâh)",
+    "glossesEs": [
+      "Asná",
+      "lugar"
+    ]
+  },
+  "H824": {
+    "shortDefinitionEs": "Eseán: lugar en Palestina (ʼEshʻân)",
+    "glossesEs": [
+      "Eseán",
+      "lugar"
+    ]
+  },
+  "H825": {
+    "shortDefinitionEs": "astrólogo, adivino (ʼashshâph)",
+    "glossesEs": [
+      "astrólogo",
+      "adivino"
+    ]
+  },
+  "H826": {
+    "shortDefinitionEs": "astrólogo (ʼashshâph)",
+    "glossesEs": [
+      "astrólogo"
+    ]
+  },
+  "H827": {
+    "shortDefinitionEs": "carcaj, estuche para flechas (ʼashpâh)",
+    "glossesEs": [
+      "carcaj",
+      "flechas"
+    ]
+  },
+  "H828": {
+    "shortDefinitionEs": "Aspenaz: eunuco babilónico (ʼAshpᵉnaz)",
+    "glossesEs": [
+      "Aspenaz",
+      "eunuco"
+    ]
+  },
+  "H829": {
+    "shortDefinitionEs": "porción medida, trozo de carne (ʼeshpâr)",
+    "glossesEs": [
+      "porción",
+      "trozo"
+    ]
+  },
+  "H830": {
+    "shortDefinitionEs": "montón de basura, estercolero (ʼashpôth)",
+    "glossesEs": [
+      "basura",
+      "estercolero"
+    ]
+  },
+  "H831": {
+    "shortDefinitionEs": "Ascalón: ciudad en Palestina (ʼAshqᵉlôwn)",
+    "glossesEs": [
+      "Ascalón",
+      "ciudad"
+    ]
+  },
+  "H832": {
+    "shortDefinitionEs": "ascalonita: habitante de Ascalón (ʼEshqᵉlôwnîy)",
+    "glossesEs": [
+      "ascalonita",
+      "habitante"
+    ]
+  },
+  "H833": {
+    "shortDefinitionEs": "ser recto, bendecir, prosperar, ir directo (ʼâshar)",
+    "glossesEs": [
+      "bendecir",
+      "prosperar",
+      "guiar"
+    ]
+  },
+  "H834": {
+    "shortDefinitionEs": "quien, cual, qué, que; cuando, donde (ʼăsher)",
+    "glossesEs": [
+      "que",
+      "quien",
+      "donde"
+    ]
+  },
+  "H835": {
+    "shortDefinitionEs": "dicha, felicidad; ¡dichoso! (ʼesher)",
+    "glossesEs": [
+      "dichoso",
+      "feliz",
+      "bendito"
+    ]
+  },
+  "H836": {
+    "shortDefinitionEs": "Aser: hijo de Jacob y su tribu (ʼÂshêr)",
+    "glossesEs": [
+      "Aser",
+      "tribu"
+    ]
+  },
+  "H837": {
+    "shortDefinitionEs": "dicha, felicidad (ʼôsher)",
+    "glossesEs": [
+      "dicha",
+      "felicidad"
+    ]
+  },
+  "H838": {
+    "shortDefinitionEs": "paso, escalón (ʼâshur)",
+    "glossesEs": [
+      "paso",
+      "escalón"
+    ]
+  },
+  "H839": {
+    "shortDefinitionEs": "cedro u otra madera elástica (ʼăshur)",
+    "glossesEs": [
+      "cedro",
+      "madera"
+    ]
+  },
+  "H840": {
+    "shortDefinitionEs": "Asarel: israelita (ʼĂsarʼêl)",
+    "glossesEs": [
+      "Asarel",
+      "israelita"
+    ]
+  },
+  "H841": {
+    "shortDefinitionEs": "Asarelá: israelita (ʼĂsarʼêlâh)",
+    "glossesEs": [
+      "Asarelá",
+      "israelita"
+    ]
+  },
+  "H842": {
+    "shortDefinitionEs": "Aserá: diosa fenicia o su imagen (ʼăshêrâh)",
+    "glossesEs": [
+      "Aserá",
+      "diosa"
+    ]
+  },
+  "H843": {
+    "shortDefinitionEs": "asherita: descendiente de Aser (ʼÂshêrîy)",
+    "glossesEs": [
+      "asherita",
+      "descendiente"
+    ]
+  },
+  "H844": {
+    "shortDefinitionEs": "Asriel: nombre de dos israelitas (ʼAsrîyʼêl)",
+    "glossesEs": [
+      "Asriel",
+      "israelita"
+    ]
+  },
+  "H845": {
+    "shortDefinitionEs": "asrielita: descendiente de Asriel (ʼAsriʼêlîy)",
+    "glossesEs": [
+      "asrielita",
+      "descendiente"
+    ]
+  },
+  "H846": {
+    "shortDefinitionEs": "pared, muro (ʼushsharnâʼ)",
+    "glossesEs": [
+      "pared",
+      "muro"
+    ]
+  },
+  "H847": {
+    "shortDefinitionEs": "Estaol: lugar en Palestina (ʼEshtâʼôl)",
+    "glossesEs": [
+      "Estaol",
+      "lugar"
+    ]
+  },
+  "H848": {
+    "shortDefinitionEs": "estaolita: habitante de Estaol (ʼEshtâʼulîy)",
+    "glossesEs": [
+      "estaolita",
+      "habitante"
+    ]
+  },
+  "H849": {
+    "shortDefinitionEs": "rebelión, sedición (ʼeshtaddûwr)",
+    "glossesEs": [
+      "rebelión",
+      "sedición"
+    ]
+  },
+  "H850": {
+    "shortDefinitionEs": "Estón: israelita (ʼEshtôwn)",
+    "glossesEs": [
+      "Estón",
+      "israelita"
+    ]
+  },
+  "H851": {
+    "shortDefinitionEs": "Estemoá: lugar en Palestina (ʼEshtᵉmôaʻ)",
+    "glossesEs": [
+      "Estemoá",
+      "lugar"
+    ]
+  },
+  "H852": {
+    "shortDefinitionEs": "portento, señal (ʼâth)",
+    "glossesEs": [
+      "señal",
+      "portento"
+    ]
+  },
+  "H853": {
+    "shortDefinitionEs": "partícula de objeto directo (ʼêth)",
+    "glossesEs": [
+      "objeto directo"
+    ]
+  },
+  "H854": {
+    "shortDefinitionEs": "con, junto a, cerca de, entre (ʼêth)",
+    "glossesEs": [
+      "con",
+      "junto",
+      "entre"
+    ]
+  },
+  "H855": {
+    "shortDefinitionEs": "reja de arado, azadón (ʼêth)",
+    "glossesEs": [
+      "reja",
+      "azadón"
+    ]
+  },
+  "H856": {
+    "shortDefinitionEs": "Etbaal: rey fenicio (ʼEthbaʻal)",
+    "glossesEs": [
+      "Etbaal",
+      "rey"
+    ]
+  },
+  "H857": {
+    "shortDefinitionEs": "llegar, venir, presentarse (ʼâthâh)",
+    "glossesEs": [
+      "venir",
+      "llegar"
+    ]
+  },
+  "H858": {
+    "shortDefinitionEs": "venir, llegar, traer (ʼâthâh)",
+    "glossesEs": [
+      "venir",
+      "traer"
+    ]
+  },
+  "H859": {
+    "shortDefinitionEs": "tú, te, vosotros, os (ʼattâh)",
+    "glossesEs": [
+      "tú",
+      "vosotros"
+    ]
+  },
+  "H860": {
+    "shortDefinitionEs": "asna, burra hembra (ʼâthôwn)",
+    "glossesEs": [
+      "burra",
+      "asna"
+    ]
+  },
+  "H861": {
+    "shortDefinitionEs": "horno, fogón (ʼattûwn)",
+    "glossesEs": [
+      "horno",
+      "fogón"
+    ]
+  },
+  "H862": {
+    "shortDefinitionEs": "galería, cornisa en edificio (ʼattûwq)",
+    "glossesEs": [
+      "galería",
+      "cornisa"
+    ]
+  },
+  "H863": {
+    "shortDefinitionEs": "Itai: nombre de gitita e israelita (ʼIttay)",
+    "glossesEs": [
+      "Itai",
+      "gitita"
+    ]
+  },
+  "H864": {
+    "shortDefinitionEs": "Etam: lugar en el desierto (ʼÊthâm)",
+    "glossesEs": [
+      "Etam",
+      "desierto"
+    ]
+  },
+  "H865": {
+    "shortDefinitionEs": "ayer, tiempo pasado, antiguamente (ʼethmôwl)",
+    "glossesEs": [
+      "ayer",
+      "pasado",
+      "antiguamente"
+    ]
+  },
+  "H866": {
+    "shortDefinitionEs": "presente, recompensa ilícita (ʼethnâh)",
+    "glossesEs": [
+      "presente",
+      "recompensa"
+    ]
+  },
+  "H867": {
+    "shortDefinitionEs": "Etní: israelita (ʼEthnîy)",
+    "glossesEs": [
+      "Etní",
+      "israelita"
+    ]
+  },
+  "H868": {
+    "shortDefinitionEs": "salario, recompensa, precio (ʼethnan)",
+    "glossesEs": [
+      "salario",
+      "recompensa"
+    ]
+  },
+  "H869": {
+    "shortDefinitionEs": "Etnán: israelita (ʼEthnan)",
+    "glossesEs": [
+      "Etnán",
+      "israelita"
+    ]
+  },
+  "H870": {
+    "shortDefinitionEs": "lugar; después (adverbio) (ʼăthar)",
+    "glossesEs": [
+      "lugar",
+      "después"
+    ]
+  },
+  "H871": {
+    "shortDefinitionEs": "Atarim: lugar cerca de Palestina (ʼĂthârîym)",
+    "glossesEs": [
+      "Atarim",
+      "lugar"
+    ]
+  },
+  "H872": {
+    "shortDefinitionEs": "entrada a un edificio (bᵉʼâh)",
+    "glossesEs": [
+      "entrada",
+      "puerta"
+    ]
+  },
+  "H873": {
+    "shortDefinitionEs": "malo, perverso (biʼûwsh)",
+    "glossesEs": [
+      "malo",
+      "perverso"
+    ]
+  },
+  "H874": {
+    "shortDefinitionEs": "cavar; grabar; explicar (bâʼar)",
+    "glossesEs": [
+      "cavar",
+      "explicar",
+      "grabar"
+    ]
+  },
+  "H875": {
+    "shortDefinitionEs": "pozo, cisterna (bᵉʼêr)",
+    "glossesEs": [
+      "pozo",
+      "cisterna"
+    ]
+  },
+  "H876": {
+    "shortDefinitionEs": "Beer: lugar en el desierto o Palestina (Bᵉʼêr)",
+    "glossesEs": [
+      "Beer",
+      "lugar"
+    ]
+  },
+  "H877": {
+    "shortDefinitionEs": "cisterna, depósito de agua (bôʼr)",
+    "glossesEs": [
+      "cisterna",
+      "depósito"
+    ]
+  },
+  "H878": {
+    "shortDefinitionEs": "Beera: israelita (Bᵉʼêrâʼ)",
+    "glossesEs": [
+      "Beera"
+    ]
+  },
+  "H879": {
+    "shortDefinitionEs": "Beer-elim: lugar en el desierto (Bᵉʼêr ʼÊlîym)",
+    "glossesEs": [
+      "Beer-elim",
+      "lugar"
+    ]
+  },
+  "H880": {
+    "shortDefinitionEs": "Beerah: israelita (Bᵉʼêrâh)",
+    "glossesEs": [
+      "Beerah"
+    ]
+  },
+  "H881": {
+    "shortDefinitionEs": "Beerot: lugar en Palestina (Bᵉʼêrôwth)",
+    "glossesEs": [
+      "Beerot",
+      "lugar"
+    ]
+  },
+  "H882": {
+    "shortDefinitionEs": "Beeri: hitita o israelita (Bᵉʼêrîy)",
+    "glossesEs": [
+      "Beeri"
+    ]
+  },
+  "H883": {
+    "shortDefinitionEs": "Beer-Lachai-Roi: lugar en el desierto (Bᵉʼêr la-Chay Rôʼîy)",
+    "glossesEs": [
+      "Beer-Lachai-Roi",
+      "lugar"
+    ]
+  },
+  "H884": {
+    "shortDefinitionEs": "Beerseba: lugar en Palestina (Bᵉʼêr Shebaʻ)",
+    "glossesEs": [
+      "Beerseba",
+      "lugar"
+    ]
+  },
+  "H885": {
+    "shortDefinitionEs": "Beerot de los hijos de Jaacán: lugar (Bᵉʼêrôth Bᵉnêy-Yaʻăqan)",
+    "glossesEs": [
+      "Beerot",
+      "lugar"
+    ]
+  },
+  "H886": {
+    "shortDefinitionEs": "beerotita: habitante de Beerot (Bᵉʼêrôthîy)",
+    "glossesEs": [
+      "beerotita",
+      "habitante"
+    ]
+  },
+  "H887": {
+    "shortDefinitionEs": "apestar; ser moralmente ofensivo (bâʼash)",
+    "glossesEs": [
+      "apestar",
+      "heder",
+      "ofender"
+    ]
+  },
+  "H888": {
+    "shortDefinitionEs": "desagradar, ofender (bᵉʼêsh)",
+    "glossesEs": [
+      "desagradar",
+      "ofender"
+    ]
+  },
+  "H889": {
+    "shortDefinitionEs": "hedor, mal olor (bᵉʼôsh)",
+    "glossesEs": [
+      "hedor",
+      "mal olor"
+    ]
+  },
+  "H890": {
+    "shortDefinitionEs": "malva o planta nociva inútil (boʼshâh)",
+    "glossesEs": [
+      "malva",
+      "planta mala"
+    ]
+  },
+  "H891": {
+    "shortDefinitionEs": "bayas venenosas (bᵉʼushîym)",
+    "glossesEs": [
+      "bayas",
+      "uvas silvestres"
+    ]
+  },
+  "H892": {
+    "shortDefinitionEs": "pupila del ojo (bâbâh)",
+    "glossesEs": [
+      "pupila",
+      "ojo",
+      "niña del ojo"
+    ]
+  },
+  "H893": {
+    "shortDefinitionEs": "Bebai: israelita (Bêbay)",
+    "glossesEs": [
+      "Bebai"
+    ]
+  },
+  "H894": {
+    "shortDefinitionEs": "Babel: Babilonia e imperio babilónico (Bâbel)",
+    "glossesEs": [
+      "Babel",
+      "Babilonia"
+    ]
+  },
+  "H895": {
+    "shortDefinitionEs": "Babilonia (Babel)",
+    "glossesEs": [
+      "Babel",
+      "Babilonia"
+    ]
+  },
+  "H896": {
+    "shortDefinitionEs": "babilonio, natural de Babilonia (Bablîy)",
+    "glossesEs": [
+      "babilonio"
+    ]
+  },
+  "H897": {
+    "shortDefinitionEs": "comida, alimento (bag)",
+    "glossesEs": [
+      "alimento",
+      "comida"
+    ]
+  },
+  "H898": {
+    "shortDefinitionEs": "cubrir; actuar con engaño; saquear (bâgad)",
+    "glossesEs": [
+      "engañar",
+      "traicionar",
+      "saquear"
+    ]
+  },
+  "H899": {
+    "shortDefinitionEs": "vestidura, ropa; traición, saqueo (beged)",
+    "glossesEs": [
+      "vestido",
+      "ropa",
+      "traición"
+    ]
+  },
+  "H900": {
+    "shortDefinitionEs": "traiciones, traidor (bôgᵉdôwth)",
+    "glossesEs": [
+      "traición",
+      "traidor"
+    ]
+  },
+  "H901": {
+    "shortDefinitionEs": "traidor, infiel (bâgôwd)",
+    "glossesEs": [
+      "traidor",
+      "infiel"
+    ]
+  },
+  "H902": {
+    "shortDefinitionEs": "Bigvai: israelita (Bigvay)",
+    "glossesEs": [
+      "Bigvai"
+    ]
+  },
+  "H903": {
+    "shortDefinitionEs": "Bigta: eunuco de Jerjes (Bigthâʼ)",
+    "glossesEs": [
+      "Bigta"
+    ]
+  },
+  "H904": {
+    "shortDefinitionEs": "Bigtán: eunuco de Jerjes (Bigthân)",
+    "glossesEs": [
+      "Bigtán"
+    ]
+  },
+  "H905": {
+    "shortDefinitionEs": "parte del cuerpo, rama, barra, separación (bad)",
+    "glossesEs": [
+      "parte",
+      "rama",
+      "barra",
+      "solo"
+    ]
+  },
+  "H906": {
+    "shortDefinitionEs": "hilo de lino, tela de lino (bad)",
+    "glossesEs": [
+      "lino",
+      "tela"
+    ]
+  },
+  "H907": {
+    "shortDefinitionEs": "mentira, embuste, mentiroso (bad)",
+    "glossesEs": [
+      "mentira",
+      "mentiroso"
+    ]
+  },
+  "H908": {
+    "shortDefinitionEs": "inventar, fingir (bâdâʼ)",
+    "glossesEs": [
+      "inventar",
+      "fingir"
+    ]
+  },
+  "H909": {
+    "shortDefinitionEs": "dividir, estar solitario (bâdad)",
+    "glossesEs": [
+      "solo",
+      "dividir"
+    ]
+  },
+  "H910": {
+    "shortDefinitionEs": "separado, solitario, solo (bâdâd)",
+    "glossesEs": [
+      "solo",
+      "solitario",
+      "desolado"
+    ]
+  },
+  "H911": {
+    "shortDefinitionEs": "Bedad: edomita (Bᵉdad)",
+    "glossesEs": [
+      "Bedad"
+    ]
+  },
+  "H912": {
+    "shortDefinitionEs": "Bodeya: israelita (Bêdᵉyâh)",
+    "glossesEs": [
+      "Bodeya"
+    ]
+  },
+  "H913": {
+    "shortDefinitionEs": "aleación; estaño (bᵉdîyl)",
+    "glossesEs": [
+      "estaño",
+      "aleación"
+    ]
+  },
+  "H914": {
+    "shortDefinitionEs": "dividir, separar, diferenciar, distinguir (bâdal)",
+    "glossesEs": [
+      "separar",
+      "dividir",
+      "diferenciar"
+    ]
+  },
+  "H915": {
+    "shortDefinitionEs": "parte, porción (bâdâl)",
+    "glossesEs": [
+      "parte",
+      "porción"
+    ]
+  },
+  "H916": {
+    "shortDefinitionEs": "bdelio: goma aromática o resina (bᵉdôlach)",
+    "glossesEs": [
+      "bdelio",
+      "goma",
+      "resina"
+    ]
+  },
+  "H917": {
+    "shortDefinitionEs": "Bedán: israelita (Bᵉdân)",
+    "glossesEs": [
+      "Bedán"
+    ]
+  },
+  "H918": {
+    "shortDefinitionEs": "reparar, tapar una grieta (bâdaq)",
+    "glossesEs": [
+      "reparar",
+      "tapar"
+    ]
+  },
+  "H919": {
+    "shortDefinitionEs": "grieta, brecha, fuga (bedeq)",
+    "glossesEs": [
+      "brecha",
+      "grieta",
+      "fuga"
+    ]
+  },
+  "H920": {
+    "shortDefinitionEs": "Nombre: Israelita (Bidqar)",
+    "glossesEs": [
+      "Bidcar",
+      "persona"
+    ]
+  },
+  "H921": {
+    "shortDefinitionEs": "Dispersar, esparcir (bədar)",
+    "glossesEs": [
+      "dispersar",
+      "esparcir",
+      "diseminar"
+    ]
+  },
+  "H922": {
+    "shortDefinitionEs": "Vacío, caos, desolación (bōhû)",
+    "glossesEs": [
+      "vacío",
+      "caos",
+      "desolación"
+    ]
+  },
+  "H923": {
+    "shortDefinitionEs": "Mármol blanco, alabastro (bahaṭ)",
+    "glossesEs": [
+      "mármol",
+      "alabastro",
+      "piedra"
+    ]
+  },
+  "H924": {
+    "shortDefinitionEs": "Prisa, rapidez, apresuradamente (bəhîylû)",
+    "glossesEs": [
+      "prisa",
+      "apresuradamente",
+      "rapidez"
+    ]
+  },
+  "H925": {
+    "shortDefinitionEs": "Resplandeciente, brillante (bâhîyr)",
+    "glossesEs": [
+      "brillante",
+      "resplandeciente",
+      "luminoso"
+    ]
+  },
+  "H926": {
+    "shortDefinitionEs": "Atemorizar, alarmar, turbar (bâhal)",
+    "glossesEs": [
+      "atemorizar",
+      "alarmar",
+      "turbar"
+    ]
+  },
+  "H927": {
+    "shortDefinitionEs": "Atemorizar, apresurarse (bəhal)",
+    "glossesEs": [
+      "atemorizar",
+      "apresurarse",
+      "perturbar"
+    ]
+  },
+  "H928": {
+    "shortDefinitionEs": "Pánico, terror, angustia (behâlâh)",
+    "glossesEs": [
+      "pánico",
+      "terror",
+      "angustia"
+    ]
+  },
+  "H929": {
+    "shortDefinitionEs": "Animal, bestia, ganado (bəhêmâh)",
+    "glossesEs": [
+      "animal",
+      "bestia",
+      "ganado"
+    ]
+  },
+  "H930": {
+    "shortDefinitionEs": "Behemot: hipopótamo (bəhêmôwth)",
+    "glossesEs": [
+      "Behemot",
+      "hipopótamo",
+      "animal"
+    ]
+  },
+  "H931": {
+    "shortDefinitionEs": "Pulgar, dedo gordo (bōhen)",
+    "glossesEs": [
+      "pulgar",
+      "dedo gordo",
+      "extremidad"
+    ]
+  },
+  "H932": {
+    "shortDefinitionEs": "Nombre: Israelita (Bōhan)",
+    "glossesEs": [
+      "Bohan",
+      "persona"
+    ]
+  },
+  "H933": {
+    "shortDefinitionEs": "Mancha blanca en la piel (bōhaq)",
+    "glossesEs": [
+      "mancha",
+      "piel",
+      "enfermedad"
+    ]
+  },
+  "H934": {
+    "shortDefinitionEs": "Mancha blanca brillante en piel (bōhereth)",
+    "glossesEs": [
+      "mancha",
+      "mancha blanca",
+      "piel"
+    ]
+  },
+  "H935": {
+    "shortDefinitionEs": "Ir, venir, entrar, llegar (bôwʼ)",
+    "glossesEs": [
+      "ir",
+      "venir",
+      "entrar",
+      "llegar"
+    ]
+  },
+  "H936": {
+    "shortDefinitionEs": "Despreciar, desdeñar, menospreciar (bûwz)",
+    "glossesEs": [
+      "despreciar",
+      "desdeñar",
+      "menospreciar"
+    ]
+  },
+  "H937": {
+    "shortDefinitionEs": "Desprecio, deshonra, menosprecio (bûwz)",
+    "glossesEs": [
+      "desprecio",
+      "deshonra",
+      "menosprecio"
+    ]
+  },
+  "H938": {
+    "shortDefinitionEs": "Nombre: Buz, hijo de Nahor (Bûwz)",
+    "glossesEs": [
+      "Buz",
+      "persona"
+    ]
+  },
+  "H939": {
+    "shortDefinitionEs": "Lo despreciado, objeto de burla (bûwzâh)",
+    "glossesEs": [
+      "desprecio",
+      "burla",
+      "vituperio"
+    ]
+  },
+  "H940": {
+    "shortDefinitionEs": "Nombre: Buzita, descendiente de Buz (Bûwzîy)",
+    "glossesEs": [
+      "Buzita",
+      "pueblo",
+      "descendencia"
+    ]
+  },
+  "H941": {
+    "shortDefinitionEs": "Nombre: Israelita (Bûwzîy)",
+    "glossesEs": [
+      "Buzi",
+      "persona"
+    ]
+  },
+  "H942": {
+    "shortDefinitionEs": "Nombre: Israelita (Bavvay)",
+    "glossesEs": [
+      "Bavai",
+      "persona"
+    ]
+  },
+  "H943": {
+    "shortDefinitionEs": "Enredar, confundir, perplejo (bûwk)",
+    "glossesEs": [
+      "enredar",
+      "confundir",
+      "perplejo"
+    ]
+  },
+  "H944": {
+    "shortDefinitionEs": "Producto, alimento, provisión (bûwl)",
+    "glossesEs": [
+      "alimento",
+      "producto",
+      "sustento"
+    ]
+  },
+  "H945": {
+    "shortDefinitionEs": "Bul: octavo mes hebreo (Bûwl)",
+    "glossesEs": [
+      "Bul",
+      "mes",
+      "calendario"
+    ]
+  },
+  "H946": {
+    "shortDefinitionEs": "Nombre: Israelita (Bûwnâh)",
+    "glossesEs": [
+      "Bunah",
+      "persona"
+    ]
+  },
+  "H947": {
+    "shortDefinitionEs": "Pisotear, hollar, contaminar (bûwç)",
+    "glossesEs": [
+      "pisotear",
+      "hollar",
+      "contaminar"
+    ]
+  },
+  "H948": {
+    "shortDefinitionEs": "Lino fino, algodón (bûwts)",
+    "glossesEs": [
+      "lino fino",
+      "algodón",
+      "tela"
+    ]
+  },
+  "H949": {
+    "shortDefinitionEs": "Nombre: Peña en Micmas (Bôwtsêts)",
+    "glossesEs": [
+      "Bozez",
+      "peña",
+      "lugar"
+    ]
+  },
+  "H950": {
+    "shortDefinitionEs": "Vacío, desolado (bûwqâh)",
+    "glossesEs": [
+      "vacío",
+      "desolado",
+      "vano"
+    ]
+  },
+  "H951": {
+    "shortDefinitionEs": "Pastor, vaquero (bôwqêr)",
+    "glossesEs": [
+      "pastor",
+      "vaquero",
+      "ganadero"
+    ]
+  },
+  "H952": {
+    "shortDefinitionEs": "Examinar, declarar (bûwr)",
+    "glossesEs": [
+      "examinar",
+      "declarar",
+      "investigar"
+    ]
+  },
+  "H953": {
+    "shortDefinitionEs": "Pozo, cisterna, calabozo (bôwr)",
+    "glossesEs": [
+      "pozo",
+      "cisterna",
+      "calabozo",
+      "fuente"
+    ]
+  },
+  "H954": {
+    "shortDefinitionEs": "Avergonzarse, deshonrarse, tardar (bûwsh)",
+    "glossesEs": [
+      "avergonzarse",
+      "deshonrarse",
+      "confundirse"
+    ]
+  },
+  "H955": {
+    "shortDefinitionEs": "Vergüenza, deshonra (bûwshâh)",
+    "glossesEs": [
+      "vergüenza",
+      "deshonra",
+      "ignominia"
+    ]
+  },
+  "H956": {
+    "shortDefinitionEs": "Pasar la noche, alojarse (bûwth)",
+    "glossesEs": [
+      "pasar la noche",
+      "alojarse",
+      "hospedarse"
+    ]
+  },
+  "H957": {
+    "shortDefinitionEs": "Botín, presa, despojo (baz)",
+    "glossesEs": [
+      "botín",
+      "presa",
+      "despojo"
+    ]
+  },
+  "H958": {
+    "shortDefinitionEs": "Hender, rajar, despojar (bâzâʼ)",
+    "glossesEs": [
+      "hender",
+      "rajar",
+      "despojar"
+    ]
+  },
+  "H959": {
+    "shortDefinitionEs": "Despreciar, desdeñar, menospreciar (bâzâh)",
+    "glossesEs": [
+      "despreciar",
+      "desdeñar",
+      "menospreciar"
+    ]
+  },
+  "H960": {
+    "shortDefinitionEs": "Despreciado, menospreciado (bâzôh)",
+    "glossesEs": [
+      "despreciado",
+      "menospreciado"
+    ]
+  },
+  "H961": {
+    "shortDefinitionEs": "Botín, presa, despojo (bizzâh)",
+    "glossesEs": [
+      "botín",
+      "presa",
+      "despojo"
+    ]
+  },
+  "H962": {
+    "shortDefinitionEs": "Saquear, robar, despojar (bâzaz)",
+    "glossesEs": [
+      "saquear",
+      "robar",
+      "despojar"
+    ]
+  },
+  "H963": {
+    "shortDefinitionEs": "Desprecio, menosprecio (bizzâyôwn)",
+    "glossesEs": [
+      "desprecio",
+      "menosprecio",
+      "deshonra"
+    ]
+  },
+  "H964": {
+    "shortDefinitionEs": "Nombre: lugar en Palestina (bizyôwthᵉyâh)",
+    "glossesEs": [
+      "Bizjotia",
+      "lugar",
+      "Palestina"
+    ]
+  },
+  "H965": {
+    "shortDefinitionEs": "Relámpago, destello (bâzâq)",
+    "glossesEs": [
+      "relámpago",
+      "destello",
+      "rayo"
+    ]
+  },
+  "H966": {
+    "shortDefinitionEs": "Nombre: lugar en Palestina (Bezeq)",
+    "glossesEs": [
+      "Bezec",
+      "lugar",
+      "Palestina"
+    ]
+  },
+  "H967": {
+    "shortDefinitionEs": "Dispersar, esparcir, diseminar (bâzar)",
+    "glossesEs": [
+      "dispersar",
+      "esparcir",
+      "diseminar"
+    ]
+  },
+  "H968": {
+    "shortDefinitionEs": "Nombre: eunuco de Jerjes (Bizthâʼ)",
+    "glossesEs": [
+      "Bizta",
+      "eunuco",
+      "corte"
+    ]
+  },
+  "H969": {
+    "shortDefinitionEs": "Ensayador, examinador de metales (bâchôwn)",
+    "glossesEs": [
+      "ensayador",
+      "examinador",
+      "metales"
+    ]
+  },
+  "H970": {
+    "shortDefinitionEs": "joven escogido; mancebo (bâchûwr)",
+    "glossesEs": [
+      "joven",
+      "mancebo",
+      "escogido"
+    ]
+  },
+  "H971": {
+    "shortDefinitionEs": "torre de vigilancia de sitiadores (bachîyn)",
+    "glossesEs": [
+      "torre",
+      "vigilancia"
+    ]
+  },
+  "H972": {
+    "shortDefinitionEs": "seleccionar, elegir (bâchîyr)",
+    "glossesEs": [
+      "elegir",
+      "escoger",
+      "elegido"
+    ]
+  },
+  "H973": {
+    "shortDefinitionEs": "aborrecer, detestar (bâchal)",
+    "glossesEs": [
+      "aborrecer",
+      "detestar"
+    ]
+  },
+  "H974": {
+    "shortDefinitionEs": "probar, examinar, investigar (bâchan)",
+    "glossesEs": [
+      "probar",
+      "examinar",
+      "tentar"
+    ]
+  },
+  "H975": {
+    "shortDefinitionEs": "torre de vigilancia (bachan)",
+    "glossesEs": [
+      "torre",
+      "vigilancia"
+    ]
+  },
+  "H976": {
+    "shortDefinitionEs": "prueba, ensayo (bôchan)",
+    "glossesEs": [
+      "prueba",
+      "ensayo",
+      "probado"
+    ]
+  },
+  "H977": {
+    "shortDefinitionEs": "escoger, elegir, seleccionar (bâchar)",
+    "glossesEs": [
+      "escoger",
+      "elegir",
+      "seleccionar"
+    ]
+  },
+  "H978": {
+    "shortDefinitionEs": "Baharunita: habitante de Bahurim (Bachărûwmîy)",
+    "glossesEs": [
+      "Baharunita"
+    ]
+  },
+  "H979": {
+    "shortDefinitionEs": "juventud, conjunto de jóvenes (bᵉchurôwth)",
+    "glossesEs": [
+      "juventud",
+      "jóvenes"
+    ]
+  },
+  "H980": {
+    "shortDefinitionEs": "Bahurim: lugar en Palestina (Bachurîym)",
+    "glossesEs": [
+      "Bahurim"
+    ]
+  },
+  "H981": {
+    "shortDefinitionEs": "balbucir, hablar irreflexivamente (bâṭâʼ)",
+    "glossesEs": [
+      "hablar",
+      "pronunciar"
+    ]
+  },
+  "H982": {
+    "shortDefinitionEs": "confiar, estar seguro, tener confianza (bâṭach)",
+    "glossesEs": [
+      "confiar",
+      "seguro",
+      "confianza"
+    ]
+  },
+  "H983": {
+    "shortDefinitionEs": "confianza, seguridad, refugio (beṭach)",
+    "glossesEs": [
+      "confianza",
+      "seguridad",
+      "esperanza"
+    ]
+  },
+  "H984": {
+    "shortDefinitionEs": "Betac: lugar en Siria (Beṭach)",
+    "glossesEs": [
+      "Betac"
+    ]
+  },
+  "H985": {
+    "shortDefinitionEs": "confianza, fe (biṭchâh)",
+    "glossesEs": [
+      "confianza",
+      "fe"
+    ]
+  },
+  "H986": {
+    "shortDefinitionEs": "confianza, esperanza (biṭṭâchôwn)",
+    "glossesEs": [
+      "confianza",
+      "esperanza"
+    ]
+  },
+  "H987": {
+    "shortDefinitionEs": "seguridad, protección (baṭṭuchôwth)",
+    "glossesEs": [
+      "seguridad",
+      "protección"
+    ]
+  },
+  "H988": {
+    "shortDefinitionEs": "dejar de trabajar, cesar (bâṭêl)",
+    "glossesEs": [
+      "cesar",
+      "parar"
+    ]
+  },
+  "H989": {
+    "shortDefinitionEs": "detener, hacer cesar (bᵉṭêl)",
+    "glossesEs": [
+      "cesar",
+      "detener",
+      "impedir"
+    ]
+  },
+  "H990": {
+    "shortDefinitionEs": "vientre, matriz, seno (beṭen)",
+    "glossesEs": [
+      "vientre",
+      "matriz",
+      "seno"
+    ]
+  },
+  "H991": {
+    "shortDefinitionEs": "Beten: lugar en Palestina (Beṭen)",
+    "glossesEs": [
+      "Beten"
+    ]
+  },
+  "H992": {
+    "shortDefinitionEs": "nuez de pistacho (bôṭen)",
+    "glossesEs": [
+      "nuez",
+      "pistacho"
+    ]
+  },
+  "H993": {
+    "shortDefinitionEs": "Betonim: lugar en Palestina (Bᵉṭônîym)",
+    "glossesEs": [
+      "Betonim"
+    ]
+  },
+  "H994": {
+    "shortDefinitionEs": "¡ay!, ¡oh!; ojalá (bîy)",
+    "glossesEs": [
+      "ay",
+      "oh",
+      "ojalá"
+    ]
+  },
+  "H995": {
+    "shortDefinitionEs": "entender, discernir, considerar (bîyn)",
+    "glossesEs": [
+      "entender",
+      "discernir",
+      "considerar"
+    ]
+  },
+  "H996": {
+    "shortDefinitionEs": "entre, en medio de (bêyn)",
+    "glossesEs": [
+      "entre",
+      "en medio"
+    ]
+  },
+  "H997": {
+    "shortDefinitionEs": "entre, en medio (bêyn)",
+    "glossesEs": [
+      "entre",
+      "en medio"
+    ]
+  },
+  "H998": {
+    "shortDefinitionEs": "entendimiento, inteligencia, sabiduría (bîynâh)",
+    "glossesEs": [
+      "entendimiento",
+      "inteligencia",
+      "sabiduría"
+    ]
+  },
+  "H999": {
+    "shortDefinitionEs": "conocimiento (bîynâh)",
+    "glossesEs": [
+      "conocimiento"
+    ]
+  },
+  "H1000": {
+    "shortDefinitionEs": "huevo (bêytsâh)",
+    "glossesEs": [
+      "huevo"
+    ]
+  }
 }

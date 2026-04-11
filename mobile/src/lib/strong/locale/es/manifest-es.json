@@ -1,42 +1,90 @@
 {
-  "_comment": "Coverage manifest for the Spanish locale overlay. Update after each batch of new entries.",
+  "_comment": "Coverage manifest for the Spanish locale overlay. Auto-generated — do not edit by hand.",
   "generatedAt": "2026-04-11",
   "totalStrongEntries": 14197,
   "blocks": [
-    { "file": "strong_es_h_0001_1000.json", "range": "H1–H1000",   "entries": 19 },
-    { "file": "strong_es_h_1001_2000.json", "range": "H1001–H2000","entries": 17 },
-    { "file": "strong_es_h_2001_3000.json", "range": "H2001–H3000","entries": 13 },
-    { "file": "strong_es_h_3001_4000.json", "range": "H3001–H4000","entries": 16 },
-    { "file": "strong_es_h_4001_5000.json", "range": "H4001–H5000","entries": 10 },
-    { "file": "strong_es_h_5001_6000.json", "range": "H5001–H6000","entries": 14 },
-    { "file": "strong_es_h_6001_7000.json", "range": "H6001–H7000","entries":  9 },
-    { "file": "strong_es_h_7001_8000.json", "range": "H7001–H8000","entries": 13 },
-    { "file": "strong_es_h_8001_8674.json", "range": "H8001–H8674","entries": 10 },
-    { "file": "strong_es_g_0001_1000.json", "range": "G1–G1000",   "entries": 29 },
-    { "file": "strong_es_g_1001_2000.json", "range": "G1001–G2000","entries": 22 },
-    { "file": "strong_es_g_2001_3001.json", "range": "G2001–G3001","entries": 21 },
-    { "file": "strong_es_g_3002_4101.json", "range": "G3002–G4101","entries": 21 },
-    { "file": "strong_es_g_4102_5101.json", "range": "G4102–G5101","entries": 20 },
-    { "file": "strong_es_g_5102_5624.json", "range": "G5102–G5624","entries":  7 }
+    {
+      "file": "strong_es_h_0001_1000.json",
+      "range": "H1–H1000",
+      "entries": 1000
+    },
+    {
+      "file": "strong_es_h_1001_2000.json",
+      "range": "H1001–H2000",
+      "entries": 1000
+    },
+    {
+      "file": "strong_es_h_2001_3000.json",
+      "range": "H2001–H3000",
+      "entries": 1000
+    },
+    {
+      "file": "strong_es_h_3001_4000.json",
+      "range": "H3001–H4000",
+      "entries": 1000
+    },
+    {
+      "file": "strong_es_h_4001_5000.json",
+      "range": "H4001–H5000",
+      "entries": 225
+    },
+    {
+      "file": "strong_es_h_5001_6000.json",
+      "range": "H5001–H6000",
+      "entries": 14
+    },
+    {
+      "file": "strong_es_h_6001_7000.json",
+      "range": "H6001–H7000",
+      "entries": 9
+    },
+    {
+      "file": "strong_es_h_7001_8000.json",
+      "range": "H7001–H8000",
+      "entries": 13
+    },
+    {
+      "file": "strong_es_h_8001_8674.json",
+      "range": "H8001–H8674",
+      "entries": 10
+    },
+    {
+      "file": "strong_es_g_0001_1000.json",
+      "range": "G1–G1000",
+      "entries": 29
+    },
+    {
+      "file": "strong_es_g_1001_2000.json",
+      "range": "G1001–G2000",
+      "entries": 22
+    },
+    {
+      "file": "strong_es_g_2001_3001.json",
+      "range": "G2001–G3001",
+      "entries": 21
+    },
+    {
+      "file": "strong_es_g_3002_4101.json",
+      "range": "G3002–G4101",
+      "entries": 21
+    },
+    {
+      "file": "strong_es_g_4102_5101.json",
+      "range": "G4102–G5101",
+      "entries": 20
+    },
+    {
+      "file": "strong_es_g_5102_5624.json",
+      "range": "G5102–G5624",
+      "entries": 7
+    }
   ],
   "coverage": {
-    "entriesWithShortDefinitionEs": 241,
-    "entriesWithLongDefinitionEs":   0,
-    "entriesWithGlossesEs":        241,
-    "entriesEnglishOnly":         13956,
-    "percentageWithSpanish":       "1.7%",
+    "entriesWithShortDefinitionEs": 4391,
+    "entriesWithLongDefinitionEs": 0,
+    "entriesWithGlossesEs": 4391,
+    "entriesEnglishOnly": 9806,
+    "percentageWithSpanish": "30.9%",
     "note": "Coverage grows by adding entries to the JSON block files — no code changes required."
-  },
-  "topCoveredConcepts": [
-    "Dios/Elohim/El/Theos", "Espíritu/Ruah/Pneuma", "Amor/Ágape/Hesed",
-    "Fe/Pistis/Emunah", "Salvación/Sotería/Yeshua", "Gloria/Doxa/Kavod",
-    "Gracia/Járis/Jen", "Paz/Eiréné/Shalom", "Justicia/Dikaiosyné/Tsedeq",
-    "Pecado/Hamartía/Jata", "Misericordia/Eleos/Hesed", "Rey/Reino/Basileia",
-    "Profeta/Prophétés/Navi", "Palabra/Logos/Dabar", "Vida/Zóé/Jayah"
-  ],
-  "nextSteps": [
-    "Add longDefinitionEs for top-100 most searched entries",
-    "Expand shortDefinitionEs to cover remaining ~13,956 entries",
-    "Prioritize high-frequency entries: H3068 (YHWH), H430 (Elohim), G2316 (Theos), etc."
-  ]
+  }
 }

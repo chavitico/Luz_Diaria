@@ -1,12 +1,1642 @@
 {
-  "H4159": { "shortDefinitionEs": "milagro, señal, prodigio (mofet)", "glossesEs": ["milagro", "milagros"] },
-  "H4191": { "shortDefinitionEs": "morir, matar, perecer (mut)", "glossesEs": ["morir"] },
-  "H4194": { "shortDefinitionEs": "muerte, fallecimiento (mavet)", "glossesEs": ["muerte"] },
-  "H4325": { "shortDefinitionEs": "agua, aguas (mayim)", "glossesEs": ["agua"] },
-  "H4397": { "shortDefinitionEs": "ángel, mensajero divino (malak)", "glossesEs": ["ángel", "ángeles"] },
-  "H4428": { "shortDefinitionEs": "rey, gobernante, soberano (melek)", "glossesEs": ["rey"] },
-  "H4467": { "shortDefinitionEs": "reino, reinado, dominio real (mamlaká)", "glossesEs": ["reino"] },
-  "H4687": { "shortDefinitionEs": "mandamiento, precepto, mitzvá", "glossesEs": ["mandamiento"] },
-  "H4899": { "shortDefinitionEs": "ungido, Mesías (mashiaj)", "glossesEs": ["mesías"] },
-  "H4941": { "shortDefinitionEs": "juicio, derecho, justicia (mishpat)", "glossesEs": ["juicio"] }
+  "H4001": {
+    "shortDefinitionEs": "pisoteo, acción de hollar bajo los pies (mᵉbûwçâh)",
+    "glossesEs": [
+      "pisotear",
+      "hollar"
+    ]
+  },
+  "H4002": {
+    "shortDefinitionEs": "fuente de agua, manantial (mabbûwaʻ)",
+    "glossesEs": [
+      "fuente",
+      "manantial"
+    ]
+  },
+  "H4003": {
+    "shortDefinitionEs": "vacío, nada, desolación (mᵉbûwqâh)",
+    "glossesEs": [
+      "vacío",
+      "nada"
+    ]
+  },
+  "H4004": {
+    "shortDefinitionEs": "escogido, bien fortificado (mibchôwr)",
+    "glossesEs": [
+      "escogido",
+      "selecto"
+    ]
+  },
+  "H4005": {
+    "shortDefinitionEs": "escogido, lo mejor, selecto (mibchâr)",
+    "glossesEs": [
+      "escogido",
+      "elegido",
+      "mejor"
+    ]
+  },
+  "H4006": {
+    "shortDefinitionEs": "Mibcar: israelita (Mibchâr)",
+    "glossesEs": [
+      "Mibcar",
+      "nombre propio"
+    ]
+  },
+  "H4007": {
+    "shortDefinitionEs": "esperanza, lo esperado, expectativa (mabbâṭ)",
+    "glossesEs": [
+      "esperanza",
+      "expectativa"
+    ]
+  },
+  "H4008": {
+    "shortDefinitionEs": "palabra apresurada, voto precipitado (mibṭâʼ)",
+    "glossesEs": [
+      "palabra apresurada",
+      "voto"
+    ]
+  },
+  "H4009": {
+    "shortDefinitionEs": "confianza, seguridad, refugio, esperanza (mibṭâch)",
+    "glossesEs": [
+      "confianza",
+      "seguridad",
+      "esperanza"
+    ]
+  },
+  "H4010": {
+    "shortDefinitionEs": "desolación, consternación (mablîygîyth)",
+    "glossesEs": [
+      "desolación",
+      "consternación"
+    ]
+  },
+  "H4011": {
+    "shortDefinitionEs": "estructura, edificación, marco (mibneh)",
+    "glossesEs": [
+      "edificio",
+      "estructura"
+    ]
+  },
+  "H4012": {
+    "shortDefinitionEs": "Mebunai: israelita (Mᵉbunnay)",
+    "glossesEs": [
+      "Mebunai",
+      "nombre propio"
+    ]
+  },
+  "H4013": {
+    "shortDefinitionEs": "fortaleza, ciudad amurallada, defensor (mibtsâr)",
+    "glossesEs": [
+      "fortaleza",
+      "castillo",
+      "defensor"
+    ]
+  },
+  "H4014": {
+    "shortDefinitionEs": "Mibtsar: idumeo (Mibtsâr)",
+    "glossesEs": [
+      "Mibtsar",
+      "nombre propio"
+    ]
+  },
+  "H4015": {
+    "shortDefinitionEs": "fugitivo, refugiado (mibrâch)",
+    "glossesEs": [
+      "fugitivo",
+      "refugiado"
+    ]
+  },
+  "H4016": {
+    "shortDefinitionEs": "partes vergonzosas, secretos (mâbush)",
+    "glossesEs": [
+      "secretos",
+      "pudor"
+    ]
+  },
+  "H4017": {
+    "shortDefinitionEs": "Mibsam: israelita o ismaelita (Mibsâm)",
+    "glossesEs": [
+      "Mibsam",
+      "nombre propio"
+    ]
+  },
+  "H4018": {
+    "shortDefinitionEs": "hogar de cocción, sitio de cocina (mᵉbashshᵉlâh)",
+    "glossesEs": [
+      "fogón",
+      "cocina"
+    ]
+  },
+  "H4019": {
+    "shortDefinitionEs": "Magbis: israelita o lugar de Palestina (Magbîysh)",
+    "glossesEs": [
+      "Magbis",
+      "nombre propio",
+      "lugar"
+    ]
+  },
+  "H4020": {
+    "shortDefinitionEs": "borde, extremidad, confín (migbâlâh)",
+    "glossesEs": [
+      "borde",
+      "extremidad"
+    ]
+  },
+  "H4021": {
+    "shortDefinitionEs": "turbante, gorro, bonete (migbâʻâh)",
+    "glossesEs": [
+      "turbante",
+      "gorro",
+      "bonete"
+    ]
+  },
+  "H4022": {
+    "shortDefinitionEs": "cosa preciosa, fruto excelente, producto valioso (meged)",
+    "glossesEs": [
+      "preciosidad",
+      "fruto",
+      "cosa valiosa"
+    ]
+  },
+  "H4023": {
+    "shortDefinitionEs": "Megido: lugar en Palestina (Mᵉgiddôwn)",
+    "glossesEs": [
+      "Megido",
+      "lugar",
+      "Palestina"
+    ]
+  },
+  "H4024": {
+    "shortDefinitionEs": "Migdol: lugar en Egipto (Migdôwl)",
+    "glossesEs": [
+      "Migdol",
+      "lugar",
+      "Egipto"
+    ]
+  },
+  "H4025": {
+    "shortDefinitionEs": "Magdiel: idumeo (Magdîyʼêl)",
+    "glossesEs": [
+      "Magdiel",
+      "nombre propio"
+    ]
+  },
+  "H4026": {
+    "shortDefinitionEs": "torre, castillo, macizo de flores (migdâl)",
+    "glossesEs": [
+      "torre",
+      "castillo",
+      "flores"
+    ]
+  },
+  "H4027": {
+    "shortDefinitionEs": "Migdal-El: lugar en Palestina (Migdal-ʼÊl)",
+    "glossesEs": [
+      "Migdal-El",
+      "lugar",
+      "nombre propio"
+    ]
+  },
+  "H4028": {
+    "shortDefinitionEs": "Migdal-Gad: lugar en Palestina (Migdal-Gâd)",
+    "glossesEs": [
+      "Migdal-Gad",
+      "lugar",
+      "nombre propio"
+    ]
+  },
+  "H4029": {
+    "shortDefinitionEs": "Migdal-Eder: lugar en Palestina (Migdal-ʻÊder)",
+    "glossesEs": [
+      "Migdal-Eder",
+      "lugar",
+      "nombre propio"
+    ]
+  },
+  "H4030": {
+    "shortDefinitionEs": "gema, cosa preciosa, presente valioso (migdânâh)",
+    "glossesEs": [
+      "gema",
+      "preciosidad",
+      "regalo"
+    ]
+  },
+  "H4031": {
+    "shortDefinitionEs": "Magog: hijo de Jafet, región septentrional (Mâgôwg)",
+    "glossesEs": [
+      "Magog",
+      "nombre propio",
+      "región"
+    ]
+  },
+  "H4032": {
+    "shortDefinitionEs": "miedo, terror, espanto (mâgôwr)",
+    "glossesEs": [
+      "miedo",
+      "terror",
+      "espanto"
+    ]
+  },
+  "H4033": {
+    "shortDefinitionEs": "morada temporal, peregrinación, extranjería (mâgûwr)",
+    "glossesEs": [
+      "morada",
+      "peregrinación",
+      "extranjería"
+    ]
+  },
+  "H4034": {
+    "shortDefinitionEs": "espanto, terror, miedo (mᵉgôwrah)",
+    "glossesEs": [
+      "espanto",
+      "terror"
+    ]
+  },
+  "H4035": {
+    "shortDefinitionEs": "terror, miedo, granero (mᵉgûwrâh)",
+    "glossesEs": [
+      "miedo",
+      "granero",
+      "terror"
+    ]
+  },
+  "H4036": {
+    "shortDefinitionEs": "Magor-Misabib: nombre simbólico de Pasur (Mâgôwr miç-Çâbîyb)",
+    "glossesEs": [
+      "Magor-Misabib",
+      "nombre simbólico"
+    ]
+  },
+  "H4037": {
+    "shortDefinitionEs": "herramienta cortante, hoja, hacha (magzêrâh)",
+    "glossesEs": [
+      "hacha",
+      "herramienta"
+    ]
+  },
+  "H4038": {
+    "shortDefinitionEs": "hoz, segadera (maggâl)",
+    "glossesEs": [
+      "hoz",
+      "segadera"
+    ]
+  },
+  "H4039": {
+    "shortDefinitionEs": "rollo, volumen, pergamino enrollado (mᵉgillâh)",
+    "glossesEs": [
+      "rollo",
+      "volumen",
+      "pergamino"
+    ]
+  },
+  "H4040": {
+    "shortDefinitionEs": "rollo, documento enrollado (mᵉgillâh)",
+    "glossesEs": [
+      "rollo",
+      "documento"
+    ]
+  },
+  "H4041": {
+    "shortDefinitionEs": "acumulación, impulso, dirección (mᵉgammâh)",
+    "glossesEs": [
+      "impulso",
+      "dirección"
+    ]
+  },
+  "H4042": {
+    "shortDefinitionEs": "proteger, defender, entregar a salvo (mâgan)",
+    "glossesEs": [
+      "proteger",
+      "defender",
+      "entregar"
+    ]
+  },
+  "H4043": {
+    "shortDefinitionEs": "escudo, defensa, protector, escamas (mâgên)",
+    "glossesEs": [
+      "escudo",
+      "defensa",
+      "protector"
+    ]
+  },
+  "H4044": {
+    "shortDefinitionEs": "cobertura, ceguera, dureza (mᵉginnâh)",
+    "glossesEs": [
+      "ceguera",
+      "dureza",
+      "cobertura"
+    ]
+  },
+  "H4045": {
+    "shortDefinitionEs": "reprensión, maldición, reproche (migʻereth)",
+    "glossesEs": [
+      "reprensión",
+      "maldición",
+      "reproche"
+    ]
+  },
+  "H4046": {
+    "shortDefinitionEs": "peste, plaga, mortandad, golpe (maggêphâh)",
+    "glossesEs": [
+      "plaga",
+      "mortandad",
+      "golpe"
+    ]
+  },
+  "H4047": {
+    "shortDefinitionEs": "Magpiás: israelita (Magpîyʻâsh)",
+    "glossesEs": [
+      "Magpiás",
+      "nombre propio"
+    ]
+  },
+  "H4048": {
+    "shortDefinitionEs": "rendirse, precipitarse, terror (mâgar)",
+    "glossesEs": [
+      "rendirse",
+      "terror"
+    ]
+  },
+  "H4049": {
+    "shortDefinitionEs": "destruir, derribar, arruinar (mᵉgar)",
+    "glossesEs": [
+      "destruir",
+      "derribar"
+    ]
+  },
+  "H4050": {
+    "shortDefinitionEs": "sierra, hacha, herramienta cortante (mᵉgêrâh)",
+    "glossesEs": [
+      "sierra",
+      "hacha",
+      "herramienta"
+    ]
+  },
+  "H4051": {
+    "shortDefinitionEs": "Migron: lugar en Palestina (Migrôwn)",
+    "glossesEs": [
+      "Migron",
+      "lugar"
+    ]
+  },
+  "H4052": {
+    "shortDefinitionEs": "Saliente o reborde en una construcción (migrâʻâh)",
+    "glossesEs": [
+      "saliente",
+      "reborde"
+    ]
+  },
+  "H4053": {
+    "shortDefinitionEs": "Terrón de tierra desprendido por la azada (migrâphâh)",
+    "glossesEs": [
+      "terrón",
+      "tierra"
+    ]
+  },
+  "H4054": {
+    "shortDefinitionEs": "Suburbio, área abierta alrededor de un edificio (migrâsh)",
+    "glossesEs": [
+      "suburbio",
+      "alrededores"
+    ]
+  },
+  "H4055": {
+    "shortDefinitionEs": "Medida de altura; vestidura, prenda de ropa (mad)",
+    "glossesEs": [
+      "medida",
+      "ropa",
+      "altura"
+    ]
+  },
+  "H4056": {
+    "shortDefinitionEs": "Altar de sacrificio (madbach)",
+    "glossesEs": [
+      "altar",
+      "sacrificio"
+    ]
+  },
+  "H4057": {
+    "shortDefinitionEs": "Desierto, campo abierto para ganado (midbâr)",
+    "glossesEs": [
+      "desierto",
+      "campo",
+      "wilderness"
+    ]
+  },
+  "H4058": {
+    "shortDefinitionEs": "Medir, extender como una cuerda (mâdad)",
+    "glossesEs": [
+      "medir",
+      "extender"
+    ]
+  },
+  "H4059": {
+    "shortDefinitionEs": "Huida, fuga (middad)",
+    "glossesEs": [
+      "huida",
+      "fuga"
+    ]
+  },
+  "H4060": {
+    "shortDefinitionEs": "Medida, extensión, altura, anchura (middâh)",
+    "glossesEs": [
+      "medida",
+      "altura",
+      "tamaño"
+    ]
+  },
+  "H4061": {
+    "shortDefinitionEs": "Tributo en dinero, contribución (middâh)",
+    "glossesEs": [
+      "tributo",
+      "contribución"
+    ]
+  },
+  "H4062": {
+    "shortDefinitionEs": "Precisión en la ejecución, exactitud (madhêbâh)",
+    "glossesEs": [
+      "exactitud",
+      "precisión"
+    ]
+  },
+  "H4063": {
+    "shortDefinitionEs": "Prenda de vestir, túnica (medev)",
+    "glossesEs": [
+      "prenda",
+      "vestido"
+    ]
+  },
+  "H4064": {
+    "shortDefinitionEs": "Enfermedad, dolencia (madveh)",
+    "glossesEs": [
+      "enfermedad",
+      "dolencia"
+    ]
+  },
+  "H4065": {
+    "shortDefinitionEs": "Seducción, desviación (maddûwach)",
+    "glossesEs": [
+      "seducción",
+      "desviación"
+    ]
+  },
+  "H4066": {
+    "shortDefinitionEs": "Contienda, disputa, discordia (mâdôwn)",
+    "glossesEs": [
+      "contienda",
+      "disputa",
+      "discordia"
+    ]
+  },
+  "H4067": {
+    "shortDefinitionEs": "Altura, estatura del cuerpo (mâdôwn)",
+    "glossesEs": [
+      "estatura",
+      "altura"
+    ]
+  },
+  "H4068": {
+    "shortDefinitionEs": "Madón: lugar en Palestina (Mâdôwn)",
+    "glossesEs": [
+      "Madón",
+      "lugar"
+    ]
+  },
+  "H4069": {
+    "shortDefinitionEs": "¿Por qué?, ¿cómo?, pregunta sobre razón (maddûwaʻ)",
+    "glossesEs": [
+      "¿por qué?",
+      "pregunta"
+    ]
+  },
+  "H4070": {
+    "shortDefinitionEs": "Morada, lugar de habitación (mᵉdôwr)",
+    "glossesEs": [
+      "morada",
+      "habitación"
+    ]
+  },
+  "H4071": {
+    "shortDefinitionEs": "Pila de leña para fuego (mᵉdûwrâh)",
+    "glossesEs": [
+      "leña",
+      "fuego"
+    ]
+  },
+  "H4072": {
+    "shortDefinitionEs": "Ruina, derribamiento (midcheh)",
+    "glossesEs": [
+      "ruina",
+      "caída"
+    ]
+  },
+  "H4073": {
+    "shortDefinitionEs": "Empujón, golpe, ruina (mᵉdachphâh)",
+    "glossesEs": [
+      "golpe",
+      "ruina"
+    ]
+  },
+  "H4074": {
+    "shortDefinitionEs": "Media: país de Asia Central (Mâday)",
+    "glossesEs": [
+      "Media",
+      "Medos"
+    ]
+  },
+  "H4075": {
+    "shortDefinitionEs": "Medo: habitante de Media (Mâday)",
+    "glossesEs": [
+      "Medo",
+      "Media"
+    ]
+  },
+  "H4076": {
+    "shortDefinitionEs": "Medo, los Medos (Mâday)",
+    "glossesEs": [
+      "Medo",
+      "Medos"
+    ]
+  },
+  "H4077": {
+    "shortDefinitionEs": "Mediano, perteneciente a Media (Mâday)",
+    "glossesEs": [
+      "Mediano",
+      "Media"
+    ]
+  },
+  "H4078": {
+    "shortDefinitionEs": "Suficientemente, lo bastante (madday)",
+    "glossesEs": [
+      "suficientemente",
+      "bastante"
+    ]
+  },
+  "H4079": {
+    "shortDefinitionEs": "Riña, contienda, discordia (midyân)",
+    "glossesEs": [
+      "contienda",
+      "discordia"
+    ]
+  },
+  "H4080": {
+    "shortDefinitionEs": "Madián: hijo de Abraham, región y descendientes (Midyân)",
+    "glossesEs": [
+      "Madián",
+      "Madianitas"
+    ]
+  },
+  "H4081": {
+    "shortDefinitionEs": "Midín: lugar en Palestina (Middîyn)",
+    "glossesEs": [
+      "Midín",
+      "lugar"
+    ]
+  },
+  "H4082": {
+    "shortDefinitionEs": "Provincia, región bajo jurisdicción (mᵉdîynâh)",
+    "glossesEs": [
+      "provincia",
+      "región"
+    ]
+  },
+  "H4083": {
+    "shortDefinitionEs": "Provincia, territorio administrativo (mᵉdîynâh)",
+    "glossesEs": [
+      "provincia",
+      "región"
+    ]
+  },
+  "H4084": {
+    "shortDefinitionEs": "Madianita: descendiente de Madián (Midyânîy)",
+    "glossesEs": [
+      "Madianita",
+      "Madián"
+    ]
+  },
+  "H4085": {
+    "shortDefinitionEs": "Mortero para moler (mᵉdôkâh)",
+    "glossesEs": [
+      "mortero",
+      "moler"
+    ]
+  },
+  "H4086": {
+    "shortDefinitionEs": "Madmén: lugar en Palestina (Madmên)",
+    "glossesEs": [
+      "Madmén",
+      "lugar"
+    ]
+  },
+  "H4087": {
+    "shortDefinitionEs": "Estercolero, muladar (madmênâh)",
+    "glossesEs": [
+      "estercolero",
+      "basura"
+    ]
+  },
+  "H4088": {
+    "shortDefinitionEs": "Madmená: lugar en Palestina (Madmênâh)",
+    "glossesEs": [
+      "Madmená",
+      "lugar"
+    ]
+  },
+  "H4089": {
+    "shortDefinitionEs": "Madmana: lugar en Palestina (Madmannâh)",
+    "glossesEs": [
+      "Madmana",
+      "lugar"
+    ]
+  },
+  "H4090": {
+    "shortDefinitionEs": "Discordia, contienda, litigio (mᵉdân)",
+    "glossesEs": [
+      "discordia",
+      "contienda"
+    ]
+  },
+  "H4091": {
+    "shortDefinitionEs": "Medán: hijo de Abraham (Mᵉdân)",
+    "glossesEs": [
+      "Medán",
+      "Abraham"
+    ]
+  },
+  "H4092": {
+    "shortDefinitionEs": "Medanita: descendiente de Medán (Mᵉdânîy)",
+    "glossesEs": [
+      "Medanita",
+      "Medán"
+    ]
+  },
+  "H4093": {
+    "shortDefinitionEs": "Conocimiento, inteligencia, ciencia (maddâʻ)",
+    "glossesEs": [
+      "conocimiento",
+      "inteligencia"
+    ]
+  },
+  "H4094": {
+    "shortDefinitionEs": "Herida, perforación (madqârâh)",
+    "glossesEs": [
+      "herida",
+      "perforación"
+    ]
+  },
+  "H4095": {
+    "shortDefinitionEs": "Escalera, peldaño, lugar escarpado (madrêgâh)",
+    "glossesEs": [
+      "escalera",
+      "peldaño"
+    ]
+  },
+  "H4096": {
+    "shortDefinitionEs": "Pisada, anchura del pie (midrâk)",
+    "glossesEs": [
+      "pisada",
+      "huella"
+    ]
+  },
+  "H4097": {
+    "shortDefinitionEs": "Investigación, tratado, narración (midrâsh)",
+    "glossesEs": [
+      "investigación",
+      "narración"
+    ]
+  },
+  "H4098": {
+    "shortDefinitionEs": "Trilla, pueblo pisoteado (mᵉdushshâh)",
+    "glossesEs": [
+      "trilla",
+      "oprimido"
+    ]
+  },
+  "H4099": {
+    "shortDefinitionEs": "Medatá: padre de Amán (Mᵉdâthâʼ)",
+    "glossesEs": [
+      "Medatá",
+      "Amán"
+    ]
+  },
+  "H4100": {
+    "shortDefinitionEs": "¿Qué?, ¿cómo?, ¿por qué?, interrogativo (mâh)",
+    "glossesEs": [
+      "¿qué?",
+      "interrogativo"
+    ]
+  },
+  "H4101": {
+    "shortDefinitionEs": "¿cómo?, ¿por qué?, qué cosa (mâh)",
+    "glossesEs": [
+      "cómo",
+      "qué",
+      "por qué"
+    ]
+  },
+  "H4102": {
+    "shortDefinitionEs": "titubear, dudar, retrasarse (mâhahh)",
+    "glossesEs": [
+      "retrasar",
+      "dudar",
+      "tardar"
+    ]
+  },
+  "H4103": {
+    "shortDefinitionEs": "confusión, tumulto, alboroto (mᵉhûwmâh)",
+    "glossesEs": [
+      "confusión",
+      "tumulto",
+      "alboroto"
+    ]
+  },
+  "H4104": {
+    "shortDefinitionEs": "Nombre: eunuco del rey Jerjes (Mᵉhûwmân)",
+    "glossesEs": [
+      "Mehúman",
+      "eunuco"
+    ]
+  },
+  "H4105": {
+    "shortDefinitionEs": "Nombre: hombre y mujer edomita (Mᵉhêyṭabʼêl)",
+    "glossesEs": [
+      "Mehetabel"
+    ]
+  },
+  "H4106": {
+    "shortDefinitionEs": "rápido, diligente, hábil (mâhîyr)",
+    "glossesEs": [
+      "rápido",
+      "diligente",
+      "hábil"
+    ]
+  },
+  "H4107": {
+    "shortDefinitionEs": "adulterar, mezclar (mâhal)",
+    "glossesEs": [
+      "mezclar",
+      "adulterar"
+    ]
+  },
+  "H4108": {
+    "shortDefinitionEs": "pasaje, acceso para andar (mahlêk)",
+    "glossesEs": [
+      "pasaje",
+      "acceso"
+    ]
+  },
+  "H4109": {
+    "shortDefinitionEs": "camino, jornada, distancia (mahălâk)",
+    "glossesEs": [
+      "camino",
+      "jornada",
+      "andar"
+    ]
+  },
+  "H4110": {
+    "shortDefinitionEs": "fama, alabanza (mahălâl)",
+    "glossesEs": [
+      "fama",
+      "alabanza"
+    ]
+  },
+  "H4111": {
+    "shortDefinitionEs": "Nombre: patriarca antediluviano (Mahălalʼêl)",
+    "glossesEs": [
+      "Mahalaleel"
+    ]
+  },
+  "H4112": {
+    "shortDefinitionEs": "golpe, azote, herida (mahălummâh)",
+    "glossesEs": [
+      "golpe",
+      "azote",
+      "herida"
+    ]
+  },
+  "H4113": {
+    "shortDefinitionEs": "abismo, pozo profundo (mahămôrâh)",
+    "glossesEs": [
+      "abismo",
+      "pozo profundo"
+    ]
+  },
+  "H4114": {
+    "shortDefinitionEs": "destrucción, derrocamiento (mahpêkâh)",
+    "glossesEs": [
+      "destrucción",
+      "derrocar"
+    ]
+  },
+  "H4115": {
+    "shortDefinitionEs": "cepo, prisión (mahpeketh)",
+    "glossesEs": [
+      "cepo",
+      "prisión"
+    ]
+  },
+  "H4116": {
+    "shortDefinitionEs": "apresurarse, darse prisa (mâhar)",
+    "glossesEs": [
+      "apresurarse",
+      "prisa",
+      "rápido"
+    ]
+  },
+  "H4117": {
+    "shortDefinitionEs": "desposar, dar dote (mâhar)",
+    "glossesEs": [
+      "desposar",
+      "dote",
+      "matrimonio"
+    ]
+  },
+  "H4118": {
+    "shortDefinitionEs": "aprisa, rápidamente, en seguida (mahêr)",
+    "glossesEs": [
+      "aprisa",
+      "rápidamente",
+      "pronto"
+    ]
+  },
+  "H4119": {
+    "shortDefinitionEs": "dote, precio de esposa (môhar)",
+    "glossesEs": [
+      "dote",
+      "precio"
+    ]
+  },
+  "H4120": {
+    "shortDefinitionEs": "prisa, rapidez, prontamente (mᵉhêrâh)",
+    "glossesEs": [
+      "prisa",
+      "rapidez",
+      "prontamente"
+    ]
+  },
+  "H4121": {
+    "shortDefinitionEs": "Nombre: israelita (Mahăray)",
+    "glossesEs": [
+      "Maharai"
+    ]
+  },
+  "H4122": {
+    "shortDefinitionEs": "Nombre: hijo profético de Isaías (Mahêr Shâlâl Châsh Baz)",
+    "glossesEs": [
+      "Maher-salal-hasbaz"
+    ]
+  },
+  "H4123": {
+    "shortDefinitionEs": "engaño, ilusión (mahăthallâh)",
+    "glossesEs": [
+      "engaño",
+      "ilusión",
+      "decepción"
+    ]
+  },
+  "H4124": {
+    "shortDefinitionEs": "Nombre: territorio y pueblo de Moab (Môwʼâb)",
+    "glossesEs": [
+      "Moab"
+    ]
+  },
+  "H4125": {
+    "shortDefinitionEs": "moabita, descendiente de Moab (Môwʼâbîy)",
+    "glossesEs": [
+      "moabita"
+    ]
+  },
+  "H4126": {
+    "shortDefinitionEs": "entrada, acceso (môwbâʼ)",
+    "glossesEs": [
+      "entrada",
+      "acceso"
+    ]
+  },
+  "H4127": {
+    "shortDefinitionEs": "desleírse, disolverse, desfallecer (mûwg)",
+    "glossesEs": [
+      "derretir",
+      "disolver",
+      "desfallecer"
+    ]
+  },
+  "H4128": {
+    "shortDefinitionEs": "medir, temblar (mûwd)",
+    "glossesEs": [
+      "medir",
+      "agitar"
+    ]
+  },
+  "H4129": {
+    "shortDefinitionEs": "conocida, pariente (môwdaʻ)",
+    "glossesEs": [
+      "conocida",
+      "pariente"
+    ]
+  },
+  "H4130": {
+    "shortDefinitionEs": "parentesco, linaje (môwdaʻath)",
+    "glossesEs": [
+      "parentesco",
+      "linaje"
+    ]
+  },
+  "H4131": {
+    "shortDefinitionEs": "vacilar, caer, deslizarse (môwṭ)",
+    "glossesEs": [
+      "vacilar",
+      "caer",
+      "deslizar"
+    ]
+  },
+  "H4132": {
+    "shortDefinitionEs": "vara, yugo, bastón (môwṭ)",
+    "glossesEs": [
+      "vara",
+      "yugo",
+      "bastón"
+    ]
+  },
+  "H4133": {
+    "shortDefinitionEs": "yugo, coyunda, vara (môwṭâh)",
+    "glossesEs": [
+      "yugo",
+      "coyunda",
+      "vara"
+    ]
+  },
+  "H4134": {
+    "shortDefinitionEs": "empobrecer, hacerse pobre (mûwk)",
+    "glossesEs": [
+      "empobrecer",
+      "pobreza"
+    ]
+  },
+  "H4135": {
+    "shortDefinitionEs": "circuncidar, cortar (mûwl)",
+    "glossesEs": [
+      "circuncidar",
+      "cortar",
+      "destruir"
+    ]
+  },
+  "H4136": {
+    "shortDefinitionEs": "frente, contra, enfrente (mûwl)",
+    "glossesEs": [
+      "frente",
+      "contra",
+      "enfrente"
+    ]
+  },
+  "H4137": {
+    "shortDefinitionEs": "Nombre: ciudad en Palestina (Môwlâdâh)",
+    "glossesEs": [
+      "Moladá"
+    ]
+  },
+  "H4138": {
+    "shortDefinitionEs": "nacimiento, linaje, descendencia (môwledeth)",
+    "glossesEs": [
+      "nacimiento",
+      "linaje",
+      "origen"
+    ]
+  },
+  "H4139": {
+    "shortDefinitionEs": "circuncisión (mûwlâh)",
+    "glossesEs": [
+      "circuncisión"
+    ]
+  },
+  "H4140": {
+    "shortDefinitionEs": "Nombre: israelita (Môwlîyd)",
+    "glossesEs": [
+      "Molid"
+    ]
+  },
+  "H4141": {
+    "shortDefinitionEs": "vuelta, circuito, giro (mûwçâb)",
+    "glossesEs": [
+      "vuelta",
+      "circuito"
+    ]
+  },
+  "H4142": {
+    "shortDefinitionEs": "reversión, pliegue, cambio (mûwçabbâh)",
+    "glossesEs": [
+      "pliegue",
+      "cambio",
+      "reversión"
+    ]
+  },
+  "H4143": {
+    "shortDefinitionEs": "fundamento, base (mûwçâd)",
+    "glossesEs": [
+      "fundamento",
+      "base"
+    ]
+  },
+  "H4144": {
+    "shortDefinitionEs": "fundamento, base (môwçâd)",
+    "glossesEs": [
+      "fundamento",
+      "base"
+    ]
+  },
+  "H4145": {
+    "shortDefinitionEs": "fundamento, cimiento (mûwçâdâh)",
+    "glossesEs": [
+      "fundamento",
+      "cimiento"
+    ]
+  },
+  "H4146": {
+    "shortDefinitionEs": "fundamento, base (môwçâdâh)",
+    "glossesEs": [
+      "fundamento",
+      "base"
+    ]
+  },
+  "H4147": {
+    "shortDefinitionEs": "atadura, cabestro, restricción (môwçêr)",
+    "glossesEs": [
+      "atadura",
+      "cabestro",
+      "vínculo"
+    ]
+  },
+  "H4148": {
+    "shortDefinitionEs": "corrección, castigo, disciplina (mûwçâr)",
+    "glossesEs": [
+      "corrección",
+      "castigo",
+      "disciplina"
+    ]
+  },
+  "H4149": {
+    "shortDefinitionEs": "Nombre: lugar en el Desierto (Môwçêrâh)",
+    "glossesEs": [
+      "Mosera",
+      "Moserót"
+    ]
+  },
+  "H4150": {
+    "shortDefinitionEs": "cita, fiesta, asamblea solemne (môwʻêd)",
+    "glossesEs": [
+      "fiesta",
+      "asamblea",
+      "cita"
+    ]
+  },
+  "H4151": {
+    "shortDefinitionEs": "asamblea, tiempo señalado, tropa (môwʻâd)",
+    "glossesEs": [
+      "asamblea",
+      "tiempo señalado",
+      "convocación"
+    ]
+  },
+  "H4152": {
+    "shortDefinitionEs": "lugar designado, refugio, asilo (mûwʻâdâh)",
+    "glossesEs": [
+      "asilo",
+      "lugar designado",
+      "refugio"
+    ]
+  },
+  "H4153": {
+    "shortDefinitionEs": "Moadías: israelita (Môwʻadyâh)",
+    "glossesEs": [
+      "Moadías"
+    ]
+  },
+  "H4154": {
+    "shortDefinitionEs": "dislocado, fuera de lugar (mûwʻedeth)",
+    "glossesEs": [
+      "dislocado",
+      "fuera de lugar"
+    ]
+  },
+  "H4155": {
+    "shortDefinitionEs": "oscuridad, angustia, tribulación (mûwʻâph)",
+    "glossesEs": [
+      "oscuridad",
+      "angustia",
+      "tribulación"
+    ]
+  },
+  "H4156": {
+    "shortDefinitionEs": "propósito, consejo, designio (môwʻêtsâh)",
+    "glossesEs": [
+      "consejo",
+      "propósito",
+      "designio"
+    ]
+  },
+  "H4157": {
+    "shortDefinitionEs": "presión, angustia, aflicción (mûwʻâqâh)",
+    "glossesEs": [
+      "aflicción",
+      "angustia",
+      "presión"
+    ]
+  },
+  "H4158": {
+    "shortDefinitionEs": "Mefaat: ciudad en Palestina (Môwphaʻath)",
+    "glossesEs": [
+      "Mefaat"
+    ]
+  },
+  "H4159": {
+    "shortDefinitionEs": "milagro, señal, prodigio (mofet)",
+    "glossesEs": [
+      "milagro",
+      "milagros"
+    ]
+  },
+  "H4160": {
+    "shortDefinitionEs": "apretar, oprimir, extorsionar (mûwts)",
+    "glossesEs": [
+      "oprimir",
+      "apretar",
+      "extorsionar"
+    ]
+  },
+  "H4161": {
+    "shortDefinitionEs": "salida, amanecer, brote, fuente, oriente (môwtsâʼ)",
+    "glossesEs": [
+      "salida",
+      "amanecer",
+      "brote",
+      "oriente"
+    ]
+  },
+  "H4162": {
+    "shortDefinitionEs": "Moza: israelita (môwtsâʼ)",
+    "glossesEs": [
+      "Moza"
+    ]
+  },
+  "H4163": {
+    "shortDefinitionEs": "linaje, sewer, canal de desagüe (môwtsâʼâh)",
+    "glossesEs": [
+      "linaje",
+      "sewer",
+      "desagüe"
+    ]
+  },
+  "H4164": {
+    "shortDefinitionEs": "angustia, estrechez, opresión (mûwtsaq)",
+    "glossesEs": [
+      "angustia",
+      "estrechez",
+      "opresión"
+    ]
+  },
+  "H4165": {
+    "shortDefinitionEs": "fundición, vaciado de metal (mûwtsâq)",
+    "glossesEs": [
+      "fundición",
+      "vaciado",
+      "masa"
+    ]
+  },
+  "H4166": {
+    "shortDefinitionEs": "fundición, tubo de metal vaciado (mûwtsâqâh)",
+    "glossesEs": [
+      "fundición",
+      "tubo",
+      "caño"
+    ]
+  },
+  "H4167": {
+    "shortDefinitionEs": "burlarse, blasfemar, corromperse (mûwq)",
+    "glossesEs": [
+      "burlarse",
+      "blasfemar",
+      "corromperse"
+    ]
+  },
+  "H4168": {
+    "shortDefinitionEs": "fuego, combustible, conflagración (môwqêd)",
+    "glossesEs": [
+      "fuego",
+      "combustible",
+      "hogar"
+    ]
+  },
+  "H4169": {
+    "shortDefinitionEs": "combustible, leña (môwqᵉdâh)",
+    "glossesEs": [
+      "combustible",
+      "leña"
+    ]
+  },
+  "H4170": {
+    "shortDefinitionEs": "trampa, lazo, red, anzuelo (môwqêsh)",
+    "glossesEs": [
+      "trampa",
+      "lazo",
+      "red",
+      "anzuelo"
+    ]
+  },
+  "H4171": {
+    "shortDefinitionEs": "cambiar, permutar, trocar, remover (mûwr)",
+    "glossesEs": [
+      "cambiar",
+      "permutar",
+      "trocar"
+    ]
+  },
+  "H4172": {
+    "shortDefinitionEs": "miedo, terror, espanto, lo temible (môwrâʼ)",
+    "glossesEs": [
+      "miedo",
+      "terror",
+      "espanto"
+    ]
+  },
+  "H4173": {
+    "shortDefinitionEs": "trillo, instrumento de trilla (môwrag)",
+    "glossesEs": [
+      "trillo",
+      "instrumento de trilla"
+    ]
+  },
+  "H4174": {
+    "shortDefinitionEs": "descenso, declive, obra delgada (môwrâd)",
+    "glossesEs": [
+      "descenso",
+      "declive",
+      "pendiente"
+    ]
+  },
+  "H4175": {
+    "shortDefinitionEs": "maestro, lluvia temprana, arquero (môwreh)",
+    "glossesEs": [
+      "maestro",
+      "lluvia temprana",
+      "maestría"
+    ]
+  },
+  "H4176": {
+    "shortDefinitionEs": "Moreh: cananeo y colina (Môwreh)",
+    "glossesEs": [
+      "Moreh"
+    ]
+  },
+  "H4177": {
+    "shortDefinitionEs": "navaja, rasuradora (môwrâh)",
+    "glossesEs": [
+      "navaja",
+      "rasuradora"
+    ]
+  },
+  "H4178": {
+    "shortDefinitionEs": "terco, obstinado, independiente (môwrâṭ)",
+    "glossesEs": [
+      "obstinado",
+      "terco",
+      "independiente"
+    ]
+  },
+  "H4179": {
+    "shortDefinitionEs": "Moriah: colina en Palestina (Môwrîyâh)",
+    "glossesEs": [
+      "Moriah"
+    ]
+  },
+  "H4180": {
+    "shortDefinitionEs": "posesión, heredad, deleite (môwrâsh)",
+    "glossesEs": [
+      "posesión",
+      "heredad",
+      "deleite"
+    ]
+  },
+  "H4181": {
+    "shortDefinitionEs": "heredad, posesión, herencia (môwrâshâh)",
+    "glossesEs": [
+      "heredad",
+      "posesión",
+      "herencia"
+    ]
+  },
+  "H4182": {
+    "shortDefinitionEs": "Moreset-gat: ciudad en Palestina (Môwresheth Gath)",
+    "glossesEs": [
+      "Moreset-gat"
+    ]
+  },
+  "H4183": {
+    "shortDefinitionEs": "Morastita: habitante de Moreset (Môwrashtîy)",
+    "glossesEs": [
+      "Morastita"
+    ]
+  },
+  "H4184": {
+    "shortDefinitionEs": "tocar, sentir, palpar, manejar (mûwsh)",
+    "glossesEs": [
+      "tocar",
+      "sentir",
+      "palpar"
+    ]
+  },
+  "H4185": {
+    "shortDefinitionEs": "apartarse, cesar, irse, remover (mûwsh)",
+    "glossesEs": [
+      "apartarse",
+      "cesar",
+      "remover",
+      "irse"
+    ]
+  },
+  "H4186": {
+    "shortDefinitionEs": "asiento, morada, lugar de reunión (môwshâb)",
+    "glossesEs": [
+      "asiento",
+      "morada",
+      "dwelling",
+      "asamblea"
+    ]
+  },
+  "H4187": {
+    "shortDefinitionEs": "Musí: levita (Mûwshîy)",
+    "glossesEs": [
+      "Musí"
+    ]
+  },
+  "H4188": {
+    "shortDefinitionEs": "Musitas: descendientes de Musí (Mûwshîy)",
+    "glossesEs": [
+      "Musitas"
+    ]
+  },
+  "H4189": {
+    "shortDefinitionEs": "cuerda, banda, lazo (môwshᵉkâh)",
+    "glossesEs": [
+      "cuerda",
+      "banda",
+      "lazo"
+    ]
+  },
+  "H4190": {
+    "shortDefinitionEs": "salvación, liberación, rescate (môwshâʻâh)",
+    "glossesEs": [
+      "salvación",
+      "liberación",
+      "rescate"
+    ]
+  },
+  "H4191": {
+    "shortDefinitionEs": "morir, matar, perecer (mut)",
+    "glossesEs": [
+      "morir"
+    ]
+  },
+  "H4192": {
+    "shortDefinitionEs": "Mutlabén: título de canción popular (Mûwth)",
+    "glossesEs": [
+      "Mutlabén"
+    ]
+  },
+  "H4193": {
+    "shortDefinitionEs": "muerte, fin, deceso (môwth)",
+    "glossesEs": [
+      "muerte",
+      "fin",
+      "deceso"
+    ]
+  },
+  "H4194": {
+    "shortDefinitionEs": "muerte, fallecimiento (mavet)",
+    "glossesEs": [
+      "muerte"
+    ]
+  },
+  "H4195": {
+    "shortDefinitionEs": "ganancia, preeminencia, ventaja (môwthâr)",
+    "glossesEs": [
+      "ganancia",
+      "preeminencia",
+      "ventaja"
+    ]
+  },
+  "H4196": {
+    "shortDefinitionEs": "altar, mesa de sacrificio (mizbêach)",
+    "glossesEs": [
+      "altar",
+      "sacrificio"
+    ]
+  },
+  "H4197": {
+    "shortDefinitionEs": "vino templado, bebida (mezeg)",
+    "glossesEs": [
+      "vino templado",
+      "bebida"
+    ]
+  },
+  "H4198": {
+    "shortDefinitionEs": "quemado, agotado, consumido (mâzeh)",
+    "glossesEs": [
+      "quemado",
+      "agotado"
+    ]
+  },
+  "H4199": {
+    "shortDefinitionEs": "Mizá: edomita (Mizzâh)",
+    "glossesEs": [
+      "Mizá"
+    ]
+  },
+  "H4200": {
+    "shortDefinitionEs": "granero, almacén (mezev)",
+    "glossesEs": [
+      "granero",
+      "almacén"
+    ]
+  },
+  "H4201": {
+    "shortDefinitionEs": "posate de puerta, quicial (mᵉzûwzâh)",
+    "glossesEs": [
+      "poste",
+      "quicial",
+      "jamba"
+    ]
+  },
+  "H4202": {
+    "shortDefinitionEs": "comida, alimento, provisión (mâzôwn)",
+    "glossesEs": [
+      "comida",
+      "alimento",
+      "provisión"
+    ]
+  },
+  "H4203": {
+    "shortDefinitionEs": "carne, alimento, sustento (mâzôwn)",
+    "glossesEs": [
+      "carne",
+      "alimento"
+    ]
+  },
+  "H4204": {
+    "shortDefinitionEs": "traición, complot, ardid (mâzôwr)",
+    "glossesEs": [
+      "traición",
+      "complot"
+    ]
+  },
+  "H4205": {
+    "shortDefinitionEs": "venda, remedio; llaga o herida (mâzôwr)",
+    "glossesEs": [
+      "herida",
+      "llaga",
+      "venda"
+    ]
+  },
+  "H4206": {
+    "shortDefinitionEs": "cinturón, faja que se ajusta al cuerpo (mâzîyach)",
+    "glossesEs": [
+      "cinturón",
+      "faja",
+      "cinto"
+    ]
+  },
+  "H4207": {
+    "shortDefinitionEs": "tenedor, instrumento de tres púas (mazlêg)",
+    "glossesEs": [
+      "tenedor",
+      "horquilla"
+    ]
+  },
+  "H4208": {
+    "shortDefinitionEs": "constelación, signo del zodiaco (mazzâlâh)",
+    "glossesEs": [
+      "constelación",
+      "planeta",
+      "zodiaco"
+    ]
+  },
+  "H4209": {
+    "shortDefinitionEs": "plan, designio malo o sagacidad (mᵉzimmâh)",
+    "glossesEs": [
+      "designio",
+      "maquinación",
+      "intención"
+    ]
+  },
+  "H4210": {
+    "shortDefinitionEs": "salmo, composición poética con música (mizmôwr)",
+    "glossesEs": [
+      "salmo",
+      "cántico"
+    ]
+  },
+  "H4211": {
+    "shortDefinitionEs": "podadera, cuchillo para podar (mazmêrâh)",
+    "glossesEs": [
+      "podadera",
+      "hoz de podar"
+    ]
+  },
+  "H4212": {
+    "shortDefinitionEs": "despabiladeras, pinzas para la lámpara (mᵉzammᵉrâh)",
+    "glossesEs": [
+      "despabiladeras",
+      "pinzas",
+      "tenazas"
+    ]
+  },
+  "H4213": {
+    "shortDefinitionEs": "escasez, pequeñez, poquedad (mizʻâr)",
+    "glossesEs": [
+      "poco",
+      "escaso",
+      "poquedad"
+    ]
+  },
+  "H4214": {
+    "shortDefinitionEs": "abanico o pala para aventar grano (mizreh)",
+    "glossesEs": [
+      "abanico",
+      "aventador"
+    ]
+  },
+  "H4215": {
+    "shortDefinitionEs": "vientos del norte, vendaval (mᵉzâreh)",
+    "glossesEs": [
+      "norte",
+      "viento norte"
+    ]
+  },
+  "H4216": {
+    "shortDefinitionEs": "Mazzarot: constelaciones, zodiaco (mazzârâh)",
+    "glossesEs": [
+      "constelaciones",
+      "zodiaco",
+      "Mazzarot"
+    ]
+  },
+  "H4217": {
+    "shortDefinitionEs": "salida del sol, oriente, este (mizrâch)",
+    "glossesEs": [
+      "oriente",
+      "este",
+      "salida del sol"
+    ]
+  },
+  "H4218": {
+    "shortDefinitionEs": "campo sembrado, siembra (mizrâʻ)",
+    "glossesEs": [
+      "siembra",
+      "campo sembrado",
+      "plantío"
+    ]
+  },
+  "H4325": {
+    "shortDefinitionEs": "agua, aguas (mayim)",
+    "glossesEs": [
+      "agua"
+    ]
+  },
+  "H4397": {
+    "shortDefinitionEs": "ángel, mensajero divino (malak)",
+    "glossesEs": [
+      "ángel",
+      "ángeles"
+    ]
+  },
+  "H4428": {
+    "shortDefinitionEs": "rey, gobernante, soberano (melek)",
+    "glossesEs": [
+      "rey"
+    ]
+  },
+  "H4467": {
+    "shortDefinitionEs": "reino, reinado, dominio real (mamlaká)",
+    "glossesEs": [
+      "reino"
+    ]
+  },
+  "H4687": {
+    "shortDefinitionEs": "mandamiento, precepto, mitzvá",
+    "glossesEs": [
+      "mandamiento"
+    ]
+  },
+  "H4899": {
+    "shortDefinitionEs": "ungido, Mesías (mashiaj)",
+    "glossesEs": [
+      "mesías"
+    ]
+  },
+  "H4941": {
+    "shortDefinitionEs": "juicio, derecho, justicia (mishpat)",
+    "glossesEs": [
+      "juicio"
+    ]
+  }
 }
