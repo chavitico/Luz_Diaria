@@ -26,65 +26,65 @@
     {
       "file": "strong_es_h_4001_5000.json",
       "range": "H4001–H5000",
-      "entries": 225
+      "entries": 1000
     },
     {
       "file": "strong_es_h_5001_6000.json",
       "range": "H5001–H6000",
-      "entries": 14
+      "entries": 1000
     },
     {
       "file": "strong_es_h_6001_7000.json",
       "range": "H6001–H7000",
-      "entries": 9
+      "entries": 1000
     },
     {
       "file": "strong_es_h_7001_8000.json",
       "range": "H7001–H8000",
-      "entries": 13
+      "entries": 1000
     },
     {
       "file": "strong_es_h_8001_8674.json",
       "range": "H8001–H8674",
-      "entries": 10
+      "entries": 674
     },
     {
       "file": "strong_es_g_0001_1000.json",
       "range": "G1–G1000",
-      "entries": 29
+      "entries": 950
     },
     {
       "file": "strong_es_g_1001_2000.json",
       "range": "G1001–G2000",
-      "entries": 22
+      "entries": 950
     },
     {
       "file": "strong_es_g_2001_3001.json",
       "range": "G2001–G3001",
-      "entries": 21
+      "entries": 1000
     },
     {
       "file": "strong_es_g_3002_4101.json",
       "range": "G3002–G4101",
-      "entries": 21
+      "entries": 950
     },
     {
       "file": "strong_es_g_4102_5101.json",
       "range": "G4102–G5101",
-      "entries": 20
+      "entries": 1000
     },
     {
       "file": "strong_es_g_5102_5624.json",
       "range": "G5102–G5624",
-      "entries": 7
+      "entries": 473
     }
   ],
   "coverage": {
-    "entriesWithShortDefinitionEs": 4391,
+    "entriesWithShortDefinitionEs": 13997,
     "entriesWithLongDefinitionEs": 0,
-    "entriesWithGlossesEs": 4391,
-    "entriesEnglishOnly": 9806,
-    "percentageWithSpanish": "30.9%",
+    "entriesWithGlossesEs": 13997,
+    "entriesEnglishOnly": 200,
+    "percentageWithSpanish": "98.6%",
     "note": "Coverage grows by adding entries to the JSON block files — no code changes required."
   }
 }

@@ -1,23 +1,6960 @@
 {
-  "G3056": { "shortDefinitionEs": "Palabra, razón, Verbo divino (Logos)", "glossesEs": ["palabra", "logos", "verbo"] },
-  "G3084": { "shortDefinitionEs": "redimir, liberar mediante rescate (lutróó)", "glossesEs": ["redimir"] },
-  "G3101": { "shortDefinitionEs": "discípulo, alumno, seguidor (mathétés)", "glossesEs": ["discípulo", "discípulos"] },
-  "G3134": { "shortDefinitionEs": "Maranata — el Señor viene (arameo)", "glossesEs": ["maranata"] },
-  "G3141": { "shortDefinitionEs": "testimonio, declaración (martyría)", "glossesEs": ["testimonio"] },
-  "G3144": { "shortDefinitionEs": "testigo, mártir (martys)", "glossesEs": ["testigo"] },
-  "G3323": { "shortDefinitionEs": "Mesías, el Ungido de Dios", "glossesEs": ["mesías"] },
-  "G3340": { "shortDefinitionEs": "arrepentirse, cambiar de mente y dirección (metanoeó)", "glossesEs": ["arrepentirse"] },
-  "G3341": { "shortDefinitionEs": "arrepentimiento, cambio profundo de mente (metánoia)", "glossesEs": ["arrepentimiento"] },
-  "G3384": { "shortDefinitionEs": "madre (métér)", "glossesEs": ["madre"] },
-  "G3439": { "shortDefinitionEs": "unigénito, único en su especie (monogenes)", "glossesEs": ["unigénito"] },
-  "G3485": { "shortDefinitionEs": "templo interior, santuario (naos)", "glossesEs": ["templo"] },
-  "G3551": { "shortDefinitionEs": "ley, norma, código (nomos)", "glossesEs": ["ley"] },
-  "G3571": { "shortDefinitionEs": "noche (nyx)", "glossesEs": ["noche"] },
-  "G3598": { "shortDefinitionEs": "camino, senda, ruta (hodos)", "glossesEs": ["camino"] },
-  "G3624": { "shortDefinitionEs": "casa, hogar, familia, linaje (oikos)", "glossesEs": ["casa"] },
-  "G3686": { "shortDefinitionEs": "nombre, reputación, persona (onoma)", "glossesEs": ["nombre"] },
-  "G3772": { "shortDefinitionEs": "cielo, firmamento, los cielos (ouranos)", "glossesEs": ["cielo", "cielos"] },
-  "G3841": { "shortDefinitionEs": "Todopoderoso, Omnipotente (Pantokrátor)", "glossesEs": ["omnipotente"] },
-  "G3962": { "shortDefinitionEs": "padre, Padre celestial (patér)", "glossesEs": ["padre"] },
-  "G4100": { "shortDefinitionEs": "creer, confiar, tener fe (pisteuó)", "glossesEs": ["creer", "fe"] }
+  "G3052": {
+    "shortDefinitionEs": "Elocuente, que habla con fluidez (lógios)",
+    "glossesEs": [
+      "elocuente",
+      "orador"
+    ]
+  },
+  "G3053": {
+    "shortDefinitionEs": "Pensamiento, razonamiento, imaginación (logismós)",
+    "glossesEs": [
+      "pensamiento",
+      "imaginación",
+      "razonamiento"
+    ]
+  },
+  "G3054": {
+    "shortDefinitionEs": "Contender sobre palabras vanas (logomachéō)",
+    "glossesEs": [
+      "contender",
+      "disputar palabras"
+    ]
+  },
+  "G3055": {
+    "shortDefinitionEs": "Disputa o contienda sobre palabras (logomachía)",
+    "glossesEs": [
+      "disputa de palabras",
+      "contienda"
+    ]
+  },
+  "G3056": {
+    "shortDefinitionEs": "Palabra, razón, Verbo divino (Logos)",
+    "glossesEs": [
+      "palabra",
+      "logos",
+      "verbo"
+    ]
+  },
+  "G3057": {
+    "shortDefinitionEs": "Lanza, arma de guerra (lónchē)",
+    "glossesEs": [
+      "lanza",
+      "arma"
+    ]
+  },
+  "G3058": {
+    "shortDefinitionEs": "Injuriar, maldecir, vilipendiar (loidoréō)",
+    "glossesEs": [
+      "injuriar",
+      "maldecir",
+      "vilipendiar"
+    ]
+  },
+  "G3059": {
+    "shortDefinitionEs": "Injuria, calumnia, reproche (loidoría)",
+    "glossesEs": [
+      "injuria",
+      "calumnia",
+      "reproche"
+    ]
+  },
+  "G3060": {
+    "shortDefinitionEs": "Injuriador, el que maldice (loídoros)",
+    "glossesEs": [
+      "injuriador",
+      "maldecidor"
+    ]
+  },
+  "G3061": {
+    "shortDefinitionEs": "Pestilencia, plaga, enfermedad (loimós)",
+    "glossesEs": [
+      "pestilencia",
+      "plaga"
+    ]
+  },
+  "G3062": {
+    "shortDefinitionEs": "Los demás, los restantes, el resto (loipoí)",
+    "glossesEs": [
+      "demás",
+      "resto",
+      "restantes"
+    ]
+  },
+  "G3063": {
+    "shortDefinitionEs": "Lo demás, por lo demás, de aquí en adelante (loipón)",
+    "glossesEs": [
+      "demás",
+      "finalmente",
+      "además"
+    ]
+  },
+  "G3064": {
+    "shortDefinitionEs": "De aquí en adelante, en lo futuro (loipoû)",
+    "glossesEs": [
+      "de aquí en adelante",
+      "en adelante"
+    ]
+  },
+  "G3065": {
+    "shortDefinitionEs": "Lucas: cristiano, evangelista (Loukâs)",
+    "glossesEs": [
+      "Lucas",
+      "evangelista"
+    ]
+  },
+  "G3066": {
+    "shortDefinitionEs": "Lucio: cristiano romano (Loúkios)",
+    "glossesEs": [
+      "Lucio"
+    ]
+  },
+  "G3067": {
+    "shortDefinitionEs": "Lavacro, baño, lavamiento (loutrón)",
+    "glossesEs": [
+      "baño",
+      "lavamiento",
+      "lavacro"
+    ]
+  },
+  "G3068": {
+    "shortDefinitionEs": "Lavar el cuerpo entero (loúō)",
+    "glossesEs": [
+      "lavar",
+      "bañar"
+    ]
+  },
+  "G3069": {
+    "shortDefinitionEs": "Lida: ciudad de Palestina (Lýdda)",
+    "glossesEs": [
+      "Lida",
+      "Lod"
+    ]
+  },
+  "G3070": {
+    "shortDefinitionEs": "Lidia: mujer cristiana (Lydía)",
+    "glossesEs": [
+      "Lidia"
+    ]
+  },
+  "G3071": {
+    "shortDefinitionEs": "Licaonia: región de Asia Menor (Lykaonía)",
+    "glossesEs": [
+      "Licaonia"
+    ]
+  },
+  "G3072": {
+    "shortDefinitionEs": "En lengua licaónica (Lykaonistí)",
+    "glossesEs": [
+      "licaónico",
+      "lengua licaónica"
+    ]
+  },
+  "G3073": {
+    "shortDefinitionEs": "Licia: provincia de Asia Menor (Lykía)",
+    "glossesEs": [
+      "Licia"
+    ]
+  },
+  "G3074": {
+    "shortDefinitionEs": "Lobo, animal salvaje depredador (lýkos)",
+    "glossesEs": [
+      "lobo"
+    ]
+  },
+  "G3075": {
+    "shortDefinitionEs": "Hacer daño, maltratar, ultrajar (lymaínomai)",
+    "glossesEs": [
+      "hacer daño",
+      "maltratar",
+      "destruir"
+    ]
+  },
+  "G3076": {
+    "shortDefinitionEs": "Entristecer, contristarse, afligir (lypéō)",
+    "glossesEs": [
+      "entristecer",
+      "afligir",
+      "contristarse"
+    ]
+  },
+  "G3077": {
+    "shortDefinitionEs": "Tristeza, dolor, pesar, aflicción (lýpē)",
+    "glossesEs": [
+      "tristeza",
+      "dolor",
+      "pesar"
+    ]
+  },
+  "G3078": {
+    "shortDefinitionEs": "Lisanias: gobernador de Abilene (Lysanías)",
+    "glossesEs": [
+      "Lisanias"
+    ]
+  },
+  "G3079": {
+    "shortDefinitionEs": "Lisias: romano, oficial romano (Lysías)",
+    "glossesEs": [
+      "Lisias"
+    ]
+  },
+  "G3080": {
+    "shortDefinitionEs": "Disolución, divorcio, separación (lýsis)",
+    "glossesEs": [
+      "divorcio",
+      "disolución"
+    ]
+  },
+  "G3081": {
+    "shortDefinitionEs": "Es conveniente, es provechoso, conviene (lysiteleî)",
+    "glossesEs": [
+      "conviene",
+      "es mejor",
+      "provechoso"
+    ]
+  },
+  "G3082": {
+    "shortDefinitionEs": "Listra: ciudad de Asia Menor (Lýstra)",
+    "glossesEs": [
+      "Listra"
+    ]
+  },
+  "G3083": {
+    "shortDefinitionEs": "Rescate, precio de redención (lýtron)",
+    "glossesEs": [
+      "rescate",
+      "redención"
+    ]
+  },
+  "G3084": {
+    "shortDefinitionEs": "redimir, liberar mediante rescate (lutróó)",
+    "glossesEs": [
+      "redimir"
+    ]
+  },
+  "G3085": {
+    "shortDefinitionEs": "Redención, rescate, liberación (lýtrōsis)",
+    "glossesEs": [
+      "redención",
+      "rescate"
+    ]
+  },
+  "G3086": {
+    "shortDefinitionEs": "Redentor, libertador (lytrōtḗs)",
+    "glossesEs": [
+      "redentor",
+      "libertador"
+    ]
+  },
+  "G3087": {
+    "shortDefinitionEs": "Candelabro, soporte para lámparas (lychnía)",
+    "glossesEs": [
+      "candelabro",
+      "soporte"
+    ]
+  },
+  "G3088": {
+    "shortDefinitionEs": "Lámpara, candela, luz portátil (lýchnos)",
+    "glossesEs": [
+      "lámpara",
+      "candela",
+      "luz"
+    ]
+  },
+  "G3089": {
+    "shortDefinitionEs": "Desatar, soltar, disolver, destruir (lýō)",
+    "glossesEs": [
+      "desatar",
+      "soltar",
+      "disolver"
+    ]
+  },
+  "G3090": {
+    "shortDefinitionEs": "Lois: mujer cristiana, abuela (Lōḯs)",
+    "glossesEs": [
+      "Lois"
+    ]
+  },
+  "G3091": {
+    "shortDefinitionEs": "Lot: patriarca bíblico (Lṓt)",
+    "glossesEs": [
+      "Lot"
+    ]
+  },
+  "G3092": {
+    "shortDefinitionEs": "Maat: israelita, ancestro (Maáth)",
+    "glossesEs": [
+      "Maat"
+    ]
+  },
+  "G3093": {
+    "shortDefinitionEs": "Magdala: ciudad de Palestina (Magdalá)",
+    "glossesEs": [
+      "Magdala"
+    ]
+  },
+  "G3094": {
+    "shortDefinitionEs": "Magdalena: habitante de Magdala (Magdalēnḗ)",
+    "glossesEs": [
+      "Magdalena"
+    ]
+  },
+  "G3095": {
+    "shortDefinitionEs": "Magia, artes mágicas, hechicería (mageía)",
+    "glossesEs": [
+      "magia",
+      "hechicería"
+    ]
+  },
+  "G3096": {
+    "shortDefinitionEs": "Practicar magia, hacer hechicería (mageúō)",
+    "glossesEs": [
+      "magia",
+      "hechicería"
+    ]
+  },
+  "G3097": {
+    "shortDefinitionEs": "Mago, sabio oriental, hechicero (mágos)",
+    "glossesEs": [
+      "mago",
+      "hechicero",
+      "sabio"
+    ]
+  },
+  "G3098": {
+    "shortDefinitionEs": "Magog: nación pagana anticristiana (Magṓg)",
+    "glossesEs": [
+      "Magog"
+    ]
+  },
+  "G3099": {
+    "shortDefinitionEs": "Madián: región de Arabia (Madián)",
+    "glossesEs": [
+      "Madián",
+      "Madián"
+    ]
+  },
+  "G3100": {
+    "shortDefinitionEs": "Ser discípulo, instruir, enseñar (mathēteúō)",
+    "glossesEs": [
+      "discípulo",
+      "enseñar",
+      "instruir"
+    ]
+  },
+  "G3101": {
+    "shortDefinitionEs": "discípulo, alumno, seguidor (mathétés)",
+    "glossesEs": [
+      "discípulo",
+      "discípulos"
+    ]
+  },
+  "G3102": {
+    "shortDefinitionEs": "Discípula, alumna, aprendiza (mathḗtria)",
+    "glossesEs": [
+      "discípula"
+    ]
+  },
+  "G3103": {
+    "shortDefinitionEs": "Matusalén: patriarca antediluviano (Mathousála)",
+    "glossesEs": [
+      "Matusalén"
+    ]
+  },
+  "G3104": {
+    "shortDefinitionEs": "Mainanán: israelita ancestro (Maïnán)",
+    "glossesEs": [
+      "Mainanán"
+    ]
+  },
+  "G3105": {
+    "shortDefinitionEs": "delirar, comportarse como loco (maínomai)",
+    "glossesEs": [
+      "delirar",
+      "locura",
+      "fuera de sí"
+    ]
+  },
+  "G3106": {
+    "shortDefinitionEs": "pronunciar dichoso, considerar bienaventurado (makarízō)",
+    "glossesEs": [
+      "bendecir",
+      "dichoso",
+      "feliz"
+    ]
+  },
+  "G3107": {
+    "shortDefinitionEs": "bienaventurado, dichoso, feliz (makários)",
+    "glossesEs": [
+      "bienaventurado",
+      "dichoso",
+      "feliz"
+    ]
+  },
+  "G3108": {
+    "shortDefinitionEs": "bienaventuranza, dicha (makarismós)",
+    "glossesEs": [
+      "bienaventuranza",
+      "dicha",
+      "felicidad"
+    ]
+  },
+  "G3109": {
+    "shortDefinitionEs": "Macedonia: región de Grecia (Makedonía)",
+    "glossesEs": [
+      "Macedonia"
+    ]
+  },
+  "G3110": {
+    "shortDefinitionEs": "macedonio: habitante de Macedonia (Makedṓn)",
+    "glossesEs": [
+      "macedonio"
+    ]
+  },
+  "G3111": {
+    "shortDefinitionEs": "mercado de carnes, carnicería (mákellon)",
+    "glossesEs": [
+      "carnicería",
+      "mercado",
+      "carnes"
+    ]
+  },
+  "G3112": {
+    "shortDefinitionEs": "lejos, a distancia (makrán)",
+    "glossesEs": [
+      "lejos",
+      "distancia",
+      "apartado"
+    ]
+  },
+  "G3113": {
+    "shortDefinitionEs": "desde lejos, de la distancia (makróthen)",
+    "glossesEs": [
+      "lejos",
+      "desde afar",
+      "distancia"
+    ]
+  },
+  "G3114": {
+    "shortDefinitionEs": "ser paciente, soportar con paciencia (makrothyméō)",
+    "glossesEs": [
+      "paciencia",
+      "sufrimiento",
+      "tolerancia"
+    ]
+  },
+  "G3115": {
+    "shortDefinitionEs": "paciencia, longanimidad, tolerancia (makrothymía)",
+    "glossesEs": [
+      "paciencia",
+      "sufrimiento",
+      "tolerancia"
+    ]
+  },
+  "G3116": {
+    "shortDefinitionEs": "pacientemente, con indulgencia (makrothymṓs)",
+    "glossesEs": [
+      "pacientemente",
+      "tolerancia"
+    ]
+  },
+  "G3117": {
+    "shortDefinitionEs": "largo, distante, de larga duración (makrós)",
+    "glossesEs": [
+      "largo",
+      "distante",
+      "lejos"
+    ]
+  },
+  "G3118": {
+    "shortDefinitionEs": "longevo, de vida larga (makrochrónios)",
+    "glossesEs": [
+      "largo",
+      "vida",
+      "años"
+    ]
+  },
+  "G3119": {
+    "shortDefinitionEs": "blandura, debilidad, enfermedad (malakía)",
+    "glossesEs": [
+      "enfermedad",
+      "debilidad",
+      "flaqueza"
+    ]
+  },
+  "G3120": {
+    "shortDefinitionEs": "suave, blando, afeminado (malakós)",
+    "glossesEs": [
+      "suave",
+      "blando",
+      "delicado"
+    ]
+  },
+  "G3121": {
+    "shortDefinitionEs": "Maleleel: antediluviano (Maleleḗl)",
+    "glossesEs": [
+      "Maleleel"
+    ]
+  },
+  "G3122": {
+    "shortDefinitionEs": "mayormente, especialmente, ante todo (málista)",
+    "glossesEs": [
+      "especialmente",
+      "mayormente",
+      "principalmente"
+    ]
+  },
+  "G3123": {
+    "shortDefinitionEs": "más, en mayor grado, antes bien (mâllon)",
+    "glossesEs": [
+      "más",
+      "mayor",
+      "antes bien"
+    ]
+  },
+  "G3124": {
+    "shortDefinitionEs": "Malco: israelita (Málchos)",
+    "glossesEs": [
+      "Malco"
+    ]
+  },
+  "G3125": {
+    "shortDefinitionEs": "abuela (mámmē)",
+    "glossesEs": [
+      "abuela"
+    ]
+  },
+  "G3126": {
+    "shortDefinitionEs": "mamona, riqueza (deificada) (mammōnâs)",
+    "glossesEs": [
+      "mamona",
+      "riqueza",
+      "dinero"
+    ]
+  },
+  "G3127": {
+    "shortDefinitionEs": "Manacn: cristiano (Manaḗn)",
+    "glossesEs": [
+      "Manacn"
+    ]
+  },
+  "G3128": {
+    "shortDefinitionEs": "Manasés: israelita (Manassēs)",
+    "glossesEs": [
+      "Manasés"
+    ]
+  },
+  "G3129": {
+    "shortDefinitionEs": "aprender, enterarse (manthánō)",
+    "glossesEs": [
+      "aprender",
+      "enterarse",
+      "instrucción"
+    ]
+  },
+  "G3130": {
+    "shortDefinitionEs": "locura, demencia (manía)",
+    "glossesEs": [
+      "locura",
+      "demencia",
+      "insania"
+    ]
+  },
+  "G3131": {
+    "shortDefinitionEs": "maná: alimento divino milagroso (mánna)",
+    "glossesEs": [
+      "maná",
+      "alimento"
+    ]
+  },
+  "G3132": {
+    "shortDefinitionEs": "practicar adivinación, vaticinar (manteúomai)",
+    "glossesEs": [
+      "adivinación",
+      "vaticinio",
+      "predicción"
+    ]
+  },
+  "G3133": {
+    "shortDefinitionEs": "marchitarse, desaparecer (maraínō)",
+    "glossesEs": [
+      "marchitarse",
+      "desaparecer",
+      "fenecer"
+    ]
+  },
+  "G3134": {
+    "shortDefinitionEs": "Maranata — el Señor viene (arameo)",
+    "glossesEs": [
+      "maranata"
+    ]
+  },
+  "G3135": {
+    "shortDefinitionEs": "perla (margarítēs)",
+    "glossesEs": [
+      "perla"
+    ]
+  },
+  "G3136": {
+    "shortDefinitionEs": "Marta: mujer cristiana (Mártha)",
+    "glossesEs": [
+      "Marta"
+    ]
+  },
+  "G3137": {
+    "shortDefinitionEs": "María: mujer cristiana (María)",
+    "glossesEs": [
+      "María"
+    ]
+  },
+  "G3138": {
+    "shortDefinitionEs": "Marcos: cristiano (Márkos)",
+    "glossesEs": [
+      "Marcos"
+    ]
+  },
+  "G3139": {
+    "shortDefinitionEs": "mármol (mármaros)",
+    "glossesEs": [
+      "mármol"
+    ]
+  },
+  "G3140": {
+    "shortDefinitionEs": "testificar, dar testimonio (martyréō)",
+    "glossesEs": [
+      "testificar",
+      "testimonio",
+      "atestiguar"
+    ]
+  },
+  "G3141": {
+    "shortDefinitionEs": "testimonio, declaración (martyría)",
+    "glossesEs": [
+      "testimonio"
+    ]
+  },
+  "G3142": {
+    "shortDefinitionEs": "testimonio, evidencia, prueba (martýrion)",
+    "glossesEs": [
+      "testimonio",
+      "prueba",
+      "evidencia"
+    ]
+  },
+  "G3143": {
+    "shortDefinitionEs": "atestiguar, testificar solemnemente (martýromai)",
+    "glossesEs": [
+      "testificar",
+      "atestiguar",
+      "protestar"
+    ]
+  },
+  "G3144": {
+    "shortDefinitionEs": "testigo, mártir (martys)",
+    "glossesEs": [
+      "testigo"
+    ]
+  },
+  "G3145": {
+    "shortDefinitionEs": "masticar, roer (massáomai)",
+    "glossesEs": [
+      "masticar",
+      "roer"
+    ]
+  },
+  "G3146": {
+    "shortDefinitionEs": "azotar, flagelar (mastigóō)",
+    "glossesEs": [
+      "azotar",
+      "flagelar",
+      "castigo"
+    ]
+  },
+  "G3147": {
+    "shortDefinitionEs": "azotar, flagelar (mastízō)",
+    "glossesEs": [
+      "azotar",
+      "flagelar"
+    ]
+  },
+  "G3148": {
+    "shortDefinitionEs": "azote, flagelo, enfermedad, plaga (mástix)",
+    "glossesEs": [
+      "azote",
+      "plagas",
+      "castigo"
+    ]
+  },
+  "G3149": {
+    "shortDefinitionEs": "seno, pecho (mastós)",
+    "glossesEs": [
+      "seno",
+      "pecho"
+    ]
+  },
+  "G3150": {
+    "shortDefinitionEs": "charla vana, palabrería (mataiología)",
+    "glossesEs": [
+      "charla vana",
+      "palabrería"
+    ]
+  },
+  "G3151": {
+    "shortDefinitionEs": "hablador vano, charlatán (mataiológos)",
+    "glossesEs": [
+      "charlatán",
+      "palabrero"
+    ]
+  },
+  "G3152": {
+    "shortDefinitionEs": "vano, fútil, inútil, ídolo (mátaios)",
+    "glossesEs": [
+      "vano",
+      "fútil",
+      "inútil"
+    ]
+  },
+  "G3153": {
+    "shortDefinitionEs": "vanidad, inutilidad, futilidad (mataiótēs)",
+    "glossesEs": [
+      "vanidad",
+      "futilidad"
+    ]
+  },
+  "G3154": {
+    "shortDefinitionEs": "hacer vano, corromperse (mataióō)",
+    "glossesEs": [
+      "vano",
+      "corrupción"
+    ]
+  },
+  "G3155": {
+    "shortDefinitionEs": "en vano, sin propósito (mátēn)",
+    "glossesEs": [
+      "en vano",
+      "sin propósito"
+    ]
+  },
+  "G3156": {
+    "shortDefinitionEs": "Mateo: israelita y cristiano (Matthaîos)",
+    "glossesEs": [
+      "Mateo"
+    ]
+  },
+  "G3157": {
+    "shortDefinitionEs": "Matán: israelita (Matthán)",
+    "glossesEs": [
+      "Matán"
+    ]
+  },
+  "G3158": {
+    "shortDefinitionEs": "Mattat: nombre de dos israelitas (Matthát)",
+    "glossesEs": [
+      "Mattat",
+      "personaje bíblico"
+    ]
+  },
+  "G3159": {
+    "shortDefinitionEs": "Matías: apóstol elegido para reemplazar a Judas (Matthías)",
+    "glossesEs": [
+      "Matías",
+      "apóstol"
+    ]
+  },
+  "G3160": {
+    "shortDefinitionEs": "Matata: nombre de un israelita (Mattathá)",
+    "glossesEs": [
+      "Matata",
+      "personaje bíblico"
+    ]
+  },
+  "G3161": {
+    "shortDefinitionEs": "Matatías: israelita y cristiano (Mattathías)",
+    "glossesEs": [
+      "Matatías",
+      "personaje bíblico"
+    ]
+  },
+  "G3162": {
+    "shortDefinitionEs": "Espada, cuchillo; fig. guerra, castigo judicial (máchaira)",
+    "glossesEs": [
+      "espada",
+      "cuchillo",
+      "guerra"
+    ]
+  },
+  "G3163": {
+    "shortDefinitionEs": "Batalla, lucha; fig. controversia, disputa (máchē)",
+    "glossesEs": [
+      "batalla",
+      "lucha",
+      "disputa"
+    ]
+  },
+  "G3164": {
+    "shortDefinitionEs": "Pelear, luchar; fig. reñir, discutir (máchomai)",
+    "glossesEs": [
+      "pelear",
+      "luchar",
+      "reñir"
+    ]
+  },
+  "G3165": {
+    "shortDefinitionEs": "Pronombre personal: yo, me, mi (mé)",
+    "glossesEs": [
+      "yo",
+      "me",
+      "mi"
+    ]
+  },
+  "G3166": {
+    "shortDefinitionEs": "Hablar grandielocuentemente, jactarse (megalauchéō)",
+    "glossesEs": [
+      "jactarse",
+      "alardear",
+      "presumir"
+    ]
+  },
+  "G3167": {
+    "shortDefinitionEs": "Magnífico, grande; n. obra maravillosa (megaleîos)",
+    "glossesEs": [
+      "magnífico",
+      "maravilla",
+      "obra grande"
+    ]
+  },
+  "G3168": {
+    "shortDefinitionEs": "Magnificencia, gloria, esplendor, majestad (megaleiótēs)",
+    "glossesEs": [
+      "magnificencia",
+      "majestad",
+      "gloria"
+    ]
+  },
+  "G3169": {
+    "shortDefinitionEs": "Digno de grandeza, magnífico, excelente (megaloprepḗs)",
+    "glossesEs": [
+      "excelente",
+      "magnífico",
+      "digno"
+    ]
+  },
+  "G3170": {
+    "shortDefinitionEs": "Engrandecer, magnificar, exaltar (megalýnō)",
+    "glossesEs": [
+      "magnificar",
+      "engrandecer",
+      "exaltar"
+    ]
+  },
+  "G3171": {
+    "shortDefinitionEs": "Mucho, en gran manera, grandemente (megálōs)",
+    "glossesEs": [
+      "mucho",
+      "grandemente",
+      "muy"
+    ]
+  },
+  "G3172": {
+    "shortDefinitionEs": "Grandeza, majestad, divinidad (megalōsýnē)",
+    "glossesEs": [
+      "grandeza",
+      "majestad",
+      "divinidad"
+    ]
+  },
+  "G3173": {
+    "shortDefinitionEs": "Grande, mayor; fig. alto, fuerte, ruidoso (mégas)",
+    "glossesEs": [
+      "grande",
+      "mayor",
+      "fuerte"
+    ]
+  },
+  "G3174": {
+    "shortDefinitionEs": "Magnitud, grandeza (mégethos)",
+    "glossesEs": [
+      "grandeza",
+      "magnitud",
+      "tamaño"
+    ]
+  },
+  "G3175": {
+    "shortDefinitionEs": "Personajes de gran rango, magnates, señores (megistânes)",
+    "glossesEs": [
+      "señores",
+      "magnates",
+      "grandes"
+    ]
+  },
+  "G3176": {
+    "shortDefinitionEs": "Supremo, muy grande, máximo (mégistos)",
+    "glossesEs": [
+      "máximo",
+      "supremo",
+      "mayor"
+    ]
+  },
+  "G3177": {
+    "shortDefinitionEs": "Interpretar, traducir, explicar (methermēneúō)",
+    "glossesEs": [
+      "interpretar",
+      "traducir",
+      "explicar"
+    ]
+  },
+  "G3178": {
+    "shortDefinitionEs": "Embriaguez, intoxicación (méthē)",
+    "glossesEs": [
+      "embriaguez",
+      "intoxicación",
+      "borrachera"
+    ]
+  },
+  "G3179": {
+    "shortDefinitionEs": "Trasladar, transportar, deponer, seducir (methístēmi)",
+    "glossesEs": [
+      "trasladar",
+      "remover",
+      "seducir"
+    ]
+  },
+  "G3180": {
+    "shortDefinitionEs": "Ardid, asechanza, engaño, trampa (methodeía)",
+    "glossesEs": [
+      "ardid",
+      "engaño",
+      "trampa"
+    ]
+  },
+  "G3181": {
+    "shortDefinitionEs": "Fronterizo, limítrofe; n. frontera (methórios)",
+    "glossesEs": [
+      "frontera",
+      "límite",
+      "borde"
+    ]
+  },
+  "G3182": {
+    "shortDefinitionEs": "Emborrachar, intoxicar (methýskō)",
+    "glossesEs": [
+      "emborrachar",
+      "intoxicar",
+      "ebrio"
+    ]
+  },
+  "G3183": {
+    "shortDefinitionEs": "Borracho, ebrio, bebedor (méthysos)",
+    "glossesEs": [
+      "borracho",
+      "ebrio",
+      "bebedor"
+    ]
+  },
+  "G3184": {
+    "shortDefinitionEs": "Beber hasta embriagarse, emborracharse (methýō)",
+    "glossesEs": [
+      "emborracharse",
+      "beber",
+      "embriagarse"
+    ]
+  },
+  "G3185": {
+    "shortDefinitionEs": "En mayor grado, más (meîzon)",
+    "glossesEs": [
+      "más",
+      "mayor",
+      "más bien"
+    ]
+  },
+  "G3186": {
+    "shortDefinitionEs": "Todavía más grande, superior (meizóteros)",
+    "glossesEs": [
+      "mayor",
+      "más grande",
+      "superior"
+    ]
+  },
+  "G3187": {
+    "shortDefinitionEs": "Mayor, más grande; superior en edad (meízōn)",
+    "glossesEs": [
+      "mayor",
+      "más grande",
+      "superior"
+    ]
+  },
+  "G3188": {
+    "shortDefinitionEs": "Tinta (mélan)",
+    "glossesEs": [
+      "tinta",
+      "escritura"
+    ]
+  },
+  "G3189": {
+    "shortDefinitionEs": "Negro, oscuro (mélas)",
+    "glossesEs": [
+      "negro",
+      "oscuro"
+    ]
+  },
+  "G3190": {
+    "shortDefinitionEs": "Meleas: nombre de un israelita (Meleâs)",
+    "glossesEs": [
+      "Meleas",
+      "personaje bíblico"
+    ]
+  },
+  "G3191": {
+    "shortDefinitionEs": "Meditar, reflexionar, considerar (meletáō)",
+    "glossesEs": [
+      "meditar",
+      "reflexionar",
+      "considerar"
+    ]
+  },
+  "G3192": {
+    "shortDefinitionEs": "Miel (méli)",
+    "glossesEs": [
+      "miel",
+      "dulce"
+    ]
+  },
+  "G3193": {
+    "shortDefinitionEs": "Panal, miel de abejas (melíssios)",
+    "glossesEs": [
+      "panal",
+      "miel",
+      "abejas"
+    ]
+  },
+  "G3194": {
+    "shortDefinitionEs": "Melita: isla en el Mediterráneo (Melítē)",
+    "glossesEs": [
+      "Melita",
+      "isla",
+      "Malta"
+    ]
+  },
+  "G3195": {
+    "shortDefinitionEs": "Estar para, intención de; abb. (inf.) (méllō)",
+    "glossesEs": [
+      "estar para",
+      "intención",
+      "propósito"
+    ]
+  },
+  "G3196": {
+    "shortDefinitionEs": "Miembro, parte del cuerpo (mélos)",
+    "glossesEs": [
+      "miembro",
+      "parte",
+      "cuerpo"
+    ]
+  },
+  "G3197": {
+    "shortDefinitionEs": "Melqui: nombre de dos israelitas (Melchí)",
+    "glossesEs": [
+      "Melqui",
+      "personaje bíblico"
+    ]
+  },
+  "G3198": {
+    "shortDefinitionEs": "Melquisedec: patriarca de Salem (Melchisedék)",
+    "glossesEs": [
+      "Melquisedec",
+      "patriarca",
+      "Salem"
+    ]
+  },
+  "G3199": {
+    "shortDefinitionEs": "Importar, interesar, cuidar (mélō)",
+    "glossesEs": [
+      "importar",
+      "interesar",
+      "cuidar"
+    ]
+  },
+  "G3200": {
+    "shortDefinitionEs": "Pergamino, cuero escrito (membrána)",
+    "glossesEs": [
+      "pergamino",
+      "cuero",
+      "manuscrito"
+    ]
+  },
+  "G3201": {
+    "shortDefinitionEs": "Censurar, culpar, hallar falta (mémphomai)",
+    "glossesEs": [
+      "culpar",
+      "censurar",
+      "criticar"
+    ]
+  },
+  "G3202": {
+    "shortDefinitionEs": "Murmurón, quejoso, descontento (mempsímoiros)",
+    "glossesEs": [
+      "quejoso",
+      "murmurón",
+      "descontento"
+    ]
+  },
+  "G3303": {
+    "shortDefinitionEs": "Part. afirmativa/concesiva; freq. con δέ (mén)",
+    "glossesEs": [
+      "efectivamente",
+      "en verdad",
+      "por cierto"
+    ]
+  },
+  "G3304": {
+    "shortDefinitionEs": "Al menos, pero ciertamente (menoûnge)",
+    "glossesEs": [
+      "ciertamente",
+      "de hecho",
+      "más bien"
+    ]
+  },
+  "G3305": {
+    "shortDefinitionEs": "Sin embargo, empero, aunque (méntoi)",
+    "glossesEs": [
+      "empero",
+      "sin embargo",
+      "aunque"
+    ]
+  },
+  "G3306": {
+    "shortDefinitionEs": "Permanecer, morar, continuar, persistir (ménō)",
+    "glossesEs": [
+      "permanecer",
+      "morar",
+      "continuar"
+    ]
+  },
+  "G3307": {
+    "shortDefinitionEs": "Repartir, distribuir, dividir (merízō)",
+    "glossesEs": [
+      "repartir",
+      "distribuir",
+      "dividir"
+    ]
+  },
+  "G3308": {
+    "shortDefinitionEs": "Solicitud, preocupación, cuidado (mérimna)",
+    "glossesEs": [
+      "solicitud",
+      "cuidado",
+      "preocupación"
+    ]
+  },
+  "G3309": {
+    "shortDefinitionEs": "Estar ansioso, preocuparse, tener cuidado (merimnáō)",
+    "glossesEs": [
+      "preocuparse",
+      "tener cuidado",
+      "estar ansioso"
+    ]
+  },
+  "G3310": {
+    "shortDefinitionEs": "Porción, parte, provincia, participación (merís)",
+    "glossesEs": [
+      "parte",
+      "porción",
+      "participación"
+    ]
+  },
+  "G3311": {
+    "shortDefinitionEs": "Separación, distribución, repartición (merismós)",
+    "glossesEs": [
+      "distribución",
+      "repartición",
+      "separación"
+    ]
+  },
+  "G3312": {
+    "shortDefinitionEs": "Repartidor, administrador, divisor (meristḗs)",
+    "glossesEs": [
+      "repartidor",
+      "divisor",
+      "administrador"
+    ]
+  },
+  "G3313": {
+    "shortDefinitionEs": "División, parte, porción, aspecto (méros)",
+    "glossesEs": [
+      "parte",
+      "porción",
+      "aspecto"
+    ]
+  },
+  "G3314": {
+    "shortDefinitionEs": "Mediodía, sur, hora del mediodía (mesēmbría)",
+    "glossesEs": [
+      "mediodía",
+      "sur",
+      "medianodia"
+    ]
+  },
+  "G3315": {
+    "shortDefinitionEs": "Intervenir como mediador, ratificar (mesiteúō)",
+    "glossesEs": [
+      "intervenir",
+      "mediar",
+      "ratificar"
+    ]
+  },
+  "G3316": {
+    "shortDefinitionEs": "Mediador, intermediario, reconciliador (mesítēs)",
+    "glossesEs": [
+      "mediador",
+      "intermediario",
+      "reconciliador"
+    ]
+  },
+  "G3317": {
+    "shortDefinitionEs": "Medianoche, hora de la medianoche (mesonýktion)",
+    "glossesEs": [
+      "medianoche"
+    ]
+  },
+  "G3318": {
+    "shortDefinitionEs": "Mesopotamia: región entre Eúfrates y Tigris (Mesopotamía)",
+    "glossesEs": [
+      "Mesopotamia"
+    ]
+  },
+  "G3319": {
+    "shortDefinitionEs": "Medio, centro, entre (mésos)",
+    "glossesEs": [
+      "medio",
+      "entre",
+      "centro"
+    ]
+  },
+  "G3320": {
+    "shortDefinitionEs": "Pared divisoria, muro de separación (mesótoichon)",
+    "glossesEs": [
+      "pared",
+      "división",
+      "separación"
+    ]
+  },
+  "G3321": {
+    "shortDefinitionEs": "Mitad del cielo, medio del cielo (mesouránēma)",
+    "glossesEs": [
+      "cielo",
+      "mitad"
+    ]
+  },
+  "G3322": {
+    "shortDefinitionEs": "Estar a mitad, avanzar la mitad (mesóō)",
+    "glossesEs": [
+      "mitad",
+      "medio"
+    ]
+  },
+  "G3323": {
+    "shortDefinitionEs": "Mesías, el Ungido de Dios",
+    "glossesEs": [
+      "mesías"
+    ]
+  },
+  "G3324": {
+    "shortDefinitionEs": "Lleno, replete, saciado (mestós)",
+    "glossesEs": [
+      "lleno",
+      "replete",
+      "saciado"
+    ]
+  },
+  "G3325": {
+    "shortDefinitionEs": "Llenar, hartar, emborrachar (mestóō)",
+    "glossesEs": [
+      "llenar",
+      "hartar",
+      "emborrachar"
+    ]
+  },
+  "G3326": {
+    "shortDefinitionEs": "Con, después de, entre, contra (metá)",
+    "glossesEs": [
+      "con",
+      "después",
+      "entre"
+    ]
+  },
+  "G3327": {
+    "shortDefinitionEs": "Cambiar de lugar, pasar, partir (metabaínō)",
+    "glossesEs": [
+      "partir",
+      "pasar",
+      "cambiar lugar"
+    ]
+  },
+  "G3328": {
+    "shortDefinitionEs": "Cambiar de opinión, arrepentirse (metabállō)",
+    "glossesEs": [
+      "cambiar",
+      "arrepentirse",
+      "opinión"
+    ]
+  },
+  "G3329": {
+    "shortDefinitionEs": "Voltear, girar, dirigir (metágō)",
+    "glossesEs": [
+      "voltear",
+      "girar",
+      "dirigir"
+    ]
+  },
+  "G3330": {
+    "shortDefinitionEs": "Compartir, dar, impartir (metadídōmi)",
+    "glossesEs": [
+      "compartir",
+      "dar",
+      "impartir"
+    ]
+  },
+  "G3331": {
+    "shortDefinitionEs": "Transposición, traslado, cambio (metáthesis)",
+    "glossesEs": [
+      "transposición",
+      "traslado",
+      "cambio"
+    ]
+  },
+  "G3332": {
+    "shortDefinitionEs": "Partir, marcharse, trasladarse (metaírō)",
+    "glossesEs": [
+      "partir",
+      "marcharse",
+      "trasladarse"
+    ]
+  },
+  "G3333": {
+    "shortDefinitionEs": "Llamar, convocar, enviar a buscar (metakaléō)",
+    "glossesEs": [
+      "llamar",
+      "convocar",
+      "buscar"
+    ]
+  },
+  "G3334": {
+    "shortDefinitionEs": "Mover, trasladar, remover (metakinéō)",
+    "glossesEs": [
+      "mover",
+      "trasladar",
+      "remover"
+    ]
+  },
+  "G3335": {
+    "shortDefinitionEs": "Participar, comer, recibir, compartir (metalambánō)",
+    "glossesEs": [
+      "participar",
+      "comer",
+      "recibir"
+    ]
+  },
+  "G3336": {
+    "shortDefinitionEs": "Participación, toma, parte (metálēmpsis)",
+    "glossesEs": [
+      "participación",
+      "toma",
+      "parte"
+    ]
+  },
+  "G3337": {
+    "shortDefinitionEs": "Cambiar, intercambiar, trocar (metallássō)",
+    "glossesEs": [
+      "cambiar",
+      "intercambiar",
+      "trocar"
+    ]
+  },
+  "G3338": {
+    "shortDefinitionEs": "Arrepentirse, compadecerse (metaméllomai)",
+    "glossesEs": [
+      "arrepentirse",
+      "compadecerse",
+      "pesar"
+    ]
+  },
+  "G3339": {
+    "shortDefinitionEs": "Transformar, transfigurar, cambiar forma (metamorphóō)",
+    "glossesEs": [
+      "transformar",
+      "transfigurar",
+      "cambiar"
+    ]
+  },
+  "G3340": {
+    "shortDefinitionEs": "arrepentirse, cambiar de mente y dirección (metanoeó)",
+    "glossesEs": [
+      "arrepentirse"
+    ]
+  },
+  "G3341": {
+    "shortDefinitionEs": "arrepentimiento, cambio profundo de mente (metánoia)",
+    "glossesEs": [
+      "arrepentimiento"
+    ]
+  },
+  "G3342": {
+    "shortDefinitionEs": "Entre, en medio, entretanto (metaxý)",
+    "glossesEs": [
+      "entre",
+      "medio",
+      "entretanto"
+    ]
+  },
+  "G3343": {
+    "shortDefinitionEs": "Llamar, convocar, enviar a buscar (metapémpō)",
+    "glossesEs": [
+      "llamar",
+      "convocar",
+      "buscar"
+    ]
+  },
+  "G3344": {
+    "shortDefinitionEs": "Pervertir, torcer, cambiar (metastréphō)",
+    "glossesEs": [
+      "pervertir",
+      "torcer",
+      "cambiar"
+    ]
+  },
+  "G3345": {
+    "shortDefinitionEs": "Transfigurar, disfrazar, transformar (metaschēmatízō)",
+    "glossesEs": [
+      "transfigurar",
+      "transformar",
+      "disfrazar"
+    ]
+  },
+  "G3346": {
+    "shortDefinitionEs": "Transferir, trasladar, cambiar, traducir (metatíthēmi)",
+    "glossesEs": [
+      "transferir",
+      "trasladar",
+      "cambiar"
+    ]
+  },
+  "G3347": {
+    "shortDefinitionEs": "Después, posteriormente, luego (metépeita)",
+    "glossesEs": [
+      "después",
+      "luego",
+      "posteriormente"
+    ]
+  },
+  "G3348": {
+    "shortDefinitionEs": "Participar, compartir, pertenecer, comer (metéchō)",
+    "glossesEs": [
+      "participar",
+      "compartir",
+      "pertenecer"
+    ]
+  },
+  "G3349": {
+    "shortDefinitionEs": "Estar en duda, dudar, fluctuar (meteōrízō)",
+    "glossesEs": [
+      "dudar",
+      "fluctuar",
+      "incertidumbre"
+    ]
+  },
+  "G3350": {
+    "shortDefinitionEs": "Cambio de residencia, cautividad, destierro (metoikesía)",
+    "glossesEs": [
+      "cautividad",
+      "destierro",
+      "traslado"
+    ]
+  },
+  "G3351": {
+    "shortDefinitionEs": "Trasladar, deportar, desterrar, exiliar (metoikízō)",
+    "glossesEs": [
+      "trasladar",
+      "deportar",
+      "desterrar"
+    ]
+  },
+  "G3352": {
+    "shortDefinitionEs": "Participación, comunión, compañía (metochḗ)",
+    "glossesEs": [
+      "participación",
+      "comunión",
+      "compañía"
+    ]
+  },
+  "G3353": {
+    "shortDefinitionEs": "Partícipe, compañero, asociado, socio (métochos)",
+    "glossesEs": [
+      "compañero",
+      "partícipe",
+      "socio"
+    ]
+  },
+  "G3354": {
+    "shortDefinitionEs": "Medir, pesar, estimar, distribuir (metréō)",
+    "glossesEs": [
+      "medir",
+      "pesar",
+      "estimar"
+    ]
+  },
+  "G3355": {
+    "shortDefinitionEs": "Medida de líquidos, barril, odre (metrētḗs)",
+    "glossesEs": [
+      "medida",
+      "barril",
+      "odre"
+    ]
+  },
+  "G3356": {
+    "shortDefinitionEs": "Tener compasión, ser moderado, compadecerse (metriopathéō)",
+    "glossesEs": [
+      "compasión",
+      "moderación",
+      "compadecerse"
+    ]
+  },
+  "G3357": {
+    "shortDefinitionEs": "Moderadamente, ligeramente, un poco (metríōs)",
+    "glossesEs": [
+      "ligeramente",
+      "poco",
+      "moderadamente"
+    ]
+  },
+  "G3358": {
+    "shortDefinitionEs": "Medida, proporción, porción limitada (métron)",
+    "glossesEs": [
+      "medida",
+      "proporción",
+      "porción"
+    ]
+  },
+  "G3359": {
+    "shortDefinitionEs": "Frente, frente de la cara (métōpon)",
+    "glossesEs": [
+      "frente",
+      "rostro",
+      "cara"
+    ]
+  },
+  "G3360": {
+    "shortDefinitionEs": "Hasta, incluso, hasta que (méchri)",
+    "glossesEs": [
+      "hasta",
+      "incluso",
+      "cuando"
+    ]
+  },
+  "G3361": {
+    "shortDefinitionEs": "no, no sea que, a menos que (mḗ)",
+    "glossesEs": [
+      "negación",
+      "no sea que"
+    ]
+  },
+  "G3362": {
+    "shortDefinitionEs": "si no, a menos que (eàn mḗ)",
+    "glossesEs": [
+      "a menos que",
+      "si no"
+    ]
+  },
+  "G3363": {
+    "shortDefinitionEs": "para que no, a fin de que no (hína mḗ)",
+    "glossesEs": [
+      "no sea que",
+      "para que no"
+    ]
+  },
+  "G3364": {
+    "shortDefinitionEs": "de ninguna manera, nunca jamás (ou mḗ)",
+    "glossesEs": [
+      "nunca",
+      "jamás",
+      "de ningún modo"
+    ]
+  },
+  "G3365": {
+    "shortDefinitionEs": "de ninguna manera, en absoluto (mēdamōs)",
+    "glossesEs": [
+      "de ningún modo",
+      "nunca"
+    ]
+  },
+  "G3366": {
+    "shortDefinitionEs": "ni, ni siquiera, tampoco (mēdé)",
+    "glossesEs": [
+      "ni",
+      "ni siquiera",
+      "tampoco"
+    ]
+  },
+  "G3367": {
+    "shortDefinitionEs": "ninguno, nadie, nada (mēdeís)",
+    "glossesEs": [
+      "ninguno",
+      "nadie",
+      "nada"
+    ]
+  },
+  "G3368": {
+    "shortDefinitionEs": "nunca jamás (mēdépote)",
+    "glossesEs": [
+      "nunca",
+      "jamás"
+    ]
+  },
+  "G3369": {
+    "shortDefinitionEs": "aún no, todavía no (mēdépō)",
+    "glossesEs": [
+      "aún no",
+      "todavía no"
+    ]
+  },
+  "G3370": {
+    "shortDefinitionEs": "Medo: natural de Media (Mēdos)",
+    "glossesEs": [
+      "Medo",
+      "Media"
+    ]
+  },
+  "G3371": {
+    "shortDefinitionEs": "no más, nunca más, de ahora en adelante no (mēkéti)",
+    "glossesEs": [
+      "no más",
+      "nunca más",
+      "de ahora en adelante"
+    ]
+  },
+  "G3372": {
+    "shortDefinitionEs": "longitud, largo (mēkos)",
+    "glossesEs": [
+      "longitud",
+      "largo"
+    ]
+  },
+  "G3373": {
+    "shortDefinitionEs": "alargar, crecer, aumentar (mēkýnō)",
+    "glossesEs": [
+      "alargar",
+      "crecer"
+    ]
+  },
+  "G3374": {
+    "shortDefinitionEs": "pellejo de oveja, cuero de carnero (mēlōtḗ)",
+    "glossesEs": [
+      "pellejo",
+      "cuero",
+      "oveja"
+    ]
+  },
+  "G3375": {
+    "shortDefinitionEs": "ciertamente, seguramente (mḗn)",
+    "glossesEs": [
+      "ciertamente",
+      "seguramente"
+    ]
+  },
+  "G3376": {
+    "shortDefinitionEs": "mes (mḗn)",
+    "glossesEs": [
+      "mes"
+    ]
+  },
+  "G3377": {
+    "shortDefinitionEs": "revelar, manifestar, informar, anunciar (mēnýō)",
+    "glossesEs": [
+      "revelar",
+      "manifestar",
+      "informar"
+    ]
+  },
+  "G3378": {
+    "shortDefinitionEs": "¿no es cierto?, ¿acaso no? (mḕ ouk)",
+    "glossesEs": [
+      "pregunta negativa",
+      "¿no?"
+    ]
+  },
+  "G3379": {
+    "shortDefinitionEs": "nunca, no sea que, acaso (mḗpote)",
+    "glossesEs": [
+      "nunca",
+      "no sea que",
+      "acaso"
+    ]
+  },
+  "G3380": {
+    "shortDefinitionEs": "aún no, todavía no (mḗpō)",
+    "glossesEs": [
+      "aún no",
+      "todavía no"
+    ]
+  },
+  "G3381": {
+    "shortDefinitionEs": "no sea que, acaso, por ventura (mḗpōs)",
+    "glossesEs": [
+      "no sea que",
+      "acaso",
+      "por ventura"
+    ]
+  },
+  "G3382": {
+    "shortDefinitionEs": "muslo (mērós)",
+    "glossesEs": [
+      "muslo"
+    ]
+  },
+  "G3383": {
+    "shortDefinitionEs": "ni, ni tampoco, ni siquiera (mḗte)",
+    "glossesEs": [
+      "ni",
+      "tampoco",
+      "ni siquiera"
+    ]
+  },
+  "G3384": {
+    "shortDefinitionEs": "madre (métér)",
+    "glossesEs": [
+      "madre"
+    ]
+  },
+  "G3385": {
+    "shortDefinitionEs": "¿acaso?, si acaso (mḗti)",
+    "glossesEs": [
+      "acaso",
+      "si acaso"
+    ]
+  },
+  "G3386": {
+    "shortDefinitionEs": "cuánto menos, cuánto más (mḗtige)",
+    "glossesEs": [
+      "cuánto menos",
+      "cuánto más"
+    ]
+  },
+  "G3387": {
+    "shortDefinitionEs": "¿alguno?, algún (mḗtis)",
+    "glossesEs": [
+      "alguno",
+      "algún"
+    ]
+  },
+  "G3388": {
+    "shortDefinitionEs": "matriz, seno materno (mḗtra)",
+    "glossesEs": [
+      "matriz",
+      "vientre",
+      "seno"
+    ]
+  },
+  "G3389": {
+    "shortDefinitionEs": "parricida, asesino de madre (mētralṓias)",
+    "glossesEs": [
+      "parricida",
+      "matricida",
+      "asesino"
+    ]
+  },
+  "G3390": {
+    "shortDefinitionEs": "metrópolis, ciudad madre (mētrópolis)",
+    "glossesEs": [
+      "metrópolis",
+      "ciudad principal"
+    ]
+  },
+  "G3391": {
+    "shortDefinitionEs": "uno, una, primer (mía)",
+    "glossesEs": [
+      "uno",
+      "una",
+      "primero"
+    ]
+  },
+  "G3392": {
+    "shortDefinitionEs": "contaminar, manchar, profanar (miaínō)",
+    "glossesEs": [
+      "contaminar",
+      "manchar",
+      "profanar"
+    ]
+  },
+  "G3393": {
+    "shortDefinitionEs": "contaminación, inmundicia moral (míasma)",
+    "glossesEs": [
+      "contaminación",
+      "inmundicia",
+      "mancha"
+    ]
+  },
+  "G3394": {
+    "shortDefinitionEs": "inmundicia, impureza ceremonial (miasmós)",
+    "glossesEs": [
+      "inmundicia",
+      "impureza",
+      "contaminación"
+    ]
+  },
+  "G3395": {
+    "shortDefinitionEs": "mezcla, mixtura (mígma)",
+    "glossesEs": [
+      "mezcla",
+      "mixtura"
+    ]
+  },
+  "G3396": {
+    "shortDefinitionEs": "mezclar, combinar (mígnymi)",
+    "glossesEs": [
+      "mezclar",
+      "combinar"
+    ]
+  },
+  "G3397": {
+    "shortDefinitionEs": "poco tiempo, pequeña distancia (mikrón)",
+    "glossesEs": [
+      "poco tiempo",
+      "un poco"
+    ]
+  },
+  "G3398": {
+    "shortDefinitionEs": "pequeño, poco, diminuto, de poca importancia (mikrós)",
+    "glossesEs": [
+      "pequeño",
+      "poco",
+      "diminuto"
+    ]
+  },
+  "G3399": {
+    "shortDefinitionEs": "Mileto: ciudad de Asia Menor (Mílētos)",
+    "glossesEs": [
+      "Mileto",
+      "ciudad"
+    ]
+  },
+  "G3400": {
+    "shortDefinitionEs": "milla, medida de distancia (mílion)",
+    "glossesEs": [
+      "milla",
+      "medida"
+    ]
+  },
+  "G3401": {
+    "shortDefinitionEs": "imitar, seguir el ejemplo (miméomai)",
+    "glossesEs": [
+      "imitar",
+      "seguir"
+    ]
+  },
+  "G3402": {
+    "shortDefinitionEs": "imitador, seguidor (mimētḗs)",
+    "glossesEs": [
+      "imitador",
+      "seguidor"
+    ]
+  },
+  "G3403": {
+    "shortDefinitionEs": "recordar, rememorar, tener en mente (mimnḗskō)",
+    "glossesEs": [
+      "recordar",
+      "rememorar",
+      "acordarse"
+    ]
+  },
+  "G3404": {
+    "shortDefinitionEs": "aborrecer, odiar, detestar (miséō)",
+    "glossesEs": [
+      "odiar",
+      "aborrecer",
+      "detestar"
+    ]
+  },
+  "G3405": {
+    "shortDefinitionEs": "recompensa, retribución, galardón (misthapodosía)",
+    "glossesEs": [
+      "recompensa",
+      "retribución",
+      "galardón"
+    ]
+  },
+  "G3406": {
+    "shortDefinitionEs": "galardonador, remunerador (misthapodótēs)",
+    "glossesEs": [
+      "galardonador",
+      "remunerador"
+    ]
+  },
+  "G3407": {
+    "shortDefinitionEs": "obrero asalariado, jornalero (místhios)",
+    "glossesEs": [
+      "obrero",
+      "jornalero",
+      "asalariado"
+    ]
+  },
+  "G3408": {
+    "shortDefinitionEs": "salario, jornal, recompensa (misthós)",
+    "glossesEs": [
+      "salario",
+      "jornal",
+      "recompensa"
+    ]
+  },
+  "G3409": {
+    "shortDefinitionEs": "arrendar, alquilar, contratar (misthóō)",
+    "glossesEs": [
+      "alquilar",
+      "arrendar",
+      "contratar"
+    ]
+  },
+  "G3410": {
+    "shortDefinitionEs": "casa alquilada, vivienda alquilada (místhōma)",
+    "glossesEs": [
+      "casa alquilada",
+      "vivienda"
+    ]
+  },
+  "G3411": {
+    "shortDefinitionEs": "asalariado, jornalero, mercenario (misthōtós)",
+    "glossesEs": [
+      "jornalero",
+      "asalariado",
+      "mercenario"
+    ]
+  },
+  "G3412": {
+    "shortDefinitionEs": "Mitilene, ciudad en la isla de Lesbos (Mitylḗnē)",
+    "glossesEs": [
+      "Mitilene",
+      "Lesbos"
+    ]
+  },
+  "G3413": {
+    "shortDefinitionEs": "Miguel: arcángel (Michaḗl)",
+    "glossesEs": [
+      "Miguel",
+      "arcángel"
+    ]
+  },
+  "G3414": {
+    "shortDefinitionEs": "Mina, unidad de peso y moneda (mnâ)",
+    "glossesEs": [
+      "mina",
+      "peso",
+      "moneda"
+    ]
+  },
+  "G3415": {
+    "shortDefinitionEs": "Acordarse, recordar; recompensar o castigar (mnáomai)",
+    "glossesEs": [
+      "recordar",
+      "acordarse",
+      "tener en mente"
+    ]
+  },
+  "G3416": {
+    "shortDefinitionEs": "Mnasón: cristiano (Mnásōn)",
+    "glossesEs": [
+      "Mnasón"
+    ]
+  },
+  "G3417": {
+    "shortDefinitionEs": "Mención, recuerdo, narración (mneía)",
+    "glossesEs": [
+      "mención",
+      "recuerdo"
+    ]
+  },
+  "G3418": {
+    "shortDefinitionEs": "Tumba, sepulcro, monumento funerario (mnēma)",
+    "glossesEs": [
+      "tumba",
+      "sepulcro",
+      "sepultura"
+    ]
+  },
+  "G3419": {
+    "shortDefinitionEs": "Sepulcro, lugar de entierro, tumba (mnēmeîon)",
+    "glossesEs": [
+      "sepulcro",
+      "tumba",
+      "tumba"
+    ]
+  },
+  "G3420": {
+    "shortDefinitionEs": "Memoria, recuerdo (mnḗmē)",
+    "glossesEs": [
+      "memoria",
+      "recuerdo"
+    ]
+  },
+  "G3421": {
+    "shortDefinitionEs": "Recordar, tener en memoria; castigar (mnēmoneúō)",
+    "glossesEs": [
+      "recordar",
+      "acordarse",
+      "castigar"
+    ]
+  },
+  "G3422": {
+    "shortDefinitionEs": "Memorial, recordatorio, registro (mnēmósynon)",
+    "glossesEs": [
+      "memorial",
+      "recordatorio"
+    ]
+  },
+  "G3423": {
+    "shortDefinitionEs": "Desposar, comprometer en matrimonio (mnēsteúō)",
+    "glossesEs": [
+      "desposar",
+      "comprometer"
+    ]
+  },
+  "G3424": {
+    "shortDefinitionEs": "Que habla con dificultad, tartamudo (mogilálos)",
+    "glossesEs": [
+      "tartamudo",
+      "dificultad en habla"
+    ]
+  },
+  "G3425": {
+    "shortDefinitionEs": "Con dificultad, apenas (mógis)",
+    "glossesEs": [
+      "apenas",
+      "con dificultad"
+    ]
+  },
+  "G3426": {
+    "shortDefinitionEs": "Medida de áridos, almud (módios)",
+    "glossesEs": [
+      "medida",
+      "almud",
+      "fanega"
+    ]
+  },
+  "G3427": {
+    "shortDefinitionEs": "A mí, me (pronombre) (moí)",
+    "glossesEs": [
+      "me",
+      "mí"
+    ]
+  },
+  "G3428": {
+    "shortDefinitionEs": "Adúltera (literal o figurado) (moichalís)",
+    "glossesEs": [
+      "adúltera",
+      "adulterio"
+    ]
+  },
+  "G3429": {
+    "shortDefinitionEs": "Cometer adulterio (moicháō)",
+    "glossesEs": [
+      "adulterio",
+      "cometer adulterio"
+    ]
+  },
+  "G3430": {
+    "shortDefinitionEs": "Adulterio (moicheía)",
+    "glossesEs": [
+      "adulterio"
+    ]
+  },
+  "G3431": {
+    "shortDefinitionEs": "Cometer adulterio (moicheúō)",
+    "glossesEs": [
+      "adulterio",
+      "cometer adulterio"
+    ]
+  },
+  "G3432": {
+    "shortDefinitionEs": "Adúltero; apóstata (moichós)",
+    "glossesEs": [
+      "adúltero",
+      "infiel"
+    ]
+  },
+  "G3433": {
+    "shortDefinitionEs": "Con dificultad, apenas, difícilmente (mólis)",
+    "glossesEs": [
+      "apenas",
+      "con dificultad"
+    ]
+  },
+  "G3434": {
+    "shortDefinitionEs": "Moloc, ídolo pagano (Molóch)",
+    "glossesEs": [
+      "Moloc",
+      "ídolo"
+    ]
+  },
+  "G3435": {
+    "shortDefinitionEs": "Manchar, contaminar (figurado) (molýnō)",
+    "glossesEs": [
+      "manchar",
+      "contaminar",
+      "profanar"
+    ]
+  },
+  "G3436": {
+    "shortDefinitionEs": "Mancha, impureza moral (molysm ós)",
+    "glossesEs": [
+      "mancha",
+      "impureza"
+    ]
+  },
+  "G3437": {
+    "shortDefinitionEs": "Culpa, reproche, falta (momphḗ)",
+    "glossesEs": [
+      "culpa",
+      "falta",
+      "reproche"
+    ]
+  },
+  "G3438": {
+    "shortDefinitionEs": "Morada, vivienda, residencia (monḗ)",
+    "glossesEs": [
+      "morada",
+      "vivienda",
+      "mansión"
+    ]
+  },
+  "G3439": {
+    "shortDefinitionEs": "unigénito, único en su especie (monogenes)",
+    "glossesEs": [
+      "unigénito"
+    ]
+  },
+  "G3440": {
+    "shortDefinitionEs": "Solamente, únicamente, solo (mónon)",
+    "glossesEs": [
+      "solo",
+      "solamente",
+      "únicamente"
+    ]
+  },
+  "G3441": {
+    "shortDefinitionEs": "Solo, único, solitario (mónos)",
+    "glossesEs": [
+      "solo",
+      "único"
+    ]
+  },
+  "G3442": {
+    "shortDefinitionEs": "Tuerto, con un solo ojo (monóphthalmos)",
+    "glossesEs": [
+      "tuerto",
+      "un ojo"
+    ]
+  },
+  "G3443": {
+    "shortDefinitionEs": "Quedar desolado, quedarse huérfano (monóō)",
+    "glossesEs": [
+      "desolado",
+      "huérfano"
+    ]
+  },
+  "G3444": {
+    "shortDefinitionEs": "Forma, apariencia; naturaleza (morphḗ)",
+    "glossesEs": [
+      "forma",
+      "apariencia"
+    ]
+  },
+  "G3445": {
+    "shortDefinitionEs": "Formar, configurar (figurado) (morphóō)",
+    "glossesEs": [
+      "formar",
+      "configurar"
+    ]
+  },
+  "G3446": {
+    "shortDefinitionEs": "Forma, apariencia, configuración (mórphōsis)",
+    "glossesEs": [
+      "forma",
+      "apariencia"
+    ]
+  },
+  "G3447": {
+    "shortDefinitionEs": "Hacer un becerro de oro (moschopoiéō)",
+    "glossesEs": [
+      "becerro",
+      "hacer"
+    ]
+  },
+  "G3448": {
+    "shortDefinitionEs": "Becerro, ternero joven (móschos)",
+    "glossesEs": [
+      "becerro",
+      "ternero"
+    ]
+  },
+  "G3449": {
+    "shortDefinitionEs": "Trabajo penoso, sufrimiento (móchthos)",
+    "glossesEs": [
+      "trabajo",
+      "sufrimiento",
+      "fatiga"
+    ]
+  },
+  "G3450": {
+    "shortDefinitionEs": "De mí, mío (pronombre) (moû)",
+    "glossesEs": [
+      "mío",
+      "de mí"
+    ]
+  },
+  "G3451": {
+    "shortDefinitionEs": "Músico, trovador (mousikós)",
+    "glossesEs": [
+      "músico",
+      "trovador"
+    ]
+  },
+  "G3452": {
+    "shortDefinitionEs": "Médula ósea (myelós)",
+    "glossesEs": [
+      "médula",
+      "tuétano"
+    ]
+  },
+  "G3453": {
+    "shortDefinitionEs": "Iniciar, instruir (myéō)",
+    "glossesEs": [
+      "instruir",
+      "enseñar"
+    ]
+  },
+  "G3454": {
+    "shortDefinitionEs": "Fábula, cuento ficticio (mŷthos)",
+    "glossesEs": [
+      "fábula",
+      "mito"
+    ]
+  },
+  "G3455": {
+    "shortDefinitionEs": "Bramar, rugir (mykáomai)",
+    "glossesEs": [
+      "rugir",
+      "bramar"
+    ]
+  },
+  "G3456": {
+    "shortDefinitionEs": "Burlarse, mofarse, ridiculizar (myktērízō)",
+    "glossesEs": [
+      "burlarse",
+      "mofarse"
+    ]
+  },
+  "G3457": {
+    "shortDefinitionEs": "De molino, perteneciente al molino (mylikós)",
+    "glossesEs": [
+      "molino",
+      "piedra de molino"
+    ]
+  },
+  "G3458": {
+    "shortDefinitionEs": "Molino, piedra de molino (mýlos)",
+    "glossesEs": [
+      "molino",
+      "piedra de molino"
+    ]
+  },
+  "G3459": {
+    "shortDefinitionEs": "Casa de molino (mýlōn)",
+    "glossesEs": [
+      "molino"
+    ]
+  },
+  "G3460": {
+    "shortDefinitionEs": "Mira, ciudad en Asia Menor (Mýra)",
+    "glossesEs": [
+      "Mira"
+    ]
+  },
+  "G3461": {
+    "shortDefinitionEs": "Diez mil, miríada, innumerable (myriás)",
+    "glossesEs": [
+      "diez mil",
+      "miríada",
+      "innumerable"
+    ]
+  },
+  "G3462": {
+    "shortDefinitionEs": "Ungir con perfume (myrízō)",
+    "glossesEs": [
+      "ungir",
+      "perfume"
+    ]
+  },
+  "G3463": {
+    "shortDefinitionEs": "diez mil; incontables (mýrioi)",
+    "glossesEs": [
+      "diez mil",
+      "innumerable"
+    ]
+  },
+  "G3464": {
+    "shortDefinitionEs": "ungüento perfumado de mirra (mýron)",
+    "glossesEs": [
+      "ungüento",
+      "mirra"
+    ]
+  },
+  "G3465": {
+    "shortDefinitionEs": "Misia: región de Asia Menor (Mysía)",
+    "glossesEs": [
+      "Misia"
+    ]
+  },
+  "G3466": {
+    "shortDefinitionEs": "secreto o misterio oculto (mystḗrion)",
+    "glossesEs": [
+      "misterio",
+      "secreto"
+    ]
+  },
+  "G3467": {
+    "shortDefinitionEs": "ver indistintamente; cerrar los ojos (myōpázō)",
+    "glossesEs": [
+      "ver confusamente"
+    ]
+  },
+  "G3468": {
+    "shortDefinitionEs": "marca o golpe en el cuerpo (mṓlōps)",
+    "glossesEs": [
+      "marca",
+      "golpe"
+    ]
+  },
+  "G3469": {
+    "shortDefinitionEs": "censurar, culpar (mōmáomai)",
+    "glossesEs": [
+      "culpar",
+      "censurar"
+    ]
+  },
+  "G3470": {
+    "shortDefinitionEs": "defecto o mancha; deshonra (mōmos)",
+    "glossesEs": [
+      "mancha",
+      "defecto"
+    ]
+  },
+  "G3471": {
+    "shortDefinitionEs": "volverse tonto o insípido (mōraínō)",
+    "glossesEs": [
+      "entontecer",
+      "perder sabor"
+    ]
+  },
+  "G3472": {
+    "shortDefinitionEs": "tontería o necedad (mōría)",
+    "glossesEs": [
+      "tontería",
+      "necedad"
+    ]
+  },
+  "G3473": {
+    "shortDefinitionEs": "charla necia o bufonada (mōrología)",
+    "glossesEs": [
+      "charla necia"
+    ]
+  },
+  "G3474": {
+    "shortDefinitionEs": "tonto, necio, insensato (mōrós)",
+    "glossesEs": [
+      "tonto",
+      "necio"
+    ]
+  },
+  "G3475": {
+    "shortDefinitionEs": "Moisés: legislador hebreo (Mōseús)",
+    "glossesEs": [
+      "Moisés"
+    ]
+  },
+  "G3476": {
+    "shortDefinitionEs": "Naasón: israelita (Naassṓn)",
+    "glossesEs": [
+      "Naasón"
+    ]
+  },
+  "G3477": {
+    "shortDefinitionEs": "Nagé: israelita (Nangaí)",
+    "glossesEs": [
+      "Nagé"
+    ]
+  },
+  "G3478": {
+    "shortDefinitionEs": "Nazaret: ciudad de Palestina (Nazaréth)",
+    "glossesEs": [
+      "Nazaret"
+    ]
+  },
+  "G3479": {
+    "shortDefinitionEs": "Nazareno: habitante de Nazaret (Nazarēnós)",
+    "glossesEs": [
+      "Nazareno"
+    ]
+  },
+  "G3480": {
+    "shortDefinitionEs": "Nazareno: de Nazaret; cristiano (Nazōraîos)",
+    "glossesEs": [
+      "Nazareno",
+      "cristiano"
+    ]
+  },
+  "G3481": {
+    "shortDefinitionEs": "Natán: israelita (Nathán)",
+    "glossesEs": [
+      "Natán"
+    ]
+  },
+  "G3482": {
+    "shortDefinitionEs": "Natanael: israelita cristiano (Nathanaḗl)",
+    "glossesEs": [
+      "Natanael"
+    ]
+  },
+  "G3483": {
+    "shortDefinitionEs": "sí, ciertamente, verdaderamente (naí)",
+    "glossesEs": [
+      "sí",
+      "ciertamente"
+    ]
+  },
+  "G3484": {
+    "shortDefinitionEs": "Naín: lugar en Palestina (Naḯn)",
+    "glossesEs": [
+      "Naín"
+    ]
+  },
+  "G3485": {
+    "shortDefinitionEs": "templo interior, santuario (naos)",
+    "glossesEs": [
+      "templo"
+    ]
+  },
+  "G3486": {
+    "shortDefinitionEs": "Naum: israelita (Naoúm)",
+    "glossesEs": [
+      "Naum"
+    ]
+  },
+  "G3487": {
+    "shortDefinitionEs": "nardo: perfume aromático (nárdos)",
+    "glossesEs": [
+      "nardo",
+      "perfume"
+    ]
+  },
+  "G3488": {
+    "shortDefinitionEs": "Narciso: romano (Nárkissos)",
+    "glossesEs": [
+      "Narciso"
+    ]
+  },
+  "G3489": {
+    "shortDefinitionEs": "naufragar; fracasar (nauagéō)",
+    "glossesEs": [
+      "naufragar"
+    ]
+  },
+  "G3490": {
+    "shortDefinitionEs": "capitán de nave; dueño de barco (naúklēros)",
+    "glossesEs": [
+      "capitán",
+      "armador"
+    ]
+  },
+  "G3491": {
+    "shortDefinitionEs": "barco o navío (naûs)",
+    "glossesEs": [
+      "barco",
+      "nave"
+    ]
+  },
+  "G3492": {
+    "shortDefinitionEs": "marinero o navegante (naútēs)",
+    "glossesEs": [
+      "marinero",
+      "navegante"
+    ]
+  },
+  "G3493": {
+    "shortDefinitionEs": "Nacor: abuelo de Abraham (Nachṓr)",
+    "glossesEs": [
+      "Nacor"
+    ]
+  },
+  "G3494": {
+    "shortDefinitionEs": "joven varón hasta cuarenta años (neanías)",
+    "glossesEs": [
+      "joven",
+      "mancebo"
+    ]
+  },
+  "G3495": {
+    "shortDefinitionEs": "joven; varón menor de cuarenta (neanískos)",
+    "glossesEs": [
+      "joven",
+      "mancebo"
+    ]
+  },
+  "G3496": {
+    "shortDefinitionEs": "Neápolis: ciudad nueva en Macedonia (Neápolis)",
+    "glossesEs": [
+      "Neápolis"
+    ]
+  },
+  "G3497": {
+    "shortDefinitionEs": "Naamán: sirio (Neemán)",
+    "glossesEs": [
+      "Naamán"
+    ]
+  },
+  "G3498": {
+    "shortDefinitionEs": "muerto; cadáver (nekrós)",
+    "glossesEs": [
+      "muerto",
+      "cadáver"
+    ]
+  },
+  "G3499": {
+    "shortDefinitionEs": "mortificar; matar (nekróō)",
+    "glossesEs": [
+      "mortificar",
+      "matar"
+    ]
+  },
+  "G3500": {
+    "shortDefinitionEs": "muerte o impotencia (nékrōsis)",
+    "glossesEs": [
+      "muerte",
+      "mortalidad"
+    ]
+  },
+  "G3501": {
+    "shortDefinitionEs": "nuevo; joven; fresco (néos)",
+    "glossesEs": [
+      "nuevo",
+      "joven"
+    ]
+  },
+  "G3502": {
+    "shortDefinitionEs": "polluelo o cría (neossós)",
+    "glossesEs": [
+      "polluelo",
+      "cría"
+    ]
+  },
+  "G3503": {
+    "shortDefinitionEs": "juventud; novedad (neótēs)",
+    "glossesEs": [
+      "juventud"
+    ]
+  },
+  "G3504": {
+    "shortDefinitionEs": "neófito; convertido nuevo (neóphytos)",
+    "glossesEs": [
+      "neófito",
+      "novicio"
+    ]
+  },
+  "G3505": {
+    "shortDefinitionEs": "Nerón: emperador romano (Nérōn)",
+    "glossesEs": [
+      "Nerón"
+    ]
+  },
+  "G3506": {
+    "shortDefinitionEs": "hacer señas; indicar con la cabeza (neúō)",
+    "glossesEs": [
+      "hacer señas",
+      "indicar"
+    ]
+  },
+  "G3507": {
+    "shortDefinitionEs": "nube (nephélē)",
+    "glossesEs": [
+      "nube"
+    ]
+  },
+  "G3508": {
+    "shortDefinitionEs": "Neftalí: tribu de Palestina (Nephthaleím)",
+    "glossesEs": [
+      "Neftalí"
+    ]
+  },
+  "G3509": {
+    "shortDefinitionEs": "nube (néphos)",
+    "glossesEs": [
+      "nube"
+    ]
+  },
+  "G3510": {
+    "shortDefinitionEs": "riñones; mente o corazón (nephrós)",
+    "glossesEs": [
+      "riñones",
+      "corazón"
+    ]
+  },
+  "G3511": {
+    "shortDefinitionEs": "servidor del templo; devoto (neōkóros)",
+    "glossesEs": [
+      "sacerdote",
+      "devoto"
+    ]
+  },
+  "G3512": {
+    "shortDefinitionEs": "juvenil; de la juventud (neōterikós)",
+    "glossesEs": [
+      "juvenil",
+      "joven"
+    ]
+  },
+  "G3513": {
+    "shortDefinitionEs": "partícula de juramento; por cierto (nḗ)",
+    "glossesEs": [
+      "juramento",
+      "ciertamente"
+    ]
+  },
+  "G3514": {
+    "shortDefinitionEs": "hilar, torcer fibras en hilo (nḗthō)",
+    "glossesEs": [
+      "hilar",
+      "torcer"
+    ]
+  },
+  "G3515": {
+    "shortDefinitionEs": "actuar como niño, ser inocente (nēpiázō)",
+    "glossesEs": [
+      "niño",
+      "inocencia"
+    ]
+  },
+  "G3516": {
+    "shortDefinitionEs": "infante, niño pequeño, persona inmadura (nḗpios)",
+    "glossesEs": [
+      "bebé",
+      "niño",
+      "infante"
+    ]
+  },
+  "G3517": {
+    "shortDefinitionEs": "Nereo: cristiano mencionado en Romanos (Nēreús)",
+    "glossesEs": [
+      "Nereo"
+    ]
+  },
+  "G3518": {
+    "shortDefinitionEs": "Neri: israelita ancestro de Jesús (Nērí)",
+    "glossesEs": [
+      "Neri"
+    ]
+  },
+  "G3519": {
+    "shortDefinitionEs": "islote, isla pequeña (nēsíon)",
+    "glossesEs": [
+      "isla",
+      "islote"
+    ]
+  },
+  "G3520": {
+    "shortDefinitionEs": "isla (nēsos)",
+    "glossesEs": [
+      "isla"
+    ]
+  },
+  "G3521": {
+    "shortDefinitionEs": "ayuno, abstinencia de alimento (nēsteía)",
+    "glossesEs": [
+      "ayuno",
+      "abstinencia"
+    ]
+  },
+  "G3522": {
+    "shortDefinitionEs": "ayunar, abstenerse de alimento (nēsteúō)",
+    "glossesEs": [
+      "ayunar"
+    ]
+  },
+  "G3523": {
+    "shortDefinitionEs": "en ayuno, que ayuna (nēstis)",
+    "glossesEs": [
+      "ayunando",
+      "en ayuno"
+    ]
+  },
+  "G3524": {
+    "shortDefinitionEs": "sobrio, prudente, circunspecto (nēpháleos)",
+    "glossesEs": [
+      "sobrio",
+      "prudente"
+    ]
+  },
+  "G3525": {
+    "shortDefinitionEs": "estar sobrio, ser prudente, vigilar (nḗphō)",
+    "glossesEs": [
+      "sobrio",
+      "vigilante"
+    ]
+  },
+  "G3526": {
+    "shortDefinitionEs": "Niger: apodo de un cristiano de Antioquía (Níger)",
+    "glossesEs": [
+      "Niger"
+    ]
+  },
+  "G3527": {
+    "shortDefinitionEs": "Nicanor: cristiano diácono en Jerusalén (Nikánōr)",
+    "glossesEs": [
+      "Nicanor"
+    ]
+  },
+  "G3528": {
+    "shortDefinitionEs": "vencer, conquistar, triunfar sobre (nikáō)",
+    "glossesEs": [
+      "vencer",
+      "conquistar",
+      "triunfar"
+    ]
+  },
+  "G3529": {
+    "shortDefinitionEs": "victoria, conquista, triunfo (níkē)",
+    "glossesEs": [
+      "victoria"
+    ]
+  },
+  "G3530": {
+    "shortDefinitionEs": "Nicodemo: fariseo y maestro judío (Nikódēmos)",
+    "glossesEs": [
+      "Nicodemo"
+    ]
+  },
+  "G3531": {
+    "shortDefinitionEs": "nicolaíta, seguidor de Nicolás (Nikolaḯtēs)",
+    "glossesEs": [
+      "nicolaíta"
+    ]
+  },
+  "G3532": {
+    "shortDefinitionEs": "Nicolás: apóstol o hereje mencionado (Nikólaos)",
+    "glossesEs": [
+      "Nicolás"
+    ]
+  },
+  "G3533": {
+    "shortDefinitionEs": "Nicópolis: ciudad en Macedonia (Nikópolis)",
+    "glossesEs": [
+      "Nicópolis"
+    ]
+  },
+  "G3534": {
+    "shortDefinitionEs": "victoria, triunfo, conquista (nîkos)",
+    "glossesEs": [
+      "victoria"
+    ]
+  },
+  "G3535": {
+    "shortDefinitionEs": "Nínive: capital antigua de Asiria (Nineuḯ)",
+    "glossesEs": [
+      "Nínive"
+    ]
+  },
+  "G3536": {
+    "shortDefinitionEs": "ninevita, habitante de Nínive (Nineuḯtēs)",
+    "glossesEs": [
+      "ninevita"
+    ]
+  },
+  "G3537": {
+    "shortDefinitionEs": "jarra, vasija para agua (niptḗr)",
+    "glossesEs": [
+      "jarra",
+      "vasija"
+    ]
+  },
+  "G3538": {
+    "shortDefinitionEs": "lavar, ablución ceremonial (níptō)",
+    "glossesEs": [
+      "lavar",
+      "ablución"
+    ]
+  },
+  "G3539": {
+    "shortDefinitionEs": "considerar, comprender, percibir (noiéō)",
+    "glossesEs": [
+      "considerar",
+      "comprender"
+    ]
+  },
+  "G3540": {
+    "shortDefinitionEs": "pensamiento, intención, propósito (nóēma)",
+    "glossesEs": [
+      "pensamiento",
+      "propósito"
+    ]
+  },
+  "G3541": {
+    "shortDefinitionEs": "hijo bastardo, ilegítimo (nóthos)",
+    "glossesEs": [
+      "bastardo"
+    ]
+  },
+  "G3542": {
+    "shortDefinitionEs": "pastura, pasto, alimentación (nomḗ)",
+    "glossesEs": [
+      "pastura",
+      "pasto"
+    ]
+  },
+  "G3543": {
+    "shortDefinitionEs": "suponer, creer, pensar, acostumbrar (nomízō)",
+    "glossesEs": [
+      "suponer",
+      "creer"
+    ]
+  },
+  "G3544": {
+    "shortDefinitionEs": "abogado, experto en ley mosaica (nomikós)",
+    "glossesEs": [
+      "abogado",
+      "abogado de la ley"
+    ]
+  },
+  "G3545": {
+    "shortDefinitionEs": "legalmente, conforme a ley (nomímōs)",
+    "glossesEs": [
+      "legalmente"
+    ]
+  },
+  "G3546": {
+    "shortDefinitionEs": "moneda, dinero de curso corriente (nómisma)",
+    "glossesEs": [
+      "moneda",
+      "dinero"
+    ]
+  },
+  "G3547": {
+    "shortDefinitionEs": "maestro de la ley, rabino judío (nomodidáskalos)",
+    "glossesEs": [
+      "maestro de la ley",
+      "rabino"
+    ]
+  },
+  "G3548": {
+    "shortDefinitionEs": "promulgación de la ley mosaica (nomothesía)",
+    "glossesEs": [
+      "ley mosaica",
+      "legislación"
+    ]
+  },
+  "G3549": {
+    "shortDefinitionEs": "legislar, estar bajo la ley (nomothetéō)",
+    "glossesEs": [
+      "legislar",
+      "ley"
+    ]
+  },
+  "G3550": {
+    "shortDefinitionEs": "legislador, dador de leyes (nomothétēs)",
+    "glossesEs": [
+      "legislador"
+    ]
+  },
+  "G3551": {
+    "shortDefinitionEs": "ley, norma, código (nomos)",
+    "glossesEs": [
+      "ley"
+    ]
+  },
+  "G3552": {
+    "shortDefinitionEs": "estar enfermo, desear apasionadamente (noséō)",
+    "glossesEs": [
+      "enfermo",
+      "desear"
+    ]
+  },
+  "G3553": {
+    "shortDefinitionEs": "enfermedad, dolencia, padecimiento (nósēma)",
+    "glossesEs": [
+      "enfermedad",
+      "dolencia"
+    ]
+  },
+  "G3554": {
+    "shortDefinitionEs": "enfermedad, dolencia, debilidad (nósos)",
+    "glossesEs": [
+      "enfermedad",
+      "debilidad"
+    ]
+  },
+  "G3555": {
+    "shortDefinitionEs": "pollada, nidada de pollos (nossiá)",
+    "glossesEs": [
+      "pollada"
+    ]
+  },
+  "G3556": {
+    "shortDefinitionEs": "pollo, pollito pequeño (nossíon)",
+    "glossesEs": [
+      "pollo"
+    ]
+  },
+  "G3557": {
+    "shortDefinitionEs": "retener, apropiarse indebidamente (nosphízomai)",
+    "glossesEs": [
+      "retener",
+      "robar"
+    ]
+  },
+  "G3558": {
+    "shortDefinitionEs": "viento del sur, región sur (nótos)",
+    "glossesEs": [
+      "sur",
+      "viento del sur"
+    ]
+  },
+  "G3559": {
+    "shortDefinitionEs": "amonestación, reprensión suave (nouthesía)",
+    "glossesEs": [
+      "amonestación",
+      "reprensión"
+    ]
+  },
+  "G3560": {
+    "shortDefinitionEs": "amonestar, advertir, reprender (nouthetéō)",
+    "glossesEs": [
+      "amonestar",
+      "advertir"
+    ]
+  },
+  "G3561": {
+    "shortDefinitionEs": "fiesta de luna nueva (noumēnía)",
+    "glossesEs": [
+      "luna nueva"
+    ]
+  },
+  "G3562": {
+    "shortDefinitionEs": "discretamente, prudentemente (nounechōs)",
+    "glossesEs": [
+      "discretamente"
+    ]
+  },
+  "G3563": {
+    "shortDefinitionEs": "mente, intelecto, entendimiento (noûs)",
+    "glossesEs": [
+      "mente",
+      "entendimiento"
+    ]
+  },
+  "G3564": {
+    "shortDefinitionEs": "Ninfas: cristiano de Laodicea (Nymphâs)",
+    "glossesEs": [
+      "Ninfas"
+    ]
+  },
+  "G3565": {
+    "shortDefinitionEs": "Novia, mujer casada joven; nuera (nýmphē)",
+    "glossesEs": [
+      "novia",
+      "nuera"
+    ]
+  },
+  "G3566": {
+    "shortDefinitionEs": "Novio, esposo joven (nymphíos)",
+    "glossesEs": [
+      "novio",
+      "esposo"
+    ]
+  },
+  "G3567": {
+    "shortDefinitionEs": "Cámara nupcial, aposento de bodas (nymphṓn)",
+    "glossesEs": [
+      "cámara nupcial",
+      "aposento"
+    ]
+  },
+  "G3568": {
+    "shortDefinitionEs": "Ahora, en el presente; actualmente (nŷn)",
+    "glossesEs": [
+      "ahora",
+      "presente"
+    ]
+  },
+  "G3569": {
+    "shortDefinitionEs": "Ahora, actualmente, en este momento (tanŷn)",
+    "glossesEs": [
+      "ahora",
+      "actualmente"
+    ]
+  },
+  "G3570": {
+    "shortDefinitionEs": "Justo ahora, en este instante (nyní)",
+    "glossesEs": [
+      "ahora",
+      "instante"
+    ]
+  },
+  "G3571": {
+    "shortDefinitionEs": "noche (nyx)",
+    "glossesEs": [
+      "noche"
+    ]
+  },
+  "G3572": {
+    "shortDefinitionEs": "Traspasar, agujerear, pinchar (nýssō)",
+    "glossesEs": [
+      "traspasar",
+      "pinchar"
+    ]
+  },
+  "G3573": {
+    "shortDefinitionEs": "Dormitar, adormecerse; demorarse (nystázō)",
+    "glossesEs": [
+      "dormitar",
+      "adormecerse"
+    ]
+  },
+  "G3574": {
+    "shortDefinitionEs": "Día y noche, período de veinticuatro horas (nychthḗmeron)",
+    "glossesEs": [
+      "día",
+      "noche"
+    ]
+  },
+  "G3575": {
+    "shortDefinitionEs": "Noé: patriarca antediluviano (Nōe)",
+    "glossesEs": [
+      "Noé",
+      "patriarca"
+    ]
+  },
+  "G3576": {
+    "shortDefinitionEs": "Perezoso, lento, estúpido (nōthrós)",
+    "glossesEs": [
+      "perezoso",
+      "lento"
+    ]
+  },
+  "G3577": {
+    "shortDefinitionEs": "Espalda, dorso (nōtos)",
+    "glossesEs": [
+      "espalda",
+      "dorso"
+    ]
+  },
+  "G3578": {
+    "shortDefinitionEs": "Hospitalidad, alojamiento (xenía)",
+    "glossesEs": [
+      "hospitalidad",
+      "alojamiento"
+    ]
+  },
+  "G3579": {
+    "shortDefinitionEs": "Hospedar, alojar; parecerse extraño (xenízō)",
+    "glossesEs": [
+      "hospedar",
+      "extraño"
+    ]
+  },
+  "G3580": {
+    "shortDefinitionEs": "Ejercer hospitalidad, hospedar extranjeros (xenodochéō)",
+    "glossesEs": [
+      "hospitalidad",
+      "hospedar"
+    ]
+  },
+  "G3581": {
+    "shortDefinitionEs": "Extranjero, extraño; huésped, anfitrión (xénos)",
+    "glossesEs": [
+      "extranjero",
+      "huésped"
+    ]
+  },
+  "G3582": {
+    "shortDefinitionEs": "Vasija, olla de cocina (xéstēs)",
+    "glossesEs": [
+      "vasija",
+      "olla"
+    ]
+  },
+  "G3583": {
+    "shortDefinitionEs": "Secar, marchitarse, madurar (xēraínō)",
+    "glossesEs": [
+      "secar",
+      "marchitar"
+    ]
+  },
+  "G3584": {
+    "shortDefinitionEs": "Seco, árido; marchito, tierra firme (xērós)",
+    "glossesEs": [
+      "seco",
+      "marchito"
+    ]
+  },
+  "G3585": {
+    "shortDefinitionEs": "De madera, hecho de madera (xýlinos)",
+    "glossesEs": [
+      "madera"
+    ]
+  },
+  "G3586": {
+    "shortDefinitionEs": "Madera, leño, árbol; palo, vara (xýlon)",
+    "glossesEs": [
+      "madera",
+      "árbol",
+      "palo"
+    ]
+  },
+  "G3587": {
+    "shortDefinitionEs": "Rasurar, cortarse el cabello (xyráō)",
+    "glossesEs": [
+      "rasurar",
+      "cortar cabello"
+    ]
+  },
+  "G3588": {
+    "shortDefinitionEs": "Artículo definido: el, la, los, las (ho)",
+    "glossesEs": [
+      "artículo"
+    ]
+  },
+  "G3589": {
+    "shortDefinitionEs": "Ochenta, ocho veces diez (ogdoḗkonta)",
+    "glossesEs": [
+      "ochenta"
+    ]
+  },
+  "G3590": {
+    "shortDefinitionEs": "Octavo, número ocho (ógdoos)",
+    "glossesEs": [
+      "octavo"
+    ]
+  },
+  "G3591": {
+    "shortDefinitionEs": "Peso, carga, impedimento (ónkos)",
+    "glossesEs": [
+      "peso",
+      "carga"
+    ]
+  },
+  "G3592": {
+    "shortDefinitionEs": "Este, ese; pronombre personal (hóde)",
+    "glossesEs": [
+      "este",
+      "ese"
+    ]
+  },
+  "G3593": {
+    "shortDefinitionEs": "Viajar, hacer un viaje (hodeúō)",
+    "glossesEs": [
+      "viajar",
+      "viaje"
+    ]
+  },
+  "G3594": {
+    "shortDefinitionEs": "Guiar, conducir; enseñar (hodēgéō)",
+    "glossesEs": [
+      "guiar",
+      "conducir"
+    ]
+  },
+  "G3595": {
+    "shortDefinitionEs": "Guía, conductor, maestro (hodēgós)",
+    "glossesEs": [
+      "guía",
+      "maestro"
+    ]
+  },
+  "G3596": {
+    "shortDefinitionEs": "Viajar, hacer un peregrinaje (hodoiporéō)",
+    "glossesEs": [
+      "viajar",
+      "viaje"
+    ]
+  },
+  "G3597": {
+    "shortDefinitionEs": "Viaje, jornada (hodoiporía)",
+    "glossesEs": [
+      "viaje",
+      "jornada"
+    ]
+  },
+  "G3598": {
+    "shortDefinitionEs": "camino, senda, ruta (hodos)",
+    "glossesEs": [
+      "camino"
+    ]
+  },
+  "G3599": {
+    "shortDefinitionEs": "Diente (odoús)",
+    "glossesEs": [
+      "diente"
+    ]
+  },
+  "G3600": {
+    "shortDefinitionEs": "Entristecer, afligir, atormentar (odynáō)",
+    "glossesEs": [
+      "entristecer",
+      "afligir"
+    ]
+  },
+  "G3601": {
+    "shortDefinitionEs": "Dolor, pena, tristeza (odýnē)",
+    "glossesEs": [
+      "dolor",
+      "tristeza"
+    ]
+  },
+  "G3602": {
+    "shortDefinitionEs": "Gemido, lamento, duelo (odyrmós)",
+    "glossesEs": [
+      "lamento",
+      "duelo"
+    ]
+  },
+  "G3603": {
+    "shortDefinitionEs": "Lo cual es, es decir, llamado (hó esti)",
+    "glossesEs": [
+      "es decir",
+      "llamado"
+    ]
+  },
+  "G3604": {
+    "shortDefinitionEs": "Ozías: israelita, rey de Judá (Ozías)",
+    "glossesEs": [
+      "Ozías"
+    ]
+  },
+  "G3605": {
+    "shortDefinitionEs": "Oler mal, apestar (ózō)",
+    "glossesEs": [
+      "apestar",
+      "hedor"
+    ]
+  },
+  "G3606": {
+    "shortDefinitionEs": "De dónde, de donde; por lo cual (hóthen)",
+    "glossesEs": [
+      "dónde",
+      "de donde"
+    ]
+  },
+  "G3607": {
+    "shortDefinitionEs": "Lienzo, tela de lino; vela (othónē)",
+    "glossesEs": [
+      "lienzo",
+      "tela"
+    ]
+  },
+  "G3608": {
+    "shortDefinitionEs": "Venda de lino, mortaja (othónion)",
+    "glossesEs": [
+      "venda",
+      "lino"
+    ]
+  },
+  "G3609": {
+    "shortDefinitionEs": "Doméstico, familiar, pariente (oikeîos)",
+    "glossesEs": [
+      "familiar",
+      "pariente"
+    ]
+  },
+  "G3610": {
+    "shortDefinitionEs": "Siervo, criado doméstico (oikétēs)",
+    "glossesEs": [
+      "criado",
+      "siervo"
+    ]
+  },
+  "G3611": {
+    "shortDefinitionEs": "Habitar, morar, residir (oikéō)",
+    "glossesEs": [
+      "habitar",
+      "morar"
+    ]
+  },
+  "G3612": {
+    "shortDefinitionEs": "Calabozo, cárcel, prisión (oíkēma)",
+    "glossesEs": [
+      "cárcel",
+      "prisión"
+    ]
+  },
+  "G3613": {
+    "shortDefinitionEs": "Habitación, vivienda, casa (oikētḗrion)",
+    "glossesEs": [
+      "casa",
+      "vivienda"
+    ]
+  },
+  "G3614": {
+    "shortDefinitionEs": "Casa, hogar, familia, domicilio (oikía)",
+    "glossesEs": [
+      "casa",
+      "familia"
+    ]
+  },
+  "G3615": {
+    "shortDefinitionEs": "Familiar, pariente de la casa (oikiakós)",
+    "glossesEs": [
+      "familiar",
+      "pariente"
+    ]
+  },
+  "G3616": {
+    "shortDefinitionEs": "Gobernar una familia, ser jefe (oikodespotéō)",
+    "glossesEs": [
+      "gobernar",
+      "jefe"
+    ]
+  },
+  "G3617": {
+    "shortDefinitionEs": "Jefe de familia, amo de casa (oikodespótēs)",
+    "glossesEs": [
+      "amo",
+      "jefe de familia",
+      "dueño de casa"
+    ]
+  },
+  "G3618": {
+    "shortDefinitionEs": "Construir, edificar; fortalecer (oikodoméō)",
+    "glossesEs": [
+      "edificar",
+      "construir",
+      "confirmar"
+    ]
+  },
+  "G3619": {
+    "shortDefinitionEs": "Construcción, edificio; confirmación (oikodomḗ)",
+    "glossesEs": [
+      "edificio",
+      "construcción",
+      "edificación"
+    ]
+  },
+  "G3620": {
+    "shortDefinitionEs": "Confirmación, edificación (oikodomía)",
+    "glossesEs": [
+      "edificación",
+      "confirmación"
+    ]
+  },
+  "G3621": {
+    "shortDefinitionEs": "Administrar una casa o hacienda (oikonoméō)",
+    "glossesEs": [
+      "administrar",
+      "gobernar",
+      "mayordomo"
+    ]
+  },
+  "G3622": {
+    "shortDefinitionEs": "Administración, mayordomía; dispensación (oikonomía)",
+    "glossesEs": [
+      "mayordomía",
+      "administración",
+      "dispensación"
+    ]
+  },
+  "G3623": {
+    "shortDefinitionEs": "Mayordomo, administrador, tesorero (oikonómos)",
+    "glossesEs": [
+      "mayordomo",
+      "administrador",
+      "tesorero"
+    ]
+  },
+  "G3624": {
+    "shortDefinitionEs": "casa, hogar, familia, linaje (oikos)",
+    "glossesEs": [
+      "casa"
+    ]
+  },
+  "G3625": {
+    "shortDefinitionEs": "Tierra habitada, mundo, imperio (oikouménē)",
+    "glossesEs": [
+      "mundo",
+      "tierra",
+      "tierra habitada"
+    ]
+  },
+  "G3626": {
+    "shortDefinitionEs": "Cuidadora del hogar, doméstica (oikourós)",
+    "glossesEs": [
+      "hogar",
+      "doméstica",
+      "cuidadora"
+    ]
+  },
+  "G3627": {
+    "shortDefinitionEs": "Compadecerse, tener compasión (oikteírō)",
+    "glossesEs": [
+      "compasión",
+      "piedad",
+      "compadecerse"
+    ]
+  },
+  "G3628": {
+    "shortDefinitionEs": "Compasión, misericordia, piedad (oiktirmós)",
+    "glossesEs": [
+      "misericordia",
+      "compasión",
+      "piedad"
+    ]
+  },
+  "G3629": {
+    "shortDefinitionEs": "Compasivo, misericordioso (oiktírmōn)",
+    "glossesEs": [
+      "misericordioso",
+      "compasivo",
+      "piadoso"
+    ]
+  },
+  "G3630": {
+    "shortDefinitionEs": "Bebedor de vino, borracho (oinopótēs)",
+    "glossesEs": [
+      "borracho",
+      "bebedor",
+      "vino"
+    ]
+  },
+  "G3631": {
+    "shortDefinitionEs": "Vino (oînos)",
+    "glossesEs": [
+      "vino"
+    ]
+  },
+  "G3632": {
+    "shortDefinitionEs": "Embriaguez, exceso de vino (oinophlygía)",
+    "glossesEs": [
+      "embriaguez",
+      "borrachera",
+      "exceso"
+    ]
+  },
+  "G3633": {
+    "shortDefinitionEs": "Suponer, creer, parecer (oíomai)",
+    "glossesEs": [
+      "suponer",
+      "pensar",
+      "creer"
+    ]
+  },
+  "G3634": {
+    "shortDefinitionEs": "Tal, de tal clase, qué clase de (hoîos)",
+    "glossesEs": [
+      "tal",
+      "clase",
+      "qué"
+    ]
+  },
+  "G3635": {
+    "shortDefinitionEs": "Tardar, retardar, rehuir (oknéō)",
+    "glossesEs": [
+      "tardar",
+      "rehuir",
+      "demorar"
+    ]
+  },
+  "G3636": {
+    "shortDefinitionEs": "Perezoso, lento, incómodo (oknērós)",
+    "glossesEs": [
+      "perezoso",
+      "lento",
+      "molesto"
+    ]
+  },
+  "G3637": {
+    "shortDefinitionEs": "Octavo día de edad (oktaḗmeros)",
+    "glossesEs": [
+      "octavo día",
+      "ocho días"
+    ]
+  },
+  "G3638": {
+    "shortDefinitionEs": "Ocho (oktṓ)",
+    "glossesEs": [
+      "ocho"
+    ]
+  },
+  "G3639": {
+    "shortDefinitionEs": "Perdición, ruina, destrucción (ólethros)",
+    "glossesEs": [
+      "perdición",
+      "destrucción",
+      "ruina"
+    ]
+  },
+  "G3640": {
+    "shortDefinitionEs": "De poca fe, incrédulo (oligópistos)",
+    "glossesEs": [
+      "poca fe",
+      "incrédulo",
+      "desconfiado"
+    ]
+  },
+  "G3641": {
+    "shortDefinitionEs": "Poco, pequeño, breve, escaso (olígos)",
+    "glossesEs": [
+      "poco",
+      "pequeño",
+      "breve"
+    ]
+  },
+  "G3642": {
+    "shortDefinitionEs": "Pusilánime, de poco ánimo (oligópsychos)",
+    "glossesEs": [
+      "pusilánime",
+      "poco ánimo",
+      "tímido"
+    ]
+  },
+  "G3643": {
+    "shortDefinitionEs": "Despreciar, hacer poco caso (oligōréō)",
+    "glossesEs": [
+      "despreciar",
+      "menospreciar",
+      "desdeñar"
+    ]
+  },
+  "G3644": {
+    "shortDefinitionEs": "Destruidor, la serpiente destructora (olothreutḗs)",
+    "glossesEs": [
+      "destruidor",
+      "destrucción",
+      "serpiente"
+    ]
+  },
+  "G3645": {
+    "shortDefinitionEs": "Destruir, arruinar, matar (olothreúō)",
+    "glossesEs": [
+      "destruir",
+      "arruinar",
+      "matar"
+    ]
+  },
+  "G3646": {
+    "shortDefinitionEs": "Holocausto, ofrenda quemada (holokaútōma)",
+    "glossesEs": [
+      "holocausto",
+      "ofrenda quemada",
+      "sacrificio"
+    ]
+  },
+  "G3647": {
+    "shortDefinitionEs": "Integridad, perfección física (holoklēría)",
+    "glossesEs": [
+      "integridad",
+      "perfección",
+      "entereza"
+    ]
+  },
+  "G3648": {
+    "shortDefinitionEs": "Íntegro, completo, sano (holóklēros)",
+    "glossesEs": [
+      "íntegro",
+      "completo",
+      "sano"
+    ]
+  },
+  "G3649": {
+    "shortDefinitionEs": "Aullar, gritar (ololýzō)",
+    "glossesEs": [
+      "aullar",
+      "gritar",
+      "vociferar"
+    ]
+  },
+  "G3650": {
+    "shortDefinitionEs": "Todo, entero, completo (hólos)",
+    "glossesEs": [
+      "todo",
+      "entero",
+      "completo"
+    ]
+  },
+  "G3651": {
+    "shortDefinitionEs": "Completamente, absolutamente perfecto (holotelḗs)",
+    "glossesEs": [
+      "completamente",
+      "perfectamente",
+      "totalmente"
+    ]
+  },
+  "G3652": {
+    "shortDefinitionEs": "Olimpas: cristiano (Olympâs)",
+    "glossesEs": [
+      "Olimpas"
+    ]
+  },
+  "G3653": {
+    "shortDefinitionEs": "Higo verde, higo verde intempestivo (ólynthos)",
+    "glossesEs": [
+      "higo",
+      "verde",
+      "intempestivo"
+    ]
+  },
+  "G3654": {
+    "shortDefinitionEs": "Completamente, de ningún modo (hólōs)",
+    "glossesEs": [
+      "completamente",
+      "nunca",
+      "de ningún modo"
+    ]
+  },
+  "G3655": {
+    "shortDefinitionEs": "Lluvia, chaparrón, tormenta (ómbros)",
+    "glossesEs": [
+      "lluvia",
+      "chaparrón",
+      "tormenta"
+    ]
+  },
+  "G3656": {
+    "shortDefinitionEs": "Conversar, hablar, departir (homiléō)",
+    "glossesEs": [
+      "conversar",
+      "hablar",
+      "charlar"
+    ]
+  },
+  "G3657": {
+    "shortDefinitionEs": "Comunicación, conversación, trato (homilía)",
+    "glossesEs": [
+      "comunicación",
+      "conversación",
+      "trato"
+    ]
+  },
+  "G3658": {
+    "shortDefinitionEs": "Compañía, muchedumbre, grupo (hómilos)",
+    "glossesEs": [
+      "compañía",
+      "muchedumbre",
+      "grupo"
+    ]
+  },
+  "G3659": {
+    "shortDefinitionEs": "Ojo, vista, aspecto (ómma)",
+    "glossesEs": [
+      "ojo",
+      "vista",
+      "aspecto"
+    ]
+  },
+  "G3660": {
+    "shortDefinitionEs": "Jurar, prometer bajo juramento (omnýō)",
+    "glossesEs": [
+      "jurar",
+      "juramento",
+      "prometer"
+    ]
+  },
+  "G3661": {
+    "shortDefinitionEs": "Unánimemente, de común acuerdo (homothymadón)",
+    "glossesEs": [
+      "unánimemente",
+      "acuerdo",
+      "consenso"
+    ]
+  },
+  "G3662": {
+    "shortDefinitionEs": "Asemejarse, parecer (homoiázō)",
+    "glossesEs": [
+      "asemejarse",
+      "parecer",
+      "acordar"
+    ]
+  },
+  "G3663": {
+    "shortDefinitionEs": "Sujeto a pasiones semejantes (homoiopathḗs)",
+    "glossesEs": [
+      "pasiones",
+      "semejante",
+      "afecciones"
+    ]
+  },
+  "G3664": {
+    "shortDefinitionEs": "Semejante, parecido, similar (hómoios)",
+    "glossesEs": [
+      "semejante",
+      "parecido",
+      "similar"
+    ]
+  },
+  "G3665": {
+    "shortDefinitionEs": "Semejanza, parecido, similitud (homoiótēs)",
+    "glossesEs": [
+      "semejanza",
+      "similitud",
+      "parecido"
+    ]
+  },
+  "G3666": {
+    "shortDefinitionEs": "Asemejar, comparar, parecer (homoióō)",
+    "glossesEs": [
+      "asemejar",
+      "comparar",
+      "parecer"
+    ]
+  },
+  "G3667": {
+    "shortDefinitionEs": "Forma, semejanza, figura, similitud (homoíōma)",
+    "glossesEs": [
+      "forma",
+      "semejanza",
+      "similitud"
+    ]
+  },
+  "G3668": {
+    "shortDefinitionEs": "de manera similar, asimismo (homoíōs)",
+    "glossesEs": [
+      "similarmente",
+      "asimismo"
+    ]
+  },
+  "G3669": {
+    "shortDefinitionEs": "semejanza, similitud, asimilación (homoíōsis)",
+    "glossesEs": [
+      "semejanza",
+      "similitud"
+    ]
+  },
+  "G3670": {
+    "shortDefinitionEs": "confesar, reconocer, pactar, dar gracias (homologéō)",
+    "glossesEs": [
+      "confesar",
+      "reconocer",
+      "prometer"
+    ]
+  },
+  "G3671": {
+    "shortDefinitionEs": "confesión, reconocimiento, profesión (homología)",
+    "glossesEs": [
+      "confesión",
+      "profesión"
+    ]
+  },
+  "G3672": {
+    "shortDefinitionEs": "confesadamente, sin controversia (homologouménōs)",
+    "glossesEs": [
+      "confesadamente",
+      "sin duda"
+    ]
+  },
+  "G3673": {
+    "shortDefinitionEs": "compañero artesano, del mismo oficio (homótechnos)",
+    "glossesEs": [
+      "artesano",
+      "compañero"
+    ]
+  },
+  "G3674": {
+    "shortDefinitionEs": "juntamente, en el mismo lugar o tiempo (homoû)",
+    "glossesEs": [
+      "juntamente",
+      "juntos"
+    ]
+  },
+  "G3675": {
+    "shortDefinitionEs": "de un mismo sentir, armonioso (homóphrōn)",
+    "glossesEs": [
+      "unánime",
+      "acuerdo"
+    ]
+  },
+  "G3676": {
+    "shortDefinitionEs": "no obstante, sin embargo, aunque (hómōs)",
+    "glossesEs": [
+      "aunque",
+      "sin embargo"
+    ]
+  },
+  "G3677": {
+    "shortDefinitionEs": "sueño, visión nocturna (ónar)",
+    "glossesEs": [
+      "sueño"
+    ]
+  },
+  "G3678": {
+    "shortDefinitionEs": "asno pequeño, pollino (onárion)",
+    "glossesEs": [
+      "pollino",
+      "asno joven"
+    ]
+  },
+  "G3679": {
+    "shortDefinitionEs": "insultar, difamar, ultrajar, reprochar (oneidízō)",
+    "glossesEs": [
+      "insultar",
+      "reprochar",
+      "ofender"
+    ]
+  },
+  "G3680": {
+    "shortDefinitionEs": "insulto, afrenta, reproche (oneidismós)",
+    "glossesEs": [
+      "insulto",
+      "afrenta"
+    ]
+  },
+  "G3681": {
+    "shortDefinitionEs": "vergüenza, deshonra, reproche (óneidos)",
+    "glossesEs": [
+      "vergüenza",
+      "deshonra"
+    ]
+  },
+  "G3682": {
+    "shortDefinitionEs": "Onésimo: provechoso; cristiano (Onḗsimos)",
+    "glossesEs": [
+      "Onésimo"
+    ]
+  },
+  "G3683": {
+    "shortDefinitionEs": "Onesíforo: portador de provecho; cristiano (Onēsíphoros)",
+    "glossesEs": [
+      "Onesíforo"
+    ]
+  },
+  "G3684": {
+    "shortDefinitionEs": "de asno, piedra de molino grande (onikós)",
+    "glossesEs": [
+      "piedra de molino"
+    ]
+  },
+  "G3685": {
+    "shortDefinitionEs": "alegrar, hacer feliz, regocijarse (onínēmi)",
+    "glossesEs": [
+      "alegrar",
+      "regocijarse"
+    ]
+  },
+  "G3686": {
+    "shortDefinitionEs": "nombre, reputación, persona (onoma)",
+    "glossesEs": [
+      "nombre"
+    ]
+  },
+  "G3687": {
+    "shortDefinitionEs": "nombrar, llamar, mencionar, profesar (onomázō)",
+    "glossesEs": [
+      "nombrar",
+      "llamar"
+    ]
+  },
+  "G3688": {
+    "shortDefinitionEs": "asno, bestia de carga (ónos)",
+    "glossesEs": [
+      "asno"
+    ]
+  },
+  "G3689": {
+    "shortDefinitionEs": "realmente, verdaderamente, ciertamente (óntōs)",
+    "glossesEs": [
+      "verdaderamente",
+      "ciertamente"
+    ]
+  },
+  "G3690": {
+    "shortDefinitionEs": "vinagre, vino agrio (óxos)",
+    "glossesEs": [
+      "vinagre"
+    ]
+  },
+  "G3691": {
+    "shortDefinitionEs": "agudo, cortante, rápido, veloz (oxýs)",
+    "glossesEs": [
+      "agudo",
+      "rápido"
+    ]
+  },
+  "G3692": {
+    "shortDefinitionEs": "cueva, caverna, abertura, fuente (opḗ)",
+    "glossesEs": [
+      "cueva",
+      "caverna"
+    ]
+  },
+  "G3693": {
+    "shortDefinitionEs": "desde atrás, por detrás, tras (ópisthen)",
+    "glossesEs": [
+      "atrás",
+      "detrás"
+    ]
+  },
+  "G3694": {
+    "shortDefinitionEs": "hacia atrás, tras, siguiendo (opísō)",
+    "glossesEs": [
+      "atrás",
+      "detrás",
+      "después"
+    ]
+  },
+  "G3695": {
+    "shortDefinitionEs": "armarse, equiparse de armas (hoplízō)",
+    "glossesEs": [
+      "armarse",
+      "equiparse"
+    ]
+  },
+  "G3696": {
+    "shortDefinitionEs": "arma, armadura, instrumento, herramienta (hóplon)",
+    "glossesEs": [
+      "arma",
+      "armadura"
+    ]
+  },
+  "G3697": {
+    "shortDefinitionEs": "de qué clase, qué género, tal como (hopoîos)",
+    "glossesEs": [
+      "qué clase",
+      "tal"
+    ]
+  },
+  "G3698": {
+    "shortDefinitionEs": "cuándo, apenas, tan pronto como (hopóte)",
+    "glossesEs": [
+      "cuándo",
+      "cuando"
+    ]
+  },
+  "G3699": {
+    "shortDefinitionEs": "dónde, adondequiera, en qué lugar (hópou)",
+    "glossesEs": [
+      "dónde",
+      "donde"
+    ]
+  },
+  "G3700": {
+    "shortDefinitionEs": "mirar fijamente, aparecer, verse, mostrarse (optánomai)",
+    "glossesEs": [
+      "ver",
+      "mirar",
+      "aparecer"
+    ]
+  },
+  "G3701": {
+    "shortDefinitionEs": "visión, aparición sobrenatural (optasía)",
+    "glossesEs": [
+      "visión",
+      "aparición"
+    ]
+  },
+  "G3702": {
+    "shortDefinitionEs": "asado, cocido, tostado (optós)",
+    "glossesEs": [
+      "asado"
+    ]
+  },
+  "G3703": {
+    "shortDefinitionEs": "fruto, fruta madura, cosecha (opṓra)",
+    "glossesEs": [
+      "fruta",
+      "fruto"
+    ]
+  },
+  "G3704": {
+    "shortDefinitionEs": "de modo que, para que, cómo (hópōs)",
+    "glossesEs": [
+      "para que",
+      "como",
+      "cómo"
+    ]
+  },
+  "G3705": {
+    "shortDefinitionEs": "visión, espectáculo, algo visto (hórama)",
+    "glossesEs": [
+      "visión",
+      "vista"
+    ]
+  },
+  "G3706": {
+    "shortDefinitionEs": "visión, aspecto, acto de ver (hórasis)",
+    "glossesEs": [
+      "visión",
+      "vista"
+    ]
+  },
+  "G3707": {
+    "shortDefinitionEs": "visible, que puede verse (horatós)",
+    "glossesEs": [
+      "visible"
+    ]
+  },
+  "G3708": {
+    "shortDefinitionEs": "ver, mirar, percibir, contemplar (horáō)",
+    "glossesEs": [
+      "ver",
+      "mirar",
+      "percibir"
+    ]
+  },
+  "G3709": {
+    "shortDefinitionEs": "ira, cólera, enojo, indignación (orgḗ)",
+    "glossesEs": [
+      "ira",
+      "cólera",
+      "enojo"
+    ]
+  },
+  "G3710": {
+    "shortDefinitionEs": "enojar, irritar, enfurecerse (orgízō)",
+    "glossesEs": [
+      "enojar",
+      "irritar"
+    ]
+  },
+  "G3711": {
+    "shortDefinitionEs": "irascible, propenso a la ira (orgílos)",
+    "glossesEs": [
+      "irascible",
+      "colérico"
+    ]
+  },
+  "G3712": {
+    "shortDefinitionEs": "braza, medida de longitud (orguiá)",
+    "glossesEs": [
+      "braza"
+    ]
+  },
+  "G3713": {
+    "shortDefinitionEs": "desear, anhelar, codiciar (orégomai)",
+    "glossesEs": [
+      "desear",
+      "anhelar"
+    ]
+  },
+  "G3714": {
+    "shortDefinitionEs": "montañoso, región montañosa, sierra (oreinós)",
+    "glossesEs": [
+      "montañoso",
+      "sierra"
+    ]
+  },
+  "G3715": {
+    "shortDefinitionEs": "deseo, lujuria, pasión (órexis)",
+    "glossesEs": [
+      "deseo",
+      "lujuria"
+    ]
+  },
+  "G3716": {
+    "shortDefinitionEs": "andar recto, proceder honestamente (orthopodéō)",
+    "glossesEs": [
+      "andar recto",
+      "proceder honesto"
+    ]
+  },
+  "G3717": {
+    "shortDefinitionEs": "recto, derecho, vertical, honesto (orthós)",
+    "glossesEs": [
+      "recto",
+      "derecho"
+    ]
+  },
+  "G3718": {
+    "shortDefinitionEs": "dividir rectamente, exponer fielmente (orthotoméō)",
+    "glossesEs": [
+      "dividir rectamente"
+    ]
+  },
+  "G3719": {
+    "shortDefinitionEs": "llegar temprano por la mañana (orthrízo)",
+    "glossesEs": [
+      "madrugada",
+      "temprano"
+    ]
+  },
+  "G3720": {
+    "shortDefinitionEs": "relativo al amanecer, matutino (orthrinós)",
+    "glossesEs": [
+      "mañana",
+      "amanecer"
+    ]
+  },
+  "G3721": {
+    "shortDefinitionEs": "en el amanecer, al despuntar el día (órthrios)",
+    "glossesEs": [
+      "temprano",
+      "madrugada"
+    ]
+  },
+  "G3722": {
+    "shortDefinitionEs": "amanecer, alba, comienzo del día (órthros)",
+    "glossesEs": [
+      "amanecer",
+      "madrugada",
+      "alba"
+    ]
+  },
+  "G3723": {
+    "shortDefinitionEs": "de manera recta, correctamente, moralmente (orthōs)",
+    "glossesEs": [
+      "recto",
+      "correcto",
+      "derecho"
+    ]
+  },
+  "G3724": {
+    "shortDefinitionEs": "marcar límite, decretar, determinar, ordenar (horízō)",
+    "glossesEs": [
+      "determinar",
+      "ordenar",
+      "decretar"
+    ]
+  },
+  "G3725": {
+    "shortDefinitionEs": "línea fronteriza, borde, región (hórion)",
+    "glossesEs": [
+      "frontera",
+      "borde",
+      "término"
+    ]
+  },
+  "G3726": {
+    "shortDefinitionEs": "exhortar bajo juramento, conjurar (horkízō)",
+    "glossesEs": [
+      "conjurar",
+      "juramento"
+    ]
+  },
+  "G3727": {
+    "shortDefinitionEs": "restricción sagrada, juramento (hórkos)",
+    "glossesEs": [
+      "juramento",
+      "voto"
+    ]
+  },
+  "G3728": {
+    "shortDefinitionEs": "afirmación solemne bajo juramento (horkōmosía)",
+    "glossesEs": [
+      "juramento",
+      "promesa"
+    ]
+  },
+  "G3729": {
+    "shortDefinitionEs": "lanzarse con violencia, precipitarse (hormáō)",
+    "glossesEs": [
+      "correr",
+      "precipitarse",
+      "arrojarse"
+    ]
+  },
+  "G3730": {
+    "shortDefinitionEs": "impulso violento, asalto repentino (hormḗ)",
+    "glossesEs": [
+      "asalto",
+      "impulso",
+      "violencia"
+    ]
+  },
+  "G3731": {
+    "shortDefinitionEs": "ataque, precipitación violenta (hórmēma)",
+    "glossesEs": [
+      "violencia",
+      "ímpetu"
+    ]
+  },
+  "G3732": {
+    "shortDefinitionEs": "pajarito, ave joven (órneon)",
+    "glossesEs": [
+      "ave",
+      "pájaro",
+      "polluela"
+    ]
+  },
+  "G3733": {
+    "shortDefinitionEs": "ave, gallina, ave doméstica hembra (órnis)",
+    "glossesEs": [
+      "gallina",
+      "ave",
+      "pollo"
+    ]
+  },
+  "G3734": {
+    "shortDefinitionEs": "línea divisoria, límite establecido (horothesía)",
+    "glossesEs": [
+      "límite",
+      "frontera",
+      "término"
+    ]
+  },
+  "G3735": {
+    "shortDefinitionEs": "montaña, monte, elevación del terreno (óros)",
+    "glossesEs": [
+      "montaña",
+      "monte",
+      "colina"
+    ]
+  },
+  "G3736": {
+    "shortDefinitionEs": "cavar en tierra, excavar (orýssō)",
+    "glossesEs": [
+      "cavar",
+      "excavar",
+      "horadar"
+    ]
+  },
+  "G3737": {
+    "shortDefinitionEs": "huérfano, privado de padres (orphanós)",
+    "glossesEs": [
+      "huérfano",
+      "desamparado",
+      "solo"
+    ]
+  },
+  "G3738": {
+    "shortDefinitionEs": "danzar, bailar (orchéomai)",
+    "glossesEs": [
+      "bailar",
+      "danza",
+      "danzar"
+    ]
+  },
+  "G3739": {
+    "shortDefinitionEs": "pronombre relativo: quien, que, cual (hós)",
+    "glossesEs": [
+      "que",
+      "quien",
+      "cual"
+    ]
+  },
+  "G3740": {
+    "shortDefinitionEs": "cuantas veces que, toda vez que (hosákis)",
+    "glossesEs": [
+      "cuantas veces",
+      "siempre que"
+    ]
+  },
+  "G3741": {
+    "shortDefinitionEs": "santo, piadoso, sagrado, seguro (hósios)",
+    "glossesEs": [
+      "santo",
+      "piadoso",
+      "sagrado"
+    ]
+  },
+  "G3742": {
+    "shortDefinitionEs": "santidad, piedad (hosiótēs)",
+    "glossesEs": [
+      "santidad",
+      "piedad",
+      "devoción"
+    ]
+  },
+  "G3743": {
+    "shortDefinitionEs": "piadosamente, santamente (hosíōs)",
+    "glossesEs": [
+      "santamente",
+      "piadosamente"
+    ]
+  },
+  "G3744": {
+    "shortDefinitionEs": "fragancia, olor, aroma (osmḗ)",
+    "glossesEs": [
+      "olor",
+      "aroma",
+      "fragancia"
+    ]
+  },
+  "G3745": {
+    "shortDefinitionEs": "tanto como, todo cuanto (hósos)",
+    "glossesEs": [
+      "cuanto",
+      "todo",
+      "tanto"
+    ]
+  },
+  "G3746": {
+    "shortDefinitionEs": "quien especialmente, quienquiera que (hósper)",
+    "glossesEs": [
+      "quienquiera",
+      "quien",
+      "cualquier"
+    ]
+  },
+  "G3747": {
+    "shortDefinitionEs": "hueso (ostéon)",
+    "glossesEs": [
+      "hueso"
+    ]
+  },
+  "G3748": {
+    "shortDefinitionEs": "cual, cualquiera que, los que (hóstis)",
+    "glossesEs": [
+      "cual",
+      "cualquiera",
+      "que"
+    ]
+  },
+  "G3749": {
+    "shortDefinitionEs": "de barro, frágil, terreno (ostrákinos)",
+    "glossesEs": [
+      "barro",
+      "terreno",
+      "frágil"
+    ]
+  },
+  "G3750": {
+    "shortDefinitionEs": "sentido del olfato (ósphrēsis)",
+    "glossesEs": [
+      "olfato",
+      "olor"
+    ]
+  },
+  "G3751": {
+    "shortDefinitionEs": "lomo, cintura, cadera (osphŷs)",
+    "glossesEs": [
+      "lomo",
+      "cintura",
+      "cadera"
+    ]
+  },
+  "G3752": {
+    "shortDefinitionEs": "cuando, siempre que, mientras (hótan)",
+    "glossesEs": [
+      "cuando",
+      "mientras",
+      "siempre que"
+    ]
+  },
+  "G3753": {
+    "shortDefinitionEs": "cuando, al momento que (hóte)",
+    "glossesEs": [
+      "cuando",
+      "mientras",
+      "luego que"
+    ]
+  },
+  "G3754": {
+    "shortDefinitionEs": "que, porque, puesto que, cuando (hóti)",
+    "glossesEs": [
+      "que",
+      "porque",
+      "pues"
+    ]
+  },
+  "G3755": {
+    "shortDefinitionEs": "mientras, en tanto que (hótou)",
+    "glossesEs": [
+      "mientras",
+      "mientras tanto"
+    ]
+  },
+  "G3756": {
+    "shortDefinitionEs": "no, nunca, jamás (ou)",
+    "glossesEs": [
+      "no",
+      "nunca",
+      "jamás"
+    ]
+  },
+  "G3757": {
+    "shortDefinitionEs": "donde, en que lugar (hoû)",
+    "glossesEs": [
+      "donde",
+      "dónde",
+      "adonde"
+    ]
+  },
+  "G3758": {
+    "shortDefinitionEs": "¡ah! exclamación (ouá)",
+    "glossesEs": [
+      "ay",
+      "ah"
+    ]
+  },
+  "G3759": {
+    "shortDefinitionEs": "¡ay! ¡desdicha!, lamentación (ouaí)",
+    "glossesEs": [
+      "ay",
+      "desdicha",
+      "ay de"
+    ]
+  },
+  "G3760": {
+    "shortDefinitionEs": "de ninguna manera, no (oudamōs)",
+    "glossesEs": [
+      "no",
+      "nunca",
+      "jamás"
+    ]
+  },
+  "G3761": {
+    "shortDefinitionEs": "ni, tampoco, nunca, ni siquiera (oudé)",
+    "glossesEs": [
+      "ni",
+      "tampoco",
+      "nunca"
+    ]
+  },
+  "G3762": {
+    "shortDefinitionEs": "ninguno, nadie, nada (oudeís)",
+    "glossesEs": [
+      "ninguno",
+      "nadie",
+      "nada"
+    ]
+  },
+  "G3763": {
+    "shortDefinitionEs": "nunca jamás, ni aun en tiempo alguno (oudépote)",
+    "glossesEs": [
+      "nunca",
+      "jamás",
+      "nunca jamás"
+    ]
+  },
+  "G3764": {
+    "shortDefinitionEs": "ni aun todavía, aún no (oudépō)",
+    "glossesEs": [
+      "todavía no",
+      "aún no",
+      "nunca"
+    ]
+  },
+  "G3765": {
+    "shortDefinitionEs": "ya no, no más, nunca más (oukéti)",
+    "glossesEs": [
+      "ya no",
+      "no más",
+      "nunca más"
+    ]
+  },
+  "G3766": {
+    "shortDefinitionEs": "luego, por lo tanto, entonces (oukoûn)",
+    "glossesEs": [
+      "entonces",
+      "luego",
+      "pues"
+    ]
+  },
+  "G3767": {
+    "shortDefinitionEs": "ciertamente, por tanto, así que (oûn)",
+    "glossesEs": [
+      "entonces",
+      "luego",
+      "pues"
+    ]
+  },
+  "G3768": {
+    "shortDefinitionEs": "todavía no, aún no, hasta ahora no (oúpō)",
+    "glossesEs": [
+      "todavía no",
+      "aún no"
+    ]
+  },
+  "G3769": {
+    "shortDefinitionEs": "Cola, extremidad final del cuerpo de un animal (ourá)",
+    "glossesEs": [
+      "cola",
+      "extremidad"
+    ]
+  },
+  "G3770": {
+    "shortDefinitionEs": "Celestial, perteneciente al cielo (ouránios)",
+    "glossesEs": [
+      "celestial",
+      "del cielo"
+    ]
+  },
+  "G3771": {
+    "shortDefinitionEs": "Desde el cielo o desde arriba (ouranóthen)",
+    "glossesEs": [
+      "del cielo",
+      "desde arriba"
+    ]
+  },
+  "G3772": {
+    "shortDefinitionEs": "cielo, firmamento, los cielos (ouranos)",
+    "glossesEs": [
+      "cielo",
+      "cielos"
+    ]
+  },
+  "G3773": {
+    "shortDefinitionEs": "Urbano: cristiano mencionado por Pablo (Ourbanós)",
+    "glossesEs": [
+      "Urbano",
+      "nombre propio"
+    ]
+  },
+  "G3774": {
+    "shortDefinitionEs": "Urías: guerrero heteo, esposo de Betsabé (Ourías)",
+    "glossesEs": [
+      "Urías",
+      "Urijah"
+    ]
+  },
+  "G3775": {
+    "shortDefinitionEs": "Oído, órgano auditivo físico o mental (oûs)",
+    "glossesEs": [
+      "oído",
+      "audición"
+    ]
+  },
+  "G3776": {
+    "shortDefinitionEs": "Sustancia, propiedad, bienes posesiones (ousía)",
+    "glossesEs": [
+      "bienes",
+      "sustancia",
+      "propiedad"
+    ]
+  },
+  "G3777": {
+    "shortDefinitionEs": "Ni, tampoco, ninguno, negación doble (oúte)",
+    "glossesEs": [
+      "ni",
+      "tampoco",
+      "ninguno"
+    ]
+  },
+  "G3778": {
+    "shortDefinitionEs": "Este, ese, aquel, pronombre demostrativo (hoûtos)",
+    "glossesEs": [
+      "este",
+      "ese",
+      "aquel"
+    ]
+  },
+  "G3779": {
+    "shortDefinitionEs": "De esta manera, así, del modo siguiente (hoútō)",
+    "glossesEs": [
+      "así",
+      "de esta manera",
+      "como"
+    ]
+  },
+  "G3780": {
+    "shortDefinitionEs": "No, de ninguna manera, negación enfática (ouchí)",
+    "glossesEs": [
+      "no",
+      "de ningún modo"
+    ]
+  },
+  "G3781": {
+    "shortDefinitionEs": "Deudor, pecador, transgresor contra Dios (opheilétēs)",
+    "glossesEs": [
+      "deudor",
+      "pecador"
+    ]
+  },
+  "G3782": {
+    "shortDefinitionEs": "Deuda, obligación, deber conyugal (opheilḗ)",
+    "glossesEs": [
+      "deuda",
+      "deber",
+      "obligación"
+    ]
+  },
+  "G3783": {
+    "shortDefinitionEs": "Deuda, falta, algo debido (opheílēma)",
+    "glossesEs": [
+      "deuda",
+      "falta"
+    ]
+  },
+  "G3784": {
+    "shortDefinitionEs": "Deber, estar obligado, ser responsable (opheílō)",
+    "glossesEs": [
+      "deber",
+      "obligar",
+      "estar en deuda"
+    ]
+  },
+  "G3785": {
+    "shortDefinitionEs": "¡Ojalá! expresión de deseo intenso (óphelon)",
+    "glossesEs": [
+      "ojalá",
+      "deseo"
+    ]
+  },
+  "G3786": {
+    "shortDefinitionEs": "Ganancia, provecho, utilidad (óphelos)",
+    "glossesEs": [
+      "provecho",
+      "ganancia",
+      "beneficio"
+    ]
+  },
+  "G3787": {
+    "shortDefinitionEs": "Servicio fingido, trabajo solo para apariencia (ophthalmodouleía)",
+    "glossesEs": [
+      "servicio fingido",
+      "apariencia"
+    ]
+  },
+  "G3788": {
+    "shortDefinitionEs": "Ojo, órgano visual, vista, envidia (ophthalmós)",
+    "glossesEs": [
+      "ojo",
+      "vista",
+      "envidia"
+    ]
+  },
+  "G3789": {
+    "shortDefinitionEs": "Serpiente, persona astuta y maliciosa (óphis)",
+    "glossesEs": [
+      "serpiente",
+      "astuto"
+    ]
+  },
+  "G3790": {
+    "shortDefinitionEs": "Ceja, frente, borde de precipicio (ophrŷs)",
+    "glossesEs": [
+      "ceja",
+      "frente"
+    ]
+  },
+  "G3791": {
+    "shortDefinitionEs": "Acosar, molestar, atormentar (ochléō)",
+    "glossesEs": [
+      "molestar",
+      "acosar"
+    ]
+  },
+  "G3792": {
+    "shortDefinitionEs": "Formar multitud, causar disturbio público (ochlopoiéō)",
+    "glossesEs": [
+      "multitud",
+      "alboroto"
+    ]
+  },
+  "G3793": {
+    "shortDefinitionEs": "Multitud, gente, muchedumbre, masa popular (óchlos)",
+    "glossesEs": [
+      "multitud",
+      "gente",
+      "pueblo"
+    ]
+  },
+  "G3794": {
+    "shortDefinitionEs": "Fortaleza, lugar fuerte, baluarte (ochýrōma)",
+    "glossesEs": [
+      "fortaleza",
+      "baluarte"
+    ]
+  },
+  "G3795": {
+    "shortDefinitionEs": "Pescado, alimento condimentado o salado (opsárion)",
+    "glossesEs": [
+      "pescado",
+      "pez"
+    ]
+  },
+  "G3796": {
+    "shortDefinitionEs": "Tarde, atardecer, al anochecer (opsé)",
+    "glossesEs": [
+      "tarde",
+      "atardecer",
+      "anochecer"
+    ]
+  },
+  "G3797": {
+    "shortDefinitionEs": "Tardío, posterior, lluvia de primavera (ópsimos)",
+    "glossesEs": [
+      "tardío",
+      "posterior"
+    ]
+  },
+  "G3798": {
+    "shortDefinitionEs": "Nocturno, de tarde, atardecer o noche (ópsios)",
+    "glossesEs": [
+      "tarde",
+      "noche",
+      "atardecer"
+    ]
+  },
+  "G3799": {
+    "shortDefinitionEs": "Apariencia, aspecto, rostro, semblante (ópsis)",
+    "glossesEs": [
+      "apariencia",
+      "rostro",
+      "aspecto"
+    ]
+  },
+  "G3800": {
+    "shortDefinitionEs": "Salario, paga, jornal de soldado (opsṓnion)",
+    "glossesEs": [
+      "salario",
+      "paga",
+      "jornal"
+    ]
+  },
+  "G3801": {
+    "shortDefinitionEs": "El Eterno: epíteto de Cristo, pasado-presente-futuro (ho ṑn kaí ho ēn kaí ho erchómenos)",
+    "glossesEs": [
+      "Eterno",
+      "Cristo",
+      "el que es"
+    ]
+  },
+  "G3802": {
+    "shortDefinitionEs": "Enredar, atrapar en trampa figurada (pagideúō)",
+    "glossesEs": [
+      "enredar",
+      "atrapar"
+    ]
+  },
+  "G3803": {
+    "shortDefinitionEs": "Trampa, red, lazo, tentación (pagís)",
+    "glossesEs": [
+      "trampa",
+      "lazo",
+      "snare"
+    ]
+  },
+  "G3804": {
+    "shortDefinitionEs": "Padecimiento, sufrimiento, emoción o pasión (páthēma)",
+    "glossesEs": [
+      "sufrimiento",
+      "padecimiento",
+      "pasión"
+    ]
+  },
+  "G3805": {
+    "shortDefinitionEs": "Capaz de padecer, destinado al dolor (pathētós)",
+    "glossesEs": [
+      "padecer",
+      "mortal"
+    ]
+  },
+  "G3806": {
+    "shortDefinitionEs": "Pasión, deseo desordenado, lujuria (páthos)",
+    "glossesEs": [
+      "pasión",
+      "lujuria",
+      "deseo"
+    ]
+  },
+  "G3807": {
+    "shortDefinitionEs": "Conductor de niños, maestro, instructor (paidagōgós)",
+    "glossesEs": [
+      "maestro",
+      "instructor",
+      "tutor"
+    ]
+  },
+  "G3808": {
+    "shortDefinitionEs": "Niñito, muchachillo, muchacho pequeño (paidárion)",
+    "glossesEs": [
+      "niño",
+      "muchacho"
+    ]
+  },
+  "G3809": {
+    "shortDefinitionEs": "Educación, instrucción, corrección disciplinaria (paideía)",
+    "glossesEs": [
+      "educación",
+      "instrucción",
+      "disciplina"
+    ]
+  },
+  "G3810": {
+    "shortDefinitionEs": "Maestro, instructor, el que corrige (paideutḗs)",
+    "glossesEs": [
+      "maestro",
+      "instructor"
+    ]
+  },
+  "G3811": {
+    "shortDefinitionEs": "Educar, enseñar, disciplinar, castigar (paideúō)",
+    "glossesEs": [
+      "educar",
+      "enseñar",
+      "disciplinar"
+    ]
+  },
+  "G3812": {
+    "shortDefinitionEs": "Desde la infancia, desde niño (paidióthen)",
+    "glossesEs": [
+      "infancia",
+      "desde niño"
+    ]
+  },
+  "G3813": {
+    "shortDefinitionEs": "Niño, infante, criatura, muchacho o muchacha (paidíon)",
+    "glossesEs": [
+      "niño",
+      "infante",
+      "criatura"
+    ]
+  },
+  "G3814": {
+    "shortDefinitionEs": "Niña, sierva, criada, doncella (paidískē)",
+    "glossesEs": [
+      "niña",
+      "criada",
+      "sierva"
+    ]
+  },
+  "G3815": {
+    "shortDefinitionEs": "Jugar, divertirse, bromear (paízō)",
+    "glossesEs": [
+      "jugar",
+      "divertirse"
+    ]
+  },
+  "G3816": {
+    "shortDefinitionEs": "Niño, niña, siervo, criado, hijo (paîs)",
+    "glossesEs": [
+      "niño",
+      "siervo",
+      "criado"
+    ]
+  },
+  "G3817": {
+    "shortDefinitionEs": "Golpear, herir, picar como escorpión (païō)",
+    "glossesEs": [
+      "golpear",
+      "herir",
+      "picar"
+    ]
+  },
+  "G3818": {
+    "shortDefinitionEs": "Pacatiana: región de Frigia en Asia Menor (Pakatianḗ)",
+    "glossesEs": [
+      "Pacatiana",
+      "Frigia"
+    ]
+  },
+  "G3819": {
+    "shortDefinitionEs": "Antiguamente, hace tiempo, antiguo (pálai)",
+    "glossesEs": [
+      "antiguamente",
+      "hace tiempo",
+      "antaño"
+    ]
+  },
+  "G3820": {
+    "shortDefinitionEs": "Antiguo, desgastado, no reciente (palaiós)",
+    "glossesEs": [
+      "viejo",
+      "antiguo",
+      "desgastado"
+    ]
+  },
+  "G3821": {
+    "shortDefinitionEs": "Antigüedad, carácter de viejo (palaiótēs)",
+    "glossesEs": [
+      "antigüedad",
+      "vejez"
+    ]
+  },
+  "G3822": {
+    "shortDefinitionEs": "Envejecer, hacer obsoleto, desgastar (palaióō)",
+    "glossesEs": [
+      "envejecer",
+      "desgastar",
+      "obsoleto"
+    ]
+  },
+  "G3823": {
+    "shortDefinitionEs": "Lucha, pelea (pálē)",
+    "glossesEs": [
+      "lucha",
+      "pelea",
+      "luchar"
+    ]
+  },
+  "G3824": {
+    "shortDefinitionEs": "Regeneración espiritual, restauración mesiánica (palingenesía)",
+    "glossesEs": [
+      "regeneración",
+      "renovación"
+    ]
+  },
+  "G3825": {
+    "shortDefinitionEs": "De nuevo, otra vez, además (pálin)",
+    "glossesEs": [
+      "otra vez",
+      "de nuevo",
+      "además"
+    ]
+  },
+  "G3826": {
+    "shortDefinitionEs": "Todos a la vez, simultáneamente (pamplētheí)",
+    "glossesEs": [
+      "todos a la vez",
+      "simultáneamente"
+    ]
+  },
+  "G3827": {
+    "shortDefinitionEs": "Muy grande, inmenso (pámpolys)",
+    "glossesEs": [
+      "muy grande",
+      "inmenso"
+    ]
+  },
+  "G3828": {
+    "shortDefinitionEs": "Panfilia: región de Asia Menor (Pamphylía)",
+    "glossesEs": [
+      "Panfilia"
+    ]
+  },
+  "G3829": {
+    "shortDefinitionEs": "Posada, alojamiento público (pandocheîon)",
+    "glossesEs": [
+      "posada",
+      "hospedería",
+      "alojamiento"
+    ]
+  },
+  "G3830": {
+    "shortDefinitionEs": "Posadero, dueño de hospedería (pandocheús)",
+    "glossesEs": [
+      "posadero",
+      "hospedero"
+    ]
+  },
+  "G3831": {
+    "shortDefinitionEs": "Asamblea general, reunión multitudinaria (panḗgyris)",
+    "glossesEs": [
+      "asamblea",
+      "reunión",
+      "congregación"
+    ]
+  },
+  "G3832": {
+    "shortDefinitionEs": "Con toda su casa, junto con la familia (panoikí)",
+    "glossesEs": [
+      "casa",
+      "familia",
+      "hogar"
+    ]
+  },
+  "G3833": {
+    "shortDefinitionEs": "Armadura completa, panoplia (panoplía)",
+    "glossesEs": [
+      "armadura",
+      "armas",
+      "equipo"
+    ]
+  },
+  "G3834": {
+    "shortDefinitionEs": "Astucia, engaño, artificio (panourgía)",
+    "glossesEs": [
+      "astucia",
+      "engaño",
+      "ardid"
+    ]
+  },
+  "G3835": {
+    "shortDefinitionEs": "Astuto, ingenioso, taimado (panoûrgos)",
+    "glossesEs": [
+      "astuto",
+      "ingenioso",
+      "taimado"
+    ]
+  },
+  "G3836": {
+    "shortDefinitionEs": "De todas partes, desde todo lado (pantachóthen)",
+    "glossesEs": [
+      "todas partes",
+      "todo lado"
+    ]
+  },
+  "G3837": {
+    "shortDefinitionEs": "En todas partes, por todas partes (pantachoû)",
+    "glossesEs": [
+      "todas partes",
+      "en todas",
+      "por doquier"
+    ]
+  },
+  "G3838": {
+    "shortDefinitionEs": "Completo, entero, totalmente (pantelḗs)",
+    "glossesEs": [
+      "completo",
+      "entero",
+      "totalmente"
+    ]
+  },
+  "G3839": {
+    "shortDefinitionEs": "Totalmente, del todo, siempre (pántē)",
+    "glossesEs": [
+      "totalmente",
+      "del todo",
+      "siempre"
+    ]
+  },
+  "G3840": {
+    "shortDefinitionEs": "De todos lados, alrededor (pántothen)",
+    "glossesEs": [
+      "todos lados",
+      "alrededor",
+      "por todas"
+    ]
+  },
+  "G3841": {
+    "shortDefinitionEs": "Todopoderoso, Omnipotente (Pantokrátor)",
+    "glossesEs": [
+      "omnipotente"
+    ]
+  },
+  "G3842": {
+    "shortDefinitionEs": "Siempre, en todo tiempo (pántote)",
+    "glossesEs": [
+      "siempre",
+      "continuamente"
+    ]
+  },
+  "G3843": {
+    "shortDefinitionEs": "Enteramente, sin duda, ciertamente (pántōs)",
+    "glossesEs": [
+      "ciertamente",
+      "sin duda",
+      "por todos"
+    ]
+  },
+  "G3844": {
+    "shortDefinitionEs": "Junto a, cerca de, según (pará)",
+    "glossesEs": [
+      "junto a",
+      "cerca de",
+      "según"
+    ]
+  },
+  "G3845": {
+    "shortDefinitionEs": "Transgredir, violar mandato (parabaínō)",
+    "glossesEs": [
+      "transgredir",
+      "violar",
+      "quebrantar"
+    ]
+  },
+  "G3846": {
+    "shortDefinitionEs": "Comparar, llegar a un lugar (parabállō)",
+    "glossesEs": [
+      "comparar",
+      "llegar",
+      "alcanzar"
+    ]
+  },
+  "G3847": {
+    "shortDefinitionEs": "Transgresión, violación de ley (parábasis)",
+    "glossesEs": [
+      "transgresión",
+      "violación"
+    ]
+  },
+  "G3848": {
+    "shortDefinitionEs": "Transgresor, violador de ley (parabátēs)",
+    "glossesEs": [
+      "transgresor",
+      "violador"
+    ]
+  },
+  "G3849": {
+    "shortDefinitionEs": "Obligar, constreñir, forzar (parabiázomai)",
+    "glossesEs": [
+      "obligar",
+      "constreñir",
+      "forzar"
+    ]
+  },
+  "G3850": {
+    "shortDefinitionEs": "Parábola, comparación, proverbio (parabolḗ)",
+    "glossesEs": [
+      "parábola",
+      "comparación",
+      "proverbio"
+    ]
+  },
+  "G3851": {
+    "shortDefinitionEs": "Despreciar, desatender (parabouleúomai)",
+    "glossesEs": [
+      "despreciar",
+      "desatender"
+    ]
+  },
+  "G3852": {
+    "shortDefinitionEs": "Mandato, orden, encargo (parangelía)",
+    "glossesEs": [
+      "mandato",
+      "orden",
+      "encargo"
+    ]
+  },
+  "G3853": {
+    "shortDefinitionEs": "Ordenar, mandar, encargar (parangéllō)",
+    "glossesEs": [
+      "ordenar",
+      "mandar",
+      "encargar"
+    ]
+  },
+  "G3854": {
+    "shortDefinitionEs": "Llegar, presentarse, aparecer (paragínomai)",
+    "glossesEs": [
+      "llegar",
+      "presentarse",
+      "aparecer"
+    ]
+  },
+  "G3855": {
+    "shortDefinitionEs": "Pasar, transcurrir, apartarse (parágō)",
+    "glossesEs": [
+      "pasar",
+      "transcurrir",
+      "partir"
+    ]
+  },
+  "G3856": {
+    "shortDefinitionEs": "Exponer a vergüenza pública (paradeigmatízō)",
+    "glossesEs": [
+      "avergonzar",
+      "exponer",
+      "deshonrar"
+    ]
+  },
+  "G3857": {
+    "shortDefinitionEs": "Paraíso, huerto de dicha eterna (parádeisos)",
+    "glossesEs": [
+      "paraíso"
+    ]
+  },
+  "G3858": {
+    "shortDefinitionEs": "Recibir, acoger, admitir (paradéchomai)",
+    "glossesEs": [
+      "recibir",
+      "acoger",
+      "admitir"
+    ]
+  },
+  "G3859": {
+    "shortDefinitionEs": "Disputa perversa, entremetimiento (paradiatribḗ)",
+    "glossesEs": [
+      "disputa",
+      "entremetimiento"
+    ]
+  },
+  "G3860": {
+    "shortDefinitionEs": "Entregar, traicionar, confiar (paradídōmi)",
+    "glossesEs": [
+      "entregar",
+      "traicionar",
+      "confiar"
+    ]
+  },
+  "G3861": {
+    "shortDefinitionEs": "Extraño, paradójico, sorprendente (parádoxos)",
+    "glossesEs": [
+      "extraño",
+      "sorprendente"
+    ]
+  },
+  "G3862": {
+    "shortDefinitionEs": "Tradición, ordenanza transmitida (parádosis)",
+    "glossesEs": [
+      "tradición",
+      "ordenanza"
+    ]
+  },
+  "G3863": {
+    "shortDefinitionEs": "Provocar a emulación, incitar a celos (parazēlóō)",
+    "glossesEs": [
+      "provocar",
+      "emulación",
+      "celos"
+    ]
+  },
+  "G3864": {
+    "shortDefinitionEs": "Marítimo, junto al mar (parathalássios)",
+    "glossesEs": [
+      "marítimo",
+      "costa",
+      "mar"
+    ]
+  },
+  "G3865": {
+    "shortDefinitionEs": "Descuidar, pasar por alto (paratheōréō)",
+    "glossesEs": [
+      "descuidar",
+      "pasar por alto"
+    ]
+  },
+  "G3866": {
+    "shortDefinitionEs": "Depósito, encargo, cosa confiada (parathḗkē)",
+    "glossesEs": [
+      "depósito",
+      "encargo",
+      "trust"
+    ]
+  },
+  "G3867": {
+    "shortDefinitionEs": "Exhortar, aconsejar, amonestar (parainéō)",
+    "glossesEs": [
+      "exhortar",
+      "aconsejar",
+      "amonestar"
+    ]
+  },
+  "G3868": {
+    "shortDefinitionEs": "Rehuir, rechazar, evitar, disculparse (paraitéomai)",
+    "glossesEs": [
+      "rechazar",
+      "rehuir",
+      "evitar"
+    ]
+  },
+  "G3869": {
+    "shortDefinitionEs": "Sentarse cerca, sentarse junto a (parakathízō)",
+    "glossesEs": [
+      "sentarse",
+      "estar sentado"
+    ]
+  },
+  "G3870": {
+    "shortDefinitionEs": "Exhortar, consolar, rogar, animar (parakaléō)",
+    "glossesEs": [
+      "exhortar",
+      "consolar",
+      "rogar",
+      "animar"
+    ]
+  },
+  "G3871": {
+    "shortDefinitionEs": "Cubrir, velar figuradamente (parakalýptō)",
+    "glossesEs": [
+      "cubrir",
+      "velar",
+      "ocultar"
+    ]
+  },
+  "G3872": {
+    "shortDefinitionEs": "Depósito sagrado, cosa confiada (parakatathḗkē)",
+    "glossesEs": [
+      "depósito",
+      "confianza",
+      "encargo"
+    ]
+  },
+  "G3873": {
+    "shortDefinitionEs": "Estar a mano, ser fácil o pronto (parákeimai)",
+    "glossesEs": [
+      "estar presente",
+      "estar a mano",
+      "disponible"
+    ]
+  },
+  "G3874": {
+    "shortDefinitionEs": "Consuelo, exhortación, súplica (paráklēsis)",
+    "glossesEs": [
+      "consuelo",
+      "exhortación",
+      "consolación"
+    ]
+  },
+  "G3875": {
+    "shortDefinitionEs": "Consolador, intercesor, abogado (paráklētos)",
+    "glossesEs": [
+      "consolador",
+      "abogado",
+      "intercesor"
+    ]
+  },
+  "G3876": {
+    "shortDefinitionEs": "Desobediencia por falta de atención (parakoḗ)",
+    "glossesEs": [
+      "desobediencia",
+      "inobediencia",
+      "negligencia"
+    ]
+  },
+  "G3877": {
+    "shortDefinitionEs": "Seguir de cerca, entender plenamente (parakolouthéō)",
+    "glossesEs": [
+      "seguir",
+      "entender",
+      "comprender"
+    ]
+  },
+  "G3878": {
+    "shortDefinitionEs": "Oír mal, desobedecer (parakoúō)",
+    "glossesEs": [
+      "desobedecer",
+      "no oír",
+      "desatender"
+    ]
+  },
+  "G3879": {
+    "shortDefinitionEs": "Inclinarse para mirar adentro (parakýptō)",
+    "glossesEs": [
+      "mirar",
+      "asomarse",
+      "inclinarse"
+    ]
+  },
+  "G3880": {
+    "shortDefinitionEs": "Recibir junto a sí, tomar consigo (paralambánō)",
+    "glossesEs": [
+      "recibir",
+      "tomar",
+      "asociarse"
+    ]
+  },
+  "G3881": {
+    "shortDefinitionEs": "Navegar junto a, pasar de largo (paralégomai)",
+    "glossesEs": [
+      "pasar",
+      "navegar",
+      "costear"
+    ]
+  },
+  "G3882": {
+    "shortDefinitionEs": "Junto al mar, marítimo, costero (parálios)",
+    "glossesEs": [
+      "costa",
+      "marítimo",
+      "litoral"
+    ]
+  },
+  "G3883": {
+    "shortDefinitionEs": "Cambio, variabilidad, inconstancia (parallagḗ)",
+    "glossesEs": [
+      "variabilidad",
+      "cambio",
+      "inconstancia"
+    ]
+  },
+  "G3884": {
+    "shortDefinitionEs": "Engañar, contar mal, deludir (paralogízomai)",
+    "glossesEs": [
+      "engañar",
+      "seducir",
+      "deludir"
+    ]
+  },
+  "G3885": {
+    "shortDefinitionEs": "Paralítico, el que padece parálisis (paralytikós)",
+    "glossesEs": [
+      "paralítico",
+      "parálisis",
+      "impedido"
+    ]
+  },
+  "G3886": {
+    "shortDefinitionEs": "Paralizar, debilitar, tomar de parálisis (paralýō)",
+    "glossesEs": [
+      "paralizar",
+      "debilitar",
+      "impedir"
+    ]
+  },
+  "G3887": {
+    "shortDefinitionEs": "Permanecer, quedarse, perseverar (paraménō)",
+    "glossesEs": [
+      "permanecer",
+      "continuar",
+      "perseverar"
+    ]
+  },
+  "G3888": {
+    "shortDefinitionEs": "Animar, consolar (paramythéomai)",
+    "glossesEs": [
+      "consolar",
+      "animar",
+      "alentar"
+    ]
+  },
+  "G3889": {
+    "shortDefinitionEs": "Consuelo, consolación abstracta (paramythía)",
+    "glossesEs": [
+      "consuelo",
+      "consolación",
+      "ánimo"
+    ]
+  },
+  "G3890": {
+    "shortDefinitionEs": "Consuelo, consolación concreta (paramýthion)",
+    "glossesEs": [
+      "consuelo",
+      "ánimo",
+      "aliento"
+    ]
+  },
+  "G3891": {
+    "shortDefinitionEs": "Actuar contra la ley, transgredir (paranoméō)",
+    "glossesEs": [
+      "transgredir",
+      "violar",
+      "desobedecer"
+    ]
+  },
+  "G3892": {
+    "shortDefinitionEs": "Transgresión, violación de ley (paranomía)",
+    "glossesEs": [
+      "transgresión",
+      "iniquidad",
+      "violación"
+    ]
+  },
+  "G3893": {
+    "shortDefinitionEs": "Irritar, exasperar, provocar (parapikraínō)",
+    "glossesEs": [
+      "provocar",
+      "irritar",
+      "exasperar"
+    ]
+  },
+  "G3894": {
+    "shortDefinitionEs": "Irritación, provocación (parapikrasmós)",
+    "glossesEs": [
+      "provocación",
+      "irritación",
+      "enojo"
+    ]
+  },
+  "G3895": {
+    "shortDefinitionEs": "Caer, apostatar, apartarse (parapíptō)",
+    "glossesEs": [
+      "apostatar",
+      "caer",
+      "apartarse"
+    ]
+  },
+  "G3896": {
+    "shortDefinitionEs": "Navegar junto a, pasar navegando (parapléō)",
+    "glossesEs": [
+      "navegar",
+      "pasar",
+      "costear"
+    ]
+  },
+  "G3897": {
+    "shortDefinitionEs": "Cercano, casi, próximo (paraplḗsion)",
+    "glossesEs": [
+      "cercano",
+      "casi",
+      "próximo"
+    ]
+  },
+  "G3898": {
+    "shortDefinitionEs": "Similarmente, de manera parecida (paraplēsíōs)",
+    "glossesEs": [
+      "igualmente",
+      "similarmente",
+      "asimismo"
+    ]
+  },
+  "G3899": {
+    "shortDefinitionEs": "Pasar junto a, ir de largo (paraporeúomai)",
+    "glossesEs": [
+      "pasar",
+      "ir",
+      "transitar"
+    ]
+  },
+  "G3900": {
+    "shortDefinitionEs": "Caída, falta, transgresión, pecado (paráptōma)",
+    "glossesEs": [
+      "transgresión",
+      "pecado",
+      "falta"
+    ]
+  },
+  "G3901": {
+    "shortDefinitionEs": "Dejar pasar, descuidar (pararrhyéō)",
+    "glossesEs": [
+      "descuidar",
+      "pasar por alto",
+      "dejar"
+    ]
+  },
+  "G3902": {
+    "shortDefinitionEs": "Marcado al lado, emblema de nave (parásēmos)",
+    "glossesEs": [
+      "emblema",
+      "insignia",
+      "marca"
+    ]
+  },
+  "G3903": {
+    "shortDefinitionEs": "Prepararse, alistar, estar listo (paraskeuázō)",
+    "glossesEs": [
+      "preparar",
+      "alistar",
+      "disponer"
+    ]
+  },
+  "G3904": {
+    "shortDefinitionEs": "Preparación, disposición (paraskeuḗ)",
+    "glossesEs": [
+      "preparación",
+      "disposición",
+      "alisto"
+    ]
+  },
+  "G3905": {
+    "shortDefinitionEs": "Extender, prolongar el tiempo (parateínō)",
+    "glossesEs": [
+      "prolongar",
+      "extender",
+      "continuar"
+    ]
+  },
+  "G3906": {
+    "shortDefinitionEs": "Observar atentamente, vigilar (paratēréō)",
+    "glossesEs": [
+      "observar",
+      "vigilar",
+      "acechar"
+    ]
+  },
+  "G3907": {
+    "shortDefinitionEs": "Observación, vigilancia atenta (paratḗrēsis)",
+    "glossesEs": [
+      "observación",
+      "vigilancia",
+      "acecho"
+    ]
+  },
+  "G3908": {
+    "shortDefinitionEs": "Presentar, entregar, confiar (paratíthēmi)",
+    "glossesEs": [
+      "presentar",
+      "confiar",
+      "encomendar"
+    ]
+  },
+  "G3909": {
+    "shortDefinitionEs": "Encontrarse, topase con (paratynchánō)",
+    "glossesEs": [
+      "encontrar",
+      "toparse",
+      "hallarse"
+    ]
+  },
+  "G3910": {
+    "shortDefinitionEs": "Por un momento, instantáneamente (parautíka)",
+    "glossesEs": [
+      "momento",
+      "instante",
+      "brevemente"
+    ]
+  },
+  "G3911": {
+    "shortDefinitionEs": "Llevar, quitar, remover (paraphérō)",
+    "glossesEs": [
+      "quitar",
+      "remover",
+      "llevar"
+    ]
+  },
+  "G3912": {
+    "shortDefinitionEs": "Pensar mal, desvariar, insensatez (paraphronéō)",
+    "glossesEs": [
+      "insensatez",
+      "locura",
+      "necedad"
+    ]
+  },
+  "G3913": {
+    "shortDefinitionEs": "Locura, insensatez, temeridad (paraphronía)",
+    "glossesEs": [
+      "locura",
+      "insensatez",
+      "demencia"
+    ]
+  },
+  "G3914": {
+    "shortDefinitionEs": "Invernar, pasar el invierno (paracheimázō)",
+    "glossesEs": [
+      "invernar",
+      "invierno",
+      "hospedarse"
+    ]
+  },
+  "G3915": {
+    "shortDefinitionEs": "Invernada, paso del invierno (paracheimasía)",
+    "glossesEs": [
+      "invernada",
+      "invierno",
+      "estadía"
+    ]
+  },
+  "G3916": {
+    "shortDefinitionEs": "Inmediatamente, al instante, luego (parachrēma)",
+    "glossesEs": [
+      "inmediatamente",
+      "luego",
+      "al instante"
+    ]
+  },
+  "G3917": {
+    "shortDefinitionEs": "Leopardo, animal manchado (párdalis)",
+    "glossesEs": [
+      "leopardo",
+      "animal",
+      "bestia"
+    ]
+  },
+  "G3918": {
+    "shortDefinitionEs": "Estar presente, llegar, venir (páreimi)",
+    "glossesEs": [
+      "presente",
+      "venir",
+      "llegar"
+    ]
+  },
+  "G3919": {
+    "shortDefinitionEs": "Introducir secretamente, infiltrar (pareiságō)",
+    "glossesEs": [
+      "introducir",
+      "infiltrar",
+      "meter"
+    ]
+  },
+  "G3920": {
+    "shortDefinitionEs": "Introducido secretamente, subrepticio (pareísaktos)",
+    "glossesEs": [
+      "secreto",
+      "subrepticio",
+      "oculto"
+    ]
+  },
+  "G3921": {
+    "shortDefinitionEs": "Infiltrarse subrepticiamente, entrar sin ser notado (pareisdýnō)",
+    "glossesEs": [
+      "infiltrarse",
+      "entrar escondido"
+    ]
+  },
+  "G3922": {
+    "shortDefinitionEs": "Entrar furtivamente, venir de manera oculta (pareisérchomai)",
+    "glossesEs": [
+      "entrar en secreto",
+      "venir sigilosamente"
+    ]
+  },
+  "G3923": {
+    "shortDefinitionEs": "Introducir algo junto con otra cosa (pareisphérō)",
+    "glossesEs": [
+      "introducir",
+      "traer juntamente"
+    ]
+  },
+  "G3924": {
+    "shortDefinitionEs": "Al lado de afuera, excepto, salvo (parektós)",
+    "glossesEs": [
+      "excepto",
+      "salvo",
+      "fuera de"
+    ]
+  },
+  "G3925": {
+    "shortDefinitionEs": "Campamento, ejército, cuartel, fortaleza (parembolḗ)",
+    "glossesEs": [
+      "campamento",
+      "ejército",
+      "cuartel"
+    ]
+  },
+  "G3926": {
+    "shortDefinitionEs": "Acosar, importunar, causar molestia (parenochléō)",
+    "glossesEs": [
+      "acosar",
+      "molestar",
+      "importunar"
+    ]
+  },
+  "G3927": {
+    "shortDefinitionEs": "Forastero, extranjero residente (parepídēmos)",
+    "glossesEs": [
+      "peregrino",
+      "extranjero",
+      "forastero"
+    ]
+  },
+  "G3928": {
+    "shortDefinitionEs": "Pasar, ir, desaparecer, llegar a fin (parérchomai)",
+    "glossesEs": [
+      "pasar",
+      "ir",
+      "desaparecer"
+    ]
+  },
+  "G3929": {
+    "shortDefinitionEs": "Tolerancia, permiso, remisión de culpa (páresis)",
+    "glossesEs": [
+      "remisión",
+      "tolerancia",
+      "perdón"
+    ]
+  },
+  "G3930": {
+    "shortDefinitionEs": "Presentar, ofrecer, proporcionar, dar ocasión (paréchō)",
+    "glossesEs": [
+      "presentar",
+      "dar",
+      "ofrecer"
+    ]
+  },
+  "G3931": {
+    "shortDefinitionEs": "Consuelo, exhortación, palabras de ánimo (parēgoría)",
+    "glossesEs": [
+      "consuelo",
+      "consolación",
+      "ánimo"
+    ]
+  },
+  "G3932": {
+    "shortDefinitionEs": "Virginidad, estado de doncella (parthenía)",
+    "glossesEs": [
+      "virginidad",
+      "doncellez"
+    ]
+  },
+  "G3933": {
+    "shortDefinitionEs": "Virgen, doncella, mujer no casada (parthénos)",
+    "glossesEs": [
+      "virgen",
+      "doncella"
+    ]
+  },
+  "G3934": {
+    "shortDefinitionEs": "Parto: habitante de Parthia (Párthos)",
+    "glossesEs": [
+      "parto",
+      "de Parthia"
+    ]
+  },
+  "G3935": {
+    "shortDefinitionEs": "Aflojar, relajar, dejar caer (paríēmi)",
+    "glossesEs": [
+      "aflojar",
+      "relajar",
+      "colgar"
+    ]
+  },
+  "G3936": {
+    "shortDefinitionEs": "Presentar, demostrar, recomendar, asistir (parístēmi)",
+    "glossesEs": [
+      "presentar",
+      "recomendar",
+      "asistir"
+    ]
+  },
+  "G3937": {
+    "shortDefinitionEs": "Parmenás: cristiano constante, perseverante (Parmenâs)",
+    "glossesEs": [
+      "Parmenás"
+    ]
+  },
+  "G3938": {
+    "shortDefinitionEs": "Camino secundario, ruta alternativa (párodos)",
+    "glossesEs": [
+      "camino",
+      "ruta",
+      "sendero"
+    ]
+  },
+  "G3939": {
+    "shortDefinitionEs": "Morar como extranjero, residir temporalmente (paroikéō)",
+    "glossesEs": [
+      "residir como extranjero",
+      "hospedarse"
+    ]
+  },
+  "G3940": {
+    "shortDefinitionEs": "Residencia extranjera, peregrinación temporal (paroikía)",
+    "glossesEs": [
+      "peregrinación",
+      "residencia extranjera"
+    ]
+  },
+  "G3941": {
+    "shortDefinitionEs": "Extranjero residente, huésped, forastero (pároikos)",
+    "glossesEs": [
+      "extranjero",
+      "forastero",
+      "residente"
+    ]
+  },
+  "G3942": {
+    "shortDefinitionEs": "Parábola, proverbio, dicho enigmático (paroimía)",
+    "glossesEs": [
+      "parábola",
+      "proverbio",
+      "dicho"
+    ]
+  },
+  "G3943": {
+    "shortDefinitionEs": "Borracho, adicto al vino (pároinos)",
+    "glossesEs": [
+      "borracho",
+      "dado al vino"
+    ]
+  },
+  "G3944": {
+    "shortDefinitionEs": "Pasar, irse, desvanecerse (paroíchomai)",
+    "glossesEs": [
+      "pasar",
+      "transcurrido",
+      "ido"
+    ]
+  },
+  "G3945": {
+    "shortDefinitionEs": "Parecer, asemejarse, ser semejante a (paromoiázō)",
+    "glossesEs": [
+      "parecer",
+      "asemejarse"
+    ]
+  },
+  "G3946": {
+    "shortDefinitionEs": "Parecido, semejante, similar (parómoios)",
+    "glossesEs": [
+      "parecido",
+      "semejante",
+      "similar"
+    ]
+  },
+  "G3947": {
+    "shortDefinitionEs": "Irritar, exasperar, provocar con facilidad (paroxýnō)",
+    "glossesEs": [
+      "irritar",
+      "exasperar",
+      "provocar"
+    ]
+  },
+  "G3948": {
+    "shortDefinitionEs": "Incitación, contienda, disputa, provocación (paroxysmós)",
+    "glossesEs": [
+      "contienda",
+      "disputa",
+      "provocación"
+    ]
+  },
+  "G3949": {
+    "shortDefinitionEs": "Irritar, enojar, provocar a ira (parorgízō)",
+    "glossesEs": [
+      "irritar",
+      "enojar",
+      "provocar ira"
+    ]
+  },
+  "G3950": {
+    "shortDefinitionEs": "Ira, enojo, cólera (parorgismós)",
+    "glossesEs": [
+      "ira",
+      "cólera",
+      "enojo"
+    ]
+  },
+  "G3951": {
+    "shortDefinitionEs": "Incitar, estimular, instigar a hostilidad (parotrýnō)",
+    "glossesEs": [
+      "incitar",
+      "estimular",
+      "instigar"
+    ]
+  },
+  "G3952": {
+    "shortDefinitionEs": "Venida, llegada, presencia, advenimiento (parousía)",
+    "glossesEs": [
+      "venida",
+      "advenimiento",
+      "presencia"
+    ]
+  },
+  "G3953": {
+    "shortDefinitionEs": "Fuente, platillo para comida (paropsís)",
+    "glossesEs": [
+      "plato",
+      "fuente",
+      "platillo"
+    ]
+  },
+  "G3954": {
+    "shortDefinitionEs": "Franqueza, libertad de palabra, confianza, valor (parrhēsía)",
+    "glossesEs": [
+      "franqueza",
+      "confianza",
+      "valor",
+      "libertad"
+    ]
+  },
+  "G3955": {
+    "shortDefinitionEs": "Hablar con franqueza, predicar con valentía (parrhēsiázomai)",
+    "glossesEs": [
+      "hablar con franqueza",
+      "predicar valientemente"
+    ]
+  },
+  "G3956": {
+    "shortDefinitionEs": "Todo, cualquiera, entero, cada uno (pâs)",
+    "glossesEs": [
+      "todo",
+      "todos",
+      "cualquiera"
+    ]
+  },
+  "G3957": {
+    "shortDefinitionEs": "Pascua, fiesta de la Pascua judía (páscha)",
+    "glossesEs": [
+      "Pascua",
+      "Pascua judía"
+    ]
+  },
+  "G3958": {
+    "shortDefinitionEs": "Sufrir, padecer, experimentar (páschō)",
+    "glossesEs": [
+      "sufrir",
+      "padecer",
+      "experimentar"
+    ]
+  },
+  "G3959": {
+    "shortDefinitionEs": "Patara: ciudad en Asia Menor (Pátara)",
+    "glossesEs": [
+      "Patara"
+    ]
+  },
+  "G3960": {
+    "shortDefinitionEs": "Golpear, herir, azotar (patássō)",
+    "glossesEs": [
+      "golpear",
+      "herir",
+      "azotar"
+    ]
+  },
+  "G3961": {
+    "shortDefinitionEs": "Pisar, hollar, pisotear (patéō)",
+    "glossesEs": [
+      "pisar",
+      "hollar",
+      "pisotear"
+    ]
+  },
+  "G3962": {
+    "shortDefinitionEs": "padre, Padre celestial (patér)",
+    "glossesEs": [
+      "padre"
+    ]
+  },
+  "G3963": {
+    "shortDefinitionEs": "Patmos: isla del Mediterráneo (Pátmos)",
+    "glossesEs": [
+      "Patmos"
+    ]
+  },
+  "G3964": {
+    "shortDefinitionEs": "Parricida, asesino del padre (patralṓias)",
+    "glossesEs": [
+      "parricida",
+      "asesino de padre"
+    ]
+  },
+  "G3965": {
+    "shortDefinitionEs": "Linaje, familia, tribu, nación (patriá)",
+    "glossesEs": [
+      "familia",
+      "linaje",
+      "tribu"
+    ]
+  },
+  "G3966": {
+    "shortDefinitionEs": "Patriarca, progenitor, antepasado (patriárchēs)",
+    "glossesEs": [
+      "patriarca",
+      "antepasado"
+    ]
+  },
+  "G3967": {
+    "shortDefinitionEs": "Paternal, ancestral, hereditario (patrikós)",
+    "glossesEs": [
+      "paternal",
+      "ancestral"
+    ]
+  },
+  "G3968": {
+    "shortDefinitionEs": "Patria, tierra natal, ciudad nativa (patrís)",
+    "glossesEs": [
+      "patria",
+      "tierra natal",
+      "ciudad natal"
+    ]
+  },
+  "G3969": {
+    "shortDefinitionEs": "Patrobas: cristiano de nombre (Patrobâs)",
+    "glossesEs": [
+      "Patrobas"
+    ]
+  },
+  "G3970": {
+    "shortDefinitionEs": "Recibido por tradición de los padres (patroparádotos)",
+    "glossesEs": [
+      "tradicional",
+      "heredado"
+    ]
+  },
+  "G3971": {
+    "shortDefinitionEs": "Paternal, hereditario, de los padres (patrōios)",
+    "glossesEs": [
+      "paternal",
+      "hereditario"
+    ]
+  },
+  "G3972": {
+    "shortDefinitionEs": "Pablo, apóstol (Paûlos)",
+    "glossesEs": [
+      "Pablo",
+      "apóstol"
+    ]
+  },
+  "G3973": {
+    "shortDefinitionEs": "Detenerse, cesar, desistir (paúō)",
+    "glossesEs": [
+      "cesar",
+      "detenerse",
+      "desistir"
+    ]
+  },
+  "G3974": {
+    "shortDefinitionEs": "Pafos: ciudad en Chipre (Páphos)",
+    "glossesEs": [
+      "Pafos",
+      "Chipre"
+    ]
+  },
+  "G3975": {
+    "shortDefinitionEs": "Endurecerse, embotarse (pachýnō)",
+    "glossesEs": [
+      "endurecerse",
+      "embotarse"
+    ]
+  },
+  "G3976": {
+    "shortDefinitionEs": "Grillete para los pies (pédē)",
+    "glossesEs": [
+      "grillete",
+      "cadena"
+    ]
+  },
+  "G3977": {
+    "shortDefinitionEs": "Llano, nivelado (pedinós)",
+    "glossesEs": [
+      "llano",
+      "plano"
+    ]
+  },
+  "G3978": {
+    "shortDefinitionEs": "Viajar a pie (pezeúō)",
+    "glossesEs": [
+      "viajar a pie",
+      "andar"
+    ]
+  },
+  "G3979": {
+    "shortDefinitionEs": "A pie, caminando (pezēi)",
+    "glossesEs": [
+      "a pie",
+      "caminando"
+    ]
+  },
+  "G3980": {
+    "shortDefinitionEs": "Obedecer a la autoridad (peitharchéō)",
+    "glossesEs": [
+      "obedecer",
+      "someterse"
+    ]
+  },
+  "G3981": {
+    "shortDefinitionEs": "Persuasivo, seductor (peithós)",
+    "glossesEs": [
+      "persuasivo",
+      "seductor"
+    ]
+  },
+  "G3982": {
+    "shortDefinitionEs": "Persuadir, convencer, confiar (peíthō)",
+    "glossesEs": [
+      "persuadir",
+      "convencer",
+      "confiar"
+    ]
+  },
+  "G3983": {
+    "shortDefinitionEs": "Tener hambre, padecer hambre (peináō)",
+    "glossesEs": [
+      "hambre",
+      "padecer hambre"
+    ]
+  },
+  "G3984": {
+    "shortDefinitionEs": "Prueba, tentativa, experiencia (peîra)",
+    "glossesEs": [
+      "prueba",
+      "tentativa"
+    ]
+  },
+  "G3985": {
+    "shortDefinitionEs": "Probar, tentar, examinar (peirázō)",
+    "glossesEs": [
+      "probar",
+      "tentar",
+      "examinar"
+    ]
+  },
+  "G3986": {
+    "shortDefinitionEs": "Tentación, prueba (peirasmós)",
+    "glossesEs": [
+      "tentación",
+      "prueba"
+    ]
+  },
+  "G3987": {
+    "shortDefinitionEs": "Intentar, probar (peiráō)",
+    "glossesEs": [
+      "intentar",
+      "probar"
+    ]
+  },
+  "G3988": {
+    "shortDefinitionEs": "Persuasión, credulidad (peismonḗ)",
+    "glossesEs": [
+      "persuasión",
+      "credulidad"
+    ]
+  },
+  "G3989": {
+    "shortDefinitionEs": "Mar profundo, alta mar (pélagos)",
+    "glossesEs": [
+      "mar",
+      "profundidad"
+    ]
+  },
+  "G3990": {
+    "shortDefinitionEs": "Decapitar, cortar la cabeza (pelekízō)",
+    "glossesEs": [
+      "decapitar",
+      "cortadura"
+    ]
+  },
+  "G3991": {
+    "shortDefinitionEs": "Quinto, quinta parte (pémptos)",
+    "glossesEs": [
+      "quinto"
+    ]
+  },
+  "G3992": {
+    "shortDefinitionEs": "Enviar, despachar (pémpō)",
+    "glossesEs": [
+      "enviar",
+      "despachar"
+    ]
+  },
+  "G3993": {
+    "shortDefinitionEs": "Pobre, necesitado (pénēs)",
+    "glossesEs": [
+      "pobre",
+      "necesitado"
+    ]
+  },
+  "G3994": {
+    "shortDefinitionEs": "Suegra, madre del cónyuge (pentherá)",
+    "glossesEs": [
+      "suegra"
+    ]
+  },
+  "G3995": {
+    "shortDefinitionEs": "Suegro, padre del cónyuge (pentherós)",
+    "glossesEs": [
+      "suegro"
+    ]
+  },
+  "G3996": {
+    "shortDefinitionEs": "Llorar, lamentar (penthéō)",
+    "glossesEs": [
+      "llorar",
+      "lamentar"
+    ]
+  },
+  "G3997": {
+    "shortDefinitionEs": "Duelo, lamento, tristeza (pénthos)",
+    "glossesEs": [
+      "duelo",
+      "luto",
+      "tristeza"
+    ]
+  },
+  "G3998": {
+    "shortDefinitionEs": "Pobre, necesitado (penichrós)",
+    "glossesEs": [
+      "pobre",
+      "necesitado"
+    ]
+  },
+  "G3999": {
+    "shortDefinitionEs": "Cinco veces (pentákis)",
+    "glossesEs": [
+      "cinco veces"
+    ]
+  },
+  "G4000": {
+    "shortDefinitionEs": "Cinco mil (pentakischílioi)",
+    "glossesEs": [
+      "cinco mil"
+    ]
+  },
+  "G4001": {
+    "shortDefinitionEs": "Quinientos (pentakósioi)",
+    "glossesEs": [
+      "quinientos"
+    ]
+  },
+  "G4002": {
+    "shortDefinitionEs": "Cinco (pénte)",
+    "glossesEs": [
+      "cinco"
+    ]
+  },
+  "G4003": {
+    "shortDefinitionEs": "Decimoquinto (pentekaidékatos)",
+    "glossesEs": [
+      "decimoquinto"
+    ]
+  },
+  "G4004": {
+    "shortDefinitionEs": "Cincuenta (pentḗkonta)",
+    "glossesEs": [
+      "cincuenta"
+    ]
+  },
+  "G4005": {
+    "shortDefinitionEs": "Pentecostés, fiesta judía (pentēkostḗ)",
+    "glossesEs": [
+      "Pentecostés",
+      "fiesta"
+    ]
+  },
+  "G4006": {
+    "shortDefinitionEs": "Confianza, seguridad (pepoíthēsis)",
+    "glossesEs": [
+      "confianza",
+      "seguridad"
+    ]
+  },
+  "G4007": {
+    "shortDefinitionEs": "Partícula de énfasis (per)",
+    "glossesEs": [
+      "énfasis",
+      "refuerzo"
+    ]
+  },
+  "G4008": {
+    "shortDefinitionEs": "Al otro lado, más allá (péran)",
+    "glossesEs": [
+      "más allá",
+      "al otro lado"
+    ]
+  },
+  "G4009": {
+    "shortDefinitionEs": "Extremo, fin, límite (péras)",
+    "glossesEs": [
+      "extremo",
+      "fin",
+      "límite"
+    ]
+  },
+  "G4010": {
+    "shortDefinitionEs": "Pérgamo: ciudad en Asia Menor (Pérgamos)",
+    "glossesEs": [
+      "Pérgamo",
+      "Asia Menor"
+    ]
+  },
+  "G4011": {
+    "shortDefinitionEs": "Perga: ciudad en Asia Menor (Pérgē)",
+    "glossesEs": [
+      "Perga",
+      "Asia Menor"
+    ]
+  },
+  "G4012": {
+    "shortDefinitionEs": "Alrededor, acerca de, sobre (perí)",
+    "glossesEs": [
+      "alrededor",
+      "acerca",
+      "sobre"
+    ]
+  },
+  "G4013": {
+    "shortDefinitionEs": "Andar alrededor, rodear (periágō)",
+    "glossesEs": [
+      "rodear",
+      "andar alrededor"
+    ]
+  },
+  "G4014": {
+    "shortDefinitionEs": "Quitar, remover (periairéō)",
+    "glossesEs": [
+      "quitar",
+      "remover"
+    ]
+  },
+  "G4015": {
+    "shortDefinitionEs": "Brillar alrededor, iluminar (periastráptō)",
+    "glossesEs": [
+      "brillar",
+      "iluminar"
+    ]
+  },
+  "G4016": {
+    "shortDefinitionEs": "Vestir, cubrir, envolver (peribállō)",
+    "glossesEs": [
+      "vestir",
+      "cubrir",
+      "envolver"
+    ]
+  },
+  "G4017": {
+    "shortDefinitionEs": "Mirar alrededor (periblépō)",
+    "glossesEs": [
+      "mirar alrededor"
+    ]
+  },
+  "G4018": {
+    "shortDefinitionEs": "Manto, velo, cubierta (peribólaion)",
+    "glossesEs": [
+      "manto",
+      "velo",
+      "cubierta"
+    ]
+  },
+  "G4019": {
+    "shortDefinitionEs": "Atar alrededor, envolver (peridéō)",
+    "glossesEs": [
+      "atar",
+      "envolver"
+    ]
+  },
+  "G4020": {
+    "shortDefinitionEs": "Ser entrometido, metomentodo (periergázomai)",
+    "glossesEs": [
+      "entrometerse",
+      "metomentodo"
+    ]
+  },
+  "G4021": {
+    "shortDefinitionEs": "Metomentodo, curioso (períergos)",
+    "glossesEs": [
+      "metomentodo",
+      "curioso"
+    ]
+  },
+  "G4022": {
+    "shortDefinitionEs": "Ir alrededor, vagar, tambalearse (periérchomai)",
+    "glossesEs": [
+      "vagar",
+      "andar errante",
+      "rodear"
+    ]
+  },
+  "G4023": {
+    "shortDefinitionEs": "Sostener alrededor, incluir, abrazar (periéchō)",
+    "glossesEs": [
+      "contener",
+      "incluir",
+      "abarcar"
+    ]
+  },
+  "G4024": {
+    "shortDefinitionEs": "Ceñir alrededor, ajustarse con cinturón (perizṓnnymi)",
+    "glossesEs": [
+      "ceñir",
+      "ajustar",
+      "cinturón"
+    ]
+  },
+  "G4025": {
+    "shortDefinitionEs": "Acto de adornarse alrededor (períthesis)",
+    "glossesEs": [
+      "adorno",
+      "vestidura",
+      "ornamento"
+    ]
+  },
+  "G4026": {
+    "shortDefinitionEs": "Estar alrededor, evitar, apartarse (periḯstēmi)",
+    "glossesEs": [
+      "evitar",
+      "rehuir",
+      "apartarse"
+    ]
+  },
+  "G4027": {
+    "shortDefinitionEs": "Lo limpiado, basura, rechazo (perikátharma)",
+    "glossesEs": [
+      "basura",
+      "desperdicio",
+      "inmundicia"
+    ]
+  },
+  "G4028": {
+    "shortDefinitionEs": "Cubrir completamente, vendaje (perikalýptō)",
+    "glossesEs": [
+      "cubrir",
+      "vendarlos ojos",
+      "ocultar"
+    ]
+  },
+  "G4029": {
+    "shortDefinitionEs": "Estar alrededor, rodear, rodear (períkeimai)",
+    "glossesEs": [
+      "rodear",
+      "cercar",
+      "ceñir"
+    ]
+  },
+  "G4030": {
+    "shortDefinitionEs": "Protección de cabeza, casco (perikephalaía)",
+    "glossesEs": [
+      "casco",
+      "yelmo",
+      "protección"
+    ]
+  },
+  "G4031": {
+    "shortDefinitionEs": "Fuerte alrededor, dueño, maestro (perikratḗs)",
+    "glossesEs": [
+      "dueño",
+      "maestro",
+      "gobernante"
+    ]
+  },
+  "G4032": {
+    "shortDefinitionEs": "Ocultar completamente (perikrýptō)",
+    "glossesEs": [
+      "ocultar",
+      "esconder",
+      "encubrir"
+    ]
+  },
+  "G4033": {
+    "shortDefinitionEs": "Rodear completamente, sitiar (perikyklóō)",
+    "glossesEs": [
+      "rodear",
+      "sitiar",
+      "encerrar"
+    ]
+  },
+  "G4034": {
+    "shortDefinitionEs": "Resplandecer alrededor, iluminar (perilámpō)",
+    "glossesEs": [
+      "resplandecer",
+      "brillar",
+      "iluminar"
+    ]
+  },
+  "G4035": {
+    "shortDefinitionEs": "Quedar alrededor, sobrevivir (perileípō)",
+    "glossesEs": [
+      "sobrevivir",
+      "quedar",
+      "permanecer"
+    ]
+  },
+  "G4036": {
+    "shortDefinitionEs": "Profundamente triste, muy afligido (perílypos)",
+    "glossesEs": [
+      "triste",
+      "afligido",
+      "apenado"
+    ]
+  },
+  "G4037": {
+    "shortDefinitionEs": "Esperar, aguardar alrededor (periménō)",
+    "glossesEs": [
+      "esperar",
+      "aguardar",
+      "permanecer"
+    ]
+  },
+  "G4038": {
+    "shortDefinitionEs": "Alrededor, circundante (périx)",
+    "glossesEs": [
+      "alrededor",
+      "circundante",
+      "próximo"
+    ]
+  },
+  "G4039": {
+    "shortDefinitionEs": "Habitar alrededor, ser vecino (perioikéō)",
+    "glossesEs": [
+      "vecino",
+      "habitar",
+      "vivir cerca"
+    ]
+  },
+  "G4040": {
+    "shortDefinitionEs": "Habitante de alrededor, vecino (períoikos)",
+    "glossesEs": [
+      "vecino",
+      "próximo",
+      "allegado"
+    ]
+  },
+  "G4041": {
+    "shortDefinitionEs": "Especial, propio, particular (perioúsios)",
+    "glossesEs": [
+      "especial",
+      "propio",
+      "peculiar"
+    ]
+  },
+  "G4042": {
+    "shortDefinitionEs": "Pasaje de escritura, porción (perioúchḗ)",
+    "glossesEs": [
+      "pasaje",
+      "porción",
+      "sección"
+    ]
+  },
+  "G4043": {
+    "shortDefinitionEs": "Andar alrededor, vivir, conducirse (peripatéō)",
+    "glossesEs": [
+      "andar",
+      "vivir",
+      "conducirse"
+    ]
+  },
+  "G4044": {
+    "shortDefinitionEs": "Traspasar completamente, trasfijar (peripeírō)",
+    "glossesEs": [
+      "traspasar",
+      "trasfijar",
+      "penetrar"
+    ]
+  },
+  "G4045": {
+    "shortDefinitionEs": "Caer entre, rodearse (peripíptō)",
+    "glossesEs": [
+      "caer",
+      "ser rodeado",
+      "caer en"
+    ]
+  },
+  "G4046": {
+    "shortDefinitionEs": "Adquirir, comprar alrededor (peripoiéomai)",
+    "glossesEs": [
+      "comprar",
+      "adquirir",
+      "compra"
+    ]
+  },
+  "G4047": {
+    "shortDefinitionEs": "Adquisición, posesión, conservación (peripoíēsis)",
+    "glossesEs": [
+      "posesión",
+      "adquisición",
+      "salvación"
+    ]
+  },
+  "G4048": {
+    "shortDefinitionEs": "Rasgar completamente, desgarrar (perirrhḗgnymi)",
+    "glossesEs": [
+      "rasgar",
+      "desgarrar",
+      "romper"
+    ]
+  },
+  "G4049": {
+    "shortDefinitionEs": "Distraer, preocupar (perispáō)",
+    "glossesEs": [
+      "distraer",
+      "preocupar",
+      "turbar"
+    ]
+  },
+  "G4050": {
+    "shortDefinitionEs": "Sobreabundancia, exceso (perisseía)",
+    "glossesEs": [
+      "abundancia",
+      "exceso",
+      "sobreabundancia"
+    ]
+  },
+  "G4051": {
+    "shortDefinitionEs": "Sobrante, lo que sobra (perísseuma)",
+    "glossesEs": [
+      "sobrante",
+      "resto",
+      "residuo"
+    ]
+  },
+  "G4052": {
+    "shortDefinitionEs": "Sobreabundar, ser excesivo (perisseúō)",
+    "glossesEs": [
+      "abundar",
+      "sobreabundar",
+      "exceder"
+    ]
+  },
+  "G4053": {
+    "shortDefinitionEs": "Sobreabundante, excesivo, superior (perissós)",
+    "glossesEs": [
+      "abundante",
+      "excesivo",
+      "sobremanera"
+    ]
+  },
+  "G4054": {
+    "shortDefinitionEs": "Más sobreabundantemente (perissóteron)",
+    "glossesEs": [
+      "más abundante",
+      "sobremanera",
+      "mucho más"
+    ]
+  },
+  "G4055": {
+    "shortDefinitionEs": "Más abundante, mayor (perissóteros)",
+    "glossesEs": [
+      "más abundante",
+      "mayor",
+      "sobremanera"
+    ]
+  },
+  "G4056": {
+    "shortDefinitionEs": "Más sobreabundantemente (perissotérōs)",
+    "glossesEs": [
+      "abundantemente",
+      "sobremanera",
+      "con exceso"
+    ]
+  },
+  "G4057": {
+    "shortDefinitionEs": "Sobreabundantemente, excesivamente (perissōs)",
+    "glossesEs": [
+      "excesivamente",
+      "sobremanera",
+      "en demasía"
+    ]
+  },
+  "G4058": {
+    "shortDefinitionEs": "Paloma, pichón (peristerá)",
+    "glossesEs": [
+      "paloma",
+      "pichón",
+      "ave"
+    ]
+  },
+  "G4059": {
+    "shortDefinitionEs": "Circuncidar, cortar alrededor (peritémnō)",
+    "glossesEs": [
+      "circuncidar",
+      "circuncisión",
+      "cortar"
+    ]
+  },
+  "G4060": {
+    "shortDefinitionEs": "Poner alrededor, rodear (peritíthēmi)",
+    "glossesEs": [
+      "rodear",
+      "poner",
+      "colocar"
+    ]
+  },
+  "G4061": {
+    "shortDefinitionEs": "Circuncisión, acto de circuncidar (peritomḗ)",
+    "glossesEs": [
+      "circuncisión",
+      "circuncidar",
+      "rito"
+    ]
+  },
+  "G4062": {
+    "shortDefinitionEs": "Girar, enloquecer (peritrépō)",
+    "glossesEs": [
+      "enloquecer",
+      "girar",
+      "volverse loco"
+    ]
+  },
+  "G4063": {
+    "shortDefinitionEs": "Correr alrededor, recorrer (peritréchō)",
+    "glossesEs": [
+      "correr",
+      "recorrer",
+      "rodear"
+    ]
+  },
+  "G4064": {
+    "shortDefinitionEs": "Llevar alrededor, transportar (periphérō)",
+    "glossesEs": [
+      "llevar",
+      "transportar",
+      "portar"
+    ]
+  },
+  "G4065": {
+    "shortDefinitionEs": "Despreciar, desdeñar (periphronéō)",
+    "glossesEs": [
+      "despreciar",
+      "desdeñar",
+      "menospreciar"
+    ]
+  },
+  "G4066": {
+    "shortDefinitionEs": "Región alrededor, comarca vecina (períchōros)",
+    "glossesEs": [
+      "comarca",
+      "región",
+      "alrededores"
+    ]
+  },
+  "G4067": {
+    "shortDefinitionEs": "Barrura, escoria, vileza (perípsōma)",
+    "glossesEs": [
+      "escoria",
+      "barrura",
+      "vileza"
+    ]
+  },
+  "G4068": {
+    "shortDefinitionEs": "Jactarse, vanagloriarse (perpereúomai)",
+    "glossesEs": [
+      "jactarse",
+      "vanagloriarse",
+      "alardear"
+    ]
+  },
+  "G4069": {
+    "shortDefinitionEs": "Persis: mujer cristiana persa (Persís)",
+    "glossesEs": [
+      "Persis",
+      "cristiana",
+      "nombre propio"
+    ]
+  },
+  "G4070": {
+    "shortDefinitionEs": "El año pasado, hace un año (pérysi)",
+    "glossesEs": [
+      "año pasado",
+      "hace un año",
+      "anterior"
+    ]
+  },
+  "G4071": {
+    "shortDefinitionEs": "Ave, pájaro, animal volador (peteinón)",
+    "glossesEs": [
+      "ave",
+      "pájaro",
+      "pájaro volador"
+    ]
+  },
+  "G4072": {
+    "shortDefinitionEs": "Volar, moverse por el aire (pétomai)",
+    "glossesEs": [
+      "volar"
+    ]
+  },
+  "G4073": {
+    "shortDefinitionEs": "Roca, masa de piedra (pétra)",
+    "glossesEs": [
+      "roca",
+      "piedra"
+    ]
+  },
+  "G4074": {
+    "shortDefinitionEs": "Pedro: apóstol de Jesús; también roca (Pétros)",
+    "glossesEs": [
+      "Pedro",
+      "apóstol"
+    ]
+  },
+  "G4075": {
+    "shortDefinitionEs": "Pétreo, rocoso, de piedra (petrṓdēs)",
+    "glossesEs": [
+      "rocoso",
+      "pedregoso"
+    ]
+  },
+  "G4076": {
+    "shortDefinitionEs": "Ruda, planta aromática (pḗganon)",
+    "glossesEs": [
+      "ruda"
+    ]
+  },
+  "G4077": {
+    "shortDefinitionEs": "Fuente, manantial, pozo de agua (pēgḗ)",
+    "glossesEs": [
+      "fuente",
+      "manantial",
+      "pozo"
+    ]
+  },
+  "G4078": {
+    "shortDefinitionEs": "Clavar, fijar una tienda (pḗgnymi)",
+    "glossesEs": [
+      "clavar",
+      "fijar"
+    ]
+  },
+  "G4079": {
+    "shortDefinitionEs": "Timón de barco (pēdálion)",
+    "glossesEs": [
+      "timón"
+    ]
+  },
+  "G4080": {
+    "shortDefinitionEs": "Cuán grande, cuán grande en tamaño (pēlíkos)",
+    "glossesEs": [
+      "cuán grande",
+      "qué tamaño"
+    ]
+  },
+  "G4081": {
+    "shortDefinitionEs": "Barro, arcilla (pēlós)",
+    "glossesEs": [
+      "barro",
+      "arcilla"
+    ]
+  },
+  "G4082": {
+    "shortDefinitionEs": "Bolsa, morral de cuero (pḗra)",
+    "glossesEs": [
+      "bolsa",
+      "morral"
+    ]
+  },
+  "G4083": {
+    "shortDefinitionEs": "Codo, medida de longitud (pēchys)",
+    "glossesEs": [
+      "codo"
+    ]
+  },
+  "G4084": {
+    "shortDefinitionEs": "Atrapar, aprehender, asir (piázō)",
+    "glossesEs": [
+      "atrapar",
+      "aprehender",
+      "coger"
+    ]
+  },
+  "G4085": {
+    "shortDefinitionEs": "Apretar, comprimir (piézō)",
+    "glossesEs": [
+      "apretar",
+      "comprimir"
+    ]
+  },
+  "G4086": {
+    "shortDefinitionEs": "Palabras persuasivas, lenguaje cautivador (pithanología)",
+    "glossesEs": [
+      "palabras persuasivas",
+      "lisonja"
+    ]
+  },
+  "G4087": {
+    "shortDefinitionEs": "Amargar, volverse amargo (pikraínō)",
+    "glossesEs": [
+      "amargar",
+      "amargarse"
+    ]
+  },
+  "G4088": {
+    "shortDefinitionEs": "Amargura, acrimonia (pikría)",
+    "glossesEs": [
+      "amargura",
+      "veneno"
+    ]
+  },
+  "G4089": {
+    "shortDefinitionEs": "Amargo, acre, pungente (pikrós)",
+    "glossesEs": [
+      "amargo"
+    ]
+  },
+  "G4090": {
+    "shortDefinitionEs": "Amargamente, con violencia (pikrōs)",
+    "glossesEs": [
+      "amargamente",
+      "violentamente"
+    ]
+  },
+  "G4091": {
+    "shortDefinitionEs": "Poncio Pilato: gobernador romano (Pilâtos)",
+    "glossesEs": [
+      "Pilato"
+    ]
+  },
+  "G4092": {
+    "shortDefinitionEs": "Inflamarse, hincharse con fiebre (pímprēmi)",
+    "glossesEs": [
+      "hincharse",
+      "inflamarse"
+    ]
+  },
+  "G4093": {
+    "shortDefinitionEs": "Tablilla para escribir (pinakídion)",
+    "glossesEs": [
+      "tablilla",
+      "tabla"
+    ]
+  },
+  "G4094": {
+    "shortDefinitionEs": "Plato, fuente de servir (pínax)",
+    "glossesEs": [
+      "plato",
+      "fuente"
+    ]
+  },
+  "G4095": {
+    "shortDefinitionEs": "Beber, ingerir bebida (pínō)",
+    "glossesEs": [
+      "beber"
+    ]
+  },
+  "G4096": {
+    "shortDefinitionEs": "Gordura, grasa, abundancia (piótēs)",
+    "glossesEs": [
+      "gordura",
+      "grasa"
+    ]
+  },
+  "G4097": {
+    "shortDefinitionEs": "Vender, comerciar (pipráskō)",
+    "glossesEs": [
+      "vender"
+    ]
+  },
+  "G4098": {
+    "shortDefinitionEs": "Caer, derrumbarse (píptō)",
+    "glossesEs": [
+      "caer",
+      "desplomarse"
+    ]
+  },
+  "G4099": {
+    "shortDefinitionEs": "Pisidia: región de Asia Menor (Pisidía)",
+    "glossesEs": [
+      "Pisidia"
+    ]
+  },
+  "G4100": {
+    "shortDefinitionEs": "creer, confiar, tener fe (pisteuó)",
+    "glossesEs": [
+      "creer",
+      "fe"
+    ]
+  },
+  "G4101": {
+    "shortDefinitionEs": "Puro, genuino, sin adulteración (pistikós)",
+    "glossesEs": [
+      "puro",
+      "genuino"
+    ]
+  }
 }

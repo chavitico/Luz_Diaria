@@ -1,31 +1,6726 @@
 {
-  "G18":  { "shortDefinitionEs": "bueno, bondadoso, benéfico (agathos)", "glossesEs": ["bien", "bueno"] },
-  "G25":  { "shortDefinitionEs": "amar con amor incondicional (agapaó)", "glossesEs": ["amar", "amor"] },
-  "G26":  { "shortDefinitionEs": "amor ágape — amor incondicional y sacrificial", "glossesEs": ["amor", "ágape"] },
-  "G32":  { "shortDefinitionEs": "ángel, mensajero celestial (angelos)", "glossesEs": ["ángel", "ángeles"] },
-  "G37":  { "shortDefinitionEs": "santificar, consagrar, separar para Dios (hagiazó)", "glossesEs": ["santificar", "santificación"] },
-  "G38":  { "shortDefinitionEs": "santificación, consagración (hagiasmos)", "glossesEs": ["santificación"] },
-  "G40":  { "shortDefinitionEs": "santo, sagrado; el Espíritu Santo (hagios)", "glossesEs": ["santo", "sagrado", "espíritu santo"] },
-  "G42":  { "shortDefinitionEs": "santidad, pureza (hagiotes)", "glossesEs": ["santidad"] },
-  "G129": { "shortDefinitionEs": "sangre (haima)", "glossesEs": ["sangre"] },
-  "G134": { "shortDefinitionEs": "alabar, elogiar a Dios (aineó)", "glossesEs": ["alabar", "alabanza"] },
-  "G165": { "shortDefinitionEs": "eternidad, era, siglo (aión)", "glossesEs": ["eternidad"] },
-  "G166": { "shortDefinitionEs": "eterno, sempiterno, que dura para siempre (aiónios)", "glossesEs": ["eterno", "eterna"] },
-  "G191": { "shortDefinitionEs": "oír, escuchar, entender (akouó)", "glossesEs": ["oír"] },
-  "G225": { "shortDefinitionEs": "verdad, realidad (alétheia)", "glossesEs": ["verdad"] },
-  "G264": { "shortDefinitionEs": "pecar, errar, cometer falta (hamartanó)", "glossesEs": ["pecar"] },
-  "G266": { "shortDefinitionEs": "pecado, falla moral (hamartía)", "glossesEs": ["pecado"] },
-  "G281": { "shortDefinitionEs": "amén — verdaderamente, así sea", "glossesEs": ["amén"] },
-  "G386": { "shortDefinitionEs": "resurrección (anastasis)", "glossesEs": ["resurrección", "resucitar"] },
-  "G444": { "shortDefinitionEs": "hombre, ser humano, persona (anthropos)", "glossesEs": ["hombre", "hombres"] },
-  "G450": { "shortDefinitionEs": "levantarse, resucitar, ponerse en pie (anistemi)", "glossesEs": ["resucitar"] },
-  "G629": { "shortDefinitionEs": "redención, liberación mediante pago (apolutrosis)", "glossesEs": ["redención"] },
-  "G652": { "shortDefinitionEs": "apóstol, enviado oficial, representante", "glossesEs": ["apóstol", "apóstoles"] },
-  "G746": { "shortDefinitionEs": "principio, comienzo, gobernante, autoridad (arjé)", "glossesEs": ["principio"] },
-  "G859": { "shortDefinitionEs": "perdón, remisión de pecados (aphesis)", "glossesEs": ["perdón"] },
-  "G863": { "shortDefinitionEs": "perdonar, soltar, remitir (aphiemi)", "glossesEs": ["perdonar"] },
-  "G907": { "shortDefinitionEs": "bautizar, sumergir en agua", "glossesEs": ["bautizar"] },
-  "G908": { "shortDefinitionEs": "bautismo, inmersión (baptisma)", "glossesEs": ["bautismo"] },
-  "G932": { "shortDefinitionEs": "reino, reinado, dominio (basileia)", "glossesEs": ["reino"] },
-  "G935": { "shortDefinitionEs": "rey, soberano, monarca (basileus)", "glossesEs": ["rey"] }
+  "G18": {
+    "shortDefinitionEs": "bueno, bondadoso, benéfico (agathos)",
+    "glossesEs": [
+      "bien",
+      "bueno"
+    ]
+  },
+  "G25": {
+    "shortDefinitionEs": "amar con amor incondicional (agapaó)",
+    "glossesEs": [
+      "amar",
+      "amor"
+    ]
+  },
+  "G26": {
+    "shortDefinitionEs": "amor ágape — amor incondicional y sacrificial",
+    "glossesEs": [
+      "amor",
+      "ágape"
+    ]
+  },
+  "G32": {
+    "shortDefinitionEs": "ángel, mensajero celestial (angelos)",
+    "glossesEs": [
+      "ángel",
+      "ángeles"
+    ]
+  },
+  "G37": {
+    "shortDefinitionEs": "santificar, consagrar, separar para Dios (hagiazó)",
+    "glossesEs": [
+      "santificar",
+      "santificación"
+    ]
+  },
+  "G38": {
+    "shortDefinitionEs": "santificación, consagración (hagiasmos)",
+    "glossesEs": [
+      "santificación"
+    ]
+  },
+  "G40": {
+    "shortDefinitionEs": "santo, sagrado; el Espíritu Santo (hagios)",
+    "glossesEs": [
+      "santo",
+      "sagrado",
+      "espíritu santo"
+    ]
+  },
+  "G42": {
+    "shortDefinitionEs": "santidad, pureza (hagiotes)",
+    "glossesEs": [
+      "santidad"
+    ]
+  },
+  "G57": {
+    "shortDefinitionEs": "Desconocido, ignorado (ágnōstos)",
+    "glossesEs": [
+      "desconocido",
+      "ignorado"
+    ]
+  },
+  "G58": {
+    "shortDefinitionEs": "Plaza pública, mercado de una ciudad (agorá)",
+    "glossesEs": [
+      "plaza",
+      "mercado",
+      "calle"
+    ]
+  },
+  "G59": {
+    "shortDefinitionEs": "Comprar, adquirir; redimir (agorázō)",
+    "glossesEs": [
+      "comprar",
+      "redimir"
+    ]
+  },
+  "G60": {
+    "shortDefinitionEs": "Perteneciente a la plaza; vulgar, ordinario (agoraîos)",
+    "glossesEs": [
+      "vulgar",
+      "ordinario",
+      "bajo"
+    ]
+  },
+  "G61": {
+    "shortDefinitionEs": "Pesca, captura de peces (ágra)",
+    "glossesEs": [
+      "pesca",
+      "captura",
+      "red"
+    ]
+  },
+  "G62": {
+    "shortDefinitionEs": "Sin letras, analfabeto, inculto (agrámmatos)",
+    "glossesEs": [
+      "analfabeto",
+      "inculto"
+    ]
+  },
+  "G63": {
+    "shortDefinitionEs": "Acampar al aire libre (agrauléō)",
+    "glossesEs": [
+      "acampar",
+      "campo"
+    ]
+  },
+  "G64": {
+    "shortDefinitionEs": "Cazar; atrapar, enraredar (agreúō)",
+    "glossesEs": [
+      "cazar",
+      "atrapar",
+      "enraredar"
+    ]
+  },
+  "G65": {
+    "shortDefinitionEs": "Olivo silvestre, aceituno (agriélaios)",
+    "glossesEs": [
+      "olivo silvestre",
+      "aceituno"
+    ]
+  },
+  "G66": {
+    "shortDefinitionEs": "Salvaje, silvestre; feroz, turbulento (ágrios)",
+    "glossesEs": [
+      "salvaje",
+      "silvestre",
+      "feroz"
+    ]
+  },
+  "G67": {
+    "shortDefinitionEs": "Agripa: rey de los judíos (Agríppas)",
+    "glossesEs": [
+      "Agripa"
+    ]
+  },
+  "G68": {
+    "shortDefinitionEs": "Campo, tierra de labranza, heredad (agrós)",
+    "glossesEs": [
+      "campo",
+      "tierra",
+      "heredad",
+      "predio"
+    ]
+  },
+  "G69": {
+    "shortDefinitionEs": "Velar, mantenerse despierto (agrypnéō)",
+    "glossesEs": [
+      "velar",
+      "desvelar"
+    ]
+  },
+  "G70": {
+    "shortDefinitionEs": "Vigilia, falta de sueño (agrypnía)",
+    "glossesEs": [
+      "vigilia",
+      "desvelo"
+    ]
+  },
+  "G71": {
+    "shortDefinitionEs": "Conducir, llevar, traer; pasar (tiempo) (ágō)",
+    "glossesEs": [
+      "conducir",
+      "llevar",
+      "traer",
+      "pasar"
+    ]
+  },
+  "G72": {
+    "shortDefinitionEs": "Educación, modo de vivir, conducta (agōgḗ)",
+    "glossesEs": [
+      "educación",
+      "conducta",
+      "vida"
+    ]
+  },
+  "G73": {
+    "shortDefinitionEs": "Contienda, lucha, combate, carrera (agṓn)",
+    "glossesEs": [
+      "lucha",
+      "contienda",
+      "combate",
+      "carrera"
+    ]
+  },
+  "G74": {
+    "shortDefinitionEs": "Angustia, agonía, tribulación (agōnía)",
+    "glossesEs": [
+      "angustia",
+      "agonía",
+      "tribulación"
+    ]
+  },
+  "G75": {
+    "shortDefinitionEs": "Luchar, esforzarse, contender (agōnízomai)",
+    "glossesEs": [
+      "luchar",
+      "esforzarse",
+      "contender"
+    ]
+  },
+  "G76": {
+    "shortDefinitionEs": "Adán: primer hombre creado (Adám)",
+    "glossesEs": [
+      "Adán"
+    ]
+  },
+  "G77": {
+    "shortDefinitionEs": "Gratuito, sin costo, sin gasto (adápanos)",
+    "glossesEs": [
+      "gratuito",
+      "gratis"
+    ]
+  },
+  "G78": {
+    "shortDefinitionEs": "Adí: israelita en genealogía (Addí)",
+    "glossesEs": [
+      "Adí"
+    ]
+  },
+  "G79": {
+    "shortDefinitionEs": "Hermana, mujer hermana (adelphḗ)",
+    "glossesEs": [
+      "hermana"
+    ]
+  },
+  "G81": {
+    "shortDefinitionEs": "Hermandad, fraternidad cristiana (adelphótēs)",
+    "glossesEs": [
+      "hermandad",
+      "fraternidad",
+      "comunidad"
+    ]
+  },
+  "G82": {
+    "shortDefinitionEs": "Oculto, incierto, no evidente (ádēlos)",
+    "glossesEs": [
+      "oculto",
+      "incierto",
+      "dudoso"
+    ]
+  },
+  "G83": {
+    "shortDefinitionEs": "Incertidumbre, lo incierto (adēlótēs)",
+    "glossesEs": [
+      "incertidumbre",
+      "duda"
+    ]
+  },
+  "G84": {
+    "shortDefinitionEs": "Inciertamente, de modo dudoso (adēlōs)",
+    "glossesEs": [
+      "inciertamente"
+    ]
+  },
+  "G85": {
+    "shortDefinitionEs": "Angustiarse, estar muy afligido (adēmonéō)",
+    "glossesEs": [
+      "angustia",
+      "aflicción",
+      "tristeza"
+    ]
+  },
+  "G86": {
+    "shortDefinitionEs": "Hades: lugar de los muertos (háidēs)",
+    "glossesEs": [
+      "Hades",
+      "infierno",
+      "sepulcro"
+    ]
+  },
+  "G87": {
+    "shortDefinitionEs": "Sin distinción, imparcial (adiákritos)",
+    "glossesEs": [
+      "imparcial",
+      "sin prejuicio"
+    ]
+  },
+  "G88": {
+    "shortDefinitionEs": "Continuo, sin intermisión (adiáleiptos)",
+    "glossesEs": [
+      "continuo",
+      "incesante",
+      "permanente"
+    ]
+  },
+  "G89": {
+    "shortDefinitionEs": "Continuamente, sin cesar (adialeíptōs)",
+    "glossesEs": [
+      "continuamente",
+      "incesantemente"
+    ]
+  },
+  "G90": {
+    "shortDefinitionEs": "Incorruptibilidad, pureza (adiaphthoría)",
+    "glossesEs": [
+      "pureza",
+      "incorruptibilidad"
+    ]
+  },
+  "G91": {
+    "shortDefinitionEs": "Ofender, injuriar, hacer mal (adikéō)",
+    "glossesEs": [
+      "ofender",
+      "injuriar",
+      "perjudicar"
+    ]
+  },
+  "G92": {
+    "shortDefinitionEs": "Maldad, iniquidad, injuria (adíkēma)",
+    "glossesEs": [
+      "maldad",
+      "iniquidad",
+      "injuria"
+    ]
+  },
+  "G93": {
+    "shortDefinitionEs": "Injusticia, maldad, iniquidad (adikía)",
+    "glossesEs": [
+      "injusticia",
+      "maldad",
+      "iniquidad"
+    ]
+  },
+  "G94": {
+    "shortDefinitionEs": "Injusto, impío, malvado (ádikos)",
+    "glossesEs": [
+      "injusto",
+      "impío",
+      "malvado"
+    ]
+  },
+  "G95": {
+    "shortDefinitionEs": "Injustamente, malvadamente (adíkōs)",
+    "glossesEs": [
+      "injustamente"
+    ]
+  },
+  "G96": {
+    "shortDefinitionEs": "Reprobado, rechazado, indigno (adókimos)",
+    "glossesEs": [
+      "reprobado",
+      "rechazado",
+      "indigno"
+    ]
+  },
+  "G97": {
+    "shortDefinitionEs": "Sin engaño, sincero, puro (ádolos)",
+    "glossesEs": [
+      "sincero",
+      "puro",
+      "genuino"
+    ]
+  },
+  "G98": {
+    "shortDefinitionEs": "De Adramitio (ciudad) (Adramyttēnós)",
+    "glossesEs": [
+      "Adramitio"
+    ]
+  },
+  "G99": {
+    "shortDefinitionEs": "Mar Adriático (Adrías)",
+    "glossesEs": [
+      "Adriático"
+    ]
+  },
+  "G100": {
+    "shortDefinitionEs": "Abundancia, liberalidad (hadrótēs)",
+    "glossesEs": [
+      "abundancia",
+      "generosidad"
+    ]
+  },
+  "G101": {
+    "shortDefinitionEs": "Ser imposible, no poder (adynatéō)",
+    "glossesEs": [
+      "imposible",
+      "impotencia"
+    ]
+  },
+  "G102": {
+    "shortDefinitionEs": "Impotente, débil, imposible (adýnatos)",
+    "glossesEs": [
+      "impotente",
+      "débil",
+      "imposible"
+    ]
+  },
+  "G103": {
+    "shortDefinitionEs": "Cantar, entonar (áidō)",
+    "glossesEs": [
+      "cantar"
+    ]
+  },
+  "G104": {
+    "shortDefinitionEs": "Siempre, continuamente, perpetuamente (aeí)",
+    "glossesEs": [
+      "siempre",
+      "perpetuamente"
+    ]
+  },
+  "G105": {
+    "shortDefinitionEs": "Águila, ave rapaz (aetós)",
+    "glossesEs": [
+      "águila"
+    ]
+  },
+  "G106": {
+    "shortDefinitionEs": "Sin levadura, puro; Pascua (ázymos)",
+    "glossesEs": [
+      "sin levadura",
+      "ácimo",
+      "Pascua"
+    ]
+  },
+  "G107": {
+    "shortDefinitionEs": "Azor: israelita en genealogía (Azṓr)",
+    "glossesEs": [
+      "Azor"
+    ]
+  },
+  "G108": {
+    "shortDefinitionEs": "Azoto, ciudad en Palestina (Ázōtos)",
+    "glossesEs": [
+      "Azoto",
+      "Ashdod"
+    ]
+  },
+  "G109": {
+    "shortDefinitionEs": "aire, atmósfera que rodea (aḗr)",
+    "glossesEs": [
+      "aire"
+    ]
+  },
+  "G110": {
+    "shortDefinitionEs": "inmortalidad, cualidad de no morir (athanasía)",
+    "glossesEs": [
+      "inmortalidad"
+    ]
+  },
+  "G111": {
+    "shortDefinitionEs": "ilegal, abominable, execrable (athémitos)",
+    "glossesEs": [
+      "ilegal",
+      "abominable"
+    ]
+  },
+  "G112": {
+    "shortDefinitionEs": "sin Dios, impío, ateo (átheos)",
+    "glossesEs": [
+      "impío",
+      "sin Dios"
+    ]
+  },
+  "G113": {
+    "shortDefinitionEs": "sin ley, criminal, malvado (áthesmos)",
+    "glossesEs": [
+      "sin ley",
+      "malvado"
+    ]
+  },
+  "G114": {
+    "shortDefinitionEs": "rechazar, anular, violar, desdeñar (athetéō)",
+    "glossesEs": [
+      "rechazar",
+      "anular",
+      "despreciar"
+    ]
+  },
+  "G115": {
+    "shortDefinitionEs": "anulación, revocación, derogación (athétēsis)",
+    "glossesEs": [
+      "anulación",
+      "revocación"
+    ]
+  },
+  "G116": {
+    "shortDefinitionEs": "Atenas, capital de Grecia (Athēnai)",
+    "glossesEs": [
+      "Atenas"
+    ]
+  },
+  "G117": {
+    "shortDefinitionEs": "ateniense, habitante de Atenas (Athēnaîos)",
+    "glossesEs": [
+      "ateniense"
+    ]
+  },
+  "G118": {
+    "shortDefinitionEs": "competir, esforzarse en juegos (athléō)",
+    "glossesEs": [
+      "competir",
+      "luchar"
+    ]
+  },
+  "G119": {
+    "shortDefinitionEs": "lucha, combate, esfuerzo (áthlēsis)",
+    "glossesEs": [
+      "lucha",
+      "combate"
+    ]
+  },
+  "G120": {
+    "shortDefinitionEs": "desalentarse, acobardarse (athyméō)",
+    "glossesEs": [
+      "desalentarse",
+      "acobardarse"
+    ]
+  },
+  "G121": {
+    "shortDefinitionEs": "inocente, sin culpa (áthōos)",
+    "glossesEs": [
+      "inocente"
+    ]
+  },
+  "G122": {
+    "shortDefinitionEs": "de cabra, caprino (aígeios)",
+    "glossesEs": [
+      "cabra",
+      "caprino"
+    ]
+  },
+  "G123": {
+    "shortDefinitionEs": "playa, orilla donde rompen las olas (aigialós)",
+    "glossesEs": [
+      "playa",
+      "orilla"
+    ]
+  },
+  "G124": {
+    "shortDefinitionEs": "egipcio, habitante de Egipto (Aigýptios)",
+    "glossesEs": [
+      "egipcio"
+    ]
+  },
+  "G125": {
+    "shortDefinitionEs": "Egipto, tierra del Nilo (Aígyptos)",
+    "glossesEs": [
+      "Egipto"
+    ]
+  },
+  "G126": {
+    "shortDefinitionEs": "eterno, perpetuo, sin fin (aḯdios)",
+    "glossesEs": [
+      "eterno",
+      "perpetuo"
+    ]
+  },
+  "G127": {
+    "shortDefinitionEs": "respeto, pudor, reverencia (aidṓs)",
+    "glossesEs": [
+      "respeto",
+      "reverencia",
+      "pudor"
+    ]
+  },
+  "G128": {
+    "shortDefinitionEs": "etíope, habitante de Etiopía (Aithíops)",
+    "glossesEs": [
+      "etíope"
+    ]
+  },
+  "G129": {
+    "shortDefinitionEs": "sangre (haima)",
+    "glossesEs": [
+      "sangre"
+    ]
+  },
+  "G130": {
+    "shortDefinitionEs": "derramamiento de sangre (haimatekchysía)",
+    "glossesEs": [
+      "derramamiento",
+      "sangre"
+    ]
+  },
+  "G131": {
+    "shortDefinitionEs": "hemorragia, flujo de sangre (haimorrhéō)",
+    "glossesEs": [
+      "hemorragia",
+      "flujo de sangre"
+    ]
+  },
+  "G132": {
+    "shortDefinitionEs": "Eneas, israelita (Ainéas)",
+    "glossesEs": [
+      "Eneas"
+    ]
+  },
+  "G133": {
+    "shortDefinitionEs": "alabanza, acción de alabar (aínesis)",
+    "glossesEs": [
+      "alabanza"
+    ]
+  },
+  "G134": {
+    "shortDefinitionEs": "alabar, elogiar a Dios (aineó)",
+    "glossesEs": [
+      "alabar",
+      "alabanza"
+    ]
+  },
+  "G135": {
+    "shortDefinitionEs": "enigma, dicho oscuro (aínigma)",
+    "glossesEs": [
+      "enigma",
+      "misterio"
+    ]
+  },
+  "G136": {
+    "shortDefinitionEs": "alabanza, loa de Dios (aînos)",
+    "glossesEs": [
+      "alabanza",
+      "loa"
+    ]
+  },
+  "G137": {
+    "shortDefinitionEs": "Enón, lugar en Palestina (Ainṓn)",
+    "glossesEs": [
+      "Enón"
+    ]
+  },
+  "G138": {
+    "shortDefinitionEs": "elegir, escoger, preferir (hairéomai)",
+    "glossesEs": [
+      "elegir",
+      "escoger"
+    ]
+  },
+  "G139": {
+    "shortDefinitionEs": "herejía, secta, partido (haíresis)",
+    "glossesEs": [
+      "herejía",
+      "secta"
+    ]
+  },
+  "G140": {
+    "shortDefinitionEs": "elegir, escoger deliberadamente (hairetízō)",
+    "glossesEs": [
+      "elegir",
+      "escoger"
+    ]
+  },
+  "G141": {
+    "shortDefinitionEs": "hereje, cismático (hairetikós)",
+    "glossesEs": [
+      "hereje"
+    ]
+  },
+  "G142": {
+    "shortDefinitionEs": "levantar, alzar, llevar, quitar (aírō)",
+    "glossesEs": [
+      "levantar",
+      "llevar",
+      "quitar"
+    ]
+  },
+  "G143": {
+    "shortDefinitionEs": "percibir, sentir, darse cuenta (aisthánomai)",
+    "glossesEs": [
+      "percibir",
+      "sentir"
+    ]
+  },
+  "G144": {
+    "shortDefinitionEs": "percepción, juicio, discernimiento (aísthēsis)",
+    "glossesEs": [
+      "percepción",
+      "juicio"
+    ]
+  },
+  "G145": {
+    "shortDefinitionEs": "facultad sensorial, sentidos (aisthētḗrion)",
+    "glossesEs": [
+      "sentidos",
+      "facultad sensorial"
+    ]
+  },
+  "G146": {
+    "shortDefinitionEs": "codicioso de ganancia ilícita (aischrokerdḗs)",
+    "glossesEs": [
+      "codicioso",
+      "lucro ilícito"
+    ]
+  },
+  "G147": {
+    "shortDefinitionEs": "codiciosamente, por ganancia ilícita (aischrokerdōs)",
+    "glossesEs": [
+      "codiciosamente"
+    ]
+  },
+  "G148": {
+    "shortDefinitionEs": "lenguaje obsceno, palabrotas (aischrología)",
+    "glossesEs": [
+      "obscenidad",
+      "palabrotas"
+    ]
+  },
+  "G149": {
+    "shortDefinitionEs": "cosa vergonzosa, indecencia (aischrón)",
+    "glossesEs": [
+      "vergüenza",
+      "indecencia"
+    ]
+  },
+  "G150": {
+    "shortDefinitionEs": "vergonzoso, sucio, vil (aischrós)",
+    "glossesEs": [
+      "vergonzoso",
+      "sucio"
+    ]
+  },
+  "G151": {
+    "shortDefinitionEs": "vergüenza, obscenidad, suciedad (aischrótēs)",
+    "glossesEs": [
+      "obscenidad",
+      "suciedad"
+    ]
+  },
+  "G152": {
+    "shortDefinitionEs": "vergüenza, deshonra, ignominia (aischýnē)",
+    "glossesEs": [
+      "vergüenza",
+      "deshonra"
+    ]
+  },
+  "G153": {
+    "shortDefinitionEs": "avergonzarse, sentir vergüenza (aischýnomai)",
+    "glossesEs": [
+      "avergonzarse"
+    ]
+  },
+  "G154": {
+    "shortDefinitionEs": "pedir, rogar, solicitar, desear (aitéō)",
+    "glossesEs": [
+      "pedir",
+      "rogar",
+      "solicitar"
+    ]
+  },
+  "G155": {
+    "shortDefinitionEs": "petición, solicitud, demanda (aítēma)",
+    "glossesEs": [
+      "petición",
+      "solicitud"
+    ]
+  },
+  "G156": {
+    "shortDefinitionEs": "causa, razón, motivo, acusación (aitía)",
+    "glossesEs": [
+      "causa",
+      "razón",
+      "acusación"
+    ]
+  },
+  "G157": {
+    "shortDefinitionEs": "queja, acusación, denuncia (aitíama)",
+    "glossesEs": [
+      "queja",
+      "acusación"
+    ]
+  },
+  "G158": {
+    "shortDefinitionEs": "causa, razón, culpa (aítion)",
+    "glossesEs": [
+      "causa",
+      "culpa"
+    ]
+  },
+  "G159": {
+    "shortDefinitionEs": "autor, causante, responsable (aítios)",
+    "glossesEs": [
+      "autor",
+      "causante"
+    ]
+  },
+  "G160": {
+    "shortDefinitionEs": "Repentino, inesperado, de improviso (aiphnídios)",
+    "glossesEs": [
+      "repentino",
+      "inesperado",
+      "improviso"
+    ]
+  },
+  "G161": {
+    "shortDefinitionEs": "Estado de cautividad o encarcelamiento (aichmalōsía)",
+    "glossesEs": [
+      "cautividad",
+      "encarcelamiento"
+    ]
+  },
+  "G162": {
+    "shortDefinitionEs": "Llevar cautivo, capturar en guerra (aichmalōteúō)",
+    "glossesEs": [
+      "capturar",
+      "llevar cautivo"
+    ]
+  },
+  "G163": {
+    "shortDefinitionEs": "Hacer cautivo, llevar en cautividad (aichmalōtízō)",
+    "glossesEs": [
+      "cautividad",
+      "llevar cautivo"
+    ]
+  },
+  "G164": {
+    "shortDefinitionEs": "Prisionero de guerra, cautivo (aichmálōtos)",
+    "glossesEs": [
+      "cautivo",
+      "prisionero"
+    ]
+  },
+  "G165": {
+    "shortDefinitionEs": "eternidad, era, siglo (aión)",
+    "glossesEs": [
+      "eternidad"
+    ]
+  },
+  "G166": {
+    "shortDefinitionEs": "eterno, sempiterno, que dura para siempre (aiónios)",
+    "glossesEs": [
+      "eterno",
+      "eterna"
+    ]
+  },
+  "G167": {
+    "shortDefinitionEs": "Impureza física o moral, falta de limpieza (akatharsía)",
+    "glossesEs": [
+      "impureza",
+      "inmundicia"
+    ]
+  },
+  "G168": {
+    "shortDefinitionEs": "Suciedad moral, corrupción espiritual (akathártēs)",
+    "glossesEs": [
+      "suciedad",
+      "corrupción"
+    ]
+  },
+  "G169": {
+    "shortDefinitionEs": "Impuro, inmundo, contaminado (akáthartos)",
+    "glossesEs": [
+      "inmundo",
+      "impuro",
+      "sucio"
+    ]
+  },
+  "G170": {
+    "shortDefinitionEs": "Carecer de oportunidad, no hallar ocasión (akairéomai)",
+    "glossesEs": [
+      "oportunidad",
+      "ocasión"
+    ]
+  },
+  "G171": {
+    "shortDefinitionEs": "Fuera de tiempo, en momento inoportuno (akaírōs)",
+    "glossesEs": [
+      "inoportuno",
+      "fuera de tiempo"
+    ]
+  },
+  "G172": {
+    "shortDefinitionEs": "Inocente, ingenuo, sin malicia (ákakos)",
+    "glossesEs": [
+      "inocente",
+      "ingenuo",
+      "simple"
+    ]
+  },
+  "G173": {
+    "shortDefinitionEs": "Espina, púa de planta (ákantha)",
+    "glossesEs": [
+      "espina",
+      "púa"
+    ]
+  },
+  "G174": {
+    "shortDefinitionEs": "De espinas, hecho de espinas (akánthinos)",
+    "glossesEs": [
+      "espinas",
+      "espinoso"
+    ]
+  },
+  "G175": {
+    "shortDefinitionEs": "Estéril, infructuoso, improductivo (ákarpos)",
+    "glossesEs": [
+      "estéril",
+      "infructuoso",
+      "improductivo"
+    ]
+  },
+  "G176": {
+    "shortDefinitionEs": "Inculpable, que no puede ser condenado (akatágnōstos)",
+    "glossesEs": [
+      "inculpable",
+      "irreprochable"
+    ]
+  },
+  "G177": {
+    "shortDefinitionEs": "Descubierto, sin velo (akatakályptos)",
+    "glossesEs": [
+      "descubierto",
+      "sin velo"
+    ]
+  },
+  "G178": {
+    "shortDefinitionEs": "Sin juicio previo, sin ser juzgado (akatákritos)",
+    "glossesEs": [
+      "injustamente",
+      "sin juicio"
+    ]
+  },
+  "G179": {
+    "shortDefinitionEs": "Indisoluble, eterno, permanente (akatálytos)",
+    "glossesEs": [
+      "eterno",
+      "permanente",
+      "indisoluble"
+    ]
+  },
+  "G180": {
+    "shortDefinitionEs": "Incesante, que no cesa (akatápaustos)",
+    "glossesEs": [
+      "incesante",
+      "continuo"
+    ]
+  },
+  "G181": {
+    "shortDefinitionEs": "Desorden, confusión, tumulto (akatastasía)",
+    "glossesEs": [
+      "desorden",
+      "confusión",
+      "tumulto"
+    ]
+  },
+  "G182": {
+    "shortDefinitionEs": "Inconstante, inestable, variable (akatástatos)",
+    "glossesEs": [
+      "inconstante",
+      "inestable"
+    ]
+  },
+  "G183": {
+    "shortDefinitionEs": "Incontrolable, indómito, rebelde (akatáschetos)",
+    "glossesEs": [
+      "indómito",
+      "rebelde",
+      "incontrolable"
+    ]
+  },
+  "G184": {
+    "shortDefinitionEs": "Acéldama: Campo de sangre cerca de Jerusalén (Akeldamá)",
+    "glossesEs": [
+      "Acéldama",
+      "Jerusalén"
+    ]
+  },
+  "G185": {
+    "shortDefinitionEs": "Sincero, puro, sin mezcla de maldad (akéraios)",
+    "glossesEs": [
+      "sincero",
+      "puro",
+      "inocente"
+    ]
+  },
+  "G186": {
+    "shortDefinitionEs": "Firme, sin vacilar, inquebrantable (aklinḗs)",
+    "glossesEs": [
+      "firme",
+      "inquebrantable"
+    ]
+  },
+  "G187": {
+    "shortDefinitionEs": "Alcanzar madurez, estar completamente maduro (akmázō)",
+    "glossesEs": [
+      "madurez",
+      "madurar"
+    ]
+  },
+  "G188": {
+    "shortDefinitionEs": "Todavía, aún, en este momento (akmḗn)",
+    "glossesEs": [
+      "todavía",
+      "aún"
+    ]
+  },
+  "G189": {
+    "shortDefinitionEs": "Acto de oír, sentido del oído, noticia (akoḗ)",
+    "glossesEs": [
+      "audición",
+      "oído",
+      "noticia"
+    ]
+  },
+  "G190": {
+    "shortDefinitionEs": "Seguir, acompañar como discípulo (akolouthéō)",
+    "glossesEs": [
+      "seguir",
+      "acompañar"
+    ]
+  },
+  "G191": {
+    "shortDefinitionEs": "oír, escuchar, entender (akouó)",
+    "glossesEs": [
+      "oír"
+    ]
+  },
+  "G192": {
+    "shortDefinitionEs": "Falta de dominio propio, incontinencia (akrasía)",
+    "glossesEs": [
+      "incontinencia",
+      "desenfreno"
+    ]
+  },
+  "G193": {
+    "shortDefinitionEs": "Sin autocontrol, incontinente (akratḗs)",
+    "glossesEs": [
+      "incontinente",
+      "desenfrenado"
+    ]
+  },
+  "G194": {
+    "shortDefinitionEs": "Sin mezclar, puro, sin dilución (ákratos)",
+    "glossesEs": [
+      "puro",
+      "sin mezcla"
+    ]
+  },
+  "G195": {
+    "shortDefinitionEs": "Exactitud, precisión, cuidado extremo (akríbeia)",
+    "glossesEs": [
+      "exactitud",
+      "precisión"
+    ]
+  },
+  "G196": {
+    "shortDefinitionEs": "Más exacto, muy riguroso (akribéstatos)",
+    "glossesEs": [
+      "exacto",
+      "riguroso"
+    ]
+  },
+  "G197": {
+    "shortDefinitionEs": "Más exactamente, con mayor precisión (akribésteron)",
+    "glossesEs": [
+      "exactamente",
+      "precisamente"
+    ]
+  },
+  "G198": {
+    "shortDefinitionEs": "Investigar diligentemente, inquirir (akribóō)",
+    "glossesEs": [
+      "investigar",
+      "inquirir"
+    ]
+  },
+  "G199": {
+    "shortDefinitionEs": "Exactamente, cuidadosamente, diligentemente (akribōs)",
+    "glossesEs": [
+      "exactamente",
+      "cuidadosamente"
+    ]
+  },
+  "G200": {
+    "shortDefinitionEs": "Langosta, insecto saltador (akrís)",
+    "glossesEs": [
+      "langosta"
+    ]
+  },
+  "G201": {
+    "shortDefinitionEs": "Sala de audiciones, lugar de escucha (akroatḗrion)",
+    "glossesEs": [
+      "sala",
+      "audición"
+    ]
+  },
+  "G202": {
+    "shortDefinitionEs": "Oyente, el que escucha (akroatḗs)",
+    "glossesEs": [
+      "oyente",
+      "escuchador"
+    ]
+  },
+  "G203": {
+    "shortDefinitionEs": "Prepucio, incircuncisión, los gentiles (akrobystía)",
+    "glossesEs": [
+      "incircuncisión",
+      "incircunciso"
+    ]
+  },
+  "G204": {
+    "shortDefinitionEs": "Esquina principal, angular (akrogōniaîos)",
+    "glossesEs": [
+      "esquina",
+      "angular"
+    ]
+  },
+  "G205": {
+    "shortDefinitionEs": "Lo mejor del botín, despojos (akrothínion)",
+    "glossesEs": [
+      "botín",
+      "despojos"
+    ]
+  },
+  "G206": {
+    "shortDefinitionEs": "Extremidad, punta, cumbre, fin (ákron)",
+    "glossesEs": [
+      "punta",
+      "extremo",
+      "cumbre"
+    ]
+  },
+  "G207": {
+    "shortDefinitionEs": "Aquila: Israelita, fabricante de tiendas (Akýlas)",
+    "glossesEs": [
+      "Aquila"
+    ]
+  },
+  "G208": {
+    "shortDefinitionEs": "Invalidar, anular, dejar sin efecto (akyróō)",
+    "glossesEs": [
+      "anular",
+      "invalidar"
+    ]
+  },
+  "G209": {
+    "shortDefinitionEs": "Sin impedimento, libremente, sin obstáculos (akōlýtōs)",
+    "glossesEs": [
+      "libremente",
+      "sin impedimento"
+    ]
+  },
+  "G210": {
+    "shortDefinitionEs": "Involuntario, contra la voluntad (ákōn)",
+    "glossesEs": [
+      "involuntario",
+      "contra voluntad"
+    ]
+  },
+  "G211": {
+    "shortDefinitionEs": "Frasco de alabastro, vasija de perfume (alábastron)",
+    "glossesEs": [
+      "frasco",
+      "alabastro"
+    ]
+  },
+  "G212": {
+    "shortDefinitionEs": "Jactancia, fanfarronería, soberbia (alazoneía)",
+    "glossesEs": [
+      "jactancia",
+      "soberbia",
+      "orgullo"
+    ]
+  },
+  "G213": {
+    "shortDefinitionEs": "persona que presume o alardea (alazṓn)",
+    "glossesEs": [
+      "jactancioso",
+      "vanidoso"
+    ]
+  },
+  "G214": {
+    "shortDefinitionEs": "gritar o lamentar; figuradamente, sonar (alalázō)",
+    "glossesEs": [
+      "clamar",
+      "gemir"
+    ]
+  },
+  "G215": {
+    "shortDefinitionEs": "que no puede expresarse con palabras (alálētos)",
+    "glossesEs": [
+      "inefable",
+      "indecible"
+    ]
+  },
+  "G216": {
+    "shortDefinitionEs": "mudo, que no puede hablar (álalos)",
+    "glossesEs": [
+      "mudo",
+      "sordomudo"
+    ]
+  },
+  "G217": {
+    "shortDefinitionEs": "sal; figuradamente, prudencia (hálas)",
+    "glossesEs": [
+      "sal",
+      "sabor"
+    ]
+  },
+  "G218": {
+    "shortDefinitionEs": "ungir con perfume o aceite (aleíphō)",
+    "glossesEs": [
+      "ungir",
+      "perfumar"
+    ]
+  },
+  "G219": {
+    "shortDefinitionEs": "canto del gallo, tercera vela nocturna (alektorophōnía)",
+    "glossesEs": [
+      "canto del gallo",
+      "madrugada"
+    ]
+  },
+  "G220": {
+    "shortDefinitionEs": "gallo, ave macho (aléktōr)",
+    "glossesEs": [
+      "gallo",
+      "ave"
+    ]
+  },
+  "G221": {
+    "shortDefinitionEs": "Alejandreús: habitante de Alejandría (Alexandreús)",
+    "glossesEs": [
+      "Alejandría",
+      "alejandrino"
+    ]
+  },
+  "G222": {
+    "shortDefinitionEs": "Alejandreús: perteneciente a Alejandría (Alexandrînos)",
+    "glossesEs": [
+      "Alejandría",
+      "alejandrino"
+    ]
+  },
+  "G223": {
+    "shortDefinitionEs": "Alejandro: defensor de hombres (Aléxandros)",
+    "glossesEs": [
+      "Alejandro"
+    ]
+  },
+  "G224": {
+    "shortDefinitionEs": "harina molida finamente (áleuron)",
+    "glossesEs": [
+      "harina",
+      "flor"
+    ]
+  },
+  "G225": {
+    "shortDefinitionEs": "verdad, realidad (alétheia)",
+    "glossesEs": [
+      "verdad"
+    ]
+  },
+  "G226": {
+    "shortDefinitionEs": "ser veraz en doctrina y profesión (alētheúō)",
+    "glossesEs": [
+      "hablar verdad",
+      "ser sincero"
+    ]
+  },
+  "G227": {
+    "shortDefinitionEs": "verdadero, que no oculta (alēthḗs)",
+    "glossesEs": [
+      "verdadero",
+      "sincero"
+    ]
+  },
+  "G228": {
+    "shortDefinitionEs": "verídico, que dice la verdad (alēthinós)",
+    "glossesEs": [
+      "verdadero",
+      "genuino"
+    ]
+  },
+  "G229": {
+    "shortDefinitionEs": "moler grano (alḗthō)",
+    "glossesEs": [
+      "moler",
+      "triturar"
+    ]
+  },
+  "G230": {
+    "shortDefinitionEs": "verdaderamente, en efecto (alēthōs)",
+    "glossesEs": [
+      "verdaderamente",
+      "ciertamente"
+    ]
+  },
+  "G231": {
+    "shortDefinitionEs": "pescador, marinero (halieús)",
+    "glossesEs": [
+      "pescador",
+      "marinero"
+    ]
+  },
+  "G232": {
+    "shortDefinitionEs": "pescar, ser pescador (halieúō)",
+    "glossesEs": [
+      "pescar",
+      "ir a pescar"
+    ]
+  },
+  "G233": {
+    "shortDefinitionEs": "salar, echar sal (halízō)",
+    "glossesEs": [
+      "salar",
+      "sazonar"
+    ]
+  },
+  "G234": {
+    "shortDefinitionEs": "contaminación ceremonial (alísgema)",
+    "glossesEs": [
+      "profanación",
+      "contaminación"
+    ]
+  },
+  "G235": {
+    "shortDefinitionEs": "sino, al contrario, por el contrario (allá)",
+    "glossesEs": [
+      "pero",
+      "sino"
+    ]
+  },
+  "G236": {
+    "shortDefinitionEs": "cambiar, hacer diferente (allássō)",
+    "glossesEs": [
+      "cambiar",
+      "transformar"
+    ]
+  },
+  "G237": {
+    "shortDefinitionEs": "de otro lugar, por otro camino (allachóthen)",
+    "glossesEs": [
+      "de otra parte",
+      "de otro modo"
+    ]
+  },
+  "G238": {
+    "shortDefinitionEs": "ser una alegoría (allēgoréō)",
+    "glossesEs": [
+      "alegoría",
+      "figura"
+    ]
+  },
+  "G239": {
+    "shortDefinitionEs": "¡Alabad a Jah!, exclamación de alabanza (allēlouïa)",
+    "glossesEs": [
+      "aleluya"
+    ]
+  },
+  "G240": {
+    "shortDefinitionEs": "uno a otro, mutuamente (allḗlōn)",
+    "glossesEs": [
+      "mutuamente",
+      "recíprocamente"
+    ]
+  },
+  "G241": {
+    "shortDefinitionEs": "extranjero, no judío (allogenḗs)",
+    "glossesEs": [
+      "extranjero",
+      "gentil"
+    ]
+  },
+  "G242": {
+    "shortDefinitionEs": "saltar, brincar; figuradamente, brotar (hállomai)",
+    "glossesEs": [
+      "saltar",
+      "brincar"
+    ]
+  },
+  "G243": {
+    "shortDefinitionEs": "otro, diferente, distinto (állos)",
+    "glossesEs": [
+      "otro",
+      "distinto"
+    ]
+  },
+  "G244": {
+    "shortDefinitionEs": "entrometido en asuntos ajenos (allotriepískopos)",
+    "glossesEs": [
+      "entrometido",
+      "metiche"
+    ]
+  },
+  "G245": {
+    "shortDefinitionEs": "ajeno, que no es propio; extraño (allótrios)",
+    "glossesEs": [
+      "ajeno",
+      "extranjero"
+    ]
+  },
+  "G246": {
+    "shortDefinitionEs": "de otra raza, gentil (allóphylos)",
+    "glossesEs": [
+      "extranjero",
+      "gentil"
+    ]
+  },
+  "G247": {
+    "shortDefinitionEs": "de otro modo, de otra manera (állōs)",
+    "glossesEs": [
+      "de otro modo",
+      "contrariamente"
+    ]
+  },
+  "G248": {
+    "shortDefinitionEs": "trillar grano (aloáō)",
+    "glossesEs": [
+      "trillar",
+      "desgranar"
+    ]
+  },
+  "G249": {
+    "shortDefinitionEs": "irracional, sin razón (álogos)",
+    "glossesEs": [
+      "irracional",
+      "bruto"
+    ]
+  },
+  "G250": {
+    "shortDefinitionEs": "áloe, goma aromática (alóē)",
+    "glossesEs": [
+      "áloe"
+    ]
+  },
+  "G251": {
+    "shortDefinitionEs": "sal (háls)",
+    "glossesEs": [
+      "sal"
+    ]
+  },
+  "G252": {
+    "shortDefinitionEs": "salado, de sal (halykós)",
+    "glossesEs": [
+      "salado",
+      "de mar"
+    ]
+  },
+  "G253": {
+    "shortDefinitionEs": "menos afligido, más aliviado (alypóteros)",
+    "glossesEs": [
+      "menos triste",
+      "más contento"
+    ]
+  },
+  "G254": {
+    "shortDefinitionEs": "grillete, cadena (hálysis)",
+    "glossesEs": [
+      "cadena",
+      "grillete"
+    ]
+  },
+  "G255": {
+    "shortDefinitionEs": "improductivo, perjudicial (alysitelḗs)",
+    "glossesEs": [
+      "improductivo",
+      "inútil"
+    ]
+  },
+  "G256": {
+    "shortDefinitionEs": "Alfeo: padre de Santiago (Alphaîos)",
+    "glossesEs": [
+      "Alfeo"
+    ]
+  },
+  "G257": {
+    "shortDefinitionEs": "era de trillar (hálōn)",
+    "glossesEs": [
+      "era",
+      "piso"
+    ]
+  },
+  "G258": {
+    "shortDefinitionEs": "zorra; figuradamente, persona astuta (alṓpēx)",
+    "glossesEs": [
+      "zorra",
+      "astuto"
+    ]
+  },
+  "G259": {
+    "shortDefinitionEs": "captura, toma de posesión (hálōsis)",
+    "glossesEs": [
+      "captura",
+      "conquista"
+    ]
+  },
+  "G260": {
+    "shortDefinitionEs": "al mismo tiempo, juntamente, con (háma)",
+    "glossesEs": [
+      "juntamente",
+      "al mismo tiempo"
+    ]
+  },
+  "G261": {
+    "shortDefinitionEs": "ignorante, sin instrucción (amathḗs)",
+    "glossesEs": [
+      "ignorante",
+      "inculto"
+    ]
+  },
+  "G262": {
+    "shortDefinitionEs": "inmarcesible, que no se marchita (amarántinos)",
+    "glossesEs": [
+      "inmarcesible",
+      "incorruptible"
+    ]
+  },
+  "G263": {
+    "shortDefinitionEs": "que no se marchita, perpetuo (amárantos)",
+    "glossesEs": [
+      "inmarcesible",
+      "eterno"
+    ]
+  },
+  "G264": {
+    "shortDefinitionEs": "pecar, errar, cometer falta (hamartanó)",
+    "glossesEs": [
+      "pecar"
+    ]
+  },
+  "G265": {
+    "shortDefinitionEs": "Pecado; acción o estado de culpa (hamártēma)",
+    "glossesEs": [
+      "pecado",
+      "culpa"
+    ]
+  },
+  "G266": {
+    "shortDefinitionEs": "pecado, falla moral (hamartía)",
+    "glossesEs": [
+      "pecado"
+    ]
+  },
+  "G267": {
+    "shortDefinitionEs": "Sin testimonio; no atestiguado (amártyros)",
+    "glossesEs": [
+      "sin testimonio",
+      "no atestiguado"
+    ]
+  },
+  "G268": {
+    "shortDefinitionEs": "Pecador; persona culpable de pecado (hamartōlós)",
+    "glossesEs": [
+      "pecador",
+      "culpable"
+    ]
+  },
+  "G269": {
+    "shortDefinitionEs": "Pacífico; que no es peleador (ámachos)",
+    "glossesEs": [
+      "pacífico",
+      "no contencioso"
+    ]
+  },
+  "G270": {
+    "shortDefinitionEs": "Segar; recoger cosecha (amáō)",
+    "glossesEs": [
+      "segar",
+      "cosechar"
+    ]
+  },
+  "G271": {
+    "shortDefinitionEs": "Amatista; piedra preciosa púrpura (améthystos)",
+    "glossesEs": [
+      "amatista",
+      "piedra preciosa"
+    ]
+  },
+  "G272": {
+    "shortDefinitionEs": "Descuidar; no hacer caso de algo (ameléō)",
+    "glossesEs": [
+      "descuidar",
+      "negligencia",
+      "ignorar"
+    ]
+  },
+  "G273": {
+    "shortDefinitionEs": "Sin reprensión; intachable (ámemptos)",
+    "glossesEs": [
+      "intachable",
+      "sin culpa"
+    ]
+  },
+  "G274": {
+    "shortDefinitionEs": "Sin culpa; de manera intachable (amémptōs)",
+    "glossesEs": [
+      "intachablemente",
+      "sin culpa"
+    ]
+  },
+  "G275": {
+    "shortDefinitionEs": "Sin cuidado; libre de ansiedad (amérimnos)",
+    "glossesEs": [
+      "sin ansiedad",
+      "seguro",
+      "despreocupado"
+    ]
+  },
+  "G276": {
+    "shortDefinitionEs": "Inmutable; que no cambia (ametáthetos)",
+    "glossesEs": [
+      "inmutable",
+      "invariable"
+    ]
+  },
+  "G277": {
+    "shortDefinitionEs": "Inconmovible; que no puede ser movido (ametakínētos)",
+    "glossesEs": [
+      "inconmovible",
+      "firme"
+    ]
+  },
+  "G278": {
+    "shortDefinitionEs": "Irrevocable; que no se puede revocar (ametamélētos)",
+    "glossesEs": [
+      "irrevocable",
+      "sin arrepentimiento"
+    ]
+  },
+  "G279": {
+    "shortDefinitionEs": "Impenitente; sin arrepentimiento (ametanóētos)",
+    "glossesEs": [
+      "impenitente",
+      "sin arrepentimiento"
+    ]
+  },
+  "G280": {
+    "shortDefinitionEs": "Sin medida; desmesurado (ámetros)",
+    "glossesEs": [
+      "sin medida",
+      "excesivo"
+    ]
+  },
+  "G281": {
+    "shortDefinitionEs": "amén — verdaderamente, así sea",
+    "glossesEs": [
+      "amén"
+    ]
+  },
+  "G282": {
+    "shortDefinitionEs": "Sin madre; de origen desconocido (amḗtōr)",
+    "glossesEs": [
+      "sin madre",
+      "huérfano"
+    ]
+  },
+  "G283": {
+    "shortDefinitionEs": "Puro; sin mancha (amíantos)",
+    "glossesEs": [
+      "puro",
+      "sin mancha",
+      "inmaculado"
+    ]
+  },
+  "G284": {
+    "shortDefinitionEs": "Aminadab: personaje israelita (Aminadáb)",
+    "glossesEs": [
+      "Aminadab"
+    ]
+  },
+  "G285": {
+    "shortDefinitionEs": "Arena; partículas de la playa (ámmos)",
+    "glossesEs": [
+      "arena",
+      "playa"
+    ]
+  },
+  "G286": {
+    "shortDefinitionEs": "Cordero; animal joven de oveja (amnós)",
+    "glossesEs": [
+      "cordero",
+      "oveja"
+    ]
+  },
+  "G287": {
+    "shortDefinitionEs": "Recompensa; retribución (amoibḗ)",
+    "glossesEs": [
+      "recompensa",
+      "retribución"
+    ]
+  },
+  "G288": {
+    "shortDefinitionEs": "Vid; planta de uva (ámpelos)",
+    "glossesEs": [
+      "vid",
+      "viña",
+      "uva"
+    ]
+  },
+  "G289": {
+    "shortDefinitionEs": "Viñador; obrero que cultiva viñas (ampelourgós)",
+    "glossesEs": [
+      "viñador",
+      "labrador",
+      "podador"
+    ]
+  },
+  "G290": {
+    "shortDefinitionEs": "Viña; campo de vides (ampelṓn)",
+    "glossesEs": [
+      "viña",
+      "viñedo",
+      "campo"
+    ]
+  },
+  "G291": {
+    "shortDefinitionEs": "Amplías: cristiano romano (Amplías)",
+    "glossesEs": [
+      "Amplías"
+    ]
+  },
+  "G292": {
+    "shortDefinitionEs": "Defender; proteger (amýnomai)",
+    "glossesEs": [
+      "defender",
+      "proteger"
+    ]
+  },
+  "G293": {
+    "shortDefinitionEs": "Red; aparejo de pesca (amphíblēstron)",
+    "glossesEs": [
+      "red",
+      "pesca"
+    ]
+  },
+  "G294": {
+    "shortDefinitionEs": "Vestir; cubrir con ropa (amphiénnymi)",
+    "glossesEs": [
+      "vestir",
+      "ropa"
+    ]
+  },
+  "G295": {
+    "shortDefinitionEs": "Anfípolis: ciudad de Macedonia (Amphípolis)",
+    "glossesEs": [
+      "Anfípolis",
+      "Macedonia"
+    ]
+  },
+  "G296": {
+    "shortDefinitionEs": "Encrucijada; donde se dividen caminos (ámphodon)",
+    "glossesEs": [
+      "encrucijada",
+      "cruce de caminos"
+    ]
+  },
+  "G297": {
+    "shortDefinitionEs": "Ambos; los dos juntos (amphóteros)",
+    "glossesEs": [
+      "ambos",
+      "los dos"
+    ]
+  },
+  "G298": {
+    "shortDefinitionEs": "Irreprensible; sin tacha (amṓmētos)",
+    "glossesEs": [
+      "irreprensible",
+      "sin tacha"
+    ]
+  },
+  "G299": {
+    "shortDefinitionEs": "Sin mancha; puro y perfecto (ámōmos)",
+    "glossesEs": [
+      "sin mancha",
+      "perfecto",
+      "puro"
+    ]
+  },
+  "G300": {
+    "shortDefinitionEs": "Amón: personaje israelita (Amṓn)",
+    "glossesEs": [
+      "Amón"
+    ]
+  },
+  "G301": {
+    "shortDefinitionEs": "Amós: profeta israelita (Amṓs)",
+    "glossesEs": [
+      "Amós",
+      "profeta"
+    ]
+  },
+  "G302": {
+    "shortDefinitionEs": "Quienquiera; cualquiera (distributivo) (án)",
+    "glossesEs": [
+      "quienquiera",
+      "cualquiera",
+      "soever"
+    ]
+  },
+  "G303": {
+    "shortDefinitionEs": "Arriba; distribuido; cada uno (aná)",
+    "glossesEs": [
+      "cada",
+      "por",
+      "distributivo"
+    ]
+  },
+  "G304": {
+    "shortDefinitionEs": "Escalera; peldaños (anabathmós)",
+    "glossesEs": [
+      "escalera",
+      "gradas"
+    ]
+  },
+  "G305": {
+    "shortDefinitionEs": "Subir; ascender o crecer (anabaínō)",
+    "glossesEs": [
+      "subir",
+      "ascender",
+      "crecer"
+    ]
+  },
+  "G306": {
+    "shortDefinitionEs": "Aplazar; diferir (anabállomai)",
+    "glossesEs": [
+      "aplazar",
+      "diferir"
+    ]
+  },
+  "G307": {
+    "shortDefinitionEs": "Tirar hacia arriba; sacar (anabibázō)",
+    "glossesEs": [
+      "tirar",
+      "sacar",
+      "izar"
+    ]
+  },
+  "G308": {
+    "shortDefinitionEs": "Mirar hacia arriba; recuperar vista (anablépō)",
+    "glossesEs": [
+      "mirar",
+      "ver",
+      "vista"
+    ]
+  },
+  "G309": {
+    "shortDefinitionEs": "Recuperación de la vista (anáblepsis)",
+    "glossesEs": [
+      "vista",
+      "recuperación"
+    ]
+  },
+  "G310": {
+    "shortDefinitionEs": "Gritar; clamar en voz alta (anaboáō)",
+    "glossesEs": [
+      "gritar",
+      "clamar"
+    ]
+  },
+  "G311": {
+    "shortDefinitionEs": "Aplazamiento; postergación (anabolḗ)",
+    "glossesEs": [
+      "aplazamiento",
+      "demora"
+    ]
+  },
+  "G312": {
+    "shortDefinitionEs": "Anunciar; declarar detalladamente (anangéllō)",
+    "glossesEs": [
+      "anunciar",
+      "declarar",
+      "contar"
+    ]
+  },
+  "G313": {
+    "shortDefinitionEs": "Engendrar de nuevo; renacer (anagennáō)",
+    "glossesEs": [
+      "engendrar",
+      "renacer"
+    ]
+  },
+  "G314": {
+    "shortDefinitionEs": "Leer; conocer nuevamente (anaginṓskō)",
+    "glossesEs": [
+      "leer",
+      "lectura"
+    ]
+  },
+  "G315": {
+    "shortDefinitionEs": "Forzar; obligar a hacer algo (anankázō)",
+    "glossesEs": [
+      "obligar",
+      "forzar",
+      "compeler"
+    ]
+  },
+  "G316": {
+    "shortDefinitionEs": "Necesario; cercano; indispensable (anankaîos)",
+    "glossesEs": [
+      "necesario",
+      "cercano",
+      "pariente"
+    ]
+  },
+  "G317": {
+    "shortDefinitionEs": "Obligatoriamente, por compulsión (anankastōs)",
+    "glossesEs": [
+      "obligatoriamente",
+      "por fuerza"
+    ]
+  },
+  "G318": {
+    "shortDefinitionEs": "Necesidad, angustia, obligación (anánkē)",
+    "glossesEs": [
+      "necesidad",
+      "angustia",
+      "obligación"
+    ]
+  },
+  "G319": {
+    "shortDefinitionEs": "Darse a conocer, ser reconocido (anagnōrízomai)",
+    "glossesEs": [
+      "darse a conocer",
+      "ser conocido"
+    ]
+  },
+  "G320": {
+    "shortDefinitionEs": "Lectura, el acto de leer (anágnōsis)",
+    "glossesEs": [
+      "lectura",
+      "leer"
+    ]
+  },
+  "G321": {
+    "shortDefinitionEs": "Conducir hacia arriba, partir, navegar (anágō)",
+    "glossesEs": [
+      "llevar",
+      "partir",
+      "navegar"
+    ]
+  },
+  "G322": {
+    "shortDefinitionEs": "Indicar, designar, mostrar (anadeíknymi)",
+    "glossesEs": [
+      "designar",
+      "mostrar",
+      "nombrar"
+    ]
+  },
+  "G323": {
+    "shortDefinitionEs": "Demostración, exhibición (anádeixis)",
+    "glossesEs": [
+      "demostración",
+      "muestra"
+    ]
+  },
+  "G324": {
+    "shortDefinitionEs": "Recibir como huésped, alojar (anadéchomai)",
+    "glossesEs": [
+      "recibir",
+      "alojar",
+      "hospedar"
+    ]
+  },
+  "G325": {
+    "shortDefinitionEs": "Entregar, transmitir (anadídōmi)",
+    "glossesEs": [
+      "entregar",
+      "transmitir"
+    ]
+  },
+  "G326": {
+    "shortDefinitionEs": "Revivir, recobrar la vida (anazáō)",
+    "glossesEs": [
+      "revivir",
+      "vivir de nuevo"
+    ]
+  },
+  "G327": {
+    "shortDefinitionEs": "Buscar diligentemente (anazētéō)",
+    "glossesEs": [
+      "buscar",
+      "inquirir"
+    ]
+  },
+  "G328": {
+    "shortDefinitionEs": "Ceñir de nuevo (anazṓnnymi)",
+    "glossesEs": [
+      "ceñir",
+      "prepararse"
+    ]
+  },
+  "G329": {
+    "shortDefinitionEs": "Reavivar, encender nuevamente (anazōpyréō)",
+    "glossesEs": [
+      "reavivar",
+      "avivar"
+    ]
+  },
+  "G330": {
+    "shortDefinitionEs": "Florecer de nuevo, revivir (anathállō)",
+    "glossesEs": [
+      "florecer",
+      "revivir"
+    ]
+  },
+  "G331": {
+    "shortDefinitionEs": "Maldición religiosa, anatema (anáthema)",
+    "glossesEs": [
+      "anatema",
+      "maldición",
+      "excomunión"
+    ]
+  },
+  "G332": {
+    "shortDefinitionEs": "Maldecir bajo juramento (anathematízō)",
+    "glossesEs": [
+      "maldecir",
+      "juramento"
+    ]
+  },
+  "G333": {
+    "shortDefinitionEs": "Mirar atentamente, considerar (anatheōréō)",
+    "glossesEs": [
+      "contemplar",
+      "considerar"
+    ]
+  },
+  "G334": {
+    "shortDefinitionEs": "Ofrenda votiva, regalo (anáthēma)",
+    "glossesEs": [
+      "ofrenda",
+      "regalo",
+      "don"
+    ]
+  },
+  "G335": {
+    "shortDefinitionEs": "Atrevimiento, importunidad (anaídeia)",
+    "glossesEs": [
+      "importunidad",
+      "insistencia"
+    ]
+  },
+  "G336": {
+    "shortDefinitionEs": "Acto de matar, muerte (anaíresis)",
+    "glossesEs": [
+      "muerte",
+      "asesinato"
+    ]
+  },
+  "G337": {
+    "shortDefinitionEs": "Matar, quitar la vida (anairéō)",
+    "glossesEs": [
+      "matar",
+      "asesinar",
+      "quitar"
+    ]
+  },
+  "G338": {
+    "shortDefinitionEs": "Inocente, sin culpa (anaítios)",
+    "glossesEs": [
+      "inocente",
+      "sin culpa"
+    ]
+  },
+  "G339": {
+    "shortDefinitionEs": "Sentarse, incorporarse (anakathízō)",
+    "glossesEs": [
+      "sentarse",
+      "levantarse"
+    ]
+  },
+  "G340": {
+    "shortDefinitionEs": "Restaurar, renovar (anakainízō)",
+    "glossesEs": [
+      "renovar",
+      "restaurar"
+    ]
+  },
+  "G341": {
+    "shortDefinitionEs": "Renovar, restaurar (anakainóō)",
+    "glossesEs": [
+      "renovar",
+      "restaurar"
+    ]
+  },
+  "G342": {
+    "shortDefinitionEs": "Renovación, restauración (anakaínōsis)",
+    "glossesEs": [
+      "renovación",
+      "restauración"
+    ]
+  },
+  "G343": {
+    "shortDefinitionEs": "Revelar, destapar, abrir (anakalýptō)",
+    "glossesEs": [
+      "revelar",
+      "abrir",
+      "descubrir"
+    ]
+  },
+  "G344": {
+    "shortDefinitionEs": "Volver atrás, regresar (anakámptō)",
+    "glossesEs": [
+      "volver",
+      "regresar",
+      "retroceder"
+    ]
+  },
+  "G345": {
+    "shortDefinitionEs": "Reclinarse, sentarse a la mesa (anakeîmai)",
+    "glossesEs": [
+      "reclinarse",
+      "sentarse",
+      "reposar"
+    ]
+  },
+  "G346": {
+    "shortDefinitionEs": "Resumir, sumar en uno (anakephalaíomai)",
+    "glossesEs": [
+      "resumir",
+      "compendiar"
+    ]
+  },
+  "G347": {
+    "shortDefinitionEs": "Recostar, hacer reclinarse (anaklínō)",
+    "glossesEs": [
+      "recostar",
+      "reclinarse"
+    ]
+  },
+  "G348": {
+    "shortDefinitionEs": "Impedir, obstaculizar (anakóptō)",
+    "glossesEs": [
+      "impedir",
+      "obstaculizar"
+    ]
+  },
+  "G349": {
+    "shortDefinitionEs": "Gritar, clamar (anakrázō)",
+    "glossesEs": [
+      "gritar",
+      "clamar"
+    ]
+  },
+  "G350": {
+    "shortDefinitionEs": "Examinar, interrogar, juzgar (anakrínō)",
+    "glossesEs": [
+      "examinar",
+      "interrogar",
+      "discernir"
+    ]
+  },
+  "G351": {
+    "shortDefinitionEs": "Examen judicial, investigación (anákrisis)",
+    "glossesEs": [
+      "examen",
+      "investigación"
+    ]
+  },
+  "G352": {
+    "shortDefinitionEs": "Levantar la cabeza, mirar hacia arriba (anakúptō)",
+    "glossesEs": [
+      "levantar",
+      "mirar arriba"
+    ]
+  },
+  "G353": {
+    "shortDefinitionEs": "Tomar, recibir hacia arriba (analambánō)",
+    "glossesEs": [
+      "tomar",
+      "recibir",
+      "asumir"
+    ]
+  },
+  "G354": {
+    "shortDefinitionEs": "Ascensión, subida (análēpsis)",
+    "glossesEs": [
+      "ascensión",
+      "subida"
+    ]
+  },
+  "G355": {
+    "shortDefinitionEs": "Consumir, destruir (analískō)",
+    "glossesEs": [
+      "consumir",
+      "destruir"
+    ]
+  },
+  "G356": {
+    "shortDefinitionEs": "Proporción, correspondencia (analogía)",
+    "glossesEs": [
+      "proporción",
+      "correspondencia"
+    ]
+  },
+  "G357": {
+    "shortDefinitionEs": "Considerar, reflexionar (analogízomai)",
+    "glossesEs": [
+      "considerar",
+      "reflexionar"
+    ]
+  },
+  "G358": {
+    "shortDefinitionEs": "Sin sal, insípido (ánalos)",
+    "glossesEs": [
+      "insípido",
+      "sin sabor"
+    ]
+  },
+  "G359": {
+    "shortDefinitionEs": "Partida, salida (análysis)",
+    "glossesEs": [
+      "partida",
+      "salida"
+    ]
+  },
+  "G360": {
+    "shortDefinitionEs": "Partir, regresar (analýō)",
+    "glossesEs": [
+      "partir",
+      "regresar"
+    ]
+  },
+  "G361": {
+    "shortDefinitionEs": "Sin pecado, inmaculado (anamártētos)",
+    "glossesEs": [
+      "sin pecado",
+      "inmaculado"
+    ]
+  },
+  "G362": {
+    "shortDefinitionEs": "Esperar, aguardar (anaménō)",
+    "glossesEs": [
+      "esperar",
+      "aguardar"
+    ]
+  },
+  "G363": {
+    "shortDefinitionEs": "Recordar, traer a la memoria (anamimnḗskō)",
+    "glossesEs": [
+      "recordar",
+      "rememorar"
+    ]
+  },
+  "G364": {
+    "shortDefinitionEs": "Recuerdo, memoria (anámnēsis)",
+    "glossesEs": [
+      "recuerdo",
+      "memoria"
+    ]
+  },
+  "G365": {
+    "shortDefinitionEs": "Renovar, reformar (ananeóō)",
+    "glossesEs": [
+      "renovar",
+      "reformar"
+    ]
+  },
+  "G366": {
+    "shortDefinitionEs": "Recobrar el sentido, sobriedad (ananḗphō)",
+    "glossesEs": [
+      "sobriedad",
+      "recobrar sentido"
+    ]
+  },
+  "G367": {
+    "shortDefinitionEs": "Nombre: uno de tres israelitas llamados así (Ananías)",
+    "glossesEs": [
+      "Ananías",
+      "nombre propio"
+    ]
+  },
+  "G368": {
+    "shortDefinitionEs": "Indisputable, que no puede ser rebatido (anantírrhētos)",
+    "glossesEs": [
+      "indisputable",
+      "irrefutable"
+    ]
+  },
+  "G369": {
+    "shortDefinitionEs": "Sin objeción, sin contradicción (anantirrhḗtōs)",
+    "glossesEs": [
+      "sin objeción",
+      "prontamente"
+    ]
+  },
+  "G370": {
+    "shortDefinitionEs": "Indigno, no apto (anáxios)",
+    "glossesEs": [
+      "indigno",
+      "inmerecedor"
+    ]
+  },
+  "G371": {
+    "shortDefinitionEs": "Indignamente, sin reverencia (anaxíōs)",
+    "glossesEs": [
+      "indignamente",
+      "irreverentemente"
+    ]
+  },
+  "G372": {
+    "shortDefinitionEs": "Descanso, recreación, intermisión (anápausis)",
+    "glossesEs": [
+      "descanso",
+      "reposo"
+    ]
+  },
+  "G373": {
+    "shortDefinitionEs": "Descansar, reposar, refrescarse (anapaúō)",
+    "glossesEs": [
+      "descansar",
+      "reposar",
+      "refrescar"
+    ]
+  },
+  "G374": {
+    "shortDefinitionEs": "Incitar, persuadir (anapeíthō)",
+    "glossesEs": [
+      "incitar",
+      "persuadir"
+    ]
+  },
+  "G375": {
+    "shortDefinitionEs": "Enviar de vuelta, remitir (anapémpō)",
+    "glossesEs": [
+      "enviar",
+      "remitir"
+    ]
+  },
+  "G376": {
+    "shortDefinitionEs": "Mutilado, lisiado (anápēros)",
+    "glossesEs": [
+      "mutilado",
+      "lisiado"
+    ]
+  },
+  "G377": {
+    "shortDefinitionEs": "Recostarse, sentarse a la mesa (anapíptō)",
+    "glossesEs": [
+      "recostarse",
+      "sentarse",
+      "inclinarse"
+    ]
+  },
+  "G378": {
+    "shortDefinitionEs": "Llenar, cumplir, ocupar, suplir (anaplēróō)",
+    "glossesEs": [
+      "llenar",
+      "cumplir",
+      "suplir"
+    ]
+  },
+  "G379": {
+    "shortDefinitionEs": "Indefendible, sin excusa (anapológētos)",
+    "glossesEs": [
+      "indefendible",
+      "inexcusable"
+    ]
+  },
+  "G380": {
+    "shortDefinitionEs": "Desplegar, abrir un rollo (anaptýssō)",
+    "glossesEs": [
+      "abrir",
+      "desplegar"
+    ]
+  },
+  "G381": {
+    "shortDefinitionEs": "Encender, inflamar (anáptō)",
+    "glossesEs": [
+      "encender",
+      "inflamar"
+    ]
+  },
+  "G382": {
+    "shortDefinitionEs": "Innumerable, sin número (anaríthmētos)",
+    "glossesEs": [
+      "innumerable",
+      "sin número"
+    ]
+  },
+  "G383": {
+    "shortDefinitionEs": "Conmover, agitar (anaseíō)",
+    "glossesEs": [
+      "agitar",
+      "conmover"
+    ]
+  },
+  "G384": {
+    "shortDefinitionEs": "Trastornar, subvertir (anaskeuázō)",
+    "glossesEs": [
+      "trastornar",
+      "subvertir"
+    ]
+  },
+  "G385": {
+    "shortDefinitionEs": "Sacar, extraer (anaspáō)",
+    "glossesEs": [
+      "sacar",
+      "extraer"
+    ]
+  },
+  "G386": {
+    "shortDefinitionEs": "resurrección (anastasis)",
+    "glossesEs": [
+      "resurrección",
+      "resucitar"
+    ]
+  },
+  "G387": {
+    "shortDefinitionEs": "Alborotar, trastornar, turbar (anastatóō)",
+    "glossesEs": [
+      "alborotar",
+      "turbar"
+    ]
+  },
+  "G388": {
+    "shortDefinitionEs": "Crucificar de nuevo (anastauróō)",
+    "glossesEs": [
+      "crucificar",
+      "recrucificar"
+    ]
+  },
+  "G389": {
+    "shortDefinitionEs": "Suspirar profundamente (anastenázō)",
+    "glossesEs": [
+      "suspirar",
+      "gemir"
+    ]
+  },
+  "G390": {
+    "shortDefinitionEs": "Vivir, comportarse, volver (anastréphō)",
+    "glossesEs": [
+      "vivir",
+      "comportarse",
+      "residir"
+    ]
+  },
+  "G391": {
+    "shortDefinitionEs": "Conducta, comportamiento (anastrophḗ)",
+    "glossesEs": [
+      "conducta",
+      "comportamiento"
+    ]
+  },
+  "G392": {
+    "shortDefinitionEs": "Ordenar, disponer (anatássomai)",
+    "glossesEs": [
+      "ordenar",
+      "disponer"
+    ]
+  },
+  "G393": {
+    "shortDefinitionEs": "Levantarse, brotar, amanecer (anatéllō)",
+    "glossesEs": [
+      "levantarse",
+      "brotar",
+      "amanecer"
+    ]
+  },
+  "G394": {
+    "shortDefinitionEs": "Comunicar, declarar, exponer (anatíthemai)",
+    "glossesEs": [
+      "comunicar",
+      "declarar"
+    ]
+  },
+  "G395": {
+    "shortDefinitionEs": "Aurora, oriente, salida del sol (anatolḗ)",
+    "glossesEs": [
+      "aurora",
+      "oriente",
+      "este"
+    ]
+  },
+  "G396": {
+    "shortDefinitionEs": "Trastornar, subvertir (anatrépō)",
+    "glossesEs": [
+      "trastornar",
+      "subvertir"
+    ]
+  },
+  "G397": {
+    "shortDefinitionEs": "Criar, educar, alimentar (anatréphō)",
+    "glossesEs": [
+      "criar",
+      "educar",
+      "alimentar"
+    ]
+  },
+  "G398": {
+    "shortDefinitionEs": "Aparecer, mostrarse, descubrirse (anaphaínō)",
+    "glossesEs": [
+      "aparecer",
+      "mostrarse"
+    ]
+  },
+  "G399": {
+    "shortDefinitionEs": "Llevar, ofrendar, presentar (anaphérō)",
+    "glossesEs": [
+      "llevar",
+      "ofrendar",
+      "presentar"
+    ]
+  },
+  "G400": {
+    "shortDefinitionEs": "Exclamar, gritar (anaphōnéō)",
+    "glossesEs": [
+      "exclamar",
+      "gritar"
+    ]
+  },
+  "G401": {
+    "shortDefinitionEs": "Exceso, libertinaje, desenfreno (anáchysis)",
+    "glossesEs": [
+      "exceso",
+      "libertinaje"
+    ]
+  },
+  "G402": {
+    "shortDefinitionEs": "Retirarse, apartarse, ceder (anachōréō)",
+    "glossesEs": [
+      "retirarse",
+      "apartarse"
+    ]
+  },
+  "G403": {
+    "shortDefinitionEs": "Refrigerio, avivamiento (anápsyxis)",
+    "glossesEs": [
+      "refrigerio",
+      "avivamiento"
+    ]
+  },
+  "G404": {
+    "shortDefinitionEs": "Refrescar, aliviar (anapsýchō)",
+    "glossesEs": [
+      "refrescar",
+      "aliviar"
+    ]
+  },
+  "G405": {
+    "shortDefinitionEs": "Traficante de esclavos (andrapodistḗs)",
+    "glossesEs": [
+      "traficante",
+      "esclavista"
+    ]
+  },
+  "G406": {
+    "shortDefinitionEs": "Nombre: viril; Andrés, apóstol (Andréas)",
+    "glossesEs": [
+      "Andrés",
+      "nombre propio"
+    ]
+  },
+  "G407": {
+    "shortDefinitionEs": "Portarse virilmente, ser valiente (andrízomai)",
+    "glossesEs": [
+      "ser valiente",
+      "portarse virilmente"
+    ]
+  },
+  "G408": {
+    "shortDefinitionEs": "Nombre: varón de victoria (Andrónikos)",
+    "glossesEs": [
+      "Andrónico",
+      "nombre propio"
+    ]
+  },
+  "G409": {
+    "shortDefinitionEs": "Asesino, homicida (androphónos)",
+    "glossesEs": [
+      "asesino",
+      "homicida"
+    ]
+  },
+  "G410": {
+    "shortDefinitionEs": "Irreprochable, sin tacha (anénklētos)",
+    "glossesEs": [
+      "irreprochable",
+      "sin tacha"
+    ]
+  },
+  "G411": {
+    "shortDefinitionEs": "Inefable, indescriptible (anekdiḗgētos)",
+    "glossesEs": [
+      "inefable",
+      "indescriptible"
+    ]
+  },
+  "G412": {
+    "shortDefinitionEs": "Inenarrable, inefable (aneklálētos)",
+    "glossesEs": [
+      "inenarrable",
+      "inefable"
+    ]
+  },
+  "G413": {
+    "shortDefinitionEs": "Inagotable, que no falta (anékleiptos)",
+    "glossesEs": [
+      "inagotable",
+      "permanente"
+    ]
+  },
+  "G414": {
+    "shortDefinitionEs": "Más tolerable, más soportable (anektóteros)",
+    "glossesEs": [
+      "tolerable",
+      "soportable"
+    ]
+  },
+  "G415": {
+    "shortDefinitionEs": "Inmisericorde, cruel (aneleḗmōn)",
+    "glossesEs": [
+      "inmisericorde",
+      "cruel"
+    ]
+  },
+  "G416": {
+    "shortDefinitionEs": "Agitar con el viento (anemízō)",
+    "glossesEs": [
+      "agitar",
+      "viento"
+    ]
+  },
+  "G417": {
+    "shortDefinitionEs": "Viento, cuatro puntos cardinales (ánemos)",
+    "glossesEs": [
+      "viento",
+      "brisa"
+    ]
+  },
+  "G418": {
+    "shortDefinitionEs": "Imposible, que no puede admitirse (anéndektos)",
+    "glossesEs": [
+      "imposible"
+    ]
+  },
+  "G419": {
+    "shortDefinitionEs": "Insondable, que no puede investigarse (anexereúnētos)",
+    "glossesEs": [
+      "insondable",
+      "inescudriñable"
+    ]
+  },
+  "G420": {
+    "shortDefinitionEs": "Que soporta el mal, paciente, tolerante (anexíkakos)",
+    "glossesEs": [
+      "paciente",
+      "tolerante"
+    ]
+  },
+  "G421": {
+    "shortDefinitionEs": "Inescudriñable, cuyas vías no se hallan (anexichníastos)",
+    "glossesEs": [
+      "inescudriñable",
+      "incomprensible"
+    ]
+  },
+  "G422": {
+    "shortDefinitionEs": "Que no se avergüenza, irreprochable (anepaíschyntos)",
+    "glossesEs": [
+      "irreprochable",
+      "sin vergüenza"
+    ]
+  },
+  "G423": {
+    "shortDefinitionEs": "Impecable, sin reprensión (anepílēptos)",
+    "glossesEs": [
+      "impecable",
+      "irreprehensible"
+    ]
+  },
+  "G424": {
+    "shortDefinitionEs": "Subir, ascender (anérchomai)",
+    "glossesEs": [
+      "subir",
+      "ascender"
+    ]
+  },
+  "G425": {
+    "shortDefinitionEs": "Alivio, descanso, libertad (ánesis)",
+    "glossesEs": [
+      "alivio",
+      "descanso",
+      "libertad"
+    ]
+  },
+  "G426": {
+    "shortDefinitionEs": "Examinar judicialmente, investigar (anetázō)",
+    "glossesEs": [
+      "examinar",
+      "investigar"
+    ]
+  },
+  "G427": {
+    "shortDefinitionEs": "Sin, sin (áneu)",
+    "glossesEs": [
+      "sin"
+    ]
+  },
+  "G428": {
+    "shortDefinitionEs": "Inconveniente, poco apto (aneúthetos)",
+    "glossesEs": [
+      "inconveniente",
+      "incómodo"
+    ]
+  },
+  "G429": {
+    "shortDefinitionEs": "Hallar, encontrar, descubrir (aneurískō)",
+    "glossesEs": [
+      "hallar",
+      "encontrar"
+    ]
+  },
+  "G430": {
+    "shortDefinitionEs": "Tolerar, soportar, sufrir pacientemente (anéchomai)",
+    "glossesEs": [
+      "tolerar",
+      "soportar",
+      "sufrir"
+    ]
+  },
+  "G431": {
+    "shortDefinitionEs": "Primo, hijo de la hermana (anepsiós)",
+    "glossesEs": [
+      "primo",
+      "pariente"
+    ]
+  },
+  "G432": {
+    "shortDefinitionEs": "Eneldo, anís (ánēthon)",
+    "glossesEs": [
+      "eneldo",
+      "anís"
+    ]
+  },
+  "G433": {
+    "shortDefinitionEs": "Convenir, ser conveniente, ser propio (anḗkō)",
+    "glossesEs": [
+      "convenir",
+      "ser propio"
+    ]
+  },
+  "G434": {
+    "shortDefinitionEs": "Salvaje, feroz, brutal (anḗmeros)",
+    "glossesEs": [
+      "feroz",
+      "salvaje"
+    ]
+  },
+  "G435": {
+    "shortDefinitionEs": "Hombre, varón, esposo, individuo (anḗr)",
+    "glossesEs": [
+      "hombre",
+      "varón",
+      "esposo"
+    ]
+  },
+  "G436": {
+    "shortDefinitionEs": "Resistir, oponerse, contrastar (anthístēmi)",
+    "glossesEs": [
+      "resistir",
+      "oponerse"
+    ]
+  },
+  "G437": {
+    "shortDefinitionEs": "Responder dando gracias, alabar (anthomologéomai)",
+    "glossesEs": [
+      "dar gracias",
+      "alabar"
+    ]
+  },
+  "G438": {
+    "shortDefinitionEs": "Flor, floración, capullo (ánthos)",
+    "glossesEs": [
+      "flor",
+      "floración"
+    ]
+  },
+  "G439": {
+    "shortDefinitionEs": "Lecho de brasas ardientes (anthrakiá)",
+    "glossesEs": [
+      "brasas",
+      "fuego"
+    ]
+  },
+  "G440": {
+    "shortDefinitionEs": "Ascua viva, carbón encendido (ánthrax)",
+    "glossesEs": [
+      "ascua",
+      "carbón"
+    ]
+  },
+  "G441": {
+    "shortDefinitionEs": "Adulador, que busca agradar a hombres (anthrōpáreskos)",
+    "glossesEs": [
+      "adulador",
+      "hombre-complaciente"
+    ]
+  },
+  "G442": {
+    "shortDefinitionEs": "Humano, de la humanidad (anthrṓpinos)",
+    "glossesEs": [
+      "humano",
+      "mortal"
+    ]
+  },
+  "G443": {
+    "shortDefinitionEs": "Asesino, homicida (anthrōpoktónos)",
+    "glossesEs": [
+      "asesino",
+      "homicida"
+    ]
+  },
+  "G444": {
+    "shortDefinitionEs": "hombre, ser humano, persona (anthropos)",
+    "glossesEs": [
+      "hombre",
+      "hombres"
+    ]
+  },
+  "G445": {
+    "shortDefinitionEs": "Actuar como procónsul (anthypateúō)",
+    "glossesEs": [
+      "procónsul",
+      "gobernador"
+    ]
+  },
+  "G446": {
+    "shortDefinitionEs": "Procónsul, gobernador romano (anthýpatos)",
+    "glossesEs": [
+      "procónsul",
+      "gobernador"
+    ]
+  },
+  "G447": {
+    "shortDefinitionEs": "Soltar, aflojar, cesar, abandonar (aníēmi)",
+    "glossesEs": [
+      "soltar",
+      "aflojar",
+      "cesar"
+    ]
+  },
+  "G448": {
+    "shortDefinitionEs": "Implacable, sin misericordia (aníleōs)",
+    "glossesEs": [
+      "implacable",
+      "sin misericordia"
+    ]
+  },
+  "G449": {
+    "shortDefinitionEs": "Sin lavar, sin purificación ritual (ániptos)",
+    "glossesEs": [
+      "sin lavar",
+      "impuro"
+    ]
+  },
+  "G450": {
+    "shortDefinitionEs": "levantarse, resucitar, ponerse en pie (anistemi)",
+    "glossesEs": [
+      "resucitar"
+    ]
+  },
+  "G451": {
+    "shortDefinitionEs": "Ana: profetisa israelita (Ánna)",
+    "glossesEs": [
+      "Ana"
+    ]
+  },
+  "G452": {
+    "shortDefinitionEs": "Anás: sumo sacerdote judío (Ánnas)",
+    "glossesEs": [
+      "Anás"
+    ]
+  },
+  "G453": {
+    "shortDefinitionEs": "Necio, insensato, sin inteligencia (anóētos)",
+    "glossesEs": [
+      "necio",
+      "insensato"
+    ]
+  },
+  "G454": {
+    "shortDefinitionEs": "Locura, insensatez, demencia (ánoia)",
+    "glossesEs": [
+      "locura",
+      "demencia"
+    ]
+  },
+  "G455": {
+    "shortDefinitionEs": "Abrir, apertuar (literal o figurado) (anoígō)",
+    "glossesEs": [
+      "abrir"
+    ]
+  },
+  "G456": {
+    "shortDefinitionEs": "Reconstruir, edificar de nuevo (anoikodoméō)",
+    "glossesEs": [
+      "reconstruir",
+      "edificar"
+    ]
+  },
+  "G457": {
+    "shortDefinitionEs": "Abertura (de la garganta) (ánoixis)",
+    "glossesEs": [
+      "abertura"
+    ]
+  },
+  "G458": {
+    "shortDefinitionEs": "Ilegalidad, iniquidad, maldad (anomía)",
+    "glossesEs": [
+      "iniquidad",
+      "maldad",
+      "transgresión"
+    ]
+  },
+  "G459": {
+    "shortDefinitionEs": "Sin ley, impío, inicuo, criminal (ánomos)",
+    "glossesEs": [
+      "inicuo",
+      "impío",
+      "criminal"
+    ]
+  },
+  "G460": {
+    "shortDefinitionEs": "Ilegalmente, sin ley (anómōs)",
+    "glossesEs": [
+      "sin ley",
+      "ilegalmente"
+    ]
+  },
+  "G461": {
+    "shortDefinitionEs": "Enderezar, levantar, poner recto (anorthóō)",
+    "glossesEs": [
+      "enderezar",
+      "levantar"
+    ]
+  },
+  "G462": {
+    "shortDefinitionEs": "Impío, inicuo, profano (anósios)",
+    "glossesEs": [
+      "impío",
+      "profano"
+    ]
+  },
+  "G463": {
+    "shortDefinitionEs": "Tolerancia, paciencia, clemencia (anochḗ)",
+    "glossesEs": [
+      "tolerancia",
+      "paciencia"
+    ]
+  },
+  "G464": {
+    "shortDefinitionEs": "Luchar contra, resistir, contender (antagōnízomai)",
+    "glossesEs": [
+      "luchar",
+      "resistir"
+    ]
+  },
+  "G465": {
+    "shortDefinitionEs": "Rescate, equivalente, cambio (antállagma)",
+    "glossesEs": [
+      "rescate",
+      "precio"
+    ]
+  },
+  "G466": {
+    "shortDefinitionEs": "Completar, suplir, rellenar (antanaplēróō)",
+    "glossesEs": [
+      "completar",
+      "suplir"
+    ]
+  },
+  "G467": {
+    "shortDefinitionEs": "Retribuir, recompensar, devolver (antapodídōmi)",
+    "glossesEs": [
+      "retribuir",
+      "recompensar"
+    ]
+  },
+  "G468": {
+    "shortDefinitionEs": "Retribución, recompensa, pago (antapódoma)",
+    "glossesEs": [
+      "retribución",
+      "recompensa"
+    ]
+  },
+  "G469": {
+    "shortDefinitionEs": "Retribución, recompensa, galardón (antapódosis)",
+    "glossesEs": [
+      "retribución",
+      "galardón"
+    ]
+  },
+  "G470": {
+    "shortDefinitionEs": "Contradecir o disputar en respuesta (antapokrínomai)",
+    "glossesEs": [
+      "contradecir",
+      "responder contra"
+    ]
+  },
+  "G471": {
+    "shortDefinitionEs": "Refutar o negar; contradecir (antépō)",
+    "glossesEs": [
+      "refutar",
+      "negar"
+    ]
+  },
+  "G472": {
+    "shortDefinitionEs": "Aferrarse a; sostener o cuidar (antéchomai)",
+    "glossesEs": [
+      "sostenerse",
+      "cuidar"
+    ]
+  },
+  "G473": {
+    "shortDefinitionEs": "En lugar de; en cambio de; por causa de (antí)",
+    "glossesEs": [
+      "en lugar de",
+      "en cambio"
+    ]
+  },
+  "G474": {
+    "shortDefinitionEs": "Discutir o contienda (antibállō)",
+    "glossesEs": [
+      "disputa",
+      "contención"
+    ]
+  },
+  "G475": {
+    "shortDefinitionEs": "Oponerse; ser contencioso (antidiatíthemai)",
+    "glossesEs": [
+      "oponerse",
+      "contender"
+    ]
+  },
+  "G476": {
+    "shortDefinitionEs": "Adversario, enemigo; acusador (antídikos)",
+    "glossesEs": [
+      "adversario",
+      "enemigo"
+    ]
+  },
+  "G477": {
+    "shortDefinitionEs": "Oposición; conflicto de opiniones (antíthesis)",
+    "glossesEs": [
+      "oposición",
+      "conflicto"
+    ]
+  },
+  "G478": {
+    "shortDefinitionEs": "Resistir; oponerse con fuerza (antikathístēmi)",
+    "glossesEs": [
+      "resistir",
+      "oponerse"
+    ]
+  },
+  "G479": {
+    "shortDefinitionEs": "Invitar en reciprocidad (antikaléō)",
+    "glossesEs": [
+      "invitar",
+      "reciprocidad"
+    ]
+  },
+  "G480": {
+    "shortDefinitionEs": "Ser contrario o adverso; oponerse (antíkeimai)",
+    "glossesEs": [
+      "contrario",
+      "opuesto"
+    ]
+  },
+  "G481": {
+    "shortDefinitionEs": "Enfrente de; al otro lado (antikrý)",
+    "glossesEs": [
+      "enfrente",
+      "frente a frente"
+    ]
+  },
+  "G482": {
+    "shortDefinitionEs": "Ayudar; sostener; participar (antilambánomai)",
+    "glossesEs": [
+      "ayudar",
+      "sostener",
+      "participar"
+    ]
+  },
+  "G483": {
+    "shortDefinitionEs": "Disputar; contradecir; hablar contra (antilégō)",
+    "glossesEs": [
+      "contradecir",
+      "disputar",
+      "hablar contra"
+    ]
+  },
+  "G484": {
+    "shortDefinitionEs": "Ayuda; socorro; alivio (antílēpsis)",
+    "glossesEs": [
+      "ayuda",
+      "socorro"
+    ]
+  },
+  "G485": {
+    "shortDefinitionEs": "Contradicción; disputa; desobediencia (antilogía)",
+    "glossesEs": [
+      "contradicción",
+      "disputa",
+      "desobediencia"
+    ]
+  },
+  "G486": {
+    "shortDefinitionEs": "Injuriar en respuesta (antiloidoréō)",
+    "glossesEs": [
+      "injuriar",
+      "maldecir en respuesta"
+    ]
+  },
+  "G487": {
+    "shortDefinitionEs": "Precio de rescate; redención (antílytron)",
+    "glossesEs": [
+      "rescate",
+      "redención"
+    ]
+  },
+  "G488": {
+    "shortDefinitionEs": "Medir en cambio o reciprocidad (antimetréō)",
+    "glossesEs": [
+      "medir",
+      "reciprocidad"
+    ]
+  },
+  "G489": {
+    "shortDefinitionEs": "Recompensa; retribución (antimisthía)",
+    "glossesEs": [
+      "recompensa",
+      "retribución"
+    ]
+  },
+  "G490": {
+    "shortDefinitionEs": "Antioquía: ciudad de Siria (Antiócheia)",
+    "glossesEs": [
+      "Antioquía"
+    ]
+  },
+  "G491": {
+    "shortDefinitionEs": "De Antioquía; habitante de Antioquía (Antiocheús)",
+    "glossesEs": [
+      "antioqueno"
+    ]
+  },
+  "G492": {
+    "shortDefinitionEs": "Pasar al otro lado; ir junto a (antiparérchomai)",
+    "glossesEs": [
+      "pasar",
+      "ir junto"
+    ]
+  },
+  "G493": {
+    "shortDefinitionEs": "Antípas: un cristiano mártir (Antípas)",
+    "glossesEs": [
+      "Antípas"
+    ]
+  },
+  "G494": {
+    "shortDefinitionEs": "Antipatrida: ciudad en Palestina (Antipatrís)",
+    "glossesEs": [
+      "Antipatrida"
+    ]
+  },
+  "G495": {
+    "shortDefinitionEs": "Al otro lado; al frente (antipéran)",
+    "glossesEs": [
+      "enfrente",
+      "al otro lado"
+    ]
+  },
+  "G496": {
+    "shortDefinitionEs": "Caer contra; resistir; oponerse (antipíptō)",
+    "glossesEs": [
+      "resistir",
+      "oponerse"
+    ]
+  },
+  "G497": {
+    "shortDefinitionEs": "Atacar; combatir (antistrateúomai)",
+    "glossesEs": [
+      "combatir",
+      "atacar"
+    ]
+  },
+  "G498": {
+    "shortDefinitionEs": "Ordenarse contra; resistir; oponerse (antitássomai)",
+    "glossesEs": [
+      "resistir",
+      "oponerse"
+    ]
+  },
+  "G499": {
+    "shortDefinitionEs": "Antitype; figura correspondiende (antítypon)",
+    "glossesEs": [
+      "antitype",
+      "figura",
+      "contrapartida"
+    ]
+  },
+  "G500": {
+    "shortDefinitionEs": "Anticristo; adversario del Mesías (antíchristos)",
+    "glossesEs": [
+      "anticristo"
+    ]
+  },
+  "G501": {
+    "shortDefinitionEs": "Sacar agua; extraer (antléō)",
+    "glossesEs": [
+      "sacar",
+      "extraer agua"
+    ]
+  },
+  "G502": {
+    "shortDefinitionEs": "Vasija para sacar agua (ántlēma)",
+    "glossesEs": [
+      "vasija",
+      "cántaro"
+    ]
+  },
+  "G503": {
+    "shortDefinitionEs": "Enfrentarse; resistir (antophthalméō)",
+    "glossesEs": [
+      "enfrentar",
+      "resistir"
+    ]
+  },
+  "G504": {
+    "shortDefinitionEs": "Sin agua; árido; seco (ánydros)",
+    "glossesEs": [
+      "seco",
+      "árido"
+    ]
+  },
+  "G505": {
+    "shortDefinitionEs": "Sin disimulo; sincero; genuino (anypókritos)",
+    "glossesEs": [
+      "sincero",
+      "genuino",
+      "sin fingimiento"
+    ]
+  },
+  "G506": {
+    "shortDefinitionEs": "Indisciplinado; desobediente; rebelde (anypótaktos)",
+    "glossesEs": [
+      "desobediente",
+      "rebelde",
+      "indisciplinado"
+    ]
+  },
+  "G507": {
+    "shortDefinitionEs": "Arriba; hacia lo alto; en lo alto (ánō)",
+    "glossesEs": [
+      "arriba",
+      "alto"
+    ]
+  },
+  "G508": {
+    "shortDefinitionEs": "Sala alta; aposento alto (anṓgeon)",
+    "glossesEs": [
+      "sala alta",
+      "aposento alto"
+    ]
+  },
+  "G509": {
+    "shortDefinitionEs": "Desde arriba; de nuevo; desde el principio (ánōthen)",
+    "glossesEs": [
+      "desde arriba",
+      "de nuevo",
+      "desde el principio"
+    ]
+  },
+  "G510": {
+    "shortDefinitionEs": "Superior; más lejano; remoto (anōterikós)",
+    "glossesEs": [
+      "superior",
+      "más alto"
+    ]
+  },
+  "G511": {
+    "shortDefinitionEs": "Superior; más alto; anterior (anṓteros)",
+    "glossesEs": [
+      "superior",
+      "más alto"
+    ]
+  },
+  "G512": {
+    "shortDefinitionEs": "Inútil; sin provecho (anōphelḗs)",
+    "glossesEs": [
+      "inútil",
+      "sin provecho"
+    ]
+  },
+  "G513": {
+    "shortDefinitionEs": "Hacha (axínē)",
+    "glossesEs": [
+      "hacha"
+    ]
+  },
+  "G514": {
+    "shortDefinitionEs": "Digno; merecedor; comparable (áxios)",
+    "glossesEs": [
+      "digno",
+      "merecedor"
+    ]
+  },
+  "G515": {
+    "shortDefinitionEs": "Juzgar digno; considerar apropiado (axióō)",
+    "glossesEs": [
+      "considerar digno",
+      "juzgar apto"
+    ]
+  },
+  "G516": {
+    "shortDefinitionEs": "Dignamente; apropiadamente; convenientemente (axíōs)",
+    "glossesEs": [
+      "dignamente",
+      "apropiadamente"
+    ]
+  },
+  "G517": {
+    "shortDefinitionEs": "Invisible; lo que no se ve (aóratos)",
+    "glossesEs": [
+      "invisible"
+    ]
+  },
+  "G518": {
+    "shortDefinitionEs": "Anunciar; declarar; informar; contar (apangéllō)",
+    "glossesEs": [
+      "anunciar",
+      "declarar",
+      "informar"
+    ]
+  },
+  "G519": {
+    "shortDefinitionEs": "Ahorcarse; estrangularse (apánchomai)",
+    "glossesEs": [
+      "ahorcarse",
+      "suicidarse"
+    ]
+  },
+  "G520": {
+    "shortDefinitionEs": "Llevar, conducir, quitar, ejecutar (apágō)",
+    "glossesEs": [
+      "llevar",
+      "quitar",
+      "conducir"
+    ]
+  },
+  "G521": {
+    "shortDefinitionEs": "No instruido, ignorante, tonto (apaídeutos)",
+    "glossesEs": [
+      "ignorante",
+      "indocto"
+    ]
+  },
+  "G522": {
+    "shortDefinitionEs": "Levantar, quitar, remover (apaírō)",
+    "glossesEs": [
+      "quitar",
+      "remover"
+    ]
+  },
+  "G523": {
+    "shortDefinitionEs": "Exigir de vuelta, reclamar (apaitéō)",
+    "glossesEs": [
+      "exigir",
+      "reclamar"
+    ]
+  },
+  "G524": {
+    "shortDefinitionEs": "Insensibilizarse, perder la capacidad de sentir (apalgéō)",
+    "glossesEs": [
+      "insensible",
+      "apático"
+    ]
+  },
+  "G525": {
+    "shortDefinitionEs": "Liberar, despedir, apartarse (apallássō)",
+    "glossesEs": [
+      "liberar",
+      "despedir"
+    ]
+  },
+  "G526": {
+    "shortDefinitionEs": "Enajenar, ser extraño, separarse (apallotrióō)",
+    "glossesEs": [
+      "enajenar",
+      "separar"
+    ]
+  },
+  "G527": {
+    "shortDefinitionEs": "Suave, tierno, delicado (apalós)",
+    "glossesEs": [
+      "tierno",
+      "suave"
+    ]
+  },
+  "G528": {
+    "shortDefinitionEs": "Encontrarse, ir al encuentro de (apantáō)",
+    "glossesEs": [
+      "encontrar",
+      "salir al encuentro"
+    ]
+  },
+  "G529": {
+    "shortDefinitionEs": "Encuentro amistoso (apántēsis)",
+    "glossesEs": [
+      "encuentro",
+      "reunión"
+    ]
+  },
+  "G530": {
+    "shortDefinitionEs": "Una sola vez, una única ocasión (hápax)",
+    "glossesEs": [
+      "una vez",
+      "único"
+    ]
+  },
+  "G531": {
+    "shortDefinitionEs": "Inalterable, permanente, intranferible (aparábatos)",
+    "glossesEs": [
+      "inalterable",
+      "permanente"
+    ]
+  },
+  "G532": {
+    "shortDefinitionEs": "No preparado, desprevenido (aparaskeúastos)",
+    "glossesEs": [
+      "desprevenido",
+      "impreparado"
+    ]
+  },
+  "G533": {
+    "shortDefinitionEs": "Negar completamente, renunciar (aparnéomai)",
+    "glossesEs": [
+      "negar",
+      "renunciar"
+    ]
+  },
+  "G534": {
+    "shortDefinitionEs": "De ahora en adelante, en lo sucesivo (apárti)",
+    "glossesEs": [
+      "de ahora en adelante",
+      "henceforth"
+    ]
+  },
+  "G535": {
+    "shortDefinitionEs": "Terminación, conclusión (apartismós)",
+    "glossesEs": [
+      "conclusión",
+      "terminación"
+    ]
+  },
+  "G536": {
+    "shortDefinitionEs": "Primicias, primeros frutos (aparchḗ)",
+    "glossesEs": [
+      "primicias",
+      "primeros frutos"
+    ]
+  },
+  "G537": {
+    "shortDefinitionEs": "Todos, cada uno, el todo (hápas)",
+    "glossesEs": [
+      "todos",
+      "cada uno",
+      "entero"
+    ]
+  },
+  "G538": {
+    "shortDefinitionEs": "Engañar, seducir, deludir (apatáō)",
+    "glossesEs": [
+      "engañar",
+      "seducir"
+    ]
+  },
+  "G539": {
+    "shortDefinitionEs": "Engaño, ilusión, seducción (apátē)",
+    "glossesEs": [
+      "engaño",
+      "decepción"
+    ]
+  },
+  "G540": {
+    "shortDefinitionEs": "Sin padre, de paternidad desconocida (apátōr)",
+    "glossesEs": [
+      "sin padre",
+      "huérfano"
+    ]
+  },
+  "G541": {
+    "shortDefinitionEs": "Brillo, resplandor, fulgor (apaúgasma)",
+    "glossesEs": [
+      "brillo",
+      "resplandor"
+    ]
+  },
+  "G542": {
+    "shortDefinitionEs": "Ver plenamente, contemplar (apeídō)",
+    "glossesEs": [
+      "ver",
+      "contemplar"
+    ]
+  },
+  "G543": {
+    "shortDefinitionEs": "Desobediencia, incredulidad, rebeldía (apeítheia)",
+    "glossesEs": [
+      "desobediencia",
+      "incredulidad"
+    ]
+  },
+  "G544": {
+    "shortDefinitionEs": "No creer, desobedecer, rebelarse (apeithéō)",
+    "glossesEs": [
+      "desobedecer",
+      "no creer"
+    ]
+  },
+  "G545": {
+    "shortDefinitionEs": "Desobediente, contumaz, rebelde (apeithḗs)",
+    "glossesEs": [
+      "desobediente",
+      "rebelde"
+    ]
+  },
+  "G546": {
+    "shortDefinitionEs": "Amenazar, prohibir (apeiléō)",
+    "glossesEs": [
+      "amenazar",
+      "prohibir"
+    ]
+  },
+  "G547": {
+    "shortDefinitionEs": "Amenaza, intimidación (apeilḗ)",
+    "glossesEs": [
+      "amenaza",
+      "intimidación"
+    ]
+  },
+  "G548": {
+    "shortDefinitionEs": "Estar ausente, no estar presente (ápeimi)",
+    "glossesEs": [
+      "ausente",
+      "estar lejos"
+    ]
+  },
+  "G549": {
+    "shortDefinitionEs": "Irse, marcharse, partir (ápeimi)",
+    "glossesEs": [
+      "irse",
+      "partir"
+    ]
+  },
+  "G550": {
+    "shortDefinitionEs": "Renunciar, rechazar, desmentir (apeipómēn)",
+    "glossesEs": [
+      "renunciar",
+      "rechazar"
+    ]
+  },
+  "G551": {
+    "shortDefinitionEs": "No tentable, que no puede ser tentado (apeírastos)",
+    "glossesEs": [
+      "impecable",
+      "no tentable"
+    ]
+  },
+  "G552": {
+    "shortDefinitionEs": "Inexperto, ignorante, sin habilidad (ápeiros)",
+    "glossesEs": [
+      "inexperto",
+      "ignorante"
+    ]
+  },
+  "G553": {
+    "shortDefinitionEs": "Esperar plenamente, aguardar ansiosamente (apekdéchomai)",
+    "glossesEs": [
+      "esperar",
+      "aguardar"
+    ]
+  },
+  "G554": {
+    "shortDefinitionEs": "Desnudar, quitarse, despojar (apekdýomai)",
+    "glossesEs": [
+      "desnudar",
+      "despojarse"
+    ]
+  },
+  "G555": {
+    "shortDefinitionEs": "Despojo, desnudamiento (apékdysis)",
+    "glossesEs": [
+      "despojo",
+      "desnudamiento"
+    ]
+  },
+  "G556": {
+    "shortDefinitionEs": "Expulsar, despedir, echar (apelaúnō)",
+    "glossesEs": [
+      "expulsar",
+      "echar"
+    ]
+  },
+  "G557": {
+    "shortDefinitionEs": "Refutación, desprecio, menosprecio (apelegmós)",
+    "glossesEs": [
+      "desprecio",
+      "menosprecio"
+    ]
+  },
+  "G558": {
+    "shortDefinitionEs": "Hombre libre, liberto, emancipado (apeleútheros)",
+    "glossesEs": [
+      "liberto",
+      "emancipado"
+    ]
+  },
+  "G559": {
+    "shortDefinitionEs": "Apeles: cristiano mencionado por Pablo (Apellēs)",
+    "glossesEs": [
+      "Apeles"
+    ]
+  },
+  "G560": {
+    "shortDefinitionEs": "Esperar plenamente, confiar (apelpízō)",
+    "glossesEs": [
+      "esperar",
+      "confiar"
+    ]
+  },
+  "G561": {
+    "shortDefinitionEs": "Enfrente, delante, contra, en presencia (apénanti)",
+    "glossesEs": [
+      "enfrente",
+      "delante",
+      "contra"
+    ]
+  },
+  "G562": {
+    "shortDefinitionEs": "Infinito, interminable, sin fin (apérantos)",
+    "glossesEs": [
+      "infinito",
+      "interminable"
+    ]
+  },
+  "G563": {
+    "shortDefinitionEs": "Sin distracción, despreocupadamente (aperispástōs)",
+    "glossesEs": [
+      "sin distracción",
+      "despreocupado"
+    ]
+  },
+  "G564": {
+    "shortDefinitionEs": "Incircunciso, no circuncidado (aperítmētos)",
+    "glossesEs": [
+      "incircunciso",
+      "no circuncidado"
+    ]
+  },
+  "G565": {
+    "shortDefinitionEs": "Irse, partir, alejarse, retirarse (apérchomai)",
+    "glossesEs": [
+      "irse",
+      "partir",
+      "alejarse"
+    ]
+  },
+  "G566": {
+    "shortDefinitionEs": "Es suficiente, basta (apéchei)",
+    "glossesEs": [
+      "basta",
+      "suficiente"
+    ]
+  },
+  "G567": {
+    "shortDefinitionEs": "Abstenerse, apartarse, retenerse (apéchomai)",
+    "glossesEs": [
+      "abstenerse",
+      "retenerse"
+    ]
+  },
+  "G568": {
+    "shortDefinitionEs": "Recibir en su totalidad, estar distante (apéchō)",
+    "glossesEs": [
+      "recibir",
+      "estar lejos"
+    ]
+  },
+  "G569": {
+    "shortDefinitionEs": "No creer, descreer, desobedecer (apistéō)",
+    "glossesEs": [
+      "no creer",
+      "descreer"
+    ]
+  },
+  "G570": {
+    "shortDefinitionEs": "Incredulidad, falta de fe cristiana (apistía)",
+    "glossesEs": [
+      "incredulidad",
+      "falta de fe",
+      "infidelidad"
+    ]
+  },
+  "G571": {
+    "shortDefinitionEs": "Incrédulo, sin fe; infiel, no confiable (ápistos)",
+    "glossesEs": [
+      "incrédulo",
+      "infiel",
+      "no creyente"
+    ]
+  },
+  "G572": {
+    "shortDefinitionEs": "Sinceridad, sencillez; generosidad liberal (haplótēs)",
+    "glossesEs": [
+      "sinceridad",
+      "generosidad",
+      "liberalidad"
+    ]
+  },
+  "G573": {
+    "shortDefinitionEs": "Único, sencillo, claro (haploûs)",
+    "glossesEs": [
+      "simple",
+      "sencillo",
+      "único"
+    ]
+  },
+  "G574": {
+    "shortDefinitionEs": "Generosamente, liberalmente (haplōs)",
+    "glossesEs": [
+      "generosamente",
+      "liberalmente"
+    ]
+  },
+  "G575": {
+    "shortDefinitionEs": "De, desde; fuera de, lejos de (apó)",
+    "glossesEs": [
+      "de",
+      "desde",
+      "lejos de"
+    ]
+  },
+  "G576": {
+    "shortDefinitionEs": "Desembarcar; resultar, suceder (apobaínō)",
+    "glossesEs": [
+      "desembarcar",
+      "resultar",
+      "acontecer"
+    ]
+  },
+  "G577": {
+    "shortDefinitionEs": "Arrojar, lanzar; perder (apobállō)",
+    "glossesEs": [
+      "arrojar",
+      "lanzar",
+      "perder"
+    ]
+  },
+  "G578": {
+    "shortDefinitionEs": "Mirar fijamente, tener respeto (apoblépō)",
+    "glossesEs": [
+      "mirar",
+      "respetar",
+      "considerar"
+    ]
+  },
+  "G579": {
+    "shortDefinitionEs": "Rechazado, desechable, indigno (apóblētos)",
+    "glossesEs": [
+      "rechazado",
+      "desechado",
+      "indigno"
+    ]
+  },
+  "G580": {
+    "shortDefinitionEs": "Rechazo, pérdida, abandono (apobolḗ)",
+    "glossesEs": [
+      "rechazo",
+      "pérdida",
+      "abandono"
+    ]
+  },
+  "G581": {
+    "shortDefinitionEs": "Ausente, muerto, renunciado (apogenómenos)",
+    "glossesEs": [
+      "muerto",
+      "ausente",
+      "fallecido"
+    ]
+  },
+  "G582": {
+    "shortDefinitionEs": "Empadronamiento, censo, contribución (apographḗ)",
+    "glossesEs": [
+      "censo",
+      "empadronamiento",
+      "tributo"
+    ]
+  },
+  "G583": {
+    "shortDefinitionEs": "Registrar, empadronar, censar (apográphō)",
+    "glossesEs": [
+      "registrar",
+      "censar",
+      "empadronar"
+    ]
+  },
+  "G584": {
+    "shortDefinitionEs": "Demostrar, probar, manifestar (apodeíknymi)",
+    "glossesEs": [
+      "demostrar",
+      "probar",
+      "manifestar"
+    ]
+  },
+  "G585": {
+    "shortDefinitionEs": "Demostración, prueba clara (apódeixis)",
+    "glossesEs": [
+      "demostración",
+      "prueba",
+      "evidencia"
+    ]
+  },
+  "G586": {
+    "shortDefinitionEs": "Dar diezmos, pagar diezmo (apodekatóō)",
+    "glossesEs": [
+      "diezmo",
+      "contribución",
+      "décima parte"
+    ]
+  },
+  "G587": {
+    "shortDefinitionEs": "Aceptable, agradable, bien recibido (apódektos)",
+    "glossesEs": [
+      "aceptable",
+      "agradable",
+      "aceptado"
+    ]
+  },
+  "G588": {
+    "shortDefinitionEs": "Aceptar, recibir con agrado (apodéchomai)",
+    "glossesEs": [
+      "aceptar",
+      "recibir",
+      "aprobar"
+    ]
+  },
+  "G589": {
+    "shortDefinitionEs": "Viajar al extranjero, partir (apodēméō)",
+    "glossesEs": [
+      "viajar",
+      "partir",
+      "ausentarse"
+    ]
+  },
+  "G590": {
+    "shortDefinitionEs": "Ausente en viaje, extranjero (apódēmos)",
+    "glossesEs": [
+      "viajero",
+      "ausente",
+      "forastero"
+    ]
+  },
+  "G591": {
+    "shortDefinitionEs": "Entregar, devolver, pagar, recompensar (apodídōmi)",
+    "glossesEs": [
+      "entregar",
+      "devolver",
+      "pagar"
+    ]
+  },
+  "G592": {
+    "shortDefinitionEs": "Separar, apartar, dividir (apodiorízō)",
+    "glossesEs": [
+      "separar",
+      "apartar",
+      "dividir"
+    ]
+  },
+  "G593": {
+    "shortDefinitionEs": "Desaprobar, rechazar, repudiar (apodokimázō)",
+    "glossesEs": [
+      "rechazar",
+      "desaprobar",
+      "repudiar"
+    ]
+  },
+  "G594": {
+    "shortDefinitionEs": "Aceptación, aprobación, agrado (apodochḗ)",
+    "glossesEs": [
+      "aceptación",
+      "aprobación",
+      "agrado"
+    ]
+  },
+  "G595": {
+    "shortDefinitionEs": "Deponer, abandonar, quitarse (apóthesis)",
+    "glossesEs": [
+      "abandono",
+      "renuncia",
+      "depósito"
+    ]
+  },
+  "G596": {
+    "shortDefinitionEs": "Granero, almacén, depósito (apothḗkē)",
+    "glossesEs": [
+      "granero",
+      "almacén",
+      "depósito"
+    ]
+  },
+  "G597": {
+    "shortDefinitionEs": "Atesorar, guardar, acumular (apothēsaurízō)",
+    "glossesEs": [
+      "atesorar",
+      "guardar",
+      "acumular"
+    ]
+  },
+  "G598": {
+    "shortDefinitionEs": "Apretar, presionar, agobiar (apothlíbō)",
+    "glossesEs": [
+      "apretar",
+      "presionar",
+      "agobiar"
+    ]
+  },
+  "G599": {
+    "shortDefinitionEs": "Morir, expirar, fallecer (apothnḗskō)",
+    "glossesEs": [
+      "morir",
+      "fallecer",
+      "muerte"
+    ]
+  },
+  "G600": {
+    "shortDefinitionEs": "Restaurar, restablecer, reponer (apokathístēmi)",
+    "glossesEs": [
+      "restaurar",
+      "restablecer",
+      "reponer"
+    ]
+  },
+  "G601": {
+    "shortDefinitionEs": "Revelar, descubrir, manifestar (apokalýptō)",
+    "glossesEs": [
+      "revelar",
+      "descubrir",
+      "manifestar"
+    ]
+  },
+  "G602": {
+    "shortDefinitionEs": "Revelación, manifestación, aparición (apokálypsis)",
+    "glossesEs": [
+      "revelación",
+      "manifestación",
+      "aparición"
+    ]
+  },
+  "G603": {
+    "shortDefinitionEs": "Ardiente expectativa, intensa espera (apokaradokía)",
+    "glossesEs": [
+      "expectativa",
+      "espera",
+      "anhelo"
+    ]
+  },
+  "G604": {
+    "shortDefinitionEs": "Reconciliar plenamente, restaurar paz (apokatallássō)",
+    "glossesEs": [
+      "reconciliar",
+      "restaurar",
+      "paz"
+    ]
+  },
+  "G605": {
+    "shortDefinitionEs": "Restauración, restitución completa (apokatástasis)",
+    "glossesEs": [
+      "restauración",
+      "restitución",
+      "renovación"
+    ]
+  },
+  "G606": {
+    "shortDefinitionEs": "Estar reservado, apartado, preparado (apókeimai)",
+    "glossesEs": [
+      "reservado",
+      "preparado",
+      "apartado"
+    ]
+  },
+  "G607": {
+    "shortDefinitionEs": "Decapitar, cortar la cabeza (apokephalízō)",
+    "glossesEs": [
+      "decapitar",
+      "degollar",
+      "ejecutar"
+    ]
+  },
+  "G608": {
+    "shortDefinitionEs": "Cerrar completamente, bloquear (apokleíō)",
+    "glossesEs": [
+      "cerrar",
+      "bloquear",
+      "encerrar"
+    ]
+  },
+  "G609": {
+    "shortDefinitionEs": "Cortar, amputar, mutilar (apokóptō)",
+    "glossesEs": [
+      "cortar",
+      "amputar",
+      "extirpar"
+    ]
+  },
+  "G610": {
+    "shortDefinitionEs": "Sentencia, decisión judicial (apókrima)",
+    "glossesEs": [
+      "sentencia",
+      "decisión",
+      "veredicto"
+    ]
+  },
+  "G611": {
+    "shortDefinitionEs": "Responder, contestar, replicar (apokrínomai)",
+    "glossesEs": [
+      "responder",
+      "contestar",
+      "replicar"
+    ]
+  },
+  "G612": {
+    "shortDefinitionEs": "Respuesta, contestación, réplica (apókrisis)",
+    "glossesEs": [
+      "respuesta",
+      "contestación",
+      "réplica"
+    ]
+  },
+  "G613": {
+    "shortDefinitionEs": "Ocultar, esconder, mantener secreto (apokrýptō)",
+    "glossesEs": [
+      "ocultar",
+      "esconder",
+      "secreto"
+    ]
+  },
+  "G614": {
+    "shortDefinitionEs": "Secreto, oculto, escondido (apókryphos)",
+    "glossesEs": [
+      "secreto",
+      "oculto",
+      "escondido"
+    ]
+  },
+  "G615": {
+    "shortDefinitionEs": "Matar, asesinar, destruir (apokteínō)",
+    "glossesEs": [
+      "matar",
+      "asesinar",
+      "destruir"
+    ]
+  },
+  "G616": {
+    "shortDefinitionEs": "Engendrar, producir, generar (apokyéō)",
+    "glossesEs": [
+      "engendrar",
+      "producir",
+      "generar"
+    ]
+  },
+  "G617": {
+    "shortDefinitionEs": "Rodar, hacer rodar, apartar (apokylíō)",
+    "glossesEs": [
+      "rodar",
+      "apartar",
+      "remover"
+    ]
+  },
+  "G618": {
+    "shortDefinitionEs": "Recibir, tomar, recoger (apolambánō)",
+    "glossesEs": [
+      "recibir",
+      "tomar",
+      "recoger"
+    ]
+  },
+  "G619": {
+    "shortDefinitionEs": "Disfrute, gozo, aprovechamiento (apólausis)",
+    "glossesEs": [
+      "disfrute",
+      "gozo",
+      "placer"
+    ]
+  },
+  "G620": {
+    "shortDefinitionEs": "Dejar atrás, abandonar, quedar (apoleípō)",
+    "glossesEs": [
+      "dejar",
+      "abandonar",
+      "quedar"
+    ]
+  },
+  "G621": {
+    "shortDefinitionEs": "Lamer, limpiar con la lengua (apoleíchō)",
+    "glossesEs": [
+      "lamer"
+    ]
+  },
+  "G622": {
+    "shortDefinitionEs": "Destruir completamente, perecer, perder (apóllymi)",
+    "glossesEs": [
+      "destruir",
+      "perecer",
+      "perder"
+    ]
+  },
+  "G623": {
+    "shortDefinitionEs": "Apolión: destruidor, Satanás (Apollýōn)",
+    "glossesEs": [
+      "Apolión",
+      "destruidor"
+    ]
+  },
+  "G624": {
+    "shortDefinitionEs": "Apolonia: ciudad en Macedonia (Apollōnía)",
+    "glossesEs": [
+      "Apolonia"
+    ]
+  },
+  "G625": {
+    "shortDefinitionEs": "Apolos: varón israelita (Apollōs)",
+    "glossesEs": [
+      "Apolos"
+    ]
+  },
+  "G626": {
+    "shortDefinitionEs": "Defenderse, disculparse, dar cuenta de sí (apologéomai)",
+    "glossesEs": [
+      "defenderse",
+      "disculparse",
+      "responder"
+    ]
+  },
+  "G627": {
+    "shortDefinitionEs": "Defensa, alegato, disculpa (apología)",
+    "glossesEs": [
+      "defensa",
+      "alegato",
+      "disculpa"
+    ]
+  },
+  "G628": {
+    "shortDefinitionEs": "Lavar completamente, purificar (apoloúō)",
+    "glossesEs": [
+      "lavar",
+      "purificar"
+    ]
+  },
+  "G629": {
+    "shortDefinitionEs": "redención, liberación mediante pago (apolutrosis)",
+    "glossesEs": [
+      "redención"
+    ]
+  },
+  "G630": {
+    "shortDefinitionEs": "Liberar, soltar, despedir, perdonar, divorciar (apolýō)",
+    "glossesEs": [
+      "liberar",
+      "soltar",
+      "perdonar",
+      "divorciar"
+    ]
+  },
+  "G631": {
+    "shortDefinitionEs": "Limpiar, secar frotando (apomássomai)",
+    "glossesEs": [
+      "limpiar",
+      "secar"
+    ]
+  },
+  "G632": {
+    "shortDefinitionEs": "Distribuir, repartir, otorgar (aponémō)",
+    "glossesEs": [
+      "dar",
+      "repartir"
+    ]
+  },
+  "G633": {
+    "shortDefinitionEs": "Lavarse las manos simbólicamente (aponíptō)",
+    "glossesEs": [
+      "lavar",
+      "manos"
+    ]
+  },
+  "G634": {
+    "shortDefinitionEs": "Caer, desprenderse (apopíptō)",
+    "glossesEs": [
+      "caer"
+    ]
+  },
+  "G635": {
+    "shortDefinitionEs": "Descarriar, engañar, errar (apoplanáō)",
+    "glossesEs": [
+      "engañar",
+      "errar",
+      "descarriar"
+    ]
+  },
+  "G636": {
+    "shortDefinitionEs": "Partir en barco, zarpar (apopléō)",
+    "glossesEs": [
+      "zarpar",
+      "partir"
+    ]
+  },
+  "G637": {
+    "shortDefinitionEs": "Enjuagar, lavar completamente (apoplýnō)",
+    "glossesEs": [
+      "lavar",
+      "enjuagar"
+    ]
+  },
+  "G638": {
+    "shortDefinitionEs": "Ahogar, sofocar (apopnígō)",
+    "glossesEs": [
+      "ahogar",
+      "sofocar"
+    ]
+  },
+  "G639": {
+    "shortDefinitionEs": "Estar perplejo, dudar, no saber qué hacer (aporéō)",
+    "glossesEs": [
+      "perplejo",
+      "dudar",
+      "confundido"
+    ]
+  },
+  "G640": {
+    "shortDefinitionEs": "Perplejidad, incertidumbre (aporía)",
+    "glossesEs": [
+      "perplejidad",
+      "incertidumbre"
+    ]
+  },
+  "G641": {
+    "shortDefinitionEs": "Lanzar, arrojarse, precipitarse (aporrhíptō)",
+    "glossesEs": [
+      "lanzar",
+      "arrojarse"
+    ]
+  },
+  "G642": {
+    "shortDefinitionEs": "Privar completamente, separar (aporphanízō)",
+    "glossesEs": [
+      "privar",
+      "separar"
+    ]
+  },
+  "G643": {
+    "shortDefinitionEs": "Recoger equipaje, empacar (aposkeuázō)",
+    "glossesEs": [
+      "empacar",
+      "equipaje"
+    ]
+  },
+  "G644": {
+    "shortDefinitionEs": "Sombra, obscuridad (aposkíasma)",
+    "glossesEs": [
+      "sombra"
+    ]
+  },
+  "G645": {
+    "shortDefinitionEs": "Sacar, retirar, desenvainar (apospáō)",
+    "glossesEs": [
+      "retirar",
+      "sacar",
+      "desenvainar"
+    ]
+  },
+  "G646": {
+    "shortDefinitionEs": "Apostasía, abandono de la fe (apostasía)",
+    "glossesEs": [
+      "apostasía",
+      "abandono",
+      "defección"
+    ]
+  },
+  "G647": {
+    "shortDefinitionEs": "Carta de divorcio, repudio (apostásion)",
+    "glossesEs": [
+      "divorcio",
+      "repudio"
+    ]
+  },
+  "G648": {
+    "shortDefinitionEs": "Descubrir, quitar el techo (apostegázō)",
+    "glossesEs": [
+      "descubrir",
+      "quitar"
+    ]
+  },
+  "G649": {
+    "shortDefinitionEs": "Enviar, mandar en misión (apostéllō)",
+    "glossesEs": [
+      "enviar",
+      "mandar",
+      "apóstol"
+    ]
+  },
+  "G650": {
+    "shortDefinitionEs": "Defraudar, despojar (aposteréō)",
+    "glossesEs": [
+      "defraudar",
+      "despojar"
+    ]
+  },
+  "G651": {
+    "shortDefinitionEs": "Apostolado, comisión apostólica (apostolḗ)",
+    "glossesEs": [
+      "apostolado"
+    ]
+  },
+  "G652": {
+    "shortDefinitionEs": "apóstol, enviado oficial, representante",
+    "glossesEs": [
+      "apóstol",
+      "apóstoles"
+    ]
+  },
+  "G653": {
+    "shortDefinitionEs": "Provocar a hablar, interrogar (apostomatízō)",
+    "glossesEs": [
+      "provocar",
+      "interrogar"
+    ]
+  },
+  "G654": {
+    "shortDefinitionEs": "Apartar, volver de espaldas, pervertir (apostréphō)",
+    "glossesEs": [
+      "apartar",
+      "volver",
+      "pervertir"
+    ]
+  },
+  "G655": {
+    "shortDefinitionEs": "Aborrecer completamente (apostygéō)",
+    "glossesEs": [
+      "aborrecer"
+    ]
+  },
+  "G656": {
+    "shortDefinitionEs": "Expulsado de la sinagoga (aposynágōgos)",
+    "glossesEs": [
+      "expulsado",
+      "sinagoga"
+    ]
+  },
+  "G657": {
+    "shortDefinitionEs": "Renunciar, despedirse, abandonar (apotássomai)",
+    "glossesEs": [
+      "renunciar",
+      "abandonar",
+      "despedirse"
+    ]
+  },
+  "G658": {
+    "shortDefinitionEs": "Terminar completamente, consumar (apoteléō)",
+    "glossesEs": [
+      "terminar",
+      "consumar"
+    ]
+  },
+  "G659": {
+    "shortDefinitionEs": "Apartar, desechar, poner a un lado (apotíthēmi)",
+    "glossesEs": [
+      "apartar",
+      "desechar",
+      "poner"
+    ]
+  },
+  "G660": {
+    "shortDefinitionEs": "Sacudirse, librarse de (apotinássō)",
+    "glossesEs": [
+      "sacudir"
+    ]
+  },
+  "G661": {
+    "shortDefinitionEs": "Pagar completamente, reembolsar (apotínō)",
+    "glossesEs": [
+      "pagar",
+      "reembolsar"
+    ]
+  },
+  "G662": {
+    "shortDefinitionEs": "Atreverse mucho, ser muy osado (apotolmáō)",
+    "glossesEs": [
+      "atreverse",
+      "osado"
+    ]
+  },
+  "G663": {
+    "shortDefinitionEs": "Severidad, rigor, decisión (apotomía)",
+    "glossesEs": [
+      "severidad",
+      "rigor"
+    ]
+  },
+  "G664": {
+    "shortDefinitionEs": "Abruptamente, rigurosamente, con severidad (apotómōs)",
+    "glossesEs": [
+      "severamente",
+      "rigurosamente"
+    ]
+  },
+  "G665": {
+    "shortDefinitionEs": "Apartarse, evitar, desviar (apotrépō)",
+    "glossesEs": [
+      "apartarse",
+      "evitar"
+    ]
+  },
+  "G666": {
+    "shortDefinitionEs": "Ausencia, estar ausente (apousía)",
+    "glossesEs": [
+      "ausencia"
+    ]
+  },
+  "G667": {
+    "shortDefinitionEs": "Llevar, traer, transportar (apophérō)",
+    "glossesEs": [
+      "llevar",
+      "traer"
+    ]
+  },
+  "G668": {
+    "shortDefinitionEs": "Escapar, evadir (apopheúgō)",
+    "glossesEs": [
+      "escapar",
+      "evadir"
+    ]
+  },
+  "G669": {
+    "shortDefinitionEs": "Hablar, declarar, expresar (apophthéngomai)",
+    "glossesEs": [
+      "hablar",
+      "declarar"
+    ]
+  },
+  "G670": {
+    "shortDefinitionEs": "Descargar, desembarcar (apophortízomai)",
+    "glossesEs": [
+      "descargar",
+      "desembarcar"
+    ]
+  },
+  "G671": {
+    "shortDefinitionEs": "Consumo, uso desgastante (apóchrēsis)",
+    "glossesEs": [
+      "consumo",
+      "uso"
+    ]
+  },
+  "G672": {
+    "shortDefinitionEs": "Irse, alejarse, partir (apochōréō)",
+    "glossesEs": [
+      "partir",
+      "irse",
+      "alejarse"
+    ]
+  },
+  "G673": {
+    "shortDefinitionEs": "Separarse, apartarse, rasgarse (apochōrízō)",
+    "glossesEs": [
+      "separarse",
+      "apartarse",
+      "dividirse"
+    ]
+  },
+  "G674": {
+    "shortDefinitionEs": "Desvanecerse, desmayarse (apopsýchō)",
+    "glossesEs": [
+      "desvanecerse",
+      "desmayo",
+      "desfallecimiento"
+    ]
+  },
+  "G675": {
+    "shortDefinitionEs": "Apio: nombre de un romano (Áppios)",
+    "glossesEs": [
+      "Apio"
+    ]
+  },
+  "G676": {
+    "shortDefinitionEs": "Inaccesible, a lo que no se puede llegar (aprósitos)",
+    "glossesEs": [
+      "inaccesible",
+      "inalcanzable"
+    ]
+  },
+  "G677": {
+    "shortDefinitionEs": "Sin ofensa, irreprensible, sin culpa (apróskopos)",
+    "glossesEs": [
+      "irreprensible",
+      "sin ofensa",
+      "íntegro"
+    ]
+  },
+  "G678": {
+    "shortDefinitionEs": "Sin acepción de personas, imparcialmente (aprosōpolḗptōs)",
+    "glossesEs": [
+      "imparcial",
+      "sin acepción",
+      "equitativo"
+    ]
+  },
+  "G679": {
+    "shortDefinitionEs": "Que no cae, sin pecado (áptaistos)",
+    "glossesEs": [
+      "inmaculado",
+      "sin caída",
+      "impecable"
+    ]
+  },
+  "G680": {
+    "shortDefinitionEs": "Tocar, asir, aferrarse a (háptomai)",
+    "glossesEs": [
+      "tocar",
+      "asir",
+      "coger"
+    ]
+  },
+  "G681": {
+    "shortDefinitionEs": "Encender, prender fuego, prenderle fuego (háptō)",
+    "glossesEs": [
+      "encender",
+      "prender fuego",
+      "iluminar"
+    ]
+  },
+  "G682": {
+    "shortDefinitionEs": "Afia: mujer de Colosas (Apphía)",
+    "glossesEs": [
+      "Afia"
+    ]
+  },
+  "G683": {
+    "shortDefinitionEs": "Rechazar, apartar, desechar (apōthéomai)",
+    "glossesEs": [
+      "rechazar",
+      "apartar",
+      "desechar"
+    ]
+  },
+  "G684": {
+    "shortDefinitionEs": "Perdición, ruina, destrucción (apṓleia)",
+    "glossesEs": [
+      "perdición",
+      "destrucción",
+      "ruina"
+    ]
+  },
+  "G685": {
+    "shortDefinitionEs": "Maldición, imprecación (ará)",
+    "glossesEs": [
+      "maldición",
+      "imprecación",
+      "anatema"
+    ]
+  },
+  "G686": {
+    "shortDefinitionEs": "Partícula de inferencia condicional (ára)",
+    "glossesEs": [
+      "acaso",
+      "quizá",
+      "tal vez"
+    ]
+  },
+  "G687": {
+    "shortDefinitionEs": "Por tanto, luego, pues (âra)",
+    "glossesEs": [
+      "por tanto",
+      "luego",
+      "entonces"
+    ]
+  },
+  "G688": {
+    "shortDefinitionEs": "Arabia: región de Asia (Arabía)",
+    "glossesEs": [
+      "Arabia"
+    ]
+  },
+  "G689": {
+    "shortDefinitionEs": "Aram: israelita (Arám)",
+    "glossesEs": [
+      "Aram"
+    ]
+  },
+  "G690": {
+    "shortDefinitionEs": "Árabe, natural de Arabia (Áraps)",
+    "glossesEs": [
+      "árabe"
+    ]
+  },
+  "G691": {
+    "shortDefinitionEs": "Tardar, demorar, detenerse (argéō)",
+    "glossesEs": [
+      "tardar",
+      "demorar",
+      "detenerse"
+    ]
+  },
+  "G692": {
+    "shortDefinitionEs": "Ocioso, inútil, perezoso (argós)",
+    "glossesEs": [
+      "ocioso",
+      "inútil",
+      "perezoso"
+    ]
+  },
+  "G693": {
+    "shortDefinitionEs": "De plata, plateado (argýreos)",
+    "glossesEs": [
+      "plata",
+      "plateado",
+      "de plata"
+    ]
+  },
+  "G694": {
+    "shortDefinitionEs": "Moneda de plata, dinero (argýrion)",
+    "glossesEs": [
+      "dinero",
+      "moneda",
+      "plata"
+    ]
+  },
+  "G695": {
+    "shortDefinitionEs": "Platero, trabajador de plata (argyrókópos)",
+    "glossesEs": [
+      "platero",
+      "orfebre"
+    ]
+  },
+  "G696": {
+    "shortDefinitionEs": "Plata, metal o moneda (árgyros)",
+    "glossesEs": [
+      "plata",
+      "metal",
+      "moneda"
+    ]
+  },
+  "G697": {
+    "shortDefinitionEs": "Areópago: colina de Ares en Atenas (Áreios Págos)",
+    "glossesEs": [
+      "Areópago",
+      "Marte"
+    ]
+  },
+  "G698": {
+    "shortDefinitionEs": "Areopagita: miembro del tribunal del Areópago (Areopagítēs)",
+    "glossesEs": [
+      "Areopagita"
+    ]
+  },
+  "G699": {
+    "shortDefinitionEs": "Complacencia, deseo de agradar (areskeía)",
+    "glossesEs": [
+      "complacencia",
+      "agrado"
+    ]
+  },
+  "G700": {
+    "shortDefinitionEs": "Agradar, ser agradable, complacer (aréskō)",
+    "glossesEs": [
+      "agradar",
+      "complacer",
+      "aceptar"
+    ]
+  },
+  "G701": {
+    "shortDefinitionEs": "Agradable, aceptable, conveniente (arestós)",
+    "glossesEs": [
+      "agradable",
+      "aceptable",
+      "conveniente"
+    ]
+  },
+  "G702": {
+    "shortDefinitionEs": "Aretas: árabe, rey (Arétas)",
+    "glossesEs": [
+      "Aretas"
+    ]
+  },
+  "G703": {
+    "shortDefinitionEs": "Excelencia, virtud, alabanza (arétē)",
+    "glossesEs": [
+      "virtud",
+      "excelencia",
+      "alabanza"
+    ]
+  },
+  "G704": {
+    "shortDefinitionEs": "Cordero macho (arḗn)",
+    "glossesEs": [
+      "cordero",
+      "cordero macho"
+    ]
+  },
+  "G705": {
+    "shortDefinitionEs": "Enumerar, contar, computar (arithméō)",
+    "glossesEs": [
+      "contar",
+      "numerar",
+      "enumerar"
+    ]
+  },
+  "G706": {
+    "shortDefinitionEs": "Número, cantidad (arithmós)",
+    "glossesEs": [
+      "número",
+      "cantidad",
+      "suma"
+    ]
+  },
+  "G707": {
+    "shortDefinitionEs": "Arimatea: ciudad de Palestina (Arimathaía)",
+    "glossesEs": [
+      "Arimatea"
+    ]
+  },
+  "G708": {
+    "shortDefinitionEs": "Aristarco: macedonio, cristiano (Arístarchos)",
+    "glossesEs": [
+      "Aristarco"
+    ]
+  },
+  "G709": {
+    "shortDefinitionEs": "Comer, desayunar (aristáō)",
+    "glossesEs": [
+      "comer",
+      "desayunar"
+    ]
+  },
+  "G710": {
+    "shortDefinitionEs": "Izquierdo, lado izquierdo (aristerós)",
+    "glossesEs": [
+      "izquierdo",
+      "izquierda"
+    ]
+  },
+  "G711": {
+    "shortDefinitionEs": "Aristóbulo: cristiano (Aristóboulos)",
+    "glossesEs": [
+      "Aristóbulo"
+    ]
+  },
+  "G712": {
+    "shortDefinitionEs": "Comida principal, almuerzo (áriston)",
+    "glossesEs": [
+      "comida",
+      "almuerzo",
+      "desayuno"
+    ]
+  },
+  "G713": {
+    "shortDefinitionEs": "Suficiente, bastante, satisfactorio (arketós)",
+    "glossesEs": [
+      "suficiente",
+      "bastante",
+      "adecuado"
+    ]
+  },
+  "G714": {
+    "shortDefinitionEs": "Bastar, ser suficiente, conformarse (arkéō)",
+    "glossesEs": [
+      "bastar",
+      "ser suficiente",
+      "conformarse"
+    ]
+  },
+  "G715": {
+    "shortDefinitionEs": "Oso, animal feroz (árktos)",
+    "glossesEs": [
+      "oso",
+      "fiera"
+    ]
+  },
+  "G716": {
+    "shortDefinitionEs": "Carro, carruaje (hárma)",
+    "glossesEs": [
+      "carro",
+      "carruaje"
+    ]
+  },
+  "G717": {
+    "shortDefinitionEs": "Armagedón: ubicación simbólica final (Armageddṓn)",
+    "glossesEs": [
+      "Armagedón"
+    ]
+  },
+  "G718": {
+    "shortDefinitionEs": "Desposar, unir en matrimonio (harmózō)",
+    "glossesEs": [
+      "desposar",
+      "comprometer"
+    ]
+  },
+  "G719": {
+    "shortDefinitionEs": "Articulación, coyuntura del cuerpo (harmós)",
+    "glossesEs": [
+      "articulación",
+      "coyuntura",
+      "junta"
+    ]
+  },
+  "G720": {
+    "shortDefinitionEs": "Negar, rehusar, rechazar (arnéomai)",
+    "glossesEs": [
+      "negar",
+      "rehusar",
+      "rechazar"
+    ]
+  },
+  "G721": {
+    "shortDefinitionEs": "Corderillo, pequeño cordero (arníon)",
+    "glossesEs": [
+      "cordero",
+      "corderillo"
+    ]
+  },
+  "G722": {
+    "shortDefinitionEs": "arar, labrar la tierra (arotrióō)",
+    "glossesEs": [
+      "arar",
+      "labrar"
+    ]
+  },
+  "G723": {
+    "shortDefinitionEs": "arado, instrumento para labrar (árotron)",
+    "glossesEs": [
+      "arado"
+    ]
+  },
+  "G724": {
+    "shortDefinitionEs": "saqueo, despojo, extorsión (harpagḗ)",
+    "glossesEs": [
+      "saqueo",
+      "despojo",
+      "extorsión"
+    ]
+  },
+  "G725": {
+    "shortDefinitionEs": "robo, botín arrebatado (harpagmós)",
+    "glossesEs": [
+      "robo",
+      "botín"
+    ]
+  },
+  "G726": {
+    "shortDefinitionEs": "arrebatar, asir con violencia (harpázō)",
+    "glossesEs": [
+      "arrebatar",
+      "asir",
+      "tomar por fuerza"
+    ]
+  },
+  "G727": {
+    "shortDefinitionEs": "rapaz, saqueador (hárpax)",
+    "glossesEs": [
+      "rapaz",
+      "saqueador"
+    ]
+  },
+  "G728": {
+    "shortDefinitionEs": "prenda, garantía anticipada (arrhabṓn)",
+    "glossesEs": [
+      "prenda",
+      "garantía",
+      "arras"
+    ]
+  },
+  "G729": {
+    "shortDefinitionEs": "sin costura, de una sola pieza (árrhaphos)",
+    "glossesEs": [
+      "sin costura"
+    ]
+  },
+  "G730": {
+    "shortDefinitionEs": "varón, hombre, macho (árrhēn)",
+    "glossesEs": [
+      "varón",
+      "hombre",
+      "macho"
+    ]
+  },
+  "G731": {
+    "shortDefinitionEs": "inefable, inexpresable (árrhētos)",
+    "glossesEs": [
+      "inefable",
+      "inexpresable"
+    ]
+  },
+  "G732": {
+    "shortDefinitionEs": "débil, enfermo, sin fuerzas (árrhōstos)",
+    "glossesEs": [
+      "enfermo",
+      "débil"
+    ]
+  },
+  "G733": {
+    "shortDefinitionEs": "sodomita, quien abusa de varones (arsenokoítēs)",
+    "glossesEs": [
+      "sodomita"
+    ]
+  },
+  "G734": {
+    "shortDefinitionEs": "Artemas: cristiano, compañero de Pablo (Artemás)",
+    "glossesEs": [
+      "Artemas"
+    ]
+  },
+  "G735": {
+    "shortDefinitionEs": "Artemisa: diosa griega llamada Diana (Ártemis)",
+    "glossesEs": [
+      "Artemisa",
+      "Diana"
+    ]
+  },
+  "G736": {
+    "shortDefinitionEs": "vela mayor de una nave (artémōn)",
+    "glossesEs": [
+      "vela mayor"
+    ]
+  },
+  "G737": {
+    "shortDefinitionEs": "ahora, en este momento, justo ahora (árti)",
+    "glossesEs": [
+      "ahora",
+      "justo ahora"
+    ]
+  },
+  "G738": {
+    "shortDefinitionEs": "recién nacido, converso nuevo (artigénnētos)",
+    "glossesEs": [
+      "recién nacido"
+    ]
+  },
+  "G739": {
+    "shortDefinitionEs": "completo, entero, perfecto (ártios)",
+    "glossesEs": [
+      "completo",
+      "perfecto"
+    ]
+  },
+  "G741": {
+    "shortDefinitionEs": "sazonar, condimentar (artýō)",
+    "glossesEs": [
+      "sazonar",
+      "condimentar"
+    ]
+  },
+  "G742": {
+    "shortDefinitionEs": "Arfaxad: patriarca antediluviano (Arphaxád)",
+    "glossesEs": [
+      "Arfaxad"
+    ]
+  },
+  "G743": {
+    "shortDefinitionEs": "arcángel, ángel jefe (archángelos)",
+    "glossesEs": [
+      "arcángel"
+    ]
+  },
+  "G744": {
+    "shortDefinitionEs": "antiguo, primero, primitivo (archaîos)",
+    "glossesEs": [
+      "antiguo",
+      "primitivo"
+    ]
+  },
+  "G745": {
+    "shortDefinitionEs": "Arquelao: rey judío (Archélaos)",
+    "glossesEs": [
+      "Arquelao"
+    ]
+  },
+  "G746": {
+    "shortDefinitionEs": "principio, comienzo, gobernante, autoridad (arjé)",
+    "glossesEs": [
+      "principio"
+    ]
+  },
+  "G747": {
+    "shortDefinitionEs": "caudillo, capitán, príncipe (archēgós)",
+    "glossesEs": [
+      "caudillo",
+      "capitán",
+      "príncipe"
+    ]
+  },
+  "G748": {
+    "shortDefinitionEs": "sumo sacerdotal, del sumo sacerdote (archieratikós)",
+    "glossesEs": [
+      "sumo sacerdotal"
+    ]
+  },
+  "G749": {
+    "shortDefinitionEs": "sumo sacerdote, jefe de sacerdotes (archiereús)",
+    "glossesEs": [
+      "sumo sacerdote"
+    ]
+  },
+  "G750": {
+    "shortDefinitionEs": "principal pastor, pastor mayor (archipoímēn)",
+    "glossesEs": [
+      "principal pastor"
+    ]
+  },
+  "G751": {
+    "shortDefinitionEs": "Arquipo: cristiano, servidor de la iglesia (Árchippos)",
+    "glossesEs": [
+      "Arquipo"
+    ]
+  },
+  "G752": {
+    "shortDefinitionEs": "presidente de sinagoga (archisynágōgos)",
+    "glossesEs": [
+      "presidente de sinagoga"
+    ]
+  },
+  "G753": {
+    "shortDefinitionEs": "maestro constructor, arquitecto (architéktōn)",
+    "glossesEs": [
+      "arquitecto"
+    ]
+  },
+  "G754": {
+    "shortDefinitionEs": "jefe de publicanos, recaudador mayor (architelṓnēs)",
+    "glossesEs": [
+      "jefe de publicanos"
+    ]
+  },
+  "G755": {
+    "shortDefinitionEs": "presidente del banquete (architríklinos)",
+    "glossesEs": [
+      "presidente del banquete"
+    ]
+  },
+  "G756": {
+    "shortDefinitionEs": "comenzar, empezar (árchomai)",
+    "glossesEs": [
+      "comenzar",
+      "empezar"
+    ]
+  },
+  "G757": {
+    "shortDefinitionEs": "gobernar, reinar, mandar (árchō)",
+    "glossesEs": [
+      "gobernar",
+      "reinar"
+    ]
+  },
+  "G758": {
+    "shortDefinitionEs": "jefe, gobernante, magistrado, príncipe (árchōn)",
+    "glossesEs": [
+      "gobernante",
+      "jefe",
+      "magistrado"
+    ]
+  },
+  "G759": {
+    "shortDefinitionEs": "aromático, especia fragante (árōma)",
+    "glossesEs": [
+      "aromático",
+      "especia"
+    ]
+  },
+  "G760": {
+    "shortDefinitionEs": "Asa: israelita, rey de Judá (Asá)",
+    "glossesEs": [
+      "Asa"
+    ]
+  },
+  "G761": {
+    "shortDefinitionEs": "inmovible, que no puede ser movido (asáleutos)",
+    "glossesEs": [
+      "inmovible"
+    ]
+  },
+  "G762": {
+    "shortDefinitionEs": "inextinguible, que no puede apagarse (ásbestos)",
+    "glossesEs": [
+      "inextinguible"
+    ]
+  },
+  "G763": {
+    "shortDefinitionEs": "impiedad, maldad, falta de piedad (asébeia)",
+    "glossesEs": [
+      "impiedad",
+      "maldad"
+    ]
+  },
+  "G764": {
+    "shortDefinitionEs": "ser impío, vivir sin temor a Dios (asebéō)",
+    "glossesEs": [
+      "ser impío"
+    ]
+  },
+  "G765": {
+    "shortDefinitionEs": "impío, irreverente, malvado (asebḗs)",
+    "glossesEs": [
+      "impío",
+      "malvado"
+    ]
+  },
+  "G766": {
+    "shortDefinitionEs": "lascivia, libertinaje, sensualidad (asélgeia)",
+    "glossesEs": [
+      "lascivia",
+      "libertinaje"
+    ]
+  },
+  "G767": {
+    "shortDefinitionEs": "innoble, sin distinción, humilde (ásēmos)",
+    "glossesEs": [
+      "innoble",
+      "humilde"
+    ]
+  },
+  "G768": {
+    "shortDefinitionEs": "Aser: tribu israelita de Aser (Asḗr)",
+    "glossesEs": [
+      "Aser"
+    ]
+  },
+  "G769": {
+    "shortDefinitionEs": "debilidad, enfermedad, flaqueza (asthéneia)",
+    "glossesEs": [
+      "debilidad",
+      "enfermedad",
+      "flaqueza"
+    ]
+  },
+  "G770": {
+    "shortDefinitionEs": "estar enfermo, estar débil (asthenéō)",
+    "glossesEs": [
+      "estar enfermo",
+      "estar débil"
+    ]
+  },
+  "G771": {
+    "shortDefinitionEs": "escrúpulo de conciencia (asthénēma)",
+    "glossesEs": [
+      "escrúpulo"
+    ]
+  },
+  "G772": {
+    "shortDefinitionEs": "débil, flojo, sin fuerzas, enfermo (asthenḗs)",
+    "glossesEs": [
+      "débil",
+      "enfermo"
+    ]
+  },
+  "G773": {
+    "shortDefinitionEs": "Asia: Asia Menor, costa occidental (Asía)",
+    "glossesEs": [
+      "Asia"
+    ]
+  },
+  "G774": {
+    "shortDefinitionEs": "Habitante de Asia (Asiánós)",
+    "glossesEs": [
+      "Asia",
+      "habitante"
+    ]
+  },
+  "G775": {
+    "shortDefinitionEs": "Presidente de festividades públicas en Asia Menor (Asiárchēs)",
+    "glossesEs": [
+      "magistrado",
+      "Asia"
+    ]
+  },
+  "G776": {
+    "shortDefinitionEs": "Ayuno, abstinencia de alimento (asitía)",
+    "glossesEs": [
+      "ayuno",
+      "abstinencia"
+    ]
+  },
+  "G777": {
+    "shortDefinitionEs": "Sin alimento, en ayunas (ásitos)",
+    "glossesEs": [
+      "ayuno",
+      "hambre"
+    ]
+  },
+  "G778": {
+    "shortDefinitionEs": "Entrenar, ejercitar, disciplinar (askéō)",
+    "glossesEs": [
+      "ejercicio",
+      "entrenamiento"
+    ]
+  },
+  "G779": {
+    "shortDefinitionEs": "Odre de cuero para bebidas (askós)",
+    "glossesEs": [
+      "odre",
+      "botella"
+    ]
+  },
+  "G780": {
+    "shortDefinitionEs": "Con gusto, de buena gana (asménōs)",
+    "glossesEs": [
+      "gusto",
+      "gana"
+    ]
+  },
+  "G781": {
+    "shortDefinitionEs": "Sin sabiduría, insensato (ásophos)",
+    "glossesEs": [
+      "insensato",
+      "tonto"
+    ]
+  },
+  "G782": {
+    "shortDefinitionEs": "Abrazar, saludar, acoger (aspázomai)",
+    "glossesEs": [
+      "saludo",
+      "abrazo",
+      "bienvenida"
+    ]
+  },
+  "G783": {
+    "shortDefinitionEs": "Saludo, expresión de cortesía (aspasmós)",
+    "glossesEs": [
+      "saludo",
+      "salutación"
+    ]
+  },
+  "G784": {
+    "shortDefinitionEs": "Sin mancha, intachable, puro (áspilos)",
+    "glossesEs": [
+      "puro",
+      "impecable"
+    ]
+  },
+  "G785": {
+    "shortDefinitionEs": "Áspid, serpiente venenosa (aspís)",
+    "glossesEs": [
+      "serpiente",
+      "áspid"
+    ]
+  },
+  "G786": {
+    "shortDefinitionEs": "Implacable, que rompe pactos (áspondos)",
+    "glossesEs": [
+      "implacable",
+      "traidor"
+    ]
+  },
+  "G787": {
+    "shortDefinitionEs": "Moneda romana, céntimo (assárion)",
+    "glossesEs": [
+      "moneda",
+      "céntimo"
+    ]
+  },
+  "G788": {
+    "shortDefinitionEs": "Muy cerca, próximo (âsson)",
+    "glossesEs": [
+      "cerca",
+      "próximo"
+    ]
+  },
+  "G789": {
+    "shortDefinitionEs": "Asós: ciudad de Asia Menor (Ássos)",
+    "glossesEs": [
+      "Asós",
+      "ciudad"
+    ]
+  },
+  "G790": {
+    "shortDefinitionEs": "Sin morada fija, sin hogar (astatéō)",
+    "glossesEs": [
+      "vagabundo",
+      "sin hogar"
+    ]
+  },
+  "G791": {
+    "shortDefinitionEs": "Hermoso, distinguido, elegante (asteîos)",
+    "glossesEs": [
+      "hermoso",
+      "elegante"
+    ]
+  },
+  "G792": {
+    "shortDefinitionEs": "Estrella, astro del cielo (astḗr)",
+    "glossesEs": [
+      "estrella",
+      "astro"
+    ]
+  },
+  "G793": {
+    "shortDefinitionEs": "Inestable, vacilante, inseguro (astḗriktos)",
+    "glossesEs": [
+      "inestable",
+      "vacilante"
+    ]
+  },
+  "G794": {
+    "shortDefinitionEs": "Sin afecto natural, cruel (ástorgos)",
+    "glossesEs": [
+      "cruel",
+      "desafecto"
+    ]
+  },
+  "G795": {
+    "shortDefinitionEs": "Errar, desviarse de la verdad (astochéō)",
+    "glossesEs": [
+      "error",
+      "desviación"
+    ]
+  },
+  "G796": {
+    "shortDefinitionEs": "Rayo, relámpago, destello (astrapḗ)",
+    "glossesEs": [
+      "rayo",
+      "relámpago"
+    ]
+  },
+  "G797": {
+    "shortDefinitionEs": "Brillar como rayo, destellar (astráptō)",
+    "glossesEs": [
+      "brillar",
+      "relampaguear"
+    ]
+  },
+  "G798": {
+    "shortDefinitionEs": "Constelación, estrella (ástron)",
+    "glossesEs": [
+      "estrella",
+      "constelación"
+    ]
+  },
+  "G799": {
+    "shortDefinitionEs": "Asincrito: cristiano romano (Asýnkritos)",
+    "glossesEs": [
+      "Asincrito",
+      "nombre propio"
+    ]
+  },
+  "G800": {
+    "shortDefinitionEs": "Inarmónico, que no concuerda (asýmphōnos)",
+    "glossesEs": [
+      "desacuerdo",
+      "discordia"
+    ]
+  },
+  "G801": {
+    "shortDefinitionEs": "Sin inteligencia, necio, perverso (asýnetos)",
+    "glossesEs": [
+      "necio",
+      "ignorante"
+    ]
+  },
+  "G802": {
+    "shortDefinitionEs": "Infiel, que quebranta pactos (asýnthetos)",
+    "glossesEs": [
+      "infiel",
+      "pérfido"
+    ]
+  },
+  "G803": {
+    "shortDefinitionEs": "Seguridad, certeza, certidumbre (aspháleia)",
+    "glossesEs": [
+      "seguridad",
+      "certeza"
+    ]
+  },
+  "G804": {
+    "shortDefinitionEs": "Seguro, cierto, firme (asphalḗs)",
+    "glossesEs": [
+      "seguro",
+      "firme",
+      "cierto"
+    ]
+  },
+  "G805": {
+    "shortDefinitionEs": "Asegurar, afirmar, fijar (asphalízō)",
+    "glossesEs": [
+      "asegurar",
+      "fijar"
+    ]
+  },
+  "G806": {
+    "shortDefinitionEs": "Seguramente, con certeza (asphalōs)",
+    "glossesEs": [
+      "seguramente",
+      "ciertamente"
+    ]
+  },
+  "G807": {
+    "shortDefinitionEs": "Conducirse indecentemente (aschēmonéō)",
+    "glossesEs": [
+      "indecencia",
+      "vergüenza"
+    ]
+  },
+  "G808": {
+    "shortDefinitionEs": "Indecencia, falta de decoro (aschēmosýnē)",
+    "glossesEs": [
+      "vergüenza",
+      "indecencia"
+    ]
+  },
+  "G809": {
+    "shortDefinitionEs": "Indecoroso, inelegante, feo (aschḗmōn)",
+    "glossesEs": [
+      "indecoroso",
+      "feo"
+    ]
+  },
+  "G810": {
+    "shortDefinitionEs": "Libertinaje, vida disipada (asōtía)",
+    "glossesEs": [
+      "libertinaje",
+      "exceso"
+    ]
+  },
+  "G811": {
+    "shortDefinitionEs": "Disolutamente, licenciosamente (asṓtōs)",
+    "glossesEs": [
+      "libertino",
+      "disolutamente"
+    ]
+  },
+  "G812": {
+    "shortDefinitionEs": "Conducirse desordenadamente (ataktéō)",
+    "glossesEs": [
+      "desorden",
+      "indisciplina"
+    ]
+  },
+  "G813": {
+    "shortDefinitionEs": "Desordenado, insubordinado (átaktos)",
+    "glossesEs": [
+      "desordenado",
+      "rebelde"
+    ]
+  },
+  "G814": {
+    "shortDefinitionEs": "Desordenadamente, sin orden (atáktōs)",
+    "glossesEs": [
+      "desorden",
+      "irregularidad"
+    ]
+  },
+  "G815": {
+    "shortDefinitionEs": "Sin hijos, estéril (áteknos)",
+    "glossesEs": [
+      "estéril",
+      "infecundo"
+    ]
+  },
+  "G816": {
+    "shortDefinitionEs": "Mirar fijamente, contemplar (atenízō)",
+    "glossesEs": [
+      "mirada",
+      "contemplación"
+    ]
+  },
+  "G817": {
+    "shortDefinitionEs": "Aparte de, sin, privado de (áter)",
+    "glossesEs": [
+      "sin",
+      "apartado"
+    ]
+  },
+  "G818": {
+    "shortDefinitionEs": "Deshonrar, ultrajar, maltratar (atimázō)",
+    "glossesEs": [
+      "deshonra",
+      "ultraje"
+    ]
+  },
+  "G819": {
+    "shortDefinitionEs": "Deshonra, infamia, oprobio (atimía)",
+    "glossesEs": [
+      "deshonra",
+      "vergüenza"
+    ]
+  },
+  "G820": {
+    "shortDefinitionEs": "Deshonrado, sin honor (átimos)",
+    "glossesEs": [
+      "deshonrado",
+      "despreciado"
+    ]
+  },
+  "G821": {
+    "shortDefinitionEs": "Tratar vergonzosamente, ultrajar (atimóō)",
+    "glossesEs": [
+      "ultraje",
+      "deshonra"
+    ]
+  },
+  "G822": {
+    "shortDefinitionEs": "Neblina, vapor, vaho (atmís)",
+    "glossesEs": [
+      "vapor",
+      "neblina"
+    ]
+  },
+  "G823": {
+    "shortDefinitionEs": "Indivisible, instante, momento (átomos)",
+    "glossesEs": [
+      "momento",
+      "instante"
+    ]
+  },
+  "G824": {
+    "shortDefinitionEs": "fuera de lugar; impropio, dañino, inicuo (átopos)",
+    "glossesEs": [
+      "impropio",
+      "dañino",
+      "malo"
+    ]
+  },
+  "G825": {
+    "shortDefinitionEs": "Atalia: ciudad en Panfilia (Attáleia)",
+    "glossesEs": [
+      "Atalia",
+      "Panfilia"
+    ]
+  },
+  "G826": {
+    "shortDefinitionEs": "brillar, resplandecer (augázō)",
+    "glossesEs": [
+      "brillar",
+      "resplandecer"
+    ]
+  },
+  "G827": {
+    "shortDefinitionEs": "rayo de luz; resplandor, amanecer (augḗ)",
+    "glossesEs": [
+      "luz",
+      "resplandor",
+      "amanecer"
+    ]
+  },
+  "G828": {
+    "shortDefinitionEs": "Augusto: título del emperador romano (Augoûstos)",
+    "glossesEs": [
+      "Augusto",
+      "emperador"
+    ]
+  },
+  "G829": {
+    "shortDefinitionEs": "autosuficiente, arrogante (authádēs)",
+    "glossesEs": [
+      "arrogante",
+      "obstinado",
+      "propio"
+    ]
+  },
+  "G830": {
+    "shortDefinitionEs": "elegido voluntariamente; espontáneo (authaíretos)",
+    "glossesEs": [
+      "voluntario",
+      "espontáneo"
+    ]
+  },
+  "G831": {
+    "shortDefinitionEs": "dominar, ejercer autoridad (authentéō)",
+    "glossesEs": [
+      "dominar",
+      "autoridad"
+    ]
+  },
+  "G832": {
+    "shortDefinitionEs": "tocar la flauta (auléō)",
+    "glossesEs": [
+      "tocar flauta",
+      "música"
+    ]
+  },
+  "G833": {
+    "shortDefinitionEs": "patio, corral, sala, palacio (aulḗ)",
+    "glossesEs": [
+      "patio",
+      "corral",
+      "palacio"
+    ]
+  },
+  "G834": {
+    "shortDefinitionEs": "tocador de flauta, músico (aulētḗs)",
+    "glossesEs": [
+      "flautista",
+      "músico"
+    ]
+  },
+  "G835": {
+    "shortDefinitionEs": "pasar la noche, hospedarse (aulízomai)",
+    "glossesEs": [
+      "hospedarse",
+      "pernoctar"
+    ]
+  },
+  "G836": {
+    "shortDefinitionEs": "flauta, instrumento musical (aulós)",
+    "glossesEs": [
+      "flauta",
+      "música"
+    ]
+  },
+  "G837": {
+    "shortDefinitionEs": "crecer, aumentar, desarrollarse (auxánō)",
+    "glossesEs": [
+      "crecer",
+      "aumentar"
+    ]
+  },
+  "G838": {
+    "shortDefinitionEs": "crecimiento, aumento (aúxēsis)",
+    "glossesEs": [
+      "crecimiento",
+      "aumento"
+    ]
+  },
+  "G839": {
+    "shortDefinitionEs": "mañana, el día siguiente (aúrion)",
+    "glossesEs": [
+      "mañana",
+      "próximo día"
+    ]
+  },
+  "G840": {
+    "shortDefinitionEs": "áspero, severo, riguroso (austērós)",
+    "glossesEs": [
+      "austero",
+      "severo",
+      "riguroso"
+    ]
+  },
+  "G841": {
+    "shortDefinitionEs": "suficiencia, contentamiento (autárkeia)",
+    "glossesEs": [
+      "contentamiento",
+      "suficiencia"
+    ]
+  },
+  "G842": {
+    "shortDefinitionEs": "contento, satisfecho (autárkēs)",
+    "glossesEs": [
+      "contento",
+      "satisfecho"
+    ]
+  },
+  "G843": {
+    "shortDefinitionEs": "autocondenado, culpable por sí mismo (autokatákritos)",
+    "glossesEs": [
+      "condenado",
+      "culpable"
+    ]
+  },
+  "G844": {
+    "shortDefinitionEs": "espontáneo, de propia voluntad (autómatos)",
+    "glossesEs": [
+      "espontáneo",
+      "voluntario"
+    ]
+  },
+  "G845": {
+    "shortDefinitionEs": "testigo ocular, que vio con sus ojos (autóptēs)",
+    "glossesEs": [
+      "testigo ocular",
+      "testigo"
+    ]
+  },
+  "G846": {
+    "shortDefinitionEs": "él, ella, ello, mismo, propio (autós)",
+    "glossesEs": [
+      "él",
+      "ella",
+      "mismo",
+      "propio"
+    ]
+  },
+  "G847": {
+    "shortDefinitionEs": "allí, en ese lugar (autoû)",
+    "glossesEs": [
+      "allí",
+      "ahí",
+      "lugar"
+    ]
+  },
+  "G848": {
+    "shortDefinitionEs": "sí mismo, su propio (hautoû)",
+    "glossesEs": [
+      "sí mismo",
+      "propio"
+    ]
+  },
+  "G849": {
+    "shortDefinitionEs": "con la mano propia, personalmente (autócheir)",
+    "glossesEs": [
+      "mano propia",
+      "personalmente"
+    ]
+  },
+  "G850": {
+    "shortDefinitionEs": "oscuro, tenebroso (auchmērós)",
+    "glossesEs": [
+      "oscuro",
+      "tenebroso"
+    ]
+  },
+  "G851": {
+    "shortDefinitionEs": "quitar, eliminar, cortar (aphairéō)",
+    "glossesEs": [
+      "quitar",
+      "eliminar",
+      "cortar"
+    ]
+  },
+  "G852": {
+    "shortDefinitionEs": "no aparente, oculto, invisible (aphanḗs)",
+    "glossesEs": [
+      "oculto",
+      "invisible"
+    ]
+  },
+  "G853": {
+    "shortDefinitionEs": "desaparecer, desvanecer, corromper (aphanízō)",
+    "glossesEs": [
+      "desaparecer",
+      "corromper",
+      "desvanecer"
+    ]
+  },
+  "G854": {
+    "shortDefinitionEs": "desaparición, abrogación (aphanismós)",
+    "glossesEs": [
+      "desaparición",
+      "abrogación"
+    ]
+  },
+  "G855": {
+    "shortDefinitionEs": "desaparecido, invisible (áphantos)",
+    "glossesEs": [
+      "invisible",
+      "desaparecido"
+    ]
+  },
+  "G856": {
+    "shortDefinitionEs": "lugar retirado, letrina (aphedrṓn)",
+    "glossesEs": [
+      "letrina",
+      "excusado"
+    ]
+  },
+  "G857": {
+    "shortDefinitionEs": "austeridad, aspereza (apheidía)",
+    "glossesEs": [
+      "austeridad",
+      "severidad"
+    ]
+  },
+  "G858": {
+    "shortDefinitionEs": "sencillez, sinceridad (aphelótēs)",
+    "glossesEs": [
+      "sencillez",
+      "sinceridad"
+    ]
+  },
+  "G859": {
+    "shortDefinitionEs": "perdón, remisión de pecados (aphesis)",
+    "glossesEs": [
+      "perdón"
+    ]
+  },
+  "G860": {
+    "shortDefinitionEs": "ligamento, articulación (haphḗ)",
+    "glossesEs": [
+      "articulación",
+      "ligamento"
+    ]
+  },
+  "G861": {
+    "shortDefinitionEs": "incorruptibilidad, inmortalidad (aphtharsía)",
+    "glossesEs": [
+      "incorruptibilidad",
+      "inmortalidad"
+    ]
+  },
+  "G862": {
+    "shortDefinitionEs": "incorruptible, inmortal, eterno (áphthartos)",
+    "glossesEs": [
+      "incorruptible",
+      "inmortal"
+    ]
+  },
+  "G863": {
+    "shortDefinitionEs": "perdonar, soltar, remitir (aphiemi)",
+    "glossesEs": [
+      "perdonar"
+    ]
+  },
+  "G864": {
+    "shortDefinitionEs": "esparcirse, difundirse (aphiknéomai)",
+    "glossesEs": [
+      "difundirse",
+      "esparcirse"
+    ]
+  },
+  "G865": {
+    "shortDefinitionEs": "enemigo de lo bueno (aphilágathos)",
+    "glossesEs": [
+      "malo",
+      "enemigo del bien"
+    ]
+  },
+  "G866": {
+    "shortDefinitionEs": "no codicioso, desinteresado (aphilárgyros)",
+    "glossesEs": [
+      "desinteresado",
+      "no codicioso"
+    ]
+  },
+  "G867": {
+    "shortDefinitionEs": "partida, salida, marcha (áphixis)",
+    "glossesEs": [
+      "partida",
+      "salida"
+    ]
+  },
+  "G868": {
+    "shortDefinitionEs": "apartarse, desertar, abstenerse (aphístēmi)",
+    "glossesEs": [
+      "apartarse",
+      "desertar",
+      "abstenerse"
+    ]
+  },
+  "G869": {
+    "shortDefinitionEs": "repentinamente, de improviso (áphnō)",
+    "glossesEs": [
+      "repentinamente",
+      "improviso"
+    ]
+  },
+  "G870": {
+    "shortDefinitionEs": "sin temor, valientemente (aphóbōs)",
+    "glossesEs": [
+      "sin temor",
+      "valientemente"
+    ]
+  },
+  "G871": {
+    "shortDefinitionEs": "asemejar, hacer parecido (aphomoióō)",
+    "glossesEs": [
+      "asemejar",
+      "parecido"
+    ]
+  },
+  "G872": {
+    "shortDefinitionEs": "mirar atentamente, considerar (aphoráō)",
+    "glossesEs": [
+      "mirar",
+      "considerar"
+    ]
+  },
+  "G873": {
+    "shortDefinitionEs": "separar, apartar, limitar (aphorízō)",
+    "glossesEs": [
+      "separar",
+      "apartar",
+      "limitar"
+    ]
+  },
+  "G874": {
+    "shortDefinitionEs": "punto de partida, ocasión, oportunidad (aphormḗ)",
+    "glossesEs": [
+      "ocasión",
+      "oportunidad"
+    ]
+  },
+  "G875": {
+    "shortDefinitionEs": "echar espuma, hacer espumear (aphrízō)",
+    "glossesEs": [
+      "espuma",
+      "espumear"
+    ]
+  },
+  "G876": {
+    "shortDefinitionEs": "Espuma, baba (aphrós)",
+    "glossesEs": [
+      "espuma",
+      "baba"
+    ]
+  },
+  "G877": {
+    "shortDefinitionEs": "Insensatez, necedad, temeridad (aphrosýnē)",
+    "glossesEs": [
+      "insensatez",
+      "necedad",
+      "temeridad"
+    ]
+  },
+  "G878": {
+    "shortDefinitionEs": "Necio, insensato, ignorante, temerario (áphrōn)",
+    "glossesEs": [
+      "necio",
+      "insensato",
+      "temerario"
+    ]
+  },
+  "G879": {
+    "shortDefinitionEs": "Dormirse, caer en sueño (aphypnóō)",
+    "glossesEs": [
+      "dormirse",
+      "sueño"
+    ]
+  },
+  "G880": {
+    "shortDefinitionEs": "Mudo, sin voz, sin significado (áphōnos)",
+    "glossesEs": [
+      "mudo",
+      "sin voz"
+    ]
+  },
+  "G881": {
+    "shortDefinitionEs": "Acaraz: israelita (Acház)",
+    "glossesEs": [
+      "Acaraz"
+    ]
+  },
+  "G882": {
+    "shortDefinitionEs": "Acaya: región de Grecia (Achaḯa)",
+    "glossesEs": [
+      "Acaya",
+      "Grecia"
+    ]
+  },
+  "G883": {
+    "shortDefinitionEs": "Acáico: cristiano de Acaya (Achaïkós)",
+    "glossesEs": [
+      "Acáico"
+    ]
+  },
+  "G884": {
+    "shortDefinitionEs": "Desagradecido, ingrato (acháristos)",
+    "glossesEs": [
+      "desagradecido",
+      "ingrato"
+    ]
+  },
+  "G885": {
+    "shortDefinitionEs": "Aquim: israelita (Acheím)",
+    "glossesEs": [
+      "Aquim"
+    ]
+  },
+  "G886": {
+    "shortDefinitionEs": "No hecho por manos, sin artificio (acheiropoíētos)",
+    "glossesEs": [
+      "no hecho con manos"
+    ]
+  },
+  "G887": {
+    "shortDefinitionEs": "Neblina, oscuridad de vista (achlýs)",
+    "glossesEs": [
+      "neblina",
+      "oscuridad"
+    ]
+  },
+  "G888": {
+    "shortDefinitionEs": "Inútil, sin provecho (achreîos)",
+    "glossesEs": [
+      "inútil",
+      "improductivo"
+    ]
+  },
+  "G889": {
+    "shortDefinitionEs": "Hacer inútil, echar a perder (achreióō)",
+    "glossesEs": [
+      "echar a perder",
+      "inutilizar"
+    ]
+  },
+  "G890": {
+    "shortDefinitionEs": "Ineficaz, sin provecho, perjudicial (áchrēstos)",
+    "glossesEs": [
+      "ineficaz",
+      "perjudicial"
+    ]
+  },
+  "G891": {
+    "shortDefinitionEs": "Hasta, hasta que (de tiempo o lugar) (áchri)",
+    "glossesEs": [
+      "hasta",
+      "hasta que"
+    ]
+  },
+  "G892": {
+    "shortDefinitionEs": "Paja, rescoldo de trigo (áchyron)",
+    "glossesEs": [
+      "paja"
+    ]
+  },
+  "G893": {
+    "shortDefinitionEs": "Veraz, que no puede mentir (apseudḗs)",
+    "glossesEs": [
+      "veraz",
+      "verdadero"
+    ]
+  },
+  "G894": {
+    "shortDefinitionEs": "Ajenjo, amargo, calamidad (ápsinthos)",
+    "glossesEs": [
+      "ajenjo",
+      "amargo"
+    ]
+  },
+  "G895": {
+    "shortDefinitionEs": "Sin vida, inanimado, mecánico (ápsychos)",
+    "glossesEs": [
+      "inanimado",
+      "sin vida"
+    ]
+  },
+  "G896": {
+    "shortDefinitionEs": "Baal: deidad fenicia, símbolo de idolatría (Báal)",
+    "glossesEs": [
+      "Baal",
+      "idolatría"
+    ]
+  },
+  "G897": {
+    "shortDefinitionEs": "Babilonia: capital de Caldea, símbolo de tiranía (Babylṓn)",
+    "glossesEs": [
+      "Babilonia"
+    ]
+  },
+  "G898": {
+    "shortDefinitionEs": "Escalón, grado de dignidad (bathmós)",
+    "glossesEs": [
+      "escalón",
+      "grado"
+    ]
+  },
+  "G899": {
+    "shortDefinitionEs": "Profundidad, misterio, extensión (báthos)",
+    "glossesEs": [
+      "profundidad",
+      "misterio"
+    ]
+  },
+  "G900": {
+    "shortDefinitionEs": "Profundizar, ahondar (bathýnō)",
+    "glossesEs": [
+      "profundizar",
+      "ahondar"
+    ]
+  },
+  "G901": {
+    "shortDefinitionEs": "Profundo, muy temprano (bathýs)",
+    "glossesEs": [
+      "profundo",
+      "hondo"
+    ]
+  },
+  "G902": {
+    "shortDefinitionEs": "Rama de palmera (baḯon)",
+    "glossesEs": [
+      "rama",
+      "palma"
+    ]
+  },
+  "G903": {
+    "shortDefinitionEs": "Balaam: maestro falso (Balaám)",
+    "glossesEs": [
+      "Balaam"
+    ]
+  },
+  "G904": {
+    "shortDefinitionEs": "Balac: moabita (Balák)",
+    "glossesEs": [
+      "Balac"
+    ]
+  },
+  "G905": {
+    "shortDefinitionEs": "Bolsa, monedero para dinero (balántion)",
+    "glossesEs": [
+      "bolsa",
+      "monedero"
+    ]
+  },
+  "G906": {
+    "shortDefinitionEs": "Lanzar, echar, arrojar (bállō)",
+    "glossesEs": [
+      "lanzar",
+      "echar",
+      "arrojar"
+    ]
+  },
+  "G907": {
+    "shortDefinitionEs": "bautizar, sumergir en agua",
+    "glossesEs": [
+      "bautizar"
+    ]
+  },
+  "G908": {
+    "shortDefinitionEs": "bautismo, inmersión (baptisma)",
+    "glossesEs": [
+      "bautismo"
+    ]
+  },
+  "G909": {
+    "shortDefinitionEs": "Bautismo, ablución ceremonial (baptismós)",
+    "glossesEs": [
+      "bautismo",
+      "ablución"
+    ]
+  },
+  "G910": {
+    "shortDefinitionEs": "Bautista, el que bautiza (Baptistḗs)",
+    "glossesEs": [
+      "Bautista"
+    ]
+  },
+  "G911": {
+    "shortDefinitionEs": "Sumergir, mojar, teñir (báptō)",
+    "glossesEs": [
+      "sumergir",
+      "mojar"
+    ]
+  },
+  "G912": {
+    "shortDefinitionEs": "Barrabás: preso liberado (Barabbâs)",
+    "glossesEs": [
+      "Barrabás"
+    ]
+  },
+  "G913": {
+    "shortDefinitionEs": "Barac: israelita (Barák)",
+    "glossesEs": [
+      "Barac"
+    ]
+  },
+  "G914": {
+    "shortDefinitionEs": "Baroquías: israelita (Barachías)",
+    "glossesEs": [
+      "Baroquías"
+    ]
+  },
+  "G915": {
+    "shortDefinitionEs": "Bárbaro, extranjero, no griego (bárbaros)",
+    "glossesEs": [
+      "bárbaro",
+      "extranjero"
+    ]
+  },
+  "G916": {
+    "shortDefinitionEs": "Agobiar, cargar, pesar (baréō)",
+    "glossesEs": [
+      "agobiar",
+      "cargar"
+    ]
+  },
+  "G917": {
+    "shortDefinitionEs": "Pesadamente, torpemente (baréōs)",
+    "glossesEs": [
+      "pesadamente",
+      "torpemente"
+    ]
+  },
+  "G918": {
+    "shortDefinitionEs": "Bartolomé: apóstol cristiano (Bartholomaîos)",
+    "glossesEs": [
+      "Bartolomé"
+    ]
+  },
+  "G919": {
+    "shortDefinitionEs": "Barjesús: israelita (Bariēsoûs)",
+    "glossesEs": [
+      "Barjesús"
+    ]
+  },
+  "G920": {
+    "shortDefinitionEs": "Barjona: israelita (Bariōnâs)",
+    "glossesEs": [
+      "Barjona"
+    ]
+  },
+  "G921": {
+    "shortDefinitionEs": "Bernabé: israelita, profeta (Barnábas)",
+    "glossesEs": [
+      "Bernabé"
+    ]
+  },
+  "G922": {
+    "shortDefinitionEs": "Carga, peso, autoridad, abundancia (báros)",
+    "glossesEs": [
+      "carga",
+      "peso",
+      "gravamen"
+    ]
+  },
+  "G923": {
+    "shortDefinitionEs": "Barsabás: nombre de dos israelitas (Barsabâs)",
+    "glossesEs": [
+      "Barsabás"
+    ]
+  },
+  "G924": {
+    "shortDefinitionEs": "Bartimeo: ciego israelita (Bartimaîos)",
+    "glossesEs": [
+      "Bartimeo"
+    ]
+  },
+  "G925": {
+    "shortDefinitionEs": "Sobrecargar, agobiar (barýnō)",
+    "glossesEs": [
+      "sobrecargar",
+      "agobiar"
+    ]
+  },
+  "G926": {
+    "shortDefinitionEs": "Pesado, grave, burdensomo (barýs)",
+    "glossesEs": [
+      "pesado",
+      "grave",
+      "severo"
+    ]
+  },
+  "G927": {
+    "shortDefinitionEs": "Muy precioso, de gran valor (barýtimos)",
+    "glossesEs": [
+      "precioso",
+      "valioso"
+    ]
+  },
+  "G928": {
+    "shortDefinitionEs": "atormentar, torturar, afligir (basanízō)",
+    "glossesEs": [
+      "tortura",
+      "tormento",
+      "aflicción"
+    ]
+  },
+  "G929": {
+    "shortDefinitionEs": "tortura, tormento, suplicio (basanismós)",
+    "glossesEs": [
+      "tormento",
+      "castigo"
+    ]
+  },
+  "G930": {
+    "shortDefinitionEs": "torturador, verdugo (basanistḗs)",
+    "glossesEs": [
+      "torturador",
+      "verdugo"
+    ]
+  },
+  "G931": {
+    "shortDefinitionEs": "piedra de toque; tormento, prueba (básanos)",
+    "glossesEs": [
+      "tormento",
+      "prueba"
+    ]
+  },
+  "G932": {
+    "shortDefinitionEs": "reino, reinado, dominio (basileia)",
+    "glossesEs": [
+      "reino"
+    ]
+  },
+  "G933": {
+    "shortDefinitionEs": "palacio, corte real (basíleion)",
+    "glossesEs": [
+      "palacio",
+      "corte"
+    ]
+  },
+  "G934": {
+    "shortDefinitionEs": "real, regio, de rey (basíleios)",
+    "glossesEs": [
+      "real",
+      "regio"
+    ]
+  },
+  "G935": {
+    "shortDefinitionEs": "rey, soberano, monarca (basileus)",
+    "glossesEs": [
+      "rey"
+    ]
+  },
+  "G936": {
+    "shortDefinitionEs": "reinar, ser rey, gobernar (basileúō)",
+    "glossesEs": [
+      "reinar",
+      "reino"
+    ]
+  },
+  "G937": {
+    "shortDefinitionEs": "real, perteneciente a rey, noble (basilikós)",
+    "glossesEs": [
+      "real",
+      "noble"
+    ]
+  },
+  "G938": {
+    "shortDefinitionEs": "reina (basílissa)",
+    "glossesEs": [
+      "reina"
+    ]
+  },
+  "G939": {
+    "shortDefinitionEs": "pie, paso, base (básis)",
+    "glossesEs": [
+      "pie",
+      "base"
+    ]
+  },
+  "G940": {
+    "shortDefinitionEs": "hechizar, engañar, seducir (baskaínō)",
+    "glossesEs": [
+      "hechizar",
+      "seducir"
+    ]
+  },
+  "G941": {
+    "shortDefinitionEs": "llevar, cargar, soportar, sostener (bastázō)",
+    "glossesEs": [
+      "llevar",
+      "cargar",
+      "soportar"
+    ]
+  },
+  "G942": {
+    "shortDefinitionEs": "zarza, espino, arbusto (bátos)",
+    "glossesEs": [
+      "zarza",
+      "espino"
+    ]
+  },
+  "G943": {
+    "shortDefinitionEs": "bato, medida de líquidos (bátos)",
+    "glossesEs": [
+      "bato",
+      "medida"
+    ]
+  },
+  "G944": {
+    "shortDefinitionEs": "rana (bátrachos)",
+    "glossesEs": [
+      "rana"
+    ]
+  },
+  "G945": {
+    "shortDefinitionEs": "balbucear, hablar en vano (battologéō)",
+    "glossesEs": [
+      "vanas repeticiones",
+      "palabrería"
+    ]
+  },
+  "G946": {
+    "shortDefinitionEs": "abominación, ídolo (bdélygma)",
+    "glossesEs": [
+      "abominación",
+      "ídolo"
+    ]
+  },
+  "G947": {
+    "shortDefinitionEs": "abominable, detestable (bdelyktós)",
+    "glossesEs": [
+      "abominable",
+      "detestable"
+    ]
+  },
+  "G948": {
+    "shortDefinitionEs": "aborrecer, detestar, tener asco (bdelýssō)",
+    "glossesEs": [
+      "aborrecer",
+      "detestar"
+    ]
+  },
+  "G949": {
+    "shortDefinitionEs": "firme, estable, seguro, constante (bébaios)",
+    "glossesEs": [
+      "firme",
+      "seguro",
+      "estable"
+    ]
+  },
+  "G950": {
+    "shortDefinitionEs": "confirmar, establecer, asegurar (bebaióō)",
+    "glossesEs": [
+      "confirmar",
+      "establecer"
+    ]
+  },
+  "G951": {
+    "shortDefinitionEs": "confirmación, establecimiento (bebaíōsis)",
+    "glossesEs": [
+      "confirmación"
+    ]
+  },
+  "G952": {
+    "shortDefinitionEs": "profano, impío, sin santidad (bébēlos)",
+    "glossesEs": [
+      "profano",
+      "impío"
+    ]
+  },
+  "G953": {
+    "shortDefinitionEs": "profanar, contaminar, desecrar (bebēlóō)",
+    "glossesEs": [
+      "profanar",
+      "contaminar"
+    ]
+  },
+  "G954": {
+    "shortDefinitionEs": "Beelzebú: nombre de Satanás (Beelzeboúl)",
+    "glossesEs": [
+      "Beelzebú",
+      "Satanás"
+    ]
+  },
+  "G955": {
+    "shortDefinitionEs": "Belial: epíteto de Satanás (Belíal)",
+    "glossesEs": [
+      "Belial",
+      "Satanás"
+    ]
+  },
+  "G956": {
+    "shortDefinitionEs": "dardo, flecha, proyectil (bélos)",
+    "glossesEs": [
+      "dardo",
+      "flecha"
+    ]
+  },
+  "G957": {
+    "shortDefinitionEs": "mejor, muy bien (beltíon)",
+    "glossesEs": [
+      "mejor"
+    ]
+  },
+  "G958": {
+    "shortDefinitionEs": "Benjamín: israelita, tribu (Beniamín)",
+    "glossesEs": [
+      "Benjamín"
+    ]
+  },
+  "G959": {
+    "shortDefinitionEs": "Berenice: mujer de familia herodiana (Berníkē)",
+    "glossesEs": [
+      "Berenice"
+    ]
+  },
+  "G960": {
+    "shortDefinitionEs": "Berea: ciudad de Macedonia (Béroia)",
+    "glossesEs": [
+      "Berea"
+    ]
+  },
+  "G961": {
+    "shortDefinitionEs": "bereano: natural de Berea (Beroiaîos)",
+    "glossesEs": [
+      "bereano"
+    ]
+  },
+  "G962": {
+    "shortDefinitionEs": "Betábara: lugar en el Jordán (Bēthabará)",
+    "glossesEs": [
+      "Betábara"
+    ]
+  },
+  "G963": {
+    "shortDefinitionEs": "Betania: lugar en Palestina (Bēthanía)",
+    "glossesEs": [
+      "Betania"
+    ]
+  },
+  "G964": {
+    "shortDefinitionEs": "Betsaida: piscina en Jerusalén (Bēthesdá)",
+    "glossesEs": [
+      "Betsaida"
+    ]
+  },
+  "G965": {
+    "shortDefinitionEs": "Belén: lugar en Palestina (Bēthleém)",
+    "glossesEs": [
+      "Belén"
+    ]
+  },
+  "G966": {
+    "shortDefinitionEs": "Betsaida: lugar en Palestina (Bēthsaïdá)",
+    "glossesEs": [
+      "Betsaida"
+    ]
+  },
+  "G967": {
+    "shortDefinitionEs": "Betfagé: lugar en Palestina (Bēthphagḗ)",
+    "glossesEs": [
+      "Betfagé"
+    ]
+  },
+  "G968": {
+    "shortDefinitionEs": "tribunal, estrado, trono (bēma)",
+    "glossesEs": [
+      "tribunal",
+      "estrado"
+    ]
+  },
+  "G969": {
+    "shortDefinitionEs": "berilo, piedra preciosa (bḗryllos)",
+    "glossesEs": [
+      "berilo",
+      "joya"
+    ]
+  },
+  "G970": {
+    "shortDefinitionEs": "fuerza, violencia, ímpetu (bía)",
+    "glossesEs": [
+      "violencia",
+      "fuerza"
+    ]
+  },
+  "G971": {
+    "shortDefinitionEs": "forzar, abrirse paso con violencia (biázō)",
+    "glossesEs": [
+      "forzar",
+      "violencia"
+    ]
+  },
+  "G972": {
+    "shortDefinitionEs": "violento, impetuoso, poderoso (bíaios)",
+    "glossesEs": [
+      "violento",
+      "poderoso"
+    ]
+  },
+  "G973": {
+    "shortDefinitionEs": "violento, enérgico, impetuoso (biastḗs)",
+    "glossesEs": [
+      "violento",
+      "enérgico"
+    ]
+  },
+  "G974": {
+    "shortDefinitionEs": "librito, pequeño libro (bibliarídion)",
+    "glossesEs": [
+      "librito",
+      "libro pequeño"
+    ]
+  },
+  "G975": {
+    "shortDefinitionEs": "rollo, libro, escrito (biblíon)",
+    "glossesEs": [
+      "libro",
+      "rollo",
+      "escrito"
+    ]
+  },
+  "G976": {
+    "shortDefinitionEs": "libro (bíblos)",
+    "glossesEs": [
+      "libro"
+    ]
+  },
+  "G977": {
+    "shortDefinitionEs": "comer (bibrṓskō)",
+    "glossesEs": [
+      "comer"
+    ]
+  },
+  "G978": {
+    "shortDefinitionEs": "Bitinia: región de Asia (Bithynía)",
+    "glossesEs": [
+      "Bitinia"
+    ]
+  },
+  "G979": {
+    "shortDefinitionEs": "vida, medio de vivir, sustento (bíos)",
+    "glossesEs": [
+      "vida",
+      "sustento",
+      "vivir"
+    ]
+  },
+  "G980": {
+    "shortDefinitionEs": "Pasar la existencia, vivir (bióō)",
+    "glossesEs": [
+      "vivir",
+      "existencia"
+    ]
+  },
+  "G981": {
+    "shortDefinitionEs": "Acto de vivir, modo de vida (bíōsis)",
+    "glossesEs": [
+      "modo de vida",
+      "manera de vivir"
+    ]
+  },
+  "G982": {
+    "shortDefinitionEs": "Relativo a la vida presente (biōtikós)",
+    "glossesEs": [
+      "vida presente",
+      "cosas temporales"
+    ]
+  },
+  "G983": {
+    "shortDefinitionEs": "Dañino, perjudicial (blaberós)",
+    "glossesEs": [
+      "dañino",
+      "perjudicial"
+    ]
+  },
+  "G984": {
+    "shortDefinitionEs": "Herir, dañar, perjudicar (bláptō)",
+    "glossesEs": [
+      "herir",
+      "dañar"
+    ]
+  },
+  "G985": {
+    "shortDefinitionEs": "Brotar, germinar, producir fruto (blastánō)",
+    "glossesEs": [
+      "brotar",
+      "germinar",
+      "florecer"
+    ]
+  },
+  "G986": {
+    "shortDefinitionEs": "Blasto: oficial de Herodes Agripa (Blástos)",
+    "glossesEs": [
+      "Blasto"
+    ]
+  },
+  "G987": {
+    "shortDefinitionEs": "Blasfemar, injuriar, hablar impíamente (blasphēméō)",
+    "glossesEs": [
+      "blasfemar",
+      "injuriar"
+    ]
+  },
+  "G988": {
+    "shortDefinitionEs": "Blasfemia, injuria contra Dios (blasphēmía)",
+    "glossesEs": [
+      "blasfemia",
+      "injuria"
+    ]
+  },
+  "G989": {
+    "shortDefinitionEs": "Blasfemo, injurioso e impío (blásphēmos)",
+    "glossesEs": [
+      "blasfemo",
+      "injurioso"
+    ]
+  },
+  "G990": {
+    "shortDefinitionEs": "Visión, acto de ver (blémma)",
+    "glossesEs": [
+      "visión",
+      "vista"
+    ]
+  },
+  "G991": {
+    "shortDefinitionEs": "Mirar, ver, contemplar (blépō)",
+    "glossesEs": [
+      "mirar",
+      "ver",
+      "observar"
+    ]
+  },
+  "G992": {
+    "shortDefinitionEs": "Que debe ser puesto o arrojado (blētéos)",
+    "glossesEs": [
+      "arrojar",
+      "poner"
+    ]
+  },
+  "G993": {
+    "shortDefinitionEs": "Boanerges: hijos del trueno, apóstoles (Boanergés)",
+    "glossesEs": [
+      "Boanerges"
+    ]
+  },
+  "G994": {
+    "shortDefinitionEs": "Gritar, clamar pidiendo auxilio (boáō)",
+    "glossesEs": [
+      "gritar",
+      "clamar"
+    ]
+  },
+  "G995": {
+    "shortDefinitionEs": "Grito, clamor, llamada de auxilio (boḗ)",
+    "glossesEs": [
+      "grito",
+      "clamor"
+    ]
+  },
+  "G996": {
+    "shortDefinitionEs": "Ayuda, socorro, auxilio (boḗtheia)",
+    "glossesEs": [
+      "ayuda",
+      "socorro"
+    ]
+  },
+  "G997": {
+    "shortDefinitionEs": "Ayudar, socorrer, prestar auxilio (boēthéō)",
+    "glossesEs": [
+      "ayudar",
+      "socorrer"
+    ]
+  },
+  "G998": {
+    "shortDefinitionEs": "Quien ayuda, socorredor (boēthós)",
+    "glossesEs": [
+      "ayudador",
+      "socorro"
+    ]
+  },
+  "G999": {
+    "shortDefinitionEs": "Hoyo, cisterna, pozo (bóthynos)",
+    "glossesEs": [
+      "hoyo",
+      "pozo",
+      "cisterna"
+    ]
+  },
+  "G1000": {
+    "shortDefinitionEs": "Tiro, lanzamiento, distancia de un tiro (bolḗ)",
+    "glossesEs": [
+      "tiro",
+      "lanzamiento"
+    ]
+  }
 }
