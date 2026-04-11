@@ -1534,7 +1534,7 @@ export default function BibleScreen() {
               <Animated.View key={contentKey} entering={FadeIn.duration(250)} style={{ flex: 1 }}>
                 <ScrollView
                   showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{ paddingTop: 12, paddingBottom: 24 }}
+                  contentContainerStyle={{ paddingTop: 12, paddingBottom: 120 }}
                 >
                   {chapterData.verses.map(verse => (
                     <VerseRow
@@ -1557,44 +1557,51 @@ export default function BibleScreen() {
                 </ScrollView>
               </Animated.View>
 
-              {/* ── Chapter navigation bar ── */}
-              <View style={{
-                flexDirection: 'row',
-                borderTopWidth: 0.5,
-                borderTopColor: colors.textMuted + '20',
-                backgroundColor: colors.surface,
-                paddingBottom: Platform.OS === 'ios' ? 88 : 70,
+              {/* ── Chapter navigation — floating edge buttons ── */}
+              <View pointerEvents="box-none" style={{
+                position: 'absolute', left: 0, right: 0,
+                bottom: Platform.OS === 'ios' ? 96 : 78,
+                flexDirection: 'row', justifyContent: 'space-between',
+                paddingHorizontal: 14,
               }}>
                 <Pressable
                   onPress={handlePrevChapter}
                   disabled={!selectedChapter || selectedChapter <= 1}
                   style={({ pressed }) => ({
-                    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                    paddingVertical: 13, gap: 5,
-                    opacity: (!selectedChapter || selectedChapter <= 1) ? 0.25 : (pressed ? 0.55 : 1),
+                    flexDirection: 'row', alignItems: 'center', gap: 4,
+                    paddingVertical: 8, paddingHorizontal: 14,
+                    borderRadius: 20,
+                    backgroundColor: colors.surface,
+                    borderWidth: 0.5, borderColor: colors.textMuted + '30',
+                    shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 6, shadowOffset: { width: 0, height: 2 },
+                    elevation: 3,
+                    opacity: (!selectedChapter || selectedChapter <= 1) ? 0.3 : (pressed ? 0.6 : 1),
                   })}
                 >
-                  <ChevronLeft size={15} color={colors.primary} strokeWidth={2.5} />
+                  <ChevronLeft size={14} color={colors.primary} strokeWidth={2.5} />
                   <Text style={{ fontSize: 13, fontWeight: '600', color: colors.primary }}>
-                    {lang === 'es' ? 'Anterior' : 'Previous'}
+                    {lang === 'es' ? 'Anterior' : 'Prev'}
                   </Text>
                 </Pressable>
-
-                <View style={{ width: 0.5, backgroundColor: colors.textMuted + '20' }} />
 
                 <Pressable
                   onPress={handleNextChapter}
                   disabled={!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters}
                   style={({ pressed }) => ({
-                    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                    paddingVertical: 13, gap: 5,
-                    opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.25 : (pressed ? 0.55 : 1),
+                    flexDirection: 'row', alignItems: 'center', gap: 4,
+                    paddingVertical: 8, paddingHorizontal: 14,
+                    borderRadius: 20,
+                    backgroundColor: colors.surface,
+                    borderWidth: 0.5, borderColor: colors.textMuted + '30',
+                    shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 6, shadowOffset: { width: 0, height: 2 },
+                    elevation: 3,
+                    opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.3 : (pressed ? 0.6 : 1),
                   })}
                 >
                   <Text style={{ fontSize: 13, fontWeight: '600', color: colors.primary }}>
                     {lang === 'es' ? 'Siguiente' : 'Next'}
                   </Text>
-                  <ChevronRight size={15} color={colors.primary} strokeWidth={2.5} />
+                  <ChevronRight size={14} color={colors.primary} strokeWidth={2.5} />
                 </Pressable>
               </View>
             </View>
