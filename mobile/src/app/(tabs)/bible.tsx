@@ -1534,7 +1534,7 @@ export default function BibleScreen() {
               <Animated.View key={contentKey} entering={FadeIn.duration(250)} style={{ flex: 1 }}>
                 <ScrollView
                   showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{ paddingTop: 12, paddingBottom: 40 }}
+                  contentContainerStyle={{ paddingTop: 12, paddingBottom: 24 }}
                 >
                   {chapterData.verses.map(verse => (
                     <VerseRow
@@ -1563,6 +1563,7 @@ export default function BibleScreen() {
                 borderTopWidth: 0.5,
                 borderTopColor: colors.textMuted + '20',
                 backgroundColor: colors.surface,
+                paddingBottom: Platform.OS === 'ios' ? 88 : 70,
               }}>
                 <Pressable
                   onPress={handlePrevChapter}
