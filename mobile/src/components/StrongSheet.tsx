@@ -39,7 +39,6 @@ import {
 import type { StrongEntry, VerseAppearance } from '@/lib/strong/types';
 import { strongRepository } from '@/lib/strong/repository';
 import { getSpanishGlosses, SPANISH_GLOSS_INDEX } from '@/lib/strong/spanishIndex';
-import { getSpanishShortDef } from '@/lib/strong/spanishLexicon';
 import { BIBLE_BOOKS } from '@/lib/bible/books';
 import type { useThemeColors } from '@/lib/store';
 
@@ -183,8 +182,8 @@ export function StrongSheet({
   // ── Derived display values ────────────────────────────────────────────
   const isHebrew = e?.language === 'Hebrew';
   const accentColor = isHebrew ? '#7C3AED' : '#0369A1';
-  const spanishShort = e ? getSpanishShortDef(e.id) : null;
-  const glosses = e ? getSpanishGlosses(e.id) : [];
+  const spanishShort = e?.shortDefinitionEs ?? null;
+  const glosses = e?.glossesEs ?? (e ? getSpanishGlosses(e.id) : []);
   const isCurrentFavorite = e ? isFavoriteOf(e.id) : false;
 
   // ── i18n labels ───────────────────────────────────────────────────────
@@ -450,7 +449,7 @@ export function StrongSheet({
                       fontSize: 15, lineHeight: 24, color: colors.text,
                       fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
                     }}>
-                      {e.longDefinition}
+                      {e.longDefinitionEs ?? e.longDefinition}
                     </Text>
                   </View>
 
@@ -521,7 +520,7 @@ export function StrongSheet({
                           if (!rel) return null;
                           const relIsHebrew = rel.language === 'Hebrew';
                           const relColor = relIsHebrew ? '#7C3AED' : '#0369A1';
-                          const relSpanish = getSpanishShortDef(relId)?.split(',')[0].trim() ?? null;
+                          const relSpanish = rel.shortDefinitionEs?.split(',')[0].trim() ?? null;
                           return (
                             <Pressable
                               key={relId}

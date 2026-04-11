@@ -20,6 +20,7 @@ import {
   SPANISH_GLOSS_INDEX,
   SPANISH_GLOSS_KEYS,
 } from './spanishIndex';
+import { spanishLocaleRepository } from './spanishLocaleRepository';
 
 // ─── Block registry ───────────────────────────────────────────────────────────
 // Metro requires statically-analyzable require() calls.
@@ -109,20 +110,29 @@ const ALIGNMENT_LOADERS: Record<string, () => AlignmentMap> = {
 };
 
 // ─── Adapter: BlockStrongEntry → StrongEntry ──────────────────────────────────
+// Merges the base English entry with any available Spanish locale overlay.
+// Spanish fields (shortDefinitionEs, longDefinitionEs, glossesEs) are set when
+// a matching entry exists in locale/es/ — otherwise the fields remain undefined
+// and the UI falls back to the English equivalents.
 
 function toStrongEntry(b: BlockStrongEntry): StrongEntry {
+  const es = spanishLocaleRepository.getOverlay(b.id);
   return {
-    id:                b.id,
-    testament:         b.testament,
-    lemmaOriginal:     b.lemmaOriginal,
-    transliteration:   b.transliteration,
-    language:          b.language,
-    grammarCategory:   b.grammarCategory,
-    shortDefinition:   b.shortDefinition,
-    longDefinition:    b.longDefinition,
-    occurrencesCount:  b.occurrencesCount,
-    relatedVerses:     b.relatedVerses,
-    isFavorite:        false, // managed externally by AsyncStorage
+    id:                 b.id,
+    testament:          b.testament,
+    lemmaOriginal:      b.lemmaOriginal,
+    transliteration:    b.transliteration,
+    language:           b.language,
+    grammarCategory:    b.grammarCategory,
+    shortDefinition:    b.shortDefinition,
+    longDefinition:     b.longDefinition,
+    occurrencesCount:   b.occurrencesCount,
+    relatedVerses:      b.relatedVerses,
+    isFavorite:         false, // managed externally by AsyncStorage
+    // Spanish overlay (undefined when no locale entry exists)
+    shortDefinitionEs:  es?.shortDefinitionEs,
+    longDefinitionEs:   es?.longDefinitionEs,
+    glossesEs:          es?.glossesEs,
   };
 }
 

@@ -29,6 +29,13 @@ export interface StrongEntry {
   relatedVerses: string[];
   /** Whether the user has saved this entry as a favorite */
   isFavorite?: boolean;
+  // ── Spanish localization overlay (from locale/es/ JSON blocks) ──────────────
+  /** Spanish short definition (preferred over shortDefinition when present) */
+  shortDefinitionEs?: string;
+  /** Spanish full definition (preferred over longDefinition when present) */
+  longDefinitionEs?: string;
+  /** Spanish gloss keywords for display chips */
+  glossesEs?: string[];
 }
 
 /** Links a specific word in a verse to a Strong entry */
