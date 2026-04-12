@@ -8,7 +8,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BIBLE_BOOKS } from '@/lib/bible/books';
 import { STRONG_FAVORITES_KEY } from './mockData';
 import { strongRepository } from './repository';
+import { hasStrongCoverage } from './jsonBlockRepository';
 import type { StrongEntry, VerseWordLink, VerseToken } from './types';
+
+export { hasStrongCoverage };
 
 // ─── Verse lookup ──────────────────────────────────────────────────────────────
 

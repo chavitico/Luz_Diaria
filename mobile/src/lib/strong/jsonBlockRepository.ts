@@ -109,6 +109,52 @@ const ALIGNMENT_LOADERS: Record<string, () => AlignmentMap> = {
   '2TI': () => require('./alignment/align_2TI.json'),
 };
 
+// ─── Static coverage map ───────────────────────────────────────────────────────
+// Pre-computed list of chapters (1-based) that have alignment data in each book.
+// Generated from the actual alignment JSON files. Update when new data is added.
+
+const STRONG_CHAPTER_COVERAGE: Record<string, Set<number>> = {
+  GEN: new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]),
+  EXO: new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]),
+  LEV: new Set([19,26]),
+  NUM: new Set([6,23,24]),
+  DEU: new Set([6,7,8,28,29,30,31,32,33]),
+  JOS: new Set([1,24]),
+  PSA: new Set([1,2,8,16,19,22,23,24,25,27,32,33,34,37,46,51,90,91,100,103,107,119,121,127,130,139,145,146,147,148,149,150]),
+  PRO: new Set([1,2,3,4,8,9,10,11,16,21,24,25,31]),
+  ISA: new Set([1,6,7,9,11,25,26,35,40,41,42,43,44,45,46,48,49,50,51,52,53,55,58,60,61,64,65]),
+  JER: new Set([1,17,29,31,32,33]),
+  EZK: new Set([36,37]),
+  DAN: new Set([1,2,3,6,7,9]),
+  MAT: new Set([1,2,3,4,5,6,11,16,17,18,19,22,25,26,27,28]),
+  MRK: new Set([1,2,5,8,10,11,14,15,16]),
+  LUK: new Set([1,2,3,4,6,10,11,12,15,18,19,22,23,24]),
+  JHN: new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]),
+  ACT: new Set([1,2,3,4,7,9,10,13,16,17,20,26,28]),
+  ROM: new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]),
+  '1CO': new Set([1,2,3,6,10,11,12,13,15]),
+  '2CO': new Set([3,4,5,6,9,12]),
+  GAL: new Set([1,2,3,4,5,6]),
+  EPH: new Set([1,2,3,4,5,6]),
+  PHP: new Set([1,2,3,4]),
+  COL: new Set([1,2,3,4]),
+  '1TH': new Set([4,5]),
+  HEB: new Set([1,2,4,6,9,10,11,12,13]),
+  JAS: new Set([1,2,3,4,5]),
+  '1PE': new Set([1,2,3,4,5]),
+  '1JN': new Set([1,2,3,4,5]),
+  REV: new Set([1,3,4,5,7,8,12,19,21,22]),
+  '2TI': new Set([3,4]),
+};
+
+/**
+ * Returns true if the given book+chapter has Strong alignment data.
+ * Use this to conditionally show/disable the Strong button in the UI.
+ */
+export function hasStrongCoverage(bookId: string, chapter: number): boolean {
+  return STRONG_CHAPTER_COVERAGE[bookId]?.has(chapter) ?? false;
+}
+
 // ─── Adapter: BlockStrongEntry → StrongEntry ──────────────────────────────────
 // Merges the base English entry with any available Spanish locale overlay.
 // Spanish fields (shortDefinitionEs, longDefinitionEs, glossesEs) are set when

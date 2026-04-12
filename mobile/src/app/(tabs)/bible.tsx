@@ -60,6 +60,7 @@ import {
   saveStrongModeState,
   loadStrongModeState,
   parseVerseReference,
+  hasStrongCoverage,
 } from '@/lib/strong/service';
 import type { StrongEntry, VerseToken } from '@/lib/strong/types';
 import { BIBLE_BOOKS, OT_BOOKS, NT_BOOKS } from '@/lib/bible/books';
@@ -1503,29 +1504,47 @@ export default function BibleScreen() {
                       hitSlop={8}
                       style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
                     >
-                      <View style={{
-                        flexDirection: 'row', alignItems: 'center', gap: 5,
-                        paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10,
-                        backgroundColor: strongModeActive ? colors.primary + '18' : colors.textMuted + '14',
-                        borderWidth: 1,
-                        borderColor: strongModeActive ? colors.primary + '40' : colors.textMuted + '25',
-                      }}>
-                        <FlaskConical size={11} color={strongModeActive ? colors.primary : colors.textMuted} strokeWidth={2} />
-                        <Text style={{
-                          fontSize: 11, fontWeight: '700',
-                          color: strongModeActive ? colors.primary : colors.textMuted,
-                        }}>
-                          Strong
-                        </Text>
-                        <View style={{
-                          width: 22, height: 12, borderRadius: 6,
-                          backgroundColor: strongModeActive ? colors.primary : colors.textMuted + '40',
-                          alignItems: strongModeActive ? 'flex-end' : 'flex-start',
-                          justifyContent: 'center', paddingHorizontal: 2,
-                        }}>
-                          <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: '#fff' }} />
-                        </View>
-                      </View>
+                      {(() => {
+                        const hasCoverage = selectedBook && selectedChapter
+                          ? hasStrongCoverage(selectedBook.id, selectedChapter)
+                          : false;
+                        const isActive = strongModeActive && hasCoverage;
+                        const chipColor = isActive
+                          ? colors.primary
+                          : hasCoverage
+                            ? colors.textMuted
+                            : colors.textMuted + '60';
+                        return (
+                          <View style={{
+                            flexDirection: 'row', alignItems: 'center', gap: 5,
+                            paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10,
+                            backgroundColor: isActive ? colors.primary + '18' : colors.textMuted + '14',
+                            borderWidth: 1,
+                            borderColor: isActive ? colors.primary + '40' : colors.textMuted + '25',
+                            opacity: hasCoverage ? 1 : 0.4,
+                          }}>
+                            <FlaskConical size={11} color={chipColor} strokeWidth={2} />
+                            <Text style={{
+                              fontSize: 11, fontWeight: '700',
+                              color: chipColor,
+                            }}>
+                              Strong
+                            </Text>
+                            {hasCoverage ? (
+                              <View style={{
+                                width: 22, height: 12, borderRadius: 6,
+                                backgroundColor: isActive ? colors.primary : colors.textMuted + '40',
+                                alignItems: isActive ? 'flex-end' : 'flex-start',
+                                justifyContent: 'center', paddingHorizontal: 2,
+                              }}>
+                                <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: '#fff' }} />
+                              </View>
+                            ) : (
+                              <Text style={{ fontSize: 9, color: colors.textMuted + '80', fontWeight: '600' }}>—</Text>
+                            )}
+                          </View>
+                        );
+                      })()}
                     </Pressable>
                   </View>
                 </View>
