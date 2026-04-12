@@ -1585,7 +1585,7 @@
     "id": "cmmlpdwvi000bm2526aqwpavn",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "itemId": "pack_milagros",
-    "acquiredAt": "2026-03-12T23:20:51.091Z",
+    "acquiredAt": "2026-04-11T22:56:02.756Z",
     "source": "store"
   },
   {
@@ -1852,6 +1852,13 @@
     "userId": "cmmo5fltc001um2atni8c6y21",
     "itemId": "badge_caminando_fe",
     "acquiredAt": "2026-03-16T03:19:25.043Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmn5tza7c001gm2qxa708y5mf",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "badge_sembrador_paz",
+    "acquiredAt": "2026-03-25T09:18:09.768Z",
     "source": "achievement"
   }
 ]
