@@ -51,15 +51,12 @@ async function runCronJob(): Promise<void> {
     console.error(`[Cron] Failed to generate daily prayer:`, error);
   }
 
-  // Check for new week challenges at midnight UTC on Mondays
-  const now = new Date();
-  if (now.getUTCDay() === 1 && now.getUTCHours() === 0) {
-    try {
-      await generateWeeklyChallenges();
-      console.log(`[Cron] Weekly challenges check completed`);
-    } catch (error) {
-      console.error(`[Cron] Failed to generate weekly challenges:`, error);
-    }
+  // Check for new week challenges every run (idempotent — skips if already created)
+  try {
+    await generateWeeklyChallenges();
+    console.log(`[Cron] Weekly challenges check completed`);
+  } catch (error) {
+    console.error(`[Cron] Failed to generate weekly challenges:`, error);
   }
 
   // Generate daily streak snapshots for all users

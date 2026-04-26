@@ -1639,7 +1639,7 @@ gamificationRouter.post("/challenges/next-round", async (c) => {
   }
 });
 
-// POST /challenges/admin/force-complete - Mark all current week challenges as completed+claimed (admin/testing)
+// POST /challenges/admin/force-complete - Mark user's current active round as completed+claimed (admin/testing)
 gamificationRouter.post("/challenges/admin/force-complete", async (c) => {
   try {
     const body = await c.req.json();
@@ -1649,51 +1649,74 @@ gamificationRouter.post("/challenges/admin/force-complete", async (c) => {
     const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) return c.json({ error: "User not found" }, 404);
 
-    const currentWeekId = getCurrentWeekId();
-    const challenges = await prisma.weeklyChallenge.findMany({
-      where: { weekId: currentWeekId },
-      orderBy: { challengeIndex: "asc" },
+    const baseWeekId = getCurrentWeekId();
+
+    // Find all rounds for this week
+    const allWeekChallenges = await prisma.weeklyChallenge.findMany({
+      where: { weekId: { startsWith: baseWeekId } },
+      orderBy: [{ weekId: "asc" }, { challengeIndex: "asc" }],
     });
 
-    // Force-complete only the first 3 (what the UI shows)
-    const targetChallenges = challenges.slice(0, 3);
+    // Group by weekId
+    const roundMap = new Map<string, typeof allWeekChallenges>();
+    for (const ch of allWeekChallenges) {
+      if (!roundMap.has(ch.weekId)) roundMap.set(ch.weekId, []);
+      roundMap.get(ch.weekId)!.push(ch);
+    }
+
+    const sortedRoundIds = [...roundMap.keys()].sort((a, b) => {
+      if (a === baseWeekId) return -1;
+      if (b === baseWeekId) return 1;
+      const na = parseInt(a.match(/-r(\d+)$/)?.[1] ?? "1");
+      const nb = parseInt(b.match(/-r(\d+)$/)?.[1] ?? "1");
+      return na - nb;
+    });
+
+    // Find the first round where not all 3 challenges are claimed
+    let targetWeekId = baseWeekId;
+    for (const weekId of sortedRoundIds) {
+      const challenges = (roundMap.get(weekId) ?? []).slice(0, 3);
+      if (challenges.length === 0) continue;
+      const progressList = await prisma.weeklyProgress.findMany({
+        where: { userId, challengeId: { in: challenges.map(ch => ch.id) } },
+      });
+      const allClaimed = challenges.every(ch =>
+        progressList.find(p => p.challengeId === ch.id)?.claimed === true
+      );
+      if (!allClaimed) {
+        targetWeekId = weekId;
+        break;
+      }
+    }
+
+    const targetChallenges = (roundMap.get(targetWeekId) ?? []).slice(0, 3);
 
     for (const challenge of targetChallenges) {
       await prisma.weeklyProgress.upsert({
         where: { userId_challengeId: { userId, challengeId: challenge.id } },
-        create: {
-          userId,
-          challengeId: challenge.id,
-          currentCount: challenge.goalCount,
-          completed: true,
-          claimed: true,
-        },
-        update: {
-          currentCount: challenge.goalCount,
-          completed: true,
-          claimed: true,
-        },
+        create: { userId, challengeId: challenge.id, currentCount: challenge.goalCount, completed: true, claimed: true },
+        update: { currentCount: challenge.goalCount, completed: true, claimed: true },
       });
     }
 
-    console.log(`[Admin] Force-completed ${targetChallenges.length} challenges for user ${userId} (week ${currentWeekId})`);
-    return c.json({ success: true, challengesCompleted: targetChallenges.length, weekId: currentWeekId });
+    console.log(`[Admin] Force-completed ${targetChallenges.length} challenges for user ${userId} (${targetWeekId})`);
+    return c.json({ success: true, challengesCompleted: targetChallenges.length, weekId: targetWeekId });
   } catch (error) {
     console.error("[Admin] Error force-completing challenges:", error);
     return c.json({ error: "Failed to force-complete challenges" }, 500);
   }
 });
 
-// POST /challenges/admin/reset - Reset all current week challenge progress for a user
+// POST /challenges/admin/reset - Reset all challenge progress for the current week (all rounds) for a user
 gamificationRouter.post("/challenges/admin/reset", async (c) => {
   try {
     const body = await c.req.json();
     const userId = body?.userId as string;
     if (!userId) return c.json({ error: "userId required" }, 400);
 
-    const currentWeekId = getCurrentWeekId();
+    const baseWeekId = getCurrentWeekId();
     const challenges = await prisma.weeklyChallenge.findMany({
-      where: { weekId: currentWeekId },
+      where: { weekId: { startsWith: baseWeekId } },
     });
 
     for (const challenge of challenges) {
@@ -1702,8 +1725,8 @@ gamificationRouter.post("/challenges/admin/reset", async (c) => {
       });
     }
 
-    console.log(`[Admin] Reset challenge progress for user ${userId} (week ${currentWeekId})`);
-    return c.json({ success: true, weekId: currentWeekId });
+    console.log(`[Admin] Reset challenge progress for user ${userId} (week ${baseWeekId}, all rounds)`);
+    return c.json({ success: true, weekId: baseWeekId });
   } catch (error) {
     console.error("[Admin] Error resetting challenges:", error);
     return c.json({ error: "Failed to reset challenges" }, 500);
