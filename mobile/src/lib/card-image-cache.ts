@@ -23,7 +23,7 @@
  *   const status = getCollectionStatus('pascua');   // for optional UI badge
  */
 
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BIBLICAL_CARDS, type BiblicalCard, getEventSetCards } from './biblical-cards';
 
