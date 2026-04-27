@@ -3838,7 +3838,7 @@ export default function StoreScreen() {
         if (itemId === 'pincel_magico') {
           setPincelMagicoSource('store');
           setToastMessage(language === 'es' ? '¡Pincel Mágico adquirido!' : 'Magic Paintbrush acquired!');
-        } else if (itemId === 'sobre_biblico' || itemId === 'pack_pascua' || itemId === 'pack_milagros') {
+        } else if (itemId === 'sobre_biblico' || itemId === 'pack_pascua' || itemId === 'pack_milagros' || itemId === 'pack_heroes') {
           const drawn = res.drawnCards?.length ? res.drawnCards : (res.drawnCard ? [res.drawnCard] : null);
           console.log('[Store][Card] drawn cards', drawn);
           if (drawn) {
@@ -3847,7 +3847,7 @@ export default function StoreScreen() {
             console.log('[Store][Reveal] queuing reveal, closing sheet');
             setPendingPackReveal({
               drawnCards: drawn,
-              packType: itemId as 'sobre_biblico' | 'pack_pascua' | 'pack_milagros',
+              packType: itemId as 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' | 'pack_heroes',
             });
             setShowStoreSectionModal(false);
           } else {
@@ -3861,7 +3861,7 @@ export default function StoreScreen() {
         queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
         queryClient.invalidateQueries({ queryKey: ['backendUser'] });
         // If a card was drawn, invalidate the album inventory so it appears immediately
-        if (itemId === 'sobre_biblico' || itemId === 'pack_pascua' || itemId === 'pack_milagros') {
+        if (itemId === 'sobre_biblico' || itemId === 'pack_pascua' || itemId === 'pack_milagros' || itemId === 'pack_heroes') {
           queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
         }
       } else {
@@ -3893,6 +3893,7 @@ export default function StoreScreen() {
       sobre_biblico:  { es: 'Sobre Bíblico',  en: 'Biblical Pack' },
       pack_pascua:    { es: 'Pack de Pascua',  en: 'Easter Pack' },
       pack_milagros:  { es: 'Pack de Milagros', en: 'Miracles Pack' },
+      pack_heroes:    { es: 'Héroes de la Fe', en: 'Heroes of Faith' },
       pincel_magico:  { es: 'Pincel Mágico',   en: 'Magic Paintbrush' },
     };
     const names = TOKEN_NAMES[itemId] ?? { es: itemId, en: itemId };
@@ -5824,6 +5825,7 @@ export default function StoreScreen() {
                 { id: 'sobre_biblico' as const, nameEs: 'Sobre Bíblico', nameEn: 'Biblical Pack', image: require('../../../assets/packs/sobre_biblico_pack.png'), gradientColors: ['#1C1205', '#0E0A02'] as [string,string], borderColor: 'rgba(212,175,55,0.35)' },
                 { id: 'pack_pascua' as const,   nameEs: 'Sobre de Pascua', nameEn: 'Easter Pack', image: require('../../../assets/packs/pack_pascua_pack.png'), gradientColors: ['#1C0808', '#0E0404'] as [string,string], borderColor: 'rgba(212,80,74,0.35)' },
                 { id: 'pack_milagros' as const, nameEs: 'Sobre de Milagros', nameEn: 'Miracles Pack', image: require('../../../assets/packs/pack_milagros_pack.png'), gradientColors: ['#071A1A', '#030F0F'] as [string,string], borderColor: 'rgba(45,212,191,0.35)' },
+                { id: 'pack_heroes' as const,   nameEs: 'Héroes de la Fe', nameEn: 'Heroes of Faith', image: require('../../../assets/packs/pack_heroes_pack.png'), gradientColors: ['#1A1400', '#0A0800'] as [string,string], borderColor: 'rgba(212,175,55,0.45)' },
               ]).map((pack) => (
                 <Pressable
                   key={pack.id}
@@ -5935,6 +5937,17 @@ export default function StoreScreen() {
                 if (points >= 1000 && !isPackTransactionActive) {
                   setShowPackStore(false);
                   setTimeout(() => handleTokenPurchase('pack_milagros', 1000), 300);
+                }
+              }}
+            />
+            <HeroesPackCard
+              canAfford={points >= 1000}
+              disabled={isPackTransactionActive}
+              language={language}
+              onPress={() => {
+                if (points >= 1000 && !isPackTransactionActive) {
+                  setShowPackStore(false);
+                  setTimeout(() => handleTokenPurchase('pack_heroes', 1000), 300);
                 }
               }}
             />

@@ -188,7 +188,7 @@ export function resolveCardImageUriSync(card: BiblicalCard): string | null {
 
 // ─── Collection-level download ─────────────────────────────────────────────
 
-type CollectionId = 'inicial' | 'pascua' | 'milagros';
+type CollectionId = 'inicial' | 'pascua' | 'milagros' | 'heroes';
 
 function getCollectionCards(collectionId: CollectionId): BiblicalCard[] {
   if (collectionId === 'inicial') {
@@ -202,6 +202,9 @@ function getCollectionCards(collectionId: CollectionId): BiblicalCard[] {
   }
   if (collectionId === 'milagros') {
     return getEventSetCards('milagros_2026');
+  }
+  if (collectionId === 'heroes') {
+    return getEventSetCards('heroes_2026').filter((c) => c.albumGroup === 'heroes_2026');
   }
   return [];
 }

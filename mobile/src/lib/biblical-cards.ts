@@ -1611,6 +1611,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['ark', 'animals', 'rain', 'rainbow', 'Noah full body'],
     gradientColors: ['#1A2A0A', '#2D4A14', '#1A3A0A'],
     accentColor: '#86EFAC',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/2MIEC4DC5Qs.png',
     motif: { topSymbol: '🕊️', subtitleEs: 'Orígenes de la Fe', subtitleEn: 'Origins of Faith', artEmoji: '⛵', decorSymbols: ['⛵', '🌊', '🕊️'], sheenColors: ['rgba(134,239,172,0.20)', 'rgba(45,74,20,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1634,6 +1635,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['old man', 'starry night', 'desert', 'countless stars', 'divine light'],
     gradientColors: ['#1A1000', '#3A2800', '#5A3C00'],
     accentColor: '#FDE68A',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/n8QGBPXsddc.png',
     motif: { topSymbol: '⭐', subtitleEs: 'Orígenes de la Fe', subtitleEn: 'Origins of Faith', artEmoji: '⭐', decorSymbols: ['⭐', '✦', '🌙'], sheenColors: ['rgba(253,230,138,0.20)', 'rgba(90,60,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1657,6 +1659,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['wrestling angel', 'river', 'night', 'divine light', 'Jacob full body'],
     gradientColors: ['#0A0A20', '#1A1A3A', '#2A2A5A'],
     accentColor: '#A78BFA',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/Os1Vveau8YA.png',
     motif: { topSymbol: '⚔️', subtitleEs: 'Orígenes de la Fe', subtitleEn: 'Origins of Faith', artEmoji: '⚔️', decorSymbols: ['⚔️', '✦', '🌙'], sheenColors: ['rgba(167,139,250,0.20)', 'rgba(42,42,90,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1680,6 +1683,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['colorful robe', 'pit', 'Egypt palace', 'Joseph full body', 'golden light'],
     gradientColors: ['#1A0800', '#3A1400', '#5A2A00'],
     accentColor: '#FB923C',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/KEI6rKXbY1Q.png',
     motif: { topSymbol: '👑', subtitleEs: 'Orígenes de la Fe', subtitleEn: 'Origins of Faith', artEmoji: '👑', decorSymbols: ['👑', '✦', '🌾'], sheenColors: ['rgba(251,146,60,0.20)', 'rgba(90,42,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1703,6 +1707,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['burning bush', 'desert', 'sandals removed', 'Moses full body', 'divine fire glow'],
     gradientColors: ['#2A1000', '#4A2000', '#6A3000'],
     accentColor: '#F97316',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/t_I5SBAYrvI.png',
     motif: { topSymbol: '🔥', subtitleEs: 'Liberación y Ley', subtitleEn: 'Liberation and Law', artEmoji: '🔥', decorSymbols: ['🔥', '✦', '🏔️'], sheenColors: ['rgba(249,115,22,0.20)', 'rgba(106,48,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1726,6 +1731,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['parting sea', 'walls of water', 'Moses staff raised', 'Israelites crossing', 'divine pillar of light'],
     gradientColors: ['#001A2A', '#003A5A', '#004A6A'],
     accentColor: '#38BDF8',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/GNh21S2OhBU.png',
     motif: { topSymbol: '🌊', subtitleEs: 'Liberación y Ley', subtitleEn: 'Liberation and Law', artEmoji: '🌊', decorSymbols: ['🌊', '✦', '⚡'], sheenColors: ['rgba(56,189,248,0.20)', 'rgba(0,74,106,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1749,6 +1755,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Mount Sinai', 'lightning', 'stone tablets', 'Moses full body', 'divine fire cloud'],
     gradientColors: ['#1A0A00', '#3A1A00', '#5A3000'],
     accentColor: '#FCD34D',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/AJJW6tQvYeE.png',
     motif: { topSymbol: '⚡', subtitleEs: 'Liberación y Ley', subtitleEn: 'Liberation and Law', artEmoji: '📜', decorSymbols: ['📜', '⚡', '🔥'], sheenColors: ['rgba(252,211,77,0.20)', 'rgba(90,48,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1772,6 +1779,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Jericho walls', 'scarlet cord', 'Rahab full body', 'night scene', 'divine protection'],
     gradientColors: ['#200A1A', '#3A1030', '#5A2050'],
     accentColor: '#F472B6',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/0CVMIM4xywo.png',
     motif: { topSymbol: '🔴', subtitleEs: 'Liberación y Ley', subtitleEn: 'Liberation and Law', artEmoji: '🪢', decorSymbols: ['🪢', '✦', '🏛️'], sheenColors: ['rgba(244,114,182,0.20)', 'rgba(90,32,80,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1795,6 +1803,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['300 warriors', 'torches', 'trumpets', 'Gideon full body', 'night battle golden light'],
     gradientColors: ['#1A1400', '#3A2C00', '#5A4400'],
     accentColor: '#EAB308',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/kygcHc2PPxI.png',
     motif: { topSymbol: '🎺', subtitleEs: 'Jueces y Reyes', subtitleEn: 'Judges and Kings', artEmoji: '🎺', decorSymbols: ['🎺', '🔥', '✦'], sheenColors: ['rgba(234,179,8,0.20)', 'rgba(90,68,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1818,6 +1827,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['palm tree throne', 'Deborah full body', 'warrior behind her', 'divine authority', 'golden light'],
     gradientColors: ['#1A0A10', '#3A1428', '#5A2040'],
     accentColor: '#E879F9',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/0YRpzsZURrk.png',
     motif: { topSymbol: '🌴', subtitleEs: 'Jueces y Reyes', subtitleEn: 'Judges and Kings', artEmoji: '👑', decorSymbols: ['🌴', '⚔️', '✦'], sheenColors: ['rgba(232,121,249,0.20)', 'rgba(90,32,64,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1841,6 +1851,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['long hair', 'pillars of temple', 'Samson full body', 'chains', 'dramatic collapse'],
     gradientColors: ['#1A0A00', '#3A1400', '#5A2000'],
     accentColor: '#DC2626',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/kUyCKaxL6os.png',
     motif: { topSymbol: '💪', subtitleEs: 'Jueces y Reyes', subtitleEn: 'Judges and Kings', artEmoji: '🏛️', decorSymbols: ['🏛️', '⛓️', '✦'], sheenColors: ['rgba(220,38,38,0.20)', 'rgba(90,32,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1864,6 +1875,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['boy Samuel', 'temple at night', 'lamp light', 'divine glow', 'kneeling in prayer'],
     gradientColors: ['#0A0A1A', '#141430', '#1E1E50'],
     accentColor: '#818CF8',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/wBu1Npw_FcY.png',
     motif: { topSymbol: '🕯️', subtitleEs: 'Jueces y Reyes', subtitleEn: 'Judges and Kings', artEmoji: '🕯️', decorSymbols: ['🕯️', '✦', '🏛️'], sheenColors: ['rgba(129,140,248,0.20)', 'rgba(30,30,80,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1887,6 +1899,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['young shepherd David', 'sheep', 'harp', 'divine light from above', 'humble posture'],
     gradientColors: ['#0C1850', '#162E82', '#1C3D9E'],
     accentColor: '#60A5FA',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/x91bM_CLzB8.png',
     motif: { topSymbol: '🎵', subtitleEs: 'Jueces y Reyes', subtitleEn: 'Judges and Kings', artEmoji: '🎵', decorSymbols: ['🎵', '✦', '🐑'], sheenColors: ['rgba(96,165,250,0.20)', 'rgba(28,61,158,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1911,6 +1924,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Mount Moriah', 'altar of stone', 'father and son', 'angel stopping hand', 'divine golden light', 'ram in bushes'],
     gradientColors: ['#1A0A00', '#3A1800', '#5A2800'],
     accentColor: '#D4AF37',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/Nyy_K1Plmr4.png',
     motif: { topSymbol: '🐏', subtitleEs: 'Orígenes de la Fe', subtitleEn: 'Origins of Faith', artEmoji: '🏔️', decorSymbols: ['🏔️', '🐏', '✦'], sheenColors: ['rgba(212,175,55,0.25)', 'rgba(90,40,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1934,6 +1948,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Jericho walls falling', 'Joshua full body', 'trumpets', 'shout of victory', 'divine dust and light'],
     gradientColors: ['#1A1400', '#3A2A00', '#5A4000'],
     accentColor: '#F59E0B',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/YnKUcOFKsg4.png',
     motif: { topSymbol: '🏰', subtitleEs: 'Liberación y Ley', subtitleEn: 'Liberation and Law', artEmoji: '🏰', decorSymbols: ['🏰', '🎺', '✦'], sheenColors: ['rgba(245,158,11,0.22)', 'rgba(90,64,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1957,6 +1972,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Mount Carmel', 'fire from heaven', 'Elijah full body arms raised', 'soaked altar', 'crowds watching awe'],
     gradientColors: ['#2A0A00', '#5A1400', '#7A2000'],
     accentColor: '#EF4444',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/rI6GXsz5EfU.png',
     motif: { topSymbol: '🔥', subtitleEs: 'Profetas en Conflicto', subtitleEn: 'Prophets in Conflict', artEmoji: '🔥', decorSymbols: ['🔥', '⚡', '✦'], sheenColors: ['rgba(239,68,68,0.25)', 'rgba(122,32,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -1980,6 +1996,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Elijah resting under juniper tree', 'desert', 'gentle wind', 'soft divine glow', 'angel with bread'],
     gradientColors: ['#0A0A14', '#14142A', '#1E1E40'],
     accentColor: '#93C5FD',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/hzsNw1YWZ4Y.png',
     motif: { topSymbol: '🌬️', subtitleEs: 'Profetas en Conflicto', subtitleEn: 'Prophets in Conflict', artEmoji: '🌬️', decorSymbols: ['🌬️', '✦', '🌙'], sheenColors: ['rgba(147,197,253,0.20)', 'rgba(30,30,64,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -2003,6 +2020,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['widow pouring oil into jars', 'overflowing oil', 'Elisha blessing', 'humble home', 'golden divine glow'],
     gradientColors: ['#1A1400', '#3A2A00', '#5A4000'],
     accentColor: '#D97706',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/YiW98zkbT60.png',
     motif: { topSymbol: '🏺', subtitleEs: 'Profetas en Conflicto', subtitleEn: 'Prophets in Conflict', artEmoji: '🏺', decorSymbols: ['🏺', '✦', '💧'], sheenColors: ['rgba(217,119,6,0.22)', 'rgba(90,64,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -2026,6 +2044,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Jonah inside great fish', 'stormy sea', 'praying in darkness', 'divine light through water', 'dramatic underwater'],
     gradientColors: ['#001A1A', '#003030', '#004040'],
     accentColor: '#2DD4BF',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/PYAQWfWuuEk.png',
     motif: { topSymbol: '🐳', subtitleEs: 'Profetas en Conflicto', subtitleEn: 'Prophets in Conflict', artEmoji: '🐳', decorSymbols: ['🐳', '🌊', '✦'], sheenColors: ['rgba(45,212,191,0.20)', 'rgba(0,64,64,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -2049,6 +2068,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Nineveh city repenting', 'sackcloth and ashes', 'crowds kneeling', 'Jonah preaching', 'divine golden light over city'],
     gradientColors: ['#1A0A00', '#3A1A00', '#5A3000'],
     accentColor: '#FDBA74',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/qcItXeoNyRI.png',
     motif: { topSymbol: '🙏', subtitleEs: 'Profetas en Conflicto', subtitleEn: 'Prophets in Conflict', artEmoji: '🙏', decorSymbols: ['🙏', '🏙️', '✦'], sheenColors: ['rgba(253,186,116,0.22)', 'rgba(90,48,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -2073,6 +2093,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['young David sling', 'giant Goliath falling', 'battlefield', 'divine golden light', 'stone mid-air dramatic'],
     gradientColors: ['#0C1850', '#1A2E6E', '#1E3A8A'],
     accentColor: '#C084FC',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/oNP9k7H5SQY.png',
     motif: { topSymbol: '🏆', subtitleEs: 'Jueces y Reyes', subtitleEn: 'Judges and Kings', artEmoji: '🪨', decorSymbols: ['🪨', '⚔️', '✦'], sheenColors: ['rgba(192,132,252,0.28)', 'rgba(30,58,138,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -2096,6 +2117,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Daniel in lion\'s den', 'lions calm', 'divine angel protecting', 'golden shaft of light', 'Daniel praying standing'],
     gradientColors: ['#0A0820', '#141440', '#1C1C60'],
     accentColor: '#C084FC',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/SjRdkPAMmQ8.png',
     motif: { topSymbol: '🦁', subtitleEs: 'Exilio y Firmeza', subtitleEn: 'Exile and Firmness', artEmoji: '🦁', decorSymbols: ['🦁', '✦', '🙏'], sheenColors: ['rgba(192,132,252,0.28)', 'rgba(28,28,96,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -2119,6 +2141,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['three men in furnace', 'fourth figure shining', 'flames surrounding', 'Nebuchadnezzar watching amazed', 'divine white light center'],
     gradientColors: ['#2A0800', '#5A1200', '#7A1C00'],
     accentColor: '#F97316',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/rOnDZS3eA_k.png',
     motif: { topSymbol: '🔥', subtitleEs: 'Exilio y Firmeza', subtitleEn: 'Exile and Firmness', artEmoji: '🔥', decorSymbols: ['🔥', '✦', '👑'], sheenColors: ['rgba(249,115,22,0.30)', 'rgba(122,28,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -2143,6 +2166,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Queen Esther in royal robes', 'throne room', 'king\'s scepter extended', 'divine golden light', 'full body regal pose'],
     gradientColors: ['#1A0A14', '#3A1430', '#5A2050'],
     accentColor: '#D4AF37',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/aSDhQl5W0gY.png',
     motif: { topSymbol: '👑', subtitleEs: 'Exilio y Firmeza', subtitleEn: 'Exile and Firmness', artEmoji: '👑', decorSymbols: ['👑', '✦', '🌹'], sheenColors: ['rgba(212,175,55,0.35)', 'rgba(90,32,80,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -2166,6 +2190,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Nehemiah directing wall construction', 'Jerusalem walls rising', 'workers with tools and swords', 'divine light over Jerusalem', 'determined leadership pose'],
     gradientColors: ['#0A1400', '#182800', '#284000'],
     accentColor: '#D4AF37',
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/tVdHtJXEPmg.png',
     motif: { topSymbol: '🏗️', subtitleEs: 'Exilio y Firmeza', subtitleEn: 'Exile and Firmness', artEmoji: '🧱', decorSymbols: ['🧱', '⚔️', '✦'], sheenColors: ['rgba(212,175,55,0.35)', 'rgba(40,64,0,0.08)'], cornerGlyph: '✦' },
   },
 
@@ -2190,7 +2215,7 @@ export const BIBLICAL_CARDS: Record<string, BiblicalCard> = {
     visualHints: ['Jesus in divine glory', 'all heroes of faith in background', 'radiant white and gold light', 'crown of many crowns', 'majestic full body'],
     gradientColors: ['#1A1000', '#3A2800', '#5A4000'],
     accentColor: '#D4AF37',
-    imageUrl: undefined,
+    imageUrl: 'https://staticfiles.net/s992MiD9pVwEokaNoJW62wGwzPsyGoEAhsBB93ylqQY/d/kUMWcp6SXHw.png',
     motif: { topSymbol: '✦', subtitleEs: 'Héroe Eterno', subtitleEn: 'Eternal Hero', artEmoji: '👑', decorSymbols: ['✦', '👑', '☀️'], sheenColors: ['rgba(212,175,55,0.45)', 'rgba(90,64,0,0.12)'], cornerGlyph: '✦' },
   },
   // ────────────────────────────────────────────────────────────────────────────

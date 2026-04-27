@@ -46,7 +46,7 @@ const CARD_W = (SCREEN_W - 40 - CARD_GAP) / COLS;
 const CARD_H = CARD_W * 1.5;
 
 // Collection type
-type ActiveCollection = 'inicial' | 'pascua' | 'milagros' | 'secretas' | null;
+type ActiveCollection = 'inicial' | 'pascua' | 'milagros' | 'heroes' | 'secretas' | null;
 
 // ─────────────────────────────────────────────
 // NOVEDAD scrolling ticker — runs inside album hub cards
@@ -649,6 +649,7 @@ export default function BiblicalCardsAlbumScreen() {
       downloadCollection('inicial');
       downloadCollection('pascua');
       downloadCollection('milagros');
+      downloadCollection('heroes');
       const ownedIds = cardInventory.filter((c) => c.owned).map((c) => c.cardId);
       if (ownedIds.length > 0) preloadOwnedCardImages(ownedIds);
     }, [cardInventory])
@@ -673,6 +674,9 @@ export default function BiblicalCardsAlbumScreen() {
 
   // Milagros 2026 event cards in chronological order
   const milagrosCards = getEventSetCards('milagros_2026');
+
+  // Héroes de la Fe 2026 event cards in chronological order
+  const heroesCards = getEventSetCards('heroes_2026').filter((c) => c.albumGroup === 'heroes_2026');
 
   // Secret reward cards (albumGroup: 'secret_rewards')
   const secretCardIds = SECRET_REWARD_IDS;
@@ -751,6 +755,37 @@ export default function BiblicalCardsAlbumScreen() {
       claimedThisSession.current.delete('milagros_2026');
     });
   }, [cardInventory, userId]);
+  // Héroes de la Fe 2026 collection completion detection
+  const HEROES_CARD_IDS = heroesCards.map((c) => c.id);
+  useEffect(() => {
+    if (!userId || cardInventory.length === 0) return;
+    const ownedIds = cardInventory.filter((c) => c.owned).map((c) => c.cardId);
+    const allHeroesOwned = HEROES_CARD_IDS.every((id) => ownedIds.includes(id));
+    if (!allHeroesOwned) return;
+    if (claimedThisSession.current.has('heroes_2026')) return;
+    if (ownedIds.includes('jesus_autor_fe')) return;
+    claimedThisSession.current.add('heroes_2026');
+    gamificationApi.claimCollectionCardReward({
+      userId,
+      collectionId: 'heroes_2026',
+      ownedCardIds: ownedIds,
+    }).then((result) => {
+      if (result.alreadyClaimed) return;
+      if (result.success && result.secretCardId) {
+        queryClient.invalidateQueries({ queryKey: ['biblical-cards', userId] });
+        if (result.pointsAwarded) {
+          updateUser({ points: (useAppStore.getState().user?.points ?? 0) + result.pointsAwarded });
+        }
+        setCollectionRewardModal({
+          collectionName: language === 'es' ? 'Héroes de la Fe' : 'Heroes of Faith',
+          secretCardId: result.secretCardId,
+          bonusPoints: result.pointsAwarded ?? 2500,
+        });
+      }
+    }).catch(() => {
+      claimedThisSession.current.delete('heroes_2026');
+    });
+  }, [cardInventory, userId]);
   // ────────────────────────────────────────────────────────────────────────────
 
   // Counts
@@ -769,14 +804,19 @@ export default function BiblicalCardsAlbumScreen() {
     return entry?.owned ?? false;
   }).length;
 
+  const heroesOwnedCount = heroesCards.filter((c) => {
+    const entry = cardInventory.find((inv) => inv.cardId === c.id);
+    return entry?.owned ?? false;
+  }).length;
+
   const secretOwnedCount = secretCardIds.filter((id) => {
     const entry = cardInventory.find((c) => c.cardId === id);
     return entry?.owned ?? false;
   }).length;
 
-  // Overall progress — standard + pascua + milagros (secret cards are a bonus)
-  const totalAllCards = standardCardIds.length + pascuaCards.length + milagrosCards.length;
-  const ownedAllCards = standardOwnedCount + pascuaOwnedCount + milagrosOwnedCount;
+  // Overall progress — standard + pascua + milagros + heroes (secret cards are a bonus)
+  const totalAllCards = standardCardIds.length + pascuaCards.length + milagrosCards.length + heroesCards.length;
+  const ownedAllCards = standardOwnedCount + pascuaOwnedCount + milagrosOwnedCount + heroesOwnedCount;
 
   // Filtered standard card IDs based on rarity selector
   const filteredStandardIds = rarityFilter
@@ -793,6 +833,11 @@ export default function BiblicalCardsAlbumScreen() {
     ? milagrosCards.filter((c) => c.rarity === rarityFilter)
     : milagrosCards;
 
+  // Filtered heroes cards based on rarity selector
+  const filteredHeroesCards = rarityFilter
+    ? heroesCards.filter((c) => c.rarity === rarityFilter)
+    : heroesCards;
+
   // Filtered secret cards based on rarity selector
   const filteredSecretIds = rarityFilter
     ? secretCardIds.filter((id) => BIBLICAL_CARDS[id]?.rarity === rarityFilter)
@@ -802,6 +847,7 @@ export default function BiblicalCardsAlbumScreen() {
   const newStandardCount = cardInventory.filter((c) => c.isNew && c.owned && standardCardIds.includes(c.cardId)).length;
   const newPascuaCount = cardInventory.filter((c) => c.isNew && c.owned && pascuaCards.some((p) => p.id === c.cardId)).length;
   const newMilagrosCount = cardInventory.filter((c) => c.isNew && c.owned && milagrosCards.some((p) => p.id === c.cardId)).length;
+  const newHeroesCount = cardInventory.filter((c) => c.isNew && c.owned && heroesCards.some((p) => p.id === c.cardId)).length;
   const newSecretCount = cardInventory.filter((c) => c.isNew && c.owned && secretCardIds.includes(c.cardId)).length;
 
   // New count for the currently-open collection
@@ -811,9 +857,11 @@ export default function BiblicalCardsAlbumScreen() {
       ? newPascuaCount
       : activeCollection === 'milagros'
         ? newMilagrosCount
-        : activeCollection === 'secretas'
-          ? newSecretCount
-          : 0;
+        : activeCollection === 'heroes'
+          ? newHeroesCount
+          : activeCollection === 'secretas'
+            ? newSecretCount
+            : 0;
 
   // First new card in current collection — used by banner tap
   const firstNewCardInCollection: BiblicalCard | null = (() => {
@@ -826,6 +874,9 @@ export default function BiblicalCardsAlbumScreen() {
     }
     if (activeCollection === 'milagros') {
       return milagrosCards.find((card) => cardInventory.find((c) => c.cardId === card.id && c.isNew && c.owned)) ?? null;
+    }
+    if (activeCollection === 'heroes') {
+      return heroesCards.find((card) => cardInventory.find((c) => c.cardId === card.id && c.isNew && c.owned)) ?? null;
     }
     if (activeCollection === 'secretas') {
       const id = secretCardIds.find((id) => cardInventory.find((c) => c.cardId === id && c.isNew && c.owned));
@@ -868,9 +919,11 @@ export default function BiblicalCardsAlbumScreen() {
       ? 'Historia de Pascua'
       : activeCollection === 'milagros'
         ? 'Milagros de Jesús'
-        : activeCollection === 'secretas'
-          ? (language === 'es' ? 'Cartas Secretas' : 'Secret Cards')
-          : (language === 'es' ? 'Álbum Bíblico' : 'Biblical Album');
+        : activeCollection === 'heroes'
+          ? 'Héroes de la Fe'
+          : activeCollection === 'secretas'
+            ? (language === 'es' ? 'Cartas Secretas' : 'Secret Cards')
+            : (language === 'es' ? 'Álbum Bíblico' : 'Biblical Album');
 
   const headerSubtitle = activeCollection === 'inicial'
     ? `${standardOwnedCount} / ${standardCardIds.length} ${language === 'es' ? 'cartas' : 'cards'}`
@@ -878,9 +931,11 @@ export default function BiblicalCardsAlbumScreen() {
       ? `${pascuaOwnedCount} / ${pascuaCards.length} ${language === 'es' ? 'cartas' : 'cards'}`
       : activeCollection === 'milagros'
         ? `${milagrosOwnedCount} / ${milagrosCards.length} ${language === 'es' ? 'cartas' : 'cards'}`
-        : activeCollection === 'secretas'
-          ? `${secretOwnedCount} / ${secretCardIds.length} ${language === 'es' ? 'cartas' : 'cards'}`
-          : `${ownedAllCards} / ${totalAllCards} ${language === 'es' ? 'cartas' : 'cards'}`;
+        : activeCollection === 'heroes'
+          ? `${heroesOwnedCount} / ${heroesCards.length} ${language === 'es' ? 'cartas' : 'cards'}`
+          : activeCollection === 'secretas'
+            ? `${secretOwnedCount} / ${secretCardIds.length} ${language === 'es' ? 'cartas' : 'cards'}`
+            : `${ownedAllCards} / ${totalAllCards} ${language === 'es' ? 'cartas' : 'cards'}`;
 
   // Overall progress for the header bar
   const progressPct = totalAllCards > 0 ? (ownedAllCards / totalAllCards) * 100 : 0;
@@ -1220,6 +1275,92 @@ export default function BiblicalCardsAlbumScreen() {
             </Pressable>
           </Animated.View>
 
+          {/* Collection card — Héroes de la Fe */}
+          <Animated.View entering={FadeInDown.delay(240).duration(380)} style={{ marginTop: 16 }}>
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setActiveCollection('heroes');
+                downloadCollection('heroes');
+              }}
+            >
+              <LinearGradient
+                colors={['#120E00', '#1E1800', '#120E00']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  borderRadius: 18,
+                  borderWidth: 1,
+                  borderColor: 'rgba(212,175,55,0.50)',
+                  overflow: 'hidden',
+                  shadowColor: '#D4AF37',
+                  shadowOpacity: 0.45,
+                  shadowRadius: 14,
+                  shadowOffset: { width: 0, height: 4 },
+                  elevation: 10,
+                }}
+              >
+                <LinearGradient
+                  colors={['rgba(212,175,55,0.12)', 'transparent', 'rgba(180,80,0,0.06)']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                />
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
+                  <View style={{
+                    width: 56, height: 56, borderRadius: 16,
+                    backgroundColor: 'rgba(212,175,55,0.15)',
+                    borderWidth: 1, borderColor: 'rgba(212,175,55,0.40)',
+                    alignItems: 'center', justifyContent: 'center', marginRight: 16,
+                  }}>
+                    <Text style={{ fontSize: 28 }}>⚔️</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFE566', letterSpacing: -0.3, marginBottom: 3 }}>
+                      Héroes de la Fe
+                    </Text>
+                    <Text style={{ fontSize: sFont(13), color: 'rgba(255,220,100,0.60)', marginBottom: 10 }}>
+                      {language === 'es' ? 'Figuras épicas del Antiguo Testamento · 2026' : 'Epic figures of the Old Testament · 2026'}
+                    </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                      <View style={{
+                        paddingHorizontal: 9, paddingVertical: 3,
+                        borderRadius: 99,
+                        backgroundColor: heroesOwnedCount > 0 ? 'rgba(212,175,55,0.22)' : 'rgba(255,255,255,0.06)',
+                        borderWidth: 1,
+                        borderColor: heroesOwnedCount > 0 ? 'rgba(212,175,55,0.50)' : 'rgba(255,255,255,0.12)',
+                      }}>
+                        <Text style={{ fontSize: sFont(11), fontWeight: '700', color: heroesOwnedCount > 0 ? '#D4AF37' : 'rgba(255,255,255,0.35)' }}>
+                          {heroesOwnedCount} / {heroesCards.length} {language === 'es' ? 'cartas' : 'cards'}
+                        </Text>
+                      </View>
+                      {newHeroesCount > 0 && (
+                        <View style={{
+                          paddingHorizontal: 8, paddingVertical: 3,
+                          borderRadius: 99,
+                          backgroundColor: 'rgba(212,175,55,0.25)',
+                          borderWidth: 1, borderColor: 'rgba(212,175,55,0.60)',
+                        }}>
+                          <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFE566' }}>
+                            ⚔️ {language === 'es' ? 'Nueva' : 'New'}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                    <View style={{ height: 3, backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 99, overflow: 'hidden' }}>
+                      <View style={{
+                        width: `${heroesCards.length > 0 ? (heroesOwnedCount / heroesCards.length) * 100 : 0}%`,
+                        height: '100%', borderRadius: 99,
+                        backgroundColor: '#D4AF37',
+                      }} />
+                    </View>
+                  </View>
+                  <ChevronRight size={22} color="rgba(212,175,55,0.55)" style={{ marginLeft: 10 }} />
+                </View>
+              </LinearGradient>
+            </Pressable>
+          </Animated.View>
+
           {/* Collection card — Cartas Secretas */}
           <Animated.View entering={FadeInDown.delay(280).duration(380)} style={{ marginTop: 16 }}>
             <Pressable
@@ -1461,6 +1602,27 @@ export default function BiblicalCardsAlbumScreen() {
           ) : activeCollection === 'milagros' ? (
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: CARD_GAP }}>
               {filteredMilagrosCards.map((card, index) => {
+                const { owned, duplicates, isNew } = getCardStatus(card.id);
+                return (
+                  <PascuaCardThumbnail
+                    key={card.id}
+                    card={card}
+                    owned={owned}
+                    duplicates={duplicates}
+                    isNew={isNew}
+                    cardW={CARD_W}
+                    cardH={CARD_H}
+                    onPress={() => openCard(card)}
+                    sFont={sFont}
+                    language={language}
+                    index={index}
+                  />
+                );
+              })}
+            </View>
+          ) : activeCollection === 'heroes' ? (
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: CARD_GAP }}>
+              {filteredHeroesCards.map((card, index) => {
                 const { owned, duplicates, isNew } = getCardStatus(card.id);
                 return (
                   <PascuaCardThumbnail
