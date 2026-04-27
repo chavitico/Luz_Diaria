@@ -642,6 +642,10 @@ function AppContent() {
       <View style={{ position: 'absolute', width: 1, height: 1, opacity: 0 }} pointerEvents="none">
         <Image source={require('../../assets/packs/pack_pascua_pack.png')} style={{ width: 1, height: 1 }} />
         <Image source={require('../../assets/packs/pack_pascua_card_back.png')} style={{ width: 1, height: 1 }} />
+        <Image source={require('../../assets/packs/pack_milagros_pack.png')} style={{ width: 1, height: 1 }} />
+        <Image source={require('../../assets/packs/pack_milagros_card_back.png')} style={{ width: 1, height: 1 }} />
+        <Image source={require('../../assets/packs/pack_heroes_pack.png')} style={{ width: 1, height: 1 }} />
+        <Image source={require('../../assets/packs/pack_heroes_card_back.png')} style={{ width: 1, height: 1 }} />
       </View>
       <PackOpeningModal
         visible={!!packRevealRequest}

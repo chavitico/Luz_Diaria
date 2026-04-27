@@ -3,21 +3,24 @@
     "shortDefinitionEs": "palacio, residencia real (bîyrâʼ)",
     "glossesEs": [
       "palacio"
-    ]
+    ],
+    "longDefinitionEs": "Del arameo, correspondiente a H1002 (בִּירָה); un palacio"
   },
   "H1002": {
     "shortDefinitionEs": "castillo, palacio, fortaleza (bîyrâh)",
     "glossesEs": [
       "palacio",
       "castillo"
-    ]
+    ],
+    "longDefinitionEs": "De origen extranjero; un castillo o palacio"
   },
   "H1003": {
     "shortDefinitionEs": "fortaleza, ciudadela (bîyrânîyth)",
     "glossesEs": [
       "fortaleza",
       "castillo"
-    ]
+    ],
+    "longDefinitionEs": "De H1002 (בִּירָה); una fortaleza"
   },
   "H1004": {
     "shortDefinitionEs": "casa, hogar, familia, templo",
@@ -32,357 +35,414 @@
     "glossesEs": [
       "casa",
       "hogar"
-    ]
+    ],
+    "longDefinitionEs": "Del arameo, correspondiente a H1004 (בַּיִת)"
   },
   "H1006": {
     "shortDefinitionEs": "Lugar: Bajit, sitio en Palestina (Bayith)",
     "glossesEs": [
       "Bajit"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H1004 (בַּיִת); Bajit, un lugar en Palestina"
   },
   "H1007": {
     "shortDefinitionEs": "Lugar: Bet-avén, sitio en Palestina (Bêyth ʼÂven)",
     "glossesEs": [
       "Bet-avén"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H205 (אָוֶן); casa de vanidad; Bet-avén, un lugar en Palestina"
   },
   "H1008": {
     "shortDefinitionEs": "Lugar: Betel, sitio en Palestina (Bêyth-ʼÊl)",
     "glossesEs": [
       "Betel"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H410 (אֵל); casa de Dios; Betel, un lugar en Palestina"
   },
   "H1009": {
     "shortDefinitionEs": "Lugar: Bet-arbel, sitio en Palestina (Bêyth ʼArbêʼl)",
     "glossesEs": [
       "Bet-arbel"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת), H695 (אֶרֶב) y H410 (אֵל); casa de la emboscada de Dios; Bet-arbel, un lugar en Palestina"
   },
   "H1010": {
     "shortDefinitionEs": "Lugar: Bet-baal-meón, sitio en Palestina (Bêyth Baʻal Mᵉʻôwn)",
     "glossesEs": [
       "Bet-baal-meón"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת), H1168 (בַּעַל) y H4583 (מָעוֹן); casa de la habitación de Baal; Bet-baal-meón, un lugar en Palestina"
   },
   "H1011": {
     "shortDefinitionEs": "Lugar: Bet-birí, sitio en Palestina (Bêyth Birʼîy)",
     "glossesEs": [
       "Bet-birí"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H1254 (בָּרָא); casa del creador; Bet-birí, un lugar en Palestina"
   },
   "H1012": {
     "shortDefinitionEs": "Lugar: Bet-barah, sitio en Palestina (Bêyth Bârâh)",
     "glossesEs": [
       "Bet-barah"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H1004 (בַּיִת) y H5679 (עֲבָרָה); casa del vado; Bet-barah, un lugar en Palestina"
   },
   "H1013": {
     "shortDefinitionEs": "Lugar: Bet-gáder, sitio en Palestina (Bêyth-Gâdêr)",
     "glossesEs": [
       "Bet-gáder"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H1447 (גָּדֵר); casa del muro; Bet-gáder, un lugar en Palestina"
   },
   "H1014": {
     "shortDefinitionEs": "Lugar: Bet-gamul, sitio al este del Jordán (Bêyth Gâmûwl)",
     "glossesEs": [
       "Bet-gamul"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y participio pasivo de H1576 (גְּמוּל); casa del destetado; Bet-gamul, un lugar al este del Jordán"
   },
   "H1015": {
     "shortDefinitionEs": "Lugar: Bet-diblatáyim, sitio al este del Jordán (Bêyth Diblâthayim)",
     "glossesEs": [
       "Bet-diblatáyim"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y dual de H1690 (דְּבֵלָה); casa de los dos pasteles de higos; Bet-diblatáyim, un lugar al este del Jordán"
   },
   "H1016": {
     "shortDefinitionEs": "Lugar: Bet-dagón, dos sitios en Palestina (Bêyth-Dâgôwn)",
     "glossesEs": [
       "Bet-dagón"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H1712 (דָּגוֹן); casa de Dagón; Bet-dagón, nombre de dos lugares en Palestina"
   },
   "H1017": {
     "shortDefinitionEs": "habitante de Betel, betelita (Bêyth hâ-ʼĔlîy)",
     "glossesEs": [
       "betelita"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H1008 (בֵּית־אֵל) con artículo intercalado; betelita, habitante de Betel"
   },
   "H1018": {
     "shortDefinitionEs": "Lugar: Bet-azel, sitio en Palestina (Bêyth hâʼêtsel)",
     "glossesEs": [
       "Bet-azel"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H681 (אֵצֶל) con artículo intercalado; casa del lado; Bet-azel, un lugar en Palestina"
   },
   "H1019": {
     "shortDefinitionEs": "Lugar: Bet-hag-Gilgal, sitio en Palestina (Bêyth hag-Gilgâl)",
     "glossesEs": [
       "Bet-gilgal"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H1537 (גִּלְגָּל) con artículo; casa de Gilgal; Bet-hag-Gilgal, un lugar en Palestina"
   },
   "H1020": {
     "shortDefinitionEs": "Lugar: Bet-ha-jesimot, ciudad al este del Jordán (Bêyth ha-Yshîy-môwth)",
     "glossesEs": [
       "Bet-jesimot"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y plural de H3451 (יְשִׁימַה) con artículo; casa de los desiertos; Bet-ha-jesimot, ciudad al este del Jordán"
   },
   "H1021": {
     "shortDefinitionEs": "Lugar: Bet-hak-kerem, sitio en Palestina (Bêyth hak-Kerem)",
     "glossesEs": [
       "Bet-hacerem"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H3754 (כֶּרֶם) con artículo; casa de la viña; Bet-hak-kerem, un lugar en Palestina"
   },
   "H1022": {
     "shortDefinitionEs": "natural de Belén, beleñita (Bêyth hal-Lachmîy)",
     "glossesEs": [
       "beleñita"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H1035 (בֵּית לֶחֶם) con artículo; beleñita, natural de Belén"
   },
   "H1023": {
     "shortDefinitionEs": "Lugar: Bet-ham-merchaq, sitio lejano en Palestina (Bêyth ham-Merchâq)",
     "glossesEs": [
       "lugar lejano"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H4801 (מֶרְחָק) con artículo; casa de la amplitud; Bet-ham-merchaq, un lugar en Palestina"
   },
   "H1024": {
     "shortDefinitionEs": "Lugar: Bet-ham-markabót, sitio en Palestina (Bêyth ham-Markâbôwth)",
     "glossesEs": [
       "Bet-marcabót"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y plural de H4818 (מֶרְכָּבָה) con o sin artículo; lugar de los carros; Bet-ham-markabót, un lugar en Palestina"
   },
   "H1025": {
     "shortDefinitionEs": "Lugar: Bet-ha-émek, sitio en Palestina (Bêyth hâ-ʻÊmeq)",
     "glossesEs": [
       "Bet-émek"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H6010 (עֵמֶק) con artículo; casa del valle; Bet-ha-émek, un lugar en Palestina"
   },
   "H1026": {
     "shortDefinitionEs": "Lugar: Bet-ha-arabá, sitio en Palestina (Bêyth hâ-ʻĂrâbâh)",
     "glossesEs": [
       "Bet-arabá"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H6160 (עֲרָבָה) con artículo; casa del desierto; Bet-ha-arabá, un lugar en Palestina"
   },
   "H1027": {
     "shortDefinitionEs": "Lugar: Bet-ha-ram, sitio al este del Jordán (Bêyth hâ-Râm)",
     "glossesEs": [
       "Bet-aram"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H7311 (רוּם) con artículo; casa de la altura; Bet-ha-ram, un lugar al este del Jordán"
   },
   "H1028": {
     "shortDefinitionEs": "Lugar: Bet-ha-ran, sitio al este del Jordán (Bêyth hâ-Rân)",
     "glossesEs": [
       "Bet-harán"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente por H1027 (בֵּית הָרָם); Bet-ha-ran, un lugar al este del Jordán"
   },
   "H1029": {
     "shortDefinitionEs": "Lugar: Bet-hash-sitá, sitio en Palestina (Bêyth hash-Shiṭṭâh)",
     "glossesEs": [
       "Bet-sitá"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H7848 (שִׁטָּה) con artículo; casa de la acacia; Bet-hash-sitá, un lugar en Palestina"
   },
   "H1030": {
     "shortDefinitionEs": "habitante de Bet-semes, betsemesita (Bêyth hash-Shimshîy)",
     "glossesEs": [
       "betsemesita"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H1053 (בֵּית שֶׁמֶשׁ) con artículo; betsemesita, habitante de Bet-semes"
   },
   "H1031": {
     "shortDefinitionEs": "Lugar: Bet-hoglá, sitio en Palestina (Bêyth Choglâh)",
     "glossesEs": [
       "Bet-hoglá"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y lo mismo que H2295 (חׇגְלָה); casa de la perdiz; Bet-hoglá, un lugar en Palestina"
   },
   "H1032": {
     "shortDefinitionEs": "Lugar: Bet-jorón, dos sitios en Palestina (Bêyth Chôwrôwn)",
     "glossesEs": [
       "Bet-jorón"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H2356 (חוֹר); casa de la concavidad. Bet-jorón, nombre de dos lugares adyacentes en Palestina"
   },
   "H1033": {
     "shortDefinitionEs": "Lugar: Bet-car, sitio en Palestina (Bêyth Kar)",
     "glossesEs": [
       "Bet-car"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H3733 (כַּר); casa de pasto. Bet-car, sitio en Palestina"
   },
   "H1034": {
     "shortDefinitionEs": "Lugar: Bet-lebaót, sitio en Palestina (Bêyth Lᵉbâʼôwth)",
     "glossesEs": [
       "Bet-lebaót"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y plural de H3833 (לָבִיא); casa de leonas. Bet-lebaót, sitio en Palestina"
   },
   "H1035": {
     "shortDefinitionEs": "Lugar: Belén, sitio en Palestina (Bêyth Lechem)",
     "glossesEs": [
       "Belén"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H3899 (לֶחֶם); casa de pan. Belén, sitio en Palestina"
   },
   "H1036": {
     "shortDefinitionEs": "Lugar: casa de Afra, sitio en Palestina (Bêyth lᵉ-ʻAphrâh)",
     "glossesEs": [
       "casa de Afra"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y femenino de H6083 (עָפָר) con preposición; casa de polvo. Bet-Afra, sitio en Palestina"
   },
   "H1037": {
     "shortDefinitionEs": "Lugar: Bet-miló, dos ciudadelas (Bêyth Millôwʼ)",
     "glossesEs": [
       "Bet-miló"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H4407 (מִלּוֹא); casa de la muralla. Bet-miló, nombre de dos ciudadelas"
   },
   "H1038": {
     "shortDefinitionEs": "Lugar: Bet-maacá, sitio en Palestina (Bêyth Maʻăkâh)",
     "glossesEs": [
       "Bet-maacá"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H4601 (מַעֲכָה); casa de Maacá. Bet-maacá, sitio en Palestina"
   },
   "H1039": {
     "shortDefinitionEs": "Lugar: Bet-nimrá, sitio al este del Jordán (Bêyth Nimrâh)",
     "glossesEs": [
       "Bet-nimrá"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y femenino de H5246 (נָמֵר); casa del leopardo. Bet-nimrá, sitio al este del Jordán"
   },
   "H1040": {
     "shortDefinitionEs": "Lugar: Bet-edén, sitio en Siria (Bêyth ʻÊden)",
     "glossesEs": [
       "Bet-edén"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H5730 (עֵדֶן); casa de placer. Bet-edén, sitio en Siria"
   },
   "H1041": {
     "shortDefinitionEs": "Lugar: casa de Azmávet, sitio en Palestina (Bêyth ʻAzmâveth)",
     "glossesEs": [
       "Bet-azmávet"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H5820 (עַזְמָוֶת); casa de Azmávet. Casa de Azmávet, sitio en Palestina"
   },
   "H1042": {
     "shortDefinitionEs": "Lugar: Bet-anót, sitio en Palestina (Bêyth ʻĂnôwth)",
     "glossesEs": [
       "Bet-anót"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y plural de H6030 (עָנָה); casa de respuestas. Bet-anót, sitio en Palestina"
   },
   "H1043": {
     "shortDefinitionEs": "Lugar: Bet-anaá, sitio en Palestina (Bêyth ʻĂnâth)",
     "glossesEs": [
       "Bet-anaá"
-    ]
+    ],
+    "longDefinitionEs": "Variación ortográfica de H1042 (בֵּית עֲנוֹת). Bet-anaá, sitio en Palestina"
   },
   "H1044": {
     "shortDefinitionEs": "Lugar: casa de esquila, sitio en Palestina (Bêyth ʻÊqed)",
     "glossesEs": [
       "casa de esquila"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y derivado de H6123 (עָקַד); casa de la atadura (esquila). Bet-eced, sitio en Palestina"
   },
   "H1045": {
     "shortDefinitionEs": "Lugar: Bet-astarot, sitio en Palestina (Bêyth ʻAshtârôwth)",
     "glossesEs": [
       "Bet-astarot"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H6252 (עַשְׁתָּרוֹת); casa de Astartés. Bet-astarot, sitio en Palestina"
   },
   "H1046": {
     "shortDefinitionEs": "Lugar: Bet-palet, sitio en Palestina (Bêyth Peleṭ)",
     "glossesEs": [
       "Bet-palet"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H6412 (פָּלִיט); casa de escape. Bet-palet, sitio en Palestina"
   },
   "H1047": {
     "shortDefinitionEs": "Lugar: Bet-peor, sitio al este del Jordán (Bêyth Pᵉʻôwr)",
     "glossesEs": [
       "Bet-peor"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H6465 (פְּעוֹר); casa de Peor. Bet-peor, sitio al este del Jordán"
   },
   "H1048": {
     "shortDefinitionEs": "Lugar en Palestina (Bêyth Patstsêts)",
     "glossesEs": [
       "Beth-patstsets",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y derivado de H6327 (פּוּץ); casa de dispersión. Bet-patstsets, sitio en Palestina"
   },
   "H1049": {
     "shortDefinitionEs": "Lugar en Palestina (Bêyth Tsûwr)",
     "glossesEs": [
       "Beth-zur",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H6697 (צוּר); casa de la roca. Bet-tsur, sitio en Palestina"
   },
   "H1050": {
     "shortDefinitionEs": "Lugar en Palestina (Bêyth Rᵉchôwb)",
     "glossesEs": [
       "Beth-rehob",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H7339 (רְחֹב); casa de la plaza. Bet-rechob, sitio en Palestina"
   },
   "H1051": {
     "shortDefinitionEs": "Israelita llamado Beth-Rapha (Bêyth Râphâʼ)",
     "glossesEs": [
       "Beth-rapha",
       "nombre"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H7497 (רָפָא); casa del gigante. Beth-Rapha, israelita"
   },
   "H1052": {
     "shortDefinitionEs": "Lugar en Palestina (Bêyth Shᵉʼân)",
     "glossesEs": [
       "Beth-shean",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H7599 (שָׁאַן); casa de holgura. Bet-sán, sitio en Palestina"
   },
   "H1053": {
     "shortDefinitionEs": "Lugar en Palestina (Bêyth Shemesh)",
     "glossesEs": [
       "Beth-shemesh",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H8121 (שֶׁמֶשׁ); casa del sol. Bet-semes, sitio en Palestina"
   },
   "H1054": {
     "shortDefinitionEs": "Lugar en Palestina (Bêyth Tappûwach)",
     "glossesEs": [
       "Beth-tappuah",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H1004 (בַּיִת) y H8598 (תַּפּוּחַ); casa de la manzana. Bet-tapúa, sitio en Palestina"
   },
   "H1055": {
     "shortDefinitionEs": "Palacio, casa grande (bîythân)",
     "glossesEs": [
       "palacio",
       "casa"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H1004 (בַּיִת); palacio o casa grande"
   },
   "H1056": {
     "shortDefinitionEs": "Valle en Palestina (Bâkâʼ)",
     "glossesEs": [
       "Baca",
       "valle"
-    ]
+    ],
+    "longDefinitionEs": "De H1058 (בָּכָה), llanto; Baca, valle en Palestina"
   },
   "H1057": {
     "shortDefinitionEs": "Árbol que llora, árbol de bálsamo (bâkâʼ)",
     "glossesEs": [
       "árbol",
       "bálsamo"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H1056 (בָּכָא); árbol que llora (probablemente árbol de bálsamo)"
   },
   "H1058": {
     "shortDefinitionEs": "Llorar, lamentar (bâkâh)",
     "glossesEs": [
       "llorar",
       "lamentar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; llorar; en general, lamentar"
   },
   "H1059": {
     "shortDefinitionEs": "Lloro, lamentación (bekeh)",
     "glossesEs": [
       "lloro",
       "lamentación"
-    ]
+    ],
+    "longDefinitionEs": "De H1058 (בָּכָה); lloro, lamentación"
   },
   "H1060": {
     "shortDefinitionEs": "Primogénito, hijo mayor (bᵉkôwr)",
     "glossesEs": [
       "primogénito",
       "hijo mayor"
-    ]
+    ],
+    "longDefinitionEs": "De H1069 (בָּכַר); primogénito; por tanto, principal o jefe"
   },
   "H1061": {
     "shortDefinitionEs": "Primicias, frutos de la cosecha (bikkûwr)",
     "glossesEs": [
       "primicias",
       "frutos"
-    ]
+    ],
+    "longDefinitionEs": "De H1069 (בָּכַר); primicias o primeros frutos de la cosecha"
   },
   "H1062": {
     "shortDefinitionEs": "Primogenitura, derecho de hijo mayor (bᵉkôwrâh)",
