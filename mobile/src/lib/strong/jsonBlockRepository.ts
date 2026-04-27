@@ -73,27 +73,53 @@ const GREEK_BLOCKS: [string, number, number][] = [
 type AlignmentMap = Record<string, VerseWordLink[]>;
 
 const ALIGNMENT_LOADERS: Record<string, () => AlignmentMap> = {
-  // Original pilot books
+  // ── Old Testament (39 books) ─────────────────────────────────────────────
   GEN: () => require('./alignment/align_GEN.json'),
   EXO: () => require('./alignment/align_EXO.json'),
-  PSA: () => require('./alignment/align_PSA.json'),
-  JHN: () => require('./alignment/align_JHN.json'),
-  ROM: () => require('./alignment/align_ROM.json'),
-  // OT expansions
   LEV: () => require('./alignment/align_LEV.json'),
   NUM: () => require('./alignment/align_NUM.json'),
   DEU: () => require('./alignment/align_DEU.json'),
   JOS: () => require('./alignment/align_JOS.json'),
+  JDG: () => require('./alignment/align_JDG.json'),
+  RUT: () => require('./alignment/align_RUT.json'),
+  '1SA': () => require('./alignment/align_1SA.json'),
+  '2SA': () => require('./alignment/align_2SA.json'),
+  '1KI': () => require('./alignment/align_1KI.json'),
+  '2KI': () => require('./alignment/align_2KI.json'),
+  '1CH': () => require('./alignment/align_1CH.json'),
+  '2CH': () => require('./alignment/align_2CH.json'),
+  EZR: () => require('./alignment/align_EZR.json'),
+  NEH: () => require('./alignment/align_NEH.json'),
+  EST: () => require('./alignment/align_EST.json'),
+  JOB: () => require('./alignment/align_JOB.json'),
+  PSA: () => require('./alignment/align_PSA.json'),
   PRO: () => require('./alignment/align_PRO.json'),
+  ECC: () => require('./alignment/align_ECC.json'),
+  SNG: () => require('./alignment/align_SNG.json'),
   ISA: () => require('./alignment/align_ISA.json'),
   JER: () => require('./alignment/align_JER.json'),
+  LAM: () => require('./alignment/align_LAM.json'),
   EZK: () => require('./alignment/align_EZK.json'),
   DAN: () => require('./alignment/align_DAN.json'),
-  // NT expansions
+  HOS: () => require('./alignment/align_HOS.json'),
+  JOE: () => require('./alignment/align_JOE.json'),
+  AMO: () => require('./alignment/align_AMO.json'),
+  OBA: () => require('./alignment/align_OBA.json'),
+  JON: () => require('./alignment/align_JON.json'),
+  MIC: () => require('./alignment/align_MIC.json'),
+  NAH: () => require('./alignment/align_NAH.json'),
+  HAB: () => require('./alignment/align_HAB.json'),
+  ZEP: () => require('./alignment/align_ZEP.json'),
+  HAG: () => require('./alignment/align_HAG.json'),
+  ZEC: () => require('./alignment/align_ZEC.json'),
+  MAL: () => require('./alignment/align_MAL.json'),
+  // ── New Testament (27 books) ─────────────────────────────────────────────
   MAT: () => require('./alignment/align_MAT.json'),
   MRK: () => require('./alignment/align_MRK.json'),
   LUK: () => require('./alignment/align_LUK.json'),
+  JHN: () => require('./alignment/align_JHN.json'),
   ACT: () => require('./alignment/align_ACT.json'),
+  ROM: () => require('./alignment/align_ROM.json'),
   '1CO': () => require('./alignment/align_1CO.json'),
   '2CO': () => require('./alignment/align_2CO.json'),
   GAL: () => require('./alignment/align_GAL.json'),
@@ -101,58 +127,28 @@ const ALIGNMENT_LOADERS: Record<string, () => AlignmentMap> = {
   PHP: () => require('./alignment/align_PHP.json'),
   COL: () => require('./alignment/align_COL.json'),
   '1TH': () => require('./alignment/align_1TH.json'),
+  '2TH': () => require('./alignment/align_2TH.json'),
+  '1TI': () => require('./alignment/align_1TI.json'),
+  '2TI': () => require('./alignment/align_2TI.json'),
+  TIT: () => require('./alignment/align_TIT.json'),
+  PHM: () => require('./alignment/align_PHM.json'),
   HEB: () => require('./alignment/align_HEB.json'),
   JAS: () => require('./alignment/align_JAS.json'),
   '1PE': () => require('./alignment/align_1PE.json'),
+  '2PE': () => require('./alignment/align_2PE.json'),
   '1JN': () => require('./alignment/align_1JN.json'),
+  '2JN': () => require('./alignment/align_2JN.json'),
+  '3JN': () => require('./alignment/align_3JN.json'),
+  JUD: () => require('./alignment/align_JUD.json'),
   REV: () => require('./alignment/align_REV.json'),
-  '2TI': () => require('./alignment/align_2TI.json'),
-};
-
-// ─── Static coverage map ───────────────────────────────────────────────────────
-// Pre-computed list of chapters (1-based) that have alignment data in each book.
-// Generated from the actual alignment JSON files. Update when new data is added.
-
-const STRONG_CHAPTER_COVERAGE: Record<string, Set<number>> = {
-  GEN: new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]),
-  EXO: new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]),
-  LEV: new Set([19,26]),
-  NUM: new Set([6,23,24]),
-  DEU: new Set([6,7,8,28,29,30,31,32,33]),
-  JOS: new Set([1,24]),
-  PSA: new Set([1,2,8,16,19,22,23,24,25,27,32,33,34,37,46,51,90,91,100,103,107,119,121,127,130,139,145,146,147,148,149,150]),
-  PRO: new Set([1,2,3,4,8,9,10,11,16,21,24,25,31]),
-  ISA: new Set([1,6,7,9,11,25,26,35,40,41,42,43,44,45,46,48,49,50,51,52,53,55,58,60,61,64,65]),
-  JER: new Set([1,17,29,31,32,33]),
-  EZK: new Set([36,37]),
-  DAN: new Set([1,2,3,6,7,9]),
-  MAT: new Set([1,2,3,4,5,6,11,16,17,18,19,22,25,26,27,28]),
-  MRK: new Set([1,2,5,8,10,11,14,15,16]),
-  LUK: new Set([1,2,3,4,6,10,11,12,15,18,19,22,23,24]),
-  JHN: new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]),
-  ACT: new Set([1,2,3,4,7,9,10,13,16,17,20,26,28]),
-  ROM: new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]),
-  '1CO': new Set([1,2,3,6,10,11,12,13,15]),
-  '2CO': new Set([3,4,5,6,9,12]),
-  GAL: new Set([1,2,3,4,5,6]),
-  EPH: new Set([1,2,3,4,5,6]),
-  PHP: new Set([1,2,3,4]),
-  COL: new Set([1,2,3,4]),
-  '1TH': new Set([4,5]),
-  HEB: new Set([1,2,4,6,9,10,11,12,13]),
-  JAS: new Set([1,2,3,4,5]),
-  '1PE': new Set([1,2,3,4,5]),
-  '1JN': new Set([1,2,3,4,5]),
-  REV: new Set([1,3,4,5,7,8,12,19,21,22]),
-  '2TI': new Set([3,4]),
 };
 
 /**
- * Returns true if the given book+chapter has Strong alignment data.
- * Use this to conditionally show/disable the Strong button in the UI.
+ * Returns true if the given book has Strong alignment data (all chapters covered).
+ * Uses the ALIGNMENT_LOADERS registry as the source of truth — no static chapter list needed.
  */
-export function hasStrongCoverage(bookId: string, chapter: number): boolean {
-  return STRONG_CHAPTER_COVERAGE[bookId]?.has(chapter) ?? false;
+export function hasStrongCoverage(bookId: string, _chapter: number): boolean {
+  return bookId in ALIGNMENT_LOADERS;
 }
 
 // ─── Adapter: BlockStrongEntry → StrongEntry ──────────────────────────────────
