@@ -176,7 +176,8 @@ adminRouter.patch(
   }
 );
 
-// ─── Compensate user: grant points or grant a store item (OWNER only) ─────────
+// ─── Compensate user: grant points or grant a store item (MODERATOR+) ─────────
+// MODERATORs can compensate up to 2000 pts; OWNERs have no cap.
 const compensateSchema = z.object({
   type: z.enum(["points", "item"]),
   points: z.number().int().min(1).max(100000).optional(),
@@ -184,21 +185,28 @@ const compensateSchema = z.object({
   reason: z.string().max(200).optional(),
 });
 
+const MODERATOR_MAX_POINTS = 2000;
+
 adminRouter.post(
   "/users/:id/compensate",
-  requireRole("OWNER"),
+  requireRole("MODERATOR"),
   zValidator("json", compensateSchema),
   async (c) => {
     try {
       const targetId = c.req.param("id");
       const { type, points, itemId, reason } = c.req.valid("json");
       const actorId = c.req.header("X-User-Id") as string;
+      const actor = await prisma.user.findUnique({ where: { id: actorId }, select: { role: true } });
+      const actorRole = actor?.role ?? "USER";
 
       const target = await prisma.user.findUnique({ where: { id: targetId } });
       if (!target) return c.json({ success: false, error: "User not found" }, 404);
 
       if (type === "points") {
         if (!points || points < 1) return c.json({ success: false, error: "Points must be >= 1" }, 400);
+        if (actorRole !== "OWNER" && points > MODERATOR_MAX_POINTS) {
+          return c.json({ success: false, error: `Moderators can only compensate up to ${MODERATOR_MAX_POINTS} points` }, 403);
+        }
 
         // Create a GiftDrop + UserGift so the user sees the gift popup and must claim the points
         const giftTitle = reason?.trim() ? reason.trim() : `¡Puntos para ti!`;

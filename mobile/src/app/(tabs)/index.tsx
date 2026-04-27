@@ -876,7 +876,7 @@ function SpiritualIntro({
         }}
       >
         {language === 'es'
-          ? 'Respira. Este momento es para ti.'
+          ? 'Respira. Este momento es para Dios y para ti.'
           : 'Breathe. This moment is for you.'}
       </Text>
     </Animated.View>
@@ -1471,7 +1471,6 @@ export default function HomeScreen() {
     if (isCompleted) return;
 
     setIsCompleted(true);
-    setShowCelebration(true);
     setShowAchievement(true);
 
     // Persist engagement date for notification smart-skip
@@ -1597,7 +1596,6 @@ export default function HomeScreen() {
     }
 
     setTimeout(() => setShowAchievement(false), 3000);
-    setTimeout(() => setShowCelebration(false), 4000);
   }, [isCompleted, user, today, addPoints, incrementStreak, updateUser]);
 
   // Novedades unread badge
@@ -2043,7 +2041,7 @@ export default function HomeScreen() {
         return null;
       })()}
 
-      <ConfettiCelebration visible={showCelebration} />
+      {/* ConfettiCelebration removed — kept completion badge only */}
       <AchievementPopup
         visible={showAchievement}
         points={POINTS.COMPLETE_DEVOTIONAL}
