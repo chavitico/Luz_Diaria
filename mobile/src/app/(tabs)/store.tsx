@@ -331,9 +331,9 @@ function CromosCard({
   const G2 = '#071526';
 
   // Latest pack — update name/image here when a new collection is added
-  const LATEST_PACK_NAME_ES = 'Los Milagros de Jesús';
-  const LATEST_PACK_NAME_EN = 'The Miracles of Jesus';
-  const latestPackImage = require('../../../assets/packs/pack_milagros_pack.png');
+  const LATEST_PACK_NAME_ES = 'Héroes de la Fe';
+  const LATEST_PACK_NAME_EN = 'Heroes of Faith';
+  const latestPackImage = require('../../../assets/packs/pack_heroes_pack.png');
 
   // Ticker text — repeated so it scrolls seamlessly
   const tickerUnit = language === 'es'

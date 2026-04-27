@@ -1860,5 +1860,12 @@
     "itemId": "badge_sembrador_paz",
     "acquiredAt": "2026-03-25T09:18:09.768Z",
     "source": "achievement"
+  },
+  {
+    "id": "cmogmwdop0011m2b1pk1qh47j",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "pack_heroes",
+    "acquiredAt": "2026-04-27T03:39:05.716Z",
+    "source": "store"
   }
 ]
