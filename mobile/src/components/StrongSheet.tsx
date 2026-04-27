@@ -182,23 +182,27 @@ export function StrongSheet({
   // ── Derived display values ────────────────────────────────────────────
   const isHebrew = e?.language === 'Hebrew';
   const accentColor = isHebrew ? '#7C3AED' : '#0369A1';
-  const spanishShort = e?.shortDefinitionEs ?? null;
+  const shortDef = lang === 'en'
+    ? (e?.shortDefinition ?? null)
+    : (e?.shortDefinitionEs ?? e?.shortDefinition ?? null);
   const glosses = e?.glossesEs ?? (e ? getSpanishGlosses(e.id) : []);
   const isCurrentFavorite = e ? isFavoriteOf(e.id) : false;
 
   // ── i18n labels ───────────────────────────────────────────────────────
   const t = {
-    language:  lang === 'es' ? 'Idioma'           : 'Language',
-    grammar:   lang === 'es' ? 'Categoría gram.'  : 'Grammar',
-    longDef:   lang === 'es' ? 'Definición'       : 'Definition',
-    occurrences: lang === 'es' ? 'Apariciones'    : 'Occurrences',
-    favorite:  lang === 'es' ? 'Guardar en favoritos' : 'Save to favorites',
-    unfavorite:lang === 'es' ? 'Quitar de favoritos'  : 'Remove from favorites',
-    timesLabel:lang === 'es' ? 'versículos cubiertos'  : 'covered verses',
-    hebreo:    lang === 'es' ? 'Hebreo'           : 'Hebrew',
-    griego:    lang === 'es' ? 'Griego'           : 'Greek',
-    related:   lang === 'es' ? 'Palabras relacionadas' : 'Related entries',
-    appearances: lang === 'es' ? 'Apariciones en la Biblia' : 'Bible appearances',
+    language:     lang === 'es' ? 'Idioma'               : 'Language',
+    grammar:      lang === 'es' ? 'Categoría gram.'      : 'Grammar',
+    longDef:      lang === 'es' ? 'Definición'           : 'Definition',
+    occurrences:  lang === 'es' ? 'Apariciones'          : 'Occurrences',
+    favorite:     lang === 'es' ? 'Guardar en favoritos' : 'Save to favorites',
+    unfavorite:   lang === 'es' ? 'Quitar de favoritos'  : 'Remove from favorites',
+    timesLabel:   lang === 'es' ? 'versículos cubiertos' : 'covered verses',
+    hebreo:       lang === 'es' ? 'Hebreo'               : 'Hebrew',
+    griego:       lang === 'es' ? 'Griego'               : 'Greek',
+    related:      lang === 'es' ? 'Palabras relacionadas': 'Related entries',
+    appearances:  lang === 'es' ? 'Apariciones en la Biblia' : 'Bible appearances',
+    back:         lang === 'es' ? 'Atrás'                : 'Back',
+    spanishMeaning: lang === 'es' ? 'Significado en español' : 'Spanish meaning',
   };
 
   return (
@@ -251,7 +255,7 @@ export function StrongSheet({
               >
                 <ArrowLeft size={14} color={accentColor} strokeWidth={2.5} />
                 <Text style={{ fontSize: 13, fontWeight: '700', color: accentColor }}>
-                  Atrás
+                  {t.back}
                 </Text>
               </Pressable>
             )}
@@ -321,7 +325,7 @@ export function StrongSheet({
 
                   {/* Definition: Spanish (primary) or English (fallback) */}
                   <Text style={{ fontSize: 14, color: colors.textMuted, fontWeight: '500', lineHeight: 20 }}>
-                    {spanishShort ?? e.shortDefinition}
+                    {shortDef}
                   </Text>
                 </View>
 
@@ -417,7 +421,7 @@ export function StrongSheet({
                     <View style={{ marginBottom: 20 }}>
                       <SectionLabel
                         icon={<Languages size={11} color={colors.textMuted} />}
-                        text="Significado en español" color={colors.textMuted}
+                        text={t.spanishMeaning} color={colors.textMuted}
                       />
                       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                         {glosses.map(g => (
@@ -449,7 +453,7 @@ export function StrongSheet({
                       }}>
                         {t.longDef}
                       </Text>
-                      {!e.longDefinitionEs && (
+                      {lang === 'es' && !e.longDefinitionEs && (
                         <View style={{
                           paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4,
                           backgroundColor: colors.textMuted + '18',
@@ -464,7 +468,7 @@ export function StrongSheet({
                       fontSize: 15, lineHeight: 24, color: colors.text,
                       fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
                     }}>
-                      {e.longDefinitionEs ?? e.longDefinition}
+                      {lang === 'en' ? e.longDefinition : (e.longDefinitionEs ?? e.longDefinition)}
                     </Text>
                   </View>
 
@@ -535,7 +539,9 @@ export function StrongSheet({
                           if (!rel) return null;
                           const relIsHebrew = rel.language === 'Hebrew';
                           const relColor = relIsHebrew ? '#7C3AED' : '#0369A1';
-                          const relSpanish = rel.shortDefinitionEs?.split(',')[0].trim() ?? null;
+                          const relShortDef = lang === 'en'
+                            ? rel.shortDefinition?.split(',')[0].trim() ?? null
+                            : rel.shortDefinitionEs?.split(',')[0].trim() ?? null;
                           return (
                             <Pressable
                               key={relId}
@@ -570,9 +576,9 @@ export function StrongSheet({
                                   }} numberOfLines={1}>
                                     {rel.lemmaOriginal}
                                   </Text>
-                                  {relSpanish && (
+                                  {relShortDef && (
                                     <Text style={{ fontSize: 12, color: colors.textMuted }} numberOfLines={1}>
-                                      {relSpanish}
+                                      {relShortDef}
                                     </Text>
                                   )}
                                 </View>
