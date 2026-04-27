@@ -206,7 +206,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
           paddingVertical: tokens.paddingVertical,
           paddingHorizontal: tokens.paddingHorizontal,
           borderRadius: tokens.borderRadius,
-          backgroundColor: 'transparent',
+          backgroundColor: fill,
           opacity: pressed && !disabled ? 0.88 : 1,
         })}
         {...rest}
