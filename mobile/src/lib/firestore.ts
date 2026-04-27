@@ -152,6 +152,8 @@ export const firestoreService = {
       const devotionals = await response.json() as Devotional[];
       return devotionals;
     } catch (error) {
+      // AbortError means the request was cancelled (component unmount / React Query cleanup) — not a real error
+      if (error instanceof Error && error.name === 'AbortError') return [FALLBACK_DEVOTIONAL];
       console.error('[Firestore] Error fetching all devotionals:', error);
       return [FALLBACK_DEVOTIONAL];
     }
