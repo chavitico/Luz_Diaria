@@ -5642,9 +5642,15 @@ export default function StoreScreen() {
                 rarity: selectedDetailItem.rarity,
               });
               setShowDetailModal(false);
-              setShowStoreSectionModal(false);
-              setTimeout(() => setShowGiftSendModal(true), 400);
+              setTimeout(() => setShowGiftSendModal(true), 300);
             } : undefined}
+          />
+
+          {/* Gift Send Modal — inside section modal so iOS stacks it correctly */}
+          <GiftSendModal
+            visible={showGiftSendModal}
+            onClose={() => setShowGiftSendModal(false)}
+            item={giftSendItem}
           />
 
           {/* Collection modals also inside so they stack above the section modal on iOS */}
@@ -5724,40 +5730,40 @@ export default function StoreScreen() {
         </View>
       </Modal>
 
-      {/* Item Detail Modal — also shown standalone when StoreSectionModal is closed */}
+      {/* Item Detail Modal + Gift Modal — standalone when StoreSectionModal is closed */}
       {!showStoreSectionModal && (
-        <ItemDetailModal
-          visible={showDetailModal}
-          onClose={() => setShowDetailModal(false)}
-          item={selectedDetailItem}
-          colors={colors}
-          language={language}
-          isOwned={modalItemStatus.isOwned}
-          isEquipped={modalItemStatus.isEquipped}
-          canAfford={modalItemStatus.canAfford}
-          onPurchase={handlePurchase}
-          onEquip={handleEquip}
-          isPurchasing={purchaseMutation.isPending}
-          onGift={selectedDetailItem && selectedDetailItem.price > 0 && !selectedDetailItem.chestOnly ? () => {
-            setGiftSendItem({
-              id: selectedDetailItem.id,
-              nameEs: selectedDetailItem.nameEs,
-              nameEn: selectedDetailItem.name,
-              price: selectedDetailItem.price,
-              rarity: selectedDetailItem.rarity,
-            });
-            setShowDetailModal(false);
-            setTimeout(() => setShowGiftSendModal(true), 350);
-          } : undefined}
-        />
+        <>
+          <ItemDetailModal
+            visible={showDetailModal}
+            onClose={() => setShowDetailModal(false)}
+            item={selectedDetailItem}
+            colors={colors}
+            language={language}
+            isOwned={modalItemStatus.isOwned}
+            isEquipped={modalItemStatus.isEquipped}
+            canAfford={modalItemStatus.canAfford}
+            onPurchase={handlePurchase}
+            onEquip={handleEquip}
+            isPurchasing={purchaseMutation.isPending}
+            onGift={selectedDetailItem && selectedDetailItem.price > 0 && !selectedDetailItem.chestOnly ? () => {
+              setGiftSendItem({
+                id: selectedDetailItem.id,
+                nameEs: selectedDetailItem.nameEs,
+                nameEn: selectedDetailItem.name,
+                price: selectedDetailItem.price,
+                rarity: selectedDetailItem.rarity,
+              });
+              setShowDetailModal(false);
+              setTimeout(() => setShowGiftSendModal(true), 300);
+            } : undefined}
+          />
+          <GiftSendModal
+            visible={showGiftSendModal}
+            onClose={() => setShowGiftSendModal(false)}
+            item={giftSendItem}
+          />
+        </>
       )}
-
-      {/* Gift Send Modal */}
-      <GiftSendModal
-        visible={showGiftSendModal}
-        onClose={() => setShowGiftSendModal(false)}
-        item={giftSendItem}
-      />
 
       {/* Chest Reward Modal */}
       <ChestRewardModal
