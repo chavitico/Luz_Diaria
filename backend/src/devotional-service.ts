@@ -58,12 +58,17 @@ const TOPICS = [
   { en: "Serving Unseen", es: "Servir sin ser visto" },
 ];
 
-// Words severely overused in devotional titles — hard ban
+// Words severely overused in devotional titles — hard ban (both ES and EN)
 const QUARANTINE_WORDS = [
+  // Spanish overused words
   'susurro', 'susurros', 'silencio', 'medianoche', 'sagrado', 'sagrada',
   'penumbra', 'sombras', 'nocturno', 'nocturna', 'quietud', 'tinieblas',
   'crepúsculo', 'alborada', 'bruma', 'umbral', 'destello', 'resplandor',
   'amanecer', 'atardecer', 'oscuridad', 'luz tenue', 'madrugada',
+  // English equivalents — also overused in English titles
+  'whisper', 'whispers', 'silence', 'silent', 'midnight', 'sacred',
+  'shadows', 'shadow', 'darkness', 'dark', 'stillness', 'still',
+  'dawn', 'dusk', 'glow', 'gleam', 'shimmer', 'broken souls', 'shattered',
 ];
 
 // Story settings and scenarios that are severely overused — forbidden in storyEs/story
@@ -306,8 +311,8 @@ export async function generateDevotionalWithAI(
 
   // Build anti-repetition word block for the title
   const allRestrictedWords = [...new Set([...QUARANTINE_WORDS, ...overusedTitleWords])];
-  const titleWordRestrictions = `PALABRAS ABSOLUTAMENTE PROHIBIDAS EN EL TÍTULO (error de calidad si aparecen): ${allRestrictedWords.join(', ')}.
-Estas palabras están sobre-representadas en los devocionales recientes y crean títulos predecibles y repetitivos.`;
+  const titleWordRestrictions = `PALABRAS/WORDS ABSOLUTAMENTE PROHIBIDAS EN EL TÍTULO — EN AMBOS IDIOMAS (error de calidad si aparecen en el título en español O en inglés): ${allRestrictedWords.join(', ')}.
+Estas palabras están sobre-representadas en los devocionales recientes y crean títulos predecibles y repetitivos. This applies equally to the English "title" field — do NOT use these words in either language's title.`;
 
   const storySettingRestrictions = `AMBIENTACIONES Y ESCENARIOS PROHIBIDOS EN LA HISTORIA (no usar ninguno de estos — son clichés agotados):
 ${QUARANTINE_STORY_SETTINGS.map(s => `• "${s}"`).join('\n')}
