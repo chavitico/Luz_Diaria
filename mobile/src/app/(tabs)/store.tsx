@@ -4038,8 +4038,8 @@ export default function StoreScreen() {
 
       case 'frames': {
         const horizontalPadding = 40;
-        const gap = 12;
-        const numColumns = 3;
+        const gap = 14;
+        const numColumns = 2;
         const itemWidth = (screenWidth - horizontalPadding - (gap * (numColumns - 1))) / numColumns;
 
         const allFrames = Object.values(AVATAR_FRAMES);
@@ -4238,8 +4238,8 @@ export default function StoreScreen() {
 
       case 'avatars': {
         const horizontalPadding = 40;
-        const gap = 12;
-        const numColumns = 3;
+        const gap = 14;
+        const numColumns = 2;
         const itemWidth = (screenWidth - horizontalPadding - (gap * (numColumns - 1))) / numColumns;
 
         const AVATAR_SUBCATS = [
@@ -5642,7 +5642,8 @@ export default function StoreScreen() {
                 rarity: selectedDetailItem.rarity,
               });
               setShowDetailModal(false);
-              setTimeout(() => setShowGiftSendModal(true), 350);
+              setShowStoreSectionModal(false);
+              setTimeout(() => setShowGiftSendModal(true), 400);
             } : undefined}
           />
 

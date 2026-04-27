@@ -65,7 +65,7 @@ export function PremiumFrameCard({
     opacity: highlightOpacity.value,
   }));
 
-  const circleSize = isV2Frame ? 84 : 72;
+  const circleSize = isV2Frame ? 108 : 92;
   const circleRadius = circleSize / 2;
 
   return (
@@ -170,7 +170,7 @@ export function PremiumFrameCard({
                 shadowRadius: isV2Frame ? 12 : 8,
               }}
             >
-              <Text style={{ fontSize: isV2Frame ? 32 : 28 }}>🕊️</Text>
+              <Text style={{ fontSize: isV2Frame ? 42 : 36 }}>🕊️</Text>
             </View>
 
             {/* Lock Overlay */}
@@ -193,20 +193,20 @@ export function PremiumFrameCard({
 
           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: isV2Frame ? 2 : 4 }}>
             <Text
-              style={{ fontSize: sFont(12), fontWeight: '700', color: colors.text, maxWidth: isV2Frame ? 80 : 70 }}
+              style={{ fontSize: sFont(13), fontWeight: '700', color: colors.text, maxWidth: isV2Frame ? 110 : 100 }}
               numberOfLines={1}
             >
               {language === 'es' ? frameData.nameEs : frameData.name}
             </Text>
-            <View style={{ marginLeft: 4 }}>
-              <RarityIcon rarity={frameData.rarity} size={12} />
+            <View style={{ marginLeft: 5 }}>
+              <RarityIcon rarity={frameData.rarity} size={13} />
             </View>
           </View>
 
           {/* V2 subtitle description */}
           {isV2Frame && (
             <Text
-              style={{ fontSize: sFont(9), color: colors.textMuted, textAlign: 'center', marginBottom: 4, maxWidth: 80 }}
+              style={{ fontSize: sFont(11), color: colors.textMuted, textAlign: 'center', marginBottom: 4, maxWidth: 110 }}
               numberOfLines={1}
             >
               {language === 'es'

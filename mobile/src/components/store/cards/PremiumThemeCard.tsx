@@ -100,9 +100,9 @@ export function PremiumThemeCard({
           }]}
         />
         {/* Enhanced Color Preview with 5 swatches + sample text for V2 */}
-        <View style={{ height: isV2Theme ? 90 : 72, backgroundColor: themeData.colors.background }}>
+        <View style={{ height: isV2Theme ? 112 : 88, backgroundColor: themeData.colors.background }}>
           {/* Color swatches row */}
-          <View style={{ flexDirection: 'row', height: isV2Theme ? 50 : 72 }}>
+          <View style={{ flexDirection: 'row', height: isV2Theme ? 62 : 88 }}>
             <View style={{ flex: 1, backgroundColor: themeData.colors.primary }} />
             <View style={{ flex: 1, backgroundColor: themeData.colors.secondary }} />
             <View style={{ flex: 1, backgroundColor: themeData.colors.accent }} />
@@ -155,7 +155,7 @@ export function PremiumThemeCard({
               top: 0,
               left: 0,
               right: 0,
-              height: isV2Theme ? 90 : 72,
+              height: isV2Theme ? 112 : 88,
               borderBottomWidth: 2,
               borderBottomColor: rarityColor + '50',
             }}
@@ -169,7 +169,7 @@ export function PremiumThemeCard({
             top: 0,
             left: 0,
             right: 0,
-            height: isV2Theme ? 90 : 72,
+            height: isV2Theme ? 112 : 88,
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: 'rgba(0,0,0,0.35)',

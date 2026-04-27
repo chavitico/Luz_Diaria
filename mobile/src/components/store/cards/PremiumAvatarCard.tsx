@@ -186,17 +186,17 @@ export function PremiumAvatarCard({
           })()}
 
           {/* Avatar Emoji */}
-          <View style={{ position: 'relative', marginBottom: 8 }}>
+          <View style={{ position: 'relative', marginBottom: 10 }}>
             {/* Static glow ring for V2 avatars */}
             {isV2Avatar && (
               <View
                 style={{
                   position: 'absolute',
-                  top: -5,
-                  left: -5,
-                  width: 76 + 10,
-                  height: 76 + 10,
-                  borderRadius: (76 + 10) / 2,
+                  top: -6,
+                  left: -6,
+                  width: 96 + 12,
+                  height: 96 + 12,
+                  borderRadius: (96 + 12) / 2,
                   borderWidth: 1,
                   borderColor: rarityColor + '70',
                 }}
@@ -204,9 +204,9 @@ export function PremiumAvatarCard({
             )}
             <View
               style={{
-                width: isV2Avatar ? 76 : 64,
-                height: isV2Avatar ? 76 : 64,
-                borderRadius: isV2Avatar ? 38 : 32,
+                width: isV2Avatar ? 96 : 80,
+                height: isV2Avatar ? 96 : 80,
+                borderRadius: isV2Avatar ? 48 : 40,
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: isV2Avatar ? colors.surface : colors.primary + '15',
@@ -215,13 +215,13 @@ export function PremiumAvatarCard({
                 shadowColor: isV2Avatar ? rarityColor : 'transparent',
                 shadowOffset: { width: 0, height: 0 },
                 shadowOpacity: isV2Avatar ? 0.4 : 0,
-                shadowRadius: isV2Avatar ? 8 : 0,
+                shadowRadius: isV2Avatar ? 10 : 0,
               }}
             >
               {isV2Avatar ? (
-                <IllustratedAvatar avatarId={avatar.id} size={60} emoji={avatar.emoji} />
+                <IllustratedAvatar avatarId={avatar.id} size={78} emoji={avatar.emoji} />
               ) : (
-                <Text style={{ fontSize: sFont(32) }}>{avatar.emoji}</Text>
+                <Text style={{ fontSize: sFont(40) }}>{avatar.emoji}</Text>
               )}
             </View>
 
@@ -259,7 +259,7 @@ export function PremiumAvatarCard({
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: isV2Avatar ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.35)',
-                borderRadius: isV2Avatar ? 38 : 32,
+                borderRadius: isV2Avatar ? 48 : 40,
               }}>
                 {(avatar as { chestOnly?: boolean }).chestOnly
                   ? <Gift size={16} color="#F59E0B" />
@@ -270,7 +270,7 @@ export function PremiumAvatarCard({
           </View>
 
           <Text
-            style={{ fontSize: sFont(11), fontWeight: isV2Avatar ? '700' : '600', color: colors.text, textAlign: 'center', marginBottom: 4 }}
+            style={{ fontSize: sFont(13), fontWeight: isV2Avatar ? '700' : '600', color: colors.text, textAlign: 'center', marginBottom: 5 }}
             numberOfLines={1}
           >
             {language === 'es' && avatar.nameEs ? avatar.nameEs : avatar.name}
@@ -279,28 +279,31 @@ export function PremiumAvatarCard({
           {/* Price or Status */}
           {isEquipped ? (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Check size={10} color="#22C55E" strokeWidth={3} />
+              <Check size={13} color="#22C55E" strokeWidth={3} />
+              <Text style={{ fontSize: sFont(11), color: '#22C55E', fontWeight: '600', marginLeft: 3 }}>
+                {language === 'es' ? 'Equipado' : 'Equipped'}
+              </Text>
             </View>
           ) : isOwned && !isEquipped && hasCost ? (
-            <Text style={{ fontSize: sFont(10), color: colors.primary, fontWeight: '600' }}>
+            <Text style={{ fontSize: sFont(12), color: colors.primary, fontWeight: '600' }}>
               {language === 'es' ? 'Equipar' : 'Equip'}
             </Text>
           ) : (avatar as { chestOnly?: boolean }).chestOnly ? (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Gift size={10} color="#F59E0B" />
-              <Text style={{ fontSize: sFont(9), fontWeight: '700', marginLeft: 2, color: '#F59E0B' }}>
+              <Gift size={12} color="#F59E0B" />
+              <Text style={{ fontSize: sFont(11), fontWeight: '700', marginLeft: 3, color: '#F59E0B' }}>
                 {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
               </Text>
             </View>
           ) : !hasCost || isOwned ? (
-            <Text style={{ fontSize: sFont(10), color: '#22C55E', fontWeight: '600' }}>
+            <Text style={{ fontSize: sFont(12), color: '#22C55E', fontWeight: '600' }}>
               {language === 'es' ? 'Gratis' : 'Free'}
             </Text>
           ) : (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Coins size={10} color={canAfford ? colors.primary : colors.textMuted} />
+              <Coins size={12} color={canAfford ? colors.primary : colors.textMuted} />
               <Text
-                style={{ fontSize: sFont(10), fontWeight: '700', marginLeft: 3, color: canAfford ? colors.primary : colors.textMuted }}
+                style={{ fontSize: sFont(12), fontWeight: '700', marginLeft: 3, color: canAfford ? colors.primary : colors.textMuted }}
               >
                 {price}
               </Text>
