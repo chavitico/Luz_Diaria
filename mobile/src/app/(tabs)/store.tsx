@@ -1252,14 +1252,15 @@ function ProfileHeader({
   totalShares: number;
 }) {
   const { sFont } = useScaledFont();
-  const [duelWins, setDuelWins] = useState(0);
+  const [globalRank, setGlobalRank] = useState<number | null>(null);
 
   useEffect(() => {
-    getLedgerEntries().then(entries => {
-      const wins = entries.filter(e => e.title === '¡Duelo ganado!').length;
-      setDuelWins(wins);
-    }).catch(() => {});
-  }, []);
+    if (!user?.id) return;
+    fetch(`${DUEL_BACKEND_URL}/api/duel/ranking/${user.id}`)
+      .then(r => r.json())
+      .then((data: { globalRank?: number }) => { if (data.globalRank) setGlobalRank(data.globalRank); })
+      .catch(() => {});
+  }, [user?.id]);
 
   const frameColor = user?.frameId && AVATAR_FRAMES[user.frameId]
     ? AVATAR_FRAMES[user.frameId].color
@@ -1498,10 +1499,10 @@ function ProfileHeader({
               >
                 <Swords size={14} color="#A78BFA" style={{ marginBottom: 4 }} />
                 <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#A78BFA', marginBottom: 3 }}>
-                  {duelWins}
+                  {globalRank != null ? `#${globalRank}` : '—'}
                 </Text>
                 <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#A78BFA99', textAlign: 'center', lineHeight: 13 }}>
-                  {language === 'es' ? 'Duelos\nganados' : 'Duels\nwon'}
+                  {language === 'es' ? 'Ranking\nglobal' : 'Global\nrank'}
                 </Text>
               </LinearGradient>
             </View>
@@ -5161,7 +5162,7 @@ export default function StoreScreen() {
                 </View>
                 <View>
                   <Text style={{ fontSize: 13, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }} numberOfLines={1}>
-                    {language === 'es' ? 'Personalizar' : 'Customize'}
+                    {language === 'es' ? 'Entretenimiento' : 'Entertainment'}
                   </Text>
                   <Text style={{ fontSize: 11, color: 'rgba(45,212,191,0.65)', fontWeight: '500' }} numberOfLines={1}>
                     {language === 'es' ? 'Temas y marcos' : 'Themes & frames'}
