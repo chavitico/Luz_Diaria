@@ -21,6 +21,7 @@ import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check, Lock,
 import { ShareOptionsSheet, type ShareOption } from '@/components/ShareOptionsSheet';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import { useThemeColors, useLanguage, useUserFavorites, useUser, useAppStore } from '@/lib/store';
+import { useScaledFont } from '@/lib/textScale';
 import { TRANSLATIONS } from '@/lib/constants';
 import { POINTS } from '@/lib/types';
 import type { Devotional } from '@/lib/types';
@@ -224,6 +225,7 @@ function UpcomingCard({ item, language, colors }: { item: UpcomingItem; language
 }
 
 export default function LibraryScreen() {
+  const { sFont } = useScaledFont();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -443,7 +445,7 @@ export default function LibraryScreen() {
             style={{
               flex: 1,
               marginLeft: 10,
-              fontSize: 15,
+              fontSize: sFont(15),
               color: colors.text,
             }}
           />

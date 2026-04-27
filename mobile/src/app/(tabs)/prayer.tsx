@@ -29,6 +29,7 @@ import {
   Lock,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
+import { useScaledFont } from '@/lib/textScale';
 import { PRAYER_CATEGORIES, AVATAR_FRAMES, SPIRITUAL_TITLES, DEFAULT_AVATARS } from '@/lib/constants';
 import { gamificationApi, PrayerRequestDisplay } from '@/lib/gamification-api';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
@@ -62,6 +63,7 @@ function CategoryDropdown({
   selectedCategory: string | null;
   onSelect: (category: string) => void;
 }) {
+  const { sFont } = useScaledFont();
   const colors = useThemeColors();
   const language = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
@@ -111,12 +113,12 @@ function CategoryDropdown({
                 justifyContent: 'center',
               }}
             >
-              <Text style={{ fontSize: 14 }}>🙏</Text>
+              <Text style={{ fontSize: sFont(14) }}>🙏</Text>
             </View>
           )}
           <Text
             style={{
-              fontSize: 15,
+              fontSize: sFont(15),
               flex: 1,
               color: selectedCategory ? colors.text : colors.textMuted,
               fontWeight: selectedCategory ? '500' : '400',
@@ -185,7 +187,7 @@ function CategoryDropdown({
                 />
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: sFont(14),
                     flex: 1,
                     color: isSelected ? colors.primary : colors.text,
                     fontWeight: isSelected ? '600' : '400',
@@ -205,6 +207,7 @@ function CategoryDropdown({
 
 // ── My Petition Section ────────────────────────────────────────────────────────
 function MyPetitionSection() {
+  const { sFont } = useScaledFont();
   const colors = useThemeColors();
   const language = useLanguage();
   const user = useUser();
@@ -278,7 +281,7 @@ function MyPetitionSection() {
           <View style={{ flex: 1 }}>
             <Text
               style={{
-                fontSize: 11,
+                fontSize: sFont(11),
                 letterSpacing: 0.9,
                 textTransform: 'uppercase',
                 color: colors.primary,
@@ -288,7 +291,7 @@ function MyPetitionSection() {
             >
               {language === 'es' ? 'Mi petición' : 'My petition'}
             </Text>
-            <Text style={{ fontSize: 13, color: colors.textMuted, lineHeight: 17 }}>
+            <Text style={{ fontSize: sFont(13), color: colors.textMuted, lineHeight: sFont(17) }}>
               {language === 'es' ? 'Activa por 48 horas' : 'Active for 48 hours'}
             </Text>
           </View>
@@ -320,19 +323,19 @@ function MyPetitionSection() {
                 primaryColor={colors.primary}
               />
               <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: 14, fontWeight: '600', color: colors.text, marginBottom: 3 }}>
+                <Text style={{ fontSize: sFont(14), fontWeight: '600', color: colors.text, marginBottom: 3 }}>
                   {activeCatLabel}
                 </Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                   <Clock size={11} color={colors.textMuted} />
-                  <Text style={{ fontSize: 12, color: colors.textMuted }}>
+                  <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
                     {formatExpiry(activePetition.expiresAt, language)}
                   </Text>
                 </View>
               </View>
             </View>
           ) : (
-            <Text style={{ fontSize: 13, color: colors.textMuted, lineHeight: 19 }}>
+            <Text style={{ fontSize: sFont(13), color: colors.textMuted, lineHeight: sFont(19) }}>
               {language === 'es'
                 ? 'Elige una categoría para elevar tu petición a la comunidad.'
                 : 'Choose a category to lift your petition to the community.'}
@@ -372,7 +375,7 @@ function MyPetitionSection() {
               {submitMutation.isPending ? (
                 <ActivityIndicator size="small" color={colors.primaryText} />
               ) : (
-                <Text style={{ fontSize: 15, fontWeight: '700', color: selectedCategory ? colors.primaryText : colors.textMuted, letterSpacing: 0.3 }}>
+                <Text style={{ fontSize: sFont(15), fontWeight: '700', color: selectedCategory ? colors.primaryText : colors.textMuted, letterSpacing: 0.3 }}>
                   {activePetition
                     ? language === 'es'
                       ? 'Cambiar mi petición'
@@ -386,7 +389,7 @@ function MyPetitionSection() {
           </Pressable>
 
           {activePetition && (
-            <Text style={{ fontSize: 11, color: colors.textMuted, textAlign: 'center', lineHeight: 15 }}>
+            <Text style={{ fontSize: sFont(11), color: colors.textMuted, textAlign: 'center', lineHeight: sFont(15) }}>
               {language === 'es'
                 ? 'Guardar una nueva petición reemplazará la actual.'
                 : 'Saving a new petition will replace the current one.'}
@@ -400,6 +403,7 @@ function MyPetitionSection() {
 
 // ── "Ya oré hoy" Button ──────────────────────────────────────────────────────
 function PrayedTodayButton() {
+  const { sFont } = useScaledFont();
   const colors = useThemeColors();
   const language = useLanguage();
   const user = useUser();
@@ -484,7 +488,7 @@ function PrayedTodayButton() {
               }}
             >
               <Check size={19} color={colors.primary} strokeWidth={2.5} />
-              <Text style={{ fontSize: 16, fontWeight: '600', color: colors.primary }}>
+              <Text style={{ fontSize: sFont(16), fontWeight: '600', color: colors.primary }}>
                 {language === 'es' ? 'Oré por la comunidad hoy' : 'Prayed for community today'}
               </Text>
             </View>
@@ -505,8 +509,8 @@ function PrayedTodayButton() {
                 <ActivityIndicator size="small" color={colors.primaryText} />
               ) : (
                 <>
-                  <Text style={{ fontSize: 20 }}>🙏</Text>
-                  <Text style={{ fontSize: 16, fontWeight: '700', color: colors.primaryText, letterSpacing: 0.3 }}>
+                  <Text style={{ fontSize: sFont(20) }}>🙏</Text>
+                  <Text style={{ fontSize: sFont(16), fontWeight: '700', color: colors.primaryText, letterSpacing: 0.3 }}>
                     {language === 'es' ? 'Ya oré hoy' : 'I prayed today'}
                   </Text>
                 </>
@@ -535,6 +539,7 @@ function CommunityUserRow({
   item: PrayerRequestDisplay;
   index: number;
 }) {
+  const { sFont } = useScaledFont();
   const colors = useThemeColors();
   const language = useLanguage();
   const showProfile = item.displayNameOptIn && !!item.nickname;
@@ -565,9 +570,9 @@ function CommunityUserRow({
             justifyContent: 'center',
           }}
         >
-          <Text style={{ fontSize: 20 }}>🙏</Text>
+          <Text style={{ fontSize: sFont(20) }}>🙏</Text>
         </View>
-        <Text style={{ fontSize: 14, color: colors.textMuted, fontStyle: 'italic', flex: 1 }}>
+        <Text style={{ fontSize: sFont(14), color: colors.textMuted, fontStyle: 'italic', flex: 1 }}>
           {language === 'es' ? 'Un hermano/a' : 'A brother/sister'}
         </Text>
       </Animated.View>
@@ -616,7 +621,7 @@ function CommunityUserRow({
 
       {/* Name + title */}
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 14, fontWeight: '600', color: colors.text }}>{item.nickname}</Text>
+        <Text style={{ fontSize: sFont(14), fontWeight: '600', color: colors.text }}>{item.nickname}</Text>
         {titleLabel && (
           <View
             style={{
@@ -628,7 +633,7 @@ function CommunityUserRow({
               marginTop: 3,
             }}
           >
-            <Text style={{ fontSize: 11, color: colors.primary, fontWeight: '500' }}>{titleLabel}</Text>
+            <Text style={{ fontSize: sFont(11), color: colors.primary, fontWeight: '500' }}>{titleLabel}</Text>
           </View>
         )}
       </View>
@@ -642,6 +647,7 @@ function CommunitySectionHeader({
 }: {
   section: CommunitySection;
 }) {
+  const { sFont } = useScaledFont();
   const colors = useThemeColors();
   const language = useLanguage();
   const cat = PRAYER_CATEGORIES.find((c) => c.key === section.categoryKey);
@@ -673,7 +679,7 @@ function CommunitySectionHeader({
         active
         primaryColor={colors.primary}
       />
-      <Text style={{ fontSize: 14, fontWeight: '700', color: colors.text, flex: 1 }} numberOfLines={1}>
+      <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text, flex: 1 }} numberOfLines={1}>
         {label}
       </Text>
       {/* Bar */}
@@ -704,7 +710,7 @@ function CommunitySectionHeader({
           paddingVertical: 3,
         }}
       >
-        <Text style={{ fontSize: 11, fontWeight: '600', color: colors.primary }}>{personLabel}</Text>
+        <Text style={{ fontSize: sFont(11), fontWeight: '600', color: colors.primary }}>{personLabel}</Text>
       </View>
     </View>
   );
@@ -712,6 +718,7 @@ function CommunitySectionHeader({
 
 // ── Community open list (SectionList) ──────────────────────────────────────────
 function CommunityOpenList() {
+  const { sFont } = useScaledFont();
   const colors = useThemeColors();
   const language = useLanguage();
 
@@ -814,7 +821,7 @@ function CommunityOpenList() {
         <View style={{ flex: 1 }}>
           <Text
             style={{
-              fontSize: 11,
+              fontSize: sFont(11),
               letterSpacing: 0.9,
               textTransform: 'uppercase',
               color: colors.primary,
@@ -824,7 +831,7 @@ function CommunityOpenList() {
           >
             {language === 'es' ? 'La comunidad ora por' : 'The community prays for'}
           </Text>
-          <Text style={{ fontSize: 13, color: colors.textMuted }}>
+          <Text style={{ fontSize: sFont(13), color: colors.textMuted }}>
             {total > 0
               ? language === 'es'
                 ? `${total} ${total === 1 ? 'petición activa' : 'peticiones activas'}`
@@ -839,8 +846,8 @@ function CommunityOpenList() {
       {/* Empty state */}
       {sections.length === 0 ? (
         <View style={{ paddingVertical: 28, paddingHorizontal: 20, alignItems: 'center', gap: 8 }}>
-          <Text style={{ fontSize: 28 }}>🤲</Text>
-          <Text style={{ fontSize: 14, color: colors.textMuted, textAlign: 'center', lineHeight: 20 }}>
+          <Text style={{ fontSize: sFont(28) }}>🤲</Text>
+          <Text style={{ fontSize: sFont(14), color: colors.textMuted, textAlign: 'center', lineHeight: sFont(20) }}>
             {language === 'es'
               ? 'Sé el primero en elevar una petición hoy.'
               : 'Be the first to lift a petition today.'}
@@ -863,8 +870,8 @@ function CommunityOpenList() {
                     gap: 8,
                   }}
                 >
-                  <Text style={{ fontSize: 14 }}>🙏</Text>
-                  <Text style={{ fontSize: 13, color: colors.textMuted, fontStyle: 'italic', flex: 1, lineHeight: 18 }}>
+                  <Text style={{ fontSize: sFont(14) }}>🙏</Text>
+                  <Text style={{ fontSize: sFont(13), color: colors.textMuted, fontStyle: 'italic', flex: 1, lineHeight: sFont(18) }}>
                     {language === 'es'
                       ? 'Aún nadie ha levantado esta petición. Sé el primero en hacerlo.'
                       : 'No one has lifted this petition yet. Be the first.'}
@@ -890,7 +897,7 @@ function CommunityOpenList() {
             }}
           >
             <Lock size={11} color={colors.textMuted} style={{ marginTop: 2 }} />
-            <Text style={{ fontSize: 12, color: colors.textMuted, lineHeight: 17, flex: 1 }}>
+            <Text style={{ fontSize: sFont(12), color: colors.textMuted, lineHeight: sFont(17), flex: 1 }}>
               {language === 'es'
                 ? 'Nombres solo aparecen si la persona lo permite.'
                 : 'Names only appear if the person allows it.'}
@@ -904,6 +911,7 @@ function CommunityOpenList() {
 
 // ── Main Screen ───────────────────────────────────────────────────────────────
 export default function PrayerScreen() {
+  const { sFont } = useScaledFont();
   const insets = useSafeAreaInsets();
   const colors = useThemeColors();
   const language = useLanguage();
@@ -932,10 +940,10 @@ export default function PrayerScreen() {
           paddingTop: insets.top + 14,
         }}
       >
-        <Text style={{ fontSize: 30, fontWeight: '800', color: colors.text, letterSpacing: -0.5 }}>
+        <Text style={{ fontSize: sFont(30), fontWeight: '800', color: colors.text, letterSpacing: -0.5 }}>
           {language === 'es' ? 'Oración' : 'Prayer'}
         </Text>
-        <Text style={{ fontSize: 14, color: colors.textMuted, marginTop: 3, lineHeight: 19 }}>
+        <Text style={{ fontSize: sFont(14), color: colors.textMuted, marginTop: 3, lineHeight: sFont(19) }}>
           {language === 'es'
             ? 'Elevamos juntos nuestras peticiones'
             : 'We lift our petitions together'}

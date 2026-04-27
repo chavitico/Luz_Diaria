@@ -53,6 +53,7 @@ import {
   useAppStore,
   useUser,
 } from '@/lib/store';
+import { useScaledFont } from '@/lib/textScale';
 import { TRANSLATIONS } from '@/lib/constants';
 import { POINTS } from '@/lib/types';
 import { useMusicPlayer, MUSIC_TRACKS } from '@/components/BackgroundMusicProvider';
@@ -353,6 +354,7 @@ interface ContentSectionProps {
 }
 
 function ContentSection({ title, content, icon, colors, isHighlighted, sectionIndex, onPress }: ContentSectionProps) {
+  const { sFont } = useScaledFont();
   return (
     <Animated.View
       entering={FadeInDown.delay(100 + sectionIndex * 50).duration(400)}
@@ -396,7 +398,7 @@ function ContentSection({ title, content, icon, colors, isHighlighted, sectionIn
         }}
       >
         <BibleReferenceText
-          style={{ color: colors.text, fontSize: 16, lineHeight: 28 }}
+          style={{ color: colors.text, fontSize: sFont(16), lineHeight: sFont(28) }}
           onPress={onPress}
         >
           {content}
