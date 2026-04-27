@@ -16,7 +16,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Haptics from 'expo-haptics';
 import { Send, Heart, Trash2, MessageCircle } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
-import { relativeLuminance, ensureContrast } from '@/lib/contrast';
+import { relativeLuminance, ensureContrast, contrastRatio } from '@/lib/contrast';
 import { useScaledFont } from '@/lib/textScale';
 import { DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 import {
@@ -257,11 +257,13 @@ export function CommentsSection({
   const [draft, setDraft] = useState('');
 
   // Compute a send button fill that is GUARANTEED to contrast with the page background.
-  // colors.primary may be similar to colors.background in some themes, making the button
-  // blend in when active. ensureContrast adjusts the primary until it meets 4.5:1.
   const bgLum = relativeLuminance(colors.background);
   const bgIsDark = bgLum < 0.18;
-  const safeSendBg = ensureContrast(colors.primary, colors.background, 4.5, bgIsDark);
+  const computedSendBg = ensureContrast(colors.primary, colors.background, 4.5, bgIsDark);
+  // Double-check: if computed color still doesn't contrast enough (NaN or edge case), fall back
+  // to colors.text which is always designed to be readable on colors.background.
+  const sendBgContrast = contrastRatio(computedSendBg, colors.background);
+  const safeSendBg = isFinite(sendBgContrast) && sendBgContrast >= 3.5 ? computedSendBg : colors.text;
   const sendIconColor = getContrastText(safeSendBg);
 
   const userId = user?.id ?? '';
@@ -456,8 +458,8 @@ export function CommentsSection({
             height: 40,
             borderRadius: 20,
             backgroundColor: draft.trim() ? safeSendBg : 'transparent',
-            borderWidth: draft.trim() ? 0 : 1.5,
-            borderColor: colors.text + '40',
+            borderWidth: 1.5,
+            borderColor: draft.trim() ? safeSendBg : colors.text + '40',
             alignItems: 'center',
             justifyContent: 'center',
             opacity: pressed ? 0.75 : 1,
