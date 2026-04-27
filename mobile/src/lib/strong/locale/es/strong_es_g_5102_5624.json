@@ -786,7 +786,8 @@
     "shortDefinitionEs": "agua (hydór)",
     "glossesEs": [
       "agua"
-    ]
+    ],
+    "longDefinitionEs": "Palabra griega (hýdōr) que significa agua en sentido literal y figurado, relacionada con la lluvia. En la Biblia representa purificación (como en el bautismo, Juan 3:5), vida espiritual y la Palabra de Dios que limpia. También simboliza el Espíritu Santo (Juan 7:38-39) que fluye del creyente como fuente de vida eterna."
   },
   "G5205": {
     "shortDefinitionEs": "Lluvia, especialmente lluvia repentina (hyetós)",
@@ -807,7 +808,8 @@
     "glossesEs": [
       "hijo",
       "hijos"
-    ]
+    ],
+    "longDefinitionEs": "Huiós (υἱός) significa 'hijo', usado para relaciones literales o figuradas de filiación, herencia y carácter compartido. Aplicado a Cristo, revela Su relación única con el Padre como Hijo eterno y unigénito. Los creyentes son adoptados como 'huioi', hijos herederos de Dios por gracia mediante fe en Cristo Jesús."
   },
   "G5208": {
     "shortDefinitionEs": "Materia, madera, combustible (hýlē)",
@@ -888,7 +890,8 @@
     "glossesEs": [
       "obediencia",
       "sujeción"
-    ]
+    ],
+    "longDefinitionEs": "Deriva de hypakoúō (escuchar atentamente), significando sumisión activa o conformidad. En el Nuevo Testamento describe la respuesta apropiada al evangelio (Rom. 16:26) y a Cristo. Teológicamente representa no meramente conformidad externa sino entrega voluntaria y completa a la voluntad divina, fruto de la fe genuina."
   },
   "G5219": {
     "shortDefinitionEs": "Obedecer, escuchar atentamente, cumplir (hypakoúō)",
@@ -2603,7 +2606,8 @@
     "shortDefinitionEs": "luz (phós)",
     "glossesEs": [
       "luz"
-    ]
+    ],
+    "longDefinitionEs": "Phōs (φῶς) significa luz física pero principalmente luz espiritual que representa verdad, revelación divina, santidad y vida en contraste con las tinieblas del error y pecado. Juan presenta a Cristo como 'la luz del mundo' que ilumina a todo hombre (Juan 1:9, 8:12). Los creyentes son llamados a ser luz reflejando el carácter divino en un mundo oscuro."
   },
   "G5458": {
     "shortDefinitionEs": "Luminaria, fuente de luz o brillo (phōstḗr)",
@@ -2758,7 +2762,8 @@
     "shortDefinitionEs": "gozo, alegría profunda (jará)",
     "glossesEs": [
       "gozo"
-    ]
+    ],
+    "longDefinitionEs": "Vocablo griego (chará) derivado del verbo regocijarse, que denota gozo profundo y sereno deleite interior. Es fruto del Espíritu Santo (Gálatas 5:22) y característica distintiva del reino de Dios. Este gozo trasciende las circunstancias externas, fundamentándose en la relación con Cristo y la esperanza de la salvación eterna."
   },
   "G5480": {
     "shortDefinitionEs": "Marca grabada, sello o estatua (cháragma)",
@@ -2801,7 +2806,8 @@
     "shortDefinitionEs": "gracia, favor inmerecido de Dios (járis)",
     "glossesEs": [
       "gracia"
-    ]
+    ],
+    "longDefinitionEs": "Járis (χάρις) es el término griego para gracia, que denota el favor inmerecido y generoso de Dios hacia la humanidad pecadora. Pablo la usa extensamente para describir la salvación como don gratuito, no por obras (Efesios 2:8). Abarca tanto la influencia divina que transforma el corazón como la gratitud que fluye en respuesta, siendo concepto central de la teología cristiana del Nuevo Testamento."
   },
   "G5486": {
     "shortDefinitionEs": "Don divino o regalo espiritual (chárisma)",
@@ -3225,7 +3231,8 @@
     "shortDefinitionEs": "Cristo, el Ungido, Mesías en griego (Jristós)",
     "glossesEs": [
       "cristo"
-    ]
+    ],
+    "longDefinitionEs": "Palabra griega (Jristós) que significa «Ungido», equivalente al hebreo «Mesías», título que identifica a Jesús como el Salvador prometido. Denota consagración divina mediante unción, aplicada a reyes, sacerdotes y profetas, pero supremamente a Jesucristo como el Ungido de Dios (Mateo 16:16). Representa el cumplimiento de las profecías mesiánicas y la autoridad redentora del Hijo de Dios sobre su p"
   },
   "G5548": {
     "shortDefinitionEs": "Ungir o consagrar (chríō)",
@@ -3508,7 +3515,8 @@
     "shortDefinitionEs": "alma, vida, ser interior (psyché)",
     "glossesEs": [
       "alma"
-    ]
+    ],
+    "longDefinitionEs": "Término griego que designa la vida anímica, el aliento vital que anima al ser humano, distinguiéndose de pneuma (espíritu racional) y zoé (vida biológica). Se usa para referirse a la persona completa (Mateo 16:26: «¿Qué aprovechará al hombre si ganare todo el mundo y perdiere su alma?») y al asiento de las emociones y deseos. Representa el principio que hace al hombre un ser viviente y consciente."
   },
   "G5591": {
     "shortDefinitionEs": "natural, sensual, del alma (psychikós)",

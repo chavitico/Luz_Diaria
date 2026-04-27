@@ -163,14 +163,16 @@
     "glossesEs": [
       "amar",
       "amor"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que expresa el amor sacrificial y deliberado, distintivo del carácter divino y del discipulado cristiano. A diferencia del amor emocional o afectivo, agapáō implica una decisión de la voluntad orientada al bien del otro, como se ejemplifica en Juan 3:16 donde Dios amó al mundo dando a su Hijo. Es el amor que Cristo ordena entre sus seguidores (Juan 13:34) y que debe caracterizar a la comunid"
   },
   "G26": {
     "shortDefinitionEs": "amor ágape — amor incondicional y sacrificial",
     "glossesEs": [
       "amor",
       "ágape"
-    ]
+    ],
+    "longDefinitionEs": "Agápē designa amor desinteresado y sacrificial que busca el bien supremo del otro, distinto de afecto emocional o romántico. Juan declara que Dios es agápē (1 Juan 4:8), manifestado supremamente en la cruz (Juan 3:16). Representa el amor divino que transforma creyentes para amar sacrificialmente, fruto del Espíritu Santo."
   },
   "G27": {
     "shortDefinitionEs": "amado, querido, bien amado (agapētós)",
@@ -211,7 +213,8 @@
     "glossesEs": [
       "ángel",
       "ángeles"
-    ]
+    ],
+    "longDefinitionEs": "Ángelos significa 'mensajero' y designa tanto a enviados humanos como a seres celestiales que sirven a Dios. En Hebreos 1:14 describe a espíritus ministradores enviados para servicio de los herederos de salvación. Teológicamente representa la mediación divina entre el cielo y la tierra, ejecutando los propósitos y revelaciones de Dios."
   },
   "G33": {
     "shortDefinitionEs": "anda, vamos, adelante (áge)",
@@ -266,7 +269,8 @@
       "santo",
       "sagrado",
       "espíritu santo"
-    ]
+    ],
+    "longDefinitionEs": "Hagios (ἅγιος) significa santo, sagrado o apartado, describiendo la pureza moral y separación para Dios. Se aplica a Dios mismo, al Espíritu Santo, y a creyentes santificados (1 P 1:15-16). Teológicamente, expresa la naturaleza trascendente de Dios y el llamado del cristiano a vivir en santidad práctica conforme al carácter divino."
   },
   "G41": {
     "shortDefinitionEs": "santidad (hagiótēs)",
@@ -549,7 +553,8 @@
     "glossesEs": [
       "hermano",
       "pariente"
-    ]
+    ],
+    "longDefinitionEs": "Palabra griega (adelphós) que literalmente significa «del mismo vientre», designando hermano carnal, pariente o compatriota. En el Nuevo Testamento adquiere significado espiritual profundo refiriéndose a los creyentes como hermanos en Cristo, miembros de la familia de Dios (Mateo 12:50, Romanos 8:29). Enfatiza la unidad, amor fraternal y relación de igualdad entre los redimidos por la sangre del S"
   },
   "G81": {
     "shortDefinitionEs": "Hermandad, fraternidad cristiana (adelphótēs)",
@@ -891,7 +896,8 @@
     "shortDefinitionEs": "sangre (haima)",
     "glossesEs": [
       "sangre"
-    ]
+    ],
+    "longDefinitionEs": "Haîma (αἷμα) significa sangre literal de humanos o animales, pero teológicamente representa la vida misma y el medio de expiación en el sistema sacrificial. El Nuevo Testamento enfatiza la sangre de Cristo como precio del nuevo pacto que purifica del pecado (Hebreos 9:22; 1 Pedro 1:19). Simboliza tanto el sacrificio redentor como el parentesco y solidaridad humana."
   },
   "G130": {
     "shortDefinitionEs": "derramamiento de sangre (haimatekchysía)",
@@ -1147,7 +1153,8 @@
     "glossesEs": [
       "eterno",
       "eterna"
-    ]
+    ],
+    "longDefinitionEs": "Vocablo griego (aiṓnios) derivado de aiṓn (era), que significa eterno, perpetuo o sin fin temporal. Se aplica a la vida eterna prometida a los creyentes (Juan 3:16) y también al castigo eterno de los impíos. Describe realidades que trascienden el tiempo presente, perteneciendo al orden divino e inmutable de Dios."
   },
   "G167": {
     "shortDefinitionEs": "Impureza física o moral, falta de limpieza (akatharsía)",
@@ -1565,7 +1572,8 @@
     "shortDefinitionEs": "verdad, realidad (alétheia)",
     "glossesEs": [
       "verdad"
-    ]
+    ],
+    "longDefinitionEs": "Alḗtheia significa verdad como realidad objetiva opuesta a falsedad o apariencia, derivada de 'no oculto'. Jesús se identifica como 'la verdad' (Juan 14:6), y el Espíritu guía a toda verdad (Juan 16:13). Teológicamente representa la revelación divina auténtica y la realidad espiritual que libera del engaño."
   },
   "G226": {
     "shortDefinitionEs": "ser veraz en doctrina y profesión (alētheúō)",
@@ -1846,7 +1854,8 @@
     "shortDefinitionEs": "pecado, falla moral (hamartía)",
     "glossesEs": [
       "pecado"
-    ]
+    ],
+    "longDefinitionEs": "Hamartía deriva del verbo 'errar el blanco', describiendo el pecado como fracaso en alcanzar el estándar divino de justicia. Pablo la usa extensamente en Romanos para explicar la condición universal de rebelión contra Dios y separación espiritual. Teológicamente abarca tanto actos pecaminosos como la naturaleza caída que esclaviza a la humanidad."
   },
   "G267": {
     "shortDefinitionEs": "Sin testimonio; no atestiguado (amártyros)",
@@ -2712,7 +2721,8 @@
     "glossesEs": [
       "resurrección",
       "resucitar"
-    ]
+    ],
+    "longDefinitionEs": "Término compuesto de 'aná' (arriba) e 'hístemi' (estar de pie), designando literalmente el acto de levantarse, especialmente de entre los muertos. La resurrección de Cristo es el fundamento de la fe cristiana (1 Corintios 15:14-17), garantizando la resurrección futura de los creyentes. No es mera reanimación sino transformación a vida incorruptible, validando las afirmaciones de Cristo y asegurand"
   },
   "G387": {
     "shortDefinitionEs": "Alborotar, trastornar, turbar (anastatóō)",
@@ -3124,7 +3134,8 @@
     "glossesEs": [
       "hombre",
       "hombres"
-    ]
+    ],
+    "longDefinitionEs": "Ánthrōpos (ἄνθρωπος) designa al ser humano genérico, hombre o mujer, enfatizando la humanidad común. Se distingue de 'anēr' (varón específico). En teología bíblica resalta la dignidad de la imagen de Dios, la caída universal en pecado, y la redención ofrecida a toda la raza humana mediante Cristo, el postrer Adán."
   },
   "G445": {
     "shortDefinitionEs": "Actuar como procónsul (anthypateúō)",
@@ -4635,7 +4646,8 @@
     "glossesEs": [
       "apóstol",
       "apóstoles"
-    ]
+    ],
+    "longDefinitionEs": "Derivado del verbo 'apostéllo' (enviar), apóstolos designa a un mensajero oficial investido de autoridad por quien lo envía. En el Nuevo Testamento se refiere principalmente a los Doce elegidos por Cristo (Mateo 10:2) y a Pablo, comisionados como testigos de la resurrección con autoridad para fundar y enseñar a la Iglesia. Su función trasciende la simple mensajería, representando a Cristo mismo co"
   },
   "G653": {
     "shortDefinitionEs": "Provocar a hablar, interrogar (apostomatízō)",
@@ -5266,7 +5278,8 @@
     "glossesEs": [
       "pan",
       "hogaza"
-    ]
+    ],
+    "longDefinitionEs": "Término griego (ártos) que significa pan como alimento básico levantado o cocido. Jesús se identificó como el pan de vida (Juan 6:35), y instituyó la Cena del Señor usando pan para representar su cuerpo. Simboliza el sustento tanto físico como espiritual que Dios provee a su pueblo."
   },
   "G741": {
     "shortDefinitionEs": "sazonar, condimentar (artýō)",
@@ -5304,7 +5317,8 @@
     "shortDefinitionEs": "principio, comienzo, gobernante, autoridad (arjé)",
     "glossesEs": [
       "principio"
-    ]
+    ],
+    "longDefinitionEs": "Término multifacético que denota comienzo, origen, principio temporal o primacía en rango y autoridad. Describe a Cristo como principio de la creación (Colosenses 1:18, Apocalipsis 3:14) y se refiere a poderes angélicos y autoridades espirituales (Efesios 6:12). En Juan 1:1, 'en el principio' vincula la creación con la preexistencia del Verbo, estableciendo fundamentos cristológicos esenciales."
   },
   "G747": {
     "shortDefinitionEs": "caudillo, capitán, príncipe (archēgós)",
@@ -6094,7 +6108,8 @@
     "shortDefinitionEs": "perdón, remisión de pecados (aphesis)",
     "glossesEs": [
       "perdón"
-    ]
+    ],
+    "longDefinitionEs": "Derivada del verbo aphíēmi (soltar, dejar ir), áphesis significa literalmente liberación o remisión, aplicándose primordialmente al perdón de pecados. En el Nuevo Testamento aparece en pasajes clave como Lucas 4:18 (proclamar libertad a los cautivos) y Efesios 1:7 (el perdón de pecados). Teológicamente representa la liberación del cautiverio del pecado mediante la obra redentora de Cristo."
   },
   "G860": {
     "shortDefinitionEs": "ligamento, articulación (haphḗ)",
@@ -6121,7 +6136,8 @@
     "shortDefinitionEs": "perdonar, soltar, remitir (aphiemi)",
     "glossesEs": [
       "perdonar"
-    ]
+    ],
+    "longDefinitionEs": "Deriva de apó (desde) y híēmi (enviar), significando literalmente 'enviar lejos' o 'soltar'. En el Nuevo Testamento se usa para perdonar pecados (Mat. 6:12), dejar ir personas o cosas, y remitir deudas. Teológicamente, representa la acción divina de liberar al pecador de su culpa, un concepto central en la doctrina de la redención cristiana."
   },
   "G864": {
     "shortDefinitionEs": "esparcirse, difundirse (aphiknéomai)",
@@ -6425,13 +6441,15 @@
     "shortDefinitionEs": "bautizar, sumergir en agua",
     "glossesEs": [
       "bautizar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que significa sumergir o hundir completamente en agua. En el Nuevo Testamento se refiere principalmente al rito cristiano de iniciación ordenado por Cristo (Mat. 28:19). Representa la identificación del creyente con la muerte, sepultura y resurrección de Cristo, el acto externo de confesión de fe y purificación espiritual."
   },
   "G908": {
     "shortDefinitionEs": "bautismo, inmersión (baptisma)",
     "glossesEs": [
       "bautismo"
-    ]
+    ],
+    "longDefinitionEs": "Derivado de baptízō (sumergir), denota el acto ritual de inmersión en agua. En el cristianismo primitivo significaba la iniciación del creyente en Cristo mediante inmersión (Rom. 6:4). Simboliza la muerte al pecado, sepultura y resurrección a nueva vida en unión con Cristo, el sacramento de ingreso a la comunidad cristiana."
   },
   "G909": {
     "shortDefinitionEs": "Bautismo, ablución ceremonial (baptismós)",
@@ -6591,7 +6609,8 @@
     "shortDefinitionEs": "reino, reinado, dominio (basileia)",
     "glossesEs": [
       "reino"
-    ]
+    ],
+    "longDefinitionEs": "Basileía denota el reinado o dominio real de Dios, tanto presente espiritualmente como futuro en plenitud. Jesús proclamó que el Reino se acercaba (Marcos 1:15) y enseñó a buscarlo primero (Mateo 6:33). Representa la soberanía divina ejercida sobre corazones redimidos y la consumación escatológica de Su gobierno."
   },
   "G933": {
     "shortDefinitionEs": "palacio, corte real (basíleion)",
@@ -6611,7 +6630,8 @@
     "shortDefinitionEs": "rey, soberano, monarca (basileus)",
     "glossesEs": [
       "rey"
-    ]
+    ],
+    "longDefinitionEs": "Este término (basileús) designa al rey o monarca que ejerce autoridad soberana, derivado de la raíz que sugiere una base o fundamento de poder. En el Nuevo Testamento se aplica tanto a gobernantes terrenales como Herodes, como especialmente a Cristo, el Rey de reyes (Apocalipsis 19:16). Teológicamente expresa la realeza divina y el señorío absoluto de Dios sobre toda la creación."
   },
   "G936": {
     "shortDefinitionEs": "reinar, ser rey, gobernar (basileúō)",

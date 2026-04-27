@@ -4,7 +4,8 @@
     "glossesEs": [
       "fe",
       "fidelidad"
-    ]
+    ],
+    "longDefinitionEs": "Pistis (πίστις) denota fe, confianza o fidelidad, central en la teología paulina como medio de justificación (Ro 5:1). Describe tanto la confianza personal en Cristo para salvación como el cuerpo de verdades del evangelio. Representa la respuesta humana a la gracia divina, estableciendo relación salvífica con Dios mediante Cristo."
   },
   "G4103": {
     "shortDefinitionEs": "fiel, confiable; digno de confianza (pistós)",
@@ -356,7 +357,8 @@
     "glossesEs": [
       "espíritu",
       "espíritu santo"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo griego (pneuma) que significa «viento, aliento o espíritu», designando desde la brisa física hasta realidades inmateriales como el espíritu humano, ángeles o demonios. Teológicamente es fundamental para referirse al Espíritu Santo, tercera Persona de la Trinidad (Juan 14:26, Hechos 2:4). Representa el poder vivificante de Dios, la presencia divina que regenera, santifica y capacita a lo"
   },
   "G4152": {
     "shortDefinitionEs": "espiritual, relativo al Espíritu (pneumatikós)",
@@ -465,7 +467,8 @@
     "shortDefinitionEs": "pastor, el que cuida el rebaño (poimén)",
     "glossesEs": [
       "pastor"
-    ]
+    ],
+    "longDefinitionEs": "Término que designa al guardián de ovejas, usado literal y metafóricamente. En las Escrituras describe a líderes espirituales y especialmente a Cristo como el Buen Pastor (Juan 10:11). Teológicamente simboliza el cuidado, protección y guía amorosa que Dios provee a su pueblo, expresando la relación íntima pastor-rebaño."
   },
   "G4167": {
     "shortDefinitionEs": "rebaño, grey, manada (poímnē)",
@@ -1736,14 +1739,16 @@
     "shortDefinitionEs": "oración, plegaria (proseujé)",
     "glossesEs": [
       "oración"
-    ]
+    ],
+    "longDefinitionEs": "De proseúchomai (orar), designa tanto el acto de oración como el lugar dedicado a ella. Jesús enseñó sobre la oración persistente (Lucas 18:1) y el apóstol Pablo exhorta a la oración constante (1 Tesalonicenses 5:17). Representa la comunicación íntima del creyente con Dios, expresando adoración, súplica, intercesión y gratitud como fundamento de la vida espiritual."
   },
   "G4336": {
     "shortDefinitionEs": "orar, rogar a Dios (proseujaomai)",
     "glossesEs": [
       "orar",
       "oración"
-    ]
+    ],
+    "longDefinitionEs": "Compuesto de prós (hacia) y eúchomai (desear), significando dirigirse a Dios en oración. Es el término más común para orar en el Nuevo Testamento (Mat. 6:5-6). Denota comunicación reverente con Dios, incluyendo adoración, súplica e intercesión, expresando la dependencia del creyente en su relación íntima con el Padre."
   },
   "G4337": {
     "shortDefinitionEs": "Prestar atención, estar atento, cuidarse (proséchō)",
@@ -2185,7 +2190,8 @@
     "glossesEs": [
       "profeta",
       "profetas"
-    ]
+    ],
+    "longDefinitionEs": "Prophétés (προφήτης) designa al portavoz inspirado que proclama mensajes divinos, derivado de 'hablar por adelantado' o 'hablar en nombre de otro'. En el Antiguo Testamento incluye figuras como Isaías y Jeremías; en el Nuevo, tanto Juan el Bautista como profetas de la iglesia primitiva. Jesús mismo es reconocido como el Profeta prometido superior a todos."
   },
   "G4397": {
     "shortDefinitionEs": "Perteneciente a profecía o profetas (prophētikós)",
@@ -3361,7 +3367,8 @@
       "carne",
       "cuerpo",
       "carnal"
-    ]
+    ],
+    "longDefinitionEs": "Sárx (σάρξ) significa literalmente carne o tejido corporal, pero Pablo lo usa teológicamente para designar la naturaleza humana caída y sus deseos opuestos al Espíritu (Gálatas 5:17). Puede referirse neutralmente al cuerpo físico o a la humanidad en general, pero frecuentemente denota la condición pecaminosa heredada. Contrasta con 'espíritu' representando lo temporal, débil y corrupto."
   },
   "G4562": {
     "shortDefinitionEs": "Saruc: patriarca israelita (Saroúch)",
@@ -3403,7 +3410,8 @@
       "Satanás",
       "acusador",
       "diablo"
-    ]
+    ],
+    "longDefinitionEs": "Transliteración del hebreo satán (adversario, acusador), designa al diablo como enemigo supremo de Dios y tentador de la humanidad. Aparece en las tentaciones de Jesús (Mateo 4:10) y como príncipe de este mundo (Juan 12:31). Representa la personificación del mal y la rebelión contra Dios, destinado a derrota final."
   },
   "G4568": {
     "shortDefinitionEs": "Medida de capacidad para áridos (sáton)",
@@ -3592,7 +3600,8 @@
     "shortDefinitionEs": "señal, milagro, señal divina (sémion)",
     "glossesEs": [
       "milagro"
-    ]
+    ],
+    "longDefinitionEs": "Término que denota una señal o marca distintiva que apunta a una realidad más profunda, frecuentemente de origen divino. En los Evangelios, especialmente en Juan, los sēmeîa son milagros que revelan la identidad mesiánica de Jesús (Juan 2:11). No son meros prodigios, sino actos cargados de significado teológico que autentican el mensaje del evangelio y demandan una respuesta de fe."
   },
   "G4593": {
     "shortDefinitionEs": "Marcar, notar, señalar (sēmeióō)",
@@ -4042,7 +4051,8 @@
     "glossesEs": [
       "oscuridad",
       "tinieblas"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que designa oscuridad física pero principalmente tinieblas espirituales como símbolo de ignorancia, pecado y alejamiento de Dios. En el Nuevo Testamento contrasta radicalmente con la luz divina (Juan 1:5, 1 Juan 1:5), describiendo el estado del mundo sin Cristo. Los creyentes son llamados a salir de las tinieblas hacia la luz admirable de Dios (1 Pedro 2:9), representando conversión y t"
   },
   "G4656": {
     "shortDefinitionEs": "Oscurecer, cegar (skotóō)",
@@ -4199,7 +4209,8 @@
     "shortDefinitionEs": "sabiduría divina y práctica (sophia)",
     "glossesEs": [
       "sabiduría"
-    ]
+    ],
+    "longDefinitionEs": "Término que designa sabiduría tanto divina como humana, secular o espiritual. Pablo contrasta la sabiduría mundana con la de Dios manifestada en la cruz (1 Corintios 1:20-25) y Santiago distingue la sabiduría terrenal de la celestial (Santiago 3:13-17). Representa el arte de vivir rectamente según el diseño divino, fundamento del conocimiento verdadero."
   },
   "G4679": {
     "shortDefinitionEs": "Hacer sabio; ingeniar falsamente (sophízō)",
@@ -4464,7 +4475,8 @@
     "shortDefinitionEs": "cruz, el madero de la crucifixión (stauros)",
     "glossesEs": [
       "cruz"
-    ]
+    ],
+    "longDefinitionEs": "Deriva de hístēmi (estar de pie), designando un madero vertical o estaca. En el contexto neotestamentario es el instrumento romano de ejecución donde Cristo murió (Fil. 2:8). Simboliza no solo el sufrimiento redentor de Cristo sino también el llamado al discípulo a negarse a sí mismo y seguirle."
   },
   "G4717": {
     "shortDefinitionEs": "Crucificar, extinguir pasiones (stauróō)",
@@ -6408,14 +6420,16 @@
     "shortDefinitionEs": "salvar, librar, sanar, preservar (sózó)",
     "glossesEs": [
       "salvar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo fundamental que significa salvar, librar, rescatar o sanar, tanto física como espiritualmente. Aparece en contextos de sanidades físicas (Marcos 5:34) y especialmente en la salvación del pecado mediante Cristo (Hechos 16:31). Teológicamente abarca la liberación integral que Dios ofrece: del peligro, la enfermedad, la muerte y la condenación eterna."
   },
   "G4983": {
     "shortDefinitionEs": "Cuerpo, estructura física de una persona (sōma)",
     "glossesEs": [
       "cuerpo",
       "corporal"
-    ]
+    ],
+    "longDefinitionEs": "Término que designa el cuerpo físico como totalidad organizada y funcional, usado literal y metafóricamente en el Nuevo Testamento. Pablo desarrolla extensamente la imagen del cuerpo de Cristo para describir la Iglesia (1 Corintios 12:12-27), donde cada creyente es miembro interdependiente. También se refiere al cuerpo resucitado glorificado y a la disciplina del cuerpo físico como templo del Espí"
   },
   "G4984": {
     "shortDefinitionEs": "Corporal, relativo al cuerpo físico (sōmatikós)",
@@ -6468,7 +6482,8 @@
     "shortDefinitionEs": "salvación, liberación eterna (sotería)",
     "glossesEs": [
       "salvación"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que designa liberación, rescate o preservación, tanto física como espiritual y eterna. En el Nuevo Testamento representa primordialmente la redención del pecado y sus consecuencias mediante la obra de Cristo (Efesios 2:8). Incluye dimensiones pasadas (justificación), presentes (santificación) y futuras (glorificación), constituyendo la obra completa de Dios para restaurar al ser humano "
   },
   "G4992": {
     "shortDefinitionEs": "salvador, el que libra (sótér)",
