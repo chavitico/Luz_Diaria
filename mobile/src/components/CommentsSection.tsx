@@ -449,29 +449,34 @@ export function CommentsSection({
             }}
           />
         </View>
-        {/* Send button — uses safeSendBg to guarantee contrast against any theme background */}
+        {/* Send button — inner View holds static backgroundColor to avoid RN 0.76 Fabric bg-change bug */}
         <Pressable
           onPress={handleSend}
-          disabled={isPosting}
+          disabled={isPosting || !draft.trim()}
           style={({ pressed }) => ({
-            width: 40,
-            height: 40,
-            borderRadius: 20,
-            backgroundColor: draft.trim() ? safeSendBg : colors.background,
-            borderWidth: 1.5,
-            borderColor: draft.trim() ? safeSendBg : colors.text + '40',
+            width: 44,
+            height: 44,
+            borderRadius: 22,
             alignItems: 'center',
             justifyContent: 'center',
-            opacity: pressed ? 0.75 : 1,
+            opacity: !draft.trim() ? 0.22 : pressed ? 0.72 : 1,
           })}
         >
+          <View
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              borderRadius: 22,
+              backgroundColor: safeSendBg,
+            }}
+          />
           {isPosting ? (
-            <ActivityIndicator size="small" color={draft.trim() ? sendIconColor : colors.text} />
+            <ActivityIndicator size="small" color={sendIconColor} />
           ) : (
-            <Send
-              size={16}
-              color={draft.trim() ? sendIconColor : colors.text}
-            />
+            <Send size={17} color={sendIconColor} />
           )}
         </Pressable>
       </View>
