@@ -457,7 +457,7 @@ export function CommentsSection({
             width: 40,
             height: 40,
             borderRadius: 20,
-            backgroundColor: draft.trim() ? safeSendBg : 'transparent',
+            backgroundColor: draft.trim() ? safeSendBg : colors.background,
             borderWidth: 1.5,
             borderColor: draft.trim() ? safeSendBg : colors.text + '40',
             alignItems: 'center',
