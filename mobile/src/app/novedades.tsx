@@ -56,7 +56,7 @@ const NEWS_ITEMS: NewsItem[] = [
     categoryLabel: 'Nueva Colección',
     emoji: '⚔️',
     accentColor: '#D4AF37',
-    accentBg: '#1A1000',
+    accentBg: '#FFFBF0',
     title: 'Álbum: Héroes de la Fe',
     summary: '26 cromos del Antiguo Testamento — 3 cartas por sobre, carta oculta al completar.',
   },
@@ -67,7 +67,7 @@ const NEWS_ITEMS: NewsItem[] = [
     categoryLabel: 'Módulo Bíblico',
     emoji: '📖',
     accentColor: '#8B5CF6',
-    accentBg: '#0D0A1A',
+    accentBg: '#F5F3FF',
     title: 'Strong en la Biblia',
     summary: 'Activa el switch en el lector y toca cualquier palabra para ver su raíz original en hebreo o griego.',
   },
@@ -113,9 +113,9 @@ function HeroesContent() {
   return (
     <View style={{ gap: 16 }}>
       {/* Intro */}
-      <Text style={{ color: '#E5E7EB', fontSize: 14, lineHeight: 22 }}>
-        La colección <Text style={{ color: '#D4AF37', fontWeight: '700' }}>Héroes de la Fe</Text> trae{' '}
-        <Text style={{ color: '#FFF', fontWeight: '600' }}>26 cromos</Text> de personajes y eventos del Antiguo
+      <Text style={{ color: '#374151', fontSize: 14, lineHeight: 22 }}>
+        La colección <Text style={{ color: '#B8860B', fontWeight: '700' }}>Héroes de la Fe</Text> trae{' '}
+        <Text style={{ color: '#111827', fontWeight: '600' }}>26 cromos</Text> de personajes y eventos del Antiguo
         Testamento: Noé, Abraham, Moisés, Débora, David, Elías, Daniel, Ester y muchos más.
       </Text>
 
@@ -174,8 +174,8 @@ function HeroesContent() {
             }}
           >
             <Text style={{ fontSize: 18 }}>{stat.icon}</Text>
-            <Text style={{ color: '#FFF', fontSize: 12, fontWeight: '700', marginTop: 4 }}>{stat.label}</Text>
-            <Text style={{ color: '#9CA3AF', fontSize: 10 }}>{stat.sub}</Text>
+            <Text style={{ color: '#1F2937', fontSize: 12, fontWeight: '700', marginTop: 4 }}>{stat.label}</Text>
+            <Text style={{ color: '#6B7280', fontSize: 10 }}>{stat.sub}</Text>
           </View>
         ))}
       </View>
@@ -191,10 +191,10 @@ function HeroesContent() {
             CARTA SECRETA
           </Text>
         </View>
-        <Text style={{ color: '#E5E7EB', fontSize: 13, lineHeight: 20 }}>
-          Completa las <Text style={{ color: '#FFF', fontWeight: '700' }}>25 cartas</Text> del álbum para
+        <Text style={{ color: '#374151', fontSize: 13, lineHeight: 20 }}>
+          Completa las <Text style={{ color: '#1F2937', fontWeight: '700' }}>25 cartas</Text> del álbum para
           desbloquear a{' '}
-          <Text style={{ color: '#D4AF37', fontWeight: '700' }}>Jesús — Autor y Consumador de la Fe</Text>{' '}
+          <Text style={{ color: '#B8860B', fontWeight: '700' }}>Jesús — Autor y Consumador de la Fe</Text>{' '}
           (Hebreos 12:2), una carta legendaria dorada única.
         </Text>
       </LinearGradient>
@@ -205,7 +205,7 @@ function HeroesContent() {
           flexDirection: 'row',
           alignItems: 'flex-start',
           gap: 10,
-          backgroundColor: 'rgba(255,255,255,0.05)',
+          backgroundColor: 'rgba(0,0,0,0.04)',
           borderRadius: 12,
           padding: 14,
         }}
@@ -213,9 +213,9 @@ function HeroesContent() {
         <Repeat2 size={18} color="#34D399" style={{ marginTop: 2 }} />
         <View style={{ flex: 1 }}>
           <Text style={{ color: '#34D399', fontWeight: '700', fontSize: 13 }}>Canjes entre jugadores</Text>
-          <Text style={{ color: '#9CA3AF', fontSize: 13, lineHeight: 19, marginTop: 4 }}>
+          <Text style={{ color: '#6B7280', fontSize: 13, lineHeight: 19, marginTop: 4 }}>
             ¿Tienes duplicados? Puedes enviar y recibir{' '}
-            <Text style={{ color: '#E5E7EB', fontWeight: '600' }}>hasta 2 canjes por día</Text> con otros
+            <Text style={{ color: '#374151', fontWeight: '600' }}>hasta 2 canjes por día</Text> con otros
             jugadores desde la sección de Cromos Bíblicos.
           </Text>
         </View>
@@ -317,8 +317,8 @@ function AppearancesSection() {
 function StrongContent() {
   return (
     <View style={{ gap: 16 }}>
-      <Text style={{ color: '#E5E7EB', fontSize: 14, lineHeight: 22 }}>
-        El módulo <Text style={{ color: '#A78BFA', fontWeight: '700' }}>Strong</Text> te permite estudiar el
+      <Text style={{ color: '#374151', fontSize: 14, lineHeight: 22 }}>
+        El módulo <Text style={{ color: '#7C3AED', fontWeight: '700' }}>Strong</Text> te permite estudiar el
         significado original de cada palabra bíblica en hebreo (Antiguo Testamento) o griego (Nuevo Testamento).
       </Text>
 
@@ -338,10 +338,10 @@ function StrongContent() {
         <Languages size={18} color="#A78BFA" style={{ marginTop: 2 }} />
         <View style={{ flex: 1 }}>
           <Text style={{ color: '#A78BFA', fontWeight: '700', fontSize: 13 }}>Cómo activarlo</Text>
-          <Text style={{ color: '#9CA3AF', fontSize: 13, lineHeight: 19, marginTop: 4 }}>
+          <Text style={{ color: '#6B7280', fontSize: 13, lineHeight: 19, marginTop: 4 }}>
             Abre cualquier capítulo en la{' '}
-            <Text style={{ color: '#E5E7EB', fontWeight: '600' }}>Biblia</Text> y activa el{' '}
-            <Text style={{ color: '#E5E7EB', fontWeight: '600' }}>switch "Strong"</Text> que aparece en la
+            <Text style={{ color: '#374151', fontWeight: '600' }}>Biblia</Text> y activa el{' '}
+            <Text style={{ color: '#374151', fontWeight: '600' }}>switch "Strong"</Text> que aparece en la
             parte superior, junto al buscador. Las palabras con número Strong quedarán subrayadas y en negrita.
           </Text>
         </View>
@@ -489,11 +489,11 @@ function NewsCard({ item }: { item: NewsItem }) {
         {/* Title + summary */}
         <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
           <View style={{ flex: 1, gap: 4 }}>
-            <Text style={{ color: '#F9FAFB', fontSize: 16, fontWeight: '800', letterSpacing: -0.3 }}>
+            <Text style={{ color: '#111827', fontSize: 16, fontWeight: '800', letterSpacing: -0.3 }}>
               {item.title}
             </Text>
             {!expanded && (
-              <Text style={{ color: '#9CA3AF', fontSize: 13, lineHeight: 19 }}>
+              <Text style={{ color: '#6B7280', fontSize: 13, lineHeight: 19 }}>
                 {item.summary}
               </Text>
             )}
@@ -532,10 +532,10 @@ export default function NovederadesScreen() {
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#080C14' }}>
+    <View style={{ flex: 1, backgroundColor: '#F8F9FA' }}>
       {/* Header */}
       <LinearGradient
-        colors={['#0F1624', '#080C14']}
+        colors={['#FFFFFF', '#F8F9FA']}
         style={{
           paddingTop: insets.top + 8,
           paddingBottom: 16,
@@ -550,16 +550,16 @@ export default function NovederadesScreen() {
               width: 38,
               height: 38,
               borderRadius: 19,
-              backgroundColor: 'rgba(255,255,255,0.08)',
+              backgroundColor: 'rgba(0,0,0,0.07)',
               alignItems: 'center',
               justifyContent: 'center',
               opacity: pressed ? 0.6 : 1,
             })}
           >
-            <ArrowLeft size={20} color="#E5E7EB" />
+            <ArrowLeft size={20} color="#374151" />
           </Pressable>
           <View>
-            <Text style={{ color: '#F9FAFB', fontSize: 22, fontWeight: '900', letterSpacing: -0.5 }}>
+            <Text style={{ color: '#111827', fontSize: 22, fontWeight: '900', letterSpacing: -0.5 }}>
               Novedades
             </Text>
             <Text style={{ color: '#6B7280', fontSize: 12, marginTop: 1 }}>
@@ -583,7 +583,7 @@ export default function NovederadesScreen() {
           <Text style={{ color: '#6B7280', fontSize: 11, fontWeight: '700', letterSpacing: 1 }}>
             ABRIL 2026
           </Text>
-          <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(255,255,255,0.06)' }} />
+          <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(0,0,0,0.08)' }} />
         </View>
 
         {NEWS_ITEMS.map((item) => (
@@ -592,8 +592,8 @@ export default function NovederadesScreen() {
 
         {/* Footer */}
         <View style={{ alignItems: 'center', marginTop: 8 }}>
-          <BookOpen size={16} color="#374151" />
-          <Text style={{ color: '#374151', fontSize: 11, marginTop: 6, textAlign: 'center' }}>
+          <BookOpen size={16} color="#9CA3AF" />
+          <Text style={{ color: '#9CA3AF', fontSize: 11, marginTop: 6, textAlign: 'center' }}>
             Más novedades aparecerán aquí con cada actualización
           </Text>
         </View>
