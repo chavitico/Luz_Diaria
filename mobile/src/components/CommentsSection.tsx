@@ -476,7 +476,7 @@ export function CommentsSection({
           {isPosting ? (
             <ActivityIndicator size="small" color={sendIconColor} />
           ) : (
-            <Send size={17} color={sendIconColor} />
+            <Send size={22} color={sendIconColor} />
           )}
         </Pressable>
       </View>
