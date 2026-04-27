@@ -1,15 +1,16 @@
 /**
  * ActionButton — the single canonical CTA component for the whole app.
  *
- * Root cause of the "invisible button" bug:
- *   useNativeDriver:true offloads the scale transform to iOS's GPU compositor.
- *   Any backgroundColor set on a *child* Pressable lives in the JS layer and
- *   gets dropped when the native layer takes over compositing.
- *   Fix: ALL visual styles (background, border, shadow, elevation) live on the
- *   Animated.View itself; the Pressable inside is layout-only + transparent.
+ * Uses react-native-reanimated (preferred per project conventions) for the
+ * scale animation. Static visual styles (backgroundColor, borders, shadows)
+ * live on the Animated.View in a plain style object, completely separate from
+ * the animated transform style returned by useAnimatedStyle. This is critical:
+ * mixing Animated.Value references and static values in the SAME style object
+ * caused RN's style extractor to silently drop backgroundColor on iOS in light
+ * mode when the value was first set during compositing setup.
  */
 
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   Pressable,
   Text,
@@ -20,8 +21,12 @@ import {
   type ViewStyle,
   type TextStyle,
   Platform,
-  Animated,
 } from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
 import { deriveButtonColors, deriveDisabledColors, contrastRatio, relativeLuminance } from '@/lib/contrast';
 import { useThemeColors, useIsDarkMode } from '@/lib/store';
 
@@ -122,7 +127,6 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     outerBorderColor = effectiveIsDark ? 'rgba(255,80,80,0.35)' : 'rgba(180,0,0,0.20)';
     borderColor = effectiveIsDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)';
   } else {
-    // primary (default)
     const base = fillColor ?? colors.primary;
     const { fill: pf, textColor: pt } = deriveButtonColors(base, resolvedSurface, effectiveIsDark);
     fill = pf;
@@ -131,7 +135,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     borderColor = effectiveIsDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.10)';
   }
 
-  // Safety guard: catch any edge case where fill doesn't contrast with surface
+  // Safety guard
   if (!disabled && variant !== 'ghost') {
     const finalContrast = contrastRatio(fill, resolvedSurface);
     if (!isFinite(finalContrast) || finalContrast < 2.5) {
@@ -140,57 +144,50 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     }
   }
 
-  // ── Press animation ────────────────────────────────────────────────────────
-  const scaleAnim = useRef(new Animated.Value(1)).current;
+  // ── Animation (react-native-reanimated) ───────────────────────────────────
+  // useSharedValue + useAnimatedStyle keeps the transform on the UI thread and
+  // completely separate from the static style object below — no mixed-mode issue.
+  const scale = useSharedValue(1);
+
+  const animatedTransform = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
 
   const handlePressIn = () => {
-    Animated.spring(scaleAnim, {
-      toValue: 0.97,
-      useNativeDriver: true,
-      speed: 50,
-      bounciness: 4,
-    }).start();
+    scale.value = withSpring(0.97, { stiffness: 400, damping: 30 });
   };
 
   const handlePressOut = () => {
-    Animated.spring(scaleAnim, {
-      toValue: 1,
-      useNativeDriver: true,
-      speed: 30,
-      bounciness: 6,
-    }).start();
+    scale.value = withSpring(1, { stiffness: 300, damping: 22 });
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────
-  // IMPORTANT: All visual styles (backgroundColor, borderRadius, border, shadow)
-  // are on the Animated.View, NOT the Pressable. When useNativeDriver:true is
-  // used, iOS composites the Animated.View as a native GPU layer. Styles on
-  // JS-layer children (Pressable) are dropped in that compositing pass, making
-  // backgroundColor invisible. Keeping all visuals on Animated.View fixes this.
+  // Static visual styles are in their own plain object — separate from the
+  // animated transform. Reanimated merges them cleanly without dropping any.
+
+  const staticStyle: ViewStyle = {
+    backgroundColor: fill,
+    borderRadius: tokens.borderRadius,
+    borderWidth: variant === 'ghost' ? 0 : 1.5,
+    borderColor,
+    ...(Platform.OS === 'ios' && variant !== 'ghost' && variant !== 'secondary' && !disabled ? {
+      shadowColor: '#000',
+      shadowOpacity: 0.18,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 4 },
+    } : {}),
+    ...(Platform.OS === 'android' && variant !== 'ghost' ? {
+      elevation: disabled ? 0 : 4,
+    } : {}),
+  };
 
   return (
     <Animated.View
       style={[
         fullWidth && { width: '100%' },
-        {
-          transform: [{ scale: scaleAnim }],
-          backgroundColor: fill,
-          borderRadius: tokens.borderRadius,
-          borderWidth: variant === 'ghost' ? 0 : 1.5,
-          borderColor,
-          // iOS shadow on the animated layer itself (not on a child)
-          ...(Platform.OS === 'ios' && variant !== 'ghost' && variant !== 'secondary' ? {
-            shadowColor: '#000000',
-            shadowOpacity: disabled ? 0.06 : 0.18,
-            shadowRadius: 8,
-            shadowOffset: { width: 0, height: 4 },
-          } : {}),
-          // Android elevation on the animated layer
-          ...(Platform.OS === 'android' && variant !== 'ghost' ? {
-            elevation: disabled ? 0 : 4,
-          } : {}),
-        },
+        staticStyle,
         style as ViewStyle,
+        animatedTransform,
       ]}
     >
       <Pressable
@@ -202,14 +199,13 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
         accessibilityLabel={label}
         accessibilityState={{ disabled, busy: loading }}
         style={({ pressed }) => ({
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
+          flexDirection: 'row' as const,
+          alignItems: 'center' as const,
+          justifyContent: 'center' as const,
           gap: tokens.gap,
           paddingVertical: tokens.paddingVertical,
           paddingHorizontal: tokens.paddingHorizontal,
           borderRadius: tokens.borderRadius,
-          // transparent — background lives on the Animated.View above
           backgroundColor: 'transparent',
           opacity: pressed && !disabled ? 0.88 : 1,
         })}
@@ -221,7 +217,10 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
             pointerEvents="none"
             style={{
               position: 'absolute',
-              top: 0, right: 0, bottom: 0, left: 0,
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
               borderRadius: tokens.borderRadius,
               borderWidth: 1,
               borderColor: outerBorderColor,
@@ -229,7 +228,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
           />
         )}
 
-        {/* Icon / Spinner / Label */}
+        {/* Content */}
         {loading ? (
           <ActivityIndicator size="small" color={textColor} />
         ) : (
