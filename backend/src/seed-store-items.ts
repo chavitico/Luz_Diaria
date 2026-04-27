@@ -1163,6 +1163,62 @@ export async function seedStoreItems() {
   });
   console.log('  Sobre de Milagros: processed');
 
+  // Seed Sobre de Héroes de la Fe (heroes 2026 event card pack - 3 cards per pack)
+  console.log('Seeding Sobre de Héroes de la Fe...');
+  await prisma.storeItem.upsert({
+    where: { id: 'pack_heroes' },
+    update: {
+      nameEn: 'Heroes of Faith Pack',
+      nameEs: 'Sobre de Héroes de la Fe',
+      descriptionEn: 'Contains 3 cards from the Heroes of Faith collection. Legendary figures of the Old Testament.',
+      descriptionEs: 'Contiene 3 cartas de la colección Héroes de la Fe. Figuras legendarias del Antiguo Testamento.',
+      pricePoints: 1000,
+      rarity: 'epic',
+      type: 'consumable',
+      available: true,
+      category: 'special_objects',
+      subcategory: 'cartas_biblicas',
+      isNew: true,
+      metadata: JSON.stringify({
+        icon: '⚔️',
+        consumable: true,
+        repeatablePurchase: true,
+        cardPack: true,
+        eventPack: true,
+        eventSet: 'heroes_2026',
+        isEventActive: true,
+        cardsPerPack: 3,
+      }),
+    },
+    create: {
+      id: 'pack_heroes',
+      type: 'consumable',
+      nameEn: 'Heroes of Faith Pack',
+      nameEs: 'Sobre de Héroes de la Fe',
+      descriptionEn: 'Contains 3 cards from the Heroes of Faith collection. Legendary figures of the Old Testament.',
+      descriptionEs: 'Contiene 3 cartas de la colección Héroes de la Fe. Figuras legendarias del Antiguo Testamento.',
+      pricePoints: 1000,
+      rarity: 'epic',
+      assetRef: 'pack_heroes',
+      category: 'special_objects',
+      subcategory: 'cartas_biblicas',
+      isNew: true,
+      metadata: JSON.stringify({
+        icon: '⚔️',
+        consumable: true,
+        repeatablePurchase: true,
+        cardPack: true,
+        eventPack: true,
+        eventSet: 'heroes_2026',
+        isEventActive: true,
+        cardsPerPack: 3,
+      }),
+      sortOrder: 10003,
+      available: true,
+    },
+  });
+  console.log('  Sobre de Héroes de la Fe: processed');
+
   // Summary
   const totalItems = THEMES.length + THEMES_V2.length + THEMES_CHAPTER.length + FRAMES.length + FRAMES_V2.length + FRAMES_CHAPTER.length + MUSIC_TRACKS.length + TITLES.length + TITLES_CHAPTER.length + AVATARS.length + AVATARS_V2.length + AVATARS_L2.length + AVATARS_CHAPTER.length;
   console.log('\n========================================');

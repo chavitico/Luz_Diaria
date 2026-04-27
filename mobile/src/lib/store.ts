@@ -70,9 +70,9 @@ interface AppState {
   // consumed by _layout.tsx PackRevealOverlay (rendered above all navigation).
   packRevealRequest: {
     drawnCards: Array<{ cardId: string; wasNew: boolean }>;
-    packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros';
+    packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' | 'pack_heroes';
   } | null;
-  requestPackReveal: (req: { drawnCards: Array<{ cardId: string; wasNew: boolean }>; packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' }) => void;
+  requestPackReveal: (req: { drawnCards: Array<{ cardId: string; wasNew: boolean }>; packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' | 'pack_heroes' }) => void;
   clearPackRevealRequest: () => void;
 
   // Root-level purchase confirmation — consumed by _layout.tsx overlay (above all modals/navigation).

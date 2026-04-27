@@ -1068,6 +1068,28 @@ gamificationRouter.post(
           drawnCard = drawnCards[0];
         }
 
+        // === Special: pack_heroes - draw 3 random Héroes de la Fe 2026 cards ===
+        if (itemId === 'pack_heroes') {
+          // Only cards belonging to eventSet="heroes_2026" (excludes secret reward card).
+          // Keep this list in sync with HEROES_2026_POOL_IDS in mobile/src/lib/biblical-cards.ts.
+          const HEROES_POOL: string[] = [
+            'noe_contra_corriente', 'abraham_cree_imposible', 'abraham_isaac_entrega',
+            'jacob_marcado_cambiar', 'jose_del_pozo', 'moises_llamado_inesperado',
+            'mar_rojo_camino', 'sinai_dios_habla', 'josue_obediencia_ilogica',
+            'rahab_fe_rescata', 'gedeon_menos_es_mas', 'debora_liderar_fe',
+            'sanson_fuerza_sin_control', 'samuel_habla_senor', 'david_gigantes_caen',
+            'david_corazon_correcto', 'elias_fuego_cielo', 'elias_en_secreto',
+            'eliseo_dios_provee', 'jonas_huir_no_funciona', 'jonas_dios_misericordia',
+            'daniel_fe_firme', 'horno_fuego_firme', 'ester_para_este_momento',
+            'nehemias_reconstruir',
+          ];
+          const CARDS_PER_PACK = 3;
+          for (let i = 0; i < CARDS_PER_PACK; i++) {
+            drawnCards.push(await drawOneCard(HEROES_POOL, userId, tx));
+          }
+          drawnCard = drawnCards[0];
+        }
+
         return { item, newPoints, drawnCard, drawnCards };
       });
 
@@ -3229,6 +3251,7 @@ gamificationRouter.patch("/biblical-cards/:userId/:cardId/seen", async (c) => {
 const COLLECTION_REWARD_MAP: Record<string, { secretCardId: string; bonusPoints: number }> = {
   pascua_2026: { secretCardId: 'jesus_resucitado', bonusPoints: 1000 },
   milagros_2026: { secretCardId: 'reino_de_dios', bonusPoints: 2000 },
+  heroes_2026: { secretCardId: 'jesus_autor_fe', bonusPoints: 2500 },
 };
 
 // POST /biblical-cards/collection-reward
@@ -3264,6 +3287,28 @@ gamificationRouter.post(
           'entrada_jerusalen', 'burrito', 'ultima_cena', 'getsemani', 'judas',
           'arresto', 'poncio_pilato', 'barrabas', 'camino_calvario', 'crucifixion',
           'velo_rasgado', 'tumba_sellada', 'resurreccion', 'tomas',
+        ],
+        milagros_2026: [
+          'agua_en_vino', 'pesca_milagrosa', 'sanidad_leproso', 'sanidad_paralitico',
+          'sanidad_centurion', 'sanidad_suegra_pedro', 'mano_seca', 'diez_leprosos',
+          'sordomudo', 'ciego_betsaida', 'multiplicacion_panes', 'moneda_pez',
+          'calma_tormenta', 'higuera_maldita', 'red_peces', 'alimenta_4000',
+          'liberacion_demonio', 'nina_resucitada',
+          'caminar_agua', 'ciego_nacimiento', 'hijo_viuda_nain', 'endemoniado_gadareno',
+          'mujer_flujo', 'jesus_desaparece', 'tempestad_calmada',
+          'resurreccion_lazaro', 'transfiguracion', 'jesus_aparece_resucitado',
+          'jesus_glorificado',
+        ],
+        heroes_2026: [
+          'noe_contra_corriente', 'abraham_cree_imposible', 'abraham_isaac_entrega',
+          'jacob_marcado_cambiar', 'jose_del_pozo', 'moises_llamado_inesperado',
+          'mar_rojo_camino', 'sinai_dios_habla', 'josue_obediencia_ilogica',
+          'rahab_fe_rescata', 'gedeon_menos_es_mas', 'debora_liderar_fe',
+          'sanson_fuerza_sin_control', 'samuel_habla_senor', 'david_gigantes_caen',
+          'david_corazon_correcto', 'elias_fuego_cielo', 'elias_en_secreto',
+          'eliseo_dios_provee', 'jonas_huir_no_funciona', 'jonas_dios_misericordia',
+          'daniel_fe_firme', 'horno_fuego_firme', 'ester_para_este_momento',
+          'nehemias_reconstruir',
         ],
       };
       const requiredCards = COLLECTION_CARD_IDS[collectionId] ?? [];
@@ -3698,7 +3743,7 @@ gamificationRouter.post(
   "/daily-pack/claim",
   zValidator("json", z.object({
     userId: z.string(),
-    packType: z.enum(["sobre_biblico", "pack_pascua", "pack_milagros"]),
+    packType: z.enum(["sobre_biblico", "pack_pascua", "pack_milagros", "pack_heroes"]),
   })),
   async (c) => {
     try {
@@ -3739,11 +3784,25 @@ gamificationRouter.post(
           'resurreccion_lazaro', 'transfiguracion', 'jesus_aparece_resucitado',
           'jesus_glorificado',
         ];
+        const HEROES_POOL = [
+          'noe_contra_corriente', 'abraham_cree_imposible', 'abraham_isaac_entrega',
+          'jacob_marcado_cambiar', 'jose_del_pozo', 'moises_llamado_inesperado',
+          'mar_rojo_camino', 'sinai_dios_habla', 'josue_obediencia_ilogica',
+          'rahab_fe_rescata', 'gedeon_menos_es_mas', 'debora_liderar_fe',
+          'sanson_fuerza_sin_control', 'samuel_habla_senor', 'david_gigantes_caen',
+          'david_corazon_correcto', 'elias_fuego_cielo', 'elias_en_secreto',
+          'eliseo_dios_provee', 'jonas_huir_no_funciona', 'jonas_dios_misericordia',
+          'daniel_fe_firme', 'horno_fuego_firme', 'ester_para_este_momento',
+          'nehemias_reconstruir',
+        ];
 
-        const pool = packType === 'pack_pascua' ? PASCUA_POOL : packType === 'pack_milagros' ? MILAGROS_POOL : CARD_POOL;
+        const pool = packType === 'pack_pascua' ? PASCUA_POOL
+          : packType === 'pack_milagros' ? MILAGROS_POOL
+          : packType === 'pack_heroes' ? HEROES_POOL
+          : CARD_POOL;
 
-        // pack_milagros gives 3 cards (same as purchased); others give 1
-        const cardsToDrawCount = packType === 'pack_milagros' ? 3 : 1;
+        // pack_milagros and pack_heroes give 3 cards; others give 1
+        const cardsToDrawCount = (packType === 'pack_milagros' || packType === 'pack_heroes') ? 3 : 1;
         const drawnCards: Array<{ cardId: string; wasNew: boolean }> = [];
 
         for (let i = 0; i < cardsToDrawCount; i++) {

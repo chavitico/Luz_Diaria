@@ -134,6 +134,7 @@ import { CollectionDetailModal } from '@/components/store/modals/CollectionDetai
 import { BiblicalPackCard } from '@/components/store/cards/BiblicalPackCard';
 import { EasterPackCard } from '@/components/store/cards/EasterPackCard';
 import { MilagrosPackCard } from '@/components/store/cards/MilagrosPackCard';
+import { HeroesPackCard } from '@/components/store/cards/HeroesPackCard';
 import { TokenItemCard } from '@/components/store/cards/TokenItemCard';
 
 const DUEL_BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
@@ -2932,7 +2933,7 @@ function DailyPackBanner({
   language: 'en' | 'es';
   isEventActive: boolean;
   disabled?: boolean;
-  onClaim: (packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros') => void;
+  onClaim: (packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' | 'pack_heroes') => void;
   onClaimPress?: () => void;
 }) {
   const { sFont } = useScaledFont();
@@ -3160,7 +3161,7 @@ export default function StoreScreen() {
   // Pending pack reveal: set on purchase success, dispatched to root layer after sheet fully closes
   const [pendingPackReveal, setPendingPackReveal] = useState<{
     drawnCards: Array<{ cardId: string; wasNew: boolean }>;
-    packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros';
+    packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' | 'pack_heroes';
   } | null>(null);
   const requestPackReveal = useRequestPackReveal();
   const requestConfirmPurchase = useRequestConfirmPurchase();
@@ -3921,7 +3922,7 @@ export default function StoreScreen() {
     (t: { toUserId: string; status: string }) => t.toUserId === userId && t.status === 'pending'
   ).length;
 
-  const handleClaimDailyPack = useCallback(async (packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros') => {
+  const handleClaimDailyPack = useCallback(async (packType: 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' | 'pack_heroes') => {
     if (!userId || isDailyPackClaiming.current) return;
     if (!dailyPackStatus?.canClaim) return;
     isDailyPackClaiming.current = true;

@@ -39,6 +39,8 @@ import { initCardImageCache, downloadCollection } from '@/lib/card-image-cache';
     require('../../assets/packs/pack_pascua_card_back.png'),
     require('../../assets/packs/pack_milagros_pack.png'),
     require('../../assets/packs/pack_milagros_card_back.png'),
+    require('../../assets/packs/pack_heroes_pack.png'),
+    require('../../assets/packs/pack_heroes_card_back.png'),
   ];
   // Image is already imported above from react-native
   for (const asset of packAssets) {

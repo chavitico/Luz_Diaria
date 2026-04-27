@@ -116,7 +116,7 @@ type Phase =
   | 'rarity_reveal'
   | 'final';
 
-type PackType = 'sobre_biblico' | 'pack_pascua' | 'pack_milagros';
+type PackType = 'sobre_biblico' | 'pack_pascua' | 'pack_milagros' | 'pack_heroes';
 
 export interface PackOpeningModalProps {
   visible: boolean;
@@ -166,6 +166,14 @@ const PACK_CONFIG: Record<PackType, {
     borderColor: '#D4AF37',
     glowColor: '#D4AF37',
     emoji: '✨',
+  },
+  pack_heroes: {
+    label: 'Héroes de la Fe',
+    gradientTop: '#1A1000',
+    gradientBottom: '#0A0800',
+    borderColor: '#D4AF37',
+    glowColor: '#D4AF37',
+    emoji: '⚔️',
   },
 };
 
@@ -263,6 +271,12 @@ const PACK_ASSETS: Record<PackType, {
     pack:     require('../../assets/packs/pack_milagros_pack.png') as ImageSourcePropType,
     cardBack: require('../../assets/packs/pack_milagros_card_back.png') as ImageSourcePropType,
     glowColor: '#60A5FA',
+    cardBackDelayMs: 1500,
+  },
+  pack_heroes: {
+    pack:     require('../../assets/packs/pack_heroes_pack.png') as ImageSourcePropType,
+    cardBack: require('../../assets/packs/pack_heroes_card_back.png') as ImageSourcePropType,
+    glowColor: '#D4AF37',
     cardBackDelayMs: 1500,
   },
 };
