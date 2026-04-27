@@ -165,14 +165,16 @@ async function removeFromRecentHighlights(key: string): Promise<void> {
 // ─── Verse Row ────────────────────────────────────────────────────────────────
 
 function VerseRow({
-  number, text, colors, highlightColor, isFlashing, onLongPress,
-  strongMode, verseId, onStrongWordPress, onNoStrongWordPress,
+  number, text, colors, highlightColor, isFlashing, onLongPress, onPress,
+  isActiveTTS, strongMode, verseId, onStrongWordPress, onNoStrongWordPress,
 }: {
   number: number; text: string;
   colors: ReturnType<typeof useThemeColors>;
   highlightColor: HighlightColor | undefined;
   isFlashing: boolean;
   onLongPress: (v: number) => void;
+  onPress?: (v: number) => void;
+  isActiveTTS?: boolean;
   strongMode: boolean;
   verseId: string;
   onStrongWordPress: (strongId: string) => void;
@@ -208,6 +210,7 @@ function VerseRow({
 
   return (
     <Pressable
+      onPress={() => { if (onPress) onPress(number); }}
       onLongPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); onLongPress(number); }}
       onPressIn={() => { scale.value = withSpring(0.99); }}
       onPressOut={() => { scale.value = withSpring(1); }}
@@ -220,12 +223,19 @@ function VerseRow({
             flexDirection: 'row',
             paddingHorizontal: 20,
             paddingVertical: 8,
-            borderRadius: (highlightColor || isFlashing) ? 6 : 0,
-            marginHorizontal: (highlightColor || isFlashing) ? 8 : 0,
-            marginVertical: (highlightColor || isFlashing) ? 1 : 0,
+            borderRadius: (highlightColor || isFlashing || isActiveTTS) ? 6 : 0,
+            marginHorizontal: (highlightColor || isFlashing || isActiveTTS) ? 8 : 0,
+            marginVertical: (highlightColor || isFlashing || isActiveTTS) ? 1 : 0,
           },
         ]}
       >
+        {isActiveTTS && !highlightColor && !isFlashing && (
+          <View style={{
+            position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: colors.primary + '18',
+            borderRadius: 6,
+          }} />
+        )}
         {/* Verse number */}
         <Text
           style={{
@@ -977,7 +987,12 @@ export default function BibleScreen() {
 
   // TTS
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [currentTTSVerse, setCurrentTTSVerse] = useState<number>(-1);
   const ttsJobRef = useRef(0);
+  const isSpeakingRef = useRef(false);
+  const ttsVoiceRef = useRef<string | undefined>(undefined);
+  const langRef = useRef(lang);
+  useEffect(() => { langRef.current = lang; ttsVoiceRef.current = undefined; }, [lang]);
 
   // In-reader version switching animation
   const [contentKey, setContentKey] = useState(0);
@@ -1051,6 +1066,13 @@ export default function BibleScreen() {
 
   // ── Chapter loader ────────────────────────────────────────────────
   const loadChapter = useCallback(async (book: BibleBook, chapter: number, targetVerse?: number, versionOverride?: BibleVersion) => {
+    // Stop any running TTS when navigating to a new chapter
+    if (isSpeakingRef.current) {
+      isSpeakingRef.current = false;
+      Speech.stop();
+      setIsSpeaking(false);
+      setCurrentTTSVerse(-1);
+    }
     const version = versionOverride ?? selectedVersion;
     setSelectedBook(book);
     setSelectedChapter(chapter);
@@ -1235,39 +1257,97 @@ export default function BibleScreen() {
     setHighlightPickerVerse(null);
   }, [selectedBook, selectedChapter, highlightPickerVerse, highlights]);
 
-  // TTS
+  // TTS — verse-by-verse playback
+  const speakVerseByIndex = useCallback((verseIdx: number, verses: { number: number; text: string }[], jobId: number) => {
+    if (!isSpeakingRef.current || jobId !== ttsJobRef.current) return;
+    if (verseIdx >= verses.length) {
+      setIsSpeaking(false);
+      isSpeakingRef.current = false;
+      setCurrentTTSVerse(-1);
+      return;
+    }
+    const verse = verses[verseIdx];
+    setCurrentTTSVerse(verse.number);
+    const l = langRef.current;
+    const processed = applyBiblicalPronunciations(preprocessNumbersForTTS(sanitizeForTTS(verse.text)), l);
+    Speech.speak(processed, {
+      language: l === 'es' ? 'es-MX' : 'en-US',
+      voice: ttsVoiceRef.current,
+      rate: 0.9,
+      onDone: () => {
+        setTimeout(() => {
+          if (jobId === ttsJobRef.current && isSpeakingRef.current)
+            speakVerseByIndex(verseIdx + 1, verses, jobId);
+        }, 180);
+      },
+      onError: () => {
+        setTimeout(() => {
+          if (jobId === ttsJobRef.current && isSpeakingRef.current)
+            speakVerseByIndex(verseIdx + 1, verses, jobId);
+        }, 180);
+      },
+    });
+  }, []);
+
+  const startTTSFromVerse = useCallback(async (verseNumber: number) => {
+    if (!chapterData?.verses.length) return;
+    isSpeakingRef.current = false;
+    await Speech.stop();
+    const jobId = ++ttsJobRef.current;
+    try {
+      if (!ttsVoiceRef.current) {
+        const picked = await pickBestVoice(langRef.current);
+        ttsVoiceRef.current = picked.voiceIdentifier ?? undefined;
+      }
+    } catch { /* use default voice */ }
+    const startIdx = chapterData.verses.findIndex(v => v.number === verseNumber);
+    if (startIdx === -1) return;
+    setIsSpeaking(true);
+    isSpeakingRef.current = true;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    speakVerseByIndex(startIdx, chapterData.verses, jobId);
+  }, [chapterData, speakVerseByIndex]);
+
   const handleTTS = useCallback(async () => {
-    if (isSpeaking) { await Speech.stop(); setIsSpeaking(false); return; }
+    if (isSpeaking) {
+      isSpeakingRef.current = false;
+      await Speech.stop();
+      setIsSpeaking(false);
+      setCurrentTTSVerse(-1);
+      return;
+    }
     if (!chapterData?.verses.length) return;
     const jobId = ++ttsJobRef.current;
     setIsSpeaking(true);
+    isSpeakingRef.current = true;
     try {
       const picked = await pickBestVoice(lang);
-      // Join verses with a natural pause — no verse numbers so TTS doesn't read them
-      const fullText = chapterData.verses.map(v => v.text).join(' ');
-      const processed = applyBiblicalPronunciations(preprocessNumbersForTTS(sanitizeForTTS(fullText)), lang);
-      Speech.speak(processed, {
-        language: lang === 'es' ? 'es-MX' : 'en-US',
-        voice: picked.voiceIdentifier ?? undefined, rate: 0.9,
-        onDone: () => { if (ttsJobRef.current === jobId) setIsSpeaking(false); },
-        onStopped: () => { if (ttsJobRef.current === jobId) setIsSpeaking(false); },
-        onError: () => { if (ttsJobRef.current === jobId) setIsSpeaking(false); },
-      });
-    } catch { setIsSpeaking(false); }
-  }, [isSpeaking, chapterData, lang]);
+      ttsVoiceRef.current = picked.voiceIdentifier ?? undefined;
+    } catch { /* use default voice */ }
+    speakVerseByIndex(0, chapterData.verses, jobId);
+  }, [isSpeaking, chapterData, lang, speakVerseByIndex]);
 
   // Chapter prev/next navigation
+  const stopTTS = useCallback(() => {
+    if (isSpeakingRef.current) {
+      isSpeakingRef.current = false;
+      Speech.stop();
+      setIsSpeaking(false);
+      setCurrentTTSVerse(-1);
+    }
+  }, []);
+
   const handlePrevChapter = useCallback(() => {
     if (!selectedBook || !selectedChapter || selectedChapter <= 1) return;
-    if (isSpeaking) { Speech.stop(); setIsSpeaking(false); }
+    stopTTS();
     loadChapter(selectedBook, selectedChapter - 1);
-  }, [selectedBook, selectedChapter, isSpeaking, loadChapter]);
+  }, [selectedBook, selectedChapter, stopTTS, loadChapter]);
 
   const handleNextChapter = useCallback(() => {
     if (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) return;
-    if (isSpeaking) { Speech.stop(); setIsSpeaking(false); }
+    stopTTS();
     loadChapter(selectedBook, selectedChapter + 1);
-  }, [selectedBook, selectedChapter, isSpeaking, loadChapter]);
+  }, [selectedBook, selectedChapter, stopTTS, loadChapter]);
 
   // Header
   const headerTitle = useMemo(() => {
@@ -1587,6 +1667,8 @@ export default function BibleScreen() {
                       }
                       isFlashing={flashVerse === verse.number}
                       onLongPress={handleLongPressVerse}
+                      onPress={strongModeActive ? undefined : startTTSFromVerse}
+                      isActiveTTS={currentTTSVerse === verse.number}
                       strongMode={strongModeActive}
                       verseId={selectedBook && selectedChapter ? `${selectedBook.id}_${selectedChapter}_${verse.number}` : ''}
                       onStrongWordPress={handleStrongWordPress}
