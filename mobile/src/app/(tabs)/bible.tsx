@@ -166,7 +166,7 @@ async function removeFromRecentHighlights(key: string): Promise<void> {
 
 function VerseRow({
   number, text, colors, highlightColor, isFlashing, onLongPress,
-  strongMode, verseId, onStrongWordPress,
+  strongMode, verseId, onStrongWordPress, onNoStrongWordPress,
 }: {
   number: number; text: string;
   colors: ReturnType<typeof useThemeColors>;
@@ -176,6 +176,7 @@ function VerseRow({
   strongMode: boolean;
   verseId: string;
   onStrongWordPress: (strongId: string) => void;
+  onNoStrongWordPress?: () => void;
 }) {
   const scale = useSharedValue(1);
   const flashBg = useSharedValue(0);
@@ -202,8 +203,6 @@ function VerseRow({
     const links = getVerseWordLinks(verseId);
     return enrichTokensWithStrong(raw, links);
   }, [strongMode, text, verseId]);
-
-  const hasAnyLink = strongMode && tokens.some(t => t.strongId != null);
 
   const textColor = highlightColor ? '#1C1917' : colors.text;
 
@@ -239,9 +238,9 @@ function VerseRow({
         </Text>
 
         {/* Verse text — plain or Strong-enriched */}
-        {strongMode && hasAnyLink ? (
-          // Strong mode: flex-wrap row so each linked word is an independent Pressable.
-          // This avoids the parent Pressable (onLongPress) absorbing child touch events on iOS.
+        {strongMode ? (
+          // Strong mode: flex-wrap row so each word is an independent Pressable.
+          // Words with a Strong ID open the lexicon; words without show a brief toast.
           <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
             {tokens.map((token, i) => {
               const wordText = token.word + (token.hasSpace ? ' ' : '');
@@ -251,7 +250,6 @@ function VerseRow({
                   <Pressable
                     key={i}
                     onPress={() => {
-                      console.log('[Strong] tapped:', token.word, '→', sid);
                       Haptics.selectionAsync();
                       onStrongWordPress(sid);
                     }}
@@ -276,17 +274,23 @@ function VerseRow({
                 );
               }
               return (
-                <Text
+                <Pressable
                   key={i}
-                  style={{
-                    fontSize: 17,
-                    lineHeight: 28,
-                    color: textColor,
-                    fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-                  }}
+                  onPress={() => onNoStrongWordPress?.()}
+                  hitSlop={4}
+                  style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
                 >
-                  {wordText}
-                </Text>
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      lineHeight: 28,
+                      color: textColor,
+                      fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+                    }}
+                  >
+                    {wordText}
+                  </Text>
+                </Pressable>
               );
             })}
           </View>
@@ -983,6 +987,18 @@ export default function BibleScreen() {
   const [strongModeActive, setStrongModeActive] = useState(false);
   const [strongFavorites, setStrongFavorites] = useState<Set<string>>(new Set());
   const [strongSheetEntry, setStrongSheetEntry] = useState<StrongEntry | null>(null);
+  const noStrongToastOpacity = useSharedValue(0);
+  const noStrongToastAnim = useAnimatedStyle(() => ({ opacity: noStrongToastOpacity.value }));
+  const noStrongTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleNoStrongWordPress = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    if (noStrongTimerRef.current) clearTimeout(noStrongTimerRef.current);
+    noStrongToastOpacity.value = withTiming(1, { duration: 150 });
+    noStrongTimerRef.current = setTimeout(() => {
+      noStrongToastOpacity.value = withTiming(0, { duration: 400 });
+    }, 2000);
+  }, [noStrongToastOpacity]);
 
   const handleStrongWordPress = useCallback((strongId: string) => {
     const entry = getStrongEntry(strongId);
@@ -1014,7 +1030,10 @@ export default function BibleScreen() {
     loadStrongModeState().then(setStrongModeActive);
     loadStrongFavorites().then(setStrongFavorites);
     validateBibleDataLoad();
-    return () => { if (flashTimerRef.current) clearTimeout(flashTimerRef.current); };
+    return () => {
+      if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
+      if (noStrongTimerRef.current) clearTimeout(noStrongTimerRef.current);
+    };
   }, []);
 
   // Filtered books for 'books' view
@@ -1571,9 +1590,41 @@ export default function BibleScreen() {
                       strongMode={strongModeActive}
                       verseId={selectedBook && selectedChapter ? `${selectedBook.id}_${selectedChapter}_${verse.number}` : ''}
                       onStrongWordPress={handleStrongWordPress}
+                      onNoStrongWordPress={strongModeActive ? handleNoStrongWordPress : undefined}
                     />
                   ))}
                 </ScrollView>
+              </Animated.View>
+
+              {/* ── No-Strong toast ── */}
+              <Animated.View
+                pointerEvents="none"
+                style={[noStrongToastAnim, {
+                  position: 'absolute',
+                  bottom: Platform.OS === 'ios' ? 136 : 118,
+                  left: 32, right: 32,
+                  backgroundColor: colors.surface,
+                  borderRadius: 14,
+                  paddingVertical: 10,
+                  paddingHorizontal: 14,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 8,
+                  shadowColor: '#000',
+                  shadowOpacity: 0.12,
+                  shadowRadius: 10,
+                  shadowOffset: { width: 0, height: 4 },
+                  elevation: 8,
+                  borderWidth: 1,
+                  borderColor: colors.textMuted + '28',
+                }]}
+              >
+                <BookText size={14} color={colors.textMuted} />
+                <Text style={{ flex: 1, fontSize: 13, fontWeight: '500', color: colors.textMuted }}>
+                  {lang === 'es'
+                    ? 'Esta palabra no tiene número Strong asignado'
+                    : 'This word has no Strong number assigned'}
+                </Text>
               </Animated.View>
 
               {/* ── Chapter navigation — floating edge buttons ── */}

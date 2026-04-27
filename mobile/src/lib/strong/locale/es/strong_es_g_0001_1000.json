@@ -4,7 +4,8 @@
     "glossesEs": [
       "alfa",
       "primero"
-    ]
+    ],
+    "longDefinitionEs": "Primera letra del alfabeto griego que, junto con omega (Ω), simboliza la totalidad. En Apocalipsis 1:8, Cristo se declara 'el Alfa y la Omega', expresando su eternidad y señorío absoluto sobre el principio y fin de todas las cosas. Esta imagen profunda revela que Jesús es el origen y consumación de la historia redentora."
   },
   "G2": {
     "shortDefinitionEs": "Aarón: hermano de Moisés (Aarṓn)",
@@ -61,13 +62,15 @@
     "shortDefinitionEs": "Abiud: israelita (Abioúd)",
     "glossesEs": [
       "Abiud"
-    ]
+    ],
+    "longDefinitionEs": "Nombre propio que aparece en la genealogía de Jesús según Mateo 1:13, descendiente de Zorobabel en la línea post-exílica. De origen hebreo (Abiud significa 'mi padre es majestad'), este ancestro de Cristo conecta la promesa davídica con su cumplimiento mesiánico."
   },
   "G11": {
     "shortDefinitionEs": "Abraham: patriarca hebreo (Abraám)",
     "glossesEs": [
       "Abraham"
-    ]
+    ],
+    "longDefinitionEs": "Nombre propio Ἀβραάμ (Abraám), del hebreo אַבְרָהָם (padre de multitudes), designa al patriarca fundador del pueblo hebreo. Es figura central en Romanos 4 como padre de la fe y modelo de justificación por creer en Dios. Su linaje conecta el Antiguo Testamento con Cristo, siendo llamado amigo de Dios y ejemplo supremo de obediencia."
   },
   "G12": {
     "shortDefinitionEs": "abismo, sima, pozo sin fondo (ábyssos)",
@@ -701,14 +704,16 @@
     "glossesEs": [
       "abundancia",
       "generosidad"
-    ]
+    ],
+    "longDefinitionEs": "Palabra derivada de 'hadrós' (robusto, abundante) que denota generosidad y liberalidad en dar. Pablo emplea este término en 2 Corintios 8:20 al referirse a la ofrenda abundante recolectada para los santos necesitados, destacando la virtud cristiana de dar con largueza y corazón generoso."
   },
   "G101": {
     "shortDefinitionEs": "Ser imposible, no poder (adynatéō)",
     "glossesEs": [
       "imposible",
       "impotencia"
-    ]
+    ],
+    "longDefinitionEs": "Verbo derivado de 'adýnatos' (imposible) que expresa incapacidad o imposibilidad. Jesús declara en Mateo 19:26 que 'para los hombres esto es imposible, mas para Dios todo es posible', revelando que la salvación humana depende enteramente del poder divino, no del esfuerzo personal."
   },
   "G102": {
     "shortDefinitionEs": "Impotente, débil, imposible (adýnatos)",
@@ -716,26 +721,30 @@
       "impotente",
       "débil",
       "imposible"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo compuesto por la partícula negativa 'a' y 'dynatos' (poderoso), significando sin poder o capacidad, ya sea física, moral o circunstancialmente. Se aplica tanto a debilidad humana como a lo que es absolutamente imposible, como en Mateo 19:26 donde Jesús declara que 'para los hombres esto es imposible, mas para Dios todo es posible', estableciendo el contraste entre la limitación humana y l"
   },
   "G103": {
     "shortDefinitionEs": "Cantar, entonar (áidō)",
     "glossesEs": [
       "cantar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primario que significa cantar o entonar, especialmente en contexto de adoración y alabanza. Aparece en Efesios 5:19 y Colosenses 3:16 donde Pablo exhorta a los creyentes a cantar salmos, himnos y cánticos espirituales. El canto en las Escrituras es expresión natural de gozo, celebración y devoción a Dios, siendo medio por el cual la verdad divina se arraiga en el corazón y la comunidad se ed"
   },
   "G104": {
     "shortDefinitionEs": "Siempre, continuamente, perpetuamente (aeí)",
     "glossesEs": [
       "siempre",
       "perpetuamente"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de origen antiguo que expresa continuidad temporal sin interrupción, significando 'siempre' o 'perpetuamente'. Se usa para enfatizar la constancia o regularidad de una acción o estado. En Tito 1:12 describe un testimonio constante, y en Hebreos 3:10 la persistencia de Israel en el error, destacando patrones de conducta permanentes."
   },
   "G105": {
     "shortDefinitionEs": "Águila, ave rapaz (aetós)",
     "glossesEs": [
       "águila"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo relacionado con ἀήρ (G109, aire) que designa al águila, ave rapaz caracterizada por su vuelo majestuoso a gran altura. En Apocalipsis 4:7 una de las criaturas vivientes tiene apariencia de águila volando, y en 12:14 simboliza la protección divina. Representa visión aguda, fuerza y renovación espiritual."
   },
   "G106": {
     "shortDefinitionEs": "Sin levadura, puro; Pascua (ázymos)",
@@ -743,53 +752,61 @@
       "sin levadura",
       "ácimo",
       "Pascua"
-    ]
+    ],
+    "longDefinitionEs": "Término compuesto del prefijo negativo 'a' y 'zymos' (levadura), significa literalmente 'sin levadura'. En el contexto bíblico se refiere tanto al pan sin fermentar usado en la Pascua como símbolo de pureza y sinceridad espiritual. Pablo exhorta en 1 Corintios 5:7-8 a vivir como 'pan sin levadura', libres de la 'levadura' del pecado y la hipocresía, reflejando la santidad que Cristo demanda."
   },
   "G107": {
     "shortDefinitionEs": "Azor: israelita en genealogía (Azṓr)",
     "glossesEs": [
       "Azor"
-    ]
+    ],
+    "longDefinitionEs": "Azor (Azṓr) es un nombre de origen hebreo que aparece en la genealogía de Jesucristo registrada en Mateo 1:13-14. Este personaje forma parte del linaje davídico en el período post-exílico, entre Sadoc y Aquim. Su inclusión en la genealogía mesiánica subraya la continuidad del plan redentor de Dios a través de generaciones, aun en tiempos de aparente oscuridad histórica."
   },
   "G108": {
     "shortDefinitionEs": "Azoto, ciudad en Palestina (Ázōtos)",
     "glossesEs": [
       "Azoto",
       "Ashdod"
-    ]
+    ],
+    "longDefinitionEs": "Azoto (Ázōtos) es el nombre griego de Asdod, antigua ciudad filistea en la costa de Palestina. En Hechos 8:40, Felipe aparece en Azoto después de evangelizar al eunuco etíope, demostrando cómo el evangelio se expandía a regiones tradicionalmente gentiles. Esta ciudad, una de las cinco principales de los filisteos, representa la conquista espiritual de territorios antes ajenos al pueblo de Dios."
   },
   "G109": {
     "shortDefinitionEs": "aire, atmósfera que rodea (aḗr)",
     "glossesEs": [
       "aire"
-    ]
+    ],
+    "longDefinitionEs": "Del griego ἀήρ (aḗr), designa el aire o atmósfera que naturalmente rodea la tierra y respiramos inconscientemente. Pablo lo usa en Efesios 2:2 al referirse al príncipe de la potestad del aire, y en 1 Tesalonicenses 4:17 describe el encuentro con Cristo en las nubes del aire. Representa el espacio intermedio entre el cielo y la tierra donde operan fuerzas espirituales."
   },
   "G110": {
     "shortDefinitionEs": "inmortalidad, cualidad de no morir (athanasía)",
     "glossesEs": [
       "inmortalidad"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo ἀθανασία (athanasía), compuesto del prefijo negativo α y θάνατος (muerte), significa inmortalidad o incapacidad de morir. En 1 Corintios 15:53-54 Pablo proclama que en la resurrección lo mortal se vestirá de inmortalidad. Representa la esperanza cristiana de vida eterna incorruptible que Dios otorga mediante Cristo."
   },
   "G111": {
     "shortDefinitionEs": "ilegal, abominable, execrable (athémitos)",
     "glossesEs": [
       "ilegal",
       "abominable"
-    ]
+    ],
+    "longDefinitionEs": "Compuesto del prefijo negativo 'a' y un derivado de tithēmi (establecer ley), significa lo que está fuera de los límites establecidos por la ley divina. Pedro lo emplea en 1 Pedro 4:3 y Hechos 10:28 para describir prácticas incompatibles con la santidad de Dios. Connota no solo ilegalidad sino repugnancia moral ante lo que viola el orden divino."
   },
   "G112": {
     "shortDefinitionEs": "sin Dios, impío, ateo (átheos)",
     "glossesEs": [
       "impío",
       "sin Dios"
-    ]
+    ],
+    "longDefinitionEs": "Palabra compuesta por la partícula negativa alfa (α-) y el término 'theós' (Dios), que literalmente significa 'sin Dios'. En Efesios 2:12, Pablo describe a los gentiles como 'atheos' antes de Cristo, no porque no creyeran en deidades, sino porque estaban separados del Dios verdadero y sus promesas, ilustrando la condición espiritual de alienación."
   },
   "G113": {
     "shortDefinitionEs": "sin ley, criminal, malvado (áthesmos)",
     "glossesEs": [
       "sin ley",
       "malvado"
-    ]
+    ],
+    "longDefinitionEs": "Compuesto del prefijo negativo y una raíz relacionada con «establecer», áthesmos describe a quien vive sin ley establecida, actuando de manera criminal y perversa. Pedro utiliza este término en 2 Pedro 2:7 y 3:17 para describir la conducta licenciosa de los malvados que rechazan toda norma moral divina. Representa la rebelión deliberada contra el orden y la justicia establecidos por Dios."
   },
   "G114": {
     "shortDefinitionEs": "rechazar, anular, violar, desdeñar (athetéō)",
@@ -797,26 +814,30 @@
       "rechazar",
       "anular",
       "despreciar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo compuesto que significa poner de lado, rechazar o invalidar algo establecido, manifestando desprecio o descalificación. Aparece en contextos como Lucas 7:30 (fariseos que rechazan el consejo de Dios) y Hebreos 10:28 (despreciar la ley). Teológicamente advierte contra el grave pecado de anular deliberadamente la voluntad revelada de Dios por desobediencia o incredulidad."
   },
   "G115": {
     "shortDefinitionEs": "anulación, revocación, derogación (athétēsis)",
     "glossesEs": [
       "anulación",
       "revocación"
-    ]
+    ],
+    "longDefinitionEs": "Término derivado de ἀθετέω que significa anulación, derogación o cancelación de algo previamente establecido. En Hebreos 7:18 y 9:26 se usa teológicamente para describir la abrogación del antiguo pacto y la abolición del pecado mediante el sacrificio de Cristo. Representa el cambio fundamental del orden ceremonial mosaico al nuevo pacto en Cristo."
   },
   "G116": {
     "shortDefinitionEs": "Atenas, capital de Grecia (Athēnai)",
     "glossesEs": [
       "Atenas"
-    ]
+    ],
+    "longDefinitionEs": "Nombre plural que designa a Atenas, capital y centro cultural de Grecia, consagrada a Atenea, diosa de la sabiduría. En Hechos 17, Pablo predica en esta ciudad llena de ídolos, confrontando la filosofía griega con el evangelio en el Areópago. Atenas representa el encuentro del cristianismo con la alta cultura e intelectualidad del mundo antiguo."
   },
   "G117": {
     "shortDefinitionEs": "ateniense, habitante de Atenas (Athēnaîos)",
     "glossesEs": [
       "ateniense"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que designa a un ateniense o habitante de Atenas. En Hechos 17:21-22, Lucas describe a los atenienses como amantes de noveledades y extremadamente religiosos, retratando la ciudad de Atenas como centro de intelectualidad griega donde Pablo proclamó el evangelio a filósofos y desconocedores del Dios verdadero."
   },
   "G118": {
     "shortDefinitionEs": "competir, esforzarse en juegos (athléō)",
@@ -7074,6 +7095,7 @@
     "glossesEs": [
       "tiro",
       "lanzamiento"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo derivado del verbo 'bállō' (lanzar) que designa la distancia alcanzada por un proyectil. Lucas 22:41 usa esta palabra para indicar que Jesús se alejó de sus discípulos 'como a tiro de piedra' en Getsemaní, describiendo una medida aproximada de distancia física."
   }
 }
