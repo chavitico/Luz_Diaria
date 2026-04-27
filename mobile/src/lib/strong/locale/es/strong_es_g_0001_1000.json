@@ -7507,35 +7507,39 @@
     "glossesEs": [
       "torturador",
       "verdugo"
-    ]
+    ],
+    "longDefinitionEs": "Derivado de G928 (βασανίζω); el que tortura"
   },
   "G931": {
     "shortDefinitionEs": "piedra de toque; tormento, prueba (básanos)",
     "glossesEs": [
       "tormento",
       "prueba"
-    ]
+    ],
+    "longDefinitionEs": "Posiblemente relacionado con G939 (βάσις) por la noción de llegar al fondo; piedra de toque, es decir, por analogía, tormento"
   },
   "G932": {
     "shortDefinitionEs": "reino, reinado, dominio (basileia)",
     "glossesEs": [
       "reino"
     ],
-    "longDefinitionEs": "Basileía denota el reinado o dominio real de Dios, tanto presente espiritualmente como futuro en plenitud. Jesús proclamó que el Reino se acercaba (Marcos 1:15) y enseñó a buscarlo primero (Mateo 6:33). Representa la soberanía divina ejercida sobre corazones redimidos y la consumación escatológica de Su gobierno."
+    "longDefinitionEs": "No incluido en la lista"
   },
   "G933": {
     "shortDefinitionEs": "palacio, corte real (basíleion)",
     "glossesEs": [
       "palacio",
       "corte"
-    ]
+    ],
+    "longDefinitionEs": "Neutro de G934 (βασίλειος); palacio"
   },
   "G934": {
     "shortDefinitionEs": "real, regio, de rey (basíleios)",
     "glossesEs": [
       "real",
       "regio"
-    ]
+    ],
+    "longDefinitionEs": "De G935 (βασιλεύς); real en naturaleza"
   },
   "G935": {
     "shortDefinitionEs": "rey, soberano, monarca (basileus)",
@@ -7549,34 +7553,39 @@
     "glossesEs": [
       "reinar",
       "reino"
-    ]
+    ],
+    "longDefinitionEs": "De G935 (βασιλεύς); reinar o gobernar (literal o figuradamente)"
   },
   "G937": {
     "shortDefinitionEs": "real, perteneciente a rey, noble (basilikós)",
     "glossesEs": [
       "real",
       "noble"
-    ]
+    ],
+    "longDefinitionEs": "De G935 (βασιλεύς); regio en relación, perteneciente al soberano o preeminente"
   },
   "G938": {
     "shortDefinitionEs": "reina (basílissa)",
     "glossesEs": [
       "reina"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de G936 (βασιλεύω); reina"
   },
   "G939": {
     "shortDefinitionEs": "pie, paso, base (básis)",
     "glossesEs": [
       "pie",
       "base"
-    ]
+    ],
+    "longDefinitionEs": "Del verbo andar; un paso o marcha (base), es decir, el pie"
   },
   "G940": {
     "shortDefinitionEs": "hechizar, engañar, seducir (baskaínō)",
     "glossesEs": [
       "hechizar",
       "seducir"
-    ]
+    ],
+    "longDefinitionEs": "Afín a G5335 (φάσκω); difamar o hechizar por representaciones falsas"
   },
   "G941": {
     "shortDefinitionEs": "llevar, cargar, soportar, sostener (bastázō)",
@@ -7584,55 +7593,63 @@
       "llevar",
       "cargar",
       "soportar"
-    ]
+    ],
+    "longDefinitionEs": "Posiblemente derivado de la base de G939 (βάσις) por la idea de llevar; alzar, literal o figuradamente"
   },
   "G942": {
     "shortDefinitionEs": "zarza, espino, arbusto (bátos)",
     "glossesEs": [
       "zarza",
       "espino"
-    ]
+    ],
+    "longDefinitionEs": "Etimología incierta; zarza o arbusto espinoso"
   },
   "G943": {
     "shortDefinitionEs": "bato, medida de líquidos (bátos)",
     "glossesEs": [
       "bato",
       "medida"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H01324); bato, medida para líquidos"
   },
   "G944": {
     "shortDefinitionEs": "rana (bátrachos)",
     "glossesEs": [
       "rana"
-    ]
+    ],
+    "longDefinitionEs": "Etimología incierta; rana"
   },
   "G945": {
     "shortDefinitionEs": "balbucear, hablar en vano (battologéō)",
     "glossesEs": [
       "vanas repeticiones",
       "palabrería"
-    ]
+    ],
+    "longDefinitionEs": "Del tartamudo proverbial y G3056 (λόγος); tartamudear, perorar tediosamente"
   },
   "G946": {
     "shortDefinitionEs": "abominación, ídolo (bdélygma)",
     "glossesEs": [
       "abominación",
       "ídolo"
-    ]
+    ],
+    "longDefinitionEs": "De G948 (βδελύσσω); cosa detestable, especialmente idolatría"
   },
   "G947": {
     "shortDefinitionEs": "abominable, detestable (bdelyktós)",
     "glossesEs": [
       "abominable",
       "detestable"
-    ]
+    ],
+    "longDefinitionEs": "De G948 (βδελύσσω); detestable, especialmente idolátrico"
   },
   "G948": {
     "shortDefinitionEs": "aborrecer, detestar, tener asco (bdelýssō)",
     "glossesEs": [
       "aborrecer",
       "detestar"
-    ]
+    ],
+    "longDefinitionEs": "De derivado de stink; sentir asco, detestar especialmente idolatría"
   },
   "G949": {
     "shortDefinitionEs": "firme, estable, seguro, constante (bébaios)",
@@ -7640,170 +7657,196 @@
       "firme",
       "seguro",
       "estable"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G939 (βάσις) por la idea de basalidad; estable literal o figuradamente"
   },
   "G950": {
     "shortDefinitionEs": "confirmar, establecer, asegurar (bebaióō)",
     "glossesEs": [
       "confirmar",
       "establecer"
-    ]
+    ],
+    "longDefinitionEs": "De G949 (βέβαιος); establecer o hacer firme figuradamente"
   },
   "G951": {
     "shortDefinitionEs": "confirmación, establecimiento (bebaíōsis)",
     "glossesEs": [
       "confirmación"
-    ]
+    ],
+    "longDefinitionEs": "De G950 (βεβαιόω); confirmación o establecimiento"
   },
   "G952": {
     "shortDefinitionEs": "profano, impío, sin santidad (bébēlos)",
     "glossesEs": [
       "profano",
       "impío"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G939 (βάσις) y umbral; accesible, gentilicio o impío"
   },
   "G953": {
     "shortDefinitionEs": "profanar, contaminar, desecrar (bebēlóō)",
     "glossesEs": [
       "profanar",
       "contaminar"
-    ]
+    ],
+    "longDefinitionEs": "De G952 (βέβηλος); desecrar o profanar"
   },
   "G954": {
     "shortDefinitionEs": "Beelzebú: nombre de Satanás (Beelzeboúl)",
     "glossesEs": [
       "Beelzebú",
       "Satanás"
-    ]
+    ],
+    "longDefinitionEs": "De origen caldeo (por parodia de H01176); dios del estiércol; Beelzebú, nombre de Satanás"
   },
   "G955": {
     "shortDefinitionEs": "Belial: epíteto de Satanás (Belíal)",
     "glossesEs": [
       "Belial",
       "Satanás"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H01100); inutilidad; Belial, epíteto de Satanás"
   },
   "G956": {
     "shortDefinitionEs": "dardo, flecha, proyectil (bélos)",
     "glossesEs": [
       "dardo",
       "flecha"
-    ]
+    ],
+    "longDefinitionEs": "De G906 (βάλλω); proyectil, lanza o flecha"
   },
   "G957": {
     "shortDefinitionEs": "mejor, muy bien (beltíon)",
     "glossesEs": [
       "mejor"
-    ]
+    ],
+    "longDefinitionEs": "Neutro de derivado de G906 (βάλλω) para el comparativo de G18 (ἀγαθός); mejor"
   },
   "G958": {
     "shortDefinitionEs": "Benjamín: israelita, tribu (Beniamín)",
     "glossesEs": [
       "Benjamín"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H01144); Benjamín, israelita"
   },
   "G959": {
     "shortDefinitionEs": "Berenice: mujer de familia herodiana (Berníkē)",
     "glossesEs": [
       "Berenice"
-    ]
+    ],
+    "longDefinitionEs": "De forma provincial de G5342 (φέρω) y G3529 (νίκη); victoriosa; Berenice, miembro de familia herodiana"
   },
   "G960": {
     "shortDefinitionEs": "Berea: ciudad de Macedonia (Béroia)",
     "glossesEs": [
       "Berea"
-    ]
+    ],
+    "longDefinitionEs": "Quizá de derivado provincial de G4008 (πέραν); Berea, ciudad de Macedonia"
   },
   "G961": {
     "shortDefinitionEs": "bereano: natural de Berea (Beroiaîos)",
     "glossesEs": [
       "bereano"
-    ]
+    ],
+    "longDefinitionEs": "De G960 (Βέροια); bereano o nativo de Berea"
   },
   "G962": {
     "shortDefinitionEs": "Betábara: lugar en el Jordán (Bēthabará)",
     "glossesEs": [
       "Betábara"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (de H1004 y H5679); casa de paso; Betábara, lugar en el Jordán"
   },
   "G963": {
     "shortDefinitionEs": "Betania: lugar en Palestina (Bēthanía)",
     "glossesEs": [
       "Betania"
-    ]
+    ],
+    "longDefinitionEs": "De origen caldeo; casa de dátiles; Betania, lugar en Palestina"
   },
   "G964": {
     "shortDefinitionEs": "Betsaida: piscina en Jerusalén (Bēthesdá)",
     "glossesEs": [
       "Betsaida"
-    ]
+    ],
+    "longDefinitionEs": "De origen caldeo (compárese H1004 y H2617); casa de misericordia; Betsaida, piscina en Jerusalén"
   },
   "G965": {
     "shortDefinitionEs": "Belén: lugar en Palestina (Bēthleém)",
     "glossesEs": [
       "Belén"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (de H1036); Belén (casa de pan), lugar en Palestina"
   },
   "G966": {
     "shortDefinitionEs": "Betsaida: lugar en Palestina (Bēthsaïdá)",
     "glossesEs": [
       "Betsaida"
-    ]
+    ],
+    "longDefinitionEs": "De origen caldeo (compárese H1004 y H6719); casa de pesca; Betsaida, lugar en Palestina"
   },
   "G967": {
     "shortDefinitionEs": "Betfagé: lugar en Palestina (Bēthphagḗ)",
     "glossesEs": [
       "Betfagé"
-    ]
+    ],
+    "longDefinitionEs": "De origen caldeo (compárese H1004 y H6291); casa de higos; Betfagé, lugar en Palestina"
   },
   "G968": {
     "shortDefinitionEs": "tribunal, estrado, trono (bēma)",
     "glossesEs": [
       "tribunal",
       "estrado"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G939; un escalón, es decir, medida de pie; por implicación, un estrado o tribunal"
   },
   "G969": {
     "shortDefinitionEs": "berilo, piedra preciosa (bḗryllos)",
     "glossesEs": [
       "berilo",
       "joya"
-    ]
+    ],
+    "longDefinitionEs": "De derivación incierta; una piedra preciosa llamada berilo"
   },
   "G970": {
     "shortDefinitionEs": "fuerza, violencia, ímpetu (bía)",
     "glossesEs": [
       "violencia",
       "fuerza"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente relacionado con G979 (por la idea de actividad vital); fuerza, violencia"
   },
   "G971": {
     "shortDefinitionEs": "forzar, abrirse paso con violencia (biázō)",
     "glossesEs": [
       "forzar",
       "violencia"
-    ]
+    ],
+    "longDefinitionEs": "De G979; forzar, es decir, abrirse paso con violencia o ser arrebatado"
   },
   "G972": {
     "shortDefinitionEs": "violento, impetuoso, poderoso (bíaios)",
     "glossesEs": [
       "violento",
       "poderoso"
-    ]
+    ],
+    "longDefinitionEs": "De G970; violento, impetuoso"
   },
   "G973": {
     "shortDefinitionEs": "violento, enérgico, impetuoso (biastḗs)",
     "glossesEs": [
       "violento",
       "enérgico"
-    ]
+    ],
+    "longDefinitionEs": "De G971; uno que fuerza; figuradamente, enérgico, poderoso"
   },
   "G974": {
     "shortDefinitionEs": "librito, pequeño libro (bibliarídion)",
     "glossesEs": [
       "librito",
       "libro pequeño"
-    ]
+    ],
+    "longDefinitionEs": "Diminutivo de G975; un librito, pequeño libro"
   },
   "G975": {
     "shortDefinitionEs": "rollo, libro, escrito (biblíon)",
@@ -7811,25 +7854,29 @@
       "libro",
       "rollo",
       "escrito"
-    ]
+    ],
+    "longDefinitionEs": "Diminutivo de G976; un rollo, libro, escrito"
   },
   "G976": {
     "shortDefinitionEs": "libro (bíblos)",
     "glossesEs": [
       "libro"
-    ]
+    ],
+    "longDefinitionEs": "Propiamente, la corteza interior de la planta de papiro; por implicación, una hoja o rollo escrito"
   },
   "G977": {
     "shortDefinitionEs": "comer (bibrṓskō)",
     "glossesEs": [
       "comer"
-    ]
+    ],
+    "longDefinitionEs": "Forma reduplicada y prolongada de verbo primario obsoleto; comer"
   },
   "G978": {
     "shortDefinitionEs": "Bitinia: región de Asia (Bithynía)",
     "glossesEs": [
       "Bitinia"
-    ]
+    ],
+    "longDefinitionEs": "De derivación incierta; Bitinia, región de Asia"
   },
   "G979": {
     "shortDefinitionEs": "vida, medio de vivir, sustento (bíos)",
@@ -7837,42 +7884,48 @@
       "vida",
       "sustento",
       "vivir"
-    ]
+    ],
+    "longDefinitionEs": "Palabra primaria; vida, es decir, el estado actual de existencia; por implicación, los medios de sustento"
   },
   "G980": {
     "shortDefinitionEs": "Pasar la existencia, vivir (bióō)",
     "glossesEs": [
       "vivir",
       "existencia"
-    ]
+    ],
+    "longDefinitionEs": "De G979; pasar la existencia, vivir"
   },
   "G981": {
     "shortDefinitionEs": "Acto de vivir, modo de vida (bíōsis)",
     "glossesEs": [
       "modo de vida",
       "manera de vivir"
-    ]
+    ],
+    "longDefinitionEs": "De G980; el acto de vivir, modo de vida"
   },
   "G982": {
     "shortDefinitionEs": "Relativo a la vida presente (biōtikós)",
     "glossesEs": [
       "vida presente",
       "cosas temporales"
-    ]
+    ],
+    "longDefinitionEs": "De un derivado de G980; relativo a la vida o existencia presente"
   },
   "G983": {
     "shortDefinitionEs": "Dañino, perjudicial (blaberós)",
     "glossesEs": [
       "dañino",
       "perjudicial"
-    ]
+    ],
+    "longDefinitionEs": "De G984; dañino, perjudicial"
   },
   "G984": {
     "shortDefinitionEs": "Herir, dañar, perjudicar (bláptō)",
     "glossesEs": [
       "herir",
       "dañar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primario; propiamente, obstaculizar, es decir, por implicación, herir o dañar"
   },
   "G985": {
     "shortDefinitionEs": "Brotar, germinar, producir fruto (blastánō)",
@@ -7880,41 +7933,47 @@
       "brotar",
       "germinar",
       "florecer"
-    ]
+    ],
+    "longDefinitionEs": "De un brote; brotar, germinar; por implicación, producir fruto"
   },
   "G986": {
     "shortDefinitionEs": "Blasto: oficial de Herodes Agripa (Blástos)",
     "glossesEs": [
       "Blasto"
-    ]
+    ],
+    "longDefinitionEs": "Quizás igual a la base de G985; Blasto, oficial de Herodes Agripa"
   },
   "G987": {
     "shortDefinitionEs": "Blasfemar, injuriar, hablar impíamente (blasphēméō)",
     "glossesEs": [
       "blasfemar",
       "injuriar"
-    ]
+    ],
+    "longDefinitionEs": "De G989; vilipendiar; especialmente, hablar impíamente o blasfemar"
   },
   "G988": {
     "shortDefinitionEs": "Blasfemia, injuria contra Dios (blasphēmía)",
     "glossesEs": [
       "blasfemia",
       "injuria"
-    ]
+    ],
+    "longDefinitionEs": "De G989; vilipendio, especialmente contra Dios; blasfemia"
   },
   "G989": {
     "shortDefinitionEs": "Blasfemo, injurioso e impío (blásphēmos)",
     "glossesEs": [
       "blasfemo",
       "injurioso"
-    ]
+    ],
+    "longDefinitionEs": "De un derivado de G984 y G5345; difamatorio, es decir, calumnioso contra hombres, o especialmente impío contra Dios"
   },
   "G990": {
     "shortDefinitionEs": "Visión, acto de ver (blémma)",
     "glossesEs": [
       "visión",
       "vista"
-    ]
+    ],
+    "longDefinitionEs": "De G991; visión, acto de ver"
   },
   "G991": {
     "shortDefinitionEs": "Mirar, ver, contemplar (blépō)",
@@ -7922,55 +7981,63 @@
       "mirar",
       "ver",
       "observar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primario; mirar, ver, contemplar, literalmente o figuradamente"
   },
   "G992": {
     "shortDefinitionEs": "Que debe ser puesto o arrojado (blētéos)",
     "glossesEs": [
       "arrojar",
       "poner"
-    ]
+    ],
+    "longDefinitionEs": "De G906 (βάλλω); apto para ser arrojado o aplicado"
   },
   "G993": {
     "shortDefinitionEs": "Boanerges: hijos del trueno, apóstoles (Boanergés)",
     "glossesEs": [
       "Boanerges"
-    ]
+    ],
+    "longDefinitionEs": "De origen caldeo (H01123 y H07266); hijos de conmoción; Boanerges, epíteto de dos apóstoles"
   },
   "G994": {
     "shortDefinitionEs": "Gritar, clamar pidiendo auxilio (boáō)",
     "glossesEs": [
       "gritar",
       "clamar"
-    ]
+    ],
+    "longDefinitionEs": "Forma prolongada de verbo primario; vociferar, clamar pidiendo auxilio de manera tumultuosa"
   },
   "G995": {
     "shortDefinitionEs": "Grito, clamor, llamada de auxilio (boḗ)",
     "glossesEs": [
       "grito",
       "clamor"
-    ]
+    ],
+    "longDefinitionEs": "De G994 (βοάω); un grito o clamor, especialmente de solicitud de auxilio"
   },
   "G996": {
     "shortDefinitionEs": "Ayuda, socorro, auxilio (boḗtheia)",
     "glossesEs": [
       "ayuda",
       "socorro"
-    ]
+    ],
+    "longDefinitionEs": "De G998 (βοηθός); auxilio o socorro; especialmente, cuerda o cadena para trincar una nave"
   },
   "G997": {
     "shortDefinitionEs": "Ayudar, socorrer, prestar auxilio (boēthéō)",
     "glossesEs": [
       "ayudar",
       "socorrer"
-    ]
+    ],
+    "longDefinitionEs": "De G998 (βοηθός); auxiliar, socorrer, prestar ayuda o alivio"
   },
   "G998": {
     "shortDefinitionEs": "Quien ayuda, socorredor (boēthós)",
     "glossesEs": [
       "ayudador",
       "socorro"
-    ]
+    ],
+    "longDefinitionEs": "De G995 (βοή) y théō (correr); socorredor, quien acude en auxilio"
   },
   "G999": {
     "shortDefinitionEs": "Hoyo, cisterna, pozo (bóthynos)",
@@ -7978,7 +8045,8 @@
       "hoyo",
       "pozo",
       "cisterna"
-    ]
+    ],
+    "longDefinitionEs": "Afín a G900 (βαθύνω); un hoyo en tierra; especialmente, una cisterna o pozo"
   },
   "G1000": {
     "shortDefinitionEs": "Tiro, lanzamiento, distancia de un tiro (bolḗ)",

@@ -7783,14 +7783,16 @@
       "imponer",
       "descansar",
       "presionar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G2749 (κεῖμαι); descansar o recostarse sobre algo, literal o figuradamente"
   },
   "G1946": {
     "shortDefinitionEs": "Epicúreo: seguidor de Epicuro (Epikoúreios)",
     "glossesEs": [
       "epicúreo",
       "epicureísmo"
-    ]
+    ],
+    "longDefinitionEs": "De G1947 (ἐπικουρία); seguidor del filósofo Epicuro; epicúreo"
   },
   "G1947": {
     "shortDefinitionEs": "ayuda, auxilio, socorro (epikouría)",
@@ -7798,14 +7800,16 @@
       "ayuda",
       "auxilio",
       "socorro"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y forma prolongada de base de G2877; socorro o asistencia"
   },
   "G1948": {
     "shortDefinitionEs": "juzgar, sentenciar, resolver (epikrínō)",
     "glossesEs": [
       "juzgar",
       "sentenciar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G2919 (κρίνω); juzgar o sentenciar sobre algo"
   },
   "G1949": {
     "shortDefinitionEs": "asir, agarrar, tomar, coger (epilambánomai)",
@@ -7814,7 +7818,8 @@
       "agarrar",
       "tomar",
       "coger"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de G1909 (ἐπί) y G2983 (λαμβάνω); asir, agarrar o tomar, literal o figuradamente"
   },
   "G1950": {
     "shortDefinitionEs": "olvidar, perder de vista, descuidar (epilanthánomai)",
@@ -7822,7 +7827,8 @@
       "olvidar",
       "descuidar",
       "negligencia"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de G1909 (ἐπί) y G2990 (λανθάνω); olvidar o perder de la mente; por implicación, descuidar"
   },
   "G1951": {
     "shortDefinitionEs": "apellidar, elegir, nombrar (epilégomai)",
@@ -7830,21 +7836,24 @@
       "apellidar",
       "elegir",
       "nombrar"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de G1909 (ἐπί) y G3004 (λέγω); apellidar o elegir a alguien"
   },
   "G1952": {
     "shortDefinitionEs": "faltar, ser insuficiente, dejar (epileípō)",
     "glossesEs": [
       "faltar",
       "insuficiente"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G3007 (λείπω); dejar sobre; fig., ser insuficiente o no alcanzar"
   },
   "G1953": {
     "shortDefinitionEs": "negligencia, olvido, descuido (epilēsmonḗ)",
     "glossesEs": [
       "negligencia",
       "olvido"
-    ]
+    ],
+    "longDefinitionEs": "De derivado de G1950 (ἐπιλανθάνομαι); negligencia u olvido"
   },
   "G1954": {
     "shortDefinitionEs": "lo restante, lo que queda (epíloipos)",
@@ -7852,14 +7861,16 @@
       "resto",
       "restante",
       "demás"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G3062 (λοιποί); lo restante o que queda"
   },
   "G1955": {
     "shortDefinitionEs": "interpretación, explicación, aclaración (epílysis)",
     "glossesEs": [
       "interpretación",
       "explicación"
-    ]
+    ],
+    "longDefinitionEs": "De G1956 (ἐπιλύω); explicación o aplicación de algo"
   },
   "G1956": {
     "shortDefinitionEs": "resolver, explicar, determinar (epilýō)",
@@ -7867,35 +7878,40 @@
       "explicar",
       "resolver",
       "determinar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G3089 (λύω); resolver o solucionar; fig., explicar o decidir"
   },
   "G1957": {
     "shortDefinitionEs": "testificar, atestiguar, corroborar (epimartyréō)",
     "glossesEs": [
       "testificar",
       "atestiguar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G3140 (μαρτυρέω); testificar además, corroborar o confirmar"
   },
   "G1958": {
     "shortDefinitionEs": "cuidado solícito, atención amable (epiméleia)",
     "glossesEs": [
       "cuidado",
       "atención"
-    ]
+    ],
+    "longDefinitionEs": "De G1959 (ἐπιμελέομαι); cuidado solícito, atención amable u hospitalidad"
   },
   "G1959": {
     "shortDefinitionEs": "cuidar de, atender, ocuparse (epimeléomai)",
     "glossesEs": [
       "cuidar",
       "atender"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de G1909 (ἐπί) y base de G3199 (μέλω); cuidar de, atender o preocuparse"
   },
   "G1960": {
     "shortDefinitionEs": "cuidadosamente, diligentemente (epimelōs)",
     "glossesEs": [
       "cuidadosamente",
       "diligentemente"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de derivado de G1959 (ἐπιμελέομαι); cuidadosamente o diligentemente"
   },
   "G1961": {
     "shortDefinitionEs": "permanecer, continuar, perseverar (epiménō)",
@@ -7903,7 +7919,8 @@
       "permanecer",
       "continuar",
       "perseverar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G3306 (μένω); permanecer o quedarse; fig., perseverar"
   },
   "G1962": {
     "shortDefinitionEs": "consentir, asentir, estar de acuerdo (epineúō)",
@@ -7911,7 +7928,8 @@
       "consentir",
       "asentir",
       "acordar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G3506 (νεύω); asentir con la cabeza; por implicación, consentir"
   },
   "G1963": {
     "shortDefinitionEs": "pensamiento, intención, propósito (epínoia)",
@@ -7919,21 +7937,24 @@
       "pensamiento",
       "intención",
       "propósito"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G3563 (νοῦς); atención de la mente; por implicación, intención"
   },
   "G1964": {
     "shortDefinitionEs": "perjurarse, faltar al juramento (epiorkéō)",
     "glossesEs": [
       "perjurarse",
       "falso juramento"
-    ]
+    ],
+    "longDefinitionEs": "De G1965 (ἐπίορκος); cometer perjurio o faltar al juramento"
   },
   "G1965": {
     "shortDefinitionEs": "perjuro, quien comete perjurio (epíorkos)",
     "glossesEs": [
       "perjuro",
       "mentiroso"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G3727 (ὅρκος); quien comete perjurio o falta a su juramento"
   },
   "G1966": {
     "shortDefinitionEs": "siguiente, próximo, venidera (epioûsa)",
@@ -7941,7 +7962,8 @@
       "siguiente",
       "próximo",
       "venidera"
-    ]
+    ],
+    "longDefinitionEs": "Participio singular femenino comparativo de G1909 (ἐπί); el día o noche siguiente"
   },
   "G1967": {
     "shortDefinitionEs": "cotidiano, diario, de cada día (epioúsios)",
@@ -7949,7 +7971,8 @@
       "diario",
       "cotidiano",
       "de cada día"
-    ]
+    ],
+    "longDefinitionEs": "Posiblemente de G1966 (ἐπιοῦσα) o de G1909 (ἐπί) y derivado de participio presente de G1510 (εἰμί); necesario para la subsistencia"
   },
   "G1968": {
     "shortDefinitionEs": "caer sobre, abrazo, apretar (epipíptō)",
@@ -7957,14 +7980,16 @@
       "caer",
       "abrazar",
       "apretar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G4098 (πίπτω); caer sobre, abrazar o asir violentamente"
   },
   "G1969": {
     "shortDefinitionEs": "reprochear, reprender, rezongar (epiplḗssō)",
     "glossesEs": [
       "reprender",
       "reprochear"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G4141 (πλήσσω); reprender o rezongar con palabras"
   },
   "G1970": {
     "shortDefinitionEs": "ahogar, sofocarse, cubrir maleza (epipnígō)",
@@ -7972,7 +7997,8 @@
       "ahogar",
       "sofocarse",
       "cubrir"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y G4155 (πνίγω); ahogar o sofocarse; fig., ser cubierto de maleza"
   },
   "G1971": {
     "shortDefinitionEs": "desear vehementemente, codiciar intensamente (epipothéō)",
@@ -7980,62 +8006,71 @@
       "desear intensamente",
       "codiciar",
       "anhelar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y verbo que significa anhelar; desear vehementemente o codiciar"
   },
   "G1972": {
     "shortDefinitionEs": "anhelo vehemente, deseo intenso (epipóthēsis)",
     "glossesEs": [
       "anhelo",
       "deseo intenso"
-    ]
+    ],
+    "longDefinitionEs": "De G1971 (ἐπιποθέω); anhelo o deseo intenso"
   },
   "G1973": {
     "shortDefinitionEs": "Intensamente amado, deseado con pasión (epipóthētos)",
     "glossesEs": [
       "anhelado",
       "deseado"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 (ἐπί) y derivado de G1971 (ἐπιποθέω); intensamente amado o deseado"
   },
   "G1974": {
     "shortDefinitionEs": "Deseo intenso, anhelo profundo (epipothía)",
     "glossesEs": [
       "anhelo",
       "deseo ardiente"
-    ]
+    ],
+    "longDefinitionEs": "De G1971 (ἐπιποθέω); anhelo intenso o deseo profundo"
   },
   "G1975": {
     "shortDefinitionEs": "Viajar adelante, continuar el camino (epiporeúomai)",
     "glossesEs": [
       "viajar",
       "llegar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4198; viajar más lejos, continuar el camino (alcanzar)"
   },
   "G1976": {
     "shortDefinitionEs": "Coser sobre algo, fijar con aguja (epirrháptō)",
     "glossesEs": [
       "coser"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y la raíz de G4476; coser sobre algo, fijar con aguja"
   },
   "G1977": {
     "shortDefinitionEs": "Lanzar o echar sobre algo (epirrhíptō)",
     "glossesEs": [
       "lanzar",
       "echar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4496; lanzar o echar sobre algo (literal o figuradamente)"
   },
   "G1978": {
     "shortDefinitionEs": "Notable, destacado, eminente (epísēmos)",
     "glossesEs": [
       "notable",
       "distinguido"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y raíz de G4591; notable, destacado, eminente (figuradamente)"
   },
   "G1979": {
     "shortDefinitionEs": "Provisión de alimentos, víveres (episitismós)",
     "glossesEs": [
       "alimento",
       "víveres"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de G1909 y derivado de G4621; provisión de alimentos, víveres"
   },
   "G1980": {
     "shortDefinitionEs": "Inspeccionar, visitar, cuidar (episképtomai)",
@@ -8043,97 +8078,111 @@
       "visitar",
       "cuidar",
       "inspeccionar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y raíz de G4649; inspeccionar, visitar, cuidar, socorrer"
   },
   "G1981": {
     "shortDefinitionEs": "Reposar sobre, habitar con (episkēnóō)",
     "glossesEs": [
       "reposar",
       "morar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4637; reposar sobre, habitar con (figuradamente)"
   },
   "G1982": {
     "shortDefinitionEs": "Cubrir con sombra, envolver en luz (episkiázō)",
     "glossesEs": [
       "sombrear",
       "cubrir"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y derivado de G4639; cubrir con sombra, envolver en brillo; investir de influencia sobrenatural"
   },
   "G1983": {
     "shortDefinitionEs": "Vigilar, supervisar, cuidar (episkopéō)",
     "glossesEs": [
       "vigilar",
       "supervisar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4648; vigilar, supervisar, cuidar; por implicación, precavarse"
   },
   "G1984": {
     "shortDefinitionEs": "Inspección, cargo de obispo, supervisión (episkopḗ)",
     "glossesEs": [
       "obispado",
       "inspección"
-    ]
+    ],
+    "longDefinitionEs": "De G1980; inspección para socorro; superintendencia; especialmente, el episcopado cristiano"
   },
   "G1985": {
     "shortDefinitionEs": "Obispo, supervisor de la iglesia (epískopos)",
     "glossesEs": [
       "obispo",
       "supervisor"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4649; superintendente, obispo cristiano encargado de una iglesia (literal o figuradamente)"
   },
   "G1986": {
     "shortDefinitionEs": "Borrar la marca de circuncisión (epispáomai)",
     "glossesEs": [
       "descircuncidar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4685; borrar la marca de circuncisión, efacer mediante el prepucio"
   },
   "G1987": {
     "shortDefinitionEs": "Comprender, conocer, entender (epístamai)",
     "glossesEs": [
       "conocer",
       "entender"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de G2186; poner la mente en algo; comprender, estar familiarizado"
   },
   "G1988": {
     "shortDefinitionEs": "Maestro, comandante, jefe (epistátēs)",
     "glossesEs": [
       "maestro",
       "jefe"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y derivado de G2476; designado sobre algo; comandante, maestro, jefe"
   },
   "G1989": {
     "shortDefinitionEs": "Escribir una carta, comunicar por escrito (epistéllō)",
     "glossesEs": [
       "escribir",
       "carta"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4724; comunicar por carta, ordenar por escrito para cualquier propósito"
   },
   "G1990": {
     "shortDefinitionEs": "Inteligente, versado en conocimiento (epistḗmōn)",
     "glossesEs": [
       "sabio",
       "inteligente"
-    ]
+    ],
+    "longDefinitionEs": "De G1987; inteligente, versado en conocimiento"
   },
   "G1991": {
     "shortDefinitionEs": "Apuntalar, confirmar, fortalecer (epistērízō)",
     "glossesEs": [
       "confirmar",
       "fortalecer"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4741; apuntalar más, reafirmar, fortalecer nuevamente"
   },
   "G1992": {
     "shortDefinitionEs": "Epístola, carta escrita (epistolḗ)",
     "glossesEs": [
       "epístola",
       "carta"
-    ]
+    ],
+    "longDefinitionEs": "De G1989; epístola, carta escrita, mensaje por escrito"
   },
   "G1993": {
     "shortDefinitionEs": "Poner silencio, callar la boca (epistomízō)",
     "glossesEs": [
       "silenciar",
       "callar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4750; poner algo sobre la boca; callar, silenciar (figuradamente)"
   },
   "G1994": {
     "shortDefinitionEs": "Convertirse, volver, regresar (epistréphō)",
@@ -8141,47 +8190,54 @@
       "convertirse",
       "volver",
       "regresar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4762; convertirse, volver, regresar (literal, figurada o moralmente)"
   },
   "G1995": {
     "shortDefinitionEs": "Conversión, cambio moral (epistrophḗ)",
     "glossesEs": [
       "conversión"
-    ]
+    ],
+    "longDefinitionEs": "De G1994; conversión, cambio moral, transformación, revolución"
   },
   "G1996": {
     "shortDefinitionEs": "Reunir, congregar en un lugar (episynágō)",
     "glossesEs": [
       "reunir",
       "congregar"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4863; reunir, congregar en un mismo lugar"
   },
   "G1997": {
     "shortDefinitionEs": "Reunión de creyentes, asamblea (episynagōgḗ)",
     "glossesEs": [
       "asamblea",
       "reunión"
-    ]
+    ],
+    "longDefinitionEs": "De G1996; asamblea, reunión completa de creyentes, especialmente para adoración"
   },
   "G1998": {
     "shortDefinitionEs": "Correr juntos, concurrir apresuradamente (episyntréchō)",
     "glossesEs": [
       "correr juntos",
       "concurrir"
-    ]
+    ],
+    "longDefinitionEs": "De G1909 y G4936; correr juntos, concurrir apresuradamente en un lugar u ocasión"
   },
   "G1999": {
     "shortDefinitionEs": "Conspiración, tumulto, concurrencia (episýstasis)",
     "glossesEs": [
       "conspiración",
       "tumulto"
-    ]
+    ],
+    "longDefinitionEs": "De voz media de compuesto de G1909 y G4921; conspiración, tumulto, concurrencia tumultuosa o amistosa"
   },
   "G2000": {
     "shortDefinitionEs": "Inseguro, peligroso, precario (episphalḗs)",
     "glossesEs": [
       "peligroso",
       "inseguro"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de G1909 y raíz que significa tropezar; figuradamente, inseguro, peligroso, precario"
   }
 }

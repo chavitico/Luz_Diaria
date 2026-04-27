@@ -204,109 +204,126 @@
     "shortDefinitionEs": "Liberto, esclavo liberado romano (Libertînos)",
     "glossesEs": [
       "liberto"
-    ]
+    ],
+    "longDefinitionEs": "De origen latino; liberto o esclavo liberado romano"
   },
   "G3033": {
     "shortDefinitionEs": "Libia: región del norte de África (Libýē)",
     "glossesEs": [
       "Libia"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de G3047 (λίψ); Libia, región del norte de África"
   },
   "G3034": {
     "shortDefinitionEs": "Apedrear, matar a pedradas (litházō)",
     "glossesEs": [
       "apedrear"
-    ]
+    ],
+    "longDefinitionEs": "De G3037 (λίθος); apedrear, ejecutar por lapidación"
   },
   "G3035": {
     "shortDefinitionEs": "De piedra, hecho de piedra (líthinos)",
     "glossesEs": [
       "de piedra"
-    ]
+    ],
+    "longDefinitionEs": "De G3037 (λίθος); de piedra, hecho de piedra"
   },
   "G3036": {
     "shortDefinitionEs": "Apedrear, lanzar piedras (lithoboléō)",
     "glossesEs": [
       "apedrear"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de G3037 (λίθος) y G906 (βάλλω); lanzar piedras, apedrear"
   },
   "G3037": {
     "shortDefinitionEs": "Piedra, roca (líthos)",
     "glossesEs": [
       "piedra"
-    ]
+    ],
+    "longDefinitionEs": "Palabra aparentemente primitiva; piedra (literal o figuradamente)"
   },
   "G3038": {
     "shortDefinitionEs": "Enlosado, piso de mosaico (lithóstrōtos)",
     "glossesEs": [
       "enlosado",
       "pavimento"
-    ]
+    ],
+    "longDefinitionEs": "De G3037 (λίθος) y derivado de G4766 (στρώννυμι); pavimento de mosaico donde se colocaba el tribunal romano"
   },
   "G3039": {
     "shortDefinitionEs": "Moler, pulverizar (likmáō)",
     "glossesEs": [
       "moler",
       "pulverizar"
-    ]
+    ],
+    "longDefinitionEs": "De equivalente de abanico de trilla; aventar, o por analogía, moler y pulverizar"
   },
   "G3040": {
     "shortDefinitionEs": "Puerto, ancladero (limḗn)",
     "glossesEs": [
       "puerto"
-    ]
+    ],
+    "longDefinitionEs": "Palabra aparentemente primitiva; puerto o ancladero"
   },
   "G3041": {
     "shortDefinitionEs": "Lago, depósito de agua (límnē)",
     "glossesEs": [
       "lago"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de G3040 (λιμήν) por la idea de proximidad a la costa; laguna o depósito de agua"
   },
   "G3042": {
     "shortDefinitionEs": "Hambre, escasez de alimento (limós)",
     "glossesEs": [
       "hambre",
       "hambruna"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de G3007 (λείπω) por la idea de privación; hambre o escasez de alimento"
   },
   "G3043": {
     "shortDefinitionEs": "Lino, tela de lino (línon)",
     "glossesEs": [
       "lino"
-    ]
+    ],
+    "longDefinitionEs": "Palabra probablemente primitiva; lino o tela de lino"
   },
   "G3044": {
     "shortDefinitionEs": "Lino, un cristiano primitivo (Línos)",
     "glossesEs": [
       "Lino"
-    ]
+    ],
+    "longDefinitionEs": "Quizá de G3043 (λίνον); Lino, un cristiano primitivo"
   },
   "G3045": {
     "shortDefinitionEs": "Delicioso, suntuoso (liparós)",
     "glossesEs": [
       "delicioso",
       "suntuoso"
-    ]
+    ],
+    "longDefinitionEs": "De grasa; gordo, figuradamente lujoso o suntuoso"
   },
   "G3046": {
     "shortDefinitionEs": "Libra, unidad de peso (lítra)",
     "glossesEs": [
       "libra",
       "peso"
-    ]
+    ],
+    "longDefinitionEs": "De origen latino (libra); libra, unidad de peso"
   },
   "G3047": {
     "shortDefinitionEs": "Viento del suroeste (líps)",
     "glossesEs": [
       "suroeste"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de verter libación; viento del suroeste (por traer lluvia)"
   },
   "G3048": {
     "shortDefinitionEs": "Colecta, contribución monetaria (logía)",
     "glossesEs": [
       "colecta",
       "ofrenda"
-    ]
+    ],
+    "longDefinitionEs": "De G3056 (λόγος) en sentido comercial; colecta o contribución monetaria"
   },
   "G3049": {
     "shortDefinitionEs": "Contar, considerar, estimar (logízomai)",
@@ -314,28 +331,32 @@
       "contar",
       "considerar",
       "imputar"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de G3056 (λόγος); hacer inventario, estimar literal o figuradamente"
   },
   "G3050": {
     "shortDefinitionEs": "Racional, conforme a razón (logikós)",
     "glossesEs": [
       "racional",
       "razonable"
-    ]
+    ],
+    "longDefinitionEs": "De G3056 (λόγος); racional o conforme a razón (lógico)"
   },
   "G3051": {
     "shortDefinitionEs": "Oráculo, palabra de Dios (lógion)",
     "glossesEs": [
       "oráculo",
       "palabra"
-    ]
+    ],
+    "longDefinitionEs": "Neutro de G3052 (λόγιος); oráculo o palabra (de Dios)"
   },
   "G3052": {
     "shortDefinitionEs": "Elocuente, que habla con fluidez (lógios)",
     "glossesEs": [
       "elocuente",
       "orador"
-    ]
+    ],
+    "longDefinitionEs": "De G3056 (λόγος); elocuente, persona que habla con fluidez, orador"
   },
   "G3053": {
     "shortDefinitionEs": "Pensamiento, razonamiento, imaginación (logismós)",
@@ -343,21 +364,24 @@
       "pensamiento",
       "imaginación",
       "razonamiento"
-    ]
+    ],
+    "longDefinitionEs": "De G3049 (λογίζομαι); cálculo, figuradamente razonamiento o imaginación"
   },
   "G3054": {
     "shortDefinitionEs": "Contender sobre palabras vanas (logomachéō)",
     "glossesEs": [
       "contender",
       "disputar palabras"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de G3056 (λόγος) y G3164 (μάχομαι); contender sobre trifialidades"
   },
   "G3055": {
     "shortDefinitionEs": "Disputa o contienda sobre palabras (logomachía)",
     "glossesEs": [
       "disputa de palabras",
       "contienda"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que G3054 (λογομαχέω); disputa sobre palabras vanas o logomaquia"
   },
   "G3056": {
     "shortDefinitionEs": "Palabra, razón, Verbo divino (Logos)",
@@ -373,7 +397,8 @@
     "glossesEs": [
       "lanza",
       "arma"
-    ]
+    ],
+    "longDefinitionEs": "Palabra quizá primitiva; lanza o arma de guerra"
   },
   "G3058": {
     "shortDefinitionEs": "Injuriar, maldecir, vilipendiar (loidoréō)",
@@ -381,7 +406,8 @@
       "injuriar",
       "maldecir",
       "vilipendiar"
-    ]
+    ],
+    "longDefinitionEs": "De G3060 (λοίδορος); injuriar, maldecir o vilipendiar"
   },
   "G3059": {
     "shortDefinitionEs": "Injuria, calumnia, reproche (loidoría)",
@@ -389,21 +415,24 @@
       "injuria",
       "calumnia",
       "reproche"
-    ]
+    ],
+    "longDefinitionEs": "De G3060 (λοίδορος); injuria, calumnia o reproche"
   },
   "G3060": {
     "shortDefinitionEs": "Injuriador, el que maldice (loídoros)",
     "glossesEs": [
       "injuriador",
       "maldecidor"
-    ]
+    ],
+    "longDefinitionEs": "De maldad; injuriador, maldiciente o persona abusiva"
   },
   "G3061": {
     "shortDefinitionEs": "Pestilencia, plaga, enfermedad (loimós)",
     "glossesEs": [
       "pestilencia",
       "plaga"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; peste, enfermedad o plaga (literal o figuradamente)"
   },
   "G3062": {
     "shortDefinitionEs": "Los demás, los restantes, el resto (loipoí)",
@@ -411,7 +440,8 @@
       "demás",
       "resto",
       "restantes"
-    ]
+    ],
+    "longDefinitionEs": "Plural masculino de derivado de G3007 (λείπω); los demás o los restantes"
   },
   "G3063": {
     "shortDefinitionEs": "Lo demás, por lo demás, de aquí en adelante (loipón)",
@@ -419,27 +449,31 @@
       "demás",
       "finalmente",
       "además"
-    ]
+    ],
+    "longDefinitionEs": "Neutro singular de lo mismo que G3062; algo que permanece (usado adverbialmente)"
   },
   "G3064": {
     "shortDefinitionEs": "De aquí en adelante, en lo futuro (loipoû)",
     "glossesEs": [
       "de aquí en adelante",
       "en adelante"
-    ]
+    ],
+    "longDefinitionEs": "Genitivo singular de lo mismo que G3062; tiempo restante"
   },
   "G3065": {
     "shortDefinitionEs": "Lucas: cristiano, evangelista (Loukâs)",
     "glossesEs": [
       "Lucas",
       "evangelista"
-    ]
+    ],
+    "longDefinitionEs": "Contracción del latín Lucanus; Lucas, un cristiano"
   },
   "G3066": {
     "shortDefinitionEs": "Lucio: cristiano romano (Loúkios)",
     "glossesEs": [
       "Lucio"
-    ]
+    ],
+    "longDefinitionEs": "De origen latino; iluminativo; Lucio, un cristiano"
   },
   "G3067": {
     "shortDefinitionEs": "Lavacro, baño, lavamiento (loutrón)",
@@ -447,52 +481,60 @@
       "baño",
       "lavamiento",
       "lavacro"
-    ]
+    ],
+    "longDefinitionEs": "De G3068; baño, es decir (figuradamente), bautismo"
   },
   "G3068": {
     "shortDefinitionEs": "Lavar el cuerpo entero (loúō)",
     "glossesEs": [
       "lavar",
       "bañar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primario; bañar (toda la persona; mientras que G3538 significa humedecer solo una parte, y G4150 lavar, limpiar garmentas exclusivamente)"
   },
   "G3069": {
     "shortDefinitionEs": "Lida: ciudad de Palestina (Lýdda)",
     "glossesEs": [
       "Lida",
       "Lod"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H03850); Lida (es decir, Lod), un lugar en Palestina"
   },
   "G3070": {
     "shortDefinitionEs": "Lidia: mujer cristiana (Lydía)",
     "glossesEs": [
       "Lidia"
-    ]
+    ],
+    "longDefinitionEs": "Propiamente, femenino de Ludios (de origen extranjero) (una lidia, en Asia Menor); Lidia, una mujer cristiana"
   },
   "G3071": {
     "shortDefinitionEs": "Licaonia: región de Asia Menor (Lykaonía)",
     "glossesEs": [
       "Licaonia"
-    ]
+    ],
+    "longDefinitionEs": "Quizá remotamente de G3074; Licaonia, una región de Asia Menor"
   },
   "G3072": {
     "shortDefinitionEs": "En lengua licaónica (Lykaonistí)",
     "glossesEs": [
       "licaónico",
       "lengua licaónica"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de un derivado de G3071; licaónicamente, es decir, en la lengua de los licaonios"
   },
   "G3073": {
     "shortDefinitionEs": "Licia: provincia de Asia Menor (Lykía)",
     "glossesEs": [
       "Licia"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente remotamente de G3074; Licia, una provincia de Asia Menor"
   },
   "G3074": {
     "shortDefinitionEs": "Lobo, animal salvaje depredador (lýkos)",
     "glossesEs": [
       "lobo"
-    ]
+    ],
+    "longDefinitionEs": "Quizá afín a la base de G3022 (del pelo blanquecino); un lobo"
   },
   "G3075": {
     "shortDefinitionEs": "Hacer daño, maltratar, ultrajar (lymaínomai)",
@@ -500,7 +542,8 @@
       "hacer daño",
       "maltratar",
       "destruir"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de un derivado probable de G3089 (significando suciedad); propiamente, ensuciar, es decir (figuradamente), injuriar (maltratar)"
   },
   "G3076": {
     "shortDefinitionEs": "Entristecer, contristarse, afligir (lypéō)",
@@ -508,7 +551,8 @@
       "entristecer",
       "afligir",
       "contristarse"
-    ]
+    ],
+    "longDefinitionEs": "De G3077; afligir; reflexivamente o pasivamente, estar triste"
   },
   "G3077": {
     "shortDefinitionEs": "Tristeza, dolor, pesar, aflicción (lýpē)",
@@ -516,26 +560,30 @@
       "tristeza",
       "dolor",
       "pesar"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente palabra primaria; tristeza"
   },
   "G3078": {
     "shortDefinitionEs": "Lisanias: gobernador de Abilene (Lysanías)",
     "glossesEs": [
       "Lisanias"
-    ]
+    ],
+    "longDefinitionEs": "De G3080 y (pesar); que disipa la aflicción; Lisanias, gobernador de Abilene"
   },
   "G3079": {
     "shortDefinitionEs": "Lisias: romano, oficial romano (Lysías)",
     "glossesEs": [
       "Lisias"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; Lisias, un romano"
   },
   "G3080": {
     "shortDefinitionEs": "Disolución, divorcio, separación (lýsis)",
     "glossesEs": [
       "divorcio",
       "disolución"
-    ]
+    ],
+    "longDefinitionEs": "De G3089; aflojamiento, es decir (especialmente), divorcio"
   },
   "G3081": {
     "shortDefinitionEs": "Es conveniente, es provechoso, conviene (lysiteleî)",
@@ -543,47 +591,54 @@
       "conviene",
       "es mejor",
       "provechoso"
-    ]
+    ],
+    "longDefinitionEs": "Tercera persona singular presente indicativo activo de derivado de compuesto de G3080 y G5056; impersonalmente, cumple el propósito, es decir, es ventajoso"
   },
   "G3082": {
     "shortDefinitionEs": "Listra: ciudad de Asia Menor (Lýstra)",
     "glossesEs": [
       "Listra"
-    ]
+    ],
+    "longDefinitionEs": "De origen incierto; Listra, un lugar en Asia Menor"
   },
   "G3083": {
     "shortDefinitionEs": "Rescate, precio de redención (lýtron)",
     "glossesEs": [
       "rescate",
       "redención"
-    ]
+    ],
+    "longDefinitionEs": "De G3089; algo para desatar con, es decir, precio de redención (figuradamente, expiación)"
   },
   "G3084": {
     "shortDefinitionEs": "redimir, liberar mediante rescate (lutróó)",
     "glossesEs": [
       "redimir"
-    ]
+    ],
+    "longDefinitionEs": "De G3083; rescatar (literal o figuradamente)"
   },
   "G3085": {
     "shortDefinitionEs": "Redención, rescate, liberación (lýtrōsis)",
     "glossesEs": [
       "redención",
       "rescate"
-    ]
+    ],
+    "longDefinitionEs": "De G3084; un rescate (figuradamente)"
   },
   "G3086": {
     "shortDefinitionEs": "Redentor, libertador (lytrōtḗs)",
     "glossesEs": [
       "redentor",
       "libertador"
-    ]
+    ],
+    "longDefinitionEs": "De G3084; un redentor (figuradamente)"
   },
   "G3087": {
     "shortDefinitionEs": "Candelabro, soporte para lámparas (lychnía)",
     "glossesEs": [
       "candelabro",
       "soporte"
-    ]
+    ],
+    "longDefinitionEs": "De G3088; soporte para lámpara (literal o figuradamente)"
   },
   "G3088": {
     "shortDefinitionEs": "Lámpara, candela, luz portátil (lýchnos)",
@@ -591,7 +646,8 @@
       "lámpara",
       "candela",
       "luz"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G3022; lámpara portátil u otro iluminador (literal o figuradamente)"
   },
   "G3089": {
     "shortDefinitionEs": "Desatar, soltar, disolver, destruir (lýō)",
@@ -599,51 +655,59 @@
       "desatar",
       "soltar",
       "disolver"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primario; \"desatar\" (literal o figuradamente)"
   },
   "G3090": {
     "shortDefinitionEs": "Lois: mujer cristiana, abuela (Lōḯs)",
     "glossesEs": [
       "Lois"
-    ]
+    ],
+    "longDefinitionEs": "De origen incierto; Lois, una mujer cristiana"
   },
   "G3091": {
     "shortDefinitionEs": "Lot: patriarca bíblico (Lṓt)",
     "glossesEs": [
       "Lot"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H03876); Lot, un patriarca"
   },
   "G3092": {
     "shortDefinitionEs": "Maat: israelita, ancestro (Maáth)",
     "glossesEs": [
       "Maat"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de origen hebreo; Maat, un israelita"
   },
   "G3093": {
     "shortDefinitionEs": "Magdala: ciudad de Palestina (Magdalá)",
     "glossesEs": [
       "Magdala"
-    ]
+    ],
+    "longDefinitionEs": "De origen caldeo (compárese con H04026); la torre; Magdala (es decir, Migdala), un lugar en Palestina"
   },
   "G3094": {
     "shortDefinitionEs": "Magdalena: habitante de Magdala (Magdalēnḗ)",
     "glossesEs": [
       "Magdalena"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de un derivado de G3093; una mujer de Magdala, es decir, habitante de Magdala"
   },
   "G3095": {
     "shortDefinitionEs": "Magia, artes mágicas, hechicería (mageía)",
     "glossesEs": [
       "magia",
       "hechicería"
-    ]
+    ],
+    "longDefinitionEs": "De G3096; magia, prácticas mágicas"
   },
   "G3096": {
     "shortDefinitionEs": "Practicar magia, hacer hechicería (mageúō)",
     "glossesEs": [
       "magia",
       "hechicería"
-    ]
+    ],
+    "longDefinitionEs": "De G3097; practicar magia o hechicería"
   },
   "G3097": {
     "shortDefinitionEs": "Mago, sabio oriental, hechicero (mágos)",
@@ -651,20 +715,23 @@
       "mago",
       "hechicero",
       "sabio"
-    ]
+    ],
+    "longDefinitionEs": "De origen extranjero (H07248); un magiano, es decir, sabio oriental; por implicación, un mago o hechicero"
   },
   "G3098": {
     "shortDefinitionEs": "Magog: nación pagana anticristiana (Magṓg)",
     "glossesEs": [
       "Magog"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04031); Magog, una nación extranjera, es decir (figuradamente) un partido anticristiano"
   },
   "G3099": {
     "shortDefinitionEs": "Madián: región de Arabia (Madián)",
     "glossesEs": [
       "Madián",
       "Madián"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04080); Madián (es decir, Madián), una región de Arabia"
   },
   "G3100": {
     "shortDefinitionEs": "Ser discípulo, instruir, enseñar (mathēteúō)",
@@ -672,7 +739,8 @@
       "discípulo",
       "enseñar",
       "instruir"
-    ]
+    ],
+    "longDefinitionEs": "De G3101; intransitivamente, hacerse discípulo; transitivamente, instruir como discípulo"
   },
   "G3101": {
     "shortDefinitionEs": "discípulo, alumno, seguidor (mathétés)",
@@ -686,19 +754,22 @@
     "shortDefinitionEs": "Discípula, alumna, aprendiza (mathḗtria)",
     "glossesEs": [
       "discípula"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de G3101; una discípula o alumna"
   },
   "G3103": {
     "shortDefinitionEs": "Matusalén: patriarca antediluviano (Mathousála)",
     "glossesEs": [
       "Matusalén"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04968); Matusalén (es decir, Matusalén), un patriarca antediluviano"
   },
   "G3104": {
     "shortDefinitionEs": "Mainanán: israelita ancestro (Maïnán)",
     "glossesEs": [
       "Mainanán"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de origen hebreo; Mainanán, un israelita ancestro"
   },
   "G3105": {
     "shortDefinitionEs": "delirar, comportarse como loco (maínomai)",
@@ -706,7 +777,8 @@
       "delirar",
       "locura",
       "fuera de sí"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de una raíz primaria; desvariar como un loco, comportarse con insensatez"
   },
   "G3106": {
     "shortDefinitionEs": "pronunciar dichoso, considerar bienaventurado (makarízō)",
@@ -714,7 +786,8 @@
       "bendecir",
       "dichoso",
       "feliz"
-    ]
+    ],
+    "longDefinitionEs": "De G3107; pronunciar dichoso, considerar o estimar afortunado"
   },
   "G3107": {
     "shortDefinitionEs": "bienaventurado, dichoso, feliz (makários)",
@@ -722,7 +795,8 @@
       "bienaventurado",
       "dichoso",
       "feliz"
-    ]
+    ],
+    "longDefinitionEs": "Forma prolongada de un término poético con el mismo significado; supremamente bienaventurado; por extensión, afortunado, próspero"
   },
   "G3108": {
     "shortDefinitionEs": "bienaventuranza, dicha (makarismós)",
@@ -730,19 +804,22 @@
       "bienaventuranza",
       "dicha",
       "felicidad"
-    ]
+    ],
+    "longDefinitionEs": "De G3106; bienaventuranza, atribución de dicha o fortuna"
   },
   "G3109": {
     "shortDefinitionEs": "Macedonia: región de Grecia (Makedonía)",
     "glossesEs": [
       "Macedonia"
-    ]
+    ],
+    "longDefinitionEs": "De G3110; Macedonia, una región de Grecia"
   },
   "G3110": {
     "shortDefinitionEs": "macedonio: habitante de Macedonia (Makedṓn)",
     "glossesEs": [
       "macedonio"
-    ]
+    ],
+    "longDefinitionEs": "De derivación incierta; un macedonio, es decir, habitante de Macedonia"
   },
   "G3111": {
     "shortDefinitionEs": "mercado de carnes, carnicería (mákellon)",
@@ -750,7 +827,8 @@
       "carnicería",
       "mercado",
       "carnes"
-    ]
+    ],
+    "longDefinitionEs": "De origen latino (macellum); un mercado de carnes, carnicería o tienda de provisiones"
   },
   "G3112": {
     "shortDefinitionEs": "lejos, a distancia (makrán)",
@@ -758,7 +836,8 @@
       "lejos",
       "distancia",
       "apartado"
-    ]
+    ],
+    "longDefinitionEs": "Acusativo femenino singular de G3117 (con G3598 implícito); a lo lejos, a distancia"
   },
   "G3113": {
     "shortDefinitionEs": "desde lejos, de la distancia (makróthen)",
@@ -766,7 +845,8 @@
       "lejos",
       "desde afar",
       "distancia"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de G3117; desde lejos, desde la distancia"
   },
   "G3114": {
     "shortDefinitionEs": "ser paciente, soportar con paciencia (makrothyméō)",
@@ -774,7 +854,8 @@
       "paciencia",
       "sufrimiento",
       "tolerancia"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que G3116; ser longánime, soportar con paciencia o indulgencia"
   },
   "G3115": {
     "shortDefinitionEs": "paciencia, longanimidad, tolerancia (makrothymía)",
@@ -782,14 +863,16 @@
       "paciencia",
       "sufrimiento",
       "tolerancia"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que G3116; longanimidad, es decir, tolerancia u obstinación espiritual"
   },
   "G3116": {
     "shortDefinitionEs": "pacientemente, con indulgencia (makrothymṓs)",
     "glossesEs": [
       "pacientemente",
       "tolerancia"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de un compuesto de G3117 y G2372; con ánimo longánime, es decir, con indulgencia"
   },
   "G3117": {
     "shortDefinitionEs": "largo, distante, de larga duración (makrós)",
@@ -797,7 +880,8 @@
       "largo",
       "distante",
       "lejos"
-    ]
+    ],
+    "longDefinitionEs": "De G3372; largo (en lugar, distante, o en tiempo)"
   },
   "G3118": {
     "shortDefinitionEs": "longevo, de vida larga (makrochrónios)",
@@ -805,7 +889,8 @@
       "largo",
       "vida",
       "años"
-    ]
+    ],
+    "longDefinitionEs": "De G3117 y G5550; de larga vida, longevo"
   },
   "G3119": {
     "shortDefinitionEs": "blandura, debilidad, enfermedad (malakía)",
@@ -813,7 +898,8 @@
       "enfermedad",
       "debilidad",
       "flaqueza"
-    ]
+    ],
+    "longDefinitionEs": "De G3120; blandura, debilidad o enfermedad"
   },
   "G3120": {
     "shortDefinitionEs": "suave, blando, afeminado (malakós)",
@@ -821,13 +907,15 @@
       "suave",
       "blando",
       "delicado"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; suave, blando; figuradamente, afeminado"
   },
   "G3121": {
     "shortDefinitionEs": "Maleleel: antediluviano (Maleleḗl)",
     "glossesEs": [
       "Maleleel"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04111); Maleleel (es decir, Mahalalel), un patriarca antediluviano"
   },
   "G3122": {
     "shortDefinitionEs": "mayormente, especialmente, ante todo (málista)",
@@ -835,7 +923,8 @@
       "especialmente",
       "mayormente",
       "principalmente"
-    ]
+    ],
+    "longDefinitionEs": "Plural neutro del superlativo de un adverbio primario aparente; mayormente, especialmente, ante todo"
   },
   "G3123": {
     "shortDefinitionEs": "más, en mayor grado, antes bien (mâllon)",
@@ -843,19 +932,22 @@
       "más",
       "mayor",
       "antes bien"
-    ]
+    ],
+    "longDefinitionEs": "Neutro del comparativo del mismo que G3122; más (en mayor grado) o antes bien"
   },
   "G3124": {
     "shortDefinitionEs": "Malco: israelita (Málchos)",
     "glossesEs": [
       "Malco"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (de H4429); Malco, un israelita"
   },
   "G3125": {
     "shortDefinitionEs": "abuela (mámmē)",
     "glossesEs": [
       "abuela"
-    ]
+    ],
+    "longDefinitionEs": "De origen natural (\"mamá\"); una abuela"
   },
   "G3126": {
     "shortDefinitionEs": "mamona, riqueza (deificada) (mammōnâs)",
@@ -863,19 +955,22 @@
       "mamona",
       "riqueza",
       "dinero"
-    ]
+    ],
+    "longDefinitionEs": "De origen caldeo (confianza, es decir, riqueza personificada); la avaricia deificada"
   },
   "G3127": {
     "shortDefinitionEs": "Manacn: cristiano (Manaḗn)",
     "glossesEs": [
       "Manacn"
-    ]
+    ],
+    "longDefinitionEs": "De origen incierto; Manaén, un cristiano"
   },
   "G3128": {
     "shortDefinitionEs": "Manasés: israelita (Manassēs)",
     "glossesEs": [
       "Manasés"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (de H4519); Manasés (es decir, Menashsheh), un israelita"
   },
   "G3129": {
     "shortDefinitionEs": "aprender, enterarse (manthánō)",
@@ -883,7 +978,8 @@
       "aprender",
       "enterarse",
       "instrucción"
-    ]
+    ],
+    "longDefinitionEs": "Prolongación de verbo primario; aprender de cualquier manera"
   },
   "G3130": {
     "shortDefinitionEs": "locura, demencia (manía)",
@@ -891,14 +987,16 @@
       "locura",
       "demencia",
       "insania"
-    ]
+    ],
+    "longDefinitionEs": "De G3105 (μαίνομαι); locura o demencia"
   },
   "G3131": {
     "shortDefinitionEs": "maná: alimento divino milagroso (mánna)",
     "glossesEs": [
       "maná",
       "alimento"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (de H4478); maná, una goma comestible"
   },
   "G3132": {
     "shortDefinitionEs": "practicar adivinación, vaticinar (manteúomai)",
@@ -906,7 +1004,8 @@
       "adivinación",
       "vaticinio",
       "predicción"
-    ]
+    ],
+    "longDefinitionEs": "De derivado de G3105 (μαίνομαι); practicar adivinación o proferir encantamientos"
   },
   "G3133": {
     "shortDefinitionEs": "marchitarse, desaparecer (maraínō)",
@@ -914,43 +1013,50 @@
       "marchitarse",
       "desaparecer",
       "fenecer"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; extinguir, es decir, desaparecer o marchitarse"
   },
   "G3134": {
     "shortDefinitionEs": "Maranata — el Señor viene (arameo)",
     "glossesEs": [
       "maranata"
-    ]
+    ],
+    "longDefinitionEs": "De origen caldeo (nuestro Señor ha venido); Maranata, exclamación del juicio divino"
   },
   "G3135": {
     "shortDefinitionEs": "perla (margarítēs)",
     "glossesEs": [
       "perla"
-    ]
+    ],
+    "longDefinitionEs": "De raíz que significa ostra perlífera; una perla"
   },
   "G3136": {
     "shortDefinitionEs": "Marta: mujer cristiana (Mártha)",
     "glossesEs": [
       "Marta"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de origen caldeo (que significa señora); Marta, mujer cristiana"
   },
   "G3137": {
     "shortDefinitionEs": "María: mujer cristiana (María)",
     "glossesEs": [
       "María"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (de H4813); María o Miriam, nombre de seis mujeres cristianas"
   },
   "G3138": {
     "shortDefinitionEs": "Marcos: cristiano (Márkos)",
     "glossesEs": [
       "Marcos"
-    ]
+    ],
+    "longDefinitionEs": "De origen latino; Marcos, un cristiano"
   },
   "G3139": {
     "shortDefinitionEs": "mármol (mármaros)",
     "glossesEs": [
       "mármol"
-    ]
+    ],
+    "longDefinitionEs": "De raíz que significa brillar; mármol (por su blancura resplandeciente)"
   },
   "G3140": {
     "shortDefinitionEs": "testificar, dar testimonio (martyréō)",
@@ -958,7 +1064,8 @@
       "testificar",
       "testimonio",
       "atestiguar"
-    ]
+    ],
+    "longDefinitionEs": "De G3144 (μάρτυς); ser testigo, es decir, testificar literalmente o figuradamente"
   },
   "G3141": {
     "shortDefinitionEs": "testimonio, declaración (martyría)",
@@ -973,7 +1080,8 @@
       "testimonio",
       "prueba",
       "evidencia"
-    ]
+    ],
+    "longDefinitionEs": "Neutro de derivado presumido de G3144 (μάρτυς); algo evidencial, la evidencia dada o el Decálogo"
   },
   "G3143": {
     "shortDefinitionEs": "atestiguar, testificar solemnemente (martýromai)",
@@ -981,7 +1089,8 @@
       "testificar",
       "atestiguar",
       "protestar"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de G3144 (μάρτυς); ser aducido como testigo, es decir, atestiguar solemnemente"
   },
   "G3144": {
     "shortDefinitionEs": "testigo, mártir (martys)",
@@ -995,7 +1104,8 @@
     "glossesEs": [
       "masticar",
       "roer"
-    ]
+    ],
+    "longDefinitionEs": "De verbo primario; masticar o roer"
   },
   "G3146": {
     "shortDefinitionEs": "azotar, flagelar (mastigóō)",
@@ -1003,14 +1113,16 @@
       "azotar",
       "flagelar",
       "castigo"
-    ]
+    ],
+    "longDefinitionEs": "De G3148 (μάστιξ); azotar o flagelar literal o figuradamente"
   },
   "G3147": {
     "shortDefinitionEs": "azotar, flagelar (mastízō)",
     "glossesEs": [
       "azotar",
       "flagelar"
-    ]
+    ],
+    "longDefinitionEs": "De G3149 (μαστός); azotar o flagelar literalmente"
   },
   "G3148": {
     "shortDefinitionEs": "azote, flagelo, enfermedad, plaga (mástix)",
@@ -1018,28 +1130,32 @@
       "azote",
       "plagas",
       "castigo"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de base de G3145 (μασσάομαι); un azote, flagelo o enfermedad"
   },
   "G3149": {
     "shortDefinitionEs": "seno, pecho (mastós)",
     "glossesEs": [
       "seno",
       "pecho"
-    ]
+    ],
+    "longDefinitionEs": "De base de G3145 (μασσάομαι); el pecho o seno (como si estuviera amasado)"
   },
   "G3150": {
     "shortDefinitionEs": "charla vana, palabrería (mataiología)",
     "glossesEs": [
       "charla vana",
       "palabrería"
-    ]
+    ],
+    "longDefinitionEs": "De G3151 (ματαιολόγος); charla vana o palabrería sin sentido"
   },
   "G3151": {
     "shortDefinitionEs": "hablador vano, charlatán (mataiológos)",
     "glossesEs": [
       "charlatán",
       "palabrero"
-    ]
+    ],
+    "longDefinitionEs": "De G3152 (μάταιος) y G3004 (λέγω); hablador vano, charlatán o contendiente"
   },
   "G3152": {
     "shortDefinitionEs": "vano, fútil, inútil, ídolo (mátaios)",
@@ -1047,68 +1163,78 @@
       "vano",
       "fútil",
       "inútil"
-    ]
+    ],
+    "longDefinitionEs": "De base de G3155 (μάτην); vano, fútil, infructuoso o ídolo"
   },
   "G3153": {
     "shortDefinitionEs": "vanidad, inutilidad, futilidad (mataiótēs)",
     "glossesEs": [
       "vanidad",
       "futilidad"
-    ]
+    ],
+    "longDefinitionEs": "De G3152 (μάταιος); inutilidad, transitoriedad o depravación moral"
   },
   "G3154": {
     "shortDefinitionEs": "hacer vano, corromperse (mataióō)",
     "glossesEs": [
       "vano",
       "corrupción"
-    ]
+    ],
+    "longDefinitionEs": "De G3152 (μάταιος); hacer vano o corromperse moralmente en idolatría"
   },
   "G3155": {
     "shortDefinitionEs": "en vano, sin propósito (mátēn)",
     "glossesEs": [
       "en vano",
       "sin propósito"
-    ]
+    ],
+    "longDefinitionEs": "De base de G3145 (μασσάομαι); en vano, sin propósito o utilidad"
   },
   "G3156": {
     "shortDefinitionEs": "Mateo: israelita y cristiano (Matthaîos)",
     "glossesEs": [
       "Mateo"
-    ]
+    ],
+    "longDefinitionEs": "Forma abreviada de G3164; Mateo (es decir, Matitjá), un israelita y cristiano"
   },
   "G3157": {
     "shortDefinitionEs": "Matán: israelita (Matthán)",
     "glossesEs": [
       "Matán"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04977); Matán (es decir, Matan), un israelita"
   },
   "G3158": {
     "shortDefinitionEs": "Mattat: nombre de dos israelitas (Matthát)",
     "glossesEs": [
       "Mattat",
       "personaje bíblico"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente forma abreviada de G3161; Mattat (es decir, Matitjá), nombre de dos israelitas"
   },
   "G3159": {
     "shortDefinitionEs": "Matías: apóstol elegido para reemplazar a Judas (Matthías)",
     "glossesEs": [
       "Matías",
       "apóstol"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente forma abreviada de G3161; Matías (es decir, Matitjá), un israelita"
   },
   "G3160": {
     "shortDefinitionEs": "Matata: nombre de un israelita (Mattathá)",
     "glossesEs": [
       "Matata",
       "personaje bíblico"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente forma abreviada de G3161; Matata (es decir, Matitjá), un israelita"
   },
   "G3161": {
     "shortDefinitionEs": "Matatías: israelita y cristiano (Mattathías)",
     "glossesEs": [
       "Matatías",
       "personaje bíblico"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04993); Matatías (es decir, Matitjá), un israelita y cristiano"
   },
   "G3162": {
     "shortDefinitionEs": "Espada, cuchillo; fig. guerra, castigo judicial (máchaira)",
@@ -1116,7 +1242,8 @@
       "espada",
       "cuchillo",
       "guerra"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente femenino de derivado de G3163; una espada o puñal; figuradamente, guerra o castigo judicial"
   },
   "G3163": {
     "shortDefinitionEs": "Batalla, lucha; fig. controversia, disputa (máchē)",
@@ -1124,7 +1251,8 @@
       "batalla",
       "lucha",
       "disputa"
-    ]
+    ],
+    "longDefinitionEs": "De G3164; batalla, es decir, (figuradamente) controversia"
   },
   "G3164": {
     "shortDefinitionEs": "Pelear, luchar; fig. reñir, discutir (máchomai)",
@@ -1132,7 +1260,8 @@
       "pelear",
       "luchar",
       "reñir"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de verbo aparentemente primario; guerrear, es decir, (figuradamente) reñir, disputar"
   },
   "G3165": {
     "shortDefinitionEs": "Pronombre personal: yo, me, mi (mé)",
@@ -1140,7 +1269,8 @@
       "yo",
       "me",
       "mi"
-    ]
+    ],
+    "longDefinitionEs": "Forma más breve y probablemente original de G1691; me, mi"
   },
   "G3166": {
     "shortDefinitionEs": "Hablar grandielocuentemente, jactarse (megalauchéō)",
@@ -1148,7 +1278,8 @@
       "jactarse",
       "alardear",
       "presumir"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de G3173 y (jactarse); hablar con grandilocuencia, ser arrogante o egotista"
   },
   "G3167": {
     "shortDefinitionEs": "Magnífico, grande; n. obra maravillosa (megaleîos)",
@@ -1156,7 +1287,8 @@
       "magnífico",
       "maravilla",
       "obra grande"
-    ]
+    ],
+    "longDefinitionEs": "De G3173; magnífico, es decir, (neutro plural como sustantivo) favor conspicuo o perfección"
   },
   "G3168": {
     "shortDefinitionEs": "Magnificencia, gloria, esplendor, majestad (megaleiótēs)",
@@ -1164,7 +1296,8 @@
       "magnificencia",
       "majestad",
       "gloria"
-    ]
+    ],
+    "longDefinitionEs": "De G3167; superioridad, es decir, gloria o esplendor"
   },
   "G3169": {
     "shortDefinitionEs": "Digno de grandeza, magnífico, excelente (megaloprepḗs)",
@@ -1172,7 +1305,8 @@
       "excelente",
       "magnífico",
       "digno"
-    ]
+    ],
+    "longDefinitionEs": "De G3173 y G4241; digno de grandeza o magnificencia"
   },
   "G3170": {
     "shortDefinitionEs": "Engrandecer, magnificar, exaltar (megalýnō)",
@@ -1180,7 +1314,8 @@
       "magnificar",
       "engrandecer",
       "exaltar"
-    ]
+    ],
+    "longDefinitionEs": "De G3173; hacer o declarar grande, aumentar o (figuradamente) exaltar"
   },
   "G3171": {
     "shortDefinitionEs": "Mucho, en gran manera, grandemente (megálōs)",
@@ -1188,7 +1323,8 @@
       "mucho",
       "grandemente",
       "muy"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de G3173; mucho, grandemente"
   },
   "G3172": {
     "shortDefinitionEs": "Grandeza, majestad, divinidad (megalōsýnē)",
@@ -1196,7 +1332,8 @@
       "grandeza",
       "majestad",
       "divinidad"
-    ]
+    ],
+    "longDefinitionEs": "De G3173; grandeza, es decir, (figuradamente) divinidad o majestad divina"
   },
   "G3173": {
     "shortDefinitionEs": "Grande, mayor; fig. alto, fuerte, ruidoso (mégas)",
@@ -1204,7 +1341,8 @@
       "grande",
       "mayor",
       "fuerte"
-    ]
+    ],
+    "longDefinitionEs": "Grande, en aplicación muy amplia, literal o figurada; también mayor, elevado, fuerte o ruidoso"
   },
   "G3174": {
     "shortDefinitionEs": "Magnitud, grandeza (mégethos)",
@@ -1212,7 +1350,8 @@
       "grandeza",
       "magnitud",
       "tamaño"
-    ]
+    ],
+    "longDefinitionEs": "De G3173; magnitud o grandeza"
   },
   "G3175": {
     "shortDefinitionEs": "Personajes de gran rango, magnates, señores (megistânes)",
@@ -1220,7 +1359,8 @@
       "señores",
       "magnates",
       "grandes"
-    ]
+    ],
+    "longDefinitionEs": "Plural de G3176; personajes de gran rango, magnates o señores"
   },
   "G3176": {
     "shortDefinitionEs": "Supremo, muy grande, máximo (mégistos)",
@@ -1228,7 +1368,8 @@
       "máximo",
       "supremo",
       "mayor"
-    ]
+    ],
+    "longDefinitionEs": "Superlativo de G3173; el más grande o muy grande"
   },
   "G3177": {
     "shortDefinitionEs": "Interpretar, traducir, explicar (methermēneúō)",
@@ -1236,7 +1377,8 @@
       "interpretar",
       "traducir",
       "explicar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G2059; explicar sobre, es decir, traducir o interpretar"
   },
   "G3178": {
     "shortDefinitionEs": "Embriaguez, intoxicación (méthē)",
@@ -1244,7 +1386,8 @@
       "embriaguez",
       "intoxicación",
       "borrachera"
-    ]
+    ],
+    "longDefinitionEs": "Palabra aparentemente primaria; intoxicante, es decir, (por implicación) embriaguez"
   },
   "G3179": {
     "shortDefinitionEs": "Trasladar, transportar, deponer, seducir (methístēmi)",
@@ -1252,7 +1395,8 @@
       "trasladar",
       "remover",
       "seducir"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G2476; transferir, llevar, deponer o (figuradamente) seducir"
   },
   "G3180": {
     "shortDefinitionEs": "Ardid, asechanza, engaño, trampa (methodeía)",
@@ -1260,7 +1404,8 @@
       "ardid",
       "engaño",
       "trampa"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de G3326 y G3593; viaje alrededor, es decir, engaño o ardid"
   },
   "G3181": {
     "shortDefinitionEs": "Fronterizo, limítrofe; n. frontera (methórios)",
@@ -1268,7 +1413,8 @@
       "frontera",
       "límite",
       "borde"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G3725; limitado por los lados, es decir, contiguo o fronterizo"
   },
   "G3182": {
     "shortDefinitionEs": "Emborrachar, intoxicar (methýskō)",
@@ -1276,7 +1422,8 @@
       "emborrachar",
       "intoxicar",
       "ebrio"
-    ]
+    ],
+    "longDefinitionEs": "Forma prolongada transitiva de G3184; emborrachar o intoxicar"
   },
   "G3183": {
     "shortDefinitionEs": "Borracho, ebrio, bebedor (méthysos)",
@@ -1284,7 +1431,8 @@
       "borracho",
       "ebrio",
       "bebedor"
-    ]
+    ],
+    "longDefinitionEs": "De G3184; bebedor embriagado, es decir, borracho o ebrio"
   },
   "G3184": {
     "shortDefinitionEs": "Beber hasta embriagarse, emborracharse (methýō)",
@@ -1292,7 +1440,8 @@
       "emborracharse",
       "beber",
       "embriagarse"
-    ]
+    ],
+    "longDefinitionEs": "De forma alternativa de G3178; beber hasta embriagarse, emborracharse"
   },
   "G3185": {
     "shortDefinitionEs": "En mayor grado, más (meîzon)",
@@ -1300,7 +1449,8 @@
       "más",
       "mayor",
       "más bien"
-    ]
+    ],
+    "longDefinitionEs": "Neutro de G3187; (adverbialmente) en grado mayor, más"
   },
   "G3186": {
     "shortDefinitionEs": "Todavía más grande, superior (meizóteros)",
@@ -1308,7 +1458,8 @@
       "mayor",
       "más grande",
       "superior"
-    ]
+    ],
+    "longDefinitionEs": "Comparativo continuado de G3187; aún más grande (figuradamente)"
   },
   "G3187": {
     "shortDefinitionEs": "Mayor, más grande; superior en edad (meízōn)",
@@ -1316,28 +1467,32 @@
       "mayor",
       "más grande",
       "superior"
-    ]
+    ],
+    "longDefinitionEs": "Comparativo irregular de G3173; más grande (literal o figuradamente, especialmente en edad)"
   },
   "G3188": {
     "shortDefinitionEs": "Tinta (mélan)",
     "glossesEs": [
       "tinta",
       "escritura"
-    ]
+    ],
+    "longDefinitionEs": "Neutro de G3189 como sustantivo; tinta"
   },
   "G3189": {
     "shortDefinitionEs": "Negro, oscuro (mélas)",
     "glossesEs": [
       "negro",
       "oscuro"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente palabra primitiva; negro"
   },
   "G3190": {
     "shortDefinitionEs": "Meleas: nombre de un israelita (Meleâs)",
     "glossesEs": [
       "Meleas",
       "personaje bíblico"
-    ]
+    ],
+    "longDefinitionEs": "De origen incierto; Meleas, un israelita"
   },
   "G3191": {
     "shortDefinitionEs": "Meditar, reflexionar, considerar (meletáō)",
@@ -1345,14 +1500,16 @@
       "meditar",
       "reflexionar",
       "considerar"
-    ]
+    ],
+    "longDefinitionEs": "De derivado presunto de G3199; cuidar de, es decir, (por implicación) revolver en la mente"
   },
   "G3192": {
     "shortDefinitionEs": "Miel (méli)",
     "glossesEs": [
       "miel",
       "dulce"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente palabra primitiva; miel"
   },
   "G3193": {
     "shortDefinitionEs": "Panal, miel de abejas (melíssios)",
@@ -1360,7 +1517,8 @@
       "panal",
       "miel",
       "abejas"
-    ]
+    ],
+    "longDefinitionEs": "De G3192; relativo a la miel, es decir, panal de abejas"
   },
   "G3194": {
     "shortDefinitionEs": "Melita: isla en el Mediterráneo (Melítē)",
@@ -1368,7 +1526,8 @@
       "Melita",
       "isla",
       "Malta"
-    ]
+    ],
+    "longDefinitionEs": "De origen incierto; Melita, isla en el Mediterráneo"
   },
   "G3195": {
     "shortDefinitionEs": "Estar para, intención de; abb. (inf.) (méllō)",
@@ -1376,7 +1535,8 @@
       "estar para",
       "intención",
       "propósito"
-    ]
+    ],
+    "longDefinitionEs": "Forma fortalecida de G3199; tener la intención de, estar a punto de ser, hacer o padecer algo"
   },
   "G3196": {
     "shortDefinitionEs": "Miembro, parte del cuerpo (mélos)",
@@ -1384,14 +1544,16 @@
       "miembro",
       "parte",
       "cuerpo"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; un miembro o parte del cuerpo"
   },
   "G3197": {
     "shortDefinitionEs": "Melqui: nombre de dos israelitas (Melchí)",
     "glossesEs": [
       "Melqui",
       "personaje bíblico"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04428 con sufijo pronominal); Melqui, nombre de dos israelitas"
   },
   "G3198": {
     "shortDefinitionEs": "Melquisedec: patriarca de Salem (Melchisedék)",
@@ -1399,7 +1561,8 @@
       "Melquisedec",
       "patriarca",
       "Salem"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04442); Melquisedec, un patriarca"
   },
   "G3199": {
     "shortDefinitionEs": "Importar, interesar, cuidar (mélō)",
@@ -1407,7 +1570,8 @@
       "importar",
       "interesar",
       "cuidar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primitivo; importar, interesar, concernir (solo tercera persona singular presente)"
   },
   "G3200": {
     "shortDefinitionEs": "Pergamino, cuero escrito (membrána)",
@@ -1415,7 +1579,8 @@
       "pergamino",
       "cuero",
       "manuscrito"
-    ]
+    ],
+    "longDefinitionEs": "De origen latino; pergamino o cuero escrito (piel de oveja)"
   },
   "G3201": {
     "shortDefinitionEs": "Censurar, culpar, hallar falta (mémphomai)",
@@ -1423,7 +1588,8 @@
       "culpar",
       "censurar",
       "criticar"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de verbo primitivo; culpar, censurar"
   },
   "G3202": {
     "shortDefinitionEs": "Murmurón, quejoso, descontento (mempsímoiros)",
@@ -1431,7 +1597,8 @@
       "quejoso",
       "murmurón",
       "descontento"
-    ]
+    ],
+    "longDefinitionEs": "De derivado presunto de G3201 y destino; quejoso, descontento (que culpa al destino)"
   },
   "G3303": {
     "shortDefinitionEs": "Part. afirmativa/concesiva; freq. con δέ (mén)",
@@ -1439,7 +1606,8 @@
       "efectivamente",
       "en verdad",
       "por cierto"
-    ]
+    ],
+    "longDefinitionEs": "Partícula primitiva; indicativa de afirmación o concesión, frecuentemente seguida de G1161"
   },
   "G3304": {
     "shortDefinitionEs": "Al menos, pero ciertamente (menoûnge)",
@@ -1447,7 +1615,8 @@
       "ciertamente",
       "de hecho",
       "más bien"
-    ]
+    ],
+    "longDefinitionEs": "De G3203, G3767 y G1065; al menos, por lo tanto ciertamente"
   },
   "G3305": {
     "shortDefinitionEs": "Sin embargo, empero, aunque (méntoi)",
@@ -1455,7 +1624,8 @@
       "empero",
       "sin embargo",
       "aunque"
-    ]
+    ],
+    "longDefinitionEs": "De G3203 y G5104; sin embargo, aunque ciertamente"
   },
   "G3306": {
     "shortDefinitionEs": "Permanecer, morar, continuar, persistir (ménō)",
@@ -1463,7 +1633,8 @@
       "permanecer",
       "morar",
       "continuar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primitivo; permanecer en lugar, estado, relación o expectativa"
   },
   "G3307": {
     "shortDefinitionEs": "Repartir, distribuir, dividir (merízō)",
@@ -1471,7 +1642,8 @@
       "repartir",
       "distribuir",
       "dividir"
-    ]
+    ],
+    "longDefinitionEs": "De G3313; partir, es decir, repartir, distribuir, compartir o desunir"
   },
   "G3308": {
     "shortDefinitionEs": "Solicitud, preocupación, cuidado (mérimna)",
@@ -1479,7 +1651,8 @@
       "solicitud",
       "cuidado",
       "preocupación"
-    ]
+    ],
+    "longDefinitionEs": "De G3307 por idea de distracción; solicitud, preocupación"
   },
   "G3309": {
     "shortDefinitionEs": "Estar ansioso, preocuparse, tener cuidado (merimnáō)",
@@ -1487,7 +1660,8 @@
       "preocuparse",
       "tener cuidado",
       "estar ansioso"
-    ]
+    ],
+    "longDefinitionEs": "De G3308; estar ansioso, preocuparse, tener cuidado"
   },
   "G3310": {
     "shortDefinitionEs": "Porción, parte, provincia, participación (merís)",
@@ -1495,7 +1669,8 @@
       "parte",
       "porción",
       "participación"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de G3313; porción, provincia, participación"
   },
   "G3311": {
     "shortDefinitionEs": "Separación, distribución, repartición (merismós)",
@@ -1503,7 +1678,8 @@
       "distribución",
       "repartición",
       "separación"
-    ]
+    ],
+    "longDefinitionEs": "De G3307; separación o distribución"
   },
   "G3312": {
     "shortDefinitionEs": "Repartidor, administrador, divisor (meristḗs)",
@@ -1511,7 +1687,8 @@
       "repartidor",
       "divisor",
       "administrador"
-    ]
+    ],
+    "longDefinitionEs": "De G3307; repartidor, administrador"
   },
   "G3313": {
     "shortDefinitionEs": "División, parte, porción, aspecto (méros)",
@@ -1519,7 +1696,8 @@
       "parte",
       "porción",
       "aspecto"
-    ]
+    ],
+    "longDefinitionEs": "De forma más primitiva; división, parte, porción (en aplicación amplia)"
   },
   "G3314": {
     "shortDefinitionEs": "Mediodía, sur, hora del mediodía (mesēmbría)",
@@ -1527,7 +1705,8 @@
       "mediodía",
       "sur",
       "medianodia"
-    ]
+    ],
+    "longDefinitionEs": "De G3319 y G2250; mediodía, por implicación, el sur"
   },
   "G3315": {
     "shortDefinitionEs": "Intervenir como mediador, ratificar (mesiteúō)",
@@ -1535,7 +1714,8 @@
       "intervenir",
       "mediar",
       "ratificar"
-    ]
+    ],
+    "longDefinitionEs": "De G3316; intervenir como mediador, ratificar como garante"
   },
   "G3316": {
     "shortDefinitionEs": "Mediador, intermediario, reconciliador (mesítēs)",
@@ -1543,19 +1723,22 @@
       "mediador",
       "intermediario",
       "reconciliador"
-    ]
+    ],
+    "longDefinitionEs": "De G3319; intermediario, mensajero o (por implicación) reconciliador (intercesor)"
   },
   "G3317": {
     "shortDefinitionEs": "Medianoche, hora de la medianoche (mesonýktion)",
     "glossesEs": [
       "medianoche"
-    ]
+    ],
+    "longDefinitionEs": "Neutro de compuesto de G3319 y G3571; medianoche (especialmente como una vigilia)"
   },
   "G3318": {
     "shortDefinitionEs": "Mesopotamia: región entre Eúfrates y Tigris (Mesopotamía)",
     "glossesEs": [
       "Mesopotamia"
-    ]
+    ],
+    "longDefinitionEs": "De G3319 y G4215; Mesopotamia (región entre Éufrates y Tigris; cf. 0763)"
   },
   "G3319": {
     "shortDefinitionEs": "Medio, centro, entre (mésos)",
@@ -1563,7 +1746,8 @@
       "medio",
       "entre",
       "centro"
-    ]
+    ],
+    "longDefinitionEs": "De G3326; medio o centro (como adjetivo o sustantivo neutro)"
   },
   "G3320": {
     "shortDefinitionEs": "Pared divisoria, muro de separación (mesótoichon)",
@@ -1571,27 +1755,31 @@
       "pared",
       "división",
       "separación"
-    ]
+    ],
+    "longDefinitionEs": "De G3319 y G5109; pared divisoria o muro de separación (figuradamente)"
   },
   "G3321": {
     "shortDefinitionEs": "Mitad del cielo, medio del cielo (mesouránēma)",
     "glossesEs": [
       "cielo",
       "mitad"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto presunto de G3319 y G3772; mitad del cielo"
   },
   "G3322": {
     "shortDefinitionEs": "Estar a mitad, avanzar la mitad (mesóō)",
     "glossesEs": [
       "mitad",
       "medio"
-    ]
+    ],
+    "longDefinitionEs": "De G3319; formar el medio, es decir, estar a mitad (en punto de tiempo)"
   },
   "G3323": {
     "shortDefinitionEs": "Mesías, el Ungido de Dios",
     "glossesEs": [
       "mesías"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04899); el Mesías (Mashiach), o Cristo"
   },
   "G3324": {
     "shortDefinitionEs": "Lleno, replete, saciado (mestós)",
@@ -1599,7 +1787,8 @@
       "lleno",
       "replete",
       "saciado"
-    ]
+    ],
+    "longDefinitionEs": "De derivación incierta; repleto o lleno (literal o figuradamente)"
   },
   "G3325": {
     "shortDefinitionEs": "Llenar, hartar, emborrachar (mestóō)",
@@ -1607,7 +1796,8 @@
       "llenar",
       "hartar",
       "emborrachar"
-    ]
+    ],
+    "longDefinitionEs": "De G3324; llenar, repletar o (por implicación) emborrachar"
   },
   "G3326": {
     "shortDefinitionEs": "Con, después de, entre, contra (metá)",
@@ -1615,7 +1805,8 @@
       "con",
       "después",
       "entre"
-    ]
+    ],
+    "longDefinitionEs": "Preposición primaria; denota acompañamiento; «en medio» (local o causal); ocupa posición intermedia entre G575 y G1537 o G1519 y G4314; menos íntima que G1722 y menos estrecha que G4862"
   },
   "G3327": {
     "shortDefinitionEs": "Cambiar de lugar, pasar, partir (metabaínō)",
@@ -1623,7 +1814,8 @@
       "partir",
       "pasar",
       "cambiar lugar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y base de G939; cambiar de lugar o trasladarse"
   },
   "G3328": {
     "shortDefinitionEs": "Cambiar de opinión, arrepentirse (metabállō)",
@@ -1631,7 +1823,8 @@
       "cambiar",
       "arrepentirse",
       "opinión"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G906; cambiar de opinión (voz media figurada) o arrepentirse"
   },
   "G3329": {
     "shortDefinitionEs": "Voltear, girar, dirigir (metágō)",
@@ -1639,7 +1832,8 @@
       "voltear",
       "girar",
       "dirigir"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G718; conducir sobre, transferir o dirigir"
   },
   "G3330": {
     "shortDefinitionEs": "Compartir, dar, impartir (metadídōmi)",
@@ -1647,7 +1841,8 @@
       "compartir",
       "dar",
       "impartir"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G1325; dar sobre, compartir o impartir"
   },
   "G3331": {
     "shortDefinitionEs": "Transposición, traslado, cambio (metáthesis)",
@@ -1655,7 +1850,8 @@
       "transposición",
       "traslado",
       "cambio"
-    ]
+    ],
+    "longDefinitionEs": "De G3346; transposición, traslado (al cielo) o cambio de ley"
   },
   "G3332": {
     "shortDefinitionEs": "Partir, marcharse, trasladarse (metaírō)",
@@ -1663,7 +1859,8 @@
       "partir",
       "marcharse",
       "trasladarse"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G142; trasladarse, partir o removerse (localmente)"
   },
   "G3333": {
     "shortDefinitionEs": "Llamar, convocar, enviar a buscar (metakaléō)",
@@ -1671,7 +1868,8 @@
       "llamar",
       "convocar",
       "buscar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G2564; llamar a otro lugar, convocar o enviar a buscar"
   },
   "G3334": {
     "shortDefinitionEs": "Mover, trasladar, remover (metakinéō)",
@@ -1679,7 +1877,8 @@
       "mover",
       "trasladar",
       "remover"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G2795; mover a otro lugar o remover (figuradamente)"
   },
   "G3335": {
     "shortDefinitionEs": "Participar, comer, recibir, compartir (metalambánō)",
@@ -1687,7 +1886,8 @@
       "participar",
       "comer",
       "recibir"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G2983; participar; genitivo, aceptar y usar"
   },
   "G3336": {
     "shortDefinitionEs": "Participación, toma, parte (metálēmpsis)",
@@ -1695,7 +1895,8 @@
       "participación",
       "toma",
       "parte"
-    ]
+    ],
+    "longDefinitionEs": "De G3335; participación, acción de tomar o parte"
   },
   "G3337": {
     "shortDefinitionEs": "Cambiar, intercambiar, trocar (metallássō)",
@@ -1703,7 +1904,8 @@
       "cambiar",
       "intercambiar",
       "trocar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G236; cambiar, intercambiar o trocar"
   },
   "G3338": {
     "shortDefinitionEs": "Arrepentirse, compadecerse (metaméllomai)",
@@ -1711,7 +1913,8 @@
       "arrepentirse",
       "compadecerse",
       "pesar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y voz media de G3199; arrepentirse o compadecerse"
   },
   "G3339": {
     "shortDefinitionEs": "Transformar, transfigurar, cambiar forma (metamorphóō)",
@@ -1719,7 +1922,8 @@
       "transformar",
       "transfigurar",
       "cambiar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G3445; transformar, transfigurar o cambiar de forma"
   },
   "G3340": {
     "shortDefinitionEs": "arrepentirse, cambiar de mente y dirección (metanoeó)",
@@ -1741,7 +1945,8 @@
       "entre",
       "medio",
       "entretanto"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y forma de G4862; entre, en medio o entretanto (lugar, persona o tiempo)"
   },
   "G3343": {
     "shortDefinitionEs": "Llamar, convocar, enviar a buscar (metapémpō)",
@@ -1749,7 +1954,8 @@
       "llamar",
       "convocar",
       "buscar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G3992; enviar de otro lugar, convocar o invitar (voz media)"
   },
   "G3344": {
     "shortDefinitionEs": "Pervertir, torcer, cambiar (metastréphō)",
@@ -1757,7 +1963,8 @@
       "pervertir",
       "torcer",
       "cambiar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G4762; girar al través, transmutación o (figuradamente) corromper"
   },
   "G3345": {
     "shortDefinitionEs": "Transfigurar, disfrazar, transformar (metaschēmatízō)",
@@ -1765,7 +1972,8 @@
       "transfigurar",
       "transformar",
       "disfrazar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y derivado de G4976; transfigurar, disfrazar o transformar figuradamente"
   },
   "G3346": {
     "shortDefinitionEs": "Transferir, trasladar, cambiar, traducir (metatíthēmi)",
@@ -1773,7 +1981,8 @@
       "transferir",
       "trasladar",
       "cambiar"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G5087; transferir, transportar, intercambiar, cambiar de bando o pervertir"
   },
   "G3347": {
     "shortDefinitionEs": "Después, posteriormente, luego (metépeita)",
@@ -1781,7 +1990,8 @@
       "después",
       "luego",
       "posteriormente"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G1899; después o posteriormente"
   },
   "G3348": {
     "shortDefinitionEs": "Participar, compartir, pertenecer, comer (metéchō)",
@@ -1789,7 +1999,8 @@
       "participar",
       "compartir",
       "pertenecer"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y G3192; compartir o participar; por implicación, pertenecer, comer o beber"
   },
   "G3349": {
     "shortDefinitionEs": "Estar en duda, dudar, fluctuar (meteōrízō)",
@@ -1797,7 +2008,8 @@
       "dudar",
       "fluctuar",
       "incertidumbre"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de G3326 y forma colateral de G142 o quizá G109; levantar en el aire, es decir (figuradamente) suspender o fluctuar con ansiedad"
   },
   "G3350": {
     "shortDefinitionEs": "Cambio de residencia, cautividad, destierro (metoikesía)",
@@ -1805,7 +2017,8 @@
       "cautividad",
       "destierro",
       "traslado"
-    ]
+    ],
+    "longDefinitionEs": "De derivado de compuesto de G3326 y G3624; cambio de residencia, específicamente expatriación"
   },
   "G3351": {
     "shortDefinitionEs": "Trasladar, deportar, desterrar, exiliar (metoikízō)",
@@ -1813,7 +2026,8 @@
       "trasladar",
       "deportar",
       "desterrar"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que G3350; trasladar como colono o cautivo, es decir colonizar o desterrar"
   },
   "G3352": {
     "shortDefinitionEs": "Participación, comunión, compañía (metochḗ)",
@@ -1821,7 +2035,8 @@
       "participación",
       "comunión",
       "compañía"
-    ]
+    ],
+    "longDefinitionEs": "De G3348; participación, es decir intercourse"
   },
   "G3353": {
     "shortDefinitionEs": "Partícipe, compañero, asociado, socio (métochos)",
@@ -1829,7 +2044,8 @@
       "compañero",
       "partícipe",
       "socio"
-    ]
+    ],
+    "longDefinitionEs": "De G3348; participante, es decir (como sustantivo) un partícipe; por implicación, un asociado"
   },
   "G3354": {
     "shortDefinitionEs": "Medir, pesar, estimar, distribuir (metréō)",
@@ -1837,7 +2053,8 @@
       "medir",
       "pesar",
       "estimar"
-    ]
+    ],
+    "longDefinitionEs": "De G3358; medir (es decir, determinar el tamaño por estándar fijo); por implicación, distribuir por regla"
   },
   "G3355": {
     "shortDefinitionEs": "Medida de líquidos, barril, odre (metrētḗs)",
@@ -1845,7 +2062,8 @@
       "medida",
       "barril",
       "odre"
-    ]
+    ],
+    "longDefinitionEs": "De G3354; medidor, es decir, específicamente una medida estándar de capacidad para líquidos"
   },
   "G3356": {
     "shortDefinitionEs": "Tener compasión, ser moderado, compadecerse (metriopathéō)",
@@ -1853,7 +2071,8 @@
       "compasión",
       "moderación",
       "compadecerse"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de base de G3357 y G3806; ser moderado en pasión, es decir tratar indulgentemente"
   },
   "G3357": {
     "shortDefinitionEs": "Moderadamente, ligeramente, un poco (metríōs)",
@@ -1861,7 +2080,8 @@
       "ligeramente",
       "poco",
       "moderadamente"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de derivado de G3358; moderadamente, es decir ligeramente"
   },
   "G3358": {
     "shortDefinitionEs": "Medida, proporción, porción limitada (métron)",
@@ -1869,7 +2089,8 @@
       "medida",
       "proporción",
       "porción"
-    ]
+    ],
+    "longDefinitionEs": "Palabra aparentemente primaria; medida (metro), literal o figuradamente; por implicación, porción limitada o grado"
   },
   "G3359": {
     "shortDefinitionEs": "Frente, frente de la cara (métōpon)",
@@ -1877,7 +2098,8 @@
       "frente",
       "rostro",
       "cara"
-    ]
+    ],
+    "longDefinitionEs": "De G3326 y ops (la cara); la frente (como opuesta a la faz)"
   },
   "G3360": {
     "shortDefinitionEs": "Hasta, incluso, hasta que (méchri)",
@@ -1885,28 +2107,32 @@
       "hasta",
       "incluso",
       "cuando"
-    ]
+    ],
+    "longDefinitionEs": "De G3372; tan lejos como, es decir hasta cierto punto; preposición de extensión (denota el término) o conjunción"
   },
   "G3361": {
     "shortDefinitionEs": "no, no sea que, a menos que (mḗ)",
     "glossesEs": [
       "negación",
       "no sea que"
-    ]
+    ],
+    "longDefinitionEs": "Partícula primaria de negación calificada (mientras que G3756 expresa negación absoluta); (adverbio) no; (conjunción) no sea que"
   },
   "G3362": {
     "shortDefinitionEs": "si no, a menos que (eàn mḗ)",
     "glossesEs": [
       "a menos que",
       "si no"
-    ]
+    ],
+    "longDefinitionEs": "Es decir G1437 y G3361; si no, es decir a menos que"
   },
   "G3363": {
     "shortDefinitionEs": "para que no, a fin de que no (hína mḗ)",
     "glossesEs": [
       "no sea que",
       "para que no"
-    ]
+    ],
+    "longDefinitionEs": "Es decir G2443 y G3361; en orden o de modo que no"
   },
   "G3364": {
     "shortDefinitionEs": "de ninguna manera, nunca jamás (ou mḗ)",
@@ -1914,14 +2140,16 @@
       "nunca",
       "jamás",
       "de ningún modo"
-    ]
+    ],
+    "longDefinitionEs": "Es decir G3756 y G3361; doble negativa que fortalece la negación; de ninguna manera"
   },
   "G3365": {
     "shortDefinitionEs": "de ninguna manera, en absoluto (mēdamōs)",
     "glossesEs": [
       "de ningún modo",
       "nunca"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de compuesto de G3361 y (alguien); de ningún modo"
   },
   "G3366": {
     "shortDefinitionEs": "ni, ni siquiera, tampoco (mēdé)",
@@ -1929,7 +2157,8 @@
       "ni",
       "ni siquiera",
       "tampoco"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 y G1161; pero no, ni siquiera; en negación continuada, ni"
   },
   "G3367": {
     "shortDefinitionEs": "ninguno, nadie, nada (mēdeís)",
@@ -1937,28 +2166,32 @@
       "ninguno",
       "nadie",
       "nada"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 y G1520; ni uno siquiera (hombre, mujer, cosa)"
   },
   "G3368": {
     "shortDefinitionEs": "nunca jamás (mēdépote)",
     "glossesEs": [
       "nunca",
       "jamás"
-    ]
+    ],
+    "longDefinitionEs": "De G3366 y G4218; ni jamás"
   },
   "G3369": {
     "shortDefinitionEs": "aún no, todavía no (mēdépō)",
     "glossesEs": [
       "aún no",
       "todavía no"
-    ]
+    ],
+    "longDefinitionEs": "De G3366 y G4452; ni aún todavía"
   },
   "G3370": {
     "shortDefinitionEs": "Medo: natural de Media (Mēdos)",
     "glossesEs": [
       "Medo",
       "Media"
-    ]
+    ],
+    "longDefinitionEs": "De origen extranjero (compárese H4074); un Medo, habitante de Media"
   },
   "G3371": {
     "shortDefinitionEs": "no más, nunca más, de ahora en adelante no (mēkéti)",
@@ -1966,21 +2199,24 @@
       "no más",
       "nunca más",
       "de ahora en adelante"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 y G2089; no más, no cualquier más tiempo"
   },
   "G3372": {
     "shortDefinitionEs": "longitud, largo (mēkos)",
     "glossesEs": [
       "longitud",
       "largo"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente afín a G3173; longitud, literal o figuradamente"
   },
   "G3373": {
     "shortDefinitionEs": "alargar, crecer, aumentar (mēkýnō)",
     "glossesEs": [
       "alargar",
       "crecer"
-    ]
+    ],
+    "longDefinitionEs": "De G3372; alargar, es decir (voz media) ampliar o crecer"
   },
   "G3374": {
     "shortDefinitionEs": "pellejo de oveja, cuero de carnero (mēlōtḗ)",
@@ -1988,20 +2224,23 @@
       "pellejo",
       "cuero",
       "oveja"
-    ]
+    ],
+    "longDefinitionEs": "De (una oveja); cuero de oveja o pellejo de carnero"
   },
   "G3375": {
     "shortDefinitionEs": "ciertamente, seguramente (mḗn)",
     "glossesEs": [
       "ciertamente",
       "seguramente"
-    ]
+    ],
+    "longDefinitionEs": "Forma más fuerte de G3303; partícula de afirmación; ciertamente, seguramente"
   },
   "G3376": {
     "shortDefinitionEs": "mes (mḗn)",
     "glossesEs": [
       "mes"
-    ]
+    ],
+    "longDefinitionEs": "Palabra primaria; mes"
   },
   "G3377": {
     "shortDefinitionEs": "revelar, manifestar, informar, anunciar (mēnýō)",
@@ -2009,14 +2248,16 @@
       "revelar",
       "manifestar",
       "informar"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de la misma base que G3145 y G3415; revelar (por idea de esfuerzo mental), es decir reportar, declarar, informar o anunciar"
   },
   "G3378": {
     "shortDefinitionEs": "¿no es cierto?, ¿acaso no? (mḕ ouk)",
     "glossesEs": [
       "pregunta negativa",
       "¿no?"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 (μή) y G3756 (οὐ); como interrogativo y negativo: ¿no es así?"
   },
   "G3379": {
     "shortDefinitionEs": "nunca, no sea que, acaso (mḗpote)",
@@ -2024,14 +2265,16 @@
       "nunca",
       "no sea que",
       "acaso"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 (μή) y G4218 (ποτέ); nunca; también si (o no sea que) alguna vez (o acaso)"
   },
   "G3380": {
     "shortDefinitionEs": "aún no, todavía no (mḗpō)",
     "glossesEs": [
       "aún no",
       "todavía no"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 (μή) y G4452 (-πω); aún no, todavía no"
   },
   "G3381": {
     "shortDefinitionEs": "no sea que, acaso, por ventura (mḗpōs)",
@@ -2039,13 +2282,15 @@
       "no sea que",
       "acaso",
       "por ventura"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 (μή) y G4458 (-πώς); no sea que de algún modo"
   },
   "G3382": {
     "shortDefinitionEs": "muslo (mērós)",
     "glossesEs": [
       "muslo"
-    ]
+    ],
+    "longDefinitionEs": "Posiblemente palabra primitiva; el muslo"
   },
   "G3383": {
     "shortDefinitionEs": "ni, ni tampoco, ni siquiera (mḗte)",
@@ -2053,34 +2298,39 @@
       "ni",
       "tampoco",
       "ni siquiera"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 (μή) y G5037 (τέ); ni tampoco, es decir (en negación continuada) ni... ni; también, ni siquiera"
   },
   "G3384": {
     "shortDefinitionEs": "madre (métér)",
     "glossesEs": [
       "madre"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente palabra primitiva; madre (literal o figuradamente, inmediata o remota)"
   },
   "G3385": {
     "shortDefinitionEs": "¿acaso?, si acaso (mḗti)",
     "glossesEs": [
       "acaso",
       "si acaso"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 (μή) y lo neutro de G5100 (τὶς); si acaso, de algún modo"
   },
   "G3386": {
     "shortDefinitionEs": "cuánto menos, cuánto más (mḗtige)",
     "glossesEs": [
       "cuánto menos",
       "cuánto más"
-    ]
+    ],
+    "longDefinitionEs": "De G3385 (μήτι) y G1065 (γέ); en modo alguno entonces; es decir, sin mencionar (mucho menos)"
   },
   "G3387": {
     "shortDefinitionEs": "¿alguno?, algún (mḗtis)",
     "glossesEs": [
       "alguno",
       "algún"
-    ]
+    ],
+    "longDefinitionEs": "De G3361 (μή) y G5100 (τὶς); si alguno, si algo"
   },
   "G3388": {
     "shortDefinitionEs": "matriz, seno materno (mḗtra)",
@@ -2088,7 +2338,8 @@
       "matriz",
       "vientre",
       "seno"
-    ]
+    ],
+    "longDefinitionEs": "De G3384 (μήτηρ); la matriz, el útero"
   },
   "G3389": {
     "shortDefinitionEs": "parricida, asesino de madre (mētralṓias)",
@@ -2096,14 +2347,16 @@
       "parricida",
       "matricida",
       "asesino"
-    ]
+    ],
+    "longDefinitionEs": "De G3384 (μήτηρ) y la base de G257 (ἅλων); matricida, asesino de madre"
   },
   "G3390": {
     "shortDefinitionEs": "metrópolis, ciudad madre (mētrópolis)",
     "glossesEs": [
       "metrópolis",
       "ciudad principal"
-    ]
+    ],
+    "longDefinitionEs": "De G3384 (μήτηρ) y G4172 (πόλις); ciudad madre, metrópolis"
   },
   "G3391": {
     "shortDefinitionEs": "uno, una, primer (mía)",
@@ -2111,7 +2364,8 @@
       "uno",
       "una",
       "primero"
-    ]
+    ],
+    "longDefinitionEs": "Femenino irregular de G1520 (εἷς); uno, una, primera"
   },
   "G3392": {
     "shortDefinitionEs": "contaminar, manchar, profanar (miaínō)",
@@ -2119,7 +2373,8 @@
       "contaminar",
       "manchar",
       "profanar"
-    ]
+    ],
+    "longDefinitionEs": "Posiblemente verbo primitivo; manchar, contaminar (ceremonial o moralmente)"
   },
   "G3393": {
     "shortDefinitionEs": "contaminación, inmundicia moral (míasma)",
@@ -2127,7 +2382,8 @@
       "contaminación",
       "inmundicia",
       "mancha"
-    ]
+    ],
+    "longDefinitionEs": "De G3392 (μιαίνω) (miasma); impureza, contaminación moral (por efecto)"
   },
   "G3394": {
     "shortDefinitionEs": "inmundicia, impureza ceremonial (miasmós)",
@@ -2135,28 +2391,32 @@
       "inmundicia",
       "impureza",
       "contaminación"
-    ]
+    ],
+    "longDefinitionEs": "De G3392 (μιαίνω); contaminación, inmundicia moral (por el acto)"
   },
   "G3395": {
     "shortDefinitionEs": "mezcla, mixtura (mígma)",
     "glossesEs": [
       "mezcla",
       "mixtura"
-    ]
+    ],
+    "longDefinitionEs": "De G3396 (μίγνυμι); una mezcla, compuesto"
   },
   "G3396": {
     "shortDefinitionEs": "mezclar, combinar (mígnymi)",
     "glossesEs": [
       "mezclar",
       "combinar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primitivo; mezclar, combinar"
   },
   "G3397": {
     "shortDefinitionEs": "poco tiempo, pequeña distancia (mikrón)",
     "glossesEs": [
       "poco tiempo",
       "un poco"
-    ]
+    ],
+    "longDefinitionEs": "Singular masculino o neutro de G3398 (μικρός) como sustantivo; poco tiempo o grado"
   },
   "G3398": {
     "shortDefinitionEs": "pequeño, poco, diminuto, de poca importancia (mikrós)",
@@ -2164,35 +2424,40 @@
       "pequeño",
       "poco",
       "diminuto"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente palabra primitiva; pequeño (en tamaño, cantidad o dignidad)"
   },
   "G3399": {
     "shortDefinitionEs": "Mileto: ciudad de Asia Menor (Mílētos)",
     "glossesEs": [
       "Mileto",
       "ciudad"
-    ]
+    ],
+    "longDefinitionEs": "De origen incierto; Mileto, ciudad de Asia Menor"
   },
   "G3400": {
     "shortDefinitionEs": "milla, medida de distancia (mílion)",
     "glossesEs": [
       "milla",
       "medida"
-    ]
+    ],
+    "longDefinitionEs": "De origen latino; mil pasos, es decir, una milla"
   },
   "G3401": {
     "shortDefinitionEs": "imitar, seguir el ejemplo (miméomai)",
     "glossesEs": [
       "imitar",
       "seguir"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de (mimo); imitar, seguir como ejemplo"
   },
   "G3402": {
     "shortDefinitionEs": "imitador, seguidor (mimētḗs)",
     "glossesEs": [
       "imitador",
       "seguidor"
-    ]
+    ],
+    "longDefinitionEs": "De G3401 (μιμέομαι); imitador, seguidor"
   },
   "G3403": {
     "shortDefinitionEs": "recordar, rememorar, tener en mente (mimnḗskō)",
@@ -2200,7 +2465,8 @@
       "recordar",
       "rememorar",
       "acordarse"
-    ]
+    ],
+    "longDefinitionEs": "Forma prolongada de G3415 (μνάομαι); recordar, traer a la memoria (voz media)"
   },
   "G3404": {
     "shortDefinitionEs": "aborrecer, odiar, detestar (miséō)",
@@ -2208,7 +2474,8 @@
       "odiar",
       "aborrecer",
       "detestar"
-    ]
+    ],
+    "longDefinitionEs": "De (odio primitivo); aborrecer, odiar; por extensión, amar menos"
   },
   "G3405": {
     "shortDefinitionEs": "recompensa, retribución, galardón (misthapodosía)",
@@ -2216,14 +2483,16 @@
       "recompensa",
       "retribución",
       "galardón"
-    ]
+    ],
+    "longDefinitionEs": "De G3406 (μισθαποδότης); retribución, recompensa (buena o mala)"
   },
   "G3406": {
     "shortDefinitionEs": "galardonador, remunerador (misthapodótēs)",
     "glossesEs": [
       "galardonador",
       "remunerador"
-    ]
+    ],
+    "longDefinitionEs": "De G3409 (μισθόω) y G591 (ἀποδίδωμι); galardonador, remunerador"
   },
   "G3407": {
     "shortDefinitionEs": "obrero asalariado, jornalero (místhios)",
@@ -2231,7 +2500,8 @@
       "obrero",
       "jornalero",
       "asalariado"
-    ]
+    ],
+    "longDefinitionEs": "De G3408 (μισθός); obrero asalariado, jornalero"
   },
   "G3408": {
     "shortDefinitionEs": "salario, jornal, recompensa (misthós)",
@@ -2239,7 +2509,8 @@
       "salario",
       "jornal",
       "recompensa"
-    ]
+    ],
+    "longDefinitionEs": "Paga por servicio, literal o figurado, buena o mala"
   },
   "G3409": {
     "shortDefinitionEs": "arrendar, alquilar, contratar (misthóō)",
@@ -2247,14 +2518,16 @@
       "alquilar",
       "arrendar",
       "contratar"
-    ]
+    ],
+    "longDefinitionEs": "Arrendar por salario; en voz media, contratar o emplear"
   },
   "G3410": {
     "shortDefinitionEs": "casa alquilada, vivienda alquilada (místhōma)",
     "glossesEs": [
       "casa alquilada",
       "vivienda"
-    ]
+    ],
+    "longDefinitionEs": "Edificio alquilado o arrendado"
   },
   "G3411": {
     "shortDefinitionEs": "asalariado, jornalero, mercenario (misthōtós)",
@@ -2262,21 +2535,24 @@
       "jornalero",
       "asalariado",
       "mercenario"
-    ]
+    ],
+    "longDefinitionEs": "Trabajador asalariado; jornalero bueno o malo"
   },
   "G3412": {
     "shortDefinitionEs": "Mitilene, ciudad en la isla de Lesbos (Mitylḗnē)",
     "glossesEs": [
       "Mitilene",
       "Lesbos"
-    ]
+    ],
+    "longDefinitionEs": "Mitilene, ciudad abundante en mariscos en la isla de Lesbos"
   },
   "G3413": {
     "shortDefinitionEs": "Miguel: arcángel (Michaḗl)",
     "glossesEs": [
       "Miguel",
       "arcángel"
-    ]
+    ],
+    "longDefinitionEs": "Miguel, de origen hebreo (H04317); arcángel"
   },
   "G3414": {
     "shortDefinitionEs": "Mina, unidad de peso y moneda (mnâ)",
@@ -2284,7 +2560,8 @@
       "mina",
       "peso",
       "moneda"
-    ]
+    ],
+    "longDefinitionEs": "Mina, unidad de peso de origen latino"
   },
   "G3415": {
     "shortDefinitionEs": "Acordarse, recordar; recompensar o castigar (mnáomai)",
@@ -2292,20 +2569,23 @@
       "recordar",
       "acordarse",
       "tener en mente"
-    ]
+    ],
+    "longDefinitionEs": "Retener en la mente, recordar; por implicación, recompensar o castigar"
   },
   "G3416": {
     "shortDefinitionEs": "Mnasón: cristiano (Mnásōn)",
     "glossesEs": [
       "Mnasón"
-    ]
+    ],
+    "longDefinitionEs": "Mnasón, cristiano de origen incierto"
   },
   "G3417": {
     "shortDefinitionEs": "Mención, recuerdo, narración (mneía)",
     "glossesEs": [
       "mención",
       "recuerdo"
-    ]
+    ],
+    "longDefinitionEs": "Recuerdo o recital; derivado de G3415 o G3403"
   },
   "G3418": {
     "shortDefinitionEs": "Tumba, sepulcro, monumento funerario (mnēma)",
@@ -2313,7 +2593,8 @@
       "tumba",
       "sepulcro",
       "sepultura"
-    ]
+    ],
+    "longDefinitionEs": "Monumento funerario; lugar de sepultura o entierro"
   },
   "G3419": {
     "shortDefinitionEs": "Sepulcro, lugar de entierro, tumba (mnēmeîon)",
@@ -2321,14 +2602,16 @@
       "sepulcro",
       "tumba",
       "tumba"
-    ]
+    ],
+    "longDefinitionEs": "Cenotafio; lugar de entierro o inhumación"
   },
   "G3420": {
     "shortDefinitionEs": "Memoria, recuerdo (mnḗmē)",
     "glossesEs": [
       "memoria",
       "recuerdo"
-    ]
+    ],
+    "longDefinitionEs": "Memoria o recuerdo; de G3403"
   },
   "G3421": {
     "shortDefinitionEs": "Recordar, tener en memoria; castigar (mnēmoneúō)",
@@ -2336,35 +2619,40 @@
       "recordar",
       "acordarse",
       "castigar"
-    ]
+    ],
+    "longDefinitionEs": "Ejercer la memoria, recordar; por implicación, castigar o narrar"
   },
   "G3422": {
     "shortDefinitionEs": "Memorial, recordatorio, registro (mnēmósynon)",
     "glossesEs": [
       "memorial",
       "recordatorio"
-    ]
+    ],
+    "longDefinitionEs": "Memorándum o recordatorio; registro o monumento conmemorativo"
   },
   "G3423": {
     "shortDefinitionEs": "Desposar, comprometer en matrimonio (mnēsteúō)",
     "glossesEs": [
       "desposar",
       "comprometer"
-    ]
+    ],
+    "longDefinitionEs": "Dar prenda de desposorio; desposar o comprometer en matrimonio"
   },
   "G3424": {
     "shortDefinitionEs": "Que habla con dificultad, tartamudo (mogilálos)",
     "glossesEs": [
       "tartamudo",
       "dificultad en habla"
-    ]
+    ],
+    "longDefinitionEs": "Que habla con dificultad; tartamudo o mudo de lengua"
   },
   "G3425": {
     "shortDefinitionEs": "Con dificultad, apenas (mógis)",
     "glossesEs": [
       "apenas",
       "con dificultad"
-    ]
+    ],
+    "longDefinitionEs": "Con dificultad o apenas; adverbio de esfuerzo"
   },
   "G3426": {
     "shortDefinitionEs": "Medida de áridos, almud (módios)",
@@ -2372,62 +2660,71 @@
       "medida",
       "almud",
       "fanega"
-    ]
+    ],
+    "longDefinitionEs": "Módio; medida romana para áridos, cantidad o recipiente"
   },
   "G3427": {
     "shortDefinitionEs": "A mí, me (pronombre) (moí)",
     "glossesEs": [
       "me",
       "mí"
-    ]
+    ],
+    "longDefinitionEs": "A mí, forma simple de G1698; pronombre personal"
   },
   "G3428": {
     "shortDefinitionEs": "Adúltera (literal o figurado) (moichalís)",
     "glossesEs": [
       "adúltera",
       "adulterio"
-    ]
+    ],
+    "longDefinitionEs": "Adúltera, literal o figuradamente; derivado de G3432"
   },
   "G3429": {
     "shortDefinitionEs": "Cometer adulterio (moicháō)",
     "glossesEs": [
       "adulterio",
       "cometer adulterio"
-    ]
+    ],
+    "longDefinitionEs": "Cometer adulterio; voz media de G3432"
   },
   "G3430": {
     "shortDefinitionEs": "Adulterio (moicheía)",
     "glossesEs": [
       "adulterio"
-    ]
+    ],
+    "longDefinitionEs": "Adulterio; derivado de G3431"
   },
   "G3431": {
     "shortDefinitionEs": "Cometer adulterio (moicheúō)",
     "glossesEs": [
       "adulterio",
       "cometer adulterio"
-    ]
+    ],
+    "longDefinitionEs": "Cometer adulterio; derivado de G3432"
   },
   "G3432": {
     "shortDefinitionEs": "Adúltero; apóstata (moichós)",
     "glossesEs": [
       "adúltero",
       "infiel"
-    ]
+    ],
+    "longDefinitionEs": "Adúltero; figuradamente, apóstata o infiel"
   },
   "G3433": {
     "shortDefinitionEs": "Con dificultad, apenas, difícilmente (mólis)",
     "glossesEs": [
       "apenas",
       "con dificultad"
-    ]
+    ],
+    "longDefinitionEs": "Con dificultad o apenas; variante probable de G3425"
   },
   "G3434": {
     "shortDefinitionEs": "Moloc, ídolo pagano (Molóch)",
     "glossesEs": [
       "Moloc",
       "ídolo"
-    ]
+    ],
+    "longDefinitionEs": "Moloc, ídolo pagano de origen hebreo (H04432)"
   },
   "G3435": {
     "shortDefinitionEs": "Manchar, contaminar (figurado) (molýnō)",
@@ -2435,14 +2732,16 @@
       "manchar",
       "contaminar",
       "profanar"
-    ]
+    ],
+    "longDefinitionEs": "Manchar o contaminar figuradamente; posible derivado de G3189"
   },
   "G3436": {
     "shortDefinitionEs": "Mancha, impureza moral (molysm ós)",
     "glossesEs": [
       "mancha",
       "impureza"
-    ]
+    ],
+    "longDefinitionEs": "Mancha; immoralidad o impureza figurada de G3435"
   },
   "G3437": {
     "shortDefinitionEs": "Culpa, reproche, falta (momphḗ)",
@@ -2450,7 +2749,8 @@
       "culpa",
       "falta",
       "reproche"
-    ]
+    ],
+    "longDefinitionEs": "Culpa, reproche o falta; derivado de G3201"
   },
   "G3438": {
     "shortDefinitionEs": "Morada, vivienda, residencia (monḗ)",
@@ -2458,7 +2758,8 @@
       "morada",
       "vivienda",
       "mansión"
-    ]
+    ],
+    "longDefinitionEs": "De G3306; permanencia, es decir, residencia (el acto o el lugar)"
   },
   "G3439": {
     "shortDefinitionEs": "unigénito, único en su especie (monogenes)",
@@ -2473,63 +2774,72 @@
       "solo",
       "solamente",
       "únicamente"
-    ]
+    ],
+    "longDefinitionEs": "Neutro de G3441 como adverbio; meramente"
   },
   "G3441": {
     "shortDefinitionEs": "Solo, único, solitario (mónos)",
     "glossesEs": [
       "solo",
       "único"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de G3306; que permanece, es decir, único o singular; por implicación, mero"
   },
   "G3442": {
     "shortDefinitionEs": "Tuerto, con un solo ojo (monóphthalmos)",
     "glossesEs": [
       "tuerto",
       "un ojo"
-    ]
+    ],
+    "longDefinitionEs": "De G3441 y G3788; tuerto"
   },
   "G3443": {
     "shortDefinitionEs": "Quedar desolado, quedarse huérfano (monóō)",
     "glossesEs": [
       "desolado",
       "huérfano"
-    ]
+    ],
+    "longDefinitionEs": "De G3441; aislar, es decir, dejar desolado u huérfano"
   },
   "G3444": {
     "shortDefinitionEs": "Forma, apariencia; naturaleza (morphḗ)",
     "glossesEs": [
       "forma",
       "apariencia"
-    ]
+    ],
+    "longDefinitionEs": "Quizás de la base de G3313 (por la idea de ajuste de partes); forma; figuradamente, naturaleza"
   },
   "G3445": {
     "shortDefinitionEs": "Formar, configurar (figurado) (morphóō)",
     "glossesEs": [
       "formar",
       "configurar"
-    ]
+    ],
+    "longDefinitionEs": "De lo mismo que G3444; formar o configurar (figuradamente)"
   },
   "G3446": {
     "shortDefinitionEs": "Forma, apariencia, configuración (mórphōsis)",
     "glossesEs": [
       "forma",
       "apariencia"
-    ]
+    ],
+    "longDefinitionEs": "De G3445; formación, es decir, (por implicación) apariencia (semejanza o fórmula concreta)"
   },
   "G3447": {
     "shortDefinitionEs": "Hacer un becerro de oro (moschopoiéō)",
     "glossesEs": [
       "becerro",
       "hacer"
-    ]
+    ],
+    "longDefinitionEs": "De G3448 y G4160; fabricar la imagen de un becerro"
   },
   "G3448": {
     "shortDefinitionEs": "Becerro, ternero joven (móschos)",
     "glossesEs": [
       "becerro",
       "ternero"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente forma reforzada; un becerro joven"
   },
   "G3449": {
     "shortDefinitionEs": "Trabajo penoso, sufrimiento (móchthos)",
@@ -2537,82 +2847,94 @@
       "trabajo",
       "sufrimiento",
       "fatiga"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G3425; trabajo penoso, es decir, (por implicación) sufrimiento"
   },
   "G3450": {
     "shortDefinitionEs": "De mí, mío (pronombre) (moû)",
     "glossesEs": [
       "mío",
       "de mí"
-    ]
+    ],
+    "longDefinitionEs": "Forma más simple de G1700; de mí"
   },
   "G3451": {
     "shortDefinitionEs": "Músico, trovador (mousikós)",
     "glossesEs": [
       "músico",
       "trovador"
-    ]
+    ],
+    "longDefinitionEs": "De (una Musa); \"musical\", es decir, (como sustantivo) trovador o músico"
   },
   "G3452": {
     "shortDefinitionEs": "Médula ósea (myelós)",
     "glossesEs": [
       "médula",
       "tuétano"
-    ]
+    ],
+    "longDefinitionEs": "Quizás palabra primaria; médula ósea"
   },
   "G3453": {
     "shortDefinitionEs": "Iniciar, instruir (myéō)",
     "glossesEs": [
       "instruir",
       "enseñar"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G3466; iniciar, es decir, (por implicación) instruir"
   },
   "G3454": {
     "shortDefinitionEs": "Fábula, cuento ficticio (mŷthos)",
     "glossesEs": [
       "fábula",
       "mito"
-    ]
+    ],
+    "longDefinitionEs": "Quizás de lo mismo que G3453 (por la idea de instrucción); relato, es decir, ficción (mito)"
   },
   "G3455": {
     "shortDefinitionEs": "Bramar, rugir (mykáomai)",
     "glossesEs": [
       "rugir",
       "bramar"
-    ]
+    ],
+    "longDefinitionEs": "De derivado presumido; bramar o rugir"
   },
   "G3456": {
     "shortDefinitionEs": "Burlarse, mofarse, ridiculizar (myktērízō)",
     "glossesEs": [
       "burlarse",
       "mofarse"
-    ]
+    ],
+    "longDefinitionEs": "De derivado de la base de G3455 (significando hocico); hacer muecas, es decir, ridiculizar"
   },
   "G3457": {
     "shortDefinitionEs": "De molino, perteneciente al molino (mylikós)",
     "glossesEs": [
       "molino",
       "piedra de molino"
-    ]
+    ],
+    "longDefinitionEs": "De G3458; perteneciente a un molino"
   },
   "G3458": {
     "shortDefinitionEs": "Molino, piedra de molino (mýlos)",
     "glossesEs": [
       "molino",
       "piedra de molino"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de la base de G3433 (por la idea de dificultad); molino, es decir, (por implicación) piedra de molino"
   },
   "G3459": {
     "shortDefinitionEs": "Casa de molino (mýlōn)",
     "glossesEs": [
       "molino"
-    ]
+    ],
+    "longDefinitionEs": "De G3458; casa de molino"
   },
   "G3460": {
     "shortDefinitionEs": "Mira, ciudad en Asia Menor (Mýra)",
     "glossesEs": [
       "Mira"
-    ]
+    ],
+    "longDefinitionEs": "De origen incierto; Mira, ciudad en Asia Menor"
   },
   "G3461": {
     "shortDefinitionEs": "Diez mil, miríada, innumerable (myriás)",
@@ -2620,362 +2942,417 @@
       "diez mil",
       "miríada",
       "innumerable"
-    ]
+    ],
+    "longDefinitionEs": "De G3463; diez mil; por extensión, miríada o número indefinido"
   },
   "G3462": {
     "shortDefinitionEs": "Ungir con perfume (myrízō)",
     "glossesEs": [
       "ungir",
       "perfume"
-    ]
+    ],
+    "longDefinitionEs": "De G3464; ungir con ungüento perfumado"
   },
   "G3463": {
     "shortDefinitionEs": "diez mil; incontables (mýrioi)",
     "glossesEs": [
       "diez mil",
       "innumerable"
-    ]
+    ],
+    "longDefinitionEs": "Plural de palabra primaria aparente; diez mil; por extensión, innumerablemente muchos"
   },
   "G3464": {
     "shortDefinitionEs": "ungüento perfumado de mirra (mýron)",
     "glossesEs": [
       "ungüento",
       "mirra"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de origen extranjero (compárese H4753, G4666); mirra, es decir, (por implicación) aceite perfumado"
   },
   "G3465": {
     "shortDefinitionEs": "Misia: región de Asia Menor (Mysía)",
     "glossesEs": [
       "Misia"
-    ]
+    ],
+    "longDefinitionEs": "De origen incierto; Misia, región de Asia Menor"
   },
   "G3466": {
     "shortDefinitionEs": "secreto o misterio oculto (mystḗrion)",
     "glossesEs": [
       "misterio",
       "secreto"
-    ]
+    ],
+    "longDefinitionEs": "De derivado (cerrar la boca); secreto o misterio (por la idea del silencio en ritos iniciáticos)"
   },
   "G3467": {
     "shortDefinitionEs": "ver indistintamente; cerrar los ojos (myōpázō)",
     "glossesEs": [
       "ver confusamente"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de la base de G3466 y (el rostro; de G3700); cerrar los ojos, es decir, parpadear"
   },
   "G3468": {
     "shortDefinitionEs": "marca o golpe en el cuerpo (mṓlōps)",
     "glossesEs": [
       "marca",
       "golpe"
-    ]
+    ],
+    "longDefinitionEs": "De (trabajar duramente) y probablemente (el rostro; de G3700); marca o golpe en el cuerpo"
   },
   "G3469": {
     "shortDefinitionEs": "censurar, culpar (mōmáomai)",
     "glossesEs": [
       "culpar",
       "censurar"
-    ]
+    ],
+    "longDefinitionEs": "De G3470; criticar o censurar, es decir, desacreditar"
   },
   "G3470": {
     "shortDefinitionEs": "defecto o mancha; deshonra (mōmos)",
     "glossesEs": [
       "mancha",
       "defecto"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de G3201; una falta o mancha, es decir, (figuradamente) persona deshonrosa"
   },
   "G3471": {
     "shortDefinitionEs": "volverse tonto o insípido (mōraínō)",
     "glossesEs": [
       "entontecer",
       "perder sabor"
-    ]
+    ],
+    "longDefinitionEs": "De G3474; volverse insípido; figuradamente, actuar como un simplón"
   },
   "G3472": {
     "shortDefinitionEs": "tontería o necedad (mōría)",
     "glossesEs": [
       "tontería",
       "necedad"
-    ]
+    ],
+    "longDefinitionEs": "De G3474; insensatez, es decir, absurdidad"
   },
   "G3473": {
     "shortDefinitionEs": "charla necia o bufonada (mōrología)",
     "glossesEs": [
       "charla necia"
-    ]
+    ],
+    "longDefinitionEs": "De un compuesto de G3474 y G3004; charla necia, es decir, bufonada"
   },
   "G3474": {
     "shortDefinitionEs": "tonto, necio, insensato (mōrós)",
     "glossesEs": [
       "tonto",
       "necio"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de la base de G3466; obtuso o estúpido (como si estuviera cerrado), es decir, desatento, mentalmente necio, aparentemente absurdo"
   },
   "G3475": {
     "shortDefinitionEs": "Moisés: legislador hebreo (Mōseús)",
     "glossesEs": [
       "Moisés"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H04872); Moisés, el legislador hebreo"
   },
   "G3476": {
     "shortDefinitionEs": "Naasón: israelita (Naassṓn)",
     "glossesEs": [
       "Naasón"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05177); Naasón, un israelita"
   },
   "G3477": {
     "shortDefinitionEs": "Nagé: israelita (Nangaí)",
     "glossesEs": [
       "Nagé"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de origen hebreo (compárese H05052); Nagé, un israelita"
   },
   "G3478": {
     "shortDefinitionEs": "Nazaret: ciudad de Palestina (Nazaréth)",
     "glossesEs": [
       "Nazaret"
-    ]
+    ],
+    "longDefinitionEs": "De derivación incierta; Nazaret, un lugar en Palestina"
   },
   "G3479": {
     "shortDefinitionEs": "Nazareno: habitante de Nazaret (Nazarēnós)",
     "glossesEs": [
       "Nazareno"
-    ]
+    ],
+    "longDefinitionEs": "De G3478; nazareno, es decir, habitante de Nazaret"
   },
   "G3480": {
     "shortDefinitionEs": "Nazareno: de Nazaret; cristiano (Nazōraîos)",
     "glossesEs": [
       "Nazareno",
       "cristiano"
-    ]
+    ],
+    "longDefinitionEs": "De G3478; nazareno, es decir, habitante de Nazaret; por extensión, cristiano"
   },
   "G3481": {
     "shortDefinitionEs": "Natán: israelita (Nathán)",
     "glossesEs": [
       "Natán"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05416); Natán, un israelita"
   },
   "G3482": {
     "shortDefinitionEs": "Natanael: israelita cristiano (Nathanaḗl)",
     "glossesEs": [
       "Natanael"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05417); Natanael, un israelita y cristiano"
   },
   "G3483": {
     "shortDefinitionEs": "sí, ciertamente, verdaderamente (naí)",
     "glossesEs": [
       "sí",
       "ciertamente"
-    ]
+    ],
+    "longDefinitionEs": "Partícula primaria de fuerte afirmación; sí, ciertamente"
   },
   "G3484": {
     "shortDefinitionEs": "Naín: lugar en Palestina (Naḯn)",
     "glossesEs": [
       "Naín"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de origen hebreo (compárese H04999); Naín, un lugar en Palestina"
   },
   "G3485": {
     "shortDefinitionEs": "templo interior, santuario (naos)",
     "glossesEs": [
       "templo"
-    ]
+    ],
+    "longDefinitionEs": "De una palabra primitiva (habitar); templo, santuario, fane"
   },
   "G3486": {
     "shortDefinitionEs": "Naum: israelita (Naoúm)",
     "glossesEs": [
       "Naum"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05151); Naum, un israelita"
   },
   "G3487": {
     "shortDefinitionEs": "nardo: perfume aromático (nárdos)",
     "glossesEs": [
       "nardo",
       "perfume"
-    ]
+    ],
+    "longDefinitionEs": "De origen extranjero (compárese H05373); nardo, perfume aromático"
   },
   "G3488": {
     "shortDefinitionEs": "Narciso: romano (Nárkissos)",
     "glossesEs": [
       "Narciso"
-    ]
+    ],
+    "longDefinitionEs": "Flor del mismo nombre, de (estupefacción, como \"narcótico\"); Narciso, un romano"
   },
   "G3489": {
     "shortDefinitionEs": "naufragar; fracasar (nauagéō)",
     "glossesEs": [
       "naufragar"
-    ]
+    ],
+    "longDefinitionEs": "De un compuesto de G3491 y G71; naufragar (encallar), literal o figuradamente"
   },
   "G3490": {
     "shortDefinitionEs": "capitán de nave; dueño de barco (naúklēros)",
     "glossesEs": [
       "capitán",
       "armador"
-    ]
+    ],
+    "longDefinitionEs": "De G3491 y G2819; capitán de navío, dueño de barco"
   },
   "G3491": {
     "shortDefinitionEs": "barco o navío (naûs)",
     "glossesEs": [
       "barco",
       "nave"
-    ]
+    ],
+    "longDefinitionEs": "De (flotar); barco o navío, de cualquier tamaño"
   },
   "G3492": {
     "shortDefinitionEs": "marinero o navegante (naútēs)",
     "glossesEs": [
       "marinero",
       "navegante"
-    ]
+    ],
+    "longDefinitionEs": "De G3491; marinero o navegante"
   },
   "G3493": {
     "shortDefinitionEs": "Nacor: abuelo de Abraham (Nachṓr)",
     "glossesEs": [
       "Nacor"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05152); Nacor, abuelo de Abraham"
   },
   "G3494": {
     "shortDefinitionEs": "joven varón hasta cuarenta años (neanías)",
     "glossesEs": [
       "joven",
       "mancebo"
-    ]
+    ],
+    "longDefinitionEs": "De un derivado de G3501; joven varón, hasta aproximadamente cuarenta años"
   },
   "G3495": {
     "shortDefinitionEs": "joven; varón menor de cuarenta (neanískos)",
     "glossesEs": [
       "joven",
       "mancebo"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo origen que G3494; joven varón menor de cuarenta años"
   },
   "G3496": {
     "shortDefinitionEs": "Neápolis: ciudad nueva en Macedonia (Neápolis)",
     "glossesEs": [
       "Neápolis"
-    ]
+    ],
+    "longDefinitionEs": "De G3501 y G4172; ciudad nueva; Neápolis, un lugar en Macedonia"
   },
   "G3497": {
     "shortDefinitionEs": "Naamán: sirio (Neemán)",
     "glossesEs": [
       "Naamán"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05283); Naamán, un sirio"
   },
   "G3498": {
     "shortDefinitionEs": "muerto; cadáver (nekrós)",
     "glossesEs": [
       "muerto",
       "cadáver"
-    ]
+    ],
+    "longDefinitionEs": "De una palabra aparentemente primitiva (cadáver); muerto, literal o figuradamente"
   },
   "G3499": {
     "shortDefinitionEs": "mortificar; matar (nekróō)",
     "glossesEs": [
       "mortificar",
       "matar"
-    ]
+    ],
+    "longDefinitionEs": "De G3498; mortificar o matar, es decir, figuradamente someter o dominar"
   },
   "G3500": {
     "shortDefinitionEs": "muerte o impotencia (nékrōsis)",
     "glossesEs": [
       "muerte",
       "mortalidad"
-    ]
+    ],
+    "longDefinitionEs": "De G3499; muerte o deceso; figuradamente, impotencia o debilidad"
   },
   "G3501": {
     "shortDefinitionEs": "nuevo; joven; fresco (néos)",
     "glossesEs": [
       "nuevo",
       "joven"
-    ]
+    ],
+    "longDefinitionEs": "Palabra primaria; nuevo (de personas jóvenes, de cosas fresco); figuradamente, regenerado"
   },
   "G3502": {
     "shortDefinitionEs": "polluelo o cría (neossós)",
     "glossesEs": [
       "polluelo",
       "cría"
-    ]
+    ],
+    "longDefinitionEs": "De G3501; polluelo o cría recién nacida"
   },
   "G3503": {
     "shortDefinitionEs": "juventud; novedad (neótēs)",
     "glossesEs": [
       "juventud"
-    ]
+    ],
+    "longDefinitionEs": "De G3501; novedad, es decir, cualidad de joven o juventud"
   },
   "G3504": {
     "shortDefinitionEs": "neófito; convertido nuevo (neóphytos)",
     "glossesEs": [
       "neófito",
       "novicio"
-    ]
+    ],
+    "longDefinitionEs": "De G3501 y derivado de G5453; recién plantado, figuradamente convertido nuevo o neófito"
   },
   "G3505": {
     "shortDefinitionEs": "Nerón: emperador romano (Nérōn)",
     "glossesEs": [
       "Nerón"
-    ]
+    ],
+    "longDefinitionEs": "De origen latino; Nerón, es decir, emperador romano"
   },
   "G3506": {
     "shortDefinitionEs": "hacer señas; indicar con la cabeza (neúō)",
     "glossesEs": [
       "hacer señas",
       "indicar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primario; hacer señas o indicar, especialmente moviendo la cabeza"
   },
   "G3507": {
     "shortDefinitionEs": "nube (nephélē)",
     "glossesEs": [
       "nube"
-    ]
+    ],
+    "longDefinitionEs": "De G3509; nubosidad, es decir (concretamente) una nube"
   },
   "G3508": {
     "shortDefinitionEs": "Neftalí: tribu de Palestina (Nephthaleím)",
     "glossesEs": [
       "Neftalí"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05321); Neftalí, tribu en Palestina"
   },
   "G3509": {
     "shortDefinitionEs": "nube (néphos)",
     "glossesEs": [
       "nube"
-    ]
+    ],
+    "longDefinitionEs": "Palabra primaria; nube"
   },
   "G3510": {
     "shortDefinitionEs": "riñones; mente o corazón (nephrós)",
     "glossesEs": [
       "riñones",
       "corazón"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; riñones (plural), figuradamente la mente más íntima"
   },
   "G3511": {
     "shortDefinitionEs": "servidor del templo; devoto (neōkóros)",
     "glossesEs": [
       "sacerdote",
       "devoto"
-    ]
+    ],
+    "longDefinitionEs": "De forma de G3485 y verbo barrer; sirviente del templo, por implicación devoto"
   },
   "G3512": {
     "shortDefinitionEs": "juvenil; de la juventud (neōterikós)",
     "glossesEs": [
       "juvenil",
       "joven"
-    ]
+    ],
+    "longDefinitionEs": "Del comparativo de G3501; perteneciente a personas jóvenes, es decir juvenil"
   },
   "G3513": {
     "shortDefinitionEs": "partícula de juramento; por cierto (nḗ)",
     "glossesEs": [
       "juramento",
       "ciertamente"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente forma intensiva de G3483; partícula de juramento acompañada del objeto invocado"
   },
   "G3514": {
     "shortDefinitionEs": "hilar, torcer fibras en hilo (nḗthō)",
     "glossesEs": [
       "hilar",
       "torcer"
-    ]
+    ],
+    "longDefinitionEs": "De etimología similar; hilar o torcer fibras en hilo"
   },
   "G3515": {
     "shortDefinitionEs": "actuar como niño, ser inocente (nēpiázō)",
     "glossesEs": [
       "niño",
       "inocencia"
-    ]
+    ],
+    "longDefinitionEs": "De G3516; actuar como infante, figuradamente conducirse inocentemente"
   },
   "G3516": {
     "shortDefinitionEs": "infante, niño pequeño, persona inmadura (nḗpios)",
@@ -2983,78 +3360,90 @@
       "bebé",
       "niño",
       "infante"
-    ]
+    ],
+    "longDefinitionEs": "De partícula obsoleta de negación y G2031; que no habla, es decir infante; figuradamente persona simple o cristiano inmaduro"
   },
   "G3517": {
     "shortDefinitionEs": "Nereo: cristiano mencionado en Romanos (Nēreús)",
     "glossesEs": [
       "Nereo"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de derivado de base de G3491 (significando mojado); Nereo, cristiano"
   },
   "G3518": {
     "shortDefinitionEs": "Neri: israelita ancestro de Jesús (Nērí)",
     "glossesEs": [
       "Neri"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05374); Neri (es decir Nerías), israelita"
   },
   "G3519": {
     "shortDefinitionEs": "islote, isla pequeña (nēsíon)",
     "glossesEs": [
       "isla",
       "islote"
-    ]
+    ],
+    "longDefinitionEs": "Diminutivo de G3520; islote o isla pequeña"
   },
   "G3520": {
     "shortDefinitionEs": "isla (nēsos)",
     "glossesEs": [
       "isla"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de base de G3491; isla"
   },
   "G3521": {
     "shortDefinitionEs": "ayuno, abstinencia de alimento (nēsteía)",
     "glossesEs": [
       "ayuno",
       "abstinencia"
-    ]
+    ],
+    "longDefinitionEs": "De G3522; ayuno, abstinencia de alimento voluntaria y religiosa; especialmente ayuno del Día de Expiación"
   },
   "G3522": {
     "shortDefinitionEs": "ayunar, abstenerse de alimento (nēsteúō)",
     "glossesEs": [
       "ayunar"
-    ]
+    ],
+    "longDefinitionEs": "De G3523; ayunar, abstenerse de alimento religiosamente"
   },
   "G3523": {
     "shortDefinitionEs": "en ayuno, que ayuna (nēstis)",
     "glossesEs": [
       "ayunando",
       "en ayuno"
-    ]
+    ],
+    "longDefinitionEs": "De partícula negativa inseparable y G2068; que no come, es decir que ayuna religiosamente"
   },
   "G3524": {
     "shortDefinitionEs": "sobrio, prudente, circunspecto (nēpháleos)",
     "glossesEs": [
       "sobrio",
       "prudente"
-    ]
+    ],
+    "longDefinitionEs": "De G3525; sobrio, figuradamente prudente o circunspecto"
   },
   "G3525": {
     "shortDefinitionEs": "estar sobrio, ser prudente, vigilar (nḗphō)",
     "glossesEs": [
       "sobrio",
       "vigilante"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; abstenerse de vino (mantenerse sobrio), figuradamente ser prudente o vigilante"
   },
   "G3526": {
     "shortDefinitionEs": "Niger: apodo de un cristiano de Antioquía (Níger)",
     "glossesEs": [
       "Niger"
-    ]
+    ],
+    "longDefinitionEs": "De origen latino; negro; Niger, cristiano"
   },
   "G3527": {
     "shortDefinitionEs": "Nicanor: cristiano diácono en Jerusalén (Nikánōr)",
     "glossesEs": [
       "Nicanor"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de G3528; victorioso; Nicanor, cristiano"
   },
   "G3528": {
     "shortDefinitionEs": "vencer, conquistar, triunfar sobre (nikáō)",
@@ -3062,150 +3451,173 @@
       "vencer",
       "conquistar",
       "triunfar"
-    ]
+    ],
+    "longDefinitionEs": "De G3529; vencer, conquistar o someter literal o figuradamente"
   },
   "G3529": {
     "shortDefinitionEs": "victoria, conquista, triunfo (níkē)",
     "glossesEs": [
       "victoria"
-    ]
+    ],
+    "longDefinitionEs": "Conquista abstracta, es decir, figuradamente los medios del éxito"
   },
   "G3530": {
     "shortDefinitionEs": "Nicodemo: fariseo y maestro judío (Nikódēmos)",
     "glossesEs": [
       "Nicodemo"
-    ]
+    ],
+    "longDefinitionEs": "Del victorioso entre su pueblo; Nicodemo, un israelita"
   },
   "G3531": {
     "shortDefinitionEs": "nicolaíta, seguidor de Nicolás (Nikolaḯtēs)",
     "glossesEs": [
       "nicolaíta"
-    ]
+    ],
+    "longDefinitionEs": "Del de G3532; un nicolaíta, adherente de Nicolás"
   },
   "G3532": {
     "shortDefinitionEs": "Nicolás: apóstol o hereje mencionado (Nikólaos)",
     "glossesEs": [
       "Nicolás"
-    ]
+    ],
+    "longDefinitionEs": "Del victorioso sobre el pueblo; Nicolás, hereje mencionado"
   },
   "G3533": {
     "shortDefinitionEs": "Nicópolis: ciudad en Macedonia (Nikópolis)",
     "glossesEs": [
       "Nicópolis"
-    ]
+    ],
+    "longDefinitionEs": "Del ciudad victoriosa; Nicópolis, lugar en Macedonia"
   },
   "G3534": {
     "shortDefinitionEs": "victoria, triunfo, conquista (nîkos)",
     "glossesEs": [
       "victoria"
-    ]
+    ],
+    "longDefinitionEs": "De G3529; conquista concreta, es decir, por implicación triunfo"
   },
   "G3535": {
     "shortDefinitionEs": "Nínive: capital antigua de Asiria (Nineuḯ)",
     "glossesEs": [
       "Nínive"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05210); Nínive, capital de Asiria"
   },
   "G3536": {
     "shortDefinitionEs": "ninevita, habitante de Nínive (Nineuḯtēs)",
     "glossesEs": [
       "ninevita"
-    ]
+    ],
+    "longDefinitionEs": "De G3535; ninevita, habitante de Nínive"
   },
   "G3537": {
     "shortDefinitionEs": "jarra, vasija para agua (niptḗr)",
     "glossesEs": [
       "jarra",
       "vasija"
-    ]
+    ],
+    "longDefinitionEs": "De G3538; jarra para agua, ewer"
   },
   "G3538": {
     "shortDefinitionEs": "lavar, ablución ceremonial (níptō)",
     "glossesEs": [
       "lavar",
       "ablución"
-    ]
+    ],
+    "longDefinitionEs": "Limpiar especialmente manos, pies o rostro; ceremonialmente realizar ablución"
   },
   "G3539": {
     "shortDefinitionEs": "considerar, comprender, percibir (noiéō)",
     "glossesEs": [
       "considerar",
       "comprender"
-    ]
+    ],
+    "longDefinitionEs": "De G3563; ejercer la mente observando, es decir figuradamente comprender, percibir"
   },
   "G3540": {
     "shortDefinitionEs": "pensamiento, intención, propósito (nóēma)",
     "glossesEs": [
       "pensamiento",
       "propósito"
-    ]
+    ],
+    "longDefinitionEs": "De G3539; percepción, propósito, o el mismo intelecto y disposición"
   },
   "G3541": {
     "shortDefinitionEs": "hijo bastardo, ilegítimo (nóthos)",
     "glossesEs": [
       "bastardo"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; hijo espurio o ilegítimo"
   },
   "G3542": {
     "shortDefinitionEs": "pastura, pasto, alimentación (nomḗ)",
     "glossesEs": [
       "pastura",
       "pasto"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de lo mismo que G3551; pastura o pasto, acción de alimentar"
   },
   "G3543": {
     "shortDefinitionEs": "suponer, creer, pensar, acostumbrar (nomízō)",
     "glossesEs": [
       "suponer",
       "creer"
-    ]
+    ],
+    "longDefinitionEs": "De G3551; propiamente obrar según ley, acostumbrar; por extensión deem o reputar"
   },
   "G3544": {
     "shortDefinitionEs": "abogado, experto en ley mosaica (nomikós)",
     "glossesEs": [
       "abogado",
       "abogado de la ley"
-    ]
+    ],
+    "longDefinitionEs": "De G3551; conforme o perteneciente a la ley; sustantivo: experto en ley mosaica"
   },
   "G3545": {
     "shortDefinitionEs": "legalmente, conforme a ley (nomímōs)",
     "glossesEs": [
       "legalmente"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de derivado de G3551; legítimamente, conforme reglas de la ley"
   },
   "G3546": {
     "shortDefinitionEs": "moneda, dinero de curso corriente (nómisma)",
     "glossesEs": [
       "moneda",
       "dinero"
-    ]
+    ],
+    "longDefinitionEs": "De G3543; lo reputado de valor (tras el latín numisma), moneda corriente"
   },
   "G3547": {
     "shortDefinitionEs": "maestro de la ley, rabino judío (nomodidáskalos)",
     "glossesEs": [
       "maestro de la ley",
       "rabino"
-    ]
+    ],
+    "longDefinitionEs": "De G3551 y G1320; expositor de la ley judía, rabino"
   },
   "G3548": {
     "shortDefinitionEs": "promulgación de la ley mosaica (nomothesía)",
     "glossesEs": [
       "ley mosaica",
       "legislación"
-    ]
+    ],
+    "longDefinitionEs": "De G3550; legislación, específicamente institución del código mosaico"
   },
   "G3549": {
     "shortDefinitionEs": "legislar, estar bajo la ley (nomothetéō)",
     "glossesEs": [
       "legislar",
       "ley"
-    ]
+    ],
+    "longDefinitionEs": "De G3550; legislar, pasivamente tener los preceptos mosaicos impuestos"
   },
   "G3550": {
     "shortDefinitionEs": "legislador, dador de leyes (nomothétēs)",
     "glossesEs": [
       "legislador"
-    ]
+    ],
+    "longDefinitionEs": "De G3551 y derivado de G5087; legislador"
   },
   "G3551": {
     "shortDefinitionEs": "ley, norma, código (nomos)",
@@ -3219,231 +3631,265 @@
     "glossesEs": [
       "enfermo",
       "desear"
-    ]
+    ],
+    "longDefinitionEs": "De G3554; estar enfermo o por implicación de apetito enfermo anhelar"
   },
   "G3553": {
     "shortDefinitionEs": "enfermedad, dolencia, padecimiento (nósēma)",
     "glossesEs": [
       "enfermedad",
       "dolencia"
-    ]
+    ],
+    "longDefinitionEs": "De G3552; dolencia o enfermedad"
   },
   "G3554": {
     "shortDefinitionEs": "enfermedad, dolencia, debilidad (nósos)",
     "glossesEs": [
       "enfermedad",
       "debilidad"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; maladia, raramente figuradamente de incapacidad moral"
   },
   "G3555": {
     "shortDefinitionEs": "pollada, nidada de pollos (nossiá)",
     "glossesEs": [
       "pollada"
-    ]
+    ],
+    "longDefinitionEs": "De G3502; pollada o nidada"
   },
   "G3556": {
     "shortDefinitionEs": "pollo, pollito pequeño (nossíon)",
     "glossesEs": [
       "pollo"
-    ]
+    ],
+    "longDefinitionEs": "Diminutivo de G3502; pollito pequeño"
   },
   "G3557": {
     "shortDefinitionEs": "retener, apropiarse indebidamente (nosphízomai)",
     "glossesEs": [
       "retener",
       "robar"
-    ]
+    ],
+    "longDefinitionEs": "Voz media de (aparte o clandestinamente); apropiar para sí, defraudar"
   },
   "G3558": {
     "shortDefinitionEs": "viento del sur, región sur (nótos)",
     "glossesEs": [
       "sur",
       "viento del sur"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; viento del sur; por extensión región meridional"
   },
   "G3559": {
     "shortDefinitionEs": "amonestación, reprensión suave (nouthesía)",
     "glossesEs": [
       "amonestación",
       "reprensión"
-    ]
+    ],
+    "longDefinitionEs": "De G3563 y derivado de G5087; llamar atención, reprensión suave o amonestación"
   },
   "G3560": {
     "shortDefinitionEs": "amonestar, advertir, reprender (nouthetéō)",
     "glossesEs": [
       "amonestar",
       "advertir"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo origen que G3559; poner en mente, es decir, (por implicación) advertir o reprender suavemente"
   },
   "G3561": {
     "shortDefinitionEs": "fiesta de luna nueva (noumēnía)",
     "glossesEs": [
       "luna nueva"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de compuesto de G3501 (nuevo) y G3376 (mes); la fiesta de luna nueva"
   },
   "G3562": {
     "shortDefinitionEs": "discretamente, prudentemente (nounechōs)",
     "glossesEs": [
       "discretamente"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de comparativo de acusativo de G3563 (mente) y G2192 (tener); de manera sensata, prudentemente"
   },
   "G3563": {
     "shortDefinitionEs": "mente, intelecto, entendimiento (noûs)",
     "glossesEs": [
       "mente",
       "entendimiento"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de la base de G1097 (conocer); el intelecto o mente (divina o humana); por implicación, significado"
   },
   "G3564": {
     "shortDefinitionEs": "Ninfas: cristiano de Laodicea (Nymphâs)",
     "glossesEs": [
       "Ninfas"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente contracción de compuesto de G3565 (novia) y G1435 (regalo); dado por ninfa; Ninfas, cristiano"
   },
   "G3565": {
     "shortDefinitionEs": "Novia, mujer casada joven; nuera (nýmphē)",
     "glossesEs": [
       "novia",
       "nuera"
-    ]
+    ],
+    "longDefinitionEs": "De verbo primario pero obsoleto (velar como novia); mujer joven casada (como velada), incluyendo novia desposada; por implicación, esposa del hijo"
   },
   "G3566": {
     "shortDefinitionEs": "Novio, esposo joven (nymphíos)",
     "glossesEs": [
       "novio",
       "esposo"
-    ]
+    ],
+    "longDefinitionEs": "De G3565 (novia); novio o esposo joven (literal o figuradamente)"
   },
   "G3567": {
     "shortDefinitionEs": "Cámara nupcial, aposento de bodas (nymphṓn)",
     "glossesEs": [
       "cámara nupcial",
       "aposento"
-    ]
+    ],
+    "longDefinitionEs": "De G3565 (novia); la cámara o aposento nupcial"
   },
   "G3568": {
     "shortDefinitionEs": "Ahora, en el presente; actualmente (nŷn)",
     "glossesEs": [
       "ahora",
       "presente"
-    ]
+    ],
+    "longDefinitionEs": "Partícula primaria de tiempo presente; \"ahora\" (como adverbio de tiempo, transición o énfasis); también como sustantivo o adjetivo presente o inmediato"
   },
   "G3569": {
     "shortDefinitionEs": "Ahora, actualmente, en este momento (tanŷn)",
     "glossesEs": [
       "ahora",
       "actualmente"
-    ]
+    ],
+    "longDefinitionEs": "Del neutro plural de G3588 y G3568 (ahora); las cosas ahora, es decir (adverbialmente) en el presente"
   },
   "G3570": {
     "shortDefinitionEs": "Justo ahora, en este instante (nyní)",
     "glossesEs": [
       "ahora",
       "instante"
-    ]
+    ],
+    "longDefinitionEs": "Forma prolongada de G3568 (ahora) para énfasis; justo ahora o en este instante"
   },
   "G3571": {
     "shortDefinitionEs": "noche (nyx)",
     "glossesEs": [
       "noche"
-    ]
+    ],
+    "longDefinitionEs": "Palabra primaria; noche (literal o figuradamente)"
   },
   "G3572": {
     "shortDefinitionEs": "Traspasar, agujerear, pinchar (nýssō)",
     "glossesEs": [
       "traspasar",
       "pinchar"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente palabra primaria; pinchar u horadar"
   },
   "G3573": {
     "shortDefinitionEs": "Dormitar, adormecerse; demorarse (nystázō)",
     "glossesEs": [
       "dormitar",
       "adormecerse"
-    ]
+    ],
+    "longDefinitionEs": "De derivado presunto de G3506 (hacer señas); cabecear, es decir, (por implicación) adormecerse; figuradamente, demorarse"
   },
   "G3574": {
     "shortDefinitionEs": "Día y noche, período de veinticuatro horas (nychthḗmeron)",
     "glossesEs": [
       "día",
       "noche"
-    ]
+    ],
+    "longDefinitionEs": "De G3571 (noche) y G2250 (día); un día y noche, es decir, período completo de veinticuatro horas"
   },
   "G3575": {
     "shortDefinitionEs": "Noé: patriarca antediluviano (Nōe)",
     "glossesEs": [
       "Noé",
       "patriarca"
-    ]
+    ],
+    "longDefinitionEs": "De origen hebreo (H05146); Noé, patriarca antediluviano"
   },
   "G3576": {
     "shortDefinitionEs": "Perezoso, lento, estúpido (nōthrós)",
     "glossesEs": [
       "perezoso",
       "lento"
-    ]
+    ],
+    "longDefinitionEs": "De derivado de G3541 (bastardo); perezoso, es decir, (literalmente) lento o (figuradamente) estúpido"
   },
   "G3577": {
     "shortDefinitionEs": "Espalda, dorso (nōtos)",
     "glossesEs": [
       "espalda",
       "dorso"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; la espalda o dorso"
   },
   "G3578": {
     "shortDefinitionEs": "Hospitalidad, alojamiento (xenía)",
     "glossesEs": [
       "hospitalidad",
       "alojamiento"
-    ]
+    ],
+    "longDefinitionEs": "De G3581 (extranjero); hospitalidad, es decir, (por implicación) lugar de hospedaje"
   },
   "G3579": {
     "shortDefinitionEs": "Hospedar, alojar; parecerse extraño (xenízō)",
     "glossesEs": [
       "hospedar",
       "extraño"
-    ]
+    ],
+    "longDefinitionEs": "De G3581 (extranjero); ser anfitrión (pasivamente, huésped); por implicación, ser o parecer extraño"
   },
   "G3580": {
     "shortDefinitionEs": "Ejercer hospitalidad, hospedar extranjeros (xenodochéō)",
     "glossesEs": [
       "hospitalidad",
       "hospedar"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de G3581 (extranjero) y G1209 (recibir); ejercer hospitalidad"
   },
   "G3581": {
     "shortDefinitionEs": "Extranjero, extraño; huésped, anfitrión (xénos)",
     "glossesEs": [
       "extranjero",
       "huésped"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente palabra primaria; extranjero (literal, ajeno, o figuradamente, novedoso); por implicación, huésped u hospedador"
   },
   "G3582": {
     "shortDefinitionEs": "Vasija, olla de cocina (xéstēs)",
     "glossesEs": [
       "vasija",
       "olla"
-    ]
+    ],
+    "longDefinitionEs": "Como si de (propiamente alisar; por implicación, friccionar para cocer); vasija de cocina, medida para líquidos o sólidos"
   },
   "G3583": {
     "shortDefinitionEs": "Secar, marchitarse, madurar (xēraínō)",
     "glossesEs": [
       "secar",
       "marchitar"
-    ]
+    ],
+    "longDefinitionEs": "De G3584 (seco); desecar; por implicación, marchitar o madurar"
   },
   "G3584": {
     "shortDefinitionEs": "Seco, árido; marchito, tierra firme (xērós)",
     "glossesEs": [
       "seco",
       "marchito"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G3582 (vasija) (por idea de quemar); árido; por implicación, marchito, tierra firme"
   },
   "G3585": {
     "shortDefinitionEs": "De madera, hecho de madera (xýlinos)",
     "glossesEs": [
       "madera"
-    ]
+    ],
+    "longDefinitionEs": "De G3586 (madera); de madera o hecho de madera"
   },
   "G3586": {
     "shortDefinitionEs": "Madera, leño, árbol; palo, vara (xýlon)",
@@ -3451,211 +3897,242 @@
       "madera",
       "árbol",
       "palo"
-    ]
+    ],
+    "longDefinitionEs": "De otra forma de base de G3582 (vasija); madera (como combustible o material); por implicación, palo, árbol u otro artículo de madera"
   },
   "G3587": {
     "shortDefinitionEs": "Rasurar, cortarse el cabello (xyráō)",
     "glossesEs": [
       "rasurar",
       "cortar cabello"
-    ]
+    ],
+    "longDefinitionEs": "De derivado igual que G3586 (madera, significando navaja); rasurar o cortarse el cabello"
   },
   "G3588": {
     "shortDefinitionEs": "Artículo definido: el, la, los, las (ho)",
     "glossesEs": [
       "artículo"
-    ]
+    ],
+    "longDefinitionEs": "Artículo definido; el, la, los, las (a veces se suple, a veces se omite en idioma español)"
   },
   "G3589": {
     "shortDefinitionEs": "Ochenta, ocho veces diez (ogdoḗkonta)",
     "glossesEs": [
       "ochenta"
-    ]
+    ],
+    "longDefinitionEs": "De G3590 (octavo); ocho veces diez u ochenta"
   },
   "G3590": {
     "shortDefinitionEs": "Octavo, número ocho (ógdoos)",
     "glossesEs": [
       "octavo"
-    ]
+    ],
+    "longDefinitionEs": "Octavo; del griego okto (G3638)"
   },
   "G3591": {
     "shortDefinitionEs": "Peso, carga, impedimento (ónkos)",
     "glossesEs": [
       "peso",
       "carga"
-    ]
+    ],
+    "longDefinitionEs": "Masa o carga que por su peso se dobla o abulta; fig., carga u obstáculo (de G43)"
   },
   "G3592": {
     "shortDefinitionEs": "Este, ese; pronombre personal (hóde)",
     "glossesEs": [
       "este",
       "ese"
-    ]
+    ],
+    "longDefinitionEs": "Este, ese o aquel; pronombre personal que indica lo mismo (de G3588 y G1161)"
   },
   "G3593": {
     "shortDefinitionEs": "Viajar, hacer un viaje (hodeúō)",
     "glossesEs": [
       "viajar",
       "viaje"
-    ]
+    ],
+    "longDefinitionEs": "Viajar o hacer un viaje (de G3598, camino)"
   },
   "G3594": {
     "shortDefinitionEs": "Guiar, conducir; enseñar (hodēgéō)",
     "glossesEs": [
       "guiar",
       "conducir"
-    ]
+    ],
+    "longDefinitionEs": "Mostrar el camino literal o figuradamente; enseñar (de G3595)"
   },
   "G3595": {
     "shortDefinitionEs": "Guía, conductor, maestro (hodēgós)",
     "glossesEs": [
       "guía",
       "maestro"
-    ]
+    ],
+    "longDefinitionEs": "Conductor o guía literal o figurado; maestro (de G3598 y G2233)"
   },
   "G3596": {
     "shortDefinitionEs": "Viajar, hacer un peregrinaje (hodoiporéō)",
     "glossesEs": [
       "viajar",
       "viaje"
-    ]
+    ],
+    "longDefinitionEs": "Ser caminante; viajar (de un compuesto de G3598 y G4198)"
   },
   "G3597": {
     "shortDefinitionEs": "Viaje, jornada (hodoiporía)",
     "glossesEs": [
       "viaje",
       "jornada"
-    ]
+    ],
+    "longDefinitionEs": "Acción de viajar; jornada (de G3596)"
   },
   "G3598": {
     "shortDefinitionEs": "camino, senda, ruta (hodos)",
     "glossesEs": [
       "camino"
-    ]
+    ],
+    "longDefinitionEs": "Vía o camino; por implicación, progreso, ruta, distancia; fig., modo o medio"
   },
   "G3599": {
     "shortDefinitionEs": "Diente (odoús)",
     "glossesEs": [
       "diente"
-    ]
+    ],
+    "longDefinitionEs": "Diente (probablemente de la raíz de G2068, comer)"
   },
   "G3600": {
     "shortDefinitionEs": "Entristecer, afligir, atormentar (odynáō)",
     "glossesEs": [
       "entristecer",
       "afligir"
-    ]
+    ],
+    "longDefinitionEs": "Entristecer o afligir (de G3601)"
   },
   "G3601": {
     "shortDefinitionEs": "Dolor, pena, tristeza (odýnē)",
     "glossesEs": [
       "dolor",
       "tristeza"
-    ]
+    ],
+    "longDefinitionEs": "Dolor, pena o tristeza que abate el ánimo (de G1416)"
   },
   "G3602": {
     "shortDefinitionEs": "Gemido, lamento, duelo (odyrmós)",
     "glossesEs": [
       "lamento",
       "duelo"
-    ]
+    ],
+    "longDefinitionEs": "Gemido o lamento; duelo (de una derivada de G1416)"
   },
   "G3603": {
     "shortDefinitionEs": "Lo cual es, es decir, llamado (hó esti)",
     "glossesEs": [
       "es decir",
       "llamado"
-    ]
+    ],
+    "longDefinitionEs": "Lo cual es; expresión de equivalencia o aclaración"
   },
   "G3604": {
     "shortDefinitionEs": "Ozías: israelita, rey de Judá (Ozías)",
     "glossesEs": [
       "Ozías"
-    ]
+    ],
+    "longDefinitionEs": "Ozías; israelita, rey de Judá (origen hebreo H05818)"
   },
   "G3605": {
     "shortDefinitionEs": "Oler mal, apestar (ózō)",
     "glossesEs": [
       "apestar",
       "hedor"
-    ]
+    ],
+    "longDefinitionEs": "Oler mal; apestar (verbo primario en forma intensificada)"
   },
   "G3606": {
     "shortDefinitionEs": "De dónde, de donde; por lo cual (hóthen)",
     "glossesEs": [
       "dónde",
       "de donde"
-    ]
+    ],
+    "longDefinitionEs": "De dónde, de qué lugar o causa; adverbio o conjunción (de G3739)"
   },
   "G3607": {
     "shortDefinitionEs": "Lienzo, tela de lino; vela (othónē)",
     "glossesEs": [
       "lienzo",
       "tela"
-    ]
+    ],
+    "longDefinitionEs": "Lienzo o tela de lino; especialmente, vela de nave"
   },
   "G3608": {
     "shortDefinitionEs": "Venda de lino, mortaja (othónion)",
     "glossesEs": [
       "venda",
       "lino"
-    ]
+    ],
+    "longDefinitionEs": "Venda de lino; mortaja para envolver difuntos (de G3607)"
   },
   "G3609": {
     "shortDefinitionEs": "Doméstico, familiar, pariente (oikeîos)",
     "glossesEs": [
       "familiar",
       "pariente"
-    ]
+    ],
+    "longDefinitionEs": "Doméstico; familiar o pariente (de G3624)"
   },
   "G3610": {
     "shortDefinitionEs": "Siervo, criado doméstico (oikétēs)",
     "glossesEs": [
       "criado",
       "siervo"
-    ]
+    ],
+    "longDefinitionEs": "Siervo o criado doméstico; consirviente (de G3611)"
   },
   "G3611": {
     "shortDefinitionEs": "Habitar, morar, residir (oikéō)",
     "glossesEs": [
       "habitar",
       "morar"
-    ]
+    ],
+    "longDefinitionEs": "Habitar una casa; morar o residir; fig., permanecer (de G3624)"
   },
   "G3612": {
     "shortDefinitionEs": "Calabozo, cárcel, prisión (oíkēma)",
     "glossesEs": [
       "cárcel",
       "prisión"
-    ]
+    ],
+    "longDefinitionEs": "Vivienda o morada; especialmente, calabozo o cárcel (de G3611)"
   },
   "G3613": {
     "shortDefinitionEs": "Habitación, vivienda, casa (oikētḗrion)",
     "glossesEs": [
       "casa",
       "vivienda"
-    ]
+    ],
+    "longDefinitionEs": "Habitación o vivienda; residencia literal o figurada (de G3611)"
   },
   "G3614": {
     "shortDefinitionEs": "Casa, hogar, familia, domicilio (oikía)",
     "glossesEs": [
       "casa",
       "familia"
-    ]
+    ],
+    "longDefinitionEs": "Casa o domicilio; por implicación, familia o sirvientes domésticos (de G3624)"
   },
   "G3615": {
     "shortDefinitionEs": "Familiar, pariente de la casa (oikiakós)",
     "glossesEs": [
       "familiar",
       "pariente"
-    ]
+    ],
+    "longDefinitionEs": "Familiar o pariente de la casa (de G3614)"
   },
   "G3616": {
     "shortDefinitionEs": "Gobernar una familia, ser jefe (oikodespotéō)",
     "glossesEs": [
       "gobernar",
       "jefe"
-    ]
+    ],
+    "longDefinitionEs": "Gobernar o ser jefe de una familia (de G3617)"
   },
   "G3617": {
     "shortDefinitionEs": "Jefe de familia, amo de casa (oikodespótēs)",
@@ -3663,7 +4140,8 @@
       "amo",
       "jefe de familia",
       "dueño de casa"
-    ]
+    ],
+    "longDefinitionEs": "Jefe o cabeza de familia; amo de casa (de G3624 y G1203)"
   },
   "G3618": {
     "shortDefinitionEs": "Construir, edificar; fortalecer (oikodoméō)",
@@ -3671,7 +4149,8 @@
       "edificar",
       "construir",
       "confirmar"
-    ]
+    ],
+    "longDefinitionEs": "Edificar o construir; fig., confirmar o establecer (de G3619)"
   },
   "G3619": {
     "shortDefinitionEs": "Construcción, edificio; confirmación (oikodomḗ)",
@@ -3679,14 +4158,16 @@
       "edificio",
       "construcción",
       "edificación"
-    ]
+    ],
+    "longDefinitionEs": "Construcción o edificio; fig., confirmación (de G3624 y base de G1430)"
   },
   "G3620": {
     "shortDefinitionEs": "Confirmación, edificación (oikodomía)",
     "glossesEs": [
       "edificación",
       "confirmación"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo origen que G3619; confirmación"
   },
   "G3621": {
     "shortDefinitionEs": "Administrar una casa o hacienda (oikonoméō)",
@@ -3694,7 +4175,8 @@
       "administrar",
       "gobernar",
       "mayordomo"
-    ]
+    ],
+    "longDefinitionEs": "De G3623; administrar una casa o hacienda"
   },
   "G3622": {
     "shortDefinitionEs": "Administración, mayordomía; dispensación (oikonomía)",
@@ -3702,7 +4184,8 @@
       "mayordomía",
       "administración",
       "dispensación"
-    ]
+    ],
+    "longDefinitionEs": "De G3623; administración de una casa o hacienda; especialmente, una \"economía\" religiosa"
   },
   "G3623": {
     "shortDefinitionEs": "Mayordomo, administrador, tesorero (oikonómos)",
@@ -3710,13 +4193,15 @@
       "mayordomo",
       "administrador",
       "tesorero"
-    ]
+    ],
+    "longDefinitionEs": "De G3624 y la raíz de G3551; distribuidor de casa (administrador), supervisor; por extensión, agente fiscal (tesorero); figuradamente, predicador del Evangelio"
   },
   "G3624": {
     "shortDefinitionEs": "casa, hogar, familia, linaje (oikos)",
     "glossesEs": [
       "casa"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; habitación más o menos extensa, literal o figurada; por implicación, familia"
   },
   "G3625": {
     "shortDefinitionEs": "Tierra habitada, mundo, imperio (oikouménē)",
@@ -3724,7 +4209,8 @@
       "mundo",
       "tierra",
       "tierra habitada"
-    ]
+    ],
+    "longDefinitionEs": "Participio femenino presente pasivo de G3611 (como sustantivo); tierra, la parte terrestre del globo; especialmente, el imperio romano"
   },
   "G3626": {
     "shortDefinitionEs": "Cuidadora del hogar, doméstica (oikourós)",
@@ -3732,7 +4218,8 @@
       "hogar",
       "doméstica",
       "cuidadora"
-    ]
+    ],
+    "longDefinitionEs": "De G3624 y guardián; quien permanece en casa, inclinado a lo doméstico (buena administradora del hogar)"
   },
   "G3627": {
     "shortDefinitionEs": "Compadecerse, tener compasión (oikteírō)",
@@ -3740,7 +4227,8 @@
       "compasión",
       "piedad",
       "compadecerse"
-    ]
+    ],
+    "longDefinitionEs": "De raíz que significa compasión; ejercer piedad"
   },
   "G3628": {
     "shortDefinitionEs": "Compasión, misericordia, piedad (oiktirmós)",
@@ -3748,7 +4236,8 @@
       "misericordia",
       "compasión",
       "piedad"
-    ]
+    ],
+    "longDefinitionEs": "De G3627; compasión, misericordia"
   },
   "G3629": {
     "shortDefinitionEs": "Compasivo, misericordioso (oiktírmōn)",
@@ -3756,7 +4245,8 @@
       "misericordioso",
       "compasivo",
       "piadoso"
-    ]
+    ],
+    "longDefinitionEs": "De G3627; compasivo, misericordioso"
   },
   "G3630": {
     "shortDefinitionEs": "Bebedor de vino, borracho (oinopótēs)",
@@ -3764,13 +4254,15 @@
       "borracho",
       "bebedor",
       "vino"
-    ]
+    ],
+    "longDefinitionEs": "De G3631 y derivado de forma alternativa de G4095; bebedor de vino"
   },
   "G3631": {
     "shortDefinitionEs": "Vino (oînos)",
     "glossesEs": [
       "vino"
-    ]
+    ],
+    "longDefinitionEs": "Palabra primaria (quizá de origen hebreo H03196); vino, literal o figuradamente"
   },
   "G3632": {
     "shortDefinitionEs": "Embriaguez, exceso de vino (oinophlygía)",
@@ -3778,7 +4270,8 @@
       "embriaguez",
       "borrachera",
       "exceso"
-    ]
+    ],
+    "longDefinitionEs": "De G3631 y forma de la raíz de G5397; exceso o desbordamiento de vino, embriaguez"
   },
   "G3633": {
     "shortDefinitionEs": "Suponer, creer, parecer (oíomai)",
@@ -3786,7 +4279,8 @@
       "suponer",
       "pensar",
       "creer"
-    ]
+    ],
+    "longDefinitionEs": "Voz media aparentemente de G3634; hacer semejante a sí mismo, imaginarse, creer"
   },
   "G3634": {
     "shortDefinitionEs": "Tal, de tal clase, qué clase de (hoîos)",
@@ -3794,7 +4288,8 @@
       "tal",
       "clase",
       "qué"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente afín a G3588, G3739 y G3745; tal o qué clase de; especialmente neutro como negación"
   },
   "G3635": {
     "shortDefinitionEs": "Tardar, retardar, rehuir (oknéō)",
@@ -3802,7 +4297,8 @@
       "tardar",
       "rehuir",
       "demorar"
-    ]
+    ],
+    "longDefinitionEs": "De raíz que significa vacilación; ser lento, figuradamente, reacio"
   },
   "G3636": {
     "shortDefinitionEs": "Perezoso, lento, incómodo (oknērós)",
@@ -3810,20 +4306,23 @@
       "perezoso",
       "lento",
       "molesto"
-    ]
+    ],
+    "longDefinitionEs": "De G3635; tardo, indolente; figuradamente, molesto"
   },
   "G3637": {
     "shortDefinitionEs": "Octavo día de edad (oktaḗmeros)",
     "glossesEs": [
       "octavo día",
       "ocho días"
-    ]
+    ],
+    "longDefinitionEs": "De G3638 y G2250; persona o cosa de ocho días de edad"
   },
   "G3638": {
     "shortDefinitionEs": "Ocho (oktṓ)",
     "glossesEs": [
       "ocho"
-    ]
+    ],
+    "longDefinitionEs": "Numeral primario; ocho"
   },
   "G3639": {
     "shortDefinitionEs": "Perdición, ruina, destrucción (ólethros)",
@@ -3831,7 +4330,8 @@
       "perdición",
       "destrucción",
       "ruina"
-    ]
+    ],
+    "longDefinitionEs": "De raíz primaria que significa destruir; ruina, muerte, castigo"
   },
   "G3640": {
     "shortDefinitionEs": "De poca fe, incrédulo (oligópistos)",
@@ -3839,7 +4339,8 @@
       "poca fe",
       "incrédulo",
       "desconfiado"
-    ]
+    ],
+    "longDefinitionEs": "De G3641 y G4102; incrédulo, falto de confianza en Cristo"
   },
   "G3641": {
     "shortDefinitionEs": "Poco, pequeño, breve, escaso (olígos)",
@@ -3847,7 +4348,8 @@
       "poco",
       "pequeño",
       "breve"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; pequeño, escaso en cantidad, grado, número, duración o valor"
   },
   "G3642": {
     "shortDefinitionEs": "Pusilánime, de poco ánimo (oligópsychos)",
@@ -3855,7 +4357,8 @@
       "pusilánime",
       "poco ánimo",
       "tímido"
-    ]
+    ],
+    "longDefinitionEs": "De G3641 y G6590; de poco ánimo, cobarde, pusilánime"
   },
   "G3643": {
     "shortDefinitionEs": "Despreciar, hacer poco caso (oligōréō)",
@@ -3863,7 +4366,8 @@
       "despreciar",
       "menospreciar",
       "desdeñar"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de G3641 y raíz que significa cuidado; tener poco respeto, despreciar"
   },
   "G3644": {
     "shortDefinitionEs": "Destruidor, la serpiente destructora (olothreutḗs)",
@@ -3871,7 +4375,8 @@
       "destruidor",
       "destrucción",
       "serpiente"
-    ]
+    ],
+    "longDefinitionEs": "De G3645; destruidor, especialmente serpiente venenosa"
   },
   "G3645": {
     "shortDefinitionEs": "Destruir, arruinar, matar (olothreúō)",
@@ -3879,7 +4384,8 @@
       "destruir",
       "arruinar",
       "matar"
-    ]
+    ],
+    "longDefinitionEs": "De G3639; arruinar, destruir, matar"
   },
   "G3646": {
     "shortDefinitionEs": "Holocausto, ofrenda quemada (holokaútōma)",
@@ -3887,7 +4393,8 @@
       "holocausto",
       "ofrenda quemada",
       "sacrificio"
-    ]
+    ],
+    "longDefinitionEs": "De derivado de compuesto de G3650 y derivado de G2545; sacrificio totalmente consumido"
   },
   "G3647": {
     "shortDefinitionEs": "Integridad, perfección física (holoklēría)",
@@ -3895,7 +4402,8 @@
       "integridad",
       "perfección",
       "entereza"
-    ]
+    ],
+    "longDefinitionEs": "De G3648; integridad, integridad física"
   },
   "G3648": {
     "shortDefinitionEs": "Íntegro, completo, sano (holóklēros)",
@@ -3903,7 +4411,8 @@
       "íntegro",
       "completo",
       "sano"
-    ]
+    ],
+    "longDefinitionEs": "De G3650 y G2819; completo en todas sus partes, perfectamente sano en cuerpo"
   },
   "G3649": {
     "shortDefinitionEs": "Aullar, gritar (ololýzō)",
@@ -3911,7 +4420,8 @@
       "aullar",
       "gritar",
       "vociferar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primario reduplicado; aullar, gritar, chillar"
   },
   "G3650": {
     "shortDefinitionEs": "Todo, entero, completo (hólos)",
@@ -3919,7 +4429,8 @@
       "todo",
       "entero",
       "completo"
-    ]
+    ],
+    "longDefinitionEs": "Palabra primaria que significa 'todo' o 'entero', es decir, completo en extensión, cantidad, tiempo o grado; especialmente usado como sustantivo o adverbio neutro"
   },
   "G3651": {
     "shortDefinitionEs": "Completamente, absolutamente perfecto (holotelḗs)",
@@ -3927,13 +4438,15 @@
       "completamente",
       "perfectamente",
       "totalmente"
-    ]
+    ],
+    "longDefinitionEs": "De G3650 y G5056; completo hasta el fin, es decir, absolutamente perfecto"
   },
   "G3652": {
     "shortDefinitionEs": "Olimpas: cristiano (Olympâs)",
     "glossesEs": [
       "Olimpas"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente contracción de 'otorgado por Olimpo', es decir, descendido del cielo; Olimpas, un cristiano"
   },
   "G3653": {
     "shortDefinitionEs": "Higo verde, higo verde intempestivo (ólynthos)",
@@ -3941,7 +4454,8 @@
       "higo",
       "verde",
       "intempestivo"
-    ]
+    ],
+    "longDefinitionEs": "De etimología incierta; higo verde o inmaduro por estar fuera de temporada"
   },
   "G3654": {
     "shortDefinitionEs": "Completamente, de ningún modo (hólōs)",
@@ -3949,7 +4463,8 @@
       "completamente",
       "nunca",
       "de ningún modo"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de G3650; completamente, es decir, del todo; por analogía, en todo lugar; negativamente, de ninguna manera"
   },
   "G3655": {
     "shortDefinitionEs": "Lluvia, chaparrón, tormenta (ómbros)",
@@ -3957,7 +4472,8 @@
       "lluvia",
       "chaparrón",
       "tormenta"
-    ]
+    ],
+    "longDefinitionEs": "De afinidad incierta; tormenta de truenos"
   },
   "G3656": {
     "shortDefinitionEs": "Conversar, hablar, departir (homiléō)",
@@ -3965,7 +4481,8 @@
       "conversar",
       "hablar",
       "charlar"
-    ]
+    ],
+    "longDefinitionEs": "De G3658; estar en compañía con, es decir, conversar o hablar"
   },
   "G3657": {
     "shortDefinitionEs": "Comunicación, conversación, trato (homilía)",
@@ -3973,7 +4490,8 @@
       "comunicación",
       "conversación",
       "trato"
-    ]
+    ],
+    "longDefinitionEs": "De G3658; compañerismo (homilía), es decir, trato o intercambio mutuo"
   },
   "G3658": {
     "shortDefinitionEs": "Compañía, muchedumbre, grupo (hómilos)",
@@ -3981,7 +4499,8 @@
       "compañía",
       "muchedumbre",
       "grupo"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G3674 y derivado de G138; asociación conjunta, es decir, una multitud"
   },
   "G3659": {
     "shortDefinitionEs": "Ojo, vista, aspecto (ómma)",
@@ -3989,7 +4508,8 @@
       "ojo",
       "vista",
       "aspecto"
-    ]
+    ],
+    "longDefinitionEs": "De G3700; una visión, es decir, por implicación, el ojo"
   },
   "G3660": {
     "shortDefinitionEs": "Jurar, prometer bajo juramento (omnýō)",
@@ -3997,7 +4517,8 @@
       "jurar",
       "juramento",
       "prometer"
-    ]
+    ],
+    "longDefinitionEs": "Forma prolongada de verbo primario obsoleto; jurar, es decir, tomar o declarar bajo juramento"
   },
   "G3661": {
     "shortDefinitionEs": "Unánimemente, de común acuerdo (homothymadón)",
@@ -4005,7 +4526,8 @@
       "unánimemente",
       "acuerdo",
       "consenso"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de compuesto de la base de G3674 y G2372; unánimemente o de común acuerdo"
   },
   "G3662": {
     "shortDefinitionEs": "Asemejarse, parecer (homoiázō)",
@@ -4013,7 +4535,8 @@
       "asemejarse",
       "parecer",
       "acordar"
-    ]
+    ],
+    "longDefinitionEs": "De G3664; asemejarse o parecer"
   },
   "G3663": {
     "shortDefinitionEs": "Sujeto a pasiones semejantes (homoiopathḗs)",
@@ -4021,7 +4544,8 @@
       "pasiones",
       "semejante",
       "afecciones"
-    ]
+    ],
+    "longDefinitionEs": "De G3664 y G3958; afectado similarmente de pasiones"
   },
   "G3664": {
     "shortDefinitionEs": "Semejante, parecido, similar (hómoios)",
@@ -4029,7 +4553,8 @@
       "semejante",
       "parecido",
       "similar"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G3674; semejante en apariencia o carácter"
   },
   "G3665": {
     "shortDefinitionEs": "Semejanza, parecido, similitud (homoiótēs)",
@@ -4037,7 +4562,8 @@
       "semejanza",
       "similitud",
       "parecido"
-    ]
+    ],
+    "longDefinitionEs": "De G3664; semejanza o parecido"
   },
   "G3666": {
     "shortDefinitionEs": "Asemejar, comparar, parecer (homoióō)",
@@ -4045,7 +4571,8 @@
       "asemejar",
       "comparar",
       "parecer"
-    ]
+    ],
+    "longDefinitionEs": "De G3664; asimilar, es decir, comparar; pasivamente, hacerse similar"
   },
   "G3667": {
     "shortDefinitionEs": "Forma, semejanza, figura, similitud (homoíōma)",
@@ -4053,21 +4580,24 @@
       "forma",
       "semejanza",
       "similitud"
-    ]
+    ],
+    "longDefinitionEs": "De G3666; una forma; abstractamente, semejanza o similitud"
   },
   "G3668": {
     "shortDefinitionEs": "de manera similar, asimismo (homoíōs)",
     "glossesEs": [
       "similarmente",
       "asimismo"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de G3664; de manera similar o asimismo"
   },
   "G3669": {
     "shortDefinitionEs": "semejanza, similitud, asimilación (homoíōsis)",
     "glossesEs": [
       "semejanza",
       "similitud"
-    ]
+    ],
+    "longDefinitionEs": "De G3666; asimilación, es decir, semejanza o similitud"
   },
   "G3670": {
     "shortDefinitionEs": "confesar, reconocer, pactar, dar gracias (homologéō)",
@@ -4075,62 +4605,71 @@
       "confesar",
       "reconocer",
       "prometer"
-    ]
+    ],
+    "longDefinitionEs": "De compuesto de la base de G3674 y G3056; consentir, es decir, pactar o reconocer"
   },
   "G3671": {
     "shortDefinitionEs": "confesión, reconocimiento, profesión (homología)",
     "glossesEs": [
       "confesión",
       "profesión"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que G3670; reconocimiento o confesión"
   },
   "G3672": {
     "shortDefinitionEs": "confesadamente, sin controversia (homologouménōs)",
     "glossesEs": [
       "confesadamente",
       "sin duda"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de participio presente pasivo de G3670; confesadamente o sin controversia"
   },
   "G3673": {
     "shortDefinitionEs": "compañero artesano, del mismo oficio (homótechnos)",
     "glossesEs": [
       "artesano",
       "compañero"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G3674 y G5078; compañero artesano u obrero del mismo oficio"
   },
   "G3674": {
     "shortDefinitionEs": "juntamente, en el mismo lugar o tiempo (homoû)",
     "glossesEs": [
       "juntamente",
       "juntos"
-    ]
+    ],
+    "longDefinitionEs": "Genitivo usado como adverbio; en el mismo lugar o tiempo"
   },
   "G3675": {
     "shortDefinitionEs": "de un mismo sentir, armonioso (homóphrōn)",
     "glossesEs": [
       "unánime",
       "acuerdo"
-    ]
+    ],
+    "longDefinitionEs": "De la base de G3674 y G5424; de un mismo sentir, armonioso"
   },
   "G3676": {
     "shortDefinitionEs": "no obstante, sin embargo, aunque (hómōs)",
     "glossesEs": [
       "aunque",
       "sin embargo"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de la base de G3674; al mismo tiempo, es decir, conjuncionalmente, sin embargo o aunque"
   },
   "G3677": {
     "shortDefinitionEs": "sueño, visión nocturna (ónar)",
     "glossesEs": [
       "sueño"
-    ]
+    ],
+    "longDefinitionEs": "De etimología incierta; sueño o visión nocturna"
   },
   "G3678": {
     "shortDefinitionEs": "asno pequeño, pollino (onárion)",
     "glossesEs": [
       "pollino",
       "asno joven"
-    ]
+    ],
+    "longDefinitionEs": "Neutro de derivado presunto de G3688; asno pequeño o pollino"
   },
   "G3679": {
     "shortDefinitionEs": "insultar, difamar, ultrajar, reprochar (oneidízō)",
@@ -4138,46 +4677,53 @@
       "insultar",
       "reprochar",
       "ofender"
-    ]
+    ],
+    "longDefinitionEs": "De G3681; difamar, es decir, injuriar, reprochar o ultrajar"
   },
   "G3680": {
     "shortDefinitionEs": "insulto, afrenta, reproche (oneidismós)",
     "glossesEs": [
       "insulto",
       "afrenta"
-    ]
+    ],
+    "longDefinitionEs": "Del verbo G3679; contumelía, injuria verbal o acción ofensiva"
   },
   "G3681": {
     "shortDefinitionEs": "vergüenza, deshonra, reproche (óneidos)",
     "glossesEs": [
       "vergüenza",
       "deshonra"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente relacionado con la base de G3686; notoriedad, es decir, un insulto (deshonra)"
   },
   "G3682": {
     "shortDefinitionEs": "Onésimo: provechoso; cristiano (Onḗsimos)",
     "glossesEs": [
       "Onésimo"
-    ]
+    ],
+    "longDefinitionEs": "De G3685; provechoso; Onésimo, un cristiano"
   },
   "G3683": {
     "shortDefinitionEs": "Onesíforo: portador de provecho; cristiano (Onēsíphoros)",
     "glossesEs": [
       "Onesíforo"
-    ]
+    ],
+    "longDefinitionEs": "De un derivado de G3685 y G5411; portador de provecho; Onesíforo, un cristiano"
   },
   "G3684": {
     "shortDefinitionEs": "de asno, piedra de molino grande (onikós)",
     "glossesEs": [
       "piedra de molino"
-    ]
+    ],
+    "longDefinitionEs": "De G3688; perteneciente a un asno, es decir, grande (para ser tirado por un asno)"
   },
   "G3685": {
     "shortDefinitionEs": "alegrar, hacer feliz, regocijarse (onínēmi)",
     "glossesEs": [
       "alegrar",
       "regocijarse"
-    ]
+    ],
+    "longDefinitionEs": "Forma prolongada de verbo primitivo; gratificar, es decir (voz media) obtener placer o ventaja de algo"
   },
   "G3686": {
     "shortDefinitionEs": "nombre, reputación, persona (onoma)",
@@ -4191,47 +4737,54 @@
     "glossesEs": [
       "nombrar",
       "llamar"
-    ]
+    ],
+    "longDefinitionEs": "De G3686; nombrar, es decir, asignar una denominación; por extensión, proferir, mencionar, profesar"
   },
   "G3688": {
     "shortDefinitionEs": "asno, bestia de carga (ónos)",
     "glossesEs": [
       "asno"
-    ]
+    ],
+    "longDefinitionEs": "Palabra aparentemente primitiva; un asno, bestia de carga"
   },
   "G3689": {
     "shortDefinitionEs": "realmente, verdaderamente, ciertamente (óntōs)",
     "glossesEs": [
       "verdaderamente",
       "ciertamente"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio de los casos oblicuos de G5607; realmente, verdaderamente"
   },
   "G3690": {
     "shortDefinitionEs": "vinagre, vino agrio (óxos)",
     "glossesEs": [
       "vinagre"
-    ]
+    ],
+    "longDefinitionEs": "De G3691; vinagre, es decir, vino agrio"
   },
   "G3691": {
     "shortDefinitionEs": "agudo, cortante, rápido, veloz (oxýs)",
     "glossesEs": [
       "agudo",
       "rápido"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente relacionado con la base de G188 (ácido); agudo, penetrante; por analogía, rápido"
   },
   "G3692": {
     "shortDefinitionEs": "cueva, caverna, abertura, fuente (opḗ)",
     "glossesEs": [
       "cueva",
       "caverna"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de G3700; un agujero (como para luz), es decir, caverna; por analogía, manantial"
   },
   "G3693": {
     "shortDefinitionEs": "desde atrás, por detrás, tras (ópisthen)",
     "glossesEs": [
       "atrás",
       "detrás"
-    ]
+    ],
+    "longDefinitionEs": "De la raíz de G3700 con enclítica de origen; desde atrás (como aspecto seguro), es decir, a la espalda"
   },
   "G3694": {
     "shortDefinitionEs": "hacia atrás, tras, siguiendo (opísō)",
@@ -4239,42 +4792,48 @@
       "atrás",
       "detrás",
       "después"
-    ]
+    ],
+    "longDefinitionEs": "De la misma base que G3693 con enclítica de dirección; hacia atrás, es decir, a la retaguardia"
   },
   "G3695": {
     "shortDefinitionEs": "armarse, equiparse de armas (hoplízō)",
     "glossesEs": [
       "armarse",
       "equiparse"
-    ]
+    ],
+    "longDefinitionEs": "De G3696; equipar (con armas, voz media y figuradamente)"
   },
   "G3696": {
     "shortDefinitionEs": "arma, armadura, instrumento, herramienta (hóplon)",
     "glossesEs": [
       "arma",
       "armadura"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de una raíz primitiva; implemento, utensilio o herramienta (literalmente o figuradamente, especialmente, ofensiva para la guerra)"
   },
   "G3697": {
     "shortDefinitionEs": "de qué clase, qué género, tal como (hopoîos)",
     "glossesEs": [
       "qué clase",
       "tal"
-    ]
+    ],
+    "longDefinitionEs": "De G3739 y G4169; de qué clase que, es decir, cómo (tan) grande (excelente)"
   },
   "G3698": {
     "shortDefinitionEs": "cuándo, apenas, tan pronto como (hopóte)",
     "glossesEs": [
       "cuándo",
       "cuando"
-    ]
+    ],
+    "longDefinitionEs": "De G3739 y G4218; qué entonces, es decir, (de tiempo) tan pronto como"
   },
   "G3699": {
     "shortDefinitionEs": "dónde, adondequiera, en qué lugar (hópou)",
     "glossesEs": [
       "dónde",
       "donde"
-    ]
+    ],
+    "longDefinitionEs": "De G3739 y G4225; qué donde, es decir, en cualquier lugar"
   },
   "G3700": {
     "shortDefinitionEs": "mirar fijamente, aparecer, verse, mostrarse (optánomai)",
@@ -4282,27 +4841,31 @@
       "ver",
       "mirar",
       "aparecer"
-    ]
+    ],
+    "longDefinitionEs": "Forma prolongada de raíz primitiva; mirar fijamente (con los ojos bien abiertos como ante algo notable); difiere de otros verbos de visión por su énfasis en contemplación asombrada"
   },
   "G3701": {
     "shortDefinitionEs": "visión, aparición sobrenatural (optasía)",
     "glossesEs": [
       "visión",
       "aparición"
-    ]
+    ],
+    "longDefinitionEs": "De un derivado presumido de G3700; visibilidad, es decir, (concretamente) una aparición"
   },
   "G3702": {
     "shortDefinitionEs": "asado, cocido, tostado (optós)",
     "glossesEs": [
       "asado"
-    ]
+    ],
+    "longDefinitionEs": "De verbo obsoleto emparentado con la raíz de \"remojar\"; cocinado, es decir, asado"
   },
   "G3703": {
     "shortDefinitionEs": "fruto, fruta madura, cosecha (opṓra)",
     "glossesEs": [
       "fruta",
       "fruto"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente de la base de G3796 y G5610; el atardecer de la estación (veraniega), es decir, (por implicación) fruto maduro"
   },
   "G3704": {
     "shortDefinitionEs": "de modo que, para que, cómo (hópōs)",
@@ -4310,27 +4873,31 @@
       "para que",
       "como",
       "cómo"
-    ]
+    ],
+    "longDefinitionEs": "De G3739 y G4459; qué cómo, es decir, de la manera que (como adverbio o conjunción)"
   },
   "G3705": {
     "shortDefinitionEs": "visión, espectáculo, algo visto (hórama)",
     "glossesEs": [
       "visión",
       "vista"
-    ]
+    ],
+    "longDefinitionEs": "De G3708; algo mirado fijamente, es decir, un espectáculo (especialmente sobrenatural)"
   },
   "G3706": {
     "shortDefinitionEs": "visión, aspecto, acto de ver (hórasis)",
     "glossesEs": [
       "visión",
       "vista"
-    ]
+    ],
+    "longDefinitionEs": "De G3708; el acto de mirar fijamente, es decir, (externamente) un aspecto o (internamente) una aparición inspirada"
   },
   "G3707": {
     "shortDefinitionEs": "visible, que puede verse (horatós)",
     "glossesEs": [
       "visible"
-    ]
+    ],
+    "longDefinitionEs": "De G3708; mirado fijamente, es decir, (por implicación) capaz de ser visto"
   },
   "G3708": {
     "shortDefinitionEs": "ver, mirar, percibir, contemplar (horáō)",
@@ -4338,7 +4905,8 @@
       "ver",
       "mirar",
       "percibir"
-    ]
+    ],
+    "longDefinitionEs": "Propiamente, mirar fijamente; por implicación, discernir claramente (física o mentalmente); por extensión, atender; por hebraísmo, experimentar; pasivamente, aparecer"
   },
   "G3709": {
     "shortDefinitionEs": "ira, cólera, enojo, indignación (orgḗ)",
@@ -4346,14 +4914,16 @@
       "ira",
       "cólera",
       "enojo"
-    ]
+    ],
+    "longDefinitionEs": "De G3713; propiamente, deseo (como extensión o excitación de la mente), es decir, pasión violenta (ira, o aborrecimiento justificable); por implicación, castigo"
   },
   "G3710": {
     "shortDefinitionEs": "enojar, irritar, enfurecerse (orgízō)",
     "glossesEs": [
       "enojar",
       "irritar"
-    ]
+    ],
+    "longDefinitionEs": "De G3709; provocar o enfurecer, es decir, (pasivamente) exasperarse"
   },
   "G3711": {
     "shortDefinitionEs": "irascible, propenso a la ira (orgílos)",
