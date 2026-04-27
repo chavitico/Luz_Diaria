@@ -192,18 +192,19 @@ async function main() {
   console.log('🌐 Loading Spanish overlays...');
   const spanishBlocks = loadAllSpanish();
 
-  // Build candidate list: alignment IDs without longDefinitionEs, sorted by frequency
+  // Build candidate list: ALL entries without longDefinitionEs, sorted by alignment frequency
   const candidates: { id: string; freq: number }[] = [];
-  for (const [id, freq] of alignIds) {
-    const blockEs = (englishData.get(id) as any)?._blockEs as string | undefined;
+  for (const [id, en] of englishData) {
+    const blockEs = (en as any)._blockEs as string | undefined;
     if (!blockEs) continue;
     const esBlock = spanishBlocks.get(blockEs);
     const existing = esBlock?.[id] as any;
     // Skip if longDefinitionEs already set
     if (existing?.longDefinitionEs && String(existing.longDefinitionEs).trim()) continue;
-    candidates.push({ id, freq });
+    candidates.push({ id, freq: alignIds.get(id) ?? 0 });
   }
-  candidates.sort((a, b) => b.freq - a.freq);
+  // Most-used words first, then alphabetical for consistent ordering
+  candidates.sort((a, b) => b.freq - a.freq || a.id.localeCompare(b.id));
 
   const toProcess = candidates.slice(0, Math.min(candidates.length, LIMIT));
   console.log(`🎯 Entries to generate: ${toProcess.length} (${candidates.length - toProcess.length} already done)\n`);
