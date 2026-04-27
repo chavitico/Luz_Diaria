@@ -2331,7 +2331,7 @@ export const TRANSLATIONS = {
     no_results: 'Sin resultados',
 
     // Store
-    store: 'Personalizar',
+    store: 'Entretenimiento',
     points: 'Puntos',
     purchase: 'Comprar',
     purchased: 'Adquirido',

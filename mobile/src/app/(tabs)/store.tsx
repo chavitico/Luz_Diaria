@@ -5162,7 +5162,7 @@ export default function StoreScreen() {
                 </View>
                 <View>
                   <Text style={{ fontSize: 13, fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }} numberOfLines={1}>
-                    {language === 'es' ? 'Entretenimiento' : 'Entertainment'}
+                    {language === 'es' ? 'Personalizar' : 'Customize'}
                   </Text>
                   <Text style={{ fontSize: 11, color: 'rgba(45,212,191,0.65)', fontWeight: '500' }} numberOfLines={1}>
                     {language === 'es' ? 'Temas y marcos' : 'Themes & frames'}
