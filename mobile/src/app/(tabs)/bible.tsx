@@ -259,10 +259,9 @@ function VerseRow({
                 return (
                   <Pressable
                     key={i}
-                    onPress={() => {
-                      Haptics.selectionAsync();
-                      onStrongWordPress(sid);
-                    }}
+                    onPress={() => { Haptics.selectionAsync(); onStrongWordPress(sid); }}
+                    onLongPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); onLongPress(number); }}
+                    delayLongPress={400}
                     hitSlop={4}
                     style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}
                   >
@@ -287,6 +286,8 @@ function VerseRow({
                 <Pressable
                   key={i}
                   onPress={() => onNoStrongWordPress?.()}
+                  onLongPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); onLongPress(number); }}
+                  delayLongPress={400}
                   hitSlop={4}
                   style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
                 >
@@ -992,6 +993,8 @@ export default function BibleScreen() {
   const isSpeakingRef = useRef(false);
   const ttsVoiceRef = useRef<string | undefined>(undefined);
   const langRef = useRef(lang);
+  const strongModeActiveRef = useRef(false);
+  const prevStrongModeRef = useRef(false); // Strong state before TTS auto-disabled it
   useEffect(() => { langRef.current = lang; ttsVoiceRef.current = undefined; }, [lang]);
 
   // In-reader version switching animation
@@ -1030,12 +1033,22 @@ export default function BibleScreen() {
     setStrongFavorites(next);
   }, [strongFavorites]);
 
+  useEffect(() => { strongModeActiveRef.current = strongModeActive; }, [strongModeActive]);
+
   const handleToggleStrongMode = useCallback(() => {
     setStrongModeActive(prev => {
       const next = !prev;
       saveStrongModeState(next);
       return next;
     });
+  }, []);
+
+  const restoreStrongModeAfterTTS = useCallback(() => {
+    if (prevStrongModeRef.current) {
+      prevStrongModeRef.current = false;
+      setStrongModeActive(true);
+      saveStrongModeState(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -1264,6 +1277,7 @@ export default function BibleScreen() {
       setIsSpeaking(false);
       isSpeakingRef.current = false;
       setCurrentTTSVerse(-1);
+      restoreStrongModeAfterTTS();
       return;
     }
     const verse = verses[verseIdx];
@@ -1287,6 +1301,16 @@ export default function BibleScreen() {
         }, 180);
       },
     });
+  }, [restoreStrongModeAfterTTS]);
+
+  const autoDisableStrongForTTS = useCallback(() => {
+    if (strongModeActiveRef.current) {
+      prevStrongModeRef.current = true;
+      setStrongModeActive(false);
+      saveStrongModeState(false);
+    } else {
+      prevStrongModeRef.current = false;
+    }
   }, []);
 
   const startTTSFromVerse = useCallback(async (verseNumber: number) => {
@@ -1302,11 +1326,12 @@ export default function BibleScreen() {
     } catch { /* use default voice */ }
     const startIdx = chapterData.verses.findIndex(v => v.number === verseNumber);
     if (startIdx === -1) return;
+    autoDisableStrongForTTS();
     setIsSpeaking(true);
     isSpeakingRef.current = true;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     speakVerseByIndex(startIdx, chapterData.verses, jobId);
-  }, [chapterData, speakVerseByIndex]);
+  }, [chapterData, speakVerseByIndex, autoDisableStrongForTTS]);
 
   const handleTTS = useCallback(async () => {
     if (isSpeaking) {
@@ -1314,9 +1339,11 @@ export default function BibleScreen() {
       await Speech.stop();
       setIsSpeaking(false);
       setCurrentTTSVerse(-1);
+      restoreStrongModeAfterTTS();
       return;
     }
     if (!chapterData?.verses.length) return;
+    autoDisableStrongForTTS();
     const jobId = ++ttsJobRef.current;
     setIsSpeaking(true);
     isSpeakingRef.current = true;
@@ -1325,7 +1352,7 @@ export default function BibleScreen() {
       ttsVoiceRef.current = picked.voiceIdentifier ?? undefined;
     } catch { /* use default voice */ }
     speakVerseByIndex(0, chapterData.verses, jobId);
-  }, [isSpeaking, chapterData, lang, speakVerseByIndex]);
+  }, [isSpeaking, chapterData, lang, speakVerseByIndex, autoDisableStrongForTTS, restoreStrongModeAfterTTS]);
 
   // Chapter prev/next navigation
   const stopTTS = useCallback(() => {
@@ -1334,8 +1361,9 @@ export default function BibleScreen() {
       Speech.stop();
       setIsSpeaking(false);
       setCurrentTTSVerse(-1);
+      restoreStrongModeAfterTTS();
     }
-  }, []);
+  }, [restoreStrongModeAfterTTS]);
 
   const handlePrevChapter = useCallback(() => {
     if (!selectedBook || !selectedChapter || selectedChapter <= 1) return;
