@@ -1,0 +1,1286 @@
+{
+  "JOE_1_1": [
+    {
+      "verseId": "JOE_1_1",
+      "wordIndex": 0,
+      "displayedWord": "Palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "JOE_1_1",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_1_1",
+      "wordIndex": 7,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "JOE_1_2": [
+    {
+      "verseId": "JOE_1_2",
+      "wordIndex": 4,
+      "displayedWord": "escuchad,",
+      "strongId": "H8085"
+    },
+    {
+      "verseId": "JOE_1_2",
+      "wordIndex": 10,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_1_2",
+      "wordIndex": 16,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_1_2",
+      "wordIndex": 20,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "JOE_1_3": [
+    {
+      "verseId": "JOE_1_3",
+      "wordIndex": 5,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_1_3",
+      "wordIndex": 8,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_1_3",
+      "wordIndex": 11,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_1_3",
+      "wordIndex": 14,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "JOE_1_6": [
+    {
+      "verseId": "JOE_1_6",
+      "wordIndex": 1,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "JOE_1_6",
+      "wordIndex": 2,
+      "displayedWord": "fuerte",
+      "strongId": "H1368"
+    },
+    {
+      "verseId": "JOE_1_6",
+      "wordIndex": 8,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "JOE_1_9": [
+    {
+      "verseId": "JOE_1_9",
+      "wordIndex": 3,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "JOE_1_9",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_1_9",
+      "wordIndex": 7,
+      "displayedWord": "ofrenda",
+      "strongId": "H4503"
+    },
+    {
+      "verseId": "JOE_1_9",
+      "wordIndex": 12,
+      "displayedWord": "sacerdotes",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "JOE_1_9",
+      "wordIndex": 15,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_1_10": [
+    {
+      "verseId": "JOE_1_10",
+      "wordIndex": 7,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "JOE_1_12": [
+    {
+      "verseId": "JOE_1_12",
+      "wordIndex": 32,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "JOE_1_13": [
+    {
+      "verseId": "JOE_1_13",
+      "wordIndex": 3,
+      "displayedWord": "sacerdotes;",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "JOE_1_13",
+      "wordIndex": 7,
+      "displayedWord": "altar;",
+      "strongId": "H4196"
+    },
+    {
+      "verseId": "JOE_1_13",
+      "wordIndex": 15,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JOE_1_13",
+      "wordIndex": 21,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "JOE_1_13",
+      "wordIndex": 24,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JOE_1_13",
+      "wordIndex": 26,
+      "displayedWord": "ofrenda",
+      "strongId": "H4503"
+    }
+  ],
+  "JOE_1_14": [
+    {
+      "verseId": "JOE_1_14",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_1_14",
+      "wordIndex": 19,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "JOE_1_14",
+      "wordIndex": 21,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_1_14",
+      "wordIndex": 23,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JOE_1_14",
+      "wordIndex": 27,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_1_15": [
+    {
+      "verseId": "JOE_1_15",
+      "wordIndex": 2,
+      "displayedWord": "día!",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_1_15",
+      "wordIndex": 7,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_1_15",
+      "wordIndex": 9,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_1_16": [
+    {
+      "verseId": "JOE_1_16",
+      "wordIndex": 17,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "JOE_1_16",
+      "wordIndex": 20,
+      "displayedWord": "Dios?",
+      "strongId": "H430"
+    }
+  ],
+  "JOE_1_19": [
+    {
+      "verseId": "JOE_1_19",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_1_20": [
+    {
+      "verseId": "JOE_1_20",
+      "wordIndex": 15,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    }
+  ],
+  "JOE_2_1": [
+    {
+      "verseId": "JOE_2_1",
+      "wordIndex": 3,
+      "displayedWord": "Sion,",
+      "strongId": "H6726"
+    },
+    {
+      "verseId": "JOE_2_1",
+      "wordIndex": 9,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "JOE_2_1",
+      "wordIndex": 10,
+      "displayedWord": "monte;",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "JOE_2_1",
+      "wordIndex": 17,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_2_1",
+      "wordIndex": 21,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_2_1",
+      "wordIndex": 23,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_2_2": [
+    {
+      "verseId": "JOE_2_2",
+      "wordIndex": 0,
+      "displayedWord": "Día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_2_2",
+      "wordIndex": 2,
+      "displayedWord": "tinieblas",
+      "strongId": "H2822"
+    },
+    {
+      "verseId": "JOE_2_2",
+      "wordIndex": 6,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_2_2",
+      "wordIndex": 15,
+      "displayedWord": "montes",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "JOE_2_2",
+      "wordIndex": 23,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "JOE_2_2",
+      "wordIndex": 26,
+      "displayedWord": "fuerte;",
+      "strongId": "H1368"
+    }
+  ],
+  "JOE_2_3": [
+    {
+      "verseId": "JOE_2_3",
+      "wordIndex": 17,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "JOE_2_5": [
+    {
+      "verseId": "JOE_2_5",
+      "wordIndex": 10,
+      "displayedWord": "montes;",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "JOE_2_5",
+      "wordIndex": 21,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "JOE_2_5",
+      "wordIndex": 22,
+      "displayedWord": "fuerte",
+      "strongId": "H1368"
+    }
+  ],
+  "JOE_2_7": [
+    {
+      "verseId": "JOE_2_7",
+      "wordIndex": 6,
+      "displayedWord": "guerra",
+      "strongId": "H4421"
+    }
+  ],
+  "JOE_2_8": [
+    {
+      "verseId": "JOE_2_8",
+      "wordIndex": 16,
+      "displayedWord": "espada",
+      "strongId": "H2719"
+    }
+  ],
+  "JOE_2_10": [
+    {
+      "verseId": "JOE_2_10",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_2_10",
+      "wordIndex": 9,
+      "displayedWord": "cielos;",
+      "strongId": "H8064"
+    }
+  ],
+  "JOE_2_11": [
+    {
+      "verseId": "JOE_2_11",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_11",
+      "wordIndex": 15,
+      "displayedWord": "fuerte",
+      "strongId": "H1368"
+    },
+    {
+      "verseId": "JOE_2_11",
+      "wordIndex": 26,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_2_11",
+      "wordIndex": 28,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_11",
+      "wordIndex": 39,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "JOE_2_11",
+      "wordIndex": 41,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_2_12": [
+    {
+      "verseId": "JOE_2_12",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_12",
+      "wordIndex": 12,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    }
+  ],
+  "JOE_2_13": [
+    {
+      "verseId": "JOE_2_13",
+      "wordIndex": 2,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "JOE_2_13",
+      "wordIndex": 10,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_13",
+      "wordIndex": 12,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JOE_2_13",
+      "wordIndex": 25,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    }
+  ],
+  "JOE_2_14": [
+    {
+      "verseId": "JOE_2_14",
+      "wordIndex": 9,
+      "displayedWord": "bendición",
+      "strongId": "H1293"
+    },
+    {
+      "verseId": "JOE_2_14",
+      "wordIndex": 15,
+      "displayedWord": "ofrenda",
+      "strongId": "H4503"
+    },
+    {
+      "verseId": "JOE_2_14",
+      "wordIndex": 19,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_14",
+      "wordIndex": 21,
+      "displayedWord": "Dios?",
+      "strongId": "H430"
+    }
+  ],
+  "JOE_2_15": [
+    {
+      "verseId": "JOE_2_15",
+      "wordIndex": 3,
+      "displayedWord": "Sion,",
+      "strongId": "H6726"
+    }
+  ],
+  "JOE_2_16": [
+    {
+      "verseId": "JOE_2_16",
+      "wordIndex": 2,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    }
+  ],
+  "JOE_2_17": [
+    {
+      "verseId": "JOE_2_17",
+      "wordIndex": 5,
+      "displayedWord": "altar",
+      "strongId": "H4196"
+    },
+    {
+      "verseId": "JOE_2_17",
+      "wordIndex": 8,
+      "displayedWord": "sacerdotes",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "JOE_2_17",
+      "wordIndex": 11,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_17",
+      "wordIndex": 16,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_17",
+      "wordIndex": 19,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "JOE_2_17",
+      "wordIndex": 30,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "JOE_2_17",
+      "wordIndex": 46,
+      "displayedWord": "Dios?",
+      "strongId": "H430"
+    }
+  ],
+  "JOE_2_18": [
+    {
+      "verseId": "JOE_2_18",
+      "wordIndex": 1,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_18",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_2_18",
+      "wordIndex": 9,
+      "displayedWord": "pueblo.",
+      "strongId": "H5971"
+    }
+  ],
+  "JOE_2_19": [
+    {
+      "verseId": "JOE_2_19",
+      "wordIndex": 1,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_19",
+      "wordIndex": 6,
+      "displayedWord": "pueblo:",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "JOE_2_19",
+      "wordIndex": 12,
+      "displayedWord": "pan,",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "JOE_2_19",
+      "wordIndex": 30,
+      "displayedWord": "naciones.",
+      "strongId": "H1471"
+    }
+  ],
+  "JOE_2_20": [
+    {
+      "verseId": "JOE_2_20",
+      "wordIndex": 12,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_2_20",
+      "wordIndex": 21,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "JOE_2_20",
+      "wordIndex": 27,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "JOE_2_21": [
+    {
+      "verseId": "JOE_2_21",
+      "wordIndex": 0,
+      "displayedWord": "Tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_2_21",
+      "wordIndex": 7,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_2_23": [
+    {
+      "verseId": "JOE_2_23",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_2_23",
+      "wordIndex": 4,
+      "displayedWord": "Sion,",
+      "strongId": "H6726"
+    },
+    {
+      "verseId": "JOE_2_23",
+      "wordIndex": 9,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_23",
+      "wordIndex": 11,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JOE_2_23",
+      "wordIndex": 33,
+      "displayedWord": "principio.",
+      "strongId": "H7225"
+    }
+  ],
+  "JOE_2_26": [
+    {
+      "verseId": "JOE_2_26",
+      "wordIndex": 6,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "JOE_2_26",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_26",
+      "wordIndex": 10,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JOE_2_26",
+      "wordIndex": 22,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    }
+  ],
+  "JOE_2_27": [
+    {
+      "verseId": "JOE_2_27",
+      "wordIndex": 6,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "JOE_2_27",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_27",
+      "wordIndex": 15,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JOE_2_27",
+      "wordIndex": 22,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "JOE_2_27",
+      "wordIndex": 29,
+      "displayedWord": "Espíritu",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "JOE_2_27",
+      "wordIndex": 31,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "JOE_2_28": [
+    {
+      "verseId": "JOE_2_28",
+      "wordIndex": 6,
+      "displayedWord": "Espíritu",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "JOE_2_28",
+      "wordIndex": 9,
+      "displayedWord": "carne,",
+      "strongId": "H1320"
+    },
+    {
+      "verseId": "JOE_2_28",
+      "wordIndex": 13,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "JOE_2_29": [
+    {
+      "verseId": "JOE_2_29",
+      "wordIndex": 11,
+      "displayedWord": "Espíritu",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "JOE_2_29",
+      "wordIndex": 14,
+      "displayedWord": "días.",
+      "strongId": "H3117"
+    }
+  ],
+  "JOE_2_30": [
+    {
+      "verseId": "JOE_2_30",
+      "wordIndex": 5,
+      "displayedWord": "cielo",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "JOE_2_30",
+      "wordIndex": 9,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_2_30",
+      "wordIndex": 10,
+      "displayedWord": "sangre,",
+      "strongId": "H1818"
+    }
+  ],
+  "JOE_2_31": [
+    {
+      "verseId": "JOE_2_31",
+      "wordIndex": 5,
+      "displayedWord": "tinieblas,",
+      "strongId": "H2822"
+    },
+    {
+      "verseId": "JOE_2_31",
+      "wordIndex": 10,
+      "displayedWord": "sangre,",
+      "strongId": "H1818"
+    },
+    {
+      "verseId": "JOE_2_31",
+      "wordIndex": 18,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_2_31",
+      "wordIndex": 23,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_2_32": [
+    {
+      "verseId": "JOE_2_32",
+      "wordIndex": 6,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "JOE_2_32",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_2_32",
+      "wordIndex": 20,
+      "displayedWord": "monte",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "JOE_2_32",
+      "wordIndex": 22,
+      "displayedWord": "Sion",
+      "strongId": "H6726"
+    },
+    {
+      "verseId": "JOE_2_32",
+      "wordIndex": 25,
+      "displayedWord": "Jerusalén",
+      "strongId": "H3389"
+    },
+    {
+      "verseId": "JOE_2_32",
+      "wordIndex": 27,
+      "displayedWord": "salvación,",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "JOE_2_32",
+      "wordIndex": 31,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_3_1": [
+    {
+      "verseId": "JOE_3_1",
+      "wordIndex": 6,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_3_1",
+      "wordIndex": 18,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "JOE_3_1",
+      "wordIndex": 21,
+      "displayedWord": "Jerusalén,",
+      "strongId": "H3389"
+    }
+  ],
+  "JOE_3_2": [
+    {
+      "verseId": "JOE_3_2",
+      "wordIndex": 4,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "JOE_3_2",
+      "wordIndex": 17,
+      "displayedWord": "juicio",
+      "strongId": "H4941"
+    },
+    {
+      "verseId": "JOE_3_2",
+      "wordIndex": 24,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "JOE_3_2",
+      "wordIndex": 27,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "JOE_3_2",
+      "wordIndex": 36,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "JOE_3_2",
+      "wordIndex": 40,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "JOE_3_3": [
+    {
+      "verseId": "JOE_3_3",
+      "wordIndex": 5,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    }
+  ],
+  "JOE_3_6": [
+    {
+      "verseId": "JOE_3_6",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_3_6",
+      "wordIndex": 5,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "JOE_3_6",
+      "wordIndex": 8,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_3_6",
+      "wordIndex": 10,
+      "displayedWord": "Jerusalén",
+      "strongId": "H3389"
+    },
+    {
+      "verseId": "JOE_3_6",
+      "wordIndex": 13,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_3_6",
+      "wordIndex": 21,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "JOE_3_8": [
+    {
+      "verseId": "JOE_3_8",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_3_8",
+      "wordIndex": 9,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_3_8",
+      "wordIndex": 11,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "JOE_3_8",
+      "wordIndex": 19,
+      "displayedWord": "nación",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "JOE_3_8",
+      "wordIndex": 22,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_3_9": [
+    {
+      "verseId": "JOE_3_9",
+      "wordIndex": 4,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "JOE_3_9",
+      "wordIndex": 6,
+      "displayedWord": "guerra,",
+      "strongId": "H4421"
+    },
+    {
+      "verseId": "JOE_3_9",
+      "wordIndex": 17,
+      "displayedWord": "guerra.",
+      "strongId": "H4421"
+    }
+  ],
+  "JOE_3_10": [
+    {
+      "verseId": "JOE_3_10",
+      "wordIndex": 15,
+      "displayedWord": "Fuerte",
+      "strongId": "H1368"
+    }
+  ],
+  "JOE_3_11": [
+    {
+      "verseId": "JOE_3_11",
+      "wordIndex": 3,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "JOE_3_11",
+      "wordIndex": 13,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_3_12": [
+    {
+      "verseId": "JOE_3_12",
+      "wordIndex": 2,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "JOE_3_12",
+      "wordIndex": 18,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    }
+  ],
+  "JOE_3_13": [
+    {
+      "verseId": "JOE_3_13",
+      "wordIndex": 29,
+      "displayedWord": "maldad",
+      "strongId": "H7451"
+    }
+  ],
+  "JOE_3_14": [
+    {
+      "verseId": "JOE_3_14",
+      "wordIndex": 12,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JOE_3_14",
+      "wordIndex": 14,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_3_15": [
+    {
+      "verseId": "JOE_3_15",
+      "wordIndex": 15,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    }
+  ],
+  "JOE_3_16": [
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 4,
+      "displayedWord": "Sion,",
+      "strongId": "H6726"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 10,
+      "displayedWord": "Jerusalén,",
+      "strongId": "H3389"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 17,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 20,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 22,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 25,
+      "displayedWord": "esperanza",
+      "strongId": "H8615"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 28,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 31,
+      "displayedWord": "fortaleza",
+      "strongId": "H4581"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 34,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_3_16",
+      "wordIndex": 36,
+      "displayedWord": "Israel.",
+      "strongId": "H3478"
+    }
+  ],
+  "JOE_3_17": [
+    {
+      "verseId": "JOE_3_17",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_3_17",
+      "wordIndex": 7,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JOE_3_17",
+      "wordIndex": 11,
+      "displayedWord": "Sion,",
+      "strongId": "H6726"
+    },
+    {
+      "verseId": "JOE_3_17",
+      "wordIndex": 13,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "JOE_3_17",
+      "wordIndex": 14,
+      "displayedWord": "monte;",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "JOE_3_17",
+      "wordIndex": 16,
+      "displayedWord": "Jerusalén",
+      "strongId": "H3389"
+    },
+    {
+      "verseId": "JOE_3_17",
+      "wordIndex": 18,
+      "displayedWord": "santa,",
+      "strongId": "H6918"
+    }
+  ],
+  "JOE_3_18": [
+    {
+      "verseId": "JOE_3_18",
+      "wordIndex": 6,
+      "displayedWord": "montes",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "JOE_3_18",
+      "wordIndex": 20,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "JOE_3_18",
+      "wordIndex": 22,
+      "displayedWord": "aguas;",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "JOE_3_18",
+      "wordIndex": 29,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "JOE_3_18",
+      "wordIndex": 31,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JOE_3_19": [
+    {
+      "verseId": "JOE_3_19",
+      "wordIndex": 16,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "JOE_3_19",
+      "wordIndex": 18,
+      "displayedWord": "Judá;",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "JOE_3_19",
+      "wordIndex": 23,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JOE_3_19",
+      "wordIndex": 24,
+      "displayedWord": "sangre",
+      "strongId": "H1818"
+    }
+  ],
+  "JOE_3_20": [
+    {
+      "verseId": "JOE_3_20",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "JOE_3_20",
+      "wordIndex": 7,
+      "displayedWord": "Jerusalén",
+      "strongId": "H3389"
+    }
+  ],
+  "JOE_3_21": [
+    {
+      "verseId": "JOE_3_21",
+      "wordIndex": 3,
+      "displayedWord": "sangre",
+      "strongId": "H1818"
+    },
+    {
+      "verseId": "JOE_3_21",
+      "wordIndex": 11,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JOE_3_21",
+      "wordIndex": 14,
+      "displayedWord": "Sion.",
+      "strongId": "H6726"
+    }
+  ]
+}

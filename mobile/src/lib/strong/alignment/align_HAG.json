@@ -1,0 +1,908 @@
+{
+  "HAG_1_1": [
+    {
+      "verseId": "HAG_1_1",
+      "wordIndex": 5,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "HAG_1_1",
+      "wordIndex": 14,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAG_1_1",
+      "wordIndex": 18,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "HAG_1_1",
+      "wordIndex": 20,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_1",
+      "wordIndex": 24,
+      "displayedWord": "profeta",
+      "strongId": "H5030"
+    },
+    {
+      "verseId": "HAG_1_1",
+      "wordIndex": 29,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_1_1",
+      "wordIndex": 34,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "HAG_1_1",
+      "wordIndex": 38,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_1_1",
+      "wordIndex": 42,
+      "displayedWord": "sacerdote,",
+      "strongId": "H3548"
+    }
+  ],
+  "HAG_1_2": [
+    {
+      "verseId": "HAG_1_2",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_2",
+      "wordIndex": 9,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "HAG_1_2",
+      "wordIndex": 22,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAG_1_2",
+      "wordIndex": 24,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_1_3": [
+    {
+      "verseId": "HAG_1_3",
+      "wordIndex": 2,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "HAG_1_3",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_3",
+      "wordIndex": 8,
+      "displayedWord": "profeta",
+      "strongId": "H5030"
+    }
+  ],
+  "HAG_1_4": [
+    {
+      "verseId": "HAG_1_4",
+      "wordIndex": 14,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "HAG_1_5": [
+    {
+      "verseId": "HAG_1_5",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_1_7": [
+    {
+      "verseId": "HAG_1_7",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_1_8": [
+    {
+      "verseId": "HAG_1_8",
+      "wordIndex": 2,
+      "displayedWord": "monte,",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "HAG_1_8",
+      "wordIndex": 9,
+      "displayedWord": "casa;",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAG_1_8",
+      "wordIndex": 21,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_1_9": [
+    {
+      "verseId": "HAG_1_9",
+      "wordIndex": 8,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAG_1_9",
+      "wordIndex": 19,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_9",
+      "wordIndex": 26,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAG_1_9",
+      "wordIndex": 38,
+      "displayedWord": "casa.",
+      "strongId": "H1004"
+    }
+  ],
+  "HAG_1_10": [
+    {
+      "verseId": "HAG_1_10",
+      "wordIndex": 6,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "HAG_1_10",
+      "wordIndex": 13,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "HAG_1_11": [
+    {
+      "verseId": "HAG_1_11",
+      "wordIndex": 6,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "HAG_1_11",
+      "wordIndex": 10,
+      "displayedWord": "montes,",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "HAG_1_11",
+      "wordIndex": 25,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "HAG_1_12": [
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 3,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 12,
+      "displayedWord": "sacerdote,",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 18,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 22,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 24,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 27,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 29,
+      "displayedWord": "profeta",
+      "strongId": "H5030"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 35,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 37,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 41,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "HAG_1_12",
+      "wordIndex": 44,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_1_13": [
+    {
+      "verseId": "HAG_1_13",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_13",
+      "wordIndex": 9,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_13",
+      "wordIndex": 11,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "HAG_1_13",
+      "wordIndex": 18,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_1_14": [
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 4,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 7,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 12,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 15,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 18,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 22,
+      "displayedWord": "sacerdote,",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 25,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 31,
+      "displayedWord": "pueblo;",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 38,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 40,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_1_14",
+      "wordIndex": 45,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "HAG_1_15": [
+    {
+      "verseId": "HAG_1_15",
+      "wordIndex": 2,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAG_1_15",
+      "wordIndex": 12,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "HAG_2_1": [
+    {
+      "verseId": "HAG_2_1",
+      "wordIndex": 7,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAG_2_1",
+      "wordIndex": 11,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "HAG_2_1",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_1",
+      "wordIndex": 17,
+      "displayedWord": "profeta",
+      "strongId": "H5030"
+    }
+  ],
+  "HAG_2_2": [
+    {
+      "verseId": "HAG_2_2",
+      "wordIndex": 4,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_2_2",
+      "wordIndex": 9,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "HAG_2_2",
+      "wordIndex": 13,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_2_2",
+      "wordIndex": 17,
+      "displayedWord": "sacerdote,",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "HAG_2_2",
+      "wordIndex": 22,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    }
+  ],
+  "HAG_2_3": [
+    {
+      "verseId": "HAG_2_3",
+      "wordIndex": 9,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAG_2_3",
+      "wordIndex": 12,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    }
+  ],
+  "HAG_2_4": [
+    {
+      "verseId": "HAG_2_4",
+      "wordIndex": 5,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_4",
+      "wordIndex": 9,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_2_4",
+      "wordIndex": 13,
+      "displayedWord": "sacerdote;",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "HAG_2_4",
+      "wordIndex": 17,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "HAG_2_4",
+      "wordIndex": 21,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "HAG_2_4",
+      "wordIndex": 23,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_4",
+      "wordIndex": 32,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_2_5": [
+    {
+      "verseId": "HAG_2_5",
+      "wordIndex": 2,
+      "displayedWord": "pacto",
+      "strongId": "H1285"
+    },
+    {
+      "verseId": "HAG_2_5",
+      "wordIndex": 13,
+      "displayedWord": "Espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "HAG_2_6": [
+    {
+      "verseId": "HAG_2_6",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_6",
+      "wordIndex": 15,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "HAG_2_6",
+      "wordIndex": 18,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "HAG_2_6",
+      "wordIndex": 21,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "HAG_2_6",
+      "wordIndex": 24,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "HAG_2_7": [
+    {
+      "verseId": "HAG_2_7",
+      "wordIndex": 6,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "HAG_2_7",
+      "wordIndex": 14,
+      "displayedWord": "naciones;",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "HAG_2_7",
+      "wordIndex": 18,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "HAG_2_7",
+      "wordIndex": 20,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAG_2_7",
+      "wordIndex": 23,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_2_8": [
+    {
+      "verseId": "HAG_2_8",
+      "wordIndex": 10,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_2_9": [
+    {
+      "verseId": "HAG_2_9",
+      "wordIndex": 1,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "HAG_2_9",
+      "wordIndex": 5,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAG_2_9",
+      "wordIndex": 13,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_9",
+      "wordIndex": 19,
+      "displayedWord": "paz",
+      "strongId": "H7965"
+    },
+    {
+      "verseId": "HAG_2_9",
+      "wordIndex": 24,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_2_10": [
+    {
+      "verseId": "HAG_2_10",
+      "wordIndex": 3,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAG_2_10",
+      "wordIndex": 14,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "HAG_2_10",
+      "wordIndex": 16,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_10",
+      "wordIndex": 20,
+      "displayedWord": "profeta",
+      "strongId": "H5030"
+    }
+  ],
+  "HAG_2_11": [
+    {
+      "verseId": "HAG_2_11",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_11",
+      "wordIndex": 11,
+      "displayedWord": "sacerdotes",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "HAG_2_11",
+      "wordIndex": 15,
+      "displayedWord": "ley,",
+      "strongId": "H8451"
+    }
+  ],
+  "HAG_2_12": [
+    {
+      "verseId": "HAG_2_12",
+      "wordIndex": 3,
+      "displayedWord": "carne",
+      "strongId": "H1320"
+    },
+    {
+      "verseId": "HAG_2_12",
+      "wordIndex": 18,
+      "displayedWord": "pan,",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "HAG_2_12",
+      "wordIndex": 34,
+      "displayedWord": "sacerdotes",
+      "strongId": "H3548"
+    }
+  ],
+  "HAG_2_13": [
+    {
+      "verseId": "HAG_2_13",
+      "wordIndex": 10,
+      "displayedWord": "muerto",
+      "strongId": "H4194"
+    },
+    {
+      "verseId": "HAG_2_13",
+      "wordIndex": 22,
+      "displayedWord": "sacerdotes,",
+      "strongId": "H3548"
+    }
+  ],
+  "HAG_2_14": [
+    {
+      "verseId": "HAG_2_14",
+      "wordIndex": 8,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "HAG_2_14",
+      "wordIndex": 16,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_2_15": [
+    {
+      "verseId": "HAG_2_15",
+      "wordIndex": 5,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "HAG_2_15",
+      "wordIndex": 8,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAG_2_15",
+      "wordIndex": 19,
+      "displayedWord": "templo",
+      "strongId": "H1964"
+    },
+    {
+      "verseId": "HAG_2_15",
+      "wordIndex": 21,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_2_17": [
+    {
+      "verseId": "HAG_2_17",
+      "wordIndex": 23,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "HAG_2_18": [
+    {
+      "verseId": "HAG_2_18",
+      "wordIndex": 4,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "HAG_2_18",
+      "wordIndex": 7,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAG_2_18",
+      "wordIndex": 12,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAG_2_18",
+      "wordIndex": 19,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAG_2_18",
+      "wordIndex": 26,
+      "displayedWord": "templo",
+      "strongId": "H1964"
+    },
+    {
+      "verseId": "HAG_2_18",
+      "wordIndex": 28,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_18",
+      "wordIndex": 33,
+      "displayedWord": "corazón.",
+      "strongId": "H3820"
+    }
+  ],
+  "HAG_2_19": [
+    {
+      "verseId": "HAG_2_19",
+      "wordIndex": 19,
+      "displayedWord": "árbol",
+      "strongId": "H6086"
+    },
+    {
+      "verseId": "HAG_2_19",
+      "wordIndex": 28,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "HAG_2_20": [
+    {
+      "verseId": "HAG_2_20",
+      "wordIndex": 4,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "HAG_2_20",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_20",
+      "wordIndex": 12,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "HAG_2_21": [
+    {
+      "verseId": "HAG_2_21",
+      "wordIndex": 5,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "HAG_2_21",
+      "wordIndex": 11,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "HAG_2_21",
+      "wordIndex": 14,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "HAG_2_22": [
+    {
+      "verseId": "HAG_2_22",
+      "wordIndex": 10,
+      "displayedWord": "fuerza",
+      "strongId": "H5797"
+    },
+    {
+      "verseId": "HAG_2_22",
+      "wordIndex": 16,
+      "displayedWord": "naciones;",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "HAG_2_22",
+      "wordIndex": 38,
+      "displayedWord": "espada",
+      "strongId": "H2719"
+    }
+  ],
+  "HAG_2_23": [
+    {
+      "verseId": "HAG_2_23",
+      "wordIndex": 2,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAG_2_23",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_23",
+      "wordIndex": 12,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "HAG_2_23",
+      "wordIndex": 18,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAG_2_23",
+      "wordIndex": 31,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ]
+}

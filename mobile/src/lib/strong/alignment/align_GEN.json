@@ -8664,5 +8664,7721 @@
       "displayedWord": "sueño",
       "strongId": "H2472"
     }
+  ],
+  "GEN_1_13": [
+    {
+      "verseId": "GEN_1_13",
+      "wordIndex": 6,
+      "displayedWord": "mañana",
+      "strongId": "H1242"
+    },
+    {
+      "verseId": "GEN_1_13",
+      "wordIndex": 8,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_1_15": [
+    {
+      "verseId": "GEN_1_15",
+      "wordIndex": 9,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "GEN_1_15",
+      "wordIndex": 14,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_1_17": [
+    {
+      "verseId": "GEN_1_17",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_1_17",
+      "wordIndex": 9,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "GEN_1_17",
+      "wordIndex": 14,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_1_19": [
+    {
+      "verseId": "GEN_1_19",
+      "wordIndex": 6,
+      "displayedWord": "mañana",
+      "strongId": "H1242"
+    },
+    {
+      "verseId": "GEN_1_19",
+      "wordIndex": 8,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_1_22": [
+    {
+      "verseId": "GEN_1_22",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_1_22",
+      "wordIndex": 11,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "GEN_1_22",
+      "wordIndex": 14,
+      "displayedWord": "mares,",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "GEN_1_22",
+      "wordIndex": 21,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_1_23": [
+    {
+      "verseId": "GEN_1_23",
+      "wordIndex": 6,
+      "displayedWord": "mañana",
+      "strongId": "H1242"
+    },
+    {
+      "verseId": "GEN_1_23",
+      "wordIndex": 8,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_1_30": [
+    {
+      "verseId": "GEN_1_30",
+      "wordIndex": 6,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_1_30",
+      "wordIndex": 14,
+      "displayedWord": "cielos,",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "GEN_1_30",
+      "wordIndex": 24,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_1_30",
+      "wordIndex": 28,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    }
+  ],
+  "GEN_4_5": [
+    {
+      "verseId": "GEN_4_5",
+      "wordIndex": 10,
+      "displayedWord": "ofrenda",
+      "strongId": "H4503"
+    }
+  ],
+  "GEN_4_23": [
+    {
+      "verseId": "GEN_4_23",
+      "wordIndex": 15,
+      "displayedWord": "escuchad",
+      "strongId": "H8085"
+    }
+  ],
+  "GEN_13_4": [
+    {
+      "verseId": "GEN_13_4",
+      "wordIndex": 3,
+      "displayedWord": "altar",
+      "strongId": "H4196"
+    },
+    {
+      "verseId": "GEN_13_4",
+      "wordIndex": 14,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_13_4",
+      "wordIndex": 16,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_13_6": [
+    {
+      "verseId": "GEN_13_6",
+      "wordIndex": 2,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_13_7": [
+    {
+      "verseId": "GEN_13_7",
+      "wordIndex": 27,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_13_9": [
+    {
+      "verseId": "GEN_13_9",
+      "wordIndex": 4,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_13_10": [
+    {
+      "verseId": "GEN_13_10",
+      "wordIndex": 22,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_13_10",
+      "wordIndex": 26,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_13_10",
+      "wordIndex": 37,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_13_12": [
+    {
+      "verseId": "GEN_13_12",
+      "wordIndex": 4,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_13_13": [
+    {
+      "verseId": "GEN_13_13",
+      "wordIndex": 10,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_13_14": [
+    {
+      "verseId": "GEN_13_14",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_13_15": [
+    {
+      "verseId": "GEN_13_15",
+      "wordIndex": 3,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_13_15",
+      "wordIndex": 13,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_13_16": [
+    {
+      "verseId": "GEN_13_16",
+      "wordIndex": 3,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "GEN_13_16",
+      "wordIndex": 9,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_13_16",
+      "wordIndex": 19,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_13_16",
+      "wordIndex": 22,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_13_17": [
+    {
+      "verseId": "GEN_13_17",
+      "wordIndex": 4,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_13_18": [
+    {
+      "verseId": "GEN_13_18",
+      "wordIndex": 20,
+      "displayedWord": "altar",
+      "strongId": "H4196"
+    },
+    {
+      "verseId": "GEN_13_18",
+      "wordIndex": 22,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_14_1": [
+    {
+      "verseId": "GEN_14_1",
+      "wordIndex": 3,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_14_1",
+      "wordIndex": 6,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_1",
+      "wordIndex": 10,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_1",
+      "wordIndex": 14,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_1",
+      "wordIndex": 19,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_14_2": [
+    {
+      "verseId": "GEN_14_2",
+      "wordIndex": 3,
+      "displayedWord": "guerra",
+      "strongId": "H4421"
+    },
+    {
+      "verseId": "GEN_14_2",
+      "wordIndex": 6,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_2",
+      "wordIndex": 11,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_2",
+      "wordIndex": 16,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_2",
+      "wordIndex": 21,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_2",
+      "wordIndex": 27,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_14_3": [
+    {
+      "verseId": "GEN_14_3",
+      "wordIndex": 12,
+      "displayedWord": "Mar",
+      "strongId": "H3220"
+    }
+  ],
+  "GEN_14_6": [
+    {
+      "verseId": "GEN_14_6",
+      "wordIndex": 6,
+      "displayedWord": "monte",
+      "strongId": "H2022"
+    }
+  ],
+  "GEN_14_8": [
+    {
+      "verseId": "GEN_14_8",
+      "wordIndex": 3,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_8",
+      "wordIndex": 7,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_8",
+      "wordIndex": 11,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_8",
+      "wordIndex": 15,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_8",
+      "wordIndex": 20,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_14_9": [
+    {
+      "verseId": "GEN_14_9",
+      "wordIndex": 4,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_9",
+      "wordIndex": 8,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_9",
+      "wordIndex": 12,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_9",
+      "wordIndex": 17,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_14_10": [
+    {
+      "verseId": "GEN_14_10",
+      "wordIndex": 15,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_10",
+      "wordIndex": 30,
+      "displayedWord": "monte.",
+      "strongId": "H2022"
+    }
+  ],
+  "GEN_14_12": [
+    {
+      "verseId": "GEN_14_12",
+      "wordIndex": 4,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_14_14": [
+    {
+      "verseId": "GEN_14_14",
+      "wordIndex": 16,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_14_15": [
+    {
+      "verseId": "GEN_14_15",
+      "wordIndex": 5,
+      "displayedWord": "noche,",
+      "strongId": "H3915"
+    }
+  ],
+  "GEN_14_17": [
+    {
+      "verseId": "GEN_14_17",
+      "wordIndex": 17,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_17",
+      "wordIndex": 31,
+      "displayedWord": "Rey.",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_14_18": [
+    {
+      "verseId": "GEN_14_18",
+      "wordIndex": 3,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_18",
+      "wordIndex": 7,
+      "displayedWord": "sacerdote",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "GEN_14_18",
+      "wordIndex": 9,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_14_18",
+      "wordIndex": 12,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    }
+  ],
+  "GEN_14_19": [
+    {
+      "verseId": "GEN_14_19",
+      "wordIndex": 4,
+      "displayedWord": "Bendito",
+      "strongId": "H1288"
+    },
+    {
+      "verseId": "GEN_14_19",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_14_19",
+      "wordIndex": 13,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "GEN_14_19",
+      "wordIndex": 17,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_14_20": [
+    {
+      "verseId": "GEN_14_20",
+      "wordIndex": 1,
+      "displayedWord": "bendito",
+      "strongId": "H1288"
+    },
+    {
+      "verseId": "GEN_14_20",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_14_20",
+      "wordIndex": 9,
+      "displayedWord": "enemigos",
+      "strongId": "H341"
+    }
+  ],
+  "GEN_14_21": [
+    {
+      "verseId": "GEN_14_21",
+      "wordIndex": 2,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_14_22": [
+    {
+      "verseId": "GEN_14_22",
+      "wordIndex": 4,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_14_22",
+      "wordIndex": 12,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_14_22",
+      "wordIndex": 13,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_14_22",
+      "wordIndex": 18,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "GEN_14_22",
+      "wordIndex": 22,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_15_14": [
+    {
+      "verseId": "GEN_15_14",
+      "wordIndex": 4,
+      "displayedWord": "nación",
+      "strongId": "H1471"
+    }
+  ],
+  "GEN_15_16": [
+    {
+      "verseId": "GEN_15_16",
+      "wordIndex": 16,
+      "displayedWord": "maldad",
+      "strongId": "H7451"
+    }
+  ],
+  "GEN_16_1": [
+    {
+      "verseId": "GEN_16_1",
+      "wordIndex": 7,
+      "displayedWord": "hijos;",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_16_2": [
+    {
+      "verseId": "GEN_16_2",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_16_2",
+      "wordIndex": 24,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_16_3": [
+    {
+      "verseId": "GEN_16_3",
+      "wordIndex": 22,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_16_5": [
+    {
+      "verseId": "GEN_16_5",
+      "wordIndex": 25,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_16_7": [
+    {
+      "verseId": "GEN_16_7",
+      "wordIndex": 4,
+      "displayedWord": "ángel",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "GEN_16_7",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_16_7",
+      "wordIndex": 12,
+      "displayedWord": "agua",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_16_9": [
+    {
+      "verseId": "GEN_16_9",
+      "wordIndex": 4,
+      "displayedWord": "ángel",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "GEN_16_9",
+      "wordIndex": 6,
+      "displayedWord": "Jehová:",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_16_10": [
+    {
+      "verseId": "GEN_16_10",
+      "wordIndex": 4,
+      "displayedWord": "ángel",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "GEN_16_10",
+      "wordIndex": 6,
+      "displayedWord": "Jehová:",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_16_10",
+      "wordIndex": 10,
+      "displayedWord": "descendencia,",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_16_11": [
+    {
+      "verseId": "GEN_16_11",
+      "wordIndex": 4,
+      "displayedWord": "ángel",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "GEN_16_11",
+      "wordIndex": 6,
+      "displayedWord": "Jehová:",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_16_11",
+      "wordIndex": 15,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_16_11",
+      "wordIndex": 17,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_16_11",
+      "wordIndex": 21,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_16_11",
+      "wordIndex": 25,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_16_12": [
+    {
+      "verseId": "GEN_16_12",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "GEN_16_13": [
+    {
+      "verseId": "GEN_16_13",
+      "wordIndex": 3,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_16_13",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_16_13",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_16_15": [
+    {
+      "verseId": "GEN_16_15",
+      "wordIndex": 4,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_16_15",
+      "wordIndex": 6,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_16_15",
+      "wordIndex": 13,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_16_15",
+      "wordIndex": 15,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_16_16": [
+    {
+      "verseId": "GEN_16_16",
+      "wordIndex": 13,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_17_20": [
+    {
+      "verseId": "GEN_17_20",
+      "wordIndex": 33,
+      "displayedWord": "nación.",
+      "strongId": "H1471"
+    }
+  ],
+  "GEN_19_7": [
+    {
+      "verseId": "GEN_19_7",
+      "wordIndex": 10,
+      "displayedWord": "maldad.",
+      "strongId": "H7451"
+    }
+  ],
+  "GEN_19_30": [
+    {
+      "verseId": "GEN_19_30",
+      "wordIndex": 9,
+      "displayedWord": "monte,",
+      "strongId": "H2022"
+    }
+  ],
+  "GEN_20_1": [
+    {
+      "verseId": "GEN_20_1",
+      "wordIndex": 6,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_20_2": [
+    {
+      "verseId": "GEN_20_2",
+      "wordIndex": 13,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_20_3": [
+    {
+      "verseId": "GEN_20_3",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_20_3",
+      "wordIndex": 8,
+      "displayedWord": "noche,",
+      "strongId": "H3915"
+    },
+    {
+      "verseId": "GEN_20_3",
+      "wordIndex": 14,
+      "displayedWord": "muerto",
+      "strongId": "H4194"
+    }
+  ],
+  "GEN_20_4": [
+    {
+      "verseId": "GEN_20_4",
+      "wordIndex": 10,
+      "displayedWord": "Señor,",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_20_5": [
+    {
+      "verseId": "GEN_20_5",
+      "wordIndex": 18,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "GEN_20_6": [
+    {
+      "verseId": "GEN_20_6",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_20_6",
+      "wordIndex": 14,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "GEN_20_7": [
+    {
+      "verseId": "GEN_20_7",
+      "wordIndex": 10,
+      "displayedWord": "profeta,",
+      "strongId": "H5030"
+    }
+  ],
+  "GEN_20_8": [
+    {
+      "verseId": "GEN_20_8",
+      "wordIndex": 5,
+      "displayedWord": "mañana",
+      "strongId": "H1242"
+    },
+    {
+      "verseId": "GEN_20_8",
+      "wordIndex": 16,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_20_9": [
+    {
+      "verseId": "GEN_20_9",
+      "wordIndex": 29,
+      "displayedWord": "pecado?",
+      "strongId": "H2403"
+    }
+  ],
+  "GEN_20_11": [
+    {
+      "verseId": "GEN_20_11",
+      "wordIndex": 10,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "GEN_20_11",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_20_12": [
+    {
+      "verseId": "GEN_20_12",
+      "wordIndex": 3,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    }
+  ],
+  "GEN_20_13": [
+    {
+      "verseId": "GEN_20_13",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_20_13",
+      "wordIndex": 9,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_20_15": [
+    {
+      "verseId": "GEN_20_15",
+      "wordIndex": 6,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_20_17": [
+    {
+      "verseId": "GEN_20_17",
+      "wordIndex": 4,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_20_17",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_20_17",
+      "wordIndex": 20,
+      "displayedWord": "hijos.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_20_18": [
+    {
+      "verseId": "GEN_20_18",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_20_18",
+      "wordIndex": 9,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_21_1": [
+    {
+      "verseId": "GEN_21_1",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_21_1",
+      "wordIndex": 9,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_21_2": [
+    {
+      "verseId": "GEN_21_2",
+      "wordIndex": 9,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_21_2",
+      "wordIndex": 17,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_21_3": [
+    {
+      "verseId": "GEN_21_3",
+      "wordIndex": 4,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_21_3",
+      "wordIndex": 7,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_21_3",
+      "wordIndex": 15,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_21_4": [
+    {
+      "verseId": "GEN_21_4",
+      "wordIndex": 5,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_21_4",
+      "wordIndex": 10,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_21_4",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_21_5": [
+    {
+      "verseId": "GEN_21_5",
+      "wordIndex": 10,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_21_6": [
+    {
+      "verseId": "GEN_21_6",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_21_7": [
+    {
+      "verseId": "GEN_21_7",
+      "wordIndex": 14,
+      "displayedWord": "hijos?",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_21_7",
+      "wordIndex": 20,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_21_8": [
+    {
+      "verseId": "GEN_21_8",
+      "wordIndex": 13,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_21_9": [
+    {
+      "verseId": "GEN_21_9",
+      "wordIndex": 5,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_21_9",
+      "wordIndex": 17,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_21_9",
+      "wordIndex": 24,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_21_10": [
+    {
+      "verseId": "GEN_21_10",
+      "wordIndex": 12,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_21_10",
+      "wordIndex": 15,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_21_10",
+      "wordIndex": 22,
+      "displayedWord": "heredar",
+      "strongId": "H5157"
+    },
+    {
+      "verseId": "GEN_21_10",
+      "wordIndex": 26,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_21_11": [
+    {
+      "verseId": "GEN_21_11",
+      "wordIndex": 13,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_21_12": [
+    {
+      "verseId": "GEN_21_12",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_21_12",
+      "wordIndex": 24,
+      "displayedWord": "oye",
+      "strongId": "H8085"
+    },
+    {
+      "verseId": "GEN_21_12",
+      "wordIndex": 33,
+      "displayedWord": "descendencia.",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_21_13": [
+    {
+      "verseId": "GEN_21_13",
+      "wordIndex": 3,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_21_13",
+      "wordIndex": 9,
+      "displayedWord": "nación,",
+      "strongId": "H1471"
+    }
+  ],
+  "GEN_21_14": [
+    {
+      "verseId": "GEN_21_14",
+      "wordIndex": 6,
+      "displayedWord": "mañana,",
+      "strongId": "H1242"
+    },
+    {
+      "verseId": "GEN_21_14",
+      "wordIndex": 9,
+      "displayedWord": "pan,",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "GEN_21_14",
+      "wordIndex": 14,
+      "displayedWord": "agua,",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_21_15": [
+    {
+      "verseId": "GEN_21_15",
+      "wordIndex": 4,
+      "displayedWord": "agua",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_21_17": [
+    {
+      "verseId": "GEN_21_17",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_21_17",
+      "wordIndex": 9,
+      "displayedWord": "ángel",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "GEN_21_17",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_21_17",
+      "wordIndex": 17,
+      "displayedWord": "cielo,",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "GEN_21_17",
+      "wordIndex": 27,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_21_18": [
+    {
+      "verseId": "GEN_21_18",
+      "wordIndex": 16,
+      "displayedWord": "nación.",
+      "strongId": "H1471"
+    }
+  ],
+  "GEN_21_19": [
+    {
+      "verseId": "GEN_21_19",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_21_19",
+      "wordIndex": 11,
+      "displayedWord": "agua;",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "GEN_21_19",
+      "wordIndex": 19,
+      "displayedWord": "agua,",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_21_20": [
+    {
+      "verseId": "GEN_21_20",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_21_21": [
+    {
+      "verseId": "GEN_21_21",
+      "wordIndex": 15,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_21_22": [
+    {
+      "verseId": "GEN_21_22",
+      "wordIndex": 18,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_21_23": [
+    {
+      "verseId": "GEN_21_23",
+      "wordIndex": 5,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_21_23",
+      "wordIndex": 14,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_21_23",
+      "wordIndex": 35,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_21_25": [
+    {
+      "verseId": "GEN_21_25",
+      "wordIndex": 11,
+      "displayedWord": "agua,",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_21_27": [
+    {
+      "verseId": "GEN_21_27",
+      "wordIndex": 13,
+      "displayedWord": "pacto.",
+      "strongId": "H1285"
+    }
+  ],
+  "GEN_21_32": [
+    {
+      "verseId": "GEN_21_32",
+      "wordIndex": 2,
+      "displayedWord": "pacto",
+      "strongId": "H1285"
+    },
+    {
+      "verseId": "GEN_21_32",
+      "wordIndex": 18,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_21_33": [
+    {
+      "verseId": "GEN_21_33",
+      "wordIndex": 4,
+      "displayedWord": "árbol",
+      "strongId": "H6086"
+    },
+    {
+      "verseId": "GEN_21_33",
+      "wordIndex": 12,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_21_33",
+      "wordIndex": 14,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_21_33",
+      "wordIndex": 15,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_21_34": [
+    {
+      "verseId": "GEN_21_34",
+      "wordIndex": 4,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_21_34",
+      "wordIndex": 9,
+      "displayedWord": "días.",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_23_1": [
+    {
+      "verseId": "GEN_23_1",
+      "wordIndex": 2,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "GEN_23_1",
+      "wordIndex": 14,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "GEN_23_2": [
+    {
+      "verseId": "GEN_23_2",
+      "wordIndex": 10,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_23_3": [
+    {
+      "verseId": "GEN_23_3",
+      "wordIndex": 13,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_23_4": [
+    {
+      "verseId": "GEN_23_4",
+      "wordIndex": 0,
+      "displayedWord": "Extranjero",
+      "strongId": "H1616"
+    }
+  ],
+  "GEN_23_5": [
+    {
+      "verseId": "GEN_23_5",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_23_6": [
+    {
+      "verseId": "GEN_23_6",
+      "wordIndex": 1,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_23_6",
+      "wordIndex": 7,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_23_7": [
+    {
+      "verseId": "GEN_23_7",
+      "wordIndex": 8,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_23_7",
+      "wordIndex": 11,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_23_7",
+      "wordIndex": 14,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_23_8": [
+    {
+      "verseId": "GEN_23_8",
+      "wordIndex": 25,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_23_9": [
+    {
+      "verseId": "GEN_23_9",
+      "wordIndex": 18,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "GEN_23_10": [
+    {
+      "verseId": "GEN_23_10",
+      "wordIndex": 5,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_23_10",
+      "wordIndex": 18,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_23_11": [
+    {
+      "verseId": "GEN_23_11",
+      "wordIndex": 1,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_23_11",
+      "wordIndex": 22,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_23_11",
+      "wordIndex": 25,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    }
+  ],
+  "GEN_23_12": [
+    {
+      "verseId": "GEN_23_12",
+      "wordIndex": 6,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_23_12",
+      "wordIndex": 9,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_23_13": [
+    {
+      "verseId": "GEN_23_13",
+      "wordIndex": 7,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_23_13",
+      "wordIndex": 10,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_23_15": [
+    {
+      "verseId": "GEN_23_15",
+      "wordIndex": 0,
+      "displayedWord": "Señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_23_15",
+      "wordIndex": 4,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_23_16": [
+    {
+      "verseId": "GEN_23_16",
+      "wordIndex": 19,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_23_16",
+      "wordIndex": 27,
+      "displayedWord": "buena",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "GEN_23_16",
+      "wordIndex": 28,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    }
+  ],
+  "GEN_23_18": [
+    {
+      "verseId": "GEN_23_18",
+      "wordIndex": 8,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_23_19": [
+    {
+      "verseId": "GEN_23_19",
+      "wordIndex": 26,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_23_20": [
+    {
+      "verseId": "GEN_23_20",
+      "wordIndex": 21,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_24_60": [
+    {
+      "verseId": "GEN_24_60",
+      "wordIndex": 23,
+      "displayedWord": "enemigos.",
+      "strongId": "H341"
+    }
+  ],
+  "GEN_26_1": [
+    {
+      "verseId": "GEN_26_1",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_26_1",
+      "wordIndex": 15,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_26_1",
+      "wordIndex": 24,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_26_2": [
+    {
+      "verseId": "GEN_26_2",
+      "wordIndex": 4,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_26_2",
+      "wordIndex": 15,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_26_3": [
+    {
+      "verseId": "GEN_26_3",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_26_3",
+      "wordIndex": 18,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_26_4": [
+    {
+      "verseId": "GEN_26_4",
+      "wordIndex": 2,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "GEN_26_4",
+      "wordIndex": 7,
+      "displayedWord": "cielo,",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "GEN_26_4",
+      "wordIndex": 12,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "GEN_26_4",
+      "wordIndex": 19,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "GEN_26_4",
+      "wordIndex": 22,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_26_5": [
+    {
+      "verseId": "GEN_26_5",
+      "wordIndex": 11,
+      "displayedWord": "mandamientos,",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "GEN_26_5",
+      "wordIndex": 13,
+      "displayedWord": "estatutos",
+      "strongId": "H2706"
+    }
+  ],
+  "GEN_26_8": [
+    {
+      "verseId": "GEN_26_8",
+      "wordIndex": 8,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_26_8",
+      "wordIndex": 10,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_26_10": [
+    {
+      "verseId": "GEN_26_10",
+      "wordIndex": 15,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_26_10",
+      "wordIndex": 25,
+      "displayedWord": "pecado.",
+      "strongId": "H2403"
+    }
+  ],
+  "GEN_26_11": [
+    {
+      "verseId": "GEN_26_11",
+      "wordIndex": 6,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_26_11",
+      "wordIndex": 13,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "GEN_26_12": [
+    {
+      "verseId": "GEN_26_12",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_26_12",
+      "wordIndex": 16,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_26_13": [
+    {
+      "verseId": "GEN_26_13",
+      "wordIndex": 13,
+      "displayedWord": "poderoso.",
+      "strongId": "H1368"
+    }
+  ],
+  "GEN_26_15": [
+    {
+      "verseId": "GEN_26_15",
+      "wordIndex": 15,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_26_15",
+      "wordIndex": 24,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_26_16": [
+    {
+      "verseId": "GEN_26_16",
+      "wordIndex": 11,
+      "displayedWord": "poderoso",
+      "strongId": "H1368"
+    }
+  ],
+  "GEN_26_18": [
+    {
+      "verseId": "GEN_26_18",
+      "wordIndex": 8,
+      "displayedWord": "agua",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "GEN_26_18",
+      "wordIndex": 14,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_26_18",
+      "wordIndex": 28,
+      "displayedWord": "muerte",
+      "strongId": "H4194"
+    }
+  ],
+  "GEN_26_19": [
+    {
+      "verseId": "GEN_26_19",
+      "wordIndex": 16,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_26_20": [
+    {
+      "verseId": "GEN_26_20",
+      "wordIndex": 12,
+      "displayedWord": "agua",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "GEN_26_20",
+      "wordIndex": 19,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_26_21": [
+    {
+      "verseId": "GEN_26_21",
+      "wordIndex": 12,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_26_22": [
+    {
+      "verseId": "GEN_26_22",
+      "wordIndex": 17,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_26_22",
+      "wordIndex": 24,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_26_22",
+      "wordIndex": 32,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_26_24": [
+    {
+      "verseId": "GEN_26_24",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_26_24",
+      "wordIndex": 6,
+      "displayedWord": "noche,",
+      "strongId": "H3915"
+    },
+    {
+      "verseId": "GEN_26_24",
+      "wordIndex": 13,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_26_24",
+      "wordIndex": 30,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "GEN_26_24",
+      "wordIndex": 32,
+      "displayedWord": "amor",
+      "strongId": "H157"
+    }
+  ],
+  "GEN_26_25": [
+    {
+      "verseId": "GEN_26_25",
+      "wordIndex": 4,
+      "displayedWord": "altar,",
+      "strongId": "H4196"
+    },
+    {
+      "verseId": "GEN_26_25",
+      "wordIndex": 8,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_26_25",
+      "wordIndex": 10,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_26_28": [
+    {
+      "verseId": "GEN_26_28",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_26_28",
+      "wordIndex": 22,
+      "displayedWord": "pacto",
+      "strongId": "H1285"
+    }
+  ],
+  "GEN_26_29": [
+    {
+      "verseId": "GEN_26_29",
+      "wordIndex": 22,
+      "displayedWord": "paz;",
+      "strongId": "H7965"
+    },
+    {
+      "verseId": "GEN_26_29",
+      "wordIndex": 26,
+      "displayedWord": "bendito",
+      "strongId": "H1288"
+    },
+    {
+      "verseId": "GEN_26_29",
+      "wordIndex": 28,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_26_31": [
+    {
+      "verseId": "GEN_26_31",
+      "wordIndex": 22,
+      "displayedWord": "paz.",
+      "strongId": "H7965"
+    }
+  ],
+  "GEN_26_32": [
+    {
+      "verseId": "GEN_26_32",
+      "wordIndex": 2,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_26_32",
+      "wordIndex": 25,
+      "displayedWord": "agua.",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_26_33": [
+    {
+      "verseId": "GEN_26_33",
+      "wordIndex": 8,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_26_33",
+      "wordIndex": 16,
+      "displayedWord": "día.",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_26_35": [
+    {
+      "verseId": "GEN_26_35",
+      "wordIndex": 4,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "GEN_27_1": [
+    {
+      "verseId": "GEN_27_1",
+      "wordIndex": 17,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_1",
+      "wordIndex": 22,
+      "displayedWord": "Hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_2": [
+    {
+      "verseId": "GEN_27_2",
+      "wordIndex": 11,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_27_2",
+      "wordIndex": 14,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "GEN_27_5": [
+    {
+      "verseId": "GEN_27_5",
+      "wordIndex": 10,
+      "displayedWord": "hijo;",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_6": [
+    {
+      "verseId": "GEN_27_6",
+      "wordIndex": 6,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_7": [
+    {
+      "verseId": "GEN_27_7",
+      "wordIndex": 15,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_27_8": [
+    {
+      "verseId": "GEN_27_8",
+      "wordIndex": 2,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_8",
+      "wordIndex": 4,
+      "displayedWord": "obedece",
+      "strongId": "H8085"
+    }
+  ],
+  "GEN_27_10": [
+    {
+      "verseId": "GEN_27_10",
+      "wordIndex": 17,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "GEN_27_11": [
+    {
+      "verseId": "GEN_27_11",
+      "wordIndex": 13,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "GEN_27_12": [
+    {
+      "verseId": "GEN_27_12",
+      "wordIndex": 17,
+      "displayedWord": "bendición.",
+      "strongId": "H1293"
+    }
+  ],
+  "GEN_27_13": [
+    {
+      "verseId": "GEN_27_13",
+      "wordIndex": 4,
+      "displayedWord": "Hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_13",
+      "wordIndex": 12,
+      "displayedWord": "obedece",
+      "strongId": "H8085"
+    }
+  ],
+  "GEN_27_15": [
+    {
+      "verseId": "GEN_27_15",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_15",
+      "wordIndex": 16,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_27_15",
+      "wordIndex": 22,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_17": [
+    {
+      "verseId": "GEN_27_17",
+      "wordIndex": 6,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "GEN_27_17",
+      "wordIndex": 15,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_18": [
+    {
+      "verseId": "GEN_27_18",
+      "wordIndex": 17,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_20": [
+    {
+      "verseId": "GEN_27_20",
+      "wordIndex": 5,
+      "displayedWord": "hijo:",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_20",
+      "wordIndex": 13,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_20",
+      "wordIndex": 19,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_27_20",
+      "wordIndex": 21,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_27_21": [
+    {
+      "verseId": "GEN_27_21",
+      "wordIndex": 10,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_21",
+      "wordIndex": 16,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_24": [
+    {
+      "verseId": "GEN_27_24",
+      "wordIndex": 5,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_25": [
+    {
+      "verseId": "GEN_27_25",
+      "wordIndex": 10,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_26": [
+    {
+      "verseId": "GEN_27_26",
+      "wordIndex": 10,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_27": [
+    {
+      "verseId": "GEN_27_27",
+      "wordIndex": 24,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_27",
+      "wordIndex": 31,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_27_28": [
+    {
+      "verseId": "GEN_27_28",
+      "wordIndex": 0,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_27_28",
+      "wordIndex": 7,
+      "displayedWord": "cielo,",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "GEN_27_28",
+      "wordIndex": 14,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_27_29": [
+    {
+      "verseId": "GEN_27_29",
+      "wordIndex": 3,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "GEN_27_29",
+      "wordIndex": 9,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_27_29",
+      "wordIndex": 19,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_31": [
+    {
+      "verseId": "GEN_27_31",
+      "wordIndex": 25,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_32": [
+    {
+      "verseId": "GEN_27_32",
+      "wordIndex": 16,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_33": [
+    {
+      "verseId": "GEN_27_33",
+      "wordIndex": 32,
+      "displayedWord": "bendito.",
+      "strongId": "H1288"
+    }
+  ],
+  "GEN_27_34": [
+    {
+      "verseId": "GEN_27_34",
+      "wordIndex": 4,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_27_35": [
+    {
+      "verseId": "GEN_27_35",
+      "wordIndex": 11,
+      "displayedWord": "bendición.",
+      "strongId": "H1293"
+    }
+  ],
+  "GEN_27_36": [
+    {
+      "verseId": "GEN_27_36",
+      "wordIndex": 6,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_27_36",
+      "wordIndex": 28,
+      "displayedWord": "bendición.",
+      "strongId": "H1293"
+    },
+    {
+      "verseId": "GEN_27_36",
+      "wordIndex": 34,
+      "displayedWord": "bendición",
+      "strongId": "H1293"
+    }
+  ],
+  "GEN_27_37": [
+    {
+      "verseId": "GEN_27_37",
+      "wordIndex": 13,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_27_37",
+      "wordIndex": 40,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_38": [
+    {
+      "verseId": "GEN_27_38",
+      "wordIndex": 12,
+      "displayedWord": "bendición,",
+      "strongId": "H1293"
+    }
+  ],
+  "GEN_27_39": [
+    {
+      "verseId": "GEN_27_39",
+      "wordIndex": 17,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_27_39",
+      "wordIndex": 23,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    }
+  ],
+  "GEN_27_40": [
+    {
+      "verseId": "GEN_27_40",
+      "wordIndex": 3,
+      "displayedWord": "espada",
+      "strongId": "H2719"
+    }
+  ],
+  "GEN_27_41": [
+    {
+      "verseId": "GEN_27_41",
+      "wordIndex": 7,
+      "displayedWord": "bendición",
+      "strongId": "H1293"
+    },
+    {
+      "verseId": "GEN_27_41",
+      "wordIndex": 19,
+      "displayedWord": "corazón:",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "GEN_27_41",
+      "wordIndex": 22,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_27_42": [
+    {
+      "verseId": "GEN_27_42",
+      "wordIndex": 6,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "GEN_27_42",
+      "wordIndex": 10,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_42",
+      "wordIndex": 20,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_27_43": [
+    {
+      "verseId": "GEN_27_43",
+      "wordIndex": 2,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_27_43",
+      "wordIndex": 4,
+      "displayedWord": "obedece",
+      "strongId": "H8085"
+    },
+    {
+      "verseId": "GEN_27_43",
+      "wordIndex": 12,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_27_44": [
+    {
+      "verseId": "GEN_27_44",
+      "wordIndex": 5,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_27_45": [
+    {
+      "verseId": "GEN_27_45",
+      "wordIndex": 35,
+      "displayedWord": "día?",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_27_46": [
+    {
+      "verseId": "GEN_27_46",
+      "wordIndex": 9,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "GEN_27_46",
+      "wordIndex": 33,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_27_46",
+      "wordIndex": 38,
+      "displayedWord": "vida?",
+      "strongId": "H2416"
+    }
+  ],
+  "GEN_29_1": [
+    {
+      "verseId": "GEN_29_1",
+      "wordIndex": 9,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_29_5": [
+    {
+      "verseId": "GEN_29_5",
+      "wordIndex": 6,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_29_7": [
+    {
+      "verseId": "GEN_29_7",
+      "wordIndex": 9,
+      "displayedWord": "día;",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_29_12": [
+    {
+      "verseId": "GEN_29_12",
+      "wordIndex": 15,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_29_13": [
+    {
+      "verseId": "GEN_29_13",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_29_13",
+      "wordIndex": 25,
+      "displayedWord": "casa;",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_29_14": [
+    {
+      "verseId": "GEN_29_14",
+      "wordIndex": 8,
+      "displayedWord": "carne",
+      "strongId": "H1320"
+    }
+  ],
+  "GEN_29_16": [
+    {
+      "verseId": "GEN_29_16",
+      "wordIndex": 6,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_29_16",
+      "wordIndex": 14,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_29_19": [
+    {
+      "verseId": "GEN_29_19",
+      "wordIndex": 18,
+      "displayedWord": "hombre;",
+      "strongId": "H120"
+    }
+  ],
+  "GEN_29_20": [
+    {
+      "verseId": "GEN_29_20",
+      "wordIndex": 12,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_29_23": [
+    {
+      "verseId": "GEN_29_23",
+      "wordIndex": 5,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    }
+  ],
+  "GEN_29_25": [
+    {
+      "verseId": "GEN_29_25",
+      "wordIndex": 2,
+      "displayedWord": "mañana,",
+      "strongId": "H1242"
+    }
+  ],
+  "GEN_29_31": [
+    {
+      "verseId": "GEN_29_31",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_29_31",
+      "wordIndex": 10,
+      "displayedWord": "hijos;",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_29_32": [
+    {
+      "verseId": "GEN_29_32",
+      "wordIndex": 6,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_29_32",
+      "wordIndex": 8,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_29_32",
+      "wordIndex": 12,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_29_32",
+      "wordIndex": 19,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_29_33": [
+    {
+      "verseId": "GEN_29_33",
+      "wordIndex": 6,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_29_33",
+      "wordIndex": 8,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_29_33",
+      "wordIndex": 15,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_29_33",
+      "wordIndex": 28,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_29_34": [
+    {
+      "verseId": "GEN_29_34",
+      "wordIndex": 7,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_29_34",
+      "wordIndex": 9,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_29_34",
+      "wordIndex": 26,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_29_34",
+      "wordIndex": 28,
+      "displayedWord": "hijos;",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_29_34",
+      "wordIndex": 33,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_29_35": [
+    {
+      "verseId": "GEN_29_35",
+      "wordIndex": 6,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_29_35",
+      "wordIndex": 8,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_29_35",
+      "wordIndex": 16,
+      "displayedWord": "Jehová;",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_29_35",
+      "wordIndex": 21,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_29_35",
+      "wordIndex": 22,
+      "displayedWord": "Judá;",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_29_35",
+      "wordIndex": 28,
+      "displayedWord": "luz.",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_30_1": [
+    {
+      "verseId": "GEN_30_1",
+      "wordIndex": 5,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_30_1",
+      "wordIndex": 18,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_2": [
+    {
+      "verseId": "GEN_30_2",
+      "wordIndex": 11,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_30_3": [
+    {
+      "verseId": "GEN_30_3",
+      "wordIndex": 14,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_3",
+      "wordIndex": 22,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_5": [
+    {
+      "verseId": "GEN_30_5",
+      "wordIndex": 6,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_5",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_6": [
+    {
+      "verseId": "GEN_30_6",
+      "wordIndex": 5,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_30_6",
+      "wordIndex": 15,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_30_6",
+      "wordIndex": 20,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_30_7": [
+    {
+      "verseId": "GEN_30_7",
+      "wordIndex": 11,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_7",
+      "wordIndex": 14,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_8": [
+    {
+      "verseId": "GEN_30_8",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_30_8",
+      "wordIndex": 19,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_30_9": [
+    {
+      "verseId": "GEN_30_9",
+      "wordIndex": 9,
+      "displayedWord": "luz,",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_30_10": [
+    {
+      "verseId": "GEN_30_10",
+      "wordIndex": 7,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_10",
+      "wordIndex": 9,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_11": [
+    {
+      "verseId": "GEN_30_11",
+      "wordIndex": 9,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_30_12": [
+    {
+      "verseId": "GEN_30_12",
+      "wordIndex": 8,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_12",
+      "wordIndex": 10,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_13": [
+    {
+      "verseId": "GEN_30_13",
+      "wordIndex": 15,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_30_14": [
+    {
+      "verseId": "GEN_30_14",
+      "wordIndex": 38,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_15": [
+    {
+      "verseId": "GEN_30_15",
+      "wordIndex": 21,
+      "displayedWord": "hijo?",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_30_15",
+      "wordIndex": 29,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    },
+    {
+      "verseId": "GEN_30_15",
+      "wordIndex": 35,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_16": [
+    {
+      "verseId": "GEN_30_16",
+      "wordIndex": 22,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    },
+    {
+      "verseId": "GEN_30_16",
+      "wordIndex": 31,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_30_16",
+      "wordIndex": 37,
+      "displayedWord": "noche.",
+      "strongId": "H3915"
+    }
+  ],
+  "GEN_30_17": [
+    {
+      "verseId": "GEN_30_17",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_30_17",
+      "wordIndex": 10,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_17",
+      "wordIndex": 13,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_18": [
+    {
+      "verseId": "GEN_30_18",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_30_18",
+      "wordIndex": 22,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_30_19": [
+    {
+      "verseId": "GEN_30_19",
+      "wordIndex": 8,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_19",
+      "wordIndex": 11,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_20": [
+    {
+      "verseId": "GEN_30_20",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_30_20",
+      "wordIndex": 8,
+      "displayedWord": "buena",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "GEN_30_20",
+      "wordIndex": 21,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_20",
+      "wordIndex": 23,
+      "displayedWord": "hijos;",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_30_20",
+      "wordIndex": 27,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_30_21": [
+    {
+      "verseId": "GEN_30_21",
+      "wordIndex": 3,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_21",
+      "wordIndex": 9,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_30_22": [
+    {
+      "verseId": "GEN_30_22",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_30_22",
+      "wordIndex": 9,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_30_22",
+      "wordIndex": 13,
+      "displayedWord": "hijos.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_23": [
+    {
+      "verseId": "GEN_30_23",
+      "wordIndex": 5,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_23",
+      "wordIndex": 7,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_30_23",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_30_24": [
+    {
+      "verseId": "GEN_30_24",
+      "wordIndex": 3,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_30_24",
+      "wordIndex": 8,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_30_24",
+      "wordIndex": 10,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_25": [
+    {
+      "verseId": "GEN_30_25",
+      "wordIndex": 6,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_30_25",
+      "wordIndex": 23,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_30_26": [
+    {
+      "verseId": "GEN_30_26",
+      "wordIndex": 5,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_27": [
+    {
+      "verseId": "GEN_30_27",
+      "wordIndex": 16,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_30_30": [
+    {
+      "verseId": "GEN_30_30",
+      "wordIndex": 14,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_30_30",
+      "wordIndex": 29,
+      "displayedWord": "casa?",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_30_33": [
+    {
+      "verseId": "GEN_30_33",
+      "wordIndex": 6,
+      "displayedWord": "mañana,",
+      "strongId": "H1242"
+    }
+  ],
+  "GEN_30_35": [
+    {
+      "verseId": "GEN_30_35",
+      "wordIndex": 4,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_30_35",
+      "wordIndex": 46,
+      "displayedWord": "hijos.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_30_36": [
+    {
+      "verseId": "GEN_30_36",
+      "wordIndex": 3,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_30_38": [
+    {
+      "verseId": "GEN_30_38",
+      "wordIndex": 17,
+      "displayedWord": "agua",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_31_1": [
+    {
+      "verseId": "GEN_31_1",
+      "wordIndex": 4,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "GEN_31_1",
+      "wordIndex": 7,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_31_3": [
+    {
+      "verseId": "GEN_31_3",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_31_3",
+      "wordIndex": 8,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_31_5": [
+    {
+      "verseId": "GEN_31_5",
+      "wordIndex": 19,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_31_7": [
+    {
+      "verseId": "GEN_31_7",
+      "wordIndex": 15,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_31_9": [
+    {
+      "verseId": "GEN_31_9",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_31_11": [
+    {
+      "verseId": "GEN_31_11",
+      "wordIndex": 4,
+      "displayedWord": "ángel",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "GEN_31_11",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_31_13": [
+    {
+      "verseId": "GEN_31_13",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_31_13",
+      "wordIndex": 24,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_31_13",
+      "wordIndex": 29,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_31_14": [
+    {
+      "verseId": "GEN_31_14",
+      "wordIndex": 14,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_31_16": [
+    {
+      "verseId": "GEN_31_16",
+      "wordIndex": 5,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_31_16",
+      "wordIndex": 16,
+      "displayedWord": "hijos;",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_31_16",
+      "wordIndex": 23,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_31_17": [
+    {
+      "verseId": "GEN_31_17",
+      "wordIndex": 7,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_31_18": [
+    {
+      "verseId": "GEN_31_18",
+      "wordIndex": 30,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_31_21": [
+    {
+      "verseId": "GEN_31_21",
+      "wordIndex": 18,
+      "displayedWord": "monte",
+      "strongId": "H2022"
+    }
+  ],
+  "GEN_31_22": [
+    {
+      "verseId": "GEN_31_22",
+      "wordIndex": 3,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_31_23": [
+    {
+      "verseId": "GEN_31_23",
+      "wordIndex": 14,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_31_23",
+      "wordIndex": 20,
+      "displayedWord": "monte",
+      "strongId": "H2022"
+    }
+  ],
+  "GEN_31_24": [
+    {
+      "verseId": "GEN_31_24",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_31_24",
+      "wordIndex": 9,
+      "displayedWord": "noche,",
+      "strongId": "H3915"
+    }
+  ],
+  "GEN_31_25": [
+    {
+      "verseId": "GEN_31_25",
+      "wordIndex": 13,
+      "displayedWord": "monte;",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "GEN_31_25",
+      "wordIndex": 22,
+      "displayedWord": "monte",
+      "strongId": "H2022"
+    }
+  ],
+  "GEN_31_26": [
+    {
+      "verseId": "GEN_31_26",
+      "wordIndex": 20,
+      "displayedWord": "guerra?",
+      "strongId": "H4421"
+    }
+  ],
+  "GEN_31_28": [
+    {
+      "verseId": "GEN_31_28",
+      "wordIndex": 8,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_31_29": [
+    {
+      "verseId": "GEN_31_29",
+      "wordIndex": 0,
+      "displayedWord": "Poder",
+      "strongId": "H2428"
+    },
+    {
+      "verseId": "GEN_31_29",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_31_30": [
+    {
+      "verseId": "GEN_31_30",
+      "wordIndex": 10,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_31_31": [
+    {
+      "verseId": "GEN_31_31",
+      "wordIndex": 16,
+      "displayedWord": "fuerza",
+      "strongId": "H5797"
+    }
+  ],
+  "GEN_31_32": [
+    {
+      "verseId": "GEN_31_32",
+      "wordIndex": 3,
+      "displayedWord": "poder",
+      "strongId": "H2428"
+    }
+  ],
+  "GEN_31_35": [
+    {
+      "verseId": "GEN_31_35",
+      "wordIndex": 10,
+      "displayedWord": "señor,",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_31_36": [
+    {
+      "verseId": "GEN_31_36",
+      "wordIndex": 16,
+      "displayedWord": "transgresión",
+      "strongId": "H6588"
+    },
+    {
+      "verseId": "GEN_31_36",
+      "wordIndex": 23,
+      "displayedWord": "pecado,",
+      "strongId": "H2403"
+    }
+  ],
+  "GEN_31_37": [
+    {
+      "verseId": "GEN_31_37",
+      "wordIndex": 17,
+      "displayedWord": "casa?",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_31_39": [
+    {
+      "verseId": "GEN_31_39",
+      "wordIndex": 16,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_31_39",
+      "wordIndex": 19,
+      "displayedWord": "noche,",
+      "strongId": "H3915"
+    }
+  ],
+  "GEN_31_40": [
+    {
+      "verseId": "GEN_31_40",
+      "wordIndex": 1,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_31_40",
+      "wordIndex": 8,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    },
+    {
+      "verseId": "GEN_31_40",
+      "wordIndex": 13,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_31_41": [
+    {
+      "verseId": "GEN_31_41",
+      "wordIndex": 7,
+      "displayedWord": "casa;",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_31_42": [
+    {
+      "verseId": "GEN_31_42",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_31_42",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_31_42",
+      "wordIndex": 10,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "GEN_31_42",
+      "wordIndex": 26,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_31_43": [
+    {
+      "verseId": "GEN_31_43",
+      "wordIndex": 13,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_31_43",
+      "wordIndex": 14,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_31_43",
+      "wordIndex": 44,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_31_43",
+      "wordIndex": 50,
+      "displayedWord": "luz?",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_31_44": [
+    {
+      "verseId": "GEN_31_44",
+      "wordIndex": 5,
+      "displayedWord": "pacto",
+      "strongId": "H1285"
+    }
+  ],
+  "GEN_31_48": [
+    {
+      "verseId": "GEN_31_48",
+      "wordIndex": 16,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_31_49": [
+    {
+      "verseId": "GEN_31_49",
+      "wordIndex": 7,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_31_50": [
+    {
+      "verseId": "GEN_31_50",
+      "wordIndex": 19,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_31_53": [
+    {
+      "verseId": "GEN_31_53",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_31_53",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_31_53",
+      "wordIndex": 13,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_31_54": [
+    {
+      "verseId": "GEN_31_54",
+      "wordIndex": 6,
+      "displayedWord": "monte,",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "GEN_31_54",
+      "wordIndex": 14,
+      "displayedWord": "pan;",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "GEN_31_54",
+      "wordIndex": 17,
+      "displayedWord": "pan,",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "GEN_31_54",
+      "wordIndex": 21,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    },
+    {
+      "verseId": "GEN_31_54",
+      "wordIndex": 24,
+      "displayedWord": "monte.",
+      "strongId": "H2022"
+    }
+  ],
+  "GEN_31_55": [
+    {
+      "verseId": "GEN_31_55",
+      "wordIndex": 5,
+      "displayedWord": "mañana,",
+      "strongId": "H1242"
+    },
+    {
+      "verseId": "GEN_31_55",
+      "wordIndex": 9,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_33_3": [
+    {
+      "verseId": "GEN_33_3",
+      "wordIndex": 10,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_33_5": [
+    {
+      "verseId": "GEN_33_5",
+      "wordIndex": 24,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_33_8": [
+    {
+      "verseId": "GEN_33_8",
+      "wordIndex": 24,
+      "displayedWord": "señor.",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_33_10": [
+    {
+      "verseId": "GEN_33_10",
+      "wordIndex": 30,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_33_11": [
+    {
+      "verseId": "GEN_33_11",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_33_13": [
+    {
+      "verseId": "GEN_33_13",
+      "wordIndex": 5,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_33_13",
+      "wordIndex": 25,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_33_14": [
+    {
+      "verseId": "GEN_33_14",
+      "wordIndex": 3,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_33_14",
+      "wordIndex": 35,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_33_15": [
+    {
+      "verseId": "GEN_33_15",
+      "wordIndex": 26,
+      "displayedWord": "señor.",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_33_16": [
+    {
+      "verseId": "GEN_33_16",
+      "wordIndex": 4,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_33_17": [
+    {
+      "verseId": "GEN_33_17",
+      "wordIndex": 8,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_33_17",
+      "wordIndex": 21,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_33_18": [
+    {
+      "verseId": "GEN_33_18",
+      "wordIndex": 15,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_33_19": [
+    {
+      "verseId": "GEN_33_19",
+      "wordIndex": 15,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_33_20": [
+    {
+      "verseId": "GEN_33_20",
+      "wordIndex": 4,
+      "displayedWord": "altar,",
+      "strongId": "H4196"
+    }
+  ],
+  "GEN_34_1": [
+    {
+      "verseId": "GEN_34_1",
+      "wordIndex": 12,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_34_2": [
+    {
+      "verseId": "GEN_34_2",
+      "wordIndex": 4,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_34_2",
+      "wordIndex": 11,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_34_3": [
+    {
+      "verseId": "GEN_34_3",
+      "wordIndex": 2,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "GEN_34_3",
+      "wordIndex": 20,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "GEN_34_5": [
+    {
+      "verseId": "GEN_34_5",
+      "wordIndex": 14,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_34_7": [
+    {
+      "verseId": "GEN_34_7",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_34_7",
+      "wordIndex": 24,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_34_8": [
+    {
+      "verseId": "GEN_34_8",
+      "wordIndex": 7,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "GEN_34_8",
+      "wordIndex": 10,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_34_10": [
+    {
+      "verseId": "GEN_34_10",
+      "wordIndex": 6,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_34_13": [
+    {
+      "verseId": "GEN_34_13",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_34_13",
+      "wordIndex": 14,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_34_14": [
+    {
+      "verseId": "GEN_34_14",
+      "wordIndex": 12,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "GEN_34_16": [
+    {
+      "verseId": "GEN_34_16",
+      "wordIndex": 17,
+      "displayedWord": "pueblo.",
+      "strongId": "H5971"
+    }
+  ],
+  "GEN_34_18": [
+    {
+      "verseId": "GEN_34_18",
+      "wordIndex": 4,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "GEN_34_18",
+      "wordIndex": 10,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_34_19": [
+    {
+      "verseId": "GEN_34_19",
+      "wordIndex": 25,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_34_20": [
+    {
+      "verseId": "GEN_34_20",
+      "wordIndex": 5,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_34_21": [
+    {
+      "verseId": "GEN_34_21",
+      "wordIndex": 19,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_34_22": [
+    {
+      "verseId": "GEN_34_22",
+      "wordIndex": 15,
+      "displayedWord": "pueblo:",
+      "strongId": "H5971"
+    }
+  ],
+  "GEN_34_24": [
+    {
+      "verseId": "GEN_34_24",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_34_25": [
+    {
+      "verseId": "GEN_34_25",
+      "wordIndex": 5,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_34_25",
+      "wordIndex": 15,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_34_25",
+      "wordIndex": 28,
+      "displayedWord": "espada,",
+      "strongId": "H2719"
+    }
+  ],
+  "GEN_34_26": [
+    {
+      "verseId": "GEN_34_26",
+      "wordIndex": 7,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_34_26",
+      "wordIndex": 13,
+      "displayedWord": "espada;",
+      "strongId": "H2719"
+    },
+    {
+      "verseId": "GEN_34_26",
+      "wordIndex": 19,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_34_27": [
+    {
+      "verseId": "GEN_34_27",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_34_27",
+      "wordIndex": 8,
+      "displayedWord": "muertos,",
+      "strongId": "H4194"
+    }
+  ],
+  "GEN_34_29": [
+    {
+      "verseId": "GEN_34_29",
+      "wordIndex": 20,
+      "displayedWord": "casa.",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_34_30": [
+    {
+      "verseId": "GEN_34_30",
+      "wordIndex": 19,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_34_30",
+      "wordIndex": 43,
+      "displayedWord": "casa.",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_35_1": [
+    {
+      "verseId": "GEN_35_1",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_35_1",
+      "wordIndex": 16,
+      "displayedWord": "altar",
+      "strongId": "H4196"
+    },
+    {
+      "verseId": "GEN_35_1",
+      "wordIndex": 18,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_35_3": [
+    {
+      "verseId": "GEN_35_3",
+      "wordIndex": 9,
+      "displayedWord": "altar",
+      "strongId": "H4196"
+    },
+    {
+      "verseId": "GEN_35_3",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_35_3",
+      "wordIndex": 17,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_35_4": [
+    {
+      "verseId": "GEN_35_4",
+      "wordIndex": 11,
+      "displayedWord": "poder",
+      "strongId": "H2428"
+    }
+  ],
+  "GEN_35_5": [
+    {
+      "verseId": "GEN_35_5",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_35_5",
+      "wordIndex": 21,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_35_6": [
+    {
+      "verseId": "GEN_35_6",
+      "wordIndex": 4,
+      "displayedWord": "Luz,",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_35_6",
+      "wordIndex": 8,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_35_6",
+      "wordIndex": 18,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    }
+  ],
+  "GEN_35_7": [
+    {
+      "verseId": "GEN_35_7",
+      "wordIndex": 4,
+      "displayedWord": "altar,",
+      "strongId": "H4196"
+    },
+    {
+      "verseId": "GEN_35_7",
+      "wordIndex": 16,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_35_9": [
+    {
+      "verseId": "GEN_35_9",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_35_10": [
+    {
+      "verseId": "GEN_35_10",
+      "wordIndex": 3,
+      "displayedWord": "Dios:",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_35_10",
+      "wordIndex": 5,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_35_10",
+      "wordIndex": 13,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_35_10",
+      "wordIndex": 17,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_35_10",
+      "wordIndex": 20,
+      "displayedWord": "nombre;",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_35_10",
+      "wordIndex": 24,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_35_10",
+      "wordIndex": 25,
+      "displayedWord": "Israel.",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_35_11": [
+    {
+      "verseId": "GEN_35_11",
+      "wordIndex": 3,
+      "displayedWord": "Dios:",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_35_11",
+      "wordIndex": 7,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_35_11",
+      "wordIndex": 13,
+      "displayedWord": "nación",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "GEN_35_11",
+      "wordIndex": 17,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    }
+  ],
+  "GEN_35_12": [
+    {
+      "verseId": "GEN_35_12",
+      "wordIndex": 1,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_35_12",
+      "wordIndex": 17,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "GEN_35_12",
+      "wordIndex": 23,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_35_13": [
+    {
+      "verseId": "GEN_35_13",
+      "wordIndex": 5,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_35_15": [
+    {
+      "verseId": "GEN_35_15",
+      "wordIndex": 4,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_35_15",
+      "wordIndex": 9,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_35_16": [
+    {
+      "verseId": "GEN_35_16",
+      "wordIndex": 11,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_35_16",
+      "wordIndex": 19,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_35_17": [
+    {
+      "verseId": "GEN_35_17",
+      "wordIndex": 19,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_35_18": [
+    {
+      "verseId": "GEN_35_18",
+      "wordIndex": 6,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "GEN_35_18",
+      "wordIndex": 11,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_35_21": [
+    {
+      "verseId": "GEN_35_21",
+      "wordIndex": 2,
+      "displayedWord": "Israel,",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_35_22": [
+    {
+      "verseId": "GEN_35_22",
+      "wordIndex": 4,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_35_22",
+      "wordIndex": 7,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_35_22",
+      "wordIndex": 24,
+      "displayedWord": "Israel.",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_35_22",
+      "wordIndex": 28,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_35_22",
+      "wordIndex": 30,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_35_23": [
+    {
+      "verseId": "GEN_35_23",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_35_23",
+      "wordIndex": 11,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_35_24": [
+    {
+      "verseId": "GEN_35_24",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_35_25": [
+    {
+      "verseId": "GEN_35_25",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_35_26": [
+    {
+      "verseId": "GEN_35_26",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_35_26",
+      "wordIndex": 14,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_35_28": [
+    {
+      "verseId": "GEN_35_28",
+      "wordIndex": 3,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_35_29": [
+    {
+      "verseId": "GEN_35_29",
+      "wordIndex": 4,
+      "displayedWord": "espíritu,",
+      "strongId": "H7307"
+    },
+    {
+      "verseId": "GEN_35_29",
+      "wordIndex": 12,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_35_29",
+      "wordIndex": 17,
+      "displayedWord": "días;",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_35_29",
+      "wordIndex": 25,
+      "displayedWord": "hijos.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_2": [
+    {
+      "verseId": "GEN_36_2",
+      "wordIndex": 21,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_4": [
+    {
+      "verseId": "GEN_36_4",
+      "wordIndex": 3,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_36_4",
+      "wordIndex": 12,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_36_5": [
+    {
+      "verseId": "GEN_36_5",
+      "wordIndex": 4,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_36_5",
+      "wordIndex": 15,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_5",
+      "wordIndex": 23,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_36_6": [
+    {
+      "verseId": "GEN_36_6",
+      "wordIndex": 6,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_6",
+      "wordIndex": 16,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_36_6",
+      "wordIndex": 31,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_36_6",
+      "wordIndex": 39,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_36_7": [
+    {
+      "verseId": "GEN_36_7",
+      "wordIndex": 14,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_36_8": [
+    {
+      "verseId": "GEN_36_8",
+      "wordIndex": 5,
+      "displayedWord": "monte",
+      "strongId": "H2022"
+    }
+  ],
+  "GEN_36_9": [
+    {
+      "verseId": "GEN_36_9",
+      "wordIndex": 11,
+      "displayedWord": "monte",
+      "strongId": "H2022"
+    }
+  ],
+  "GEN_36_10": [
+    {
+      "verseId": "GEN_36_10",
+      "wordIndex": 6,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_10",
+      "wordIndex": 10,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_10",
+      "wordIndex": 17,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_11": [
+    {
+      "verseId": "GEN_36_11",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_12": [
+    {
+      "verseId": "GEN_36_12",
+      "wordIndex": 6,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_12",
+      "wordIndex": 14,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_36_12",
+      "wordIndex": 20,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_13": [
+    {
+      "verseId": "GEN_36_13",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_13",
+      "wordIndex": 13,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_14": [
+    {
+      "verseId": "GEN_36_14",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_14",
+      "wordIndex": 14,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_14",
+      "wordIndex": 20,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_36_14",
+      "wordIndex": 26,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_15": [
+    {
+      "verseId": "GEN_36_15",
+      "wordIndex": 7,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_15",
+      "wordIndex": 10,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_16": [
+    {
+      "verseId": "GEN_36_16",
+      "wordIndex": 12,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_36_16",
+      "wordIndex": 18,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_17": [
+    {
+      "verseId": "GEN_36_17",
+      "wordIndex": 4,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_17",
+      "wordIndex": 7,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_17",
+      "wordIndex": 28,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_36_17",
+      "wordIndex": 32,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_18": [
+    {
+      "verseId": "GEN_36_18",
+      "wordIndex": 4,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_19": [
+    {
+      "verseId": "GEN_36_19",
+      "wordIndex": 4,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_20": [
+    {
+      "verseId": "GEN_36_20",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_20",
+      "wordIndex": 10,
+      "displayedWord": "tierra:",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_36_21": [
+    {
+      "verseId": "GEN_36_21",
+      "wordIndex": 11,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_21",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_36_22": [
+    {
+      "verseId": "GEN_36_22",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_23": [
+    {
+      "verseId": "GEN_36_23",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_24": [
+    {
+      "verseId": "GEN_36_24",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_25": [
+    {
+      "verseId": "GEN_36_25",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_26": [
+    {
+      "verseId": "GEN_36_26",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_27": [
+    {
+      "verseId": "GEN_36_27",
+      "wordIndex": 4,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_28": [
+    {
+      "verseId": "GEN_36_28",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_30": [
+    {
+      "verseId": "GEN_36_30",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_36_31": [
+    {
+      "verseId": "GEN_36_31",
+      "wordIndex": 7,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_36_31",
+      "wordIndex": 13,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_36_31",
+      "wordIndex": 16,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_31",
+      "wordIndex": 18,
+      "displayedWord": "Israel,",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_36_32": [
+    {
+      "verseId": "GEN_36_32",
+      "wordIndex": 1,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_32",
+      "wordIndex": 9,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_36_33": [
+    {
+      "verseId": "GEN_36_33",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_34": [
+    {
+      "verseId": "GEN_36_34",
+      "wordIndex": 9,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_36_35": [
+    {
+      "verseId": "GEN_36_35",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_35",
+      "wordIndex": 23,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_36_38": [
+    {
+      "verseId": "GEN_36_38",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_36_39": [
+    {
+      "verseId": "GEN_36_39",
+      "wordIndex": 3,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_36_39",
+      "wordIndex": 14,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_36_39",
+      "wordIndex": 22,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_36_43": [
+    {
+      "verseId": "GEN_36_43",
+      "wordIndex": 14,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_37_8": [
+    {
+      "verseId": "GEN_37_8",
+      "wordIndex": 24,
+      "displayedWord": "palabras.",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_37_13": [
+    {
+      "verseId": "GEN_37_13",
+      "wordIndex": 2,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_37_14": [
+    {
+      "verseId": "GEN_37_14",
+      "wordIndex": 1,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_38_1": [
+    {
+      "verseId": "GEN_38_1",
+      "wordIndex": 5,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_38_2": [
+    {
+      "verseId": "GEN_38_2",
+      "wordIndex": 3,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_38_2",
+      "wordIndex": 8,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "GEN_38_3": [
+    {
+      "verseId": "GEN_38_3",
+      "wordIndex": 6,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_38_3",
+      "wordIndex": 8,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_38_3",
+      "wordIndex": 12,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_38_4": [
+    {
+      "verseId": "GEN_38_4",
+      "wordIndex": 6,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_38_4",
+      "wordIndex": 8,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_38_4",
+      "wordIndex": 12,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_38_5": [
+    {
+      "verseId": "GEN_38_5",
+      "wordIndex": 7,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_38_5",
+      "wordIndex": 9,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_38_5",
+      "wordIndex": 13,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_38_5",
+      "wordIndex": 23,
+      "displayedWord": "luz.",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_38_6": [
+    {
+      "verseId": "GEN_38_6",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_38_7": [
+    {
+      "verseId": "GEN_38_7",
+      "wordIndex": 5,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_38_7",
+      "wordIndex": 7,
+      "displayedWord": "malo",
+      "strongId": "H7451"
+    },
+    {
+      "verseId": "GEN_38_7",
+      "wordIndex": 12,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_38_7",
+      "wordIndex": 16,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_38_7",
+      "wordIndex": 18,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "GEN_38_8": [
+    {
+      "verseId": "GEN_38_8",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_38_8",
+      "wordIndex": 18,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_38_9": [
+    {
+      "verseId": "GEN_38_9",
+      "wordIndex": 5,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "GEN_38_9",
+      "wordIndex": 24,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_38_9",
+      "wordIndex": 28,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_38_10": [
+    {
+      "verseId": "GEN_38_10",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "GEN_38_10",
+      "wordIndex": 16,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "GEN_38_11": [
+    {
+      "verseId": "GEN_38_11",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_38_11",
+      "wordIndex": 10,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_38_11",
+      "wordIndex": 19,
+      "displayedWord": "hijo;",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_38_11",
+      "wordIndex": 38,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_38_12": [
+    {
+      "verseId": "GEN_38_12",
+      "wordIndex": 2,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_38_12",
+      "wordIndex": 11,
+      "displayedWord": "Judá.",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_38_12",
+      "wordIndex": 13,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_38_15": [
+    {
+      "verseId": "GEN_38_15",
+      "wordIndex": 3,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_38_18": [
+    {
+      "verseId": "GEN_38_18",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_38_20": [
+    {
+      "verseId": "GEN_38_20",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_38_22": [
+    {
+      "verseId": "GEN_38_22",
+      "wordIndex": 5,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_38_23": [
+    {
+      "verseId": "GEN_38_23",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_38_24": [
+    {
+      "verseId": "GEN_38_24",
+      "wordIndex": 12,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_38_24",
+      "wordIndex": 29,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_38_26": [
+    {
+      "verseId": "GEN_38_26",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_38_26",
+      "wordIndex": 21,
+      "displayedWord": "hijo.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_38_27": [
+    {
+      "verseId": "GEN_38_27",
+      "wordIndex": 8,
+      "displayedWord": "luz,",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_38_28": [
+    {
+      "verseId": "GEN_38_28",
+      "wordIndex": 4,
+      "displayedWord": "luz,",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_38_29": [
+    {
+      "verseId": "GEN_38_29",
+      "wordIndex": 23,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_38_30": [
+    {
+      "verseId": "GEN_38_30",
+      "wordIndex": 17,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_39_17": [
+    {
+      "verseId": "GEN_39_17",
+      "wordIndex": 6,
+      "displayedWord": "palabras,",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_39_19": [
+    {
+      "verseId": "GEN_39_19",
+      "wordIndex": 10,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_40_1": [
+    {
+      "verseId": "GEN_40_1",
+      "wordIndex": 9,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_40_1",
+      "wordIndex": 18,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_40_1",
+      "wordIndex": 20,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_40_3": [
+    {
+      "verseId": "GEN_40_3",
+      "wordIndex": 7,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_40_4": [
+    {
+      "verseId": "GEN_40_4",
+      "wordIndex": 17,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_40_5": [
+    {
+      "verseId": "GEN_40_5",
+      "wordIndex": 8,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "GEN_40_5",
+      "wordIndex": 19,
+      "displayedWord": "sueño,",
+      "strongId": "H2472"
+    },
+    {
+      "verseId": "GEN_40_5",
+      "wordIndex": 24,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    },
+    {
+      "verseId": "GEN_40_5",
+      "wordIndex": 28,
+      "displayedWord": "noche,",
+      "strongId": "H3915"
+    }
+  ],
+  "GEN_40_6": [
+    {
+      "verseId": "GEN_40_6",
+      "wordIndex": 6,
+      "displayedWord": "mañana,",
+      "strongId": "H1242"
+    }
+  ],
+  "GEN_40_7": [
+    {
+      "verseId": "GEN_40_7",
+      "wordIndex": 17,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_40_7",
+      "wordIndex": 20,
+      "displayedWord": "señor,",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_40_8": [
+    {
+      "verseId": "GEN_40_8",
+      "wordIndex": 6,
+      "displayedWord": "sueño,",
+      "strongId": "H2472"
+    },
+    {
+      "verseId": "GEN_40_8",
+      "wordIndex": 20,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_40_9": [
+    {
+      "verseId": "GEN_40_9",
+      "wordIndex": 8,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_40_12": [
+    {
+      "verseId": "GEN_40_12",
+      "wordIndex": 13,
+      "displayedWord": "días.",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_40_13": [
+    {
+      "verseId": "GEN_40_13",
+      "wordIndex": 4,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_40_14": [
+    {
+      "verseId": "GEN_40_14",
+      "wordIndex": 15,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "GEN_40_14",
+      "wordIndex": 28,
+      "displayedWord": "casa.",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_40_15": [
+    {
+      "verseId": "GEN_40_15",
+      "wordIndex": 5,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_40_18": [
+    {
+      "verseId": "GEN_40_18",
+      "wordIndex": 13,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_40_19": [
+    {
+      "verseId": "GEN_40_19",
+      "wordIndex": 4,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_40_19",
+      "wordIndex": 24,
+      "displayedWord": "carne",
+      "strongId": "H1320"
+    }
+  ],
+  "GEN_40_20": [
+    {
+      "verseId": "GEN_40_20",
+      "wordIndex": 2,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_40_20",
+      "wordIndex": 6,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_40_20",
+      "wordIndex": 12,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_42_1": [
+    {
+      "verseId": "GEN_42_1",
+      "wordIndex": 10,
+      "displayedWord": "hijos:",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_42_5": [
+    {
+      "verseId": "GEN_42_5",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_42_5",
+      "wordIndex": 4,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_42_5",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_42_6": [
+    {
+      "verseId": "GEN_42_6",
+      "wordIndex": 4,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_42_6",
+      "wordIndex": 7,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_42_6",
+      "wordIndex": 14,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_42_6",
+      "wordIndex": 17,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_42_6",
+      "wordIndex": 31,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_42_7": [
+    {
+      "verseId": "GEN_42_7",
+      "wordIndex": 31,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_42_10": [
+    {
+      "verseId": "GEN_42_10",
+      "wordIndex": 4,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_42_11": [
+    {
+      "verseId": "GEN_42_11",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_42_13": [
+    {
+      "verseId": "GEN_42_13",
+      "wordIndex": 8,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_42_13",
+      "wordIndex": 14,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_42_16": [
+    {
+      "verseId": "GEN_42_16",
+      "wordIndex": 16,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "GEN_42_16",
+      "wordIndex": 21,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    }
+  ],
+  "GEN_42_17": [
+    {
+      "verseId": "GEN_42_17",
+      "wordIndex": 9,
+      "displayedWord": "días.",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_42_18": [
+    {
+      "verseId": "GEN_42_18",
+      "wordIndex": 3,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_42_18",
+      "wordIndex": 14,
+      "displayedWord": "Dios.",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_42_19": [
+    {
+      "verseId": "GEN_42_19",
+      "wordIndex": 8,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_42_19",
+      "wordIndex": 28,
+      "displayedWord": "casa.",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_42_20": [
+    {
+      "verseId": "GEN_42_20",
+      "wordIndex": 10,
+      "displayedWord": "palabras,",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_42_21": [
+    {
+      "verseId": "GEN_42_21",
+      "wordIndex": 8,
+      "displayedWord": "pecado",
+      "strongId": "H2403"
+    },
+    {
+      "verseId": "GEN_42_21",
+      "wordIndex": 18,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    }
+  ],
+  "GEN_42_22": [
+    {
+      "verseId": "GEN_42_22",
+      "wordIndex": 27,
+      "displayedWord": "sangre.",
+      "strongId": "H1818"
+    }
+  ],
+  "GEN_42_28": [
+    {
+      "verseId": "GEN_42_28",
+      "wordIndex": 22,
+      "displayedWord": "corazón,",
+      "strongId": "H3820"
+    },
+    {
+      "verseId": "GEN_42_28",
+      "wordIndex": 37,
+      "displayedWord": "Dios?",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_42_29": [
+    {
+      "verseId": "GEN_42_29",
+      "wordIndex": 7,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_42_30": [
+    {
+      "verseId": "GEN_42_30",
+      "wordIndex": 3,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_42_30",
+      "wordIndex": 6,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_42_30",
+      "wordIndex": 18,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_42_32": [
+    {
+      "verseId": "GEN_42_32",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_42_32",
+      "wordIndex": 20,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_42_33": [
+    {
+      "verseId": "GEN_42_33",
+      "wordIndex": 4,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_42_33",
+      "wordIndex": 7,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_42_34": [
+    {
+      "verseId": "GEN_42_34",
+      "wordIndex": 28,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_42_35": [
+    {
+      "verseId": "GEN_42_35",
+      "wordIndex": 34,
+      "displayedWord": "temor.",
+      "strongId": "H3374"
+    }
+  ],
+  "GEN_42_36": [
+    {
+      "verseId": "GEN_42_36",
+      "wordIndex": 11,
+      "displayedWord": "hijos;",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_42_37": [
+    {
+      "verseId": "GEN_42_37",
+      "wordIndex": 12,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_42_38": [
+    {
+      "verseId": "GEN_42_38",
+      "wordIndex": 6,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_42_38",
+      "wordIndex": 13,
+      "displayedWord": "muerto,",
+      "strongId": "H4194"
+    }
+  ],
+  "GEN_43_1": [
+    {
+      "verseId": "GEN_43_1",
+      "wordIndex": 6,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_43_3": [
+    {
+      "verseId": "GEN_43_3",
+      "wordIndex": 1,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_43_6": [
+    {
+      "verseId": "GEN_43_6",
+      "wordIndex": 2,
+      "displayedWord": "Israel:",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_43_7": [
+    {
+      "verseId": "GEN_43_7",
+      "wordIndex": 28,
+      "displayedWord": "palabras.",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_43_8": [
+    {
+      "verseId": "GEN_43_8",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_43_8",
+      "wordIndex": 4,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_43_11": [
+    {
+      "verseId": "GEN_43_11",
+      "wordIndex": 1,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_43_11",
+      "wordIndex": 17,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_43_14": [
+    {
+      "verseId": "GEN_43_14",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_43_14",
+      "wordIndex": 6,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "GEN_43_14",
+      "wordIndex": 30,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_43_16": [
+    {
+      "verseId": "GEN_43_16",
+      "wordIndex": 13,
+      "displayedWord": "casa:",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_43_16",
+      "wordIndex": 16,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_43_17": [
+    {
+      "verseId": "GEN_43_17",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "GEN_43_17",
+      "wordIndex": 13,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_43_18": [
+    {
+      "verseId": "GEN_43_18",
+      "wordIndex": 4,
+      "displayedWord": "temor,",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "GEN_43_18",
+      "wordIndex": 9,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_43_19": [
+    {
+      "verseId": "GEN_43_19",
+      "wordIndex": 7,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_43_19",
+      "wordIndex": 18,
+      "displayedWord": "casa.",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_43_20": [
+    {
+      "verseId": "GEN_43_20",
+      "wordIndex": 3,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_43_20",
+      "wordIndex": 9,
+      "displayedWord": "verdad",
+      "strongId": "H571"
+    },
+    {
+      "verseId": "GEN_43_20",
+      "wordIndex": 12,
+      "displayedWord": "principio",
+      "strongId": "H7225"
+    }
+  ],
+  "GEN_43_21": [
+    {
+      "verseId": "GEN_43_21",
+      "wordIndex": 29,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "GEN_43_23": [
+    {
+      "verseId": "GEN_43_23",
+      "wordIndex": 3,
+      "displayedWord": "Paz",
+      "strongId": "H7965"
+    },
+    {
+      "verseId": "GEN_43_23",
+      "wordIndex": 9,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_43_23",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_43_24": [
+    {
+      "verseId": "GEN_43_24",
+      "wordIndex": 8,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_43_24",
+      "wordIndex": 14,
+      "displayedWord": "agua,",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_43_25": [
+    {
+      "verseId": "GEN_43_25",
+      "wordIndex": 19,
+      "displayedWord": "pan.",
+      "strongId": "H3899"
+    }
+  ],
+  "GEN_43_26": [
+    {
+      "verseId": "GEN_43_26",
+      "wordIndex": 4,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_43_26",
+      "wordIndex": 19,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_43_26",
+      "wordIndex": 27,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_43_29": [
+    {
+      "verseId": "GEN_43_29",
+      "wordIndex": 10,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_43_29",
+      "wordIndex": 27,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_43_29",
+      "wordIndex": 29,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "GEN_43_29",
+      "wordIndex": 32,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_43_31": [
+    {
+      "verseId": "GEN_43_31",
+      "wordIndex": 12,
+      "displayedWord": "pan.",
+      "strongId": "H3899"
+    }
+  ],
+  "GEN_43_32": [
+    {
+      "verseId": "GEN_43_32",
+      "wordIndex": 24,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    }
+  ],
+  "GEN_44_1": [
+    {
+      "verseId": "GEN_44_1",
+      "wordIndex": 6,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_44_3": [
+    {
+      "verseId": "GEN_44_3",
+      "wordIndex": 2,
+      "displayedWord": "mañana,",
+      "strongId": "H1242"
+    }
+  ],
+  "GEN_44_5": [
+    {
+      "verseId": "GEN_44_5",
+      "wordIndex": 8,
+      "displayedWord": "señor,",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_44_6": [
+    {
+      "verseId": "GEN_44_6",
+      "wordIndex": 7,
+      "displayedWord": "palabras.",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_44_7": [
+    {
+      "verseId": "GEN_44_7",
+      "wordIndex": 8,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_44_8": [
+    {
+      "verseId": "GEN_44_8",
+      "wordIndex": 19,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_44_8",
+      "wordIndex": 28,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_44_8",
+      "wordIndex": 31,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_44_9": [
+    {
+      "verseId": "GEN_44_9",
+      "wordIndex": 19,
+      "displayedWord": "señor.",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_44_10": [
+    {
+      "verseId": "GEN_44_10",
+      "wordIndex": 9,
+      "displayedWord": "palabras;",
+      "strongId": "H1697"
+    }
+  ],
+  "GEN_44_11": [
+    {
+      "verseId": "GEN_44_11",
+      "wordIndex": 12,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_44_14": [
+    {
+      "verseId": "GEN_44_14",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_44_14",
+      "wordIndex": 6,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_44_14",
+      "wordIndex": 20,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_44_15": [
+    {
+      "verseId": "GEN_44_15",
+      "wordIndex": 15,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    }
+  ],
+  "GEN_44_16": [
+    {
+      "verseId": "GEN_44_16",
+      "wordIndex": 2,
+      "displayedWord": "Judá:",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_44_16",
+      "wordIndex": 7,
+      "displayedWord": "señor?",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_44_16",
+      "wordIndex": 15,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_44_16",
+      "wordIndex": 19,
+      "displayedWord": "maldad",
+      "strongId": "H7451"
+    },
+    {
+      "verseId": "GEN_44_16",
+      "wordIndex": 30,
+      "displayedWord": "señor,",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_44_16",
+      "wordIndex": 37,
+      "displayedWord": "poder",
+      "strongId": "H2428"
+    }
+  ],
+  "GEN_44_17": [
+    {
+      "verseId": "GEN_44_17",
+      "wordIndex": 10,
+      "displayedWord": "poder",
+      "strongId": "H2428"
+    },
+    {
+      "verseId": "GEN_44_17",
+      "wordIndex": 22,
+      "displayedWord": "paz",
+      "strongId": "H7965"
+    }
+  ],
+  "GEN_44_18": [
+    {
+      "verseId": "GEN_44_18",
+      "wordIndex": 1,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_44_18",
+      "wordIndex": 9,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_44_18",
+      "wordIndex": 20,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "GEN_44_18",
+      "wordIndex": 25,
+      "displayedWord": "señor,",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_44_19": [
+    {
+      "verseId": "GEN_44_19",
+      "wordIndex": 1,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_44_20": [
+    {
+      "verseId": "GEN_44_20",
+      "wordIndex": 5,
+      "displayedWord": "señor:",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_44_20",
+      "wordIndex": 33,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_44_22": [
+    {
+      "verseId": "GEN_44_22",
+      "wordIndex": 5,
+      "displayedWord": "señor:",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_44_24": [
+    {
+      "verseId": "GEN_44_24",
+      "wordIndex": 13,
+      "displayedWord": "palabras",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "GEN_44_24",
+      "wordIndex": 16,
+      "displayedWord": "señor.",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_44_27": [
+    {
+      "verseId": "GEN_44_27",
+      "wordIndex": 11,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_44_27",
+      "wordIndex": 15,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_44_30": [
+    {
+      "verseId": "GEN_44_30",
+      "wordIndex": 18,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "GEN_44_30",
+      "wordIndex": 23,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    }
+  ],
+  "GEN_44_33": [
+    {
+      "verseId": "GEN_44_33",
+      "wordIndex": 17,
+      "displayedWord": "señor,",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_46_1": [
+    {
+      "verseId": "GEN_46_1",
+      "wordIndex": 1,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_46_1",
+      "wordIndex": 15,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_46_2": [
+    {
+      "verseId": "GEN_46_2",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_46_2",
+      "wordIndex": 4,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_46_2",
+      "wordIndex": 8,
+      "displayedWord": "noche,",
+      "strongId": "H3915"
+    }
+  ],
+  "GEN_46_3": [
+    {
+      "verseId": "GEN_46_3",
+      "wordIndex": 4,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_46_3",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_46_3",
+      "wordIndex": 24,
+      "displayedWord": "nación.",
+      "strongId": "H1471"
+    }
+  ],
+  "GEN_46_5": [
+    {
+      "verseId": "GEN_46_5",
+      "wordIndex": 9,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_5",
+      "wordIndex": 11,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_46_6": [
+    {
+      "verseId": "GEN_46_6",
+      "wordIndex": 12,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_46_6",
+      "wordIndex": 24,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_46_7": [
+    {
+      "verseId": "GEN_46_7",
+      "wordIndex": 1,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_7",
+      "wordIndex": 4,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_7",
+      "wordIndex": 7,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_7",
+      "wordIndex": 16,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_7",
+      "wordIndex": 21,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_46_8": [
+    {
+      "verseId": "GEN_46_8",
+      "wordIndex": 7,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_8",
+      "wordIndex": 9,
+      "displayedWord": "Israel,",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_46_8",
+      "wordIndex": 17,
+      "displayedWord": "hijos:",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_9": [
+    {
+      "verseId": "GEN_46_9",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_10": [
+    {
+      "verseId": "GEN_46_10",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_10",
+      "wordIndex": 11,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_11": [
+    {
+      "verseId": "GEN_46_11",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_12": [
+    {
+      "verseId": "GEN_46_12",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_12",
+      "wordIndex": 3,
+      "displayedWord": "Judá:",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_46_12",
+      "wordIndex": 17,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_46_12",
+      "wordIndex": 22,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_13": [
+    {
+      "verseId": "GEN_46_13",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_14": [
+    {
+      "verseId": "GEN_46_14",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_15": [
+    {
+      "verseId": "GEN_46_15",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_15",
+      "wordIndex": 10,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_46_15",
+      "wordIndex": 28,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_16": [
+    {
+      "verseId": "GEN_46_16",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_17": [
+    {
+      "verseId": "GEN_46_17",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_17",
+      "wordIndex": 15,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_18": [
+    {
+      "verseId": "GEN_46_18",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_18",
+      "wordIndex": 17,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_46_19": [
+    {
+      "verseId": "GEN_46_19",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_20": [
+    {
+      "verseId": "GEN_46_20",
+      "wordIndex": 6,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_46_20",
+      "wordIndex": 17,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_46_20",
+      "wordIndex": 22,
+      "displayedWord": "sacerdote",
+      "strongId": "H3548"
+    }
+  ],
+  "GEN_46_21": [
+    {
+      "verseId": "GEN_46_21",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_22": [
+    {
+      "verseId": "GEN_46_22",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_23": [
+    {
+      "verseId": "GEN_46_23",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_24": [
+    {
+      "verseId": "GEN_46_24",
+      "wordIndex": 1,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_25": [
+    {
+      "verseId": "GEN_46_25",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_25",
+      "wordIndex": 17,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "GEN_46_26": [
+    {
+      "verseId": "GEN_46_26",
+      "wordIndex": 18,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_46_27": [
+    {
+      "verseId": "GEN_46_27",
+      "wordIndex": 2,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_46_27",
+      "wordIndex": 17,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_46_28": [
+    {
+      "verseId": "GEN_46_28",
+      "wordIndex": 4,
+      "displayedWord": "Judá",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_46_28",
+      "wordIndex": 22,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_46_29": [
+    {
+      "verseId": "GEN_46_29",
+      "wordIndex": 10,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_46_30": [
+    {
+      "verseId": "GEN_46_30",
+      "wordIndex": 1,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_46_31": [
+    {
+      "verseId": "GEN_46_31",
+      "wordIndex": 9,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_46_31",
+      "wordIndex": 27,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_46_31",
+      "wordIndex": 35,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_46_34": [
+    {
+      "verseId": "GEN_46_34",
+      "wordIndex": 25,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_1": [
+    {
+      "verseId": "GEN_47_1",
+      "wordIndex": 30,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_1",
+      "wordIndex": 39,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_4": [
+    {
+      "verseId": "GEN_47_4",
+      "wordIndex": 8,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_4",
+      "wordIndex": 28,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_4",
+      "wordIndex": 44,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_6": [
+    {
+      "verseId": "GEN_47_6",
+      "wordIndex": 1,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_6",
+      "wordIndex": 13,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_6",
+      "wordIndex": 26,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_8": [
+    {
+      "verseId": "GEN_47_8",
+      "wordIndex": 8,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_47_8",
+      "wordIndex": 14,
+      "displayedWord": "vida?",
+      "strongId": "H2416"
+    }
+  ],
+  "GEN_47_9": [
+    {
+      "verseId": "GEN_47_9",
+      "wordIndex": 6,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_47_9",
+      "wordIndex": 23,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_47_9",
+      "wordIndex": 29,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "GEN_47_9",
+      "wordIndex": 36,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_47_9",
+      "wordIndex": 42,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "GEN_47_9",
+      "wordIndex": 48,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_47_11": [
+    {
+      "verseId": "GEN_47_11",
+      "wordIndex": 17,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_11",
+      "wordIndex": 25,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_11",
+      "wordIndex": 28,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_12": [
+    {
+      "verseId": "GEN_47_12",
+      "wordIndex": 14,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "GEN_47_12",
+      "wordIndex": 19,
+      "displayedWord": "pan,",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "GEN_47_12",
+      "wordIndex": 25,
+      "displayedWord": "hijos.",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_47_13": [
+    {
+      "verseId": "GEN_47_13",
+      "wordIndex": 2,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "GEN_47_13",
+      "wordIndex": 6,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_13",
+      "wordIndex": 20,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_13",
+      "wordIndex": 25,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_14": [
+    {
+      "verseId": "GEN_47_14",
+      "wordIndex": 10,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_14",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_14",
+      "wordIndex": 32,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    }
+  ],
+  "GEN_47_15": [
+    {
+      "verseId": "GEN_47_15",
+      "wordIndex": 5,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_15",
+      "wordIndex": 11,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_15",
+      "wordIndex": 21,
+      "displayedWord": "pan;",
+      "strongId": "H3899"
+    }
+  ],
+  "GEN_47_17": [
+    {
+      "verseId": "GEN_47_17",
+      "wordIndex": 35,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    }
+  ],
+  "GEN_47_18": [
+    {
+      "verseId": "GEN_47_18",
+      "wordIndex": 16,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_47_18",
+      "wordIndex": 31,
+      "displayedWord": "señor;",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_47_18",
+      "wordIndex": 38,
+      "displayedWord": "señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "GEN_47_18",
+      "wordIndex": 44,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_19": [
+    {
+      "verseId": "GEN_47_19",
+      "wordIndex": 11,
+      "displayedWord": "tierra?",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_19",
+      "wordIndex": 18,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_19",
+      "wordIndex": 20,
+      "displayedWord": "pan,",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "GEN_47_19",
+      "wordIndex": 26,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_19",
+      "wordIndex": 32,
+      "displayedWord": "semilla",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "GEN_47_19",
+      "wordIndex": 44,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_20": [
+    {
+      "verseId": "GEN_47_20",
+      "wordIndex": 5,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_20",
+      "wordIndex": 27,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_21": [
+    {
+      "verseId": "GEN_47_21",
+      "wordIndex": 2,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    }
+  ],
+  "GEN_47_22": [
+    {
+      "verseId": "GEN_47_22",
+      "wordIndex": 2,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_22",
+      "wordIndex": 5,
+      "displayedWord": "sacerdotes",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "GEN_47_22",
+      "wordIndex": 11,
+      "displayedWord": "sacerdotes",
+      "strongId": "H3548"
+    },
+    {
+      "verseId": "GEN_47_22",
+      "wordIndex": 30,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_23": [
+    {
+      "verseId": "GEN_47_23",
+      "wordIndex": 4,
+      "displayedWord": "pueblo:",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_47_23",
+      "wordIndex": 16,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_23",
+      "wordIndex": 21,
+      "displayedWord": "semilla,",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "GEN_47_23",
+      "wordIndex": 25,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_25": [
+    {
+      "verseId": "GEN_47_25",
+      "wordIndex": 4,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "GEN_47_25",
+      "wordIndex": 14,
+      "displayedWord": "señor,",
+      "strongId": "H136"
+    }
+  ],
+  "GEN_47_26": [
+    {
+      "verseId": "GEN_47_26",
+      "wordIndex": 5,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "GEN_47_26",
+      "wordIndex": 10,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_26",
+      "wordIndex": 21,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_26",
+      "wordIndex": 24,
+      "displayedWord": "sacerdotes,",
+      "strongId": "H3548"
+    }
+  ],
+  "GEN_47_27": [
+    {
+      "verseId": "GEN_47_27",
+      "wordIndex": 2,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_47_27",
+      "wordIndex": 5,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_27",
+      "wordIndex": 10,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_47_28": [
+    {
+      "verseId": "GEN_47_28",
+      "wordIndex": 5,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_47_28",
+      "wordIndex": 13,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_47_28",
+      "wordIndex": 20,
+      "displayedWord": "vida,",
+      "strongId": "H2416"
+    }
+  ],
+  "GEN_47_29": [
+    {
+      "verseId": "GEN_47_29",
+      "wordIndex": 3,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_47_29",
+      "wordIndex": 5,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_47_29",
+      "wordIndex": 13,
+      "displayedWord": "hijo,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_47_29",
+      "wordIndex": 38,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    },
+    {
+      "verseId": "GEN_47_29",
+      "wordIndex": 40,
+      "displayedWord": "verdad.",
+      "strongId": "H571"
+    }
+  ],
+  "GEN_47_31": [
+    {
+      "verseId": "GEN_47_31",
+      "wordIndex": 1,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_47_31",
+      "wordIndex": 9,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_48_1": [
+    {
+      "verseId": "GEN_48_1",
+      "wordIndex": 22,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_48_2": [
+    {
+      "verseId": "GEN_48_2",
+      "wordIndex": 11,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_48_2",
+      "wordIndex": 19,
+      "displayedWord": "Israel,",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_48_3": [
+    {
+      "verseId": "GEN_48_3",
+      "wordIndex": 5,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_48_3",
+      "wordIndex": 10,
+      "displayedWord": "Luz",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "GEN_48_3",
+      "wordIndex": 13,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_48_4": [
+    {
+      "verseId": "GEN_48_4",
+      "wordIndex": 18,
+      "displayedWord": "naciones;",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "GEN_48_4",
+      "wordIndex": 22,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_48_4",
+      "wordIndex": 25,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_48_5": [
+    {
+      "verseId": "GEN_48_5",
+      "wordIndex": 4,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_48_5",
+      "wordIndex": 13,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_48_5",
+      "wordIndex": 23,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_48_6": [
+    {
+      "verseId": "GEN_48_6",
+      "wordIndex": 12,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    }
+  ],
+  "GEN_48_7": [
+    {
+      "verseId": "GEN_48_7",
+      "wordIndex": 12,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "GEN_48_7",
+      "wordIndex": 22,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_48_8": [
+    {
+      "verseId": "GEN_48_8",
+      "wordIndex": 2,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_48_8",
+      "wordIndex": 4,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_48_9": [
+    {
+      "verseId": "GEN_48_9",
+      "wordIndex": 8,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_48_9",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_48_10": [
+    {
+      "verseId": "GEN_48_10",
+      "wordIndex": 4,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_48_11": [
+    {
+      "verseId": "GEN_48_11",
+      "wordIndex": 2,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_48_11",
+      "wordIndex": 14,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_48_11",
+      "wordIndex": 22,
+      "displayedWord": "descendencia.",
+      "strongId": "H2233"
+    }
+  ],
+  "GEN_48_12": [
+    {
+      "verseId": "GEN_48_12",
+      "wordIndex": 12,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_48_13": [
+    {
+      "verseId": "GEN_48_13",
+      "wordIndex": 14,
+      "displayedWord": "Israel,",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_48_13",
+      "wordIndex": 24,
+      "displayedWord": "Israel;",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_48_14": [
+    {
+      "verseId": "GEN_48_14",
+      "wordIndex": 1,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_48_15": [
+    {
+      "verseId": "GEN_48_15",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_48_15",
+      "wordIndex": 17,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_48_15",
+      "wordIndex": 27,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_48_16": [
+    {
+      "verseId": "GEN_48_16",
+      "wordIndex": 1,
+      "displayedWord": "Ángel",
+      "strongId": "H4397"
+    },
+    {
+      "verseId": "GEN_48_16",
+      "wordIndex": 18,
+      "displayedWord": "nombre,",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_48_16",
+      "wordIndex": 21,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_48_16",
+      "wordIndex": 37,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_48_19": [
+    {
+      "verseId": "GEN_48_19",
+      "wordIndex": 9,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_48_19",
+      "wordIndex": 19,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_48_19",
+      "wordIndex": 35,
+      "displayedWord": "descendencia",
+      "strongId": "H2233"
+    },
+    {
+      "verseId": "GEN_48_19",
+      "wordIndex": 39,
+      "displayedWord": "naciones.",
+      "strongId": "H1471"
+    }
+  ],
+  "GEN_48_20": [
+    {
+      "verseId": "GEN_48_20",
+      "wordIndex": 5,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "GEN_48_20",
+      "wordIndex": 10,
+      "displayedWord": "Israel,",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_48_20",
+      "wordIndex": 13,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "GEN_48_21": [
+    {
+      "verseId": "GEN_48_21",
+      "wordIndex": 2,
+      "displayedWord": "Israel",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_48_21",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_48_21",
+      "wordIndex": 20,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_48_22": [
+    {
+      "verseId": "GEN_48_22",
+      "wordIndex": 24,
+      "displayedWord": "espada",
+      "strongId": "H2719"
+    }
+  ],
+  "GEN_49_1": [
+    {
+      "verseId": "GEN_49_1",
+      "wordIndex": 5,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_49_1",
+      "wordIndex": 20,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "GEN_49_2": [
+    {
+      "verseId": "GEN_49_2",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_49_2",
+      "wordIndex": 7,
+      "displayedWord": "escuchad",
+      "strongId": "H8085"
+    },
+    {
+      "verseId": "GEN_49_2",
+      "wordIndex": 11,
+      "displayedWord": "Israel.",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_49_3": [
+    {
+      "verseId": "GEN_49_3",
+      "wordIndex": 6,
+      "displayedWord": "fortaleza,",
+      "strongId": "H4581"
+    },
+    {
+      "verseId": "GEN_49_3",
+      "wordIndex": 9,
+      "displayedWord": "principio",
+      "strongId": "H7225"
+    },
+    {
+      "verseId": "GEN_49_3",
+      "wordIndex": 18,
+      "displayedWord": "poder.",
+      "strongId": "H2428"
+    }
+  ],
+  "GEN_49_4": [
+    {
+      "verseId": "GEN_49_4",
+      "wordIndex": 3,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    }
+  ],
+  "GEN_49_5": [
+    {
+      "verseId": "GEN_49_5",
+      "wordIndex": 7,
+      "displayedWord": "iniquidad",
+      "strongId": "H5771"
+    }
+  ],
+  "GEN_49_6": [
+    {
+      "verseId": "GEN_49_6",
+      "wordIndex": 6,
+      "displayedWord": "alma,",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "GEN_49_6",
+      "wordIndex": 9,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "GEN_49_7": [
+    {
+      "verseId": "GEN_49_7",
+      "wordIndex": 21,
+      "displayedWord": "Israel.",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_49_8": [
+    {
+      "verseId": "GEN_49_8",
+      "wordIndex": 0,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_49_8",
+      "wordIndex": 12,
+      "displayedWord": "enemigos;",
+      "strongId": "H341"
+    },
+    {
+      "verseId": "GEN_49_8",
+      "wordIndex": 14,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_49_9": [
+    {
+      "verseId": "GEN_49_9",
+      "wordIndex": 3,
+      "displayedWord": "Judá;",
+      "strongId": "H3063"
+    },
+    {
+      "verseId": "GEN_49_9",
+      "wordIndex": 8,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_49_10": [
+    {
+      "verseId": "GEN_49_10",
+      "wordIndex": 6,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    }
+  ],
+  "GEN_49_11": [
+    {
+      "verseId": "GEN_49_11",
+      "wordIndex": 11,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    },
+    {
+      "verseId": "GEN_49_11",
+      "wordIndex": 24,
+      "displayedWord": "sangre",
+      "strongId": "H1818"
+    }
+  ],
+  "GEN_49_13": [
+    {
+      "verseId": "GEN_49_13",
+      "wordIndex": 4,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "GEN_49_14": [
+    {
+      "verseId": "GEN_49_14",
+      "wordIndex": 2,
+      "displayedWord": "fuerte",
+      "strongId": "H1368"
+    }
+  ],
+  "GEN_49_15": [
+    {
+      "verseId": "GEN_49_15",
+      "wordIndex": 6,
+      "displayedWord": "bueno,",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "GEN_49_15",
+      "wordIndex": 10,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_49_16": [
+    {
+      "verseId": "GEN_49_16",
+      "wordIndex": 4,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "GEN_49_16",
+      "wordIndex": 11,
+      "displayedWord": "Israel.",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_49_18": [
+    {
+      "verseId": "GEN_49_18",
+      "wordIndex": 1,
+      "displayedWord": "salvación",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "GEN_49_18",
+      "wordIndex": 4,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "GEN_49_20": [
+    {
+      "verseId": "GEN_49_20",
+      "wordIndex": 1,
+      "displayedWord": "pan",
+      "strongId": "H3899"
+    },
+    {
+      "verseId": "GEN_49_20",
+      "wordIndex": 11,
+      "displayedWord": "rey.",
+      "strongId": "H4428"
+    }
+  ],
+  "GEN_49_24": [
+    {
+      "verseId": "GEN_49_24",
+      "wordIndex": 5,
+      "displayedWord": "poderoso,",
+      "strongId": "H1368"
+    },
+    {
+      "verseId": "GEN_49_24",
+      "wordIndex": 18,
+      "displayedWord": "Fuerte",
+      "strongId": "H1368"
+    },
+    {
+      "verseId": "GEN_49_24",
+      "wordIndex": 23,
+      "displayedWord": "nombre",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "GEN_49_24",
+      "wordIndex": 27,
+      "displayedWord": "Roca",
+      "strongId": "H6697"
+    },
+    {
+      "verseId": "GEN_49_24",
+      "wordIndex": 29,
+      "displayedWord": "Israel),",
+      "strongId": "H3478"
+    }
+  ],
+  "GEN_49_25": [
+    {
+      "verseId": "GEN_49_25",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_49_25",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "GEN_49_25",
+      "wordIndex": 22,
+      "displayedWord": "cielos",
+      "strongId": "H8064"
+    }
+  ],
+  "GEN_49_27": [
+    {
+      "verseId": "GEN_49_27",
+      "wordIndex": 6,
+      "displayedWord": "mañana",
+      "strongId": "H1242"
+    }
+  ],
+  "GEN_49_28": [
+    {
+      "verseId": "GEN_49_28",
+      "wordIndex": 7,
+      "displayedWord": "Israel,",
+      "strongId": "H3478"
+    },
+    {
+      "verseId": "GEN_49_28",
+      "wordIndex": 24,
+      "displayedWord": "bendición",
+      "strongId": "H1293"
+    }
+  ],
+  "GEN_49_29": [
+    {
+      "verseId": "GEN_49_29",
+      "wordIndex": 13,
+      "displayedWord": "pueblo.",
+      "strongId": "H5971"
+    }
+  ],
+  "GEN_49_30": [
+    {
+      "verseId": "GEN_49_30",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "GEN_49_32": [
+    {
+      "verseId": "GEN_49_32",
+      "wordIndex": 15,
+      "displayedWord": "hijos",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_49_33": [
+    {
+      "verseId": "GEN_49_33",
+      "wordIndex": 6,
+      "displayedWord": "mandamientos",
+      "strongId": "H4687"
+    },
+    {
+      "verseId": "GEN_49_33",
+      "wordIndex": 9,
+      "displayedWord": "hijos,",
+      "strongId": "H1121"
+    }
+  ],
+  "GEN_50_2": [
+    {
+      "verseId": "GEN_50_2",
+      "wordIndex": 18,
+      "displayedWord": "Israel.",
+      "strongId": "H3478"
+    }
   ]
 }

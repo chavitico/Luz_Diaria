@@ -1,0 +1,456 @@
+{
+  "NAH_1_1": [
+    {
+      "verseId": "NAH_1_1",
+      "wordIndex": 9,
+      "displayedWord": "visión",
+      "strongId": "H2377"
+    }
+  ],
+  "NAH_1_2": [
+    {
+      "verseId": "NAH_1_2",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NAH_1_2",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "NAH_1_2",
+      "wordIndex": 6,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NAH_1_2",
+      "wordIndex": 23,
+      "displayedWord": "enemigos.",
+      "strongId": "H341"
+    }
+  ],
+  "NAH_1_3": [
+    {
+      "verseId": "NAH_1_3",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NAH_1_3",
+      "wordIndex": 9,
+      "displayedWord": "poder,",
+      "strongId": "H2428"
+    },
+    {
+      "verseId": "NAH_1_3",
+      "wordIndex": 17,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "NAH_1_4": [
+    {
+      "verseId": "NAH_1_4",
+      "wordIndex": 3,
+      "displayedWord": "mar,",
+      "strongId": "H3220"
+    }
+  ],
+  "NAH_1_5": [
+    {
+      "verseId": "NAH_1_5",
+      "wordIndex": 1,
+      "displayedWord": "montes",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "NAH_1_5",
+      "wordIndex": 12,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "NAH_1_7": [
+    {
+      "verseId": "NAH_1_7",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NAH_1_7",
+      "wordIndex": 2,
+      "displayedWord": "bueno,",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "NAH_1_7",
+      "wordIndex": 3,
+      "displayedWord": "fortaleza",
+      "strongId": "H4581"
+    },
+    {
+      "verseId": "NAH_1_7",
+      "wordIndex": 6,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "NAH_1_8": [
+    {
+      "verseId": "NAH_1_8",
+      "wordIndex": 9,
+      "displayedWord": "tinieblas",
+      "strongId": "H2822"
+    },
+    {
+      "verseId": "NAH_1_8",
+      "wordIndex": 13,
+      "displayedWord": "enemigos.",
+      "strongId": "H341"
+    }
+  ],
+  "NAH_1_9": [
+    {
+      "verseId": "NAH_1_9",
+      "wordIndex": 3,
+      "displayedWord": "Jehová?",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NAH_1_9",
+      "wordIndex": 14,
+      "displayedWord": "enemigos.",
+      "strongId": "H341"
+    }
+  ],
+  "NAH_1_11": [
+    {
+      "verseId": "NAH_1_11",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "NAH_1_12": [
+    {
+      "verseId": "NAH_1_12",
+      "wordIndex": 3,
+      "displayedWord": "Jehová:",
+      "strongId": "H3068"
+    }
+  ],
+  "NAH_1_14": [
+    {
+      "verseId": "NAH_1_14",
+      "wordIndex": 5,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NAH_1_14",
+      "wordIndex": 13,
+      "displayedWord": "nombre;",
+      "strongId": "H8034"
+    },
+    {
+      "verseId": "NAH_1_14",
+      "wordIndex": 16,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "NAH_1_14",
+      "wordIndex": 19,
+      "displayedWord": "dios",
+      "strongId": "H430"
+    }
+  ],
+  "NAH_1_15": [
+    {
+      "verseId": "NAH_1_15",
+      "wordIndex": 4,
+      "displayedWord": "montes",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "NAH_1_15",
+      "wordIndex": 10,
+      "displayedWord": "buenas",
+      "strongId": "H2896"
+    },
+    {
+      "verseId": "NAH_1_15",
+      "wordIndex": 16,
+      "displayedWord": "paz.",
+      "strongId": "H7965"
+    },
+    {
+      "verseId": "NAH_1_15",
+      "wordIndex": 22,
+      "displayedWord": "Judá,",
+      "strongId": "H3063"
+    }
+  ],
+  "NAH_2_1": [
+    {
+      "verseId": "NAH_2_1",
+      "wordIndex": 6,
+      "displayedWord": "fortaleza,",
+      "strongId": "H4581"
+    },
+    {
+      "verseId": "NAH_2_1",
+      "wordIndex": 16,
+      "displayedWord": "poder.",
+      "strongId": "H2428"
+    }
+  ],
+  "NAH_2_2": [
+    {
+      "verseId": "NAH_2_2",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NAH_2_2",
+      "wordIndex": 4,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "NAH_2_2",
+      "wordIndex": 9,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "NAH_2_2",
+      "wordIndex": 11,
+      "displayedWord": "Israel;",
+      "strongId": "H3478"
+    }
+  ],
+  "NAH_2_3": [
+    {
+      "verseId": "NAH_2_3",
+      "wordIndex": 1,
+      "displayedWord": "escudo",
+      "strongId": "H4043"
+    },
+    {
+      "verseId": "NAH_2_3",
+      "wordIndex": 22,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "NAH_2_7": [
+    {
+      "verseId": "NAH_2_7",
+      "wordIndex": 2,
+      "displayedWord": "reina",
+      "strongId": "H4436"
+    }
+  ],
+  "NAH_2_8": [
+    {
+      "verseId": "NAH_2_8",
+      "wordIndex": 8,
+      "displayedWord": "aguas;",
+      "strongId": "H4325"
+    }
+  ],
+  "NAH_2_10": [
+    {
+      "verseId": "NAH_2_10",
+      "wordIndex": 7,
+      "displayedWord": "corazón",
+      "strongId": "H3820"
+    }
+  ],
+  "NAH_2_13": [
+    {
+      "verseId": "NAH_2_13",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NAH_2_13",
+      "wordIndex": 17,
+      "displayedWord": "espada",
+      "strongId": "H2719"
+    },
+    {
+      "verseId": "NAH_2_13",
+      "wordIndex": 25,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "NAH_3_3": [
+    {
+      "verseId": "NAH_3_3",
+      "wordIndex": 5,
+      "displayedWord": "espada,",
+      "strongId": "H2719"
+    },
+    {
+      "verseId": "NAH_3_3",
+      "wordIndex": 13,
+      "displayedWord": "muertos,",
+      "strongId": "H4194"
+    }
+  ],
+  "NAH_3_4": [
+    {
+      "verseId": "NAH_3_4",
+      "wordIndex": 21,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    }
+  ],
+  "NAH_3_5": [
+    {
+      "verseId": "NAH_3_5",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "NAH_3_5",
+      "wordIndex": 20,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    }
+  ],
+  "NAH_3_8": [
+    {
+      "verseId": "NAH_3_8",
+      "wordIndex": 13,
+      "displayedWord": "aguas,",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "NAH_3_8",
+      "wordIndex": 18,
+      "displayedWord": "mar,",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "NAH_3_8",
+      "wordIndex": 20,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    }
+  ],
+  "NAH_3_9": [
+    {
+      "verseId": "NAH_3_9",
+      "wordIndex": 3,
+      "displayedWord": "fortaleza,",
+      "strongId": "H4581"
+    }
+  ],
+  "NAH_3_11": [
+    {
+      "verseId": "NAH_3_11",
+      "wordIndex": 14,
+      "displayedWord": "enemigo.",
+      "strongId": "H341"
+    }
+  ],
+  "NAH_3_13": [
+    {
+      "verseId": "NAH_3_13",
+      "wordIndex": 3,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "NAH_3_13",
+      "wordIndex": 15,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "NAH_3_13",
+      "wordIndex": 24,
+      "displayedWord": "enemigos;",
+      "strongId": "H341"
+    }
+  ],
+  "NAH_3_14": [
+    {
+      "verseId": "NAH_3_14",
+      "wordIndex": 2,
+      "displayedWord": "agua",
+      "strongId": "H4325"
+    }
+  ],
+  "NAH_3_15": [
+    {
+      "verseId": "NAH_3_15",
+      "wordIndex": 8,
+      "displayedWord": "espada,",
+      "strongId": "H2719"
+    }
+  ],
+  "NAH_3_16": [
+    {
+      "verseId": "NAH_3_16",
+      "wordIndex": 8,
+      "displayedWord": "cielo;",
+      "strongId": "H8064"
+    }
+  ],
+  "NAH_3_17": [
+    {
+      "verseId": "NAH_3_17",
+      "wordIndex": 18,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    }
+  ],
+  "NAH_3_18": [
+    {
+      "verseId": "NAH_3_18",
+      "wordIndex": 4,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "NAH_3_18",
+      "wordIndex": 11,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "NAH_3_18",
+      "wordIndex": 16,
+      "displayedWord": "montes,",
+      "strongId": "H2022"
+    }
+  ],
+  "NAH_3_19": [
+    {
+      "verseId": "NAH_3_19",
+      "wordIndex": 13,
+      "displayedWord": "oigan",
+      "strongId": "H8085"
+    },
+    {
+      "verseId": "NAH_3_19",
+      "wordIndex": 28,
+      "displayedWord": "maldad?",
+      "strongId": "H7451"
+    }
+  ]
+}

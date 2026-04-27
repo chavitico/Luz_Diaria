@@ -1,0 +1,694 @@
+{
+  "JON_1_1": [
+    {
+      "verseId": "JON_1_1",
+      "wordIndex": 1,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "JON_1_1",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_1_1",
+      "wordIndex": 7,
+      "displayedWord": "hijo",
+      "strongId": "H1121"
+    }
+  ],
+  "JON_1_2": [
+    {
+      "verseId": "JON_1_2",
+      "wordIndex": 16,
+      "displayedWord": "maldad",
+      "strongId": "H7451"
+    }
+  ],
+  "JON_1_3": [
+    {
+      "verseId": "JON_1_3",
+      "wordIndex": 10,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_1_3",
+      "wordIndex": 43,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "JON_1_4": [
+    {
+      "verseId": "JON_1_4",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_1_4",
+      "wordIndex": 9,
+      "displayedWord": "mar,",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "JON_1_4",
+      "wordIndex": 14,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "JON_1_5": [
+    {
+      "verseId": "JON_1_5",
+      "wordIndex": 11,
+      "displayedWord": "dios;",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JON_1_5",
+      "wordIndex": 15,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "JON_1_6": [
+    {
+      "verseId": "JON_1_6",
+      "wordIndex": 20,
+      "displayedWord": "Dios;",
+      "strongId": "H430"
+    }
+  ],
+  "JON_1_8": [
+    {
+      "verseId": "JON_1_8",
+      "wordIndex": 23,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JON_1_8",
+      "wordIndex": 27,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    }
+  ],
+  "JON_1_9": [
+    {
+      "verseId": "JON_1_9",
+      "wordIndex": 9,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_1_9",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JON_1_9",
+      "wordIndex": 13,
+      "displayedWord": "cielos,",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "JON_1_9",
+      "wordIndex": 17,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "JON_1_9",
+      "wordIndex": 20,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "JON_1_10": [
+    {
+      "verseId": "JON_1_10",
+      "wordIndex": 22,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JON_1_11": [
+    {
+      "verseId": "JON_1_11",
+      "wordIndex": 9,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "JON_1_11",
+      "wordIndex": 15,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "JON_1_12": [
+    {
+      "verseId": "JON_1_12",
+      "wordIndex": 7,
+      "displayedWord": "mar,",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "JON_1_12",
+      "wordIndex": 10,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "JON_1_13": [
+    {
+      "verseId": "JON_1_13",
+      "wordIndex": 10,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JON_1_13",
+      "wordIndex": 16,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "JON_1_14": [
+    {
+      "verseId": "JON_1_14",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_1_14",
+      "wordIndex": 9,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_1_14",
+      "wordIndex": 16,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "JON_1_14",
+      "wordIndex": 19,
+      "displayedWord": "hombre,",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "JON_1_14",
+      "wordIndex": 25,
+      "displayedWord": "sangre",
+      "strongId": "H1818"
+    },
+    {
+      "verseId": "JON_1_14",
+      "wordIndex": 29,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JON_1_15": [
+    {
+      "verseId": "JON_1_15",
+      "wordIndex": 8,
+      "displayedWord": "mar;",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "JON_1_15",
+      "wordIndex": 11,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "JON_1_16": [
+    {
+      "verseId": "JON_1_16",
+      "wordIndex": 5,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_1_16",
+      "wordIndex": 8,
+      "displayedWord": "temor,",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "JON_1_16",
+      "wordIndex": 11,
+      "displayedWord": "sacrificio",
+      "strongId": "H2077"
+    },
+    {
+      "verseId": "JON_1_16",
+      "wordIndex": 13,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JON_1_17": [
+    {
+      "verseId": "JON_1_17",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_1_17",
+      "wordIndex": 20,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "JON_2_1": [
+    {
+      "verseId": "JON_2_1",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_2_1",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "JON_2_2": [
+    {
+      "verseId": "JON_2_2",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "JON_2_3": [
+    {
+      "verseId": "JON_2_3",
+      "wordIndex": 9,
+      "displayedWord": "mares,",
+      "strongId": "H3220"
+    }
+  ],
+  "JON_2_4": [
+    {
+      "verseId": "JON_2_4",
+      "wordIndex": 13,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "JON_2_4",
+      "wordIndex": 14,
+      "displayedWord": "templo.",
+      "strongId": "H1964"
+    }
+  ],
+  "JON_2_5": [
+    {
+      "verseId": "JON_2_5",
+      "wordIndex": 1,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "JON_2_5",
+      "wordIndex": 6,
+      "displayedWord": "alma,",
+      "strongId": "H5315"
+    }
+  ],
+  "JON_2_6": [
+    {
+      "verseId": "JON_2_6",
+      "wordIndex": 6,
+      "displayedWord": "montes;",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "JON_2_6",
+      "wordIndex": 8,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JON_2_6",
+      "wordIndex": 20,
+      "displayedWord": "vida",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "JON_2_6",
+      "wordIndex": 25,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_2_6",
+      "wordIndex": 26,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "JON_2_7": [
+    {
+      "verseId": "JON_2_7",
+      "wordIndex": 2,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "JON_2_7",
+      "wordIndex": 9,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_2_7",
+      "wordIndex": 12,
+      "displayedWord": "oración",
+      "strongId": "H8605"
+    },
+    {
+      "verseId": "JON_2_7",
+      "wordIndex": 18,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "JON_2_7",
+      "wordIndex": 19,
+      "displayedWord": "templo.",
+      "strongId": "H1964"
+    }
+  ],
+  "JON_2_8": [
+    {
+      "verseId": "JON_2_8",
+      "wordIndex": 6,
+      "displayedWord": "misericordia",
+      "strongId": "H2617"
+    }
+  ],
+  "JON_2_9": [
+    {
+      "verseId": "JON_2_9",
+      "wordIndex": 5,
+      "displayedWord": "alabanza",
+      "strongId": "H8416"
+    },
+    {
+      "verseId": "JON_2_9",
+      "wordIndex": 14,
+      "displayedWord": "salvación",
+      "strongId": "H3444"
+    },
+    {
+      "verseId": "JON_2_9",
+      "wordIndex": 17,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    }
+  ],
+  "JON_2_10": [
+    {
+      "verseId": "JON_2_10",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_2_10",
+      "wordIndex": 10,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "JON_3_1": [
+    {
+      "verseId": "JON_3_1",
+      "wordIndex": 1,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "JON_3_1",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "JON_3_3": [
+    {
+      "verseId": "JON_3_3",
+      "wordIndex": 11,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "JON_3_3",
+      "wordIndex": 13,
+      "displayedWord": "Jehová.",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_3_3",
+      "wordIndex": 23,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "JON_3_4": [
+    {
+      "verseId": "JON_3_4",
+      "wordIndex": 11,
+      "displayedWord": "día,",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JON_3_4",
+      "wordIndex": 19,
+      "displayedWord": "días",
+      "strongId": "H3117"
+    }
+  ],
+  "JON_3_5": [
+    {
+      "verseId": "JON_3_5",
+      "wordIndex": 7,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "JON_3_6": [
+    {
+      "verseId": "JON_3_6",
+      "wordIndex": 6,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    }
+  ],
+  "JON_3_7": [
+    {
+      "verseId": "JON_3_7",
+      "wordIndex": 10,
+      "displayedWord": "rey",
+      "strongId": "H4428"
+    },
+    {
+      "verseId": "JON_3_7",
+      "wordIndex": 33,
+      "displayedWord": "agua;",
+      "strongId": "H4325"
+    }
+  ],
+  "JON_3_8": [
+    {
+      "verseId": "JON_3_8",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "JON_3_9": [
+    {
+      "verseId": "JON_3_9",
+      "wordIndex": 8,
+      "displayedWord": "Dios,",
+      "strongId": "H430"
+    }
+  ],
+  "JON_3_10": [
+    {
+      "verseId": "JON_3_10",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "JON_4_2": [
+    {
+      "verseId": "JON_4_2",
+      "wordIndex": 3,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_4_2",
+      "wordIndex": 8,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_4_2",
+      "wordIndex": 20,
+      "displayedWord": "tierra?",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "JON_4_2",
+      "wordIndex": 35,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JON_4_2",
+      "wordIndex": 45,
+      "displayedWord": "misericordia,",
+      "strongId": "H2617"
+    }
+  ],
+  "JON_4_3": [
+    {
+      "verseId": "JON_4_3",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_4_3",
+      "wordIndex": 10,
+      "displayedWord": "vida;",
+      "strongId": "H2416"
+    },
+    {
+      "verseId": "JON_4_3",
+      "wordIndex": 16,
+      "displayedWord": "muerte",
+      "strongId": "H4194"
+    },
+    {
+      "verseId": "JON_4_3",
+      "wordIndex": 19,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "JON_4_4": [
+    {
+      "verseId": "JON_4_4",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    }
+  ],
+  "JON_4_6": [
+    {
+      "verseId": "JON_4_6",
+      "wordIndex": 2,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_4_6",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "JON_4_7": [
+    {
+      "verseId": "JON_4_7",
+      "wordIndex": 6,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "JON_4_7",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    }
+  ],
+  "JON_4_8": [
+    {
+      "verseId": "JON_4_8",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JON_4_8",
+      "wordIndex": 28,
+      "displayedWord": "muerte,",
+      "strongId": "H4194"
+    },
+    {
+      "verseId": "JON_4_8",
+      "wordIndex": 35,
+      "displayedWord": "muerte",
+      "strongId": "H4194"
+    },
+    {
+      "verseId": "JON_4_8",
+      "wordIndex": 38,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "JON_4_9": [
+    {
+      "verseId": "JON_4_9",
+      "wordIndex": 2,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "JON_4_9",
+      "wordIndex": 19,
+      "displayedWord": "muerte.",
+      "strongId": "H4194"
+    }
+  ],
+  "JON_4_10": [
+    {
+      "verseId": "JON_4_10",
+      "wordIndex": 2,
+      "displayedWord": "Jehová:",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "JON_4_10",
+      "wordIndex": 24,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    },
+    {
+      "verseId": "JON_4_10",
+      "wordIndex": 31,
+      "displayedWord": "noche",
+      "strongId": "H3915"
+    }
+  ]
+}

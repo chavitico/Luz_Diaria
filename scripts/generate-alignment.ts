@@ -46,7 +46,7 @@ const OT: Record<string, string> = {
   // Divine names
   'dios': 'H430',
   'jehova': 'H3068',
-  'senor': 'H136',       // Adonai (standalone "Señor" in OT)
+  'senor': 'H136',
 
   // Creation / cosmos
   'tierra': 'H776',
@@ -58,6 +58,9 @@ const OT: Record<string, string> = {
   'tinieblas': 'H2822',
   'mar': 'H3220',
   'mares': 'H3220',
+  'firmamento': 'H7549',
+  'semilla': 'H2233',
+  'arbol': 'H6086',
 
   // Spirit / soul / life
   'espiritu': 'H7307',
@@ -88,6 +91,9 @@ const OT: Record<string, string> = {
   'buenas': 'H2896',
   'malo': 'H7451',
   'mala': 'H7451',
+  'maldad': 'H7451',
+  'iniquidad': 'H5771',
+  'transgresion': 'H6588',
   'justicia': 'H6664',
   'justo': 'H6662',
   'misericordia': 'H2617',
@@ -101,9 +107,12 @@ const OT: Record<string, string> = {
   // Law / word
   'ley': 'H8451',
   'palabra': 'H1697',
+  'palabras': 'H1697',
   'mandamiento': 'H4687',
   'mandamientos': 'H4687',
   'nombre': 'H8034',
+  'estatutos': 'H2706',
+  'estatuto': 'H2706',
 
   // People / family
   'hombre': 'H120',
@@ -111,7 +120,22 @@ const OT: Record<string, string> = {
   'hijos': 'H1121',
   'pueblo': 'H5971',
   'rey': 'H4428',
+  'reina': 'H4436',
   'naciones': 'H1471',
+  'nacion': 'H1471',
+  'extranjero': 'H1616',
+  'israel': 'H3478',
+  'juda': 'H3063',
+
+  // Roles / ministry
+  'sacerdote': 'H3548',
+  'sacerdotes': 'H3548',
+  'levita': 'H3881',
+  'levitas': 'H3881',
+  'profeta': 'H5030',
+  'profetas': 'H5030',
+  'ungido': 'H4899',
+  'mesias': 'H4899',
 
   // Covenant / promises
   'pacto': 'H1285',
@@ -120,44 +144,92 @@ const OT: Record<string, string> = {
   'pan': 'H3899',
   'casa': 'H1004',
   'principio': 'H7225',
+  'herencia': 'H5159',
+  'heredar': 'H5157',
+
+  // Worship / temple
+  'tabernaculo': 'H4908',
+  'templo': 'H1964',
+  'altar': 'H4196',
+  'sacrificio': 'H2077',
+  'ofrenda': 'H4503',
+  'holocausto': 'H5930',
+  'expiacion': 'H3722',
+  'adoracion': 'H7812',
+  'adorar': 'H7812',
+  'sion': 'H6726',
+  'jerusalen': 'H3389',
 
   // Creation acts
-  'creo': 'H1254',       // "creó" normalizes to "creo" after accent strip
+  'creo': 'H1254',
 
   // Angels
   'angel': 'H4397',
   'angeles': 'H4397',
 
-  // Worship
-  'adoracion': 'H7812',
-  'temor': 'H3374',
+  // Praise / prayer
+  'alabar': 'H1984',
+  'alabad': 'H1984',
+  'alabado': 'H1984',
   'alabanza': 'H8416',
+  'cantar': 'H7891',
+  'cantad': 'H7891',
   'bendicion': 'H1293',
+  'bendito': 'H1288',
+  'orar': 'H6419',
+  'oracion': 'H8605',
+  'temor': 'H3374',
 
   // Prophecy / wisdom
-  'profeta': 'H5030',
-  'profetas': 'H5030',
   'sabiduria': 'H2451',
   'entendimiento': 'H998',
+  'ciencia': 'H1847',
   'vision': 'H2377',
   'sueno': 'H2472',
 
-  // Worship / prayer
-  'orar': 'H6419',
-  'oracion': 'H8605',
-  'adorar': 'H7812',
+  // Strength / protection
+  'roca': 'H6697',
+  'fortaleza': 'H4581',
+  'escudo': 'H4043',
+  'poder': 'H2428',
+  'fuerza': 'H5797',
+  'fuerte': 'H1368',
+  'poderoso': 'H1368',
+  'enemigo': 'H341',
+  'enemigos': 'H341',
+  'guerra': 'H4421',
+  'espada': 'H2719',
+  'monte': 'H2022',
+  'montes': 'H2022',
 
-  // Judgment / salvation
+  // Trust / hope
+  'confiar': 'H982',
+  'confianza': 'H982',
+  'esperar': 'H6960',
+  'esperanza': 'H8615',
+
+  // Repentance / return
+  'arrepentirse': 'H7725',
+  'arrepentios': 'H7725',
+  'convertirse': 'H7725',
+
+  // Salvation / redemption
   'juicio': 'H4941',
   'redimir': 'H1350',
   'redencion': 'H1353',
-  'temor': 'H3374',
-  'arrepentios': 'H7725',
+  'redentor': 'H1350',
+  'socorro': 'H5826',
+  'ayuda': 'H5826',
+  'librar': 'H5337',
 
-  // Creation
-  'firmamento': 'H7549',
-  'semilla': 'H2233',
-  'arbol': 'H6086',
+  // Obedience
+  'oye': 'H8085',
+  'oigan': 'H8085',
+  'escucha': 'H8085',
+  'escuchad': 'H8085',
+  'escuchen': 'H8085',
+  'obedece': 'H8085',
+  'obedecid': 'H8085',
 };
 
 // Greek keywords (NT)
@@ -449,55 +521,46 @@ const PLAN: { file: string; bookId: string; chapters: number[] }[] = [
   { file: 'align_JUD.json', bookId: 'JUD', chapters: [1] },    // NEW
   { file: 'align_REV.json', bookId: 'REV', chapters: r(22) },
 
-  // ── OT: Selective key chapters ──────────────────────────────────────────
-  {
-    file: 'align_GEN.json', bookId: 'GEN',
-    chapters: [2,3,4,5,6,7,8,9,10,11,12,15,17,18,19,22,24,25,28,32,37,39,41,45,50],
-  },
-  {
-    file: 'align_EXO.json', bookId: 'EXO',
-    chapters: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,32,33,34,40],
-  },
-  {
-    file: 'align_PSA.json', bookId: 'PSA',
-    chapters: [1,2,8,16,19,22,24,25,27,31,32,34,37,46,51,63,84,90,91,96,100,103,104,107,110,116,119,121,130,133,139,145,146,150],
-  },
-  {
-    file: 'align_ISA.json', bookId: 'ISA',
-    chapters: [1,6,7,9,11,25,26,35,40,41,42,43,44,45,46,49,50,52,53,54,55,56,58,60,61,65,66],
-  },
-  {
-    file: 'align_PRO.json', bookId: 'PRO',
-    chapters: [1,2,3,4,8,9,10,14,15,16,17,18,22,31],
-  },
-  {
-    file: 'align_JER.json', bookId: 'JER',
-    chapters: [1,17,29,31,32,33],
-  },
-  {
-    file: 'align_EZK.json', bookId: 'EZK',
-    chapters: [36,37],
-  },
-  {
-    file: 'align_DAN.json', bookId: 'DAN',
-    chapters: [1,2,3,6,7,9],
-  },
-  {
-    file: 'align_DEU.json', bookId: 'DEU',
-    chapters: [6,7,8,28,29,30,32,33,34],
-  },
-  {
-    file: 'align_NUM.json', bookId: 'NUM',
-    chapters: [6,23,24],
-  },
-  {
-    file: 'align_LEV.json', bookId: 'LEV',
-    chapters: [19,26],
-  },
-  {
-    file: 'align_JOS.json', bookId: 'JOS',
-    chapters: [1,24],
-  },
+  // ── OT: Complete all books and chapters ─────────────────────────────────
+  { file: 'align_GEN.json', bookId: 'GEN', chapters: r(50) },
+  { file: 'align_EXO.json', bookId: 'EXO', chapters: r(40) },
+  { file: 'align_LEV.json', bookId: 'LEV', chapters: r(27) },
+  { file: 'align_NUM.json', bookId: 'NUM', chapters: r(36) },
+  { file: 'align_DEU.json', bookId: 'DEU', chapters: r(34) },
+  { file: 'align_JOS.json', bookId: 'JOS', chapters: r(24) },
+  { file: 'align_JDG.json', bookId: 'JDG', chapters: r(21) },   // NEW
+  { file: 'align_RUT.json', bookId: 'RUT', chapters: r(4) },    // NEW
+  { file: 'align_1SA.json', bookId: '1SA', chapters: r(31) },   // NEW
+  { file: 'align_2SA.json', bookId: '2SA', chapters: r(24) },   // NEW
+  { file: 'align_1KI.json', bookId: '1KI', chapters: r(22) },   // NEW
+  { file: 'align_2KI.json', bookId: '2KI', chapters: r(25) },   // NEW
+  { file: 'align_1CH.json', bookId: '1CH', chapters: r(29) },   // NEW
+  { file: 'align_2CH.json', bookId: '2CH', chapters: r(36) },   // NEW
+  { file: 'align_EZR.json', bookId: 'EZR', chapters: r(10) },   // NEW
+  { file: 'align_NEH.json', bookId: 'NEH', chapters: r(13) },   // NEW
+  { file: 'align_EST.json', bookId: 'EST', chapters: r(10) },   // NEW
+  { file: 'align_JOB.json', bookId: 'JOB', chapters: r(42) },   // NEW
+  { file: 'align_PSA.json', bookId: 'PSA', chapters: r(150) },
+  { file: 'align_PRO.json', bookId: 'PRO', chapters: r(31) },
+  { file: 'align_ECC.json', bookId: 'ECC', chapters: r(12) },   // NEW
+  { file: 'align_SNG.json', bookId: 'SNG', chapters: r(8) },    // NEW
+  { file: 'align_ISA.json', bookId: 'ISA', chapters: r(66) },
+  { file: 'align_JER.json', bookId: 'JER', chapters: r(52) },
+  { file: 'align_LAM.json', bookId: 'LAM', chapters: r(5) },    // NEW
+  { file: 'align_EZK.json', bookId: 'EZK', chapters: r(48) },
+  { file: 'align_DAN.json', bookId: 'DAN', chapters: r(12) },
+  { file: 'align_HOS.json', bookId: 'HOS', chapters: r(14) },   // NEW
+  { file: 'align_JOE.json', bookId: 'JOE', chapters: r(3) },    // NEW
+  { file: 'align_AMO.json', bookId: 'AMO', chapters: r(9) },    // NEW
+  { file: 'align_OBA.json', bookId: 'OBA', chapters: [1] },     // NEW
+  { file: 'align_JON.json', bookId: 'JON', chapters: r(4) },    // NEW
+  { file: 'align_MIC.json', bookId: 'MIC', chapters: r(7) },    // NEW
+  { file: 'align_NAH.json', bookId: 'NAH', chapters: r(3) },    // NEW
+  { file: 'align_HAB.json', bookId: 'HAB', chapters: r(3) },    // NEW
+  { file: 'align_ZEP.json', bookId: 'ZEP', chapters: r(3) },    // NEW
+  { file: 'align_HAG.json', bookId: 'HAG', chapters: r(2) },    // NEW
+  { file: 'align_ZEC.json', bookId: 'ZEC', chapters: r(14) },   // NEW
+  { file: 'align_MAL.json', bookId: 'MAL', chapters: r(4) },    // NEW
 ];
 
 // ─── Main ────────────────────────────────────────────────────────────────────

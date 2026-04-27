@@ -1,0 +1,708 @@
+{
+  "HAB_1_1": [
+    {
+      "verseId": "HAB_1_1",
+      "wordIndex": 5,
+      "displayedWord": "profeta",
+      "strongId": "H5030"
+    }
+  ],
+  "HAB_1_2": [
+    {
+      "verseId": "HAB_1_2",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    }
+  ],
+  "HAB_1_3": [
+    {
+      "verseId": "HAB_1_3",
+      "wordIndex": 5,
+      "displayedWord": "iniquidad,",
+      "strongId": "H5771"
+    }
+  ],
+  "HAB_1_4": [
+    {
+      "verseId": "HAB_1_4",
+      "wordIndex": 4,
+      "displayedWord": "ley",
+      "strongId": "H8451"
+    },
+    {
+      "verseId": "HAB_1_4",
+      "wordIndex": 9,
+      "displayedWord": "juicio",
+      "strongId": "H4941"
+    },
+    {
+      "verseId": "HAB_1_4",
+      "wordIndex": 14,
+      "displayedWord": "verdad;",
+      "strongId": "H571"
+    },
+    {
+      "verseId": "HAB_1_4",
+      "wordIndex": 21,
+      "displayedWord": "justo,",
+      "strongId": "H6662"
+    },
+    {
+      "verseId": "HAB_1_4",
+      "wordIndex": 27,
+      "displayedWord": "justicia.",
+      "strongId": "H6664"
+    }
+  ],
+  "HAB_1_5": [
+    {
+      "verseId": "HAB_1_5",
+      "wordIndex": 3,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "HAB_1_5",
+      "wordIndex": 14,
+      "displayedWord": "días,",
+      "strongId": "H3117"
+    }
+  ],
+  "HAB_1_6": [
+    {
+      "verseId": "HAB_1_6",
+      "wordIndex": 9,
+      "displayedWord": "nación",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "HAB_1_6",
+      "wordIndex": 20,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "HAB_1_7": [
+    {
+      "verseId": "HAB_1_7",
+      "wordIndex": 9,
+      "displayedWord": "justicia",
+      "strongId": "H6664"
+    }
+  ],
+  "HAB_1_10": [
+    {
+      "verseId": "HAB_1_10",
+      "wordIndex": 14,
+      "displayedWord": "fortaleza,",
+      "strongId": "H4581"
+    }
+  ],
+  "HAB_1_11": [
+    {
+      "verseId": "HAB_1_11",
+      "wordIndex": 9,
+      "displayedWord": "fuerza",
+      "strongId": "H5797"
+    },
+    {
+      "verseId": "HAB_1_11",
+      "wordIndex": 12,
+      "displayedWord": "dios.",
+      "strongId": "H430"
+    }
+  ],
+  "HAB_1_12": [
+    {
+      "verseId": "HAB_1_12",
+      "wordIndex": 5,
+      "displayedWord": "principio,",
+      "strongId": "H7225"
+    },
+    {
+      "verseId": "HAB_1_12",
+      "wordIndex": 7,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_1_12",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "HAB_1_12",
+      "wordIndex": 10,
+      "displayedWord": "Santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "HAB_1_12",
+      "wordIndex": 15,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_1_12",
+      "wordIndex": 17,
+      "displayedWord": "juicio",
+      "strongId": "H4941"
+    },
+    {
+      "verseId": "HAB_1_12",
+      "wordIndex": 23,
+      "displayedWord": "Roca,",
+      "strongId": "H6697"
+    }
+  ],
+  "HAB_1_13": [
+    {
+      "verseId": "HAB_1_13",
+      "wordIndex": 28,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "HAB_1_14": [
+    {
+      "verseId": "HAB_1_14",
+      "wordIndex": 10,
+      "displayedWord": "mar,",
+      "strongId": "H3220"
+    }
+  ],
+  "HAB_1_17": [
+    {
+      "verseId": "HAB_1_17",
+      "wordIndex": 11,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    }
+  ],
+  "HAB_2_1": [
+    {
+      "verseId": "HAB_2_1",
+      "wordIndex": 7,
+      "displayedWord": "fortaleza",
+      "strongId": "H4581"
+    }
+  ],
+  "HAB_2_2": [
+    {
+      "verseId": "HAB_2_2",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_2_2",
+      "wordIndex": 8,
+      "displayedWord": "visión,",
+      "strongId": "H2377"
+    }
+  ],
+  "HAB_2_3": [
+    {
+      "verseId": "HAB_2_3",
+      "wordIndex": 2,
+      "displayedWord": "visión",
+      "strongId": "H2377"
+    }
+  ],
+  "HAB_2_4": [
+    {
+      "verseId": "HAB_2_4",
+      "wordIndex": 5,
+      "displayedWord": "alma",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "HAB_2_4",
+      "wordIndex": 13,
+      "displayedWord": "justo",
+      "strongId": "H6662"
+    }
+  ],
+  "HAB_2_5": [
+    {
+      "verseId": "HAB_2_5",
+      "wordIndex": 10,
+      "displayedWord": "hombre",
+      "strongId": "H120"
+    },
+    {
+      "verseId": "HAB_2_5",
+      "wordIndex": 20,
+      "displayedWord": "alma,",
+      "strongId": "H5315"
+    },
+    {
+      "verseId": "HAB_2_5",
+      "wordIndex": 25,
+      "displayedWord": "muerte,",
+      "strongId": "H4194"
+    }
+  ],
+  "HAB_2_8": [
+    {
+      "verseId": "HAB_2_8",
+      "wordIndex": 7,
+      "displayedWord": "naciones,",
+      "strongId": "H1471"
+    },
+    {
+      "verseId": "HAB_2_8",
+      "wordIndex": 18,
+      "displayedWord": "sangre",
+      "strongId": "H1818"
+    },
+    {
+      "verseId": "HAB_2_8",
+      "wordIndex": 28,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "HAB_2_9": [
+    {
+      "verseId": "HAB_2_9",
+      "wordIndex": 8,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAB_2_9",
+      "wordIndex": 18,
+      "displayedWord": "poder",
+      "strongId": "H2428"
+    }
+  ],
+  "HAB_2_10": [
+    {
+      "verseId": "HAB_2_10",
+      "wordIndex": 5,
+      "displayedWord": "casa,",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAB_2_10",
+      "wordIndex": 11,
+      "displayedWord": "pecado",
+      "strongId": "H2403"
+    },
+    {
+      "verseId": "HAB_2_10",
+      "wordIndex": 14,
+      "displayedWord": "vida.",
+      "strongId": "H2416"
+    }
+  ],
+  "HAB_2_12": [
+    {
+      "verseId": "HAB_2_12",
+      "wordIndex": 7,
+      "displayedWord": "sangre,",
+      "strongId": "H1818"
+    },
+    {
+      "verseId": "HAB_2_12",
+      "wordIndex": 15,
+      "displayedWord": "iniquidad!",
+      "strongId": "H5771"
+    }
+  ],
+  "HAB_2_13": [
+    {
+      "verseId": "HAB_2_13",
+      "wordIndex": 4,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_2_13",
+      "wordIndex": 17,
+      "displayedWord": "naciones",
+      "strongId": "H1471"
+    }
+  ],
+  "HAB_2_14": [
+    {
+      "verseId": "HAB_2_14",
+      "wordIndex": 2,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "HAB_2_14",
+      "wordIndex": 9,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "HAB_2_14",
+      "wordIndex": 11,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_2_14",
+      "wordIndex": 14,
+      "displayedWord": "aguas",
+      "strongId": "H4325"
+    },
+    {
+      "verseId": "HAB_2_14",
+      "wordIndex": 17,
+      "displayedWord": "mar.",
+      "strongId": "H3220"
+    }
+  ],
+  "HAB_2_16": [
+    {
+      "verseId": "HAB_2_16",
+      "wordIndex": 22,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_2_16",
+      "wordIndex": 32,
+      "displayedWord": "gloria.",
+      "strongId": "H3519"
+    }
+  ],
+  "HAB_2_17": [
+    {
+      "verseId": "HAB_2_17",
+      "wordIndex": 20,
+      "displayedWord": "sangre",
+      "strongId": "H1818"
+    },
+    {
+      "verseId": "HAB_2_17",
+      "wordIndex": 29,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    }
+  ],
+  "HAB_2_19": [
+    {
+      "verseId": "HAB_2_19",
+      "wordIndex": 27,
+      "displayedWord": "espíritu",
+      "strongId": "H7307"
+    }
+  ],
+  "HAB_2_20": [
+    {
+      "verseId": "HAB_2_20",
+      "wordIndex": 1,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_2_20",
+      "wordIndex": 5,
+      "displayedWord": "santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "HAB_2_20",
+      "wordIndex": 6,
+      "displayedWord": "templo;",
+      "strongId": "H1964"
+    },
+    {
+      "verseId": "HAB_2_20",
+      "wordIndex": 13,
+      "displayedWord": "tierra.",
+      "strongId": "H776"
+    }
+  ],
+  "HAB_3_1": [
+    {
+      "verseId": "HAB_3_1",
+      "wordIndex": 0,
+      "displayedWord": "Oración",
+      "strongId": "H8605"
+    },
+    {
+      "verseId": "HAB_3_1",
+      "wordIndex": 2,
+      "displayedWord": "profeta",
+      "strongId": "H5030"
+    }
+  ],
+  "HAB_3_2": [
+    {
+      "verseId": "HAB_3_2",
+      "wordIndex": 1,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_3_2",
+      "wordIndex": 5,
+      "displayedWord": "palabra,",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "HAB_3_2",
+      "wordIndex": 9,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_3_2",
+      "wordIndex": 31,
+      "displayedWord": "misericordia.",
+      "strongId": "H2617"
+    }
+  ],
+  "HAB_3_3": [
+    {
+      "verseId": "HAB_3_3",
+      "wordIndex": 0,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "HAB_3_3",
+      "wordIndex": 6,
+      "displayedWord": "Santo",
+      "strongId": "H6918"
+    },
+    {
+      "verseId": "HAB_3_3",
+      "wordIndex": 9,
+      "displayedWord": "monte",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "HAB_3_3",
+      "wordIndex": 14,
+      "displayedWord": "gloria",
+      "strongId": "H3519"
+    },
+    {
+      "verseId": "HAB_3_3",
+      "wordIndex": 17,
+      "displayedWord": "cielos,",
+      "strongId": "H8064"
+    },
+    {
+      "verseId": "HAB_3_3",
+      "wordIndex": 20,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "HAB_3_3",
+      "wordIndex": 25,
+      "displayedWord": "alabanza.",
+      "strongId": "H8416"
+    }
+  ],
+  "HAB_3_4": [
+    {
+      "verseId": "HAB_3_4",
+      "wordIndex": 6,
+      "displayedWord": "luz;",
+      "strongId": "H216"
+    },
+    {
+      "verseId": "HAB_3_4",
+      "wordIndex": 18,
+      "displayedWord": "poder.",
+      "strongId": "H2428"
+    }
+  ],
+  "HAB_3_6": [
+    {
+      "verseId": "HAB_3_6",
+      "wordIndex": 5,
+      "displayedWord": "tierra;",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "HAB_3_6",
+      "wordIndex": 13,
+      "displayedWord": "montes",
+      "strongId": "H2022"
+    }
+  ],
+  "HAB_3_7": [
+    {
+      "verseId": "HAB_3_7",
+      "wordIndex": 12,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "HAB_3_8": [
+    {
+      "verseId": "HAB_3_8",
+      "wordIndex": 3,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_3_8",
+      "wordIndex": 17,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    }
+  ],
+  "HAB_3_9": [
+    {
+      "verseId": "HAB_3_9",
+      "wordIndex": 11,
+      "displayedWord": "palabra",
+      "strongId": "H1697"
+    },
+    {
+      "verseId": "HAB_3_9",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "H776"
+    }
+  ],
+  "HAB_3_10": [
+    {
+      "verseId": "HAB_3_10",
+      "wordIndex": 4,
+      "displayedWord": "temor",
+      "strongId": "H3374"
+    },
+    {
+      "verseId": "HAB_3_10",
+      "wordIndex": 6,
+      "displayedWord": "montes;",
+      "strongId": "H2022"
+    },
+    {
+      "verseId": "HAB_3_10",
+      "wordIndex": 12,
+      "displayedWord": "aguas;",
+      "strongId": "H4325"
+    }
+  ],
+  "HAB_3_11": [
+    {
+      "verseId": "HAB_3_11",
+      "wordIndex": 12,
+      "displayedWord": "luz",
+      "strongId": "H216"
+    }
+  ],
+  "HAB_3_12": [
+    {
+      "verseId": "HAB_3_12",
+      "wordIndex": 4,
+      "displayedWord": "tierra,",
+      "strongId": "H776"
+    },
+    {
+      "verseId": "HAB_3_12",
+      "wordIndex": 9,
+      "displayedWord": "naciones.",
+      "strongId": "H1471"
+    }
+  ],
+  "HAB_3_13": [
+    {
+      "verseId": "HAB_3_13",
+      "wordIndex": 5,
+      "displayedWord": "pueblo,",
+      "strongId": "H5971"
+    },
+    {
+      "verseId": "HAB_3_13",
+      "wordIndex": 10,
+      "displayedWord": "ungido.",
+      "strongId": "H4899"
+    },
+    {
+      "verseId": "HAB_3_13",
+      "wordIndex": 16,
+      "displayedWord": "casa",
+      "strongId": "H1004"
+    },
+    {
+      "verseId": "HAB_3_13",
+      "wordIndex": 24,
+      "displayedWord": "roca.",
+      "strongId": "H6697"
+    }
+  ],
+  "HAB_3_15": [
+    {
+      "verseId": "HAB_3_15",
+      "wordIndex": 3,
+      "displayedWord": "mar",
+      "strongId": "H3220"
+    },
+    {
+      "verseId": "HAB_3_15",
+      "wordIndex": 13,
+      "displayedWord": "aguas.",
+      "strongId": "H4325"
+    }
+  ],
+  "HAB_3_16": [
+    {
+      "verseId": "HAB_3_16",
+      "wordIndex": 29,
+      "displayedWord": "día",
+      "strongId": "H3117"
+    },
+    {
+      "verseId": "HAB_3_16",
+      "wordIndex": 36,
+      "displayedWord": "pueblo",
+      "strongId": "H5971"
+    }
+  ],
+  "HAB_3_18": [
+    {
+      "verseId": "HAB_3_18",
+      "wordIndex": 6,
+      "displayedWord": "Jehová,",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_3_18",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "H430"
+    },
+    {
+      "verseId": "HAB_3_18",
+      "wordIndex": 15,
+      "displayedWord": "salvación.",
+      "strongId": "H3444"
+    }
+  ],
+  "HAB_3_19": [
+    {
+      "verseId": "HAB_3_19",
+      "wordIndex": 0,
+      "displayedWord": "Jehová",
+      "strongId": "H3068"
+    },
+    {
+      "verseId": "HAB_3_19",
+      "wordIndex": 2,
+      "displayedWord": "Señor",
+      "strongId": "H136"
+    },
+    {
+      "verseId": "HAB_3_19",
+      "wordIndex": 5,
+      "displayedWord": "fortaleza,",
+      "strongId": "H4581"
+    }
+  ]
+}
