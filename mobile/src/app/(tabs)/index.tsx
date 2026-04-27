@@ -102,6 +102,7 @@ import { pickBestVoice, type PickedVoice } from '@/lib/voice-picker';
 import { VoiceFallbackBanner } from '@/components/VoiceFallbackBanner';
 import { VoiceSetupModal, VOICE_SETUP_SHOWN_KEY } from '@/components/VoiceSetupModal';
 import { CommentsSection } from '@/components/CommentsSection';
+import { markCommentLikesSeen } from '@/lib/use-notification-badges';
 
 // Bible book translations from English to Spanish
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
@@ -1271,6 +1272,19 @@ export default function HomeScreen() {
         }
       };
     }, [])
+  );
+
+  // Clear comment-likes badge when user visits this tab
+  const currentCommentLikesCount = useAppStore((s) => s.notificationBadges.recentCommentLikesCount);
+  const setNotificationBadges = useAppStore((s) => s.setNotificationBadges);
+  const currentBadges = useAppStore((s) => s.notificationBadges);
+  useFocusEffect(
+    useCallback(() => {
+      if (currentCommentLikesCount > 0) {
+        markCommentLikesSeen(currentCommentLikesCount).catch(() => {});
+        setNotificationBadges({ ...currentBadges, recentCommentLikesCount: 0 });
+      }
+    }, [currentCommentLikesCount, currentBadges, setNotificationBadges])
   );
 
   // Scroll tracking for intro text fade

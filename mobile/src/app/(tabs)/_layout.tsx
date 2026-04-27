@@ -5,13 +5,48 @@ import { View, Text, Platform } from 'react-native';
 import { Tabs } from 'expo-router';
 import { BlurView } from 'expo-blur';
 import { Sun, BookOpen, Palette, Users, BookMarked, Settings2 } from 'lucide-react-native';
-import { useThemeColors, useLanguage } from '@/lib/store';
+import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
+import { useNotificationBadges } from '@/lib/use-notification-badges';
+
+function NotifDot() {
+  return (
+    <View style={{
+      position: 'absolute',
+      top: -2,
+      right: -4,
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+      backgroundColor: '#EF4444',
+      borderWidth: 1.5,
+      borderColor: 'rgba(255,255,255,0.9)',
+    }} />
+  );
+}
+
+function TabIcon({ icon, hasBadge, focused }: { icon: React.ReactNode; hasBadge: boolean; focused: boolean }) {
+  return (
+    <View style={{ position: 'relative', alignItems: 'center', justifyContent: 'center' }}
+      className={focused ? 'scale-110' : ''}>
+      {icon}
+      {hasBadge && <NotifDot />}
+    </View>
+  );
+}
 
 export default function TabLayout() {
   const colors = useThemeColors();
   const language = useLanguage();
   const t = TRANSLATIONS[language];
+  const user = useUser();
+  const badges = useAppStore((s) => s.notificationBadges);
+
+  useNotificationBadges(user?.id);
+
+  const hasHomeBadge = badges.recentCommentLikesCount > 0;
+  const hasSpaceBadge = badges.pendingTradesCount > 0 || badges.hasPendingGift || badges.unseenStoreGiftsCount > 0 || badges.dailyPackAvailable;
+  const hasSettingsBadge = badges.hasPendingGift;
 
   return (
     <Tabs
@@ -54,9 +89,8 @@ export default function TabLayout() {
         options={{
           title: t.tab_home,
           tabBarIcon: ({ color, focused }) => (
-            <View className={focused ? 'scale-110' : ''}>
-              <Sun size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
-            </View>
+            <TabIcon hasBadge={hasHomeBadge} focused={focused}
+              icon={<Sun size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
           ),
         }}
       />
@@ -65,9 +99,8 @@ export default function TabLayout() {
         options={{
           title: t.tab_library,
           tabBarIcon: ({ color, focused }) => (
-            <View className={focused ? 'scale-110' : ''}>
-              <BookOpen size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
-            </View>
+            <TabIcon hasBadge={false} focused={focused}
+              icon={<BookOpen size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
           ),
         }}
       />
@@ -76,9 +109,8 @@ export default function TabLayout() {
         options={{
           title: t.tab_store,
           tabBarIcon: ({ color, focused }) => (
-            <View className={focused ? 'scale-110' : ''}>
-              <Palette size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
-            </View>
+            <TabIcon hasBadge={hasSpaceBadge} focused={focused}
+              icon={<Palette size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
           ),
         }}
       />
@@ -87,9 +119,8 @@ export default function TabLayout() {
         options={{
           title: t.tab_community,
           tabBarIcon: ({ color, focused }) => (
-            <View className={focused ? 'scale-110' : ''}>
-              <Users size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
-            </View>
+            <TabIcon hasBadge={false} focused={focused}
+              icon={<Users size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
           ),
         }}
       />
@@ -98,9 +129,8 @@ export default function TabLayout() {
         options={{
           title: t.tab_bible,
           tabBarIcon: ({ color, focused }) => (
-            <View className={focused ? 'scale-110' : ''}>
-              <BookMarked size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
-            </View>
+            <TabIcon hasBadge={false} focused={focused}
+              icon={<BookMarked size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
           ),
         }}
       />
@@ -115,9 +145,8 @@ export default function TabLayout() {
         options={{
           title: t.tab_settings,
           tabBarIcon: ({ color, focused }) => (
-            <View className={focused ? 'scale-110' : ''}>
-              <Settings2 size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
-            </View>
+            <TabIcon hasBadge={hasSettingsBadge} focused={focused}
+              icon={<Settings2 size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
           ),
         }}
       />

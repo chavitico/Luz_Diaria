@@ -1300,6 +1300,73 @@ gamificationRouter.post(
 );
 
 // ============================================
+// NOTIFICATION BADGE COUNTS
+// ============================================
+
+// GET /notifications/badge-counts - Returns all in-app badge counts for a user
+gamificationRouter.get("/notifications/badge-counts", async (c) => {
+  try {
+    const userId = c.req.header("x-user-id");
+    if (!userId) return c.json({ error: "x-user-id header required" }, 400);
+
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+    const [
+      pendingTradesCount,
+      pendingGift,
+      unseenStoreGiftsCount,
+      user,
+      commentLikesCount,
+    ] = await Promise.all([
+      // Incoming pending trades (where I'm the receiver)
+      prisma.cardTrade.count({
+        where: { toUserId: userId, status: "pending" },
+      }),
+      // App-drop gift pending
+      prisma.userGift.findFirst({
+        where: { userId, status: "PENDING" },
+        select: { id: true },
+      }),
+      // Unseen user-to-user gift notifications
+      prisma.giftNotification.count({
+        where: { userId, seen: false },
+      }),
+      // User (for daily pack check via dailyActions)
+      prisma.user.findUnique({ where: { id: userId }, select: { dailyActions: true, role: true } }),
+      // Likes on MY comments from the past 7 days by other users
+      prisma.devotionalCommentLike.count({
+        where: {
+          comment: { userId },
+          userId: { not: userId },
+          createdAt: { gte: weekAgo },
+        },
+      }),
+    ]);
+
+    // Daily pack availability via accumulated-pack logic
+    let dailyPackAvailable = false;
+    if (user) {
+      const today = new Date().toISOString().split("T")[0] as string;
+      const dailyActions = parseDailyActions(user.dailyActions);
+      const isPremium = user.role === 'PREMIUM' || user.role === 'OWNER';
+      const { available } = computeAvailablePacks(dailyActions, today, isPremium ? 2 : 1);
+      dailyPackAvailable = available > 0;
+    }
+
+    return c.json({
+      pendingTradesCount,
+      hasPendingGift: !!pendingGift,
+      unseenStoreGiftsCount,
+      dailyPackAvailable,
+      recentCommentLikesCount: commentLikesCount,
+    });
+  } catch (error) {
+    console.error("[Gamification] Error getting badge counts:", error);
+    return c.json({ error: "Failed to get badge counts" }, 500);
+  }
+});
+
+// ============================================
 // WEEKLY CHALLENGES ENDPOINTS
 // ============================================
 

@@ -84,6 +84,22 @@ interface AppState {
   } | null;
   requestConfirmPurchase: (req: { itemName: string; cost: number; description?: string; onConfirm: () => void }) => void;
   clearConfirmPurchaseRequest: () => void;
+
+  // Notification badge counts — non-persisted, polled at runtime.
+  notificationBadges: {
+    pendingTradesCount: number;
+    hasPendingGift: boolean;
+    unseenStoreGiftsCount: number;
+    dailyPackAvailable: boolean;
+    recentCommentLikesCount: number;
+  };
+  setNotificationBadges: (badges: {
+    pendingTradesCount: number;
+    hasPendingGift: boolean;
+    unseenStoreGiftsCount: number;
+    dailyPackAvailable: boolean;
+    recentCommentLikesCount: number;
+  }) => void;
 }
 
 const initialUserSettings: UserSettings = {
@@ -129,6 +145,15 @@ export const useAppStore = create<AppState>()(
 
       // Confirm purchase request — transient, starts null each launch
       confirmPurchaseRequest: null,
+
+      // Notification badges — transient, starts at zero each launch
+      notificationBadges: {
+        pendingTradesCount: 0,
+        hasPendingGift: false,
+        unseenStoreGiftsCount: 0,
+        dailyPackAvailable: false,
+        recentCommentLikesCount: 0,
+      },
 
       setUser: (user) => set({ user }),
 
@@ -271,6 +296,8 @@ export const useAppStore = create<AppState>()(
 
       requestConfirmPurchase: (req) => set({ confirmPurchaseRequest: req }),
       clearConfirmPurchaseRequest: () => set({ confirmPurchaseRequest: null }),
+
+      setNotificationBadges: (badges) => set({ notificationBadges: badges }),
 
       reset: () => set({
         user: null,
