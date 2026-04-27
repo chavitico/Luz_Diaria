@@ -6,6 +6,7 @@ import * as Haptics from 'expo-haptics';
 import { X, Check, Lock, Gift, Coins, Award } from 'lucide-react-native';
 import { useThemeColors } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
+import { relativeLuminance, ensureContrast } from '@/lib/contrast';
 import {
   RARITY_COLORS,
   RARITY_GRADIENTS,
@@ -63,6 +64,14 @@ export function ItemDetailModal({
   const { sFont } = useScaledFont();
   const t = TRANSLATIONS[language];
   if (!item) return null;
+
+  // Pre-compute a button fill that is GUARANTEED to contrast with colors.surface,
+  // bypassing any edge-case in ActionButton's internal color derivation.
+  const surfaceLum = relativeLuminance(colors.surface);
+  const surfaceIsDark = surfaceLum < 0.18;
+  const safeButtonFill = ensureContrast(colors.primary, colors.surface, 4.5, surfaceIsDark);
+  // Fallback: if still not contrasting (NaN / bad input), use absolute dark/light
+  const buttonFill = isFinite(surfaceLum) && safeButtonFill ? safeButtonFill : (surfaceIsDark ? '#E0E0E0' : '#1A1A1A');
 
   const rarityColor = RARITY_COLORS[item.rarity as keyof typeof RARITY_COLORS] || RARITY_COLORS.common;
   const displayName = language === 'es' ? item.nameEs : item.name;
@@ -418,6 +427,7 @@ export function ItemDetailModal({
                   onPress={onEquip}
                   label={t.equip}
                   size="md"
+                  fillColor={buttonFill}
                   surfaceColor={colors.surface}
                 />
               ) : item.chestOnly ? (
@@ -450,6 +460,7 @@ export function ItemDetailModal({
                   loading={isPurchasing}
                   label={`${item.price} ${language === 'es' ? 'puntos' : 'points'}`}
                   icon={(color, size) => <Coins size={size} color={color} />}
+                  fillColor={buttonFill}
                   size="md"
                   surfaceColor={colors.surface}
                 />

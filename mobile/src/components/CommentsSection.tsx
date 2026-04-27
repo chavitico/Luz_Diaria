@@ -16,6 +16,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Haptics from 'expo-haptics';
 import { Send, Heart, Trash2, MessageCircle } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
+import { relativeLuminance, ensureContrast } from '@/lib/contrast';
 import { useScaledFont } from '@/lib/textScale';
 import { DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 import {
@@ -255,8 +256,13 @@ export function CommentsSection({
   const inputContainerRef = useRef<View>(null);
   const [draft, setDraft] = useState('');
 
-  // Computed once — icon color that's always readable on the primary bg
-  const sendIconColor = getContrastText(colors.primary);
+  // Compute a send button fill that is GUARANTEED to contrast with the page background.
+  // colors.primary may be similar to colors.background in some themes, making the button
+  // blend in when active. ensureContrast adjusts the primary until it meets 4.5:1.
+  const bgLum = relativeLuminance(colors.background);
+  const bgIsDark = bgLum < 0.18;
+  const safeSendBg = ensureContrast(colors.primary, colors.background, 4.5, bgIsDark);
+  const sendIconColor = getContrastText(safeSendBg);
 
   const userId = user?.id ?? '';
 
@@ -441,7 +447,7 @@ export function CommentsSection({
             }}
           />
         </View>
-        {/* Send button — stable visible icon regardless of draft state */}
+        {/* Send button — uses safeSendBg to guarantee contrast against any theme background */}
         <Pressable
           onPress={handleSend}
           disabled={isPosting}
@@ -449,20 +455,20 @@ export function CommentsSection({
             width: 40,
             height: 40,
             borderRadius: 20,
-            backgroundColor: draft.trim() ? colors.primary : 'transparent',
+            backgroundColor: draft.trim() ? safeSendBg : 'transparent',
             borderWidth: draft.trim() ? 0 : 1.5,
-            borderColor: colors.text + '30',
+            borderColor: colors.text + '40',
             alignItems: 'center',
             justifyContent: 'center',
             opacity: pressed ? 0.75 : 1,
           })}
         >
           {isPosting ? (
-            <ActivityIndicator size="small" color={draft.trim() ? getContrastText(colors.primary) : colors.text} />
+            <ActivityIndicator size="small" color={draft.trim() ? sendIconColor : colors.text} />
           ) : (
             <Send
               size={16}
-              color={draft.trim() ? getContrastText(colors.primary) : colors.text}
+              color={draft.trim() ? sendIconColor : colors.text}
             />
           )}
         </Pressable>

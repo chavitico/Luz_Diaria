@@ -158,6 +158,18 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     innerBorderColor = effectiveIsDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.10)';
   }
 
+  // Final safety guard: if the computed fill somehow doesn't contrast sufficiently
+  // with the surface (< 2.5:1), override with an absolute fallback.
+  // This catches edge cases where hexToRgb receives an unexpected input format
+  // or ensureContrast fails to converge, which would produce a near-invisible button.
+  if (!disabled && variant !== 'ghost') {
+    const finalContrast = contrastRatio(fill, resolvedSurface);
+    if (!isFinite(finalContrast) || finalContrast < 2.5) {
+      fill = effectiveIsDark ? '#E0E0E0' : '#1A1A1A';
+      textColor = effectiveIsDark ? '#000000' : '#FFFFFF';
+    }
+  }
+
   // ── Press animation ────────────────────────────────────────────────────────
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
