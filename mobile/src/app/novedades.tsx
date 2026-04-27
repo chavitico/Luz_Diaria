@@ -226,6 +226,94 @@ function HeroesContent() {
 
 // ─── Strong Content ───────────────────────────────────────────────────────────
 
+const SAMPLE_VERSES = [
+  { ref: 'Génesis 1:1', word: 'Dios' },
+  { ref: 'Génesis 1:2', word: 'Dios' },
+  { ref: 'Génesis 1:3', word: 'Dios' },
+  { ref: 'Génesis 1:4', word: 'Dios' },
+  { ref: 'Génesis 1:6', word: 'Dios' },
+  { ref: 'Génesis 1:7', word: 'Dios' },
+  { ref: 'Génesis 1:9', word: 'Dios' },
+  { ref: 'Génesis 1:10', word: 'Dios' },
+  { ref: 'Génesis 1:11', word: 'Dios' },
+  { ref: 'Génesis 1:12', word: 'Dios' },
+];
+
+function AppearancesSection() {
+  const [open, setOpen] = useState(false);
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+
+  const toggle = useCallback(() => {
+    LayoutAnimation.configureNext({
+      duration: 280,
+      create: { type: 'easeInEaseOut', property: 'opacity' },
+      update: { type: 'spring', springDamping: 0.85 },
+    });
+    Animated.timing(rotateAnim, {
+      toValue: open ? 0 : 1,
+      duration: 220,
+      useNativeDriver: true,
+    }).start();
+    setOpen((v) => !v);
+  }, [open, rotateAnim]);
+
+  const rotate = rotateAnim.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '180deg'] });
+
+  return (
+    <View style={{ gap: 4 }}>
+      {/* Tappable count badge */}
+      <Pressable
+        onPress={toggle}
+        style={({ pressed }) => ({
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 8,
+          opacity: pressed ? 0.7 : 1,
+        })}
+      >
+        <View style={{ backgroundColor: '#EDE9FE', borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4 }}>
+          <Text style={{ color: '#5B21B6', fontWeight: '800', fontSize: 16 }}>2,602</Text>
+        </View>
+        <Text style={{ color: '#7C3AED', fontWeight: '700', fontSize: 11, letterSpacing: 0.5, flex: 1 }}>
+          APARICIONES
+        </Text>
+        <Animated.View style={{ transform: [{ rotate }] }}>
+          <ChevronDown size={14} color="#7C3AED" />
+        </Animated.View>
+      </Pressable>
+      <Text style={{ color: '#6B7280', fontSize: 12 }}>Toca para ver los versículos</Text>
+
+      {/* Expanded list */}
+      {open && (
+        <View style={{ marginTop: 6, gap: 4 }}>
+          {SAMPLE_VERSES.map((v) => (
+            <View
+              key={v.ref}
+              style={{
+                backgroundColor: '#F5F3FF',
+                borderRadius: 8,
+                padding: 10,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <View>
+                <Text style={{ color: '#5B21B6', fontWeight: '700', fontSize: 13 }}>{v.ref}</Text>
+                <Text style={{ color: '#6B7280', fontSize: 12 }}>{v.word}</Text>
+              </View>
+              <ChevronRight size={14} color="#7C3AED" />
+            </View>
+          ))}
+          <Text style={{ color: '#9CA3AF', fontSize: 11, textAlign: 'center', marginTop: 4 }}>
+            Mostrando 10 de 2,602 · En la app verás todas
+          </Text>
+        </View>
+      )}
+    </View>
+  );
+}
+
 function StrongContent() {
   return (
     <View style={{ gap: 16 }}>
@@ -252,23 +340,15 @@ function StrongContent() {
           <Text style={{ color: '#A78BFA', fontWeight: '700', fontSize: 13 }}>Cómo activarlo</Text>
           <Text style={{ color: '#9CA3AF', fontSize: 13, lineHeight: 19, marginTop: 4 }}>
             Abre cualquier capítulo en la{' '}
-            <Text style={{ color: '#E5E7EB', fontWeight: '600' }}>Biblia</Text>, baja hasta el final del
-            capítulo y activa el{' '}
-            <Text style={{ color: '#E5E7EB', fontWeight: '600' }}>switch "Strong"</Text>. Las palabras con
-            número Strong quedarán subrayadas y en negrita.
+            <Text style={{ color: '#E5E7EB', fontWeight: '600' }}>Biblia</Text> y activa el{' '}
+            <Text style={{ color: '#E5E7EB', fontWeight: '600' }}>switch "Strong"</Text> que aparece en la
+            parte superior, junto al buscador. Las palabras con número Strong quedarán subrayadas y en negrita.
           </Text>
         </View>
       </View>
 
       {/* Mock Strong card */}
-      <View
-        style={{
-          backgroundColor: '#FAFAFA',
-          borderRadius: 16,
-          padding: 16,
-          gap: 12,
-        }}
-      >
+      <View style={{ backgroundColor: '#FAFAFA', borderRadius: 16, padding: 16, gap: 12 }}>
         {/* Tags */}
         <View style={{ flexDirection: 'row', gap: 8 }}>
           <View style={{ backgroundColor: '#FDE8E8', borderRadius: 20, paddingHorizontal: 10, paddingVertical: 4 }}>
@@ -298,15 +378,7 @@ function StrongContent() {
             { label: 'IDIOMA', value: 'Hebreo' },
             { label: 'CATEGORÍA', value: 'Sustantivo' },
           ].map((item) => (
-            <View
-              key={item.label}
-              style={{
-                flex: 1,
-                backgroundColor: '#FEF2F2',
-                borderRadius: 8,
-                padding: 10,
-              }}
-            >
+            <View key={item.label} style={{ flex: 1, backgroundColor: '#FEF2F2', borderRadius: 8, padding: 10 }}>
               <Text style={{ color: '#6B7280', fontSize: 10, fontWeight: '700', letterSpacing: 0.5 }}>
                 {item.label}
               </Text>
@@ -315,25 +387,8 @@ function StrongContent() {
           ))}
         </View>
 
-        {/* Appearances */}
-        <View style={{ gap: 4 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <View
-              style={{
-                backgroundColor: '#EDE9FE',
-                borderRadius: 8,
-                paddingHorizontal: 10,
-                paddingVertical: 4,
-              }}
-            >
-              <Text style={{ color: '#5B21B6', fontWeight: '800', fontSize: 16 }}>2,602</Text>
-            </View>
-            <Text style={{ color: '#7C3AED', fontWeight: '700', fontSize: 11, letterSpacing: 0.5 }}>
-              APARICIONES
-            </Text>
-          </View>
-          <Text style={{ color: '#6B7280', fontSize: 12 }}>2,602 versículos cubiertos</Text>
-        </View>
+        {/* Appearances — tappable */}
+        <AppearancesSection />
 
         {/* Definition */}
         <View>
@@ -344,29 +399,6 @@ function StrongContent() {
             Plural de H433; dioses en el sentido ordinario; especialmente usado del Dios supremo; a veces
             aplicado por deferencia a magistrados y como superlativo.
           </Text>
-        </View>
-
-        {/* Verse link sample */}
-        <View>
-          <Text style={{ color: '#7C3AED', fontWeight: '700', fontSize: 11, letterSpacing: 0.5, marginBottom: 6 }}>
-            APARICIONES EN LA BIBLIA
-          </Text>
-          <View
-            style={{
-              backgroundColor: '#F5F3FF',
-              borderRadius: 8,
-              padding: 10,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <View>
-              <Text style={{ color: '#5B21B6', fontWeight: '700', fontSize: 13 }}>Génesis 1:1</Text>
-              <Text style={{ color: '#6B7280', fontSize: 12 }}>Dios</Text>
-            </View>
-            <ChevronRight size={16} color="#7C3AED" />
-          </View>
         </View>
       </View>
 

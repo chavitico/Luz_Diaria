@@ -50,7 +50,7 @@ import {
   VolumeX,
   Music,
   Share2,
-  Bell,
+  Mail,
   X,
 } from 'lucide-react-native';
 import { ShareSheet } from '@/components/ShareSheet';
@@ -2130,7 +2130,7 @@ export default function HomeScreen() {
                   backgroundColor: 'rgba(255,255,255,0.20)',
                 }}
               >
-                <Bell size={20} color="#FFFFFF" />
+                <Mail size={20} color="#FFFFFF" />
                 {hasUnreadNews && (
                   <View
                     style={{

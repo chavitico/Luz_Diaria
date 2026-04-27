@@ -4866,7 +4866,8 @@
       "lo demás",
       "residuo",
       "resto"
-    ]
+    ],
+    "longDefinitionEs": "Del arameo, correspondiente a H7605 (שְׁאָר)"
   },
   "H7607": {
     "shortDefinitionEs": "carne, alimento, pariente consanguíneo (shᵉʼêr)",
@@ -4874,7 +4875,8 @@
       "carne",
       "pariente",
       "alimento"
-    ]
+    ],
+    "longDefinitionEs": "De H7604 (שָׁאַר); carne (como protuberancia), viva o para alimento; alimento de cualquier clase; figuradamente, parientes consanguíneos"
   },
   "H7608": {
     "shortDefinitionEs": "Pariente cercana por sangre (shaʼărâh)",
@@ -4882,19 +4884,22 @@
       "pariente",
       "parienta",
       "deuda"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7607 (שְׁאֵר); pariente mujer por consanguinidad"
   },
   "H7609": {
     "shortDefinitionEs": "Nombre: Seera, mujer israelita (Sheʼĕrâh)",
     "glossesEs": [
       "Seera"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7608 (שַׁאֲרָה); Seera, mujer israelita"
   },
   "H7610": {
     "shortDefinitionEs": "Nombre: Sear-Jasub, nombre simbólico de hijo de Isaías (Shᵉʼâr Yâshûwb)",
     "glossesEs": [
       "Sear-Jasub"
-    ]
+    ],
+    "longDefinitionEs": "De H7605 (שְׁאָר) y H7725 (שׁוּב); un remanente volverá; Sear-Jasub, nombre simbólico del hijo de Isaías"
   },
   "H7611": {
     "shortDefinitionEs": "Resto, remanente, porción que sobrevive (shᵉʼêrîyth)",
@@ -4902,7 +4907,8 @@
       "remanente",
       "resto",
       "sobrevivientes"
-    ]
+    ],
+    "longDefinitionEs": "De H7604 (שָׁאַר); porción remanente o residual (que subsiste, final)"
   },
   "H7612": {
     "shortDefinitionEs": "Desolación, devastación (shêʼth)",
@@ -4910,7 +4916,8 @@
       "desolación",
       "ruina",
       "devastación"
-    ]
+    ],
+    "longDefinitionEs": "De H7582 (שָׁאָה); desolación o devastación"
   },
   "H7613": {
     "shortDefinitionEs": "Elevación, dignidad, excelencia; alegría (sᵉʼêth)",
@@ -4918,20 +4925,23 @@
       "dignidad",
       "excelencia",
       "elevación"
-    ]
+    ],
+    "longDefinitionEs": "De H5375 (נָשָׂא); elevación o escama de lepra; figuradamente, exaltación o alegría; dignidad en rango o carácter"
   },
   "H7614": {
     "shortDefinitionEs": "Nombre: Seba, antepasado de tribus y región etíope (Shᵉbâʼ)",
     "glossesEs": [
       "Seba",
       "sabeanos"
-    ]
+    ],
+    "longDefinitionEs": "De origen extranjero; Seba, nombre de tres antiguos progenitores de tribus y de una región etíope"
   },
   "H7615": {
     "shortDefinitionEs": "Descendiente de Seba, sabeano (Shᵉbâʼîy)",
     "glossesEs": [
       "sabeano"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H7614 (שְׁבָא); sabeano o descendiente de Seba"
   },
   "H7616": {
     "shortDefinitionEs": "Fragmento, ruina, pedazo (shâbâb)",
@@ -4939,7 +4949,8 @@
       "ruina",
       "fragmento",
       "pedazo"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada significando quebrantar; fragmento, es decir, ruina"
   },
   "H7617": {
     "shortDefinitionEs": "Llevar cautivo, transportar en cautividad (shâbâh)",
@@ -4947,21 +4958,24 @@
       "cautivo",
       "llevar cautivo",
       "captura"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; transportar en cautividad"
   },
   "H7618": {
     "shortDefinitionEs": "Piedra preciosa, probablemente ágata (shᵉbûw)",
     "glossesEs": [
       "ágata",
       "piedra preciosa"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada (probablemente idéntica a H7617 por la idea de subdivisión en destellos; compare H7632); piedra preciosa (por su resplandor), probablemente ágata"
   },
   "H7619": {
     "shortDefinitionEs": "Nombre: Sebuel o Subael, israelita (Shᵉbûwʼêl)",
     "glossesEs": [
       "Sebuel",
       "Subael"
-    ]
+    ],
+    "longDefinitionEs": "De H7617 (שָׁבָה) (forma abreviada) o H7725 (שׁוּב) y H410 (אֵל); cautivo (o vuelto) de Dios; Sebuel o Subael, nombre de dos israelitas"
   },
   "H7620": {
     "shortDefinitionEs": "Semana, período de siete años (shâbûwaʻ)",
@@ -4969,7 +4983,8 @@
       "semana",
       "siete",
       "setena"
-    ]
+    ],
+    "longDefinitionEs": "Participio pasivo de H7650 (שָׁבַע) como denominativo de H7651 (שֶׁבַע); literalmente, septenado, es decir, una semana (específicamente, de años)"
   },
   "H7621": {
     "shortDefinitionEs": "Juramento, lo juramentado (shᵉbûwʻâh)",
@@ -4977,7 +4992,8 @@
       "juramento",
       "maldición",
       "voto"
-    ]
+    ],
+    "longDefinitionEs": "Participio pasivo femenino de H7650 (שָׁבַע); propiamente, algo jurado, es decir, un juramento"
   },
   "H7622": {
     "shortDefinitionEs": "Cautividad, exilio, prisioneros (shᵉbûwth)",
@@ -4985,7 +5001,8 @@
       "cautividad",
       "exilio",
       "prisioneros"
-    ]
+    ],
+    "longDefinitionEs": "De H7617 (שָׁבָה); exilio, concretamente, prisioneros; figuradamente, un estado anterior de prosperidad"
   },
   "H7623": {
     "shortDefinitionEs": "Alabar, encomiar; pacificar (shâbach)",
@@ -4993,14 +5010,16 @@
       "alabanza",
       "alabar",
       "loar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, dirigirse en tono alto, es decir, (específicamente) en voz alta; figuradamente, pacificar"
   },
   "H7624": {
     "shortDefinitionEs": "Adorar, tributar alabanza (shᵉbach)",
     "glossesEs": [
       "alabar",
       "adorar"
-    ]
+    ],
+    "longDefinitionEs": "Del arameo, correspondiente a H7623 (שָׁבַח); adular, es decir, adorar"
   },
   "H7625": {
     "shortDefinitionEs": "Tribu, clan (shᵉbaṭ)",
@@ -5008,7 +5027,8 @@
       "tribu",
       "clan",
       "familia"
-    ]
+    ],
+    "longDefinitionEs": "Del arameo, correspondiente a H7626 (שֵׁבֶט); un clan o tribu"
   },
   "H7626": {
     "shortDefinitionEs": "Vara, bastón, cetro; tribu, clan (shêbeṭ)",
@@ -5017,13 +5037,15 @@
       "bastón",
       "cetro",
       "tribu"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada probablemente significando ramificarse; vástago, es decir, (literalmente) vara (para castigar, escribir, combatir, gobernar, caminar, etc.) o (figuradamente) tribu"
   },
   "H7627": {
     "shortDefinitionEs": "Nombre: Sebat, mes del calendario judío (Shᵉbâṭ)",
     "glossesEs": [
       "Sebat"
-    ]
+    ],
+    "longDefinitionEs": "De origen extranjero; Sebat, mes del calendario judío"
   },
   "H7628": {
     "shortDefinitionEs": "Cautivo, exiliado; botín de guerra (shᵉbîy)",
@@ -5031,46 +5053,53 @@
       "cautivo",
       "exiliado",
       "botín"
-    ]
+    ],
+    "longDefinitionEs": "De H7618 (שְׁבוּ); exiliado; capturado; como sustantivo, cautivo (abstracta o concretamente y colectivamente); por extensión, botín"
   },
   "H7629": {
     "shortDefinitionEs": "Nombre: Sobi, amonita (Shôbîy)",
     "glossesEs": [
       "Sobi"
-    ]
+    ],
+    "longDefinitionEs": "De H7617 (שָׁבָה); captor; Sobi, amonita"
   },
   "H7630": {
     "shortDefinitionEs": "Nombre: Sobai, israelita (Shôbay)",
     "glossesEs": [
       "Sobai"
-    ]
+    ],
+    "longDefinitionEs": "Por H7629 (שֹׁבִי); Sobai, israelita"
   },
   "H7631": {
     "shortDefinitionEs": "Llama de fuego (sᵉbîyb)",
     "glossesEs": [
       "llama",
       "fuego"
-    ]
+    ],
+    "longDefinitionEs": "Del arameo, correspondiente a H7632 (שָׁבִיב)"
   },
   "H7632": {
     "shortDefinitionEs": "Chispa, lengua de fuego (shâbîyb)",
     "glossesEs": [
       "chispa",
       "fuego"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7616 (שָׁבָב); llama (como dividida en lenguas)"
   },
   "H7633": {
     "shortDefinitionEs": "Cautividad, exilio (shibyâh)",
     "glossesEs": [
       "cautividad",
       "exilio"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7628 (שְׁבִי); cautividad o exilio (abstracta o concretamente y colectivamente)"
   },
   "H7634": {
     "shortDefinitionEs": "Nombre: Sobjá, israelita (Shobyâh)",
     "glossesEs": [
       "Sobjá"
-    ]
+    ],
+    "longDefinitionEs": "Femenino del mismo que H7629 (שֹׁבִי); cautivación; Sobjá, israelita"
   },
   "H7635": {
     "shortDefinitionEs": "Sendero, camino, vía (shâbîyl)",
@@ -5078,7 +5107,8 @@
       "sendero",
       "camino",
       "vía"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7640 (שֹׁבֶל); sendero o vía de paso (como si fluyera)"
   },
   "H7636": {
     "shortDefinitionEs": "Red para el cabello, malla (shâbîyç)",
@@ -5086,20 +5116,23 @@
       "malla",
       "red",
       "velo"
-    ]
+    ],
+    "longDefinitionEs": "Malla para el cabello, tejida por entrecruzamiento"
   },
   "H7637": {
     "shortDefinitionEs": "Séptimo (shᵉbîyʻîy)",
     "glossesEs": [
       "séptimo"
-    ]
+    ],
+    "longDefinitionEs": "Ordinal derivado de H7657; séptimo"
   },
   "H7638": {
     "shortDefinitionEs": "Red ornamental para capitel de columna (sâbâk)",
     "glossesEs": [
       "red",
       "malla"
-    ]
+    ],
+    "longDefinitionEs": "Malla ornamental del capitel de una columna, tejida por entrecruzamiento"
   },
   "H7639": {
     "shortDefinitionEs": "Red, trampa; ornamentación de celosía (sᵉbâkâh)",
@@ -5107,14 +5140,16 @@
       "red",
       "celosía",
       "trampa"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7638; red de malla (trampa de caza o balaustrada arquitectónica); ornamento reticulado de pilar"
   },
   "H7640": {
     "shortDefinitionEs": "Cola de vestido, tren de ropa (shôbel)",
     "glossesEs": [
       "cola",
       "tren de ropa"
-    ]
+    ],
+    "longDefinitionEs": "Cola o tren de vestido (que fluye detrás de quien la lleva)"
   },
   "H7641": {
     "shortDefinitionEs": "Espiga de grano, corriente de agua; rama (shibbôl)",
@@ -5122,33 +5157,38 @@
       "espiga",
       "corriente",
       "rama"
-    ]
+    ],
+    "longDefinitionEs": "Corriente de agua (que fluye); espiga de grano (que crece hacia afuera); por analogía, rama"
   },
   "H7642": {
     "shortDefinitionEs": "Caracol de tierra (shablûwl)",
     "glossesEs": [
       "caracol"
-    ]
+    ],
+    "longDefinitionEs": "Caracol terrestre (como si flotara en su propia baba)"
   },
   "H7643": {
     "shortDefinitionEs": "Nombre: Sebam o Sibma, lugar en Moab (Sᵉbâm)",
     "glossesEs": [
       "Sebam",
       "Sibma"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H1313 (especias); Sebam o Sibma, lugar en Moab"
   },
   "H7644": {
     "shortDefinitionEs": "Nombre: Sebna o Sebnah, israelita (Shebnâʼ)",
     "glossesEs": [
       "Sebna",
       "Sebnah"
-    ]
+    ],
+    "longDefinitionEs": "Raíz desconocida significando crecer; Sebna o Sebnah, israelita"
   },
   "H7645": {
     "shortDefinitionEs": "Nombre: Sebanías, israelitas (Shᵉbanyâh)",
     "glossesEs": [
       "Sebanías"
-    ]
+    ],
+    "longDefinitionEs": "De H7644 y H3050 (Jah); Jah ha prosperado; Sebanías, nombre de tres o cuatro israelitas"
   },
   "H7646": {
     "shortDefinitionEs": "Saciar, llenar hasta la saciedad (sâbaʻ)",
@@ -5156,7 +5196,8 @@
       "saciar",
       "hartar",
       "llenar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; saciar, llenar hasta la saciedad (literal o figuradamente)"
   },
   "H7647": {
     "shortDefinitionEs": "Abundancia, plenitud (sâbâʻ)",
@@ -5164,7 +5205,8 @@
       "abundancia",
       "plenitud",
       "copia"
-    ]
+    ],
+    "longDefinitionEs": "De H7646; abundancia, copiosidad"
   },
   "H7648": {
     "shortDefinitionEs": "Saciedad, satisfacción, plenitud (sôbaʻ)",
@@ -5172,7 +5214,8 @@
       "saciedad",
       "satisfacción",
       "plenitud"
-    ]
+    ],
+    "longDefinitionEs": "De H7646; saciedad o satisfacción (de alimento o figuradamente de gozo)"
   },
   "H7649": {
     "shortDefinitionEs": "Saciado, satisfecho (sâbêaʻ)",
@@ -5180,7 +5223,8 @@
       "saciado",
       "satisfecho",
       "lleno"
-    ]
+    ],
+    "longDefinitionEs": "De H7646; saciado (en sentido agradable o desagradable)"
   },
   "H7650": {
     "shortDefinitionEs": "Jurar, hacer juramento (shâbaʻ)",
@@ -5188,7 +5232,8 @@
       "jurar",
       "juramento",
       "voto"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente completar; denominativo de H7651; jurarse siete veces, es decir, hacer juramento"
   },
   "H7651": {
     "shortDefinitionEs": "Siete; semana; número indefinido (shebaʻ)",
@@ -5196,13 +5241,15 @@
       "siete",
       "semana",
       "séptuple"
-    ]
+    ],
+    "longDefinitionEs": "De H7650; número cardinal primitivo; siete (como lo sagrado completo); también siete veces; por implicación, semana; por extensión, número indefinido"
   },
   "H7652": {
     "shortDefinitionEs": "Nombre: Seba, lugar en Palestina e israelitas (shebaʻ)",
     "glossesEs": [
       "Seba"
-    ]
+    ],
+    "longDefinitionEs": "Igual a H7651; siete; Seba, nombre de lugar en Palestina y de dos israelitas"
   },
   "H7653": {
     "shortDefinitionEs": "Saciedad, hartazgo (sibʻâh)",
@@ -5210,7 +5257,8 @@
       "saciedad",
       "hartazgo",
       "plenitud"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7647; saciedad, hartazgo"
   },
   "H7654": {
     "shortDefinitionEs": "Saciedad, satisfacción (sobʻâh)",
@@ -5218,60 +5266,69 @@
       "saciedad",
       "satisfacción",
       "suficiencia"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7648; saciedad, satisfacción"
   },
   "H7655": {
     "shortDefinitionEs": "Siete veces (shibʻâh)",
     "glossesEs": [
       "siete",
       "siete veces"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7651; siete veces"
   },
   "H7656": {
     "shortDefinitionEs": "Nombre: Sebá, pozo en Palestina (Shibʻâh)",
     "glossesEs": [
       "Sebá"
-    ]
+    ],
+    "longDefinitionEs": "Masculino de H7651; séptimo; Sebá, pozo en Palestina"
   },
   "H7657": {
     "shortDefinitionEs": "Setenta (shibʻîym)",
     "glossesEs": [
       "setenta"
-    ]
+    ],
+    "longDefinitionEs": "Múltiplo de H7651; setenta"
   },
   "H7658": {
     "shortDefinitionEs": "número siete (shibʻânâh)",
     "glossesEs": [
       "siete"
-    ]
+    ],
+    "longDefinitionEs": "Prolongación del masculino de H7651; siete"
   },
   "H7659": {
     "shortDefinitionEs": "siete veces, siete tantos (shibʻâthayim)",
     "glossesEs": [
       "siete veces",
       "multiplicado"
-    ]
+    ],
+    "longDefinitionEs": "Dual adverbial de H7651; siete veces"
   },
   "H7660": {
     "shortDefinitionEs": "bordar, engarzar gemas en oro (shâbats)",
     "glossesEs": [
       "bordar",
       "engarzar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; bordar hilos coloreados en cuadros; por implicación, engarzar gemas en oro"
   },
   "H7661": {
     "shortDefinitionEs": "enredo, confusión, angustia (shâbâts)",
     "glossesEs": [
       "angustia",
       "confusión"
-    ]
+    ],
+    "longDefinitionEs": "De H7660; enredo, confusión o perplejidad figurada"
   },
   "H7662": {
     "shortDefinitionEs": "dejar, permitir que permanezca (shᵉbaq)",
     "glossesEs": [
       "dejar",
       "abandonar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a la raíz de H7733; dejar, permitir que permanezca"
   },
   "H7663": {
     "shortDefinitionEs": "observar, esperar con esperanza (sâbar)",
@@ -5279,13 +5336,15 @@
       "esperar",
       "aguardar",
       "esperanza"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; escudriñar; por implicación, esperar con esperanza y paciencia"
   },
   "H7664": {
     "shortDefinitionEs": "esperanza, expectación (sêber)",
     "glossesEs": [
       "esperanza"
-    ]
+    ],
+    "longDefinitionEs": "De H7663; esperanza, expectación"
   },
   "H7665": {
     "shortDefinitionEs": "quebrantar, romper (shâbar)",
@@ -5293,7 +5352,8 @@
       "romper",
       "quebrantar",
       "fracaso"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; quebrantar, romper (literal o figuradamente)"
   },
   "H7666": {
     "shortDefinitionEs": "comerciar con grano, comprar, vender (shâbar)",
@@ -5301,7 +5361,8 @@
       "comprar",
       "vender",
       "comerciar"
-    ]
+    ],
+    "longDefinitionEs": "Denominativo de H7668; comerciar o negociar con grano"
   },
   "H7667": {
     "shortDefinitionEs": "fractura, ruina, solución (sheber)",
@@ -5309,7 +5370,8 @@
       "ruptura",
       "destrucción",
       "aflicción"
-    ]
+    ],
+    "longDefinitionEs": "De H7665; fractura, figuradamente ruina; específicamente, solución (de un sueño)"
   },
   "H7668": {
     "shortDefinitionEs": "grano, cereal, alimento (sheber)",
@@ -5317,33 +5379,38 @@
       "grano",
       "trigo",
       "alimento"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7667; grano (como si estuviera quebrado en granos)"
   },
   "H7669": {
     "shortDefinitionEs": "Seber: nombre israelita (Sheber)",
     "glossesEs": [
       "Seber"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7667; Seber, nombre de un israelita"
   },
   "H7670": {
     "shortDefinitionEs": "ruptura, dolor, ruina (shibrôwn)",
     "glossesEs": [
       "destrucción",
       "quebranto"
-    ]
+    ],
+    "longDefinitionEs": "De H7665; ruptura, es decir, dolor; figuradamente, ruina"
   },
   "H7671": {
     "shortDefinitionEs": "Shebarim: lugar de Palestina (Shᵉbârîym)",
     "glossesEs": [
       "Shebarim"
-    ]
+    ],
+    "longDefinitionEs": "Plural de H7667; ruinas; Shebarim, lugar en Palestina"
   },
   "H7672": {
     "shortDefinitionEs": "enredar, perplejo (shᵉbash)",
     "glossesEs": [
       "confundir",
       "asombrar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7660; enredar, es decir, perplej"
   },
   "H7673": {
     "shortDefinitionEs": "reposar, cesar, descansar (shâbath)",
@@ -5351,14 +5418,16 @@
       "cesar",
       "descansar",
       "reposar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; reposar, es decir, cesar de la labor; usado en muchas relaciones"
   },
   "H7674": {
     "shortDefinitionEs": "reposo, cese, interrupción (shebeth)",
     "glossesEs": [
       "reposo",
       "descanso"
-    ]
+    ],
+    "longDefinitionEs": "De H7673; reposo, interrupción, cese"
   },
   "H7675": {
     "shortDefinitionEs": "asiento, morada, lugar (shebeth)",
@@ -5366,13 +5435,15 @@
       "asiento",
       "lugar",
       "morada"
-    ]
+    ],
+    "longDefinitionEs": "Infinitivo de H3427; propiamente sesión; usado también concretamente, morada o localidad"
   },
   "H7676": {
     "shortDefinitionEs": "descanso, el sábado (shabbâth)",
     "glossesEs": [
       "sábado"
-    ]
+    ],
+    "longDefinitionEs": "Intensivo de H7673; intermisión, es decir, (específicamente) el Sábado"
   },
   "H7677": {
     "shortDefinitionEs": "reposo sabático, fiesta especial (shabbâthôwn)",
@@ -5380,13 +5451,15 @@
       "sábado",
       "descanso",
       "fiesta"
-    ]
+    ],
+    "longDefinitionEs": "De H7676; un descanso sabático o fiesta especial"
   },
   "H7678": {
     "shortDefinitionEs": "Shabbethai: nombre israelita (Shabbᵉthay)",
     "glossesEs": [
       "Shabbethai"
-    ]
+    ],
+    "longDefinitionEs": "De H7676; tranquilo, descansado; Shabbethai, nombre de tres israelitas"
   },
   "H7679": {
     "shortDefinitionEs": "crecer, aumentar, engrandecer (sâgâʼ)",
@@ -5394,7 +5467,8 @@
       "aumentar",
       "magnificar",
       "crecer"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; crecer, es decir, (causativamente) agrandar, (figuradamente) alabar"
   },
   "H7680": {
     "shortDefinitionEs": "aumentar, multiplicarse (sᵉgâʼ)",
@@ -5402,13 +5476,15 @@
       "aumentar",
       "crecer",
       "multiplicar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7679; aumentar, multiplicarse"
   },
   "H7681": {
     "shortDefinitionEs": "Shage: nombre israelita (Shâgeʼ)",
     "glossesEs": [
       "Shage"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H7686; errante; Shage, nombre de un israelita"
   },
   "H7682": {
     "shortDefinitionEs": "elevarse, exaltarse, defenderse (sâgab)",
@@ -5416,7 +5492,8 @@
       "defender",
       "exaltar",
       "elevado"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ser (causativamente, hacer) elevado, especialmente inaccesible; por implicación, seguro, fuerte"
   },
   "H7683": {
     "shortDefinitionEs": "extraviarse, pecar por ignorancia (shâgag)",
@@ -5424,21 +5501,24 @@
       "errar",
       "desviarse",
       "pecar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; extraviarse, es decir, (figuradamente) pecar (con más o menos disculpa)"
   },
   "H7684": {
     "shortDefinitionEs": "error, falta sin intención (shᵉgâgâh)",
     "glossesEs": [
       "error",
       "ignorancia"
-    ]
+    ],
+    "longDefinitionEs": "De H7683; un error o transgresión inadvertida"
   },
   "H7685": {
     "shortDefinitionEs": "crecer, agrandarse, aumentar (sâgâh)",
     "glossesEs": [
       "crecer",
       "aumentar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; agrandar (especialmente hacia arriba, también figuradamente)"
   },
   "H7686": {
     "shortDefinitionEs": "extraviarse, errar, transgredir (shâgâh)",
@@ -5446,20 +5526,23 @@
       "desviarse",
       "errar",
       "pecar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; extraviarse (causativamente, engañar), usualmente errar, especialmente transgredir moralmente"
   },
   "H7687": {
     "shortDefinitionEs": "Segub: nombre israelita (Sᵉgûwb)",
     "glossesEs": [
       "Segub"
-    ]
+    ],
+    "longDefinitionEs": "De H7682; enaltecido; Segub, nombre de dos israelitas"
   },
   "H7688": {
     "shortDefinitionEs": "mirar fijamente, vislumbrar (shâgach)",
     "glossesEs": [
       "mirar",
       "observar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; mirar furtivamente, es decir, vislumbrar agudamente"
   },
   "H7689": {
     "shortDefinitionEs": "excelente, poderoso, grandioso (saggîyʼ)",
@@ -5467,7 +5550,8 @@
       "excelente",
       "grande",
       "poderoso"
-    ]
+    ],
+    "longDefinitionEs": "De H7679; (superlativemente) poderoso, excelente"
   },
   "H7690": {
     "shortDefinitionEs": "grande, mucho, abundante (saggîyʼ)",
@@ -5475,74 +5559,85 @@
       "mucho",
       "grande",
       "abundante"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7689; grande (en tamaño, cantidad o número, también adverbial)"
   },
   "H7691": {
     "shortDefinitionEs": "error moral, falta (shᵉgîyʼâh)",
     "glossesEs": [
       "error"
-    ]
+    ],
+    "longDefinitionEs": "De H7686; un error moral, falta"
   },
   "H7692": {
     "shortDefinitionEs": "poema irregular, desvarío (shiggâyôwn)",
     "glossesEs": [
       "Shiggaion",
       "poema"
-    ]
+    ],
+    "longDefinitionEs": "De H7686; propiamente aberración, es decir, (técnicamente) un poema dithirámb o desvarío"
   },
   "H7693": {
     "shortDefinitionEs": "yacer con, violar (shâgal)",
     "glossesEs": [
       "abusar",
       "violar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; tener relaciones sexuales con, yacer con"
   },
   "H7694": {
     "shortDefinitionEs": "reina (por cohabitación) (shêgâl)",
     "glossesEs": [
       "reina"
-    ]
+    ],
+    "longDefinitionEs": "De H7693; reina (por cohabitación)"
   },
   "H7695": {
     "shortDefinitionEs": "reina legítima, esposa (shêgâl)",
     "glossesEs": [
       "reina",
       "esposa"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7694; una reina (legítima)"
   },
   "H7696": {
     "shortDefinitionEs": "delirar, volverse loco (shâgaʻ)",
     "glossesEs": [
       "enloquecer",
       "desvariar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; delirar por insania"
   },
   "H7697": {
     "shortDefinitionEs": "locura, furore (shiggâʻôwn)",
     "glossesEs": [
       "locura",
       "demencia"
-    ]
+    ],
+    "longDefinitionEs": "De H7696 (שָׁגַע); demencia, locura"
   },
   "H7698": {
     "shortDefinitionEs": "feto, vástago, producto (sheger)",
     "glossesEs": [
       "descendencia",
       "fruto"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que probablemente significa expeler; el feto (como finalmente expulsado)"
   },
   "H7699": {
     "shortDefinitionEs": "pecho, teta, mama (shad)",
     "glossesEs": [
       "pecho",
       "mama"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H7736 (שׁוּד) en sentido original, contraído; el pecho de mujer o animal (como prominente)"
   },
   "H7700": {
     "shortDefinitionEs": "demonio, espíritu maligno (shêd)",
     "glossesEs": [
       "demonio"
-    ]
+    ],
+    "longDefinitionEs": "De H7736 (שׁוּד); un demonio (como maligno)"
   },
   "H7701": {
     "shortDefinitionEs": "violencia, desolación, robo (shôd)",
@@ -5550,14 +5645,16 @@
       "destrucción",
       "robo",
       "violencia"
-    ]
+    ],
+    "longDefinitionEs": "De H7736 (שׁוּד); violencia, devastación, saqueo"
   },
   "H7702": {
     "shortDefinitionEs": "romper terrones, arar (sâdad)",
     "glossesEs": [
       "arar",
       "romper terrones"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; raspar, es decir arar un campo"
   },
   "H7703": {
     "shortDefinitionEs": "devastar, saquear, oprimir (shâdad)",
@@ -5565,7 +5662,8 @@
       "destruir",
       "saquear",
       "oprimir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente ser fornido, es decir poderoso; por implicación, devastar"
   },
   "H7704": {
     "shortDefinitionEs": "campo, tierra, terreno (sâdeh)",
@@ -5573,59 +5671,68 @@
       "campo",
       "tierra",
       "terreno"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa extenderse; campo (como llano)"
   },
   "H7705": {
     "shortDefinitionEs": "esposa, señora de casa (shiddâh)",
     "glossesEs": [
       "esposa"
-    ]
+    ],
+    "longDefinitionEs": "De H7703 (שָׁדַד); esposa (como dueña de casa)"
   },
   "H7706": {
     "shortDefinitionEs": "Dios Todopoderoso (El Shaddai)",
     "glossesEs": [
       "omnipotente"
-    ]
+    ],
+    "longDefinitionEs": "De H7703 (שָׁדַד); el Todopoderoso"
   },
   "H7707": {
     "shortDefinitionEs": "Shedeur: nombre israelita (Shᵉdêyʼûwr)",
     "glossesEs": [
       "Shedeur"
-    ]
+    ],
+    "longDefinitionEs": "De lo mismo que H7704 (שָׂדֶה) y H217 (אוּר); esparcidor de luz; Shedeur, israelita"
   },
   "H7708": {
     "shortDefinitionEs": "Siddim: valle de Palestina (Siddîym)",
     "glossesEs": [
       "Siddim"
-    ]
+    ],
+    "longDefinitionEs": "Plural de lo mismo que H7704 (שָׂדֶה); llanuras; Siddim, valle en Palestina"
   },
   "H7709": {
     "shortDefinitionEs": "Campo cultivado, sembrado (šᵉdêmâh)",
     "glossesEs": [
       "campo",
       "siembra"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente de H7704 (שָׂדֶה); campo cultivado"
   },
   "H7710": {
     "shortDefinitionEs": "Quemar, abrasar, secar (šâdaph)",
     "glossesEs": [
       "quemar",
       "abrasar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; chamuscar, abrasar"
   },
   "H7711": {
     "shortDefinitionEs": "Plaga, quemazón en las plantas (šᵉdêphâh)",
     "glossesEs": [
       "plaga",
       "sequedad"
-    ]
+    ],
+    "longDefinitionEs": "De H7710 (שָׁדַף); tizne, quemazón en plantas"
   },
   "H7712": {
     "shortDefinitionEs": "Esforzarse, trabajar (šᵉdar)",
     "glossesEs": [
       "esfuerzo",
       "trabajo"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) raíz primitiva; esforzarse, empeñarse"
   },
   "H7713": {
     "shortDefinitionEs": "Hilera, fila, rango de soldados (sᵉdêrâh)",
@@ -5633,19 +5740,22 @@
       "hilera",
       "fila",
       "rango"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa regular; hilera, es decir rango de soldados o piso de cuartos"
   },
   "H7714": {
     "shortDefinitionEs": "Sadrac: compañero babilónico de Daniel (Shadrak)",
     "glossesEs": [
       "Sadrac"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de origen extranjero; Sadrac, nombre babilónico del compañero de Daniel"
   },
   "H7715": {
     "shortDefinitionEs": "Sadrac: compañero babilónico de Daniel (Shadrak)",
     "glossesEs": [
       "Sadrac"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) lo mismo que H7714 (שַׁדְרַךְ)"
   },
   "H7716": {
     "shortDefinitionEs": "Miembro de rebaño, oveja o cabra (seh)",
@@ -5653,40 +5763,46 @@
       "oveja",
       "cabra",
       "cordero"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H7582 (שָׁאָה) por idea de empujar para pacer; miembro de rebaño, oveja o cabra"
   },
   "H7717": {
     "shortDefinitionEs": "Testigo, quien atestigua (sâhêd)",
     "glossesEs": [
       "testigo"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa atestiguar; testigo"
   },
   "H7718": {
     "shortDefinitionEs": "Piedra preciosa, probablemente berilo (šôham)",
     "glossesEs": [
       "piedra",
       "berilo"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que probablemente significa palidecer; piedra preciosa, probablemente berilo"
   },
   "H7719": {
     "shortDefinitionEs": "Soham: israelita (Shôham)",
     "glossesEs": [
       "Soham"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7718 (שֹׁהַם); Soham, israelita"
   },
   "H7720": {
     "shortDefinitionEs": "Adorno redondo para el cuello (sahărôn)",
     "glossesEs": [
       "adorno",
       "collar"
-    ]
+    ],
+    "longDefinitionEs": "De lo mismo que H5469 (סַהַר); adorno redondo para el cuello"
   },
   "H7721": {
     "shortDefinitionEs": "Levantamiento, ascenso (sôwʼ)",
     "glossesEs": [
       "levantamiento",
       "ascenso"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada afín a H5375 (נָשָׂא) y H7722 (שׁוֹא) que significa elevarse; elevación"
   },
   "H7722": {
     "shortDefinitionEs": "Tempestad, devastación, ruina (šôwʼ)",
@@ -5694,7 +5810,8 @@
       "tempestad",
       "devastación",
       "ruina"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa irrumpir; tempestad; por implicación, devastación"
   },
   "H7723": {
     "shortDefinitionEs": "Falso, vano, mentira, idolatría (šâvᵉʼ)",
@@ -5702,13 +5819,15 @@
       "vano",
       "falso",
       "mentira"
-    ]
+    ],
+    "longDefinitionEs": "De lo mismo que H7722 (שׁוֹא) en sentido de desolación; mal (como destructivo) literal o moral; figuradamente idolatría (como falso) o futilidad (como engañoso); también en vano"
   },
   "H7724": {
     "shortDefinitionEs": "Seva: israelita (Shᵉvâʼ)",
     "glossesEs": [
       "Seva"
-    ]
+    ],
+    "longDefinitionEs": "De lo mismo que H7723 (שָׁוְא); falso; Seva, israelita"
   },
   "H7725": {
     "shortDefinitionEs": "convertirse, regresar, arrepentirse (shuv)",
@@ -5722,112 +5841,129 @@
     "glossesEs": [
       "apostasía",
       "infidelidad"
-    ]
+    ],
+    "longDefinitionEs": "De H7725 (שׁוּב); apóstata, es decir idólatra"
   },
   "H7727": {
     "shortDefinitionEs": "Sobab: nombre de dos israelitas (Shôwbâb)",
     "glossesEs": [
       "Sobab"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que de H7726; rebelde; Sobab, nombre de dos israelitas"
   },
   "H7728": {
     "shortDefinitionEs": "Apóstata, gentil, infiel (šôwbêb)",
     "glossesEs": [
       "apostasía",
       "gentil"
-    ]
+    ],
+    "longDefinitionEs": "De H7725; apóstata, es decir, gentil o pagano"
   },
   "H7729": {
     "shortDefinitionEs": "Retorno, regreso, vuelta (šûwbâh)",
     "glossesEs": [
       "retorno",
       "regreso"
-    ]
+    ],
+    "longDefinitionEs": "De H7725; un retorno o regreso"
   },
   "H7730": {
     "shortDefinitionEs": "Espesura, ramas entrelazadas (sôwbek)",
     "glossesEs": [
       "espesura",
       "ramas"
-    ]
+    ],
+    "longDefinitionEs": "Por H5441; una espesura, es decir, ramas entrelazadas"
   },
   "H7731": {
     "shortDefinitionEs": "Sobac: sirio (Shôwbâk)",
     "glossesEs": [
       "Sobac"
-    ]
+    ],
+    "longDefinitionEs": "Quizá por H7730; Sobac, un sirio"
   },
   "H7732": {
     "shortDefinitionEs": "Sobal: edomita e israelitas (Shôwbâl)",
     "glossesEs": [
       "Sobal"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7640; desbordante; Sobal, nombre de un edomita y dos israelitas"
   },
   "H7733": {
     "shortDefinitionEs": "Sobec: israelita (Shôwbêq)",
     "glossesEs": [
       "Sobec"
-    ]
+    ],
+    "longDefinitionEs": "Participio activo de raíz primitiva que significa abandonar (cf. H7662); que abandona; Sobec, un israelita"
   },
   "H7734": {
     "shortDefinitionEs": "Retroceder, volver atrás (sûwg)",
     "glossesEs": [
       "retroceder",
       "volver atrás"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; retroceder o replegarse"
   },
   "H7735": {
     "shortDefinitionEs": "Cercar, hacer crecer (sûwg)",
     "glossesEs": [
       "cercar",
       "crecer"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; cercar o proteger con seto"
   },
   "H7736": {
     "shortDefinitionEs": "Devastar, arruinar (šûwd)",
     "glossesEs": [
       "devastar",
       "arruinar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente hincharse, es decir, figuradamente devastar o arruinar"
   },
   "H7737": {
     "shortDefinitionEs": "Igualar, parecer, comparar (šâvâh)",
     "glossesEs": [
       "comparar",
       "igualar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente nivelar, es decir, igualar; figuradamente asemejar; por implicación, ajustar o convenir"
   },
   "H7738": {
     "shortDefinitionEs": "Destruir (šâvâh)",
     "glossesEs": [
       "destruir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; destruir o aniquilar"
   },
   "H7739": {
     "shortDefinitionEs": "Asemejar, parecer (šᵉvâh)",
     "glossesEs": [
       "asemejar",
       "parecer"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7737; asemejar o parecer"
   },
   "H7740": {
     "shortDefinitionEs": "Savé: lugar en Palestina (Shâvêh)",
     "glossesEs": [
       "Savé"
-    ]
+    ],
+    "longDefinitionEs": "De H7737; llanura; Savé, un lugar en Palestina"
   },
   "H7741": {
     "shortDefinitionEs": "Savé-Quiriataim: lugar al este del Jordán (Shâvêh Qiryâthayim)",
     "glossesEs": [
       "Savé-Quiriataim"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7740 y dual de H7151; llanura de doble ciudad; Savé-Quiriataim, lugar al este del Jordán"
   },
   "H7742": {
     "shortDefinitionEs": "Meditar, reflexionar (sûwach)",
     "glossesEs": [
       "meditar",
       "reflexionar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; meditar o reflexionar pensativamente"
   },
   "H7743": {
     "shortDefinitionEs": "Hundirse, inclinar, humillar (šûwach)",
@@ -5835,13 +5971,15 @@
       "hundirse",
       "inclinar",
       "humillar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; hundirse, literalmente o figuradamente"
   },
   "H7744": {
     "shortDefinitionEs": "Súa: hijo de Abraham (Shûwach)",
     "glossesEs": [
       "Súa"
-    ]
+    ],
+    "longDefinitionEs": "De H7743; valle; Súa, hijo de Abraham"
   },
   "H7745": {
     "shortDefinitionEs": "Abismo, hoyo, precipicio (šûwchâh)",
@@ -5849,38 +5987,44 @@
       "abismo",
       "hoyo",
       "pozo"
-    ]
+    ],
+    "longDefinitionEs": "De H7743; un abismo o precipicio"
   },
   "H7746": {
     "shortDefinitionEs": "Súca: israelita (Shûwchâh)",
     "glossesEs": [
       "Súca"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7745; Súca, un israelita"
   },
   "H7747": {
     "shortDefinitionEs": "Suhita: descendiente de Súa (Shûwchîy)",
     "glossesEs": [
       "Suhita"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H7744; suhita o descendiente de Súa"
   },
   "H7748": {
     "shortDefinitionEs": "Súcam: israelita (Shûwchâm)",
     "glossesEs": [
       "Súcam"
-    ]
+    ],
+    "longDefinitionEs": "De H7743; humildemente; Súcam, un israelita"
   },
   "H7749": {
     "shortDefinitionEs": "Sucamitas: descendientes (Shûwchâmîy)",
     "glossesEs": [
       "Sucamitas"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H7748; sucamita (colectivamente), descendientes"
   },
   "H7750": {
     "shortDefinitionEs": "Apartarse, volverse a idolatría (sûwṭ)",
     "glossesEs": [
       "apartarse",
       "desviarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; apartarse, es decir, volverse apóstata o a la idolatría"
   },
   "H7751": {
     "shortDefinitionEs": "Navegar, remar, viajar (šûwṭ)",
@@ -5888,14 +6032,16 @@
       "navegar",
       "remar",
       "viajar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente empujar; figuradamente remar (el mar con remos); por implicación, viajar"
   },
   "H7752": {
     "shortDefinitionEs": "Látigo, azote, flagelo (šôwṭ)",
     "glossesEs": [
       "látigo",
       "azote"
-    ]
+    ],
+    "longDefinitionEs": "De H7751; un látigo o azote (literal o figuradamente)"
   },
   "H7753": {
     "shortDefinitionEs": "Cercar, rodear con seto (sûwk)",
@@ -5903,26 +6049,30 @@
       "cercar",
       "rodear",
       "seto"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; entretejer, es decir, cercar o rodear para protección"
   },
   "H7754": {
     "shortDefinitionEs": "Rama, ramaje entrelazado (sôwk)",
     "glossesEs": [
       "rama",
       "ramaje"
-    ]
+    ],
+    "longDefinitionEs": "De H7753; una rama o ramaje entrelazado"
   },
   "H7755": {
     "shortDefinitionEs": "Socó: dos lugares en Palestina (Sôwkôh)",
     "glossesEs": [
       "Socó"
-    ]
+    ],
+    "longDefinitionEs": "De H7753; Socó o Soko, nombre de dos lugares en Palestina"
   },
   "H7756": {
     "shortDefinitionEs": "Sucatita: descendiente israelita (Sûwkâthîy)",
     "glossesEs": [
       "Sucatita"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente patronímico; sucatita o descendiente de un israelita llamado Suca"
   },
   "H7757": {
     "shortDefinitionEs": "Borde, falda, orilla inferior (šûwl)",
@@ -5930,20 +6080,23 @@
       "borde",
       "falda",
       "orilla"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada significando colgar; una falda o borde inferior"
   },
   "H7758": {
     "shortDefinitionEs": "Desnudo, despojado, cautivo (šôwlâl)",
     "glossesEs": [
       "desnudo",
       "despojado"
-    ]
+    ],
+    "longDefinitionEs": "De H7997 (שָׁלַל); desnudo (especialmente descalzo); por implicación, cautivo"
   },
   "H7759": {
     "shortDefinitionEs": "Sulamita: epíteto de la reina de Salomón (Shûwlammîyth)",
     "glossesEs": [
       "Sulamita"
-    ]
+    ],
+    "longDefinitionEs": "De H7999 (שָׁלַם); pacífica (siempre con artículo, formando un nombre cariñoso); la Sulamita, epíteto de la reina de Salomón"
   },
   "H7760": {
     "shortDefinitionEs": "poner, colocar, establecer (sum/sim)",
@@ -5959,63 +6112,73 @@
       "ordenar",
       "mandar",
       "hacer"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) que corresponde a H7760 (שׂוּם); ordenar, mandar, poner, hacer"
   },
   "H7762": {
     "shortDefinitionEs": "ajo (shûwm)",
     "glossesEs": [
       "ajo"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada significando exhalar; ajo (por su olor penetrante)"
   },
   "H7763": {
     "shortDefinitionEs": "Shomer: nombre de dos israelitas (Shôwmêr)",
     "glossesEs": [
       "Shomer"
-    ]
+    ],
+    "longDefinitionEs": "Participio activo de H8104 (שָׁמַר); guardián; Shomer, nombre de dos israelitas"
   },
   "H7764": {
     "shortDefinitionEs": "Shuni: un israelita (Shûwnîy)",
     "glossesEs": [
       "Shuni"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada significando descansar; tranquilo; Shuni, un israelita"
   },
   "H7765": {
     "shortDefinitionEs": "Shunita: descendientes de Shuni (Shûwnîy)",
     "glossesEs": [
       "Shunita"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H7764 (שׁוּנִי); shunita (colectivamente) o descendientes de Shuni"
   },
   "H7766": {
     "shortDefinitionEs": "Shunem: lugar en Palestina (Shûwnêm)",
     "glossesEs": [
       "Shunem"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente del mismo que H7764 (שׁוּנִי); tranquilamente; Shunem, lugar en Palestina"
   },
   "H7767": {
     "shortDefinitionEs": "Sunamita: mujer de Shunem (Shûwnammîyth)",
     "glossesEs": [
       "Sunamita"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H7766 (שׁוּנֵם); sunamita, mujer habitante de Shunem"
   },
   "H7768": {
     "shortDefinitionEs": "clamar, gritar pidiendo ayuda (shâvaʻ)",
     "glossesEs": [
       "clamar",
       "gritar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, ser libre; usado causativa y reflexivamente, clamar pidiendo ayuda"
   },
   "H7769": {
     "shortDefinitionEs": "clamor, gritería (shûwaʻ)",
     "glossesEs": [
       "clamor",
       "gritería"
-    ]
+    ],
+    "longDefinitionEs": "De H7768 (שָׁוַע); un clamor o gritería"
   },
   "H7770": {
     "shortDefinitionEs": "Shua: un cananeo (Shûwaʻ)",
     "glossesEs": [
       "Shua"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7769 (שׁוּעַ); Shua, un cananeo"
   },
   "H7771": {
     "shortDefinitionEs": "noble, generoso, rico; clamor (shôwaʻ)",
@@ -6023,118 +6186,136 @@
       "noble",
       "rico",
       "generoso"
-    ]
+    ],
+    "longDefinitionEs": "De H7768 (שָׁוַע) en sentido original de libertad; noble, liberal, opulento; también clamor"
   },
   "H7772": {
     "shortDefinitionEs": "Shoa: pueblo oriental (Shôwaʻ)",
     "glossesEs": [
       "Shoa"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7771 (שׁוֹעַ); rico; Shoa, pueblo oriental"
   },
   "H7773": {
     "shortDefinitionEs": "clamor, gritería (shevaʻ)",
     "glossesEs": [
       "clamor"
-    ]
+    ],
+    "longDefinitionEs": "De H7768 (שָׁוַע); un clamor o gritería"
   },
   "H7774": {
     "shortDefinitionEs": "Shua: una israelita (Shûwʻâʼ)",
     "glossesEs": [
       "Shua"
-    ]
+    ],
+    "longDefinitionEs": "De H7768 (שָׁוַע); riqueza; Shua, una israelita"
   },
   "H7775": {
     "shortDefinitionEs": "gritería, clamor (shavʻâh)",
     "glossesEs": [
       "gritería"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7773 (שֶׁוַע); un clamor o gritería"
   },
   "H7776": {
     "shortDefinitionEs": "chacal, zorro (shûwʻâl)",
     "glossesEs": [
       "chacal",
       "zorro"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H8168 (שֹׁעַל); chacal (como excavador de madrigueras)"
   },
   "H7777": {
     "shortDefinitionEs": "Shual: israelita y lugar en Palestina (Shûwʻâl)",
     "glossesEs": [
       "Shual"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7776 (שׁוּעָל); Shual, nombre de un israelita y de un lugar en Palestina"
   },
   "H7778": {
     "shortDefinitionEs": "portero, guardián de puerta (shôwʻêr)",
     "glossesEs": [
       "portero",
       "guardián"
-    ]
+    ],
+    "longDefinitionEs": "Participio activo de H8176 (שָׁעַר) (denominativo de H8179 (שַׁעַר)); portero o guardián de puerta"
   },
   "H7779": {
     "shortDefinitionEs": "azotar, golpear, abrumar (shûwph)",
     "glossesEs": [
       "azotar",
       "golpear"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, bostezar, morder; figuradamente, abrumar o azotar"
   },
   "H7780": {
     "shortDefinitionEs": "Shophak: un sirio (Shôwphâk)",
     "glossesEs": [
       "Shophak"
-    ]
+    ],
+    "longDefinitionEs": "De H8210 (שָׁפַךְ); derramado; Shophak, un sirio"
   },
   "H7781": {
     "shortDefinitionEs": "Shuphamita: descendientes de Shefupam (Shûwphâmîy)",
     "glossesEs": [
       "Shuphamita"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H8197 (שְׁפוּפָם); shuphamita (colectivamente) o descendientes de Shefupam"
   },
   "H7782": {
     "shortDefinitionEs": "corneta, trompeta (shôwphâr)",
     "glossesEs": [
       "corneta",
       "trompeta"
-    ]
+    ],
+    "longDefinitionEs": "De H8231 (שָׁפַר) en sentido original de grabar; corneta o cuerno curvado que da sonido claro"
   },
   "H7783": {
     "shortDefinitionEs": "desbordar, inundar (shûwq)",
     "glossesEs": [
       "desbordar",
       "inundar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; correr sobre o tras algo, desbordar o inundar"
   },
   "H7784": {
     "shortDefinitionEs": "calle, plaza (shûwq)",
     "glossesEs": [
       "calle"
-    ]
+    ],
+    "longDefinitionEs": "De H7783 (שׁוּק); calle o plaza (como lugar de paso)"
   },
   "H7785": {
     "shortDefinitionEs": "pierna, muslo (shôwq)",
     "glossesEs": [
       "pierna",
       "muslo"
-    ]
+    ],
+    "longDefinitionEs": "De H7783 (שׁוּק); pierna o muslo inferior (como parte del corredor)"
   },
   "H7786": {
     "shortDefinitionEs": "gobernar, reinar, coronar (sûwr)",
     "glossesEs": [
       "gobernar",
       "reinar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, conquistar; por implicación, gobernar (causativamente, coronar)"
   },
   "H7787": {
     "shortDefinitionEs": "serrar, cortar (sûwr)",
     "glossesEs": [
       "serrar",
       "cortar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva (idéntica con H7786 (שׂוּר) por la idea de reducir a pedazos); serrar o cortar"
   },
   "H7788": {
     "shortDefinitionEs": "viajar, peregrinar (shûwr)",
     "glossesEs": [
       "viajar",
       "peregrinar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, girar, es decir, viajar (como ramera o mercader)"
   },
   "H7789": {
     "shortDefinitionEs": "observar, vigilar, acechar (shûwr)",
@@ -6142,32 +6323,37 @@
       "observar",
       "vigilar",
       "acechar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva (idéntica por la idea de rondar inspeccionando); acechar, es decir, observar, vigilar (para mal) o cuidar (para bien)"
   },
   "H7790": {
     "shortDefinitionEs": "enemigo, adversario (shûwr)",
     "glossesEs": [
       "enemigo"
-    ]
+    ],
+    "longDefinitionEs": "de H7889; enemigo o adversario (como quien acecha)"
   },
   "H7791": {
     "shortDefinitionEs": "muro, pared (shûwr)",
     "glossesEs": [
       "muro",
       "pared"
-    ]
+    ],
+    "longDefinitionEs": "de H7788; muro o pared (como lo que rodea)"
   },
   "H7792": {
     "shortDefinitionEs": "muro, pared (shûwr)",
     "glossesEs": [
       "muro"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7791"
   },
   "H7793": {
     "shortDefinitionEs": "Shur: región del desierto (Shûwr)",
     "glossesEs": [
       "Shur"
-    ]
+    ],
+    "longDefinitionEs": "lo mismo que H7791; Shur, región del desierto"
   },
   "H7794": {
     "shortDefinitionEs": "buey, toro, vaca (shôwr)",
@@ -6175,20 +6361,23 @@
       "buey",
       "toro",
       "vaca"
-    ]
+    ],
+    "longDefinitionEs": "de H7788; buey o toro (como viajero)"
   },
   "H7795": {
     "shortDefinitionEs": "anillo, hilera, fila (sôwrâh)",
     "glossesEs": [
       "anillo",
       "hilera"
-    ]
+    ],
+    "longDefinitionEs": "de H7786 en sentido primitivo de H5493; propiamente, anillo, es decir, hilera o fila (adverbialmente)"
   },
   "H7796": {
     "shortDefinitionEs": "Sorek: valle en Palestina (Sôwrêq)",
     "glossesEs": [
       "Sorek"
-    ]
+    ],
+    "longDefinitionEs": "lo mismo que H8321 (vid); Sorek, valle en Palestina"
   },
   "H7797": {
     "shortDefinitionEs": "alegrarse, regocijarse, gozar (sûws)",
@@ -6196,85 +6385,98 @@
       "alegrarse",
       "regocijarse",
       "gozar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ser brillante, es decir, estar alegre o regocijarse"
   },
   "H7798": {
     "shortDefinitionEs": "Shavsha: un israelita (Shavshâʼ)",
     "glossesEs": [
       "Shavsha"
-    ]
+    ],
+    "longDefinitionEs": "de H7797; alegre; Shavsha, un israelita"
   },
   "H7799": {
     "shortDefinitionEs": "lirio, flor, trompeta (shûwshan)",
     "glossesEs": [
       "lirio",
       "flor"
-    ]
+    ],
+    "longDefinitionEs": "de H7797; lirio (por su blancura), flor de ornamento arquitectónico; también trompeta recta (por su forma tubular)"
   },
   "H7800": {
     "shortDefinitionEs": "Shusan: ciudad en Persia (Shûwshan)",
     "glossesEs": [
       "Shusan"
-    ]
+    ],
+    "longDefinitionEs": "lo mismo que H7799; Shusan, lugar en Persia"
   },
   "H7801": {
     "shortDefinitionEs": "Susancita: habitantes de lugar asirio (Shûwshankîy)",
     "glossesEs": [
       "Susancita"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) de origen extranjero; Susancita o habitantes de lugar desconocido en Asiria"
   },
   "H7802": {
     "shortDefinitionEs": "Shusan-Edut: título de canción popular (Shûwshan ʻÊdûwth)",
     "glossesEs": [
       "Shusan-Edut"
-    ]
+    ],
+    "longDefinitionEs": "de H7799 y H5715; lirio o trompeta de asamblea; Shusan-Edut, título de canción popular"
   },
   "H7803": {
     "shortDefinitionEs": "Shutelac: nombre de dos israelitas (Shûwthelach)",
     "glossesEs": [
       "Shutelac"
-    ]
+    ],
+    "longDefinitionEs": "probablemente de H7582 y lo mismo que H8520; estruendo de rotura; Shutelac, nombre de dos israelitas"
   },
   "H7804": {
     "shortDefinitionEs": "dejar, liberar (shᵉzab)",
     "glossesEs": [
       "dejar",
       "liberar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H5800; dejar o liberar"
   },
   "H7805": {
     "shortDefinitionEs": "quemar, examinar, observar (shâzaph)",
     "glossesEs": [
       "quemar",
       "observar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; curtir (por quemadura solar); figuradamente, examinar o observar"
   },
   "H7806": {
     "shortDefinitionEs": "torcer, retorcer (shâzar)",
     "glossesEs": [
       "torcer"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; torcer o retorcer (hilo de paja)"
   },
   "H7807": {
     "shortDefinitionEs": "postrado, abatido, humilde (shach)",
     "glossesEs": [
       "postrado",
       "humilde"
-    ]
+    ],
+    "longDefinitionEs": "de H7817; postrado, abatido o humilde"
   },
   "H7808": {
     "shortDefinitionEs": "comunión, meditación, pensamiento (sêach)",
     "glossesEs": [
       "meditación",
       "pensamiento"
-    ]
+    ],
+    "longDefinitionEs": "por H7879; comunión, es decir, meditación o pensamiento"
   },
   "H7809": {
     "shortDefinitionEs": "sobornar, dar recompensa (shâchad)",
     "glossesEs": [
       "sobornar",
       "recompensa"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; donar, es decir, sobornar"
   },
   "H7810": {
     "shortDefinitionEs": "soborno, regalo, recompensa (shachad)",
@@ -6282,14 +6484,16 @@
       "soborno",
       "regalo",
       "recompensa"
-    ]
+    ],
+    "longDefinitionEs": "de H7809; soborno o regalo venalredentivo"
   },
   "H7811": {
     "shortDefinitionEs": "nadar; inundar (sâchâh)",
     "glossesEs": [
       "nadar",
       "inundar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; nadar; causativamente, inundar"
   },
   "H7812": {
     "shortDefinitionEs": "adorar, postrarse, inclinarse (shajah)",
@@ -6303,7 +6507,8 @@
     "glossesEs": [
       "estanque",
       "piscina"
-    ]
+    ],
+    "longDefinitionEs": "de H7811; estanque o piscina para nadar"
   },
   "H7814": {
     "shortDefinitionEs": "risa, burla, mofa (sᵉchôwq)",
@@ -6311,21 +6516,24 @@
       "risa",
       "burla",
       "mofa"
-    ]
+    ],
+    "longDefinitionEs": "de H7832; risa, burla o mofa (en alegría o desafío)"
   },
   "H7815": {
     "shortDefinitionEs": "hollín, carbón (shᵉchôwr)",
     "glossesEs": [
       "carbón",
       "hollín"
-    ]
+    ],
+    "longDefinitionEs": "de H7835; oscuridad, probablemente hollín o carbón"
   },
   "H7816": {
     "shortDefinitionEs": "pozo, fosa (shᵉchûwth)",
     "glossesEs": [
       "pozo",
       "fosa"
-    ]
+    ],
+    "longDefinitionEs": "de H7812; pozo o fosa"
   },
   "H7817": {
     "shortDefinitionEs": "inclinarse, doblegarse, humillarse (shâchach)",
@@ -6333,14 +6541,16 @@
       "inclinarse",
       "doblegarse",
       "humillarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; hundirse o deprimirse (reflexivo o causativo)"
   },
   "H7818": {
     "shortDefinitionEs": "pisar, exprimir (uva) (sâchaṭ)",
     "glossesEs": [
       "exprimir",
       "pisar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; pisar, es decir, exprimir uva"
   },
   "H7819": {
     "shortDefinitionEs": "sacrificar, degollar, matar (shâchaṭ)",
@@ -6348,42 +6558,48 @@
       "degollar",
       "sacrificar",
       "matar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; degollar (en sacrificio o masacre)"
   },
   "H7820": {
     "shortDefinitionEs": "batir, golpear (shâchaṭ)",
     "glossesEs": [
       "batir",
       "golpear"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva (idéntica a H7819 por la idea de golpear); martillar"
   },
   "H7821": {
     "shortDefinitionEs": "matanza, degüello (shᵉchîyṭâh)",
     "glossesEs": [
       "matanza",
       "degüello"
-    ]
+    ],
+    "longDefinitionEs": "De H7819; matanza, degüello"
   },
   "H7822": {
     "shortDefinitionEs": "úlcera, llaga, inflamación (shᵉchîyn)",
     "glossesEs": [
       "úlcera",
       "llaga"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que probablemente significa quemar; inflamación, úlcera"
   },
   "H7823": {
     "shortDefinitionEs": "rebrote, renuevo (shâchîyç)",
     "glossesEs": [
       "rebrote",
       "renuevo"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que aparentemente significa brotar; rebrote, renuevo"
   },
   "H7824": {
     "shortDefinitionEs": "tabla, tablón (shâchîyph)",
     "glossesEs": [
       "tabla",
       "tablón"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7828; tablón (como madera adelgazada)"
   },
   "H7825": {
     "shortDefinitionEs": "trampa, fosa, ruina (shᵉchîyth)",
@@ -6391,46 +6607,53 @@
       "trampa",
       "fosa",
       "ruina"
-    ]
+    ],
+    "longDefinitionEs": "De H7812; trampa, fosa (literal o figuradamente)"
   },
   "H7826": {
     "shortDefinitionEs": "león feroz (shachal)",
     "glossesEs": [
       "león"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que probablemente significa rugir; león (por su rugido)"
   },
   "H7827": {
     "shortDefinitionEs": "ónix, concha aromática (shᵉchêleth)",
     "glossesEs": [
       "ónix",
       "concha"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente del mismo que H7826, por idea oscura quizá de descamación; concha aromática, ónix"
   },
   "H7828": {
     "shortDefinitionEs": "gaviota (shachaph)",
     "glossesEs": [
       "gaviota"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa pelar, es decir, emagrecer; gaviota (por su delgadez)"
   },
   "H7829": {
     "shortDefinitionEs": "emacimiento, consunción (shachepheth)",
     "glossesEs": [
       "consunción",
       "emacimiento"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7828; emacimiento, consunción"
   },
   "H7830": {
     "shortDefinitionEs": "altanería, soberbia (shachats)",
     "glossesEs": [
       "soberbia",
       "altanería"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada aparentemente que significa pavonearse; altanería, soberbia"
   },
   "H7831": {
     "shortDefinitionEs": "Shahazima: lugar en Palestina (Shachătsôwm)",
     "glossesEs": [
       "Shahazima"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7830; orgullosamente; Sahatsum, lugar en Palestina"
   },
   "H7832": {
     "shortDefinitionEs": "reír, burlarse, jugar, divertirse (sâchaq)",
@@ -6438,14 +6661,16 @@
       "reír",
       "burlarse",
       "jugar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; reír (por placer o burla); por implicación, jugar"
   },
   "H7833": {
     "shortDefinitionEs": "desmenuzar, pulverizar (shâchaq)",
     "glossesEs": [
       "pulverizar",
       "desmenuzar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; desmenuzar, pulverizar"
   },
   "H7834": {
     "shortDefinitionEs": "polvo fino, nube, cielo, firmamento (shachaq)",
@@ -6453,21 +6678,24 @@
       "polvo",
       "nube",
       "cielo"
-    ]
+    ],
+    "longDefinitionEs": "De H7833; polvo fino; por analogía, vapor tenue; por extensión, firmamento"
   },
   "H7835": {
     "shortDefinitionEs": "oscurecer, ser negro (shâchar)",
     "glossesEs": [
       "oscurecer",
       "negro"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva (idéntica a H7836 por la oscuridad del alba); ser oscuro"
   },
   "H7836": {
     "shortDefinitionEs": "madrugar, buscar temprano (shâchar)",
     "glossesEs": [
       "madrugar",
       "temprano"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, amanecer; figuradamente, madrugar con diligencia"
   },
   "H7837": {
     "shortDefinitionEs": "alba, amanecer, mañana (shachar)",
@@ -6475,39 +6703,45 @@
       "alba",
       "amanecer",
       "mañana"
-    ]
+    ],
+    "longDefinitionEs": "De H7836; alba, amanecer (literal, figurado o adverbial)"
   },
   "H7838": {
     "shortDefinitionEs": "negro, oscuro (shâchôr)",
     "glossesEs": [
       "negro",
       "oscuro"
-    ]
+    ],
+    "longDefinitionEs": "De H7835; propiamente oscuro, pero también (absolutamente) negro azabache"
   },
   "H7839": {
     "shortDefinitionEs": "juventud, amanecer de la vida (shachărûwth)",
     "glossesEs": [
       "juventud"
-    ]
+    ],
+    "longDefinitionEs": "De H7836; amanecer, figuradamente juventud, lozanía"
   },
   "H7840": {
     "shortDefinitionEs": "moreno, oscuro (shᵉcharchôreth)",
     "glossesEs": [
       "moreno",
       "oscuro"
-    ]
+    ],
+    "longDefinitionEs": "De H7835; moreno, oscuro de color"
   },
   "H7841": {
     "shortDefinitionEs": "Secarías: israelita (Shᵉcharyâh)",
     "glossesEs": [
       "Secarías"
-    ]
+    ],
+    "longDefinitionEs": "De H7836 y H3050; Jah ha buscado; Secarías, israelita"
   },
   "H7842": {
     "shortDefinitionEs": "Saharaim: israelita (Shachărayim)",
     "glossesEs": [
       "Saharaim"
-    ]
+    ],
+    "longDefinitionEs": "Dual de H7837; doble alba; Saharaim, israelita"
   },
   "H7843": {
     "shortDefinitionEs": "corromperse, arruinarse, destruir (shâchath)",
@@ -6515,14 +6749,16 @@
       "corromperse",
       "destruir",
       "arruinar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; corromperse, destruir (literal o figuradamente)"
   },
   "H7844": {
     "shortDefinitionEs": "corrupto, falta, defecto (shᵉchath)",
     "glossesEs": [
       "corrupto",
       "defecto"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7843"
   },
   "H7845": {
     "shortDefinitionEs": "pozo, fosa, sepulcro, ruina (shachath)",
@@ -6530,54 +6766,62 @@
       "pozo",
       "fosa",
       "sepulcro"
-    ]
+    ],
+    "longDefinitionEs": "De H7743; pozo, fosa (especialmente trampa); figuradamente, ruina"
   },
   "H7846": {
     "shortDefinitionEs": "rebelde, desviación del deber (sêṭ)",
     "glossesEs": [
       "rebelde",
       "desviación"
-    ]
+    ],
+    "longDefinitionEs": "De H7750; desviación de lo recto, es decir, pecado, rebelión"
   },
   "H7847": {
     "shortDefinitionEs": "desviarse, apartarse del deber (sâṭâh)",
     "glossesEs": [
       "desviarse",
       "apartarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; desviarse, apartarse del deber"
   },
   "H7848": {
     "shortDefinitionEs": "acacia (árbol espinoso) (shiṭṭâh)",
     "glossesEs": [
       "acacia"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de derivado (solo en plural); acacia (por sus espinas azotadoras)"
   },
   "H7849": {
     "shortDefinitionEs": "extender, dilatar, expandir (shâṭach)",
     "glossesEs": [
       "extender",
       "expandir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; expandir o dilatar"
   },
   "H7850": {
     "shortDefinitionEs": "azote, vara, escorpina (shôṭêṭ)",
     "glossesEs": [
       "azote",
       "vara"
-    ]
+    ],
+    "longDefinitionEs": "Participio activo; instrumento para flagelar, azote o vara de castigo"
   },
   "H7851": {
     "shortDefinitionEs": "Sitim: lugar al este del Jordán (Shiṭṭîym)",
     "glossesEs": [
       "Sitim"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que el plural de H7848; árboles de acacia; Sitim, lugar al este del Jordán"
   },
   "H7852": {
     "shortDefinitionEs": "perseguir, odiar, acechaR (sâṭam)",
     "glossesEs": [
       "perseguir",
       "odiar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; acechar o perseguir a alguien"
   },
   "H7853": {
     "shortDefinitionEs": "atacar, acusar, resistir (sâṭan)",
@@ -6585,27 +6829,31 @@
       "atacar",
       "acusar",
       "resistir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; atacar u acusar"
   },
   "H7854": {
     "shortDefinitionEs": "adversario, Satanás, enemigo (sâṭân)",
     "glossesEs": [
       "adversario",
       "Satanás"
-    ]
+    ],
+    "longDefinitionEs": "De H7853; adversario; especialmente (con artículo) Satanás, el enemigo principal del bien"
   },
   "H7855": {
     "shortDefinitionEs": "acusación, oposición (siṭnâh)",
     "glossesEs": [
       "acusación",
       "oposición"
-    ]
+    ],
+    "longDefinitionEs": "De H7853; oposición, enemistad o resistencia"
   },
   "H7856": {
     "shortDefinitionEs": "Sitna: pozo en Palestina (Siṭnâh)",
     "glossesEs": [
       "Sitna"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7855; Sitna, nombre de un pozo en Palestina"
   },
   "H7857": {
     "shortDefinitionEs": "inundar, arrastrar, abrumar, galopar (shâṭaph)",
@@ -6613,21 +6861,24 @@
       "inundar",
       "abrumar",
       "galopar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; brotar, inundar, limpiar; por analogía, galopar o conquistar"
   },
   "H7858": {
     "shortDefinitionEs": "diluvio, inundación, torrente (sheṭeph)",
     "glossesEs": [
       "diluvio",
       "inundación"
-    ]
+    ],
+    "longDefinitionEs": "De H7857; diluvio, inundación o torrente (literal o figurado)"
   },
   "H7859": {
     "shortDefinitionEs": "lado, costado (shᵉṭar)",
     "glossesEs": [
       "lado",
       "costado"
-    ]
+    ],
+    "longDefinitionEs": "Arameo de derivación incierta; lado, costado o flanco"
   },
   "H7860": {
     "shortDefinitionEs": "escriba, oficial, magistrado (shôṭêr)",
@@ -6635,120 +6886,138 @@
       "oficial",
       "magistrado",
       "escriba"
-    ]
+    ],
+    "longDefinitionEs": "Participio activo; escriba, oficial o magistrado (relacionado con escribir)"
   },
   "H7861": {
     "shortDefinitionEs": "Sitrai: israelita (Shiṭray)",
     "glossesEs": [
       "Sitrai"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7860; que tiene autoridad; Sitrai, israelita"
   },
   "H7862": {
     "shortDefinitionEs": "regalo, presente disponible (shay)",
     "glossesEs": [
       "regalo",
       "presente"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H7737; regalo o presente disponible"
   },
   "H7863": {
     "shortDefinitionEs": "elevación, excelencia (sîyʼ)",
     "glossesEs": [
       "elevación",
       "excelencia"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7721 por permutación; elevación o altura"
   },
   "H7864": {
     "shortDefinitionEs": "Sheja: israelita (Shᵉyâʼ)",
     "glossesEs": [
       "Sheja"
-    ]
+    ],
+    "longDefinitionEs": "Por H7724; Sheja, israelita"
   },
   "H7865": {
     "shortDefinitionEs": "Sion: cumbre del monte Hermón (Sîyʼôn)",
     "glossesEs": [
       "Sion"
-    ]
+    ],
+    "longDefinitionEs": "De H7863; cumbre o pico; Sion, la cumbre del monte Hermón"
   },
   "H7866": {
     "shortDefinitionEs": "Shihón: lugar en Palestina (Shîyʼôwn)",
     "glossesEs": [
       "Shihón"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7722; ruina; Shihón, lugar en Palestina"
   },
   "H7867": {
     "shortDefinitionEs": "envejecer, ponerse canoso (sîyb)",
     "glossesEs": [
       "envejecer",
       "canoso"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; envejecer o volverse canoso"
   },
   "H7868": {
     "shortDefinitionEs": "anciano, mayor de edad (sîyb)",
     "glossesEs": [
       "anciano",
       "viejo"
-    ]
+    ],
+    "longDefinitionEs": "Arameo correspondiente a H7867; anciano o mayor de edad"
   },
   "H7869": {
     "shortDefinitionEs": "vejez, ancianidad (sêyb)",
     "glossesEs": [
       "vejez",
       "edad avanzada"
-    ]
+    ],
+    "longDefinitionEs": "De H7867; vejez, ancianidad o edad avanzada"
   },
   "H7870": {
     "shortDefinitionEs": "restitución, devolución de posesiones (shîybâh)",
     "glossesEs": [
       "restitución",
       "devolución"
-    ]
+    ],
+    "longDefinitionEs": "Por permutación de H7725; restitución o devolución de posesiones"
   },
   "H7871": {
     "shortDefinitionEs": "residencia, habitación (shîybâh)",
     "glossesEs": [
       "residencia",
       "morada"
-    ]
+    ],
+    "longDefinitionEs": "De H3427; residencia, morada o habitación"
   },
   "H7872": {
     "shortDefinitionEs": "vejez, canas, cabellera gris (sêybâh)",
     "glossesEs": [
       "vejez",
       "canas"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7869; vejez, canas o cabellera gris"
   },
   "H7873": {
     "shortDefinitionEs": "retiro, apartamiento privado (sîyg)",
     "glossesEs": [
       "retiro",
       "apartamiento"
-    ]
+    ],
+    "longDefinitionEs": "De H7734; retiro, apartamiento o lugar privado"
   },
   "H7874": {
     "shortDefinitionEs": "encalar, recubrir con cal (sîyd)",
     "glossesEs": [
       "encalar",
       "recubrir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; encalar o recubrir con cal (denominativo de H7875)"
   },
   "H7875": {
     "shortDefinitionEs": "cal, polvo blanco (sîyd)",
     "glossesEs": [
       "cal"
-    ]
+    ],
+    "longDefinitionEs": "De H7874; cal, polvo blanco o sustancia caliza hirviente"
   },
   "H7876": {
     "shortDefinitionEs": "acordarse, recordar, tener memoria (shâyâh)",
     "glossesEs": [
       "recordar",
       "acordarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; guardar en la memoria, recordar o tener presente"
   },
   "H7877": {
     "shortDefinitionEs": "Shiza: israelita (Shîyzâʼ)",
     "glossesEs": [
       "Shiza"
-    ]
+    ],
+    "longDefinitionEs": "De derivación desconocida; Shiza, israelita"
   },
   "H7878": {
     "shortDefinitionEs": "meditar, conversar, expresar pensamiento (sîyach)",
@@ -6756,84 +7025,97 @@
       "meditar",
       "hablar",
       "pensar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; meditar, conversar consigo mismo o expresar pensamiento"
   },
   "H7879": {
     "shortDefinitionEs": "meditación, expresión, oración (sîyach)",
     "glossesEs": [
       "meditación",
       "oración"
-    ]
+    ],
+    "longDefinitionEs": "De H7878; contemplación; por implicación, expresión o utterancia"
   },
   "H7880": {
     "shortDefinitionEs": "arbusto, mata, planta leñosa (sîyach)",
     "glossesEs": [
       "arbusto",
       "mata"
-    ]
+    ],
+    "longDefinitionEs": "De H7878; brote (como si fuera proferido), es decir, arbustaje o matorrales"
   },
   "H7881": {
     "shortDefinitionEs": "reflexión, devoción, meditación (sîychâh)",
     "glossesEs": [
       "reflexión",
       "meditación"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7879; reflexión; por extensión, devoción"
   },
   "H7882": {
     "shortDefinitionEs": "trampa, hoyo (shîychâh)",
     "glossesEs": [
       "trampa",
       "hoyo"
-    ]
+    ],
+    "longDefinitionEs": "Por H7745; trampa o hoyo"
   },
   "H7883": {
     "shortDefinitionEs": "Shicor: río de Egipto (Shîychôwr)",
     "glossesEs": [
       "Shicor"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H7835; oscuro, es decir, turbio; Sicor, un río de Egipto"
   },
   "H7884": {
     "shortDefinitionEs": "Shicor-Libnata: río de Palestina (Shîychôwr Libnâth)",
     "glossesEs": [
       "Shicor-Libnata"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7883 y H3835; blancura oscura; Sicor-Libnata, un río de Palestina"
   },
   "H7885": {
     "shortDefinitionEs": "remo, azote (shayiṭ)",
     "glossesEs": [
       "remo",
       "azote"
-    ]
+    ],
+    "longDefinitionEs": "De H7751; también compárese H7752; remo; un azote (figuradamente)"
   },
   "H7886": {
     "shortDefinitionEs": "Shiloh: epíteto del Mesías (Shîylôh)",
     "glossesEs": [
       "Shiloh"
-    ]
+    ],
+    "longDefinitionEs": "De H7951; tranquilo; Silo, epíteto del Mesías"
   },
   "H7887": {
     "shortDefinitionEs": "Shilo: lugar en Palestina (Shîylôh)",
     "glossesEs": [
       "Shilo"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7886; Silo, un lugar en Palestina"
   },
   "H7888": {
     "shortDefinitionEs": "silonita: habitante de Shilo (Shîylôwnîy)",
     "glossesEs": [
       "silonita"
-    ]
+    ],
+    "longDefinitionEs": "De H7887; silonita o habitante de Silo"
   },
   "H7889": {
     "shortDefinitionEs": "Shimón: israelita (Shîymôwn)",
     "glossesEs": [
       "Shimón"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente por H3452; desierto; Simón, un israelita"
   },
   "H7890": {
     "shortDefinitionEs": "orina (shayin)",
     "glossesEs": [
       "orina"
-    ]
+    ],
+    "longDefinitionEs": "De una raíz no usada que significa orinar; orina"
   },
   "H7891": {
     "shortDefinitionEs": "cantar, entonar canción (shîyr)",
@@ -6848,178 +7130,204 @@
     "glossesEs": [
       "canción",
       "canto"
-    ]
+    ],
+    "longDefinitionEs": "De H7891; canción; abstractamente, el acto de cantar"
   },
   "H7893": {
     "shortDefinitionEs": "blanco, mármol (shayish)",
     "glossesEs": [
       "mármol",
       "blanco"
-    ]
+    ],
+    "longDefinitionEs": "De una raíz no usada que significa blanquear; blanco, es decir, mármol"
   },
   "H7894": {
     "shortDefinitionEs": "Shisha: israelita (Shîyshâʼ)",
     "glossesEs": [
       "Shisha"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7893; blancura; Sisa, un israelita"
   },
   "H7895": {
     "shortDefinitionEs": "Shishac: rey de Egipto (Shîyshaq)",
     "glossesEs": [
       "Shishac"
-    ]
+    ],
+    "longDefinitionEs": "De derivación egipcia; Sesac, un rey de Egipto"
   },
   "H7896": {
     "shortDefinitionEs": "poner, colocar, situar (shith)",
     "glossesEs": [
       "poner"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; poner o colocar (en aplicación muy amplia)"
   },
   "H7897": {
     "shortDefinitionEs": "vestidura, atuendo (shîyth)",
     "glossesEs": [
       "vestidura",
       "atuendo"
-    ]
+    ],
+    "longDefinitionEs": "De H7896; vestidura o prenda de ropa (como si fuera puesta)"
   },
   "H7898": {
     "shortDefinitionEs": "espinos, maleza silvestre (shayith)",
     "glossesEs": [
       "espinos",
       "maleza"
-    ]
+    ],
+    "longDefinitionEs": "De H7896; maleza o desecho, es decir, hierbas silvestres o espinas"
   },
   "H7899": {
     "shortDefinitionEs": "espina, zarza punzante (sêk)",
     "glossesEs": [
       "espina",
       "zarza"
-    ]
+    ],
+    "longDefinitionEs": "De H5526 en el sentido de H7753; zarza (como de un cerco)"
   },
   "H7900": {
     "shortDefinitionEs": "cabaña, tabernáculo (sôk)",
     "glossesEs": [
       "cabaña",
       "tabernáculo"
-    ]
+    ],
+    "longDefinitionEs": "De H5526 en el sentido de H7753; cabaña o booth (como entrelazada)"
   },
   "H7901": {
     "shortDefinitionEs": "acostarse, echarse, reposar (shâkab)",
     "glossesEs": [
       "acostarse",
       "reposar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; acostarse (para descanso, relación sexual, muerte u otro fin)"
   },
   "H7902": {
     "shortDefinitionEs": "acto de yacer, unión sexual (shᵉkâbâh)",
     "glossesEs": [
       "yacer",
       "relación"
-    ]
+    ],
+    "longDefinitionEs": "De H7901; acto de yacer (del rocío o del acto sexual)"
   },
   "H7903": {
     "shortDefinitionEs": "unión sexual, cohabitar (shᵉkôbeth)",
     "glossesEs": [
       "yacer",
       "unión"
-    ]
+    ],
+    "longDefinitionEs": "De H7901; unión (sexual) o cohabitar"
   },
   "H7904": {
     "shortDefinitionEs": "vagar, rondar (shâkâh)",
     "glossesEs": [
       "vagar",
       "rondar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; vagar o rondar (por lujuria)"
   },
   "H7905": {
     "shortDefinitionEs": "dardo, flecha punzante (sukkâh)",
     "glossesEs": [
       "dardo",
       "flecha"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7900 en el sentido de H7899; dardo (como puntiagudo como espina)"
   },
   "H7906": {
     "shortDefinitionEs": "Secu: lugar en Palestina (Sêkûw)",
     "glossesEs": [
       "Secu"
-    ]
+    ],
+    "longDefinitionEs": "De una raíz no usada que significa dominar; observatorio; Seco, lugar en Palestina"
   },
   "H7907": {
     "shortDefinitionEs": "observador, mente, corazón (sekvîy)",
     "glossesEs": [
       "corazón",
       "mente"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7906; observador, es decir, (concretamente) la mente"
   },
   "H7908": {
     "shortDefinitionEs": "privación, pérdida de hijos (shᵉkôwl)",
     "glossesEs": [
       "privación",
       "pérdida"
-    ]
+    ],
+    "longDefinitionEs": "Infinitivo de H7921; privación o pérdida de hijos"
   },
   "H7909": {
     "shortDefinitionEs": "privado de hijos, estéril (shakkûwl)",
     "glossesEs": [
       "estéril",
       "privado"
-    ]
+    ],
+    "longDefinitionEs": "De H7921; privado de hijos o estéril"
   },
   "H7910": {
     "shortDefinitionEs": "ebrio, borracho, embriagado (shikkôwr)",
     "glossesEs": [
       "ebrio",
       "borracho"
-    ]
+    ],
+    "longDefinitionEs": "Intoxicado, como estado o hábito; derivado de H7937"
   },
   "H7911": {
     "shortDefinitionEs": "olvidar, descuidar, perder memoria (shâkach)",
     "glossesEs": [
       "olvidar",
       "descuidar"
-    ]
+    ],
+    "longDefinitionEs": "Extraviar, estar olvidadizo por falta de memoria o atención"
   },
   "H7912": {
     "shortDefinitionEs": "descubrir, hallar, encontrar (shᵉkach)",
     "glossesEs": [
       "descubrir",
       "hallar"
-    ]
+    ],
+    "longDefinitionEs": "Descubrir (literal o figuradamente) por revelación de algo cubierto u olvidado"
   },
   "H7913": {
     "shortDefinitionEs": "Olvidadizo, descuidado (shâkêach)",
     "glossesEs": [
       "olvidar",
       "descuido"
-    ]
+    ],
+    "longDefinitionEs": "Olvidadizo, que carece de memoria"
   },
   "H7914": {
     "shortDefinitionEs": "Objeto conspicuo, imagen (sᵉkîyâh)",
     "glossesEs": [
       "imagen",
       "figura"
-    ]
+    ],
+    "longDefinitionEs": "Objeto conspicuo o notable"
   },
   "H7915": {
     "shortDefinitionEs": "Cuchillo, arma puntiaguda (sakkîyn)",
     "glossesEs": [
       "cuchillo",
       "arma"
-    ]
+    ],
+    "longDefinitionEs": "Cuchillo, arma puntiaguda o cortante"
   },
   "H7916": {
     "shortDefinitionEs": "Jornalero, sirviente asalariado (sâkîyr)",
     "glossesEs": [
       "jornalero",
       "asalariado"
-    ]
+    ],
+    "longDefinitionEs": "Hombre asalariado por día o año; jornalero"
   },
   "H7917": {
     "shortDefinitionEs": "Jornal, salario pagado (sᵉkîyrâh)",
     "glossesEs": [
       "jornal",
       "salario"
-    ]
+    ],
+    "longDefinitionEs": "Contratación de servicios; alquiler"
   },
   "H7918": {
     "shortDefinitionEs": "Calmar, aplacar, apaciguar (shâkak)",
@@ -7027,7 +7335,8 @@
       "calmar",
       "apaciguar",
       "aplacar"
-    ]
+    ],
+    "longDefinitionEs": "Tejer una trampa; fig. calmar pasiones o aplacar inundaciones"
   },
   "H7919": {
     "shortDefinitionEs": "Entender, actuar prudentemente (sâkal)",
@@ -7035,13 +7344,15 @@
       "prudencia",
       "entendimiento",
       "prosperar"
-    ]
+    ],
+    "longDefinitionEs": "Ser circunspecto y, por tanto, inteligente; actuar prudentemente"
   },
   "H7920": {
     "shortDefinitionEs": "Considerar, reflexionar (sᵉkal)",
     "glossesEs": [
       "considerar"
-    ]
+    ],
+    "longDefinitionEs": "Considerar, reflexionar (arameo, de H7919)"
   },
   "H7921": {
     "shortDefinitionEs": "Quedar sin hijos, ser estéril (shâkôl)",
@@ -7049,7 +7360,8 @@
       "sin hijos",
       "estéril",
       "aborto"
-    ]
+    ],
+    "longDefinitionEs": "Abortar propiamente; por analogía, quedar sin hijos o ser privado"
   },
   "H7922": {
     "shortDefinitionEs": "Inteligencia, prudencia, éxito (sekel)",
@@ -7057,20 +7369,23 @@
       "prudencia",
       "inteligencia",
       "discreción"
-    ]
+    ],
+    "longDefinitionEs": "Inteligencia; por implicación, éxito o prosperi­dad"
   },
   "H7923": {
     "shortDefinitionEs": "Pérdida de hijos, esterilidad (shikkulîym)",
     "glossesEs": [
       "esterilidad",
       "sin hijos"
-    ]
+    ],
+    "longDefinitionEs": "Esterilidad o falta continua de hijos por pérdidas"
   },
   "H7924": {
     "shortDefinitionEs": "Entendimiento, comprensión (soklᵉthânûw)",
     "glossesEs": [
       "entendimiento"
-    ]
+    ],
+    "longDefinitionEs": "Inteligencia, entendimiento (arameo, de H7920)"
   },
   "H7925": {
     "shortDefinitionEs": "Levantarse temprano, madrugar (shâkam)",
@@ -7078,7 +7393,8 @@
       "madrugar",
       "temprano",
       "levantarse"
-    ]
+    ],
+    "longDefinitionEs": "Cargar sobre los hombros; partir temprano por la mañana"
   },
   "H7926": {
     "shortDefinitionEs": "Cuello, espalda, hombro (shᵉkem)",
@@ -7086,33 +7402,38 @@
       "hombro",
       "cuello",
       "espalda"
-    ]
+    ],
+    "longDefinitionEs": "Cuello entre los hombros, lugar de cargas; fig. cima de colina"
   },
   "H7927": {
     "shortDefinitionEs": "Siquem: ciudad de Palestina (Shᵉkem)",
     "glossesEs": [
       "Siquem",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "Siquem, lugar en Palestina; significa 'loma' o 'espinazo'"
   },
   "H7928": {
     "shortDefinitionEs": "Siquem: nombre de varones israelitas (Shekem)",
     "glossesEs": [
       "Siquem"
-    ]
+    ],
+    "longDefinitionEs": "Siquem, nombre de un hitita y dos israelitas"
   },
   "H7929": {
     "shortDefinitionEs": "Omoplato, hueso del hombro (shikmâh)",
     "glossesEs": [
       "omoplato",
       "hombro"
-    ]
+    ],
+    "longDefinitionEs": "Omoplato, hueso del hombro (femenino de H7926)"
   },
   "H7930": {
     "shortDefinitionEs": "Siquemitas: descendientes de Siquem (Shikmîy)",
     "glossesEs": [
       "Siquemitas"
-    ]
+    ],
+    "longDefinitionEs": "Siquemita, descendiente de Siquem (patronímico)"
   },
   "H7931": {
     "shortDefinitionEs": "Habitar, morar, residir (shâkan)",
@@ -7120,21 +7441,24 @@
       "habitar",
       "morar",
       "residencia"
-    ]
+    ],
+    "longDefinitionEs": "Residir, morar permanentemente, literal o figuradamente"
   },
   "H7932": {
     "shortDefinitionEs": "Hacer habitar, alojar (shᵉkan)",
     "glossesEs": [
       "habitar",
       "alojar"
-    ]
+    ],
+    "longDefinitionEs": "Hacer habitar, alojar (arameo, de H7931)"
   },
   "H7933": {
     "shortDefinitionEs": "Residencia, habitación, morada (sheken)",
     "glossesEs": [
       "habitación",
       "residencia"
-    ]
+    ],
+    "longDefinitionEs": "Residencia, morada, lugar de habitación"
   },
   "H7934": {
     "shortDefinitionEs": "Habitante, vecino, prójimo (shâkên)",
@@ -7142,20 +7466,23 @@
       "habitante",
       "vecino",
       "prójimo"
-    ]
+    ],
+    "longDefinitionEs": "Habitante, residente; por extensión, conciudadano"
   },
   "H7935": {
     "shortDefinitionEs": "Secanías: nombre de israelitas (Shᵉkanyâh)",
     "glossesEs": [
       "Secanías"
-    ]
+    ],
+    "longDefinitionEs": "Secanías, 'Jah ha habitado'; nombre de nueve israelitas"
   },
   "H7936": {
     "shortDefinitionEs": "Alquilar, contratar asalariados (sâkar)",
     "glossesEs": [
       "alquilar",
       "jornalero"
-    ]
+    ],
+    "longDefinitionEs": "Alquilar, contratar empleados; compra temporal"
   },
   "H7937": {
     "shortDefinitionEs": "Emborracharse, estar ebrio (shâkar)",
@@ -7163,14 +7490,16 @@
       "emborracharse",
       "ebrio",
       "ebriedad"
-    ]
+    ],
+    "longDefinitionEs": "Emborracharse; saciar con bebida embriagante o influencia"
   },
   "H7938": {
     "shortDefinitionEs": "Salario, pago, recompensa (seker)",
     "glossesEs": [
       "salario",
       "recompensa"
-    ]
+    ],
+    "longDefinitionEs": "Salario, paga; derivado de H7936"
   },
   "H7939": {
     "shortDefinitionEs": "Salario, paga, recompensa por trabajo (sâkâr)",
@@ -7178,81 +7507,93 @@
       "salario",
       "paga",
       "recompensa"
-    ]
+    ],
+    "longDefinitionEs": "Pago de contrato; salario, mantenimiento, recompensa o beneficio"
   },
   "H7940": {
     "shortDefinitionEs": "Sacar: nombre de israelitas (Sâkâr)",
     "glossesEs": [
       "Sacar"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que de H7939; recompensa; Sacar, nombre de dos israelitas"
   },
   "H7941": {
     "shortDefinitionEs": "Bebida embriagante, vino fuerte (shêkâr)",
     "glossesEs": [
       "bebida fuerte",
       "embriagante"
-    ]
+    ],
+    "longDefinitionEs": "De H7937; bebida embriagante, es decir, licor intensamente alcohólico"
   },
   "H7942": {
     "shortDefinitionEs": "Sicroón: lugar en Palestina (Shikkᵉrôwn)",
     "glossesEs": [
       "Sicroón"
-    ]
+    ],
+    "longDefinitionEs": "Por H7943; embriaguez, Sicroón, lugar en Palestina"
   },
   "H7943": {
     "shortDefinitionEs": "Embriaguez, borrachera (shikkârôwn)",
     "glossesEs": [
       "embriaguez",
       "borrachera"
-    ]
+    ],
+    "longDefinitionEs": "De H7937; intoxicación"
   },
   "H7944": {
     "shortDefinitionEs": "Error, falta, culpa (shal)",
     "glossesEs": [
       "error",
       "falta"
-    ]
+    ],
+    "longDefinitionEs": "De H7952 forma abreviada; una falta"
   },
   "H7945": {
     "shortDefinitionEs": "Causa, razón, por causa de (shel)",
     "glossesEs": [
       "causa",
       "razón"
-    ]
+    ],
+    "longDefinitionEs": "Por la relativa H834; usado con prefijo preposicional y frecuentemente seguido de afijo pronominal; por causa de, cualquiera que sea"
   },
   "H7946": {
     "shortDefinitionEs": "Tranquilo, sosegado, en paz (shalʼănân)",
     "glossesEs": [
       "tranquilo",
       "sosegado"
-    ]
+    ],
+    "longDefinitionEs": "Por H7600; tranquilo"
   },
   "H7947": {
     "shortDefinitionEs": "Espaciar, ordenar equidistante (shâlab)",
     "glossesEs": [
       "espaciar",
       "ordenar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; espaciar; intensivo (uniformemente) hacer equidistante"
   },
   "H7948": {
     "shortDefinitionEs": "Travesaño, repisa, moldura (shâlâb)",
     "glossesEs": [
       "travesaño",
       "repisa"
-    ]
+    ],
+    "longDefinitionEs": "De H7947; separador o intervalo elevado, es decir, el travesaño en marco o panel"
   },
   "H7949": {
     "shortDefinitionEs": "Ser blanco como la nieve (shâlag)",
     "glossesEs": [
       "blanco",
       "nieve"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, ser blanco; usado solo como denominativo de H7950; ser blanco como la nieve"
   },
   "H7950": {
     "shortDefinitionEs": "Nieve, copos blancos (sheleg)",
     "glossesEs": [
       "nieve"
-    ]
+    ],
+    "longDefinitionEs": "De H7949; nieve (probablemente por su blancura)"
   },
   "H7951": {
     "shortDefinitionEs": "Estar tranquilo, prosperar, seguro (shâlâh)",
@@ -7260,68 +7601,78 @@
       "tranquilo",
       "prosperar",
       "seguro"
-    ]
+    ],
+    "longDefinitionEs": "O שָׁלַו; raíz primitiva; ser tranquilo, es decir, seguro o próspero"
   },
   "H7952": {
     "shortDefinitionEs": "Engañar, ser negligente (shâlâh)",
     "glossesEs": [
       "engañar",
       "negligencia"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; engañar o inducir al error"
   },
   "H7953": {
     "shortDefinitionEs": "Sacar, quitar, arrebatar (shâlâh)",
     "glossesEs": [
       "quitar",
       "arrebatar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; sacar, extraer o remover (el alma por la muerte)"
   },
   "H7954": {
     "shortDefinitionEs": "Estar en reposo, seguridad (shᵉlâh)",
     "glossesEs": [
       "reposo",
       "seguridad"
-    ]
+    ],
+    "longDefinitionEs": "Arameo correspondiente a H7951; estar seguro"
   },
   "H7955": {
     "shortDefinitionEs": "Injusticia, cosa indebida (shâlâh)",
     "glossesEs": [
       "injusticia",
       "falta"
-    ]
+    ],
+    "longDefinitionEs": "Arameo de raíz correspondiente a H7952; injusticia"
   },
   "H7956": {
     "shortDefinitionEs": "Sela: nombre de patriarca israelita (Shêlâh)",
     "glossesEs": [
       "Sela"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7596 acortado; petición; Sela, nombre de patriarca postdiluviano e israelita"
   },
   "H7957": {
     "shortDefinitionEs": "Llamarada, fuego resplandeciente (shalhebeth)",
     "glossesEs": [
       "llamarada",
       "fuego"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H3851 con prefijo sibilante; llamarada de fuego"
   },
   "H7958": {
     "shortDefinitionEs": "Codorniz, ave de caza (sᵉlâv)",
     "glossesEs": [
       "codorniz"
-    ]
+    ],
+    "longDefinitionEs": "O שְׂלָיו; por variación ortográfica de H7951 por idea de lentitud; codorniz colectivamente"
   },
   "H7959": {
     "shortDefinitionEs": "Seguridad, prosperidad, paz (shelev)",
     "glossesEs": [
       "prosperidad",
       "seguridad"
-    ]
+    ],
+    "longDefinitionEs": "De H7951; seguridad"
   },
   "H7960": {
     "shortDefinitionEs": "Error, falta, cosa indebida (shâlûw)",
     "glossesEs": [
       "error",
       "falta"
-    ]
+    ],
+    "longDefinitionEs": "Arameo o שָׁלוּת; del mismo que H7955; falta"
   },
   "H7961": {
     "shortDefinitionEs": "Tranquilo, seguro, prospero (shâlêv)",
@@ -7329,7 +7680,8 @@
       "tranquilo",
       "próspero",
       "seguro"
-    ]
+    ],
+    "longDefinitionEs": "O שָׁלֵיו; femenino שְׁלֵוָה; de H7951; tranquilo; (sentido malo) descuidado; abstactamente, seguridad"
   },
   "H7962": {
     "shortDefinitionEs": "Seguridad, paz, prosperidad (shalvâh)",
@@ -7337,7 +7689,8 @@
       "paz",
       "prosperidad",
       "seguridad"
-    ]
+    ],
+    "longDefinitionEs": "De H7951; seguridad genuina o falsa"
   },
   "H7963": {
     "shortDefinitionEs": "Seguridad, tranquilidad (shᵉlêvâh)",
@@ -7345,7 +7698,8 @@
       "seguridad",
       "tranquilidad",
       "paz"
-    ]
+    ],
+    "longDefinitionEs": "Arameo correspondiente a H7962; seguridad"
   },
   "H7964": {
     "shortDefinitionEs": "Divorcio, carta de repudio; dote (shillûwach)",
@@ -7353,7 +7707,8 @@
       "divorcio",
       "repudio",
       "dote"
-    ]
+    ],
+    "longDefinitionEs": "O שִׁלֻּחַ; de H7971; (solo plural) despedida, es decir, (de esposa) divorcio o documento; también (de hija) dote"
   },
   "H7965": {
     "shortDefinitionEs": "paz, bienestar, prosperidad, integridad (shalom)",
@@ -7369,21 +7724,24 @@
       "recompensa",
       "retribución",
       "paga"
-    ]
+    ],
+    "longDefinitionEs": "O שִׁלֻּם; de H7999; retribución, es decir, retaliación segura o honorario"
   },
   "H7967": {
     "shortDefinitionEs": "Salum: nombre de catorce israelitas (Shallûwm)",
     "glossesEs": [
       "Salum",
       "nombre propio"
-    ]
+    ],
+    "longDefinitionEs": "O שַׁלֻּם acortado; lo mismo que H7966; Salum, nombre de catorce israelitas"
   },
   "H7968": {
     "shortDefinitionEs": "Salún: nombre de un israelita (Shallûwn)",
     "glossesEs": [
       "Salún",
       "nombre propio"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente por H7967; Salún, un israelita"
   },
   "H7969": {
     "shortDefinitionEs": "Tres; tercero u ordinal (shâlôwsh)",
@@ -7391,14 +7749,16 @@
       "tres",
       "tercero",
       "triple"
-    ]
+    ],
+    "longDefinitionEs": "O שָׁלֹשׁ; masculino שְׁלוֹשָׁה o שְׁלֹשָׁה; número primitivo; tres; ocasionalmente (ordinal) tercero o (múltiple) tres veces"
   },
   "H7970": {
     "shortDefinitionEs": "Treinta; ordinal trigésimo (shᵉlôwshîym)",
     "glossesEs": [
       "treinta",
       "trigésimo"
-    ]
+    ],
+    "longDefinitionEs": "O שְׁלֹשִׁים; múltiple de H7969; treinta u (ordinal) trigésimo"
   },
   "H7971": {
     "shortDefinitionEs": "Enviar, despedir, lanzar (shâlach)",
@@ -7406,14 +7766,16 @@
       "enviar",
       "despedir",
       "lanzar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; enviar, despedir o lanzar (en gran variedad de aplicaciones)"
   },
   "H7972": {
     "shortDefinitionEs": "Poner, enviar (shᵉlach)",
     "glossesEs": [
       "poner",
       "enviar"
-    ]
+    ],
+    "longDefinitionEs": "Correspondiente arameo de H7971 (שָׁלַח); poner, enviar"
   },
   "H7973": {
     "shortDefinitionEs": "Lanza, proyectil; rama, retoño (shelach)",
@@ -7421,14 +7783,16 @@
       "lanza",
       "dardo",
       "rama"
-    ]
+    ],
+    "longDefinitionEs": "De H7971 (שָׁלַח); arma de ataque, es decir, lanza; también (figuradamente) retoño de crecimiento, es decir, rama"
   },
   "H7974": {
     "shortDefinitionEs": "Selac: patriarca postdiluviano (Shelach)",
     "glossesEs": [
       "Selac",
       "nombre propio"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7973 (שֶׁלַח); Selac, patriarca postdiluviano"
   },
   "H7975": {
     "shortDefinitionEs": "Siloé: fuente de Jerusalén (Shilôach)",
@@ -7436,7 +7800,8 @@
       "Siloé",
       "fuente",
       "Jerusalén"
-    ]
+    ],
+    "longDefinitionEs": "De H7971 (שָׁלַח); arroyo; Siloé, fuente de Jerusalén"
   },
   "H7976": {
     "shortDefinitionEs": "Retoño, rama (shilluchâh)",
@@ -7444,28 +7809,32 @@
       "rama",
       "retoño",
       "rama"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7964 (שִׁלּוּחַ); retoño"
   },
   "H7977": {
     "shortDefinitionEs": "Silhi: nombre de un israelita (Shilchîy)",
     "glossesEs": [
       "Silhi",
       "nombre propio"
-    ]
+    ],
+    "longDefinitionEs": "De H7973 (שֶׁלַח); armado, misil; Silhi, un israelita"
   },
   "H7978": {
     "shortDefinitionEs": "Silhim: lugar en Palestina (Shilchîym)",
     "glossesEs": [
       "Silhim",
       "lugar geográfico"
-    ]
+    ],
+    "longDefinitionEs": "Plural de H7973 (שֶׁלַח); jabalinas o retoños; Silhim, lugar en Palestina"
   },
   "H7979": {
     "shortDefinitionEs": "Mesa, tabla para comer (shulchân)",
     "glossesEs": [
       "mesa",
       "tabla"
-    ]
+    ],
+    "longDefinitionEs": "De H7971 (שָׁלַח); mesa (como extendida); por implicación, comida"
   },
   "H7980": {
     "shortDefinitionEs": "Dominar, gobernar, permitir (shâlaṭ)",
@@ -7473,7 +7842,8 @@
       "dominar",
       "gobernar",
       "poder"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; dominar, gobernar; por implicación, permitir"
   },
   "H7981": {
     "shortDefinitionEs": "Tener dominio, ejercer poder (shᵉlêṭ)",
@@ -7481,21 +7851,24 @@
       "dominio",
       "poder",
       "gobernar"
-    ]
+    ],
+    "longDefinitionEs": "Correspondiente arameo de H7980 (שָׁלַט); tener dominio, ejercer poder"
   },
   "H7982": {
     "shortDefinitionEs": "Escudo protector (sheleṭ)",
     "glossesEs": [
       "escudo",
       "protección"
-    ]
+    ],
+    "longDefinitionEs": "De H7980 (שָׁלַט); probablemente escudo (como controlador, es decir, protector)"
   },
   "H7983": {
     "shortDefinitionEs": "Poder, autoridad (shilṭôwn)",
     "glossesEs": [
       "poder",
       "autoridad"
-    ]
+    ],
+    "longDefinitionEs": "Arameo de H7980 (שָׁלַט); poder, autoridad"
   },
   "H7984": {
     "shortDefinitionEs": "Gobernante, soberano (shilṭôwn)",
@@ -7503,28 +7876,32 @@
       "gobernante",
       "soberano",
       "príncipe"
-    ]
+    ],
+    "longDefinitionEs": "Arameo; correspondiente a H7983 (שִׁלְטוֹן); gobernante, soberano"
   },
   "H7985": {
     "shortDefinitionEs": "Imperio, dominio (sholṭân)",
     "glossesEs": [
       "dominio",
       "imperio"
-    ]
+    ],
+    "longDefinitionEs": "Arameo de H7981 (שְׁלֵט); imperio (abstracta o concretamente)"
   },
   "H7986": {
     "shortDefinitionEs": "Zorra, mujer altiva (shalleṭeth)",
     "glossesEs": [
       "zorra",
       "altiva"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7980 (שָׁלַט); zorra"
   },
   "H7987": {
     "shortDefinitionEs": "Privacidad, secreto (shᵉlîy)",
     "glossesEs": [
       "secreto",
       "privacidad"
-    ]
+    ],
+    "longDefinitionEs": "De H7951 (שָׁלָה); privacidad, secreto"
   },
   "H7988": {
     "shortDefinitionEs": "Feto, criatura al nacer (shilyâh)",
@@ -7532,7 +7909,8 @@
       "criatura",
       "feto",
       "bebé"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7953 (שָׁלָה); feto o criatura al nacer"
   },
   "H7989": {
     "shortDefinitionEs": "Poderoso, príncipe, gobernante (shallîyṭ)",
@@ -7540,7 +7918,8 @@
       "poderoso",
       "príncipe",
       "gobernante"
-    ]
+    ],
+    "longDefinitionEs": "De H7980 (שָׁלַט); poderoso; concretamente, príncipe o guerrero"
   },
   "H7990": {
     "shortDefinitionEs": "Poderoso, capitán, autoridad (shallîyṭ)",
@@ -7548,7 +7927,8 @@
       "capitán",
       "poderoso",
       "gobernar"
-    ]
+    ],
+    "longDefinitionEs": "Arameo de H7989 (שַׁלִּיט); poderoso; abstractamente, permiso; concretamente, premier"
   },
   "H7991": {
     "shortDefinitionEs": "Triple, instrumento musical; príncipe (shâlîysh)",
@@ -7556,14 +7936,16 @@
       "triple",
       "príncipe",
       "instrumento"
-    ]
+    ],
+    "longDefinitionEs": "De H7969 (שָׁלוֹשׁ); triple, es decir (instrumento musical) triángulo; también (medida indefinida) triple medida; también (oficial) general de tercer rango"
   },
   "H7992": {
     "shortDefinitionEs": "Tercero, tercera parte (shᵉlîyshîy)",
     "glossesEs": [
       "tercero",
       "tercera parte"
-    ]
+    ],
+    "longDefinitionEs": "Ordinal de H7969 (שָׁלוֹשׁ); tercero; tercera parte; también tercera cámara"
   },
   "H7993": {
     "shortDefinitionEs": "Lanzar, arrojar, descartar (shâlak)",
@@ -7571,28 +7953,32 @@
       "lanzar",
       "arrojar",
       "descartar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; lanzar, arrojar o descartar (literal o figuradamente)"
   },
   "H7994": {
     "shortDefinitionEs": "Ave de presa, cormorán (shâlâk)",
     "glossesEs": [
       "cormorán",
       "ave"
-    ]
+    ],
+    "longDefinitionEs": "De H7993 (שָׁלַךְ); ave de presa, generalmente considerada pelícano (por lanzarse al mar)"
   },
   "H7995": {
     "shortDefinitionEs": "Tala de árboles (shalleketh)",
     "glossesEs": [
       "tala",
       "árbol"
-    ]
+    ],
+    "longDefinitionEs": "De H7993 (שָׁלַךְ); tala de árboles"
   },
   "H7996": {
     "shortDefinitionEs": "Puerta de Jerusalén (Shalleketh)",
     "glossesEs": [
       "Puerta Shalleketh",
       "Jerusalén"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7995 (שַׁלֶּכֶת); Puerta de Shalleketh en Jerusalén"
   },
   "H7997": {
     "shortDefinitionEs": "Despojar, saquear (shâlal)",
@@ -7600,7 +7986,8 @@
       "saquear",
       "despojar",
       "botín"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; dejar caer, despojar; por implicación, saquear"
   },
   "H7998": {
     "shortDefinitionEs": "Botín, presa, despojo (shâlâl)",
@@ -7608,7 +7995,8 @@
       "botín",
       "presa",
       "despojo"
-    ]
+    ],
+    "longDefinitionEs": "De H7997 (שָׁלַל); botín, despojo"
   },
   "H7999": {
     "shortDefinitionEs": "Estar seguro, estar completo, hacer paz (shâlam)",
@@ -7616,7 +8004,8 @@
       "paz",
       "completo",
       "seguro"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; estar seguro; estar completo; ser amistoso; reciprocar (variadas aplicaciones)"
   },
   "H8000": {
     "shortDefinitionEs": "Completar, restaurar, entregar (shᵉlam)",
@@ -7624,6 +8013,7 @@
       "completar",
       "restaurar",
       "entregar"
-    ]
+    ],
+    "longDefinitionEs": "Arameo de H7999 (שָׁלַם); completar, restaurar, entregar"
   }
 }
