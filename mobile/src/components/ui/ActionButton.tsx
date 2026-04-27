@@ -1,12 +1,12 @@
 /**
  * ActionButton — the single canonical CTA component for the whole app.
  *
- * Guarantees WCAG AA contrast in every theme (dark / light / custom):
- *  - Button fill vs surface:  >= 3.0:1
- *  - Text/icon vs fill:       >= 4.5:1
- *  - Double border + shadow:  ensures visual separation on any background
- *
- * Props mirror a standard <Pressable> plus a few extras.
+ * Root cause of the "invisible button" bug:
+ *   useNativeDriver:true offloads the scale transform to iOS's GPU compositor.
+ *   Any backgroundColor set on a *child* Pressable lives in the JS layer and
+ *   gets dropped when the native layer takes over compositing.
+ *   Fix: ALL visual styles (background, border, shadow, elevation) live on the
+ *   Animated.View itself; the Pressable inside is layout-only + transparent.
  */
 
 import React, { useRef } from 'react';
@@ -31,27 +31,16 @@ export type ActionButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 export type ActionButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ActionButtonProps extends Omit<PressableProps, 'style'> {
-  /** Button label */
   label: string;
-  /** Optional leading icon — render function receives auto-contrast color + size */
   icon?: ((color: string, size: number) => React.ReactNode) | React.ReactNode;
-  /** Optional trailing icon — same signature */
   trailingIcon?: ((color: string, size: number) => React.ReactNode) | React.ReactNode;
-  /** Visual variant */
   variant?: ActionButtonVariant;
-  /** Size preset */
   size?: ActionButtonSize;
-  /** Show loading spinner instead of label */
   loading?: boolean;
-  /** Custom container style (merged after computed styles) */
   style?: StyleProp<ViewStyle>;
-  /** Custom label style */
   labelStyle?: StyleProp<TextStyle>;
-  /** Override the surface color used for contrast calculation */
   surfaceColor?: string;
-  /** Override the fill (background) color — still auto-adjusts contrast for text */
   fillColor?: string;
-  /** Full width (default false) */
   fullWidth?: boolean;
 }
 
@@ -95,44 +84,28 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 
   // ── Derive colors ──────────────────────────────────────────────────────────
 
-  // Primary CTAs almost always sit on the page background, not inside a card.
-  // Using background (not surface) as the default contrast baseline ensures
-  // the fill is visible wherever the button is placed.
   const resolvedSurface = surfaceColor ?? colors.background;
-
-  // Derive effective dark mode from the ACTUAL surface luminance, not just the
-  // store flag. Some themes (e.g. Noche de Paz) are inherently dark regardless
-  // of the system dark-mode toggle — their surface is dark even when isDark=false.
-  // Using surface luminance as the truth ensures ensureContrast always pushes
-  // the fill in the right direction (lighter on dark surfaces, darker on light).
   const surfaceLuminance = relativeLuminance(resolvedSurface);
   const effectiveIsDark = surfaceLuminance < 0.18;
 
   let fill: string;
   let textColor: string;
   let outerBorderColor: string;
-  let innerBorderColor: string;
+  let borderColor: string;
 
   if (disabled) {
     const dc = deriveDisabledColors(resolvedSurface, effectiveIsDark);
     fill = dc.fill;
     textColor = dc.textColor;
     outerBorderColor = effectiveIsDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
-    innerBorderColor = 'transparent';
+    borderColor = 'transparent';
   } else if (variant === 'secondary') {
-    // Secondary: outlined with a visible fill (30% opacity instead of 10%)
-    fill = fillColor ?? (effectiveIsDark
-      ? colors.primary + '40'   // 25% opacity on dark — visible on dark surfaces
-      : colors.primary + '22'); // 13% opacity on light — subtle but visible
+    fill = fillColor ?? (effectiveIsDark ? colors.primary + '40' : colors.primary + '22');
     const borderBase = colors.primary;
-    // Text must contrast against the ACTUAL fill, not just the surface
-    // Use primary color if it meets 3.5:1 on surface, otherwise force absolute
     const borderContrast = contrastRatio(borderBase, resolvedSurface);
-    textColor = borderContrast >= 3.5
-      ? borderBase
-      : effectiveIsDark ? '#FFFFFF' : '#111111';
-    outerBorderColor = colors.primary + (effectiveIsDark ? 'CC' : 'AA'); // More opaque border
-    innerBorderColor = 'transparent';
+    textColor = borderContrast >= 3.5 ? borderBase : effectiveIsDark ? '#FFFFFF' : '#111111';
+    outerBorderColor = colors.primary + (effectiveIsDark ? 'CC' : 'AA');
+    borderColor = 'transparent';
   } else if (variant === 'ghost') {
     fill = 'transparent';
     textColor = (() => {
@@ -140,14 +113,14 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
       return r >= 3.0 ? colors.primary : effectiveIsDark ? '#FFFFFF' : '#111111';
     })();
     outerBorderColor = 'transparent';
-    innerBorderColor = 'transparent';
+    borderColor = 'transparent';
   } else if (variant === 'danger') {
     const dangerColor = '#EF4444';
     const { fill: df, textColor: dt } = deriveButtonColors(dangerColor, resolvedSurface, effectiveIsDark);
     fill = df;
     textColor = dt;
     outerBorderColor = effectiveIsDark ? 'rgba(255,80,80,0.35)' : 'rgba(180,0,0,0.20)';
-    innerBorderColor = effectiveIsDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)';
+    borderColor = effectiveIsDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)';
   } else {
     // primary (default)
     const base = fillColor ?? colors.primary;
@@ -155,13 +128,10 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     fill = pf;
     textColor = pt;
     outerBorderColor = effectiveIsDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.22)';
-    innerBorderColor = effectiveIsDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.10)';
+    borderColor = effectiveIsDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.10)';
   }
 
-  // Final safety guard: if the computed fill somehow doesn't contrast sufficiently
-  // with the surface (< 2.5:1), override with an absolute fallback.
-  // This catches edge cases where hexToRgb receives an unexpected input format
-  // or ensureContrast fails to converge, which would produce a near-invisible button.
+  // Safety guard: catch any edge case where fill doesn't contrast with surface
   if (!disabled && variant !== 'ghost') {
     const finalContrast = contrastRatio(fill, resolvedSurface);
     if (!isFinite(finalContrast) || finalContrast < 2.5) {
@@ -192,12 +162,35 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────
+  // IMPORTANT: All visual styles (backgroundColor, borderRadius, border, shadow)
+  // are on the Animated.View, NOT the Pressable. When useNativeDriver:true is
+  // used, iOS composites the Animated.View as a native GPU layer. Styles on
+  // JS-layer children (Pressable) are dropped in that compositing pass, making
+  // backgroundColor invisible. Keeping all visuals on Animated.View fixes this.
 
   return (
     <Animated.View
       style={[
         fullWidth && { width: '100%' },
-        { transform: [{ scale: scaleAnim }] },
+        {
+          transform: [{ scale: scaleAnim }],
+          backgroundColor: fill,
+          borderRadius: tokens.borderRadius,
+          borderWidth: variant === 'ghost' ? 0 : 1.5,
+          borderColor,
+          // iOS shadow on the animated layer itself (not on a child)
+          ...(Platform.OS === 'ios' && variant !== 'ghost' && variant !== 'secondary' ? {
+            shadowColor: '#000000',
+            shadowOpacity: disabled ? 0.06 : 0.18,
+            shadowRadius: 8,
+            shadowOffset: { width: 0, height: 4 },
+          } : {}),
+          // Android elevation on the animated layer
+          ...(Platform.OS === 'android' && variant !== 'ghost' ? {
+            elevation: disabled ? 0 : 4,
+          } : {}),
+        },
+        style as ViewStyle,
       ]}
     >
       <Pressable
@@ -208,58 +201,31 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
         accessibilityRole="button"
         accessibilityLabel={label}
         accessibilityState={{ disabled, busy: loading }}
-        style={({ pressed }) => [
-          {
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: tokens.gap,
-            paddingVertical: tokens.paddingVertical,
-            paddingHorizontal: tokens.paddingHorizontal,
-            borderRadius: tokens.borderRadius,
-            backgroundColor: fill,
-            // Double border via outline + border trick (React Native only supports one border)
-            // We use a separate wrapper view for the outer stroke
-            borderWidth: variant === 'ghost' ? 0 : 1.5,
-            borderColor: innerBorderColor,
-            opacity: pressed && !disabled ? 0.9 : 1,
-            // Shadow
-            ...(Platform.OS === 'ios' && variant !== 'ghost' && variant !== 'secondary' ? {
-              shadowColor: '#000000',
-              shadowOpacity: disabled ? 0.06 : 0.20,
-              shadowRadius: 10,
-              shadowOffset: { width: 0, height: 6 },
-            } : {}),
-          },
-          style as ViewStyle,
-        ]}
+        style={({ pressed }) => ({
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: tokens.gap,
+          paddingVertical: tokens.paddingVertical,
+          paddingHorizontal: tokens.paddingHorizontal,
+          borderRadius: tokens.borderRadius,
+          // transparent — background lives on the Animated.View above
+          backgroundColor: 'transparent',
+          opacity: pressed && !disabled ? 0.88 : 1,
+        })}
         {...rest}
       >
-        {/* Outer stroke overlay — renders as an absolute inset border */}
+        {/* Outer stroke overlay */}
         {variant !== 'ghost' && !disabled && (
           <View
             pointerEvents="none"
             style={{
               position: 'absolute',
-              inset: 0,
+              top: 0, right: 0, bottom: 0, left: 0,
               borderRadius: tokens.borderRadius,
               borderWidth: 1,
               borderColor: outerBorderColor,
             }}
-          />
-        )}
-
-        {/* Android elevation */}
-        {Platform.OS === 'android' && variant !== 'ghost' && (
-          <View
-            style={{
-              position: 'absolute',
-              inset: 0,
-              elevation: disabled ? 0 : 6,
-              borderRadius: tokens.borderRadius,
-              backgroundColor: fill,
-            }}
-            pointerEvents="none"
           />
         )}
 
