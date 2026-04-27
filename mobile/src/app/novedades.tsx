@@ -25,17 +25,21 @@ import {
   ChevronDown,
   ChevronRight,
   CheckCircle,
+  Gift,
   Mail,
   MessageSquare,
   Repeat2,
   Send,
+  ShoppingBag,
   Shield,
   Sparkles,
   Star,
   Languages,
   X,
 } from 'lucide-react-native';
-import { useUser } from '@/lib/store';
+import { useUser, useAppStore, useLanguage } from '@/lib/store';
+import { gamificationApi } from '@/lib/gamification-api';
+import { useQueryClient } from '@tanstack/react-query';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -58,6 +62,19 @@ interface NewsItem {
   accentBg: string;
   title: string;
   summary: string;
+}
+
+interface UserDrop {
+  userGiftId: string;
+  giftDropId: string;
+  title: string;
+  message: string;
+  rewardType: 'CHEST' | 'THEME' | 'TITLE' | 'AVATAR' | 'ITEM';
+  rewardId: string;
+  rewardItemNameEs?: string | null;
+  rewardItemNameEn?: string | null;
+  status: 'PENDING' | 'CLAIMED' | 'DISMISSED';
+  createdAt: string;
 }
 
 interface TicketEvent {
@@ -437,6 +454,254 @@ function StrongContent() {
       <Text style={{ color: '#6B7280', fontSize: 12, lineHeight: 18, textAlign: 'center' }}>
         Toca cualquier cita para ir directamente al versículo en la Biblia
       </Text>
+    </View>
+  );
+}
+
+// ─── Drop Card ────────────────────────────────────────────────────────────────
+
+const REWARD_CONFIG: Record<string, { color: string; bg: string; icon: string; label: string }> = {
+  CHEST:  { color: '#F59E0B', bg: '#FFFBF0', icon: '📦', label: 'Cofre especial' },
+  THEME:  { color: '#8B5CF6', bg: '#F5F3FF', icon: '🎨', label: 'Tema exclusivo' },
+  TITLE:  { color: '#0EA5E9', bg: '#F0F9FF', icon: '🏷️', label: 'Título especial' },
+  AVATAR: { color: '#EC4899', bg: '#FDF2F8', icon: '👤', label: 'Avatar exclusivo' },
+  ITEM:   { color: '#10B981', bg: '#F0FDF4', icon: '⭐', label: 'Ítem premium' },
+};
+
+function DropNewsCard({
+  drop,
+  language,
+  onClaim,
+  onGoToStore,
+}: {
+  drop: UserDrop;
+  language: string;
+  onClaim: (drop: UserDrop) => Promise<void>;
+  onGoToStore: () => void;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const [claiming, setClaiming] = useState(false);
+  const [claimed, setClaimed] = useState(drop.status !== 'PENDING');
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+
+  const toggle = useCallback(() => {
+    LayoutAnimation.configureNext({
+      duration: 300,
+      create: { type: 'easeInEaseOut', property: 'opacity' },
+      update: { type: 'spring', springDamping: 0.8 },
+    });
+    Animated.timing(rotateAnim, {
+      toValue: expanded ? 0 : 1,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+    setExpanded((v) => !v);
+  }, [expanded, rotateAnim]);
+
+  const rotate = rotateAnim.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '180deg'] });
+
+  const cfg = REWARD_CONFIG[drop.rewardType] ?? REWARD_CONFIG.CHEST;
+  const accentColor = cfg.color;
+  const itemName = language === 'es' ? (drop.rewardItemNameEs ?? cfg.label) : (drop.rewardItemNameEn ?? cfg.label);
+  const es = language === 'es';
+
+  const handleClaim = async () => {
+    if (claiming || claimed) return;
+    setClaiming(true);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+    try {
+      await onClaim(drop);
+      setClaimed(true);
+    } finally {
+      setClaiming(false);
+    }
+  };
+
+  return (
+    <View
+      style={{
+        borderRadius: 16,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: `${accentColor}30`,
+        backgroundColor: cfg.bg,
+        marginBottom: 12,
+      }}
+    >
+      {/* Accent bar */}
+      <View style={{ height: 3, backgroundColor: accentColor, opacity: 0.7 }} />
+
+      {/* Header row */}
+      <Pressable
+        onPress={toggle}
+        style={({ pressed }) => ({ padding: 16, opacity: pressed ? 0.85 : 1 })}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <View
+              style={{
+                width: 34, height: 34, borderRadius: 10,
+                backgroundColor: `${accentColor}20`,
+                alignItems: 'center', justifyContent: 'center',
+              }}
+            >
+              <Text style={{ fontSize: 18 }}>{cfg.icon}</Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: `${accentColor}20`,
+                borderRadius: 20,
+                paddingHorizontal: 8, paddingVertical: 3,
+                borderWidth: 1,
+                borderColor: `${accentColor}40`,
+              }}
+            >
+              <Text style={{ color: accentColor, fontSize: 10, fontWeight: '800', letterSpacing: 0.6 }}>
+                DROP
+              </Text>
+            </View>
+            {!claimed && (
+              <View
+                style={{
+                  backgroundColor: '#EF4444',
+                  borderRadius: 20,
+                  paddingHorizontal: 8, paddingVertical: 3,
+                }}
+              >
+                <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: '800', letterSpacing: 0.6 }}>
+                  NUEVO
+                </Text>
+              </View>
+            )}
+          </View>
+          <Text style={{ color: '#6B7280', fontSize: 11 }}>{formatDate(drop.createdAt.split('T')[0])}</Text>
+        </View>
+
+        <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
+          <View style={{ flex: 1, gap: 4 }}>
+            <Text style={{ color: '#111827', fontSize: 16, fontWeight: '800', letterSpacing: -0.3 }}>
+              {drop.title}
+            </Text>
+            {!expanded && (
+              <Text style={{ color: '#6B7280', fontSize: 13, lineHeight: 19 }} numberOfLines={2}>
+                {drop.message}
+              </Text>
+            )}
+          </View>
+          <Animated.View style={{ transform: [{ rotate }], marginTop: 2 }}>
+            <ChevronDown size={18} color={accentColor} />
+          </Animated.View>
+        </View>
+      </Pressable>
+
+      {/* Expanded content */}
+      {expanded && (
+        <View style={{ paddingHorizontal: 16, paddingBottom: 20 }}>
+          <View style={{ height: 1, backgroundColor: `${accentColor}20`, marginBottom: 16 }} />
+
+          {/* Full message */}
+          <View
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.04)',
+              borderRadius: 12, padding: 14,
+              borderLeftWidth: 3, borderLeftColor: accentColor,
+              marginBottom: 16,
+            }}
+          >
+            <Text style={{ color: '#374151', fontSize: 13, lineHeight: 20, fontStyle: 'italic' }}>
+              "{drop.message}"
+            </Text>
+          </View>
+
+          {/* Item being gifted */}
+          <View
+            style={{
+              flexDirection: 'row', alignItems: 'center', gap: 12,
+              backgroundColor: `${accentColor}10`,
+              borderRadius: 12, padding: 14,
+              borderWidth: 1, borderColor: `${accentColor}25`,
+              marginBottom: 16,
+            }}
+          >
+            <View
+              style={{
+                width: 44, height: 44, borderRadius: 12,
+                backgroundColor: `${accentColor}20`,
+                alignItems: 'center', justifyContent: 'center',
+              }}
+            >
+              <Text style={{ fontSize: 22 }}>{cfg.icon}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ color: '#9CA3AF', fontSize: 11, fontWeight: '700', letterSpacing: 0.4 }}>
+                {es ? 'ÍTEM REGALADO' : 'GIFTED ITEM'}
+              </Text>
+              <Text style={{ color: '#111827', fontSize: 15, fontWeight: '800', marginTop: 2 }}>
+                {itemName}
+              </Text>
+              <Text style={{ color: accentColor, fontSize: 12, fontWeight: '600', marginTop: 1 }}>
+                {cfg.label}
+              </Text>
+            </View>
+            {claimed && (
+              <View
+                style={{
+                  backgroundColor: '#F0FDF4', borderRadius: 20,
+                  paddingHorizontal: 10, paddingVertical: 4,
+                  borderWidth: 1, borderColor: '#BBF7D0',
+                }}
+              >
+                <Text style={{ color: '#16A34A', fontSize: 11, fontWeight: '700' }}>
+                  {es ? 'Recibido' : 'Claimed'}
+                </Text>
+              </View>
+            )}
+          </View>
+
+          {/* Action buttons */}
+          <View style={{ gap: 10 }}>
+            {!claimed ? (
+              <Pressable
+                onPress={handleClaim}
+                disabled={claiming}
+                style={({ pressed }) => ({
+                  backgroundColor: claiming ? `${accentColor}80` : accentColor,
+                  borderRadius: 12, paddingVertical: 13,
+                  flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  opacity: pressed ? 0.85 : 1,
+                })}
+              >
+                {claiming
+                  ? <ActivityIndicator size="small" color="#fff" />
+                  : <Gift size={16} color="#fff" strokeWidth={2.5} />
+                }
+                <Text style={{ color: '#fff', fontWeight: '800', fontSize: 14 }}>
+                  {claiming
+                    ? (es ? 'Reclamando…' : 'Claiming…')
+                    : (es ? 'Reclamar ahora' : 'Claim now')}
+                </Text>
+              </Pressable>
+            ) : null}
+
+            <Pressable
+              onPress={onGoToStore}
+              style={({ pressed }) => ({
+                backgroundColor: claimed ? accentColor : 'rgba(0,0,0,0.05)',
+                borderRadius: 12, paddingVertical: 12,
+                flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
+                borderWidth: claimed ? 0 : 1,
+                borderColor: 'rgba(0,0,0,0.1)',
+                opacity: pressed ? 0.8 : 1,
+              })}
+            >
+              <ShoppingBag size={16} color={claimed ? '#fff' : accentColor} strokeWidth={2.5} />
+              <Text style={{ color: claimed ? '#fff' : accentColor, fontWeight: '700', fontSize: 14 }}>
+                {es ? 'Ver en tienda / Equipar' : 'View in Store / Equip'}
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      )}
     </View>
   );
 }
@@ -1108,7 +1373,11 @@ export default function NovederadesScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const user = useUser();
+  const language = useLanguage();
+  const queryClient = useQueryClient();
+  const addNewGiftItem = useAppStore((s) => s.addNewGiftItem);
   const [pendingTickets, setPendingTickets] = useState<FeedbackTicket[]>([]);
+  const [userDrops, setUserDrops] = useState<UserDrop[]>([]);
 
   useEffect(() => {
     AsyncStorage.setItem(NOVEDADES_STORAGE_KEY, new Date().toISOString()).catch(() => {});
@@ -1126,6 +1395,17 @@ export default function NovederadesScreen() {
       .catch(() => {});
   }, [user?.id]);
 
+  // Load user drops for novedades
+  useEffect(() => {
+    if (!user?.id) return;
+    fetch(`${BACKEND_URL}/api/gifts/user-drops?userId=${user.id}`)
+      .then(r => r.json())
+      .then((data: { gifts?: UserDrop[] }) => {
+        setUserDrops(data.gifts ?? []);
+      })
+      .catch(() => {});
+  }, [user?.id]);
+
   const refreshTickets = useCallback(() => {
     if (!user?.id) return;
     fetch(`${BACKEND_URL}/api/support/tickets/${user.id}`)
@@ -1136,6 +1416,19 @@ export default function NovederadesScreen() {
       })
       .catch(() => {});
   }, [user?.id]);
+
+  const handleClaimDrop = useCallback(async (drop: UserDrop) => {
+    if (!user?.id) return;
+    await gamificationApi.claimGift(user.id, drop.giftDropId);
+    if (drop.rewardId) addNewGiftItem(drop.rewardId);
+    queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
+    queryClient.invalidateQueries({ queryKey: ['backendUser'] });
+    // Refresh drops list to update status
+    fetch(`${BACKEND_URL}/api/gifts/user-drops?userId=${user.id}`)
+      .then(r => r.json())
+      .then((data: { gifts?: UserDrop[] }) => setUserDrops(data.gifts ?? []))
+      .catch(() => {});
+  }, [user?.id, addNewGiftItem, queryClient]);
 
   return (
     <View style={{ flex: 1, backgroundColor: '#F8F9FA' }}>

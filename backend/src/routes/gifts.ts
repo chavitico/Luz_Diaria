@@ -109,6 +109,57 @@ giftsRouter.get("/pending", async (c) => {
   }
 });
 
+// GET /api/gifts/user-drops?userId=xxx - Get recent drops for a user (for novedades display)
+giftsRouter.get("/user-drops", async (c) => {
+  try {
+    const userId = c.req.query("userId");
+    if (!userId) return c.json({ error: "userId required" }, 400);
+
+    const userGifts = await prisma.userGift.findMany({
+      where: { userId },
+      include: { giftDrop: true },
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    });
+
+    const gifts = await Promise.all(
+      userGifts.map(async (ug) => {
+        let rewardItemNameEs: string | null = null;
+        let rewardItemNameEn: string | null = null;
+        if (ug.giftDrop.rewardType !== "CHEST") {
+          try {
+            const storeItem = await prisma.storeItem.findUnique({
+              where: { id: ug.giftDrop.rewardId },
+              select: { nameEs: true, nameEn: true },
+            });
+            if (storeItem) {
+              rewardItemNameEs = storeItem.nameEs;
+              rewardItemNameEn = storeItem.nameEn;
+            }
+          } catch {}
+        }
+        return {
+          userGiftId: ug.id,
+          giftDropId: ug.giftDropId,
+          title: ug.giftDrop.title,
+          message: ug.giftDrop.message,
+          rewardType: ug.giftDrop.rewardType,
+          rewardId: ug.giftDrop.rewardId,
+          rewardItemNameEs,
+          rewardItemNameEn,
+          status: ug.status,
+          createdAt: ug.createdAt.toISOString(),
+        };
+      })
+    );
+
+    return c.json({ gifts });
+  } catch (error) {
+    console.error("[Gifts] Error getting user drops:", error);
+    return c.json({ error: "Failed to get user drops" }, 500);
+  }
+});
+
 // POST /api/gifts/claim - Claim a gift
 giftsRouter.post("/claim", zValidator("json", claimGiftSchema), async (c) => {
   try {

@@ -9,6 +9,7 @@ import {
   Animated,
   Easing,
   Dimensions,
+  ScrollView,
   StyleSheet,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -20,7 +21,7 @@ import { ActionButton } from '@/components/ui/ActionButton';
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 
-const { width: SCREEN_W } = Dimensions.get('window');
+const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
 
 export interface PendingGift {
   userGiftId: string;
@@ -230,6 +231,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
             transform: [{ translateY: cardTranslateY }],
             width: SCREEN_W - 48,
             maxWidth: 360,
+            maxHeight: SCREEN_H * 0.88,
           }}
         >
           {/* Card shell */}
@@ -259,8 +261,13 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
               </Pressable>
             </View>
 
-            {/* Body */}
-            <View style={styles.body}>
+            {/* Body — scrollable so long messages never get clipped */}
+            <ScrollView
+              style={{ maxHeight: SCREEN_H * 0.48 }}
+              showsVerticalScrollIndicator={false}
+              bounces={false}
+              contentContainerStyle={styles.body}
+            >
               {/* Floating icon with particles */}
               <View style={styles.iconWrapper}>
                 {/* Particle burst */}
@@ -288,7 +295,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
               </View>
 
               {/* Gift title */}
-              <Text style={[styles.giftTitle, { color: colors.text }]} numberOfLines={2}>
+              <Text style={[styles.giftTitle, { color: colors.text }]}>
                 {gift.title}
               </Text>
 
@@ -306,22 +313,22 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                   </View>
                 ) : (
                   <View style={[styles.itemNameBadge, { backgroundColor: accentColor + '12', borderColor: accentColor + '30' }]}>
-                    <Text style={[styles.itemNameText, { color: accentColor }]} numberOfLines={2}>
+                    <Text style={[styles.itemNameText, { color: accentColor }]}>
                       {itemName ?? rewardTypeLabel[gift.rewardType]}
                     </Text>
                   </View>
                 )}
               </Animated.View>
 
-              {/* Message — for non-points gifts */}
+              {/* Message — full text, no truncation */}
               {!isPointsGift && gift.message ? (
                 <View style={[styles.messageBox, { backgroundColor: colors.background, borderLeftColor: accentColor }]}>
-                  <Text style={[styles.messageText, { color: colors.textMuted }]} numberOfLines={3}>
+                  <Text style={[styles.messageText, { color: colors.textMuted }]}>
                     "{gift.message}"
                   </Text>
                 </View>
               ) : isPointsGift && gift.message ? (
-                <Text style={[styles.subtitleText, { color: colors.textMuted }]} numberOfLines={2}>
+                <Text style={[styles.subtitleText, { color: colors.textMuted }]}>
                   {gift.message}
                 </Text>
               ) : null}
@@ -333,7 +340,7 @@ export default function GiftModal({ visible, gift, onClaim, onLater }: GiftModal
                   {rewardTypeLabel[gift.rewardType]}
                 </Text>
               </View>
-            </View>
+            </ScrollView>
 
             {/* CTA area */}
             <View style={styles.ctas}>
