@@ -1598,7 +1598,8 @@ export default function HomeScreen() {
     setTimeout(() => setShowAchievement(false), 3000);
   }, [isCompleted, user, today, addPoints, incrementStreak, updateUser]);
 
-  // Novedades unread badge
+  // Novedades unread badge — true if news unread OR there's a pending admin drop
+  const hasPendingGiftBadge = useAppStore((s) => s.notificationBadges.hasPendingGift);
   const [hasUnreadNews, setHasUnreadNews] = useState(false);
   useEffect(() => {
     AsyncStorage.getItem('@novedades_last_opened').then((val) => {
@@ -1606,6 +1607,7 @@ export default function HomeScreen() {
       setHasUnreadNews(new Date(val) < new Date('2026-04-27T12:00:00Z'));
     }).catch(() => setHasUnreadNews(true));
   }, []);
+  const showNoveddadesBadge = hasUnreadNews || hasPendingGiftBadge;
 
   // Open share modal
   const handleOpenShareModal = useCallback(() => {
@@ -2129,7 +2131,7 @@ export default function HomeScreen() {
                 }}
               >
                 <Mail size={20} color="#FFFFFF" />
-                {hasUnreadNews && (
+                {showNoveddadesBadge && (
                   <View
                     style={{
                       position: 'absolute',

@@ -1487,6 +1487,21 @@ export default function NovederadesScreen() {
             <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(0,0,0,0.08)' }} />
           </View>
 
+          {/* Admin drops — shown first, most recent */}
+          {userDrops.length > 0 && (
+            <>
+              {userDrops.map((drop) => (
+                <DropNewsCard
+                  key={drop.userGiftId}
+                  drop={drop}
+                  language={language}
+                  onClaim={handleClaimDrop}
+                  onGoToStore={() => router.push('/(tabs)/store')}
+                />
+              ))}
+            </>
+          )}
+
           {NEWS_ITEMS.map((item) => (
             <NewsCard key={item.id} item={item} />
           ))}
