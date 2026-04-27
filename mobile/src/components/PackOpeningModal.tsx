@@ -397,13 +397,15 @@ function CardBack({
   const assets = PACK_ASSETS[packType];
   return (
     <View style={[styles.cardBack, { overflow: 'visible', backgroundColor: 'transparent' }]}>
-      {/* Optimized PNG — transparent background, floats on dark backdrop */}
-      <Image
-        source={assets.cardBack}
-        style={{ position: 'absolute', width: '100%', height: '100%' } as any}
-        resizeMode="contain"
-        onLoad={onImageLoad}
-      />
+      {/* Inner clip ensures rounded corners cut through any full-bleed card back image */}
+      <View style={{ position: 'absolute', width: '100%', height: '100%', borderRadius: 20, overflow: 'hidden' }}>
+        <Image
+          source={assets.cardBack}
+          style={{ width: '100%', height: '100%' }}
+          resizeMode="cover"
+          onLoad={onImageLoad}
+        />
+      </View>
     </View>
   );
 }
