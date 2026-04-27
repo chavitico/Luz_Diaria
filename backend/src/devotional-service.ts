@@ -58,12 +58,24 @@ const TOPICS = [
   { en: "Serving Unseen", es: "Servir sin ser visto" },
 ];
 
-// Words severely overused in devotional titles — quarantine these
-// They can appear occasionally but the AI must treat them as last resort
+// Words severely overused in devotional titles — hard ban
 const QUARANTINE_WORDS = [
   'susurro', 'susurros', 'silencio', 'medianoche', 'sagrado', 'sagrada',
   'penumbra', 'sombras', 'nocturno', 'nocturna', 'quietud', 'tinieblas',
-  'crepúsculo', 'alborada', 'bruma',
+  'crepúsculo', 'alborada', 'bruma', 'umbral', 'destello', 'resplandor',
+  'amanecer', 'atardecer', 'oscuridad', 'luz tenue', 'madrugada',
+];
+
+// Story settings and scenarios that are severely overused — forbidden in storyEs/story
+const QUARANTINE_STORY_SETTINGS = [
+  'las 3 de la mañana', 'las tres de la mañana', '3 a.m.', 'las 3 am',
+  'la madrugada', 'a la madrugada', 'en la madrugada', 'de madrugada',
+  'penumbra', 'en la penumbra', 'entre sombras',
+  'amanecer en el campo', 'montaña en la niebla', 'lago tranquilo',
+  'playa solitaria', 'bosque en silencio', 'campo al amanecer',
+  'la luz del alba', 'los primeros rayos del sol',
+  'a la luz de una vela', 'bajo las estrellas',
+  'en la oscuridad de la noche', 'la noche más oscura',
 ];
 
 // Title format types for rotating variety
@@ -294,10 +306,12 @@ export async function generateDevotionalWithAI(
 
   // Build anti-repetition word block for the title
   const allRestrictedWords = [...new Set([...QUARANTINE_WORDS, ...overusedTitleWords])];
-  const titleWordRestrictions = allRestrictedWords.length > 0
-    ? `PALABRAS PROHIBIDAS EN EL TÍTULO (no usar ninguna de estas): ${allRestrictedWords.join(', ')}.
-Estas palabras están sobre-representadas en los devocionales recientes. Usar cualquiera de ellas se considerará un error de calidad.`
-    : `PALABRAS EN CUARENTENA (evitar casi siempre): ${QUARANTINE_WORDS.join(', ')}.`;
+  const titleWordRestrictions = `PALABRAS ABSOLUTAMENTE PROHIBIDAS EN EL TÍTULO (error de calidad si aparecen): ${allRestrictedWords.join(', ')}.
+Estas palabras están sobre-representadas en los devocionales recientes y crean títulos predecibles y repetitivos.`;
+
+  const storySettingRestrictions = `AMBIENTACIONES Y ESCENARIOS PROHIBIDOS EN LA HISTORIA (no usar ninguno de estos — son clichés agotados):
+${QUARANTINE_STORY_SETTINGS.map(s => `• "${s}"`).join('\n')}
+Estas ambientaciones aparecen constantemente en la generación automática y hacen que todas las historias suenen iguales. Si el AI genera una escena a las 3am, en la madrugada, en la penumbra, al amanecer en el campo, o bajo las estrellas — será rechazada. Usa en cambio: la cocina un miércoles por la tarde, el tráfico, la sala de espera de un médico, el trabajo, el camino de regreso a casa, una llamada de teléfono, un mensaje sin respuesta.`;
 
   const storyStyleInstructions = `
 === INSTRUCCIONES ESPECÍFICAS PARA ESTA HISTORIA (seguir al pie de la letra) ===
@@ -345,6 +359,8 @@ ${storyStyleInstructions}
 
 ${titleWordRestrictions}
 
+${storySettingRestrictions}
+
 ${toneStyle.instruction}
 
 ${titleFormat.instruction}
@@ -363,7 +379,7 @@ AUTENTICIDAD HUMANA:
 DETALLES CONCRETOS:
 - Incluye detalles cotidianos específicos que hagan la historia sentirse real: el lugar exacto, la hora del día, un gesto pequeño, una frase dicha en voz baja, el olor de algo, la textura de un momento
 - Los detalles específicos son los que hacen llorar — no los conceptos abstractos
-- Evita ambientaciones que suenen a "escena de película cristiana": amanecer en el campo, montaña en la niebla, lago tranquilo. Usa escenas de vida real: la cocina, el trabajo, el carro, el hospital, la mesa de noche
+- ESCENAS DONDE UBICAR LA HISTORIA (variar entre estas): la cocina un día de semana, el tráfico de regreso a casa, la sala de espera de un médico, el trabajo un martes cualquiera, un mensaje en el celular que no llega, una llamada que no contestan, la mesa del comedor, una reunión de trabajo, el supermercado, recoger a los hijos del colegio, pagar las cuentas del mes. Son escenas de vida real donde Dios también aparece.
 
 VARIEDAD DE APERTURA:
 - Cada historia debe iniciar de manera diferente — varía la apertura: a veces con una imagen concreta, a veces con una emoción sin nombre, a veces con un diálogo real, a veces con una pregunta, a veces con un objeto específico
