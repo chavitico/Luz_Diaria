@@ -77,54 +77,62 @@
     "glossesEs": [
       "abismo",
       "pozo"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo griego compuesto de la negación alfa y byrhos (profundidad), que literalmente significa 'sin fondo'. En la cosmología bíblica, especialmente en Apocalipsis 9:1-2 y 20:3, se refiere al abismo o prisión infernal donde residen las fuerzas demoníacas bajo el control divino. Representa teológicamente el lugar de castigo y confinamiento de los poderes sobrenaturales opuestos a Dios."
   },
   "G13": {
     "shortDefinitionEs": "Ágabo: profeta israelita (Ágabos)",
     "glossesEs": [
       "Ágabo"
-    ]
+    ],
+    "longDefinitionEs": "Ágabo (Ágabos) fue un profeta israelita del primer siglo mencionado en Hechos, conocido por sus profecías sobre hambres y el encarcelamiento de Pablo. Su nombre tiene origen hebreo y aparece como un ejemplo de ministerio profético genuino en la iglesia primitiva. Representa la continuidad del don profético en el Nuevo Testamento bajo la dirección del Espíritu Santo."
   },
   "G14": {
     "shortDefinitionEs": "hacer el bien (agathoergéō)",
     "glossesEs": [
       "hacer bien"
-    ]
+    ],
+    "longDefinitionEs": "Agathoergéō significa literalmente hacer el bien, obrar con bondad y ejecutar acciones virtuosas que benefician a otros. Combina agathós (bueno) con érgon (obra), enfatizando la bondad práctica expresada en hechos concretos. Bíblicamente denota la vida virtuosa y las obras de misericordia que caracterizan al creyente genuino viviendo en conformidad con la voluntad divina."
   },
   "G15": {
     "shortDefinitionEs": "hacer bien, obrar correctamente (agathopoiéō)",
     "glossesEs": [
       "hacer bien",
       "obrar bien"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que significa realizar acciones buenas, obrar correctamente o hacer el bien de manera consistente (de agathós, bueno). Aparece en 1 Pedro 3:17 y Gálatas 6:10 refiriéndose a la conducta ética del creyente que practica las buenas obras. Teológicamente expresa el llamado divino a los cristianos para que demuestren su fe mediante acciones beneficiosas hacia otros, especialmente los necesitados."
   },
   "G16": {
     "shortDefinitionEs": "bien obrar, virtud (agathopoiḯa)",
     "glossesEs": [
       "bien obrar",
       "virtud"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo derivado de «agathopoios» (bien hacedor) que significa bien obrar o virtud, la práctica de hacer el bien. En 1 Pedro 2:15, se menciona como la voluntad de Dios que callemos haciendo bien. Representa la excelencia moral y la conducta virtuosa que agrada a Dios y beneficia a otros."
   },
   "G17": {
     "shortDefinitionEs": "quien obra bien, virtuoso (agathopoiós)",
     "glossesEs": [
       "virtuoso",
       "bien obrador"
-    ]
+    ],
+    "longDefinitionEs": "Término compuesto del griego 'agathós' (bueno) y 'poiéō' (hacer), que designa al que realiza obras buenas o virtuosas. En 1 Pedro 2:12, los creyentes son exhortados a mantener buena conducta entre los gentiles para que sean reconocidos como hacedores de bien, reflejando la virtud cristiana en las acciones concretas."
   },
   "G18": {
     "shortDefinitionEs": "bueno, bondadoso, benéfico (agathos)",
     "glossesEs": [
       "bien",
       "bueno"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo primario que describe todo lo que posee cualidad de bondad, excelencia o beneficio. En el Nuevo Testamento abarca no solo la bondad moral sino la benevolencia activa de Dios hacia sus criaturas, siendo frecuentemente contrastado con lo malo en enseñanzas sobre la naturaleza de Dios."
   },
   "G19": {
     "shortDefinitionEs": "bondad, virtud, beneficencia (agathōsýnē)",
     "glossesEs": [
       "bondad",
       "virtud"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo derivado de «agathós» (bueno), que designa la bondad entendida como virtud activa, beneficencia y generosidad. Es más que una cualidad pasiva; representa la excelencia moral manifestada en acciones concretas de bien hacia otros, frecuentemente mencionada en Romanos y Efesios como fruto del Espíritu."
   },
   "G20": {
     "shortDefinitionEs": "gozo, exultación, alegría (agallíasis)",
@@ -844,60 +852,69 @@
     "glossesEs": [
       "competir",
       "luchar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que significa competir o esforzarse en las competencias públicas, derivado del contexto de los juegos atléticos grecorromanos. En la Biblia se usa metafóricamente para describir el combate espiritual, como en 2 Timoteo 4:7, donde Pablo declara haber «peleado la buena batalla», reflejando el esfuerzo máximo en la vida cristiana como una lucha noble y digna de premio."
   },
   "G119": {
     "shortDefinitionEs": "lucha, combate, esfuerzo (áthlēsis)",
     "glossesEs": [
       "lucha",
       "combate"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que designa una lucha o combate, particularmente en sentido figurado para la batalla espiritual. En Hebreos 10:32 y Colosenses 2:1, se refiere a los sufrimientos y conflictos que enfrentan los creyentes, indicando que la perseverancia en la fe requiere un esfuerzo vigoroso y perseverante como el de un atleta en competencia."
   },
   "G120": {
     "shortDefinitionEs": "desalentarse, acobardarse (athyméō)",
     "glossesEs": [
       "desalentarse",
       "acobardarse"
-    ]
+    ],
+    "longDefinitionEs": "Verbo griego compuesto de la negación alfa y thymós (ánimo o espíritu), que significa literalmente 'perder el ánimo'. En el Nuevo Testamento, como en Colosenses 3:21, se refiere al desaliento o pérdida de esperanza que puede afectar la perseverancia cristiana. Teológicamente advierte contra la desmoralización y enfatiza la necesidad de fortaleza espiritual en la fe."
   },
   "G121": {
     "shortDefinitionEs": "inocente, sin culpa (áthōos)",
     "glossesEs": [
       "inocente"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo griego compuesto de la negación alfa y un término relacionado con penalidad, significando 'inocente' o 'sin culpa'. En Mateo 27:4, Judas reconoce la inocencia de Jesús, y en 1 Corintios 15:34, Pablo llama al arrepentimiento. Implica ausencia de responsabilidad moral y culpa ante la ley divina."
   },
   "G122": {
     "shortDefinitionEs": "de cabra, caprino (aígeios)",
     "glossesEs": [
       "cabra",
       "caprino"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo griego que designa lo perteneciente a cabras, usado para describir objetos o sustancias derivados de este animal. En Hebreos 9:19, Pablo menciona «sangre de becerros y de cabras» refiriéndose a los sacrificios levíticos. Aplicado a materiales como cueros (Hebreos 11:37) o tejidos en la construcción del tabernáculo."
   },
   "G123": {
     "shortDefinitionEs": "playa, orilla donde rompen las olas (aigialós)",
     "glossesEs": [
       "playa",
       "orilla"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que designa la playa o litoral donde las olas rompen constantemente contra la orilla. En Mateo 13:2, Jesús se sienta «junto a la playa» mientras la multitud está en tierra. Marca el punto de encuentro entre agua y tierra, frecuente escenario de encuentros y enseñanzas."
   },
   "G124": {
     "shortDefinitionEs": "egipcio, habitante de Egipto (Aigýptios)",
     "glossesEs": [
       "egipcio"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que designa a un habitante de Egipto, la nación antigua del Nilo. En el Nuevo Testamento aparece tanto en referencias históricas como en Hechos 2:10 donde se mencionan egipcios presentes en Pentecostés, representando la dispersión de pueblos gentiles en el mundo antiguo."
   },
   "G125": {
     "shortDefinitionEs": "Egipto, tierra del Nilo (Aígyptos)",
     "glossesEs": [
       "Egipto"
-    ]
+    ],
+    "longDefinitionEs": "Nombre propio que designa Egipto, la tierra del río Nilo en el noreste de África. En el Nuevo Testamento aparece en referencias históricas y proféticas, particularmente en la infancia de Jesús (Mateo 2:13-15) cuando huye allí para escapar de Herodes."
   },
   "G126": {
     "shortDefinitionEs": "eterno, perpetuo, sin fin (aḯdios)",
     "glossesEs": [
       "eterno",
       "perpetuo"
-    ]
+    ],
+    "longDefinitionEs": "Cualidad de ser eterno, sin límite temporal, existente perpetuamente sin principio ni fin. Derivado de ἀεί (siempre), describe la eternidad divina absoluta. En Romanos 1:20, describe los atributos eternos de Dios. Expresa la naturaleza trascendente de lo divino, más allá del tiempo creado."
   },
   "G127": {
     "shortDefinitionEs": "respeto, pudor, reverencia (aidṓs)",
@@ -905,13 +922,15 @@
       "respeto",
       "reverencia",
       "pudor"
-    ]
+    ],
+    "longDefinitionEs": "Sentimiento de vergüenza, pudor o respeto reverente ante lo sagrado. Posiblemente derivado de negación (a-) e idea de bajar la vista, expresa modestia humana y temor divino. En 1 Timoteo 2:9, las mujeres deben vestirse con pudor. Teológicamente, refleja la actitud apropiada ante Dios y en la sociedad."
   },
   "G128": {
     "shortDefinitionEs": "etíope, habitante de Etiopía (Aithíops)",
     "glossesEs": [
       "etíope"
-    ]
+    ],
+    "longDefinitionEs": "Término que denota a un habitante de Etiopía, derivado de raíces que significan 'quemar' y 'rostro', aludiendo al aspecto oscuro de la piel. En Hechos 8:27, el eunuco etíope representa a los gentiles que buscan la verdad y la salvación, ilustrando la universalidad del evangelio más allá de fronteras étnicas y culturales."
   },
   "G129": {
     "shortDefinitionEs": "sangre (haima)",
@@ -925,80 +944,92 @@
     "glossesEs": [
       "derramamiento",
       "sangre"
-    ]
+    ],
+    "longDefinitionEs": "Haimatekchysía (haimatekchysía) denota literalmente el derramamiento de sangre, refiriéndose a la muerte violenta o sacrificio. En Hebreos 9:22, se establece que sin derramamiento de sangre no hay perdón de pecados, conectando directamente con la expiación de Cristo. Teológicamente simboliza el precio máximo de la redención y el sacrificio redentor de Jesús."
   },
   "G131": {
     "shortDefinitionEs": "hemorragia, flujo de sangre (haimorrhéō)",
     "glossesEs": [
       "hemorragia",
       "flujo de sangre"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo formado de haíma («sangre») y rhéō («fluir»), que literalmente describe el flujo o derramamiento de sangre de manera anormal. En Marcos 5:25 se menciona a la mujer con este padecimiento que toca el manto de Jesús para ser sanada. Representa la debilidad física y la necesidad de intervención divina para la restauración de la salud."
   },
   "G132": {
     "shortDefinitionEs": "Eneas, israelita (Ainéas)",
     "glossesEs": [
       "Eneas"
-    ]
+    ],
+    "longDefinitionEs": "Nombre de un israelita mencionado en Hechos 9:32-35, padre de alguien sanado por Pedro en Lida durante el ministerio apostólico. Su aparición marca un hito en la expansión del evangelio a territorios nuevos. Aunque de etimología incierta, su presencia destaca la sanidad como señal del poder del Reino de Dios en acción."
   },
   "G133": {
     "shortDefinitionEs": "alabanza, acción de alabar (aínesis)",
     "glossesEs": [
       "alabanza"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo derivado de αἰνέω que denota el acto de alabar a Dios, específicamente una acción de adoración y gratitud. En el contexto bíblico, especialmente en los salmos y en la liturgia cristiana primitiva, expresa la respuesta humana de reconocimiento ante la bondad y majestad divinas."
   },
   "G134": {
     "shortDefinitionEs": "alabar, elogiar a Dios (aineó)",
     "glossesEs": [
       "alabar",
       "alabanza"
-    ]
+    ],
+    "longDefinitionEs": "Verbo derivado de αἶνος que significa alabar o exaltar a Dios mediante acción de gracias y adoración. Aparece frecuentemente en los Evangelios y Hechos para describir la respuesta devocional de creyentes ante los actos poderosos de Dios."
   },
   "G135": {
     "shortDefinitionEs": "enigma, dicho oscuro (aínigma)",
     "glossesEs": [
       "enigma",
       "misterio"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que designa un dicho oscuro o enigmático cuyo significado no es evidente a primera vista. En 1 Corintios 13:12, Pablo usa este término para describir nuestra actual comprensión limitada de las cosas divinas, contrastándola con la claridad futura."
   },
   "G136": {
     "shortDefinitionEs": "alabanza, loa de Dios (aînos)",
     "glossesEs": [
       "alabanza",
       "loa"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que denota alabanza o loa dirigida a Dios, expresando aprobación y glorificación. En Lucas 18:43, describe la reacción de la multitud al presenciar milagros de Jesús, elevando alabanza a Dios por sus obras."
   },
   "G137": {
     "shortDefinitionEs": "Enón, lugar en Palestina (Ainṓn)",
     "glossesEs": [
       "Enón"
-    ]
+    ],
+    "longDefinitionEs": "Lugar geográfico en Palestina conocido por sus manantiales (Ainṓn), mencionado en Juan 3:23 como sitio donde Juan bautizaba porque había muchas aguas. Su nombre de origen hebreo se relaciona con la abundancia de fuentes de agua en la región."
   },
   "G138": {
     "shortDefinitionEs": "elegir, escoger, preferir (hairéomai)",
     "glossesEs": [
       "elegir",
       "escoger"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que significa elegir, escoger o preferir algo para uno mismo (hairéomai). Denota la capacidad de seleccionar deliberadamente entre opciones. Teológicamente implica que los creyentes deben elegir sabiamente sus caminos y prioridades espirituales."
   },
   "G139": {
     "shortDefinitionEs": "herejía, secta, partido (haíresis)",
     "glossesEs": [
       "herejía",
       "secta"
-    ]
+    ],
+    "longDefinitionEs": "Haíresis originalmente significa elección o preferencia, pero en Nuevo Testamento denota una secta, partido o grupo religioso que se define por creencias distintivas y separatistas. Aparece en Hechos 5:17 y Gálatas 5:20, frecuentemente con connotaciones negativas de división. Teológicamente advierte contra la fragmentación del cuerpo de Cristo mediante doctrinas divisivas o preferencias sectarias."
   },
   "G140": {
     "shortDefinitionEs": "elegir, escoger deliberadamente (hairetízō)",
     "glossesEs": [
       "elegir",
       "escoger"
-    ]
+    ],
+    "longDefinitionEs": "Hairetízō significa hacer una elección deliberada y consciente, escoger voluntariamente entre opciones disponibles con intención decidida. Derivado de hairéomai (elegir), implica un acto volitivo y reflexivo. Teológicamente se refiere a la elección de alinearse con creencias o grupos específicos, con implicaciones de responsabilidad personal por la decisión tomada."
   },
   "G141": {
     "shortDefinitionEs": "hereje, cismático (hairetikós)",
     "glossesEs": [
       "hereje"
-    ]
+    ],
+    "longDefinitionEs": "Del verbo αἱρετίζω (hairetízō, escoger), designa al hereje o cismático que deliberadamente introduce doctrinas divisivas y falsas. Tito 3:10 advierte sobre rechazar al hombre herético después de amonestarlo, pues deliberadamente se aparta de la verdad apostólica."
   },
   "G142": {
     "shortDefinitionEs": "levantar, alzar, llevar, quitar (aírō)",
@@ -1006,82 +1037,94 @@
       "levantar",
       "llevar",
       "quitar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que significa levantar, alzar o quitar algo físicamente, y por extensión, llevar consigo o transportar. En el Nuevo Testamento se usa para describir acciones como levantar enfermos (Mateo 9:5) o recoger la cruz (Mateo 16:24), pero también adquiere sentido figurado para referirse a quitar pecados (como en Jn 1:29, «el Cordero de Dios que quita el pecado del mundo»), expresando la idea teológi"
   },
   "G143": {
     "shortDefinitionEs": "percibir, sentir, darse cuenta (aisthánomai)",
     "glossesEs": [
       "percibir",
       "sentir"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que significa percibir, sentir o darse cuenta de algo mediante los sentidos físicos o la comprensión interior. Implica una aprehensión sensorial o intuitiva de la realidad, usado para describir cómo las personas llegan a conocimiento o conciencia de hechos o verdades a través de experiencia directa."
   },
   "G144": {
     "shortDefinitionEs": "percepción, juicio, discernimiento (aísthēsis)",
     "glossesEs": [
       "percepción",
       "juicio"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que denota la capacidad de percepción sensorial y mental, especialmente el discernimiento o juicio (aísthēsis). En Hebreos 5:14 se refiere a los sentidos entrenados para distinguir entre el bien y el mal. Representa la facultad espiritual de comprensión discriminativa."
   },
   "G145": {
     "shortDefinitionEs": "facultad sensorial, sentidos (aisthētḗrion)",
     "glossesEs": [
       "sentidos",
       "facultad sensorial"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que denota los órganos o facultades sensoriales, especialmente en sentido figurado (aisthētḗrion). En Hebreos 5:14 refiere a los sentidos morales y espirituales desarrollados. Representa la capacidad humana de percibir y juzgar verdades espirituales."
   },
   "G146": {
     "shortDefinitionEs": "codicioso de ganancia ilícita (aischrokerdḗs)",
     "glossesEs": [
       "codicioso",
       "lucro ilícito"
-    ]
+    ],
+    "longDefinitionEs": "Referente a la búsqueda de ganancia mediante medios indebidos o vergonzosos, combinando términos que significan 'deshonra' y 'ganancia' (aischrokerdḗs). En 1 Timoteo 3:8 se advierte a los diáconos contra este vicio. Describe la codicia que sacrifica la honra y la moralidad por el lucro."
   },
   "G147": {
     "shortDefinitionEs": "codiciosamente, por ganancia ilícita (aischrokerdōs)",
     "glossesEs": [
       "codiciosamente"
-    ]
+    ],
+    "longDefinitionEs": "De manera sórdida o mediante ganancia ilícita, adverbio que denota la práctica codiciosamente ejecutada (aischrokerdōs). Describe la conducta de quien busca ganancias indebidas. Enfatiza el carácter habitual y característico de tal comportamiento."
   },
   "G148": {
     "shortDefinitionEs": "lenguaje obsceno, palabrotas (aischrología)",
     "glossesEs": [
       "obscenidad",
       "palabrotas"
-    ]
+    ],
+    "longDefinitionEs": "Aischrología (αἰσχρολογία) significa lenguaje obsceno, grosería o palabras indecentes. En Colosenses 3:8 Pablo ordena abandonar \"palabrota\", clasificándola entre conductas que deben eliminarse del cristiano. Denota el uso de lenguaje que ofende la dignidad y contraviene la pureza que debe caracterizar al pueblo de Dios."
   },
   "G149": {
     "shortDefinitionEs": "cosa vergonzosa, indecencia (aischrón)",
     "glossesEs": [
       "vergüenza",
       "indecencia"
-    ]
+    ],
+    "longDefinitionEs": "Aischrón (αἰσχρόν) denota algo vergonzoso, indecente o impropio. En 1 Corintios 11:6 refiere a lo deshonroso para una mujer. Expresa juicio moral sobre lo que viola la decencia y el orden establecido; en contexto cristiano, identifica conductas que contradicen el testimonio de piedad y pureza."
   },
   "G150": {
     "shortDefinitionEs": "vergonzoso, sucio, vil (aischrós)",
     "glossesEs": [
       "vergonzoso",
       "sucio"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo que describe lo vergonzoso, deshonroso, vil o moralmente repugnante, frecuentemente usado para conductas sexuales o conductas que causan ignominia (de aischúnē, vergüenza). En Tito 1:11 califica a los falsos maestros que buscan ganancia deshonesta. Espiritualmente marca lo que contrasta con la santidad cristiana y la dignidad que todo creyente debe mantener como hijo de Dios."
   },
   "G151": {
     "shortDefinitionEs": "vergüenza, obscenidad, suciedad (aischrótēs)",
     "glossesEs": [
       "obscenidad",
       "suciedad"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que designa la vergüenza, obscenidad o suciedad moral, especialmente referido a actos o palabras indecentes (de aischrós, vergonzoso). En Efesios 5:4 se contrapone a la gracia cristiana, siendo listada entre los vicios que deben evitarse. Teológicamente marca conductas que degradan la dignidad humana y contradicen la llamada a la santidad."
   },
   "G152": {
     "shortDefinitionEs": "vergüenza, deshonra, ignominia (aischýnē)",
     "glossesEs": [
       "vergüenza",
       "deshonra"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que expresa la condición de sentir vergüenza, deshonra o humillación tanto en sentido abstracto como concreto. Representa el dolor emocional y la degradación que acompaña la pérdida de honor o reputación. Teológicamente importante en contextos de arrepentimiento y redención, donde la vergüenza del pecado es transformada por la gracia."
   },
   "G153": {
     "shortDefinitionEs": "avergonzarse, sentir vergüenza (aischýnomai)",
     "glossesEs": [
       "avergonzarse"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que expresa la emoción de sentir vergüenza o experimentar confusión por deshonra. Describe la respuesta emocional interna ante la humillación, frecuentemente vinculada al reconocimiento de culpa o inadecuación. En narrativa bíblica, es señal importante de convicción, arrepentimiento o transformación espiritual."
   },
   "G154": {
     "shortDefinitionEs": "pedir, rogar, solicitar, desear (aitéō)",
@@ -1089,14 +1132,16 @@
       "pedir",
       "rogar",
       "solicitar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo de origen incierto que significa pedir, rogar o solicitar algo de alguien; en griego antiguo se construye frecuentemente con genitivo. En la Biblia describe tanto peticiones humanas como la intercesión en oración, siendo central en la práctica cristiana de la súplica."
   },
   "G155": {
     "shortDefinitionEs": "petición, solicitud, demanda (aítēma)",
     "glossesEs": [
       "petición",
       "solicitud"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo derivado del verbo 'aiteō' (pedir, solicitar), que significa una petición específica o el acto de pedir algo de manera concreta. Aparece en Filipenses 4:6 cuando Pablo instruye orar con acciones de gracias presentando 'aítēmata' (peticiones) a Dios, indicando un ruego explícito y definido. Spiritualmente denota la expresión clara de nuestras necesidades ante el Altísimo con confianza y "
   },
   "G156": {
     "shortDefinitionEs": "causa, razón, motivo, acusación (aitía)",
@@ -1104,28 +1149,32 @@
       "causa",
       "razón",
       "acusación"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo derivado de 'aiteō' (pedir), que abarca tanto la causa lógica como la acusación legal, funcionando como razón, motivo o fundamento de algo. En Mateo 27:37, se menciona 'hē aitía' (la acusación) inscrita contra Jesús, mostrando su uso judicial. Teológicamente, revela cómo los hombres acusan al inocente, contrastando con la justicia perfecta de Dios."
   },
   "G157": {
     "shortDefinitionEs": "queja, acusación, denuncia (aitíama)",
     "glossesEs": [
       "queja",
       "acusación"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que proviene de 'aitía' (causa) y denota una acusación formal, cargo o denuncia presentada contra alguien. En el Nuevo Testamento se utiliza especialmente en contextos legales, como las acusaciones levantadas contra Pablo (Hechos 25:27). Representa la formalización de una queja o reproche que requiere respuesta o justificación ante las autoridades."
   },
   "G158": {
     "shortDefinitionEs": "causa, razón, culpa (aítion)",
     "glossesEs": [
       "causa",
       "culpa"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo neutro relacionado con 'aitía' (causa), denota la causa, razón o culpa de algo. Se diferencia mínimamente de su forma femenina, usándose en contextos legales o acusatorios (1 Pedro 3:15). Representa la base objetiva de un cargo o reproche, requiriendo justificación o defensa ante los acusadores."
   },
   "G159": {
     "shortDefinitionEs": "autor, causante, responsable (aítios)",
     "glossesEs": [
       "autor",
       "causante"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo que significa autor, causante o responsable, derivado de la raíz de «aiteo» (pedir). Designa a quien causa o produce algo, estableciendo responsabilidad causal. En Hebreos 5:9, se aplica a Cristo como autor de salvación eterna, enfatizando su papel causativo en la obra redentora."
   },
   "G160": {
     "shortDefinitionEs": "Repentino, inesperado, de improviso (aiphnídios)",
@@ -1133,41 +1182,47 @@
       "repentino",
       "inesperado",
       "improviso"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo que significa repentino, inesperado o de improviso, formado por negación y «faino» (aparecer). En 1 Tesalonicenses 5:3, describe la venida del Señor como súbita y sorpresiva. Enfatiza la imprevisibilidad del evento escatológico que ocurrirá sin advertencia previa."
   },
   "G161": {
     "shortDefinitionEs": "Estado de cautividad o encarcelamiento (aichmalōsía)",
     "glossesEs": [
       "cautividad",
       "encarcelamiento"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que denota el estado de ser prisionero de guerra o cautivo, especialmente en contexto de deportación o esclavitud. En la Biblia, frecuentemente alude al cautiverio de Israel en Babilonia o a la condición espiritual de los que están bajo el dominio del pecado."
   },
   "G162": {
     "shortDefinitionEs": "Llevar cautivo, capturar en guerra (aichmalōteúō)",
     "glossesEs": [
       "capturar",
       "llevar cautivo"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que significa capturar, tomar prisionero o llevar cautivo, especialmente en contexto de guerra o conquista. En textos bíblicos como Efesios 4:8, puede usarse tanto literal como figuradamente, describiendo cómo Cristo «llevó cautiva la cautividad» al conquistar el poder del pecado."
   },
   "G163": {
     "shortDefinitionEs": "Hacer cautivo, llevar en cautividad (aichmalōtízō)",
     "glossesEs": [
       "cautividad",
       "llevar cautivo"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que significa hacer prisionero o tomar cautivo a alguien, derivado de aichmalōtos (cautivo). En Romanos 7:23 Pablo describe cómo la ley del pecado lo lleva cautivo, usando una metáfora militar de sometimiento espiritual a un poder enemigo."
   },
   "G164": {
     "shortDefinitionEs": "Prisionero de guerra, cautivo (aichmálōtos)",
     "glossesEs": [
       "cautivo",
       "prisionero"
-    ]
+    ],
+    "longDefinitionEs": "Palabra que denota al prisionero capturado en batalla (del griego: lanza y captura), referida específicamente a quien es hecho cautivo durante la guerra. En el contexto bíblico, representa la condición de esclavitud o cautividad forzada, como se ve en pasajes donde los israelitas son llevados cautivos. Teológicamente, simboliza la condición espiritual del pecador bajo el poder del enemigo."
   },
   "G165": {
     "shortDefinitionEs": "eternidad, era, siglo (aión)",
     "glossesEs": [
       "eternidad"
-    ]
+    ],
+    "longDefinitionEs": "Palabra fundamental que denota 'edad' o 'era', extendida a significar perpetuidad, el mundo y especialmente (en contexto judío) un período mesiánico futuro. Aparece frecuentemente en frases como 'por los siglos de los siglos' (Romanos 11:36). Comunica la idea bíblica de tiempo en su sentido más amplio y eterno."
   },
   "G166": {
     "shortDefinitionEs": "eterno, sempiterno, que dura para siempre (aiónios)",
@@ -1182,14 +1237,16 @@
     "glossesEs": [
       "impureza",
       "inmundicia"
-    ]
+    ],
+    "longDefinitionEs": "Akatharsía (impureza) denota contaminación física o moral, falta de limpieza ritual o ética en sentido hebreo. En Romanos 1:24 y 2 Corintios 12:21, Pablo la enumera entre pecados de inmoralidad sexual y conducta licenciosa, opuesta a la santificación requerida por Dios."
   },
   "G168": {
     "shortDefinitionEs": "Suciedad moral, corrupción espiritual (akathártēs)",
     "glossesEs": [
       "suciedad",
       "corrupción"
-    ]
+    ],
+    "longDefinitionEs": "Akathártēs (ἀκαθάρτης) designa la impureza como condición o estado moral y espiritual, derivada de akáthartos (impuro). En la enseñanza paulina, esta palabra describe la corrupción interna del pecado y la maldad que contamina al ser humano (Romanos 1:24), contrastando con la pureza requerida para acercarse a Dios."
   },
   "G169": {
     "shortDefinitionEs": "Impuro, inmundo, contaminado (akáthartos)",
@@ -1197,21 +1254,24 @@
       "inmundo",
       "impuro",
       "sucio"
-    ]
+    ],
+    "longDefinitionEs": "Akáthartos (ἀκάθαρτος) significa impuro o inmundo, designando contaminación ceremonial, moral o sobrenatural (especialmente demonios). En la enseñanza neotestamentaria, lo 'impuro' contrasta con la santidad requerida por Dios (Hechos 10:14), abarcando tanto lo cultual como lo ético y lo espiritual."
   },
   "G170": {
     "shortDefinitionEs": "Carecer de oportunidad, no hallar ocasión (akairéomai)",
     "glossesEs": [
       "oportunidad",
       "ocasión"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que significa carecer de oportunidad o no hallar el momento propicio, derivado de la negación y 'kairos' (tiempo oportuno). Describe la frustración de perder el momento adecuado para actuar, concepto importante en la ética temporal bíblica donde el timing es crucial para la obediencia."
   },
   "G171": {
     "shortDefinitionEs": "Fuera de tiempo, en momento inoportuno (akaírōs)",
     "glossesEs": [
       "inoportuno",
       "fuera de tiempo"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio que significa en tiempo inoportuno o fuera de sazón, derivado de 'akairos'. En 2 Timoteo 4:2, Timoteo debe estar preparado para predicar 'a tiempo y fuera de tiempo', mostrando la importancia de la fidelidad sin importar las circunstancias adversas."
   },
   "G172": {
     "shortDefinitionEs": "Inocente, ingenuo, sin malicia (ákakos)",
@@ -1219,21 +1279,24 @@
       "inocente",
       "ingenuo",
       "simple"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo que describe la inocencia, falta de malicia o ingenuidad; formado de la negación α (a) y κακός (malo). Aparece en pasajes como Mateo 10:16 donde Jesús exhorta a sus discípulos a ser inocentes como palomas, expresando la pureza moral y ausencia de intención dañina."
   },
   "G173": {
     "shortDefinitionEs": "Espina, púa de planta (ákantha)",
     "glossesEs": [
       "espina",
       "púa"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que denota una espina o púa de planta; probablemente relacionado con raíces que expresan agudeza. En la teología bíblica, las espinas frecuentemente simbolizan sufrimiento, pecado o dificultad; aparecen en la corona de Jesús (Mateo 27:29) como símbolo de dolor y vergüenza."
   },
   "G174": {
     "shortDefinitionEs": "De espinas, hecho de espinas (akánthinos)",
     "glossesEs": [
       "espinas",
       "espinoso"
-    ]
+    ],
+    "longDefinitionEs": "Akánthinos (ἀκάνθινος) adjetivo que significa «de espinas» o «hecho de espinas», derivado del sustantivo ákantha. En Mateo 27:29, describe la corona de espinas tejida para burla de Jesús, símbolo del sufrimiento y la ignominia. Espiritualmente representa el dolor, la burla y el oprobio que Cristo soportó voluntariamente por nuestra redención."
   },
   "G175": {
     "shortDefinitionEs": "Estéril, infructuoso, improductivo (ákarpos)",
@@ -1241,28 +1304,32 @@
       "estéril",
       "infructuoso",
       "improductivo"
-    ]
+    ],
+    "longDefinitionEs": "Ákarpos (ἄκαρπος) significa «estéril», «infructuoso» o «improductivo», literalmente «sin fruto». En Mateo 13:22, describe las semillas ahogadas por las preocupaciones del mundo que no dan fruto. Espiritualmente denota la falta de evidencia de fe genuina, la esterilidad espiritual y la necesidad de que el creyente produzca fruto visible del Espíritu Santo en su vida."
   },
   "G176": {
     "shortDefinitionEs": "Inculpable, que no puede ser condenado (akatágnōstos)",
     "glossesEs": [
       "inculpable",
       "irreprochable"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo que significa inculpable, irreprensible o que no puede ser justamente condenado, formado por la negación y 'conocer contra'. Se refiere a una persona cuya conducta es impecable ante la ley o ante testigos, usándose para descripciones de carácter intachable (1 Timoteo 3:2). Teológicamente denota la pureza moral requerida en los líderes espirituales de la iglesia."
   },
   "G177": {
     "shortDefinitionEs": "Descubierto, sin velo (akatakályptos)",
     "glossesEs": [
       "descubierto",
       "sin velo"
-    ]
+    ],
+    "longDefinitionEs": "Término que significa sin velo o descubierto, formado por la negación alpha y la raíz de 'cubrir'. Pablo usa esta palabra en 1 Corintios 11:5 para referirse a la mujer que ora con la cabeza descubierta, enfatizando la importancia de los símbolos de autoridad y reverencia en la adoración. Refleja conceptos de honra, sujeción y distinción en la comunidad de fe."
   },
   "G178": {
     "shortDefinitionEs": "Sin juicio previo, sin ser juzgado (akatákritos)",
     "glossesEs": [
       "injustamente",
       "sin juicio"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo que significa sin juzgar legalmente, sin ser condenado por un tribunal. Hechos 22:25 muestra a Pablo cuestionando si es lícito azotarle 'sin haber sido juzgado', apelando al derecho romano de debido proceso. Subraya la importancia de la justicia y el trato equitativo incluso para prisioneros acusados."
   },
   "G179": {
     "shortDefinitionEs": "Indisoluble, eterno, permanente (akatálytos)",
@@ -1270,14 +1337,16 @@
       "eterno",
       "permanente",
       "indisoluble"
-    ]
+    ],
+    "longDefinitionEs": "Palabra compuesta de α (negación) y una derivación de καταλύω (disolver), significando lo que no puede ser desatado ni disuelto. En teología, describe la naturaleza permanente e indisoluble de ciertos atributos divinos y promesas eternas que no pueden ser anuladitas por ningún poder humano o temporal."
   },
   "G180": {
     "shortDefinitionEs": "Incesante, que no cesa (akatápaustos)",
     "glossesEs": [
       "incesante",
       "continuo"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo formado por negación (α) y derivado de καταπαύω (hacer cesar), significando aquello que no cesa o continúa sin interrupción. Describe conductas o estados que persisten incesantemente, frecuentemente aplicado a pecados o vicios que caracterizan a personas sin control sobre sí mismas."
   },
   "G181": {
     "shortDefinitionEs": "Desorden, confusión, tumulto (akatastasía)",
@@ -1285,14 +1354,16 @@
       "desorden",
       "confusión",
       "tumulto"
-    ]
+    ],
+    "longDefinitionEs": "Del griego ἀκαταστασία (akatastasía), de ἀ (negación) y κατάστασις (estado estable), literalmente 'ausencia de orden establecido'. Denota desorden, confusión, tumulto o anarquía. En 1 Corintios 14:33, Pablo contrasta a Dios como Dios de paz, no de confusión, señalando que el desorden espiritual no proviene de la naturaleza divina."
   },
   "G182": {
     "shortDefinitionEs": "Inconstante, inestable, variable (akatástatos)",
     "glossesEs": [
       "inconstante",
       "inestable"
-    ]
+    ],
+    "longDefinitionEs": "Del griego ἀκατάστατος (akatástatos), de ἀ (negación) y κατάστασις (estado establecido), significa 'inconstante' o 'inestable', describiendo algo que carece de firmeza o consistencia. En Santiago 1:8, el hombre de 'doble ánimo' es inestable en todos sus caminos, careciendo de dirección espiritual clara."
   },
   "G183": {
     "shortDefinitionEs": "Incontrolable, indómito, rebelde (akatáschetos)",
@@ -1300,14 +1371,16 @@
       "indómito",
       "rebelde",
       "incontrolable"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo formado por el prefijo negativo α- y un derivado de κατέχω (retener), describiendo lo que no puede ser contenido ni controlado. Se aplica especialmente a la lengua en Santiago 3:8, enfatizando la naturaleza incontrolable e indómita de ciertas fuerzas o hábitos humanos."
   },
   "G184": {
     "shortDefinitionEs": "Acéldama: Campo de sangre cerca de Jerusalén (Akeldamá)",
     "glossesEs": [
       "Acéldama",
       "Jerusalén"
-    ]
+    ],
+    "longDefinitionEs": "Nombre de lugar arameo que significa 'campo de sangre', designando la tierra que compró Judas Iscariote con el precio de su traición. Ubicado cerca de Jerusalén, representa en la narrativa bíblica un monumento permanente de la culpa y el rechazo, recordatorio del costo del pecado."
   },
   "G185": {
     "shortDefinitionEs": "Sincero, puro, sin mezcla de maldad (akéraios)",
@@ -1315,28 +1388,32 @@
       "sincero",
       "puro",
       "inocente"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo formado por «a» (negación) y raíz de «kerannumi» (mezclar), significando sin mezcla o adulteración. Aplicado espiritualmente, denota pureza moral e inocencia sin contaminación de maldad, como en Mateo 10:16 donde Jesús exhorta a ser «inocentes como palomas»."
   },
   "G186": {
     "shortDefinitionEs": "Firme, sin vacilar, inquebrantable (aklinḗs)",
     "glossesEs": [
       "firme",
       "inquebrantable"
-    ]
+    ],
+    "longDefinitionEs": "Adjetivo compuesto de «a» (negación) y «klino» (inclinarse/doblarse), significando firme, inconmovible e inquebrantable. Describe una postura de absoluta firmeza y estabilidad que no cede ni vacila, como en Hebreos 10:23 respecto a la constancia en fe y esperanza."
   },
   "G187": {
     "shortDefinitionEs": "Alcanzar madurez, estar completamente maduro (akmázō)",
     "glossesEs": [
       "madurez",
       "madurar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo derivado de akmē (punta, apogeo) que significa alcanzar madurez, estar en su punto más completo o perfección. Figuradamente, denota el desarrollo completo o maduración de algo, como la plenitud de un fruto o la madurez espiritual."
   },
   "G188": {
     "shortDefinitionEs": "Todavía, aún, en este momento (akmḗn)",
     "glossesEs": [
       "todavía",
       "aún"
-    ]
+    ],
+    "longDefinitionEs": "Adverbio griego que denota tiempo presente inmediato o continuidad en el momento actual. Procede de la forma acusativa de un sustantivo que significa 'cumbre' o 'punto máximo', usado adverbialmente para expresar 'todavía' o 'aún ahora'. En contextos bíblicos, indica una acción o estado que persiste en el presente, enfatizando la inmediatez o simultaneidad de un evento."
   },
   "G189": {
     "shortDefinitionEs": "Acto de oír, sentido del oído, noticia (akoḗ)",
@@ -1344,20 +1421,23 @@
       "audición",
       "oído",
       "noticia"
-    ]
+    ],
+    "longDefinitionEs": "Sustantivo que designa el acto físico y sensorial de escuchar, así como el sentido auditivo mismo o la noticia y mensaje recibido. Derivado del verbo 'akoúō' (oír), en la Biblia se usa tanto para la audición física como para la comprensión espiritual de la Palabra de Dios, siendo fundamental en la fe que 'viene por el oír' (Romanos 10:17)."
   },
   "G190": {
     "shortDefinitionEs": "Seguir, acompañar como discípulo (akolouthéō)",
     "glossesEs": [
       "seguir",
       "acompañar"
-    ]
+    ],
+    "longDefinitionEs": "Verbo que literalmente significa ir por el mismo camino o estar en la misma vía que otro. En el contexto bíblico, especialmente en los Evangelios, denota el acto de seguir a Jesús como discípulo, implicando no solo acompañamiento físico sino también compromiso espiritual y obediencia a sus enseñanzas."
   },
   "G191": {
     "shortDefinitionEs": "oír, escuchar, entender (akouó)",
     "glossesEs": [
       "oír"
-    ]
+    ],
+    "longDefinitionEs": "Verbo primario que significa oír, escuchar o percibir sonidos con entendimiento. En el Nuevo Testamento, no implica solo audición física sino comprensión espiritual y respuesta obediente a la palabra de Dios, como enfatiza frecuentemente Jesús en sus parábolas con «el que tiene oídos para oír»."
   },
   "G192": {
     "shortDefinitionEs": "Falta de dominio propio, incontinencia (akrasía)",
