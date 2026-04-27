@@ -50,6 +50,7 @@ import {
   VolumeX,
   Music,
   Share2,
+  Bell,
   X,
 } from 'lucide-react-native';
 import { ShareSheet } from '@/components/ShareSheet';
@@ -1599,6 +1600,15 @@ export default function HomeScreen() {
     setTimeout(() => setShowCelebration(false), 4000);
   }, [isCompleted, user, today, addPoints, incrementStreak, updateUser]);
 
+  // Novedades unread badge
+  const [hasUnreadNews, setHasUnreadNews] = useState(false);
+  useEffect(() => {
+    AsyncStorage.getItem('@novedades_last_opened').then((val) => {
+      if (!val) { setHasUnreadNews(true); return; }
+      setHasUnreadNews(new Date(val) < new Date('2026-04-27T12:00:00Z'));
+    }).catch(() => setHasUnreadNews(true));
+  }, []);
+
   // Open share modal
   const handleOpenShareModal = useCallback(() => {
     if (!devotional) return;
@@ -2102,9 +2112,42 @@ export default function HomeScreen() {
             {/* Logo centrado — identidad sutil */}
             <LuzDiariaIconWhite size={44} />
 
-            {/* Right actions: Share only */}
+            {/* Right actions: Novedades + Share */}
             <View className="flex-row items-center" style={{ gap: 8 }}>
-              {/* Share Button — top-right */}
+              {/* Novedades bell */}
+              <Pressable
+                onPress={() => {
+                  setHasUnreadNews(false);
+                  router.push('/novedades');
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                }}
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 20,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(255,255,255,0.20)',
+                }}
+              >
+                <Bell size={20} color="#FFFFFF" />
+                {hasUnreadNews && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 7,
+                      right: 7,
+                      width: 9,
+                      height: 9,
+                      borderRadius: 5,
+                      backgroundColor: '#EF4444',
+                      borderWidth: 1.5,
+                      borderColor: 'rgba(0,0,0,0.4)',
+                    }}
+                  />
+                )}
+              </Pressable>
+              {/* Share Button */}
               <Pressable
                 onPress={handleOpenShareModal}
                 style={{

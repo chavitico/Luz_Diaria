@@ -205,14 +205,16 @@
       "ligero",
       "rápido",
       "veloz"
-    ]
+    ],
+    "longDefinitionEs": "Contracción de H7043; ligero; por implicación, rápido (también adverbial)"
   },
   "H7032": {
     "shortDefinitionEs": "sonido, voz (qâl)",
     "glossesEs": [
       "voz",
       "sonido"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H6963"
   },
   "H7033": {
     "shortDefinitionEs": "tostar, asar, secar (qâlâh)",
@@ -220,67 +222,77 @@
       "tostar",
       "asar",
       "secar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; tostar, es decir, chamuscar parcial o lentamente por el calor"
   },
   "H7034": {
     "shortDefinitionEs": "despreciar, tener por vil (qâlâh)",
     "glossesEs": [
       "despreciar",
       "vilipendiar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ser ligero (en movimiento rápido), pero figuradamente, despreciar o tener en vileza"
   },
   "H7035": {
     "shortDefinitionEs": "reunir, congregar (qâlahh)",
     "glossesEs": [
       "reunir",
       "congregar"
-    ]
+    ],
+    "longDefinitionEs": "Por H6950; congregar, reunir"
   },
   "H7036": {
     "shortDefinitionEs": "deshonra, vergüenza, ignominia (qâlôwn)",
     "glossesEs": [
       "deshonra",
       "vergüenza"
-    ]
+    ],
+    "longDefinitionEs": "De H7034; deshonra, vergüenza; por implicación, las partes pudendas"
   },
   "H7037": {
     "shortDefinitionEs": "caldero, olla (qallachath)",
     "glossesEs": [
       "caldero",
       "olla"
-    ]
+    ],
+    "longDefinitionEs": "Aparentemente forma de H6747; caldero, olla"
   },
   "H7038": {
     "shortDefinitionEs": "lisiado, mutilado (qâlaṭ)",
     "glossesEs": [
       "lisiado",
       "mutilado"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; mutilar, lisiar"
   },
   "H7039": {
     "shortDefinitionEs": "grano tostado, espigas (qâlîy)",
     "glossesEs": [
       "grano tostado",
       "espigas"
-    ]
+    ],
+    "longDefinitionEs": "De H7033; espigas o granos tostados"
   },
   "H7040": {
     "shortDefinitionEs": "Qualaí: israelita (Qallay)",
     "glossesEs": [
       "Qualaí"
-    ]
+    ],
+    "longDefinitionEs": "De H7043; frívolo; Qualaí, israelita"
   },
   "H7041": {
     "shortDefinitionEs": "Quelajá: israelita (Qêlâyâh)",
     "glossesEs": [
       "Quelajá"
-    ]
+    ],
+    "longDefinitionEs": "De H7034; insignificancia; Quelajá, israelita"
   },
   "H7042": {
     "shortDefinitionEs": "Quelita: israelita(s) (Qᵉlîyṭâʼ)",
     "glossesEs": [
       "Quelita"
-    ]
+    ],
+    "longDefinitionEs": "De H7038; mutilación; Quelita, nombre de tres israelitas"
   },
   "H7043": {
     "shortDefinitionEs": "aligerar, maldecir, despreciar (qâlal)",
@@ -288,21 +300,24 @@
       "maldecir",
       "despreciar",
       "aligerar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ser (hacer) ligero, literal (veloz, pequeño, agudo, etc.) o figuradamente (fácil, trivial, vil, etc.)"
   },
   "H7044": {
     "shortDefinitionEs": "pulido, reluciente (qâlâl)",
     "glossesEs": [
       "pulido",
       "reluciente"
-    ]
+    ],
+    "longDefinitionEs": "De H7043; pulido, reluciente (como afilado)"
   },
   "H7045": {
     "shortDefinitionEs": "maldición, vilificación (qᵉlâlâh)",
     "glossesEs": [
       "maldición",
       "vilificación"
-    ]
+    ],
+    "longDefinitionEs": "De H7043; vilificación, maldición"
   },
   "H7046": {
     "shortDefinitionEs": "burlarse, escarnecer, mofarse (qâlaç)",
@@ -310,21 +325,24 @@
       "burla",
       "escarnio",
       "mofa"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; burlarse, escarnecer"
   },
   "H7047": {
     "shortDefinitionEs": "objeto de burla, irrisión (qeleç)",
     "glossesEs": [
       "burla",
       "irrisión"
-    ]
+    ],
+    "longDefinitionEs": "De H7046; objeto de burla, irrisión"
   },
   "H7048": {
     "shortDefinitionEs": "escarnio, burla, mofa (qallâçâh)",
     "glossesEs": [
       "burla",
       "escarnio"
-    ]
+    ],
+    "longDefinitionEs": "Intensivo de H7046; escarnio, burla, mofa"
   },
   "H7049": {
     "shortDefinitionEs": "lanzar con honda, grabar (qâlaʻ)",
@@ -332,7 +350,8 @@
       "lanzar",
       "honda",
       "grabar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; lanzar con honda; también grabar (como movimiento circular)"
   },
   "H7050": {
     "shortDefinitionEs": "honda; también cortina o hoja de puerta (qelaʻ)",
@@ -340,28 +359,32 @@
       "honda",
       "cortina",
       "puerta"
-    ]
+    ],
+    "longDefinitionEs": "De H7049; honda; también cortina o válvula de puerta"
   },
   "H7051": {
     "shortDefinitionEs": "persona que lanza con honda (qallâʻ)",
     "glossesEs": [
       "hondero",
       "lanzador"
-    ]
+    ],
+    "longDefinitionEs": "Intensivo de H7049; lancero, persona que lanza con honda"
   },
   "H7052": {
     "shortDefinitionEs": "insustancial, sin peso o importancia (qᵉlôqêl)",
     "glossesEs": [
       "ligero",
       "leve"
-    ]
+    ],
+    "longDefinitionEs": "De H7043; insustancial, sin peso ni importancia"
   },
   "H7053": {
     "shortDefinitionEs": "púa o diente de horquilla para heno (qillᵉshôwn)",
     "glossesEs": [
       "horquilla",
       "púa"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa punzar; púa o diente de horquilla para heno"
   },
   "H7054": {
     "shortDefinitionEs": "lo que se alza; tallo de cereal (qâmâh)",
@@ -369,73 +392,84 @@
       "tallo",
       "grano",
       "cosecha"
-    ]
+    ],
+    "longDefinitionEs": "Femenino del participio activo de H6965; lo que se alza, tallo de cereal"
   },
   "H7055": {
     "shortDefinitionEs": "Nombre: pariente de Abraham e israelita (Qᵉmûwʼêl)",
     "glossesEs": [
       "Kemuel"
-    ]
+    ],
+    "longDefinitionEs": "De H6965 y H410; levantado de Dios; Quemuel, pariente de Abraham e israelita"
   },
   "H7056": {
     "shortDefinitionEs": "Nombre: lugar al oriente del Jordán (Qâmôwn)",
     "glossesEs": [
       "Camon"
-    ]
+    ],
+    "longDefinitionEs": "De H6965; elevación; Quamón, lugar al oriente del Jordán"
   },
   "H7057": {
     "shortDefinitionEs": "planta espinosa, ortiga (qimmôwsh)",
     "glossesEs": [
       "ortiga",
       "espina"
-    ]
+    ],
+    "longDefinitionEs": "Planta espinosa que pica; ortiga, cardo"
   },
   "H7058": {
     "shortDefinitionEs": "harina molida de grano (qemach)",
     "glossesEs": [
       "harina"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa moler; harina molida"
   },
   "H7059": {
     "shortDefinitionEs": "arrancar, destruir; marchitar (qâmaṭ)",
     "glossesEs": [
       "cortar",
       "destruir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; arrancar, destruir, marchitar"
   },
   "H7060": {
     "shortDefinitionEs": "marchitarse, secarse (qâmal)",
     "glossesEs": [
       "marchitar",
       "secar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; marchitarse, secarse, decaer"
   },
   "H7061": {
     "shortDefinitionEs": "asir con la mano, agarrar (qâmats)",
     "glossesEs": [
       "agarrar",
       "asir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; asir o agarrar con la mano"
   },
   "H7062": {
     "shortDefinitionEs": "puñado, lo que cabe en la mano (qômets)",
     "glossesEs": [
       "puñado"
-    ]
+    ],
+    "longDefinitionEs": "De H7061; lo que cabe en la mano, un puñado"
   },
   "H7063": {
     "shortDefinitionEs": "planta espinosa, espina (qimmâshôwn)",
     "glossesEs": [
       "espina",
       "espino"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7057; planta espinosa o prickly"
   },
   "H7064": {
     "shortDefinitionEs": "nido de ave; figuradamente, aposento (qên)",
     "glossesEs": [
       "nido",
       "habitación"
-    ]
+    ],
+    "longDefinitionEs": "Contraído de H7077; nido de ave (como fijo), a veces con los polluelos; figuradamente, aposento o morada"
   },
   "H7065": {
     "shortDefinitionEs": "ser celoso, envidioso, celarse (qânâʼ)",
@@ -443,26 +477,30 @@
       "celos",
       "envidia",
       "celar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ser (causativamente, hacer) celoso, es decir, envidioso o celoso en sentido malo"
   },
   "H7066": {
     "shortDefinitionEs": "comprar, adquirir por precio (qᵉnâʼ)",
     "glossesEs": [
       "comprar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7069; comprar o adquirir"
   },
   "H7067": {
     "shortDefinitionEs": "celoso, que tiene celos (qannâʼ)",
     "glossesEs": [
       "celoso"
-    ]
+    ],
+    "longDefinitionEs": "De H7065; celoso o envidioso"
   },
   "H7068": {
     "shortDefinitionEs": "celos, envidia, ardor (qinʼâh)",
     "glossesEs": [
       "celos",
       "envidia"
-    ]
+    ],
+    "longDefinitionEs": "De H7065; celos o envidia"
   },
   "H7069": {
     "shortDefinitionEs": "erigir, crear; comprar, poseer (qânâh)",
@@ -470,7 +508,8 @@
       "crear",
       "comprar",
       "poseer"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; erigir, crear; por extensión, procurar, especialmente mediante compra; por implicación, poseer"
   },
   "H7070": {
     "shortDefinitionEs": "caña erecta; vara, tubo, tallo, radio (qâneh)",
@@ -478,31 +517,36 @@
       "caña",
       "vara",
       "tallo"
-    ]
+    ],
+    "longDefinitionEs": "De H7069; caña (como erguida); por semejanza, vara de medir, eje, tubo, tallo, radio del brazo"
   },
   "H7071": {
     "shortDefinitionEs": "Nombre: arroyo y lugar en Palestina (Qânâh)",
     "glossesEs": [
       "Cana"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7070; característica de caña; Caná, nombre de un arroyo y lugar en Palestina"
   },
   "H7072": {
     "shortDefinitionEs": "celoso, iracundo (qannôwʼ)",
     "glossesEs": [
       "celoso"
-    ]
+    ],
+    "longDefinitionEs": "Por H7067; celoso o iracundo"
   },
   "H7073": {
     "shortDefinitionEs": "Nombre: edomita e israelitas (Qᵉnaz)",
     "glossesEs": [
       "Cenaz"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de raíz no usada que significa cazar; cazador; Cenaz, nombre de un edomita y de dos israelitas"
   },
   "H7074": {
     "shortDefinitionEs": "Nombre: descendiente de Cenaz (Qᵉnizzîy)",
     "glossesEs": [
       "cenezeo"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H7073; cenezeo o descendiente de Cenaz"
   },
   "H7075": {
     "shortDefinitionEs": "creación, criaturas; adquisición, riqueza (qinyân)",
@@ -510,115 +554,133 @@
       "posesión",
       "riqueza",
       "bienes"
-    ]
+    ],
+    "longDefinitionEs": "De H7069; creación, es decir, criaturas (concretamente); también adquisición, compra, riqueza"
   },
   "H7076": {
     "shortDefinitionEs": "corteza de canela en rollos (qinnâmôwn)",
     "glossesEs": [
       "canela"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa erigir; corteza de canela (en rollos erectos)"
   },
   "H7077": {
     "shortDefinitionEs": "anidar, construir nido (qânan)",
     "glossesEs": [
       "anidar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; erigir; pero usado solo como denominativo de H7064; anidar, es decir, construir u ocupar nido"
   },
   "H7078": {
     "shortDefinitionEs": "perversión, fin (qenets)",
     "glossesEs": [
       "fin"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que probablemente significa torcer; perversión"
   },
   "H7079": {
     "shortDefinitionEs": "Nombre: lugar al oriente del Jordán (Qᵉnâth)",
     "glossesEs": [
       "Cenata"
-    ]
+    ],
+    "longDefinitionEs": "De H7069; posesión; Cenate, lugar al oriente del Jordán"
   },
   "H7080": {
     "shortDefinitionEs": "distribuir suertes; adivinar (qâçam)",
     "glossesEs": [
       "adivinar",
       "agorero"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; distribuir mediante suerte o scroll mágico; por implicación, adivinar"
   },
   "H7081": {
     "shortDefinitionEs": "suerte, sorteo; adivinación, oráculo (qeçem)",
     "glossesEs": [
       "adivinación",
       "suerte"
-    ]
+    ],
+    "longDefinitionEs": "De H7080; suerte o sorteo; también adivinación (incluyendo su paga), oráculo"
   },
   "H7082": {
     "shortDefinitionEs": "cortar, seccionar (qâçaç)",
     "glossesEs": [
       "cortar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; cortar, seccionar o lopar"
   },
   "H7083": {
     "shortDefinitionEs": "copa; tintero para tinta (qeçeth)",
     "glossesEs": [
       "tintero"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H3563 (o H7185); propiamente, copa, es decir, tintero para tinta"
   },
   "H7084": {
     "shortDefinitionEs": "Nombre: lugar en Palestina (Qᵉʻîylâh)",
     "glossesEs": [
       "Queila"
-    ]
+    ],
+    "longDefinitionEs": "Quizás de H7049 en sentido de encerrar; ciudadela; Ceila, lugar en Palestina"
   },
   "H7085": {
     "shortDefinitionEs": "incisión, corte, marca (qaʻăqaʻ)",
     "glossesEs": [
       "marca",
       "corte"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H6970; incisión, corte o marca"
   },
   "H7086": {
     "shortDefinitionEs": "plato hondo, fuente (qᵉʻârâh)",
     "glossesEs": [
       "plato",
       "fuente"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H7167; plato hondo o fuente (como vaciado)"
   },
   "H7087": {
     "shortDefinitionEs": "espesarse, cuajarse; oscurecer (qâphâʼ)",
     "glossesEs": [
       "cuajar",
       "espesar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; encogerse, es decir, espesarse (como vino, leche cuajada, cielo nublado, agua helada)"
   },
   "H7088": {
     "shortDefinitionEs": "contraerse, enrollarse (qâphad)",
     "glossesEs": [
       "cortar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; contraerse, es decir, enrollarse"
   },
   "H7089": {
     "shortDefinitionEs": "contracción; terror, pánico (qᵉphâdâh)",
     "glossesEs": [
       "destrucción"
-    ]
+    ],
+    "longDefinitionEs": "De H7088; contracción, es decir, terror o pánico"
   },
   "H7090": {
     "shortDefinitionEs": "especie de ave, quizás el avetoro (qippôwd)",
     "glossesEs": [
       "avetoro"
-    ]
+    ],
+    "longDefinitionEs": "Especie de ave, quizás el avetoro (de su forma contraída)"
   },
   "H7091": {
     "shortDefinitionEs": "saltar hacia adelante; serpiente velocísima (qippôwz)",
     "glossesEs": [
       "búho"
-    ]
+    ],
+    "longDefinitionEs": "De raíz primitiva que significa contraerse; serpiente que se lanza sobre su presa (como dardándose)"
   },
   "H7092": {
     "shortDefinitionEs": "cerrar, juntar; brincar; contraerse (qâphats)",
     "glossesEs": [
       "cerrar",
       "saltar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; juntar, contraer; por implicación, saltar (contrayendo los miembros); específicamente, morir"
   },
   "H7093": {
     "shortDefinitionEs": "extremidad; después de, borde, fin (qêts)",
@@ -626,27 +688,31 @@
       "fin",
       "borde",
       "límite"
-    ]
+    ],
+    "longDefinitionEs": "Contracción de H7112; extremidad; adverbialmente (con prefijo preposicional) después"
   },
   "H7094": {
     "shortDefinitionEs": "rapar, cortar (qâtsab)",
     "glossesEs": [
       "cortar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; rapar, raspar o (generalmente) cortar"
   },
   "H7095": {
     "shortDefinitionEs": "forma, figura; base (qetseb)",
     "glossesEs": [
       "forma",
       "base"
-    ]
+    ],
+    "longDefinitionEs": "De H7094; forma (como si fuera cortada); base (como si fuera cortada allí)"
   },
   "H7096": {
     "shortDefinitionEs": "cortar, cercen; raspar (qâtsâh)",
     "glossesEs": [
       "cortar",
       "raspar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; cortar; (figuradamente) destruir; (parcialmente) raspar"
   },
   "H7097": {
     "shortDefinitionEs": "extremidad, borde, orilla (qâtseh)",
@@ -654,7 +720,8 @@
       "borde",
       "orilla",
       "límite"
-    ]
+    ],
+    "longDefinitionEs": "De H7096; (usado en gran variedad de aplicaciones e idiomatismos); extremidad, borde, orilla"
   },
   "H7098": {
     "shortDefinitionEs": "terminación, costa, esquina (qâtsâh)",
@@ -662,21 +729,24 @@
       "costa",
       "borde",
       "esquina"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7097; (usado como H7097) terminación, costa, esquina"
   },
   "H7099": {
     "shortDefinitionEs": "límite, borde, confín (qetsev)",
     "glossesEs": [
       "fin",
       "borde"
-    ]
+    ],
+    "longDefinitionEs": "De H7096; (usado como H7097, pero con menos variedad) límite, borde, confín"
   },
   "H7100": {
     "shortDefinitionEs": "Planta aromática con semillas picantes (qetsach)",
     "glossesEs": [
       "planta",
       "semilla"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa hacer incisión; flor de hinojo (por su picor)"
   },
   "H7101": {
     "shortDefinitionEs": "Magistrado, líder o gobernante (qâtsîyn)",
@@ -684,26 +754,30 @@
       "magistrado",
       "príncipe",
       "gobernante"
-    ]
+    ],
+    "longDefinitionEs": "De H7096 en sentido de determinar; magistrado (como quien decide) u otro líder"
   },
   "H7102": {
     "shortDefinitionEs": "Casia, especia aromática (qᵉtsîyʻâh)",
     "glossesEs": [
       "casia",
       "especia"
-    ]
+    ],
+    "longDefinitionEs": "De H7106; casia (como descascarada; plural la corteza)"
   },
   "H7103": {
     "shortDefinitionEs": "Ketzia: hija de Job (Qᵉtsîyʻâh)",
     "glossesEs": [
       "Ketzia"
-    ]
+    ],
+    "longDefinitionEs": "Igual a H7102; Ketzia, hija de Job"
   },
   "H7104": {
     "shortDefinitionEs": "Keziz: valle en Palestina (Qᵉtsîyts)",
     "glossesEs": [
       "Keziz"
-    ]
+    ],
+    "longDefinitionEs": "De H7112; abrupto; Keziz, un valle en Palestina"
   },
   "H7105": {
     "shortDefinitionEs": "Cosecha, tiempo de siega o rama cortada (qâtsîyr)",
@@ -711,14 +785,16 @@
       "cosecha",
       "siega",
       "rama"
-    ]
+    ],
+    "longDefinitionEs": "De H7114; segado, es decir, cosecha (como segada), la mies, tiempo, segador o figuradamente"
   },
   "H7106": {
     "shortDefinitionEs": "Raspar, separar o cortar una esquina (qâtsaʻ)",
     "glossesEs": [
       "raspar",
       "esquina"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; separar, raspar parcialmente; por implicación, segregar (como ángulo)"
   },
   "H7107": {
     "shortDefinitionEs": "Estallar de ira, enojarse (qâtsaph)",
@@ -726,21 +802,24 @@
       "ira",
       "enojo",
       "furia"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; rajarse, es decir, (figuradamente) estallar en ira"
   },
   "H7108": {
     "shortDefinitionEs": "Enfurecerse (qᵉtsaph)",
     "glossesEs": [
       "furor",
       "enojo"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7107; enfurecerse"
   },
   "H7109": {
     "shortDefinitionEs": "Furia, ira (qᵉtsaph)",
     "glossesEs": [
       "ira",
       "furia"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) de H7108; furia, ira"
   },
   "H7110": {
     "shortDefinitionEs": "Astilla o fragmento; figuradamente, ira (qetseph)",
@@ -748,27 +827,31 @@
       "ira",
       "indignación",
       "furia"
-    ]
+    ],
+    "longDefinitionEs": "De H7107; astilla (como desprendida); figuradamente, ira o contienda"
   },
   "H7111": {
     "shortDefinitionEs": "Fragmento o corteza (qᵉtsâphâh)",
     "glossesEs": [
       "fragmento",
       "corteza"
-    ]
+    ],
+    "longDefinitionEs": "De H7107; fragmento o corteza"
   },
   "H7112": {
     "shortDefinitionEs": "Cortar, trocear o separar (qâtsats)",
     "glossesEs": [
       "cortar",
       "trocear"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; trocear (literal o figuradamente)"
   },
   "H7113": {
     "shortDefinitionEs": "Cortado, separado (qᵉtsats)",
     "glossesEs": [
       "cortar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7112"
   },
   "H7114": {
     "shortDefinitionEs": "Segar, acortar o desalentarse (qâtsar)",
@@ -776,14 +859,16 @@
       "segar",
       "cosechar",
       "acortar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; acortar (transitiva o intransitivamente); especialmente segar hierba o grano"
   },
   "H7115": {
     "shortDefinitionEs": "Brevedad de espíritu, impaciencia (qôtser)",
     "glossesEs": [
       "impaciencia",
       "angustia"
-    ]
+    ],
+    "longDefinitionEs": "De H7114; brevedad de espíritu, impaciencia"
   },
   "H7116": {
     "shortDefinitionEs": "Corto, breve, pequeño o impaciente (qâtsêr)",
@@ -791,7 +876,8 @@
       "corto",
       "pequeño",
       "breve"
-    ]
+    ],
+    "longDefinitionEs": "De H7114; corto (en tamaño, número, vida, fuerza o temperamento)"
   },
   "H7117": {
     "shortDefinitionEs": "Terminación, fin o parte (qᵉtsâth)",
@@ -799,41 +885,47 @@
       "fin",
       "parte",
       "término"
-    ]
+    ],
+    "longDefinitionEs": "De H7096; terminación (literal o figuradamente); también (por implicación) porción; adverbialmente después"
   },
   "H7118": {
     "shortDefinitionEs": "Fin, término o parcialmente (qᵉtsâth)",
     "glossesEs": [
       "fin",
       "parte"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7117"
   },
   "H7119": {
     "shortDefinitionEs": "Frío; figuradamente, tranquilo (qar)",
     "glossesEs": [
       "frío",
       "tranquilo"
-    ]
+    ],
+    "longDefinitionEs": "Contracción de raíz no usada que significa enfriar; frío; figuradamente, tranquilo"
   },
   "H7120": {
     "shortDefinitionEs": "Frío (qôr)",
     "glossesEs": [
       "frío"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7119; frío"
   },
   "H7121": {
     "shortDefinitionEs": "Llamar, invocar por nombre (qârâʼ)",
     "glossesEs": [
       "llamar",
       "invocar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; llamar a alguien (especialmente por nombre), con amplia variedad de aplicaciones"
   },
   "H7122": {
     "shortDefinitionEs": "Encontrarse accidental u hostilmente (qârâʼ)",
     "glossesEs": [
       "encontrarse",
       "acontecer"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; encontrarse o tropezar, ya sea accidental u hostilmente"
   },
   "H7123": {
     "shortDefinitionEs": "Llamar, gritar o leer (qᵉrâʼ)",
@@ -841,47 +933,54 @@
       "llamar",
       "gritar",
       "leer"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) equivalente de H7121; llamar, gritar o leer"
   },
   "H7124": {
     "shortDefinitionEs": "Perdiz, ave que llama (qôrêʼ)",
     "glossesEs": [
       "perdiz"
-    ]
+    ],
+    "longDefinitionEs": "Participio activo de H7121; ave que llama, es decir, perdiz (por su grito)"
   },
   "H7125": {
     "shortDefinitionEs": "Encuentro, accidental o intencional (qirʼâh)",
     "glossesEs": [
       "encuentro",
       "encuentro casual"
-    ]
+    ],
+    "longDefinitionEs": "De H7122; encuentro casual, amistoso u hostil (también adverbialmente, en sentido opuesto)"
   },
   "H7126": {
     "shortDefinitionEs": "Acercarse, aproximarse (qârab)",
     "glossesEs": [
       "acercarse",
       "aproximar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; acercarse o aproximarse (causativamente, acercar) con cualquier propósito"
   },
   "H7127": {
     "shortDefinitionEs": "Aproximarse, acercarse (qᵉrêb)",
     "glossesEs": [
       "acercarse",
       "aproximar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) equivalente de H7126; aproximarse o acercarse"
   },
   "H7128": {
     "shortDefinitionEs": "Encuentro hostil, combate (qᵉrâb)",
     "glossesEs": [
       "batalla",
       "guerra"
-    ]
+    ],
+    "longDefinitionEs": "De H7126; encuentro hostil, combate o contienda"
   },
   "H7129": {
     "shortDefinitionEs": "Guerra (qᵉrâb)",
     "glossesEs": [
       "guerra"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) equivalente de H7128; guerra"
   },
   "H7130": {
     "shortDefinitionEs": "Centro, interior, medio (qereb)",
@@ -889,54 +988,62 @@
       "medio",
       "centro",
       "interior"
-    ]
+    ],
+    "longDefinitionEs": "De H7126; la parte más cercana, es decir, el interior, centro o medio (literal, figurado o adverbial)"
   },
   "H7131": {
     "shortDefinitionEs": "Cercano, próximo (qârêb)",
     "glossesEs": [
       "cercano",
       "próximo"
-    ]
+    ],
+    "longDefinitionEs": "De H7126; cercano, próximo en lugar, tiempo o parentesco"
   },
   "H7132": {
     "shortDefinitionEs": "Aproximación, acercamiento (qᵉrâbâh)",
     "glossesEs": [
       "aproximación",
       "acercamiento"
-    ]
+    ],
+    "longDefinitionEs": "De H7126; acercamiento, aproximación"
   },
   "H7133": {
     "shortDefinitionEs": "Ofrenda, sacrificio presentado (qorbân)",
     "glossesEs": [
       "ofrenda",
       "sacrificio"
-    ]
+    ],
+    "longDefinitionEs": "De H7126; algo traído cerca del altar, es decir, una ofrenda o sacrificio presentado"
   },
   "H7134": {
     "shortDefinitionEs": "Hacha (qardôm)",
     "glossesEs": [
       "hacha"
-    ]
+    ],
+    "longDefinitionEs": "Posiblemente de H6923 en el sentido de golpear; hacha"
   },
   "H7135": {
     "shortDefinitionEs": "Frialdad (qârâh)",
     "glossesEs": [
       "frío"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7119; frialdad, frescura o frío"
   },
   "H7136": {
     "shortDefinitionEs": "Acontecer, ocurrir accidentalmente (qârâh)",
     "glossesEs": [
       "acontecer",
       "suceder"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ocurrir accidentalmente, causar que suceda; específicamente, colocar maderos para techo o piso"
   },
   "H7137": {
     "shortDefinitionEs": "Ocurrencia accidental o desgracia (qâreh)",
     "glossesEs": [
       "accidente",
       "desgracia"
-    ]
+    ],
+    "longDefinitionEs": "De H7136; ocurrencia desgraciada, desqualificación accidental (ceremonial)"
   },
   "H7138": {
     "shortDefinitionEs": "Cercano en lugar, tiempo o parentesco (qârôwb)",
@@ -944,14 +1051,16 @@
       "cercano",
       "próximo",
       "pariente"
-    ]
+    ],
+    "longDefinitionEs": "De H7126; cercano en lugar, parentesco o tiempo"
   },
   "H7139": {
     "shortDefinitionEs": "Depilar, rasurar (qârach)",
     "glossesEs": [
       "calvo",
       "rasurar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; depilar, rasurar o pelar"
   },
   "H7140": {
     "shortDefinitionEs": "Hielo, cristal o granizo (qerach)",
@@ -959,134 +1068,155 @@
       "hielo",
       "granizo",
       "cristal"
-    ]
+    ],
+    "longDefinitionEs": "De H7139; hielo (como si fuera liso o pelado), granizo o escarcha; por semejanza, cristal de roca"
   },
   "H7141": {
     "shortDefinitionEs": "Coré: nombre de edomitas e israelitas (Qôrach)",
     "glossesEs": [
       "Coré"
-    ]
+    ],
+    "longDefinitionEs": "De H7139; hielo; Coré, nombre de dos edomitas y tres israelitas"
   },
   "H7142": {
     "shortDefinitionEs": "Calvo, calva en la cabeza (qêrêach)",
     "glossesEs": [
       "calvo"
-    ]
+    ],
+    "longDefinitionEs": "De H7139; calvo (en la parte trasera de la cabeza)"
   },
   "H7143": {
     "shortDefinitionEs": "Careá: israelita (Qârêach)",
     "glossesEs": [
       "Careá"
-    ]
+    ],
+    "longDefinitionEs": "De H7139; calvo; Careá, nombre de un israelita"
   },
   "H7144": {
     "shortDefinitionEs": "Calvicie (qorchâh)",
     "glossesEs": [
       "calvicie"
-    ]
+    ],
+    "longDefinitionEs": "De H7139; calvicie o peladura"
   },
   "H7145": {
     "shortDefinitionEs": "Corita: descendiente de Coré (Qorchîy)",
     "glossesEs": [
       "Corita"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H7141; corita, descendiente o miembro de los hijos de Coré"
   },
   "H7146": {
     "shortDefinitionEs": "Calva o lugar desnudo (qârachath)",
     "glossesEs": [
       "calvicie",
       "desnudo"
-    ]
+    ],
+    "longDefinitionEs": "De H7139; calva en la cabeza; figurativamente, lugar gastado (en el reverso de un tejido)"
   },
   "H7147": {
     "shortDefinitionEs": "Encuentro hostil, contrario (qᵉrîy)",
     "glossesEs": [
       "contrario",
       "hostil"
-    ]
+    ],
+    "longDefinitionEs": "De H7136; encuentro hostil, adversidad o contratiempo"
   },
   "H7148": {
     "shortDefinitionEs": "Llamado, selecto, famoso (qârîyʼ)",
     "glossesEs": [
       "famoso",
       "renombrado"
-    ]
+    ],
+    "longDefinitionEs": "De H7121; llamado, elegido o distinguido"
   },
   "H7149": {
     "shortDefinitionEs": "Ciudad (qiryâʼ)",
     "glossesEs": [
       "ciudad"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) ciudad"
   },
   "H7150": {
     "shortDefinitionEs": "proclamación, predicación (qᵉrîyʼâh)",
     "glossesEs": [
       "proclamación",
       "predicación"
-    ]
+    ],
+    "longDefinitionEs": "De H7121; proclamación, pregonería o publicación"
   },
   "H7151": {
     "shortDefinitionEs": "ciudad, construcción (qiryâh)",
     "glossesEs": [
       "ciudad",
       "edificio"
-    ]
+    ],
+    "longDefinitionEs": "De H7136 en el sentido de pavimento, es decir, construcción; una ciudad"
   },
   "H7152": {
     "shortDefinitionEs": "Queriót: lugar en Palestina (Qᵉrîyôwth)",
     "glossesEs": [
       "Queriót"
-    ]
+    ],
+    "longDefinitionEs": "Plural de H7151; edificios; Queriót, nombre de dos lugares en Palestina"
   },
   "H7153": {
     "shortDefinitionEs": "Quiriat-Arbá: lugar en Palestina (Qiryath ʼArbaʻ)",
     "glossesEs": [
       "Quiriat-Arbá"
-    ]
+    ],
+    "longDefinitionEs": "De H7151 y H704 o H702; ciudad de Arbá, o ciudad de los cuatro (gigantes); Quiriat-Arbá, lugar en Palestina"
   },
   "H7154": {
     "shortDefinitionEs": "Quiriat-Baal: lugar en Palestina (Qiryath Baʻal)",
     "glossesEs": [
       "Quiriat-Baal"
-    ]
+    ],
+    "longDefinitionEs": "De H7151 y H1168; ciudad de Baal; Quiriat-Baal, lugar en Palestina"
   },
   "H7155": {
     "shortDefinitionEs": "Quiriat-Huzot: lugar en Moab (Qiryath Chutsôwth)",
     "glossesEs": [
       "Quiriat-Huzot"
-    ]
+    ],
+    "longDefinitionEs": "De H7151 y el plural femenino de H2351; ciudad de calles; Quiriat-Huzot, lugar en Moab"
   },
   "H7156": {
     "shortDefinitionEs": "Quiriataim: lugar en Palestina (Qiryâthayim)",
     "glossesEs": [
       "Quiriataim"
-    ]
+    ],
+    "longDefinitionEs": "Dual de H7151; doble ciudad; Quiriataim, nombre de dos lugares en Palestina"
   },
   "H7157": {
     "shortDefinitionEs": "Quiriat-Jearim: lugar en Palestina (Qiryath Yᵉʻârîym)",
     "glossesEs": [
       "Quiriat-Jearim"
-    ]
+    ],
+    "longDefinitionEs": "De H7151 y plural de H3293 o H5892; ciudad de bosques o de villas; Quiriat-Jearim, lugar en Palestina"
   },
   "H7158": {
     "shortDefinitionEs": "Quiriat-Sana: lugar en Palestina (Qiryath Çannâh)",
     "glossesEs": [
       "Quiriat-Sana"
-    ]
+    ],
+    "longDefinitionEs": "De H7151 y derivado de H5577 o H5612; ciudad de ramas o de libro; Quiriat-Sana o Quiriat-Séfer, lugar en Palestina"
   },
   "H7159": {
     "shortDefinitionEs": "cubrir (qâram)",
     "glossesEs": [
       "cubrir",
       "tapar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; cubrir"
   },
   "H7160": {
     "shortDefinitionEs": "brillar, echar cuernos (qâran)",
     "glossesEs": [
       "brillar",
       "resplandecer"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; empujar o cornear; usado como denominativo de H7161, disparar cuernos; figuradamente, rayos"
   },
   "H7161": {
     "shortDefinitionEs": "cuerno, ángulo, botella (qeren)",
@@ -1094,40 +1224,46 @@
       "cuerno",
       "ángulo",
       "botella"
-    ]
+    ],
+    "longDefinitionEs": "De H7160; cuerno (como proyección); por implicación, frasco, corneta; por semejanza, diente de elefante, esquina, pico, rayo; figuradamente, poder"
   },
   "H7162": {
     "shortDefinitionEs": "cuerno, trompeta (qeren)",
     "glossesEs": [
       "cuerno",
       "trompeta"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7161; cuerno (literal o para sonido)"
   },
   "H7163": {
     "shortDefinitionEs": "Queren-Hapuc: hija de Job (qeren hap-pûwk)",
     "glossesEs": [
       "Queren-Hapuc"
-    ]
+    ],
+    "longDefinitionEs": "De H7161 y H6320; cuerno de cosmético; Queren-Hapuc, hija de Job"
   },
   "H7164": {
     "shortDefinitionEs": "agacharse, encorvarse (qâraç)",
     "glossesEs": [
       "agacharse",
       "inclinarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, sobresalir; denominativo de H7165, encorvarse o ser jorobado"
   },
   "H7165": {
     "shortDefinitionEs": "gancho, protuberancia (qereç)",
     "glossesEs": [
       "gancho",
       "broche"
-    ]
+    ],
+    "longDefinitionEs": "De H7164; nudo o estaca de sujeción (por su forma abultada)"
   },
   "H7166": {
     "shortDefinitionEs": "tobillo, articulación (qarçôl)",
     "glossesEs": [
       "tobillo"
-    ]
+    ],
+    "longDefinitionEs": "De H7164; tobillo (como protuberancia o articulación)"
   },
   "H7167": {
     "shortDefinitionEs": "rasgar, desgarrar, pintar (qâraʻ)",
@@ -1135,35 +1271,40 @@
       "rasgar",
       "desgarrar",
       "pintar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; rasgar literal o figuradamente (injuriar, pintar los ojos)"
   },
   "H7168": {
     "shortDefinitionEs": "trapo, andrajo (qeraʻ)",
     "glossesEs": [
       "trapo",
       "andrajo"
-    ]
+    ],
+    "longDefinitionEs": "De H7167; trapo o andrajo"
   },
   "H7169": {
     "shortDefinitionEs": "pellizcar, guiñar (qârats)",
     "glossesEs": [
       "pellizcar",
       "guiñar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; pellizcar, morder los labios, guiñar los ojos (gesto de malicia) o apretar barro"
   },
   "H7170": {
     "shortDefinitionEs": "acusar con calumnia (qᵉrats)",
     "glossesEs": [
       "acusar",
       "difamar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7171 en sentido de bocado; acusar por calumnias"
   },
   "H7171": {
     "shortDefinitionEs": "extirpación, destrucción (qerets)",
     "glossesEs": [
       "destrucción",
       "extirpación"
-    ]
+    ],
+    "longDefinitionEs": "De H7169; extirpación (como por constricción)"
   },
   "H7172": {
     "shortDefinitionEs": "piso, suelo, fondo (qarqaʻ)",
@@ -1171,19 +1312,22 @@
       "piso",
       "suelo",
       "fondo"
-    ]
+    ],
+    "longDefinitionEs": "De H7167; piso o pavimento (como de piezas o teselas), de edificio o mar"
   },
   "H7173": {
     "shortDefinitionEs": "Carca: lugar en Palestina (Qarqaʻ)",
     "glossesEs": [
       "Carca"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7172; planta baja; Carca, lugar en Palestina"
   },
   "H7174": {
     "shortDefinitionEs": "Carcor: lugar al oriente del Jordán (Qarqôr)",
     "glossesEs": [
       "Carcor"
-    ]
+    ],
+    "longDefinitionEs": "De H6979; fundación; Carcor, lugar al oriente del Jordán"
   },
   "H7175": {
     "shortDefinitionEs": "tabla, banco, cubierta (qeresh)",
@@ -1191,38 +1335,44 @@
       "tabla",
       "banco",
       "cubierta"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa hender; tabla o plancha; por implicación, cubierta de barco"
   },
   "H7176": {
     "shortDefinitionEs": "ciudad (qereth)",
     "glossesEs": [
       "ciudad"
-    ]
+    ],
+    "longDefinitionEs": "De H7136 en sentido de construcción; una ciudad"
   },
   "H7177": {
     "shortDefinitionEs": "Cartá: lugar en Palestina (Qartâh)",
     "glossesEs": [
       "Cartá"
-    ]
+    ],
+    "longDefinitionEs": "De H7176; ciudad; Cartá, lugar en Palestina"
   },
   "H7178": {
     "shortDefinitionEs": "Cartán: lugar en Palestina (Qartân)",
     "glossesEs": [
       "Cartán"
-    ]
+    ],
+    "longDefinitionEs": "De H7176; solar o parcela urbana; Cartán, lugar en Palestina"
   },
   "H7179": {
     "shortDefinitionEs": "paja, rastrojo seco (qash)",
     "glossesEs": [
       "paja",
       "rastrojo"
-    ]
+    ],
+    "longDefinitionEs": "De H7197; paja o rastrojo seco"
   },
   "H7180": {
     "shortDefinitionEs": "pepino (qishshuʼ)",
     "glossesEs": [
       "pepino"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa ser duro; pepino (por la dificultad de digestión)"
   },
   "H7181": {
     "shortDefinitionEs": "escuchar, prestar atención (qâshab)",
@@ -1230,20 +1380,23 @@
       "escuchar",
       "oír",
       "atender"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; erizar los oídos, es decir, prestar atención"
   },
   "H7182": {
     "shortDefinitionEs": "audición, atención (qesheb)",
     "glossesEs": [
       "audición",
       "atención"
-    ]
+    ],
+    "longDefinitionEs": "De H7181 (קָשַׁב); acción de escuchar o prestar atención"
   },
   "H7183": {
     "shortDefinitionEs": "atento, que escucha (qashshâb)",
     "glossesEs": [
       "atento"
-    ]
+    ],
+    "longDefinitionEs": "De H7181 (קָשַׁב); que escucha atentamente"
   },
   "H7184": {
     "shortDefinitionEs": "jarra, vasija (qâsâh)",
@@ -1251,7 +1404,8 @@
       "jarra",
       "vasija",
       "copa"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa ser redondo; una jarra (por su forma)"
   },
   "H7185": {
     "shortDefinitionEs": "ser duro, severo, cruel (qâshâh)",
@@ -1259,7 +1413,8 @@
       "endurecer",
       "ser cruel",
       "empecinarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente ser denso, es decir, duro o severo (en varias aplicaciones)"
   },
   "H7186": {
     "shortDefinitionEs": "duro, severo, cruel (qâsheh)",
@@ -1267,21 +1422,24 @@
       "duro",
       "severo",
       "cruel"
-    ]
+    ],
+    "longDefinitionEs": "De H7185 (קָשָׁה); severo o duro (en varias aplicaciones)"
   },
   "H7187": {
     "shortDefinitionEs": "fidelidad, verdad (qᵉshôwṭ)",
     "glossesEs": [
       "fidelidad",
       "verdad"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) o קשֹׁט; corresponde a H7189 (קֹשֶׁט); fidelidad"
   },
   "H7188": {
     "shortDefinitionEs": "endurecerse, insensibilizarse (qâshach)",
     "glossesEs": [
       "endurecer",
       "insensibilizar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ser (causativamente hacer) insensible o endurecido"
   },
   "H7189": {
     "shortDefinitionEs": "equidad, verdad, rectitud (qôsheṭ)",
@@ -1289,27 +1447,31 @@
       "equidad",
       "verdad",
       "justicia"
-    ]
+    ],
+    "longDefinitionEs": "O קֹשְׁטְ; de raíz no usada que significa equilibrar; equidad (lo que está equilibrado), es decir, verdad"
   },
   "H7190": {
     "shortDefinitionEs": "terquedad, obstinación (qᵉshîy)",
     "glossesEs": [
       "terquedad",
       "obstinación"
-    ]
+    ],
+    "longDefinitionEs": "De H7185 (קָשָׁה); terquedad u obstinación"
   },
   "H7191": {
     "shortDefinitionEs": "Quishión: lugar en Palestina (Qishyôwn)",
     "glossesEs": [
       "Quishión"
-    ]
+    ],
+    "longDefinitionEs": "De H7190 (קְשִׁי); terreno duro; Quishión, lugar en Palestina"
   },
   "H7192": {
     "shortDefinitionEs": "moneda de plata, lingote (qᵉsîyṭâh)",
     "glossesEs": [
       "moneda",
       "plata"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada (probablemente significando pesar); lingote de plata marcado como moneda"
   },
   "H7193": {
     "shortDefinitionEs": "escama, coraza de malla (qasqeseth)",
@@ -1317,7 +1479,8 @@
       "escama",
       "coraza",
       "malla"
-    ]
+    ],
+    "longDefinitionEs": "Por reduplicación de raíz no usada que significa descamarse; escama de pez; o coraza de malla (compuesta de placas articuladas)"
   },
   "H7194": {
     "shortDefinitionEs": "atar, conspirar, ligar (qâshar)",
@@ -1325,7 +1488,8 @@
       "atar",
       "conspirar",
       "ligar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; atar físicamente (ceñir, confinar, compactar) o mentalmente (en amor o alianza)"
   },
   "H7195": {
     "shortDefinitionEs": "conspiración, confederación (qesher)",
@@ -1333,21 +1497,24 @@
       "conspiración",
       "confederación",
       "traición"
-    ]
+    ],
+    "longDefinitionEs": "De H7194 (קָשַׁר); una alianza o confederación ilícita"
   },
   "H7196": {
     "shortDefinitionEs": "cinturón, adorno (qishshur)",
     "glossesEs": [
       "cinturón",
       "adorno"
-    ]
+    ],
+    "longDefinitionEs": "De H7194 (קָשַׁר); cinturón u ornamento (para mujeres)"
   },
   "H7197": {
     "shortDefinitionEs": "recoger leña, juntarse (qâshash)",
     "glossesEs": [
       "recoger",
       "juntarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; recoger paja, rastrojo o leña; figuradamente, reunirse o congregarse"
   },
   "H7198": {
     "shortDefinitionEs": "arco, iris, fuerza (qesheth)",
@@ -1355,13 +1522,15 @@
       "arco",
       "iris",
       "arquero"
-    ]
+    ],
+    "longDefinitionEs": "De H7185 (קָשָׁה) en el sentido de doblarse; arco para tirar o fuerza; también el iris del ojo"
   },
   "H7199": {
     "shortDefinitionEs": "arquero, tirador de arco (qashshâth)",
     "glossesEs": [
       "arquero"
-    ]
+    ],
+    "longDefinitionEs": "Intensivo (como denominativo) de H7198 (קֶשֶׁת); arquero o tirador de arco"
   },
   "H7200": {
     "shortDefinitionEs": "Ver, contemplar, mirar, percibir (râʼâh)",
@@ -1369,21 +1538,24 @@
       "ver",
       "mirar",
       "contemplar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ver literal o figuradamente (en numerosas aplicaciones, directas, indirectas, transitivas, intransitivas y causativas)"
   },
   "H7201": {
     "shortDefinitionEs": "Ave de rapiña, probablemente buitre (râʼâh)",
     "glossesEs": [
       "buitre",
       "ave de rapiña"
-    ]
+    ],
+    "longDefinitionEs": "De H7200 (רָאָה); ave de rapiña (probablemente buitre, por su vista aguda)"
   },
   "H7202": {
     "shortDefinitionEs": "Que ve, que experimenta (râʼeh)",
     "glossesEs": [
       "ver",
       "experimentar"
-    ]
+    ],
+    "longDefinitionEs": "De H7200 (רָאָה); que ve o experimenta"
   },
   "H7203": {
     "shortDefinitionEs": "Vidente, profeta; también visión (rôʼeh)",
@@ -1391,45 +1563,52 @@
       "vidente",
       "profeta",
       "visión"
-    ]
+    ],
+    "longDefinitionEs": "Participio activo de H7200 (רָאָה); vidente o profeta; también abstraktamente visión"
   },
   "H7204": {
     "shortDefinitionEs": "Roé: israelita (Rôʼêh)",
     "glossesEs": [
       "Roé"
-    ]
+    ],
+    "longDefinitionEs": "Por H7203 (רֹאֶה); profeta; Roé, israelita"
   },
   "H7205": {
     "shortDefinitionEs": "Rubén: hijo de Jacob (Rᵉʼûwbên)",
     "glossesEs": [
       "Rubén"
-    ]
+    ],
+    "longDefinitionEs": "Del imperativo de H7200 (רָאָה) y H1121 (בֵּן); ved un hijo; Rubén, hijo de Jacob"
   },
   "H7206": {
     "shortDefinitionEs": "Rubenita, descendiente de Rubén (Rᵉʼûwbênîy)",
     "glossesEs": [
       "rubenita",
       "Rubén"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H7205 (רְאוּבֵן); rubenita o descendiente de Rubén"
   },
   "H7207": {
     "shortDefinitionEs": "Vista, satisfacción (raʼăvâh)",
     "glossesEs": [
       "vista",
       "satisfacción"
-    ]
+    ],
+    "longDefinitionEs": "De H7200 (רָאָה); vista o satisfacción de la vista"
   },
   "H7208": {
     "shortDefinitionEs": "Reumá: mujer siria (Rᵉʼûwmâh)",
     "glossesEs": [
       "Reumá"
-    ]
+    ],
+    "longDefinitionEs": "Participio pasivo femenino de H7213 (רָאַם); exaltada; Reumá, mujer siria"
   },
   "H7209": {
     "shortDefinitionEs": "Espejo (rᵉʼîy)",
     "glossesEs": [
       "espejo"
-    ]
+    ],
+    "longDefinitionEs": "De H7200 (רָאָה); espejo (como algo que se ve)"
   },
   "H7210": {
     "shortDefinitionEs": "Vista, visión; espectáculo (rŏʼîy)",
@@ -1437,46 +1616,53 @@
       "vista",
       "visión",
       "espectáculo"
-    ]
+    ],
+    "longDefinitionEs": "De H7200 (רָאָה); vista (abstracta: visión, o concreta: espectáculo)"
   },
   "H7211": {
     "shortDefinitionEs": "Reajá: nombre de tres israelitas (Rᵉʼâyâh)",
     "glossesEs": [
       "Reajá"
-    ]
+    ],
+    "longDefinitionEs": "De H7200 y H3050; Jah ha visto; Reajá, nombre de tres israelitas"
   },
   "H7212": {
     "shortDefinitionEs": "Vista, contemplación (rᵉʼîyth)",
     "glossesEs": [
       "vista",
       "contemplación"
-    ]
+    ],
+    "longDefinitionEs": "De H7200; vista, contemplación"
   },
   "H7213": {
     "shortDefinitionEs": "Levantarse, elevarse (râʼam)",
     "glossesEs": [
       "levantarse",
       "elevarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; levantarse, elevarse"
   },
   "H7214": {
     "shortDefinitionEs": "Toro salvaje (rᵉʼêm)",
     "glossesEs": [
       "toro",
       "animal salvaje"
-    ]
+    ],
+    "longDefinitionEs": "De H7213; toro salvaje (por su notoriedad)"
   },
   "H7215": {
     "shortDefinitionEs": "Coral, algo de alto valor (râʼmâh)",
     "glossesEs": [
       "coral"
-    ]
+    ],
+    "longDefinitionEs": "De H7213; algo de alto valor, probablemente coral"
   },
   "H7216": {
     "shortDefinitionEs": "Ramot: dos lugares en Palestina (Râʼmôwth)",
     "glossesEs": [
       "Ramot"
-    ]
+    ],
+    "longDefinitionEs": "Plural de H7215; alturas; Ramot, nombre de dos lugares en Palestina"
   },
   "H7217": {
     "shortDefinitionEs": "Cabeza, suma, principal (rêʼsh)",
@@ -1484,7 +1670,8 @@
       "cabeza",
       "suma",
       "principal"
-    ]
+    ],
+    "longDefinitionEs": "Arameo, correspondiente a H7218; la cabeza; figuradamente, la suma"
   },
   "H7218": {
     "shortDefinitionEs": "Cabeza, jefe, principio, cima (rôʼsh)",
@@ -1492,7 +1679,8 @@
       "cabeza",
       "jefe",
       "principio"
-    ]
+    ],
+    "longDefinitionEs": "De raíz primitiva que significa agitar; la cabeza (como lo más fácilmente agitado), literal o figuradamente"
   },
   "H7219": {
     "shortDefinitionEs": "Veneno, planta venenosa (rôʼsh)",
@@ -1500,27 +1688,31 @@
       "veneno",
       "hiel",
       "cicuta"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente igual a H7218; planta venenosa, probablemente amapola; veneno en general"
   },
   "H7220": {
     "shortDefinitionEs": "Ros: israelita y nación extranjera (Rôʼsh)",
     "glossesEs": [
       "Ros"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente igual a H7218; Ros, nombre de un israelita y de una nación extranjera"
   },
   "H7221": {
     "shortDefinitionEs": "Principio, comienzo (riʼshâh)",
     "glossesEs": [
       "principio",
       "comienzo"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7218; principio, comienzo"
   },
   "H7222": {
     "shortDefinitionEs": "Cabeza, piedra angular (rôʼshâh)",
     "glossesEs": [
       "cabeza",
       "piedra angular"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7218; la cabeza"
   },
   "H7223": {
     "shortDefinitionEs": "Primero, anterior, principal (riʼshôwn)",
@@ -1528,13 +1720,15 @@
       "primero",
       "anterior",
       "principal"
-    ]
+    ],
+    "longDefinitionEs": "De H7221; primero en lugar, tiempo o rango (adjetivo o sustantivo)"
   },
   "H7224": {
     "shortDefinitionEs": "Primero (riʼshônîy)",
     "glossesEs": [
       "primero"
-    ]
+    ],
+    "longDefinitionEs": "De H7223; primero"
   },
   "H7225": {
     "shortDefinitionEs": "principio, comienzo, primicia (reshit)",
@@ -1547,7 +1741,8 @@
     "shortDefinitionEs": "Almohada (raʼăshôth)",
     "glossesEs": [
       "almohada"
-    ]
+    ],
+    "longDefinitionEs": "De H7218; almohada (siendo para la cabeza)"
   },
   "H7227": {
     "shortDefinitionEs": "Abundante, numeroso, grande (rab)",
@@ -1555,13 +1750,15 @@
       "abundante",
       "numeroso",
       "grande"
-    ]
+    ],
+    "longDefinitionEs": "Contracción de H7231; abundante en cantidad, tamaño, edad, número, rango o calidad"
   },
   "H7228": {
     "shortDefinitionEs": "Arquero (rab)",
     "glossesEs": [
       "arquero"
-    ]
+    ],
+    "longDefinitionEs": "Contracción de H7232; arquero"
   },
   "H7229": {
     "shortDefinitionEs": "Capitán, jefe, señor, maestro (rab)",
@@ -1569,42 +1766,48 @@
       "capitán",
       "jefe",
       "señor"
-    ]
+    ],
+    "longDefinitionEs": "Arameo, correspondiente a H7227; capitán, jefe, señor, maestro"
   },
   "H7230": {
     "shortDefinitionEs": "Abundancia, multitud (rôb)",
     "glossesEs": [
       "abundancia",
       "multitud"
-    ]
+    ],
+    "longDefinitionEs": "De H7231; abundancia, multitud"
   },
   "H7231": {
     "shortDefinitionEs": "Multiplicar, aumentar, hacerse muchos (râbab)",
     "glossesEs": [
       "multiplicar",
       "aumentar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; multiplicar, aumentar, especialmente en número; multiplicar por miríadas"
   },
   "H7232": {
     "shortDefinitionEs": "Disparar flecha (râbab)",
     "glossesEs": [
       "disparar",
       "flecha"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; disparar flecha"
   },
   "H7233": {
     "shortDefinitionEs": "Miríada, cantidad numerosa (rᵉbâbâh)",
     "glossesEs": [
       "miríada",
       "diez mil"
-    ]
+    ],
+    "longDefinitionEs": "De H7231; abundancia en número, específicamente miríada"
   },
   "H7234": {
     "shortDefinitionEs": "Extender, adornar (râbad)",
     "glossesEs": [
       "extender",
       "adornar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; extender, adornar"
   },
   "H7235": {
     "shortDefinitionEs": "Aumentar, crecer, multiplicarse (râbâh)",
@@ -1612,119 +1815,137 @@
       "aumentar",
       "crecer",
       "multiplicar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; aumentar, crecer, multiplicarse"
   },
   "H7236": {
     "shortDefinitionEs": "Engrandecerse, crecer (rᵉbâh)",
     "glossesEs": [
       "engrandecerse",
       "crecer"
-    ]
+    ],
+    "longDefinitionEs": "Arameo, correspondiente a H7235; engrandecerse, crecer"
   },
   "H7237": {
     "shortDefinitionEs": "Rabá: dos lugares en Palestina (Rabbâh)",
     "glossesEs": [
       "Rabá"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7227; grande; Rabá, nombre de dos lugares en Palestina"
   },
   "H7238": {
     "shortDefinitionEs": "Grandeza, majestad (rᵉbûw)",
     "glossesEs": [
       "grandeza",
       "majestad"
-    ]
+    ],
+    "longDefinitionEs": "Arameo; grandeza, majestad, aumento de dignidad"
   },
   "H7239": {
     "shortDefinitionEs": "Miríada, número muy grande (ribbôw)",
     "glossesEs": [
       "miríada",
       "diez mil"
-    ]
+    ],
+    "longDefinitionEs": "De H7231; miríada, número indefinidamente grande"
   },
   "H7240": {
     "shortDefinitionEs": "Diez mil veces diez mil (ribbôw)",
     "glossesEs": [
       "innumerables"
-    ]
+    ],
+    "longDefinitionEs": "Arameo, correspondiente a H7239; miríada, número indefinidamente grande"
   },
   "H7241": {
     "shortDefinitionEs": "Lluvia, chaparrón (râbîyb)",
     "glossesEs": [
       "lluvia",
       "chaparrón"
-    ]
+    ],
+    "longDefinitionEs": "De H7231; lluvia, chaparrón (como acumulación de gotas)"
   },
   "H7242": {
     "shortDefinitionEs": "Collar, cadena alrededor del cuello (râbîyd)",
     "glossesEs": [
       "collar",
       "cadena"
-    ]
+    ],
+    "longDefinitionEs": "De H7234; collar que se extiende alrededor del cuello"
   },
   "H7243": {
     "shortDefinitionEs": "Cuarto, parte cuarta (rᵉbîyʻîy)",
     "glossesEs": [
       "cuarto",
       "cuarta parte"
-    ]
+    ],
+    "longDefinitionEs": "De H7251; cuarto; también (fraccionariamente) una cuarta parte"
   },
   "H7244": {
     "shortDefinitionEs": "Cuarto (rᵉbîyʻay)",
     "glossesEs": [
       "cuarto"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7243"
   },
   "H7245": {
     "shortDefinitionEs": "Rabit: lugar en Palestina (Rabbîyth)",
     "glossesEs": [
       "Rabit"
-    ]
+    ],
+    "longDefinitionEs": "De H7231; multitud; Rabit, lugar en Palestina"
   },
   "H7246": {
     "shortDefinitionEs": "Empapar pan en aceite (râbak)",
     "glossesEs": [
       "pan",
       "freír"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; empapar (pan en aceite)"
   },
   "H7247": {
     "shortDefinitionEs": "Riblá: lugar en Siria (Riblâh)",
     "glossesEs": [
       "Riblá"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa ser fructífero; fértil; Riblá, lugar en Siria"
   },
   "H7248": {
     "shortDefinitionEs": "Rab-Mag: oficial babilónico (Rab-Mâg)",
     "glossesEs": [
       "Rab-Mag"
-    ]
+    ],
+    "longDefinitionEs": "De H7227 y palabra extranjera para mago; jefe de magos; Rab-Mag, oficial babilónico"
   },
   "H7249": {
     "shortDefinitionEs": "Rab-Saris: oficial babilónico (Rab-Çârîyç)",
     "glossesEs": [
       "Rab-Saris"
-    ]
+    ],
+    "longDefinitionEs": "De H7227 y palabra extranjera para eunuco; jefe de eunucos; Rab-Saris, oficial babilónico"
   },
   "H7250": {
     "shortDefinitionEs": "Acostarse, yacer, copular (râbaʻ)",
     "glossesEs": [
       "acostarse",
       "yacer"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; agacharse o tenderse plano, esp. en copulación"
   },
   "H7251": {
     "shortDefinitionEs": "Ser de forma cuadrada (râbaʻ)",
     "glossesEs": [
       "cuadrado",
       "cuadrarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva (idéntica a H7250 por la idea de tenderse a cuatro patas); ser cuadrangular; usado como denominativo de H7253"
   },
   "H7252": {
     "shortDefinitionEs": "Postración o acostamiento para dormir (rebaʻ)",
     "glossesEs": [
       "acostarse",
       "reposo"
-    ]
+    ],
+    "longDefinitionEs": "De H7250; postración para dormir"
   },
   "H7253": {
     "shortDefinitionEs": "Una cuarta parte o lado (rebaʻ)",
@@ -1732,27 +1953,31 @@
       "cuarta parte",
       "lado",
       "cuadrado"
-    ]
+    ],
+    "longDefinitionEs": "De H7251; una cuarta parte o lado"
   },
   "H7254": {
     "shortDefinitionEs": "Reba: príncipe madianita (Rebaʻ)",
     "glossesEs": [
       "Reba"
-    ]
+    ],
+    "longDefinitionEs": "Igual a H7253; Reba, príncipe madianita"
   },
   "H7255": {
     "shortDefinitionEs": "Un cuarto o porción (rôbaʻ)",
     "glossesEs": [
       "cuarto",
       "cuarta parte"
-    ]
+    ],
+    "longDefinitionEs": "De H7251; un cuarto o porción"
   },
   "H7256": {
     "shortDefinitionEs": "Bisnieto, descendiente de cuarta generación (ribbêaʻ)",
     "glossesEs": [
       "bisnieto",
       "cuarta generación"
-    ]
+    ],
+    "longDefinitionEs": "De H7251; descendiente de la cuarta generación; bisnieto"
   },
   "H7257": {
     "shortDefinitionEs": "Acuclillarse, recostarse, reposar, acechar (râbats)",
@@ -1760,7 +1985,8 @@
       "acuclillarse",
       "recostarse",
       "acechar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; agacharse (sobre cuatro patas plegadas); recostarse, reposar, acechar, ocultarse"
   },
   "H7258": {
     "shortDefinitionEs": "Lecho o lugar de reposo (rêbets)",
@@ -1768,13 +1994,15 @@
       "cama",
       "lecho",
       "reposo"
-    ]
+    ],
+    "longDefinitionEs": "De H7257; lecho o lugar de reposo"
   },
   "H7259": {
     "shortDefinitionEs": "Rebeca: esposa de Isaac (Ribqâh)",
     "glossesEs": [
       "Rebeca"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada prob. significando trabar con trabas; cautivada (por belleza); Rebeca, esposa de Isaac"
   },
   "H7260": {
     "shortDefinitionEs": "Enorme, muy grande, dominante (rabrab)",
@@ -1782,7 +2010,8 @@
       "grande",
       "enorme",
       "inmenso"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) de H7229; enorme (en tamaño); dominante (en carácter)"
   },
   "H7261": {
     "shortDefinitionEs": "Magnate, señor, príncipe (rabrᵉbân)",
@@ -1790,20 +2019,23 @@
       "señor",
       "príncipe",
       "magnate"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) de H7260; magnate o persona de rango"
   },
   "H7262": {
     "shortDefinitionEs": "Racsaqué: oficial babilónico (Rabshâqêh)",
     "glossesEs": [
       "Racsaqué"
-    ]
+    ],
+    "longDefinitionEs": "De H7227 y H8248; jefe de coperos; Racsaqué, oficial babilónico"
   },
   "H7263": {
     "shortDefinitionEs": "Terrón de barro (regeb)",
     "glossesEs": [
       "terrón",
       "barro"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada significa amontonar; terrón de barro"
   },
   "H7264": {
     "shortDefinitionEs": "Temblar de emoción, agitarse, inquietarse (râgaz)",
@@ -1811,14 +2043,16 @@
       "temblar",
       "agitarse",
       "temor"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; temblar (por emoción violenta, esp. ira o miedo)"
   },
   "H7265": {
     "shortDefinitionEs": "Provocar a ira (rᵉgaz)",
     "glossesEs": [
       "provocar",
       "ira"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7264"
   },
   "H7266": {
     "shortDefinitionEs": "Furor, ira violenta (rᵉgaz)",
@@ -1826,7 +2060,8 @@
       "furor",
       "ira",
       "cólera"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) de H7265; ira o furor violento"
   },
   "H7267": {
     "shortDefinitionEs": "Conmoción, inquietud, fragor, agitación (rôgez)",
@@ -1835,21 +2070,24 @@
       "temor",
       "ruido",
       "ira"
-    ]
+    ],
+    "longDefinitionEs": "De H7264; conmoción, inquietud, fragor de trueno, desasosiego, ira"
   },
   "H7268": {
     "shortDefinitionEs": "Tímido, temblador (raggâz)",
     "glossesEs": [
       "tímido",
       "temblador"
-    ]
+    ],
+    "longDefinitionEs": "Intensivo de H7264; tímido, miedoso"
   },
   "H7269": {
     "shortDefinitionEs": "Trepidación, tremolina (rogzâh)",
     "glossesEs": [
       "temblor",
       "trepidación"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7267; trepidación, tremolina"
   },
   "H7270": {
     "shortDefinitionEs": "Explorar, espiar, difamar, calumniar (râgal)",
@@ -1857,13 +2095,15 @@
       "espiar",
       "difamar",
       "calumniar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; también denominativo de H7272; reconocer, espiar, ser soplón (calumniar), conducir"
   },
   "H7271": {
     "shortDefinitionEs": "Pie (rᵉgal)",
     "glossesEs": [
       "pie"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7272"
   },
   "H7272": {
     "shortDefinitionEs": "Pie, paso, marcha (regel)",
@@ -1871,7 +2111,8 @@
       "pie",
       "paso",
       "marcha"
-    ]
+    ],
+    "longDefinitionEs": "De H7270; pie (usado para caminar); por implicación, un paso; por eufemismo, las partes pudendas"
   },
   "H7273": {
     "shortDefinitionEs": "Soldado de infantería, peón (raglîy)",
@@ -1879,26 +2120,30 @@
       "soldado",
       "infantería",
       "peón"
-    ]
+    ],
+    "longDefinitionEs": "De H7272; soldado de infantería, peón"
   },
   "H7274": {
     "shortDefinitionEs": "Rogelín: lugar al este del Jordán (Rôgᵉlîym)",
     "glossesEs": [
       "Rogelín"
-    ]
+    ],
+    "longDefinitionEs": "Plural del participio activo de H7270; fulleros (que pisan la tela al lavar); Rogelín, lugar al este del Jordán"
   },
   "H7275": {
     "shortDefinitionEs": "Apedrear, lapidar (râgam)",
     "glossesEs": [
       "apedrear",
       "lapidar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva (cf. H7263, H7321); lanzar piedras juntas, es decir, lapidar"
   },
   "H7276": {
     "shortDefinitionEs": "Regem: israelita (Regem)",
     "glossesEs": [
       "Regem"
-    ]
+    ],
+    "longDefinitionEs": "De H7275; montón de piedras; Regem, israelita"
   },
   "H7277": {
     "shortDefinitionEs": "Montón de piedras, muchedumbre, asamblea (rigmâh)",
@@ -1906,20 +2151,23 @@
       "montón",
       "asamblea",
       "muchedumbre"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de lo mismo que H7276; montón (de piedras), es decir, figuradamente, multitud"
   },
   "H7278": {
     "shortDefinitionEs": "Regem-Melec: israelita (Regem Melek)",
     "glossesEs": [
       "Regem-Melec"
-    ]
+    ],
+    "longDefinitionEs": "De H7276 y H4428; montón del rey; Regem-Melec, israelita"
   },
   "H7279": {
     "shortDefinitionEs": "Murmurar, rebelarse (râgan)",
     "glossesEs": [
       "murmurar",
       "rebelarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; murmurar, es decir, rebelarse"
   },
   "H7280": {
     "shortDefinitionEs": "Agitar violentamente, trastornar, descansar (râgaʻ)",
@@ -1927,7 +2175,8 @@
       "agitar",
       "trastornar",
       "descansar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; agitar violentamente (el mar con olas, la piel con úlceras); figuradamente (favorablemente) sosegar; específicamente, parpadear"
   },
   "H7281": {
     "shortDefinitionEs": "Un instante, momento, espacio muy breve (regaʻ)",
@@ -1935,35 +2184,40 @@
       "instante",
       "momento",
       "brevedad"
-    ]
+    ],
+    "longDefinitionEs": "De H7280; parpadeo (de ojos), es decir, espacio brevísimo de tiempo"
   },
   "H7282": {
     "shortDefinitionEs": "Tranquilo, pacífico, descansado (râgêaʻ)",
     "glossesEs": [
       "tranquilo",
       "pacífico"
-    ]
+    ],
+    "longDefinitionEs": "De H7280; tranquilo, es decir, pacífico"
   },
   "H7283": {
     "shortDefinitionEs": "Alborotarse, furor (râgash)",
     "glossesEs": [
       "alboroto",
       "furor"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; estar tumultuoso, alborotarse"
   },
   "H7284": {
     "shortDefinitionEs": "Reunirse tumultuosamente (rᵉgash)",
     "glossesEs": [
       "reunirse",
       "alboroto"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7283; reunirse tumultuosamente"
   },
   "H7285": {
     "shortDefinitionEs": "Multitud tumultuosa, insurrección (regesh)",
     "glossesEs": [
       "multitud",
       "insurrección"
-    ]
+    ],
+    "longDefinitionEs": "De H7283; multitud tumultuosa, insurrección"
   },
   "H7286": {
     "shortDefinitionEs": "Hollar, conquistar, extender (râdad)",
@@ -1971,7 +2225,8 @@
       "hollar",
       "conquistar",
       "extender"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; hollar en pedazos, es decir, figuradamente conquistar o revestir"
   },
   "H7287": {
     "shortDefinitionEs": "Pisotear, dominar, reinar, subyugar (râdâh)",
@@ -1979,27 +2234,31 @@
       "dominar",
       "reinar",
       "subyugar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; pisotear, es decir, subyugar; específicamente desmenuzar"
   },
   "H7288": {
     "shortDefinitionEs": "Radai: israelita (Radday)",
     "glossesEs": [
       "Radai"
-    ]
+    ],
+    "longDefinitionEs": "Intensivo de H7287; dominante; Radai, israelita"
   },
   "H7289": {
     "shortDefinitionEs": "Velo, tocado de mujer (râdîyd)",
     "glossesEs": [
       "velo",
       "tocado"
-    ]
+    ],
+    "longDefinitionEs": "De H7286 en sentido de extender; velo (como expansión)"
   },
   "H7290": {
     "shortDefinitionEs": "Adormecer, estupefacto, sumido en sueño (râdam)",
     "glossesEs": [
       "dormir",
       "sueño profundo"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; atordrar, es decir, adormecer (con sueño o muerte)"
   },
   "H7291": {
     "shortDefinitionEs": "Perseguir, cazar, huir (râdaph)",
@@ -2007,7 +2266,8 @@
       "perseguir",
       "cazar",
       "huir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; perseguir (usualmente con intención hostil; figuradamente del tiempo pasado)"
   },
   "H7292": {
     "shortDefinitionEs": "Urgir, empeñarse, asegurar, obrar soberbiamente (râhab)",
@@ -2015,41 +2275,47 @@
       "urgir",
       "asegurar",
       "soberbia"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; urgir severamente, es decir, figuradamente importunar, embocar, capturar, obrar insolentemente"
   },
   "H7293": {
     "shortDefinitionEs": "Jactancia, bravuconería, orgullo (rahab)",
     "glossesEs": [
       "jactancia",
       "orgullo"
-    ]
+    ],
+    "longDefinitionEs": "De H7292; jactancia, bravería"
   },
   "H7294": {
     "shortDefinitionEs": "Rahab: epíteto de Egipto (Rahab)",
     "glossesEs": [
       "Rahab"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7293; Rahab (es decir, jactancioso), epíteto de Egipto"
   },
   "H7295": {
     "shortDefinitionEs": "Insolente, soberbio, altanero (râhâb)",
     "glossesEs": [
       "insolente",
       "soberbio"
-    ]
+    ],
+    "longDefinitionEs": "De H7292; insolente, soberbio"
   },
   "H7296": {
     "shortDefinitionEs": "Orgullo, soberbia, fuerza (rôhâb)",
     "glossesEs": [
       "orgullo",
       "soberbia"
-    ]
+    ],
+    "longDefinitionEs": "De H7292; orgullo, soberbia, fuerza"
   },
   "H7297": {
     "shortDefinitionEs": "Temer, sentir temor (râhâh)",
     "glossesEs": [
       "temer",
       "temor"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; temer, sentir temor"
   },
   "H7298": {
     "shortDefinitionEs": "Canal, conducto, abrevadero, tirabuzón (rahaṭ)",
@@ -2057,7 +2323,8 @@
       "canal",
       "conducto",
       "abrevadero"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada aparentemente significando ahuecar; canal o abrevadero; por semejanza, tirabuzón de cabello"
   },
   "H7299": {
     "shortDefinitionEs": "Aspecto, apariencia, forma (rêv)",
@@ -2065,7 +2332,8 @@
       "aspecto",
       "forma",
       "apariencia"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) de raíz correspondiente a H7200; aspecto, apariencia"
   },
   "H7300": {
     "shortDefinitionEs": "Andar vagabundeando, dominar, señorear (rûwd)",
@@ -2073,7 +2341,8 @@
       "vagar",
       "dominar",
       "señorear"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; andar vagabundeando, es decir, vagar (libre o desconsolado)"
   },
   "H7301": {
     "shortDefinitionEs": "Saciar la sed; satisfacer abundantemente (râvâh)",
@@ -2081,7 +2350,8 @@
       "saciar",
       "satisfacer",
       "emborrachar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; saciar la sed (ocasionalmente de otros apetitos)"
   },
   "H7302": {
     "shortDefinitionEs": "Saciado de bebida; embriaguez (râveh)",
@@ -2089,13 +2359,15 @@
       "saciado",
       "embriaguez",
       "regado"
-    ]
+    ],
+    "longDefinitionEs": "de H7301; saciado de bebida"
   },
   "H7303": {
     "shortDefinitionEs": "Rohagá: israelita (Rôwhăgâh)",
     "glossesEs": [
       "Rohagá"
-    ]
+    ],
+    "longDefinitionEs": "de raíz inusada que probablemente significa gritar; clamor; Rohagá, un israelita"
   },
   "H7304": {
     "shortDefinitionEs": "Respirar libremente; revivir; tener espacio (râvach)",
@@ -2103,7 +2375,8 @@
       "refrescarse",
       "revivir",
       "espacioso"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva (idéntica a H7306); respirar libremente, es decir, revivir; por implicación, tener amplio espacio"
   },
   "H7305": {
     "shortDefinitionEs": "Espacio; intervalo; alivio o liberación (revach)",
@@ -2111,7 +2384,8 @@
       "espacio",
       "alivio",
       "desahogo"
-    ]
+    ],
+    "longDefinitionEs": "de H7304; espacio, literal (intervalo) o figurado (liberación)"
   },
   "H7306": {
     "shortDefinitionEs": "Oler; percibir; aceptar; anticipar (rûwach)",
@@ -2119,7 +2393,8 @@
       "oler",
       "percibir",
       "aceptar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; soplar, es decir, respirar; solo (literalmente) oler o (por implicación) percibir; (figuradamente) anticipar, disfrutar"
   },
   "H7307": {
     "shortDefinitionEs": "Espíritu, viento, aliento vital (ruah)",
@@ -2134,7 +2409,8 @@
       "espíritu",
       "mente",
       "viento"
-    ]
+    ],
+    "longDefinitionEs": "arameo que corresponde a H7307; mente, espíritu, viento"
   },
   "H7309": {
     "shortDefinitionEs": "Alivio; respiro; descanso (rᵉvâchâh)",
@@ -2142,7 +2418,8 @@
       "alivio",
       "respiro",
       "descanso"
-    ]
+    ],
+    "longDefinitionEs": "femenino de H7305; alivio"
   },
   "H7310": {
     "shortDefinitionEs": "Saciedad; abundancia; satisfacción (rᵉvâyâh)",
@@ -2150,7 +2427,8 @@
       "saciedad",
       "abundancia",
       "riqueza"
-    ]
+    ],
+    "longDefinitionEs": "de H7301; saciedad"
   },
   "H7311": {
     "shortDefinitionEs": "Ser alto; elevarse; exaltar; levantar (rûwm)",
@@ -2159,7 +2437,8 @@
       "elevar",
       "levantar",
       "subir"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; ser alto, activarse, alzarse o elevar (en varias aplicaciones, literal o figuradamente)"
   },
   "H7312": {
     "shortDefinitionEs": "Elevación; altitud; engreimiento (rûwm)",
@@ -2167,7 +2446,8 @@
       "altura",
       "altitud",
       "soberbia"
-    ]
+    ],
+    "longDefinitionEs": "de H7311; elevación (literal) o engreimiento (figurado)"
   },
   "H7313": {
     "shortDefinitionEs": "Exaltar; elevar; establecer (rûwm)",
@@ -2175,14 +2455,16 @@
       "exaltar",
       "elevar",
       "establecer"
-    ]
+    ],
+    "longDefinitionEs": "arameo que corresponde a H7311; exaltar, elevar, establecer"
   },
   "H7314": {
     "shortDefinitionEs": "Altura; altitud (rûwm)",
     "glossesEs": [
       "altura",
       "altitud"
-    ]
+    ],
+    "longDefinitionEs": "arameo de H7313; altura, altitud"
   },
   "H7315": {
     "shortDefinitionEs": "Elevación; en alto; arriba (rôwm)",
@@ -2190,13 +2472,15 @@
       "alto",
       "arriba",
       "elevado"
-    ]
+    ],
+    "longDefinitionEs": "de H7311; elevación, es decir, (adverbialmente) en lo alto"
   },
   "H7316": {
     "shortDefinitionEs": "Rumá: lugar en Palestina (Rûwmâh)",
     "glossesEs": [
       "Rumá"
-    ]
+    ],
+    "longDefinitionEs": "de H7311; altura; Rumá, lugar en Palestina"
   },
   "H7317": {
     "shortDefinitionEs": "Altanería; orgullo; altivamente (rôwmâh)",
@@ -2204,7 +2488,8 @@
       "altanería",
       "soberbia",
       "orgullo"
-    ]
+    ],
+    "longDefinitionEs": "femenino de H7315; altanería, es decir, (adverbialmente) altivamente"
   },
   "H7318": {
     "shortDefinitionEs": "Exaltación; alabanza (rôwmâm)",
@@ -2212,7 +2497,8 @@
       "exaltación",
       "alabanza",
       "gloria"
-    ]
+    ],
+    "longDefinitionEs": "de H7426; exaltación, es decir, (figurada y específicamente) alabanza"
   },
   "H7319": {
     "shortDefinitionEs": "Exaltación; alabanza; altura (rôwmᵉmâh)",
@@ -2220,13 +2506,15 @@
       "exaltación",
       "alabanza",
       "gloria"
-    ]
+    ],
+    "longDefinitionEs": "participio femenino activo de H7426; exaltación, es decir, alabanza"
   },
   "H7320": {
     "shortDefinitionEs": "Romamti-Ézer: israelita (Rôwmamtîy ʻEzer)",
     "glossesEs": [
       "Romamti-Ézer"
-    ]
+    ],
+    "longDefinitionEs": "de H7311 y H5828; he levantado ayuda; Romamti-Ézer, un israelita"
   },
   "H7321": {
     "shortDefinitionEs": "Gritar; dar alarma; destruir; romper (rûwaʻ)",
@@ -2235,14 +2523,16 @@
       "alarma",
       "destruir",
       "cry"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; daño (especialmente por rotura); figuradamente, romper los oídos (con sonido), es decir, gritar"
   },
   "H7322": {
     "shortDefinitionEs": "Temblar; agitarse; estremecer (rûwph)",
     "glossesEs": [
       "temblar",
       "estremecerse"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; agitar por concusión, es decir, temblar"
   },
   "H7323": {
     "shortDefinitionEs": "Correr; apresurarse; huir rápidamente (rûwts)",
@@ -2250,7 +2540,8 @@
       "correr",
       "apresurarse",
       "huir"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; correr (por cualquier razón, especialmente apresurarse)"
   },
   "H7324": {
     "shortDefinitionEs": "Verter; vaciar; derramar (rûwq)",
@@ -2258,7 +2549,8 @@
       "verter",
       "vaciar",
       "derramar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; verter (literal o figuradamente), es decir, vaciar"
   },
   "H7325": {
     "shortDefinitionEs": "Fluir; segregar (rûwr)",
@@ -2266,7 +2558,8 @@
       "fluir",
       "correr",
       "segregar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; babosear, es decir, (por analogía) segregar fluido (ulceroso o natural)"
   },
   "H7326": {
     "shortDefinitionEs": "Estar destituido; carecer; empobrecer (rûwsh)",
@@ -2274,13 +2567,15 @@
       "carecer",
       "pobre",
       "necesitado"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; estar destituido"
   },
   "H7327": {
     "shortDefinitionEs": "Rut: moabita (Rûwth)",
     "glossesEs": [
       "Rut"
-    ]
+    ],
+    "longDefinitionEs": "probablemente por H7468; amigo; Rut, una moabita"
   },
   "H7328": {
     "shortDefinitionEs": "Misterio; secreto; ocultar (râz)",
@@ -2288,7 +2583,8 @@
       "secreto",
       "misterio",
       "oculto"
-    ]
+    ],
+    "longDefinitionEs": "arameo de raíz inusada que probablemente significa atenuar, es decir, (figuradamente) ocultar; misterio"
   },
   "H7329": {
     "shortDefinitionEs": "Emagrecer; adelgazar; flaquear (râzâh)",
@@ -2296,7 +2592,8 @@
       "flaco",
       "magro",
       "emagrecer"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; emagrecer, es decir, adelgazar (literal o figuradamente)"
   },
   "H7330": {
     "shortDefinitionEs": "Delgado; flaco; magro (râzeh)",
@@ -2304,13 +2601,15 @@
       "flaco",
       "delgado",
       "magro"
-    ]
+    ],
+    "longDefinitionEs": "de H7329; delgado"
   },
   "H7331": {
     "shortDefinitionEs": "Rezón: sirio (Rᵉzôwn)",
     "glossesEs": [
       "Rezón"
-    ]
+    ],
+    "longDefinitionEs": "de H7336; príncipe; Rezón, un sirio"
   },
   "H7332": {
     "shortDefinitionEs": "Flacura; delgadez; magreza (râzôwn)",
@@ -2318,7 +2617,8 @@
       "flacura",
       "delgadez",
       "magreza"
-    ]
+    ],
+    "longDefinitionEs": "de H7329; flacura"
   },
   "H7333": {
     "shortDefinitionEs": "Príncipe; dignatario; noble (râzôwn)",
@@ -2326,14 +2626,16 @@
       "príncipe",
       "dignatario",
       "noble"
-    ]
+    ],
+    "longDefinitionEs": "De H7336; un dignatario"
   },
   "H7334": {
     "shortDefinitionEs": "Flacura; magreza; delgadez (râzîy)",
     "glossesEs": [
       "flacura",
       "magreza"
-    ]
+    ],
+    "longDefinitionEs": "De H7329; delgadez"
   },
   "H7335": {
     "shortDefinitionEs": "Guiñar el ojo; burlarse (râzam)",
@@ -2341,7 +2643,8 @@
       "guiñar",
       "burlarse",
       "burla"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; guiñar el ojo en burla"
   },
   "H7336": {
     "shortDefinitionEs": "Ser grave; ser honorable; príncipe (râzan)",
@@ -2349,7 +2652,8 @@
       "príncipe",
       "gobernante",
       "noble"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; probablemente ser pesado, es decir (figuradamente) honorable"
   },
   "H7337": {
     "shortDefinitionEs": "Extender; ampliar; ensanchar (râchab)",
@@ -2357,7 +2661,8 @@
       "ampliar",
       "ensanchar",
       "extender"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ensanchar (intransitivo o transitivo, literal o figurado)"
   },
   "H7338": {
     "shortDefinitionEs": "Anchura; amplitud (rachab)",
@@ -2365,7 +2670,8 @@
       "anchura",
       "amplitud",
       "ancho"
-    ]
+    ],
+    "longDefinitionEs": "De H7337; una anchura"
   },
   "H7339": {
     "shortDefinitionEs": "Anchura; plaza; calle; avenida (rᵉchôb)",
@@ -2373,13 +2679,15 @@
       "calle",
       "plaza",
       "avenida"
-    ]
+    ],
+    "longDefinitionEs": "De H7337; anchura, es decir (concretamente) avenida o plaza"
   },
   "H7340": {
     "shortDefinitionEs": "Rehob: lugar en Siria; sirio (Rᵉchôb)",
     "glossesEs": [
       "Rehob"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7339; Rehob, nombre de un lugar en Siria y de personas"
   },
   "H7341": {
     "shortDefinitionEs": "Anchura; amplitud; extensión (rôchab)",
@@ -2387,7 +2695,8 @@
       "anchura",
       "amplitud",
       "ancho"
-    ]
+    ],
+    "longDefinitionEs": "De H7337; anchura (literal o figuradamente)"
   },
   "H7342": {
     "shortDefinitionEs": "Ancho; amplio; espacioso; libre (râchâb)",
@@ -2395,44 +2704,51 @@
       "ancho",
       "amplio",
       "espacioso"
-    ]
+    ],
+    "longDefinitionEs": "De H7337; espacioso en cualquier dirección, literal o figuradamente"
   },
   "H7343": {
     "shortDefinitionEs": "Rahab: cananea (Râchâb)",
     "glossesEs": [
       "Rahab"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7342; soberbio; Rahab, cananea"
   },
   "H7344": {
     "shortDefinitionEs": "Rehobot: lugar en Asiria y Palestina (Rᵉchôbôwth)",
     "glossesEs": [
       "Rehobot"
-    ]
+    ],
+    "longDefinitionEs": "Plural de H7339; calles; Rehobot, lugar en Asiria y Palestina"
   },
   "H7345": {
     "shortDefinitionEs": "Rehabías: israelita (Rᵉchabyâh)",
     "glossesEs": [
       "Rehabías"
-    ]
+    ],
+    "longDefinitionEs": "De H7337 y H3050; Jah ha ensanchado; Rehabías, israelita"
   },
   "H7346": {
     "shortDefinitionEs": "Roboam: rey israelita (Rᵉchabʻâm)",
     "glossesEs": [
       "Roboam"
-    ]
+    ],
+    "longDefinitionEs": "De H7337 y H5971; el pueblo ha sido ensanchado; Roboam, rey israelita"
   },
   "H7347": {
     "shortDefinitionEs": "Piedra de molino; molino (rêcheh)",
     "glossesEs": [
       "molino",
       "piedra molino"
-    ]
+    ],
+    "longDefinitionEs": "De raíz sin usar que significa pulverizar; piedra de molino"
   },
   "H7348": {
     "shortDefinitionEs": "Rehúm: persa e israelitas (Rᵉchûwm)",
     "glossesEs": [
       "Rehúm"
-    ]
+    ],
+    "longDefinitionEs": "Forma de H7349; Rehúm, nombre de un persa e israelitas"
   },
   "H7349": {
     "shortDefinitionEs": "Compasivo; misericordioso; piadoso (rachûwm)",
@@ -2440,7 +2756,8 @@
       "compasivo",
       "misericordioso",
       "piadoso"
-    ]
+    ],
+    "longDefinitionEs": "De H7355; compasivo"
   },
   "H7350": {
     "shortDefinitionEs": "Lejano; remoto; antiguo; precioso (râchôwq)",
@@ -2449,7 +2766,8 @@
       "remoto",
       "antiguo",
       "lejos"
-    ]
+    ],
+    "longDefinitionEs": "De H7368; remoto literal o figuradamente; también precioso, usado con preposición"
   },
   "H7351": {
     "shortDefinitionEs": "Panel; viga; artesón (rᵉchîyṭ)",
@@ -2457,33 +2775,38 @@
       "viga",
       "artesón",
       "panel"
-    ]
+    ],
+    "longDefinitionEs": "Del mismo que H7298; un panel (como semejante a una artesa)"
   },
   "H7352": {
     "shortDefinitionEs": "Lejos, distante, a distancia (rachîyq)",
     "glossesEs": [
       "lejos",
       "distante"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7350; lejano, distante"
   },
   "H7353": {
     "shortDefinitionEs": "Oveja, cordero hembra (râchêl)",
     "glossesEs": [
       "oveja",
       "cordero"
-    ]
+    ],
+    "longDefinitionEs": "De raíz sin usar que significa viajar; oveja (hembra predominante del rebaño)"
   },
   "H7354": {
     "shortDefinitionEs": "Raquel: esposa de Jacob (Râchêl)",
     "glossesEs": [
       "Raquel"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7353; Raquel, esposa de Jacob"
   },
   "H7355": {
     "shortDefinitionEs": "mostrar misericordia, tener compasión (rajam)",
     "glossesEs": [
       "misericordia"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; acariciar; por implicación, amar, especialmente compadecer"
   },
   "H7356": {
     "shortDefinitionEs": "Compasión, misericordia, ternura, entrañas (racham)",
@@ -2491,83 +2814,95 @@
       "compasión",
       "misericordia",
       "ternura"
-    ]
+    ],
+    "longDefinitionEs": "De H7355; compasión (en plural); por extensión, matriz o doncella"
   },
   "H7357": {
     "shortDefinitionEs": "Racam: israelita (Racham)",
     "glossesEs": [
       "Racam"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7356; piedad; Racam, israelita"
   },
   "H7358": {
     "shortDefinitionEs": "Matriz, vientre (rechem)",
     "glossesEs": [
       "matriz",
       "vientre"
-    ]
+    ],
+    "longDefinitionEs": "De H7355; matriz o vientre"
   },
   "H7359": {
     "shortDefinitionEs": "Piedad, misericordia (rᵉchêm)",
     "glossesEs": [
       "piedad",
       "misericordia"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7356; (plural) piedad"
   },
   "H7360": {
     "shortDefinitionEs": "Buitre, especie de ave rapaz (râchâm)",
     "glossesEs": [
       "buitre",
       "ave rapaz"
-    ]
+    ],
+    "longDefinitionEs": "De H7355; especie de buitre (que supuestamente es tierno con sus crías)"
   },
   "H7361": {
     "shortDefinitionEs": "Doncella, muchacha (rachămâh)",
     "glossesEs": [
       "doncella",
       "muchacha"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7356; doncella"
   },
   "H7362": {
     "shortDefinitionEs": "Compasivo, misericordioso (rachmânîy)",
     "glossesEs": [
       "compasivo",
       "misericordioso"
-    ]
+    ],
+    "longDefinitionEs": "De H7355; compasivo"
   },
   "H7363": {
     "shortDefinitionEs": "Palpitar, agitarse, flotar (râchaph)",
     "glossesEs": [
       "palpitar",
       "agitarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; empollar; por implicación, estar relajado o tranquilo"
   },
   "H7364": {
     "shortDefinitionEs": "Lavar, bañarse (râchats)",
     "glossesEs": [
       "lavar",
       "bañarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; lavar (la totalidad o parte de algo)"
   },
   "H7365": {
     "shortDefinitionEs": "Confiar, servir (rᵉchats)",
     "glossesEs": [
       "confiar",
       "servir"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7364; asistir, servir (probablemente por la idea accesoria de ministrar como siervo en el baño)"
   },
   "H7366": {
     "shortDefinitionEs": "Baño, pila de baño (rachats)",
     "glossesEs": [
       "baño",
       "pila"
-    ]
+    ],
+    "longDefinitionEs": "De H7364; un baño"
   },
   "H7367": {
     "shortDefinitionEs": "Lugar de lavado, baño (rachtsâh)",
     "glossesEs": [
       "lavado",
       "baño"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7366; un lugar de baño"
   },
   "H7368": {
     "shortDefinitionEs": "Retirarse, alejarse, apartarse (râchaq)",
@@ -2575,70 +2910,80 @@
       "alejarse",
       "apartarse",
       "retirarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ensanchar (en cualquier dirección), es decir, retroceder o remover (literal o figuradamente, de lugar o relación)"
   },
   "H7369": {
     "shortDefinitionEs": "Remoto, lejano, distante (râchêq)",
     "glossesEs": [
       "remoto",
       "lejano"
-    ]
+    ],
+    "longDefinitionEs": "De H7368; remoto, lejano"
   },
   "H7370": {
     "shortDefinitionEs": "Brotar, manar, fluir (râchash)",
     "glossesEs": [
       "brotar",
       "manar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; brotar, manar a borbotones"
   },
   "H7371": {
     "shortDefinitionEs": "Criba, aventador de grano (rachath)",
     "glossesEs": [
       "criba",
       "aventador"
-    ]
+    ],
+    "longDefinitionEs": "De H7306; aventador de grano (como soplando la paja)"
   },
   "H7372": {
     "shortDefinitionEs": "Estar mojado, ser húmedo (râṭab)",
     "glossesEs": [
       "mojado",
       "húmedo"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; estar húmedo, ser mojado"
   },
   "H7373": {
     "shortDefinitionEs": "Fresco, verde, tierno (râṭôb)",
     "glossesEs": [
       "fresco",
       "verde"
-    ]
+    ],
+    "longDefinitionEs": "De H7372; húmedo (con savia), fresco, verde"
   },
   "H7374": {
     "shortDefinitionEs": "Terror, espanto, miedo (reṭeṭ)",
     "glossesEs": [
       "terror",
       "espanto"
-    ]
+    ],
+    "longDefinitionEs": "De una raíz no usada que significa temblar; terror, espanto"
   },
   "H7375": {
     "shortDefinitionEs": "Rejuvenecerse, renovarse, refrescarse (ruṭăphash)",
     "glossesEs": [
       "rejuvenecerse",
       "renovarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz compuesta de H7373 y H2954; rejuvenecerse, ser renovado"
   },
   "H7376": {
     "shortDefinitionEs": "Despedazar, estrellarse, romper (râṭâsh)",
     "glossesEs": [
       "despedazar",
       "romper"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; despedazar, estrellarse contra el suelo"
   },
   "H7377": {
     "shortDefinitionEs": "Riego, lluvia, aguacero (rîy)",
     "glossesEs": [
       "riego",
       "lluvia"
-    ]
+    ],
+    "longDefinitionEs": "De H7301; riego, es decir, lluvia o aguacero"
   },
   "H7378": {
     "shortDefinitionEs": "Contender, disputar, juzgar, pelear (rîyb)",
@@ -2646,7 +2991,8 @@
       "contender",
       "disputar",
       "juzgar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, lanzar; figuradamente, contender, sostener una controversia; por implicación, defender"
   },
   "H7379": {
     "shortDefinitionEs": "Contienda, controversia, pleito, juicio (rîyb)",
@@ -2654,13 +3000,15 @@
       "contienda",
       "controversia",
       "pleito"
-    ]
+    ],
+    "longDefinitionEs": "De H7378; una contienda (personal o legal), controversia, pleito"
   },
   "H7380": {
     "shortDefinitionEs": "Ribay: israelita (Rîybay)",
     "glossesEs": [
       "Ribay"
-    ]
+    ],
+    "longDefinitionEs": "De H7378; contencioso; Ribay, un israelita"
   },
   "H7381": {
     "shortDefinitionEs": "Olor, aroma, fragancia, perfume (rêyach)",
@@ -2668,27 +3016,31 @@
       "olor",
       "aroma",
       "fragancia"
-    ]
+    ],
+    "longDefinitionEs": "De H7306; olor, aroma (como si fuera soplado)"
   },
   "H7382": {
     "shortDefinitionEs": "Olor, aroma (rêyach)",
     "glossesEs": [
       "olor",
       "aroma"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7381; olor, aroma"
   },
   "H7383": {
     "shortDefinitionEs": "Trigo molido, harina de trigo (rîyphâh)",
     "glossesEs": [
       "trigo molido",
       "harina"
-    ]
+    ],
+    "longDefinitionEs": "De H7322; (solo plural) trigo molido, granos triturados"
   },
   "H7384": {
     "shortDefinitionEs": "Rifat: nieto de Jafet (Rîyphath)",
     "glossesEs": [
       "Rifat"
-    ]
+    ],
+    "longDefinitionEs": "De origen extranjero; Rifat, nieto de Jafet y sus descendientes"
   },
   "H7385": {
     "shortDefinitionEs": "Vacío, cosa vana, en vano (rîyq)",
@@ -2696,35 +3048,40 @@
       "vacío",
       "vano",
       "vana cosa"
-    ]
+    ],
+    "longDefinitionEs": "De H7324; vacío; figuradamente, cosa vana; adverbialmente, en vano"
   },
   "H7386": {
     "shortDefinitionEs": "Vacío, vano, inútil (rêyq)",
     "glossesEs": [
       "vacío",
       "vano"
-    ]
+    ],
+    "longDefinitionEs": "De H7324; vacío; figuradamente, inútil, sin valor"
   },
   "H7387": {
     "shortDefinitionEs": "En vano, sin causa, vanamente (rêyqâm)",
     "glossesEs": [
       "vano",
       "sin causa"
-    ]
+    ],
+    "longDefinitionEs": "De H7386; vanamente; figuradamente, (objetivo) ineficazmente, (subjetivo) inmerecidamente"
   },
   "H7388": {
     "shortDefinitionEs": "Saliva, esputo, clara de huevo (rîyr)",
     "glossesEs": [
       "saliva",
       "esputo"
-    ]
+    ],
+    "longDefinitionEs": "De H7325; saliva; por semejanza, caldo o jugo"
   },
   "H7389": {
     "shortDefinitionEs": "Pobreza, indigencia (rêysh)",
     "glossesEs": [
       "pobreza",
       "indigencia"
-    ]
+    ],
+    "longDefinitionEs": "De H7326; pobreza, indigencia"
   },
   "H7390": {
     "shortDefinitionEs": "Tierno, débil, suave, delicado (rak)",
@@ -2732,34 +3089,39 @@
       "tierno",
       "débil",
       "delicado"
-    ]
+    ],
+    "longDefinitionEs": "De H7401; tierno (literal o figuradamente); por implicación, débil, suave"
   },
   "H7391": {
     "shortDefinitionEs": "Ternura, suavidad (rôk)",
     "glossesEs": [
       "ternura",
       "suavidad"
-    ]
+    ],
+    "longDefinitionEs": "De H7401; suavidad, ternura (figuradamente)"
   },
   "H7392": {
     "shortDefinitionEs": "Montar, cabalgar, llevar en bestia (râkab)",
     "glossesEs": [
       "montar",
       "cabalgar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; montar (en animal o vehículo); causativamente, colocar sobre, despedir"
   },
   "H7393": {
     "shortDefinitionEs": "Carro, vehículo, caballería (rekeb)",
     "glossesEs": [
       "carro",
       "vehículo"
-    ]
+    ],
+    "longDefinitionEs": "De H7392; vehículo; por implicación, un tiro de animales; por extensión, caballería; por analogía, un jinete, es decir, la piedra de molino superior"
   },
   "H7394": {
     "shortDefinitionEs": "Recab: árabe e israelita (Rêkâb)",
     "glossesEs": [
       "Recab"
-    ]
+    ],
+    "longDefinitionEs": "De H7392; jinete; Recab, nombre de dos árabes y dos israelitas"
   },
   "H7395": {
     "shortDefinitionEs": "Auriga, conductor de carro, jinete (rakkâb)",
@@ -2767,26 +3129,30 @@
       "auriga",
       "conductor",
       "jinete"
-    ]
+    ],
+    "longDefinitionEs": "De H7392; auriga, conductor de carro"
   },
   "H7396": {
     "shortDefinitionEs": "Carros, flota de carros (rikbâh)",
     "glossesEs": [
       "carros"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7393; carro (colectivamente), flota de carros"
   },
   "H7397": {
     "shortDefinitionEs": "Recá: lugar en Palestina (Rêkâh)",
     "glossesEs": [
       "Recá"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente femenino de H7401; suavidad; Recá, lugar en Palestina"
   },
   "H7398": {
     "shortDefinitionEs": "Carro, vehículo (rᵉkûwb)",
     "glossesEs": [
       "carro",
       "vehículo"
-    ]
+    ],
+    "longDefinitionEs": "Del participio pasivo de H7392; vehículo (como aquello en que se monta)"
   },
   "H7399": {
     "shortDefinitionEs": "Bienes, riqueza, hacienda, sustancia (rᵉkûwsh)",
@@ -2794,35 +3160,40 @@
       "bienes",
       "riqueza",
       "hacienda"
-    ]
+    ],
+    "longDefinitionEs": "Del participio pasivo de H7408; bienes, riqueza, hacienda (como reunida)"
   },
   "H7400": {
     "shortDefinitionEs": "Chismoso, calumniador, difamador (râkîyl)",
     "glossesEs": [
       "chismoso",
       "calumniador"
-    ]
+    ],
+    "longDefinitionEs": "De H7402; difamador, calumniador (como quien viaja de acá para allá)"
   },
   "H7401": {
     "shortDefinitionEs": "Ablandar, enternecer, suavizar (râkak)",
     "glossesEs": [
       "ablandar",
       "enternecer"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ablandar, enternecer, suavizar (intransitiva o transitivamente), usado figuradamente"
   },
   "H7402": {
     "shortDefinitionEs": "Comerciar en especias, negociar (râkal)",
     "glossesEs": [
       "comerciar",
       "mercader"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; comerciar en especias, viajar para negociar"
   },
   "H7403": {
     "shortDefinitionEs": "Lugar en Palestina (Râkâl)",
     "glossesEs": [
       "lugar",
       "Palestina"
-    ]
+    ],
+    "longDefinitionEs": "De H7402; mercader; Racal, lugar en Palestina"
   },
   "H7404": {
     "shortDefinitionEs": "Comercio, tráfico mercantil (rᵉkullâh)",
@@ -2830,14 +3201,16 @@
       "comercio",
       "mercadería",
       "tráfico"
-    ]
+    ],
+    "longDefinitionEs": "Participio pasivo femenino de H7402; comercio, tráfico mercantil (como vendido)"
   },
   "H7405": {
     "shortDefinitionEs": "Atar, amarrar (râkaç)",
     "glossesEs": [
       "atar",
       "amarrar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; atar, amarrar"
   },
   "H7406": {
     "shortDefinitionEs": "Cresta de montaña, peñasco (rekeç)",
@@ -2845,7 +3218,8 @@
       "cresta",
       "montaña",
       "peñasco"
-    ]
+    ],
+    "longDefinitionEs": "De H7405; cresta de montaña, peñasco (como de cimas atadas)"
   },
   "H7407": {
     "shortDefinitionEs": "Trampa, red (rôkeç)",
@@ -2853,7 +3227,8 @@
       "trampa",
       "red",
       "lazo"
-    ]
+    ],
+    "longDefinitionEs": "De H7405; trampa, red (como de mallas atadas)"
   },
   "H7408": {
     "shortDefinitionEs": "Acopiar, recoger, juntar (râkash)",
@@ -2861,7 +3236,8 @@
       "acopiar",
       "recoger",
       "juntar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; acopiar, recoger, juntar"
   },
   "H7409": {
     "shortDefinitionEs": "Caballo de posta, dromedario (rekesh)",
@@ -2869,14 +3245,16 @@
       "caballo",
       "dromedario",
       "mula"
-    ]
+    ],
+    "longDefinitionEs": "De H7408; caballo de posta, dromedario (como guardado para ese propósito); por implicación, corcel veloz"
   },
   "H7410": {
     "shortDefinitionEs": "Ram: nombre de varón árabe e israelita (Râm)",
     "glossesEs": [
       "Ram",
       "nombre"
-    ]
+    ],
+    "longDefinitionEs": "Participio activo de H7311; alto; Ram, nombre de un árabe y un israelita"
   },
   "H7411": {
     "shortDefinitionEs": "Lanzar, disparar; engañar, traicionar (râmâh)",
@@ -2885,7 +3263,8 @@
       "disparar",
       "engañar",
       "traicionar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; lanzar, disparar; figuradamente, engañar, traicionar (como causando caída)"
   },
   "H7412": {
     "shortDefinitionEs": "Arrojar, lanzar; imponer (rᵉmâh)",
@@ -2893,7 +3272,8 @@
       "arrojar",
       "lanzar",
       "imponer"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7411; arrojar, lanzar, fijar (figuradamente, tasar)"
   },
   "H7413": {
     "shortDefinitionEs": "Altura, lugar alto para idolatría (râmâh)",
@@ -2901,28 +3281,32 @@
       "altura",
       "lugar alto",
       "santuario"
-    ]
+    ],
+    "longDefinitionEs": "Participio activo femenino de H7311; altura, lugar alto (como asiento de idolatría)"
   },
   "H7414": {
     "shortDefinitionEs": "Ramá: cuatro lugares en Palestina (Râmâh)",
     "glossesEs": [
       "Ramá",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7413; Ramá, nombre de cuatro lugares en Palestina"
   },
   "H7415": {
     "shortDefinitionEs": "Gusano, larva (rimmâh)",
     "glossesEs": [
       "gusano",
       "larva"
-    ]
+    ],
+    "longDefinitionEs": "De H7426 en el sentido de reproducción; gusano, larva (como que se reproduce rápidamente)"
   },
   "H7416": {
     "shortDefinitionEs": "Granado, árbol o fruto (rimmôwn)",
     "glossesEs": [
       "granado",
       "fruto"
-    ]
+    ],
+    "longDefinitionEs": "De H7426; granado, el árbol (por su crecimiento erguido) o el fruto; también ornamento artificial"
   },
   "H7417": {
     "shortDefinitionEs": "Rimón: deidad siria y cinco lugares (Rimmôwn)",
@@ -2930,7 +3314,8 @@
       "Rimón",
       "deidad",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7416; Rimón, nombre de una deidad siria y cinco lugares en Palestina"
   },
   "H7418": {
     "shortDefinitionEs": "Ramot del Sur, lugar en Palestina (Râmôwth)",
@@ -2938,7 +3323,8 @@
       "Ramot",
       "lugar",
       "sur"
-    ]
+    ],
+    "longDefinitionEs": "Del plural o forma constructa de H7413 y H5045; alturas del Sur; Ramot del Sur, lugar en Palestina"
   },
   "H7419": {
     "shortDefinitionEs": "Montón, pila de cadáveres (râmûwth)",
@@ -2946,7 +3332,8 @@
       "montón",
       "pila",
       "altura"
-    ]
+    ],
+    "longDefinitionEs": "De H7311; montón, pila (de cadáveres)"
   },
   "H7420": {
     "shortDefinitionEs": "Lanza, pica, jabalina (rômach)",
@@ -2954,21 +3341,24 @@
       "lanza",
       "pica",
       "jabalina"
-    ]
+    ],
+    "longDefinitionEs": "De raíz primitiva que significa arrojar; lanza, pica (como arrojada); especialmente la punta de hierro"
   },
   "H7421": {
     "shortDefinitionEs": "Siriaco, arameo natural (rammîy)",
     "glossesEs": [
       "siriaco",
       "arameo"
-    ]
+    ],
+    "longDefinitionEs": "Por H761; arameo, natural de Aram (aramaano)"
   },
   "H7422": {
     "shortDefinitionEs": "Ramías: varón israelita (Ramyâh)",
     "glossesEs": [
       "Ramías",
       "nombre"
-    ]
+    ],
+    "longDefinitionEs": "De H7311 y H3050; Jah ha levantado; Ramías, varón israelita"
   },
   "H7423": {
     "shortDefinitionEs": "Engaño, traición, falsedad (rᵉmîyâh)",
@@ -2976,7 +3366,8 @@
       "engaño",
       "traición",
       "falsedad"
-    ]
+    ],
+    "longDefinitionEs": "De H7411 (רָמָה); negligencia, traición"
   },
   "H7424": {
     "shortDefinitionEs": "Yegua de cría, dromedario (rammâk)",
@@ -2984,14 +3375,16 @@
       "yegua",
       "dromedario",
       "caballo"
-    ]
+    ],
+    "longDefinitionEs": "De origen extranjero; una yegua de cría"
   },
   "H7425": {
     "shortDefinitionEs": "Remalías: varón israelita (Rᵉmalyâhûw)",
     "glossesEs": [
       "Remalías",
       "nombre"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada e H3050 (יָהּ) (probablemente significando adornar); Jah ha adornado; Remalías, varón israelita"
   },
   "H7426": {
     "shortDefinitionEs": "Elevarse, subir, exaltarse (râmam)",
@@ -2999,14 +3392,16 @@
       "elevarse",
       "subir",
       "exaltar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; elevarse o subir, literal o figuradamente"
   },
   "H7427": {
     "shortDefinitionEs": "Exaltación, elevación (rômêmuth)",
     "glossesEs": [
       "exaltación",
       "elevación"
-    ]
+    ],
+    "longDefinitionEs": "Del participio activo de H7426 (רָמַם); exaltación"
   },
   "H7428": {
     "shortDefinitionEs": "Rimón-Pérez: lugar en desierto (Rimmôn Perets)",
@@ -3014,7 +3409,8 @@
       "Rimón-Pérez",
       "lugar",
       "desierto"
-    ]
+    ],
+    "longDefinitionEs": "De H7416 (רִמּוֹן) y H6556 (פֶּרֶץ); granada de la brecha; Rimón-Pérez, lugar en el desierto"
   },
   "H7429": {
     "shortDefinitionEs": "Pisar, hollar, pisotear (râmaç)",
@@ -3022,7 +3418,8 @@
       "pisar",
       "hollar",
       "pisotear"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; pisotear (como alfarero, al andar o abusivamente)"
   },
   "H7430": {
     "shortDefinitionEs": "Arrastrarse, gatear, moverse (râmas)",
@@ -3030,7 +3427,8 @@
       "arrastrarse",
       "gatear",
       "moverse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; deslizarse rápidamente, arrastrarse o moverse con pasos cortos; por analogía, hormiguear"
   },
   "H7431": {
     "shortDefinitionEs": "Reptil, animal que se arrastra (remes)",
@@ -3038,14 +3436,16 @@
       "reptil",
       "animal",
       "criatura"
-    ]
+    ],
+    "longDefinitionEs": "De H7430 (רָמַשׂ); reptil o cualquier animal que se mueve rápidamente"
   },
   "H7432": {
     "shortDefinitionEs": "Remet: lugar en Palestina (Remeth)",
     "glossesEs": [
       "Remet",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H7411 (רָמָה); altura; Remet, lugar en Palestina"
   },
   "H7433": {
     "shortDefinitionEs": "Ramot-Galaad: lugar al este del Jordán (Râmôth Gilʻâd)",
@@ -3053,35 +3453,40 @@
       "Ramot-Galaad",
       "lugar",
       "Jordán"
-    ]
+    ],
+    "longDefinitionEs": "Del plural de H7413 (רָמָה) y H1568 (גִּלְעָד); alturas de Galaad; Ramot-Galaad, lugar al este del Jordán"
   },
   "H7434": {
     "shortDefinitionEs": "Ramat-Mizpa: lugar en Palestina (Râmath ham-Mit-speh)",
     "glossesEs": [
       "Ramat-Mizpa",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H7413 (רָמָה) y H4707 (מִצְפֶּה) con artículo interpolado; altura de la atalaya; Ramat-Mizpa, lugar en Palestina"
   },
   "H7435": {
     "shortDefinitionEs": "Habitante de Ramá (Râmâthîy)",
     "glossesEs": [
       "ramita",
       "habitante"
-    ]
+    ],
+    "longDefinitionEs": "Patronímico de H7414 (רָמָה); ramatita o habitante de Ramá"
   },
   "H7436": {
     "shortDefinitionEs": "Ramatáim-Sofím: lugar en Palestina (Râmâthayim Tsôwphîym)",
     "glossesEs": [
       "Ramatáim-Sofím",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "Del dual de H7413 (רָמָה) y plural del participio activo de H6822 (צָפָה); doble altura de los vigías; Ramatáim-Sofím, lugar en Palestina"
   },
   "H7437": {
     "shortDefinitionEs": "Ramat-Leí: lugar en Palestina (Râmath Lechîy)",
     "glossesEs": [
       "Ramat-Leí",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H7413 (רָמָה) y H3895 (לְחִי); altura de una quijada; Ramat-Leí, lugar en Palestina"
   },
   "H7438": {
     "shortDefinitionEs": "Grito de liberación, canción (rôn)",
@@ -3089,7 +3494,8 @@
       "grito",
       "canto",
       "alegría"
-    ]
+    ],
+    "longDefinitionEs": "De H7442 (רָנַן); grito (de liberación)"
   },
   "H7439": {
     "shortDefinitionEs": "Zumbar, hacer ruido agudo (rânâh)",
@@ -3097,7 +3503,8 @@
       "zumbar",
       "sonar",
       "ruido"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; zumbar o silbar"
   },
   "H7440": {
     "shortDefinitionEs": "Grito, alegría, proclamación (rinnâh)",
@@ -3106,14 +3513,16 @@
       "alegría",
       "gozo",
       "proclamación"
-    ]
+    ],
+    "longDefinitionEs": "De H7442 (רָנַן); sonido agudo o chirriante, es decir, grito (de gozo o dolor)"
   },
   "H7441": {
     "shortDefinitionEs": "Riná: varón israelita (Rinnâh)",
     "glossesEs": [
       "Riná",
       "nombre"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7440 (רִנָּה); Riná, varón israelita"
   },
   "H7442": {
     "shortDefinitionEs": "Gritar, cantar, regocijarse (rânan)",
@@ -3121,14 +3530,16 @@
       "gritar",
       "cantar",
       "regocijarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; crujir o emitir sonido estridente, es decir, gritar (usualmente de gozo)"
   },
   "H7443": {
     "shortDefinitionEs": "Avestruz, por su gemido (renen)",
     "glossesEs": [
       "avestruz",
       "pájaro"
-    ]
+    ],
+    "longDefinitionEs": "De H7442 (רָנַן); avestruz (por su gemido o grito)"
   },
   "H7444": {
     "shortDefinitionEs": "Canto, grito de alegría (rannên)",
@@ -3136,7 +3547,8 @@
       "canto",
       "grito",
       "alegría"
-    ]
+    ],
+    "longDefinitionEs": "Intensivo de H7442 (רָנַן); gritería (de alegría)"
   },
   "H7445": {
     "shortDefinitionEs": "Grito de gozo, triunfo (rᵉnânâh)",
@@ -3144,7 +3556,8 @@
       "grito",
       "gozo",
       "triunfo"
-    ]
+    ],
+    "longDefinitionEs": "De H7442 (רָנַן); grito (de gozo)"
   },
   "H7446": {
     "shortDefinitionEs": "Risa: lugar en desierto (Riççâh)",
@@ -3152,7 +3565,8 @@
       "Risa",
       "lugar",
       "desierto"
-    ]
+    ],
+    "longDefinitionEs": "De H7450 (רָסַס); ruina (goteando en pedazos); Risa, lugar en el desierto"
   },
   "H7447": {
     "shortDefinitionEs": "Ruina, grieta, gota de rocío (râçîyç)",
@@ -3160,7 +3574,8 @@
       "ruina",
       "grieta",
       "gota"
-    ]
+    ],
+    "longDefinitionEs": "De H7450 (רָסַס); propiamente, gotear en pedazos, es decir, ruina; también gota de rocío"
   },
   "H7448": {
     "shortDefinitionEs": "Freno, cabestro para controlar (reçen)",
@@ -3168,7 +3583,8 @@
       "freno",
       "cabestro",
       "mandíbula"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada significando refrenar; cabestro (como restricción); por implicación, la quijada"
   },
   "H7449": {
     "shortDefinitionEs": "Resén: lugar en Asiria (Reçen)",
@@ -3176,7 +3592,8 @@
       "Resén",
       "lugar",
       "Asiria"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7448 (רֶסֶן); Resén, lugar en Asiria"
   },
   "H7450": {
     "shortDefinitionEs": "Humedecer, rociar gota a gota (râçaç)",
@@ -3184,7 +3601,8 @@
       "humedecer",
       "rociar",
       "templar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; desmenuzar; usado solo como denominativo de H7447 (רָסִיס), humedecer (con gotas)"
   },
   "H7451": {
     "shortDefinitionEs": "malo, malvado, calamidad (raʻ)",
@@ -3201,20 +3619,23 @@
       "estruendo",
       "ruido",
       "grito"
-    ]
+    ],
+    "longDefinitionEs": "De H7321 (רוּעַ); estruendo (de trueno), ruido (de guerra), grito (de gozo)"
   },
   "H7453": {
     "shortDefinitionEs": "prójimo, amigo, compañero (rea)",
     "glossesEs": [
       "prójimo"
-    ]
+    ],
+    "longDefinitionEs": "De H7462 (רָעָה); asociado (más o menos cercano), prójimo, amigo o compañero"
   },
   "H7454": {
     "shortDefinitionEs": "Pensamiento, idea, meditación (rêaʻ)",
     "glossesEs": [
       "pensamiento",
       "idea"
-    ]
+    ],
+    "longDefinitionEs": "De H7462; un pensamiento (como asociación de ideas)"
   },
   "H7455": {
     "shortDefinitionEs": "Maldad, perversidad, lo que daña (rôaʻ)",
@@ -3222,20 +3643,23 @@
       "maldad",
       "perversidad",
       "daño"
-    ]
+    ],
+    "longDefinitionEs": "De H7489; maldad (como defecto), física o moralmente"
   },
   "H7456": {
     "shortDefinitionEs": "Padecer hambre, tener hambre (râʻêb)",
     "glossesEs": [
       "hambre",
       "hambrear"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; padecer hambre"
   },
   "H7457": {
     "shortDefinitionEs": "Hambriento, que tiene hambre (râʻêb)",
     "glossesEs": [
       "hambriento"
-    ]
+    ],
+    "longDefinitionEs": "De H7456; hambriento (más o menos intensamente)"
   },
   "H7458": {
     "shortDefinitionEs": "Hambre, escasez, carestía (râʻâb)",
@@ -3243,27 +3667,31 @@
       "hambre",
       "carestía",
       "hambruna"
-    ]
+    ],
+    "longDefinitionEs": "De H7456; hambre (más o menos extensa)"
   },
   "H7459": {
     "shortDefinitionEs": "Hambruna, período de hambre severa (rᵉʻâbôwn)",
     "glossesEs": [
       "hambruna"
-    ]
+    ],
+    "longDefinitionEs": "De H7456; hambruna"
   },
   "H7460": {
     "shortDefinitionEs": "Temblar, estremecerse (râʻad)",
     "glossesEs": [
       "temblar",
       "estremecerse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; estremecerse (más o menos violentamente)"
   },
   "H7461": {
     "shortDefinitionEs": "Estremecimiento, temblor (raʻad)",
     "glossesEs": [
       "temblor",
       "estremecimiento"
-    ]
+    ],
+    "longDefinitionEs": "De H7460; un estremecimiento"
   },
   "H7462": {
     "shortDefinitionEs": "pastorear, apacentar, guiar (raah)",
@@ -3278,121 +3706,139 @@
     "glossesEs": [
       "amigo",
       "compañero"
-    ]
+    ],
+    "longDefinitionEs": "De H7462; un compañero (varón)"
   },
   "H7464": {
     "shortDefinitionEs": "Compañera, asociada (rêʻâh)",
     "glossesEs": [
       "compañera",
       "amiga"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7453; una compañera asociada"
   },
   "H7465": {
     "shortDefinitionEs": "Quebradura, ruptura (rôʻâh)",
     "glossesEs": [
       "ruptura",
       "quebradura"
-    ]
+    ],
+    "longDefinitionEs": "Por H7455; quebradura"
   },
   "H7466": {
     "shortDefinitionEs": "Nombre: patriarca postdiluviano (Rᵉʻûw)",
     "glossesEs": [
       "Reu"
-    ]
+    ],
+    "longDefinitionEs": "Por H7471 en el sentido de H7453; amigo; Reu, patriarca postdiluviano"
   },
   "H7467": {
     "shortDefinitionEs": "Nombre: suegro de Moisés (Rᵉʻûwʼêl)",
     "glossesEs": [
       "Reuel"
-    ]
+    ],
+    "longDefinitionEs": "De lo mismo que H7466 y H410; amigo de Dios; Reuel, suegro de Moisés"
   },
   "H7468": {
     "shortDefinitionEs": "Compañera, otra asociada (rᵉʻûwth)",
     "glossesEs": [
       "compañera",
       "prójima"
-    ]
+    ],
+    "longDefinitionEs": "De H7462 en el sentido de H7453; una compañera; generalmente una adicional"
   },
   "H7469": {
     "shortDefinitionEs": "Ansia, codicia (rᵉʻûwth)",
     "glossesEs": [
       "ansia",
       "codicia"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente de H7462; alimentarse de, es decir, codiciar"
   },
   "H7470": {
     "shortDefinitionEs": "Deseo, voluntad, placer (rᵉʻûwth)",
     "glossesEs": [
       "deseo",
       "voluntad"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7469; deseo"
   },
   "H7471": {
     "shortDefinitionEs": "Pastura, pasto (rᵉʻîy)",
     "glossesEs": [
       "pastura",
       "pasto"
-    ]
+    ],
+    "longDefinitionEs": "De H7462; pastura"
   },
   "H7472": {
     "shortDefinitionEs": "Nombre: israelita (Rêʻîy)",
     "glossesEs": [
       "Rei"
-    ]
+    ],
+    "longDefinitionEs": "De H7453; social; Rei, un israelita"
   },
   "H7473": {
     "shortDefinitionEs": "pastor, el que cuida del rebaño",
     "glossesEs": [
       "pastor"
-    ]
+    ],
+    "longDefinitionEs": "Del participio activo de H7462; pastoral; como sustantivo, pastor"
   },
   "H7474": {
     "shortDefinitionEs": "Compañera, amada (raʻyâh)",
     "glossesEs": [
       "compañera",
       "amada"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7453; una compañera asociada"
   },
   "H7475": {
     "shortDefinitionEs": "Deseo, anhelo (raʻyôwn)",
     "glossesEs": [
       "deseo",
       "anhelo"
-    ]
+    ],
+    "longDefinitionEs": "De H7462 en el sentido de H7469; deseo"
   },
   "H7476": {
     "shortDefinitionEs": "Pensamiento, idea (raʻyôwn)",
     "glossesEs": [
       "pensamiento",
       "idea"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7475; una concepción, es decir, (figuradamente) idea mental"
   },
   "H7477": {
     "shortDefinitionEs": "Tambalearse, agitar violentamente (râʻal)",
     "glossesEs": [
       "tambalear",
       "agitar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; tambalearse, es decir, (figuradamente) blandir"
   },
   "H7478": {
     "shortDefinitionEs": "Tambaleo, mareo (raʻal)",
     "glossesEs": [
       "mareo",
       "tambaleo"
-    ]
+    ],
+    "longDefinitionEs": "De H7477; tambaleo (por embriaguez)"
   },
   "H7479": {
     "shortDefinitionEs": "Velo largo, turbante (raʻălâh)",
     "glossesEs": [
       "velo",
       "turbante"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7478; un velo largo (como flotante)"
   },
   "H7480": {
     "shortDefinitionEs": "Nombre: israelita (Rᵉʻêlâyâh)",
     "glossesEs": [
       "Reelajah"
-    ]
+    ],
+    "longDefinitionEs": "De H7477 y H3050; hecho temblar de Jah; Reelajah, un israelita"
   },
   "H7481": {
     "shortDefinitionEs": "Bramar, tronar, agitar (râʻam)",
@@ -3400,38 +3846,44 @@
       "tronar",
       "bramar",
       "agitar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; tumultuarse, ser agitado violentamente; específicamente, tronar; figuradamente, irritar"
   },
   "H7482": {
     "shortDefinitionEs": "Trueno, sonido del trueno (raʻam)",
     "glossesEs": [
       "trueno"
-    ]
+    ],
+    "longDefinitionEs": "De H7481; un trueno"
   },
   "H7483": {
     "shortDefinitionEs": "Crin de caballo (raʻmâh)",
     "glossesEs": [
       "crin"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7482; la crin de un caballo (como temblante al viento)"
   },
   "H7484": {
     "shortDefinitionEs": "Nombre: nieto de Cam, región (Raʻmâh)",
     "glossesEs": [
       "Raamá"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7483; Ramá, nombre de un nieto de Cam y de un lugar"
   },
   "H7485": {
     "shortDefinitionEs": "Nombre: israelita (Raʻamyâh)",
     "glossesEs": [
       "Raamías"
-    ]
+    ],
+    "longDefinitionEs": "De H7481 (רָעַם) y H3050 (יָהּ); Jah ha sacudido; Raamyâh, israelita"
   },
   "H7486": {
     "shortDefinitionEs": "Nombre: ciudad de Egipto (Raʻmᵉçêç)",
     "glossesEs": [
       "Ramesés",
       "Raamses"
-    ]
+    ],
+    "longDefinitionEs": "De origen egipcio; Ramesés o Raamses, lugar en Egipto"
   },
   "H7487": {
     "shortDefinitionEs": "Verde, frondoso, próspero (raʻănan)",
@@ -3439,14 +3891,16 @@
       "verde",
       "frondoso",
       "próspero"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7488 (רַעֲנָן); verde, es decir, próspero figuradamente"
   },
   "H7488": {
     "shortDefinitionEs": "Verdante, nuevo, floreciente (raʻănân)",
     "glossesEs": [
       "verde",
       "floreciente"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa ser verde; verdante; por analogía, nuevo; figuradamente, próspero"
   },
   "H7489": {
     "shortDefinitionEs": "Quebrantar, echar a perder, dañar (râʻaʻ)",
@@ -3454,28 +3908,32 @@
       "quebrantar",
       "dañar",
       "arruinar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, arruinar (literalmente, quebrando en pedazos); figuradamente, hacer (o ser) inútil, es decir, malo (física, social o moralmente)"
   },
   "H7490": {
     "shortDefinitionEs": "Romper, fracturar (rᵉʻaʻ)",
     "glossesEs": [
       "romper",
       "fracturar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7489 (רָעַע)"
   },
   "H7491": {
     "shortDefinitionEs": "Gotear, destilar (râʻaph)",
     "glossesEs": [
       "gotear",
       "destilar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; gotear, destilar"
   },
   "H7492": {
     "shortDefinitionEs": "Despedazar, atormentar (râʻats)",
     "glossesEs": [
       "despedazar",
       "atormentar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; quebrantar en pedazos; figuradamente, atormentar"
   },
   "H7493": {
     "shortDefinitionEs": "Ondular, temblar, agitar (râʻash)",
@@ -3483,7 +3941,8 @@
       "temblar",
       "agitar",
       "ondular"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ondular (como la tierra, el cielo, etc.; también campo de grano), particularmente por temor; específicamente, saltar (como langosta)"
   },
   "H7494": {
     "shortDefinitionEs": "Vibración, temblor, terremoto (raʻash)",
@@ -3491,34 +3950,39 @@
       "terremoto",
       "temblor",
       "conmoción"
-    ]
+    ],
+    "longDefinitionEs": "De H7493 (רָעַשׁ); vibración, sacudida, estruendo"
   },
   "H7495": {
     "shortDefinitionEs": "sanar, curar, restaurar (rapha)",
     "glossesEs": [
       "sanar",
       "sanidad"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; propiamente, remendar (cosiendo), es decir, figuradamente, curar o sanar"
   },
   "H7496": {
     "shortDefinitionEs": "Sombra de muerto, espíritu (râphâʼ)",
     "glossesEs": [
       "espíritu",
       "sombra"
-    ]
+    ],
+    "longDefinitionEs": "De H7495 (רָפָא) en sentido de H7503 (רָפָה); propiamente, flojo, es decir, figuradamente, espíritu (como difunto; solo en plural)"
   },
   "H7497": {
     "shortDefinitionEs": "Gigante, de la raza Refaím (râphâʼ)",
     "glossesEs": [
       "gigante",
       "Refaím"
-    ]
+    ],
+    "longDefinitionEs": "De H7495 (רָפָא) en sentido de vigorizar; gigante"
   },
   "H7498": {
     "shortDefinitionEs": "Nombre: israelita (Râphâʼ)",
     "glossesEs": [
       "Rafa"
-    ]
+    ],
+    "longDefinitionEs": "Probablemente igual a H7497 (רָפָא); gigante; Rafa o Rafá, nombre de dos israelitas"
   },
   "H7499": {
     "shortDefinitionEs": "Medicina, remedio (rᵉphuʼâh)",
@@ -3526,27 +3990,31 @@
       "medicina",
       "remedio",
       "cura"
-    ]
+    ],
+    "longDefinitionEs": "Participio pasivo femenino de H7495 (רָפָא); medicamento o remedio"
   },
   "H7500": {
     "shortDefinitionEs": "Sanidad, curación (riphʼûwth)",
     "glossesEs": [
       "sanidad",
       "salud"
-    ]
+    ],
+    "longDefinitionEs": "De H7495 (רָפָא); curación o sanidad"
   },
   "H7501": {
     "shortDefinitionEs": "Nombre: israelita (Rᵉphâʼêl)",
     "glossesEs": [
       "Refael"
-    ]
+    ],
+    "longDefinitionEs": "De H7495 (רָפָא) y H410 (אֵל); Dios ha curado; Refael, israelita"
   },
   "H7502": {
     "shortDefinitionEs": "Extender cama, confortar (râphad)",
     "glossesEs": [
       "extender",
       "confortar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; extender (cama); por implicación, refrescar o confortar"
   },
   "H7503": {
     "shortDefinitionEs": "Aflojar, debilitarse, cesar (râphâh)",
@@ -3554,110 +4022,126 @@
       "aflojar",
       "debilitarse",
       "cesar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; aflojar (en muchas aplicaciones, literal o figurada)"
   },
   "H7504": {
     "shortDefinitionEs": "Flojo, débil (râpheh)",
     "glossesEs": [
       "flojo",
       "débil"
-    ]
+    ],
+    "longDefinitionEs": "De H7503 (רָפָה); flojo (en cuerpo o mente)"
   },
   "H7505": {
     "shortDefinitionEs": "Nombre: israelita (Râphûwʼ)",
     "glossesEs": [
       "Rafú"
-    ]
+    ],
+    "longDefinitionEs": "Participio pasivo de H7495 (רָפָא); curado; Rafú, israelita"
   },
   "H7506": {
     "shortDefinitionEs": "Nombre: israelita (Rephach)",
     "glossesEs": [
       "Refá"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que aparentemente significa sostener; apoyo; Refac, israelita"
   },
   "H7507": {
     "shortDefinitionEs": "Barandilla, basamento (rᵉphîydâh)",
     "glossesEs": [
       "barandilla",
       "basamento"
-    ]
+    ],
+    "longDefinitionEs": "De H7502 (רָפַד); barandilla o pasamano (como extendido)"
   },
   "H7508": {
     "shortDefinitionEs": "Refidim: lugar en el desierto (Rᵉphîydîym)",
     "glossesEs": [
       "Refidim",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "Plural de lo mismo que H7507 (רְפִידָה); barandillas; Refidim, lugar en el desierto"
   },
   "H7509": {
     "shortDefinitionEs": "Refaja: nombre de cinco israelitas (Rᵉphâyâh)",
     "glossesEs": [
       "Refaja",
       "nombre propio"
-    ]
+    ],
+    "longDefinitionEs": "De H7495 (רָפָא) y H3050 (יָהּ); Jah ha curado; Refayá, nombre de cinco israelitas"
   },
   "H7510": {
     "shortDefinitionEs": "debilidad, flojedad (riphyôwn)",
     "glossesEs": [
       "debilidad",
       "flojedad"
-    ]
+    ],
+    "longDefinitionEs": "De H7503 (רָפָה); flojedad o debilidad"
   },
   "H7511": {
     "shortDefinitionEs": "pisotear, postrase, humillarse (râphaç)",
     "glossesEs": [
       "humillarse",
       "someterse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; pisotear, es decir, postrar"
   },
   "H7512": {
     "shortDefinitionEs": "pisar, hollar (rᵉphaç)",
     "glossesEs": [
       "pisar",
       "hollar"
-    ]
+    ],
+    "longDefinitionEs": "(Arameo) correspondiente a H7511 (רָפַס)"
   },
   "H7513": {
     "shortDefinitionEs": "balsa, almadía plana en el agua (raphçôdâh)",
     "glossesEs": [
       "balsa",
       "almadía"
-    ]
+    ],
+    "longDefinitionEs": "De H7511 (רָפַס); balsa o almadía (como plana en el agua)"
   },
   "H7514": {
     "shortDefinitionEs": "reclinarse, apoyarse (râphaq)",
     "glossesEs": [
       "reclinarse",
       "apoyarse"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; reclinarse o apoyarse"
   },
   "H7515": {
     "shortDefinitionEs": "pisotear, enturbia el agua (râphas)",
     "glossesEs": [
       "pisotear",
       "enturbian"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; pisotear, es decir, enturbia el agua"
   },
   "H7516": {
     "shortDefinitionEs": "lodo, cieno revuelto (rephesh)",
     "glossesEs": [
       "lodo",
       "cieno"
-    ]
+    ],
+    "longDefinitionEs": "de H7515; lodo o cieno revuelto"
   },
   "H7517": {
     "shortDefinitionEs": "establo, pesebre para ganado (repheth)",
     "glossesEs": [
       "establo",
       "pesebre"
-    ]
+    ],
+    "longDefinitionEs": "probablemente de H7503; establo para ganado (por descansar allí)"
   },
   "H7518": {
     "shortDefinitionEs": "fragmento, trozo, pieza (rats)",
     "glossesEs": [
       "fragmento",
       "trozo"
-    ]
+    ],
+    "longDefinitionEs": "contraído de H7533; fragmento o trozo"
   },
   "H7519": {
     "shortDefinitionEs": "correr; complacerse, aceptar (râtsâʼ)",
@@ -3665,14 +4149,16 @@
       "correr",
       "aceptar",
       "complacerse"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; correr; también complacerse o deleitarse"
   },
   "H7520": {
     "shortDefinitionEs": "mirar de lado, envidiar (râtsad)",
     "glossesEs": [
       "envidia",
       "celo"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; probablemente mirar de lado, es decir, envidiar"
   },
   "H7521": {
     "shortDefinitionEs": "complacerse, aceptar, aprobar (râtsâh)",
@@ -3680,7 +4166,8 @@
       "aceptar",
       "aprobar",
       "complacerse"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; complacerse con; específicamente, satisfacer una deuda"
   },
   "H7522": {
     "shortDefinitionEs": "voluntad, deleite, favor, aceptación (râtsôwn)",
@@ -3688,7 +4175,8 @@
       "voluntad",
       "favor",
       "aceptación"
-    ]
+    ],
+    "longDefinitionEs": "de H7521; deleite (especialmente mostrado); voluntad o favor"
   },
   "H7523": {
     "shortDefinitionEs": "matar, asesinar a una persona (râtsach)",
@@ -3696,70 +4184,80 @@
       "asesinar",
       "matar",
       "homicidio"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; propiamente, quebrantar en pedazos, es decir, matar (una persona), especialmente asesinar"
   },
   "H7524": {
     "shortDefinitionEs": "matanza, grito de muerte (retsach)",
     "glossesEs": [
       "matanza",
       "muerte"
-    ]
+    ],
+    "longDefinitionEs": "de H7523; quebranto; específicamente, grito de muerte o matanza"
   },
   "H7525": {
     "shortDefinitionEs": "Ritsia: israelita (Ritsyâʼ)",
     "glossesEs": [
       "Ritsia",
       "nombre propio"
-    ]
+    ],
+    "longDefinitionEs": "de H7521; deleite; Ritsia, un israelita"
   },
   "H7526": {
     "shortDefinitionEs": "Rezín: sirio e israelita (Rᵉtsîyn)",
     "glossesEs": [
       "Rezín",
       "nombre propio"
-    ]
+    ],
+    "longDefinitionEs": "probablemente de H7522; Rezín, nombre de un sirio y de un israelita"
   },
   "H7527": {
     "shortDefinitionEs": "taladrar, perforar (râtsaʻ)",
     "glossesEs": [
       "taladrar",
       "perforar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; taladrar o perforar"
   },
   "H7528": {
     "shortDefinitionEs": "pavimentar, bordar (râtsaph)",
     "glossesEs": [
       "pavimentar",
       "bordar"
-    ]
+    ],
+    "longDefinitionEs": "denominativo de H7529; teselar, es decir, bordar (como con piedras brillantes)"
   },
   "H7529": {
     "shortDefinitionEs": "piedra caliente para hornear (retseph)",
     "glossesEs": [
       "carbón",
       "piedra"
-    ]
+    ],
+    "longDefinitionEs": "por H7565; piedra caliente para hornear"
   },
   "H7530": {
     "shortDefinitionEs": "Retseph: lugar en Asiria (Retseph)",
     "glossesEs": [
       "Retseph",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "lo mismo que H7529; Retseph, lugar en Asiria"
   },
   "H7531": {
     "shortDefinitionEs": "carbón ardiente, pavimento (ritspâh)",
     "glossesEs": [
       "carbón",
       "pavimento"
-    ]
+    ],
+    "longDefinitionEs": "femenino de H7529; piedra caliente; también pavimento teselado"
   },
   "H7532": {
     "shortDefinitionEs": "Ritspá: mujer israelita (Ritspâh)",
     "glossesEs": [
       "Ritspá",
       "nombre propio"
-    ]
+    ],
+    "longDefinitionEs": "lo mismo que H7531; Ritspá, una mujer israelita"
   },
   "H7533": {
     "shortDefinitionEs": "quebrantar, aplastar, oprimir (râtsats)",
@@ -3767,49 +4265,56 @@
       "quebrantar",
       "aplastar",
       "oprimir"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; quebrantar en pedazos, literal o figuradamente"
   },
   "H7534": {
     "shortDefinitionEs": "delgado, flaco, enjuto (raq)",
     "glossesEs": [
       "flaco",
       "delgado"
-    ]
+    ],
+    "longDefinitionEs": "de H7556 en sentido original; emaciado (como si aplastado)"
   },
   "H7535": {
     "shortDefinitionEs": "solamente, únicamente, apenas (raq)",
     "glossesEs": [
       "solamente",
       "únicamente"
-    ]
+    ],
+    "longDefinitionEs": "lo mismo que H7534 como sustantivo; propiamente, flacura, es decir, (figuradamente) limitación; solo adverbial, meramente, o conjuntivo, aunque"
   },
   "H7536": {
     "shortDefinitionEs": "saliva, escupida (rôq)",
     "glossesEs": [
       "saliva",
       "escupida"
-    ]
+    ],
+    "longDefinitionEs": "de H7556; saliva o escupida"
   },
   "H7537": {
     "shortDefinitionEs": "podrirse, descomponerse (râqab)",
     "glossesEs": [
       "podrirse",
       "descomponerse"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; podrirse o descomponerse (por carcoma)"
   },
   "H7538": {
     "shortDefinitionEs": "podredumbre, corrupción (râqâb)",
     "glossesEs": [
       "podredumbre",
       "corrupción"
-    ]
+    ],
+    "longDefinitionEs": "de H7537; podredumbre o corrupción por caries"
   },
   "H7539": {
     "shortDefinitionEs": "podrido, corrompido (riqqâbôwn)",
     "glossesEs": [
       "podrido",
       "corrompido"
-    ]
+    ],
+    "longDefinitionEs": "de H7538; podredumbre o corrupción por caries"
   },
   "H7540": {
     "shortDefinitionEs": "danzar, saltar, brincar (râqad)",
@@ -3817,21 +4322,24 @@
       "danzar",
       "saltar",
       "brincar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; propiamente, pisotear, es decir, brincar (salvajemente o de alegría)"
   },
   "H7541": {
     "shortDefinitionEs": "sien, lado de la cabeza (raqqâh)",
     "glossesEs": [
       "sien",
       "cabeza"
-    ]
+    ],
+    "longDefinitionEs": "femenino de H7534; propiamente, delgadez, es decir, la sien o lado de la cabeza"
   },
   "H7542": {
     "shortDefinitionEs": "Racón: lugar en Palestina (Raqqôwn)",
     "glossesEs": [
       "Racón",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "de H7534; delgadez; Racón, lugar en Palestina"
   },
   "H7543": {
     "shortDefinitionEs": "perfumar, preparar ungüento (râqach)",
@@ -3839,42 +4347,48 @@
       "perfumar",
       "ungüento",
       "especias"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; perfumar o preparar ungüento"
   },
   "H7544": {
     "shortDefinitionEs": "especias aromáticas (reqach)",
     "glossesEs": [
       "especias",
       "aromático"
-    ]
+    ],
+    "longDefinitionEs": "de H7543; propiamente, perfumería, es decir, (por implicación) especiería (para sabor)"
   },
   "H7545": {
     "shortDefinitionEs": "ungüento aromático, confección (rôqach)",
     "glossesEs": [
       "ungüento",
       "confección"
-    ]
+    ],
+    "longDefinitionEs": "De H7542; sustancia aromática, ungüento o confección perfumada"
   },
   "H7546": {
     "shortDefinitionEs": "perfumista, boticario varón (raqqâch)",
     "glossesEs": [
       "boticario",
       "perfumista"
-    ]
+    ],
+    "longDefinitionEs": "De H7543; varón que prepara ungüentos y perfumes"
   },
   "H7547": {
     "shortDefinitionEs": "sustancia aromática, perfume (raqquach)",
     "glossesEs": [
       "perfume",
       "aroma"
-    ]
+    ],
+    "longDefinitionEs": "De H7543; sustancia aromática o perfume"
   },
   "H7548": {
     "shortDefinitionEs": "confeccionista, perfumista mujer (raqqâchâh)",
     "glossesEs": [
       "confeccionista",
       "perfumista"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7547; mujer que prepara ungüentos y perfumes"
   },
   "H7549": {
     "shortDefinitionEs": "firmamento, bóveda celeste (râqîyaʻ)",
@@ -3890,7 +4404,8 @@
       "torta",
       "galleta",
       "pan ácimo"
-    ]
+    ],
+    "longDefinitionEs": "De H7556 en sentido original; torta delgada o galleta"
   },
   "H7551": {
     "shortDefinitionEs": "bordar, hacer labor de aguja (râqam)",
@@ -3898,14 +4413,16 @@
       "bordar",
       "aguja",
       "labor"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; variar el color, es decir, bordar; por implicación, fabricar"
   },
   "H7552": {
     "shortDefinitionEs": "Reqem: lugar y nombre en Palestina (Reqem)",
     "glossesEs": [
       "Reqem",
       "nombre propio"
-    ]
+    ],
+    "longDefinitionEs": "De H7551; de varios colores; Reqem, nombre de un lugar en Palestina, también de un madianita e israelita"
   },
   "H7553": {
     "shortDefinitionEs": "bordado, labor de colores variados (riqmâh)",
@@ -3913,7 +4430,8 @@
       "bordado",
       "labor",
       "colores"
-    ]
+    ],
+    "longDefinitionEs": "De H7551; variación de colores; específicamente, bordado o labor de aguja"
   },
   "H7554": {
     "shortDefinitionEs": "golpear, extender, martillar (râqaʻ)",
@@ -3921,41 +4439,47 @@
       "golpear",
       "extender",
       "martillar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; golpear la tierra; por analogía, extender martillando; por implicación, cubrir con láminas metálicas"
   },
   "H7555": {
     "shortDefinitionEs": "lámina metálica batida (riqquaʻ)",
     "glossesEs": [
       "lámina",
       "placa"
-    ]
+    ],
+    "longDefinitionEs": "De H7554; batido, es decir, una lámina o placa metálica"
   },
   "H7556": {
     "shortDefinitionEs": "escupir (râqaq)",
     "glossesEs": [
       "escupir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; escupir"
   },
   "H7557": {
     "shortDefinitionEs": "Racat: lugar en Palestina (Raqqath)",
     "glossesEs": [
       "Racat",
       "lugar"
-    ]
+    ],
+    "longDefinitionEs": "De H7556 en sentido original de extender; playa o costa; Racata, lugar en Palestina"
   },
   "H7558": {
     "shortDefinitionEs": "permiso, autorización (rishyôwn)",
     "glossesEs": [
       "permiso",
       "autorización"
-    ]
+    ],
+    "longDefinitionEs": "De raíz no usada que significa tener permiso; autorización o licencia"
   },
   "H7559": {
     "shortDefinitionEs": "registrar, anotar por escrito (râsham)",
     "glossesEs": [
       "registrar",
       "anotar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; registrar o anotar por escrito"
   },
   "H7560": {
     "shortDefinitionEs": "signo, marca; escribir (rᵉsham)",
@@ -3963,7 +4487,8 @@
       "signo",
       "escribir",
       "marca"
-    ]
+    ],
+    "longDefinitionEs": "Arameo correspondiente a H7559; signo, marca o escritura"
   },
   "H7561": {
     "shortDefinitionEs": "obrar mal, condenar, trasgredir (râshaʻ)",
@@ -3971,7 +4496,8 @@
       "obrar mal",
       "condenar",
       "trasgredir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; ser (causativamente, hacer o declarar) injusto; por implicación, perturbar o violar"
   },
   "H7562": {
     "shortDefinitionEs": "iniquidad, maldad moral (reshaʻ)",
@@ -3979,7 +4505,8 @@
       "iniquidad",
       "maldad",
       "perversidad"
-    ]
+    ],
+    "longDefinitionEs": "De H7561; injusticia o maldad, especialmente de orden moral"
   },
   "H7563": {
     "shortDefinitionEs": "impío, malvado, culpable (râshâʻ)",
@@ -3987,7 +4514,8 @@
       "impío",
       "malvado",
       "culpable"
-    ]
+    ],
+    "longDefinitionEs": "De H7561; moralmente injusto; concretamente, persona activamente mala o impía"
   },
   "H7564": {
     "shortDefinitionEs": "maldad, culpa, falta (rishʻâh)",
@@ -3995,7 +4523,8 @@
       "maldad",
       "culpa",
       "falta"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7562; maldad o falta, especialmente de orden moral"
   },
   "H7565": {
     "shortDefinitionEs": "carbón ardiente, rayo, flecha, fiebre (resheph)",
@@ -4004,89 +4533,102 @@
       "rayo",
       "flecha",
       "fiebre"
-    ]
+    ],
+    "longDefinitionEs": "De H8313; carbón ardiente; por analogía, rayo; figuradamente, flecha o fiebre"
   },
   "H7566": {
     "shortDefinitionEs": "Reshef: israelita (Resheph)",
     "glossesEs": [
       "Reshef"
-    ]
+    ],
+    "longDefinitionEs": "Lo mismo que H7565; Reshef, nombre de un israelita"
   },
   "H7567": {
     "shortDefinitionEs": "demoler, empobrecer (râshash)",
     "glossesEs": [
       "demoler",
       "empobrecer"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; demoler o destruir"
   },
   "H7568": {
     "shortDefinitionEs": "red para atrapar animales (resheth)",
     "glossesEs": [
       "red",
       "trampa"
-    ]
+    ],
+    "longDefinitionEs": "De H3423; red para atrapar animales"
   },
   "H7569": {
     "shortDefinitionEs": "cadena, grillete (rattôwq)",
     "glossesEs": [
       "cadena",
       "grillete"
-    ]
+    ],
+    "longDefinitionEs": "De H7576; cadena o grillete"
   },
   "H7570": {
     "shortDefinitionEs": "hervir, bullir (râthach)",
     "glossesEs": [
       "hervir",
       "bullir"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; hervir o bullir"
   },
   "H7571": {
     "shortDefinitionEs": "ebullición, hervor (rethach)",
     "glossesEs": [
       "ebullición",
       "hervor"
-    ]
+    ],
+    "longDefinitionEs": "De H7570; ebullición o hervor"
   },
   "H7572": {
     "shortDefinitionEs": "cadena, grillete (rattîyqâh)",
     "glossesEs": [
       "cadena",
       "grillete"
-    ]
+    ],
+    "longDefinitionEs": "De H7576; cadena o grillete"
   },
   "H7573": {
     "shortDefinitionEs": "uncir, atar al yugo (râtham)",
     "glossesEs": [
       "uncir",
       "atar"
-    ]
+    ],
+    "longDefinitionEs": "Raíz primitiva; uncir o atar al yugo de un vehículo"
   },
   "H7574": {
     "shortDefinitionEs": "retama, árbol espinoso (rethem)",
     "glossesEs": [
       "retama",
       "árbol"
-    ]
+    ],
+    "longDefinitionEs": "De H7573; retama o espino, árbol de tallos parecidos a varas"
   },
   "H7575": {
     "shortDefinitionEs": "Ritma: lugar en el desierto (Rithmâh)",
     "glossesEs": [
       "Ritma"
-    ]
+    ],
+    "longDefinitionEs": "Femenino de H7574; Ritma, lugar en el desierto"
   },
   "H7576": {
     "shortDefinitionEs": "asegurar, atar firmemente (râthaq)",
     "glossesEs": [
       "asegurar",
       "atar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; asegurar o atar firmemente"
   },
   "H7577": {
     "shortDefinitionEs": "cadena, cosa asegurada (rᵉthuqâh)",
     "glossesEs": [
       "cadena",
       "atadura"
-    ]
+    ],
+    "longDefinitionEs": "participio pasivo femenino de H7576; algo asegurado, es decir, una cadena"
   },
   "H7578": {
     "shortDefinitionEs": "terror, espanto, temblor (rᵉthêth)",
@@ -4094,28 +4636,32 @@
       "terror",
       "temblor",
       "espanto"
-    ]
+    ],
+    "longDefinitionEs": "por H7374; terror o espanto"
   },
   "H7579": {
     "shortDefinitionEs": "sacar agua, extraer (shâʼab)",
     "glossesEs": [
       "sacar agua",
       "extraer"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; extraer o sacar agua"
   },
   "H7580": {
     "shortDefinitionEs": "rugir, bramar, gruñir (shâʼag)",
     "glossesEs": [
       "rugir",
       "bramar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; rugir, bramar o gruñir"
   },
   "H7581": {
     "shortDefinitionEs": "rugido, bramido, gruñido (shᵉʼâgâh)",
     "glossesEs": [
       "rugido",
       "bramido"
-    ]
+    ],
+    "longDefinitionEs": "de H7580; rugido, bramido o gruñido"
   },
   "H7582": {
     "shortDefinitionEs": "precipitarse, desolarse, asolar (shâʼâh)",
@@ -4123,21 +4669,24 @@
       "asolar",
       "desolarse",
       "abrumar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; precipitarse; por implicación, desolar o asolar"
   },
   "H7583": {
     "shortDefinitionEs": "asombrar, maravillar (shâʼâh)",
     "glossesEs": [
       "asombrar",
       "maravillar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva (idéntica por la idea de girar hasta el mareo); atónito; ser asombrado"
   },
   "H7584": {
     "shortDefinitionEs": "tempestad, desolación (shaʼăvâh)",
     "glossesEs": [
       "tempestad",
       "desolación"
-    ]
+    ],
+    "longDefinitionEs": "de H7582; tempestad o tumulto que se precipita"
   },
   "H7585": {
     "shortDefinitionEs": "Seol, tumba, infierno, abismo (shᵉʼôwl)",
@@ -4145,19 +4694,22 @@
       "Seol",
       "sepulcro",
       "infierno"
-    ]
+    ],
+    "longDefinitionEs": "de H7592; Hades o mundo de los muertos (como refugio subterráneo), incluyendo moradores"
   },
   "H7586": {
     "shortDefinitionEs": "Saúl: edomita e israelitas (Shâʼûwl)",
     "glossesEs": [
       "Saúl"
-    ]
+    ],
+    "longDefinitionEs": "participio pasivo de H7592; pedido; Saúl, nombre de edomita e israelitas"
   },
   "H7587": {
     "shortDefinitionEs": "saulita, descendiente de Saúl (Shâʼûwlîy)",
     "glossesEs": [
       "saulita"
-    ]
+    ],
+    "longDefinitionEs": "patronímico de H7586; saulita o descendiente de Saúl"
   },
   "H7588": {
     "shortDefinitionEs": "tumulto, ruido, pompa, estrépito (shâʼôwn)",
@@ -4165,28 +4717,32 @@
       "tumulto",
       "ruido",
       "estrépito"
-    ]
+    ],
+    "longDefinitionEs": "de H7582; tumulto o estrépito (como de cosa que se precipita); por implicación, destrucción"
   },
   "H7589": {
     "shortDefinitionEs": "desprecio, insulto (shᵉʼâṭ)",
     "glossesEs": [
       "desprecio",
       "insulto"
-    ]
+    ],
+    "longDefinitionEs": "de raíz no usada significando apartar; desprecio o insulto"
   },
   "H7590": {
     "shortDefinitionEs": "quien desprecia, burlador (shâʼṭ)",
     "glossesEs": [
       "despreciador",
       "burlador"
-    ]
+    ],
+    "longDefinitionEs": "cf. H7750 y H7589; quien desprecia o es burlador"
   },
   "H7591": {
     "shortDefinitionEs": "desolación, destrucción (shᵉʼîyâh)",
     "glossesEs": [
       "desolación",
       "destrucción"
-    ]
+    ],
+    "longDefinitionEs": "de H7582; desolación o devastación"
   },
   "H7592": {
     "shortDefinitionEs": "pedir, preguntar, solicitar (shâʼal)",
@@ -4194,7 +4750,8 @@
       "pedir",
       "preguntar",
       "solicitar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; inquirir; por implicación, pedir; por extensión, exigir"
   },
   "H7593": {
     "shortDefinitionEs": "pedir, exigir, requerir (shᵉʼêl)",
@@ -4202,20 +4759,23 @@
       "pedir",
       "exigir",
       "requerir"
-    ]
+    ],
+    "longDefinitionEs": "arameo, correspondiente a H7592"
   },
   "H7594": {
     "shortDefinitionEs": "Sheal: israelita (Shᵉʼâl)",
     "glossesEs": [
       "Sheal"
-    ]
+    ],
+    "longDefinitionEs": "de H7592; petición; Sheal, israelita"
   },
   "H7595": {
     "shortDefinitionEs": "demanda, resolución judicial (shᵉʼêlâʼ)",
     "glossesEs": [
       "demanda",
       "mandato"
-    ]
+    ],
+    "longDefinitionEs": "arameo de H7593; propiamente cuestión legal; decisión o mandato judicial"
   },
   "H7596": {
     "shortDefinitionEs": "petición, préstamo, solicitud (shᵉʼêlâh)",
@@ -4223,26 +4783,30 @@
       "petición",
       "préstamo",
       "solicitud"
-    ]
+    ],
+    "longDefinitionEs": "de H7592; petición; por implicación, préstamo o solicitud"
   },
   "H7597": {
     "shortDefinitionEs": "Sealtiel: israelita (Shᵉʼaltîyʼêl)",
     "glossesEs": [
       "Sealtiel"
-    ]
+    ],
+    "longDefinitionEs": "de H7592 y H410; he pedido a Dios; Sealtiel, israelita"
   },
   "H7598": {
     "shortDefinitionEs": "Sealtiel: israelita (Shᵉʼaltîyʼêl)",
     "glossesEs": [
       "Sealtiel"
-    ]
+    ],
+    "longDefinitionEs": "arameo, correspondiente a H7597"
   },
   "H7599": {
     "shortDefinitionEs": "estar tranquilo, reposar (shâʼan)",
     "glossesEs": [
       "reposar",
       "tranquilizarse"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; reposar, estar tranquilo o en paz"
   },
   "H7600": {
     "shortDefinitionEs": "tranquilo, seguro, arrogante (shaʼănân)",
@@ -4250,14 +4814,16 @@
       "tranquilo",
       "seguro",
       "arrogante"
-    ]
+    ],
+    "longDefinitionEs": "de H7599; tranquilo; en sentido malo, arrogante o altanero"
   },
   "H7601": {
     "shortDefinitionEs": "saquear, despojar (shâʼaç)",
     "glossesEs": [
       "saquear",
       "despojar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; saquear o despojar"
   },
   "H7602": {
     "shortDefinitionEs": "anhelar, jadear, apresurarse (shâʼaph)",
@@ -4265,14 +4831,16 @@
       "anhelar",
       "jadear",
       "apresurarse"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; inhalar ávidamente; figuradamente, cubrir; ser apresurado o airado"
   },
   "H7603": {
     "shortDefinitionEs": "levadura, fermento (sᵉʼôr)",
     "glossesEs": [
       "levadura",
       "fermento"
-    ]
+    ],
+    "longDefinitionEs": "de H7604; levadura o fermento (por la hinchazón de fermentación)"
   },
   "H7604": {
     "shortDefinitionEs": "quedar, permanecer, dejar (shâʼar)",
@@ -4280,7 +4848,8 @@
       "quedar",
       "permanecer",
       "dejar"
-    ]
+    ],
+    "longDefinitionEs": "raíz primitiva; propiamente hincharse; redundar o quedar"
   },
   "H7605": {
     "shortDefinitionEs": "remanente, resto, residuo (shᵉʼâr)",
@@ -4288,7 +4857,8 @@
       "remanente",
       "resto",
       "residuo"
-    ]
+    ],
+    "longDefinitionEs": "de H7604; remanente, resto o residuo"
   },
   "H7606": {
     "shortDefinitionEs": "lo demás, residuo, resto (shᵉʼâr)",

@@ -235,6 +235,13 @@ function RootLayoutNav() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="novedades"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );
