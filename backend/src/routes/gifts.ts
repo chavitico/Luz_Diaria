@@ -109,21 +109,34 @@ giftsRouter.get("/pending", async (c) => {
   }
 });
 
-// GET /api/gifts/user-drops?userId=xxx - Get recent drops for a user (for novedades display)
+// GET /api/gifts/user-drops?userId=xxx - Get active drops for a user (for novedades display)
+// Only shows drops from currently active GiftDrops, deduplicated per GiftDrop.
 giftsRouter.get("/user-drops", async (c) => {
   try {
     const userId = c.req.query("userId");
     if (!userId) return c.json({ error: "userId required" }, 400);
 
     const userGifts = await prisma.userGift.findMany({
-      where: { userId },
+      where: {
+        userId,
+        giftDrop: { isActive: true },
+      },
       include: { giftDrop: true },
       orderBy: { createdAt: "desc" },
-      take: 5,
     });
 
+    // Deduplicate: one entry per GiftDrop, preferring PENDING over CLAIMED
+    const seenDropIds = new Set<string>();
+    const deduplicated: typeof userGifts = [];
+    for (const ug of userGifts) {
+      if (!seenDropIds.has(ug.giftDropId)) {
+        seenDropIds.add(ug.giftDropId);
+        deduplicated.push(ug);
+      }
+    }
+
     const gifts = await Promise.all(
-      userGifts.map(async (ug) => {
+      deduplicated.map(async (ug) => {
         let rewardItemNameEs: string | null = null;
         let rewardItemNameEn: string | null = null;
         if (ug.giftDrop.rewardType !== "CHEST") {
@@ -138,6 +151,10 @@ giftsRouter.get("/user-drops", async (c) => {
             }
           } catch {}
         }
+        // If ANY UserGift for this drop+user is PENDING, mark as PENDING
+        const hasPending = userGifts.some(
+          (g) => g.giftDropId === ug.giftDropId && g.status === "PENDING"
+        );
         return {
           userGiftId: ug.id,
           giftDropId: ug.giftDropId,
@@ -147,7 +164,7 @@ giftsRouter.get("/user-drops", async (c) => {
           rewardId: ug.giftDrop.rewardId,
           rewardItemNameEs,
           rewardItemNameEn,
-          status: ug.status,
+          status: hasPending ? "PENDING" : ug.status,
           createdAt: ug.createdAt.toISOString(),
         };
       })
