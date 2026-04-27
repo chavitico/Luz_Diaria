@@ -4007,11 +4007,11 @@ export default function StoreScreen() {
               ))}
             </ScrollView>
 
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'flex-start' }}>
+            <View style={{ paddingHorizontal: 16, gap: 10 }}>
               {filteredThemes.map((theme, index) => {
                 const { isOwned, isEquipped, canAfford } = getItemStatus(theme.id, 'theme', theme.price ?? 0);
                 return (
-                  <Animated.View key={theme.id} entering={disableAnimations ? undefined : FadeInRight.delay(index * 50).duration(300)} style={{ width: '48%' }}>
+                  <Animated.View key={theme.id} entering={disableAnimations ? undefined : FadeInRight.delay(index * 50).duration(300)} style={{ width: '100%' }}>
                     <PremiumThemeCard
                       themeData={theme}
                       isOwned={isOwned}

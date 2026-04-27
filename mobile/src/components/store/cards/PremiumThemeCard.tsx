@@ -66,190 +66,139 @@ export function PremiumThemeCard({
     opacity: highlightOpacity.value,
   }));
 
+  const previewH = 96;
+
   return (
-    <Animated.View ref={viewRef as any} style={[animatedStyle, { width: '48%', marginBottom: 14 }]}>
+    <Animated.View ref={viewRef as any} style={[animatedStyle, { width: '100%' }]}>
       <Pressable
-        onPressIn={() => { scale.value = withSpring(0.96); }}
+        onPressIn={() => { scale.value = withSpring(0.98); }}
         onPressOut={() => { scale.value = withSpring(1); }}
         onPress={onPress}
         style={{
-          borderRadius: 20,
+          borderRadius: 18,
           overflow: 'hidden',
           backgroundColor: colors.surface,
+          flexDirection: 'row',
           shadowColor: isEquipped ? colors.primary : rarityColor,
           shadowOffset: { width: 0, height: isEquipped ? 6 : 3 },
           shadowOpacity: isEquipped ? 0.3 : (themeData.rarity !== 'common' ? 0.15 : 0.08),
           shadowRadius: isEquipped ? 12 : 8,
           elevation: isEquipped ? 5 : 3,
-          borderWidth: isEquipped ? 2 : 0,
-          borderColor: colors.primary,
+          borderWidth: isEquipped ? 2 : 1,
+          borderColor: isEquipped ? colors.primary : colors.textMuted + '18',
           opacity: !canAfford && !isOwned ? 0.7 : 1,
         }}
       >
-        {/* Highlight glow overlay — appears when navigated from chapter requirement */}
+        {/* Highlight glow overlay */}
         <Animated.View
           pointerEvents="none"
           style={[highlightStyle, {
             position: 'absolute', inset: 0, zIndex: 20,
-            borderRadius: 20, borderWidth: 2.5,
+            borderRadius: 18, borderWidth: 2.5,
             borderColor: colors.primary,
-            shadowColor: colors.primary,
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.8,
-            shadowRadius: 10,
           }]}
         />
-        {/* Enhanced Color Preview with 5 swatches + sample text for V2 */}
-        <View style={{ height: isV2Theme ? 112 : 88, backgroundColor: themeData.colors.background }}>
-          {/* Color swatches row */}
-          <View style={{ flexDirection: 'row', height: isV2Theme ? 62 : 88 }}>
+
+        {/* LEFT: Color swatch preview panel */}
+        <View style={{ width: 110, height: previewH, overflow: 'hidden' }}>
+          {/* Background fill */}
+          <View style={{ position: 'absolute', inset: 0, backgroundColor: themeData.colors.background }} />
+          {/* Vertical color bars */}
+          <View style={{ flexDirection: 'row', height: previewH * 0.55 }}>
             <View style={{ flex: 1, backgroundColor: themeData.colors.primary }} />
             <View style={{ flex: 1, backgroundColor: themeData.colors.secondary }} />
             <View style={{ flex: 1, backgroundColor: themeData.colors.accent }} />
             {isV2Theme && (
               <>
                 <View style={{ flex: 1, backgroundColor: themeData.colors.surface }} />
-                <View style={{ flex: 1, backgroundColor: themeData.colors.text }} />
+                <View style={{ flex: 0.6, backgroundColor: themeData.colors.text + '80' }} />
               </>
             )}
           </View>
-          {/* Mini-card mock preview for V2 themes */}
-          {isV2Theme && (
+          {/* Bottom: mock text content on background */}
+          <View style={{ flex: 1, paddingHorizontal: 8, paddingVertical: 6, gap: 4 }}>
+            <Text style={{ fontSize: sFont(13), fontWeight: '800', color: themeData.colors.text }} numberOfLines={1}>
+              Aa
+            </Text>
+            <View style={{ height: 3, borderRadius: 2, width: '70%', backgroundColor: themeData.colors.primary }} />
+            <View style={{ height: 2, borderRadius: 1, width: '50%', backgroundColor: themeData.colors.text + '40' }} />
+          </View>
+
+          {/* Lock overlay on preview */}
+          {!canAfford && !isOwned && (
             <View style={{
-              paddingHorizontal: 8,
-              paddingVertical: 6,
-              backgroundColor: themeData.colors.background,
+              position: 'absolute', inset: 0,
+              alignItems: 'center', justifyContent: 'center',
+              backgroundColor: 'rgba(0,0,0,0.4)',
             }}>
-              {/* Row 1: Bold "Aa" heading text */}
-              <Text style={{
-                fontSize: sFont(15),
-                fontWeight: '800',
-                color: themeData.colors.text,
-                marginBottom: 4,
-              }}>Aa</Text>
-              {/* Row 2: Thin horizontal rule colored with textMuted */}
-              <View style={{
-                height: 1,
-                backgroundColor: themeData.colors.text + '25',
-                marginBottom: 5,
-              }} />
-              {/* Row 3: Small rounded pill using primary color */}
-              <View style={{
-                alignSelf: 'flex-start',
-                paddingHorizontal: 7,
-                paddingVertical: 2,
-                borderRadius: 99,
-                backgroundColor: themeData.colors.primary,
-              }}>
-                <Text style={{ fontSize: sFont(8), fontWeight: '700', color: '#FFFFFF' }}>V2</Text>
+              {themeData.chestOnly ? <Gift size={20} color="#F59E0B" /> : <Lock size={20} color="#FFFFFF" />}
+            </View>
+          )}
+        </View>
+
+        {/* RIGHT: Name, description, price */}
+        <View style={{ flex: 1, paddingHorizontal: 14, paddingVertical: 12, justifyContent: 'space-between' }}>
+          <View>
+            {/* Top row: name + rarity badge */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+              <Text
+                style={{ flex: 1, fontSize: sFont(15), fontWeight: '800', color: colors.text }}
+                numberOfLines={1}
+              >
+                {language === 'es' ? themeData.nameEs : themeData.name}
+              </Text>
+              <View style={{ backgroundColor: colors.textMuted + '18', borderRadius: 99, padding: 4 }}>
+                <RarityIcon rarity={themeData.rarity} size={12} />
               </View>
             </View>
-          )}
-        </View>
-
-        {/* Rarity glow overlay */}
-        {themeData.rarity !== 'common' && (
-          <View
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: isV2Theme ? 112 : 88,
-              borderBottomWidth: 2,
-              borderBottomColor: rarityColor + '50',
-            }}
-          />
-        )}
-
-        {/* Lock Overlay */}
-        {!canAfford && !isOwned && (
-          <View style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: isV2Theme ? 112 : 88,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(0,0,0,0.35)',
-          }}>
-            {themeData.chestOnly ? <Gift size={22} color="#F59E0B" /> : <Lock size={24} color="#FFFFFF" />}
-          </View>
-        )}
-
-        {/* Rarity badge — top-right corner overlay, outside text block */}
-        <View style={{ position: 'absolute', top: 8, right: 8, zIndex: 10 }}>
-          <View style={{
-            backgroundColor: 'rgba(0,0,0,0.55)',
-            borderRadius: 99,
-            padding: 4,
-          }}>
-            <RarityIcon rarity={themeData.rarity} size={13} />
-          </View>
-        </View>
-
-        {/* NEW gift badge — top-left corner */}
-        {isNewGift && (
-          <View style={{ position: 'absolute', top: 8, left: 8, zIndex: 10 }}>
-            <View style={{
-              backgroundColor: '#EF4444',
-              borderRadius: 99,
-              paddingHorizontal: 7,
-              paddingVertical: 3,
-            }}>
-              <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
-                {language === 'es' ? 'NUEVO' : 'NEW'}
-              </Text>
-            </View>
-          </View>
-        )}
-
-        <View style={{ padding: 12 }}>
-          {/* Name: up to 2 lines, fixed minHeight so all cards align in the grid */}
-          <View style={{ minHeight: 40, justifyContent: 'flex-start', marginBottom: 6 }}>
-            <Text
-              style={{ fontSize: sFont(13), fontWeight: '700', color: colors.text, lineHeight: 19 }}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {language === 'es' ? themeData.nameEs : themeData.name}
-            </Text>
+            {isV2Theme && (
+              <View style={{
+                alignSelf: 'flex-start', paddingHorizontal: 7, paddingVertical: 2,
+                borderRadius: 6, backgroundColor: themeData.colors.primary + '20',
+                marginBottom: 4,
+              }}>
+                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: themeData.colors.primary }}>V2</Text>
+              </View>
+            )}
           </View>
 
-          {/* Price or Status */}
-          {isEquipped ? (
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Check size={13} color="#22C55E" strokeWidth={3} />
-              <Text style={{ fontSize: sFont(12), fontWeight: '600', color: '#22C55E', marginLeft: 4 }}>
-                {t.equipped}
+          {/* Bottom: status/price + NEW badge */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            {isEquipped ? (
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <Check size={13} color="#22C55E" strokeWidth={3} />
+                <Text style={{ fontSize: sFont(12), fontWeight: '700', color: '#22C55E' }}>{t.equipped}</Text>
+              </View>
+            ) : isOwned ? (
+              <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary }}>{t.equip}</Text>
+            ) : themeData.chestOnly ? (
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <Gift size={12} color="#F59E0B" />
+                <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#F59E0B' }}>
+                  {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
+                </Text>
+              </View>
+            ) : themeData.price === 0 ? (
+              <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#22C55E' }}>
+                {language === 'es' ? 'Gratis' : 'Free'}
               </Text>
-            </View>
-          ) : isOwned ? (
-            <Text style={{ fontSize: sFont(12), fontWeight: '600', color: colors.primary }}>
-              {t.equip}
-            </Text>
-          ) : themeData.chestOnly ? (
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Gift size={11} color="#F59E0B" />
-              <Text style={{ fontSize: sFont(10), fontWeight: '700', marginLeft: 3, color: '#F59E0B' }}>
-                {language === 'es' ? 'Solo Cofre' : 'Chest Only'}
-              </Text>
-            </View>
-          ) : themeData.price === 0 ? (
-            <Text style={{ fontSize: sFont(12), fontWeight: '600', color: '#22C55E' }}>
-              {language === 'es' ? 'Gratis' : 'Free'}
-            </Text>
-          ) : (
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Coins size={13} color={canAfford ? colors.primary : colors.textMuted} />
-              <Text
-                style={{ fontSize: sFont(12), fontWeight: '700', marginLeft: 4, color: canAfford ? colors.primary : colors.textMuted }}
-              >
-                {themeData.price}
-              </Text>
-            </View>
-          )}
+            ) : (
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <Coins size={14} color={canAfford ? colors.primary : colors.textMuted} />
+                <Text style={{ fontSize: sFont(14), fontWeight: '800', color: canAfford ? colors.primary : colors.textMuted }}>
+                  {themeData.price}
+                </Text>
+              </View>
+            )}
+
+            {isNewGift && (
+              <View style={{ backgroundColor: '#EF4444', borderRadius: 99, paddingHorizontal: 7, paddingVertical: 3 }}>
+                <Text style={{ fontSize: sFont(9), fontWeight: '800', color: '#FFFFFF', letterSpacing: 0.5 }}>
+                  {language === 'es' ? 'NUEVO' : 'NEW'}
+                </Text>
+              </View>
+            )}
+          </View>
         </View>
       </Pressable>
     </Animated.View>

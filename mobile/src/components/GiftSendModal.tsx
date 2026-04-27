@@ -14,9 +14,7 @@ import {
   Platform,
   Animated,
   Easing,
-  StyleSheet,
 } from 'react-native';
-import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 import { Gift, X, Search, User as UserIcon, Check, ChevronRight, Coins } from 'lucide-react-native';
@@ -219,7 +217,7 @@ export function GiftSendModal({ visible, onClose, item }: GiftSendModalProps) {
           style={{ flex: 1, justifyContent: 'flex-end' }}
           onPress={step === 'search' ? onClose : undefined}
         >
-          <BlurView intensity={40} tint="dark" style={{ ...StyleSheet.absoluteFillObject }} />
+          <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.55)' }} />
 
           <Animated.View
             style={{
@@ -305,7 +303,6 @@ export function GiftSendModal({ visible, onClose, item }: GiftSendModalProps) {
                       onChangeText={handleQueryChange}
                       placeholder={es ? 'Buscar por nombre de usuario…' : 'Search by username…'}
                       placeholderTextColor={colors.textMuted + '80'}
-                      autoFocus
                       autoCapitalize="none"
                       autoCorrect={false}
                       style={{ flex: 1, color: colors.text, fontSize: 15 }}
