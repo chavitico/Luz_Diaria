@@ -1,0 +1,1244 @@
+{
+  "1TI_1_1": [
+    {
+      "verseId": "1TI_1_1",
+      "wordIndex": 1,
+      "displayedWord": "apóstol",
+      "strongId": "G652"
+    },
+    {
+      "verseId": "1TI_1_1",
+      "wordIndex": 7,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_1_1",
+      "wordIndex": 12,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TI_1_1",
+      "wordIndex": 15,
+      "displayedWord": "esperanza,",
+      "strongId": "G1680"
+    }
+  ],
+  "1TI_1_2": [
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 4,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 7,
+      "displayedWord": "fe:",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 8,
+      "displayedWord": "Gracia,",
+      "strongId": "G5485"
+    },
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 9,
+      "displayedWord": "misericordia",
+      "strongId": "G1656"
+    },
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 11,
+      "displayedWord": "paz,",
+      "strongId": "G1515"
+    },
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 13,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 15,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 18,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 19,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "1TI_1_2",
+      "wordIndex": 21,
+      "displayedWord": "Señor.",
+      "strongId": "G2962"
+    }
+  ],
+  "1TI_1_4": [
+    {
+      "verseId": "1TI_1_4",
+      "wordIndex": 16,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_1_4",
+      "wordIndex": 20,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    }
+  ],
+  "1TI_1_5": [
+    {
+      "verseId": "1TI_1_5",
+      "wordIndex": 5,
+      "displayedWord": "mandamiento",
+      "strongId": "G1785"
+    },
+    {
+      "verseId": "1TI_1_5",
+      "wordIndex": 8,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "1TI_1_5",
+      "wordIndex": 11,
+      "displayedWord": "corazón",
+      "strongId": "G2588"
+    },
+    {
+      "verseId": "1TI_1_5",
+      "wordIndex": 19,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    }
+  ],
+  "1TI_1_7": [
+    {
+      "verseId": "1TI_1_7",
+      "wordIndex": 5,
+      "displayedWord": "ley,",
+      "strongId": "G3551"
+    }
+  ],
+  "1TI_1_8": [
+    {
+      "verseId": "1TI_1_8",
+      "wordIndex": 4,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    }
+  ],
+  "1TI_1_9": [
+    {
+      "verseId": "1TI_1_9",
+      "wordIndex": 4,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "1TI_1_9",
+      "wordIndex": 10,
+      "displayedWord": "justo,",
+      "strongId": "G1342"
+    }
+  ],
+  "1TI_1_11": [
+    {
+      "verseId": "1TI_1_11",
+      "wordIndex": 3,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    },
+    {
+      "verseId": "1TI_1_11",
+      "wordIndex": 5,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "1TI_1_12": [
+    {
+      "verseId": "1TI_1_12",
+      "wordIndex": 7,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "1TI_1_12",
+      "wordIndex": 8,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "1TI_1_12",
+      "wordIndex": 10,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "1TI_1_13": [
+    {
+      "verseId": "1TI_1_13",
+      "wordIndex": 13,
+      "displayedWord": "misericordia",
+      "strongId": "G1656"
+    }
+  ],
+  "1TI_1_14": [
+    {
+      "verseId": "1TI_1_14",
+      "wordIndex": 2,
+      "displayedWord": "gracia",
+      "strongId": "G5485"
+    },
+    {
+      "verseId": "1TI_1_14",
+      "wordIndex": 5,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TI_1_14",
+      "wordIndex": 11,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_1_14",
+      "wordIndex": 14,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "1TI_1_14",
+      "wordIndex": 18,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "1TI_1_14",
+      "wordIndex": 19,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "1TI_1_15": [
+    {
+      "verseId": "1TI_1_15",
+      "wordIndex": 0,
+      "displayedWord": "Palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "1TI_1_15",
+      "wordIndex": 10,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "1TI_1_15",
+      "wordIndex": 11,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "1TI_1_15",
+      "wordIndex": 14,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    }
+  ],
+  "1TI_1_16": [
+    {
+      "verseId": "1TI_1_16",
+      "wordIndex": 6,
+      "displayedWord": "misericordia,",
+      "strongId": "G1656"
+    },
+    {
+      "verseId": "1TI_1_16",
+      "wordIndex": 25,
+      "displayedWord": "creer",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "1TI_1_16",
+      "wordIndex": 29,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "1TI_1_16",
+      "wordIndex": 30,
+      "displayedWord": "eterna.",
+      "strongId": "G166"
+    }
+  ],
+  "1TI_1_17": [
+    {
+      "verseId": "1TI_1_17",
+      "wordIndex": 3,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "1TI_1_17",
+      "wordIndex": 13,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_1_17",
+      "wordIndex": 17,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    }
+  ],
+  "1TI_1_18": [
+    {
+      "verseId": "1TI_1_18",
+      "wordIndex": 1,
+      "displayedWord": "mandamiento,",
+      "strongId": "G1785"
+    },
+    {
+      "verseId": "1TI_1_18",
+      "wordIndex": 2,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "1TI_1_19": [
+    {
+      "verseId": "1TI_1_19",
+      "wordIndex": 2,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_1_19",
+      "wordIndex": 14,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    }
+  ],
+  "1TI_1_20": [
+    {
+      "verseId": "1TI_1_20",
+      "wordIndex": 11,
+      "displayedWord": "Satanás",
+      "strongId": "G4567"
+    }
+  ],
+  "1TI_2_1": [
+    {
+      "verseId": "1TI_2_1",
+      "wordIndex": 8,
+      "displayedWord": "oraciones,",
+      "strongId": "G4335"
+    },
+    {
+      "verseId": "1TI_2_1",
+      "wordIndex": 17,
+      "displayedWord": "hombres;",
+      "strongId": "G444"
+    }
+  ],
+  "1TI_2_3": [
+    {
+      "verseId": "1TI_2_3",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "1TI_2_4": [
+    {
+      "verseId": "1TI_2_4",
+      "wordIndex": 6,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "1TI_2_4",
+      "wordIndex": 12,
+      "displayedWord": "conocimiento",
+      "strongId": "G1108"
+    },
+    {
+      "verseId": "1TI_2_4",
+      "wordIndex": 15,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
+  ],
+  "1TI_2_5": [
+    {
+      "verseId": "1TI_2_5",
+      "wordIndex": 4,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_2_5",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_2_5",
+      "wordIndex": 13,
+      "displayedWord": "hombres,",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "1TI_2_5",
+      "wordIndex": 15,
+      "displayedWord": "hombre,",
+      "strongId": "G444"
+    }
+  ],
+  "1TI_2_6": [
+    {
+      "verseId": "1TI_2_6",
+      "wordIndex": 16,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    }
+  ],
+  "1TI_2_7": [
+    {
+      "verseId": "1TI_2_7",
+      "wordIndex": 7,
+      "displayedWord": "apóstol",
+      "strongId": "G652"
+    },
+    {
+      "verseId": "1TI_2_7",
+      "wordIndex": 9,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "1TI_2_7",
+      "wordIndex": 11,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "1TI_2_7",
+      "wordIndex": 18,
+      "displayedWord": "gentiles",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "1TI_2_7",
+      "wordIndex": 20,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_2_7",
+      "wordIndex": 22,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
+  ],
+  "1TI_2_8": [
+    {
+      "verseId": "1TI_2_8",
+      "wordIndex": 4,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    }
+  ],
+  "1TI_2_12": [
+    {
+      "verseId": "1TI_2_12",
+      "wordIndex": 12,
+      "displayedWord": "hombre,",
+      "strongId": "G444"
+    }
+  ],
+  "1TI_2_15": [
+    {
+      "verseId": "1TI_2_15",
+      "wordIndex": 4,
+      "displayedWord": "hijos,",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "1TI_2_15",
+      "wordIndex": 8,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_2_15",
+      "wordIndex": 9,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    }
+  ],
+  "1TI_3_1": [
+    {
+      "verseId": "1TI_3_1",
+      "wordIndex": 0,
+      "displayedWord": "Palabra",
+      "strongId": "G3056"
+    }
+  ],
+  "1TI_3_4": [
+    {
+      "verseId": "1TI_3_4",
+      "wordIndex": 9,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    }
+  ],
+  "1TI_3_5": [
+    {
+      "verseId": "1TI_3_5",
+      "wordIndex": 13,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "1TI_3_5",
+      "wordIndex": 15,
+      "displayedWord": "Dios?);",
+      "strongId": "G2316"
+    }
+  ],
+  "1TI_3_6": [
+    {
+      "verseId": "1TI_3_6",
+      "wordIndex": 12,
+      "displayedWord": "diablo.",
+      "strongId": "G1228"
+    }
+  ],
+  "1TI_3_7": [
+    {
+      "verseId": "1TI_3_7",
+      "wordIndex": 6,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    },
+    {
+      "verseId": "1TI_3_7",
+      "wordIndex": 21,
+      "displayedWord": "diablo.",
+      "strongId": "G1228"
+    }
+  ],
+  "1TI_3_9": [
+    {
+      "verseId": "1TI_3_9",
+      "wordIndex": 6,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    }
+  ],
+  "1TI_3_12": [
+    {
+      "verseId": "1TI_3_12",
+      "wordIndex": 13,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    }
+  ],
+  "1TI_3_13": [
+    {
+      "verseId": "1TI_3_13",
+      "wordIndex": 18,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_3_13",
+      "wordIndex": 22,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "1TI_3_13",
+      "wordIndex": 23,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "1TI_3_14": [
+    {
+      "verseId": "1TI_3_14",
+      "wordIndex": 6,
+      "displayedWord": "esperanza",
+      "strongId": "G1680"
+    }
+  ],
+  "1TI_3_15": [
+    {
+      "verseId": "1TI_3_15",
+      "wordIndex": 12,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_3_15",
+      "wordIndex": 16,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "1TI_3_15",
+      "wordIndex": 18,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_3_15",
+      "wordIndex": 25,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
+  ],
+  "1TI_3_16": [
+    {
+      "verseId": "1TI_3_16",
+      "wordIndex": 9,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_3_16",
+      "wordIndex": 13,
+      "displayedWord": "carne,",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "1TI_3_16",
+      "wordIndex": 17,
+      "displayedWord": "Espíritu,",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "1TI_3_16",
+      "wordIndex": 21,
+      "displayedWord": "ángeles,",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "1TI_3_16",
+      "wordIndex": 25,
+      "displayedWord": "gentiles,",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "1TI_3_16",
+      "wordIndex": 26,
+      "displayedWord": "Creído",
+      "strongId": "G4100"
+    },
+    {
+      "verseId": "1TI_3_16",
+      "wordIndex": 29,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "1TI_3_16",
+      "wordIndex": 33,
+      "displayedWord": "gloria.",
+      "strongId": "G1391"
+    }
+  ],
+  "1TI_4_1": [
+    {
+      "verseId": "1TI_4_1",
+      "wordIndex": 2,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "1TI_4_1",
+      "wordIndex": 14,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_4_1",
+      "wordIndex": 23,
+      "displayedWord": "demonios;",
+      "strongId": "G1140"
+    }
+  ],
+  "1TI_4_3": [
+    {
+      "verseId": "1TI_4_3",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_4_3",
+      "wordIndex": 27,
+      "displayedWord": "verdad.",
+      "strongId": "G225"
+    }
+  ],
+  "1TI_4_4": [
+    {
+      "verseId": "1TI_4_4",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "1TI_4_5": [
+    {
+      "verseId": "1TI_4_5",
+      "wordIndex": 3,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "1TI_4_5",
+      "wordIndex": 5,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_4_5",
+      "wordIndex": 9,
+      "displayedWord": "oración",
+      "strongId": "G4335"
+    }
+  ],
+  "1TI_4_6": [
+    {
+      "verseId": "1TI_4_6",
+      "wordIndex": 5,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "1TI_4_6",
+      "wordIndex": 17,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    }
+  ],
+  "1TI_4_8": [
+    {
+      "verseId": "1TI_4_8",
+      "wordIndex": 16,
+      "displayedWord": "promesa",
+      "strongId": "G1860"
+    },
+    {
+      "verseId": "1TI_4_8",
+      "wordIndex": 19,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    }
+  ],
+  "1TI_4_9": [
+    {
+      "verseId": "1TI_4_9",
+      "wordIndex": 0,
+      "displayedWord": "Palabra",
+      "strongId": "G3056"
+    }
+  ],
+  "1TI_4_10": [
+    {
+      "verseId": "1TI_4_10",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_4_10",
+      "wordIndex": 21,
+      "displayedWord": "hombres,",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "1TI_4_10",
+      "wordIndex": 26,
+      "displayedWord": "creen.",
+      "strongId": "G4100"
+    }
+  ],
+  "1TI_4_12": [
+    {
+      "verseId": "1TI_4_12",
+      "wordIndex": 13,
+      "displayedWord": "palabra,",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "1TI_4_12",
+      "wordIndex": 15,
+      "displayedWord": "amor,",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "1TI_4_12",
+      "wordIndex": 16,
+      "displayedWord": "espíritu,",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "1TI_4_12",
+      "wordIndex": 17,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    }
+  ],
+  "1TI_5_1": [
+    {
+      "verseId": "1TI_5_1",
+      "wordIndex": 8,
+      "displayedWord": "padre;",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "1TI_5_1",
+      "wordIndex": 15,
+      "displayedWord": "hermanos;",
+      "strongId": "G80"
+    }
+  ],
+  "1TI_5_3": [
+    {
+      "verseId": "1TI_5_3",
+      "wordIndex": 6,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    }
+  ],
+  "1TI_5_4": [
+    {
+      "verseId": "1TI_5_4",
+      "wordIndex": 5,
+      "displayedWord": "hijos,",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "1TI_5_4",
+      "wordIndex": 34,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "1TI_5_5": [
+    {
+      "verseId": "1TI_5_5",
+      "wordIndex": 4,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "1TI_5_5",
+      "wordIndex": 13,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_5_5",
+      "wordIndex": 20,
+      "displayedWord": "oraciones",
+      "strongId": "G4335"
+    }
+  ],
+  "1TI_5_8": [
+    {
+      "verseId": "1TI_5_8",
+      "wordIndex": 18,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    }
+  ],
+  "1TI_5_10": [
+    {
+      "verseId": "1TI_5_10",
+      "wordIndex": 2,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    },
+    {
+      "verseId": "1TI_5_10",
+      "wordIndex": 9,
+      "displayedWord": "hijos;",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "1TI_5_10",
+      "wordIndex": 22,
+      "displayedWord": "santos;",
+      "strongId": "G40"
+    }
+  ],
+  "1TI_5_11": [
+    {
+      "verseId": "1TI_5_11",
+      "wordIndex": 15,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    }
+  ],
+  "1TI_5_12": [
+    {
+      "verseId": "1TI_5_12",
+      "wordIndex": 9,
+      "displayedWord": "fe.",
+      "strongId": "G4102"
+    }
+  ],
+  "1TI_5_14": [
+    {
+      "verseId": "1TI_5_14",
+      "wordIndex": 9,
+      "displayedWord": "hijos,",
+      "strongId": "G5207"
+    }
+  ],
+  "1TI_5_15": [
+    {
+      "verseId": "1TI_5_15",
+      "wordIndex": 9,
+      "displayedWord": "Satanás.",
+      "strongId": "G4567"
+    }
+  ],
+  "1TI_5_16": [
+    {
+      "verseId": "1TI_5_16",
+      "wordIndex": 16,
+      "displayedWord": "iglesia,",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "1TI_5_16",
+      "wordIndex": 28,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    }
+  ],
+  "1TI_5_19": [
+    {
+      "verseId": "1TI_5_19",
+      "wordIndex": 11,
+      "displayedWord": "testigos.",
+      "strongId": "G3144"
+    }
+  ],
+  "1TI_5_21": [
+    {
+      "verseId": "1TI_5_21",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_5_21",
+      "wordIndex": 7,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TI_5_21",
+      "wordIndex": 12,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    }
+  ],
+  "1TI_5_22": [
+    {
+      "verseId": "1TI_5_22",
+      "wordIndex": 11,
+      "displayedWord": "pecados",
+      "strongId": "G266"
+    }
+  ],
+  "1TI_5_23": [
+    {
+      "verseId": "1TI_5_23",
+      "wordIndex": 3,
+      "displayedWord": "agua,",
+      "strongId": "G5204"
+    }
+  ],
+  "1TI_5_24": [
+    {
+      "verseId": "1TI_5_24",
+      "wordIndex": 1,
+      "displayedWord": "pecados",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "1TI_5_24",
+      "wordIndex": 4,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "1TI_5_24",
+      "wordIndex": 13,
+      "displayedWord": "juicio,",
+      "strongId": "G2920"
+    }
+  ],
+  "1TI_6_1": [
+    {
+      "verseId": "1TI_6_1",
+      "wordIndex": 24,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "1TI_6_1",
+      "wordIndex": 26,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "1TI_6_2": [
+    {
+      "verseId": "1TI_6_2",
+      "wordIndex": 13,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    }
+  ],
+  "1TI_6_3": [
+    {
+      "verseId": "1TI_6_3",
+      "wordIndex": 15,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "1TI_6_5": [
+    {
+      "verseId": "1TI_6_5",
+      "wordIndex": 3,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "1TI_6_5",
+      "wordIndex": 11,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    }
+  ],
+  "1TI_6_7": [
+    {
+      "verseId": "1TI_6_7",
+      "wordIndex": 6,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    }
+  ],
+  "1TI_6_9": [
+    {
+      "verseId": "1TI_6_9",
+      "wordIndex": 21,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    }
+  ],
+  "1TI_6_10": [
+    {
+      "verseId": "1TI_6_10",
+      "wordIndex": 8,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "1TI_6_10",
+      "wordIndex": 19,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    }
+  ],
+  "1TI_6_11": [
+    {
+      "verseId": "1TI_6_11",
+      "wordIndex": 3,
+      "displayedWord": "hombre",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "1TI_6_11",
+      "wordIndex": 5,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_6_11",
+      "wordIndex": 13,
+      "displayedWord": "justicia,",
+      "strongId": "G1343"
+    },
+    {
+      "verseId": "1TI_6_11",
+      "wordIndex": 17,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_6_11",
+      "wordIndex": 19,
+      "displayedWord": "amor,",
+      "strongId": "G26"
+    }
+  ],
+  "1TI_6_12": [
+    {
+      "verseId": "1TI_6_12",
+      "wordIndex": 6,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_6_12",
+      "wordIndex": 11,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "1TI_6_12",
+      "wordIndex": 12,
+      "displayedWord": "eterna,",
+      "strongId": "G166"
+    },
+    {
+      "verseId": "1TI_6_12",
+      "wordIndex": 27,
+      "displayedWord": "testigos.",
+      "strongId": "G3144"
+    }
+  ],
+  "1TI_6_13": [
+    {
+      "verseId": "1TI_6_13",
+      "wordIndex": 4,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TI_6_13",
+      "wordIndex": 7,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "1TI_6_13",
+      "wordIndex": 17,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    }
+  ],
+  "1TI_6_14": [
+    {
+      "verseId": "1TI_6_14",
+      "wordIndex": 3,
+      "displayedWord": "mandamiento",
+      "strongId": "G1785"
+    },
+    {
+      "verseId": "1TI_6_14",
+      "wordIndex": 13,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "1TI_6_15": [
+    {
+      "verseId": "1TI_6_15",
+      "wordIndex": 11,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "1TI_6_15",
+      "wordIndex": 15,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "1TI_6_16": [
+    {
+      "verseId": "1TI_6_16",
+      "wordIndex": 8,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "1TI_6_16",
+      "wordIndex": 15,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    }
+  ],
+  "1TI_6_17": [
+    {
+      "verseId": "1TI_6_17",
+      "wordIndex": 14,
+      "displayedWord": "esperanza",
+      "strongId": "G1680"
+    },
+    {
+      "verseId": "1TI_6_17",
+      "wordIndex": 25,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "1TI_6_19": [
+    {
+      "verseId": "1TI_6_19",
+      "wordIndex": 14,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "1TI_6_19",
+      "wordIndex": 15,
+      "displayedWord": "eterna.",
+      "strongId": "G166"
+    }
+  ],
+  "1TI_6_21": [
+    {
+      "verseId": "1TI_6_21",
+      "wordIndex": 8,
+      "displayedWord": "fe.",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TI_6_21",
+      "wordIndex": 10,
+      "displayedWord": "gracia",
+      "strongId": "G5485"
+    }
+  ]
+}

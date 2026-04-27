@@ -8578,5 +8578,91 @@
       "displayedWord": "Dios",
       "strongId": "H430"
     }
+  ],
+  "GEN_18_8": [
+    {
+      "verseId": "GEN_18_8",
+      "wordIndex": 25,
+      "displayedWord": "árbol,",
+      "strongId": "H6086"
+    }
+  ],
+  "GEN_37_5": [
+    {
+      "verseId": "GEN_37_5",
+      "wordIndex": 4,
+      "displayedWord": "sueño,",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_37_6": [
+    {
+      "verseId": "GEN_37_6",
+      "wordIndex": 7,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_37_9": [
+    {
+      "verseId": "GEN_37_9",
+      "wordIndex": 3,
+      "displayedWord": "sueño,",
+      "strongId": "H2472"
+    },
+    {
+      "verseId": "GEN_37_9",
+      "wordIndex": 17,
+      "displayedWord": "sueño,",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_41_1": [
+    {
+      "verseId": "GEN_41_1",
+      "wordIndex": 8,
+      "displayedWord": "sueño.",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_41_7": [
+    {
+      "verseId": "GEN_41_7",
+      "wordIndex": 21,
+      "displayedWord": "sueño.",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_41_12": [
+    {
+      "verseId": "GEN_41_12",
+      "wordIndex": 31,
+      "displayedWord": "sueño.",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_41_15": [
+    {
+      "verseId": "GEN_41_15",
+      "wordIndex": 9,
+      "displayedWord": "sueño,",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_41_17": [
+    {
+      "verseId": "GEN_41_17",
+      "wordIndex": 7,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    }
+  ],
+  "GEN_41_26": [
+    {
+      "verseId": "GEN_41_26",
+      "wordIndex": 15,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    }
   ]
 }

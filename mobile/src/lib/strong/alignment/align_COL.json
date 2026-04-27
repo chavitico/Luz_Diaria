@@ -1162,5 +1162,95 @@
       "displayedWord": "gracia",
       "strongId": "G5485"
     }
+  ],
+  "COL_1_9": [
+    {
+      "verseId": "COL_1_9",
+      "wordIndex": 14,
+      "displayedWord": "orar",
+      "strongId": "G4336"
+    },
+    {
+      "verseId": "COL_1_9",
+      "wordIndex": 24,
+      "displayedWord": "conocimiento",
+      "strongId": "G1108"
+    },
+    {
+      "verseId": "COL_1_9",
+      "wordIndex": 30,
+      "displayedWord": "sabiduría",
+      "strongId": "G4678"
+    }
+  ],
+  "COL_2_3": [
+    {
+      "verseId": "COL_2_3",
+      "wordIndex": 9,
+      "displayedWord": "sabiduría",
+      "strongId": "G4678"
+    },
+    {
+      "verseId": "COL_2_3",
+      "wordIndex": 12,
+      "displayedWord": "conocimiento.",
+      "strongId": "G1108"
+    }
+  ],
+  "COL_2_14": [
+    {
+      "verseId": "COL_2_14",
+      "wordIndex": 22,
+      "displayedWord": "cruz,",
+      "strongId": "G4716"
+    }
+  ],
+  "COL_2_15": [
+    {
+      "verseId": "COL_2_15",
+      "wordIndex": 17,
+      "displayedWord": "cruz.",
+      "strongId": "G4716"
+    }
+  ],
+  "COL_3_10": [
+    {
+      "verseId": "COL_3_10",
+      "wordIndex": 21,
+      "displayedWord": "conocimiento",
+      "strongId": "G1108"
+    }
+  ],
+  "COL_4_2": [
+    {
+      "verseId": "COL_4_2",
+      "wordIndex": 3,
+      "displayedWord": "oración,",
+      "strongId": "G4335"
+    }
+  ],
+  "COL_4_10": [
+    {
+      "verseId": "COL_4_10",
+      "wordIndex": 20,
+      "displayedWord": "mandamientos;",
+      "strongId": "G1785"
+    }
+  ],
+  "COL_4_13": [
+    {
+      "verseId": "COL_4_13",
+      "wordIndex": 4,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    }
+  ],
+  "COL_4_16": [
+    {
+      "verseId": "COL_4_16",
+      "wordIndex": 15,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    }
   ]
 }

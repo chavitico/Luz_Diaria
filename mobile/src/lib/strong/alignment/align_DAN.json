@@ -2336,5 +2336,55 @@
       "displayedWord": "pacto",
       "strongId": "H1285"
     }
+  ],
+  "DAN_2_6": [
+    {
+      "verseId": "DAN_2_6",
+      "wordIndex": 5,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    },
+    {
+      "verseId": "DAN_2_6",
+      "wordIndex": 21,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    }
+  ],
+  "DAN_2_9": [
+    {
+      "verseId": "DAN_2_9",
+      "wordIndex": 5,
+      "displayedWord": "sueño,",
+      "strongId": "H2472"
+    },
+    {
+      "verseId": "DAN_2_9",
+      "wordIndex": 32,
+      "displayedWord": "sueño,",
+      "strongId": "H2472"
+    }
+  ],
+  "DAN_2_21": [
+    {
+      "verseId": "DAN_2_21",
+      "wordIndex": 14,
+      "displayedWord": "sabiduría",
+      "strongId": "H2451"
+    }
+  ],
+  "DAN_9_22": [
+    {
+      "verseId": "DAN_9_22",
+      "wordIndex": 14,
+      "displayedWord": "sabiduría",
+      "strongId": "H2451"
+    },
+    {
+      "verseId": "DAN_9_22",
+      "wordIndex": 16,
+      "displayedWord": "entendimiento.",
+      "strongId": "H998"
+    }
   ]
 }

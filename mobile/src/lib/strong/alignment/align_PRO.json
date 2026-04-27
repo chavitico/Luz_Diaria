@@ -2902,5 +2902,169 @@
       "displayedWord": "Jehová,",
       "strongId": "H3068"
     }
+  ],
+  "PRO_1_2": [
+    {
+      "verseId": "PRO_1_2",
+      "wordIndex": 2,
+      "displayedWord": "sabiduría",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_1_20": [
+    {
+      "verseId": "PRO_1_20",
+      "wordIndex": 1,
+      "displayedWord": "sabiduría",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_2_7": [
+    {
+      "verseId": "PRO_2_7",
+      "wordIndex": 4,
+      "displayedWord": "sabiduría",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_4_5": [
+    {
+      "verseId": "PRO_4_5",
+      "wordIndex": 1,
+      "displayedWord": "sabiduría,",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_4_7": [
+    {
+      "verseId": "PRO_4_7",
+      "wordIndex": 0,
+      "displayedWord": "Sabiduría",
+      "strongId": "H2451"
+    },
+    {
+      "verseId": "PRO_4_7",
+      "wordIndex": 4,
+      "displayedWord": "sabiduría;",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_4_11": [
+    {
+      "verseId": "PRO_4_11",
+      "wordIndex": 5,
+      "displayedWord": "sabiduría",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_4_16": [
+    {
+      "verseId": "PRO_4_16",
+      "wordIndex": 12,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    }
+  ],
+  "PRO_8_1": [
+    {
+      "verseId": "PRO_8_1",
+      "wordIndex": 3,
+      "displayedWord": "sabiduría,",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_8_9": [
+    {
+      "verseId": "PRO_8_9",
+      "wordIndex": 14,
+      "displayedWord": "sabiduría.",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_8_11": [
+    {
+      "verseId": "PRO_8_11",
+      "wordIndex": 4,
+      "displayedWord": "sabiduría",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_8_12": [
+    {
+      "verseId": "PRO_8_12",
+      "wordIndex": 2,
+      "displayedWord": "sabiduría,",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_8_14": [
+    {
+      "verseId": "PRO_8_14",
+      "wordIndex": 7,
+      "displayedWord": "juicio;",
+      "strongId": "H4941"
+    }
+  ],
+  "PRO_10_13": [
+    {
+      "verseId": "PRO_10_13",
+      "wordIndex": 7,
+      "displayedWord": "sabiduría;",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_10_14": [
+    {
+      "verseId": "PRO_10_14",
+      "wordIndex": 4,
+      "displayedWord": "sabiduría;",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_14_18": [
+    {
+      "verseId": "PRO_14_18",
+      "wordIndex": 10,
+      "displayedWord": "sabiduría.",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_15_2": [
+    {
+      "verseId": "PRO_15_2",
+      "wordIndex": 7,
+      "displayedWord": "sabiduría;",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_16_16": [
+    {
+      "verseId": "PRO_16_16",
+      "wordIndex": 3,
+      "displayedWord": "sabiduría",
+      "strongId": "H2451"
+    }
+  ],
+  "PRO_17_16": [
+    {
+      "verseId": "PRO_17_16",
+      "wordIndex": 12,
+      "displayedWord": "sabiduría,",
+      "strongId": "H2451"
+    },
+    {
+      "verseId": "PRO_17_16",
+      "wordIndex": 15,
+      "displayedWord": "entendimiento?",
+      "strongId": "H998"
+    }
+  ],
+  "PRO_31_8": [
+    {
+      "verseId": "PRO_31_8",
+      "wordIndex": 8,
+      "displayedWord": "juicio",
+      "strongId": "H4941"
+    }
   ]
 }

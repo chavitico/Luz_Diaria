@@ -7148,5 +7148,45 @@
       "displayedWord": "Dios",
       "strongId": "H430"
     }
+  ],
+  "PSA_1_5": [
+    {
+      "verseId": "PSA_1_5",
+      "wordIndex": 9,
+      "displayedWord": "juicio,",
+      "strongId": "H4941"
+    }
+  ],
+  "PSA_25_9": [
+    {
+      "verseId": "PSA_25_9",
+      "wordIndex": 6,
+      "displayedWord": "juicio,",
+      "strongId": "H4941"
+    }
+  ],
+  "PSA_32_9": [
+    {
+      "verseId": "PSA_32_9",
+      "wordIndex": 10,
+      "displayedWord": "entendimiento,",
+      "strongId": "H998"
+    }
+  ],
+  "PSA_119_125": [
+    {
+      "verseId": "PSA_119_125",
+      "wordIndex": 5,
+      "displayedWord": "entendimiento",
+      "strongId": "H998"
+    }
+  ],
+  "PSA_119_170": [
+    {
+      "verseId": "PSA_119_170",
+      "wordIndex": 2,
+      "displayedWord": "oración",
+      "strongId": "H8605"
+    }
   ]
 }

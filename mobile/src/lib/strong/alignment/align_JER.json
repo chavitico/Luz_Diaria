@@ -2932,5 +2932,21 @@
       "displayedWord": "misericordia.",
       "strongId": "H2617"
     }
+  ],
+  "JER_29_29": [
+    {
+      "verseId": "JER_29_29",
+      "wordIndex": 11,
+      "displayedWord": "profeta",
+      "strongId": "H5030"
+    }
+  ],
+  "JER_31_26": [
+    {
+      "verseId": "JER_31_26",
+      "wordIndex": 8,
+      "displayedWord": "sueño",
+      "strongId": "H2472"
+    }
   ]
 }

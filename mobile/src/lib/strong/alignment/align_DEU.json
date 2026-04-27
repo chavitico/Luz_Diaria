@@ -4050,5 +4050,29 @@
       "displayedWord": "tierra,",
       "strongId": "H776"
     }
+  ],
+  "DEU_28_38": [
+    {
+      "verseId": "DEU_28_38",
+      "wordIndex": 2,
+      "displayedWord": "semilla",
+      "strongId": "H2233"
+    }
+  ],
+  "DEU_32_28": [
+    {
+      "verseId": "DEU_32_28",
+      "wordIndex": 11,
+      "displayedWord": "entendimiento.",
+      "strongId": "H998"
+    }
+  ],
+  "DEU_32_41": [
+    {
+      "verseId": "DEU_32_41",
+      "wordIndex": 9,
+      "displayedWord": "juicio,",
+      "strongId": "H4941"
+    }
   ]
 }

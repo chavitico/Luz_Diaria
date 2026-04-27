@@ -1112,5 +1112,29 @@
       "displayedWord": "pecados.",
       "strongId": "G266"
     }
+  ],
+  "JAS_3_3": [
+    {
+      "verseId": "JAS_3_3",
+      "wordIndex": 20,
+      "displayedWord": "cuerpo.",
+      "strongId": "G4983"
+    }
+  ],
+  "JAS_3_15": [
+    {
+      "verseId": "JAS_3_15",
+      "wordIndex": 2,
+      "displayedWord": "sabiduría",
+      "strongId": "G4678"
+    }
+  ],
+  "JAS_5_13": [
+    {
+      "verseId": "JAS_5_13",
+      "wordIndex": 6,
+      "displayedWord": "oración.",
+      "strongId": "G4335"
+    }
   ]
 }

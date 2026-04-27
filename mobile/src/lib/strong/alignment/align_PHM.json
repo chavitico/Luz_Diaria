@@ -1,0 +1,276 @@
+{
+  "PHM_1_1": [
+    {
+      "verseId": "PHM_1_1",
+      "wordIndex": 6,
+      "displayedWord": "hermano",
+      "strongId": "G80"
+    }
+  ],
+  "PHM_1_2": [
+    {
+      "verseId": "PHM_1_2",
+      "wordIndex": 17,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    }
+  ],
+  "PHM_1_3": [
+    {
+      "verseId": "PHM_1_3",
+      "wordIndex": 0,
+      "displayedWord": "Gracia",
+      "strongId": "G5485"
+    },
+    {
+      "verseId": "PHM_1_3",
+      "wordIndex": 2,
+      "displayedWord": "paz",
+      "strongId": "G1515"
+    },
+    {
+      "verseId": "PHM_1_3",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "PHM_1_3",
+      "wordIndex": 8,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "PHM_1_3",
+      "wordIndex": 11,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "PHM_1_4": [
+    {
+      "verseId": "PHM_1_4",
+      "wordIndex": 4,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "PHM_1_4",
+      "wordIndex": 12,
+      "displayedWord": "oraciones,",
+      "strongId": "G4335"
+    }
+  ],
+  "PHM_1_5": [
+    {
+      "verseId": "PHM_1_5",
+      "wordIndex": 3,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "PHM_1_5",
+      "wordIndex": 7,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "PHM_1_5",
+      "wordIndex": 12,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "PHM_1_5",
+      "wordIndex": 13,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "PHM_1_5",
+      "wordIndex": 19,
+      "displayedWord": "santos;",
+      "strongId": "G40"
+    }
+  ],
+  "PHM_1_6": [
+    {
+      "verseId": "PHM_1_6",
+      "wordIndex": 6,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "PHM_1_6",
+      "wordIndex": 11,
+      "displayedWord": "conocimiento",
+      "strongId": "G1108"
+    },
+    {
+      "verseId": "PHM_1_6",
+      "wordIndex": 21,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "PHM_1_6",
+      "wordIndex": 22,
+      "displayedWord": "Jesús.",
+      "strongId": "G2424"
+    }
+  ],
+  "PHM_1_7": [
+    {
+      "verseId": "PHM_1_7",
+      "wordIndex": 3,
+      "displayedWord": "gozo",
+      "strongId": "G5479"
+    },
+    {
+      "verseId": "PHM_1_7",
+      "wordIndex": 8,
+      "displayedWord": "amor,",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "PHM_1_7",
+      "wordIndex": 13,
+      "displayedWord": "hermano,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "PHM_1_7",
+      "wordIndex": 21,
+      "displayedWord": "santos.",
+      "strongId": "G40"
+    }
+  ],
+  "PHM_1_8": [
+    {
+      "verseId": "PHM_1_8",
+      "wordIndex": 8,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    }
+  ],
+  "PHM_1_9": [
+    {
+      "verseId": "PHM_1_9",
+      "wordIndex": 5,
+      "displayedWord": "amor,",
+      "strongId": "G26"
+    }
+  ],
+  "PHM_1_10": [
+    {
+      "verseId": "PHM_1_10",
+      "wordIndex": 4,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    }
+  ],
+  "PHM_1_13": [
+    {
+      "verseId": "PHM_1_13",
+      "wordIndex": 16,
+      "displayedWord": "evangelio;",
+      "strongId": "G2098"
+    }
+  ],
+  "PHM_1_16": [
+    {
+      "verseId": "PHM_1_16",
+      "wordIndex": 10,
+      "displayedWord": "hermano",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "PHM_1_16",
+      "wordIndex": 23,
+      "displayedWord": "carne",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "PHM_1_16",
+      "wordIndex": 27,
+      "displayedWord": "Señor.",
+      "strongId": "G2962"
+    }
+  ],
+  "PHM_1_20": [
+    {
+      "verseId": "PHM_1_20",
+      "wordIndex": 1,
+      "displayedWord": "hermano,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "PHM_1_20",
+      "wordIndex": 10,
+      "displayedWord": "Señor;",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "PHM_1_20",
+      "wordIndex": 13,
+      "displayedWord": "corazón",
+      "strongId": "G2588"
+    },
+    {
+      "verseId": "PHM_1_20",
+      "wordIndex": 16,
+      "displayedWord": "Señor.",
+      "strongId": "G2962"
+    }
+  ],
+  "PHM_1_21": [
+    {
+      "verseId": "PHM_1_21",
+      "wordIndex": 6,
+      "displayedWord": "obediencia,",
+      "strongId": "G5218"
+    }
+  ],
+  "PHM_1_22": [
+    {
+      "verseId": "PHM_1_22",
+      "wordIndex": 8,
+      "displayedWord": "oraciones",
+      "strongId": "G4335"
+    }
+  ],
+  "PHM_1_23": [
+    {
+      "verseId": "PHM_1_23",
+      "wordIndex": 9,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "PHM_1_23",
+      "wordIndex": 10,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "PHM_1_25": [
+    {
+      "verseId": "PHM_1_25",
+      "wordIndex": 1,
+      "displayedWord": "gracia",
+      "strongId": "G5485"
+    },
+    {
+      "verseId": "PHM_1_25",
+      "wordIndex": 4,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "PHM_1_25",
+      "wordIndex": 9,
+      "displayedWord": "espíritu.",
+      "strongId": "G4151"
+    }
+  ]
+}

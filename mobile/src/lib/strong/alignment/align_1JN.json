@@ -2110,5 +2110,29 @@
       "displayedWord": "eterna.",
       "strongId": "G166"
     }
+  ],
+  "1JN_2_3": [
+    {
+      "verseId": "1JN_2_3",
+      "wordIndex": 11,
+      "displayedWord": "mandamientos.",
+      "strongId": "G1785"
+    }
+  ],
+  "1JN_2_28": [
+    {
+      "verseId": "1JN_2_28",
+      "wordIndex": 17,
+      "displayedWord": "venida",
+      "strongId": "G3952"
+    }
+  ],
+  "1JN_3_22": [
+    {
+      "verseId": "1JN_3_22",
+      "wordIndex": 12,
+      "displayedWord": "mandamientos,",
+      "strongId": "G1785"
+    }
   ]
 }

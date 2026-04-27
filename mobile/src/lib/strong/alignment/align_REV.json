@@ -2344,5 +2344,2683 @@
       "displayedWord": "Señor",
       "strongId": "G2962"
     }
+  ],
+  "REV_1_11": [
+    {
+      "verseId": "REV_1_11",
+      "wordIndex": 26,
+      "displayedWord": "iglesias",
+      "strongId": "G1577"
+    }
+  ],
+  "REV_2_1": [
+    {
+      "verseId": "REV_2_1",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_2_1",
+      "wordIndex": 5,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    }
+  ],
+  "REV_2_2": [
+    {
+      "verseId": "REV_2_2",
+      "wordIndex": 27,
+      "displayedWord": "apóstoles,",
+      "strongId": "G652"
+    }
+  ],
+  "REV_2_3": [
+    {
+      "verseId": "REV_2_3",
+      "wordIndex": 12,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "REV_2_3",
+      "wordIndex": 15,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    }
+  ],
+  "REV_2_4": [
+    {
+      "verseId": "REV_2_4",
+      "wordIndex": 9,
+      "displayedWord": "amor.",
+      "strongId": "G26"
+    }
+  ],
+  "REV_2_7": [
+    {
+      "verseId": "REV_2_7",
+      "wordIndex": 8,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "REV_2_7",
+      "wordIndex": 12,
+      "displayedWord": "iglesias.",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "REV_2_7",
+      "wordIndex": 24,
+      "displayedWord": "vida,",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "REV_2_7",
+      "wordIndex": 34,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_2_8": [
+    {
+      "verseId": "REV_2_8",
+      "wordIndex": 3,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_2_8",
+      "wordIndex": 6,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "REV_2_8",
+      "wordIndex": 18,
+      "displayedWord": "muerto",
+      "strongId": "G2288"
+    }
+  ],
+  "REV_2_9": [
+    {
+      "verseId": "REV_2_9",
+      "wordIndex": 23,
+      "displayedWord": "judíos,",
+      "strongId": "G2453"
+    },
+    {
+      "verseId": "REV_2_9",
+      "wordIndex": 31,
+      "displayedWord": "Satanás.",
+      "strongId": "G4567"
+    }
+  ],
+  "REV_2_10": [
+    {
+      "verseId": "REV_2_10",
+      "wordIndex": 12,
+      "displayedWord": "diablo",
+      "strongId": "G1228"
+    },
+    {
+      "verseId": "REV_2_10",
+      "wordIndex": 35,
+      "displayedWord": "muerte,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_2_10",
+      "wordIndex": 44,
+      "displayedWord": "vida.",
+      "strongId": "G2222"
+    }
+  ],
+  "REV_2_11": [
+    {
+      "verseId": "REV_2_11",
+      "wordIndex": 8,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "REV_2_11",
+      "wordIndex": 12,
+      "displayedWord": "iglesias.",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "REV_2_11",
+      "wordIndex": 22,
+      "displayedWord": "muerte.",
+      "strongId": "G2288"
+    }
+  ],
+  "REV_2_12": [
+    {
+      "verseId": "REV_2_12",
+      "wordIndex": 3,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_2_12",
+      "wordIndex": 6,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    }
+  ],
+  "REV_2_13": [
+    {
+      "verseId": "REV_2_13",
+      "wordIndex": 12,
+      "displayedWord": "Satanás;",
+      "strongId": "G4567"
+    },
+    {
+      "verseId": "REV_2_13",
+      "wordIndex": 16,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_2_13",
+      "wordIndex": 22,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "REV_2_13",
+      "wordIndex": 32,
+      "displayedWord": "testigo",
+      "strongId": "G3144"
+    },
+    {
+      "verseId": "REV_2_13",
+      "wordIndex": 35,
+      "displayedWord": "muerto",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_2_13",
+      "wordIndex": 40,
+      "displayedWord": "Satanás.",
+      "strongId": "G4567"
+    }
+  ],
+  "REV_2_14": [
+    {
+      "verseId": "REV_2_14",
+      "wordIndex": 27,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "REV_2_14",
+      "wordIndex": 29,
+      "displayedWord": "Israel,",
+      "strongId": "G2474"
+    }
+  ],
+  "REV_2_17": [
+    {
+      "verseId": "REV_2_17",
+      "wordIndex": 8,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "REV_2_17",
+      "wordIndex": 12,
+      "displayedWord": "iglesias.",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "REV_2_17",
+      "wordIndex": 35,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    }
+  ],
+  "REV_2_18": [
+    {
+      "verseId": "REV_2_18",
+      "wordIndex": 3,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_2_18",
+      "wordIndex": 6,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "REV_2_18",
+      "wordIndex": 10,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "REV_2_18",
+      "wordIndex": 12,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_2_19": [
+    {
+      "verseId": "REV_2_19",
+      "wordIndex": 5,
+      "displayedWord": "amor,",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "REV_2_19",
+      "wordIndex": 7,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    }
+  ],
+  "REV_2_21": [
+    {
+      "verseId": "REV_2_21",
+      "wordIndex": 12,
+      "displayedWord": "arrepentirse",
+      "strongId": "G3340"
+    }
+  ],
+  "REV_2_23": [
+    {
+      "verseId": "REV_2_23",
+      "wordIndex": 3,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "REV_2_23",
+      "wordIndex": 6,
+      "displayedWord": "muerte,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_2_23",
+      "wordIndex": 10,
+      "displayedWord": "iglesias",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "REV_2_23",
+      "wordIndex": 22,
+      "displayedWord": "corazón;",
+      "strongId": "G2588"
+    }
+  ],
+  "REV_2_24": [
+    {
+      "verseId": "REV_2_24",
+      "wordIndex": 28,
+      "displayedWord": "Satanás,",
+      "strongId": "G4567"
+    }
+  ],
+  "REV_2_26": [
+    {
+      "verseId": "REV_2_26",
+      "wordIndex": 16,
+      "displayedWord": "naciones,",
+      "strongId": "G1484"
+    }
+  ],
+  "REV_2_27": [
+    {
+      "verseId": "REV_2_27",
+      "wordIndex": 23,
+      "displayedWord": "Padre;",
+      "strongId": "G3962"
+    }
+  ],
+  "REV_2_29": [
+    {
+      "verseId": "REV_2_29",
+      "wordIndex": 8,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "REV_2_29",
+      "wordIndex": 12,
+      "displayedWord": "iglesias.",
+      "strongId": "G1577"
+    }
+  ],
+  "REV_3_9": [
+    {
+      "verseId": "REV_3_9",
+      "wordIndex": 8,
+      "displayedWord": "Satanás",
+      "strongId": "G4567"
+    },
+    {
+      "verseId": "REV_3_9",
+      "wordIndex": 15,
+      "displayedWord": "judíos",
+      "strongId": "G2453"
+    }
+  ],
+  "REV_6_4": [
+    {
+      "verseId": "REV_6_4",
+      "wordIndex": 14,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "REV_6_4",
+      "wordIndex": 19,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_6_4",
+      "wordIndex": 21,
+      "displayedWord": "paz,",
+      "strongId": "G1515"
+    }
+  ],
+  "REV_6_8": [
+    {
+      "verseId": "REV_6_8",
+      "wordIndex": 14,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_6_8",
+      "wordIndex": 15,
+      "displayedWord": "Muerte,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_6_8",
+      "wordIndex": 32,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_6_8",
+      "wordIndex": 47,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_6_9": [
+    {
+      "verseId": "REV_6_9",
+      "wordIndex": 16,
+      "displayedWord": "muertos",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_6_9",
+      "wordIndex": 21,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "REV_6_9",
+      "wordIndex": 23,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_6_9",
+      "wordIndex": 27,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    }
+  ],
+  "REV_6_10": [
+    {
+      "verseId": "REV_6_10",
+      "wordIndex": 8,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "REV_6_10",
+      "wordIndex": 9,
+      "displayedWord": "santo",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "REV_6_10",
+      "wordIndex": 17,
+      "displayedWord": "sangre",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "REV_6_10",
+      "wordIndex": 24,
+      "displayedWord": "tierra?",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_6_11": [
+    {
+      "verseId": "REV_6_11",
+      "wordIndex": 28,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "REV_6_11",
+      "wordIndex": 34,
+      "displayedWord": "muertos",
+      "strongId": "G2288"
+    }
+  ],
+  "REV_6_12": [
+    {
+      "verseId": "REV_6_12",
+      "wordIndex": 31,
+      "displayedWord": "sangre;",
+      "strongId": "G129"
+    }
+  ],
+  "REV_6_13": [
+    {
+      "verseId": "REV_6_13",
+      "wordIndex": 4,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_6_13",
+      "wordIndex": 8,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_6_14": [
+    {
+      "verseId": "REV_6_14",
+      "wordIndex": 2,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    }
+  ],
+  "REV_6_15": [
+    {
+      "verseId": "REV_6_15",
+      "wordIndex": 5,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_7_9": [
+    {
+      "verseId": "REV_7_9",
+      "wordIndex": 17,
+      "displayedWord": "naciones",
+      "strongId": "G1484"
+    }
+  ],
+  "REV_8_1": [
+    {
+      "verseId": "REV_8_1",
+      "wordIndex": 10,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    }
+  ],
+  "REV_8_2": [
+    {
+      "verseId": "REV_8_2",
+      "wordIndex": 5,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_8_2",
+      "wordIndex": 11,
+      "displayedWord": "Dios;",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_8_3": [
+    {
+      "verseId": "REV_8_3",
+      "wordIndex": 1,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_8_3",
+      "wordIndex": 26,
+      "displayedWord": "oraciones",
+      "strongId": "G4335"
+    },
+    {
+      "verseId": "REV_8_3",
+      "wordIndex": 30,
+      "displayedWord": "santos,",
+      "strongId": "G40"
+    }
+  ],
+  "REV_8_4": [
+    {
+      "verseId": "REV_8_4",
+      "wordIndex": 5,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_8_4",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_8_4",
+      "wordIndex": 18,
+      "displayedWord": "oraciones",
+      "strongId": "G4335"
+    },
+    {
+      "verseId": "REV_8_4",
+      "wordIndex": 21,
+      "displayedWord": "santos.",
+      "strongId": "G40"
+    }
+  ],
+  "REV_8_5": [
+    {
+      "verseId": "REV_8_5",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_8_5",
+      "wordIndex": 19,
+      "displayedWord": "tierra;",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_8_6": [
+    {
+      "verseId": "REV_8_6",
+      "wordIndex": 3,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    }
+  ],
+  "REV_8_7": [
+    {
+      "verseId": "REV_8_7",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_8_7",
+      "wordIndex": 14,
+      "displayedWord": "sangre,",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "REV_8_7",
+      "wordIndex": 20,
+      "displayedWord": "tierra;",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_8_8": [
+    {
+      "verseId": "REV_8_8",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_8_8",
+      "wordIndex": 28,
+      "displayedWord": "sangre.",
+      "strongId": "G129"
+    }
+  ],
+  "REV_8_10": [
+    {
+      "verseId": "REV_8_10",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_8_10",
+      "wordIndex": 9,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_8_10",
+      "wordIndex": 33,
+      "displayedWord": "aguas.",
+      "strongId": "G5204"
+    }
+  ],
+  "REV_8_11": [
+    {
+      "verseId": "REV_8_11",
+      "wordIndex": 2,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_8_11",
+      "wordIndex": 14,
+      "displayedWord": "aguas",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "REV_8_11",
+      "wordIndex": 21,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "REV_8_11",
+      "wordIndex": 27,
+      "displayedWord": "aguas,",
+      "strongId": "G5204"
+    }
+  ],
+  "REV_8_12": [
+    {
+      "verseId": "REV_8_12",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_8_12",
+      "wordIndex": 41,
+      "displayedWord": "luz",
+      "strongId": "G5457"
+    }
+  ],
+  "REV_8_13": [
+    {
+      "verseId": "REV_8_13",
+      "wordIndex": 6,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_8_13",
+      "wordIndex": 12,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_8_13",
+      "wordIndex": 26,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_8_13",
+      "wordIndex": 41,
+      "displayedWord": "ángeles!",
+      "strongId": "G32"
+    }
+  ],
+  "REV_9_1": [
+    {
+      "verseId": "REV_9_1",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_9_1",
+      "wordIndex": 13,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_9_1",
+      "wordIndex": 16,
+      "displayedWord": "tierra;",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_9_3": [
+    {
+      "verseId": "REV_9_3",
+      "wordIndex": 7,
+      "displayedWord": "tierra;",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_9_3",
+      "wordIndex": 13,
+      "displayedWord": "poder,",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "REV_9_3",
+      "wordIndex": 16,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "REV_9_3",
+      "wordIndex": 21,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_9_4": [
+    {
+      "verseId": "REV_9_4",
+      "wordIndex": 12,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_9_4",
+      "wordIndex": 26,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "REV_9_4",
+      "wordIndex": 33,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_9_5": [
+    {
+      "verseId": "REV_9_5",
+      "wordIndex": 25,
+      "displayedWord": "hombre.",
+      "strongId": "G444"
+    }
+  ],
+  "REV_9_6": [
+    {
+      "verseId": "REV_9_6",
+      "wordIndex": 5,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "REV_9_6",
+      "wordIndex": 8,
+      "displayedWord": "muerte,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_9_6",
+      "wordIndex": 18,
+      "displayedWord": "muerte",
+      "strongId": "G2288"
+    }
+  ],
+  "REV_9_10": [
+    {
+      "verseId": "REV_9_10",
+      "wordIndex": 13,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "REV_9_10",
+      "wordIndex": 18,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    }
+  ],
+  "REV_9_11": [
+    {
+      "verseId": "REV_9_11",
+      "wordIndex": 3,
+      "displayedWord": "rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "REV_9_11",
+      "wordIndex": 7,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_9_11",
+      "wordIndex": 11,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    }
+  ],
+  "REV_9_13": [
+    {
+      "verseId": "REV_9_13",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_9_13",
+      "wordIndex": 24,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_9_14": [
+    {
+      "verseId": "REV_9_14",
+      "wordIndex": 3,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_9_14",
+      "wordIndex": 12,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    }
+  ],
+  "REV_9_15": [
+    {
+      "verseId": "REV_9_15",
+      "wordIndex": 5,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_9_15",
+      "wordIndex": 26,
+      "displayedWord": "hombres.",
+      "strongId": "G444"
+    }
+  ],
+  "REV_9_18": [
+    {
+      "verseId": "REV_9_18",
+      "wordIndex": 11,
+      "displayedWord": "hombres;",
+      "strongId": "G444"
+    }
+  ],
+  "REV_9_19": [
+    {
+      "verseId": "REV_9_19",
+      "wordIndex": 2,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    }
+  ],
+  "REV_9_20": [
+    {
+      "verseId": "REV_9_20",
+      "wordIndex": 3,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "REV_9_20",
+      "wordIndex": 7,
+      "displayedWord": "muertos",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_9_20",
+      "wordIndex": 28,
+      "displayedWord": "demonios,",
+      "strongId": "G1140"
+    }
+  ],
+  "REV_10_1": [
+    {
+      "verseId": "REV_10_1",
+      "wordIndex": 3,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_10_1",
+      "wordIndex": 6,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    }
+  ],
+  "REV_10_2": [
+    {
+      "verseId": "REV_10_2",
+      "wordIndex": 20,
+      "displayedWord": "tierra;",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_10_4": [
+    {
+      "verseId": "REV_10_4",
+      "wordIndex": 17,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    }
+  ],
+  "REV_10_5": [
+    {
+      "verseId": "REV_10_5",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_10_5",
+      "wordIndex": 13,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_10_5",
+      "wordIndex": 18,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    }
+  ],
+  "REV_10_6": [
+    {
+      "verseId": "REV_10_6",
+      "wordIndex": 15,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_10_6",
+      "wordIndex": 25,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_10_7": [
+    {
+      "verseId": "REV_10_7",
+      "wordIndex": 10,
+      "displayedWord": "ángel,",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_10_7",
+      "wordIndex": 21,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_10_7",
+      "wordIndex": 32,
+      "displayedWord": "profetas.",
+      "strongId": "G4396"
+    }
+  ],
+  "REV_10_8": [
+    {
+      "verseId": "REV_10_8",
+      "wordIndex": 5,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_10_8",
+      "wordIndex": 24,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_10_8",
+      "wordIndex": 35,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_10_9": [
+    {
+      "verseId": "REV_10_9",
+      "wordIndex": 3,
+      "displayedWord": "ángel,",
+      "strongId": "G32"
+    }
+  ],
+  "REV_10_10": [
+    {
+      "verseId": "REV_10_10",
+      "wordIndex": 8,
+      "displayedWord": "ángel,",
+      "strongId": "G32"
+    }
+  ],
+  "REV_10_11": [
+    {
+      "verseId": "REV_10_11",
+      "wordIndex": 13,
+      "displayedWord": "naciones,",
+      "strongId": "G1484"
+    }
+  ],
+  "REV_11_1": [
+    {
+      "verseId": "REV_11_1",
+      "wordIndex": 20,
+      "displayedWord": "templo",
+      "strongId": "G2411"
+    },
+    {
+      "verseId": "REV_11_1",
+      "wordIndex": 22,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_11_2": [
+    {
+      "verseId": "REV_11_2",
+      "wordIndex": 7,
+      "displayedWord": "templo",
+      "strongId": "G2411"
+    },
+    {
+      "verseId": "REV_11_2",
+      "wordIndex": 20,
+      "displayedWord": "gentiles;",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "REV_11_2",
+      "wordIndex": 26,
+      "displayedWord": "santa",
+      "strongId": "G40"
+    }
+  ],
+  "REV_11_3": [
+    {
+      "verseId": "REV_11_3",
+      "wordIndex": 5,
+      "displayedWord": "testigos",
+      "strongId": "G3144"
+    }
+  ],
+  "REV_11_4": [
+    {
+      "verseId": "REV_11_4",
+      "wordIndex": 1,
+      "displayedWord": "testigos",
+      "strongId": "G3144"
+    },
+    {
+      "verseId": "REV_11_4",
+      "wordIndex": 16,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_11_4",
+      "wordIndex": 19,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_11_6": [
+    {
+      "verseId": "REV_11_6",
+      "wordIndex": 2,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "REV_11_6",
+      "wordIndex": 6,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_11_6",
+      "wordIndex": 22,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "REV_11_6",
+      "wordIndex": 25,
+      "displayedWord": "aguas",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "REV_11_6",
+      "wordIndex": 29,
+      "displayedWord": "sangre,",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "REV_11_6",
+      "wordIndex": 35,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_11_7": [
+    {
+      "verseId": "REV_11_7",
+      "wordIndex": 4,
+      "displayedWord": "testimonio,",
+      "strongId": "G3141"
+    }
+  ],
+  "REV_11_8": [
+    {
+      "verseId": "REV_11_8",
+      "wordIndex": 24,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "REV_11_9": [
+    {
+      "verseId": "REV_11_9",
+      "wordIndex": 8,
+      "displayedWord": "naciones",
+      "strongId": "G1484"
+    }
+  ],
+  "REV_11_10": [
+    {
+      "verseId": "REV_11_10",
+      "wordIndex": 5,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_11_10",
+      "wordIndex": 23,
+      "displayedWord": "profetas",
+      "strongId": "G4396"
+    },
+    {
+      "verseId": "REV_11_10",
+      "wordIndex": 31,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_11_11": [
+    {
+      "verseId": "REV_11_11",
+      "wordIndex": 11,
+      "displayedWord": "espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "REV_11_11",
+      "wordIndex": 13,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "REV_11_11",
+      "wordIndex": 16,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_11_12": [
+    {
+      "verseId": "REV_11_12",
+      "wordIndex": 6,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_11_12",
+      "wordIndex": 15,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    }
+  ],
+  "REV_11_13": [
+    {
+      "verseId": "REV_11_13",
+      "wordIndex": 27,
+      "displayedWord": "hombres;",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "REV_11_13",
+      "wordIndex": 35,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "REV_11_13",
+      "wordIndex": 37,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_11_13",
+      "wordIndex": 39,
+      "displayedWord": "cielo.",
+      "strongId": "G3772"
+    }
+  ],
+  "REV_11_15": [
+    {
+      "verseId": "REV_11_15",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_11_15",
+      "wordIndex": 12,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_11_15",
+      "wordIndex": 18,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "REV_11_15",
+      "wordIndex": 25,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "REV_11_15",
+      "wordIndex": 29,
+      "displayedWord": "Cristo;",
+      "strongId": "G5547"
+    }
+  ],
+  "REV_11_16": [
+    {
+      "verseId": "REV_11_16",
+      "wordIndex": 9,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_11_16",
+      "wordIndex": 21,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_11_17": [
+    {
+      "verseId": "REV_11_17",
+      "wordIndex": 4,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "REV_11_17",
+      "wordIndex": 5,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_11_17",
+      "wordIndex": 23,
+      "displayedWord": "poder,",
+      "strongId": "G1411"
+    }
+  ],
+  "REV_11_18": [
+    {
+      "verseId": "REV_11_18",
+      "wordIndex": 4,
+      "displayedWord": "naciones,",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "REV_11_18",
+      "wordIndex": 17,
+      "displayedWord": "muertos,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_11_18",
+      "wordIndex": 27,
+      "displayedWord": "profetas,",
+      "strongId": "G4396"
+    },
+    {
+      "verseId": "REV_11_18",
+      "wordIndex": 30,
+      "displayedWord": "santos,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "REV_11_18",
+      "wordIndex": 37,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_11_18",
+      "wordIndex": 54,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_11_19": [
+    {
+      "verseId": "REV_11_19",
+      "wordIndex": 2,
+      "displayedWord": "templo",
+      "strongId": "G2411"
+    },
+    {
+      "verseId": "REV_11_19",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_11_19",
+      "wordIndex": 9,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_11_19",
+      "wordIndex": 15,
+      "displayedWord": "pacto",
+      "strongId": "G1242"
+    },
+    {
+      "verseId": "REV_11_19",
+      "wordIndex": 20,
+      "displayedWord": "templo.",
+      "strongId": "G2411"
+    }
+  ],
+  "REV_13_1": [
+    {
+      "verseId": "REV_13_1",
+      "wordIndex": 33,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    }
+  ],
+  "REV_13_2": [
+    {
+      "verseId": "REV_13_2",
+      "wordIndex": 30,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    }
+  ],
+  "REV_13_3": [
+    {
+      "verseId": "REV_13_3",
+      "wordIndex": 8,
+      "displayedWord": "muerte,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_13_3",
+      "wordIndex": 20,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_13_6": [
+    {
+      "verseId": "REV_13_6",
+      "wordIndex": 7,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_13_6",
+      "wordIndex": 13,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_13_6",
+      "wordIndex": 24,
+      "displayedWord": "cielo.",
+      "strongId": "G3772"
+    }
+  ],
+  "REV_13_7": [
+    {
+      "verseId": "REV_13_7",
+      "wordIndex": 8,
+      "displayedWord": "santos,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "REV_13_7",
+      "wordIndex": 20,
+      "displayedWord": "pueblo,",
+      "strongId": "G2992"
+    }
+  ],
+  "REV_13_8": [
+    {
+      "verseId": "REV_13_8",
+      "wordIndex": 8,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_13_8",
+      "wordIndex": 19,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "REV_13_8",
+      "wordIndex": 28,
+      "displayedWord": "principio",
+      "strongId": "G746"
+    },
+    {
+      "verseId": "REV_13_8",
+      "wordIndex": 30,
+      "displayedWord": "mundo.",
+      "strongId": "G2889"
+    }
+  ],
+  "REV_13_10": [
+    {
+      "verseId": "REV_13_10",
+      "wordIndex": 18,
+      "displayedWord": "muerto.",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_13_10",
+      "wordIndex": 25,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "REV_13_10",
+      "wordIndex": 28,
+      "displayedWord": "santos.",
+      "strongId": "G40"
+    }
+  ],
+  "REV_13_11": [
+    {
+      "verseId": "REV_13_11",
+      "wordIndex": 8,
+      "displayedWord": "tierra;",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_13_12": [
+    {
+      "verseId": "REV_13_12",
+      "wordIndex": 17,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_13_13": [
+    {
+      "verseId": "REV_13_13",
+      "wordIndex": 3,
+      "displayedWord": "señales,",
+      "strongId": "G4592"
+    },
+    {
+      "verseId": "REV_13_13",
+      "wordIndex": 13,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_13_13",
+      "wordIndex": 16,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_13_13",
+      "wordIndex": 20,
+      "displayedWord": "hombres.",
+      "strongId": "G444"
+    }
+  ],
+  "REV_13_14": [
+    {
+      "verseId": "REV_13_14",
+      "wordIndex": 7,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_13_14",
+      "wordIndex": 10,
+      "displayedWord": "señales",
+      "strongId": "G4592"
+    },
+    {
+      "verseId": "REV_13_14",
+      "wordIndex": 28,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_13_17": [
+    {
+      "verseId": "REV_13_17",
+      "wordIndex": 15,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_13_17",
+      "wordIndex": 24,
+      "displayedWord": "nombre.",
+      "strongId": "G3686"
+    }
+  ],
+  "REV_13_18": [
+    {
+      "verseId": "REV_13_18",
+      "wordIndex": 2,
+      "displayedWord": "sabiduría.",
+      "strongId": "G4678"
+    },
+    {
+      "verseId": "REV_13_18",
+      "wordIndex": 17,
+      "displayedWord": "hombre.",
+      "strongId": "G444"
+    }
+  ],
+  "REV_15_1": [
+    {
+      "verseId": "REV_15_1",
+      "wordIndex": 3,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_15_1",
+      "wordIndex": 5,
+      "displayedWord": "señal,",
+      "strongId": "G4592"
+    },
+    {
+      "verseId": "REV_15_1",
+      "wordIndex": 10,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_15_1",
+      "wordIndex": 25,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_15_2": [
+    {
+      "verseId": "REV_15_2",
+      "wordIndex": 32,
+      "displayedWord": "nombre,",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_15_2",
+      "wordIndex": 44,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_15_3": [
+    {
+      "verseId": "REV_15_3",
+      "wordIndex": 9,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_15_3",
+      "wordIndex": 22,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "REV_15_3",
+      "wordIndex": 23,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_15_3",
+      "wordIndex": 31,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "REV_15_3",
+      "wordIndex": 34,
+      "displayedWord": "santos.",
+      "strongId": "G40"
+    }
+  ],
+  "REV_15_4": [
+    {
+      "verseId": "REV_15_4",
+      "wordIndex": 5,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "REV_15_4",
+      "wordIndex": 9,
+      "displayedWord": "nombre?",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_15_4",
+      "wordIndex": 15,
+      "displayedWord": "santo;",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "REV_15_4",
+      "wordIndex": 21,
+      "displayedWord": "naciones",
+      "strongId": "G1484"
+    }
+  ],
+  "REV_15_5": [
+    {
+      "verseId": "REV_15_5",
+      "wordIndex": 12,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_15_5",
+      "wordIndex": 14,
+      "displayedWord": "templo",
+      "strongId": "G2411"
+    },
+    {
+      "verseId": "REV_15_5",
+      "wordIndex": 18,
+      "displayedWord": "testimonio;",
+      "strongId": "G3141"
+    }
+  ],
+  "REV_15_6": [
+    {
+      "verseId": "REV_15_6",
+      "wordIndex": 2,
+      "displayedWord": "templo",
+      "strongId": "G2411"
+    },
+    {
+      "verseId": "REV_15_6",
+      "wordIndex": 6,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    }
+  ],
+  "REV_15_7": [
+    {
+      "verseId": "REV_15_7",
+      "wordIndex": 11,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_15_7",
+      "wordIndex": 21,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_15_8": [
+    {
+      "verseId": "REV_15_8",
+      "wordIndex": 2,
+      "displayedWord": "templo",
+      "strongId": "G2411"
+    },
+    {
+      "verseId": "REV_15_8",
+      "wordIndex": 10,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "REV_15_8",
+      "wordIndex": 12,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_15_8",
+      "wordIndex": 16,
+      "displayedWord": "poder;",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "REV_15_8",
+      "wordIndex": 23,
+      "displayedWord": "templo",
+      "strongId": "G2411"
+    },
+    {
+      "verseId": "REV_15_8",
+      "wordIndex": 35,
+      "displayedWord": "ángeles.",
+      "strongId": "G32"
+    }
+  ],
+  "REV_16_1": [
+    {
+      "verseId": "REV_16_1",
+      "wordIndex": 8,
+      "displayedWord": "templo",
+      "strongId": "G2411"
+    },
+    {
+      "verseId": "REV_16_1",
+      "wordIndex": 12,
+      "displayedWord": "ángeles:",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_16_1",
+      "wordIndex": 18,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_16_1",
+      "wordIndex": 26,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_16_2": [
+    {
+      "verseId": "REV_16_2",
+      "wordIndex": 9,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_16_2",
+      "wordIndex": 20,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    }
+  ],
+  "REV_16_3": [
+    {
+      "verseId": "REV_16_3",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_16_3",
+      "wordIndex": 14,
+      "displayedWord": "sangre",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "REV_16_3",
+      "wordIndex": 17,
+      "displayedWord": "muerto;",
+      "strongId": "G2288"
+    }
+  ],
+  "REV_16_4": [
+    {
+      "verseId": "REV_16_4",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_16_4",
+      "wordIndex": 15,
+      "displayedWord": "aguas,",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "REV_16_4",
+      "wordIndex": 20,
+      "displayedWord": "sangre.",
+      "strongId": "G129"
+    }
+  ],
+  "REV_16_5": [
+    {
+      "verseId": "REV_16_5",
+      "wordIndex": 3,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_16_5",
+      "wordIndex": 6,
+      "displayedWord": "aguas,",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "REV_16_5",
+      "wordIndex": 9,
+      "displayedWord": "Justo",
+      "strongId": "G1342"
+    },
+    {
+      "verseId": "REV_16_5",
+      "wordIndex": 13,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "REV_16_5",
+      "wordIndex": 21,
+      "displayedWord": "Santo,",
+      "strongId": "G40"
+    }
+  ],
+  "REV_16_6": [
+    {
+      "verseId": "REV_16_6",
+      "wordIndex": 4,
+      "displayedWord": "sangre",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "REV_16_6",
+      "wordIndex": 7,
+      "displayedWord": "santos",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "REV_16_6",
+      "wordIndex": 11,
+      "displayedWord": "profetas,",
+      "strongId": "G4396"
+    },
+    {
+      "verseId": "REV_16_6",
+      "wordIndex": 19,
+      "displayedWord": "sangre;",
+      "strongId": "G129"
+    }
+  ],
+  "REV_16_7": [
+    {
+      "verseId": "REV_16_7",
+      "wordIndex": 10,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "REV_16_7",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_16_8": [
+    {
+      "verseId": "REV_16_8",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_16_8",
+      "wordIndex": 16,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    }
+  ],
+  "REV_16_9": [
+    {
+      "verseId": "REV_16_9",
+      "wordIndex": 2,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "REV_16_9",
+      "wordIndex": 12,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_16_9",
+      "wordIndex": 14,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_16_9",
+      "wordIndex": 17,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "REV_16_9",
+      "wordIndex": 27,
+      "displayedWord": "gloria.",
+      "strongId": "G1391"
+    }
+  ],
+  "REV_16_10": [
+    {
+      "verseId": "REV_16_10",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_16_10",
+      "wordIndex": 14,
+      "displayedWord": "reino",
+      "strongId": "G932"
+    },
+    {
+      "verseId": "REV_16_10",
+      "wordIndex": 18,
+      "displayedWord": "tinieblas,",
+      "strongId": "G4655"
+    }
+  ],
+  "REV_16_11": [
+    {
+      "verseId": "REV_16_11",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_16_11",
+      "wordIndex": 6,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    }
+  ],
+  "REV_16_12": [
+    {
+      "verseId": "REV_16_12",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_16_12",
+      "wordIndex": 13,
+      "displayedWord": "agua",
+      "strongId": "G5204"
+    }
+  ],
+  "REV_16_13": [
+    {
+      "verseId": "REV_16_13",
+      "wordIndex": 21,
+      "displayedWord": "profeta,",
+      "strongId": "G4396"
+    }
+  ],
+  "REV_16_14": [
+    {
+      "verseId": "REV_16_14",
+      "wordIndex": 4,
+      "displayedWord": "demonios,",
+      "strongId": "G1140"
+    },
+    {
+      "verseId": "REV_16_14",
+      "wordIndex": 7,
+      "displayedWord": "señales,",
+      "strongId": "G4592"
+    },
+    {
+      "verseId": "REV_16_14",
+      "wordIndex": 15,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_16_14",
+      "wordIndex": 19,
+      "displayedWord": "mundo,",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "REV_16_14",
+      "wordIndex": 30,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_16_17": [
+    {
+      "verseId": "REV_16_17",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_16_17",
+      "wordIndex": 15,
+      "displayedWord": "templo",
+      "strongId": "G2411"
+    },
+    {
+      "verseId": "REV_16_17",
+      "wordIndex": 17,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    }
+  ],
+  "REV_16_18": [
+    {
+      "verseId": "REV_16_18",
+      "wordIndex": 12,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_16_18",
+      "wordIndex": 26,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "REV_16_18",
+      "wordIndex": 31,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_16_19": [
+    {
+      "verseId": "REV_16_19",
+      "wordIndex": 14,
+      "displayedWord": "naciones",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "REV_16_19",
+      "wordIndex": 25,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_16_21": [
+    {
+      "verseId": "REV_16_21",
+      "wordIndex": 3,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_16_21",
+      "wordIndex": 6,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "REV_16_21",
+      "wordIndex": 19,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "REV_16_21",
+      "wordIndex": 22,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_17_1": [
+    {
+      "verseId": "REV_17_1",
+      "wordIndex": 6,
+      "displayedWord": "ángeles",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_17_1",
+      "wordIndex": 33,
+      "displayedWord": "aguas;",
+      "strongId": "G5204"
+    }
+  ],
+  "REV_17_2": [
+    {
+      "verseId": "REV_17_2",
+      "wordIndex": 9,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_17_2",
+      "wordIndex": 15,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_17_3": [
+    {
+      "verseId": "REV_17_3",
+      "wordIndex": 5,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    }
+  ],
+  "REV_17_5": [
+    {
+      "verseId": "REV_17_5",
+      "wordIndex": 5,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "REV_17_5",
+      "wordIndex": 23,
+      "displayedWord": "TIERRA.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_17_6": [
+    {
+      "verseId": "REV_17_6",
+      "wordIndex": 7,
+      "displayedWord": "sangre",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "REV_17_6",
+      "wordIndex": 10,
+      "displayedWord": "santos,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "REV_17_6",
+      "wordIndex": 14,
+      "displayedWord": "sangre",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "REV_17_6",
+      "wordIndex": 19,
+      "displayedWord": "Jesús;",
+      "strongId": "G2424"
+    }
+  ],
+  "REV_17_7": [
+    {
+      "verseId": "REV_17_7",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    }
+  ],
+  "REV_17_8": [
+    {
+      "verseId": "REV_17_8",
+      "wordIndex": 25,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_17_8",
+      "wordIndex": 36,
+      "displayedWord": "mundo",
+      "strongId": "G2889"
+    },
+    {
+      "verseId": "REV_17_8",
+      "wordIndex": 42,
+      "displayedWord": "vida,",
+      "strongId": "G2222"
+    }
+  ],
+  "REV_17_9": [
+    {
+      "verseId": "REV_17_9",
+      "wordIndex": 6,
+      "displayedWord": "sabiduría:",
+      "strongId": "G4678"
+    }
+  ],
+  "REV_17_12": [
+    {
+      "verseId": "REV_17_12",
+      "wordIndex": 16,
+      "displayedWord": "reino;",
+      "strongId": "G932"
+    }
+  ],
+  "REV_17_13": [
+    {
+      "verseId": "REV_17_13",
+      "wordIndex": 8,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    }
+  ],
+  "REV_17_14": [
+    {
+      "verseId": "REV_17_14",
+      "wordIndex": 12,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "REV_17_14",
+      "wordIndex": 16,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    }
+  ],
+  "REV_17_15": [
+    {
+      "verseId": "REV_17_15",
+      "wordIndex": 4,
+      "displayedWord": "aguas",
+      "strongId": "G5204"
+    },
+    {
+      "verseId": "REV_17_15",
+      "wordIndex": 16,
+      "displayedWord": "naciones",
+      "strongId": "G1484"
+    }
+  ],
+  "REV_17_17": [
+    {
+      "verseId": "REV_17_17",
+      "wordIndex": 1,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_17_17",
+      "wordIndex": 19,
+      "displayedWord": "reino",
+      "strongId": "G932"
+    },
+    {
+      "verseId": "REV_17_17",
+      "wordIndex": 30,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_17_18": [
+    {
+      "verseId": "REV_17_18",
+      "wordIndex": 17,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_18_1": [
+    {
+      "verseId": "REV_18_1",
+      "wordIndex": 6,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    },
+    {
+      "verseId": "REV_18_1",
+      "wordIndex": 9,
+      "displayedWord": "cielo",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_18_1",
+      "wordIndex": 12,
+      "displayedWord": "poder;",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "REV_18_1",
+      "wordIndex": 15,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_18_1",
+      "wordIndex": 20,
+      "displayedWord": "gloria.",
+      "strongId": "G1391"
+    }
+  ],
+  "REV_18_2": [
+    {
+      "verseId": "REV_18_2",
+      "wordIndex": 20,
+      "displayedWord": "demonios",
+      "strongId": "G1140"
+    },
+    {
+      "verseId": "REV_18_2",
+      "wordIndex": 25,
+      "displayedWord": "espíritu",
+      "strongId": "G4151"
+    }
+  ],
+  "REV_18_3": [
+    {
+      "verseId": "REV_18_3",
+      "wordIndex": 3,
+      "displayedWord": "naciones",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "REV_18_3",
+      "wordIndex": 19,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_18_3",
+      "wordIndex": 29,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_18_4": [
+    {
+      "verseId": "REV_18_4",
+      "wordIndex": 5,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_18_4",
+      "wordIndex": 11,
+      "displayedWord": "pueblo",
+      "strongId": "G2992"
+    },
+    {
+      "verseId": "REV_18_4",
+      "wordIndex": 21,
+      "displayedWord": "pecados,",
+      "strongId": "G266"
+    }
+  ],
+  "REV_18_5": [
+    {
+      "verseId": "REV_18_5",
+      "wordIndex": 2,
+      "displayedWord": "pecados",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "REV_18_5",
+      "wordIndex": 7,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_18_5",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "REV_18_7": [
+    {
+      "verseId": "REV_18_7",
+      "wordIndex": 20,
+      "displayedWord": "corazón:",
+      "strongId": "G2588"
+    }
+  ],
+  "REV_18_8": [
+    {
+      "verseId": "REV_18_8",
+      "wordIndex": 11,
+      "displayedWord": "muerte,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_18_8",
+      "wordIndex": 23,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_18_8",
+      "wordIndex": 25,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    }
+  ],
+  "REV_18_9": [
+    {
+      "verseId": "REV_18_9",
+      "wordIndex": 5,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_18_10": [
+    {
+      "verseId": "REV_18_10",
+      "wordIndex": 26,
+      "displayedWord": "juicio!",
+      "strongId": "G2920"
+    }
+  ],
+  "REV_18_11": [
+    {
+      "verseId": "REV_18_11",
+      "wordIndex": 5,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_18_13": [
+    {
+      "verseId": "REV_18_13",
+      "wordIndex": 22,
+      "displayedWord": "hombres.",
+      "strongId": "G444"
+    }
+  ],
+  "REV_18_14": [
+    {
+      "verseId": "REV_18_14",
+      "wordIndex": 5,
+      "displayedWord": "alma",
+      "strongId": "G5590"
+    }
+  ],
+  "REV_18_20": [
+    {
+      "verseId": "REV_18_20",
+      "wordIndex": 3,
+      "displayedWord": "cielo,",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "REV_18_20",
+      "wordIndex": 7,
+      "displayedWord": "santos,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "REV_18_20",
+      "wordIndex": 8,
+      "displayedWord": "apóstoles",
+      "strongId": "G652"
+    },
+    {
+      "verseId": "REV_18_20",
+      "wordIndex": 10,
+      "displayedWord": "profetas;",
+      "strongId": "G4396"
+    },
+    {
+      "verseId": "REV_18_20",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "REV_18_20",
+      "wordIndex": 16,
+      "displayedWord": "justicia",
+      "strongId": "G1343"
+    }
+  ],
+  "REV_18_21": [
+    {
+      "verseId": "REV_18_21",
+      "wordIndex": 2,
+      "displayedWord": "ángel",
+      "strongId": "G32"
+    }
+  ],
+  "REV_18_23": [
+    {
+      "verseId": "REV_18_23",
+      "wordIndex": 0,
+      "displayedWord": "Luz",
+      "strongId": "G5457"
+    },
+    {
+      "verseId": "REV_18_23",
+      "wordIndex": 29,
+      "displayedWord": "tierra;",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "REV_18_23",
+      "wordIndex": 38,
+      "displayedWord": "naciones.",
+      "strongId": "G1484"
+    }
+  ],
+  "REV_18_24": [
+    {
+      "verseId": "REV_18_24",
+      "wordIndex": 6,
+      "displayedWord": "sangre",
+      "strongId": "G129"
+    },
+    {
+      "verseId": "REV_18_24",
+      "wordIndex": 9,
+      "displayedWord": "profetas",
+      "strongId": "G4396"
+    },
+    {
+      "verseId": "REV_18_24",
+      "wordIndex": 13,
+      "displayedWord": "santos,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "REV_18_24",
+      "wordIndex": 21,
+      "displayedWord": "muertos",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "REV_18_24",
+      "wordIndex": 24,
+      "displayedWord": "tierra.",
+      "strongId": "G1093"
+    }
+  ],
+  "REV_19_20": [
+    {
+      "verseId": "REV_19_20",
+      "wordIndex": 10,
+      "displayedWord": "profeta",
+      "strongId": "G4396"
+    },
+    {
+      "verseId": "REV_19_20",
+      "wordIndex": 18,
+      "displayedWord": "señales",
+      "strongId": "G4592"
+    }
+  ],
+  "REV_20_2": [
+    {
+      "verseId": "REV_20_2",
+      "wordIndex": 11,
+      "displayedWord": "diablo",
+      "strongId": "G1228"
+    },
+    {
+      "verseId": "REV_20_2",
+      "wordIndex": 13,
+      "displayedWord": "Satanás,",
+      "strongId": "G4567"
+    }
+  ],
+  "REV_20_3": [
+    {
+      "verseId": "REV_20_3",
+      "wordIndex": 21,
+      "displayedWord": "naciones,",
+      "strongId": "G1484"
+    }
+  ],
+  "REV_20_7": [
+    {
+      "verseId": "REV_20_7",
+      "wordIndex": 6,
+      "displayedWord": "Satanás",
+      "strongId": "G4567"
+    }
+  ],
+  "REV_20_10": [
+    {
+      "verseId": "REV_20_10",
+      "wordIndex": 2,
+      "displayedWord": "diablo",
+      "strongId": "G1228"
+    },
+    {
+      "verseId": "REV_20_10",
+      "wordIndex": 22,
+      "displayedWord": "profeta;",
+      "strongId": "G4396"
+    }
+  ],
+  "REV_21_14": [
+    {
+      "verseId": "REV_21_14",
+      "wordIndex": 18,
+      "displayedWord": "apóstoles",
+      "strongId": "G652"
+    }
   ]
 }

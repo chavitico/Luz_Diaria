@@ -133,6 +133,31 @@ const OT: Record<string, string> = {
   'temor': 'H3374',
   'alabanza': 'H8416',
   'bendicion': 'H1293',
+
+  // Prophecy / wisdom
+  'profeta': 'H5030',
+  'profetas': 'H5030',
+  'sabiduria': 'H2451',
+  'entendimiento': 'H998',
+  'vision': 'H2377',
+  'sueno': 'H2472',
+
+  // Worship / prayer
+  'orar': 'H6419',
+  'oracion': 'H8605',
+  'adorar': 'H7812',
+
+  // Judgment / salvation
+  'juicio': 'H4941',
+  'redimir': 'H1350',
+  'redencion': 'H1353',
+  'temor': 'H3374',
+  'arrepentios': 'H7725',
+
+  // Creation
+  'firmamento': 'H7549',
+  'semilla': 'H2233',
+  'arbol': 'H6086',
 };
 
 // Greek keywords (NT)
@@ -156,15 +181,19 @@ const NT: Record<string, string> = {
   'agua': 'G5204',
   'aguas': 'G5204',
 
-  // Life / death
+  // Life / death / resurrection
   'vida': 'G2222',
   'muerte': 'G2288',
   'muerto': 'G2288',
   'muertos': 'G2288',
   'resurreccion': 'G386',
+  'resucito': 'G1453',
+  'resucitar': 'G1453',
+  'resucitado': 'G1453',
   'carne': 'G4561',
   'alma': 'G5590',
   'corazon': 'G2588',
+  'cuerpo': 'G4983',
 
   // Faith / grace / truth
   'fe': 'G4102',
@@ -176,6 +205,9 @@ const NT: Record<string, string> = {
   'amaron': 'G25',
   'aman': 'G25',
   'amad': 'G25',
+  'amemos': 'G25',
+  'amar': 'G25',
+  'amaba': 'G25',
 
   // Believe
   'cree': 'G4100',
@@ -184,10 +216,13 @@ const NT: Record<string, string> = {
   'creeis': 'G4100',
   'creido': 'G4100',
   'creamos': 'G4100',
+  'creyeron': 'G4100',
+  'creyendo': 'G4100',
 
   // Peace / joy
   'paz': 'G1515',
   'gozo': 'G5479',
+  'alegria': 'G5479',
 
   // Moral / theological
   'gloria': 'G1391',
@@ -200,13 +235,21 @@ const NT: Record<string, string> = {
   'pecados': 'G266',
   'salvacion': 'G4991',
   'salvo': 'G4982',
-  'gracia': 'G5485',
+  'misericordia': 'G1656',
+  'perdon': 'G859',
+  'perdonar': 'G863',
+  'perdonad': 'G863',
+  'perdonados': 'G863',
 
   // Law / word
   'ley': 'G3551',
   'palabra': 'G3056',
   'verbo': 'G3056',
   'nombre': 'G3686',
+  'mandamiento': 'G1785',
+  'mandamientos': 'G1785',
+  'promesa': 'G1860',
+  'pacto': 'G1242',
 
   // People
   'hombre': 'G444',
@@ -216,20 +259,81 @@ const NT: Record<string, string> = {
   'hermano': 'G80',
   'hermanos': 'G80',
   'rey': 'G935',
+  'pueblo': 'G2992',
+  'naciones': 'G1484',
+  'gentiles': 'G1484',
+  'judios': 'G2453',
+  'judio': 'G2453',
+  'israel': 'G2474',
 
   // Special NT terms
   'unigenito': 'G3439',
   'eterna': 'G166',
   'eterno': 'G166',
+  'eternamente': 'G166',
   'reino': 'G932',
   'angel': 'G32',
   'angeles': 'G32',
   'principio': 'G746',
   'pan': 'G740',
   'sangre': 'G129',
-  'promesa': 'G1860',
-  'misericordia': 'G1656',
-  'verdad': 'G225',
+  'cruz': 'G4716',
+  'evangelio': 'G2098',
+
+  // Church / ministry
+  'iglesia': 'G1577',
+  'iglesias': 'G1577',
+  'discipulo': 'G3101',
+  'discipulos': 'G3101',
+  'apostol': 'G652',
+  'apostoles': 'G652',
+  'profeta': 'G4396',
+  'profetas': 'G4396',
+  'sacerdote': 'G2409',
+  'sacerdotes': 'G2409',
+  'pastor': 'G4166',
+
+  // Worship
+  'templo': 'G2411',
+  'orar': 'G4336',
+  'oracion': 'G4335',
+  'oraciones': 'G4335',
+
+  // Power / wisdom
+  'poder': 'G1411',
+  'sabiduria': 'G4678',
+  'conocimiento': 'G1108',
+
+  // Baptism
+  'bautismo': 'G908',
+  'bautizar': 'G907',
+  'bautizado': 'G907',
+
+  // Repentance / judgment
+  'arrepentimiento': 'G3341',
+  'arrepentios': 'G3340',
+  'arrepentirse': 'G3340',
+  'juicio': 'G2920',
+  'obediencia': 'G5218',
+
+  // Enemy / spiritual warfare
+  'diablo': 'G1228',
+  'satanas': 'G4567',
+  'demonio': 'G1140',
+  'demonios': 'G1140',
+
+  // Signs / miracles
+  'senal': 'G4592',
+  'senales': 'G4592',
+  'milagro': 'G4592',
+  'milagros': 'G4592',
+  'testimonio': 'G3141',
+  'testigo': 'G3144',
+  'testigos': 'G3144',
+
+  // Eschatology
+  'venida': 'G3952',
+  'retorno': 'G3952',
 };
 
 // ─── Core logic ──────────────────────────────────────────────────────────────
@@ -310,9 +414,42 @@ async function extendAlignmentFile(
 }
 
 // ─── Plan ────────────────────────────────────────────────────────────────────
+// Stage 1: Full NT coverage (all 27 books, all chapters)
+// Stage OT: Selective key chapters from major OT books
+
+const r = (n: number) => Array.from({ length: n }, (_, i) => i + 1);
 
 const PLAN: { file: string; bookId: string; chapters: number[] }[] = [
-  // ── Already existing files — extend with more chapters ──────────────────
+  // ── NT: Complete coverage ────────────────────────────────────────────────
+  { file: 'align_MAT.json', bookId: 'MAT', chapters: r(28) },
+  { file: 'align_MRK.json', bookId: 'MRK', chapters: r(16) },
+  { file: 'align_LUK.json', bookId: 'LUK', chapters: r(24) },
+  { file: 'align_JHN.json', bookId: 'JHN', chapters: r(21) },
+  { file: 'align_ACT.json', bookId: 'ACT', chapters: r(28) },
+  { file: 'align_ROM.json', bookId: 'ROM', chapters: r(16) },
+  { file: 'align_1CO.json', bookId: '1CO', chapters: r(16) },
+  { file: 'align_2CO.json', bookId: '2CO', chapters: r(13) },
+  { file: 'align_GAL.json', bookId: 'GAL', chapters: r(6) },
+  { file: 'align_EPH.json', bookId: 'EPH', chapters: r(6) },
+  { file: 'align_PHP.json', bookId: 'PHP', chapters: r(4) },
+  { file: 'align_COL.json', bookId: 'COL', chapters: r(4) },
+  { file: 'align_1TH.json', bookId: '1TH', chapters: r(5) },
+  { file: 'align_2TH.json', bookId: '2TH', chapters: r(3) },   // NEW
+  { file: 'align_1TI.json', bookId: '1TI', chapters: r(6) },   // NEW
+  { file: 'align_2TI.json', bookId: '2TI', chapters: r(4) },
+  { file: 'align_TIT.json', bookId: 'TIT', chapters: r(3) },   // NEW
+  { file: 'align_PHM.json', bookId: 'PHM', chapters: [1] },    // NEW
+  { file: 'align_HEB.json', bookId: 'HEB', chapters: r(13) },
+  { file: 'align_JAS.json', bookId: 'JAS', chapters: r(5) },
+  { file: 'align_1PE.json', bookId: '1PE', chapters: r(5) },
+  { file: 'align_2PE.json', bookId: '2PE', chapters: r(3) },   // NEW
+  { file: 'align_1JN.json', bookId: '1JN', chapters: r(5) },
+  { file: 'align_2JN.json', bookId: '2JN', chapters: [1] },    // NEW
+  { file: 'align_3JN.json', bookId: '3JN', chapters: [1] },    // NEW
+  { file: 'align_JUD.json', bookId: 'JUD', chapters: [1] },    // NEW
+  { file: 'align_REV.json', bookId: 'REV', chapters: r(22) },
+
+  // ── OT: Selective key chapters ──────────────────────────────────────────
   {
     file: 'align_GEN.json', bookId: 'GEN',
     chapters: [2,3,4,5,6,7,8,9,10,11,12,15,17,18,19,22,24,25,28,32,37,39,41,45,50],
@@ -326,82 +463,8 @@ const PLAN: { file: string; bookId: string; chapters: number[] }[] = [
     chapters: [1,2,8,16,19,22,24,25,27,31,32,34,37,46,51,63,84,90,91,96,100,103,104,107,110,116,119,121,130,133,139,145,146,150],
   },
   {
-    file: 'align_JHN.json', bookId: 'JHN',
-    chapters: [2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,20,21],
-  },
-  {
-    file: 'align_ROM.json', bookId: 'ROM',
-    chapters: [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16],
-  },
-
-  // ── New books ────────────────────────────────────────────────────────────
-  {
     file: 'align_ISA.json', bookId: 'ISA',
     chapters: [1,6,7,9,11,25,26,35,40,41,42,43,44,45,46,49,50,52,53,54,55,56,58,60,61,65,66],
-  },
-  {
-    file: 'align_MAT.json', bookId: 'MAT',
-    chapters: [1,2,3,4,5,6,7,8,11,16,17,18,20,22,24,25,26,27,28],
-  },
-  {
-    file: 'align_MRK.json', bookId: 'MRK',
-    chapters: [1,2,5,8,10,12,14,15,16],
-  },
-  {
-    file: 'align_LUK.json', bookId: 'LUK',
-    chapters: [1,2,3,4,6,9,10,11,12,15,18,19,22,23,24],
-  },
-  {
-    file: 'align_ACT.json', bookId: 'ACT',
-    chapters: [1,2,3,4,7,10,13,15,16,17,26,27,28],
-  },
-  {
-    file: 'align_1CO.json', bookId: '1CO',
-    chapters: [1,2,3,6,10,11,12,13,15],
-  },
-  {
-    file: 'align_2CO.json', bookId: '2CO',
-    chapters: [3,4,5,6,9,12],
-  },
-  {
-    file: 'align_GAL.json', bookId: 'GAL',
-    chapters: [1,2,3,4,5,6],
-  },
-  {
-    file: 'align_EPH.json', bookId: 'EPH',
-    chapters: [1,2,3,4,5,6],
-  },
-  {
-    file: 'align_PHP.json', bookId: 'PHP',
-    chapters: [1,2,3,4],
-  },
-  {
-    file: 'align_COL.json', bookId: 'COL',
-    chapters: [1,2,3,4],
-  },
-  {
-    file: 'align_1TH.json', bookId: '1TH',
-    chapters: [4,5],
-  },
-  {
-    file: 'align_HEB.json', bookId: 'HEB',
-    chapters: [1,2,4,6,9,10,11,12,13],
-  },
-  {
-    file: 'align_JAS.json', bookId: 'JAS',
-    chapters: [1,2,3,4,5],
-  },
-  {
-    file: 'align_1PE.json', bookId: '1PE',
-    chapters: [1,2,3,4,5],
-  },
-  {
-    file: 'align_1JN.json', bookId: '1JN',
-    chapters: [1,2,3,4,5],
-  },
-  {
-    file: 'align_REV.json', bookId: 'REV',
-    chapters: [1,3,4,5,7,12,14,19,20,21,22],
   },
   {
     file: 'align_PRO.json', bookId: 'PRO',
@@ -435,10 +498,6 @@ const PLAN: { file: string; bookId: string; chapters: number[] }[] = [
     file: 'align_JOS.json', bookId: 'JOS',
     chapters: [1,24],
   },
-  {
-    file: 'align_2TI.json', bookId: '2TI',
-    chapters: [3,4],
-  },
 ];
 
 // ─── Main ────────────────────────────────────────────────────────────────────
@@ -448,7 +507,7 @@ let totalLinks = 0;
 let totalFiles = 0;
 
 for (const { file, bookId, chapters } of PLAN) {
-  process.stdout.write(`\n📖 ${file} (${bookId}, chapters: ${chapters.join(',')})\n`);
+  process.stdout.write(`\n📖 ${file} (${bookId}, ${chapters.length} chapters)\n`);
   const { versesAdded, linksAdded } = await extendAlignmentFile(file, bookId, chapters);
   totalVerses += versesAdded;
   totalLinks += linksAdded;

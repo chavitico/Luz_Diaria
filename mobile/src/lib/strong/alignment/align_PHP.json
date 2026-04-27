@@ -1280,5 +1280,21 @@
       "displayedWord": "Señor",
       "strongId": "G2962"
     }
+  ],
+  "PHP_1_5": [
+    {
+      "verseId": "PHP_1_5",
+      "wordIndex": 5,
+      "displayedWord": "evangelio,",
+      "strongId": "G2098"
+    }
+  ],
+  "PHP_3_2": [
+    {
+      "verseId": "PHP_3_2",
+      "wordIndex": 14,
+      "displayedWord": "cuerpo.",
+      "strongId": "G4983"
+    }
   ]
 }

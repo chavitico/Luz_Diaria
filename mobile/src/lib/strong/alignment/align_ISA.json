@@ -6790,5 +6790,45 @@
       "displayedWord": "hombre.",
       "strongId": "H120"
     }
+  ],
+  "ISA_9_15": [
+    {
+      "verseId": "ISA_9_15",
+      "wordIndex": 10,
+      "displayedWord": "profeta",
+      "strongId": "H5030"
+    }
+  ],
+  "ISA_40_14": [
+    {
+      "verseId": "ISA_40_14",
+      "wordIndex": 13,
+      "displayedWord": "juicio,",
+      "strongId": "H4941"
+    }
+  ],
+  "ISA_41_1": [
+    {
+      "verseId": "ISA_41_1",
+      "wordIndex": 13,
+      "displayedWord": "juicio.",
+      "strongId": "H4941"
+    }
+  ],
+  "ISA_43_26": [
+    {
+      "verseId": "ISA_43_26",
+      "wordIndex": 4,
+      "displayedWord": "juicio",
+      "strongId": "H4941"
+    }
+  ],
+  "ISA_44_25": [
+    {
+      "verseId": "ISA_44_25",
+      "wordIndex": 22,
+      "displayedWord": "sabiduría.",
+      "strongId": "H2451"
+    }
   ]
 }

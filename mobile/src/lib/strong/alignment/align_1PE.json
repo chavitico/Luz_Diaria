@@ -1282,5 +1282,45 @@
       "displayedWord": "Paz",
       "strongId": "G1515"
     }
+  ],
+  "1PE_1_1": [
+    {
+      "verseId": "1PE_1_1",
+      "wordIndex": 1,
+      "displayedWord": "apóstol",
+      "strongId": "G652"
+    }
+  ],
+  "1PE_2_25": [
+    {
+      "verseId": "1PE_2_25",
+      "wordIndex": 12,
+      "displayedWord": "Pastor",
+      "strongId": "G4166"
+    }
+  ],
+  "1PE_4_3": [
+    {
+      "verseId": "1PE_4_3",
+      "wordIndex": 13,
+      "displayedWord": "gentiles,",
+      "strongId": "G1484"
+    }
+  ],
+  "1PE_4_7": [
+    {
+      "verseId": "1PE_4_7",
+      "wordIndex": 15,
+      "displayedWord": "oración.",
+      "strongId": "G4335"
+    }
+  ],
+  "1PE_5_8": [
+    {
+      "verseId": "1PE_5_8",
+      "wordIndex": 8,
+      "displayedWord": "diablo,",
+      "strongId": "G1228"
+    }
   ]
 }

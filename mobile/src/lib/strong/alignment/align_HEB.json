@@ -2501,5 +2501,1003 @@
       "displayedWord": "gracia",
       "strongId": "G5485"
     }
+  ],
+  "HEB_3_1": [
+    {
+      "verseId": "HEB_3_1",
+      "wordIndex": 2,
+      "displayedWord": "hermanos",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "HEB_3_1",
+      "wordIndex": 3,
+      "displayedWord": "santos,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "HEB_3_1",
+      "wordIndex": 10,
+      "displayedWord": "apóstol",
+      "strongId": "G652"
+    },
+    {
+      "verseId": "HEB_3_1",
+      "wordIndex": 13,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_3_1",
+      "wordIndex": 17,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "HEB_3_1",
+      "wordIndex": 18,
+      "displayedWord": "Jesús;",
+      "strongId": "G2424"
+    }
+  ],
+  "HEB_3_2": [
+    {
+      "verseId": "HEB_3_2",
+      "wordIndex": 18,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "HEB_3_3": [
+    {
+      "verseId": "HEB_3_3",
+      "wordIndex": 4,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    }
+  ],
+  "HEB_3_4": [
+    {
+      "verseId": "HEB_3_4",
+      "wordIndex": 15,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "HEB_3_5": [
+    {
+      "verseId": "HEB_3_5",
+      "wordIndex": 4,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "HEB_3_5",
+      "wordIndex": 12,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "HEB_3_5",
+      "wordIndex": 16,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    }
+  ],
+  "HEB_3_6": [
+    {
+      "verseId": "HEB_3_6",
+      "wordIndex": 1,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "HEB_3_6",
+      "wordIndex": 3,
+      "displayedWord": "hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "HEB_3_6",
+      "wordIndex": 25,
+      "displayedWord": "esperanza.",
+      "strongId": "G1680"
+    }
+  ],
+  "HEB_3_7": [
+    {
+      "verseId": "HEB_3_7",
+      "wordIndex": 6,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "HEB_3_7",
+      "wordIndex": 7,
+      "displayedWord": "Santo:",
+      "strongId": "G40"
+    }
+  ],
+  "HEB_3_10": [
+    {
+      "verseId": "HEB_3_10",
+      "wordIndex": 17,
+      "displayedWord": "corazón,",
+      "strongId": "G2588"
+    }
+  ],
+  "HEB_3_12": [
+    {
+      "verseId": "HEB_3_12",
+      "wordIndex": 1,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "HEB_3_12",
+      "wordIndex": 9,
+      "displayedWord": "corazón",
+      "strongId": "G2588"
+    },
+    {
+      "verseId": "HEB_3_12",
+      "wordIndex": 16,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "HEB_3_13": [
+    {
+      "verseId": "HEB_3_13",
+      "wordIndex": 26,
+      "displayedWord": "pecado.",
+      "strongId": "G266"
+    }
+  ],
+  "HEB_3_14": [
+    {
+      "verseId": "HEB_3_14",
+      "wordIndex": 5,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "HEB_3_14",
+      "wordIndex": 17,
+      "displayedWord": "principio,",
+      "strongId": "G746"
+    }
+  ],
+  "HEB_5_1": [
+    {
+      "verseId": "HEB_5_1",
+      "wordIndex": 3,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_5_1",
+      "wordIndex": 8,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "HEB_5_1",
+      "wordIndex": 15,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "HEB_5_1",
+      "wordIndex": 20,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "HEB_5_1",
+      "wordIndex": 31,
+      "displayedWord": "pecados;",
+      "strongId": "G266"
+    }
+  ],
+  "HEB_5_3": [
+    {
+      "verseId": "HEB_5_3",
+      "wordIndex": 9,
+      "displayedWord": "pecados,",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "HEB_5_3",
+      "wordIndex": 18,
+      "displayedWord": "pueblo.",
+      "strongId": "G2992"
+    }
+  ],
+  "HEB_5_4": [
+    {
+      "verseId": "HEB_5_4",
+      "wordIndex": 13,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "HEB_5_5": [
+    {
+      "verseId": "HEB_5_5",
+      "wordIndex": 2,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "HEB_5_5",
+      "wordIndex": 10,
+      "displayedWord": "sacerdote,",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_5_5",
+      "wordIndex": 19,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    }
+  ],
+  "HEB_5_6": [
+    {
+      "verseId": "HEB_5_6",
+      "wordIndex": 8,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    }
+  ],
+  "HEB_5_7": [
+    {
+      "verseId": "HEB_5_7",
+      "wordIndex": 1,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "HEB_5_7",
+      "wordIndex": 7,
+      "displayedWord": "carne,",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "HEB_5_7",
+      "wordIndex": 24,
+      "displayedWord": "muerte,",
+      "strongId": "G2288"
+    }
+  ],
+  "HEB_5_8": [
+    {
+      "verseId": "HEB_5_8",
+      "wordIndex": 3,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "HEB_5_8",
+      "wordIndex": 10,
+      "displayedWord": "obediencia;",
+      "strongId": "G5218"
+    }
+  ],
+  "HEB_5_9": [
+    {
+      "verseId": "HEB_5_9",
+      "wordIndex": 9,
+      "displayedWord": "eterna",
+      "strongId": "G166"
+    },
+    {
+      "verseId": "HEB_5_9",
+      "wordIndex": 10,
+      "displayedWord": "salvación",
+      "strongId": "G4991"
+    }
+  ],
+  "HEB_5_10": [
+    {
+      "verseId": "HEB_5_10",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "HEB_5_10",
+      "wordIndex": 6,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    }
+  ],
+  "HEB_5_12": [
+    {
+      "verseId": "HEB_5_12",
+      "wordIndex": 27,
+      "displayedWord": "Dios;",
+      "strongId": "G2316"
+    }
+  ],
+  "HEB_5_13": [
+    {
+      "verseId": "HEB_5_13",
+      "wordIndex": 12,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "HEB_5_13",
+      "wordIndex": 14,
+      "displayedWord": "justicia,",
+      "strongId": "G1343"
+    }
+  ],
+  "HEB_7_1": [
+    {
+      "verseId": "HEB_7_1",
+      "wordIndex": 3,
+      "displayedWord": "rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "HEB_7_1",
+      "wordIndex": 6,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_7_1",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "HEB_7_2": [
+    {
+      "verseId": "HEB_7_2",
+      "wordIndex": 11,
+      "displayedWord": "nombre",
+      "strongId": "G3686"
+    },
+    {
+      "verseId": "HEB_7_2",
+      "wordIndex": 14,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "HEB_7_2",
+      "wordIndex": 16,
+      "displayedWord": "justicia,",
+      "strongId": "G1343"
+    },
+    {
+      "verseId": "HEB_7_2",
+      "wordIndex": 19,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "HEB_7_2",
+      "wordIndex": 24,
+      "displayedWord": "Rey",
+      "strongId": "G935"
+    },
+    {
+      "verseId": "HEB_7_2",
+      "wordIndex": 26,
+      "displayedWord": "paz;",
+      "strongId": "G1515"
+    }
+  ],
+  "HEB_7_3": [
+    {
+      "verseId": "HEB_7_3",
+      "wordIndex": 1,
+      "displayedWord": "padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "HEB_7_3",
+      "wordIndex": 9,
+      "displayedWord": "principio",
+      "strongId": "G746"
+    },
+    {
+      "verseId": "HEB_7_3",
+      "wordIndex": 15,
+      "displayedWord": "vida,",
+      "strongId": "G2222"
+    },
+    {
+      "verseId": "HEB_7_3",
+      "wordIndex": 20,
+      "displayedWord": "Hijo",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "HEB_7_3",
+      "wordIndex": 22,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "HEB_7_3",
+      "wordIndex": 24,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    }
+  ],
+  "HEB_7_5": [
+    {
+      "verseId": "HEB_7_5",
+      "wordIndex": 6,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "HEB_7_5",
+      "wordIndex": 13,
+      "displayedWord": "mandamiento",
+      "strongId": "G1785"
+    },
+    {
+      "verseId": "HEB_7_5",
+      "wordIndex": 17,
+      "displayedWord": "pueblo",
+      "strongId": "G2992"
+    },
+    {
+      "verseId": "HEB_7_5",
+      "wordIndex": 22,
+      "displayedWord": "ley,",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "HEB_7_5",
+      "wordIndex": 28,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    }
+  ],
+  "HEB_7_8": [
+    {
+      "verseId": "HEB_7_8",
+      "wordIndex": 6,
+      "displayedWord": "hombres",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "HEB_7_8",
+      "wordIndex": 15,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    }
+  ],
+  "HEB_7_10": [
+    {
+      "verseId": "HEB_7_10",
+      "wordIndex": 8,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    }
+  ],
+  "HEB_7_11": [
+    {
+      "verseId": "HEB_7_11",
+      "wordIndex": 14,
+      "displayedWord": "pueblo",
+      "strongId": "G2992"
+    },
+    {
+      "verseId": "HEB_7_11",
+      "wordIndex": 16,
+      "displayedWord": "ley),",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "HEB_7_11",
+      "wordIndex": 26,
+      "displayedWord": "sacerdote,",
+      "strongId": "G2409"
+    }
+  ],
+  "HEB_7_12": [
+    {
+      "verseId": "HEB_7_12",
+      "wordIndex": 11,
+      "displayedWord": "ley;",
+      "strongId": "G3551"
+    }
+  ],
+  "HEB_7_14": [
+    {
+      "verseId": "HEB_7_14",
+      "wordIndex": 5,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "HEB_7_15": [
+    {
+      "verseId": "HEB_7_15",
+      "wordIndex": 14,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    }
+  ],
+  "HEB_7_16": [
+    {
+      "verseId": "HEB_7_16",
+      "wordIndex": 5,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "HEB_7_16",
+      "wordIndex": 7,
+      "displayedWord": "mandamiento",
+      "strongId": "G1785"
+    },
+    {
+      "verseId": "HEB_7_16",
+      "wordIndex": 15,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "HEB_7_16",
+      "wordIndex": 18,
+      "displayedWord": "vida",
+      "strongId": "G2222"
+    }
+  ],
+  "HEB_7_17": [
+    {
+      "verseId": "HEB_7_17",
+      "wordIndex": 3,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    },
+    {
+      "verseId": "HEB_7_17",
+      "wordIndex": 8,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    }
+  ],
+  "HEB_7_18": [
+    {
+      "verseId": "HEB_7_18",
+      "wordIndex": 4,
+      "displayedWord": "mandamiento",
+      "strongId": "G1785"
+    }
+  ],
+  "HEB_7_19": [
+    {
+      "verseId": "HEB_7_19",
+      "wordIndex": 4,
+      "displayedWord": "ley),",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "HEB_7_19",
+      "wordIndex": 12,
+      "displayedWord": "esperanza,",
+      "strongId": "G1680"
+    },
+    {
+      "verseId": "HEB_7_19",
+      "wordIndex": 19,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "HEB_7_21": [
+    {
+      "verseId": "HEB_7_21",
+      "wordIndex": 8,
+      "displayedWord": "sacerdotes;",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_7_21",
+      "wordIndex": 20,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "HEB_7_21",
+      "wordIndex": 27,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    }
+  ],
+  "HEB_7_22": [
+    {
+      "verseId": "HEB_7_22",
+      "wordIndex": 2,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "HEB_7_22",
+      "wordIndex": 9,
+      "displayedWord": "pacto.",
+      "strongId": "G1242"
+    }
+  ],
+  "HEB_7_23": [
+    {
+      "verseId": "HEB_7_23",
+      "wordIndex": 3,
+      "displayedWord": "sacerdotes",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_7_23",
+      "wordIndex": 13,
+      "displayedWord": "muerte",
+      "strongId": "G2288"
+    }
+  ],
+  "HEB_7_25": [
+    {
+      "verseId": "HEB_7_25",
+      "wordIndex": 15,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "HEB_7_26": [
+    {
+      "verseId": "HEB_7_26",
+      "wordIndex": 3,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_7_26",
+      "wordIndex": 6,
+      "displayedWord": "santo,",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "HEB_7_26",
+      "wordIndex": 20,
+      "displayedWord": "cielos;",
+      "strongId": "G3772"
+    }
+  ],
+  "HEB_7_27": [
+    {
+      "verseId": "HEB_7_27",
+      "wordIndex": 9,
+      "displayedWord": "sacerdotes,",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_7_27",
+      "wordIndex": 17,
+      "displayedWord": "pecados,",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "HEB_7_27",
+      "wordIndex": 23,
+      "displayedWord": "pueblo;",
+      "strongId": "G2992"
+    }
+  ],
+  "HEB_7_28": [
+    {
+      "verseId": "HEB_7_28",
+      "wordIndex": 2,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "HEB_7_28",
+      "wordIndex": 5,
+      "displayedWord": "sacerdotes",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_7_28",
+      "wordIndex": 8,
+      "displayedWord": "hombres;",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "HEB_7_28",
+      "wordIndex": 11,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "HEB_7_28",
+      "wordIndex": 17,
+      "displayedWord": "ley,",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "HEB_7_28",
+      "wordIndex": 19,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    }
+  ],
+  "HEB_8_1": [
+    {
+      "verseId": "HEB_8_1",
+      "wordIndex": 15,
+      "displayedWord": "sacerdote,",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_8_1",
+      "wordIndex": 30,
+      "displayedWord": "cielos,",
+      "strongId": "G3772"
+    }
+  ],
+  "HEB_8_2": [
+    {
+      "verseId": "HEB_8_2",
+      "wordIndex": 11,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "HEB_8_2",
+      "wordIndex": 15,
+      "displayedWord": "hombre.",
+      "strongId": "G444"
+    }
+  ],
+  "HEB_8_3": [
+    {
+      "verseId": "HEB_8_3",
+      "wordIndex": 3,
+      "displayedWord": "sacerdote",
+      "strongId": "G2409"
+    }
+  ],
+  "HEB_8_4": [
+    {
+      "verseId": "HEB_8_4",
+      "wordIndex": 6,
+      "displayedWord": "tierra,",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "HEB_8_4",
+      "wordIndex": 10,
+      "displayedWord": "sacerdote,",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_8_4",
+      "wordIndex": 13,
+      "displayedWord": "sacerdotes",
+      "strongId": "G2409"
+    },
+    {
+      "verseId": "HEB_8_4",
+      "wordIndex": 20,
+      "displayedWord": "ley;",
+      "strongId": "G3551"
+    }
+  ],
+  "HEB_8_6": [
+    {
+      "verseId": "HEB_8_6",
+      "wordIndex": 14,
+      "displayedWord": "pacto,",
+      "strongId": "G1242"
+    }
+  ],
+  "HEB_8_8": [
+    {
+      "verseId": "HEB_8_8",
+      "wordIndex": 9,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "HEB_8_8",
+      "wordIndex": 17,
+      "displayedWord": "Israel",
+      "strongId": "G2474"
+    },
+    {
+      "verseId": "HEB_8_8",
+      "wordIndex": 25,
+      "displayedWord": "pacto;",
+      "strongId": "G1242"
+    }
+  ],
+  "HEB_8_9": [
+    {
+      "verseId": "HEB_8_9",
+      "wordIndex": 3,
+      "displayedWord": "pacto",
+      "strongId": "G1242"
+    },
+    {
+      "verseId": "HEB_8_9",
+      "wordIndex": 21,
+      "displayedWord": "tierra",
+      "strongId": "G1093"
+    },
+    {
+      "verseId": "HEB_8_9",
+      "wordIndex": 30,
+      "displayedWord": "pacto,",
+      "strongId": "G1242"
+    },
+    {
+      "verseId": "HEB_8_9",
+      "wordIndex": 39,
+      "displayedWord": "Señor.",
+      "strongId": "G2962"
+    }
+  ],
+  "HEB_8_10": [
+    {
+      "verseId": "HEB_8_10",
+      "wordIndex": 6,
+      "displayedWord": "pacto",
+      "strongId": "G1242"
+    },
+    {
+      "verseId": "HEB_8_10",
+      "wordIndex": 13,
+      "displayedWord": "Israel",
+      "strongId": "G2474"
+    },
+    {
+      "verseId": "HEB_8_10",
+      "wordIndex": 20,
+      "displayedWord": "Señor:",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "HEB_8_10",
+      "wordIndex": 32,
+      "displayedWord": "corazón",
+      "strongId": "G2588"
+    },
+    {
+      "verseId": "HEB_8_10",
+      "wordIndex": 40,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "HEB_8_10",
+      "wordIndex": 48,
+      "displayedWord": "pueblo;",
+      "strongId": "G2992"
+    }
+  ],
+  "HEB_8_11": [
+    {
+      "verseId": "HEB_8_11",
+      "wordIndex": 10,
+      "displayedWord": "hermano,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "HEB_8_11",
+      "wordIndex": 14,
+      "displayedWord": "Señor;",
+      "strongId": "G2962"
+    }
+  ],
+  "HEB_8_12": [
+    {
+      "verseId": "HEB_8_12",
+      "wordIndex": 13,
+      "displayedWord": "pecados",
+      "strongId": "G266"
+    }
+  ],
+  "HEB_8_13": [
+    {
+      "verseId": "HEB_8_13",
+      "wordIndex": 3,
+      "displayedWord": "pacto,",
+      "strongId": "G1242"
+    }
+  ],
+  "HEB_9_1": [
+    {
+      "verseId": "HEB_9_1",
+      "wordIndex": 5,
+      "displayedWord": "pacto",
+      "strongId": "G1242"
+    }
+  ],
+  "HEB_9_4": [
+    {
+      "verseId": "HEB_9_4",
+      "wordIndex": 12,
+      "displayedWord": "pacto",
+      "strongId": "G1242"
+    },
+    {
+      "verseId": "HEB_9_4",
+      "wordIndex": 44,
+      "displayedWord": "pacto;",
+      "strongId": "G1242"
+    }
+  ],
+  "HEB_9_6": [
+    {
+      "verseId": "HEB_9_6",
+      "wordIndex": 13,
+      "displayedWord": "sacerdotes",
+      "strongId": "G2409"
+    }
+  ],
+  "HEB_10_10": [
+    {
+      "verseId": "HEB_10_10",
+      "wordIndex": 9,
+      "displayedWord": "cuerpo",
+      "strongId": "G4983"
+    }
+  ],
+  "HEB_10_27": [
+    {
+      "verseId": "HEB_10_27",
+      "wordIndex": 5,
+      "displayedWord": "juicio,",
+      "strongId": "G2920"
+    }
+  ],
+  "HEB_11_2": [
+    {
+      "verseId": "HEB_11_2",
+      "wordIndex": 5,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    }
+  ],
+  "HEB_11_32": [
+    {
+      "verseId": "HEB_11_32",
+      "wordIndex": 33,
+      "displayedWord": "profetas;",
+      "strongId": "G4396"
+    }
+  ],
+  "HEB_12_17": [
+    {
+      "verseId": "HEB_12_17",
+      "wordIndex": 18,
+      "displayedWord": "arrepentimiento,",
+      "strongId": "G3341"
+    }
+  ],
+  "HEB_13_3": [
+    {
+      "verseId": "HEB_13_3",
+      "wordIndex": 23,
+      "displayedWord": "cuerpo.",
+      "strongId": "G4983"
+    }
+  ],
+  "HEB_13_17": [
+    {
+      "verseId": "HEB_13_17",
+      "wordIndex": 25,
+      "displayedWord": "alegría,",
+      "strongId": "G5479"
+    }
   ]
 }

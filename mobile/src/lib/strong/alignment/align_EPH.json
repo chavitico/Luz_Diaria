@@ -2050,5 +2050,103 @@
       "displayedWord": "amor",
       "strongId": "G26"
     }
+  ],
+  "EPH_1_8": [
+    {
+      "verseId": "EPH_1_8",
+      "wordIndex": 8,
+      "displayedWord": "sabiduría",
+      "strongId": "G4678"
+    }
+  ],
+  "EPH_1_16": [
+    {
+      "verseId": "EPH_1_16",
+      "wordIndex": 13,
+      "displayedWord": "oraciones,",
+      "strongId": "G4335"
+    }
+  ],
+  "EPH_1_19": [
+    {
+      "verseId": "EPH_1_19",
+      "wordIndex": 7,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "EPH_1_19",
+      "wordIndex": 18,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    }
+  ],
+  "EPH_1_22": [
+    {
+      "verseId": "EPH_1_22",
+      "wordIndex": 20,
+      "displayedWord": "iglesia,",
+      "strongId": "G1577"
+    }
+  ],
+  "EPH_1_23": [
+    {
+      "verseId": "EPH_1_23",
+      "wordIndex": 4,
+      "displayedWord": "cuerpo,",
+      "strongId": "G4983"
+    }
+  ],
+  "EPH_2_20": [
+    {
+      "verseId": "EPH_2_20",
+      "wordIndex": 6,
+      "displayedWord": "apóstoles",
+      "strongId": "G652"
+    },
+    {
+      "verseId": "EPH_2_20",
+      "wordIndex": 8,
+      "displayedWord": "profetas,",
+      "strongId": "G4396"
+    }
+  ],
+  "EPH_3_20": [
+    {
+      "verseId": "EPH_3_20",
+      "wordIndex": 22,
+      "displayedWord": "poder",
+      "strongId": "G1411"
+    }
+  ],
+  "EPH_4_11": [
+    {
+      "verseId": "EPH_4_11",
+      "wordIndex": 6,
+      "displayedWord": "apóstoles;",
+      "strongId": "G652"
+    },
+    {
+      "verseId": "EPH_4_11",
+      "wordIndex": 9,
+      "displayedWord": "profetas;",
+      "strongId": "G4396"
+    }
+  ],
+  "EPH_4_27": [
+    {
+      "verseId": "EPH_4_27",
+      "wordIndex": 4,
+      "displayedWord": "diablo.",
+      "strongId": "G1228"
+    }
+  ],
+  "EPH_5_28": [
+    {
+      "verseId": "EPH_5_28",
+      "wordIndex": 5,
+      "displayedWord": "amar",
+      "strongId": "G25"
+    }
   ]
 }

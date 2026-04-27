@@ -1848,5 +1848,89 @@
       "displayedWord": "espíritu.",
       "strongId": "G4151"
     }
+  ],
+  "GAL_1_9": [
+    {
+      "verseId": "GAL_1_9",
+      "wordIndex": 13,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    }
+  ],
+  "GAL_1_17": [
+    {
+      "verseId": "GAL_1_17",
+      "wordIndex": 8,
+      "displayedWord": "apóstoles",
+      "strongId": "G652"
+    }
+  ],
+  "GAL_2_2": [
+    {
+      "verseId": "GAL_2_2",
+      "wordIndex": 24,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    },
+    {
+      "verseId": "GAL_2_2",
+      "wordIndex": 29,
+      "displayedWord": "gentiles.",
+      "strongId": "G1484"
+    }
+  ],
+  "GAL_2_7": [
+    {
+      "verseId": "GAL_2_7",
+      "wordIndex": 12,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    }
+  ],
+  "GAL_2_8": [
+    {
+      "verseId": "GAL_2_8",
+      "wordIndex": 19,
+      "displayedWord": "gentiles),",
+      "strongId": "G1484"
+    }
+  ],
+  "GAL_2_12": [
+    {
+      "verseId": "GAL_2_12",
+      "wordIndex": 12,
+      "displayedWord": "gentiles;",
+      "strongId": "G1484"
+    }
+  ],
+  "GAL_2_13": [
+    {
+      "verseId": "GAL_2_13",
+      "wordIndex": 8,
+      "displayedWord": "judíos,",
+      "strongId": "G2453"
+    }
+  ],
+  "GAL_2_15": [
+    {
+      "verseId": "GAL_2_15",
+      "wordIndex": 1,
+      "displayedWord": "judíos",
+      "strongId": "G2453"
+    },
+    {
+      "verseId": "GAL_2_15",
+      "wordIndex": 10,
+      "displayedWord": "gentiles,",
+      "strongId": "G1484"
+    }
+  ],
+  "GAL_4_15": [
+    {
+      "verseId": "GAL_4_15",
+      "wordIndex": 10,
+      "displayedWord": "testimonio",
+      "strongId": "G3141"
+    }
   ]
 }

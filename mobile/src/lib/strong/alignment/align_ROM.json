@@ -5600,5 +5600,487 @@
       "displayedWord": "gloria",
       "strongId": "G1391"
     }
+  ],
+  "ROM_1_2": [
+    {
+      "verseId": "ROM_1_2",
+      "wordIndex": 7,
+      "displayedWord": "profetas",
+      "strongId": "G4396"
+    }
+  ],
+  "ROM_1_15": [
+    {
+      "verseId": "ROM_1_15",
+      "wordIndex": 11,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    }
+  ],
+  "ROM_2_4": [
+    {
+      "verseId": "ROM_2_4",
+      "wordIndex": 17,
+      "displayedWord": "arrepentimiento?",
+      "strongId": "G3341"
+    }
+  ],
+  "ROM_2_9": [
+    {
+      "verseId": "ROM_2_9",
+      "wordIndex": 12,
+      "displayedWord": "judío",
+      "strongId": "G2453"
+    }
+  ],
+  "ROM_3_1": [
+    {
+      "verseId": "ROM_3_1",
+      "wordIndex": 5,
+      "displayedWord": "judío?",
+      "strongId": "G2453"
+    }
+  ],
+  "ROM_4_25": [
+    {
+      "verseId": "ROM_4_25",
+      "wordIndex": 8,
+      "displayedWord": "resucitado",
+      "strongId": "G1453"
+    }
+  ],
+  "ROM_8_5": [
+    {
+      "verseId": "ROM_8_5",
+      "wordIndex": 6,
+      "displayedWord": "carne",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "ROM_8_5",
+      "wordIndex": 13,
+      "displayedWord": "carne;",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "ROM_8_5",
+      "wordIndex": 19,
+      "displayedWord": "Espíritu,",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "ROM_8_5",
+      "wordIndex": 24,
+      "displayedWord": "Espíritu.",
+      "strongId": "G4151"
+    }
+  ],
+  "ROM_8_7": [
+    {
+      "verseId": "ROM_8_7",
+      "wordIndex": 6,
+      "displayedWord": "carne",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "ROM_8_7",
+      "wordIndex": 10,
+      "displayedWord": "Dios;",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "ROM_8_7",
+      "wordIndex": 17,
+      "displayedWord": "ley",
+      "strongId": "G3551"
+    },
+    {
+      "verseId": "ROM_8_7",
+      "wordIndex": 19,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "ROM_8_8": [
+    {
+      "verseId": "ROM_8_8",
+      "wordIndex": 6,
+      "displayedWord": "carne",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "ROM_8_8",
+      "wordIndex": 11,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "ROM_8_10": [
+    {
+      "verseId": "ROM_8_10",
+      "wordIndex": 2,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "ROM_8_10",
+      "wordIndex": 7,
+      "displayedWord": "cuerpo",
+      "strongId": "G4983"
+    },
+    {
+      "verseId": "ROM_8_10",
+      "wordIndex": 9,
+      "displayedWord": "verdad",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "ROM_8_10",
+      "wordIndex": 11,
+      "displayedWord": "muerto",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "ROM_8_10",
+      "wordIndex": 15,
+      "displayedWord": "pecado,",
+      "strongId": "G266"
+    },
+    {
+      "verseId": "ROM_8_10",
+      "wordIndex": 18,
+      "displayedWord": "espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "ROM_8_10",
+      "wordIndex": 24,
+      "displayedWord": "justicia.",
+      "strongId": "G1343"
+    }
+  ],
+  "ROM_8_12": [
+    {
+      "verseId": "ROM_8_12",
+      "wordIndex": 2,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "ROM_8_12",
+      "wordIndex": 8,
+      "displayedWord": "carne,",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "ROM_8_12",
+      "wordIndex": 15,
+      "displayedWord": "carne;",
+      "strongId": "G4561"
+    }
+  ],
+  "ROM_8_13": [
+    {
+      "verseId": "ROM_8_13",
+      "wordIndex": 6,
+      "displayedWord": "carne,",
+      "strongId": "G4561"
+    },
+    {
+      "verseId": "ROM_8_13",
+      "wordIndex": 12,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "ROM_8_13",
+      "wordIndex": 19,
+      "displayedWord": "carne,",
+      "strongId": "G4561"
+    }
+  ],
+  "ROM_8_18": [
+    {
+      "verseId": "ROM_8_18",
+      "wordIndex": 15,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    }
+  ],
+  "ROM_8_19": [
+    {
+      "verseId": "ROM_8_19",
+      "wordIndex": 14,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "ROM_8_19",
+      "wordIndex": 16,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "ROM_8_20": [
+    {
+      "verseId": "ROM_8_20",
+      "wordIndex": 20,
+      "displayedWord": "esperanza;",
+      "strongId": "G1680"
+    }
+  ],
+  "ROM_8_21": [
+    {
+      "verseId": "ROM_8_21",
+      "wordIndex": 18,
+      "displayedWord": "hijos",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "ROM_8_21",
+      "wordIndex": 20,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "ROM_8_23": [
+    {
+      "verseId": "ROM_8_23",
+      "wordIndex": 14,
+      "displayedWord": "Espíritu,",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "ROM_8_23",
+      "wordIndex": 29,
+      "displayedWord": "cuerpo.",
+      "strongId": "G4983"
+    }
+  ],
+  "ROM_8_24": [
+    {
+      "verseId": "ROM_8_24",
+      "wordIndex": 2,
+      "displayedWord": "esperanza",
+      "strongId": "G1680"
+    },
+    {
+      "verseId": "ROM_8_24",
+      "wordIndex": 7,
+      "displayedWord": "esperanza",
+      "strongId": "G1680"
+    },
+    {
+      "verseId": "ROM_8_24",
+      "wordIndex": 13,
+      "displayedWord": "esperanza;",
+      "strongId": "G1680"
+    }
+  ],
+  "ROM_8_34": [
+    {
+      "verseId": "ROM_8_34",
+      "wordIndex": 5,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "ROM_8_34",
+      "wordIndex": 15,
+      "displayedWord": "resucitó,",
+      "strongId": "G1453"
+    },
+    {
+      "verseId": "ROM_8_34",
+      "wordIndex": 24,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "ROM_8_36": [
+    {
+      "verseId": "ROM_8_36",
+      "wordIndex": 8,
+      "displayedWord": "muertos",
+      "strongId": "G2288"
+    }
+  ],
+  "ROM_9_24": [
+    {
+      "verseId": "ROM_9_24",
+      "wordIndex": 14,
+      "displayedWord": "judíos,",
+      "strongId": "G2453"
+    },
+    {
+      "verseId": "ROM_9_24",
+      "wordIndex": 19,
+      "displayedWord": "gentiles?",
+      "strongId": "G1484"
+    }
+  ],
+  "ROM_9_25": [
+    {
+      "verseId": "ROM_9_25",
+      "wordIndex": 6,
+      "displayedWord": "pueblo",
+      "strongId": "G2992"
+    },
+    {
+      "verseId": "ROM_9_25",
+      "wordIndex": 13,
+      "displayedWord": "pueblo,",
+      "strongId": "G2992"
+    }
+  ],
+  "ROM_10_19": [
+    {
+      "verseId": "ROM_10_19",
+      "wordIndex": 6,
+      "displayedWord": "Israel?",
+      "strongId": "G2474"
+    },
+    {
+      "verseId": "ROM_10_19",
+      "wordIndex": 17,
+      "displayedWord": "pueblo",
+      "strongId": "G2992"
+    },
+    {
+      "verseId": "ROM_10_19",
+      "wordIndex": 21,
+      "displayedWord": "pueblo;",
+      "strongId": "G2992"
+    },
+    {
+      "verseId": "ROM_10_19",
+      "wordIndex": 23,
+      "displayedWord": "pueblo",
+      "strongId": "G2992"
+    }
+  ],
+  "ROM_10_21": [
+    {
+      "verseId": "ROM_10_21",
+      "wordIndex": 3,
+      "displayedWord": "Israel",
+      "strongId": "G2474"
+    },
+    {
+      "verseId": "ROM_10_21",
+      "wordIndex": 13,
+      "displayedWord": "pueblo",
+      "strongId": "G2992"
+    }
+  ],
+  "ROM_11_7": [
+    {
+      "verseId": "ROM_11_7",
+      "wordIndex": 5,
+      "displayedWord": "Israel,",
+      "strongId": "G2474"
+    }
+  ],
+  "ROM_11_13": [
+    {
+      "verseId": "ROM_11_13",
+      "wordIndex": 4,
+      "displayedWord": "gentiles.",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "ROM_11_13",
+      "wordIndex": 9,
+      "displayedWord": "apóstol",
+      "strongId": "G652"
+    },
+    {
+      "verseId": "ROM_11_13",
+      "wordIndex": 12,
+      "displayedWord": "gentiles,",
+      "strongId": "G1484"
+    }
+  ],
+  "ROM_11_28": [
+    {
+      "verseId": "ROM_11_28",
+      "wordIndex": 5,
+      "displayedWord": "evangelio,",
+      "strongId": "G2098"
+    }
+  ],
+  "ROM_12_4": [
+    {
+      "verseId": "ROM_12_4",
+      "wordIndex": 7,
+      "displayedWord": "cuerpo",
+      "strongId": "G4983"
+    }
+  ],
+  "ROM_13_9": [
+    {
+      "verseId": "ROM_13_9",
+      "wordIndex": 13,
+      "displayedWord": "testimonio,",
+      "strongId": "G3141"
+    },
+    {
+      "verseId": "ROM_13_9",
+      "wordIndex": 21,
+      "displayedWord": "mandamiento,",
+      "strongId": "G1785"
+    }
+  ],
+  "ROM_15_10": [
+    {
+      "verseId": "ROM_15_10",
+      "wordIndex": 5,
+      "displayedWord": "gentiles,",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "ROM_15_10",
+      "wordIndex": 8,
+      "displayedWord": "pueblo.",
+      "strongId": "G2992"
+    }
+  ],
+  "ROM_15_12": [
+    {
+      "verseId": "ROM_15_12",
+      "wordIndex": 18,
+      "displayedWord": "gentiles;",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "ROM_15_12",
+      "wordIndex": 20,
+      "displayedWord": "gentiles",
+      "strongId": "G1484"
+    }
+  ],
+  "ROM_15_27": [
+    {
+      "verseId": "ROM_15_27",
+      "wordIndex": 12,
+      "displayedWord": "gentiles",
+      "strongId": "G1484"
+    }
+  ],
+  "ROM_16_1": [
+    {
+      "verseId": "ROM_16_1",
+      "wordIndex": 12,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    }
+  ],
+  "ROM_16_25": [
+    {
+      "verseId": "ROM_16_25",
+      "wordIndex": 7,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    }
   ]
 }

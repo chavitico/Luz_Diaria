@@ -492,5 +492,827 @@
       "displayedWord": "Señor",
       "strongId": "G2962"
     }
+  ],
+  "1TH_1_1": [
+    {
+      "verseId": "1TH_1_1",
+      "wordIndex": 6,
+      "displayedWord": "iglesia",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "1TH_1_1",
+      "wordIndex": 12,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_1_1",
+      "wordIndex": 13,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "1TH_1_1",
+      "wordIndex": 17,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TH_1_1",
+      "wordIndex": 19,
+      "displayedWord": "Gracia",
+      "strongId": "G5485"
+    },
+    {
+      "verseId": "1TH_1_1",
+      "wordIndex": 21,
+      "displayedWord": "paz",
+      "strongId": "G1515"
+    },
+    {
+      "verseId": "1TH_1_1",
+      "wordIndex": 26,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_1_1",
+      "wordIndex": 28,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "1TH_1_1",
+      "wordIndex": 31,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "1TH_1_2": [
+    {
+      "verseId": "1TH_1_2",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_1_2",
+      "wordIndex": 14,
+      "displayedWord": "oraciones,",
+      "strongId": "G4335"
+    }
+  ],
+  "1TH_1_3": [
+    {
+      "verseId": "1TH_1_3",
+      "wordIndex": 5,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_1_3",
+      "wordIndex": 7,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "1TH_1_3",
+      "wordIndex": 14,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TH_1_3",
+      "wordIndex": 19,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    },
+    {
+      "verseId": "1TH_1_3",
+      "wordIndex": 26,
+      "displayedWord": "esperanza",
+      "strongId": "G1680"
+    },
+    {
+      "verseId": "1TH_1_3",
+      "wordIndex": 29,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "1TH_1_4": [
+    {
+      "verseId": "1TH_1_4",
+      "wordIndex": 2,
+      "displayedWord": "hermanos",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "1TH_1_4",
+      "wordIndex": 5,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "1TH_1_5": [
+    {
+      "verseId": "1TH_1_5",
+      "wordIndex": 2,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    },
+    {
+      "verseId": "1TH_1_5",
+      "wordIndex": 13,
+      "displayedWord": "poder,",
+      "strongId": "G1411"
+    },
+    {
+      "verseId": "1TH_1_5",
+      "wordIndex": 16,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "1TH_1_5",
+      "wordIndex": 17,
+      "displayedWord": "Santo",
+      "strongId": "G40"
+    },
+    {
+      "verseId": "1TH_1_5",
+      "wordIndex": 30,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    }
+  ],
+  "1TH_1_6": [
+    {
+      "verseId": "1TH_1_6",
+      "wordIndex": 10,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TH_1_6",
+      "wordIndex": 13,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "1TH_1_6",
+      "wordIndex": 21,
+      "displayedWord": "gozo",
+      "strongId": "G5479"
+    },
+    {
+      "verseId": "1TH_1_6",
+      "wordIndex": 23,
+      "displayedWord": "Espíritu",
+      "strongId": "G4151"
+    },
+    {
+      "verseId": "1TH_1_6",
+      "wordIndex": 24,
+      "displayedWord": "Santo,",
+      "strongId": "G40"
+    }
+  ],
+  "1TH_1_7": [
+    {
+      "verseId": "1TH_1_7",
+      "wordIndex": 17,
+      "displayedWord": "creído.",
+      "strongId": "G4100"
+    }
+  ],
+  "1TH_1_8": [
+    {
+      "verseId": "1TH_1_8",
+      "wordIndex": 8,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "1TH_1_8",
+      "wordIndex": 10,
+      "displayedWord": "Señor,",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TH_1_8",
+      "wordIndex": 24,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TH_1_8",
+      "wordIndex": 26,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "1TH_1_9": [
+    {
+      "verseId": "1TH_1_9",
+      "wordIndex": 20,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_1_9",
+      "wordIndex": 24,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "1TH_1_10": [
+    {
+      "verseId": "1TH_1_10",
+      "wordIndex": 4,
+      "displayedWord": "cielos",
+      "strongId": "G3772"
+    },
+    {
+      "verseId": "1TH_1_10",
+      "wordIndex": 7,
+      "displayedWord": "Hijo,",
+      "strongId": "G5207"
+    },
+    {
+      "verseId": "1TH_1_10",
+      "wordIndex": 10,
+      "displayedWord": "resucitó",
+      "strongId": "G1453"
+    },
+    {
+      "verseId": "1TH_1_10",
+      "wordIndex": 13,
+      "displayedWord": "muertos,",
+      "strongId": "G2288"
+    },
+    {
+      "verseId": "1TH_1_10",
+      "wordIndex": 15,
+      "displayedWord": "Jesús,",
+      "strongId": "G2424"
+    }
+  ],
+  "1TH_2_1": [
+    {
+      "verseId": "1TH_2_1",
+      "wordIndex": 4,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    }
+  ],
+  "1TH_2_2": [
+    {
+      "verseId": "1TH_2_2",
+      "wordIndex": 16,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_2_2",
+      "wordIndex": 20,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    },
+    {
+      "verseId": "1TH_2_2",
+      "wordIndex": 22,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    }
+  ],
+  "1TH_2_4": [
+    {
+      "verseId": "1TH_2_4",
+      "wordIndex": 6,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_2_4",
+      "wordIndex": 13,
+      "displayedWord": "evangelio,",
+      "strongId": "G2098"
+    },
+    {
+      "verseId": "1TH_2_4",
+      "wordIndex": 22,
+      "displayedWord": "hombres,",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "1TH_2_4",
+      "wordIndex": 25,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "1TH_2_5": [
+    {
+      "verseId": "1TH_2_5",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_2_5",
+      "wordIndex": 13,
+      "displayedWord": "testigo;",
+      "strongId": "G3144"
+    }
+  ],
+  "1TH_2_6": [
+    {
+      "verseId": "1TH_2_6",
+      "wordIndex": 2,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "1TH_2_6",
+      "wordIndex": 5,
+      "displayedWord": "hombres;",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "1TH_2_6",
+      "wordIndex": 17,
+      "displayedWord": "apóstoles",
+      "strongId": "G652"
+    },
+    {
+      "verseId": "1TH_2_6",
+      "wordIndex": 19,
+      "displayedWord": "Cristo.",
+      "strongId": "G5547"
+    }
+  ],
+  "1TH_2_7": [
+    {
+      "verseId": "1TH_2_7",
+      "wordIndex": 15,
+      "displayedWord": "hijos.",
+      "strongId": "G5207"
+    }
+  ],
+  "1TH_2_8": [
+    {
+      "verseId": "1TH_2_8",
+      "wordIndex": 14,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    },
+    {
+      "verseId": "1TH_2_8",
+      "wordIndex": 16,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "1TH_2_9": [
+    {
+      "verseId": "1TH_2_9",
+      "wordIndex": 3,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "1TH_2_9",
+      "wordIndex": 27,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    },
+    {
+      "verseId": "1TH_2_9",
+      "wordIndex": 29,
+      "displayedWord": "Dios.",
+      "strongId": "G2316"
+    }
+  ],
+  "1TH_2_10": [
+    {
+      "verseId": "1TH_2_10",
+      "wordIndex": 2,
+      "displayedWord": "testigos,",
+      "strongId": "G3144"
+    },
+    {
+      "verseId": "1TH_2_10",
+      "wordIndex": 4,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_2_10",
+      "wordIndex": 8,
+      "displayedWord": "santa,",
+      "strongId": "G40"
+    }
+  ],
+  "1TH_2_11": [
+    {
+      "verseId": "1TH_2_11",
+      "wordIndex": 9,
+      "displayedWord": "padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "1TH_2_11",
+      "wordIndex": 12,
+      "displayedWord": "hijos,",
+      "strongId": "G5207"
+    }
+  ],
+  "1TH_2_12": [
+    {
+      "verseId": "1TH_2_12",
+      "wordIndex": 9,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_2_12",
+      "wordIndex": 15,
+      "displayedWord": "reino",
+      "strongId": "G932"
+    },
+    {
+      "verseId": "1TH_2_12",
+      "wordIndex": 17,
+      "displayedWord": "gloria.",
+      "strongId": "G1391"
+    }
+  ],
+  "1TH_2_13": [
+    {
+      "verseId": "1TH_2_13",
+      "wordIndex": 10,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_2_13",
+      "wordIndex": 16,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "1TH_2_13",
+      "wordIndex": 18,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_2_13",
+      "wordIndex": 27,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "1TH_2_13",
+      "wordIndex": 29,
+      "displayedWord": "hombres,",
+      "strongId": "G444"
+    },
+    {
+      "verseId": "1TH_2_13",
+      "wordIndex": 34,
+      "displayedWord": "verdad,",
+      "strongId": "G225"
+    },
+    {
+      "verseId": "1TH_2_13",
+      "wordIndex": 36,
+      "displayedWord": "palabra",
+      "strongId": "G3056"
+    },
+    {
+      "verseId": "1TH_2_13",
+      "wordIndex": 38,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "1TH_2_14": [
+    {
+      "verseId": "1TH_2_14",
+      "wordIndex": 2,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "1TH_2_14",
+      "wordIndex": 9,
+      "displayedWord": "iglesias",
+      "strongId": "G1577"
+    },
+    {
+      "verseId": "1TH_2_14",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_2_14",
+      "wordIndex": 13,
+      "displayedWord": "Cristo",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "1TH_2_14",
+      "wordIndex": 14,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "1TH_2_14",
+      "wordIndex": 37,
+      "displayedWord": "judíos,",
+      "strongId": "G2453"
+    }
+  ],
+  "1TH_2_15": [
+    {
+      "verseId": "1TH_2_15",
+      "wordIndex": 4,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TH_2_15",
+      "wordIndex": 5,
+      "displayedWord": "Jesús",
+      "strongId": "G2424"
+    },
+    {
+      "verseId": "1TH_2_15",
+      "wordIndex": 10,
+      "displayedWord": "profetas,",
+      "strongId": "G4396"
+    },
+    {
+      "verseId": "1TH_2_15",
+      "wordIndex": 21,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_2_15",
+      "wordIndex": 28,
+      "displayedWord": "hombres,",
+      "strongId": "G444"
+    }
+  ],
+  "1TH_2_16": [
+    {
+      "verseId": "1TH_2_16",
+      "wordIndex": 4,
+      "displayedWord": "gentiles",
+      "strongId": "G1484"
+    },
+    {
+      "verseId": "1TH_2_16",
+      "wordIndex": 18,
+      "displayedWord": "pecados,",
+      "strongId": "G266"
+    }
+  ],
+  "1TH_2_17": [
+    {
+      "verseId": "1TH_2_17",
+      "wordIndex": 2,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "1TH_2_17",
+      "wordIndex": 16,
+      "displayedWord": "corazón,",
+      "strongId": "G2588"
+    }
+  ],
+  "1TH_2_18": [
+    {
+      "verseId": "1TH_2_18",
+      "wordIndex": 15,
+      "displayedWord": "Satanás",
+      "strongId": "G4567"
+    }
+  ],
+  "1TH_2_19": [
+    {
+      "verseId": "1TH_2_19",
+      "wordIndex": 4,
+      "displayedWord": "esperanza,",
+      "strongId": "G1680"
+    },
+    {
+      "verseId": "1TH_2_19",
+      "wordIndex": 6,
+      "displayedWord": "gozo,",
+      "strongId": "G5479"
+    },
+    {
+      "verseId": "1TH_2_19",
+      "wordIndex": 20,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TH_2_19",
+      "wordIndex": 24,
+      "displayedWord": "venida?",
+      "strongId": "G3952"
+    }
+  ],
+  "1TH_2_20": [
+    {
+      "verseId": "1TH_2_20",
+      "wordIndex": 3,
+      "displayedWord": "gloria",
+      "strongId": "G1391"
+    },
+    {
+      "verseId": "1TH_2_20",
+      "wordIndex": 5,
+      "displayedWord": "gozo.",
+      "strongId": "G5479"
+    }
+  ],
+  "1TH_3_2": [
+    {
+      "verseId": "1TH_3_2",
+      "wordIndex": 5,
+      "displayedWord": "hermano,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "1TH_3_2",
+      "wordIndex": 8,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_3_2",
+      "wordIndex": 14,
+      "displayedWord": "evangelio",
+      "strongId": "G2098"
+    },
+    {
+      "verseId": "1TH_3_2",
+      "wordIndex": 16,
+      "displayedWord": "Cristo,",
+      "strongId": "G5547"
+    },
+    {
+      "verseId": "1TH_3_2",
+      "wordIndex": 24,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    }
+  ],
+  "1TH_3_5": [
+    {
+      "verseId": "1TH_3_5",
+      "wordIndex": 14,
+      "displayedWord": "fe,",
+      "strongId": "G4102"
+    }
+  ],
+  "1TH_3_6": [
+    {
+      "verseId": "1TH_3_6",
+      "wordIndex": 16,
+      "displayedWord": "fe",
+      "strongId": "G4102"
+    },
+    {
+      "verseId": "1TH_3_6",
+      "wordIndex": 18,
+      "displayedWord": "amor,",
+      "strongId": "G26"
+    }
+  ],
+  "1TH_3_7": [
+    {
+      "verseId": "1TH_3_7",
+      "wordIndex": 2,
+      "displayedWord": "hermanos,",
+      "strongId": "G80"
+    },
+    {
+      "verseId": "1TH_3_7",
+      "wordIndex": 19,
+      "displayedWord": "fe;",
+      "strongId": "G4102"
+    }
+  ],
+  "1TH_3_8": [
+    {
+      "verseId": "1TH_3_8",
+      "wordIndex": 9,
+      "displayedWord": "Señor.",
+      "strongId": "G2962"
+    }
+  ],
+  "1TH_3_9": [
+    {
+      "verseId": "1TH_3_9",
+      "wordIndex": 10,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_3_9",
+      "wordIndex": 16,
+      "displayedWord": "gozo",
+      "strongId": "G5479"
+    },
+    {
+      "verseId": "1TH_3_9",
+      "wordIndex": 28,
+      "displayedWord": "Dios,",
+      "strongId": "G2316"
+    }
+  ],
+  "1TH_3_10": [
+    {
+      "verseId": "1TH_3_10",
+      "wordIndex": 21,
+      "displayedWord": "fe?",
+      "strongId": "G4102"
+    }
+  ],
+  "1TH_3_11": [
+    {
+      "verseId": "1TH_3_11",
+      "wordIndex": 3,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_3_11",
+      "wordIndex": 5,
+      "displayedWord": "Padre",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "1TH_3_11",
+      "wordIndex": 9,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    }
+  ],
+  "1TH_3_12": [
+    {
+      "verseId": "1TH_3_12",
+      "wordIndex": 2,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TH_3_12",
+      "wordIndex": 9,
+      "displayedWord": "amor",
+      "strongId": "G26"
+    }
+  ],
+  "1TH_3_13": [
+    {
+      "verseId": "1TH_3_13",
+      "wordIndex": 11,
+      "displayedWord": "Dios",
+      "strongId": "G2316"
+    },
+    {
+      "verseId": "1TH_3_13",
+      "wordIndex": 13,
+      "displayedWord": "Padre,",
+      "strongId": "G3962"
+    },
+    {
+      "verseId": "1TH_3_13",
+      "wordIndex": 16,
+      "displayedWord": "venida",
+      "strongId": "G3952"
+    },
+    {
+      "verseId": "1TH_3_13",
+      "wordIndex": 19,
+      "displayedWord": "Señor",
+      "strongId": "G2962"
+    },
+    {
+      "verseId": "1TH_3_13",
+      "wordIndex": 24,
+      "displayedWord": "santos.",
+      "strongId": "G40"
+    }
   ]
 }
