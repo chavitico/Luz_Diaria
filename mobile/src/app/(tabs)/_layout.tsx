@@ -46,7 +46,7 @@ export default function TabLayout() {
 
   const hasHomeBadge = badges.recentCommentLikesCount > 0;
   const hasSpaceBadge = badges.pendingTradesCount > 0 || badges.hasPendingGift || badges.unseenStoreGiftsCount > 0 || badges.dailyPackAvailable;
-  const hasSettingsBadge = badges.hasPendingGift;
+  const hasSettingsBadge = badges.hasPendingGift || badges.pendingSupportCount > 0;
 
   return (
     <Tabs

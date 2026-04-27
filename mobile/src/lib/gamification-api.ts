@@ -1130,11 +1130,12 @@ export const gamificationApi = {
     unseenStoreGiftsCount: number;
     dailyPackAvailable: boolean;
     recentCommentLikesCount: number;
+    pendingSupportCount: number;
   }> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/notifications/badge-counts`, {
       headers: { 'x-user-id': userId },
     });
-    if (!res.ok) return { pendingTradesCount: 0, hasPendingGift: false, unseenStoreGiftsCount: 0, dailyPackAvailable: false, recentCommentLikesCount: 0 };
+    if (!res.ok) return { pendingTradesCount: 0, hasPendingGift: false, unseenStoreGiftsCount: 0, dailyPackAvailable: false, recentCommentLikesCount: 0, pendingSupportCount: 0 };
     return res.json();
   },
 

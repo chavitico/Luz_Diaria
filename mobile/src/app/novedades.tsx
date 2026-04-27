@@ -1019,6 +1019,14 @@ function FeedbackForm({ userId }: { userId: string }) {
             </>
         }
       </Pressable>
+
+      {/* Where to find response */}
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 6, backgroundColor: '#F0FDF4', borderRadius: 10, padding: 10, borderWidth: 1, borderColor: '#BBF7D0' }}>
+        <Text style={{ fontSize: 13 }}>💡</Text>
+        <Text style={{ color: '#166534', fontSize: 12, lineHeight: 17, flex: 1 }}>
+          La respuesta del equipo llegará a <Text style={{ fontWeight: '800' }}>Ajustes → Soporte</Text>. Verás un punto rojo en el tab de Ajustes cuando haya respuesta.
+        </Text>
+      </View>
     </View>
   );
 }
@@ -1177,15 +1185,6 @@ export default function NovederadesScreen() {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Pending responses banner */}
-          {user?.id && (
-            <PendingFeedbackBanner
-              tickets={pendingTickets}
-              userId={user.id}
-              onDismiss={refreshTickets}
-            />
-          )}
-
           {/* Section label */}
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
             <Star size={12} color="#6B7280" />

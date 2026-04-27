@@ -92,6 +92,7 @@ interface AppState {
     unseenStoreGiftsCount: number;
     dailyPackAvailable: boolean;
     recentCommentLikesCount: number;
+    pendingSupportCount: number;
   };
   setNotificationBadges: (badges: {
     pendingTradesCount: number;
@@ -99,6 +100,7 @@ interface AppState {
     unseenStoreGiftsCount: number;
     dailyPackAvailable: boolean;
     recentCommentLikesCount: number;
+    pendingSupportCount: number;
   }) => void;
 }
 
@@ -153,6 +155,7 @@ export const useAppStore = create<AppState>()(
         unseenStoreGiftsCount: 0,
         dailyPackAvailable: false,
         recentCommentLikesCount: 0,
+        pendingSupportCount: 0,
       },
 
       setUser: (user) => set({ user }),

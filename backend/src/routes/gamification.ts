@@ -1339,6 +1339,7 @@ gamificationRouter.get("/notifications/badge-counts", async (c) => {
       unseenStoreGiftsCount,
       user,
       commentLikesCount,
+      pendingSupportCount,
     ] = await Promise.all([
       // Incoming pending trades (where I'm the receiver)
       prisma.cardTrade.count({
@@ -1363,6 +1364,10 @@ gamificationRouter.get("/notifications/badge-counts", async (c) => {
           createdAt: { gte: weekAgo },
         },
       }),
+      // Support tickets awaiting user response
+      prisma.supportTicket.count({
+        where: { userId, status: "waiting_user" },
+      }),
     ]);
 
     // Daily pack availability via accumulated-pack logic
@@ -1381,6 +1386,7 @@ gamificationRouter.get("/notifications/badge-counts", async (c) => {
       unseenStoreGiftsCount,
       dailyPackAvailable,
       recentCommentLikesCount: commentLikesCount,
+      pendingSupportCount,
     });
   } catch (error) {
     console.error("[Gamification] Error getting badge counts:", error);
