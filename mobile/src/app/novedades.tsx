@@ -1069,14 +1069,14 @@ function ConversationModal({
                 disabled={!reply.trim() || sending}
                 style={({ pressed }) => ({
                   width: 44, height: 44, borderRadius: 22,
-                  backgroundColor: reply.trim() ? '#7C3AED' : '#E5E7EB',
                   alignItems: 'center', justifyContent: 'center',
-                  opacity: pressed ? 0.7 : 1,
+                  opacity: !reply.trim() ? 0.22 : pressed ? 0.72 : 1,
                 })}
               >
+                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderRadius: 22, backgroundColor: '#7C3AED' }} />
                 {sending
                   ? <ActivityIndicator size="small" color="#fff" />
-                  : <Send size={18} color={reply.trim() ? '#fff' : '#9CA3AF'} />
+                  : <Send size={18} color="#fff" />
                 }
               </Pressable>
             </View>
@@ -1264,21 +1264,22 @@ function FeedbackForm({ userId }: { userId: string }) {
         onPress={submit}
         disabled={!comment.trim() || submitting}
         style={({ pressed }) => ({
-          backgroundColor: comment.trim() ? '#7C3AED' : '#E5E7EB',
           borderRadius: 12,
           paddingVertical: 13,
           alignItems: 'center',
-          opacity: pressed ? 0.8 : 1,
+          overflow: 'hidden',
+          opacity: !comment.trim() ? 0.22 : pressed ? 0.8 : 1,
           flexDirection: 'row',
           justifyContent: 'center',
           gap: 8,
         })}
       >
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#7C3AED' }} />
         {submitting
           ? <ActivityIndicator size="small" color="#fff" />
           : <>
-              <Send size={15} color={comment.trim() ? '#fff' : '#9CA3AF'} />
-              <Text style={{ color: comment.trim() ? '#fff' : '#9CA3AF', fontWeight: '700', fontSize: 14 }}>
+              <Send size={15} color="#fff" />
+              <Text style={{ color: '#fff', fontWeight: '700', fontSize: 14 }}>
                 Enviar
               </Text>
             </>
