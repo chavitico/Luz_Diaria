@@ -1028,23 +1028,6 @@ export default function SettingsScreen() {
                 />
               </>
             )}
-            <SettingRow
-              inCard
-              icon={<Flame size={20} color={colors.primary} />}
-              title={t.streak_reminders}
-              colors={colors}
-              right={
-                <Switch
-                  value={settings.streakReminders}
-                  onValueChange={(value) => {
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    updateSettings({ streakReminders: value });
-                  }}
-                  trackColor={{ false: colors.textMuted + '40', true: colors.primary + '60' }}
-                  thumbColor={settings.streakReminders ? colors.primary : '#E5E7EB'}
-                />
-              }
-            />
           </SectionCard>
 
           {/* ── SECTION 3: APARIENCIA ─────────────────────────────── */}
