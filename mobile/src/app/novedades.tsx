@@ -1,12 +1,16 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   Animated,
   Image,
+  KeyboardAvoidingView,
   LayoutAnimation,
+  Modal,
   Platform,
   Pressable,
   ScrollView,
   Text,
+  TextInput,
   UIManager,
   View,
 } from 'react-native';
@@ -14,16 +18,26 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Haptics from 'expo-haptics';
 import {
   ArrowLeft,
   BookOpen,
   ChevronDown,
   ChevronRight,
+  CheckCircle,
+  Mail,
+  MessageSquare,
   Repeat2,
+  Send,
+  Shield,
   Sparkles,
   Star,
   Languages,
+  X,
 } from 'lucide-react-native';
+import { useUser } from '@/lib/store';
+
+const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
 if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental?.(true);
@@ -44,6 +58,24 @@ interface NewsItem {
   accentBg: string;
   title: string;
   summary: string;
+}
+
+interface TicketEvent {
+  id: string;
+  actor: 'USER' | 'ADMIN' | 'SYSTEM';
+  type: string;
+  message: string;
+  createdAt: string;
+}
+
+interface FeedbackTicket {
+  id: string;
+  incidentNumber: string | null;
+  type: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  latestEvent: { actor: string; message: string; createdAt: string } | null;
 }
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -523,13 +555,579 @@ function NewsCard({ item }: { item: NewsItem }) {
 
 // ─── Screen ───────────────────────────────────────────────────────────────────
 
+// ─── Conversation Modal ────────────────────────────────────────────────────────
+
+function ConversationModal({
+  ticketId,
+  incidentNumber,
+  status,
+  onClose,
+  userId,
+}: {
+  ticketId: string;
+  incidentNumber: string | null;
+  status: string;
+  onClose: () => void;
+  userId: string;
+}) {
+  const insets = useSafeAreaInsets();
+  const [events, setEvents] = useState<TicketEvent[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [reply, setReply] = useState('');
+  const [sending, setSending] = useState(false);
+  const [ticketStatus, setTicketStatus] = useState(status);
+  const scrollRef = useRef<ScrollView>(null);
+
+  const load = useCallback(async () => {
+    try {
+      const r = await fetch(`${BACKEND_URL}/api/support/ticket/${ticketId}`, {
+        headers: { 'X-User-Id': userId },
+      });
+      const data = await r.json() as { ticket?: { events?: TicketEvent[]; status?: string } };
+      if (data.ticket?.events) {
+        setEvents(data.ticket.events);
+        if (data.ticket.status) setTicketStatus(data.ticket.status);
+      }
+    } catch {}
+    setLoading(false);
+  }, [ticketId, userId]);
+
+  useEffect(() => { load(); }, [load]);
+
+  const sendReply = async () => {
+    if (!reply.trim() || sending) return;
+    setSending(true);
+    try {
+      await fetch(`${BACKEND_URL}/api/support/ticket/${ticketId}/reply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-User-Id': userId },
+        body: JSON.stringify({ message: reply.trim() }),
+      });
+      setReply('');
+      await load();
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    } catch {}
+    setSending(false);
+  };
+
+  const actorColor = (actor: string) =>
+    actor === 'ADMIN' ? '#7C3AED' : actor === 'SYSTEM' ? '#0EA5E9' : '#374151';
+  const actorLabel = (actor: string) =>
+    actor === 'ADMIN' ? 'Equipo' : actor === 'SYSTEM' ? 'Sistema' : 'Tú';
+
+  const canReply = ticketStatus === 'waiting_user' || ticketStatus === 'needs_human';
+
+  return (
+    <Modal visible animationType="slide" presentationStyle="pageSheet" onRequestClose={onClose}>
+      <KeyboardAvoidingView
+        style={{ flex: 1, backgroundColor: '#F8F9FA' }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        {/* Header */}
+        <View
+          style={{
+            paddingTop: insets.top + 8,
+            paddingBottom: 14,
+            paddingHorizontal: 20,
+            backgroundColor: '#FFFFFF',
+            borderBottomWidth: 1,
+            borderBottomColor: 'rgba(0,0,0,0.06)',
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+            <Pressable
+              onPress={onClose}
+              style={({ pressed }) => ({
+                width: 34, height: 34, borderRadius: 17,
+                backgroundColor: 'rgba(0,0,0,0.06)',
+                alignItems: 'center', justifyContent: 'center',
+                opacity: pressed ? 0.6 : 1,
+              })}
+            >
+              <X size={18} color="#374151" />
+            </Pressable>
+            <View style={{ flex: 1 }}>
+              <Text style={{ color: '#111827', fontSize: 16, fontWeight: '800' }}>
+                Tu comentario
+              </Text>
+              {incidentNumber && (
+                <Text style={{ color: '#6B7280', fontSize: 11, marginTop: 1 }}>{incidentNumber}</Text>
+              )}
+            </View>
+            <View
+              style={{
+                backgroundColor:
+                  ticketStatus === 'waiting_user' ? '#FEF3C7'
+                  : ticketStatus === 'needs_human' ? '#EFF6FF'
+                  : ticketStatus === 'closed' ? '#F0FDF4'
+                  : '#F3F4F6',
+                borderRadius: 20,
+                paddingHorizontal: 10,
+                paddingVertical: 4,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: '700',
+                  color:
+                    ticketStatus === 'waiting_user' ? '#D97706'
+                    : ticketStatus === 'needs_human' ? '#2563EB'
+                    : ticketStatus === 'closed' ? '#16A34A'
+                    : '#6B7280',
+                }}
+              >
+                {ticketStatus === 'waiting_user' ? 'Responder'
+                  : ticketStatus === 'needs_human' ? 'En revisión'
+                  : ticketStatus === 'closed' ? 'Cerrado'
+                  : ticketStatus}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Events timeline */}
+        <ScrollView
+          ref={scrollRef}
+          style={{ flex: 1 }}
+          contentContainerStyle={{ padding: 16, gap: 12 }}
+          onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
+          showsVerticalScrollIndicator={false}
+        >
+          {loading && (
+            <View style={{ alignItems: 'center', paddingVertical: 40 }}>
+              <ActivityIndicator color="#7C3AED" />
+            </View>
+          )}
+          {!loading && events.map((ev, i) => (
+            <View key={ev.id} style={{ flexDirection: 'row', gap: 10 }}>
+              {/* Actor dot */}
+              <View style={{ alignItems: 'center', width: 28 }}>
+                <View
+                  style={{
+                    width: 28, height: 28, borderRadius: 14,
+                    backgroundColor: actorColor(ev.actor) + '18',
+                    alignItems: 'center', justifyContent: 'center',
+                    borderWidth: 1.5,
+                    borderColor: actorColor(ev.actor) + '40',
+                  }}
+                >
+                  {ev.actor === 'ADMIN' ? (
+                    <Shield size={13} color={actorColor(ev.actor)} />
+                  ) : ev.actor === 'SYSTEM' ? (
+                    <Sparkles size={13} color={actorColor(ev.actor)} />
+                  ) : (
+                    <MessageSquare size={13} color={actorColor(ev.actor)} />
+                  )}
+                </View>
+                {i < events.length - 1 && (
+                  <View style={{ width: 1.5, flex: 1, backgroundColor: 'rgba(0,0,0,0.07)', marginTop: 4 }} />
+                )}
+              </View>
+              {/* Bubble */}
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor:
+                    ev.actor === 'ADMIN' ? '#F5F3FF'
+                    : ev.actor === 'SYSTEM' ? '#F0F9FF'
+                    : '#FFFFFF',
+                  borderRadius: 12,
+                  padding: 12,
+                  borderWidth: 1,
+                  borderColor:
+                    ev.actor === 'ADMIN' ? 'rgba(124,58,237,0.12)'
+                    : ev.actor === 'SYSTEM' ? 'rgba(14,165,233,0.12)'
+                    : 'rgba(0,0,0,0.07)',
+                  marginBottom: 4,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 11, fontWeight: '700',
+                    color: actorColor(ev.actor),
+                    marginBottom: 4,
+                    letterSpacing: 0.4,
+                  }}
+                >
+                  {actorLabel(ev.actor).toUpperCase()}
+                </Text>
+                <Text style={{ color: '#374151', fontSize: 13, lineHeight: 19 }}>
+                  {ev.message}
+                </Text>
+                <Text style={{ color: '#9CA3AF', fontSize: 10, marginTop: 6 }}>
+                  {new Date(ev.createdAt).toLocaleString('es-ES', {
+                    day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+                  })}
+                </Text>
+              </View>
+            </View>
+          ))}
+          {!loading && events.length === 0 && (
+            <Text style={{ color: '#9CA3AF', textAlign: 'center', marginTop: 40 }}>
+              Sin mensajes aún
+            </Text>
+          )}
+        </ScrollView>
+
+        {/* Reply box (only if can reply) */}
+        {canReply && (
+          <View
+            style={{
+              paddingHorizontal: 16,
+              paddingTop: 10,
+              paddingBottom: insets.bottom + 12,
+              backgroundColor: '#FFFFFF',
+              borderTopWidth: 1,
+              borderTopColor: 'rgba(0,0,0,0.06)',
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 10 }}>
+              <TextInput
+                style={{
+                  flex: 1,
+                  minHeight: 44, maxHeight: 120,
+                  backgroundColor: '#F3F4F6',
+                  borderRadius: 12,
+                  paddingHorizontal: 14, paddingVertical: 10,
+                  fontSize: 14, color: '#111827',
+                  borderWidth: 1, borderColor: 'rgba(0,0,0,0.08)',
+                }}
+                value={reply}
+                onChangeText={setReply}
+                placeholder="Escribe tu respuesta..."
+                placeholderTextColor="#9CA3AF"
+                multiline
+              />
+              <Pressable
+                onPress={sendReply}
+                disabled={!reply.trim() || sending}
+                style={({ pressed }) => ({
+                  width: 44, height: 44, borderRadius: 22,
+                  backgroundColor: reply.trim() ? '#7C3AED' : '#E5E7EB',
+                  alignItems: 'center', justifyContent: 'center',
+                  opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                {sending
+                  ? <ActivityIndicator size="small" color="#fff" />
+                  : <Send size={18} color={reply.trim() ? '#fff' : '#9CA3AF'} />
+                }
+              </Pressable>
+            </View>
+          </View>
+        )}
+        {ticketStatus === 'closed' && (
+          <View style={{ paddingHorizontal: 16, paddingBottom: insets.bottom + 12, paddingTop: 10, backgroundColor: '#FFFFFF', borderTopWidth: 1, borderTopColor: 'rgba(0,0,0,0.06)', alignItems: 'center' }}>
+            <Text style={{ color: '#9CA3AF', fontSize: 12 }}>Este hilo está cerrado</Text>
+          </View>
+        )}
+      </KeyboardAvoidingView>
+    </Modal>
+  );
+}
+
+// ─── Feedback Form ─────────────────────────────────────────────────────────────
+
+function FeedbackForm({ userId }: { userId: string }) {
+  const [title, setTitle] = useState('');
+  const [comment, setComment] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [incidentNumber, setIncidentNumber] = useState<string | null>(null);
+  const [ticketId, setTicketId] = useState<string | null>(null);
+  const [showConv, setShowConv] = useState(false);
+
+  const submit = async () => {
+    if (!comment.trim() || submitting) return;
+    setSubmitting(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    try {
+      const r = await fetch(`${BACKEND_URL}/api/support/ticket`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId,
+          type: 'feedback',
+          clientClaim: { title: title.trim(), comment: comment.trim() },
+        }),
+      });
+      const data = await r.json() as { success?: boolean; ticket?: { id?: string; incidentNumber?: string } };
+      if (data.success && data.ticket) {
+        setTicketId(data.ticket.id ?? null);
+        setIncidentNumber(data.ticket.incidentNumber ?? null);
+        setSubmitted(true);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      }
+    } catch {}
+    setSubmitting(false);
+  };
+
+  if (submitted) {
+    return (
+      <View
+        style={{
+          backgroundColor: '#FFFFFF',
+          borderRadius: 16,
+          padding: 20,
+          borderWidth: 1,
+          borderColor: 'rgba(124,58,237,0.15)',
+          alignItems: 'center',
+          gap: 10,
+          marginTop: 8,
+        }}
+      >
+        <View
+          style={{
+            width: 52, height: 52, borderRadius: 26,
+            backgroundColor: '#F0FDF4',
+            alignItems: 'center', justifyContent: 'center',
+            borderWidth: 2, borderColor: '#BBF7D0',
+          }}
+        >
+          <CheckCircle size={26} color="#16A34A" />
+        </View>
+        <Text style={{ color: '#111827', fontSize: 16, fontWeight: '800', textAlign: 'center' }}>
+          ¡Gracias por tu comentario!
+        </Text>
+        <Text style={{ color: '#6B7280', fontSize: 13, lineHeight: 19, textAlign: 'center' }}>
+          Recibimos tu mensaje y recibirás respuesta pronto.
+        </Text>
+        {incidentNumber && (
+          <Text style={{ color: '#9CA3AF', fontSize: 11, fontWeight: '600' }}>{incidentNumber}</Text>
+        )}
+        {ticketId && (
+          <Pressable
+            onPress={() => setShowConv(true)}
+            style={({ pressed }) => ({
+              marginTop: 4,
+              backgroundColor: '#F5F3FF',
+              borderRadius: 10,
+              paddingHorizontal: 16, paddingVertical: 8,
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <Text style={{ color: '#7C3AED', fontWeight: '700', fontSize: 13 }}>
+              Ver conversación
+            </Text>
+          </Pressable>
+        )}
+        {showConv && ticketId && (
+          <ConversationModal
+            ticketId={ticketId}
+            incidentNumber={incidentNumber}
+            status="needs_human"
+            onClose={() => setShowConv(false)}
+            userId={userId}
+          />
+        )}
+      </View>
+    );
+  }
+
+  return (
+    <View
+      style={{
+        backgroundColor: '#FFFFFF',
+        borderRadius: 16,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: 'rgba(124,58,237,0.15)',
+        marginTop: 8,
+        gap: 12,
+      }}
+    >
+      {/* Header */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <View
+          style={{
+            width: 36, height: 36, borderRadius: 10,
+            backgroundColor: '#F5F3FF',
+            alignItems: 'center', justifyContent: 'center',
+            borderWidth: 1, borderColor: 'rgba(124,58,237,0.2)',
+          }}
+        >
+          <MessageSquare size={18} color="#7C3AED" />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={{ color: '#111827', fontSize: 15, fontWeight: '800' }}>
+            Enviar comentarios
+          </Text>
+          <Text style={{ color: '#6B7280', fontSize: 12, marginTop: 1 }}>
+            Sugerencias o ideas para el equipo
+          </Text>
+        </View>
+      </View>
+
+      {/* Title input */}
+      <TextInput
+        style={{
+          backgroundColor: '#F9FAFB',
+          borderRadius: 10,
+          paddingHorizontal: 12, paddingVertical: 10,
+          fontSize: 14, color: '#111827',
+          borderWidth: 1, borderColor: 'rgba(0,0,0,0.08)',
+        }}
+        value={title}
+        onChangeText={setTitle}
+        placeholder="Título (opcional)"
+        placeholderTextColor="#9CA3AF"
+        maxLength={100}
+      />
+
+      {/* Comment input */}
+      <TextInput
+        style={{
+          backgroundColor: '#F9FAFB',
+          borderRadius: 10,
+          paddingHorizontal: 12, paddingVertical: 10,
+          fontSize: 14, color: '#111827',
+          borderWidth: 1, borderColor: 'rgba(0,0,0,0.08)',
+          minHeight: 100,
+          textAlignVertical: 'top',
+        }}
+        value={comment}
+        onChangeText={setComment}
+        placeholder="Cuéntanos tu sugerencia, idea o comentario..."
+        placeholderTextColor="#9CA3AF"
+        multiline
+        maxLength={1000}
+      />
+
+      {/* Submit */}
+      <Pressable
+        onPress={submit}
+        disabled={!comment.trim() || submitting}
+        style={({ pressed }) => ({
+          backgroundColor: comment.trim() ? '#7C3AED' : '#E5E7EB',
+          borderRadius: 12,
+          paddingVertical: 13,
+          alignItems: 'center',
+          opacity: pressed ? 0.8 : 1,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          gap: 8,
+        })}
+      >
+        {submitting
+          ? <ActivityIndicator size="small" color="#fff" />
+          : <>
+              <Send size={15} color={comment.trim() ? '#fff' : '#9CA3AF'} />
+              <Text style={{ color: comment.trim() ? '#fff' : '#9CA3AF', fontWeight: '700', fontSize: 14 }}>
+                Enviar
+              </Text>
+            </>
+        }
+      </Pressable>
+    </View>
+  );
+}
+
+// ─── Pending Feedback Banner ────────────────────────────────────────────────────
+
+function PendingFeedbackBanner({
+  tickets,
+  userId,
+  onDismiss,
+}: {
+  tickets: FeedbackTicket[];
+  userId: string;
+  onDismiss: () => void;
+}) {
+  const [openTicket, setOpenTicket] = useState<FeedbackTicket | null>(null);
+
+  if (tickets.length === 0) return null;
+
+  const pendingTickets = tickets.filter(t => t.status === 'waiting_user');
+  if (pendingTickets.length === 0) return null;
+
+  return (
+    <>
+      <Pressable
+        onPress={() => setOpenTicket(pendingTickets[0])}
+        style={({ pressed }) => ({
+          backgroundColor: '#FEF3C7',
+          borderRadius: 14,
+          padding: 14,
+          borderWidth: 1,
+          borderColor: '#FDE68A',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+          marginBottom: 16,
+          opacity: pressed ? 0.85 : 1,
+        })}
+      >
+        <View
+          style={{
+            width: 38, height: 38, borderRadius: 10,
+            backgroundColor: '#FEF9C3',
+            alignItems: 'center', justifyContent: 'center',
+            borderWidth: 1, borderColor: '#FDE047',
+          }}
+        >
+          <Mail size={18} color="#D97706" />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={{ color: '#92400E', fontSize: 13, fontWeight: '800' }}>
+            {pendingTickets.length === 1
+              ? 'El equipo te respondió'
+              : `${pendingTickets.length} respuestas del equipo`}
+          </Text>
+          <Text style={{ color: '#B45309', fontSize: 12, marginTop: 1 }}>
+            Toca para ver la respuesta y continuar la conversación
+          </Text>
+        </View>
+        <ChevronRight size={16} color="#D97706" />
+      </Pressable>
+
+      {openTicket && (
+        <ConversationModal
+          ticketId={openTicket.id}
+          incidentNumber={openTicket.incidentNumber}
+          status={openTicket.status}
+          onClose={() => { setOpenTicket(null); onDismiss(); }}
+          userId={userId}
+        />
+      )}
+    </>
+  );
+}
+
+// ─── Screen ────────────────────────────────────────────────────────────────────
+
 export default function NovederadesScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const user = useUser();
+  const [pendingTickets, setPendingTickets] = useState<FeedbackTicket[]>([]);
 
   useEffect(() => {
     AsyncStorage.setItem(NOVEDADES_STORAGE_KEY, new Date().toISOString()).catch(() => {});
   }, []);
+
+  // Load pending feedback tickets
+  useEffect(() => {
+    if (!user?.id) return;
+    fetch(`${BACKEND_URL}/api/support/tickets/${user.id}`)
+      .then(r => r.json())
+      .then((data: { tickets?: FeedbackTicket[] }) => {
+        const fb = (data.tickets ?? []).filter(t => t.type === 'feedback' && (t.status === 'waiting_user' || t.status === 'needs_human' || t.status === 'open'));
+        setPendingTickets(fb);
+      })
+      .catch(() => {});
+  }, [user?.id]);
+
+  const refreshTickets = useCallback(() => {
+    if (!user?.id) return;
+    fetch(`${BACKEND_URL}/api/support/tickets/${user.id}`)
+      .then(r => r.json())
+      .then((data: { tickets?: FeedbackTicket[] }) => {
+        const fb = (data.tickets ?? []).filter(t => t.type === 'feedback' && t.status === 'waiting_user');
+        setPendingTickets(fb);
+      })
+      .catch(() => {});
+  }, [user?.id]);
 
   return (
     <View style={{ flex: 1, backgroundColor: '#F8F9FA' }}>
@@ -570,34 +1168,62 @@ export default function NovederadesScreen() {
       </LinearGradient>
 
       {/* Content */}
-      <ScrollView
-        contentContainerStyle={{
-          padding: 16,
-          paddingBottom: insets.bottom + 32,
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* Section label */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-          <Star size={12} color="#6B7280" />
-          <Text style={{ color: '#6B7280', fontSize: 11, fontWeight: '700', letterSpacing: 1 }}>
-            ABRIL 2026
-          </Text>
-          <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(0,0,0,0.08)' }} />
-        </View>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <ScrollView
+          contentContainerStyle={{
+            padding: 16,
+            paddingBottom: insets.bottom + 32,
+          }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          {/* Pending responses banner */}
+          {user?.id && (
+            <PendingFeedbackBanner
+              tickets={pendingTickets}
+              userId={user.id}
+              onDismiss={refreshTickets}
+            />
+          )}
 
-        {NEWS_ITEMS.map((item) => (
-          <NewsCard key={item.id} item={item} />
-        ))}
+          {/* Section label */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+            <Star size={12} color="#6B7280" />
+            <Text style={{ color: '#6B7280', fontSize: 11, fontWeight: '700', letterSpacing: 1 }}>
+              ABRIL 2026
+            </Text>
+            <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(0,0,0,0.08)' }} />
+          </View>
 
-        {/* Footer */}
-        <View style={{ alignItems: 'center', marginTop: 8 }}>
-          <BookOpen size={16} color="#9CA3AF" />
-          <Text style={{ color: '#9CA3AF', fontSize: 11, marginTop: 6, textAlign: 'center' }}>
-            Más novedades aparecerán aquí con cada actualización
-          </Text>
-        </View>
-      </ScrollView>
+          {NEWS_ITEMS.map((item) => (
+            <NewsCard key={item.id} item={item} />
+          ))}
+
+          {/* Footer */}
+          <View style={{ alignItems: 'center', marginTop: 8, marginBottom: 20 }}>
+            <BookOpen size={16} color="#9CA3AF" />
+            <Text style={{ color: '#9CA3AF', fontSize: 11, marginTop: 6, textAlign: 'center' }}>
+              Más novedades aparecerán aquí con cada actualización
+            </Text>
+          </View>
+
+          {/* Divider */}
+          <View style={{ height: 1, backgroundColor: 'rgba(0,0,0,0.07)', marginBottom: 16 }} />
+
+          {/* Feedback form — anchored at bottom */}
+          {user?.id
+            ? <FeedbackForm userId={user.id} />
+            : (
+              <View style={{ backgroundColor: '#FFFFFF', borderRadius: 16, padding: 16, borderWidth: 1, borderColor: 'rgba(0,0,0,0.06)', alignItems: 'center' }}>
+                <MessageSquare size={20} color="#9CA3AF" />
+                <Text style={{ color: '#6B7280', fontSize: 13, marginTop: 8, textAlign: 'center' }}>
+                  Inicia sesión para enviar comentarios
+                </Text>
+              </View>
+            )
+          }
+        </ScrollView>
+      </KeyboardAvoidingView>
     </View>
   );
 }

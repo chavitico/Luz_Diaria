@@ -2628,5 +2628,15 @@
     "amount": 10,
     "metadata": "{}",
     "createdAt": "2026-04-26T23:53:16.955Z"
+  },
+  {
+    "id": "cmogsbm9r0013m29ipwtxo815",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmogsb8fb0011m29ipcfbja47",
+    "type": "duel_win",
+    "dateId": "2026-04-27",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmogsb8fb0011m29ipcfbja47\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-04-27T05:56:56.320Z"
   }
 ]

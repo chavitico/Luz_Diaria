@@ -24,7 +24,8 @@ type TicketType =
   | "audio_tts"
   | "notification"
   | "reward_drop"
-  | "purchase_not_delivered";
+  | "purchase_not_delivered"
+  | "feedback";
 
 type TicketStatus = "open" | "auto_fixed" | "needs_human" | "waiting_user" | "closed";
 
@@ -71,6 +72,7 @@ const createTicketSchema = z.object({
     "notification",
     "reward_drop",
     "purchase_not_delivered",
+    "feedback",
   ]),
   claimedStreak: z.number().int().min(0).optional().default(0),
   claimedDate: z
@@ -298,6 +300,18 @@ function buildBotPreview(
         summary: `Compra no entregada: ${targetLabel} — requiere revisión`,
         userMessageEs: `Recibimos tu reporte sobre tu compra (${targetLabel}). Un moderador revisará tu caso pronto para verificar la transacción y gestionar la entrega del ítem. Gracias por reportarlo.`,
         userMessageEn: `We received your purchase report (${targetLabel}). A moderator will review your case soon to verify the transaction and handle the item delivery. Thank you for reporting.`,
+        action: "needs_human",
+        ...base,
+      };
+    }
+    case "feedback": {
+      const title = (clientClaim.title as string) || "";
+      const comment = (clientClaim.comment as string) || "";
+      const preview = comment.length > 60 ? comment.slice(0, 60) + "…" : comment;
+      return {
+        summary: title ? `Comentario: "${title}"` : `Sugerencia/Comentario — ${preview}`,
+        userMessageEs: `¡Gracias por tomarte el tiempo de escribirnos! 🙏\n\nRecibimos tu comentario y lo revisaremos con atención. Si tienes más detalles o preguntas, puedes respondernos aquí mismo. Recibirás una respuesta pronto del equipo.`,
+        userMessageEn: `Thank you for taking the time to write to us! 🙏\n\nWe received your feedback and will review it carefully. If you have more details or questions, you can reply right here. You'll receive a response from the team soon.`,
         action: "needs_human",
         ...base,
       };
@@ -554,6 +568,11 @@ supportRouter.post(
           }
         }
       }
+    } else if (type === "feedback") {
+      status = "needs_human";
+      escalationReason = "Feedback/sugerencia — requiere revisión del equipo";
+      const fbTitle = (clientClaim.title as string) || "(sin título)";
+      resolutionNote = `Feedback recibido: "${fbTitle}". En espera de respuesta del equipo.`;
     } else {
       // For audio/notification/reward_drop: always needs_human (info_only handled via botPreview)
       status = "needs_human";
@@ -603,13 +622,20 @@ supportRouter.post(
       notification: "Problema de notificación",
       reward_drop: "Regalo no recibido",
       purchase_not_delivered: "Compra / Ítem no entregado",
+      feedback: "Comentario / Sugerencia",
     };
-    const createdMsg = `${typeLabels[type] ?? type} reportado. ${botPreview.summary}`;
-    await addEvent(ticket.id, "USER", "CREATED", createdMsg, {
-      type,
-      claimedStreak,
-      claimedDate,
-    });
+    let createdMsg = `${typeLabels[type] ?? type} reportado. ${botPreview.summary}`;
+    const createdMeta: Record<string, unknown> = { type, claimedStreak, claimedDate };
+    if (type === "feedback") {
+      const fbTitle = (clientClaim.title as string) || "";
+      const fbComment = (clientClaim.comment as string) || "";
+      createdMsg = fbTitle
+        ? `💬 "${fbTitle}"\n\n${fbComment}`
+        : `💬 ${fbComment}`;
+      createdMeta.feedbackTitle = fbTitle;
+      createdMeta.feedbackComment = fbComment;
+    }
+    await addEvent(ticket.id, "USER", "CREATED", createdMsg, createdMeta);
 
     // 2. AUTO_FIX event (if applicable)
     if (autoFixApplied) {

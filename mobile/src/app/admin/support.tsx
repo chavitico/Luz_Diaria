@@ -148,11 +148,12 @@ function adminEventIcon(type: string, actor: string): { icon: React.ComponentTyp
 // ─── Constants ─────────────────────────────────────────────────────────────────
 
 const TYPE_LABELS: Record<string, { icon: React.ReactNode; label: string; color: string }> = {
-  streak_missing:         { icon: null, label: '🔥 Racha',          color: '#F97316' },
-  devotional_not_counted: { icon: null, label: '📖 Devocional',      color: '#8B5CF6' },
-  audio_tts:              { icon: null, label: '🔊 Audio/TTS',       color: '#0EA5E9' },
-  notification:           { icon: null, label: '🔔 Notificación',    color: '#EAB308' },
-  reward_drop:            { icon: null, label: '🎁 Regalo/Drop',     color: '#22C55E' },
+  streak_missing:         { icon: null, label: '🔥 Racha',            color: '#F97316' },
+  devotional_not_counted: { icon: null, label: '📖 Devocional',        color: '#8B5CF6' },
+  audio_tts:              { icon: null, label: '🔊 Audio/TTS',         color: '#0EA5E9' },
+  notification:           { icon: null, label: '🔔 Notificación',      color: '#EAB308' },
+  reward_drop:            { icon: null, label: '🎁 Regalo/Drop',       color: '#22C55E' },
+  feedback:               { icon: null, label: '💬 Comentario',        color: '#A78BFA' },
 };
 
 const REWARD_TYPES: { value: RewardType; label: string; emoji: string }[] = [

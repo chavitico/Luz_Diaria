@@ -588,19 +588,19 @@
     "id": "cmogfbm0o001am2bp6ed26eqv",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "challengeId": "cmogemzgt0003m26v0hql7jlj",
-    "currentCount": 0,
-    "completed": false,
+    "currentCount": 1,
+    "completed": true,
     "claimed": false,
-    "updatedAt": "2026-04-26T23:53:00.985Z"
+    "updatedAt": "2026-04-27T05:56:56.322Z"
   },
   {
     "id": "cmogfbm0s001cm2bpghe5ndxt",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "challengeId": "cmogemzgn0002m26vq6ycxuza",
-    "currentCount": 0,
+    "currentCount": 1,
     "completed": false,
     "claimed": false,
-    "updatedAt": "2026-04-26T23:53:00.989Z"
+    "updatedAt": "2026-04-27T05:56:56.321Z"
   },
   {
     "id": "cmogfbm0l0018m2bpl7wvhvp6",
