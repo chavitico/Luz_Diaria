@@ -686,10 +686,10 @@ function CollectionHubCard({
         marginBottom: 16,
         borderRadius: 20,
         shadowColor: accentColor,
-        shadowOpacity: 0.65,
-        shadowRadius: 20,
-        shadowOffset: { width: 0, height: 5 },
-        elevation: 14,
+        shadowOpacity: 0.75,
+        shadowRadius: 28,
+        shadowOffset: { width: 0, height: 8 },
+        elevation: 20,
       }, animStyle]}
     >
       <Pressable
@@ -697,13 +697,20 @@ function CollectionHubCard({
         onPressIn={() => { scale.value = withSpring(0.963, { damping: 20, stiffness: 380 }); }}
         onPressOut={() => { scale.value = withSpring(1, { damping: 18, stiffness: 320 }); }}
       >
-        <View style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1.5, borderColor: accentColor + '55' }}>
+        <View style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1.5, borderColor: accentColor + '75' }}>
 
           {/* ── Background layers ── */}
           <LinearGradient
             colors={gradientColors}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
+          {/* Depth overlay — bottom darker for physical card depth */}
+          <LinearGradient
+            colors={['transparent', 'rgba(0,0,0,0.25)']}
+            start={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, y: 1 }}
             style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
           />
 
@@ -736,12 +743,12 @@ function CollectionHubCard({
             <>
               <Image
                 source={packImage!}
-                style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '48%' }}
+                style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '55%', opacity: 0.20 }}
                 resizeMode="cover"
               />
-              {/* Left-to-right fade: gradient → transparent, hides image seam */}
+              {/* Gradient blend — card color dominates, image becomes subtle right-side texture */}
               <LinearGradient
-                colors={[gradientColors[0], gradientColors[0] + 'F0', gradientColors[0] + '88', 'transparent']}
+                colors={[gradientColors[0], gradientColors[0] + 'D0', gradientColors[0] + '50', 'transparent']}
                 start={{ x: 0, y: 0.5 }}
                 end={{ x: 1, y: 0.5 }}
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
@@ -1235,35 +1242,19 @@ export default function BiblicalCardsAlbumScreen() {
             </Text>
           </Animated.View>
 
-          {/* ── Collection cards ── */}
+          {/* ── Collection cards — newest first, Secretas pinned last ── */}
           <CollectionHubCard
-            collectionId="inicial"
-            title="Colección Inicial"
-            subtitle={language === 'es' ? 'Las primeras cartas del álbum' : 'The first album cards'}
-            accentColor="#6496FF"
-            gradientColors={['#1A3A6B', '#0F2149', '#0A1530']}
-            ownedCount={standardOwnedCount}
-            totalCount={standardCardIds.length}
-            newCount={newStandardCount}
+            collectionId="heroes"
+            title="Héroes de la Fe"
+            subtitle={language === 'es' ? 'Figuras épicas del Antiguo Testamento' : 'Epic figures of the Old Testament'}
+            accentColor="#D4AF37"
+            gradientColors={['#120E00', '#1E1800', '#120E00']}
+            ownedCount={heroesOwnedCount}
+            totalCount={heroesCards.length}
+            newCount={newHeroesCount}
             showTicker
             enterDelay={80}
-            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('inicial'); downloadCollection('inicial'); }}
-            language={language}
-            sFont={sFont}
-          />
-
-          <CollectionHubCard
-            collectionId="pascua"
-            title="Historia de Pascua"
-            subtitle={language === 'es' ? '14 capítulos de la redención' : '14 chapters of redemption'}
-            accentColor="#F5D060"
-            gradientColors={['#5C1010', '#3D0A0A', '#200505']}
-            ownedCount={pascuaOwnedCount}
-            totalCount={pascuaCards.length}
-            newCount={newPascuaCount}
-            showTicker
-            enterDelay={140}
-            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('pascua'); downloadCollection('pascua'); }}
+            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('heroes'); downloadCollection('heroes'); }}
             language={language}
             sFont={sFont}
           />
@@ -1277,23 +1268,38 @@ export default function BiblicalCardsAlbumScreen() {
             ownedCount={milagrosOwnedCount}
             totalCount={milagrosCards.length}
             newCount={newMilagrosCount}
-            enterDelay={200}
+            enterDelay={140}
             onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('milagros'); downloadCollection('milagros'); }}
             language={language}
             sFont={sFont}
           />
 
           <CollectionHubCard
-            collectionId="heroes"
-            title="Héroes de la Fe"
-            subtitle={language === 'es' ? 'Figuras épicas del Antiguo Testamento' : 'Epic figures of the Old Testament'}
-            accentColor="#D4AF37"
-            gradientColors={['#120E00', '#1E1800', '#120E00']}
-            ownedCount={heroesOwnedCount}
-            totalCount={heroesCards.length}
-            newCount={newHeroesCount}
+            collectionId="pascua"
+            title="Historia de Pascua"
+            subtitle={language === 'es' ? '14 capítulos de la redención' : '14 chapters of redemption'}
+            accentColor="#F5D060"
+            gradientColors={['#5C1010', '#3D0A0A', '#200505']}
+            ownedCount={pascuaOwnedCount}
+            totalCount={pascuaCards.length}
+            newCount={newPascuaCount}
+            enterDelay={200}
+            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('pascua'); downloadCollection('pascua'); }}
+            language={language}
+            sFont={sFont}
+          />
+
+          <CollectionHubCard
+            collectionId="inicial"
+            title="Colección Inicial"
+            subtitle={language === 'es' ? 'Las primeras cartas del álbum' : 'The first album cards'}
+            accentColor="#6496FF"
+            gradientColors={['#1A3A6B', '#0F2149', '#0A1530']}
+            ownedCount={standardOwnedCount}
+            totalCount={standardCardIds.length}
+            newCount={newStandardCount}
             enterDelay={260}
-            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('heroes'); downloadCollection('heroes'); }}
+            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('inicial'); downloadCollection('inicial'); }}
             language={language}
             sFont={sFont}
           />
