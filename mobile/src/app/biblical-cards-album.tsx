@@ -39,10 +39,10 @@ import {
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
-// Unified 3-column grid dimensions used by BOTH collections
-const COLS = 3;
-const CARD_GAP = 8;
-const CARD_W = (SCREEN_W - 32 - CARD_GAP * (COLS - 1)) / COLS;
+// Unified 5-column grid dimensions used by BOTH collections
+const COLS = 5;
+const CARD_GAP = 6;
+const CARD_W = (SCREEN_W - 40 - CARD_GAP * (COLS - 1)) / COLS;
 const CARD_H = CARD_W * 1.5;
 
 // Collection type
@@ -295,7 +295,7 @@ function StandardCardThumbnail({
   index: number;
 }) {
   return (
-    <Animated.View entering={ZoomIn.delay(index * 70).duration(340)}>
+    <Animated.View entering={ZoomIn.delay(index * 25).duration(280)}>
       <Pressable onPress={onPress} style={{ width: cardW, height: cardH }}>
         {owned ? (
           <LinearGradient
@@ -304,7 +304,7 @@ function StandardCardThumbnail({
             end={{ x: 1, y: 1 }}
             style={{
               flex: 1,
-              borderRadius: 14,
+              borderRadius: 10,
               borderWidth: 1.5,
               borderColor: card.accentColor + '88',
               overflow: 'hidden',
@@ -338,19 +338,19 @@ function StandardCardThumbnail({
               colors={[card.accentColor + '60', card.accentColor + '1A']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              style={{ paddingHorizontal: 5, paddingVertical: 4, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+              style={{ paddingHorizontal: 3, paddingVertical: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
             >
               {(() => {
                 const rc = RARITY_CONFIG[card.rarity];
                 return (
-                  <View style={{ backgroundColor: rc.bg, borderRadius: 99, paddingHorizontal: 5, paddingVertical: 1, borderWidth: 0.5, borderColor: rc.color + 'AA' }}>
-                    <Text style={{ fontSize: sFont(5.5), fontWeight: '900', color: rc.color, letterSpacing: 0.6, textTransform: 'uppercase' }}>
+                  <View style={{ backgroundColor: rc.bg, borderRadius: 99, paddingHorizontal: 3, paddingVertical: 1, borderWidth: 0.5, borderColor: rc.color + 'AA' }}>
+                    <Text style={{ fontSize: sFont(5), fontWeight: '900', color: rc.color, letterSpacing: 0.4, textTransform: 'uppercase' }}>
                       {language === 'es' ? rc.labelEs : rc.labelEn}
                     </Text>
                   </View>
                 );
               })()}
-              <Text style={{ fontSize: 9, color: card.accentColor, opacity: 0.8 }}>{card.motif.cornerGlyph}</Text>
+              <Text style={{ fontSize: 7, color: card.accentColor, opacity: 0.8 }}>{card.motif.cornerGlyph}</Text>
             </LinearGradient>
 
             <View style={{ height: 0.5, backgroundColor: card.accentColor + '60' }} />
@@ -393,50 +393,37 @@ function StandardCardThumbnail({
               colors={[card.accentColor + '1A', card.accentColor + '60']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              style={{ paddingHorizontal: 6, paddingVertical: 5, alignItems: 'center' }}
+              style={{ paddingHorizontal: 3, paddingVertical: 3, alignItems: 'center' }}
             >
-              <Text style={{ fontSize: sFont(9), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.1 }} numberOfLines={1}>
+              <Text style={{ fontSize: sFont(7), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.1 }} numberOfLines={1}>
                 {language === 'es' ? card.nameEs : card.nameEn}
-              </Text>
-              <Text style={{ fontSize: sFont(6.5), color: card.accentColor, fontWeight: '700', marginTop: 1 }}>
-                {card.verseRef}
               </Text>
             </LinearGradient>
 
             {/* Duplicate badge */}
             {duplicates > 0 && (
-              <View style={{ position: 'absolute', top: 5, right: 5, backgroundColor: card.accentColor, borderRadius: 99, minWidth: 18, height: 18, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 4 }}>
-                <Text style={{ fontSize: sFont(7.5), fontWeight: '900', color: '#000' }}>x{duplicates + 1}</Text>
+              <View style={{ position: 'absolute', top: 3, right: 3, backgroundColor: card.accentColor, borderRadius: 99, minWidth: 14, height: 14, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 }}>
+                <Text style={{ fontSize: sFont(6), fontWeight: '900', color: '#000' }}>x{duplicates + 1}</Text>
               </View>
             )}
             {isNew && !duplicates && (
-              <Animated.View entering={FadeIn.duration(180)} style={{ position: 'absolute', top: 5, right: 5 }}>
-                <LinearGradient
-                  colors={['#D4A017', '#F5D060']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{ borderRadius: 99, paddingHorizontal: 6, paddingVertical: 2.5, shadowColor: '#D4A017', shadowOpacity: 0.7, shadowRadius: 6, shadowOffset: { width: 0, height: 0 }, elevation: 6 }}
-                >
-                  <Text style={{ fontSize: sFont(6.5), fontWeight: '900', color: '#000', letterSpacing: 0.5 }}>✨ NUEVA</Text>
-                </LinearGradient>
+              <Animated.View entering={FadeIn.duration(180)} style={{ position: 'absolute', top: 3, right: 3 }}>
+                <View style={{ backgroundColor: '#D4A017', borderRadius: 99, width: 8, height: 8 }} />
               </Animated.View>
             )}
           </LinearGradient>
         ) : (
           <View style={{
             flex: 1,
-            borderRadius: 14,
+            borderRadius: 10,
             backgroundColor: 'rgba(255,255,255,0.04)',
-            borderWidth: 1.5,
+            borderWidth: 1,
             borderColor: 'rgba(255,255,255,0.10)',
             alignItems: 'center',
             justifyContent: 'center',
             borderStyle: 'dashed',
           }}>
-            <Text style={{ fontSize: cardW * 0.3, opacity: 0.15 }}>?</Text>
-            <Text style={{ fontSize: sFont(7.5), color: 'rgba(255,255,255,0.30)', marginTop: 6, textAlign: 'center', paddingHorizontal: 4 }}>
-              {language === 'es' ? 'No obtenida' : 'Not owned'}
-            </Text>
+            <Text style={{ fontSize: cardW * 0.35, opacity: 0.15 }}>?</Text>
           </View>
         )}
       </Pressable>
@@ -473,7 +460,7 @@ function PascuaCardThumbnail({
   const rc = RARITY_CONFIG[card.rarity];
 
   return (
-    <Animated.View entering={ZoomIn.delay(index * 50).duration(300)}>
+    <Animated.View entering={ZoomIn.delay(index * 25).duration(280)}>
       <Pressable onPress={onPress} style={{ width: cardW, height: cardH }}>
         {owned ? (
           <LinearGradient
@@ -482,15 +469,15 @@ function PascuaCardThumbnail({
             end={{ x: 1, y: 1 }}
             style={{
               flex: 1,
-              borderRadius: 14,
-              borderWidth: 1.5,
+              borderRadius: 10,
+              borderWidth: 1,
               borderColor: card.accentColor + '88',
               overflow: 'hidden',
               shadowColor: card.accentColor,
-              shadowOpacity: card.rarity === 'legendary' ? 0.75 : 0.45,
-              shadowRadius: card.rarity === 'legendary' ? 16 : 10,
-              shadowOffset: { width: 0, height: 4 },
-              elevation: 12,
+              shadowOpacity: card.rarity === 'legendary' ? 0.6 : 0.35,
+              shadowRadius: card.rarity === 'legendary' ? 10 : 6,
+              shadowOffset: { width: 0, height: 2 },
+              elevation: 8,
             }}
           >
             {/* Foil shimmer */}
@@ -501,25 +488,24 @@ function PascuaCardThumbnail({
               style={{ position: 'absolute', width: '100%', height: '100%' }}
             />
             {/* Accent lines */}
-            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2.5, backgroundColor: card.accentColor }} />
-            <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2.5, backgroundColor: card.accentColor }} />
+            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, backgroundColor: card.accentColor }} />
+            <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, backgroundColor: card.accentColor }} />
 
             {/* Top bar: order number + rarity badge */}
             <LinearGradient
               colors={[card.accentColor + '60', card.accentColor + '1A']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              style={{ paddingHorizontal: 8, paddingVertical: 5, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+              style={{ paddingHorizontal: 3, paddingVertical: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
             >
-              <Text style={{ fontSize: sFont(8), fontWeight: '900', color: card.accentColor + 'CC', letterSpacing: 0.5 }}>
+              <Text style={{ fontSize: sFont(6), fontWeight: '900', color: card.accentColor + 'CC', letterSpacing: 0.3 }}>
                 {String(card.eventOrder ?? '').padStart(2, '0')}
               </Text>
-              <View style={{ backgroundColor: rc.bg, borderRadius: 99, paddingHorizontal: 6, paddingVertical: 1.5, borderWidth: 0.5, borderColor: rc.color + 'AA' }}>
-                <Text style={{ fontSize: sFont(6), fontWeight: '900', color: rc.color, letterSpacing: 0.6, textTransform: 'uppercase' }}>
+              <View style={{ backgroundColor: rc.bg, borderRadius: 99, paddingHorizontal: 3, paddingVertical: 1, borderWidth: 0.5, borderColor: rc.color + 'AA' }}>
+                <Text style={{ fontSize: sFont(5), fontWeight: '900', color: rc.color, textTransform: 'uppercase' }}>
                   {language === 'es' ? rc.labelEs : rc.labelEn}
                 </Text>
               </View>
-              <Text style={{ fontSize: 10, color: card.accentColor, opacity: 0.8 }}>{card.motif.cornerGlyph}</Text>
             </LinearGradient>
 
             <View style={{ height: 0.5, backgroundColor: card.accentColor + '60' }} />
@@ -534,31 +520,21 @@ function PascuaCardThumbnail({
               colors={[card.accentColor + '1A', card.accentColor + '60']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              style={{ paddingHorizontal: 8, paddingVertical: 6, alignItems: 'center' }}
+              style={{ paddingHorizontal: 3, paddingVertical: 3, alignItems: 'center' }}
             >
-              <Text style={{ fontSize: sFont(10), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.1 }} numberOfLines={1}>
+              <Text style={{ fontSize: sFont(7), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.1 }} numberOfLines={1}>
                 {language === 'es' ? card.nameEs : card.nameEn}
-              </Text>
-              <Text style={{ fontSize: sFont(7.5), color: card.accentColor, fontWeight: '700', marginTop: 1 }}>
-                {card.verseRef}
               </Text>
             </LinearGradient>
 
             {duplicates > 0 && (
-              <View style={{ position: 'absolute', top: 5, right: 5, backgroundColor: card.accentColor, borderRadius: 99, minWidth: 18, height: 18, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 4 }}>
-                <Text style={{ fontSize: sFont(7.5), fontWeight: '900', color: '#000' }}>x{duplicates + 1}</Text>
+              <View style={{ position: 'absolute', top: 3, right: 3, backgroundColor: card.accentColor, borderRadius: 99, minWidth: 14, height: 14, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 }}>
+                <Text style={{ fontSize: sFont(6), fontWeight: '900', color: '#000' }}>x{duplicates + 1}</Text>
               </View>
             )}
             {isNew && !duplicates && (
-              <Animated.View entering={FadeIn.duration(180)} style={{ position: 'absolute', top: 5, right: 5 }}>
-                <LinearGradient
-                  colors={['#D4A017', '#F5D060']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{ borderRadius: 99, paddingHorizontal: 6, paddingVertical: 2.5, shadowColor: '#D4A017', shadowOpacity: 0.7, shadowRadius: 6, shadowOffset: { width: 0, height: 0 }, elevation: 6 }}
-                >
-                  <Text style={{ fontSize: sFont(6.5), fontWeight: '900', color: '#000', letterSpacing: 0.5 }}>✨ NUEVA</Text>
-                </LinearGradient>
+              <Animated.View entering={FadeIn.duration(180)} style={{ position: 'absolute', top: 3, right: 3 }}>
+                <View style={{ backgroundColor: '#D4A017', borderRadius: 99, width: 8, height: 8 }} />
               </Animated.View>
             )}
           </LinearGradient>
@@ -566,20 +542,16 @@ function PascuaCardThumbnail({
           /* Unowned event card — shows order number hint */
           <View style={{
             flex: 1,
-            borderRadius: 14,
+            borderRadius: 10,
             backgroundColor: 'rgba(245,208,96,0.04)',
-            borderWidth: 1.5,
+            borderWidth: 1,
             borderColor: 'rgba(245,208,96,0.15)',
             alignItems: 'center',
             justifyContent: 'center',
             borderStyle: 'dashed',
           }}>
-            <Text style={{ fontSize: sFont(11), fontWeight: '800', color: 'rgba(245,208,96,0.25)', letterSpacing: 1 }}>
+            <Text style={{ fontSize: sFont(9), fontWeight: '800', color: 'rgba(245,208,96,0.20)', letterSpacing: 1 }}>
               {String(card.eventOrder ?? '').padStart(2, '0')}
-            </Text>
-            <Text style={{ fontSize: cardW * 0.18, opacity: 0.12, marginTop: 2 }}>✝</Text>
-            <Text style={{ fontSize: sFont(7.5), color: 'rgba(245,208,96,0.25)', marginTop: 6, textAlign: 'center', paddingHorizontal: 6 }} numberOfLines={2}>
-              {language === 'es' ? card.nameEs : card.nameEn}
             </Text>
           </View>
         )}
