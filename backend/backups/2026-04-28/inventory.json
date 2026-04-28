@@ -1881,5 +1881,19 @@
     "itemId": "avatar_v2_cruz_radiante",
     "acquiredAt": "2026-04-27T22:21:08.184Z",
     "source": "gift"
+  },
+  {
+    "id": "cmoj5csv00011m2jmg4exqmte",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "title_chest_ungido",
+    "acquiredAt": "2026-04-28T21:37:18.876Z",
+    "source": "store"
+  },
+  {
+    "id": "cmoj5eneu001fm2jmvjx6jvl4",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "title_lord_my_light",
+    "acquiredAt": "2026-04-28T21:38:45.127Z",
+    "source": "store"
   }
 ]
