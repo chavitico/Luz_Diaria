@@ -1471,7 +1471,6 @@ export default function HomeScreen() {
     if (isCompleted) return;
 
     setIsCompleted(true);
-    setShowAchievement(true);
 
     // Persist engagement date for notification smart-skip
     markDevotionalCompletedToday().catch(() => {});
@@ -1595,7 +1594,6 @@ export default function HomeScreen() {
       }
     }
 
-    setTimeout(() => setShowAchievement(false), 3000);
   }, [isCompleted, user, today, addPoints, incrementStreak, updateUser]);
 
   // Novedades unread badge — true if news unread OR there's a pending admin drop
