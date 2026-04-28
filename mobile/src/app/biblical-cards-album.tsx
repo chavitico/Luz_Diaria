@@ -783,12 +783,12 @@ function CollectionHubCard({
             style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
           />
 
-          {/* ── Content ── */}
-          <View style={{ paddingHorizontal: 20, paddingVertical: 16, width: '62%' }}>
-            <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 3 }} numberOfLines={1}>
+          {/* ── Content — z-index above background layers ── */}
+          <View style={{ paddingHorizontal: 20, paddingVertical: 16, width: '82%', zIndex: 1 }}>
+            <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 3 }}>
               {title}
             </Text>
-            <Text style={{ fontSize: sFont(12), color: accentColor + 'BB', marginBottom: 11 }} numberOfLines={1}>
+            <Text style={{ fontSize: sFont(12), color: accentColor + 'BB', marginBottom: 11 }}>
               {subtitle}
             </Text>
 
