@@ -469,8 +469,8 @@ function TestamentCard({ title, subtitle, bookCount, emoji, testament, onPress, 
   const isOT = testament === 'OT';
   const accentColor = isOT ? '#D4A030' : '#5B9BDE';
   const gradientColors: [string, string, string] = isOT
-    ? ['rgba(130,78,15,0.95)', 'rgba(80,44,8,0.90)', 'rgba(45,22,3,0.88)']
-    : ['rgba(18,58,130,0.95)', 'rgba(12,38,90,0.90)', 'rgba(6,18,55,0.88)'];
+    ? ['rgba(130,78,15,0.82)', 'rgba(80,44,8,0.78)', 'rgba(45,22,3,0.75)']
+    : ['rgba(18,58,130,0.82)', 'rgba(12,38,90,0.78)', 'rgba(6,18,55,0.75)'];
   const imageUri = isOT ? OT_IMAGE : NT_IMAGE;
 
   return (
@@ -500,7 +500,7 @@ function TestamentCard({ title, subtitle, bookCount, emoji, testament, onPress, 
             source={{ uri: imageUri }}
             style={{
               position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-              opacity: 0.22, borderRadius: 22,
+              opacity: 0.35, borderRadius: 22,
             }}
             contentFit="cover"
           />
@@ -518,48 +518,33 @@ function TestamentCard({ title, subtitle, bookCount, emoji, testament, onPress, 
             borderRadius: 22, borderWidth: 1, borderColor: accentColor + '50',
           }} />
 
-          {/* Content */}
-          <View style={{ padding: 18, flex: 1, justifyContent: 'space-between', minHeight: 175 }}>
-            {/* Icon ring */}
-            <View style={{
-              width: 50, height: 50, borderRadius: 25,
-              backgroundColor: accentColor + '25',
-              borderWidth: 1.5, borderColor: accentColor + '65',
-              alignItems: 'center', justifyContent: 'center',
-              shadowColor: accentColor, shadowOpacity: 0.65,
-              shadowRadius: 10, shadowOffset: { width: 0, height: 0 },
+          {/* Content — centered, no icon */}
+          <View style={{ padding: 18, flex: 1, justifyContent: 'center', alignItems: 'center', minHeight: 175 }}>
+            <Text style={{
+              fontSize: sFont(20), fontWeight: '900', color: '#fff',
+              textAlign: 'center', letterSpacing: -0.4, lineHeight: sFont(25),
             }}>
-              <Text style={{ fontSize: sFont(26) }}>{emoji}</Text>
-            </View>
-
-            {/* Text block */}
-            <View>
+              {title}
+            </Text>
+            <Text style={{
+              fontSize: sFont(11), color: 'rgba(255,255,255,0.50)',
+              marginTop: 5, fontWeight: '500', textAlign: 'center',
+            }}>
+              {subtitle}
+            </Text>
+            {/* Pill badge */}
+            <View style={{
+              marginTop: 12,
+              backgroundColor: accentColor + '30',
+              borderWidth: 1, borderColor: accentColor + '60',
+              borderRadius: 20, paddingHorizontal: 12, paddingVertical: 5,
+            }}>
               <Text style={{
-                fontSize: sFont(17), fontWeight: '900', color: '#fff',
-                lineHeight: sFont(22), letterSpacing: -0.3,
+                fontSize: sFont(11), fontWeight: '700',
+                color: accentColor, letterSpacing: 0.5,
               }}>
-                {title}
+                {booksLabel}
               </Text>
-              <Text style={{
-                fontSize: sFont(10), color: 'rgba(255,255,255,0.48)',
-                marginTop: 3, fontWeight: '500',
-              }}>
-                {subtitle}
-              </Text>
-              {/* Pill badge */}
-              <View style={{
-                marginTop: 9, alignSelf: 'flex-start',
-                backgroundColor: accentColor + '30',
-                borderWidth: 1, borderColor: accentColor + '60',
-                borderRadius: 20, paddingHorizontal: 9, paddingVertical: 4,
-              }}>
-                <Text style={{
-                  fontSize: sFont(10), fontWeight: '700',
-                  color: accentColor, letterSpacing: 0.5,
-                }}>
-                  {booksLabel}
-                </Text>
-              </View>
             </View>
           </View>
         </LinearGradient>
