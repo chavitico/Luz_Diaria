@@ -1019,7 +1019,7 @@ function DueloSabiduriaCard({
       >
         <Animated.View style={animatedStyle}>
           <LinearGradient
-            colors={['#0d1e38', '#102444', '#0a1628']}
+            colors={['#0d1e38CC', '#102444BB', '#0a1628CC']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={{
@@ -1030,6 +1030,11 @@ function DueloSabiduriaCard({
               overflow: 'hidden',
             }}
           >
+            <Image
+              source={{ uri: 'https://images.unsplash.com/photo-1529108190281-9a4f620bc2d8?w=800&q=80' }}
+              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.32, borderRadius: 20 }}
+              resizeMode="cover"
+            />
             {/* Decorative glow */}
             <View
               style={{
@@ -1568,8 +1573,13 @@ function WeeklyChestCard({
             elevation: 4,
           }}
         >
+          <Image
+            source={{ uri: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80' }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.32 }}
+            resizeMode="cover"
+          />
           <LinearGradient
-            colors={canClaim ? ['#FAF5FF', '#F3E8FF'] : [colors.surface, colors.surface]}
+            colors={canClaim ? ['#1E0B3ACC', '#2D1952C0', '#16082ECC'] : ['rgba(10,5,20,0.90)', 'rgba(10,5,20,0.90)']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={{ padding: 20 }}
@@ -1853,7 +1863,6 @@ function WeeklyChallengesCard({
           borderRadius: 18,
           borderWidth: 1,
           borderColor: 'rgba(249,115,22,0.20)',
-          backgroundColor: '#120D05',
           overflow: 'hidden',
           shadowColor: '#F97316',
           shadowOffset: { width: 0, height: 2 },
@@ -1861,6 +1870,17 @@ function WeeklyChallengesCard({
           shadowRadius: 8,
           elevation: 4,
         }}>
+          <Image
+            source={{ uri: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80' }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.38 }}
+            resizeMode="cover"
+          />
+          <LinearGradient
+            colors={['rgba(18,13,5,0.88)', 'rgba(18,13,5,0.72)']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
           {/* Subtle inner glow */}
           <LinearGradient
             colors={['#F9731610', 'transparent']}
@@ -5093,7 +5113,7 @@ export default function StoreScreen() {
               }}
             >
               <LinearGradient
-                colors={['#2A1F00', '#1A1200', '#0E0900']}
+                colors={['#2A1F00CC', '#1A1200BB', '#0E0900CC']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={{
@@ -5103,8 +5123,14 @@ export default function StoreScreen() {
                   borderColor: 'rgba(212,175,55,0.22)',
                   minHeight: 110,
                   justifyContent: 'space-between',
+                  overflow: 'hidden',
                 }}
               >
+                <Image
+                  source={{ uri: 'https://images.unsplash.com/photo-1605027990121-cbae9e0642df?w=800&q=80' }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.28, borderRadius: 18 }}
+                  resizeMode="cover"
+                />
                 <View style={{
                   width: 38, height: 38, borderRadius: 11,
                   backgroundColor: 'rgba(212,175,55,0.12)',
@@ -5145,7 +5171,7 @@ export default function StoreScreen() {
               }}
             >
               <LinearGradient
-                colors={['#0D2A2A', '#071A1A', '#030F0F']}
+                colors={['#0D2A2ACC', '#071A1ABB', '#030F0FCC']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={{
@@ -5155,8 +5181,14 @@ export default function StoreScreen() {
                   borderColor: 'rgba(45,212,191,0.22)',
                   minHeight: 110,
                   justifyContent: 'space-between',
+                  overflow: 'hidden',
                 }}
               >
+                <Image
+                  source={{ uri: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&q=80' }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.25, borderRadius: 18 }}
+                  resizeMode="cover"
+                />
                 <View style={{
                   width: 38, height: 38, borderRadius: 11,
                   backgroundColor: 'rgba(45,212,191,0.12)',
@@ -5194,7 +5226,7 @@ export default function StoreScreen() {
             }}
           >
             <LinearGradient
-              colors={['#2A1400', '#1A0D00', '#0E0800']}
+              colors={['#2A1400CC', '#1A0D00BB', '#0E0800CC']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={{
@@ -5205,8 +5237,14 @@ export default function StoreScreen() {
                 flexDirection: 'row',
                 alignItems: 'center',
                 gap: 14,
+                overflow: 'hidden',
               }}
             >
+              <Image
+                source={{ uri: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=800&q=80' }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.28, borderRadius: 18 }}
+                resizeMode="cover"
+              />
               <View style={{
                 width: 44, height: 44, borderRadius: 13,
                 backgroundColor: 'rgba(251,146,60,0.12)',
