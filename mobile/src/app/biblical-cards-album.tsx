@@ -146,7 +146,7 @@ function MarqueeText({ text, style }: { text: string; style?: object }) {
       style={{ overflow: 'hidden', width: '100%' }}
       onLayout={(e) => setContainerW(e.nativeEvent.layout.width)}
     >
-      {/* Ghost: large unconstrained width so we get natural text width from onLayout */}
+      {/* Ghost: 600px-wide container so Text renders at natural width for measurement */}
       <View style={{ position: 'absolute', width: 600, opacity: 0 }} pointerEvents="none">
         <Text
           style={[style as any, { alignSelf: 'flex-start', textAlign: 'left' }]}
@@ -155,12 +155,20 @@ function MarqueeText({ text, style }: { text: string; style?: object }) {
           {text}
         </Text>
       </View>
-      <RNAnimated.Text
-        style={[style as any, { transform: [{ translateX }] }]}
-        numberOfLines={1}
-      >
-        {text}
-      </RNAnimated.Text>
+      {/*
+        Animate a View wrapper, NOT Text directly.
+        Text gets explicit width=600 so the native engine never hits the container
+        boundary and never inserts "…". The outer overflow:hidden does all clipping.
+      */}
+      <RNAnimated.View style={{ transform: [{ translateX }] }}>
+        <Text
+          style={[style as any, { width: 600, textAlign: 'left' }]}
+          numberOfLines={1}
+          ellipsizeMode="clip"
+        >
+          {text}
+        </Text>
+      </RNAnimated.View>
     </View>
   );
 }
