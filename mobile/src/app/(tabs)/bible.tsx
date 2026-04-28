@@ -1765,15 +1765,16 @@ export default function BibleScreen() {
                   borderTopColor: colors.textMuted + '30',
                   flexDirection: 'row',
                   alignItems: 'center',
+                  justifyContent: 'space-between',
                   paddingHorizontal: 12,
                   paddingVertical: 10,
-                  gap: 10,
                   shadowColor: '#000',
                   shadowOpacity: 0.12,
                   shadowRadius: 10,
                   shadowOffset: { width: 0, height: -3 },
                   elevation: 8,
                 }}>
+                  {/* Anterior — outline, left-aligned */}
                   <Pressable
                     onPress={handlePrevChapter}
                     disabled={!selectedChapter || selectedChapter <= 1}
@@ -1781,32 +1782,34 @@ export default function BibleScreen() {
                       flex: 1,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 6,
+                      justifyContent: 'flex-start',
+                      gap: 5,
                       paddingVertical: 11,
+                      paddingHorizontal: 14,
                       borderRadius: 12,
-                      backgroundColor: colors.primary + '14',
+                      backgroundColor: 'transparent',
                       borderWidth: 1,
-                      borderColor: colors.primary + '35',
-                      opacity: (!selectedChapter || selectedChapter <= 1) ? 0.28 : pressed ? 0.65 : 1,
+                      borderColor: colors.primary + '45',
+                      opacity: (!selectedChapter || selectedChapter <= 1) ? 0.28 : pressed ? 0.60 : 1,
                     })}
                   >
-                    <ChevronLeft size={16} color={colors.primary} strokeWidth={2.5} />
-                    <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary }}>
+                    <ChevronLeft size={15} color={colors.primary} strokeWidth={2.5} />
+                    <Text style={{ fontSize: sFont(13), fontWeight: '600', color: colors.primary }}>
                       {lang === 'es' ? 'Anterior' : 'Prev'}
                     </Text>
                   </Pressable>
 
-                  {/* Chapter indicator */}
-                  <View style={{ alignItems: 'center', minWidth: 44 }}>
-                    <Text style={{ fontSize: sFont(17), fontWeight: '800', color: colors.text, lineHeight: 22 }}>
+                  {/* Chapter indicator — small, low weight */}
+                  <View style={{ alignItems: 'center', paddingHorizontal: 14 }}>
+                    <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.textMuted, lineHeight: 18 }}>
                       {selectedChapter ?? '—'}
                     </Text>
-                    <Text style={{ fontSize: sFont(9), fontWeight: '600', color: colors.textMuted, letterSpacing: 0.9, textTransform: 'uppercase' }}>
+                    <Text style={{ fontSize: sFont(8), fontWeight: '500', color: colors.textMuted + 'AA', letterSpacing: 0.8, textTransform: 'uppercase' }}>
                       {lang === 'es' ? 'Cap' : 'Ch'}
                     </Text>
                   </View>
 
+                  {/* Siguiente — solid filled, right-aligned */}
                   <Pressable
                     onPress={handleNextChapter}
                     disabled={!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters}
@@ -1814,20 +1817,19 @@ export default function BibleScreen() {
                       flex: 1,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 6,
+                      justifyContent: 'flex-end',
+                      gap: 5,
                       paddingVertical: 11,
+                      paddingHorizontal: 14,
                       borderRadius: 12,
-                      backgroundColor: colors.primary + '14',
-                      borderWidth: 1,
-                      borderColor: colors.primary + '35',
-                      opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.28 : pressed ? 0.65 : 1,
+                      backgroundColor: colors.primary,
+                      opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.28 : pressed ? 0.75 : 1,
                     })}
                   >
-                    <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary }}>
+                    <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#fff' }}>
                       {lang === 'es' ? 'Siguiente' : 'Next'}
                     </Text>
-                    <ChevronRight size={16} color={colors.primary} strokeWidth={2.5} />
+                    <ChevronRight size={15} color="#fff" strokeWidth={2.5} />
                   </Pressable>
                 </View>
               </View>
