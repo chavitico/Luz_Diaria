@@ -304,8 +304,11 @@ export class JsonBlockStrongRepository implements IStrongRepository {
     // ── Phase 2: English field scan ───────────────────────────────────────
     // Only loaded blocks are scanned first (already in cache); then unloaded.
     // Searches transliteration, shortDefinition, longDefinition.
+    // Uses NFD normalization to strip diacritics (e.g. "emphysao" matches "emphysáō").
     if (results.length < limit) {
-      const qEn = query.toLowerCase();
+      const stripDiacritics = (s: string) =>
+        s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const qEn = stripDiacritics(query.toLowerCase());
 
       const blockIds = lang === 'Hebrew'
         ? Object.keys(BLOCK_LOADERS).filter(id => id.startsWith('h_'))
@@ -320,9 +323,9 @@ export class JsonBlockStrongRepository implements IStrongRepository {
           if (results.length >= limit) break;
           if (
             raw.id.toLowerCase().includes(qEn) ||
-            raw.transliteration.toLowerCase().includes(qEn) ||
-            raw.shortDefinition.toLowerCase().includes(qEn) ||
-            raw.longDefinition.toLowerCase().includes(qEn)
+            stripDiacritics(raw.transliteration.toLowerCase()).includes(qEn) ||
+            stripDiacritics(raw.shortDefinition.toLowerCase()).includes(qEn) ||
+            stripDiacritics(raw.longDefinition.toLowerCase()).includes(qEn)
           ) {
             addEntry(toStrongEntry(raw));
           }
