@@ -24,6 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
 import Animated, {
   FadeIn,
+  FadeOut,
   SlideInRight,
   SlideInLeft,
   SlideOutLeft,
@@ -1783,8 +1784,8 @@ export default function BibleScreen() {
               <GestureDetector gesture={swipeGesture}>
               <Animated.View
                 key={contentKey}
-                entering={swipeDir === 'forward' ? SlideInRight.duration(220) : SlideInLeft.duration(220)}
-                exiting={swipeDir === 'forward' ? SlideOutLeft.duration(180) : SlideOutRight.duration(180)}
+                entering={FadeIn.duration(180)}
+                exiting={FadeOut.duration(120)}
                 style={{ flex: 1 }}
               >
                 <ScrollView
