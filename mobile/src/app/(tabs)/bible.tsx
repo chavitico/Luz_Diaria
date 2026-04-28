@@ -1691,7 +1691,7 @@ export default function BibleScreen() {
               <Animated.View key={contentKey} entering={FadeIn.duration(250)} style={{ flex: 1 }}>
                 <ScrollView
                   showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{ paddingTop: 12, paddingBottom: 120 }}
+                  contentContainerStyle={{ paddingTop: 12, paddingBottom: 160 }}
                 >
                   {chapterData.verses.map(verse => (
                     <VerseRow
@@ -1748,52 +1748,88 @@ export default function BibleScreen() {
                 </Text>
               </Animated.View>
 
-              {/* ── Chapter navigation — floating edge buttons ── */}
-              <View pointerEvents="box-none" style={{
-                position: 'absolute', left: 0, right: 0,
-                bottom: Platform.OS === 'ios' ? 96 : 78,
-                flexDirection: 'row', justifyContent: 'space-between',
-                paddingHorizontal: 14,
-              }}>
-                <Pressable
-                  onPress={handlePrevChapter}
-                  disabled={!selectedChapter || selectedChapter <= 1}
-                  style={({ pressed }) => ({
-                    flexDirection: 'row', alignItems: 'center', gap: 4,
-                    paddingVertical: 8, paddingHorizontal: 14,
-                    borderRadius: 20,
-                    backgroundColor: colors.surface,
-                    borderWidth: 0.5, borderColor: colors.textMuted + '30',
-                    shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 6, shadowOffset: { width: 0, height: 2 },
-                    elevation: 3,
-                    opacity: (!selectedChapter || selectedChapter <= 1) ? 0.3 : (pressed ? 0.6 : 1),
-                  })}
-                >
-                  <ChevronLeft size={14} color={colors.primary} strokeWidth={2.5} />
-                  <Text style={{ fontSize: sFont(13), fontWeight: '600', color: colors.primary }}>
-                    {lang === 'es' ? 'Anterior' : 'Prev'}
-                  </Text>
-                </Pressable>
+              {/* ── Chapter navigation footer — sticky bar above tab bar ── */}
+              <View style={{ position: 'absolute', left: 0, right: 0, bottom: Platform.OS === 'ios' ? 83 : 62 }}>
+                {/* Fade gradient — blends reading content into the bar */}
+                <LinearGradient
+                  colors={[colors.background + '00', colors.background + 'CC', colors.background + 'FF']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+                  style={{ height: 32 }}
+                  pointerEvents="none"
+                />
+                {/* Footer bar */}
+                <View style={{
+                  backgroundColor: colors.surface,
+                  borderTopWidth: 0.5,
+                  borderTopColor: colors.textMuted + '30',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  paddingHorizontal: 12,
+                  paddingVertical: 10,
+                  gap: 10,
+                  shadowColor: '#000',
+                  shadowOpacity: 0.12,
+                  shadowRadius: 10,
+                  shadowOffset: { width: 0, height: -3 },
+                  elevation: 8,
+                }}>
+                  <Pressable
+                    onPress={handlePrevChapter}
+                    disabled={!selectedChapter || selectedChapter <= 1}
+                    style={({ pressed }) => ({
+                      flex: 1,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 6,
+                      paddingVertical: 11,
+                      borderRadius: 12,
+                      backgroundColor: colors.primary + '14',
+                      borderWidth: 1,
+                      borderColor: colors.primary + '35',
+                      opacity: (!selectedChapter || selectedChapter <= 1) ? 0.28 : pressed ? 0.65 : 1,
+                    })}
+                  >
+                    <ChevronLeft size={16} color={colors.primary} strokeWidth={2.5} />
+                    <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary }}>
+                      {lang === 'es' ? 'Anterior' : 'Prev'}
+                    </Text>
+                  </Pressable>
 
-                <Pressable
-                  onPress={handleNextChapter}
-                  disabled={!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters}
-                  style={({ pressed }) => ({
-                    flexDirection: 'row', alignItems: 'center', gap: 4,
-                    paddingVertical: 8, paddingHorizontal: 14,
-                    borderRadius: 20,
-                    backgroundColor: colors.surface,
-                    borderWidth: 0.5, borderColor: colors.textMuted + '30',
-                    shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 6, shadowOffset: { width: 0, height: 2 },
-                    elevation: 3,
-                    opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.3 : (pressed ? 0.6 : 1),
-                  })}
-                >
-                  <Text style={{ fontSize: sFont(13), fontWeight: '600', color: colors.primary }}>
-                    {lang === 'es' ? 'Siguiente' : 'Next'}
-                  </Text>
-                  <ChevronRight size={14} color={colors.primary} strokeWidth={2.5} />
-                </Pressable>
+                  {/* Chapter indicator */}
+                  <View style={{ alignItems: 'center', minWidth: 44 }}>
+                    <Text style={{ fontSize: sFont(17), fontWeight: '800', color: colors.text, lineHeight: 22 }}>
+                      {selectedChapter ?? '—'}
+                    </Text>
+                    <Text style={{ fontSize: sFont(9), fontWeight: '600', color: colors.textMuted, letterSpacing: 0.9, textTransform: 'uppercase' }}>
+                      {lang === 'es' ? 'Cap' : 'Ch'}
+                    </Text>
+                  </View>
+
+                  <Pressable
+                    onPress={handleNextChapter}
+                    disabled={!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters}
+                    style={({ pressed }) => ({
+                      flex: 1,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 6,
+                      paddingVertical: 11,
+                      borderRadius: 12,
+                      backgroundColor: colors.primary + '14',
+                      borderWidth: 1,
+                      borderColor: colors.primary + '35',
+                      opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.28 : pressed ? 0.65 : 1,
+                    })}
+                  >
+                    <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primary }}>
+                      {lang === 'es' ? 'Siguiente' : 'Next'}
+                    </Text>
+                    <ChevronRight size={16} color={colors.primary} strokeWidth={2.5} />
+                  </Pressable>
+                </View>
               </View>
             </View>
           )}
