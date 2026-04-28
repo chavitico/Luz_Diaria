@@ -108,6 +108,64 @@ function NovedadTicker({ accentColor }: { accentColor: string }) {
 }
 
 // ─────────────────────────────────────────────
+// MarqueeText — scrolls text that overflows, static if it fits
+// ─────────────────────────────────────────────
+function MarqueeText({ text, style }: { text: string; style?: object }) {
+  const [containerW, setContainerW] = useState<number>(0);
+  const [naturalW, setNaturalW] = useState<number>(0);
+  const translateX = useRef(new RNAnimated.Value(0)).current;
+  const animRef = useRef<RNAnimated.CompositeAnimation | null>(null);
+
+  const scrollDist = containerW > 0 && naturalW > containerW ? naturalW - containerW + 4 : 0;
+
+  useEffect(() => {
+    animRef.current?.stop();
+    translateX.setValue(0);
+    if (scrollDist <= 0) return;
+
+    const anim = RNAnimated.loop(
+      RNAnimated.sequence([
+        RNAnimated.delay(1400),
+        RNAnimated.timing(translateX, {
+          toValue: -scrollDist,
+          duration: scrollDist * 48,
+          easing: (t) => t,
+          useNativeDriver: true,
+        }),
+        RNAnimated.delay(700),
+        RNAnimated.timing(translateX, { toValue: 0, duration: 0, useNativeDriver: true }),
+      ])
+    );
+    animRef.current = anim;
+    anim.start();
+    return () => { animRef.current?.stop(); };
+  }, [scrollDist]);
+
+  return (
+    <View
+      style={{ overflow: 'hidden', width: '100%' }}
+      onLayout={(e) => setContainerW(e.nativeEvent.layout.width)}
+    >
+      {/* Ghost: large unconstrained width so we get natural text width from onLayout */}
+      <View style={{ position: 'absolute', width: 600, opacity: 0 }} pointerEvents="none">
+        <Text
+          style={[style as any, { alignSelf: 'flex-start', textAlign: 'left' }]}
+          onLayout={(e) => setNaturalW(e.nativeEvent.layout.width)}
+        >
+          {text}
+        </Text>
+      </View>
+      <RNAnimated.Text
+        style={[style as any, { transform: [{ translateX }] }]}
+        numberOfLines={1}
+      >
+        {text}
+      </RNAnimated.Text>
+    </View>
+  );
+}
+
+// ─────────────────────────────────────────────
 // Focal-point thumbnail artwork for standard cards.
 // Accepts cardW prop so it works at any column width.
 // ─────────────────────────────────────────────
@@ -395,9 +453,10 @@ function StandardCardThumbnail({
               end={{ x: 1, y: 0 }}
               style={{ paddingHorizontal: 3, paddingVertical: 3, alignItems: 'center' }}
             >
-              <Text style={{ fontSize: sFont(7), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.1 }} numberOfLines={1}>
-                {language === 'es' ? card.nameEs : card.nameEn}
-              </Text>
+              <MarqueeText
+                text={language === 'es' ? card.nameEs : card.nameEn}
+                style={{ fontSize: sFont(7), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.1 }}
+              />
             </LinearGradient>
 
             {/* Duplicate badge */}
@@ -522,9 +581,10 @@ function PascuaCardThumbnail({
               end={{ x: 1, y: 0 }}
               style={{ paddingHorizontal: 3, paddingVertical: 3, alignItems: 'center' }}
             >
-              <Text style={{ fontSize: sFont(7), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: -0.1 }} numberOfLines={1}>
-                {language === 'es' ? card.nameEs : card.nameEn}
-              </Text>
+              <MarqueeText
+                text={language === 'es' ? card.nameEs : card.nameEn}
+                style={{ fontSize: sFont(7), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.1 }}
+              />
             </LinearGradient>
 
             {duplicates > 0 && (
