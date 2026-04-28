@@ -1859,14 +1859,16 @@ export default function BibleScreen() {
                       paddingVertical: 11,
                       paddingHorizontal: 14,
                       borderRadius: 12,
-                      backgroundColor: colors.primary,
-                      opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.28 : pressed ? 0.75 : 1,
+                      backgroundColor: 'transparent',
+                      borderWidth: 1,
+                      borderColor: colors.primary + '45',
+                      opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.28 : pressed ? 0.60 : 1,
                     })}
                   >
-                    <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#fff' }}>
+                    <Text style={{ fontSize: sFont(13), fontWeight: '600', color: colors.primary }}>
                       {lang === 'es' ? 'Siguiente' : 'Next'}
                     </Text>
-                    <ChevronRight size={15} color="#fff" strokeWidth={2.5} />
+                    <ChevronRight size={15} color={colors.primary} strokeWidth={2.5} />
                   </Pressable>
                 </View>
               </View>
