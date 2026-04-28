@@ -25,12 +25,16 @@ import { useQuery } from '@tanstack/react-query';
 import Animated, {
   FadeIn,
   SlideInRight,
+  SlideInLeft,
   SlideOutLeft,
+  SlideOutRight,
   useSharedValue,
   useAnimatedStyle,
   withSpring,
   withTiming,
+  runOnJS,
 } from 'react-native-reanimated';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import {
   ChevronRight,
   ChevronLeft,
@@ -1010,6 +1014,7 @@ export default function BibleScreen() {
 
   // In-reader version switching animation
   const [contentKey, setContentKey] = useState(0);
+  const [swipeDir, setSwipeDir] = useState<'forward' | 'back'>('forward');
   const [versionSwitching, setVersionSwitching] = useState(false);
 
   // ── Strong Mode ─────────────────────────────────────────────────────────────
@@ -1388,6 +1393,31 @@ export default function BibleScreen() {
     loadChapter(selectedBook, selectedChapter + 1);
   }, [selectedBook, selectedChapter, stopTTS, loadChapter]);
 
+  const handleSwipeNext = useCallback(() => {
+    if (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) return;
+    setSwipeDir('forward');
+    stopTTS();
+    loadChapter(selectedBook, selectedChapter + 1);
+  }, [selectedBook, selectedChapter, stopTTS, loadChapter]);
+
+  const handleSwipePrev = useCallback(() => {
+    if (!selectedBook || !selectedChapter || selectedChapter <= 1) return;
+    setSwipeDir('back');
+    stopTTS();
+    loadChapter(selectedBook, selectedChapter - 1);
+  }, [selectedBook, selectedChapter, stopTTS, loadChapter]);
+
+  const swipeGesture = Gesture.Pan()
+    .activeOffsetX([-28, 28])
+    .failOffsetY([-12, 12])
+    .onEnd((e) => {
+      if (e.translationX < -50) {
+        runOnJS(handleSwipeNext)();
+      } else if (e.translationX > 50) {
+        runOnJS(handleSwipePrev)();
+      }
+    });
+
   // Header
   const headerTitle = useMemo(() => {
     if (view === 'books') {
@@ -1688,7 +1718,13 @@ export default function BibleScreen() {
                 </View>
               </View>
 
-              <Animated.View key={contentKey} entering={FadeIn.duration(250)} style={{ flex: 1 }}>
+              <GestureDetector gesture={swipeGesture}>
+              <Animated.View
+                key={contentKey}
+                entering={swipeDir === 'forward' ? SlideInRight.duration(220) : SlideInLeft.duration(220)}
+                exiting={swipeDir === 'forward' ? SlideOutLeft.duration(180) : SlideOutRight.duration(180)}
+                style={{ flex: 1 }}
+              >
                 <ScrollView
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{ paddingTop: 12, paddingBottom: 160 }}
@@ -1716,6 +1752,7 @@ export default function BibleScreen() {
                   ))}
                 </ScrollView>
               </Animated.View>
+              </GestureDetector>
 
               {/* ── No-Strong toast ── */}
               <Animated.View
