@@ -5958,51 +5958,69 @@ export default function StoreScreen() {
                 setTimeout(() => setShowDailyPackPicker(true), 350);
               }}
             />
-            <BiblicalPackCard
-              canAfford={points >= 500}
-              disabled={isPackTransactionActive}
-              language={language}
-              onPress={() => {
-                if (points >= 500 && !isPackTransactionActive) {
-                  setShowPackStore(false);
-                  setTimeout(() => handleTokenPurchase('sobre_biblico', 500), 300);
-                }
-              }}
-            />
-            <EasterPackCard
-              canAfford={points >= 500}
-              disabled={isPackTransactionActive}
-              isEventActive={true}
-              language={language}
-              onPress={() => {
-                if (points >= 500 && !isPackTransactionActive) {
-                  setShowPackStore(false);
-                  setTimeout(() => handleTokenPurchase('pack_pascua', 500), 300);
-                }
-              }}
-            />
-            <MilagrosPackCard
-              canAfford={points >= 1000}
-              disabled={isPackTransactionActive}
-              language={language}
-              onPress={() => {
-                if (points >= 1000 && !isPackTransactionActive) {
-                  setShowPackStore(false);
-                  setTimeout(() => handleTokenPurchase('pack_milagros', 1000), 300);
-                }
-              }}
-            />
-            <HeroesPackCard
-              canAfford={points >= 1000}
-              disabled={isPackTransactionActive}
-              language={language}
-              onPress={() => {
-                if (points >= 1000 && !isPackTransactionActive) {
-                  setShowPackStore(false);
-                  setTimeout(() => handleTokenPurchase('pack_heroes', 1000), 300);
-                }
-              }}
-            />
+            {/* Row 1: newest collections */}
+            <View style={{ flexDirection: 'row', gap: 12, marginBottom: 12 }}>
+              <View style={{ flex: 1 }}>
+                <HeroesPackCard
+                  compact
+                  canAfford={points >= 1000}
+                  disabled={isPackTransactionActive}
+                  language={language}
+                  onPress={() => {
+                    if (points >= 1000 && !isPackTransactionActive) {
+                      setShowPackStore(false);
+                      setTimeout(() => handleTokenPurchase('pack_heroes', 1000), 300);
+                    }
+                  }}
+                />
+              </View>
+              <View style={{ flex: 1 }}>
+                <MilagrosPackCard
+                  compact
+                  canAfford={points >= 1000}
+                  disabled={isPackTransactionActive}
+                  language={language}
+                  onPress={() => {
+                    if (points >= 1000 && !isPackTransactionActive) {
+                      setShowPackStore(false);
+                      setTimeout(() => handleTokenPurchase('pack_milagros', 1000), 300);
+                    }
+                  }}
+                />
+              </View>
+            </View>
+            {/* Row 2: older collections */}
+            <View style={{ flexDirection: 'row', gap: 12, marginBottom: 12 }}>
+              <View style={{ flex: 1 }}>
+                <EasterPackCard
+                  compact
+                  canAfford={points >= 500}
+                  disabled={isPackTransactionActive}
+                  isEventActive={true}
+                  language={language}
+                  onPress={() => {
+                    if (points >= 500 && !isPackTransactionActive) {
+                      setShowPackStore(false);
+                      setTimeout(() => handleTokenPurchase('pack_pascua', 500), 300);
+                    }
+                  }}
+                />
+              </View>
+              <View style={{ flex: 1 }}>
+                <BiblicalPackCard
+                  compact
+                  canAfford={points >= 500}
+                  disabled={isPackTransactionActive}
+                  language={language}
+                  onPress={() => {
+                    if (points >= 500 && !isPackTransactionActive) {
+                      setShowPackStore(false);
+                      setTimeout(() => handleTokenPurchase('sobre_biblico', 500), 300);
+                    }
+                  }}
+                />
+              </View>
+            </View>
             {/* Link to album */}
             <Pressable
               onPress={() => {

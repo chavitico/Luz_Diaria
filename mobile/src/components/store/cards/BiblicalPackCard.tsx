@@ -14,15 +14,63 @@ export function BiblicalPackCard({
   disabled,
   language,
   onPress,
+  compact,
 }: {
   canAfford: boolean;
   disabled?: boolean;
   language: 'en' | 'es';
   onPress: () => void;
+  compact?: boolean;
 }) {
   const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  if (compact) {
+    return (
+      <View style={{ flex: 1, opacity: disabled ? 0.5 : 1 }}>
+        <Animated.View style={animStyle}>
+          <Pressable
+            onPressIn={() => { if (!disabled) scale.value = withSpring(0.97); }}
+            onPressOut={() => { scale.value = withSpring(1); }}
+            onPress={onPress}
+            disabled={disabled}
+          >
+            <LinearGradient
+              colors={['#07090F', '#0D1120', '#070910']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ borderRadius: 18, padding: 14, paddingTop: 16, borderWidth: 1.5, borderColor: '#C8A52A', overflow: 'hidden', alignItems: 'center' }}
+            >
+              <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, backgroundColor: '#D4AF37' }} />
+              <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, backgroundColor: '#D4AF37' }} />
+              <View style={{ shadowColor: '#D4AF37', shadowOpacity: 0.55, shadowRadius: 12, shadowOffset: { width: 0, height: 0 }, elevation: 10, marginBottom: 10 }}>
+                <Image source={require('../../../../assets/packs/sobre_biblico_pack.png')} style={{ width: 60, height: 82 }} resizeMode="contain" />
+              </View>
+              <Text style={{ fontSize: sFont(13), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', marginBottom: 8, letterSpacing: -0.3 }} numberOfLines={1}>
+                {language === 'es' ? 'Sobre Bíblico' : 'Biblical Pack'}
+              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, marginBottom: 10 }}>
+                <Coins size={12} color={canAfford ? '#D4AF37' : '#555'} />
+                <Text style={{ fontSize: sFont(16), fontWeight: '900', color: canAfford ? '#D4AF37' : '#555' }}>500</Text>
+              </View>
+              <LinearGradient
+                colors={canAfford ? ['#D4AF37', '#B8962E'] : ['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.06)']}
+                start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                style={{ borderRadius: 99, alignSelf: 'stretch' }}
+              >
+                <Pressable onPress={onPress} style={{ paddingVertical: 9, alignItems: 'center', borderRadius: 99 }}>
+                  <Text style={{ fontSize: sFont(12), fontWeight: '800', color: canAfford ? '#07090F' : 'rgba(255,255,255,0.30)' }}>
+                    {canAfford ? (language === 'es' ? 'Obtener' : 'Get') : (language === 'es' ? 'Sin pts' : 'Need pts')}
+                  </Text>
+                </Pressable>
+              </LinearGradient>
+            </LinearGradient>
+          </Pressable>
+        </Animated.View>
+      </View>
+    );
+  }
 
   return (
     <View style={{ marginBottom: 12, opacity: disabled ? 0.5 : 1 }}>
