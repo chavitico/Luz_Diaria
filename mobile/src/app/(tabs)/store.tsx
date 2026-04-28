@@ -1031,7 +1031,7 @@ function DueloSabiduriaCard({
             }}
           >
             <Image
-              source={{ uri: 'https://images.unsplash.com/photo-1529108190281-9a4f620bc2d8?w=800&q=80' }}
+              source={{ uri: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80' }}
               style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.32 }}
               resizeMode="cover"
             />
@@ -5127,7 +5127,7 @@ export default function StoreScreen() {
                 }}
               >
                 <Image
-                  source={{ uri: 'https://images.unsplash.com/photo-1605027990121-cbae9e0642df?w=800&q=80' }}
+                  source={{ uri: 'https://images.unsplash.com/photo-1566206091558-7f218b696731?w=800&q=80' }}
                   style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.28 }}
                   resizeMode="cover"
                 />
@@ -5241,7 +5241,7 @@ export default function StoreScreen() {
               }}
             >
               <Image
-                source={{ uri: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=800&q=80' }}
+                source={{ uri: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80' }}
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.28 }}
                 resizeMode="cover"
               />
