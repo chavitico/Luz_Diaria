@@ -1812,29 +1812,34 @@ export default function BibleScreen() {
                   elevation: 8,
                 }}>
                   {/* Anterior — outline, left-aligned */}
-                  <Pressable
-                    onPress={handlePrevChapter}
-                    disabled={!selectedChapter || selectedChapter <= 1}
-                    style={({ pressed }) => ({
-                      flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      gap: 5,
-                      paddingVertical: 11,
-                      paddingHorizontal: 14,
-                      borderRadius: 12,
-                      backgroundColor: 'transparent',
-                      borderWidth: 1,
-                      borderColor: colors.primary + '45',
-                      opacity: (!selectedChapter || selectedChapter <= 1) ? 0.28 : pressed ? 0.60 : 1,
-                    })}
-                  >
-                    <ChevronLeft size={15} color={colors.primary} strokeWidth={2.5} />
-                    <Text style={{ fontSize: sFont(13), fontWeight: '600', color: colors.primary }}>
-                      {lang === 'es' ? 'Anterior' : 'Prev'}
-                    </Text>
-                  </Pressable>
+                  {(() => {
+                    const prevDis = !selectedChapter || selectedChapter <= 1;
+                    return (
+                      <Pressable
+                        onPress={handlePrevChapter}
+                        disabled={prevDis}
+                        style={({ pressed }) => ({
+                          flex: 1,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'flex-start',
+                          gap: 5,
+                          paddingVertical: 11,
+                          paddingHorizontal: 14,
+                          borderRadius: 12,
+                          backgroundColor: 'transparent',
+                          borderWidth: 1,
+                          borderColor: prevDis ? colors.textMuted + '30' : colors.primary + '45',
+                          opacity: prevDis ? 1 : pressed ? 0.60 : 1,
+                        })}
+                      >
+                        <ChevronLeft size={15} color={prevDis ? colors.textMuted + '60' : colors.primary} strokeWidth={2.5} />
+                        <Text style={{ fontSize: sFont(13), fontWeight: '600', color: prevDis ? colors.textMuted + '60' : colors.primary }}>
+                          {lang === 'es' ? 'Anterior' : 'Prev'}
+                        </Text>
+                      </Pressable>
+                    );
+                  })()}
 
                   {/* Chapter indicator — small, low weight */}
                   <View style={{ alignItems: 'center', paddingHorizontal: 14 }}>
@@ -1846,30 +1851,35 @@ export default function BibleScreen() {
                     </Text>
                   </View>
 
-                  {/* Siguiente — solid filled, right-aligned */}
-                  <Pressable
-                    onPress={handleNextChapter}
-                    disabled={!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters}
-                    style={({ pressed }) => ({
-                      flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'flex-end',
-                      gap: 5,
-                      paddingVertical: 11,
-                      paddingHorizontal: 14,
-                      borderRadius: 12,
-                      backgroundColor: 'transparent',
-                      borderWidth: 1,
-                      borderColor: colors.primary + '45',
-                      opacity: (!selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters) ? 0.28 : pressed ? 0.60 : 1,
-                    })}
-                  >
-                    <Text style={{ fontSize: sFont(13), fontWeight: '600', color: colors.primary }}>
-                      {lang === 'es' ? 'Siguiente' : 'Next'}
-                    </Text>
-                    <ChevronRight size={15} color={colors.primary} strokeWidth={2.5} />
-                  </Pressable>
+                  {/* Siguiente — outline, right-aligned */}
+                  {(() => {
+                    const nextDis = !selectedBook || !selectedChapter || selectedChapter >= selectedBook.chapters;
+                    return (
+                      <Pressable
+                        onPress={handleNextChapter}
+                        disabled={nextDis}
+                        style={({ pressed }) => ({
+                          flex: 1,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'flex-end',
+                          gap: 5,
+                          paddingVertical: 11,
+                          paddingHorizontal: 14,
+                          borderRadius: 12,
+                          backgroundColor: 'transparent',
+                          borderWidth: 1,
+                          borderColor: nextDis ? colors.textMuted + '30' : colors.primary + '45',
+                          opacity: nextDis ? 1 : pressed ? 0.60 : 1,
+                        })}
+                      >
+                        <Text style={{ fontSize: sFont(13), fontWeight: '600', color: nextDis ? colors.textMuted + '60' : colors.primary }}>
+                          {lang === 'es' ? 'Siguiente' : 'Next'}
+                        </Text>
+                        <ChevronRight size={15} color={nextDis ? colors.textMuted + '60' : colors.primary} strokeWidth={2.5} />
+                      </Pressable>
+                    );
+                  })()}
                 </View>
               </View>
             </View>
