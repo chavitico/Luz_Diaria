@@ -4,7 +4,7 @@ import React from 'react';
 import { View, Text, Platform } from 'react-native';
 import { Tabs } from 'expo-router';
 import { BlurView } from 'expo-blur';
-import { Sun, BookOpen, Palette, Users, BookMarked, Settings2 } from 'lucide-react-native';
+import { Sun, BookOpen, Palette, Users, BookMarked, Settings2, Library } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
 import { useNotificationBadges } from '@/lib/use-notification-badges';
@@ -54,14 +54,15 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textMuted,
+        tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
           backgroundColor: Platform.OS === 'ios' ? 'transparent' : colors.surface,
           borderTopWidth: 0,
           elevation: 0,
-          height: Platform.OS === 'ios' ? 88 : 70,
-          paddingBottom: Platform.OS === 'ios' ? 28 : 10,
-          paddingTop: 10,
+          height: Platform.OS === 'ios' ? 72 : 56,
+          paddingBottom: Platform.OS === 'ios' ? 16 : 6,
+          paddingTop: 8,
         },
         tabBarBackground: () =>
           Platform.OS === 'ios' ? (
@@ -98,6 +99,16 @@ export default function TabLayout() {
         name="library"
         options={{
           title: t.tab_library,
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon hasBadge={false} focused={focused}
+              icon={<Library size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="estudios"
+        options={{
+          title: 'Estudios Bíblicos',
           tabBarIcon: ({ color, focused }) => (
             <TabIcon hasBadge={false} focused={focused}
               icon={<BookOpen size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
