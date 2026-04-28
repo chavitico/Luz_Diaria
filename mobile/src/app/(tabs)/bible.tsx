@@ -453,18 +453,8 @@ function ChapterGrid({ book, onSelect, colors, lang }: {
 
 // ─── Testament Card ───────────────────────────────────────────────────────────
 
-const OT_CONFIG = {
-  imageUri: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80',
-  gradient: ['rgba(140,85,20,0.96)', 'rgba(90,50,10,0.88)', 'rgba(60,30,5,0.80)'] as const,
-  accentColor: '#D4A030',
-  glowColor: 'rgba(212,160,48,0.35)',
-};
-const NT_CONFIG = {
-  imageUri: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80',
-  gradient: ['rgba(20,65,140,0.96)', 'rgba(15,45,100,0.88)', 'rgba(8,25,65,0.80)'] as const,
-  accentColor: '#5B9BDE',
-  glowColor: 'rgba(91,155,222,0.35)',
-};
+const OT_IMAGE = 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80';
+const NT_IMAGE = 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80';
 
 function TestamentCard({ title, subtitle, bookCount, emoji, testament, onPress, lang }: {
   title: string; subtitle: string; bookCount: number; emoji: string;
@@ -475,7 +465,13 @@ function TestamentCard({ title, subtitle, bookCount, emoji, testament, onPress, 
   const scale = useSharedValue(1);
   const anim = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
   const booksLabel = lang === 'es' ? `${bookCount} libros` : `${bookCount} books`;
-  const cfg = testament === 'OT' ? OT_CONFIG : NT_CONFIG;
+
+  const isOT = testament === 'OT';
+  const accentColor = isOT ? '#D4A030' : '#5B9BDE';
+  const gradientColors: [string, string, string] = isOT
+    ? ['rgba(130,78,15,0.95)', 'rgba(80,44,8,0.90)', 'rgba(45,22,3,0.88)']
+    : ['rgba(18,58,130,0.95)', 'rgba(12,38,90,0.90)', 'rgba(6,18,55,0.88)'];
+  const imageUri = isOT ? OT_IMAGE : NT_IMAGE;
 
   return (
     <Pressable
@@ -484,92 +480,89 @@ function TestamentCard({ title, subtitle, bookCount, emoji, testament, onPress, 
       onPressOut={() => { scale.value = withSpring(1, { damping: 14 }); }}
       style={{ flex: 1 }}
     >
-      <Animated.View style={[anim, { flex: 1 }]}>
-        {/* Shadow wrapper — outside overflow:hidden so shadow isn't clipped */}
-        <View style={{
-          flex: 1,
-          borderRadius: 22,
-          shadowColor: cfg.accentColor,
-          shadowOpacity: 0.50,
-          shadowRadius: 20,
-          shadowOffset: { width: 0, height: 10 },
-          elevation: 20,
-          backgroundColor: cfg.gradient[2],
-        }}>
-          {/* Clip wrapper */}
-          <View style={{ borderRadius: 22, overflow: 'hidden', flex: 1, minHeight: 175 }}>
-            {/* Background image */}
-            <Image
-              source={{ uri: cfg.imageUri }}
-              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.25 }}
-              contentFit="cover"
-            />
-            {/* Dark depth overlay */}
-            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.38)' }} />
-            {/* Color gradient overlay */}
-            <LinearGradient
-              colors={cfg.gradient}
-              start={{ x: 0.1, y: 0 }} end={{ x: 1, y: 1 }}
-              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.82 }}
-            />
-            {/* Accent edge glow (bottom) */}
-            <LinearGradient
-              colors={['transparent', cfg.glowColor]}
-              start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
-              style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 70 }}
-            />
-            {/* Border glow */}
-            <View style={{
+      <Animated.View style={[anim, {
+        flex: 1,
+        borderRadius: 22,
+        shadowColor: accentColor,
+        shadowOpacity: 0.55,
+        shadowRadius: 18,
+        shadowOffset: { width: 0, height: 8 },
+        elevation: 18,
+      }]}>
+        {/* Base card — LinearGradient as reliable background layer */}
+        <LinearGradient
+          colors={gradientColors}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+          style={{ borderRadius: 22, flex: 1, minHeight: 175, overflow: 'hidden' }}
+        >
+          {/* Background photo — uses borderRadius to clip */}
+          <Image
+            source={{ uri: imageUri }}
+            style={{
               position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-              borderRadius: 22, borderWidth: 1, borderColor: cfg.accentColor + '55',
-            }} />
+              opacity: 0.22, borderRadius: 22,
+            }}
+            contentFit="cover"
+          />
+          {/* Dark overlay */}
+          <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.30)' }} />
+          {/* Bottom glow */}
+          <LinearGradient
+            colors={['transparent', accentColor + '28']}
+            start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+            style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 80 }}
+          />
+          {/* Accent border */}
+          <View style={{
+            position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+            borderRadius: 22, borderWidth: 1, borderColor: accentColor + '50',
+          }} />
 
-            {/* Content */}
-            <View style={{ padding: 18, flex: 1, justifyContent: 'space-between' }}>
-              {/* Icon with glow ring */}
-              <View style={{
-                width: 50, height: 50, borderRadius: 25,
-                backgroundColor: cfg.accentColor + '28',
-                borderWidth: 1.5, borderColor: cfg.accentColor + '70',
-                alignItems: 'center', justifyContent: 'center',
-                shadowColor: cfg.accentColor, shadowOpacity: 0.70,
-                shadowRadius: 10, shadowOffset: { width: 0, height: 0 },
+          {/* Content */}
+          <View style={{ padding: 18, flex: 1, justifyContent: 'space-between', minHeight: 175 }}>
+            {/* Icon ring */}
+            <View style={{
+              width: 50, height: 50, borderRadius: 25,
+              backgroundColor: accentColor + '25',
+              borderWidth: 1.5, borderColor: accentColor + '65',
+              alignItems: 'center', justifyContent: 'center',
+              shadowColor: accentColor, shadowOpacity: 0.65,
+              shadowRadius: 10, shadowOffset: { width: 0, height: 0 },
+            }}>
+              <Text style={{ fontSize: sFont(26) }}>{emoji}</Text>
+            </View>
+
+            {/* Text block */}
+            <View>
+              <Text style={{
+                fontSize: sFont(17), fontWeight: '900', color: '#fff',
+                lineHeight: sFont(22), letterSpacing: -0.3,
               }}>
-                <Text style={{ fontSize: sFont(26) }}>{emoji}</Text>
-              </View>
-
-              {/* Bottom text block */}
-              <View>
+                {title}
+              </Text>
+              <Text style={{
+                fontSize: sFont(10), color: 'rgba(255,255,255,0.48)',
+                marginTop: 3, fontWeight: '500',
+              }}>
+                {subtitle}
+              </Text>
+              {/* Pill badge */}
+              <View style={{
+                marginTop: 9, alignSelf: 'flex-start',
+                backgroundColor: accentColor + '30',
+                borderWidth: 1, borderColor: accentColor + '60',
+                borderRadius: 20, paddingHorizontal: 9, paddingVertical: 4,
+              }}>
                 <Text style={{
-                  fontSize: sFont(17), fontWeight: '900', color: '#fff',
-                  lineHeight: sFont(22), letterSpacing: -0.3,
+                  fontSize: sFont(10), fontWeight: '700',
+                  color: accentColor, letterSpacing: 0.5,
                 }}>
-                  {title}
+                  {booksLabel}
                 </Text>
-                <Text style={{
-                  fontSize: sFont(10), color: 'rgba(255,255,255,0.50)',
-                  marginTop: 3, fontWeight: '500', letterSpacing: 0.2,
-                }}>
-                  {subtitle}
-                </Text>
-                {/* Pill badge */}
-                <View style={{
-                  marginTop: 10, alignSelf: 'flex-start',
-                  backgroundColor: cfg.accentColor + '35',
-                  borderWidth: 1, borderColor: cfg.accentColor + '65',
-                  borderRadius: 20, paddingHorizontal: 10, paddingVertical: 4,
-                }}>
-                  <Text style={{
-                    fontSize: sFont(10), fontWeight: '700',
-                    color: cfg.accentColor, letterSpacing: 0.6,
-                  }}>
-                    {booksLabel}
-                  </Text>
-                </View>
               </View>
             </View>
           </View>
-        </View>
+        </LinearGradient>
       </Animated.View>
     </Pressable>
   );
