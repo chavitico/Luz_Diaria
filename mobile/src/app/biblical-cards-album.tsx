@@ -39,10 +39,10 @@ import {
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
-// Unified 2-column grid dimensions used by BOTH collections
-const COLS = 2;
-const CARD_GAP = 12;
-const CARD_W = (SCREEN_W - 40 - CARD_GAP) / COLS;
+// Unified 3-column grid dimensions used by BOTH collections
+const COLS = 3;
+const CARD_GAP = 8;
+const CARD_W = (SCREEN_W - 32 - CARD_GAP * (COLS - 1)) / COLS;
 const CARD_H = CARD_W * 1.5;
 
 // Collection type
