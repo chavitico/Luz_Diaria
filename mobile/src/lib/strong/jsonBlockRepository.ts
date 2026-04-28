@@ -345,11 +345,9 @@ export class JsonBlockStrongRepository implements IStrongRepository {
   private buildOccurrenceIndex(): void {
     const index = new Map<string, VerseAppearance[]>();
     for (const [bookPrefix, loader] of Object.entries(ALIGNMENT_LOADERS)) {
-      let alignmentMap = this.alignmentCache.get(bookPrefix);
-      if (!alignmentMap) {
-        alignmentMap = loader();
-        this.alignmentCache.set(bookPrefix, alignmentMap);
-      }
+      // Always load fresh from the bundled JSON — do NOT use alignmentCache here,
+      // since that cache may have been populated before alignment files were updated.
+      const alignmentMap = loader();
       for (const [verseId, links] of Object.entries(alignmentMap)) {
         const parts = verseId.split('_');
         const bookId = parts[0];
