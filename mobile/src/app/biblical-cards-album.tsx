@@ -55,58 +55,67 @@ type ActiveCollection = 'inicial' | 'pascua' | 'milagros' | 'heroes' | 'secretas
 // ─────────────────────────────────────────────
 // NOVEDAD scrolling ticker — runs inside album hub cards
 // ─────────────────────────────────────────────
-const TICKER_TEXT = '  ✦  NOVEDAD — ÁLBUM COLECCIONABLE  ✦  NOVEDAD — ÁLBUM COLECCIONABLE  ✦  NOVEDAD — ÁLBUM COLECCIONABLE  ';
+const TICKER_SINGLE = '  ✦  NOVEDAD — ÁLBUM COLECCIONABLE  ';
+const TICKER_TEXT = TICKER_SINGLE.repeat(5);
 const TICKER_SPEED = 38; // px per second
 
 function NovedadTicker({ accentColor }: { accentColor: string }) {
   const tickerX = useRef(new RNAnimated.Value(0)).current;
-  const tickerW = useRef(0);
-  const anim = useRef<RNAnimated.CompositeAnimation | null>(null);
+  const animRef = useRef<RNAnimated.CompositeAnimation | null>(null);
+  const [singleW, setSingleW] = useState(0);
+  const measured = useRef(false);
 
-  const startScroll = useCallback((width: number) => {
-    if (width <= 0) return;
+  useEffect(() => {
+    if (singleW <= 0) return;
+    animRef.current?.stop();
     tickerX.setValue(0);
-    anim.current?.stop();
-    const duration = (width / TICKER_SPEED) * 1000;
+    const duration = (singleW / TICKER_SPEED) * 1000;
     const loop = RNAnimated.loop(
       RNAnimated.timing(tickerX, {
-        toValue: -width / 2,
+        toValue: -singleW,
         duration,
         easing: (t) => t,
         useNativeDriver: true,
       })
     );
-    anim.current = loop;
+    animRef.current = loop;
     loop.start();
-  }, []);
-
-  useEffect(() => {
-    return () => { anim.current?.stop(); };
-  }, []);
+    return () => { animRef.current?.stop(); };
+  }, [singleW]);
 
   return (
     <View style={{ height: 22, overflow: 'hidden', justifyContent: 'center' }}>
-      <RNAnimated.Text
-        onLayout={(e) => {
-          const w = e.nativeEvent.layout.width;
-          if (w !== tickerW.current) {
-            tickerW.current = w;
-            startScroll(w);
-          }
-        }}
-        style={{
-          transform: [{ translateX: tickerX }],
-          fontSize: 9.5,
-          fontWeight: '800',
-          color: accentColor,
-          letterSpacing: 1.2,
-          textTransform: 'uppercase',
-          whiteSpace: 'nowrap',
-        } as any}
-        numberOfLines={1}
-      >
-        {TICKER_TEXT}
-      </RNAnimated.Text>
+      {/* Ghost: renders one repeat at unconstrained width to measure it accurately */}
+      <View style={{ position: 'absolute', width: 2000, opacity: 0 }} pointerEvents="none">
+        <Text
+          style={{ fontSize: 9.5, fontWeight: '800', letterSpacing: 1.2, textTransform: 'uppercase', alignSelf: 'flex-start' }}
+          onLayout={(e) => {
+            const w = e.nativeEvent.layout.width;
+            if (w > 0 && !measured.current) {
+              measured.current = true;
+              setSingleW(w);
+            }
+          }}
+        >
+          {TICKER_SINGLE}
+        </Text>
+      </View>
+      <RNAnimated.View style={{ transform: [{ translateX: tickerX }] }}>
+        <Text
+          style={{
+            fontSize: 9.5,
+            fontWeight: '800',
+            color: accentColor,
+            letterSpacing: 1.2,
+            textTransform: 'uppercase',
+            width: singleW > 0 ? singleW * 6 : 3000,
+          }}
+          numberOfLines={1}
+          ellipsizeMode="clip"
+        >
+          {TICKER_TEXT}
+        </Text>
+      </RNAnimated.View>
     </View>
   );
 }
@@ -635,12 +644,13 @@ function PascuaCardThumbnail({
 // ─────────────────────────────────────────────
 // CollectionHubCard — premium collectible pack cover card
 // ─────────────────────────────────────────────
-const PACK_IMAGES = {
-  inicial:  require('../../assets/packs/sobre_biblico_pack.png'),
-  pascua:   require('../../assets/packs/pack_pascua_pack.png'),
-  milagros: require('../../assets/packs/pack_milagros_pack.png'),
-  heroes:   require('../../assets/packs/pack_heroes_pack.png'),
-} as const;
+// Featured card artwork per collection — first card with an image from each group
+const COLLECTION_COVER_URIS: Partial<Record<string, string>> = {
+  heroes:   Object.values(BIBLICAL_CARDS).find(c => c.albumGroup === 'heroes_2026'  && c.imageUrl)?.imageUrl,
+  milagros: Object.values(BIBLICAL_CARDS).find(c => c.albumGroup === 'milagros_2026' && c.imageUrl)?.imageUrl,
+  pascua:   Object.values(BIBLICAL_CARDS).find(c => c.albumGroup === 'pascua_2026'  && c.imageUrl)?.imageUrl,
+  inicial:  Object.values(BIBLICAL_CARDS).find(c => c.albumGroup === 'starter'       && c.imageUrl)?.imageUrl,
+};
 
 function CollectionHubCard({
   collectionId,
@@ -676,7 +686,7 @@ function CollectionHubCard({
   const scale = useSharedValue(1);
   const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
   const isSecret = collectionId === 'secretas';
-  const packImage = isSecret ? null : PACK_IMAGES[collectionId];
+  const featuredImageUri = COLLECTION_COVER_URIS[collectionId];
   const progress = totalCount > 0 ? ownedCount / totalCount : 0;
 
   return (
@@ -738,23 +748,32 @@ function CollectionHubCard({
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 55 }}
               />
             </>
-          ) : (
-            /* ── Pack image: right side, fades into gradient ── */
+          ) : featuredImageUri ? (
+            /* ── Card artwork: subtle right-side ambiance texture ── */
             <>
               <Image
-                source={packImage!}
+                source={{ uri: featuredImageUri }}
                 style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '55%', opacity: 0.20 }}
                 resizeMode="cover"
               />
-              {/* Gradient blend — card color dominates, image becomes subtle right-side texture */}
+              {/* Dark overlay — subdues image further */}
+              <View style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '55%', backgroundColor: 'rgba(0,0,0,0.30)' }} />
+              {/* Gradient blend — card color fades into image */}
               <LinearGradient
                 colors={[gradientColors[0], gradientColors[0] + 'D0', gradientColors[0] + '50', 'transparent']}
                 start={{ x: 0, y: 0.5 }}
                 end={{ x: 1, y: 0.5 }}
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
               />
+              {/* Subtle accent glow where image lives */}
+              <LinearGradient
+                colors={['transparent', accentColor + '18', 'transparent']}
+                start={{ x: 0.4, y: 0.5 }}
+                end={{ x: 1, y: 0.5 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+              />
             </>
-          )}
+          ) : null}
 
           {/* Diagonal gloss */}
           <LinearGradient
