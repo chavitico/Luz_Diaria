@@ -396,12 +396,12 @@ function CromosCard({
                 {/* Background photo */}
                 <Image
                   source={{ uri: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&q=80' }}
-                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.30 }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.55 }}
                   resizeMode="cover"
                 />
                 {/* Background gradient base */}
                 <LinearGradient
-                  colors={[G1 + 'EE', G2 + 'CC', '#030C18BB']}
+                  colors={[G1 + 'BB', G2 + '99', '#030C1888']}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                   style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
@@ -409,7 +409,7 @@ function CromosCard({
 
                 {/* Overlay scrim — left side darker so text is readable */}
                 <LinearGradient
-                  colors={['rgba(7,21,38,0.92)', 'rgba(7,21,38,0.55)', 'transparent']}
+                  colors={['rgba(7,21,38,0.88)', 'rgba(7,21,38,0.45)', 'transparent']}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 0 }}
                   style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
