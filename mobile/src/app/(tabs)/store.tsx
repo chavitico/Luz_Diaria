@@ -1032,7 +1032,7 @@ function DueloSabiduriaCard({
           >
             <Image
               source={{ uri: 'https://images.unsplash.com/photo-1529108190281-9a4f620bc2d8?w=800&q=80' }}
-              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.32, borderRadius: 20 }}
+              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.32 }}
               resizeMode="cover"
             />
             {/* Decorative glow */}
@@ -1575,7 +1575,7 @@ function WeeklyChestCard({
         >
           <Image
             source={{ uri: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80' }}
-            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.32 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.32 }}
             resizeMode="cover"
           />
           <LinearGradient
@@ -1872,7 +1872,7 @@ function WeeklyChallengesCard({
         }}>
           <Image
             source={{ uri: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80' }}
-            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.38 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.38 }}
             resizeMode="cover"
           />
           <LinearGradient
@@ -5128,7 +5128,7 @@ export default function StoreScreen() {
               >
                 <Image
                   source={{ uri: 'https://images.unsplash.com/photo-1605027990121-cbae9e0642df?w=800&q=80' }}
-                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.28, borderRadius: 18 }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.28 }}
                   resizeMode="cover"
                 />
                 <View style={{
@@ -5186,7 +5186,7 @@ export default function StoreScreen() {
               >
                 <Image
                   source={{ uri: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&q=80' }}
-                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.25, borderRadius: 18 }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.25 }}
                   resizeMode="cover"
                 />
                 <View style={{
@@ -5242,7 +5242,7 @@ export default function StoreScreen() {
             >
               <Image
                 source={{ uri: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=800&q=80' }}
-                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', opacity: 0.28, borderRadius: 18 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.28 }}
                 resizeMode="cover"
               />
               <View style={{
