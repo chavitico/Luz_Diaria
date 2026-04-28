@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Pressable, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
+  withRepeat,
+  withSequence,
+  withTiming,
 } from 'react-native-reanimated';
 import { Coins, Sparkles } from 'lucide-react-native';
 import { useScaledFont } from '@/lib/textScale';
@@ -25,6 +28,23 @@ export function HeroesPackCard({
   const { sFont } = useScaledFont();
   const scale = useSharedValue(1);
   const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const badgeOpacity = useSharedValue(1);
+  const badgeAnimStyle = useAnimatedStyle(() => ({ opacity: badgeOpacity.value }));
+
+  useEffect(() => {
+    if (compact) {
+      badgeOpacity.value = withRepeat(
+        withSequence(
+          withTiming(1, { duration: 500 }),
+          withTiming(0.15, { duration: 500 }),
+          withTiming(1, { duration: 500 }),
+          withTiming(1, { duration: 1200 }),
+        ),
+        -1,
+        false,
+      );
+    }
+  }, [compact]);
 
   if (compact) {
     return (
@@ -44,6 +64,18 @@ export function HeroesPackCard({
             >
               <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, backgroundColor: '#D4AF37' }} />
               <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, backgroundColor: '#B45309' }} />
+              {/* Blinking NEW badge */}
+              <Animated.View style={[badgeAnimStyle, { position: 'absolute', top: 10, right: 10 }]}>
+                <LinearGradient
+                  colors={['#FF3B30', '#CC1A10']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                  style={{ borderRadius: 99, paddingHorizontal: 8, paddingVertical: 3 }}
+                >
+                  <Text style={{ fontSize: sFont(9), fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.8, textTransform: 'uppercase' }}>
+                    Nuevo
+                  </Text>
+                </LinearGradient>
+              </Animated.View>
               <View style={{ shadowColor: '#D4AF37', shadowOpacity: 0.65, shadowRadius: 14, shadowOffset: { width: 0, height: 0 }, elevation: 12, marginBottom: 10 }}>
                 <Image source={require('../../../../assets/packs/pack_heroes_pack.png')} style={{ width: 60, height: 82 }} resizeMode="contain" />
               </View>
