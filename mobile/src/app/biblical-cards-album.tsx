@@ -11,13 +11,17 @@ import {
   ScrollView,
   Pressable,
   Modal,
+  Image,
   Dimensions,
   LayoutChangeEvent,
   Animated as RNAnimated,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import Animated, { FadeIn, FadeInDown, ZoomIn } from 'react-native-reanimated';
+import Animated, {
+  FadeIn, FadeInDown, ZoomIn,
+  useSharedValue, useAnimatedStyle, withSpring,
+} from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { ChevronLeft, ChevronRight, X, BookOpen, Copy, Star } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
@@ -629,6 +633,196 @@ function PascuaCardThumbnail({
 }
 
 // ─────────────────────────────────────────────
+// CollectionHubCard — premium collectible pack cover card
+// ─────────────────────────────────────────────
+const PACK_IMAGES = {
+  inicial:  require('../../assets/packs/sobre_biblico_pack.png'),
+  pascua:   require('../../assets/packs/pack_pascua_pack.png'),
+  milagros: require('../../assets/packs/pack_milagros_pack.png'),
+  heroes:   require('../../assets/packs/pack_heroes_pack.png'),
+} as const;
+
+function CollectionHubCard({
+  collectionId,
+  title,
+  subtitle,
+  accentColor,
+  gradientColors,
+  ownedCount,
+  totalCount,
+  locked,
+  newCount,
+  showTicker,
+  enterDelay,
+  onPress,
+  language,
+  sFont,
+}: {
+  collectionId: 'inicial' | 'pascua' | 'milagros' | 'heroes' | 'secretas';
+  title: string;
+  subtitle: string;
+  accentColor: string;
+  gradientColors: [string, string, string];
+  ownedCount: number;
+  totalCount: number;
+  locked?: boolean;
+  newCount?: number;
+  showTicker?: boolean;
+  enterDelay: number;
+  onPress: () => void;
+  language: string;
+  sFont: (n: number) => number;
+}) {
+  const scale = useSharedValue(1);
+  const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const isSecret = collectionId === 'secretas';
+  const packImage = isSecret ? null : PACK_IMAGES[collectionId];
+  const progress = totalCount > 0 ? ownedCount / totalCount : 0;
+
+  return (
+    <Animated.View
+      entering={FadeInDown.delay(enterDelay).duration(380)}
+      style={[{
+        marginBottom: 16,
+        borderRadius: 20,
+        shadowColor: accentColor,
+        shadowOpacity: 0.65,
+        shadowRadius: 20,
+        shadowOffset: { width: 0, height: 5 },
+        elevation: 14,
+      }, animStyle]}
+    >
+      <Pressable
+        onPress={onPress}
+        onPressIn={() => { scale.value = withSpring(0.963, { damping: 20, stiffness: 380 }); }}
+        onPressOut={() => { scale.value = withSpring(1, { damping: 18, stiffness: 320 }); }}
+      >
+        <View style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1.5, borderColor: accentColor + '55' }}>
+
+          {/* ── Background layers ── */}
+          <LinearGradient
+            colors={gradientColors}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
+
+          {isSecret ? (
+            /* ── Cartas Secretas: mysterious dark + gold glow ── */
+            <>
+              {/* Central glow orb */}
+              <View style={{
+                position: 'absolute', right: 18, top: '50%', marginTop: -38,
+                width: 76, height: 76, borderRadius: 38,
+                backgroundColor: 'rgba(212,175,55,0.08)',
+                shadowColor: '#D4AF37', shadowOpacity: 0.9, shadowRadius: 28, shadowOffset: { width: 0, height: 0 },
+                alignItems: 'center', justifyContent: 'center',
+              }}>
+                <Text style={{ fontSize: 38 }}>✦</Text>
+              </View>
+              {/* Gold dust particles */}
+              {([{ r: 62, t: 18, sz: 9 }, { r: 108, t: 62, sz: 7 }, { r: 72, t: 112, sz: 8 }, { r: 130, t: 28, sz: 6 }]).map((p, i) => (
+                <Text key={i} style={{ position: 'absolute', right: p.r, top: p.t, fontSize: p.sz, color: 'rgba(212,175,55,0.45)' }}>✧</Text>
+              ))}
+              {/* Top shimmer line */}
+              <View style={{ position: 'absolute', top: 0, left: 20, right: 20, height: 1.5, backgroundColor: 'rgba(212,175,55,0.35)' }} />
+              <LinearGradient
+                colors={['rgba(212,175,55,0.10)', 'transparent']}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 55 }}
+              />
+            </>
+          ) : (
+            /* ── Pack image: right side, fades into gradient ── */
+            <>
+              <Image
+                source={packImage!}
+                style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '48%' }}
+                resizeMode="cover"
+              />
+              {/* Left-to-right fade: gradient → transparent, hides image seam */}
+              <LinearGradient
+                colors={[gradientColors[0], gradientColors[0] + 'F0', gradientColors[0] + '88', 'transparent']}
+                start={{ x: 0, y: 0.5 }}
+                end={{ x: 1, y: 0.5 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+              />
+            </>
+          )}
+
+          {/* Diagonal gloss */}
+          <LinearGradient
+            colors={[accentColor + '14', 'transparent', accentColor + '08']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+          />
+
+          {/* ── Content ── */}
+          <View style={{ paddingHorizontal: 20, paddingVertical: 16, width: '62%' }}>
+            <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 3 }} numberOfLines={1}>
+              {title}
+            </Text>
+            <Text style={{ fontSize: sFont(12), color: accentColor + 'BB', marginBottom: 11 }} numberOfLines={1}>
+              {subtitle}
+            </Text>
+
+            {/* Count pill + new badge */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 9 }}>
+              <View style={{
+                paddingHorizontal: 9, paddingVertical: 3, borderRadius: 99,
+                backgroundColor: accentColor + '22', borderWidth: 1, borderColor: accentColor + '44',
+              }}>
+                <Text style={{ fontSize: sFont(11), fontWeight: '700', color: accentColor }}>
+                  {locked
+                    ? (language === 'es' ? '🔒 Bloqueadas' : '🔒 Locked')
+                    : `${ownedCount} / ${totalCount} ${language === 'es' ? 'cartas' : 'cards'}`}
+                </Text>
+              </View>
+              {(newCount ?? 0) > 0 && (
+                <View style={{
+                  paddingHorizontal: 7, paddingVertical: 3, borderRadius: 99,
+                  backgroundColor: 'rgba(212,175,55,0.22)', borderWidth: 1, borderColor: 'rgba(212,175,55,0.55)',
+                }}>
+                  <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#F5D060' }}>✨ {language === 'es' ? 'Nueva' : 'New'}</Text>
+                </View>
+              )}
+            </View>
+
+            {/* Progress bar */}
+            {!locked && (
+              <View style={{ height: 3.5, backgroundColor: 'rgba(255,255,255,0.10)', borderRadius: 99, overflow: 'hidden' }}>
+                <View style={{ width: `${progress * 100}%`, height: '100%', borderRadius: 99, backgroundColor: accentColor }} />
+              </View>
+            )}
+          </View>
+
+          {/* Chevron */}
+          <View style={{ position: 'absolute', right: 14, top: 0, bottom: 0, justifyContent: 'center' }}>
+            <ChevronRight size={20} color={accentColor + '99'} />
+          </View>
+
+          {/* Bottom accent line */}
+          <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2.5, backgroundColor: accentColor + '70' }} />
+        </View>
+
+        {/* NOVEDAD ticker strip — attached below main card */}
+        {showTicker && (
+          <View style={{
+            borderWidth: 1.5, borderTopWidth: 0,
+            borderBottomLeftRadius: 18, borderBottomRightRadius: 18,
+            borderColor: accentColor + '55',
+            backgroundColor: accentColor + '10',
+            overflow: 'hidden',
+          }}>
+            <NovedadTicker accentColor={accentColor + 'CC'} />
+          </View>
+        )}
+      </Pressable>
+    </Animated.View>
+  );
+}
+
+// ─────────────────────────────────────────────
 // Main screen
 // ─────────────────────────────────────────────
 export default function BiblicalCardsAlbumScreen() {
@@ -1041,467 +1235,85 @@ export default function BiblicalCardsAlbumScreen() {
             </Text>
           </Animated.View>
 
-          {/* Collection card — Colección Inicial */}
-          <Animated.View entering={FadeInDown.delay(80).duration(380)} style={{ marginBottom: 16 }}>
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                setActiveCollection('inicial');
-                // Start background download for this collection (non-blocking)
-                downloadCollection('inicial');
-              }}
-            >
-              <LinearGradient
-                colors={['#1A3A6B', '#0F2149', '#0A1530']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  borderRadius: 18,
-                  borderWidth: 1,
-                  borderColor: 'rgba(100,150,255,0.30)',
-                  overflow: 'hidden',
-                  shadowColor: '#1A3A6B',
-                  shadowOpacity: 0.55,
-                  shadowRadius: 14,
-                  shadowOffset: { width: 0, height: 4 },
-                  elevation: 10,
-                }}
-              >
-                {/* Diagonal sheen */}
-                <LinearGradient
-                  colors={['rgba(100,160,255,0.12)', 'transparent', 'rgba(100,160,255,0.06)']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-                />
-                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
-                  {/* Icon */}
-                  <View style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 16,
-                    backgroundColor: 'rgba(100,160,255,0.15)',
-                    borderWidth: 1,
-                    borderColor: 'rgba(100,160,255,0.35)',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginRight: 16,
-                  }}>
-                    <Text style={{ fontSize: 28 }}>📖</Text>
-                  </View>
+          {/* ── Collection cards ── */}
+          <CollectionHubCard
+            collectionId="inicial"
+            title="Colección Inicial"
+            subtitle={language === 'es' ? 'Las primeras cartas del álbum' : 'The first album cards'}
+            accentColor="#6496FF"
+            gradientColors={['#1A3A6B', '#0F2149', '#0A1530']}
+            ownedCount={standardOwnedCount}
+            totalCount={standardCardIds.length}
+            newCount={newStandardCount}
+            showTicker
+            enterDelay={80}
+            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('inicial'); downloadCollection('inicial'); }}
+            language={language}
+            sFont={sFont}
+          />
 
-                  {/* Text */}
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 3 }}>
-                      Colección Inicial
-                    </Text>
-                    <Text style={{ fontSize: sFont(13), color: 'rgba(180,210,255,0.65)', marginBottom: 10 }}>
-                      Las primeras cartas del álbum
-                    </Text>
-                    {/* Progress pill */}
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                      <View style={{
-                        paddingHorizontal: 9,
-                        paddingVertical: 3,
-                        borderRadius: 99,
-                        backgroundColor: 'rgba(100,160,255,0.18)',
-                        borderWidth: 1,
-                        borderColor: 'rgba(100,160,255,0.35)',
-                      }}>
-                        <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#A8C8FF' }}>
-                          {standardOwnedCount} / {standardCardIds.length} {language === 'es' ? 'cartas' : 'cards'}
-                        </Text>
-                      </View>
-                    </View>
-                    {/* Progress bar */}
-                    <View style={{ height: 3, backgroundColor: 'rgba(255,255,255,0.10)', borderRadius: 99, overflow: 'hidden' }}>
-                      <View style={{
-                        width: `${standardCardIds.length > 0 ? (standardOwnedCount / standardCardIds.length) * 100 : 0}%`,
-                        height: '100%',
-                        borderRadius: 99,
-                        backgroundColor: '#6496FF',
-                      }} />
-                    </View>
-                  </View>
+          <CollectionHubCard
+            collectionId="pascua"
+            title="Historia de Pascua"
+            subtitle={language === 'es' ? '14 capítulos de la redención' : '14 chapters of redemption'}
+            accentColor="#F5D060"
+            gradientColors={['#5C1010', '#3D0A0A', '#200505']}
+            ownedCount={pascuaOwnedCount}
+            totalCount={pascuaCards.length}
+            newCount={newPascuaCount}
+            showTicker
+            enterDelay={140}
+            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('pascua'); downloadCollection('pascua'); }}
+            language={language}
+            sFont={sFont}
+          />
 
-                  {/* Chevron */}
-                  <ChevronRight size={22} color="rgba(180,210,255,0.55)" style={{ marginLeft: 10 }} />
-                </View>
-                {/* NOVEDAD ticker */}
-                <View style={{ borderTopWidth: 1, borderTopColor: 'rgba(100,160,255,0.18)', backgroundColor: 'rgba(100,160,255,0.07)' }}>
-                  <NovedadTicker accentColor="rgba(168,210,255,0.80)" />
-                </View>
-              </LinearGradient>
-            </Pressable>
-          </Animated.View>
+          <CollectionHubCard
+            collectionId="milagros"
+            title="Milagros de Jesús"
+            subtitle={language === 'es' ? 'Señales y maravillas · 2026' : 'Signs and wonders · 2026'}
+            accentColor="#60A5FA"
+            gradientColors={['#040D1E', '#081630', '#040D1E']}
+            ownedCount={milagrosOwnedCount}
+            totalCount={milagrosCards.length}
+            newCount={newMilagrosCount}
+            enterDelay={200}
+            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('milagros'); downloadCollection('milagros'); }}
+            language={language}
+            sFont={sFont}
+          />
 
-          {/* Collection card — Historia de Pascua */}
-          <Animated.View entering={FadeInDown.delay(180).duration(380)} style={{ marginBottom: 16 }}>
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                setActiveCollection('pascua');
-                // Start background download for this collection (non-blocking)
-                downloadCollection('pascua');
-              }}
-            >
-              <LinearGradient
-                colors={['#5C1010', '#3D0A0A', '#200505']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  borderRadius: 18,
-                  borderWidth: 1,
-                  borderColor: 'rgba(245,208,96,0.25)',
-                  overflow: 'hidden',
-                  shadowColor: '#CC3333',
-                  shadowOpacity: 0.55,
-                  shadowRadius: 14,
-                  shadowOffset: { width: 0, height: 4 },
-                  elevation: 10,
-                }}
-              >
-                {/* Diagonal sheen */}
-                <LinearGradient
-                  colors={['rgba(245,208,96,0.10)', 'transparent', 'rgba(204,51,51,0.08)']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-                />
-                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
-                  {/* Icon */}
-                  <View style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 16,
-                    backgroundColor: 'rgba(245,208,96,0.12)',
-                    borderWidth: 1,
-                    borderColor: 'rgba(245,208,96,0.30)',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginRight: 16,
-                  }}>
-                    <Text style={{ fontSize: 28 }}>✝️</Text>
-                  </View>
+          <CollectionHubCard
+            collectionId="heroes"
+            title="Héroes de la Fe"
+            subtitle={language === 'es' ? 'Figuras épicas del Antiguo Testamento' : 'Epic figures of the Old Testament'}
+            accentColor="#D4AF37"
+            gradientColors={['#120E00', '#1E1800', '#120E00']}
+            ownedCount={heroesOwnedCount}
+            totalCount={heroesCards.length}
+            newCount={newHeroesCount}
+            enterDelay={260}
+            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('heroes'); downloadCollection('heroes'); }}
+            language={language}
+            sFont={sFont}
+          />
 
-                  {/* Text */}
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 3 }}>
-                      Historia de Pascua
-                    </Text>
-                    <Text style={{ fontSize: sFont(13), color: 'rgba(245,208,96,0.60)', marginBottom: 10 }}>
-                      14 capítulos de la redención
-                    </Text>
-                    {/* Progress pill */}
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                      <View style={{
-                        paddingHorizontal: 9,
-                        paddingVertical: 3,
-                        borderRadius: 99,
-                        backgroundColor: 'rgba(245,208,96,0.14)',
-                        borderWidth: 1,
-                        borderColor: 'rgba(245,208,96,0.30)',
-                      }}>
-                        <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#F5D060' }}>
-                          {pascuaOwnedCount} / {pascuaCards.length} {language === 'es' ? 'cartas' : 'cards'}
-                        </Text>
-                      </View>
-                    </View>
-                    {/* Progress bar */}
-                    <View style={{ height: 3, backgroundColor: 'rgba(255,255,255,0.10)', borderRadius: 99, overflow: 'hidden' }}>
-                      <View style={{
-                        width: `${pascuaCards.length > 0 ? (pascuaOwnedCount / pascuaCards.length) * 100 : 0}%`,
-                        height: '100%',
-                        borderRadius: 99,
-                        backgroundColor: '#F5D060',
-                      }} />
-                    </View>
-                  </View>
+          <CollectionHubCard
+            collectionId="secretas"
+            title={language === 'es' ? 'Cartas Secretas' : 'Secret Cards'}
+            subtitle={language === 'es' ? 'Recompensas por completar colecciones' : 'Rewards for completing collections'}
+            accentColor="#D4AF37"
+            gradientColors={['#1A1200', '#0E0C00', '#0A0800']}
+            ownedCount={secretOwnedCount}
+            totalCount={secretCardIds.length}
+            locked={secretOwnedCount === 0}
+            newCount={newSecretCount}
+            enterDelay={320}
+            onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setActiveCollection('secretas'); }}
+            language={language}
+            sFont={sFont}
+          />
 
-                  {/* Chevron */}
-                  <ChevronRight size={22} color="rgba(245,208,96,0.50)" style={{ marginLeft: 10 }} />
-                </View>
-                {/* NOVEDAD ticker */}
-                <View style={{ borderTopWidth: 1, borderTopColor: 'rgba(245,208,96,0.18)', backgroundColor: 'rgba(245,208,96,0.07)' }}>
-                  <NovedadTicker accentColor="rgba(245,208,96,0.85)" />
-                </View>
-              </LinearGradient>
-            </Pressable>
-          </Animated.View>
-
-          {/* Collection card — Milagros de Jesús */}
-          <Animated.View entering={FadeInDown.delay(200).duration(380)} style={{ marginTop: 16 }}>
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                setActiveCollection('milagros');
-                downloadCollection('milagros');
-              }}
-            >
-              <LinearGradient
-                colors={['#040D1E', '#081630', '#040D1E']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  borderRadius: 18,
-                  borderWidth: 1,
-                  borderColor: 'rgba(26,74,138,0.55)',
-                  overflow: 'hidden',
-                  shadowColor: '#1A4A8A',
-                  shadowOpacity: 0.55,
-                  shadowRadius: 14,
-                  shadowOffset: { width: 0, height: 4 },
-                  elevation: 10,
-                }}
-              >
-                <LinearGradient
-                  colors={['rgba(26,74,138,0.14)', 'transparent', 'rgba(212,175,55,0.06)']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-                />
-                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
-                  <View style={{
-                    width: 56, height: 56, borderRadius: 16,
-                    backgroundColor: 'rgba(26,74,138,0.18)',
-                    borderWidth: 1, borderColor: 'rgba(74,144,217,0.45)',
-                    alignItems: 'center', justifyContent: 'center', marginRight: 16,
-                  }}>
-                    <Text style={{ fontSize: 28 }}>✨</Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 3 }}>
-                      Milagros de Jesús
-                    </Text>
-                    <Text style={{ fontSize: sFont(13), color: 'rgba(147,197,253,0.65)', marginBottom: 10 }}>
-                      {language === 'es' ? 'Señales y maravillas · Colección 2026' : 'Signs and wonders · 2026 Collection'}
-                    </Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                      <View style={{
-                        paddingHorizontal: 9, paddingVertical: 3,
-                        borderRadius: 99,
-                        backgroundColor: milagrosOwnedCount > 0 ? 'rgba(26,74,138,0.28)' : 'rgba(255,255,255,0.06)',
-                        borderWidth: 1,
-                        borderColor: milagrosOwnedCount > 0 ? 'rgba(74,144,217,0.55)' : 'rgba(255,255,255,0.12)',
-                      }}>
-                        <Text style={{ fontSize: sFont(11), fontWeight: '700', color: milagrosOwnedCount > 0 ? '#93C5FD' : 'rgba(255,255,255,0.35)' }}>
-                          {milagrosOwnedCount} / {milagrosCards.length} {language === 'es' ? 'cartas' : 'cards'}
-                        </Text>
-                      </View>
-                      {newMilagrosCount > 0 && (
-                        <View style={{
-                          paddingHorizontal: 8, paddingVertical: 3,
-                          borderRadius: 99,
-                          backgroundColor: 'rgba(96,165,250,0.25)',
-                          borderWidth: 1, borderColor: 'rgba(96,165,250,0.60)',
-                        }}>
-                          <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#93C5FD' }}>
-                            ✨ {language === 'es' ? 'Nueva' : 'New'}
-                          </Text>
-                        </View>
-                      )}
-                    </View>
-                    <View style={{ height: 3, backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 99, overflow: 'hidden' }}>
-                      <View style={{
-                        width: `${milagrosCards.length > 0 ? (milagrosOwnedCount / milagrosCards.length) * 100 : 0}%`,
-                        height: '100%', borderRadius: 99,
-                        backgroundColor: '#60A5FA',
-                      }} />
-                    </View>
-                  </View>
-                  <ChevronRight size={22} color="rgba(96,165,250,0.55)" style={{ marginLeft: 10 }} />
-                </View>
-              </LinearGradient>
-            </Pressable>
-          </Animated.View>
-
-          {/* Collection card — Héroes de la Fe */}
-          <Animated.View entering={FadeInDown.delay(240).duration(380)} style={{ marginTop: 16 }}>
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                setActiveCollection('heroes');
-                downloadCollection('heroes');
-              }}
-            >
-              <LinearGradient
-                colors={['#120E00', '#1E1800', '#120E00']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  borderRadius: 18,
-                  borderWidth: 1,
-                  borderColor: 'rgba(212,175,55,0.50)',
-                  overflow: 'hidden',
-                  shadowColor: '#D4AF37',
-                  shadowOpacity: 0.45,
-                  shadowRadius: 14,
-                  shadowOffset: { width: 0, height: 4 },
-                  elevation: 10,
-                }}
-              >
-                <LinearGradient
-                  colors={['rgba(212,175,55,0.12)', 'transparent', 'rgba(180,80,0,0.06)']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-                />
-                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
-                  <View style={{
-                    width: 56, height: 56, borderRadius: 16,
-                    backgroundColor: 'rgba(212,175,55,0.15)',
-                    borderWidth: 1, borderColor: 'rgba(212,175,55,0.40)',
-                    alignItems: 'center', justifyContent: 'center', marginRight: 16,
-                  }}>
-                    <Text style={{ fontSize: 28 }}>⚔️</Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFE566', letterSpacing: -0.3, marginBottom: 3 }}>
-                      Héroes de la Fe
-                    </Text>
-                    <Text style={{ fontSize: sFont(13), color: 'rgba(255,220,100,0.60)', marginBottom: 10 }}>
-                      {language === 'es' ? 'Figuras épicas del Antiguo Testamento · 2026' : 'Epic figures of the Old Testament · 2026'}
-                    </Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                      <View style={{
-                        paddingHorizontal: 9, paddingVertical: 3,
-                        borderRadius: 99,
-                        backgroundColor: heroesOwnedCount > 0 ? 'rgba(212,175,55,0.22)' : 'rgba(255,255,255,0.06)',
-                        borderWidth: 1,
-                        borderColor: heroesOwnedCount > 0 ? 'rgba(212,175,55,0.50)' : 'rgba(255,255,255,0.12)',
-                      }}>
-                        <Text style={{ fontSize: sFont(11), fontWeight: '700', color: heroesOwnedCount > 0 ? '#D4AF37' : 'rgba(255,255,255,0.35)' }}>
-                          {heroesOwnedCount} / {heroesCards.length} {language === 'es' ? 'cartas' : 'cards'}
-                        </Text>
-                      </View>
-                      {newHeroesCount > 0 && (
-                        <View style={{
-                          paddingHorizontal: 8, paddingVertical: 3,
-                          borderRadius: 99,
-                          backgroundColor: 'rgba(212,175,55,0.25)',
-                          borderWidth: 1, borderColor: 'rgba(212,175,55,0.60)',
-                        }}>
-                          <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFE566' }}>
-                            ⚔️ {language === 'es' ? 'Nueva' : 'New'}
-                          </Text>
-                        </View>
-                      )}
-                    </View>
-                    <View style={{ height: 3, backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 99, overflow: 'hidden' }}>
-                      <View style={{
-                        width: `${heroesCards.length > 0 ? (heroesOwnedCount / heroesCards.length) * 100 : 0}%`,
-                        height: '100%', borderRadius: 99,
-                        backgroundColor: '#D4AF37',
-                      }} />
-                    </View>
-                  </View>
-                  <ChevronRight size={22} color="rgba(212,175,55,0.55)" style={{ marginLeft: 10 }} />
-                </View>
-              </LinearGradient>
-            </Pressable>
-          </Animated.View>
-
-          {/* Collection card — Cartas Secretas */}
-          <Animated.View entering={FadeInDown.delay(280).duration(380)} style={{ marginTop: 16 }}>
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                setActiveCollection('secretas');
-              }}
-            >
-              <LinearGradient
-                colors={['#1A1200', '#0E0C00', '#0A0800']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  borderRadius: 18,
-                  borderWidth: 1.5,
-                  borderColor: 'rgba(212,175,55,0.45)',
-                  overflow: 'hidden',
-                  shadowColor: '#D4AF37',
-                  shadowOpacity: 0.45,
-                  shadowRadius: 14,
-                  shadowOffset: { width: 0, height: 4 },
-                  elevation: 10,
-                }}
-              >
-                {/* Gold diagonal sheen */}
-                <LinearGradient
-                  colors={['rgba(212,175,55,0.14)', 'transparent', 'rgba(212,175,55,0.07)']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-                />
-                {/* Shimmer line */}
-                <View style={{ position: 'absolute', top: 0, left: 24, right: 24, height: 1, backgroundColor: 'rgba(212,175,55,0.30)', borderRadius: 99 }} />
-
-                <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 18 }}>
-                  {/* Icon */}
-                  <View style={{
-                    width: 56, height: 56, borderRadius: 16,
-                    backgroundColor: 'rgba(212,175,55,0.15)',
-                    borderWidth: 1.5, borderColor: 'rgba(212,175,55,0.45)',
-                    alignItems: 'center', justifyContent: 'center', marginRight: 16,
-                  }}>
-                    <Text style={{ fontSize: 28 }}>✦</Text>
-                  </View>
-
-                  {/* Text */}
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFE566', letterSpacing: -0.3, marginBottom: 3 }}>
-                      {language === 'es' ? 'Cartas Secretas' : 'Secret Cards'}
-                    </Text>
-                    <Text style={{ fontSize: sFont(13), color: 'rgba(212,175,55,0.60)', marginBottom: 10 }}>
-                      {language === 'es'
-                        ? 'Recompensas por completar colecciones'
-                        : 'Rewards for completing collections'}
-                    </Text>
-                    {/* Owned count */}
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                      <View style={{
-                        paddingHorizontal: 9, paddingVertical: 3,
-                        borderRadius: 99,
-                        backgroundColor: secretOwnedCount > 0 ? 'rgba(212,175,55,0.20)' : 'rgba(255,255,255,0.06)',
-                        borderWidth: 1,
-                        borderColor: secretOwnedCount > 0 ? 'rgba(212,175,55,0.50)' : 'rgba(255,255,255,0.12)',
-                      }}>
-                        <Text style={{ fontSize: sFont(11), fontWeight: '700', color: secretOwnedCount > 0 ? '#D4AF37' : 'rgba(255,255,255,0.35)' }}>
-                          {secretOwnedCount > 0
-                            ? `${secretOwnedCount} / ${secretCardIds.length} ${language === 'es' ? 'cartas' : 'cards'}`
-                            : (language === 'es' ? 'Bloqueadas' : 'Locked')}
-                        </Text>
-                      </View>
-                      {newSecretCount > 0 && (
-                        <View style={{
-                          paddingHorizontal: 8, paddingVertical: 3,
-                          borderRadius: 99,
-                          backgroundColor: 'rgba(212,175,55,0.25)',
-                          borderWidth: 1, borderColor: 'rgba(212,175,55,0.60)',
-                        }}>
-                          <Text style={{ fontSize: sFont(10), fontWeight: '800', color: '#FFE566' }}>
-                            ✨ {language === 'es' ? 'Nueva' : 'New'}
-                          </Text>
-                        </View>
-                      )}
-                    </View>
-                    {/* Progress bar (only if unlocked) */}
-                    {secretOwnedCount > 0 && (
-                      <View style={{ height: 3, backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 99, overflow: 'hidden' }}>
-                        <View style={{
-                          width: `${secretCardIds.length > 0 ? (secretOwnedCount / secretCardIds.length) * 100 : 0}%`,
-                          height: '100%', borderRadius: 99,
-                          backgroundColor: '#D4AF37',
-                        }} />
-                      </View>
-                    )}
-                  </View>
-
-                  {/* Chevron */}
-                  <ChevronRight size={22} color="rgba(212,175,55,0.55)" style={{ marginLeft: 10 }} />
-                </View>
-              </LinearGradient>
-            </Pressable>
-          </Animated.View>
         </ScrollView>
       ) : (
         // ══════════════════════════════════════════════════════════════════
