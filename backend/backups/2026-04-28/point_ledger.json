@@ -2618,5 +2618,35 @@
     "amount": 0,
     "metadata": "{\"matchId\":\"cmn672wii0035m2lpfti9isgu\",\"outcome\":\"win\",\"capReached\":true,\"ratingChange\":25}",
     "createdAt": "2026-03-25T15:25:17.070Z"
+  },
+  {
+    "id": "cmogfbyca001em2bpbmtmdqkw",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "share_2026-04-26_1",
+    "type": "share",
+    "dateId": "2026-04-26",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-04-26T23:53:16.955Z"
+  },
+  {
+    "id": "cmogsbm9r0013m29ipwtxo815",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmogsb8fb0011m29ipcfbja47",
+    "type": "duel_win",
+    "dateId": "2026-04-27",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmogsb8fb0011m29ipcfbja47\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-04-27T05:56:56.320Z"
+  },
+  {
+    "id": "cmohrhazb0011m20e8f00vgmm",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "gift_sent_cmml8uiit0000m2vluztbkjwf_avatar_v2_cruz_radiante_1777328468183",
+    "type": "gift_sent",
+    "dateId": "2026-04-27",
+    "amount": -500,
+    "metadata": "{\"itemId\":\"avatar_v2_cruz_radiante\",\"receiverUserId\":\"cmmm76y270019m2o96a4bj4lb\"}",
+    "createdAt": "2026-04-27T22:21:08.184Z"
   }
 ]
