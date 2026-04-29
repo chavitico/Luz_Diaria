@@ -1172,7 +1172,7 @@ export default function SettingsScreen() {
                           <BadgeChip badgeId={badgeId} variant="community" />
                         </Pressable>
                         <Text style={{ fontSize: sFont(11), fontWeight: '600', color: isActive ? badge.color : colors.textMuted }}>
-                          {badge.nameEs}
+                          {language === 'es' ? badge.nameEs : badge.name}
                         </Text>
                         {isActive && (
                           <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: badge.color, alignItems: 'center', justifyContent: 'center' }}>

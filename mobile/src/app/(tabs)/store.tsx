@@ -1404,10 +1404,10 @@ function ProfileHeader({
                       <BadgeChip badgeId={activeBadgeId} variant="community" />
                       <View style={{ flex: 1 }}>
                         <Text style={{ fontSize: sFont(13), fontWeight: '700', color: badgeData.color, marginBottom: 2 }} numberOfLines={1}>
-                          {badgeData.nameEs}
+                          {language === 'es' ? badgeData.nameEs : badgeData.name}
                         </Text>
                         <Text style={{ fontSize: sFont(11), fontWeight: '400', color: 'rgba(255,255,255,0.55)', lineHeight: 15 }} numberOfLines={2} ellipsizeMode="tail">
-                          {badgeData.profileCardEs}
+                          {language === 'es' ? badgeData.profileCardEs : badgeData.description}
                         </Text>
                       </View>
                     </View>
