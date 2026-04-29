@@ -571,6 +571,7 @@ export default function TestimoniosFeedScreen() {
 
   const userId = user?.id;
 
+  const language = useLanguage() as 'es' | 'en';
   const [showShareModal, setShowShareModal] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   // Optimistic like state: { [testimonyId]: { liked: boolean; count: number } }
@@ -660,10 +661,10 @@ export default function TestimoniosFeedScreen() {
 
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: sFont(10), fontWeight: '600', color: colors.textMuted, letterSpacing: 1.2, textTransform: 'uppercase' }}>
-              Comunidad
+              {language === 'es' ? 'Comunidad' : 'Community'}
             </Text>
             <Text style={{ fontSize: sFont(18), fontWeight: '800', color: colors.text, marginTop: -1 }}>
-              Testimonios
+              {language === 'es' ? 'Testimonios' : 'Testimonies'}
             </Text>
           </View>
 
@@ -676,15 +677,17 @@ export default function TestimoniosFeedScreen() {
               flexDirection: 'row',
               alignItems: 'center',
               gap: 6,
-              backgroundColor: colors.primary,
-              paddingHorizontal: 14,
+              backgroundColor: 'transparent',
+              paddingHorizontal: 4,
               paddingVertical: 8,
               borderRadius: 20,
-              opacity: pressed ? 0.85 : 1,
+              opacity: pressed ? 0.7 : 1,
             })}
           >
-            <MessageSquareHeart size={15} color={colors.primaryText} />
-            <Text style={{ fontSize: sFont(13), fontWeight: '700', color: colors.primaryText }}>Compartir</Text>
+            <MessageSquareHeart size={17} color={colors.text} />
+            <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text }}>
+              {language === 'es' ? 'Compartir' : 'Share'}
+            </Text>
           </Pressable>
         </View>
       </View>
