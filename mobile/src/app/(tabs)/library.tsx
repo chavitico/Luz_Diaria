@@ -278,7 +278,7 @@ export default function LibraryScreen() {
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [upcomingExpanded, setUpcomingExpanded] = useState(false);
 
-  const { data: devotionals, isLoading } = useQuery({
+  const { data: devotionals, isLoading, isFetching } = useQuery({
     queryKey: ['allDevotionals'],
     queryFn: () => firestoreService.getAllDevotionals(),
     staleTime: 0, // always consider stale so focus refetch kicks in
@@ -543,11 +543,7 @@ export default function LibraryScreen() {
       </View>
 
       {/* List */}
-      {isLoading && !devotionals ? (
-        <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      ) : filteredDevotionals.length > 0 ? (
+      {filteredDevotionals.length > 0 ? (
         <FlashList
           data={filteredDevotionals}
           renderItem={renderItem}
@@ -556,46 +552,50 @@ export default function LibraryScreen() {
           contentContainerStyle={{ paddingTop: 8, paddingBottom: 120 }}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={
-            showUpcoming ? (
-              <View className="mb-4">
-                {/* Upcoming section header — collapsible */}
-                <Pressable
-                  onPress={() => {
-                    setUpcomingExpanded(prev => !prev);
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  }}
-                  className="flex-row items-center justify-between mx-5 mb-3 mt-2 px-4 py-3 rounded-2xl"
-                  style={{ backgroundColor: colors.surface }}
-                >
-                  <View className="flex-row items-center" style={{ gap: 8 }}>
-                    <Lock size={15} color={colors.textMuted} />
-                    <Text className="text-sm font-semibold" style={{ color: colors.textMuted }}>
-                      {language === 'es' ? 'Próximos 7 días' : 'Upcoming 7 days'}
-                    </Text>
-                    <View
-                      className="px-2 py-0.5 rounded-full"
-                      style={{ backgroundColor: colors.primary + '20' }}
-                    >
-                      <Text className="text-xs font-bold" style={{ color: colors.primary }}>
-                        {upcomingDevotionals?.length ?? 0}
+            <View>
+              {/* Spinner while historical data loads from backend */}
+              {isFetching && !devotionals && (
+                <View style={{ alignItems: 'center', paddingVertical: 16, gap: 8 }}>
+                  <ActivityIndicator size="small" color={colors.primary} />
+                  <Text style={{ fontSize: 12, color: colors.textMuted }}>
+                    {language === 'es' ? 'Cargando historial...' : 'Loading history...'}
+                  </Text>
+                </View>
+              )}
+              {showUpcoming && (
+                <View className="mb-4">
+                  <Pressable
+                    onPress={() => {
+                      setUpcomingExpanded(prev => !prev);
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    }}
+                    className="flex-row items-center justify-between mx-5 mb-3 mt-2 px-4 py-3 rounded-2xl"
+                    style={{ backgroundColor: colors.surface }}
+                  >
+                    <View className="flex-row items-center" style={{ gap: 8 }}>
+                      <Lock size={15} color={colors.textMuted} />
+                      <Text className="text-sm font-semibold" style={{ color: colors.textMuted }}>
+                        {language === 'es' ? 'Próximos 7 días' : 'Upcoming 7 days'}
                       </Text>
+                      <View
+                        className="px-2 py-0.5 rounded-full"
+                        style={{ backgroundColor: colors.primary + '20' }}
+                      >
+                        <Text className="text-xs font-bold" style={{ color: colors.primary }}>
+                          {upcomingDevotionals?.length ?? 0}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                  {upcomingExpanded
-                    ? <ChevronUp size={16} color={colors.textMuted} />
-                    : <ChevronDown size={16} color={colors.textMuted} />}
-                </Pressable>
-
-                {upcomingExpanded && upcomingDevotionals?.map(item => (
-                  <UpcomingCard
-                    key={item.date}
-                    item={item}
-                    language={language}
-                    colors={colors}
-                  />
-                ))}
-              </View>
-            ) : null
+                    {upcomingExpanded
+                      ? <ChevronUp size={16} color={colors.textMuted} />
+                      : <ChevronDown size={16} color={colors.textMuted} />}
+                  </Pressable>
+                  {upcomingExpanded && upcomingDevotionals?.map(item => (
+                    <UpcomingCard key={item.date} item={item} language={language} colors={colors} />
+                  ))}
+                </View>
+              )}
+            </View>
           }
         />
       ) : (
