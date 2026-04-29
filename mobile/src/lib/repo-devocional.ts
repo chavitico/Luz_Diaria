@@ -23,7 +23,8 @@ export interface RepoDevocional {
 // Parse versiculo format: "Book Chapter:Verse VERSION: \"text\""
 export function parseVersiculo(versiculo: string): { reference: string; version: string; text: string } {
   // Match: "Hebreos 5:8-9 RVR1960: \"text\""
-  const match = versiculo.match(/^(.+?)\s+([A-Z0-9]+):\s*"?([\s\S]+?)"?\s*$/);
+  // Version must start with a letter (e.g. RVR1960, NVI, KJV) to avoid matching chapter numbers
+  const match = versiculo.match(/^(.+?)\s+([A-Z][A-Z0-9]+):\s*"?([\s\S]+?)"?\s*$/);
   if (match) {
     return {
       reference: match[1].trim(),
