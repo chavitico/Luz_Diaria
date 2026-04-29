@@ -71,7 +71,7 @@ const { width } = Dimensions.get('window');
 const HERO_HEIGHT = 280;
 const TTS_RATE = 0.88;
 const TTS_PITCH = 0.95;
-const MIN_TIME_SECONDS = 180;
+const MIN_TIME_SECONDS = 120;
 
 function getYesterdayDate(): string {
   try {
@@ -634,14 +634,12 @@ export default function HoyNuevoScreen() {
   const isTTSPlayingRef = useRef(false);
   const currentSectionIndexRef = useRef(-1);
   const speechJobIdRef = useRef(0);
-  const voiceIdRef = useRef<string | undefined>(undefined);
-  const ttsInitRef = useRef(false);
+  const pickedVoiceRef = useRef<Awaited<ReturnType<typeof pickBestVoice>> | undefined>(undefined);
 
   useEffect(() => {
-    if (ttsInitRef.current) return;
-    ttsInitRef.current = true;
-    pickBestVoice(language).then((picked) => {
-      voiceIdRef.current = picked?.voiceIdentifier;
+    const langCode = language === 'es' ? 'es' : 'en';
+    pickBestVoice(langCode).then((picked) => {
+      pickedVoiceRef.current = picked;
     }).catch(() => {});
   }, [language]);
 
@@ -680,11 +678,12 @@ export default function HoyNuevoScreen() {
         if (jobId === speechJobIdRef.current && isTTSPlayingRef.current) speakSection(index + 1, sections, jobId);
       }, 300);
     };
+    const picked = pickedVoiceRef.current;
     const opts: Speech.SpeechOptions = {
-      language: language === 'es' ? 'es-MX' : 'en-US',
+      language: picked?.language ?? (language === 'es' ? 'es-MX' : 'en-US'),
       rate: TTS_RATE, pitch: TTS_PITCH, onDone: advance, onError: advance,
     };
-    if (voiceIdRef.current) opts.voice = voiceIdRef.current;
+    if (picked?.voiceIdentifier) opts.voice = picked.voiceIdentifier;
     Speech.speak(sections[index].text, opts);
   }, [language]);
 
