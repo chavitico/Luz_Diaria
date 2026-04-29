@@ -36,6 +36,7 @@ import {
   Music,
   Mail,
   Check,
+  ArrowLeft,
 } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
@@ -488,11 +489,11 @@ export default function HoyNuevoScreen() {
   const fullPrayerText = devocional.oracion + petitionAddendum;
 
   // ── Favorites ──
-  const isFavorite = favorites.includes(today);
+  const isFavorite = favorites.includes(viewDate);
   const handleToggleFavorite = useCallback(() => {
-    if (isFavorite) removeFavorite(today); else addFavorite(today);
+    if (isFavorite) removeFavorite(viewDate); else addFavorite(viewDate);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-  }, [isFavorite, today, addFavorite, removeFavorite]);
+  }, [isFavorite, viewDate, addFavorite, removeFavorite]);
 
   // ── Share ──
   const [shareVisible, setShareVisible] = useState(false);
@@ -552,13 +553,13 @@ export default function HoyNuevoScreen() {
   const isCompletedRef = useRef(false);
   const ttsCompletedTodayRef = useRef(false);
 
-  // Restore completed state if user already finished today (via HOY or this tab)
+  // Reset per-date state when navigating to a different devotional, then restore if today is done
   useEffect(() => {
-    if (isToday && user?.lastActiveDate === today) {
-      setIsCompleted(true);
-      isCompletedRef.current = true;
-    }
-  }, [isToday, user?.lastActiveDate, today]);
+    const done = isToday && user?.lastActiveDate === today;
+    setIsCompleted(done);
+    isCompletedRef.current = done;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewDate]); // intentionally only on date change — avoids spurious resets on user updates
 
   const handleCompleteRef = useRef<(() => Promise<void>) | undefined>(undefined);
   handleCompleteRef.current = async () => {
@@ -793,7 +794,7 @@ export default function HoyNuevoScreen() {
         {/* ── Hero ── */}
         <View style={{ height: HERO_HEIGHT }}>
           <Image
-            source={{ uri: REPO_DEFAULT_IMAGE }}
+            source={{ uri: repoEntry.imageUrl }}
             style={{ width: '100%', height: '100%' }}
             contentFit="cover"
           />
@@ -802,30 +803,29 @@ export default function HoyNuevoScreen() {
             style={{ position: 'absolute', inset: 0 }}
           />
 
-          {/* Top row: streak + novedades + share */}
+          {/* Top row: streak/back + novedades + share */}
           <View style={{
             position: 'absolute', top: insets.top + 10, left: 20, right: 20,
             flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
           }}>
-            {user && user.streakCurrent > 0 ? (
-              <View style={{
-                backgroundColor: 'rgba(249,115,22,0.90)', borderRadius: 20,
-                paddingHorizontal: 12, paddingVertical: 6,
-                flexDirection: 'row', alignItems: 'center', gap: 5,
-              }}>
-                <Flame size={14} color="#fff" />
-                <Text style={{ color: '#fff', fontWeight: '700', fontSize: 13 }}>
-                  {user.streakCurrent}
-                </Text>
-              </View>
-            ) : <View />}
-
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            {isToday ? (
+              user && user.streakCurrent > 0 ? (
+                <View style={{
+                  backgroundColor: 'rgba(249,115,22,0.90)', borderRadius: 20,
+                  paddingHorizontal: 12, paddingVertical: 6,
+                  flexDirection: 'row', alignItems: 'center', gap: 5,
+                }}>
+                  <Flame size={14} color="#fff" />
+                  <Text style={{ color: '#fff', fontWeight: '700', fontSize: 13 }}>
+                    {user.streakCurrent}
+                  </Text>
+                </View>
+              ) : <View />
+            ) : (
               <Pressable
                 onPress={() => {
-                  setHasUnreadNews(false);
-                  router.push('/novedades');
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  router.back();
                 }}
                 style={{
                   backgroundColor: 'rgba(255,255,255,0.18)', borderRadius: 22,
@@ -833,9 +833,28 @@ export default function HoyNuevoScreen() {
                   borderWidth: 1, borderColor: 'rgba(255,255,255,0.28)',
                 }}
               >
-                <Mail size={18} color="#fff" />
-                {showNovedadesBadge && <NotifDot />}
+                <ArrowLeft size={18} color="#fff" />
               </Pressable>
+            )}
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+              {isToday && (
+                <Pressable
+                  onPress={() => {
+                    setHasUnreadNews(false);
+                    router.push('/novedades');
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  }}
+                  style={{
+                    backgroundColor: 'rgba(255,255,255,0.18)', borderRadius: 22,
+                    width: 44, height: 44, alignItems: 'center', justifyContent: 'center',
+                    borderWidth: 1, borderColor: 'rgba(255,255,255,0.28)',
+                  }}
+                >
+                  <Mail size={18} color="#fff" />
+                  {showNovedadesBadge && <NotifDot />}
+                </Pressable>
+              )}
 
               <Pressable
                 onPress={handleShare}
@@ -856,7 +875,9 @@ export default function HoyNuevoScreen() {
               color: 'rgba(255,255,255,0.55)', fontSize: 10, fontWeight: '700',
               letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 3,
             }}>
-              {language === 'es' ? 'Devocional de Hoy' : "Today's Devotional"}
+              {isToday
+                ? (language === 'es' ? 'Devocional de Hoy' : "Today's Devotional")
+                : (language === 'es' ? 'Devocional' : 'Devotional')}
             </Text>
             <Text style={{ color: '#fff', fontSize: 22, fontWeight: '700', lineHeight: 28, marginBottom: 6 }}>
               {autoTitle}
