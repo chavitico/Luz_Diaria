@@ -11,6 +11,7 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import { APP_BRANDING } from '@/lib/constants';
+import { useLanguage } from '@/lib/store';
 
 const LOGO_PNG = require('../../assets/logo/luz-diaria-logo.png');
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -21,6 +22,7 @@ interface SplashScreenProps {
 }
 
 export function SplashScreen({ onFinish }: SplashScreenProps) {
+  const language = useLanguage();
   const logoScale = useSharedValue(0.6);
   const logoOpacity = useSharedValue(0);
   const textOpacity = useSharedValue(0);
@@ -101,7 +103,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
               textTransform: 'uppercase',
             }}
           >
-            {APP_BRANDING.tagline.es}
+            {APP_BRANDING.tagline[language] ?? APP_BRANDING.tagline.es}
           </Text>
         </Animated.View>
 
