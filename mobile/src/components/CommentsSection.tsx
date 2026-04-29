@@ -14,8 +14,11 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Haptics from 'expo-haptics';
-import { Send, Heart, Trash2, MessageCircle } from 'lucide-react-native';
+import { Send, Heart, Trash2, MessageCircle, Globe } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
+import { fetchWithTimeout } from '@/lib/fetch';
+
+const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 import { relativeLuminance, ensureContrast, contrastRatio } from '@/lib/contrast';
 import { useScaledFont } from '@/lib/textScale';
 import { DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
@@ -167,6 +170,9 @@ function CommentRow({
   onDelete: (id: string) => void;
 }) {
   const { sFont } = useScaledFont();
+  const [translatedText, setTranslatedText] = useState<string | null>(null);
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [showTranslated, setShowTranslated] = useState(false);
 
   const timeAgo = (iso: string) => {
     const diff = Date.now() - new Date(iso).getTime();
@@ -198,6 +204,35 @@ function CommentRow({
     );
   };
 
+  const handleTranslate = async () => {
+    if (showTranslated) { setShowTranslated(false); return; }
+    if (translatedText) { setShowTranslated(true); return; }
+    setIsTranslating(true);
+    try {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/translate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: comment.text, targetLanguage: language }),
+      }, 20_000);
+      if (res.ok) {
+        const data = await res.json() as { translatedText: string };
+        if (data.translatedText) {
+          setTranslatedText(data.translatedText);
+          setShowTranslated(true);
+        }
+      }
+    } catch {
+      // silently fail
+    } finally {
+      setIsTranslating(false);
+    }
+  };
+
+  const displayText = showTranslated && translatedText ? translatedText : comment.text;
+  const translateLabel = language === 'es'
+    ? (showTranslated ? 'Ver original' : 'Traducir')
+    : (showTranslated ? 'Show original' : 'Translate');
+
   return (
     <Pressable
       onLongPress={isMod ? handleDeletePress : undefined}
@@ -222,8 +257,8 @@ function CommentRow({
             </Pressable>
           )}
         </View>
-        <CommentText text={comment.text} colors={colors} fontSize={sFont(13.5)} />
-        <View style={{ marginTop: 6 }}>
+        <CommentText text={displayText} colors={colors} fontSize={sFont(13.5)} />
+        <View style={{ marginTop: 6, flexDirection: 'row', alignItems: 'center', gap: 14 }}>
           <LikeButton
             commentId={comment.id}
             liked={comment.likedByMe}
@@ -231,6 +266,20 @@ function CommentRow({
             userId={currentUserId}
             colors={colors}
           />
+          <Pressable
+            onPress={handleTranslate}
+            disabled={isTranslating}
+            hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+            style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
+          >
+            {isTranslating
+              ? <ActivityIndicator size={10} color={colors.textMuted} />
+              : <Globe size={12} color={showTranslated ? colors.primary : colors.textMuted} strokeWidth={2} />
+            }
+            <Text style={{ fontSize: sFont(11), color: showTranslated ? colors.primary : colors.textMuted }}>
+              {translateLabel}
+            </Text>
+          </Pressable>
         </View>
       </View>
     </Pressable>
