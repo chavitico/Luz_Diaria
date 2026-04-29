@@ -265,33 +265,42 @@ giftsRouter.post("/claim", zValidator("json", claimGiftSchema), async (c) => {
 // ADMIN ENDPOINTS (OWNER only)
 // ============================================
 
-// GET /api/gifts/admin/list - List last 20 gift drops
+// GET /api/gifts/admin/list - List last 20 gift drops with claim stats
 giftsRouter.get("/admin/list", requireRole("OWNER"), async (c) => {
   try {
     const giftDrops = await prisma.giftDrop.findMany({
       orderBy: { createdAt: "desc" },
       take: 20,
       include: {
-        _count: {
-          select: { userGifts: true },
+        userGifts: {
+          select: { status: true },
         },
       },
     });
 
-    const result = giftDrops.map((gd) => ({
-      id: gd.id,
-      title: gd.title,
-      message: gd.message,
-      rewardType: gd.rewardType,
-      rewardId: gd.rewardId,
-      audienceType: gd.audienceType,
-      audienceUserIds: JSON.parse(gd.audienceUserIds || "[]"),
-      startsAt: gd.startsAt,
-      endsAt: gd.endsAt,
-      isActive: gd.isActive,
-      createdAt: gd.createdAt,
-      totalRecipients: gd._count.userGifts,
-    }));
+    const result = giftDrops.map((gd) => {
+      const claimedCount = gd.userGifts.filter((ug) => ug.status === "CLAIMED").length;
+      const pendingCount = gd.userGifts.filter((ug) => ug.status === "PENDING").length;
+      const dismissedCount = gd.userGifts.filter((ug) => ug.status === "DISMISSED").length;
+      const totalRecipients = gd.userGifts.length;
+      return {
+        id: gd.id,
+        title: gd.title,
+        message: gd.message,
+        rewardType: gd.rewardType,
+        rewardId: gd.rewardId,
+        audienceType: gd.audienceType,
+        audienceUserIds: JSON.parse(gd.audienceUserIds || "[]"),
+        startsAt: gd.startsAt,
+        endsAt: gd.endsAt,
+        isActive: gd.isActive,
+        createdAt: gd.createdAt,
+        totalRecipients,
+        claimedCount,
+        pendingCount,
+        dismissedCount,
+      };
+    });
 
     return c.json(result);
   } catch (error) {

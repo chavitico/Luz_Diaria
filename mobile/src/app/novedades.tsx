@@ -733,24 +733,68 @@ function DropNewsCard({
               <Pressable
                 onPress={handleClaim}
                 disabled={claiming}
-                style={({ pressed }) => ({ backgroundColor: claiming ? `${accentColor}80` : accentColor, borderRadius: 12, paddingVertical: 13, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: pressed ? 0.85 : 1 })}
+                style={({ pressed }) => ({
+                  backgroundColor: claiming ? `${accentColor}80` : accentColor,
+                  borderRadius: 14,
+                  paddingVertical: 15,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  opacity: pressed ? 0.85 : 1,
+                  shadowColor: accentColor,
+                  shadowOpacity: 0.4,
+                  shadowRadius: 10,
+                  shadowOffset: { width: 0, height: 4 },
+                  elevation: 6,
+                })}
               >
                 {claiming ? <ActivityIndicator size="small" color="#fff" /> : <Gift size={16} color="#fff" strokeWidth={2.5} />}
-                <Text style={{ color: '#fff', fontWeight: '800', fontSize: 14 }}>
-                  {claiming ? (es ? 'Reclamando…' : 'Claiming…') : (es ? 'Reclamar ahora' : 'Claim now')}
+                <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15 }}>
+                  {claiming ? (es ? 'Reclamando…' : 'Claiming…') : (es ? '¡Reclamar ahora!' : 'Claim Now!')}
                 </Text>
               </Pressable>
-            ) : null}
-
-            <Pressable
-              onPress={onGoToStore}
-              style={({ pressed }) => ({ backgroundColor: claimed ? accentColor : 'rgba(0,0,0,0.05)', borderRadius: 12, paddingVertical: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, borderWidth: claimed ? 0 : 1, borderColor: 'rgba(0,0,0,0.1)', opacity: pressed ? 0.8 : 1 })}
-            >
-              <ShoppingBag size={16} color={claimed ? '#fff' : accentColor} strokeWidth={2.5} />
-              <Text style={{ color: claimed ? '#fff' : accentColor, fontWeight: '700', fontSize: 14 }}>
-                {es ? 'Ver en tienda / Equipar' : 'View in Store / Equip'}
-              </Text>
-            </Pressable>
+            ) : (
+              /* Success state: claimed banner + store button */
+              <View style={{ gap: 8 }}>
+                <View style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 8,
+                  backgroundColor: '#F0FDF4',
+                  borderRadius: 12,
+                  paddingVertical: 10,
+                  paddingHorizontal: 14,
+                  borderWidth: 1,
+                  borderColor: '#BBF7D0',
+                }}>
+                  <CheckCircle size={16} color="#16A34A" strokeWidth={2.5} />
+                  <Text style={{ color: '#16A34A', fontWeight: '700', fontSize: 13 }}>
+                    {es ? '¡Regalo reclamado! Listo para usar.' : 'Gift claimed! Ready to use.'}
+                  </Text>
+                </View>
+                <Pressable
+                  onPress={onGoToStore}
+                  style={({ pressed }) => ({
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: 14,
+                    paddingVertical: 13,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                    borderWidth: 2,
+                    borderColor: accentColor,
+                    opacity: pressed ? 0.8 : 1,
+                  })}
+                >
+                  <ShoppingBag size={16} color={accentColor} strokeWidth={2.5} />
+                  <Text style={{ color: accentColor, fontWeight: '800', fontSize: 14 }}>
+                    {es ? 'Ver en tienda / Equipar' : 'View in Store / Equip'}
+                  </Text>
+                </Pressable>
+              </View>
+            )}
           </View>
         </View>
       )}

@@ -50,6 +50,9 @@ interface GiftDrop {
   isActive: boolean;
   createdAt: string;
   totalRecipients: number;
+  claimedCount: number;
+  pendingCount: number;
+  dismissedCount: number;
 }
 
 interface StoreItemOption {
@@ -120,7 +123,7 @@ export default function AdminGiftsScreen() {
         gamificationApi.adminListGiftDrops(userId),
         gamificationApi.adminGetStoreItems(userId),
       ]);
-      setGiftDrops(drops);
+      setGiftDrops((drops as any[]).map((d) => ({ claimedCount: 0, pendingCount: 0, dismissedCount: 0, ...d } as GiftDrop)));
       setStoreItems(items);
     } catch (e) {
       Alert.alert('Error', 'No se pudo cargar la lista.');
@@ -838,6 +841,18 @@ export default function AdminGiftsScreen() {
                     {gd.totalRecipients} enviados
                   </Text>
                 </View>
+                {gd.totalRecipients > 0 && (
+                  <View style={{ flexDirection: 'row', gap: 4 }}>
+                    <View style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8, backgroundColor: '#F0FDF4', borderWidth: 1, borderColor: '#BBF7D0' }}>
+                      <Text style={{ fontSize: 11, fontWeight: '700', color: '#16A34A' }}>✓ {gd.claimedCount}</Text>
+                    </View>
+                    {gd.pendingCount > 0 && (
+                      <View style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8, backgroundColor: '#FEF3C7', borderWidth: 1, borderColor: '#F59E0B40' }}>
+                        <Text style={{ fontSize: 11, fontWeight: '700', color: '#D97706' }}>⏳ {gd.pendingCount}</Text>
+                      </View>
+                    )}
+                  </View>
+                )}
                 {gd.totalRecipients === 0 && (
                   <View
                     style={{
