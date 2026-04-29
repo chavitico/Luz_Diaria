@@ -158,41 +158,46 @@ function formatDate(iso: string, lang = 'es'): string {
 
 const STUDY_EXAMPLES = [
   {
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop&q=80',
-    titleEs: 'El Gran Yo Soy',
-    titleEn: 'The Great I AM',
-    refEs: 'Éxodo 3 · Juan 8',
-    refEn: 'Exodus 3 · John 8',
+    studyId: 'i_am_before_abraham_001',
+    image: 'https://images.unsplash.com/photo-1476611338391-6f395a0ebc7b?w=300&h=200&fit=crop&q=80',
+    titleEs: 'YO SOY: Antes que Abraham',
+    titleEn: 'I AM: Before Abraham',
+    refEs: 'Juan 8:58',
+    refEn: 'John 8:58',
     accentColor: '#D97706',
   },
   {
-    image: 'https://images.unsplash.com/photo-1544919982-b61976f0ba43?w=300&h=200&fit=crop&q=80',
-    titleEs: 'El Sermón del Monte',
-    titleEn: 'Sermon on the Mount',
-    refEs: 'Mateo 5–7',
-    refEn: 'Matthew 5–7',
+    studyId: 'logos_creation_001',
+    image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&h=200&fit=crop&q=80',
+    titleEs: 'En el Principio era el Verbo',
+    titleEn: 'In the Beginning was the Word',
+    refEs: 'Juan 1:1',
+    refEn: 'John 1:1',
     accentColor: '#059669',
   },
   {
-    image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=200&fit=crop&q=80',
-    titleEs: 'Salmo 23',
-    titleEn: 'Psalm 23',
-    refEs: 'Salmos 23',
-    refEn: 'Psalms 23',
+    studyId: 'good_shepherd_001',
+    image: 'https://images.unsplash.com/photo-1504215680853-026ed2a45def?w=300&h=200&fit=crop&q=80',
+    titleEs: 'El Buen Pastor',
+    titleEn: 'The Good Shepherd',
+    refEs: 'Juan 10 · Sal 23',
+    refEn: 'John 10 · Ps 23',
     accentColor: '#7C3AED',
   },
   {
-    image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&h=200&fit=crop&q=80',
-    titleEs: 'El Amor de Dios',
-    titleEn: "God's Love",
-    refEs: '1 Juan 4 · Juan 3',
-    refEn: '1 John 4 · John 3',
+    studyId: 'born_again_001',
+    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300&h=200&fit=crop&q=80',
+    titleEs: 'Nacer de Nuevo',
+    titleEn: 'Born Again',
+    refEs: 'Juan 3:16',
+    refEn: 'John 3:16',
     accentColor: '#DB2777',
   },
 ];
 
 function BibleStudiesContent({ language, onNavigate }: { language: string; onNavigate: () => void }) {
   const es = language === 'es';
+  const studyRouter = useRouter();
   return (
     <View style={{ gap: 16 }}>
       {/* Intro */}
@@ -213,7 +218,7 @@ function BibleStudiesContent({ language, onNavigate }: { language: string; onNav
         {STUDY_EXAMPLES.map((study) => (
           <Pressable
             key={study.titleEn}
-            onPress={onNavigate}
+            onPress={() => studyRouter.push({ pathname: '/study-reader', params: { id: study.studyId } } as any)}
             style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1, alignItems: 'center', gap: 6 })}
           >
             <View
