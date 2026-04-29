@@ -448,6 +448,7 @@ function FullCommunityModal({
   onBadgePress: (badgeId: string) => void;
 }) {
   const colors = useThemeColors();
+  const language = useLanguage();
   const insets = useSafeAreaInsets();
   const { sFont } = useScaledFont();
 
@@ -509,7 +510,7 @@ function FullCommunityModal({
           }}
         >
           <Text style={{ fontSize: sFont(20), fontWeight: '700', color: colors.text }}>
-            Comunidad Activa
+            {language === 'es' ? 'Comunidad Activa' : 'Active Community'}
           </Text>
           <Pressable
             onPress={onClose}
@@ -550,7 +551,7 @@ function FullCommunityModal({
               <View style={{ alignItems: 'center', justifyContent: 'center', padding: 40 }}>
                 <Users size={40} color={colors.textMuted} strokeWidth={1.5} />
                 <Text style={{ color: colors.textMuted, marginTop: 12, textAlign: 'center' }}>
-                  No hay miembros en la comunidad aun.
+                  {language === 'es' ? 'No hay miembros en la comunidad aun.' : 'No community members yet.'}
                 </Text>
               </View>
             }
@@ -589,6 +590,7 @@ function TestimonySubmitModal({
   onSubmitted: () => void;
 }) {
   const colors = useThemeColors();
+  const language = useLanguage();
   const insets = useSafeAreaInsets();
   const { sFont } = useScaledFont();
   const [text, setText] = useState<string>('');
@@ -654,7 +656,7 @@ function TestimonySubmitModal({
             }}
           >
             <Text style={{ fontSize: sFont(20), fontWeight: '700', color: colors.text }}>
-              Tu Testimonio
+              {language === 'es' ? 'Tu Testimonio' : 'Your Testimony'}
             </Text>
             <Pressable
               onPress={onClose}
@@ -720,10 +722,10 @@ function TestimonySubmitModal({
                     }}
                   >
                     {myTestimony!.status === 'APPROVED'
-                      ? 'Aprobado'
+                      ? (language === 'es' ? 'Aprobado' : 'Approved')
                       : myTestimony!.status === 'REJECTED'
-                      ? 'No aprobado'
-                      : 'En revision...'}
+                      ? (language === 'es' ? 'No aprobado' : 'Not approved')
+                      : (language === 'es' ? 'En revision...' : 'Under review...')}
                   </Text>
                 </View>
                 <Text
@@ -750,7 +752,9 @@ function TestimonySubmitModal({
                     lineHeight: 20,
                   }}
                 >
-                  Comparte como Dios ha obrado en tu vida. Tu testimonio puede inspirar a otros en la comunidad.
+                  {language === 'es'
+                    ? 'Comparte como Dios ha obrado en tu vida. Tu testimonio puede inspirar a otros en la comunidad.'
+                    : 'Share how God has worked in your life. Your testimony can inspire others in the community.'}
                 </Text>
 
                 <View
@@ -770,7 +774,7 @@ function TestimonySubmitModal({
                   <TextInput
                     value={text}
                     onChangeText={setText}
-                    placeholder="Comparte como Dios ha obrado en tu vida..."
+                    placeholder={language === 'es' ? 'Comparte como Dios ha obrado en tu vida...' : 'Share how God has worked in your life...'}
                     placeholderTextColor={colors.textMuted + '80'}
                     multiline
                     numberOfLines={6}
@@ -787,7 +791,7 @@ function TestimonySubmitModal({
                 {/* Char counter */}
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
                   <Text style={{ fontSize: sFont(12), color: charCount < 20 ? '#F59E0B' : colors.textMuted }}>
-                    {charCount < 20 ? `Minimo 20 caracteres (${20 - charCount} restantes)` : ''}
+                    {charCount < 20 ? (language === 'es' ? `Minimo 20 caracteres (${20 - charCount} restantes)` : `Minimum 20 characters (${20 - charCount} remaining)`) : ''}
                   </Text>
                   <Text
                     style={{
@@ -834,7 +838,7 @@ function TestimonySubmitModal({
                           color: isValid ? colors.primaryText : colors.textMuted,
                         }}
                       >
-                        Enviar
+                        {language === 'es' ? 'Enviar' : 'Submit'}
                       </Text>
                     </>
                   )}
@@ -934,10 +938,10 @@ function StatsCard({ language }: { language: string }) {
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text, lineHeight: 18 }}>
-              Caminamos Juntos
+              {language === 'es' ? 'Caminamos Juntos' : 'Walking Together'}
             </Text>
             <Text style={{ fontSize: sFont(11), color: colors.textMuted, lineHeight: 15 }}>
-              Dios obra en Su pueblo
+              {language === 'es' ? 'Dios obra en Su pueblo' : 'God works in His people'}
             </Text>
           </View>
         </View>
@@ -1020,6 +1024,7 @@ function ComunidadActivaCard({
   onTradePress: (member: CommunityMember) => void;
 }) {
   const colors = useThemeColors();
+  const language = useLanguage();
   const { sFont } = useScaledFont();
 
   const top3 = members.slice(0, 3);
@@ -1061,10 +1066,12 @@ function ComunidadActivaCard({
             </View>
             <View>
               <Text style={{ fontSize: sFont(16), fontWeight: '700', color: colors.text }}>
-                Comunidad Activa
+                {language === 'es' ? 'Comunidad Activa' : 'Active Community'}
               </Text>
               <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
-                {members.length > 0 ? `${members.length} miembros` : 'Cargando...'}
+                {members.length > 0
+                  ? (language === 'es' ? `${members.length} miembros` : `${members.length} members`)
+                  : (language === 'es' ? 'Cargando...' : 'Loading...')}
               </Text>
             </View>
           </View>
@@ -1078,7 +1085,7 @@ function ComunidadActivaCard({
         ) : top3.length === 0 ? (
           <View style={{ alignItems: 'center', padding: 24 }}>
             <Text style={{ color: colors.textMuted, fontSize: sFont(13) }}>
-              No hay miembros aun.
+              {language === 'es' ? 'No hay miembros aun.' : 'No members yet.'}
             </Text>
           </View>
         ) : (
@@ -1119,7 +1126,7 @@ function ComunidadActivaCard({
           }}
         >
           <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.primary }}>
-            Ver comunidad
+            {language === 'es' ? 'Ver comunidad' : 'View community'}
           </Text>
           <ChevronRight size={16} color={colors.primary} />
         </Pressable>
@@ -1132,6 +1139,7 @@ function ComunidadActivaCard({
 
 function OracionesCard() {
   const colors = useThemeColors();
+  const language = useLanguage();
   const { sFont } = useScaledFont();
   const router = useRouter();
 
@@ -1164,10 +1172,12 @@ function OracionesCard() {
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: sFont(16), fontWeight: '700', color: colors.text, marginBottom: 4 }}>
-              Oraciones
+              {language === 'es' ? 'Oraciones' : 'Prayer'}
             </Text>
             <Text style={{ fontSize: sFont(13), color: colors.textMuted, lineHeight: 19 }}>
-              Comparte tus peticiones de oracion y ora por los demas. Unidos en fe, nuestras oraciones tienen poder.
+              {language === 'es'
+                ? 'Comparte tus peticiones de oracion y ora por los demas. Unidos en fe, nuestras oraciones tienen poder.'
+                : 'Share your prayer requests and pray for others. United in faith, our prayers have power.'}
             </Text>
           </View>
         </View>
@@ -1189,7 +1199,7 @@ function OracionesCard() {
         >
           <HandHeart size={16} color="#FFF" />
           <Text style={{ fontSize: sFont(14), fontWeight: '700', color: '#FFF' }}>
-            Ir a oracion
+            {language === 'es' ? 'Ir a oracion' : 'Go to prayer'}
           </Text>
         </Pressable>
       </LinearGradient>
@@ -1209,6 +1219,7 @@ function TestimoniosCard({
   onViewAll: () => void;
 }) {
   const colors = useThemeColors();
+  const language = useLanguage();
   const { sFont } = useScaledFont();
 
   const { data: testimonies, isLoading } = useQuery<Testimony[]>({
@@ -1256,10 +1267,10 @@ function TestimoniosCard({
           </View>
           <View>
             <Text style={{ fontSize: sFont(16), fontWeight: '700', color: colors.text }}>
-              Testimonios
+              {language === 'es' ? 'Testimonios' : 'Testimonies'}
             </Text>
             <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
-              Lo que Dios ha hecho
+              {language === 'es' ? 'Lo que Dios ha hecho' : 'What God has done'}
             </Text>
           </View>
         </View>
@@ -1272,7 +1283,7 @@ function TestimoniosCard({
         ) : displayTestimonies.length === 0 ? (
           <View style={{ alignItems: 'center', padding: 20 }}>
             <Text style={{ color: colors.textMuted, fontSize: sFont(13), textAlign: 'center' }}>
-              Se el primero en compartir.
+              {language === 'es' ? 'Se el primero en compartir.' : 'Be the first to share.'}
             </Text>
           </View>
         ) : (
@@ -1333,7 +1344,7 @@ function TestimoniosCard({
             }}
           >
             <Text style={{ fontSize: sFont(13), fontWeight: '600', color: colors.primary }}>
-              Ver todos los testimonios
+              {language === 'es' ? 'Ver todos los testimonios' : 'View all testimonies'}
             </Text>
             <ChevronRight size={14} color={colors.primary} />
           </Pressable>
@@ -1357,7 +1368,7 @@ function TestimoniosCard({
         >
           <MessageSquareHeart size={16} color={colors.primaryText} />
           <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.primaryText }}>
-            Compartir testimonio
+            {language === 'es' ? 'Compartir testimonio' : 'Share testimony'}
           </Text>
         </Pressable>
       </LinearGradient>
@@ -1738,7 +1749,7 @@ export default function CommunityScreen() {
           <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, gap: 6 }}>
             <WifiOff size={13} color={colors.textMuted} />
             <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
-              Sin conexion. Actualizaremos cuando regreses a internet.
+              {language === 'es' ? 'Sin conexion. Actualizaremos cuando regreses a internet.' : "No connection. We'll update when you're back online."}
             </Text>
           </View>
         )}
