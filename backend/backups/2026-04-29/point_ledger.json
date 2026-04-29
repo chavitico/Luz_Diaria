@@ -2708,5 +2708,15 @@
     "amount": 50,
     "metadata": "{}",
     "createdAt": "2026-04-29T20:59:00.697Z"
+  },
+  {
+    "id": "cmoklcvgn001dm2m786pa0gw9",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "share_2026-04-29_1",
+    "type": "share",
+    "dateId": "2026-04-29",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-04-29T21:53:02.279Z"
   }
 ]
