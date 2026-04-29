@@ -216,12 +216,14 @@ function TestimonyCard({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: testimony.text, targetLanguage: language }),
-      });
+      }, 20_000);
       if (res.ok) {
         const data = await res.json() as { translatedText: string };
         setTranslatedText(data.translatedText);
         setShowTranslated(true);
       }
+    } catch {
+      // Silently ignore abort/network errors — user can retry
     } finally {
       setIsTranslating(false);
     }
