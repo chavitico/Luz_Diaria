@@ -14,8 +14,10 @@ export interface DuelQuestion {
   id: string;
   category: DuelCategory;
   questionEs: string;
-  options: [string, string, string, string]; // exactly 4 options
-  correctIndex: 0 | 1 | 2 | 3; // index of the correct answer
+  questionEn?: string;
+  options: [string, string, string, string]; // exactly 4 options in Spanish
+  optionsEn?: [string, string, string, string]; // exactly 4 options in English
+  correctIndex: 0 | 1 | 2 | 3; // index of the correct answer (same for both languages)
   difficulty?: 'baja' | 'media' | 'alta';
 }
 
