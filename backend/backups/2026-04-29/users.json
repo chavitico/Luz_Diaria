@@ -6,13 +6,13 @@
     "avatarId": "avatar_adv_jonah_whale",
     "frameId": "frame_corona",
     "titleId": "title_lord_my_light",
-    "themeId": "theme_desierto_suave",
+    "themeId": "theme_trono_azul",
     "selectedMusicId": "music_free_1",
-    "points": 24165,
+    "points": 24180,
     "streakCurrent": 47,
     "streakBest": 47,
     "devotionalsCompleted": 71,
-    "totalTimeSeconds": 310788,
+    "totalTimeSeconds": 311322,
     "lastActiveAt": "2026-04-29T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-04-29T09:03:52.511Z"
+    "updatedAt": "2026-04-29T09:14:40.359Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",

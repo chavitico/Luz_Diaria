@@ -2668,5 +2668,25 @@
     "amount": 10,
     "metadata": "{\"matchId\":\"cmojnbpfv0011m2bmtaxrlr1q\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
     "createdAt": "2026-04-29T06:00:58.705Z"
+  },
+  {
+    "id": "cmoju24e0001fm2juhono3866",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_request_2026-04-29",
+    "type": "prayer_request",
+    "dateId": "2026-04-29",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"peace\"}",
+    "createdAt": "2026-04-29T09:08:51.000Z"
+  },
+  {
+    "id": "cmoju27fl001hm2juthgomcep",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayed_community_2026-04-29",
+    "type": "prayed_community",
+    "dateId": "2026-04-29",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-04-29T09:08:54.945Z"
   }
 ]
