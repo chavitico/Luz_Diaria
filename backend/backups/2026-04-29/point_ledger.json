@@ -2688,5 +2688,15 @@
     "amount": 5,
     "metadata": "{}",
     "createdAt": "2026-04-29T09:08:54.945Z"
+  },
+  {
+    "id": "cmojufs6v0011m23mgi8d9csk",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-04-29",
+    "type": "prayer",
+    "dateId": "2026-04-29",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-04-29T09:19:28.376Z"
   }
 ]
