@@ -825,7 +825,7 @@ export default function HoyNuevoScreen() {
               <Pressable
                 onPress={() => {
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  router.back();
+                  router.navigate('/(tabs)/library');
                 }}
                 style={{
                   backgroundColor: 'rgba(255,255,255,0.18)', borderRadius: 22,
