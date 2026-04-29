@@ -10,7 +10,7 @@ export const STUDIES_CATALOG: StudyCatalogEntry[] = [
     title: 'Desatado de las Riquezas',
     subtitle: 'Lo que Jesús dijo hace 2000 años es exactamente lo que necesitas escuchar hoy',
     estimated_reading_minutes: 12,
-    imageUrl: 'https://images.unsplash.com/photo-1499063078284-f78f7d89616a?w=800&q=80',
+    imageUrl: 'https://raw.githubusercontent.com/develop4God/Devocionales-assets/main/images/sunset_mountain_cross.jpg',
     dataFile: () => require('./data/mammon_anxiety_freedom_es_001.json'),
     title_en: 'Unbound from Riches: The Path from Anxiety to Peace',
     subtitle_en: 'What Jesus said 2,000 years ago is exactly what you need to hear today',
