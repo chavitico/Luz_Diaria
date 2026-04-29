@@ -4,7 +4,7 @@ import React from 'react';
 import { View, Text, Platform } from 'react-native';
 import { Tabs } from 'expo-router';
 import { BlurView } from 'expo-blur';
-import { Sun, BookOpen, Palette, Users, BookMarked, Settings2, Library } from 'lucide-react-native';
+import { Sun, BookOpen, Palette, Users, BookMarked, Settings2, Library, Scroll } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { TRANSLATIONS } from '@/lib/constants';
 import { useNotificationBadges } from '@/lib/use-notification-badges';
@@ -92,6 +92,16 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabIcon hasBadge={hasHomeBadge} focused={focused}
               icon={<Sun size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="hoy-nuevo"
+        options={{
+          title: 'Nuevo',
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon hasBadge={false} focused={focused}
+              icon={<Scroll size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
           ),
         }}
       />
