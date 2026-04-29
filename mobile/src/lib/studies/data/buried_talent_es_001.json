@@ -1,0 +1,214 @@
+{
+  "id": "buried_talent_001",
+  "type": "discovery",
+  "date": "2026-02-11",
+  "title": "El Talento Enterrado",
+  "subtitle": "Cuando el miedo paraliza y las manos quedan vacías",
+  "language": "es",
+  "version": "NVI",
+  "estimated_reading_minutes": 8,
+  "key_verse": {
+    "reference": "Mateo 25:26-28",
+    "text": "Respondiendo su señor, le dijo: Siervo malo y negligente, sabías que siego donde no sembré, y que recojo donde no esparcí. Por tanto, debías haber dado mi dinero a los banqueros, y al venir yo, hubiera recibido lo que es mío con los intereses. Quitadle, pues, el talento, y dadlo al que tiene diez talentos."
+  },
+  
+  "cards": [
+    {
+      "order": 1,
+      "type": "parable_context",
+      "icon": "💰",
+      "title": "La Parábola de los Talentos",
+      "subtitle": "El contexto de la historia",
+      "content": "Jesús está en el Monte de los Olivos, días antes de Su crucifixión. Acaba de hablar sobre Su segunda venida (Mateo 24) y ahora cuenta tres parábolas seguidas sobre estar preparados:\n\n1. Las Diez Vírgenes (25:1-13): La importancia de estar preparado\n2. Los Talentos (25:14-30): La importancia de ser fiel\n3. Las Ovejas y los Cabritos (25:31-46): El juicio final\n\nLA HISTORIA:\n\nUn hombre rico se va de viaje y confía su propiedad a tres siervos:\n\n• AL PRIMERO: 5 talentos (aprox. 150 años de salario de un obrero)\n• AL SEGUNDO: 2 talentos (aprox. 60 años de salario)\n• AL TERCERO: 1 talento (aprox. 30 años de salario)\n\n💡 CONTEXTO ECONÓMICO:\n\nUn talento no era una moneda, sino una medida de peso (aprox. 34 kg de plata). Incluso UN talento era una fortuna inmensa. Ninguno de los siervos recibió 'poco'.\n\nLOS RESULTADOS:\n\n✅ SIERVO 1: Negocia y gana 5 más (100% de ganancia)\n✅ SIERVO 2: Negocia y gana 2 más (100% de ganancia)\n❌ SIERVO 3: Entierra su talento y devuelve solo lo que recibió (0% de ganancia)\n\n🎯 LA PREGUNTA CENTRAL:\n\n¿Por qué el tercer siervo, que tenía una fortuna en sus manos, decidió enterrarla en lugar de multiplicarla?",
+      "revelation_key": "Esta parábola no es sobre personas con 'muchos' vs. 'pocos' dones. Todos recibieron una fortuna. Es sobre qué haces con lo que Dios te confió, sea mucho o poco."
+    },
+    
+    {
+      "order": 2,
+      "type": "greek_exegesis",
+      "icon": "😨",
+      "title": "Sklēros: El Corazón Duro que Proyecta Dureza",
+      "subtitle": "Análisis del versículo 24",
+      "content": "El tercer siervo da su excusa en el versículo 24:\n\n'Señor, te conocía que eres hombre DURO (σκληρός - sklēros), que siegas donde no sembraste y recoges donde no esparciste; por lo cual tuve MIEDO (φοβηθείς - phobētheis), y fui y escondí tu talento en la tierra.'\n\n🔍 ANÁLISIS DE 'SKLĒROS' (σκληρός - Strong G4642):\n\nSignificado:\n• Duro, inflexible, áspero\n• Cruel, sin misericordia\n• Raíz de 'esclerosis' (endurecimiento)\n\nEste siervo está acusando a su señor de ser:\n• Un explotador que cosecha lo que no sembró\n• Un amo injusto que exige sin dar recursos\n• Un tirano implacable que castiga sin compasión\n\n💔 LA CALUMNIA:\n\nEl siervo está proyectando su propio CORAZÓN DURO sobre el carácter del amo.\n\n¿Por qué sabemos que el amo NO era así?\n\n1. Le confió una FORTUNA al siervo (señal de confianza)\n2. Le dio LIBERTAD para negociar (no le dio instrucciones detalladas)\n3. No lo castigó por fracasar, sino por NO INTENTAR\n4. A los otros dos siervos les dijo: 'Entra en el GOZO de tu señor' (no suena a tirano)\n\n😱 EL MIEDO PARALIZANTE:\n\nLa palabra 'phobētheis' no es temor reverente; es pánico servil. Es el miedo que paraliza, no el que motiva.\n\nEste siervo no amaba a su señor; le tenía terror. Y el terror no produce fruto; produce parálisis.\n\n🪨 EL CORAZÓN DE PIEDRA:\n\n1 Juan 4:18 dice: 'En el amor no hay temor, sino que el perfecto amor echa fuera el temor; porque el temor lleva en sí castigo. De donde el que teme, no ha sido perfeccionado en el amor.'\n\nEl que realmente AMA a Dios, quiere multiplicar lo que Él le dio. El que solo TEME a Dios (sin amarlo), entierra lo que recibió para evitar el castigo.",
+      "greek_words": [
+        {
+          "word": "Sklēros",
+          "transliteration": "σκληρός",
+          "meaning": "Duro, inflexible, cruel, sin misericordia",
+          "revelation": "Pensar que Dios es 'duro' es síntoma de un corazón que no conoce Su amor. El que proyecta dureza en Dios está revelando la dureza de su propio corazón. El que no conoce a Dios de verdad dice que es duro, pero el duro es ese corazón."
+        },
+        {
+          "word": "Phobētheis",
+          "transliteration": "φοβηθείς",
+          "meaning": "Tuve miedo, sentí pánico, fui aterrorizado",
+          "revelation": "Este no es el temor de Dios que es 'principio de sabiduría'. Es el miedo del esclavo que no conoce el amor del Padre. El miedo sin amor siempre paraliza el servicio."
+        }
+      ],
+      "revelation_key": "El problema del tercer siervo no fue falta de capacidad; fue un concepto errado de quién era su amo. Si piensas que Dios es un tirano exigente, nunca multiplicarás lo que te dio. Solo el que conoce Su amor se atreve a arriesgar para Él."
+    },
+    
+    {
+      "order": 3,
+      "type": "theological_tension",
+      "icon": "⚖️",
+      "title": "¿Era Salvo o No? El Debate Teológico",
+      "subtitle": "Las tinieblas de afuera",
+      "content": "El versículo 30 termina con una sentencia aterradora:\n\n'Y al siervo inútil echadle en las tinieblas de afuera; allí será el lloro y el crujir de dientes.'\n\nEsto genera un debate teológico serio:\n\n❓ PREGUNTA: ¿Era este siervo realmente salvo?\n\n🔥 POSICIÓN 1: NO ERA SALVO\n\nArgumentos:\n• 'Las tinieblas de afuera' es lenguaje del infierno\n• Jesús lo llama 'siervo MALO Y NEGLIGENTE' (no solo negligente)\n• Su falta de frutos demuestra que nunca tuvo fe verdadera\n• Santiago 2:26 dice: 'La fe sin obras es muerta'\n\n✅ POSICIÓN 2: ERA SALVO PERO PERDIÓ TODO SU GALARDÓN\n\nArgumentos:\n• Es llamado 'siervo' (pertenecía a la casa del amo)\n• Recibió un talento (Dios le había confiado algo)\n• La severidad refleja que Dios trata seriamente con Sus hijos\n• 1 Corintios 3:15 habla de salvos que sufren pérdida\n\n💡 LA TENSIÓN:\n\nLo que sí sabemos con certeza:\n\n1️⃣ Su falta de fruto reveló un problema de corazón\n2️⃣ No todo el que dice 'Señor, Señor' entrará al reino (Mateo 7:21)\n3️⃣ El fruto es la evidencia de la raíz\n4️⃣ La fe verdadera SIEMPRE produce obras\n\n🎯 LA APLICACIÓN:\n\nMás que debatir si era salvo o no, la pregunta para TI es:\n\n¿Tu vida demuestra que conoces al Dios de amor, o estás viviendo bajo un concepto de un Dios 'duro' que solo te paraliza?\n\n¿Estás multiplicando lo que Dios te dio, o lo tienes 'enterrado' por miedo?",
+      "scripture_connections": [
+        {
+          "reference": "Santiago 2:17",
+          "text": "Así también la fe, si no tiene obras, es muerta en sí misma."
+        },
+        {
+          "reference": "Mateo 7:21-23",
+          "text": "No todo el que me dice: Señor, Señor, entrará en el reino de los cielos, sino el que hace la voluntad de mi Padre que está en los cielos. Muchos me dirán en aquel día: Señor, Señor, ¿no profetizamos en tu nombre, y en tu nombre echamos fuera demonios, y en tu nombre hicimos muchos milagros? Y entonces les declararé: Nunca os conocí; apartaos de mí, hacedores de maldad."
+        },
+        {
+          "reference": "1 Juan 4:18",
+          "text": "En el amor no hay temor, sino que el perfecto amor echa fuera el temor; porque el temor lleva en sí castigo. De donde el que teme, no ha sido perfeccionado en el amor."
+        }
+      ],
+      "identity_statement": "El que realmente ha nacido de nuevo no puede evitar producir fruto. No porque sea perfecto, sino porque el Espíritu Santo en él lo impulsa a multiplicar lo que Dios le dio. Si tu vida está perpetuamente 'enterrada', debes preguntarte: ¿Nací de nuevo o solo adopté una religión?",
+      "revelation_key": "La pregunta no es si este siervo era salvo o no. La pregunta es: ¿TE IDENTIFICAS CON ÉL? Si tu respuesta es sí, es momento de examinar tu corazón."
+    },
+    
+    {
+      "order": 4,
+      "type": "comparison_analysis",
+      "icon": "🏆",
+      "title": "Los Dos Siervos Fieles: Entra en el Gozo de Tu Señor",
+      "subtitle": "El contraste con el siervo infiel",
+      "content": "Los dos primeros siervos reciben una recompensa idéntica a pesar de tener resultados diferentes:\n\nVersículo 21 (al que tenía 5 y ganó 5):\n'Su señor le dijo: Bien, buen siervo y fiel; sobre poco has sido fiel, sobre mucho te pondré; entra en el gozo de tu señor.'\n\nVersículo 23 (al que tenía 2 y ganó 2):\n'Su señor le dijo: Bien, buen siervo y fiel; sobre poco has sido fiel, sobre mucho te pondré; entra en el gozo de tu señor.'\n\n🔍 OBSERVACIONES CLAVE:\n\n1️⃣ MISMA RECOMPENSA:\n\nNo dice: 'El que ganó 10 recibe más que el que ganó 4.' Ambos escuchan exactamente las mismas palabras.\n\n¿Por qué? Porque Dios no compara tu productividad con la de otros. Te evalúa según lo que TÚ recibiste.\n\nLucas 12:48 lo confirma: 'A todo aquel a quien se haya dado mucho, mucho se le demandará; y al que mucho se le haya confiado, más se le pedirá.'\n\n2️⃣ 'SOBRE POCO HAS SIDO FIEL':\n\nEspera... ¿'poco'? Estamos hablando de 5 y 2 talentos (fortunas).\n\nJesús está revelando que TODO lo que nos da en esta vida es 'poco' comparado con lo que nos dará en la eternidad.\n\nSi fuiste fiel con lo 'poco' de aquí (70-80 años de vida), serás puesto 'sobre mucho' (una eternidad de responsabilidad y gozo).\n\n3️⃣ 'ENTRA EN EL GOZO DE TU SEÑOR':\n\nLa recompensa no es solo una posición o una corona. Es entrar en el GOZO del Amo.\n\nEsto significa:\n• Mayor capacidad de disfrutar a Dios\n• Participar de Su gozo eterno\n• Comunión más profunda con Cristo\n\n💡 EL CONTRASTE:\n\nMientras los fieles entran al GOZO, el infiel es echado a las TINIEBLAS.\n\nMientras los fieles son puestos sobre MUCHO, al infiel le es QUITADO lo poco que tenía.\n\nMientras los fieles multiplican, el infiel solo devuelve lo que recibió (y ni siquiera eso le es aceptado).",
+      "revelation_key": "Dios no te compara con otros. Te compara contigo mismo. La pregunta no es: '¿Produjiste tanto como fulano?' La pregunta es: '¿Multiplicaste lo que YO te di?'"
+    },
+    
+    {
+      "order": 5,
+      "type": "modern_application",
+      "icon": "🎁",
+      "title": "¿Qué Son Tus 'Talentos' Hoy?",
+      "subtitle": "Identificando lo que Dios te ha confiado",
+      "content": "La palabra 'talento' en la parábola era una medida de dinero. Pero hoy usamos la palabra para referirnos a habilidades. Ambos sentidos son válidos.\n\n🎁 DIOS TE HA CONFIADO:\n\n1️⃣ TIEMPO:\n• Cada día que vives es un 'talento' que Dios te dio\n• ¿Lo estás multiplicando en cosas eternas o 'enterrando' en entretenimiento vacío?\n• Efesios 5:16: 'Aprovechando bien el tiempo, porque los días son malos'\n\n2️⃣ DONES ESPIRITUALES:\n• Todo creyente tiene al menos un don (1 Corintios 12)\n• No son para tu beneficio, sino para edificar el Cuerpo\n• 1 Pedro 4:10: 'Cada uno según el don que ha recibido, minístrelo a los otros'\n\n3️⃣ RECURSOS MATERIALES:\n• Dinero, propiedades, posesiones\n• No son tuyos; son de Dios confiados a ti (mayordomía)\n• Lucas 16:11: 'Si en las riquezas injustas no fuisteis fieles, ¿quién os confiará lo verdadero?'\n\n4️⃣ INFLUENCIA:\n• Familia, amigos, compañeros de trabajo, redes sociales\n• Personas que Dios puso en tu círculo para que las impactes\n• Mateo 5:16: 'Así alumbre vuestra luz delante de los hombres'\n\n5️⃣ CONOCIMIENTO:\n• Lo que sabes de la Biblia, teología, experiencias con Dios\n• No es para acumular, sino para compartir\n• 2 Timoteo 2:2: 'Lo que has oído de mí... esto encarga a hombres fieles'\n\n6️⃣ OPORTUNIDADES:\n• Momentos específicos que Dios orquesta\n• Puertas abiertas para servir, testificar, ayudar\n• Colosenses 4:5: 'Andad sabiamente... redimiendo el tiempo'\n\n❌ FORMAS DE 'ENTERRAR' TUS TALENTOS:\n\n• Decir: 'No soy bueno para nada' (menospreciar lo que Dios te dio)\n• Compararte con otros: 'Fulano tiene más, así que yo no importo'\n• Esperar el momento 'perfecto' para empezar (procrastinación)\n• Usar tus dones solo para tu beneficio (egoísmo)\n• Tener miedo al fracaso o a la crítica (parálisis)\n\n✅ FORMAS DE 'MULTIPLICAR' TUS TALENTOS:\n\n• Usa lo que tienes HOY, no esperes tener más\n• Sirve aunque nadie te vea o reconozca\n• Toma riesgos por el reino (en fe, no en presunción)\n• Invierte en otros (mentorea, discipula, enseña)\n• Celebra cuando otros producen más que tú (humildad)",
+      "revelation_key": "Dios no te dio talentos para que los guardes en una caja fuerte espiritual. Te los dio para que los ARRIESGUES en Su reino. El siervo fiel no es el que protege lo que tiene; es el que lo multiplica aunque eso implique riesgo."
+    },
+    
+    {
+      "order": 6,
+      "type": "warning_signs",
+      "icon": "🚨",
+      "title": "Señales de Que Estás 'Enterrando' Tu Talento",
+      "subtitle": "Cómo saber si eres el tercer siervo",
+      "content": "Es fácil leer esta parábola y pensar: 'Qué siervo tan tonto.' Pero muchos cristianos están haciendo exactamente lo mismo.\n\n🚨 SEÑALES DE ADVERTENCIA:\n\n1️⃣ MENTALIDAD DE VÍCTIMA:\n• 'Dios no me dio tanto como a otros'\n• 'Si yo tuviera los dones de fulano, entonces sí serviría'\n• 'Mi situación es muy difícil para hacer algo'\n\nREALIDAD: Dios te dio exactamente lo que necesitas para cumplir SU plan para tu vida. Dejar de compararte es el primer paso.\n\n2️⃣ PERFECCIONISMO PARALIZANTE:\n• 'Voy a esperar a estar más preparado'\n• 'Cuando tenga más tiempo/dinero/conocimiento, entonces serviré'\n• 'No quiero fracasar, así que mejor no intento'\n\nREALIDAD: El perfeccionismo es orgullo disfrazado de prudencia. Dios no te pide perfección; te pide fidelidad.\n\n3️⃣ CONSUMISMO ESPIRITUAL:\n• Vas de conferencia en conferencia, de libro en libro\n• Acumulas conocimiento pero nunca lo aplicas\n• Eres 'alumno eterno' pero nunca maestro\n\nREALIDAD: El conocimiento sin acción es hojarasca. Como dijo Santiago: 'Sed hacedores de la palabra, y no tan solamente oidores' (Santiago 1:22).\n\n4️⃣ MIEDO AL HOMBRE:\n• 'No comparto mi fe porque me van a criticar'\n• 'No uso mis dones porque me da vergüenza'\n• 'Prefiero pasar desapercibido que arriesgarme'\n\nREALIDAD: Proverbios 29:25 dice: 'El temor del hombre pondrá lazo.' Si temes más a la gente que a Dios, estás enterrando tu talento.\n\n5️⃣ CONCEPTO ERRADO DE DIOS:\n• Sirves por obligación, no por amor\n• Ves a Dios como un juez implacable, no como un Padre generoso\n• Tu motivación es evitar el castigo, no agradar al Amado\n\nREALIDAD: Como vimos con 'sklēros', si piensas que Dios es duro, vas a enterrar lo que te dio. Solo el amor produce multiplicación.\n\n⚠️ LA ADVERTENCIA:\n\nSi te identificas con 3 o más de estas señales, estás en peligro de ser el tercer siervo.\n\nNo es que pierdas tu salvación (si realmente naciste de nuevo), pero SÍ puedes llegar al Tribunal de Cristo con las manos vacías, avergonzado de haber desperdiciado lo que Él te confió.",
+      "scripture_connections": [
+        {
+          "reference": "Santiago 1:22",
+          "text": "Pero sed hacedores de la palabra, y no tan solamente oidores, engañándoos a vosotros mismos."
+        },
+        {
+          "reference": "Proverbios 29:25",
+          "text": "El temor del hombre pondrá lazo; mas el que confía en Jehová será exaltado."
+        },
+        {
+          "reference": "2 Timoteo 1:7",
+          "text": "Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio."
+        }
+      ],
+      "identity_statement": "Si el Espíritu Santo vive en ti, Él te impulsa a multiplicar, no a enterrar. Si tu vida está perpetuamente inactiva, paralizada por el miedo, tienes que preguntarte: ¿Realmente conozco al Dios de amor o solo tengo una religión de miedo?",
+      "revelation_key": "El siervo infiel no perdió su talento por ser malo o inmoral. Lo perdió por ser INÚTIL. Dios no te juzga por tus fracasos al intentar; te juzga por tu negativa a intentar."
+    },
+    
+    {
+      "order": 7,
+      "type": "practical_steps",
+      "icon": "🔓",
+      "title": "Cómo Desenterrar Tu Talento",
+      "subtitle": "Pasos prácticos para salir de la parálisis",
+      "content": "Si te diste cuenta de que has estado 'enterrando' lo que Dios te dio, hay esperanza. Hoy puedes empezar a multiplicar.\n\n🔓 5 PASOS PARA DESENTERRAR:\n\n1️⃣ IDENTIFICA QUÉ HAS ENTERRADO:\n\n• Pregúntate: '¿Qué me dio Dios que NO estoy usando?'\n• Puede ser: un don, una habilidad, una relación, una oportunidad, recursos\n• Escríbelo. La conciencia es el primer paso.\n\n2️⃣ CONFRONTA EL MIEDO:\n\n• Pregúntate: '¿Por QUÉ lo enterré?'\n• ¿Miedo al fracaso? ¿Miedo a la crítica? ¿Pereza? ¿Orgullo?\n• Lleva ese miedo a la cruz. Declara: 'Dios no me dio espíritu de cobardía' (2 Tim 1:7)\n\n3️⃣ CORRIGE TU CONCEPTO DE DIOS:\n\n• Si has estado viviendo bajo el concepto de un Dios 'duro', arrepiéntete\n• Medita en 1 Juan 4:8: 'Dios es amor'\n• Lee Salmo 103:8-14: Ve cómo Dios trata a Sus hijos\n• Recuerda: Él es el Alfa que te dio el talento Y la Omega que te premia por multiplicarlo\n\n4️⃣ DA EL PRIMER PASO HOY:\n\n• No esperes el momento perfecto. Empieza con lo que tienes AHORA\n• Si tienes el don de enseñar: ofrece enseñar a un niño, un nuevo creyente\n• Si tienes recursos: da una ofrenda hoy, ayuda a alguien en necesidad\n• Si tienes tiempo: sirve esta semana en tu iglesia, visita a un enfermo\n• Si tienes influencia: comparte el evangelio hoy con alguien\n\nProverbios 3:27: 'No te niegues a hacer el bien a quien es debido, cuando tuvieres poder para hacerlo.'\n\n5️⃣ RÍNDELE CUENTAS A ALGUIEN:\n\n• Dile a un hermano/hermana de confianza: 'He estado enterrando mi talento en [X área]'\n• Pídele que te pregunte en un mes: '¿Ya lo desenterraste? ¿Qué estás haciendo?'\n• La rendición de cuentas rompe la parálisis\n\n💡 EL SECRETO:\n\nNo se trata de hacerlo perfecto. Se trata de hacerlo con FE.\n\nLos dos siervos fieles no eran inversores profesionales. Simplemente ARRIESGARON en fe, creyendo que su amo era bueno y que valía la pena intentarlo.\n\nTú también puedes fallar. Puedes ser criticado. Puedes no ver resultados inmediatos.\n\nPero Dios no te preguntará: '¿Tuviste éxito?' Te preguntará: '¿Fuiste fiel con lo que te di?'",
+      "scripture_connections": [
+        {
+          "reference": "Proverbios 3:27",
+          "text": "No te niegues a hacer el bien a quien es debido, cuando tuvieres poder para hacerlo."
+        },
+        {
+          "reference": "Eclesiastés 11:4",
+          "text": "El que al viento observa, no sembrará; y el que mira a las nubes, no segará."
+        },
+        {
+          "reference": "2 Timoteo 1:6",
+          "text": "Por lo cual te aconsejo que avives el fuego del don de Dios que está en ti."
+        }
+      ],
+      "identity_statement": "Tus talentos no fueron dados para que los protejas, sino para que los ARRIESGUES. El fracaso al intentar honra más a Dios que el éxito al no intentar. Dios puede multiplicar tu esfuerzo imperfecto; pero no puede multiplicar tu inacción.",
+      "revelation_key": "La diferencia entre los dos primeros siervos y el tercero no fue la cantidad de talentos. Fue la ACTITUD. Los primeros amaban a su señor y confiaban en él; el tercero le temía. El amor multiplica; el miedo entierra."
+    },
+    
+    {
+      "order": 8,
+      "type": "discovery_activation",
+      "icon": "🙏",
+      "title": "Descubrimiento Personal: ¿Multiplicando o Enterrando?",
+      "discovery_questions": [
+        {
+          "category": "Auto-evaluación brutal",
+          "question": "Si Jesús regresara HOY, ¿qué le dirías cuando te pregunte: '¿Qué hiciste con lo que te confié?' ¿Tendrías algo que mostrarle o solo excusas?"
+        },
+        {
+          "category": "Concepto de Dios",
+          "question": "¿Tu servicio a Dios nace del AMOR (quiero agradarle porque le amo) o del MIEDO (no quiero que me castigue)? Sé honesto. Tu respuesta determinará si multiplicas o entierras."
+        },
+        {
+          "category": "Identificación de talentos",
+          "question": "Haz una lista AHORA: ¿Qué me ha dado Dios (tiempo, dones, recursos, influencia, conocimiento) que está 'enterrado' porque no lo estoy usando para Su reino?"
+        },
+        {
+          "category": "Acción inmediata",
+          "question": "De lo que identificaste arriba, ¿cuál es UNA ACCIÓN CONCRETA que puedes hacer esta semana para 'desenterrarlo'? No digas 'algún día'. ¿Qué harás HOY?"
+        }
+      ],
+      "prayer": {
+        "title": "Oración: Señor, No Quiero Ser el Tercer Siervo",
+        "content": "Padre Santo, vengo ante Ti con un corazón quebrantado. Esta parábola me ha confrontado y no puedo ignorar lo que Tu Espíritu me está mostrando.\n\nConfieso que muchas veces he sido como el tercer siervo. He enterrado lo que Tú me diste por:\n\n• Miedo al fracaso\n• Miedo a la crítica\n• Pereza espiritual\n• Comparación con otros\n• Perfeccionismo que me paraliza\n• Un concepto errado de quién eres Tú\n\nPerdóname, Señor. Perdóname por las veces que pensé que eras un Dios 'duro' cuando en realidad eres un Padre amoroso. Perdóname por las veces que protegí mis talentos en lugar de arriesgarlos para Tu reino.\n\nHoy renuncio al espíritu de cobardía. Declaro que Tú no me diste espíritu de temor, sino de poder, de amor y de dominio propio.\n\nEspíritu Santo, ayúdame a:\n\n• Identificar lo que he enterrado\n• Confrontar los miedos que me paralizan\n• Ver a Dios como Él realmente es: un Padre generoso que quiere premiarme, no castigarme\n• Dar el primer paso HOY, aunque no sea perfecto\n• Arriesgar en fe, confiando que Tú multiplicarás mi esfuerzo\n\nNo quiero llegar al Tribunal de Cristo con las manos vacías, avergonzado de haber desperdiciado lo que Tú me confiaste.\n\nNo quiero escuchar: 'Siervo malo y negligente.' Quiero escuchar: 'Bien, buen siervo y fiel. Entra en el gozo de tu Señor.'\n\nHoy decido desenterrar mis talentos. Hoy decido multiplicar lo que Tú me diste. Hoy decido servir por amor, no por miedo.\n\nQue mi vida sea un testimonio de que conocí a un Dios de amor que me capacitó, me confió recursos, y me premió por ser fiel.\n\nMi tiempo es Tuyo. Mis dones son Tuyos. Mis recursos son Tuyos. Mi vida es Tuya.\n\nÚsame, Señor. Aunque falle, aunque me critiquen, aunque no vea resultados inmediatos. Prefiero fallar intentando que tener éxito en la inacción.\n\nEn el nombre de Jesús, el Amo que viene pronto con Su recompensa, Amén."
+      },
+      "action_steps": [
+        {
+          "title": "Inventario de Talentos",
+          "description": "Toma una hoja y escribe 5 columnas: TIEMPO | DONES | RECURSOS | INFLUENCIA | CONOCIMIENTO. Bajo cada columna, lista específicamente lo que Dios te dio. Luego, marca con rojo lo que está 'enterrado' (no estás usando) y con verde lo que estás multiplicando. El rojo es tu plan de acción."
+        },
+        {
+          "title": "Pacto con un Amigo",
+          "description": "Comparte esta parábola con un hermano/hermana de confianza. Dile: 'Identifiqué que tengo enterrado [X talento]. Voy a desenterrarlo haciendo [Y acción concreta]. ¿Puedes preguntarme en 2 semanas cómo voy?' La rendición de cuentas mata la procrastinación."
+        },
+        {
+          "title": "El Riesgo de Fe",
+          "description": "Esta semana, toma UN RIESGO concreto por el reino. Algo que te dé miedo pero sabes que Dios te está llamando a hacer: compartir tu fe con alguien, servir en un área nueva, dar una ofrenda sacrificial, usar tu don públicamente. Registra qué pasó. A menudo Dios multiplica justamente cuando nos atrevemos a arriesgar."
+        }
+      ]
+    }
+  ],
+  
+  "tags": [
+    "parábola_de_los_talentos",
+    "mayordomía",
+    "miedo",
+    "fidelidad",
+    "galardón",
+    "riesgo_de_fe",
+    "concepto_de_dios",
+    "multiplicación",
+    "juicio"
+  ],
+  
+  "metadata": {
+    "total_word_count": 3900,
+    "greek_words_count": 2,
+    "scripture_references_count": 16,
+    "difficulty_level": "intermediate-advanced",
+    "themes": [
+      "Parálisis por miedo vs. multiplicación por amor",
+      "Concepto errado de Dios como 'duro'",
+      "Fidelidad con lo que Dios confía",
+      "El peligro de enterrar talentos",
+      "Fruto como evidencia de fe verdadera"
+    ]
+  }
+}

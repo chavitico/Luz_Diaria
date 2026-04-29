@@ -2648,5 +2648,15 @@
     "amount": -500,
     "metadata": "{\"itemId\":\"avatar_v2_cruz_radiante\",\"receiverUserId\":\"cmmm76y270019m2o96a4bj4lb\"}",
     "createdAt": "2026-04-27T22:21:08.184Z"
+  },
+  {
+    "id": "cmojd136k001dm2dx6mmx9uza",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_2026-04-29",
+    "type": "study_complete",
+    "dateId": "2026-04-29",
+    "amount": 0,
+    "metadata": "{}",
+    "createdAt": "2026-04-29T01:12:09.309Z"
   }
 ]

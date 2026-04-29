@@ -1,0 +1,129 @@
+{
+  "id": "cana_wedding_001",
+  "type": "discovery",
+  "date": "2026-01-18",
+  "title": "Las Bodas de Caná",
+  "subtitle": "Cuando Jesús convierte lo ordinario en extraordinario",
+  "language": "es",
+  "version": "RVR1960",
+  "estimated_reading_minutes": 5,
+  "key_verse": {
+    "reference": "Juan 2:11",
+    "text": "Este principio de señales hizo Jesús en Caná de Galilea, y manifestó su gloria; y sus discípulos creyeron en él."
+  },
+  
+  "cards": [
+    {
+      "order": 1,
+      "type": "cultural_context",
+      "icon": "💒",
+      "title": "La Vergüenza Social de Quedarse Sin Vino",
+      "subtitle": "Por qué este no era un problema menor",
+      "content": "En el primer siglo, las bodas judías duraban SIETE DÍAS completos. No era una recepción de 4 horas; era una semana entera de celebración continua.\n\n🍷 LA GRAVEDAD DEL PROBLEMA:\n\n• El vino era esencial para la celebración - símbolo de alegría y bendición de Dios\n• Quedarse sin vino era una VERGÜENZA SOCIAL brutal para toda la familia\n• El novio era responsable de proveer para todos los invitados durante los 7 días\n• Esta vergüenza podría perseguir a la familia por generaciones en una aldea pequeña\n• Algunos rabinos enseñaban que el novio podía ser demandado legalmente por incumplimiento\n\nCuando María le dice a Jesús 'No tienen vino', no está pidiendo un favor trivial. Está diciendo: 'Esta familia está a punto de ser humillada públicamente. Su reputación será destruida'.\n\n📍 CANÁ DE GALILEA:\n\nCaná estaba a solo 14 km de Nazaret. Esta no era una boda de extraños. Muy probablemente María y Jesús conocían personalmente a esta familia. María tenía un rol activo (supervisaba a los sirvientes), lo que sugiere que eran familiares cercanos.",
+      "revelation_key": "Jesús no solo hace milagros en las crisis espirituales. Le importan tus crisis sociales, tus vergüenzas, tus momentos de 'me quedé sin recursos'."
+    },
+    
+    {
+      "order": 2,
+      "type": "dialogue_analysis",
+      "icon": "💬",
+      "title": "La Respuesta Misteriosa: 'Mujer, ¿qué tiene que ver eso conmigo?'",
+      "subtitle": "Por qué Jesús no fue grosero con su madre",
+      "content": "María: 'No tienen vino'.\n\nJesús: 'Mujer, ¿qué tienes conmigo? Aún no ha venido mi hora'.\n\n🔍 ENTENDIENDO EL GRIEGO:\n\nLa frase 'mujer' (gynai) NO era irrespetuosa en griego. Era un término de dignidad y respeto. Jesús la usa incluso desde la cruz (Juan 19:26).\n\nLa frase 'qué tienes conmigo' (ti emoi kai soi) es un hebraísmo que significa: '¿Por qué involucrarme en esto ahora?'. No es rechazo; es pregunta sobre el tiempo perfecto.\n\n⏰ 'AÚN NO HA VENIDO MI HORA':\n\nEsta frase aparece 7 veces en Juan. La 'hora' de Jesús es su muerte en la cruz. Él está diciendo: 'Si hago este milagro, el reloj comienza a correr. Una vez que revele mi gloria públicamente, el camino hacia el Calvario es inevitable'.\n\nMaría entiende perfectamente. No discute. Solo le dice a los sirvientes: 'Haced todo lo que Él os dijere'. Ella confía en que Jesús sabe qué hacer.\n\n💡 LA LECCIÓN:\n\nMaría presenta el problema, pero no le dice a Jesús CÓMO resolverlo. Ella confía en su método, su tiempo perfecto y su sabiduría.",
+      "greek_words": [
+        {
+          "word": "Gynai",
+          "transliteration": "γύναι",
+          "meaning": "Mujer - término de respeto y dignidad",
+          "revelation": "No es 'mamá' porque Jesús está estableciendo que su ministerio mesiánico trasciende relaciones familiares terrenales."
+        },
+        {
+          "word": "Hōra",
+          "transliteration": "ὥρα",
+          "meaning": "Hora - el momento señalado de su glorificación en la cruz",
+          "revelation": "Cada milagro de Jesús es un paso hacia el Calvario. Él cuenta el costo antes de actuar."
+        }
+      ],
+      "revelation_key": "Presenta tus problemas a Jesús, pero no le dictes el método. Confía en su tiempo perfecto y su sabiduría."
+    },
+    
+    {
+      "order": 3,
+      "type": "miracle_mechanics",
+      "icon": "🏺",
+      "title": "Las Seis Tinajas: Símbolos de lo Incompleto",
+      "subtitle": "Por qué el número 6 es crucial",
+      "content": "Jesús ordena llenar SEIS tinajas de piedra que se usaban para la purificación ceremonial judía.\n\n🔢 EL SIMBOLISMO DEL NÚMERO 6:\n\n• En la numerología bíblica, 6 es el número del HOMBRE (creado el día 6)\n• 6 es uno menos que 7 (el número de la perfección divina)\n• 6 siempre representa LO INCOMPLETO, lo que necesita ser completado\n\n🏺 LAS TINAJAS DE PURIFICACIÓN:\n\n• Eran de PIEDRA, no de cerámica - material frío, inflexible, pesado\n• Se usaban para el lavamiento ritual de manos antes de comer (Marcos 7:3-4)\n• Representaban el sistema de purificación de la Ley - externo, ceremonial, repetitivo\n• Cada tinaja contenía 2-3 cántaros (aprox. 75-115 litros cada una)\n• TOTAL: Entre 450-690 litros de vino nuevo\n\n✨ LA TRANSFORMACIÓN:\n\nJesús toma el AGUA (símbolo de purificación externa) y la convierte en VINO (símbolo de alegría, celebración y la nueva alianza).\n\nNo añade vino al agua. TRANSFORMA el agua en vino. Completa lo incompleto. Convierte el ritual frío en celebración viva.\n\nEl maestresala declara: 'Tú has guardado el buen vino hasta ahora'. El vino de Jesús no solo es suficiente - es SUPERIOR.",
+      "scripture_connections": [
+        {
+          "reference": "Salmo 104:15",
+          "text": "Y el vino que alegra el corazón del hombre"
+        },
+        {
+          "reference": "Isaías 25:6",
+          "text": "Jehová de los ejércitos hará en este monte a todos los pueblos banquete de manjares suculentos, banquete de vinos refinados"
+        }
+      ],
+      "revelation_key": "Jesús no vino a mejorar tu religión (las 6 tinajas). Vino a TRANSFORMAR tu vida de ritual en celebración, de ley en gracia."
+    },
+    
+    {
+      "order": 4,
+      "type": "theological_depth",
+      "icon": "🍷",
+      "title": "El Vino Nuevo: Imagen de la Nueva Alianza",
+      "subtitle": "Por qué el primer milagro no fue una sanidad",
+      "content": "¿Por qué Jesús eligió una boda para su primer milagro público? ¿Por qué no sanó a un leproso o resucitó a un muerto?\n\n💒 PORQUE JESÚS ES EL NOVIO:\n\nEn el Antiguo Testamento, Dios se presenta como el Esposo de Israel (Isaías 54:5, Oseas 2:19). Jesús está declarando: 'Yo soy el Novio prometido. He venido por mi Novia'.\n\n🍷 EL VINO COMO SÍMBOLO PROFÉTICO:\n\n• Jesús mismo dirá en Mateo 9:17: 'Ni echan vino nuevo en odres viejos... el vino nuevo en odres nuevos se ha de echar'\n• El vino representa la NUEVA ALIANZA en su sangre (Lucas 22:20)\n• En la última cena, Jesús levantará la copa y dirá: 'Esta copa es el nuevo pacto en mi sangre'\n\n🔗 LA CONEXIÓN:\n\n• Primer milagro público: Jesús convierte AGUA en VINO (Caná)\n• Último acto público: Jesús ofrece su SANGRE como VINO de la nueva alianza (Calvario)\n\nCOMIENZA con vino en una boda y TERMINA con vino en la cruz. Todo el ministerio de Jesús está enmarcado por el símbolo del vino - la alegría de la salvación comprada con su sangre.\n\n✨ EL MILAGRO SILENCIOSO:\n\nSolo los sirvientes (los que obedecieron) y los discípulos supieron que fue un milagro. El novio y los invitados pensaron que era vino ordinario. Dios obra milagros constantemente que solo ven los que están atentos.",
+      "identity_statement": "Eres invitado a la boda del Cordero. Jesús es el Novio que provee el vino de salvación - su propia sangre. Y el banquete nunca termina.",
+      "revelation_key": "El primer milagro no fue de necesidad (nadie se moría por falta de vino). Fue de ABUNDANCIA y CELEBRACIÓN. Así es el corazón de Dios hacia ti."
+    },
+    
+    {
+      "order": 5,
+      "type": "discovery_activation",
+      "icon": "🙏",
+      "title": "Descubrimiento Personal",
+      "discovery_questions": [
+        {
+          "category": "Vergüenza",
+          "question": "¿En qué área de tu vida sientes que 'se acabó el vino' - ese recurso, esa alegría, esa capacidad que necesitas pero ya no tienes? ¿Le has presentado esa vergüenza a Jesús?"
+        },
+        {
+          "category": "Obediencia",
+          "question": "Los sirvientes llenaron las tinajas hasta el borde, aunque no entendían por qué. ¿Hay algo que Jesús te ha pedido hacer que no tiene sentido lógico todavía?"
+        },
+        {
+          "category": "Transformación",
+          "question": "Las 6 tinajas representan tu sistema religioso incompleto (rituales, esfuerzos, buenas obras). ¿Estás tratando de 'llenar tinajas' o permitiendo que Jesús TRANSFORME el agua en vino?"
+        }
+      ],
+      "prayer": {
+        "title": "Oración de Transformación",
+        "content": "Jesús, mi Novio celestial. Gracias porque tu primer milagro no fue de juicio sino de celebración. Hoy traigo ante ti las áreas donde 'se acabó el vino' - donde mis recursos, mi alegría, mi capacidad ya no son suficientes. No te dicto el método; confío en tu tiempo perfecto y tu sabiduría. Transforma mi agua religiosa en vino de celebración. Que mi vida pase de ritual a relación, de esfuerzo a gracia, de escasez a abundancia. Y que cuando llegue a tu banquete eterno, reconozca que guardaste el mejor vino para el final. En el nombre de Jesús, Amén."
+      }
+    }
+  ],
+  
+  "tags": [
+    "milagro",
+    "transformación",
+    "bodas",
+    "abundancia",
+    "nueva_alianza",
+    "vino",
+    "provisión"
+  ],
+  
+  "metadata": {
+    "total_word_count": 975,
+    "greek_words_count": 2,
+    "scripture_references_count": 8,
+    "difficulty_level": "intermediate",
+    "themes": [
+      "Jesús como el Novio",
+      "Transformación vs mejora",
+      "Nueva alianza en su sangre",
+      "Abundancia de Dios"
+    ]
+  }
+}
