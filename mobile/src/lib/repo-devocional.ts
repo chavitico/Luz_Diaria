@@ -35,6 +35,42 @@ export function parseVersiculo(versiculo: string): { reference: string; version:
   return { reference: '', version: '', text: versiculo };
 }
 
+// Map two RepoDevocionals (ES + EN) → single bilingual Devotional for library use
+export function repoToDevotionalBilingual(
+  es: RepoDevocional,
+  en: RepoDevocional,
+  imageUrl: string,
+  date?: string,
+): Devotional {
+  const { reference: refEs, text: textEs } = parseVersiculo(es.versiculo);
+  const { reference: refEn, text: textEn } = parseVersiculo(en.versiculo);
+  const meditacionEs = es.para_meditar.map((v) => `${v.cita}: ${v.texto}`).join('\n\n');
+  const meditacionEn = en.para_meditar.map((v) => `${v.cita}: ${v.texto}`).join('\n\n');
+  return {
+    date: date ?? es.date,
+    title: en.tags[0] ?? 'Devotional',
+    titleEs: es.tags[0] ?? 'Devocional',
+    imageUrl,
+    bibleVerse: textEn,
+    bibleVerseEs: textEs,
+    bibleReference: refEn,
+    bibleReferenceEs: refEs,
+    reflection: en.reflexion,
+    reflectionEs: es.reflexion,
+    story: meditacionEn,
+    storyEs: meditacionEs,
+    biblicalCharacter: '',
+    biblicalCharacterEs: '',
+    application: '',
+    applicationEs: '',
+    prayer: en.oracion,
+    prayerEs: es.oracion,
+    topic: en.tags.join(', '),
+    topicEs: es.tags.join(', '),
+    source: 'repo',
+  };
+}
+
 // Map RepoDevocional → Devotional (for ShareSheet compatibility)
 export function repoToDevotional(d: RepoDevocional, imageUrl: string): Devotional {
   const { reference, text } = parseVersiculo(d.versiculo);

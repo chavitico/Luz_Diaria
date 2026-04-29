@@ -25,6 +25,12 @@ import { useScaledFont } from '@/lib/textScale';
 import { TRANSLATIONS } from '@/lib/constants';
 import { POINTS } from '@/lib/types';
 import type { Devotional } from '@/lib/types';
+import {
+  SAMPLE_DEVOCIONAL,
+  SAMPLE_DEVOCIONAL_EN,
+  REPO_DEFAULT_IMAGE,
+  repoToDevotionalBilingual,
+} from '@/lib/repo-devocional';
 import { cn } from '@/lib/cn';
 import { PointsToast, usePointsToast } from '@/components/PointsToast';
 import { gamificationApi } from '@/lib/gamification-api';
@@ -235,10 +241,17 @@ export default function LibraryScreen() {
   const user = useUser();
   const t = TRANSLATIONS[language];
 
+  const today = getTodayDate();
+
   const addPoints = useAppStore((s) => s.addPoints);
   const updateUser = useAppStore((s) => s.updateUser);
   const addFavorite = useAppStore((s) => s.addFavorite);
   const removeFavorite = useAppStore((s) => s.removeFavorite);
+
+  // New-format devocionals from the repo — always available, no network needed
+  const repoDevotionals = useMemo<Devotional[]>(() => [
+    repoToDevotionalBilingual(SAMPLE_DEVOCIONAL, SAMPLE_DEVOCIONAL_EN, REPO_DEFAULT_IMAGE, today),
+  ], [today]);
 
   const handleToggleFavorite = useCallback((devotional: Devotional) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -286,65 +299,58 @@ export default function LibraryScreen() {
     retry: 1,
   });
 
-  // Extract unique categories from devotionals
+  // Extract unique categories from all sources (historical + repo)
   const categories = useMemo(() => {
-    if (!devotionals) return [];
+    const all = [...repoDevotionals, ...(devotionals ?? [])];
     const topicSet = new Set<string>();
-    devotionals.forEach((d) => {
+    all.forEach((d) => {
       const topic = language === 'es' ? d.topicEs : d.topic;
       if (topic) topicSet.add(topic);
     });
     return Array.from(topicSet).sort();
-  }, [devotionals, language]);
+  }, [devotionals, repoDevotionals, language]);
 
   const filteredDevotionals = useMemo(() => {
-    if (!devotionals) return [];
+    // Merge: new-format (today) + historical old-format (excluding today to avoid duplicate)
+    const historical = (devotionals ?? []).filter((d) => d.date !== today);
+    const merged = [...repoDevotionals, ...historical].sort((a, b) =>
+      b.date.localeCompare(a.date)
+    );
 
-    return devotionals.filter((d) => {
-      // Filter by favorites
-      if (filter === 'favorites' && !favorites.includes(d.date)) {
-        return false;
-      }
+    return merged.filter((d) => {
+      if (filter === 'favorites' && !favorites.includes(d.date)) return false;
 
-      // Filter by category
       if (selectedCategory !== 'all') {
         const topic = language === 'es' ? d.topicEs : d.topic;
-        if (topic !== selectedCategory) {
-          return false;
-        }
+        if (topic !== selectedCategory) return false;
       }
 
-      // Filter by search query
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase().trim();
-        const title = (language === 'es' ? d.titleEs : d.title)?.toLowerCase() ?? '';
-        const topic = (language === 'es' ? d.topicEs : d.topic)?.toLowerCase() ?? '';
-        const reflection = (language === 'es' ? d.reflectionEs : d.reflection)?.toLowerCase() ?? '';
-        const story = (language === 'es' ? d.storyEs : d.story)?.toLowerCase() ?? '';
-        const character = (language === 'es' ? d.biblicalCharacterEs : d.biblicalCharacter)?.toLowerCase() ?? '';
-        const application = (language === 'es' ? d.applicationEs : d.application)?.toLowerCase() ?? '';
-        const prayer = (language === 'es' ? d.prayerEs : d.prayer)?.toLowerCase() ?? '';
-        const verse = (language === 'es' ? d.bibleVerseEs : d.bibleVerse)?.toLowerCase() ?? '';
-        const reference = (language === 'es' ? d.bibleReferenceEs : d.bibleReference)?.toLowerCase() ?? '';
-
-        return (
-          title.includes(query) ||
-          topic.includes(query) ||
-          reflection.includes(query) ||
-          story.includes(query) ||
-          character.includes(query) ||
-          application.includes(query) ||
-          prayer.includes(query) ||
-          verse.includes(query) ||
-          reference.includes(query)
-        );
+        const fields = [
+          language === 'es' ? d.titleEs : d.title,
+          language === 'es' ? d.topicEs : d.topic,
+          language === 'es' ? d.reflectionEs : d.reflection,
+          language === 'es' ? d.storyEs : d.story,
+          language === 'es' ? d.biblicalCharacterEs : d.biblicalCharacter,
+          language === 'es' ? d.applicationEs : d.application,
+          language === 'es' ? d.prayerEs : d.prayer,
+          language === 'es' ? d.bibleVerseEs : d.bibleVerse,
+          language === 'es' ? d.bibleReferenceEs : d.bibleReference,
+        ];
+        return fields.some((f) => f?.toLowerCase().includes(query));
       }
 
       return true;
     });
-  }, [devotionals, filter, favorites, selectedCategory, searchQuery, language]);
+  }, [devotionals, repoDevotionals, today, filter, favorites, selectedCategory, searchQuery, language]);
 
   const handleDevotionalPress = useCallback((devotional: Devotional) => {
+    if (devotional.source === 'repo') {
+      // New-format devocionals open in the dedicated tab
+      router.push('/(tabs)/hoy-nuevo');
+      return;
+    }
     router.push({
       pathname: '/devotional/[date]',
       params: { date: devotional.date },
@@ -362,7 +368,6 @@ export default function LibraryScreen() {
   const handleShareComplete = useCallback(async (option: ShareOption) => {
     if (!user) return;
 
-    const today = getTodayDate();
     const dailyActions = user?.dailyActions ?? {};
 
     // Update daily actions and total shares count
@@ -538,11 +543,11 @@ export default function LibraryScreen() {
       </View>
 
       {/* List */}
-      {isLoading ? (
+      {isLoading && !devotionals ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
-      ) : filteredDevotionals && filteredDevotionals.length > 0 ? (
+      ) : filteredDevotionals.length > 0 ? (
         <FlashList
           data={filteredDevotionals}
           renderItem={renderItem}
