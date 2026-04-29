@@ -570,28 +570,31 @@ export default function StudyReaderScreen() {
         borderTopWidth: 0.5,
         borderTopColor: colors.textMuted + '20',
       }}>
-        {/* Prev */}
-        <Pressable
-          onPress={goPrev}
-          disabled={isFirstPage}
-          style={({ pressed }) => ({
-            opacity: isFirstPage ? 0 : pressed ? 0.6 : 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 4,
-            paddingVertical: 10,
-            paddingHorizontal: 14,
-            borderRadius: 22,
-            backgroundColor: colors.surface,
-            borderWidth: 1,
-            borderColor: colors.textMuted + '25',
-          })}
-        >
-          <ChevronLeft size={16} color={colors.textMuted} strokeWidth={2.5} />
-          <Text style={{ fontSize: 14, fontWeight: '700', color: colors.textMuted }}>
-            Anterior
-          </Text>
-        </Pressable>
+        {/* Prev — hidden on first page */}
+        {!isFirstPage ? (
+          <Pressable
+            onPress={goPrev}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.6 : 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 4,
+              paddingVertical: 10,
+              paddingHorizontal: 14,
+              borderRadius: 22,
+              backgroundColor: colors.surface,
+              borderWidth: 1,
+              borderColor: colors.textMuted + '25',
+            })}
+          >
+            <ChevronLeft size={16} color={colors.textMuted} strokeWidth={2.5} />
+            <Text style={{ fontSize: 14, fontWeight: '700', color: colors.textMuted }}>
+              Anterior
+            </Text>
+          </Pressable>
+        ) : (
+          <View style={{ width: 100 }} />
+        )}
 
         {/* Dot indicators */}
         <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
@@ -608,25 +611,31 @@ export default function StudyReaderScreen() {
           ))}
         </View>
 
-        {/* Next / Finish */}
-        <Pressable
-          onPress={isLastPage ? () => router.back() : goNext}
-          style={({ pressed }) => ({
-            opacity: pressed ? 0.8 : 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 4,
-            paddingVertical: 10,
-            paddingHorizontal: 16,
-            borderRadius: 22,
-            backgroundColor: ACCENT,
-          })}
-        >
-          <Text style={{ fontSize: 14, fontWeight: '700', color: '#fff' }}>
-            {isLastPage ? 'Finalizar' : 'Siguiente'}
-          </Text>
-          {!isLastPage && <ChevronRight size={16} color="#fff" strokeWidth={2.5} />}
-        </Pressable>
+        {/* Next — hidden on last page */}
+        {!isLastPage ? (
+          <Pressable
+            onPress={goNext}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.6 : 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 4,
+              paddingVertical: 10,
+              paddingHorizontal: 14,
+              borderRadius: 22,
+              backgroundColor: colors.surface,
+              borderWidth: 1,
+              borderColor: colors.textMuted + '25',
+            })}
+          >
+            <Text style={{ fontSize: 14, fontWeight: '700', color: colors.textMuted }}>
+              Siguiente
+            </Text>
+            <ChevronRight size={16} color={colors.textMuted} strokeWidth={2.5} />
+          </Pressable>
+        ) : (
+          <View style={{ width: 100 }} />
+        )}
       </View>
     </View>
   );
