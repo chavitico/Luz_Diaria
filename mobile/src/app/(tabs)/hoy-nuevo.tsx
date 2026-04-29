@@ -39,7 +39,7 @@ import {
 } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ShareSheet } from '@/components/ShareSheet';
 import { CommentsSection } from '@/components/CommentsSection';
 import { PointsToast, usePointsToast } from '@/components/PointsToast';
@@ -430,6 +430,7 @@ export default function HoyNuevoScreen() {
   const router = useRouter();
   const today = getTodayDate();
   const { currentToast, showToast, hideToast } = usePointsToast();
+  const queryClient = useQueryClient();
   const addPoints = useAppStore((s) => s.addPoints);
   const addFavorite = useAppStore((s) => s.addFavorite);
   const removeFavorite = useAppStore((s) => s.removeFavorite);
@@ -440,7 +441,7 @@ export default function HoyNuevoScreen() {
   // Select content based on language
   const devocional = language === 'es' ? SAMPLE_DEVOCIONAL : SAMPLE_DEVOCIONAL_EN;
   const { reference, version, text: verseText } = parseVersiculo(devocional.versiculo);
-  const mappedDevotional = repoToDevotional(devocional, REPO_DEFAULT_IMAGE);
+  const mappedDevotional = { ...repoToDevotional(devocional, REPO_DEFAULT_IMAGE), date: today };
   const autoTitle = devocional.tags[0] ?? 'Devocional';
 
   const formattedDate = new Date(today + 'T12:00:00').toLocaleDateString(
@@ -495,20 +496,31 @@ export default function HoyNuevoScreen() {
     setShareVisible(true);
   };
 
+  const SHARE_MAX = 2;
+  const dailyActions = user?.dailyActions ?? {};
+  const shareCount = dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0;
+  const canShare = shareCount < SHARE_MAX;
+
   const handleShareComplete = async () => {
     if (!user) return;
+    if (!canShare) {
+      showToast(0, language === 'es' ? 'Limite diario alcanzado' : 'Daily limit reached', 'warning');
+      return;
+    }
+    const newShareCount = shareCount + 1;
+    updateUser({
+      totalShares: (user.totalShares ?? 0) + 1,
+      dailyActions: { ...dailyActions, shareDate: today, shareCount: newShareCount },
+    });
     try {
       const result = await gamificationApi.awardPoints(user.id, 'share');
       if (result?.success && result.pointsAwarded > 0) {
         addPoints(result.pointsAwarded);
-        addLedgerEntry({
-          delta: result.pointsAwarded,
-          kind: 'devotional',
-          title: language === 'es' ? 'Devocional compartido' : 'Devotional shared',
-          detail: '',
-        });
+        addLedgerEntry({ delta: result.pointsAwarded, kind: 'devotional', title: language === 'es' ? 'Devocional compartido' : 'Devotional shared', detail: '' });
         showToast(result.pointsAwarded, language === 'es' ? 'puntos (Compartir)' : 'points (Share)');
       }
+      await gamificationApi.updateChallengeProgress(user.id, 'share');
+      queryClient.invalidateQueries({ queryKey: ['challengeProgress', user.id] });
     } catch {}
   };
 
@@ -522,12 +534,21 @@ export default function HoyNuevoScreen() {
   }, []);
   const showNovedadesBadge = hasUnreadNews || hasPendingGiftBadge;
 
-  // ── Completion timer (3 minutes) — idempotent: won't double-count if HOY already ran today ──
+  // ── Completion timer — idempotent: won't double-count if HOY already ran today ──
   const [timeSpent, setTimeSpent] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
   const [showCompletionThankYou, setShowCompletionThankYou] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isCompletedRef = useRef(false);
+  const ttsCompletedTodayRef = useRef(false);
+
+  // Restore completed state if user already finished today (via HOY or this tab)
+  useEffect(() => {
+    if (user?.lastActiveDate === today) {
+      setIsCompleted(true);
+      isCompletedRef.current = true;
+    }
+  }, [user?.lastActiveDate, today]);
 
   const handleCompleteRef = useRef<(() => Promise<void>) | undefined>(undefined);
   handleCompleteRef.current = async () => {
@@ -669,6 +690,19 @@ export default function HoyNuevoScreen() {
       isTTSPlayingRef.current = false;
       setCurrentSectionIndex(-1);
       currentSectionIndexRef.current = -1;
+      // Award TTS complete points (once per day)
+      if (user && !ttsCompletedTodayRef.current) {
+        ttsCompletedTodayRef.current = true;
+        const da = user.dailyActions ?? {};
+        updateUser({ dailyActions: { ...da, ttsDate: today, ttsDone: true } });
+        gamificationApi.awardPoints(user.id, 'tts_complete').then((r) => {
+          if (r.success && r.pointsAwarded > 0) {
+            addPoints(r.pointsAwarded);
+            addLedgerEntry({ delta: r.pointsAwarded, kind: 'devotional', title: language === 'es' ? 'Audio escuchado' : 'Audio listened', detail: '' });
+            showToast(r.pointsAwarded, language === 'es' ? 'puntos (Audio)' : 'points (Audio)');
+          }
+        }).catch(() => {});
+      }
       return;
     }
     setCurrentSectionIndex(index);
