@@ -55,11 +55,15 @@ type ActiveCollection = 'inicial' | 'pascua' | 'milagros' | 'heroes' | 'secretas
 // ─────────────────────────────────────────────
 // NOVEDAD scrolling ticker — runs inside album hub cards
 // ─────────────────────────────────────────────
-const TICKER_SINGLE = '  ✦  NOVEDAD — ÁLBUM COLECCIONABLE  ';
+const TICKER_SINGLE_ES = '  ✦  NOVEDAD — ÁLBUM COLECCIONABLE  ';
+const TICKER_SINGLE_EN = '  ✦  NEW — COLLECTIBLE ALBUM  ';
+const TICKER_SINGLE = TICKER_SINGLE_ES; // default (overridden per-component)
 const TICKER_TEXT = TICKER_SINGLE.repeat(5);
 const TICKER_SPEED = 38; // px per second
 
-function NovedadTicker({ accentColor }: { accentColor: string }) {
+function NovedadTicker({ accentColor, language }: { accentColor: string; language: string }) {
+  const tickerStr = language === 'en' ? TICKER_SINGLE_EN : TICKER_SINGLE_ES;
+  const tickerFull = tickerStr.repeat(6);
   const tickerX = useRef(new RNAnimated.Value(0)).current;
   const animRef = useRef<RNAnimated.CompositeAnimation | null>(null);
   const [singleW, setSingleW] = useState(0);
@@ -97,7 +101,7 @@ function NovedadTicker({ accentColor }: { accentColor: string }) {
             }
           }}
         >
-          {TICKER_SINGLE}
+          {tickerStr}
         </Text>
       </View>
       <RNAnimated.View style={{ transform: [{ translateX: tickerX }] }}>
@@ -108,12 +112,12 @@ function NovedadTicker({ accentColor }: { accentColor: string }) {
             color: accentColor,
             letterSpacing: 1.2,
             textTransform: 'uppercase',
-            width: singleW > 0 ? singleW * 6 : 3000,
+            width: singleW > 0 ? singleW * 7 : 3000,
           }}
           numberOfLines={1}
           ellipsizeMode="clip"
         >
-          {TICKER_TEXT}
+          {tickerFull}
         </Text>
       </RNAnimated.View>
     </View>
@@ -840,7 +844,7 @@ function CollectionHubCard({
             backgroundColor: accentColor + '10',
             overflow: 'hidden',
           }}>
-            <NovedadTicker accentColor={accentColor + 'CC'} />
+            <NovedadTicker accentColor={accentColor + 'CC'} language={language} />
           </View>
         )}
       </Pressable>
@@ -1174,13 +1178,13 @@ export default function BiblicalCardsAlbumScreen() {
 
   // ─── Header title ───────────────────────────────────────────────────
   const headerTitle = activeCollection === 'inicial'
-    ? 'Colección Inicial'
+    ? (language === 'es' ? 'Colección Inicial' : 'Starter Collection')
     : activeCollection === 'pascua'
-      ? 'Historia de Pascua'
+      ? (language === 'es' ? 'Historia de Pascua' : 'Easter Story')
       : activeCollection === 'milagros'
-        ? 'Milagros de Jesús'
+        ? (language === 'es' ? 'Milagros de Jesús' : 'Miracles of Jesus')
         : activeCollection === 'heroes'
-          ? 'Héroes de la Fe'
+          ? (language === 'es' ? 'Héroes de la Fe' : 'Heroes of Faith')
           : activeCollection === 'secretas'
             ? (language === 'es' ? 'Cartas Secretas' : 'Secret Cards')
             : (language === 'es' ? 'Álbum Bíblico' : 'Biblical Album');
@@ -1264,7 +1268,7 @@ export default function BiblicalCardsAlbumScreen() {
           {/* ── Collection cards — newest first, Secretas pinned last ── */}
           <CollectionHubCard
             collectionId="heroes"
-            title="Héroes de la Fe"
+            title={language === 'es' ? 'Héroes de la Fe' : 'Heroes of Faith'}
             subtitle={language === 'es' ? 'Figuras épicas del Antiguo Testamento' : 'Epic figures of the Old Testament'}
             accentColor="#D4AF37"
             gradientColors={['#120E00', '#1E1800', '#120E00']}
@@ -1280,7 +1284,7 @@ export default function BiblicalCardsAlbumScreen() {
 
           <CollectionHubCard
             collectionId="milagros"
-            title="Milagros de Jesús"
+            title={language === 'es' ? 'Milagros de Jesús' : 'Miracles of Jesus'}
             subtitle={language === 'es' ? 'Señales y maravillas · 2026' : 'Signs and wonders · 2026'}
             accentColor="#60A5FA"
             gradientColors={['#040D1E', '#081630', '#040D1E']}
@@ -1295,7 +1299,7 @@ export default function BiblicalCardsAlbumScreen() {
 
           <CollectionHubCard
             collectionId="pascua"
-            title="Historia de Pascua"
+            title={language === 'es' ? 'Historia de Pascua' : 'Easter Story'}
             subtitle={language === 'es' ? '14 capítulos de la redención' : '14 chapters of redemption'}
             accentColor="#F5D060"
             gradientColors={['#5C1010', '#3D0A0A', '#200505']}
@@ -1310,7 +1314,7 @@ export default function BiblicalCardsAlbumScreen() {
 
           <CollectionHubCard
             collectionId="inicial"
-            title="Colección Inicial"
+            title={language === 'es' ? 'Colección Inicial' : 'Starter Collection'}
             subtitle={language === 'es' ? 'Las primeras cartas del álbum' : 'The first album cards'}
             accentColor="#6496FF"
             gradientColors={['#1A3A6B', '#0F2149', '#0A1530']}
