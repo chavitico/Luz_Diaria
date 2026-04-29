@@ -86,6 +86,11 @@ interface MyTestimony {
   createdAt: string;
 }
 
+interface MyTestimonyData {
+  testimony: MyTestimony | null;
+  approvedCount: number;
+}
+
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
@@ -580,13 +585,13 @@ function TestimonySubmitModal({
   visible,
   onClose,
   userId,
-  myTestimony,
+  myTestimonyData,
   onSubmitted,
 }: {
   visible: boolean;
   onClose: () => void;
   userId: string | undefined;
-  myTestimony: MyTestimony | null | undefined;
+  myTestimonyData: MyTestimonyData;
   onSubmitted: () => void;
 }) {
   const colors = useThemeColors();
@@ -594,6 +599,12 @@ function TestimonySubmitModal({
   const insets = useSafeAreaInsets();
   const { sFont } = useScaledFont();
   const [text, setText] = useState<string>('');
+
+  const myTestimony = myTestimonyData.testimony;
+  const approvedCount = myTestimonyData.approvedCount;
+  const isAtLimit = approvedCount >= 3;
+  const hasPending = myTestimony?.status === 'PENDING';
+  const canSubmit = !isAtLimit && !hasPending;
 
   const charCount = text.length;
   const isValid = charCount >= 20 && charCount <= 500;
@@ -741,8 +752,26 @@ function TestimonySubmitModal({
               </Animated.View>
             )}
 
-            {/* Only show submit form if no existing testimony (or rejected) */}
-            {(!hasExisting || myTestimony?.status === 'REJECTED') && (
+            {/* Show approved count hint when user has some but not at limit */}
+            {approvedCount > 0 && approvedCount < 3 && (
+              <Text style={{ fontSize: sFont(13), color: colors.textMuted, marginBottom: 12, textAlign: 'center' }}>
+                {language === 'es'
+                  ? `${approvedCount}/3 testimonios publicados — puedes compartir otro`
+                  : `${approvedCount}/3 testimonies published — you can share another`}
+              </Text>
+            )}
+
+            {/* Show limit message when at cap */}
+            {isAtLimit && (
+              <Text style={{ fontSize: sFont(14), color: colors.textMuted, textAlign: 'center', lineHeight: 22 }}>
+                {language === 'es'
+                  ? 'Has alcanzado el límite de 3 testimonios publicados.'
+                  : 'You have reached the limit of 3 published testimonies.'}
+              </Text>
+            )}
+
+            {/* Only show submit form if can submit */}
+            {canSubmit && (
               <>
                 <Text
                   style={{
@@ -1429,17 +1458,20 @@ export default function CommunityScreen() {
   ).length;
 
   // My testimony
-  const { data: myTestimony, refetch: refetchMyTestimony } = useQuery<MyTestimony | null>({
+  const { data: myTestimonyData, refetch: refetchMyTestimony } = useQuery<MyTestimonyData>({
     queryKey: ['my-testimony', user?.id],
     queryFn: async () => {
-      if (!user?.id) return null;
+      if (!user?.id) return { testimony: null, approvedCount: 0 };
       const res = await fetchWithTimeout(`${BACKEND_URL}/api/testimonies/mine`, {
         headers: { 'x-user-id': user.id },
       });
-      if (res.status === 404) return null;
-      if (!res.ok) return null;
-      const json = await res.json();
-      return (json as { testimony?: MyTestimony }).testimony ?? null;
+      if (res.status === 404) return { testimony: null, approvedCount: 0 };
+      if (!res.ok) return { testimony: null, approvedCount: 0 };
+      const json = await res.json() as { testimony?: MyTestimony; approvedCount?: number };
+      return {
+        testimony: json.testimony ?? null,
+        approvedCount: json.approvedCount ?? 0,
+      };
     },
     enabled: !!user?.id,
     staleTime: 60_000,
@@ -1811,7 +1843,7 @@ export default function CommunityScreen() {
         visible={showTestimonyModal}
         onClose={() => setShowTestimonyModal(false)}
         userId={user?.id}
-        myTestimony={myTestimony}
+        myTestimonyData={myTestimonyData ?? { testimony: null, approvedCount: 0 }}
         onSubmitted={() => {
           queryClient.invalidateQueries({ queryKey: ['my-testimony', user?.id] });
           refetchMyTestimony();
