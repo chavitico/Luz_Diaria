@@ -242,6 +242,13 @@ function RootLayoutNav() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="study-reader"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

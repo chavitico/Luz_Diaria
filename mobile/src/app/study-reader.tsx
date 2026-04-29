@@ -1,0 +1,628 @@
+// study-reader.tsx — Full-screen paginated biblical study reader
+// Pages: 1 = key verse, 2..N = study cards
+// Navigation: tap "Siguiente" / "Anterior" or swipe
+
+import React, { useState, useRef, useCallback } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  Platform,
+  Dimensions,
+} from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+} from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { ArrowLeft, ChevronRight, ChevronLeft } from 'lucide-react-native';
+import { useThemeColors } from '@/lib/store';
+import { STUDIES_CATALOG } from '@/lib/studies/catalog';
+import type { Study, StudyCard } from '@/lib/studies/types';
+
+const { width: SCREEN_W } = Dimensions.get('window');
+
+const ACCENT = '#16A34A'; // green accent matching the images
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function formatContent(text: string): string {
+  return text.replace(/\\n/g, '\n');
+}
+
+// ─── Key Verse Page (Page 1) ──────────────────────────────────────────────────
+
+function KeyVersePage({ study, colors }: { study: Study; colors: ReturnType<typeof useThemeColors> }) {
+  return (
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ padding: 24, paddingTop: 16, paddingBottom: 40 }}
+    >
+      {/* Verse card */}
+      <View style={{
+        backgroundColor: colors.surface,
+        borderRadius: 20,
+        padding: 24,
+        borderWidth: 1,
+        borderColor: ACCENT + '25',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.06,
+        shadowRadius: 8,
+        elevation: 2,
+      }}>
+        {/* VERSÍCULO CLAVE chip */}
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 6,
+          marginBottom: 18,
+        }}>
+          <View style={{
+            width: 6, height: 6, borderRadius: 3,
+            backgroundColor: ACCENT,
+          }} />
+          <Text style={{
+            fontSize: 10,
+            fontWeight: '800',
+            color: ACCENT,
+            letterSpacing: 1.2,
+            textTransform: 'uppercase',
+          }}>
+            Versículo Clave
+          </Text>
+        </View>
+
+        {/* Verse text */}
+        <Text style={{
+          fontSize: 22,
+          fontWeight: '600',
+          color: colors.text,
+          lineHeight: 34,
+          fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+          marginBottom: 20,
+        }}>
+          "{study.key_verse.text}"
+        </Text>
+
+        {/* Reference */}
+        <View>
+          <Text style={{ fontSize: 16, fontWeight: '800', color: ACCENT }}>
+            {study.key_verse.reference.toUpperCase()}
+          </Text>
+          <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 2 }}>
+            {study.version}
+          </Text>
+        </View>
+      </View>
+
+      {/* Scripture passage */}
+      {study.scripture_passage.verses.length > 0 && (
+        <View style={{ marginTop: 24 }}>
+          <Text style={{
+            fontSize: 11,
+            fontWeight: '700',
+            color: colors.textMuted,
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+            marginBottom: 12,
+          }}>
+            Pasaje: {study.scripture_passage.reference}
+          </Text>
+          {study.scripture_passage.verses.map((v) => (
+            <View key={v.number} style={{
+              flexDirection: 'row',
+              gap: 10,
+              marginBottom: 12,
+            }}>
+              <Text style={{
+                fontSize: 12,
+                fontWeight: '700',
+                color: ACCENT,
+                minWidth: 20,
+                marginTop: 2,
+              }}>
+                {v.number}
+              </Text>
+              <Text style={{
+                flex: 1,
+                fontSize: 15,
+                color: colors.text,
+                lineHeight: 24,
+                fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+              }}>
+                {v.text}
+              </Text>
+            </View>
+          ))}
+        </View>
+      )}
+    </ScrollView>
+  );
+}
+
+// ─── Card Page (Pages 2+) ─────────────────────────────────────────────────────
+
+function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof useThemeColors> }) {
+  const isDiscovery = card.type === 'discovery_activation';
+
+  return (
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ padding: 24, paddingTop: 16, paddingBottom: 40 }}
+    >
+      {/* Icon + title + subtitle */}
+      <View style={{ marginBottom: 20 }}>
+        <Text style={{ fontSize: 36, marginBottom: 12 }}>{card.icon}</Text>
+        <Text style={{
+          fontSize: 22,
+          fontWeight: '800',
+          color: colors.text,
+          lineHeight: 28,
+          letterSpacing: -0.3,
+          marginBottom: 6,
+        }}>
+          {card.title}
+        </Text>
+        {card.subtitle && (
+          <Text style={{
+            fontSize: 14,
+            color: ACCENT,
+            fontWeight: '600',
+            lineHeight: 20,
+          }}>
+            {card.subtitle}
+          </Text>
+        )}
+      </View>
+
+      {/* Main content */}
+      {card.content && (
+        <Text style={{
+          fontSize: 15,
+          color: colors.text,
+          lineHeight: 26,
+          fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+          marginBottom: 20,
+          whiteSpace: 'pre-wrap',
+        } as any}>
+          {formatContent(card.content)}
+        </Text>
+      )}
+
+      {/* Greek words section */}
+      {card.greek_words && card.greek_words.length > 0 && (
+        <View style={{ marginBottom: 20, gap: 12 }}>
+          {card.greek_words.map((gw, i) => (
+            <View key={i} style={{
+              backgroundColor: colors.surface,
+              borderRadius: 14,
+              padding: 16,
+              borderWidth: 1,
+              borderColor: '#0369A1' + '25',
+            }}>
+              <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+                <Text style={{
+                  fontSize: 16,
+                  fontWeight: '800',
+                  color: '#0369A1',
+                }}>
+                  {gw.word}
+                </Text>
+                <Text style={{
+                  fontSize: 18,
+                  color: '#0369A1',
+                  fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+                }}>
+                  {gw.transliteration}
+                </Text>
+                <View style={{
+                  backgroundColor: '#0369A1' + '18',
+                  borderRadius: 6,
+                  paddingHorizontal: 7,
+                  paddingVertical: 2,
+                }}>
+                  <Text style={{ fontSize: 11, fontWeight: '700', color: '#0369A1' }}>
+                    {gw.strong}
+                  </Text>
+                </View>
+              </View>
+              <Text style={{ fontSize: 14, color: colors.text, marginBottom: 6 }}>
+                {gw.meaning}
+              </Text>
+              <Text style={{ fontSize: 13, color: colors.textMuted, fontStyle: 'italic', lineHeight: 20 }}>
+                {gw.revelation}
+              </Text>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {/* Scripture connections */}
+      {card.scripture_connections && card.scripture_connections.length > 0 && (
+        <View style={{ marginBottom: 20, gap: 8 }}>
+          <Text style={{
+            fontSize: 11,
+            fontWeight: '700',
+            color: colors.textMuted,
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+            marginBottom: 4,
+          }}>
+            Referencias
+          </Text>
+          {card.scripture_connections.map((sc, i) => (
+            <View key={i} style={{
+              backgroundColor: ACCENT + '10',
+              borderRadius: 10,
+              paddingHorizontal: 14,
+              paddingVertical: 10,
+              borderLeftWidth: 3,
+              borderLeftColor: ACCENT,
+            }}>
+              <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT, marginBottom: 2 }}>
+                {sc.reference}
+              </Text>
+              <Text style={{ fontSize: 13, color: colors.text }}>{sc.text}</Text>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {/* Discovery questions */}
+      {isDiscovery && card.discovery_questions && (
+        <View style={{ gap: 14, marginBottom: 20 }}>
+          {card.discovery_questions.map((q, i) => (
+            <View key={i} style={{
+              backgroundColor: colors.surface,
+              borderRadius: 14,
+              padding: 16,
+              borderWidth: 1,
+              borderColor: colors.textMuted + '20',
+            }}>
+              <Text style={{
+                fontSize: 11,
+                fontWeight: '800',
+                color: ACCENT,
+                textTransform: 'uppercase',
+                letterSpacing: 0.8,
+                marginBottom: 8,
+              }}>
+                {q.category}
+              </Text>
+              <Text style={{
+                fontSize: 15,
+                color: colors.text,
+                lineHeight: 24,
+                fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+              }}>
+                {q.question}
+              </Text>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {/* Prayer */}
+      {isDiscovery && card.prayer && (
+        <View style={{
+          backgroundColor: ACCENT + '0D',
+          borderRadius: 16,
+          padding: 20,
+          borderWidth: 1,
+          borderColor: ACCENT + '30',
+          marginBottom: 8,
+        }}>
+          <Text style={{
+            fontSize: 12,
+            fontWeight: '800',
+            color: ACCENT,
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+            marginBottom: 12,
+          }}>
+            🙏 {card.prayer.title}
+          </Text>
+          <Text style={{
+            fontSize: 15,
+            color: colors.text,
+            lineHeight: 26,
+            fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+          }}>
+            {formatContent(card.prayer.content)}
+          </Text>
+        </View>
+      )}
+
+      {/* Revelation key */}
+      {card.revelation_key && (
+        <View style={{
+          backgroundColor: ACCENT + '12',
+          borderRadius: 14,
+          padding: 16,
+          borderLeftWidth: 4,
+          borderLeftColor: ACCENT,
+          marginTop: 8,
+        }}>
+          <Text style={{
+            fontSize: 14,
+            fontWeight: '700',
+            color: colors.text,
+            lineHeight: 22,
+            fontStyle: 'italic',
+          }}>
+            ✨ {card.revelation_key}
+          </Text>
+        </View>
+      )}
+
+      {/* Identity statement */}
+      {card.identity_statement && (
+        <View style={{
+          backgroundColor: '#7C3AED' + '12',
+          borderRadius: 14,
+          padding: 16,
+          borderLeftWidth: 4,
+          borderLeftColor: '#7C3AED',
+          marginTop: 12,
+        }}>
+          <Text style={{
+            fontSize: 14,
+            fontWeight: '700',
+            color: colors.text,
+            lineHeight: 22,
+          }}>
+            {card.identity_statement}
+          </Text>
+        </View>
+      )}
+    </ScrollView>
+  );
+}
+
+// ─── Main Reader ──────────────────────────────────────────────────────────────
+
+export default function StudyReaderScreen() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const colors = useThemeColors();
+  const insets = useSafeAreaInsets();
+  const router = useRouter();
+
+  const entry = STUDIES_CATALOG.find((s) => s.id === id);
+  const study: Study | null = entry ? entry.dataFile() : null;
+
+  const [page, setPage] = useState(0); // 0 = key verse, 1..N = cards
+
+  const translateX = useSharedValue(0);
+  const opacity = useSharedValue(1);
+
+  const scrollRef = useRef<ScrollView>(null);
+
+  const totalPages = study ? 1 + study.cards.length : 1;
+
+  const animateTo = useCallback((nextPage: number, direction: 'forward' | 'back') => {
+    const offset = direction === 'forward' ? -30 : 30;
+    opacity.value = withTiming(0, { duration: 120, easing: Easing.out(Easing.quad) }, () => {
+      translateX.value = offset;
+      setPage(nextPage);
+      translateX.value = withTiming(0, { duration: 180, easing: Easing.out(Easing.cubic) });
+      opacity.value = withTiming(1, { duration: 180, easing: Easing.out(Easing.quad) });
+    });
+  }, [opacity, translateX]);
+
+  const goNext = useCallback(() => {
+    if (!study || page >= totalPages - 1) return;
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
+    animateTo(page + 1, 'forward');
+  }, [study, page, totalPages, animateTo]);
+
+  const goPrev = useCallback(() => {
+    if (page <= 0) return;
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
+    animateTo(page - 1, 'back');
+  }, [page, animateTo]);
+
+  const pageStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [{ translateX: translateX.value }],
+  }));
+
+  if (!study) {
+    return (
+      <View style={{ flex: 1, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ color: colors.textMuted }}>Estudio no encontrado</Text>
+      </View>
+    );
+  }
+
+  const isLastPage = page === totalPages - 1;
+  const isFirstPage = page === 0;
+
+  return (
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+      {/* Header */}
+      <View style={{
+        paddingTop: insets.top + 10,
+        paddingHorizontal: 16,
+        paddingBottom: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomWidth: 0.5,
+        borderBottomColor: colors.textMuted + '20',
+      }}>
+        {/* Back to list */}
+        <Pressable
+          onPress={() => router.back()}
+          hitSlop={12}
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.6 : 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 4,
+            paddingRight: 8,
+          })}
+        >
+          <ArrowLeft size={16} color={ACCENT} strokeWidth={2.5} />
+          <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>
+            Estudios Bíblicos
+          </Text>
+        </Pressable>
+
+        {/* Spacer */}
+        <View style={{ flex: 1 }} />
+
+        {/* Page counter */}
+        <Text style={{
+          fontSize: 14,
+          fontWeight: '700',
+          color: colors.textMuted,
+        }}>
+          {page + 1}/{totalPages}
+        </Text>
+      </View>
+
+      {/* Progress bar */}
+      <View style={{
+        height: 2,
+        backgroundColor: colors.textMuted + '20',
+      }}>
+        <View style={{
+          height: 2,
+          backgroundColor: ACCENT,
+          width: `${((page + 1) / totalPages) * 100}%`,
+        }} />
+      </View>
+
+      {/* Study title + green left bar */}
+      <View style={{
+        flexDirection: 'row',
+        paddingHorizontal: 16,
+        paddingTop: 14,
+        paddingBottom: 10,
+        alignItems: 'flex-start',
+        gap: 10,
+      }}>
+        <View style={{
+          width: 4,
+          height: '100%',
+          backgroundColor: ACCENT,
+          borderRadius: 2,
+          alignSelf: 'stretch',
+        }} />
+        <View style={{ flex: 1 }}>
+          <Text style={{
+            fontSize: 15,
+            fontWeight: '800',
+            color: colors.text,
+            lineHeight: 20,
+          }}>
+            {study.title}
+          </Text>
+          <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 1 }}>
+            {study.subtitle}
+          </Text>
+        </View>
+      </View>
+
+      {/* Thin divider */}
+      <View style={{ height: 0.5, backgroundColor: colors.textMuted + '18', marginHorizontal: 16 }} />
+
+      {/* Page content */}
+      <Animated.View style={[{ flex: 1 }, pageStyle]}>
+        <ScrollView
+          ref={scrollRef}
+          showsVerticalScrollIndicator={false}
+          style={{ flex: 1 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          {page === 0 ? (
+            <KeyVersePage study={study} colors={colors} />
+          ) : (
+            <CardPage card={study.cards[page - 1]} colors={colors} />
+          )}
+          {/* Bottom nav padding */}
+          <View style={{ height: 100 }} />
+        </ScrollView>
+      </Animated.View>
+
+      {/* Bottom nav bar */}
+      <View style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        paddingBottom: insets.bottom + 12,
+        paddingTop: 12,
+        paddingHorizontal: 24,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: colors.background,
+        borderTopWidth: 0.5,
+        borderTopColor: colors.textMuted + '20',
+      }}>
+        {/* Prev */}
+        <Pressable
+          onPress={goPrev}
+          disabled={isFirstPage}
+          style={({ pressed }) => ({
+            opacity: isFirstPage ? 0 : pressed ? 0.6 : 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 4,
+            paddingVertical: 10,
+            paddingHorizontal: 14,
+            borderRadius: 22,
+            backgroundColor: colors.surface,
+            borderWidth: 1,
+            borderColor: colors.textMuted + '25',
+          })}
+        >
+          <ChevronLeft size={16} color={colors.textMuted} strokeWidth={2.5} />
+          <Text style={{ fontSize: 14, fontWeight: '700', color: colors.textMuted }}>
+            Anterior
+          </Text>
+        </Pressable>
+
+        {/* Dot indicators */}
+        <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <View
+              key={i}
+              style={{
+                width: i === page ? 20 : 6,
+                height: 6,
+                borderRadius: 3,
+                backgroundColor: i === page ? ACCENT : colors.textMuted + '40',
+              }}
+            />
+          ))}
+        </View>
+
+        {/* Next / Finish */}
+        <Pressable
+          onPress={isLastPage ? () => router.back() : goNext}
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.8 : 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 4,
+            paddingVertical: 10,
+            paddingHorizontal: 16,
+            borderRadius: 22,
+            backgroundColor: ACCENT,
+          })}
+        >
+          <Text style={{ fontSize: 14, fontWeight: '700', color: '#fff' }}>
+            {isLastPage ? 'Finalizar' : 'Siguiente'}
+          </Text>
+          {!isLastPage && <ChevronRight size={16} color="#fff" strokeWidth={2.5} />}
+        </Pressable>
+      </View>
+    </View>
+  );
+}
