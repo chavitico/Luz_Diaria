@@ -1060,7 +1060,7 @@ export default function HoyNuevoScreen() {
         language={language}
         colors={colors}
         onShareComplete={handleShareComplete}
-        showDate
+        showDate={isToday}
       />
     </View>
   );
