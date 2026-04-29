@@ -16,6 +16,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   Easing,
+  runOnJS,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -404,15 +405,19 @@ export default function StudyReaderScreen() {
 
   const totalPages = study ? 1 + study.cards.length : 1;
 
+  const showNextPage = useCallback((nextPage: number, offset: number) => {
+    setPage(nextPage);
+    translateX.value = offset;
+    translateX.value = withTiming(0, { duration: 180, easing: Easing.out(Easing.cubic) });
+    opacity.value = withTiming(1, { duration: 180, easing: Easing.out(Easing.quad) });
+  }, [opacity, translateX]);
+
   const animateTo = useCallback((nextPage: number, direction: 'forward' | 'back') => {
     const offset = direction === 'forward' ? -30 : 30;
     opacity.value = withTiming(0, { duration: 120, easing: Easing.out(Easing.quad) }, () => {
-      translateX.value = offset;
-      setPage(nextPage);
-      translateX.value = withTiming(0, { duration: 180, easing: Easing.out(Easing.cubic) });
-      opacity.value = withTiming(1, { duration: 180, easing: Easing.out(Easing.quad) });
+      runOnJS(showNextPage)(nextPage, offset);
     });
-  }, [opacity, translateX]);
+  }, [opacity, showNextPage]);
 
   const goNext = useCallback(() => {
     if (!study || page >= totalPages - 1) return;
