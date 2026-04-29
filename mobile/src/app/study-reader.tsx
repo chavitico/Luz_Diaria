@@ -22,9 +22,11 @@ import * as Speech from 'expo-speech';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ArrowLeft, ChevronRight, ChevronLeft, Star, Volume2, Square } from 'lucide-react-native';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { ArrowLeft, ChevronRight, ChevronLeft, Volume2, Square, CheckCircle2 } from 'lucide-react-native';
 import { useThemeColors, useUser } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
+import { addLedgerEntry } from '@/lib/points-ledger';
 import { sanitizeForTTS, preprocessNumbersForTTS } from '@/lib/tts-voices';
 import { useScaledFont } from '@/lib/textScale';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
@@ -407,9 +409,17 @@ export default function StudyReaderScreen() {
   const study: Study | null = entry ? entry.dataFile() : null;
 
   const [page, setPage] = useState(0); // 0 = key verse, 1..N = cards
-  const [showCompletion, setShowCompletion] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const startTimeRef = useRef<number>(Date.now());
+
+  // Load completion status from storage on mount
+  useEffect(() => {
+    if (!study) return;
+    AsyncStorage.getItem(`study_complete:${study.id}`).then((val) => {
+      if (val) setIsCompleted(true);
+    });
+  }, [study?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   const translateX = useSharedValue(0);
   const opacity = useSharedValue(1);
 
@@ -487,7 +497,8 @@ export default function StudyReaderScreen() {
     if (elapsedSeconds >= requiredSeconds) {
       await AsyncStorage.setItem(storageKey, '1');
       await gamificationApi.awardPoints(user.id, 'study_complete');
-      setShowCompletion(true);
+      await addLedgerEntry({ kind: 'mission', delta: 300, title: 'Estudio Bíblico completado', detail: entry.title });
+      setIsCompleted(true);
     }
   }, [study, user, entry]);
 
@@ -649,23 +660,31 @@ export default function StudyReaderScreen() {
       {/* Thin divider */}
       <View style={{ height: 0.5, backgroundColor: colors.textMuted + '18', marginHorizontal: 16 }} />
 
-      {/* Page content */}
-      <Animated.View style={[{ flex: 1 }, pageStyle]}>
-        <ScrollView
-          ref={scrollRef}
-          showsVerticalScrollIndicator={false}
-          style={{ flex: 1 }}
-          keyboardShouldPersistTaps="handled"
-        >
-          {page === 0 ? (
-            <KeyVersePage study={study} colors={colors} sFont={sFont} />
-          ) : (
-            <CardPage card={study.cards[page - 1]} colors={colors} sFont={sFont} />
-          )}
-          {/* Bottom nav padding */}
-          <View style={{ height: 100 }} />
-        </ScrollView>
-      </Animated.View>
+      {/* Page content with swipe gesture */}
+      <GestureDetector gesture={Gesture.Pan()
+        .activeOffsetX([-28, 28])
+        .failOffsetY([-12, 12])
+        .onEnd((e) => {
+          if (e.translationX < -50) runOnJS(goNext)();
+          else if (e.translationX > 50) runOnJS(goPrev)();
+        })
+      }>
+        <Animated.View style={[{ flex: 1 }, pageStyle]}>
+          <ScrollView
+            ref={scrollRef}
+            showsVerticalScrollIndicator={false}
+            style={{ flex: 1 }}
+            keyboardShouldPersistTaps="handled"
+          >
+            {page === 0 ? (
+              <KeyVersePage study={study} colors={colors} sFont={sFont} />
+            ) : (
+              <CardPage card={study.cards[page - 1]} colors={colors} sFont={sFont} />
+            )}
+            <View style={{ height: 100 }} />
+          </ScrollView>
+        </Animated.View>
+      </GestureDetector>
 
       {/* Bottom nav bar */}
       <View style={{
@@ -724,7 +743,7 @@ export default function StudyReaderScreen() {
           ))}
         </View>
 
-        {/* Next — hidden on last page */}
+        {/* Next — hidden on last page; show Completado badge instead */}
         {!isLastPage ? (
           <Pressable
             onPress={goNext}
@@ -746,96 +765,28 @@ export default function StudyReaderScreen() {
             </Text>
             <ChevronRight size={16} color={colors.textMuted} strokeWidth={2.5} />
           </Pressable>
+        ) : isCompleted ? (
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 5,
+            paddingVertical: 8,
+            paddingHorizontal: 12,
+            borderRadius: 22,
+            backgroundColor: ACCENT + '15',
+            borderWidth: 1,
+            borderColor: ACCENT + '40',
+          }}>
+            <CheckCircle2 size={14} color={ACCENT} strokeWidth={2.5} />
+            <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>
+              Completado
+            </Text>
+          </View>
         ) : (
           <View style={{ width: 100 }} />
         )}
       </View>
 
-      {/* Completion modal */}
-      {showCompletion && (
-        <Pressable
-          onPress={() => { setShowCompletion(false); router.back(); }}
-          style={{
-            position: 'absolute',
-            top: 0, left: 0, right: 0, bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.6)',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingHorizontal: 32,
-          }}
-        >
-          <View style={{
-            backgroundColor: colors.background,
-            borderRadius: 28,
-            padding: 32,
-            alignItems: 'center',
-            width: '100%',
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 8 },
-            shadowOpacity: 0.25,
-            shadowRadius: 24,
-            elevation: 10,
-          }}>
-            <View style={{
-              width: 72,
-              height: 72,
-              borderRadius: 36,
-              backgroundColor: ACCENT + '18',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 20,
-            }}>
-              <Star size={36} color={ACCENT} fill={ACCENT} strokeWidth={1.5} />
-            </View>
-            <Text style={{
-              fontSize: 22,
-              fontWeight: '800',
-              color: colors.text,
-              textAlign: 'center',
-              marginBottom: 8,
-              letterSpacing: -0.3,
-            }}>
-              ¡Estudio Completado!
-            </Text>
-            <Text style={{
-              fontSize: 15,
-              color: colors.textMuted,
-              textAlign: 'center',
-              lineHeight: 22,
-              marginBottom: 24,
-            }}>
-              Ganaste 300 puntos por completar este estudio bíblico.
-            </Text>
-            <View style={{
-              backgroundColor: ACCENT + '15',
-              borderRadius: 16,
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              marginBottom: 24,
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 8,
-            }}>
-              <Text style={{ fontSize: 24, fontWeight: '800', color: ACCENT }}>+300</Text>
-              <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>puntos</Text>
-            </View>
-            <Pressable
-              onPress={() => { setShowCompletion(false); router.back(); }}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.8 : 1,
-                backgroundColor: ACCENT,
-                borderRadius: 20,
-                paddingVertical: 14,
-                paddingHorizontal: 40,
-              })}
-            >
-              <Text style={{ fontSize: 15, fontWeight: '800', color: '#fff' }}>
-                Continuar
-              </Text>
-            </Pressable>
-          </View>
-        </Pressable>
-      )}
     </View>
   );
 }
