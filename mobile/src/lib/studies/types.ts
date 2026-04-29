@@ -92,5 +92,6 @@ export interface StudyCatalogEntry {
   title: string;
   subtitle: string;
   estimated_reading_minutes: number;
+  imageUrl: string;
   dataFile: () => Study;
 }

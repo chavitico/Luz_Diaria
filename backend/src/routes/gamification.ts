@@ -35,7 +35,7 @@ function buildActiveSeasonWhere(now: Date) {
 // TYPES & CONSTANTS
 // ============================================
 
-type ActionType = 'devotional_complete' | 'share' | 'prayer' | 'tts_complete' | 'streak_bonus' | 'favorite';
+type ActionType = 'devotional_complete' | 'share' | 'prayer' | 'tts_complete' | 'streak_bonus' | 'favorite' | 'study_complete';
 
 interface DailyActions {
   shareDate?: string;
@@ -58,6 +58,7 @@ const POINTS_CONFIG: Record<ActionType, { points: number; dailyCap?: number }> =
   tts_complete: { points: 6, dailyCap: 1 },
   streak_bonus: { points: 0 }, // Varies by milestone
   favorite: { points: 10 },
+  study_complete: { points: 300 },
 };
 
 const STREAK_MILESTONES: Record<number, number> = {
@@ -99,7 +100,7 @@ const syncUserSchema = z.object({
 
 const awardPointsSchema = z.object({
   userId: z.string(),
-  action: z.enum(['devotional_complete', 'share', 'prayer', 'tts_complete', 'streak_bonus', 'favorite']),
+  action: z.enum(['devotional_complete', 'share', 'prayer', 'tts_complete', 'streak_bonus', 'favorite', 'study_complete']),
   metadata: z.any().optional(),
 });
 

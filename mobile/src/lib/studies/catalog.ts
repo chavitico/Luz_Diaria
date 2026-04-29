@@ -13,6 +13,7 @@ export const STUDIES_CATALOG: StudyCatalogEntry[] = [
     title: 'El Soplo del Nuevo Adán',
     subtitle: 'Cuando Jesús reconecta al hombre con Dios',
     estimated_reading_minutes: 7,
+    imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
     dataFile: () => require('./data/breath_new_adam_es_001.json'),
   },
 ];

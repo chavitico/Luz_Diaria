@@ -2,7 +2,7 @@
 // Pages: 1 = key verse, 2..N = study cards
 // Navigation: tap "Siguiente" / "Anterior" or swipe
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -18,10 +18,12 @@ import Animated, {
   Easing,
   runOnJS,
 } from 'react-native-reanimated';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ArrowLeft, ChevronRight, ChevronLeft } from 'lucide-react-native';
-import { useThemeColors } from '@/lib/store';
+import { ArrowLeft, ChevronRight, ChevronLeft, Star } from 'lucide-react-native';
+import { useThemeColors, useUser } from '@/lib/store';
+import { gamificationApi } from '@/lib/gamification-api';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
 import type { Study, StudyCard } from '@/lib/studies/types';
 
@@ -392,18 +394,36 @@ export default function StudyReaderScreen() {
   const colors = useThemeColors();
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const user = useUser();
 
   const entry = STUDIES_CATALOG.find((s) => s.id === id);
   const study: Study | null = entry ? entry.dataFile() : null;
 
   const [page, setPage] = useState(0); // 0 = key verse, 1..N = cards
+  const [showCompletion, setShowCompletion] = useState(false);
 
+  const startTimeRef = useRef<number>(Date.now());
   const translateX = useSharedValue(0);
   const opacity = useSharedValue(1);
 
   const scrollRef = useRef<ScrollView>(null);
 
   const totalPages = study ? 1 + study.cards.length : 1;
+
+  const checkAndAwardCompletion = useCallback(async () => {
+    if (!study || !user || !entry) return;
+    const storageKey = `study_complete:${study.id}`;
+    const alreadyDone = await AsyncStorage.getItem(storageKey);
+    if (alreadyDone) return;
+
+    const elapsedSeconds = (Date.now() - startTimeRef.current) / 1000;
+    const requiredSeconds = entry.estimated_reading_minutes * 60 * 0.9;
+    if (elapsedSeconds >= requiredSeconds) {
+      await AsyncStorage.setItem(storageKey, '1');
+      await gamificationApi.awardPoints(user.id, 'study_complete');
+      setShowCompletion(true);
+    }
+  }, [study, user, entry]);
 
   const showNextPage = useCallback((nextPage: number, offset: number) => {
     setPage(nextPage);
@@ -422,8 +442,12 @@ export default function StudyReaderScreen() {
   const goNext = useCallback(() => {
     if (!study || page >= totalPages - 1) return;
     scrollRef.current?.scrollTo({ y: 0, animated: false });
-    animateTo(page + 1, 'forward');
-  }, [study, page, totalPages, animateTo]);
+    const nextPage = page + 1;
+    animateTo(nextPage, 'forward');
+    if (nextPage === totalPages - 1) {
+      checkAndAwardCompletion();
+    }
+  }, [study, page, totalPages, animateTo, checkAndAwardCompletion]);
 
   const goPrev = useCallback(() => {
     if (page <= 0) return;
@@ -637,6 +661,92 @@ export default function StudyReaderScreen() {
           <View style={{ width: 100 }} />
         )}
       </View>
+
+      {/* Completion modal */}
+      {showCompletion && (
+        <Pressable
+          onPress={() => { setShowCompletion(false); router.back(); }}
+          style={{
+            position: 'absolute',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.6)',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingHorizontal: 32,
+          }}
+        >
+          <View style={{
+            backgroundColor: colors.background,
+            borderRadius: 28,
+            padding: 32,
+            alignItems: 'center',
+            width: '100%',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 8 },
+            shadowOpacity: 0.25,
+            shadowRadius: 24,
+            elevation: 10,
+          }}>
+            <View style={{
+              width: 72,
+              height: 72,
+              borderRadius: 36,
+              backgroundColor: ACCENT + '18',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 20,
+            }}>
+              <Star size={36} color={ACCENT} fill={ACCENT} strokeWidth={1.5} />
+            </View>
+            <Text style={{
+              fontSize: 22,
+              fontWeight: '800',
+              color: colors.text,
+              textAlign: 'center',
+              marginBottom: 8,
+              letterSpacing: -0.3,
+            }}>
+              ¡Estudio Completado!
+            </Text>
+            <Text style={{
+              fontSize: 15,
+              color: colors.textMuted,
+              textAlign: 'center',
+              lineHeight: 22,
+              marginBottom: 24,
+            }}>
+              Ganaste 300 puntos por completar este estudio bíblico.
+            </Text>
+            <View style={{
+              backgroundColor: ACCENT + '15',
+              borderRadius: 16,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              marginBottom: 24,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+            }}>
+              <Text style={{ fontSize: 24, fontWeight: '800', color: ACCENT }}>+300</Text>
+              <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>puntos</Text>
+            </View>
+            <Pressable
+              onPress={() => { setShowCompletion(false); router.back(); }}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.8 : 1,
+                backgroundColor: ACCENT,
+                borderRadius: 20,
+                paddingVertical: 14,
+                paddingHorizontal: 40,
+              })}
+            >
+              <Text style={{ fontSize: 15, fontWeight: '800', color: '#fff' }}>
+                Continuar
+              </Text>
+            </Pressable>
+          </View>
+        </Pressable>
+      )}
     </View>
   );
 }

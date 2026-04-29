@@ -105,7 +105,7 @@ export interface PointsResult {
   message?: string;
 }
 
-export type PointAction = 'devotional_complete' | 'share' | 'prayer' | 'tts_complete' | 'streak_bonus' | 'favorite';
+export type PointAction = 'devotional_complete' | 'share' | 'prayer' | 'tts_complete' | 'streak_bonus' | 'favorite' | 'study_complete';
 
 export interface CommunityMember {
   id: string;
