@@ -81,7 +81,7 @@ function KeyVersePage({ study, colors, sFont, lang }: { study: Study; colors: Re
             letterSpacing: 1.2,
             textTransform: 'uppercase',
           }}>
-            Versículo Clave
+            {lang === 'en' ? 'Key Verse' : 'Versículo Clave'}
           </Text>
         </View>
 
@@ -109,7 +109,7 @@ function KeyVersePage({ study, colors, sFont, lang }: { study: Study; colors: Re
       </View>
 
       {/* Scripture passage */}
-      {study.scripture_passage.verses.length > 0 && (
+      {(study.scripture_passage?.verses?.length ?? 0) > 0 && (
         <View style={{ marginTop: 24 }}>
           <Text style={{
             fontSize: sFont(11),
@@ -119,9 +119,9 @@ function KeyVersePage({ study, colors, sFont, lang }: { study: Study; colors: Re
             letterSpacing: 1,
             marginBottom: 12,
           }}>
-            Pasaje: {study.scripture_passage.reference}
+            {lang === 'en' ? 'Passage: ' : 'Pasaje: '}{study.scripture_passage?.reference}
           </Text>
-          {study.scripture_passage.verses.map((v) => (
+          {study.scripture_passage?.verses?.map((v) => (
             <View key={v.number} style={{
               flexDirection: 'row',
               gap: 10,
@@ -261,7 +261,7 @@ function CardPage({ card, colors, sFont, lang }: { card: StudyCard; colors: Retu
             letterSpacing: 1,
             marginBottom: 4,
           }}>
-            Referencias
+            {lang === 'en' ? 'References' : 'Referencias'}
           </Text>
           {card.scripture_connections.map((sc, i) => (
             <View key={i} style={{
@@ -435,7 +435,7 @@ export default function StudyReaderScreen() {
   const buildPageText = useCallback((): string => {
     if (!study) return '';
     if (page === 0) {
-      const verses = study.scripture_passage.verses.map((v) => `${v.number}. ${v.text}`).join(' ');
+      const verses = (study.scripture_passage?.verses ?? []).map((v) => `${v.number}. ${v.text}`).join(' ');
       return preprocessNumbersForTTS(sanitizeForTTS(
         `${study.key_verse.text}. ${study.key_verse.reference}. ${verses}`
       ));
@@ -475,7 +475,7 @@ export default function StudyReaderScreen() {
     setIsTTSPlaying(true);
     await Speech.stop();
     Speech.speak(text, {
-      language: 'es-MX',
+      language: language === 'en' ? 'en-US' : 'es-MX',
       rate: 0.88,
       pitch: 0.95,
       onDone: () => { if (ttsJobRef.current === jobId) setIsTTSPlaying(false); },
@@ -500,7 +500,8 @@ export default function StudyReaderScreen() {
     if (elapsedSeconds >= requiredSeconds) {
       await AsyncStorage.setItem(storageKey, '1');
       await gamificationApi.awardPoints(user.id, 'study_complete');
-      await addLedgerEntry({ kind: 'mission', delta: 300, title: 'Estudio Bíblico completado', detail: entry.title });
+      const completedTitle = language === 'en' ? (entry.title_en ?? entry.title) : entry.title;
+      await addLedgerEntry({ kind: 'mission', delta: 300, title: language === 'en' ? 'Biblical Study completed' : 'Estudio Bíblico completado', detail: completedTitle });
       setIsCompleted(true);
     }
   }, [study, user, entry]);
@@ -577,7 +578,7 @@ export default function StudyReaderScreen() {
         >
           <ArrowLeft size={16} color={ACCENT} strokeWidth={2.5} />
           <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>
-            Estudios Bíblicos
+            {language === 'en' ? 'Biblical Studies' : 'Estudios Bíblicos'}
           </Text>
         </Pressable>
 
@@ -724,7 +725,7 @@ export default function StudyReaderScreen() {
           >
             <ChevronLeft size={16} color={colors.textMuted} strokeWidth={2.5} />
             <Text style={{ fontSize: 14, fontWeight: '700', color: colors.textMuted }}>
-              Anterior
+              {language === 'en' ? 'Back' : 'Anterior'}
             </Text>
           </Pressable>
         ) : (
@@ -764,7 +765,7 @@ export default function StudyReaderScreen() {
             })}
           >
             <Text style={{ fontSize: 14, fontWeight: '700', color: colors.textMuted }}>
-              Siguiente
+              {language === 'en' ? 'Next' : 'Siguiente'}
             </Text>
             <ChevronRight size={16} color={colors.textMuted} strokeWidth={2.5} />
           </Pressable>
@@ -782,7 +783,7 @@ export default function StudyReaderScreen() {
           }}>
             <CheckCircle2 size={14} color={ACCENT} strokeWidth={2.5} />
             <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>
-              Completado
+              {language === 'en' ? 'Completed' : 'Completado'}
             </Text>
           </View>
         ) : (
