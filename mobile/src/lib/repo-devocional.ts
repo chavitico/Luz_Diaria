@@ -98,3 +98,34 @@ export const SAMPLE_DEVOCIONAL: RepoDevocional = {
 
 export const REPO_DEFAULT_IMAGE =
   'https://raw.githubusercontent.com/develop4God/Devocionales-assets/main/images/devocional_default.jpg';
+
+// English KJV version of the same devotional (Hebrews 5:8-9)
+export const SAMPLE_DEVOCIONAL_EN: RepoDevocional = {
+  id: 'hebrews589KJV',
+  date: '2026-08-01',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Hebrews 5:8-9 KJV: "Though he were a Son, yet learned he obedience by the things which he suffered; And being made perfect, he became the author of eternal salvation unto all them that obey him."',
+  reflexion:
+    'This passage from Hebrews offers a profound revelation about the humanity and divinity of Jesus Christ. Despite being the Son of God, He experienced suffering and through it learned obedience. This learning does not diminish His divinity, but exalts it, for it demonstrates His total submission to the Father\'s will.\n\nJesus did not need to learn obedience in the literal sense; rather, He perfected it through His suffering and sacrifice. This process of "perfecting" does not imply an initial lack of perfection, but the culmination of His redemptive mission.\n\nThe obedience of Christ, forged in the crucible of suffering, becomes the source of eternal salvation for all who obey Him. It invites us to reflect on the importance of obedience — not as a burden, but as a path toward spiritual maturity and participation in God\'s saving grace.',
+  para_meditar: [
+    {
+      cita: 'Philippians 2:8',
+      texto:
+        'And being found in fashion as a man, he humbled himself, and became obedient unto death, even the death of the cross.',
+    },
+    {
+      cita: 'Romans 5:19',
+      texto:
+        "For as by one man's disobedience many were made sinners, so by the obedience of one shall many be made righteous.",
+    },
+    {
+      cita: 'John 14:15',
+      texto: 'If ye love me, keep my commandments.',
+    },
+  ],
+  oracion:
+    "Heavenly Father, I thank You for the example of obedience of Your Son Jesus Christ. I recognize that, like Him, suffering can be a path to learning and growing in faith. Help me to accept trials with humility and to seek Your will in every situation.\n\nGive me the strength to obey Your commandments, knowing that in obedience I find true salvation. Allow me to understand that obedience is not a burden, but an expression of love and a path toward spiritual maturity. Guide me through difficulties and teach me to trust in Your perfect plan.\n\nMay my life reflect the obedience of Jesus, and may I be a testimony of Your love and grace. In Jesus' name, amen.",
+  tags: ['Obedience', 'Suffering', 'Salvation'],
+};
