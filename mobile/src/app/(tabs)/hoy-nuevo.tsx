@@ -44,12 +44,19 @@ import { ShareSheet } from '@/components/ShareSheet';
 import { CommentsSection } from '@/components/CommentsSection';
 import { PointsToast, usePointsToast } from '@/components/PointsToast';
 import { useMusicPlayer, MUSIC_TRACKS } from '@/components/BackgroundMusicProvider';
-import { useThemeColors, useLanguage, useUser, useUserFavorites, useAppStore } from '@/lib/store';
+import {
+  useThemeColors,
+  useLanguage,
+  useUser,
+  useUserFavorites,
+  useAppStore,
+} from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
 import { getTodayDate } from '@/lib/firestore';
 import { pickBestVoice } from '@/lib/voice-picker';
 import { sanitizeForTTS, preprocessNumbersForTTS } from '@/lib/tts-voices';
+import { useScaledFont } from '@/lib/textScale';
 import {
   SAMPLE_DEVOCIONAL,
   SAMPLE_DEVOCIONAL_EN,
@@ -58,28 +65,45 @@ import {
   parseVersiculo,
 } from '@/lib/repo-devocional';
 import { PRAYER_CATEGORIES } from '@/lib/constants';
-import { TRANSLATIONS } from '@/lib/constants';
 import { markDevotionalCompletedToday } from '@/lib/notifications';
 
 const { width } = Dimensions.get('window');
 const HERO_HEIGHT = 280;
 const TTS_RATE = 0.88;
 const TTS_PITCH = 0.95;
-const MIN_TIME_SECONDS = 180; // 3 minutes
+const MIN_TIME_SECONDS = 180;
+
+function getYesterdayDate(): string {
+  try {
+    const now = new Date();
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Costa_Rica',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const todayFormatted = formatter.format(now);
+    const [y, m, d] = todayFormatted.split('-').map(Number);
+    const yesterday = new Date(Date.UTC(y!, m! - 1, d! - 1));
+    const yy = yesterday.getUTCFullYear();
+    const mm = String(yesterday.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(yesterday.getUTCDate()).padStart(2, '0');
+    return `${yy}-${mm}-${dd}`;
+  } catch {
+    const d = new Date();
+    d.setDate(d.getDate() - 1);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+}
 
 // ─── Notification dot ────────────────────────────────────────────────────────
 function NotifDot() {
   return (
     <View style={{
-      position: 'absolute',
-      top: -2,
-      right: -2,
-      width: 8,
-      height: 8,
-      borderRadius: 4,
+      position: 'absolute', top: -2, right: -2,
+      width: 8, height: 8, borderRadius: 4,
       backgroundColor: '#EF4444',
-      borderWidth: 1.5,
-      borderColor: 'rgba(255,255,255,0.9)',
+      borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.9)',
     }} />
   );
 }
@@ -94,18 +118,17 @@ function SpiritualIntro({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
 }) {
+  const { sFont } = useScaledFont();
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY.value, [0, 80], [1, 0], Extrapolation.CLAMP),
-    transform: [
-      { translateY: interpolate(scrollY.value, [0, 80], [0, -8], Extrapolation.CLAMP) },
-    ],
+    transform: [{ translateY: interpolate(scrollY.value, [0, 80], [0, -8], Extrapolation.CLAMP) }],
   }));
   return (
     <Animated.View
       style={[{ alignItems: 'center', paddingTop: 20, paddingBottom: 8, paddingHorizontal: 8 }, animatedStyle]}
       pointerEvents="none"
     >
-      <Text style={{ fontSize: 12, color: colors.textMuted, textAlign: 'center', letterSpacing: 0.4 }}>
+      <Text style={{ fontSize: sFont(12), color: colors.textMuted, textAlign: 'center', letterSpacing: 0.4 }}>
         {language === 'es'
           ? 'Respira. Este momento es para Dios y para ti.'
           : 'Breathe. This moment is for God and for you.'}
@@ -130,6 +153,7 @@ function DailyEngagementBanner({
   isFavorite: boolean;
   onToggleFavorite: () => void;
 }) {
+  const { sFont } = useScaledFont();
   const opacity = useSharedValue(0);
   const ty = useSharedValue(8);
 
@@ -150,8 +174,8 @@ function DailyEngagementBanner({
         paddingVertical: 10, paddingHorizontal: 16, marginBottom: 12,
         borderRadius: 14, backgroundColor: colors.primary + '18', gap: 8,
       }]}>
-        <Text style={{ fontSize: 16 }}>🙏</Text>
-        <Text style={{ fontSize: 14, color: colors.primary, fontWeight: '500', flexShrink: 1 }}>
+        <Text style={{ fontSize: sFont(16) }}>🙏</Text>
+        <Text style={{ fontSize: sFont(14), color: colors.primary, fontWeight: '500', flexShrink: 1 }}>
           {language === 'es'
             ? 'Gracias por apartar este momento con Dios'
             : 'Thank you for setting aside this moment with God'}
@@ -169,7 +193,7 @@ function DailyEngagementBanner({
         backgroundColor: 'rgba(34,197,94,0.12)', gap: 6,
       }]}>
         <Check size={13} color="rgb(34,197,94)" strokeWidth={2.5} />
-        <Text style={{ fontSize: 13, color: 'rgb(34,197,94)', fontWeight: '500' }}>
+        <Text style={{ fontSize: sFont(13), color: 'rgb(34,197,94)', fontWeight: '500' }}>
           {language === 'es' ? 'Devocional de hoy completado' : "Today's devotional completed"}
         </Text>
         <Pressable
@@ -198,6 +222,7 @@ function PastoralClosure({
   colors: ReturnType<typeof useThemeColors>;
   language: 'en' | 'es';
 }) {
+  const { sFont } = useScaledFont();
   return (
     <Animated.View
       entering={FadeInDown.delay(200).duration(500)}
@@ -207,16 +232,16 @@ function PastoralClosure({
         <View style={{ width: 40, height: 1, backgroundColor: colors.primary + '40' }} />
       </View>
       <View style={{ alignItems: 'center', paddingHorizontal: 8 }}>
-        <Text style={{ fontSize: 18, marginBottom: 12 }}>🕊️</Text>
+        <Text style={{ fontSize: sFont(18), marginBottom: 12 }}>🕊️</Text>
         <Text style={{
-          fontSize: 16, fontWeight: '600', color: colors.text,
-          textAlign: 'center', lineHeight: 24, marginBottom: 8,
+          fontSize: sFont(16), fontWeight: '600', color: colors.text,
+          textAlign: 'center', lineHeight: sFont(24), marginBottom: 8,
         }}>
           {language === 'es' ? 'Gracias por apartar este tiempo.' : 'Thank you for setting aside this time.'}
         </Text>
         <Text style={{
-          fontSize: 14, color: colors.textMuted,
-          textAlign: 'center', lineHeight: 21, fontStyle: 'italic',
+          fontSize: sFont(14), color: colors.textMuted,
+          textAlign: 'center', lineHeight: sFont(21), fontStyle: 'italic',
         }}>
           {language === 'es' ? 'Dios honra un corazón que le busca.' : 'God honors a heart that seeks Him.'}
         </Text>
@@ -243,6 +268,7 @@ function SectionCard({
   onPress?: () => void;
   colors: ReturnType<typeof useThemeColors>;
 }) {
+  const { sFont } = useScaledFont();
   return (
     <Pressable
       onPress={onPress}
@@ -263,23 +289,19 @@ function SectionCard({
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
         <View style={{
           backgroundColor: iconColor + '18',
-          borderRadius: 8,
-          width: 32,
-          height: 32,
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginRight: 10,
+          borderRadius: 8, width: 32, height: 32,
+          alignItems: 'center', justifyContent: 'center', marginRight: 10,
         }}>
           {icon}
         </View>
-        <Text style={{ color: colors.text, fontSize: 16, fontWeight: '700' }}>{title}</Text>
+        <Text style={{ color: colors.text, fontSize: sFont(16), fontWeight: '700' }}>{title}</Text>
       </View>
       {children}
     </Pressable>
   );
 }
 
-// ─── Audio Controls (TTS + Music) ────────────────────────────────────────────
+// ─── Audio Controls ───────────────────────────────────────────────────────────
 function AudioControls({
   colors,
   language,
@@ -291,30 +313,24 @@ function AudioControls({
   isTTSPlaying: boolean;
   onTTSToggle: () => void;
 }) {
+  const { sFont } = useScaledFont();
   const [showMusicSettings, setShowMusicSettings] = useState(false);
   const musicPlayer = useMusicPlayer();
 
   return (
     <View style={{ marginBottom: 20 }}>
       <View style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        borderRadius: 16,
-        backgroundColor: colors.surface,
+        flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+        paddingHorizontal: 16, paddingVertical: 12,
+        borderRadius: 16, backgroundColor: colors.surface,
       }}>
         {/* TTS */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <Pressable
             onPress={onTTSToggle}
             style={{
-              width: 48,
-              height: 48,
-              borderRadius: 24,
-              alignItems: 'center',
-              justifyContent: 'center',
+              width: 48, height: 48, borderRadius: 24,
+              alignItems: 'center', justifyContent: 'center',
               backgroundColor: colors.primary,
             }}
             onPressIn={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
@@ -323,14 +339,14 @@ function AudioControls({
               ? <Pause size={20} color="#fff" fill="#fff" />
               : <Play size={20} color="#fff" fill="#fff" />}
           </Pressable>
-          <Text style={{ fontSize: 12, color: colors.textMuted }}>
+          <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
             {language === 'es' ? 'Narración' : 'Narration'}
           </Text>
         </View>
 
         {/* Music */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-          <Text style={{ fontSize: 12, color: colors.textMuted }}>
+          <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
             {language === 'es' ? 'Música' : 'Music'}
           </Text>
           <Pressable
@@ -339,11 +355,8 @@ function AudioControls({
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             }}
             style={{
-              width: 48,
-              height: 48,
-              borderRadius: 24,
-              alignItems: 'center',
-              justifyContent: 'center',
+              width: 48, height: 48, borderRadius: 24,
+              alignItems: 'center', justifyContent: 'center',
               backgroundColor: musicPlayer.isPlaying ? colors.primary : colors.textMuted + '30',
             }}
           >
@@ -357,11 +370,8 @@ function AudioControls({
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             }}
             style={{
-              width: 36,
-              height: 36,
-              borderRadius: 18,
-              alignItems: 'center',
-              justifyContent: 'center',
+              width: 36, height: 36, borderRadius: 18,
+              alignItems: 'center', justifyContent: 'center',
               backgroundColor: showMusicSettings ? colors.primary + '30' : colors.textMuted + '20',
               borderWidth: 1,
               borderColor: showMusicSettings ? colors.primary + '60' : colors.textMuted + '30',
@@ -372,13 +382,12 @@ function AudioControls({
         </View>
       </View>
 
-      {/* Track picker */}
       {showMusicSettings && (
         <Animated.View
           entering={FadeInDown.duration(200)}
           style={{ marginTop: 10, padding: 14, borderRadius: 14, backgroundColor: colors.surface }}
         >
-          <Text style={{ fontSize: 13, fontWeight: '600', marginBottom: 10, color: colors.text }}>
+          <Text style={{ fontSize: sFont(13), fontWeight: '600', marginBottom: 10, color: colors.text }}>
             {language === 'es' ? 'Pista de Música' : 'Music Track'}
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }}>
@@ -390,18 +399,13 @@ function AudioControls({
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 }}
                 style={{
-                  marginRight: 8,
-                  paddingHorizontal: 14,
-                  paddingVertical: 8,
-                  borderRadius: 20,
+                  marginRight: 8, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 20,
                   backgroundColor: musicPlayer.currentTrack === track.id
-                    ? colors.primary
-                    : colors.textMuted + '20',
+                    ? colors.primary : colors.textMuted + '20',
                 }}
               >
                 <Text style={{
-                  fontSize: 13,
-                  fontWeight: '500',
+                  fontSize: sFont(13), fontWeight: '500',
                   color: musicPlayer.currentTrack === track.id ? '#fff' : colors.text,
                 }}>
                   {language === 'es' ? track.nameEs : track.name}
@@ -421,6 +425,7 @@ export default function HoyNuevoScreen() {
   const language = useLanguage();
   const user = useUser();
   const favorites = useUserFavorites();
+  const { sFont } = useScaledFont();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const today = getTodayDate();
@@ -428,6 +433,8 @@ export default function HoyNuevoScreen() {
   const addPoints = useAppStore((s) => s.addPoints);
   const addFavorite = useAppStore((s) => s.addFavorite);
   const removeFavorite = useAppStore((s) => s.removeFavorite);
+  const incrementStreak = useAppStore((s) => s.incrementStreak);
+  const updateUser = useAppStore((s) => s.updateUser);
   const hasPendingGiftBadge = useAppStore((s) => s.notificationBadges.hasPendingGift);
 
   // Select content based on language
@@ -464,7 +471,9 @@ export default function HoyNuevoScreen() {
       const countLabel = count === 1
         ? (language === 'es' ? '1 persona' : '1 person')
         : `${count} ${language === 'es' ? 'personas' : 'people'}`;
-      return `— Por ${label.toLowerCase()} (${countLabel})`;
+      return language === 'es'
+        ? `— Por ${label.toLowerCase()} (${countLabel})`
+        : `— For ${label.toLowerCase()} (${countLabel})`;
     });
     return `${header}\n${lines.join('\n')}`;
   })();
@@ -474,11 +483,7 @@ export default function HoyNuevoScreen() {
   // ── Favorites ──
   const isFavorite = favorites.includes(today);
   const handleToggleFavorite = useCallback(() => {
-    if (isFavorite) {
-      removeFavorite(today);
-    } else {
-      addFavorite(today);
-    }
+    if (isFavorite) removeFavorite(today); else addFavorite(today);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   }, [isFavorite, today, addFavorite, removeFavorite]);
 
@@ -494,7 +499,7 @@ export default function HoyNuevoScreen() {
     if (!user) return;
     try {
       const result = await gamificationApi.awardPoints(user.id, 'share');
-      if (result?.success) {
+      if (result?.success && result.pointsAwarded > 0) {
         addPoints(result.pointsAwarded);
         addLedgerEntry({
           delta: result.pointsAwarded,
@@ -517,7 +522,7 @@ export default function HoyNuevoScreen() {
   }, []);
   const showNovedadesBadge = hasUnreadNews || hasPendingGiftBadge;
 
-  // ── Completion timer (3 minutes) ──
+  // ── Completion timer (3 minutes) — idempotent: won't double-count if HOY already ran today ──
   const [timeSpent, setTimeSpent] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
   const [showCompletionThankYou, setShowCompletionThankYou] = useState(false);
@@ -533,10 +538,13 @@ export default function HoyNuevoScreen() {
     setTimeout(() => setShowCompletionThankYou(false), 4000);
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     markDevotionalCompletedToday().catch(() => {});
+
     if (!user) return;
+
+    // Award points (backend is idempotent per action type per day)
     try {
       const result = await gamificationApi.awardPoints(user.id, 'devotional_complete');
-      if (result?.success) {
+      if (result?.success && result.pointsAwarded > 0) {
         addPoints(result.pointsAwarded);
         addLedgerEntry({
           delta: result.pointsAwarded,
@@ -547,6 +555,59 @@ export default function HoyNuevoScreen() {
         showToast(result.pointsAwarded, language === 'es' ? 'puntos (Devocional)' : 'points (Devotional)');
       }
     } catch {}
+
+    // Streak + devotionalsCompleted — same logic as HOY, shares the same lastActiveDate key
+    const lastActive = user.lastActiveDate;
+    const alreadyCountedToday = lastActive === today;
+    const yesterdayStr = getYesterdayDate();
+
+    let newStreakCurrent = user.streakCurrent;
+    let newStreakBest = user.streakBest;
+
+    if (!alreadyCountedToday) {
+      if (lastActive === yesterdayStr) {
+        newStreakCurrent = user.streakCurrent + 1;
+        newStreakBest = Math.max(newStreakCurrent, user.streakBest);
+        incrementStreak();
+      } else {
+        newStreakCurrent = 1;
+        updateUser({ streakCurrent: 1 });
+      }
+    }
+
+    const newDevotionalsCompleted = alreadyCountedToday
+      ? user.devotionalsCompleted
+      : user.devotionalsCompleted + 1;
+
+    updateUser({ devotionalsCompleted: newDevotionalsCompleted, lastActiveDate: today });
+
+    try {
+      await gamificationApi.syncUser(user.id, {
+        streakCurrent: newStreakCurrent,
+        streakBest: newStreakBest,
+        devotionalsCompleted: newDevotionalsCompleted,
+        lastActiveAt: new Date().toISOString(),
+        ...(alreadyCountedToday ? {} : { completedDevotionalDate: today }),
+      });
+    } catch {}
+
+    // Streak milestone bonuses (7-day = +200, 30-day = +600)
+    const STREAK_MILESTONES: Record<number, number> = { 7: 200, 30: 600 };
+    const milestonePoints = STREAK_MILESTONES[newStreakCurrent];
+    if (!alreadyCountedToday && milestonePoints && lastActive === yesterdayStr) {
+      try {
+        const bonus = await gamificationApi.awardPoints(user.id, 'streak_bonus', { streakDays: newStreakCurrent });
+        if (bonus.success && bonus.pointsAwarded > 0) {
+          addPoints(bonus.pointsAwarded);
+          addLedgerEntry({
+            delta: bonus.pointsAwarded,
+            kind: 'devotional',
+            title: language === 'es' ? `Racha de ${newStreakCurrent} días` : `${newStreakCurrent}-day streak`,
+            detail: '',
+          });
+        }
+      } catch {}
+    }
   };
 
   useEffect(() => {
@@ -589,24 +650,12 @@ export default function HoyNuevoScreen() {
 
   const buildTTSSections = useCallback((): { key: string; text: string }[] => {
     const sections: { key: string; text: string }[] = [];
-    sections.push({
-      key: 'verse',
-      text: preprocessNumbersForTTS(sanitizeForTTS(`${verseText}. ${reference}`)),
-    });
-    sections.push({
-      key: 'reflexion',
-      text: preprocessNumbersForTTS(sanitizeForTTS(devocional.reflexion)),
-    });
+    sections.push({ key: 'verse', text: preprocessNumbersForTTS(sanitizeForTTS(`${verseText}. ${reference}`)) });
+    sections.push({ key: 'reflexion', text: preprocessNumbersForTTS(sanitizeForTTS(devocional.reflexion)) });
     devocional.para_meditar.forEach((v, i) => {
-      sections.push({
-        key: `meditar_${i}`,
-        text: preprocessNumbersForTTS(sanitizeForTTS(`${v.cita}. ${v.texto}`)),
-      });
+      sections.push({ key: `meditar_${i}`, text: preprocessNumbersForTTS(sanitizeForTTS(`${v.cita}. ${v.texto}`)) });
     });
-    sections.push({
-      key: 'oracion',
-      text: preprocessNumbersForTTS(sanitizeForTTS(fullPrayerText)),
-    });
+    sections.push({ key: 'oracion', text: preprocessNumbersForTTS(sanitizeForTTS(fullPrayerText)) });
     return sections;
   }, [verseText, reference, devocional, fullPrayerText]);
 
@@ -628,17 +677,12 @@ export default function HoyNuevoScreen() {
     currentSectionIndexRef.current = index;
     const advance = () => {
       setTimeout(() => {
-        if (jobId === speechJobIdRef.current && isTTSPlayingRef.current) {
-          speakSection(index + 1, sections, jobId);
-        }
+        if (jobId === speechJobIdRef.current && isTTSPlayingRef.current) speakSection(index + 1, sections, jobId);
       }, 300);
     };
     const opts: Speech.SpeechOptions = {
       language: language === 'es' ? 'es-MX' : 'en-US',
-      rate: TTS_RATE,
-      pitch: TTS_PITCH,
-      onDone: advance,
-      onError: advance,
+      rate: TTS_RATE, pitch: TTS_PITCH, onDone: advance, onError: advance,
     };
     if (voiceIdRef.current) opts.voice = voiceIdRef.current;
     Speech.speak(sections[index].text, opts);
@@ -690,9 +734,7 @@ export default function HoyNuevoScreen() {
     }, [])
   );
 
-  useEffect(() => {
-    return () => { Speech.stop(); };
-  }, []);
+  useEffect(() => { return () => { Speech.stop(); }; }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
@@ -719,32 +761,21 @@ export default function HoyNuevoScreen() {
 
           {/* Top row: streak + novedades + share */}
           <View style={{
-            position: 'absolute',
-            top: insets.top + 10,
-            left: 20,
-            right: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            position: 'absolute', top: insets.top + 10, left: 20, right: 20,
+            flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
           }}>
             {user && user.streakCurrent > 0 ? (
               <View style={{
-                backgroundColor: 'rgba(249,115,22,0.90)',
-                borderRadius: 20,
-                paddingHorizontal: 12,
-                paddingVertical: 6,
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 5,
+                backgroundColor: 'rgba(249,115,22,0.90)', borderRadius: 20,
+                paddingHorizontal: 12, paddingVertical: 6,
+                flexDirection: 'row', alignItems: 'center', gap: 5,
               }}>
                 <Flame size={14} color="#fff" />
                 <Text style={{ color: '#fff', fontWeight: '700', fontSize: 13 }}>
                   {user.streakCurrent}
                 </Text>
               </View>
-            ) : (
-              <View />
-            )}
+            ) : <View />}
 
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
               <Pressable
@@ -754,14 +785,9 @@ export default function HoyNuevoScreen() {
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 }}
                 style={{
-                  backgroundColor: 'rgba(255,255,255,0.18)',
-                  borderRadius: 22,
-                  width: 44,
-                  height: 44,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderWidth: 1,
-                  borderColor: 'rgba(255,255,255,0.28)',
+                  backgroundColor: 'rgba(255,255,255,0.18)', borderRadius: 22,
+                  width: 44, height: 44, alignItems: 'center', justifyContent: 'center',
+                  borderWidth: 1, borderColor: 'rgba(255,255,255,0.28)',
                 }}
               >
                 <Mail size={18} color="#fff" />
@@ -771,14 +797,9 @@ export default function HoyNuevoScreen() {
               <Pressable
                 onPress={handleShare}
                 style={{
-                  backgroundColor: 'rgba(255,255,255,0.18)',
-                  borderRadius: 22,
-                  width: 44,
-                  height: 44,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderWidth: 1,
-                  borderColor: 'rgba(255,255,255,0.28)',
+                  backgroundColor: 'rgba(255,255,255,0.18)', borderRadius: 22,
+                  width: 44, height: 44, alignItems: 'center', justifyContent: 'center',
+                  borderWidth: 1, borderColor: 'rgba(255,255,255,0.28)',
                 }}
               >
                 <Share2 size={18} color="#fff" />
@@ -789,28 +810,16 @@ export default function HoyNuevoScreen() {
           {/* Bottom: label + title + date */}
           <View style={{ position: 'absolute', bottom: 18, left: 20, right: 20 }}>
             <Text style={{
-              color: 'rgba(255,255,255,0.55)',
-              fontSize: 10,
-              fontWeight: '700',
-              letterSpacing: 1.5,
-              textTransform: 'uppercase',
-              marginBottom: 3,
+              color: 'rgba(255,255,255,0.55)', fontSize: 10, fontWeight: '700',
+              letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 3,
             }}>
               {language === 'es' ? 'Devocional de Hoy' : "Today's Devotional"}
             </Text>
-            <Text style={{
-              color: '#fff',
-              fontSize: 22,
-              fontWeight: '700',
-              lineHeight: 28,
-              marginBottom: 6,
-            }}>
+            <Text style={{ color: '#fff', fontSize: 22, fontWeight: '700', lineHeight: 28, marginBottom: 6 }}>
               {autoTitle}
             </Text>
             <Text style={{
-              color: 'rgba(255,255,255,0.65)',
-              fontSize: 13,
-              fontWeight: '500',
+              color: 'rgba(255,255,255,0.65)', fontSize: 13, fontWeight: '500',
               textTransform: 'capitalize',
             }}>
               {formattedDate}
@@ -820,10 +829,8 @@ export default function HoyNuevoScreen() {
 
         {/* ── Content ── */}
         <View style={{ paddingHorizontal: 20 }}>
-          {/* Fading intro */}
           <SpiritualIntro scrollY={scrollY} colors={colors} language={language} />
 
-          {/* Completion banner */}
           <DailyEngagementBanner
             isCompleted={isCompleted}
             showThankYou={showCompletionThankYou}
@@ -843,34 +850,19 @@ export default function HoyNuevoScreen() {
             colors={colors}
           >
             <Text style={{
-              color: colors.text,
-              fontSize: 17,
-              lineHeight: 27,
-              fontStyle: 'italic',
-              fontWeight: '400',
+              color: colors.text, fontSize: sFont(17), lineHeight: sFont(27),
+              fontStyle: 'italic', fontWeight: '400',
             }}>
               "{verseText}"
             </Text>
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              marginTop: 10,
-            }}>
-              <View style={{
-                backgroundColor: colors.primary + '18',
-                borderRadius: 8,
-                paddingHorizontal: 8,
-                paddingVertical: 3,
-              }}>
-                <Text style={{ color: colors.primary, fontSize: 11, fontWeight: '700' }}>
-                  {version}
-                </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 10 }}>
+              <View style={{ backgroundColor: colors.primary + '18', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 }}>
+                <Text style={{ color: colors.primary, fontSize: sFont(11), fontWeight: '700' }}>{version}</Text>
               </View>
             </View>
           </SectionCard>
 
-          {/* TTS + Music bar */}
+          {/* TTS + Music */}
           <AudioControls
             colors={colors}
             language={language}
@@ -887,13 +879,7 @@ export default function HoyNuevoScreen() {
             onPress={() => handleTTSJumpTo(1)}
             colors={colors}
           >
-            <Text style={{
-              color: colors.text,
-              fontSize: 15,
-              lineHeight: 25,
-              fontWeight: '400',
-              opacity: 0.88,
-            }}>
+            <Text style={{ color: colors.text, fontSize: sFont(15), lineHeight: sFont(25), fontWeight: '400', opacity: 0.88 }}>
               {devocional.reflexion}
             </Text>
           </SectionCard>
@@ -902,17 +888,12 @@ export default function HoyNuevoScreen() {
           <View style={{ marginBottom: 20 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
               <View style={{
-                backgroundColor: '#f43f5e18',
-                borderRadius: 8,
-                width: 32,
-                height: 32,
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginRight: 10,
+                backgroundColor: '#f43f5e18', borderRadius: 8,
+                width: 32, height: 32, alignItems: 'center', justifyContent: 'center', marginRight: 10,
               }}>
                 <Heart size={16} color="#f43f5e" />
               </View>
-              <Text style={{ color: colors.text, fontSize: 16, fontWeight: '700' }}>
+              <Text style={{ color: colors.text, fontSize: sFont(16), fontWeight: '700' }}>
                 {language === 'es' ? 'Para Meditar' : 'For Reflection'}
               </Text>
             </View>
@@ -933,35 +914,25 @@ export default function HoyNuevoScreen() {
                     style={{
                       width: width * 0.72,
                       backgroundColor: highlighted ? '#f43f5e08' : colors.surface,
-                      borderRadius: 14,
-                      padding: 16,
-                      marginRight: 12,
+                      borderRadius: 14, padding: 16, marginRight: 12,
                       borderLeftWidth: 4,
                       borderLeftColor: highlighted ? '#f43f5e' : '#f43f5e60',
                       borderWidth: highlighted ? 1.5 : 0,
                       borderColor: highlighted ? '#f43f5e' : 'transparent',
                       shadowColor: '#000',
                       shadowOffset: { width: 0, height: 2 },
-                      shadowOpacity: 0.06,
-                      shadowRadius: 6,
-                      elevation: 2,
+                      shadowOpacity: 0.06, shadowRadius: 6, elevation: 2,
                     }}
                   >
                     <Text style={{
-                      color: '#f43f5e',
-                      fontSize: 13,
-                      fontWeight: '700',
-                      marginBottom: 8,
-                      letterSpacing: 0.3,
+                      color: '#f43f5e', fontSize: sFont(13), fontWeight: '700',
+                      marginBottom: 8, letterSpacing: 0.3,
                     }}>
                       {v.cita}
                     </Text>
                     <Text style={{
-                      color: colors.text,
-                      fontSize: 14,
-                      lineHeight: 22,
-                      fontStyle: 'italic',
-                      opacity: 0.85,
+                      color: colors.text, fontSize: sFont(14), lineHeight: sFont(22),
+                      fontStyle: 'italic', opacity: 0.85,
                     }}>
                       "{v.texto}"
                     </Text>
@@ -971,7 +942,7 @@ export default function HoyNuevoScreen() {
             </ScrollView>
           </View>
 
-          {/* Oración with petitions appended */}
+          {/* Oración with petitions */}
           <SectionCard
             icon={<Flame size={16} color={colors.primary} />}
             iconColor={colors.primary}
@@ -980,27 +951,17 @@ export default function HoyNuevoScreen() {
             onPress={() => handleTTSJumpTo(oracionSectionIndex)}
             colors={colors}
           >
-            <Text style={{
-              color: colors.text,
-              fontSize: 15,
-              lineHeight: 25,
-              fontStyle: 'italic',
-              opacity: 0.9,
-            }}>
+            <Text style={{ color: colors.text, fontSize: sFont(15), lineHeight: sFont(25), fontStyle: 'italic', opacity: 0.9 }}>
               {fullPrayerText}
             </Text>
             {prayerSummary && prayerSummary.total > 0 && (
               <View style={{
-                marginTop: 12,
-                paddingTop: 10,
-                borderTopWidth: 1,
-                borderTopColor: colors.primary + '20',
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 6,
+                marginTop: 12, paddingTop: 10,
+                borderTopWidth: 1, borderTopColor: colors.primary + '20',
+                flexDirection: 'row', alignItems: 'center', gap: 6,
               }}>
                 <Heart size={12} color={colors.primary} />
-                <Text style={{ fontSize: 12, color: colors.textMuted }}>
+                <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>
                   {prayerSummary.total}{' '}
                   {language === 'es' ? 'peticiones incluidas' : 'prayer requests included'}
                 </Text>
@@ -1014,23 +975,16 @@ export default function HoyNuevoScreen() {
               {devocional.tags.map((tag) => (
                 <View
                   key={tag}
-                  style={{
-                    backgroundColor: colors.primary + '12',
-                    borderRadius: 20,
-                    paddingHorizontal: 12,
-                    paddingVertical: 5,
-                  }}
+                  style={{ backgroundColor: colors.primary + '12', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 5 }}
                 >
-                  <Text style={{ fontSize: 12, fontWeight: '600', color: colors.primary }}>{tag}</Text>
+                  <Text style={{ fontSize: sFont(12), fontWeight: '600', color: colors.primary }}>{tag}</Text>
                 </View>
               ))}
             </View>
           )}
 
-          {/* Pastoral closure */}
           {isCompleted && <PastoralClosure colors={colors} language={language} />}
 
-          {/* Comments */}
           <CommentsSection devotionalDate={today} scrollViewRef={scrollRef as any} />
         </View>
       </Animated.ScrollView>
