@@ -26,7 +26,6 @@ import { TRANSLATIONS } from '@/lib/constants';
 import { POINTS } from '@/lib/types';
 import type { Devotional } from '@/lib/types';
 import {
-  REPO_DEFAULT_IMAGE,
   REPO_DEVOCIONALS,
   repoToDevotionalBilingual,
 } from '@/lib/repo-devocional';
@@ -249,8 +248,8 @@ export default function LibraryScreen() {
 
   // New-format devocionals from the repo — all dates, always available
   const repoDevotionals = useMemo<Devotional[]>(() =>
-    Object.entries(REPO_DEVOCIONALS).map(([date, { es, en }]) =>
-      repoToDevotionalBilingual(es, en, REPO_DEFAULT_IMAGE, date)
+    Object.entries(REPO_DEVOCIONALS).map(([date, { es, en, imageUrl }]) =>
+      repoToDevotionalBilingual(es, en, imageUrl, date)
     ),
   []);
 

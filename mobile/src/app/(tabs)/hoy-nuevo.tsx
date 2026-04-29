@@ -444,10 +444,10 @@ export default function HoyNuevoScreen() {
   const hasPendingGiftBadge = useAppStore((s) => s.notificationBadges.hasPendingGift);
 
   // Select content based on language and viewDate
-  const repoEntry = REPO_DEVOCIONALS[viewDate] ?? { es: SAMPLE_DEVOCIONAL, en: SAMPLE_DEVOCIONAL_EN };
+  const repoEntry = REPO_DEVOCIONALS[viewDate] ?? { es: SAMPLE_DEVOCIONAL, en: SAMPLE_DEVOCIONAL_EN, imageUrl: REPO_DEFAULT_IMAGE };
   const devocional = language === 'es' ? repoEntry.es : repoEntry.en;
   const { reference, version, text: verseText } = parseVersiculo(devocional.versiculo);
-  const mappedDevotional = { ...repoToDevotional(devocional, REPO_DEFAULT_IMAGE), date: viewDate };
+  const mappedDevotional = { ...repoToDevotional(devocional, repoEntry.imageUrl), date: viewDate };
   const autoTitle = devocional.tags[0] ?? 'Devocional';
 
   const formattedDate = new Date(viewDate + 'T12:00:00').toLocaleDateString(

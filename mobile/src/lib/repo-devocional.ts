@@ -572,15 +572,32 @@ export const DEVOTIONAL_2026_05_06_EN: RepoDevocional = {
   tags: ['Prayer'],
 };
 
-// ─── Master lookup map (date → ES + EN pair) ─────────────────────────────────
+// ─── Image pool (same as backend, 12 Unsplash photos) ─────────────────────────
 
-export const REPO_DEVOCIONALS: Record<string, { es: RepoDevocional; en: RepoDevocional }> = {
-  '2026-04-29': { es: SAMPLE_DEVOCIONAL, en: SAMPLE_DEVOCIONAL_EN },
-  '2026-04-30': { es: DEVOCIONAL_2026_04_30, en: DEVOTIONAL_2026_04_30_EN },
-  '2026-05-01': { es: DEVOCIONAL_2026_05_01, en: DEVOTIONAL_2026_05_01_EN },
-  '2026-05-02': { es: DEVOCIONAL_2026_05_02, en: DEVOTIONAL_2026_05_02_EN },
-  '2026-05-03': { es: DEVOCIONAL_2026_05_03, en: DEVOTIONAL_2026_05_03_EN },
-  '2026-05-04': { es: DEVOCIONAL_2026_05_04, en: DEVOTIONAL_2026_05_04_EN },
-  '2026-05-05': { es: DEVOCIONAL_2026_05_05, en: DEVOTIONAL_2026_05_05_EN },
-  '2026-05-06': { es: DEVOCIONAL_2026_05_06, en: DEVOTIONAL_2026_05_06_EN },
+export const REPO_IMAGES = [
+  'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=800&q=80', // Sunrise over mountains
+  'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=800&q=80', // Golden field
+  'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=800&q=80', // Misty forest
+  'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=800&q=80', // Sunlight through trees
+  'https://images.unsplash.com/photo-1476820865390-c52aeebb9891?w=800&q=80', // Ocean waves
+  'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80', // Flowers
+  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80', // Mountain valley
+  'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&q=80', // Lake reflection
+  'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&q=80', // Waterfall
+  'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80', // Mountain sunrise
+  'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&q=80', // Forest path
+  'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&q=80', // Valley view
+] as const;
+
+// ─── Master lookup map (date → ES + EN pair + image) ─────────────────────────
+
+export const REPO_DEVOCIONALS: Record<string, { es: RepoDevocional; en: RepoDevocional; imageUrl: string }> = {
+  '2026-04-29': { es: SAMPLE_DEVOCIONAL,      en: SAMPLE_DEVOCIONAL_EN,      imageUrl: REPO_IMAGES[3]  }, // Sunlight through trees
+  '2026-04-30': { es: DEVOCIONAL_2026_04_30,  en: DEVOTIONAL_2026_04_30_EN,  imageUrl: REPO_IMAGES[1]  }, // Golden field
+  '2026-05-01': { es: DEVOCIONAL_2026_05_01,  en: DEVOTIONAL_2026_05_01_EN,  imageUrl: REPO_IMAGES[0]  }, // Sunrise over mountains
+  '2026-05-02': { es: DEVOCIONAL_2026_05_02,  en: DEVOTIONAL_2026_05_02_EN,  imageUrl: REPO_IMAGES[4]  }, // Ocean waves
+  '2026-05-03': { es: DEVOCIONAL_2026_05_03,  en: DEVOTIONAL_2026_05_03_EN,  imageUrl: REPO_IMAGES[2]  }, // Misty forest
+  '2026-05-04': { es: DEVOCIONAL_2026_05_04,  en: DEVOTIONAL_2026_05_04_EN,  imageUrl: REPO_IMAGES[5]  }, // Flowers
+  '2026-05-05': { es: DEVOCIONAL_2026_05_05,  en: DEVOTIONAL_2026_05_05_EN,  imageUrl: REPO_IMAGES[6]  }, // Mountain valley
+  '2026-05-06': { es: DEVOCIONAL_2026_05_06,  en: DEVOTIONAL_2026_05_06_EN,  imageUrl: REPO_IMAGES[7]  }, // Lake reflection
 };
