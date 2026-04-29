@@ -877,7 +877,7 @@ function SpiritualIntro({
       >
         {language === 'es'
           ? 'Respira. Este momento es para Dios y para ti.'
-          : 'Breathe. This moment is for you.'}
+          : 'Breathe. This moment is for God and for you.'}
       </Text>
     </Animated.View>
   );
@@ -1200,31 +1200,7 @@ function DailyEngagementBanner({
     );
   }
 
-  // Not completed yet — soft pastoral nudge
-  return (
-    <Animated.View
-      style={[
-        animatedStyle,
-        {
-          paddingBottom: 8,
-          marginBottom: 4,
-        },
-      ]}
-    >
-      <Text
-        style={{
-          fontSize: sFont(14),
-          color: colors.textMuted,
-          fontStyle: 'italic',
-          letterSpacing: 0.1,
-        }}
-      >
-        {language === 'es'
-          ? 'Tómate un momento para Dios hoy.'
-          : 'Take a moment for God today.'}
-      </Text>
-    </Animated.View>
-  );
+  return null;
 }
 
 export default function HomeScreen() {

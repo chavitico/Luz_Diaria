@@ -2658,5 +2658,15 @@
     "amount": 0,
     "metadata": "{}",
     "createdAt": "2026-04-29T01:12:09.309Z"
+  },
+  {
+    "id": "cmojncimp0013m2bmennpsats",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmojnbpfv0011m2bmtaxrlr1q",
+    "type": "duel_loss",
+    "dateId": "2026-04-29",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmojnbpfv0011m2bmtaxrlr1q\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-04-29T06:00:58.705Z"
   }
 ]
