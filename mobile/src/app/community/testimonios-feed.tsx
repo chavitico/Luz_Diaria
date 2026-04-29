@@ -35,6 +35,7 @@ import {
   Clock,
   XCircle,
   X,
+  Globe,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
@@ -192,6 +193,41 @@ function TestimonyCard({
 }) {
   const colors = useThemeColors();
   const { sFont } = useScaledFont();
+  const language = useLanguage() as 'es' | 'en';
+  const [translatedText, setTranslatedText] = useState<string | null>(null);
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [showTranslated, setShowTranslated] = useState(false);
+
+  const translateLabel = language === 'es' ? 'Traducir' : 'Translate';
+  const originalLabel = language === 'es' ? 'Ver original' : 'Show original';
+
+  const handleTranslate = async () => {
+    if (showTranslated) {
+      setShowTranslated(false);
+      return;
+    }
+    if (translatedText) {
+      setShowTranslated(true);
+      return;
+    }
+    setIsTranslating(true);
+    try {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/translate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: testimony.text, targetLanguage: language }),
+      });
+      if (res.ok) {
+        const data = await res.json() as { translatedText: string };
+        setTranslatedText(data.translatedText);
+        setShowTranslated(true);
+      }
+    } finally {
+      setIsTranslating(false);
+    }
+  };
+
+  const displayText = showTranslated && translatedText ? translatedText : testimony.text;
 
   return (
     <Animated.View
@@ -238,11 +274,11 @@ function TestimonyCard({
             marginBottom: 14,
           }}
         >
-          "{testimony.text}"
+          "{displayText}"
         </Text>
 
-        {/* Bottom row: like button */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: colors.textMuted + '12', paddingTop: 10 }}>
+        {/* Bottom row: like + translate */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderTopWidth: 1, borderTopColor: colors.textMuted + '12', paddingTop: 10 }}>
           <HeartButton
             testimonyId={testimony.id}
             likeCount={testimony.likeCount}
@@ -250,6 +286,29 @@ function TestimonyCard({
             userId={userId}
             onOptimisticUpdate={onOptimisticUpdate}
           />
+          <Pressable
+            onPress={handleTranslate}
+            disabled={isTranslating}
+            style={({ pressed }) => ({
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 4,
+              paddingVertical: 4,
+              paddingHorizontal: 8,
+              borderRadius: 10,
+              backgroundColor: showTranslated ? colors.primary + '18' : 'transparent',
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            {isTranslating ? (
+              <ActivityIndicator size="small" color={colors.textMuted} style={{ width: 14, height: 14 }} />
+            ) : (
+              <Globe size={13} color={showTranslated ? colors.primary : colors.textMuted} strokeWidth={2} />
+            )}
+            <Text style={{ fontSize: sFont(12), color: showTranslated ? colors.primary : colors.textMuted, fontWeight: showTranslated ? '600' : '400' }}>
+              {showTranslated ? originalLabel : translateLabel}
+            </Text>
+          </Pressable>
         </View>
       </View>
     </Animated.View>
