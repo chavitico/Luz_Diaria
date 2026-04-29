@@ -61,23 +61,21 @@ testimoniesRouter.get("/approved", async (c) => {
 });
 
 // ─── GET /api/testimonies/mine  ───────────────────────────────────────────────
-// Returns the current user's testimony (if any)
+// Returns the current user's most recent testimony + approved count
 testimoniesRouter.get("/mine", async (c) => {
   const userId = c.req.header("x-user-id");
   if (!userId) return c.json({ error: "Missing userId" }, 400);
 
-  const testimony = await prisma.testimony.findFirst({
-    where: { userId },
-    orderBy: { createdAt: "desc" },
-    select: {
-      id: true,
-      text: true,
-      status: true,
-      createdAt: true,
-    },
-  });
+  const [testimony, approvedCount] = await Promise.all([
+    prisma.testimony.findFirst({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+      select: { id: true, text: true, status: true, createdAt: true },
+    }),
+    prisma.testimony.count({ where: { userId, status: "APPROVED" } }),
+  ]);
 
-  return c.json({ testimony });
+  return c.json({ testimony, approvedCount });
 });
 
 // ─── POST /api/testimonies  ───────────────────────────────────────────────────
@@ -100,12 +98,12 @@ testimoniesRouter.post(
       where: { userId, status: "PENDING" },
     });
 
-    // Don't allow resubmit if already approved
-    const existing = await prisma.testimony.findFirst({
+    // Don't allow more than 3 approved testimonies
+    const approvedCount = await prisma.testimony.count({
       where: { userId, status: "APPROVED" },
     });
-    if (existing) {
-      return c.json({ error: "Ya tienes un testimonio aprobado publicado." }, 409);
+    if (approvedCount >= 3) {
+      return c.json({ error: "Has alcanzado el límite de 3 testimonios publicados." }, 409);
     }
 
     const testimony = await prisma.testimony.create({

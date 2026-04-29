@@ -71,6 +71,11 @@ interface MyTestimony {
   createdAt: string;
 }
 
+interface MyTestimonyData {
+  testimony: MyTestimony | null;
+  approvedCount: number;
+}
+
 // ─── AvatarWithFrame ──────────────────────────────────────────────────────────
 
 function AvatarWithFrame({
@@ -332,41 +337,72 @@ function formatRelativeDate(dateStr: string): string {
 
 // ─── TestimonySubmitModal ─────────────────────────────────────────────────────
 
+const MODAL_T = {
+  es: {
+    title: 'Compartir testimonio',
+    subtitle: 'Lo que Dios ha hecho en tu vida',
+    approvedSingle: 'Tu testimonio ya está publicado.',
+    approvedFull: 'Has alcanzado el límite de 3 testimonios publicados.',
+    approvedCount: (n: number) => `${n}/3 testimonios publicados. Puedes compartir otro.`,
+    pending: 'Tu testimonio está en revisión.',
+    rejected: 'Tu testimonio fue rechazado. Puedes enviar uno nuevo.',
+    placeholder: 'Cuenta lo que Dios ha hecho en tu vida...',
+    minChars: (n: number) => `Mínimo ${n} caracteres más`,
+    send: 'Enviar testimonio',
+    genericError: 'Error al enviar',
+  },
+  en: {
+    title: 'Share testimony',
+    subtitle: 'What God has done in your life',
+    approvedSingle: 'Your testimony is published.',
+    approvedFull: "You've reached the limit of 3 published testimonies.",
+    approvedCount: (n: number) => `${n}/3 testimonies published. You can share another.`,
+    pending: 'Your testimony is under review.',
+    rejected: 'Your testimony was rejected. You can submit a new one.',
+    placeholder: 'Tell what God has done in your life...',
+    minChars: (n: number) => `${n} more characters needed`,
+    send: 'Submit testimony',
+    genericError: 'Error sending',
+  },
+};
+
 function TestimonySubmitModal({
   visible,
   onClose,
   userId,
-  myTestimony,
+  myTestimonyData,
   onSubmitted,
 }: {
   visible: boolean;
   onClose: () => void;
   userId: string | undefined;
-  myTestimony: MyTestimony | null | undefined;
+  myTestimonyData: MyTestimonyData | null | undefined;
   onSubmitted: () => void;
 }) {
   const colors = useThemeColors();
   const insets = useSafeAreaInsets();
   const { sFont } = useScaledFont();
+  const language = useLanguage() as 'es' | 'en';
+  const t = MODAL_T[language];
   const [text, setText] = useState<string>('');
 
   const charCount = text.length;
   const isValid = charCount >= 20 && charCount <= 500;
+
+  const myTestimony = myTestimonyData?.testimony;
+  const approvedCount = myTestimonyData?.approvedCount ?? 0;
 
   const submitMutation = useMutation({
     mutationFn: async (testimonyText: string) => {
       if (!userId) throw new Error('No user');
       const res = await fetchWithTimeout(`${BACKEND_URL}/api/testimonies`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-user-id': userId,
-        },
+        headers: { 'Content-Type': 'application/json', 'x-user-id': userId },
         body: JSON.stringify({ text: testimonyText }),
       });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error((err as { error?: string }).error ?? 'Error al enviar');
+        throw new Error((err as { error?: string }).error ?? t.genericError);
       }
       return res.json();
     },
@@ -383,19 +419,16 @@ function TestimonySubmitModal({
     submitMutation.mutate(text);
   };
 
-  const hasApproved = myTestimony?.status === 'APPROVED';
   const hasPending = myTestimony?.status === 'PENDING';
+  const hasRejected = myTestimony?.status === 'REJECTED';
+  const isAtLimit = approvedCount >= 3;
+  // Can submit if: not at limit AND not pending
+  const canSubmit = !isAtLimit && !hasPending;
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
-        <Pressable
-          style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-end' }}
-          onPress={onClose}
-        >
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+        <Pressable style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-end' }} onPress={onClose}>
           <Pressable
             onPress={() => {}}
             style={{
@@ -421,43 +454,43 @@ function TestimonySubmitModal({
                 <MessageSquareHeart size={18} color="#8B5CF6" />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: sFont(17), fontWeight: '700', color: colors.text }}>Compartir testimonio</Text>
-                <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>Lo que Dios ha hecho en tu vida</Text>
+                <Text style={{ fontSize: sFont(17), fontWeight: '700', color: colors.text }}>{t.title}</Text>
+                <Text style={{ fontSize: sFont(12), color: colors.textMuted }}>{t.subtitle}</Text>
               </View>
               <Pressable onPress={onClose} style={{ padding: 4 }}>
                 <X size={20} color={colors.textMuted} />
               </Pressable>
             </View>
 
-            {hasApproved ? (
+            {/* Status banners */}
+            {isAtLimit ? (
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, padding: 16, borderRadius: 14, backgroundColor: '#10B98115', marginBottom: 16 }}>
                 <CheckCircle size={20} color="#10B981" />
-                <Text style={{ fontSize: sFont(14), color: '#10B981', flex: 1, fontWeight: '500' }}>
-                  Tu testimonio ya está publicado.
-                </Text>
+                <Text style={{ fontSize: sFont(14), color: '#10B981', flex: 1, fontWeight: '500' }}>{t.approvedFull}</Text>
+              </View>
+            ) : approvedCount > 0 ? (
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, padding: 16, borderRadius: 14, backgroundColor: '#10B98115', marginBottom: 16 }}>
+                <CheckCircle size={20} color="#10B981" />
+                <Text style={{ fontSize: sFont(14), color: '#10B981', flex: 1, fontWeight: '500' }}>{t.approvedCount(approvedCount)}</Text>
               </View>
             ) : hasPending ? (
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, padding: 16, borderRadius: 14, backgroundColor: '#F59E0B15', marginBottom: 16 }}>
                 <Clock size={20} color="#F59E0B" />
-                <Text style={{ fontSize: sFont(14), color: '#F59E0B', flex: 1, fontWeight: '500' }}>
-                  Tu testimonio está en revisión.
-                </Text>
+                <Text style={{ fontSize: sFont(14), color: '#F59E0B', flex: 1, fontWeight: '500' }}>{t.pending}</Text>
               </View>
-            ) : myTestimony?.status === 'REJECTED' ? (
+            ) : hasRejected ? (
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, padding: 16, borderRadius: 14, backgroundColor: '#EF444415', marginBottom: 16 }}>
                 <XCircle size={20} color="#EF4444" />
-                <Text style={{ fontSize: sFont(14), color: '#EF4444', flex: 1, fontWeight: '500' }}>
-                  Tu testimonio fue rechazado. Puedes enviar uno nuevo.
-                </Text>
+                <Text style={{ fontSize: sFont(14), color: '#EF4444', flex: 1, fontWeight: '500' }}>{t.rejected}</Text>
               </View>
             ) : null}
 
-            {!hasApproved && (
+            {canSubmit && (
               <>
                 <TextInput
                   value={text}
                   onChangeText={setText}
-                  placeholder="Cuenta lo que Dios ha hecho en tu vida..."
+                  placeholder={t.placeholder}
                   placeholderTextColor={colors.textMuted}
                   multiline
                   maxLength={500}
@@ -477,7 +510,7 @@ function TestimonySubmitModal({
                 />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
                   <Text style={{ fontSize: sFont(12), color: charCount < 20 ? '#EF4444' : colors.textMuted }}>
-                    {charCount < 20 ? `Mínimo ${20 - charCount} caracteres más` : ''}
+                    {charCount < 20 ? t.minChars(20 - charCount) : ''}
                   </Text>
                   <Text style={{ fontSize: sFont(12), color: charCount > 450 ? '#F59E0B' : colors.textMuted }}>
                     {charCount}/500
@@ -487,7 +520,7 @@ function TestimonySubmitModal({
                 {submitMutation.isError && (
                   <View style={{ padding: 12, borderRadius: 12, backgroundColor: '#EF444415', marginBottom: 12 }}>
                     <Text style={{ fontSize: sFont(13), color: '#EF4444', textAlign: 'center' }}>
-                      {(submitMutation.error as Error)?.message ?? 'Error al enviar'}
+                      {(submitMutation.error as Error)?.message ?? t.genericError}
                     </Text>
                   </View>
                 )}
@@ -512,7 +545,7 @@ function TestimonySubmitModal({
                     <>
                       <Send size={16} color={isValid ? colors.primaryText : colors.textMuted} />
                       <Text style={{ fontSize: sFont(15), fontWeight: '700', color: isValid ? colors.primaryText : colors.textMuted }}>
-                        Enviar testimonio
+                        {t.send}
                       </Text>
                     </>
                   )}
@@ -556,14 +589,14 @@ export default function TestimoniosFeedScreen() {
     retry: 1,
   });
 
-  const { data: myTestimonyData } = useQuery<{ testimony: MyTestimony | null }>({
+  const { data: myTestimonyData } = useQuery<MyTestimonyData>({
     queryKey: ['my-testimony', userId],
     queryFn: async () => {
-      if (!userId) return { testimony: null };
+      if (!userId) return { testimony: null, approvedCount: 0 };
       const res = await fetchWithTimeout(`${BACKEND_URL}/api/testimonies/mine`, {
         headers: { 'x-user-id': userId },
       });
-      if (!res.ok) return { testimony: null };
+      if (!res.ok) return { testimony: null, approvedCount: 0 };
       return res.json();
     },
     enabled: !!userId,
@@ -698,7 +731,7 @@ export default function TestimoniosFeedScreen() {
         visible={showShareModal}
         onClose={() => setShowShareModal(false)}
         userId={userId}
-        myTestimony={myTestimonyData?.testimony}
+        myTestimonyData={myTestimonyData}
         onSubmitted={() => {
           queryClient.invalidateQueries({ queryKey: ['my-testimony', userId] });
           queryClient.invalidateQueries({ queryKey: ['testimonies-feed', userId] });
