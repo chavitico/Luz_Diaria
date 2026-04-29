@@ -26,9 +26,8 @@ import { TRANSLATIONS } from '@/lib/constants';
 import { POINTS } from '@/lib/types';
 import type { Devotional } from '@/lib/types';
 import {
-  SAMPLE_DEVOCIONAL,
-  SAMPLE_DEVOCIONAL_EN,
   REPO_DEFAULT_IMAGE,
+  REPO_DEVOCIONALS,
   repoToDevotionalBilingual,
 } from '@/lib/repo-devocional';
 import { cn } from '@/lib/cn';
@@ -248,10 +247,12 @@ export default function LibraryScreen() {
   const addFavorite = useAppStore((s) => s.addFavorite);
   const removeFavorite = useAppStore((s) => s.removeFavorite);
 
-  // New-format devocionals from the repo — always available, no network needed
-  const repoDevotionals = useMemo<Devotional[]>(() => [
-    repoToDevotionalBilingual(SAMPLE_DEVOCIONAL, SAMPLE_DEVOCIONAL_EN, REPO_DEFAULT_IMAGE, today),
-  ], [today]);
+  // New-format devocionals from the repo — all dates, always available
+  const repoDevotionals = useMemo<Devotional[]>(() =>
+    Object.entries(REPO_DEVOCIONALS).map(([date, { es, en }]) =>
+      repoToDevotionalBilingual(es, en, REPO_DEFAULT_IMAGE, date)
+    ),
+  []);
 
   const handleToggleFavorite = useCallback((devotional: Devotional) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -310,9 +311,11 @@ export default function LibraryScreen() {
     return Array.from(topicSet).sort();
   }, [devotionals, repoDevotionals, language]);
 
+  const repoDates = useMemo(() => new Set(Object.keys(REPO_DEVOCIONALS)), []);
+
   const filteredDevotionals = useMemo(() => {
-    // Merge: new-format (today) + historical old-format (excluding today to avoid duplicate)
-    const historical = (devotionals ?? []).filter((d) => d.date !== today);
+    // Merge: repo entries + historical old-format (excluding any dates repo already covers)
+    const historical = (devotionals ?? []).filter((d) => !repoDates.has(d.date));
     const merged = [...repoDevotionals, ...historical].sort((a, b) =>
       b.date.localeCompare(a.date)
     );
@@ -343,12 +346,11 @@ export default function LibraryScreen() {
 
       return true;
     });
-  }, [devotionals, repoDevotionals, today, filter, favorites, selectedCategory, searchQuery, language]);
+  }, [devotionals, repoDevotionals, repoDates, filter, favorites, selectedCategory, searchQuery, language]);
 
   const handleDevotionalPress = useCallback((devotional: Devotional) => {
     if (devotional.source === 'repo') {
-      // New-format devocionals open in the dedicated tab
-      router.push('/(tabs)/hoy-nuevo');
+      router.push({ pathname: '/(tabs)/hoy-nuevo', params: { date: devotional.date } });
       return;
     }
     router.push({
@@ -419,8 +421,14 @@ export default function LibraryScreen() {
     [favorites, language, colors, handleDevotionalPress, handleOpenShareModal, handleToggleFavorite]
   );
 
+  // Upcoming locked cards — exclude dates already covered by repo devotionals
+  const filteredUpcoming = useMemo(
+    () => (upcomingDevotionals ?? []).filter((u) => !repoDates.has(u.date)),
+    [upcomingDevotionals, repoDates]
+  );
+
   // Upcoming section is only shown in 'all' filter with no active search/category filter
-  const showUpcoming = filter === 'all' && !searchQuery.trim() && selectedCategory === 'all' && (upcomingDevotionals?.length ?? 0) > 0;
+  const showUpcoming = filter === 'all' && !searchQuery.trim() && selectedCategory === 'all' && filteredUpcoming.length > 0;
 
   return (
     <View className="flex-1" style={{ backgroundColor: colors.background }}>
@@ -582,7 +590,7 @@ export default function LibraryScreen() {
                         style={{ backgroundColor: colors.primary + '20' }}
                       >
                         <Text className="text-xs font-bold" style={{ color: colors.primary }}>
-                          {upcomingDevotionals?.length ?? 0}
+                          {filteredUpcoming.length}
                         </Text>
                       </View>
                     </View>
@@ -590,7 +598,7 @@ export default function LibraryScreen() {
                       ? <ChevronUp size={16} color={colors.textMuted} />
                       : <ChevronDown size={16} color={colors.textMuted} />}
                   </Pressable>
-                  {upcomingExpanded && upcomingDevotionals?.map(item => (
+                  {upcomingExpanded && filteredUpcoming.map(item => (
                     <UpcomingCard key={item.date} item={item} language={language} colors={colors} />
                   ))}
                 </View>

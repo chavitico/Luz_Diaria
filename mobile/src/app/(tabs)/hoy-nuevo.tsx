@@ -22,7 +22,7 @@ import Animated, {
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useFocusEffect, useRouter } from 'expo-router';
+import { useFocusEffect, useRouter, useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Share2,
@@ -61,6 +61,7 @@ import {
   SAMPLE_DEVOCIONAL,
   SAMPLE_DEVOCIONAL_EN,
   REPO_DEFAULT_IMAGE,
+  REPO_DEVOCIONALS,
   repoToDevotional,
   parseVersiculo,
 } from '@/lib/repo-devocional';
@@ -429,6 +430,10 @@ export default function HoyNuevoScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const today = getTodayDate();
+  const { date: dateParam } = useLocalSearchParams<{ date?: string }>();
+  // viewDate: the devotional being read (may differ from today for previewing future ones)
+  const viewDate = (dateParam && REPO_DEVOCIONALS[dateParam]) ? dateParam : today;
+  const isToday = viewDate === today;
   const { currentToast, showToast, hideToast } = usePointsToast();
   const queryClient = useQueryClient();
   const addPoints = useAppStore((s) => s.addPoints);
@@ -438,13 +443,14 @@ export default function HoyNuevoScreen() {
   const updateUser = useAppStore((s) => s.updateUser);
   const hasPendingGiftBadge = useAppStore((s) => s.notificationBadges.hasPendingGift);
 
-  // Select content based on language
-  const devocional = language === 'es' ? SAMPLE_DEVOCIONAL : SAMPLE_DEVOCIONAL_EN;
+  // Select content based on language and viewDate
+  const repoEntry = REPO_DEVOCIONALS[viewDate] ?? { es: SAMPLE_DEVOCIONAL, en: SAMPLE_DEVOCIONAL_EN };
+  const devocional = language === 'es' ? repoEntry.es : repoEntry.en;
   const { reference, version, text: verseText } = parseVersiculo(devocional.versiculo);
-  const mappedDevotional = { ...repoToDevotional(devocional, REPO_DEFAULT_IMAGE), date: today };
+  const mappedDevotional = { ...repoToDevotional(devocional, REPO_DEFAULT_IMAGE), date: viewDate };
   const autoTitle = devocional.tags[0] ?? 'Devocional';
 
-  const formattedDate = new Date(today + 'T12:00:00').toLocaleDateString(
+  const formattedDate = new Date(viewDate + 'T12:00:00').toLocaleDateString(
     language === 'es' ? 'es-ES' : 'en-US',
     { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
   );
@@ -503,24 +509,28 @@ export default function HoyNuevoScreen() {
 
   const handleShareComplete = async () => {
     if (!user) return;
-    if (!canShare) {
+    if (isToday && !canShare) {
       showToast(0, language === 'es' ? 'Limite diario alcanzado' : 'Daily limit reached', 'warning');
       return;
     }
     const newShareCount = shareCount + 1;
-    updateUser({
-      totalShares: (user.totalShares ?? 0) + 1,
-      dailyActions: { ...dailyActions, shareDate: today, shareCount: newShareCount },
-    });
+    if (isToday) {
+      updateUser({
+        totalShares: (user.totalShares ?? 0) + 1,
+        dailyActions: { ...dailyActions, shareDate: today, shareCount: newShareCount },
+      });
+    }
     try {
-      const result = await gamificationApi.awardPoints(user.id, 'share');
-      if (result?.success && result.pointsAwarded > 0) {
-        addPoints(result.pointsAwarded);
-        addLedgerEntry({ delta: result.pointsAwarded, kind: 'devotional', title: language === 'es' ? 'Devocional compartido' : 'Devotional shared', detail: '' });
-        showToast(result.pointsAwarded, language === 'es' ? 'puntos (Compartir)' : 'points (Share)');
+      if (isToday) {
+        const result = await gamificationApi.awardPoints(user.id, 'share');
+        if (result?.success && result.pointsAwarded > 0) {
+          addPoints(result.pointsAwarded);
+          addLedgerEntry({ delta: result.pointsAwarded, kind: 'devotional', title: language === 'es' ? 'Devocional compartido' : 'Devotional shared', detail: '' });
+          showToast(result.pointsAwarded, language === 'es' ? 'puntos (Compartir)' : 'points (Share)');
+        }
+        await gamificationApi.updateChallengeProgress(user.id, 'share');
+        queryClient.invalidateQueries({ queryKey: ['challengeProgress', user.id] });
       }
-      await gamificationApi.updateChallengeProgress(user.id, 'share');
-      queryClient.invalidateQueries({ queryKey: ['challengeProgress', user.id] });
     } catch {}
   };
 
@@ -544,11 +554,11 @@ export default function HoyNuevoScreen() {
 
   // Restore completed state if user already finished today (via HOY or this tab)
   useEffect(() => {
-    if (user?.lastActiveDate === today) {
+    if (isToday && user?.lastActiveDate === today) {
       setIsCompleted(true);
       isCompletedRef.current = true;
     }
-  }, [user?.lastActiveDate, today]);
+  }, [isToday, user?.lastActiveDate, today]);
 
   const handleCompleteRef = useRef<(() => Promise<void>) | undefined>(undefined);
   handleCompleteRef.current = async () => {
@@ -558,9 +568,9 @@ export default function HoyNuevoScreen() {
     setShowCompletionThankYou(true);
     setTimeout(() => setShowCompletionThankYou(false), 4000);
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    markDevotionalCompletedToday().catch(() => {});
+    if (isToday) markDevotionalCompletedToday().catch(() => {});
 
-    if (!user) return;
+    if (!user || !isToday) return;
 
     // Award points (backend is idempotent per action type per day)
     try {
@@ -690,8 +700,8 @@ export default function HoyNuevoScreen() {
       isTTSPlayingRef.current = false;
       setCurrentSectionIndex(-1);
       currentSectionIndexRef.current = -1;
-      // Award TTS complete points (once per day)
-      if (user && !ttsCompletedTodayRef.current) {
+      // Award TTS complete points (once per day, only for today's devotional)
+      if (user && isToday && !ttsCompletedTodayRef.current) {
         ttsCompletedTodayRef.current = true;
         const da = user.dailyActions ?? {};
         updateUser({ dailyActions: { ...da, ttsDate: today, ttsDone: true } });
