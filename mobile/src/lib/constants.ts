@@ -1062,10 +1062,12 @@ export const BADGES: Record<string, {
   descriptionEs: string;
   /** Spiritual meaning shown in Community modal */
   meaningEs: string;
+  meaningEn: string;
   /** Short description shown in the compact profile card */
   profileCardEs: string;
   /** How to earn — shown in Settings modal only */
   howToEarnEs: string;
+  howToEarnEn: string;
   rarity: 'unique' | 'common' | 'rare' | 'epic';
   milestone: {          // condition for auto-award
     type: 'devotionals' | 'streak' | 'points' | 'days_active' | 'special';
@@ -1082,8 +1084,10 @@ export const BADGES: Record<string, {
     description: 'Started this community from the very beginning',
     descriptionEs: 'Inició esta comunidad desde el principio',
     meaningEs: 'Reconoce a quienes estuvieron desde el inicio sembrando esta obra con fe y entrega.',
+    meaningEn: 'Honors those who were here from the very beginning, sowing this work with faith and dedication.',
     profileCardEs: 'Desde el inicio, sembrando esta obra con fe y entrega.',
     howToEarnEs: 'Disponible para quienes formaron parte de los primeros pasos de esta comunidad. Un honor reservado para los que confiaron desde el principio.',
+    howToEarnEn: 'Available to those who were part of the first steps of this community. An honor reserved for those who trusted from the beginning.',
     rarity: 'unique',
     milestone: { type: 'special', value: 0 },
   },
@@ -1096,8 +1100,10 @@ export const BADGES: Record<string, {
     description: 'One of the first members of the community',
     descriptionEs: 'Uno de los primeros miembros de la comunidad',
     meaningEs: 'Para quienes se unieron cuando todo comenzaba, caminando con esperanza hacia lo que Dios estaba construyendo.',
+    meaningEn: 'For those who joined when everything was just beginning, walking with hope toward what God was building.',
     profileCardEs: 'De los primeros en caminar con esperanza hacia lo que Dios construía.',
     howToEarnEs: 'Se otorga a quienes se integraron a la comunidad en sus primeras etapas. Un símbolo de confianza y comienzo.',
+    howToEarnEn: 'Granted to those who joined the community in its early stages. A symbol of trust and new beginnings.',
     rarity: 'rare',
     milestone: { type: 'special', value: 1 },
   },
@@ -1111,8 +1117,10 @@ export const BADGES: Record<string, {
     description: 'Planting seeds of harmony every day',
     descriptionEs: 'Sembrando semillas de paz cada día',
     meaningEs: 'Para quienes promueven la paz y la constancia en la comunidad, sembrando con paciencia y amor.',
+    meaningEn: 'For those who promote peace and steadfastness in the community, sowing with patience and love.',
     profileCardEs: 'Sembrando paz y constancia con paciencia y amor.',
     howToEarnEs: 'Se otorga al perseverar día a día en la lectura y reflexión de la Palabra. La constancia es la semilla.',
+    howToEarnEn: 'Earned by persevering day after day in reading and reflecting on the Word. Consistency is the seed.',
     rarity: 'rare',
     milestone: { type: 'devotionals', value: 30 },
   },
@@ -1125,8 +1133,10 @@ export const BADGES: Record<string, {
     description: 'Steps guided by trust in God',
     descriptionEs: 'Pasos guiados por confianza en Dios',
     meaningEs: 'Cada paso en fe, aunque pequeño, nos acerca más a Dios. Esta insignia celebra el caminar fiel.',
+    meaningEn: 'Every step of faith, however small, brings us closer to God. This badge celebrates faithful walking.',
     profileCardEs: 'Cada paso en fe nos acerca más a Dios.',
     howToEarnEs: 'Se obtiene al dar los primeros pasos firmes en la lectura devocional. No importa el ritmo, importa seguir adelante.',
+    howToEarnEn: 'Earned by taking the first steady steps in devotional reading. The pace does not matter — what matters is pressing on.',
     rarity: 'common',
     milestone: { type: 'devotionals', value: 7 },
   },
@@ -1139,8 +1149,10 @@ export const BADGES: Record<string, {
     description: 'Bringing light into dark places',
     descriptionEs: 'Llevando luz a los lugares oscuros',
     meaningEs: 'Quien lleva esperanza es una luz para quienes los rodean. Esta insignia honra a los que no se rinden.',
+    meaningEn: 'Those who carry hope are a light to everyone around them. This badge honors those who never give up.',
     profileCardEs: 'Una luz para quienes los rodean. Honra a los que no se rinden.',
     howToEarnEs: 'Se alcanza al mantener una presencia constante en la reflexión espiritual. La esperanza se fortalece con la Palabra.',
+    howToEarnEn: 'Reached by maintaining a steady presence in spiritual reflection. Hope grows stronger through the Word.',
     rarity: 'rare',
     milestone: { type: 'devotionals', value: 15 },
   },
@@ -1153,8 +1165,10 @@ export const BADGES: Record<string, {
     description: 'Keeper of sacred truth',
     descriptionEs: 'Guardián de la verdad sagrada',
     meaningEs: 'Para quienes atesoran y honran la Palabra con fidelidad y profundidad, día tras día.',
+    meaningEn: 'For those who treasure and honor the Word with faithfulness and depth, day after day.',
     profileCardEs: 'Atesora y honra la Palabra con fidelidad, día tras día.',
     howToEarnEs: 'Un reconocimiento a la dedicación profunda en el estudio devocional. Quien cuida la Palabra, es guardado por ella.',
+    howToEarnEn: 'A recognition of deep dedication in devotional study. Those who guard the Word are guarded by it.',
     rarity: 'epic',
     milestone: { type: 'devotionals', value: 100 },
   },
@@ -1167,8 +1181,10 @@ export const BADGES: Record<string, {
     description: 'Fighting the good fight of faith',
     descriptionEs: 'Peleando la buena batalla de la fe',
     meaningEs: 'Esta insignia pertenece a quienes no abandonan su camino espiritual, aun en los días difíciles.',
+    meaningEn: 'This badge belongs to those who do not abandon their spiritual path, even on the hardest days.',
     profileCardEs: 'No abandona su camino espiritual, aun en los días difíciles.',
     howToEarnEs: 'Se otorga a quienes mantienen una racha sostenida de reflexión y lectura. La perseverancia es valentía.',
+    howToEarnEn: 'Granted to those who maintain a sustained streak of reflection and reading. Perseverance is courage.',
     rarity: 'epic',
     milestone: { type: 'streak', value: 30 },
   },
@@ -1182,8 +1198,10 @@ export const BADGES: Record<string, {
     description: 'Standing with others in prayer',
     descriptionEs: 'Acompañando a otros en oración',
     meaningEs: 'Al acompañar fielmente a otros hermanos en oración, se convierte en un apoyo espiritual real.',
+    meaningEn: 'By faithfully walking alongside others in prayer, you become a true spiritual support to them.',
     profileCardEs: 'Acompañando fielmente a otros hermanos en oración.',
     howToEarnEs: 'Se recibe al dar el primer paso en el camino devocional. Todo comienzo en fe es digno de celebrar.',
+    howToEarnEn: 'Received when taking the first step on the devotional path. Every beginning in faith is worth celebrating.',
     rarity: 'common',
     milestone: { type: 'devotionals', value: 1 },
   },
@@ -1196,8 +1214,10 @@ export const BADGES: Record<string, {
     description: 'A steady presence in the community',
     descriptionEs: 'Una presencia firme en la comunidad',
     meaningEs: 'Representa a quienes sostienen la comunidad con su presencia, constancia y generosidad de espíritu.',
+    meaningEn: 'Represents those who uphold the community through their presence, steadfastness, and generosity of spirit.',
     profileCardEs: 'Sostiene la comunidad con presencia, constancia y generosidad.',
     howToEarnEs: 'Se obtiene al alcanzar un nivel de contribución y participación significativa dentro de la comunidad.',
+    howToEarnEn: 'Earned by reaching a significant level of contribution and participation within the community.',
     rarity: 'rare',
     milestone: { type: 'points', value: 10000 },
   },

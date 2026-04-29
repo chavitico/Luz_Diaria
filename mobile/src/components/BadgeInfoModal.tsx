@@ -15,7 +15,7 @@ import Svg, { Circle, Path, Ellipse, Line, Rect, G } from 'react-native-svg';
 import { X } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { BADGES } from '@/lib/constants';
-import { useThemeColors } from '@/lib/store';
+import { useThemeColors, useLanguage } from '@/lib/store';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -146,11 +146,17 @@ const SYMBOL_MAP: Record<string, React.ComponentType<SymbolProps>> = {
   badge_valiente_reino:     ShieldSymbol,
 };
 
-const RARITY_LABEL: Record<string, string> = {
-  unique:  'Única',
-  epic:    'Épica',
-  rare:    'Especial',
-  common:  'Común',
+const RARITY_LABEL_ES: Record<string, string> = {
+  unique: 'Única',
+  epic:   'Épica',
+  rare:   'Especial',
+  common: 'Común',
+};
+const RARITY_LABEL_EN: Record<string, string> = {
+  unique: 'Unique',
+  epic:   'Epic',
+  rare:   'Special',
+  common: 'Common',
 };
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -164,6 +170,8 @@ interface BadgeInfoModalProps {
 
 export function BadgeInfoModal({ badgeId, visible, variant = 'community', onClose }: BadgeInfoModalProps) {
   const colors = useThemeColors();
+  const language = useLanguage();
+  const RARITY_LABEL = language === 'en' ? RARITY_LABEL_EN : RARITY_LABEL_ES;
   const slideAnim = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
   const backdropAnim = useRef(new Animated.Value(0)).current;
 
@@ -366,7 +374,7 @@ export function BadgeInfoModal({ badgeId, visible, variant = 'community', onClos
                 marginBottom: 10,
               }}
             >
-              {badge.nameEs}
+              {language === 'en' ? badge.name : badge.nameEs}
             </Text>
 
             {/* Meaning */}
@@ -381,7 +389,7 @@ export function BadgeInfoModal({ badgeId, visible, variant = 'community', onClos
                 marginBottom: 4,
               }}
             >
-              {badge.meaningEs}
+              {language === 'en' ? badge.meaningEn : badge.meaningEs}
             </Text>
 
             {/* Settings variant: how-to-earn */}
@@ -419,7 +427,7 @@ export function BadgeInfoModal({ badgeId, visible, variant = 'community', onClos
                       marginBottom: 8,
                     }}
                   >
-                    ¿Cómo se obtiene?
+                    {language === 'en' ? 'How to earn' : '¿Cómo se obtiene?'}
                   </Text>
                   <Text
                     style={{
@@ -428,7 +436,7 @@ export function BadgeInfoModal({ badgeId, visible, variant = 'community', onClos
                       color: colors.text,
                     }}
                   >
-                    {badge.howToEarnEs}
+                    {language === 'en' ? badge.howToEarnEn : badge.howToEarnEs}
                   </Text>
                 </View>
               </>
@@ -445,7 +453,7 @@ export function BadgeInfoModal({ badgeId, visible, variant = 'community', onClos
                   opacity: 0.7,
                 }}
               >
-                Puedes elegir esta insignia en Ajustes.
+                {language === 'en' ? 'You can select this badge in Settings.' : 'Puedes elegir esta insignia en Ajustes.'}
               </Text>
             )}
 

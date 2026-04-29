@@ -7,7 +7,7 @@ import Svg, {
   Defs, RadialGradient, LinearGradient, Stop,
 } from 'react-native-svg';
 import { BADGES } from '@/lib/constants';
-import { useThemeColors } from '@/lib/store';
+import { useThemeColors, useLanguage } from '@/lib/store';
 
 // ─── Per-badge SVG symbols ───────────────────────────────────────────────────
 // Each function receives size (viewBox 24×24) and the badge's primary color.
@@ -354,6 +354,7 @@ interface BadgeChipProps {
 
 export function BadgeChip({ badgeId, variant = 'community' }: BadgeChipProps) {
   const colors = useThemeColors();
+  const language = useLanguage();
   const badge = BADGES[badgeId];
   if (!badge) return null;
 
@@ -431,7 +432,7 @@ export function BadgeChip({ badgeId, variant = 'community' }: BadgeChipProps) {
         }}
         numberOfLines={1}
       >
-        {badge.nameEs}
+        {language === 'en' ? badge.name : badge.nameEs}
       </Text>
     </View>
   );
