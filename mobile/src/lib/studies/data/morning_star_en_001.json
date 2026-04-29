@@ -1,0 +1,145 @@
+{
+  "id": "morning_star_001",
+  "type": "discovery",
+  "date": "2026-01-15",
+  "title": "The Herald of Light",
+  "subtitle": "The eternal connection between creation, prophecy, and your heart",
+  "language": "en",
+  "version": "KJV",
+  "estimated_reading_minutes": 6,
+  "key_verse": {
+    "reference": "2 Peter 1:19",
+    "text": "We have also a more sure word of prophecy; whereunto ye do well that ye take heed, as unto a light that shineth in a dark place, until the day dawn, and the day star arise in your hearts."
+  },
+  
+  "cards": [
+    {
+      "order": 1,
+      "type": "natural_revelation",
+      "icon": "🔭",
+      "title": "The Testimony of Creation: Venus",
+      "subtitle": "God wrote His plan in the heavens before writing it on paper",
+      "content": "In astronomy, Venus is known as the 'Morning Star.' Unlike distant stars, Venus is close and its brightness is so intense that it's the last thing to disappear when the sun rises.\n\nVenus reaches its maximum splendor during the fourth watch (between 3:00 a.m. and 6:00 a.m.), the moment when the atmosphere is coldest and the darkness seems densest.\n\nVenus is not the sun, but it is its herald (Eskēnōsen - physical evidence). Its appearance on the horizon is proof that the earth's rotation has conquered the night. If you see Venus, sunrise is mathematically inevitable.",
+      "revelation_key": "Just as Venus reflects the glory of the Sun we don't yet see, we reflect the glory of Christ in the midst of the world's darkness."
+    },
+    
+    {
+      "order": 2,
+      "type": "historical_thread",
+      "icon": "🏛️",
+      "title": "The Prophetic Thread: From Balaam to the Magi",
+      "subtitle": "A testimony spanning 1,400 years",
+      "content": "Balaam's prophecy in Numbers 24:17 declared: 'There shall come a Star out of Jacob, and a Sceptre shall rise out of Israel.' This prophecy was recorded in the libraries of Mesopotamia.\n\nCenturies later, Daniel was appointed 'Master of the Magicians' in Babylon (Daniel 2:48). He connected the 'Star' of Balaam with the 'Time' of the seventy weeks from his own prophecy.\n\nWhen the Wise Men from the East saw the star over Bethlehem, they weren't following a common planet. They were following a light that moved from north to south and stopped over a house: the Shekinah (Glory of God) guiding the Gentiles toward the incarnate New Shekinah.",
+      "scripture_connections": [
+        {
+          "reference": "Numbers 24:17",
+          "text": "I shall see him, but not now: I shall behold him, but not nigh: there shall come a Star out of Jacob, and a Sceptre shall rise out of Israel"
+        },
+        {
+          "reference": "Matthew 2:2",
+          "text": "Saying, Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him"
+        }
+      ],
+      "revelation_key": "The prophecy was not lost. God preserved His testimony among the nations so that when Christ was born, even the Gentiles would know to seek Him."
+    },
+    
+    {
+      "order": 3,
+      "type": "greek_exegesis",
+      "icon": "📖",
+      "title": "The Three Titles of Victory",
+      "subtitle": "Analysis of the original text",
+      "greek_words": [
+        {
+          "word": "Logos",
+          "transliteration": "Λόγος",
+          "reference": "John 1:1",
+          "meaning": "The Design / The Word / The Expression of God's thought",
+          "revelation": "He is the expression of God's thought. Before your problem existed, the Logos already was. He is the Architect who can rebuild any area of your life.",
+          "application": "When your life seems like chaos, remember: the same Logos who said 'Let there be light' in Genesis can speak order over your situation."
+        },
+        {
+          "word": "Eskēnōsen",
+          "transliteration": "ἐσκήνωσεν",
+          "reference": "John 1:14",
+          "meaning": "Pitched His tent / Tabernacled / Dwelt",
+          "revelation": "The word comes from 'Skēnē' (tent). God didn't want to be in a stone temple; He got into a 'tent of flesh' (sarx) to understand your pain, your thirst, and your weariness from the inside.",
+          "application": "Jesus is not a distant God. He lived in the same 'fragile tent' that you inhabit. He knows your limitations because He experienced them."
+        },
+        {
+          "word": "Amnos",
+          "transliteration": "ἀμνός",
+          "reference": "John 1:29",
+          "meaning": "The Lamb",
+          "related_verb": "Airōn (αἴρων) - to lift up, carry, and take away",
+          "revelation": "John says: 'Behold the Lamb of God which Airōn the sin of the world.' He doesn't just cover it with blood—He lifts it off your shoulders, carries it, and takes it far away so you can walk free!",
+          "application": "The weight of your past, your shame, your guilt—Christ didn't just forgive it, He completely removed it. It's no longer upon you."
+        }
+      ],
+      "revelation_key": "Christ is simultaneously the eternal Design (Logos), the close presence (Eskēnōsen), and the total liberator (Amnos). Nothing is lacking in Him."
+    },
+    
+    {
+      "order": 4,
+      "type": "prophetic_promise",
+      "icon": "⭐",
+      "title": "The Promise for the Overcomer",
+      "subtitle": "Revelation 2:28 - Your inheritance",
+      "content": "In Revelation 2:26-28, Jesus promises: 'And he that overcometh, and keepeth my works unto the end... I will give him the morning star.'\n\nWhat does this promise mean?\n\nHe's not giving you an astronomical object. He's giving you Himself. In Revelation 22:16, Jesus declares: 'I am the root and the offspring of David, and the bright and morning star.'\n\nThe same light that guided the Magi, the same star prophesied by Balaam, the same glory that brought order to the chaos of Genesis—now belongs to you. It's not something you look at from afar; it's Someone who lives within you.\n\nWhen Venus appears, the sailor knows that sunrise is inevitable. When Christ lives in you, your victory is inevitable. It's not a possibility, it's a mathematical and spiritual guarantee.",
+      "scripture_anchor": {
+        "reference": "Revelation 22:16",
+        "text": "I Jesus have sent mine angel to testify unto you these things in the churches. I am the root and the offspring of David, and the bright and morning star."
+      },
+      "identity_statement": "You are not someone who waits for the light. You are a carrier of the Star itself. Where you are, God's dawn breaks through.",
+      "revelation_key": "Victory is not something you struggle to obtain. It's Someone you already possess."
+    },
+    
+    {
+      "order": 5,
+      "type": "discovery_activation",
+      "icon": "🙏",
+      "title": "Personal Discovery",
+      "discovery_questions": [
+        {
+          "category": "Situation",
+          "question": "In what area of your life do you feel you're in the 'fourth watch'—the darkest and coldest moment just before dawn?"
+        },
+        {
+          "category": "Direction",
+          "question": "Ancient navigators would run aground when they lost sight of the Morning Star. What happens in your life when you stop looking at the 'more sure word of prophecy'?"
+        },
+        {
+          "category": "Identity",
+          "question": "Balaam described Israel as 'tents' (tabernacles) where the Glory dwelt. How does it change your perspective to know that you are a 'tent' where the same Glory that guided the Magi dwells?"
+        }
+      ],
+      "prayer": {
+        "title": "Sealing Prayer",
+        "content": "Lord Jesus, my Logos and my Morning Star. Thank You because today I understand that my victory is not a possibility, but a mathematical and spiritual guarantee. Thank You for lifting (airōn) my burden today. I fix my eyes on Your brightness and choose to walk as a tabernacle of Your glory in the midst of this world. May Your light in me be the herald of the new day for those around me. As Venus announces the sun, may my life announce Your kingdom. In the name of Jesus, Amen."
+      }
+    }
+  ],
+  
+  "tags": [
+    "light",
+    "hope",
+    "christ",
+    "promise",
+    "victory",
+    "identity",
+    "prophecy"
+  ],
+  
+  "metadata": {
+    "total_word_count": 850,
+    "greek_words_count": 3,
+    "scripture_references_count": 6,
+    "difficulty_level": "intermediate",
+    "themes": [
+      "Creation and prophecy",
+      "Identity in Christ",
+      "Messianic promise",
+      "Greek exegesis"
+    ]
+  }
+}

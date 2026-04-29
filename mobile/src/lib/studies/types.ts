@@ -94,4 +94,8 @@ export interface StudyCatalogEntry {
   estimated_reading_minutes: number;
   imageUrl: string;
   dataFile: () => Study;
+  title_en?: string;
+  subtitle_en?: string;
+  estimated_reading_minutes_en?: number;
+  dataFileEn?: () => Study;
 }

@@ -24,7 +24,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { ArrowLeft, ChevronRight, ChevronLeft, Volume2, Square, CheckCircle2 } from 'lucide-react-native';
-import { useThemeColors, useUser } from '@/lib/store';
+import { useThemeColors, useUser, useLanguage } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
 import { sanitizeForTTS, preprocessNumbersForTTS } from '@/lib/tts-voices';
@@ -44,7 +44,7 @@ function formatContent(text: string): string {
 
 // ─── Key Verse Page (Page 1) ──────────────────────────────────────────────────
 
-function KeyVersePage({ study, colors, sFont }: { study: Study; colors: ReturnType<typeof useThemeColors>; sFont: (n: number) => number }) {
+function KeyVersePage({ study, colors, sFont, lang }: { study: Study; colors: ReturnType<typeof useThemeColors>; sFont: (n: number) => number; lang: 'en' | 'es' }) {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -155,7 +155,7 @@ function KeyVersePage({ study, colors, sFont }: { study: Study; colors: ReturnTy
 
 // ─── Card Page (Pages 2+) ─────────────────────────────────────────────────────
 
-function CardPage({ card, colors, sFont }: { card: StudyCard; colors: ReturnType<typeof useThemeColors>; sFont: (n: number) => number }) {
+function CardPage({ card, colors, sFont, lang }: { card: StudyCard; colors: ReturnType<typeof useThemeColors>; sFont: (n: number) => number; lang: 'en' | 'es' }) {
   const isDiscovery = card.type === 'discovery_activation';
 
   return (
@@ -402,11 +402,14 @@ export default function StudyReaderScreen() {
   const router = useRouter();
   const user = useUser();
 
+  const language = useLanguage();
   const [isTTSPlaying, setIsTTSPlaying] = useState(false);
   const ttsJobRef = useRef(0);
 
   const entry = STUDIES_CATALOG.find((s) => s.id === id);
-  const study: Study | null = entry ? entry.dataFile() : null;
+  const study: Study | null = entry
+    ? (language === 'en' && entry.dataFileEn ? entry.dataFileEn() : entry.dataFile())
+    : null;
 
   const [page, setPage] = useState(0); // 0 = key verse, 1..N = cards
   const [isCompleted, setIsCompleted] = useState(false);
@@ -677,9 +680,9 @@ export default function StudyReaderScreen() {
             keyboardShouldPersistTaps="handled"
           >
             {page === 0 ? (
-              <KeyVersePage study={study} colors={colors} sFont={sFont} />
+              <KeyVersePage study={study} colors={colors} sFont={sFont} lang={language} />
             ) : (
-              <CardPage card={study.cards[page - 1]} colors={colors} sFont={sFont} />
+              <CardPage card={study.cards[page - 1]} colors={colors} sFont={sFont} lang={language} />
             )}
             <View style={{ height: 100 }} />
           </ScrollView>

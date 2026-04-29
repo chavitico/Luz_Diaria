@@ -11,13 +11,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Clock, BookOpen, ChevronRight, CheckCircle2 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useThemeColors } from '@/lib/store';
+import { useThemeColors, useLanguage } from '@/lib/store';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
 
 type Filter = 'all' | 'pending' | 'completed';
 
 export default function EstudiosScreen() {
   const colors = useThemeColors();
+  const language = useLanguage();
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
@@ -46,11 +47,17 @@ export default function EstudiosScreen() {
     return true;
   });
 
-  const filters: { key: Filter; label: string }[] = [
-    { key: 'all', label: 'Todos' },
-    { key: 'pending', label: 'Pendientes' },
-    { key: 'completed', label: 'Completados' },
-  ];
+  const filters: { key: Filter; label: string }[] = language === 'en'
+    ? [
+        { key: 'all', label: 'All' },
+        { key: 'pending', label: 'Pending' },
+        { key: 'completed', label: 'Completed' },
+      ]
+    : [
+        { key: 'all', label: 'Todos' },
+        { key: 'pending', label: 'Pendientes' },
+        { key: 'completed', label: 'Completados' },
+      ];
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
@@ -67,14 +74,14 @@ export default function EstudiosScreen() {
           color: colors.text,
           letterSpacing: -0.5,
         }}>
-          Estudios Bíblicos
+          {language === 'en' ? 'Biblical Studies' : 'Estudios Bíblicos'}
         </Text>
         <Text style={{
           fontSize: 14,
           color: colors.textMuted,
           marginTop: 4,
         }}>
-          Estudios profundos para crecer en la fe
+          {language === 'en' ? 'Deep studies to grow in faith' : 'Estudios profundos para crecer en la fe'}
         </Text>
 
         {/* Filter chips */}
@@ -121,8 +128,8 @@ export default function EstudiosScreen() {
           <View style={{ alignItems: 'center', paddingTop: 48 }}>
             <Text style={{ fontSize: 15, color: colors.textMuted, textAlign: 'center' }}>
               {filter === 'completed'
-                ? 'Todavía no has completado ningún estudio.'
-                : 'No hay estudios pendientes.'}
+                ? (language === 'en' ? "You haven't completed any studies yet." : 'Todavía no has completado ningún estudio.')
+                : (language === 'en' ? 'No pending studies.' : 'No hay estudios pendientes.')}
             </Text>
           </View>
         )}
@@ -223,7 +230,7 @@ export default function EstudiosScreen() {
                       lineHeight: 30,
                       letterSpacing: -0.3,
                     }}>
-                      {study.title}
+                      {language === 'en' ? (study.title_en ?? study.title) : study.title}
                     </Text>
                     <Text style={{
                       fontSize: 14,
@@ -231,7 +238,7 @@ export default function EstudiosScreen() {
                       marginTop: 6,
                       lineHeight: 20,
                     }}>
-                      {study.subtitle}
+                      {language === 'en' ? (study.subtitle_en ?? study.subtitle) : study.subtitle}
                     </Text>
                   </View>
 
@@ -263,7 +270,9 @@ export default function EstudiosScreen() {
                       gap: 4,
                     }}>
                       <Text style={{ fontSize: 13, fontWeight: '700', color: '#fff' }}>
-                        {done ? 'Releer' : 'Comenzar'}
+                        {done
+                          ? (language === 'en' ? 'Re-read' : 'Releer')
+                          : (language === 'en' ? 'Begin' : 'Comenzar')}
                       </Text>
                       <ChevronRight size={16} color="#fff" strokeWidth={2.5} />
                     </View>
