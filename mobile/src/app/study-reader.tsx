@@ -18,12 +18,15 @@ import Animated, {
   Easing,
   runOnJS,
 } from 'react-native-reanimated';
+import * as Speech from 'expo-speech';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ArrowLeft, ChevronRight, ChevronLeft, Star } from 'lucide-react-native';
+import { ArrowLeft, ChevronRight, ChevronLeft, Star, Volume2, Square } from 'lucide-react-native';
 import { useThemeColors, useUser } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
+import { sanitizeForTTS, preprocessNumbersForTTS } from '@/lib/tts-voices';
+import { useScaledFont } from '@/lib/textScale';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
 import type { Study, StudyCard } from '@/lib/studies/types';
 
@@ -39,7 +42,7 @@ function formatContent(text: string): string {
 
 // ─── Key Verse Page (Page 1) ──────────────────────────────────────────────────
 
-function KeyVersePage({ study, colors }: { study: Study; colors: ReturnType<typeof useThemeColors> }) {
+function KeyVersePage({ study, colors, sFont }: { study: Study; colors: ReturnType<typeof useThemeColors>; sFont: (n: number) => number }) {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -82,10 +85,10 @@ function KeyVersePage({ study, colors }: { study: Study; colors: ReturnType<type
 
         {/* Verse text */}
         <Text style={{
-          fontSize: 22,
+          fontSize: sFont(22),
           fontWeight: '600',
           color: colors.text,
-          lineHeight: 34,
+          lineHeight: sFont(34),
           fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
           marginBottom: 20,
         }}>
@@ -94,10 +97,10 @@ function KeyVersePage({ study, colors }: { study: Study; colors: ReturnType<type
 
         {/* Reference */}
         <View>
-          <Text style={{ fontSize: 16, fontWeight: '800', color: ACCENT }}>
+          <Text style={{ fontSize: sFont(16), fontWeight: '800', color: ACCENT }}>
             {study.key_verse.reference.toUpperCase()}
           </Text>
-          <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 2 }}>
+          <Text style={{ fontSize: sFont(12), color: colors.textMuted, marginTop: 2 }}>
             {study.version}
           </Text>
         </View>
@@ -107,7 +110,7 @@ function KeyVersePage({ study, colors }: { study: Study; colors: ReturnType<type
       {study.scripture_passage.verses.length > 0 && (
         <View style={{ marginTop: 24 }}>
           <Text style={{
-            fontSize: 11,
+            fontSize: sFont(11),
             fontWeight: '700',
             color: colors.textMuted,
             textTransform: 'uppercase',
@@ -123,7 +126,7 @@ function KeyVersePage({ study, colors }: { study: Study; colors: ReturnType<type
               marginBottom: 12,
             }}>
               <Text style={{
-                fontSize: 12,
+                fontSize: sFont(12),
                 fontWeight: '700',
                 color: ACCENT,
                 minWidth: 20,
@@ -133,9 +136,9 @@ function KeyVersePage({ study, colors }: { study: Study; colors: ReturnType<type
               </Text>
               <Text style={{
                 flex: 1,
-                fontSize: 15,
+                fontSize: sFont(15),
                 color: colors.text,
-                lineHeight: 24,
+                lineHeight: sFont(24),
                 fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
               }}>
                 {v.text}
@@ -150,7 +153,7 @@ function KeyVersePage({ study, colors }: { study: Study; colors: ReturnType<type
 
 // ─── Card Page (Pages 2+) ─────────────────────────────────────────────────────
 
-function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof useThemeColors> }) {
+function CardPage({ card, colors, sFont }: { card: StudyCard; colors: ReturnType<typeof useThemeColors>; sFont: (n: number) => number }) {
   const isDiscovery = card.type === 'discovery_activation';
 
   return (
@@ -160,12 +163,12 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
     >
       {/* Icon + title + subtitle */}
       <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: 36, marginBottom: 12 }}>{card.icon}</Text>
+        <Text style={{ fontSize: sFont(36), marginBottom: 12 }}>{card.icon}</Text>
         <Text style={{
-          fontSize: 22,
+          fontSize: sFont(22),
           fontWeight: '800',
           color: colors.text,
-          lineHeight: 28,
+          lineHeight: sFont(28),
           letterSpacing: -0.3,
           marginBottom: 6,
         }}>
@@ -173,10 +176,10 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
         </Text>
         {card.subtitle && (
           <Text style={{
-            fontSize: 14,
+            fontSize: sFont(14),
             color: ACCENT,
             fontWeight: '600',
-            lineHeight: 20,
+            lineHeight: sFont(20),
           }}>
             {card.subtitle}
           </Text>
@@ -186,9 +189,9 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
       {/* Main content */}
       {card.content && (
         <Text style={{
-          fontSize: 15,
+          fontSize: sFont(15),
           color: colors.text,
-          lineHeight: 26,
+          lineHeight: sFont(26),
           fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
           marginBottom: 20,
           whiteSpace: 'pre-wrap',
@@ -210,14 +213,14 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
             }}>
               <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
                 <Text style={{
-                  fontSize: 16,
+                  fontSize: sFont(16),
                   fontWeight: '800',
                   color: '#0369A1',
                 }}>
                   {gw.word}
                 </Text>
                 <Text style={{
-                  fontSize: 18,
+                  fontSize: sFont(18),
                   color: '#0369A1',
                   fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
                 }}>
@@ -229,15 +232,15 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
                   paddingHorizontal: 7,
                   paddingVertical: 2,
                 }}>
-                  <Text style={{ fontSize: 11, fontWeight: '700', color: '#0369A1' }}>
+                  <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#0369A1' }}>
                     {gw.strong}
                   </Text>
                 </View>
               </View>
-              <Text style={{ fontSize: 14, color: colors.text, marginBottom: 6 }}>
+              <Text style={{ fontSize: sFont(14), color: colors.text, marginBottom: 6 }}>
                 {gw.meaning}
               </Text>
-              <Text style={{ fontSize: 13, color: colors.textMuted, fontStyle: 'italic', lineHeight: 20 }}>
+              <Text style={{ fontSize: sFont(13), color: colors.textMuted, fontStyle: 'italic', lineHeight: sFont(20) }}>
                 {gw.revelation}
               </Text>
             </View>
@@ -267,10 +270,10 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
               borderLeftWidth: 3,
               borderLeftColor: ACCENT,
             }}>
-              <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT, marginBottom: 2 }}>
+              <Text style={{ fontSize: sFont(13), fontWeight: '700', color: ACCENT, marginBottom: 2 }}>
                 {sc.reference}
               </Text>
-              <Text style={{ fontSize: 13, color: colors.text }}>{sc.text}</Text>
+              <Text style={{ fontSize: sFont(13), color: colors.text }}>{sc.text}</Text>
             </View>
           ))}
         </View>
@@ -298,9 +301,9 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
                 {q.category}
               </Text>
               <Text style={{
-                fontSize: 15,
+                fontSize: sFont(15),
                 color: colors.text,
-                lineHeight: 24,
+                lineHeight: sFont(24),
                 fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
               }}>
                 {q.question}
@@ -331,9 +334,9 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
             🙏 {card.prayer.title}
           </Text>
           <Text style={{
-            fontSize: 15,
+            fontSize: sFont(15),
             color: colors.text,
-            lineHeight: 26,
+            lineHeight: sFont(26),
             fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
           }}>
             {formatContent(card.prayer.content)}
@@ -352,10 +355,10 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
           marginTop: 8,
         }}>
           <Text style={{
-            fontSize: 14,
+            fontSize: sFont(14),
             fontWeight: '700',
             color: colors.text,
-            lineHeight: 22,
+            lineHeight: sFont(22),
             fontStyle: 'italic',
           }}>
             ✨ {card.revelation_key}
@@ -374,10 +377,10 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
           marginTop: 12,
         }}>
           <Text style={{
-            fontSize: 14,
+            fontSize: sFont(14),
             fontWeight: '700',
             color: colors.text,
-            lineHeight: 22,
+            lineHeight: sFont(22),
           }}>
             {card.identity_statement}
           </Text>
@@ -392,9 +395,13 @@ function CardPage({ card, colors }: { card: StudyCard; colors: ReturnType<typeof
 export default function StudyReaderScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const colors = useThemeColors();
+  const { sFont } = useScaledFont();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const user = useUser();
+
+  const [isTTSPlaying, setIsTTSPlaying] = useState(false);
+  const ttsJobRef = useRef(0);
 
   const entry = STUDIES_CATALOG.find((s) => s.id === id);
   const study: Study | null = entry ? entry.dataFile() : null;
@@ -409,6 +416,65 @@ export default function StudyReaderScreen() {
   const scrollRef = useRef<ScrollView>(null);
 
   const totalPages = study ? 1 + study.cards.length : 1;
+
+  // ─── TTS ────────────────────────────────────────────────────────────────────
+
+  const buildPageText = useCallback((): string => {
+    if (!study) return '';
+    if (page === 0) {
+      const verses = study.scripture_passage.verses.map((v) => `${v.number}. ${v.text}`).join(' ');
+      return preprocessNumbersForTTS(sanitizeForTTS(
+        `${study.key_verse.text}. ${study.key_verse.reference}. ${verses}`
+      ));
+    }
+    const card = study.cards[page - 1];
+    const parts: string[] = [card.title];
+    if (card.subtitle) parts.push(card.subtitle);
+    if (card.content) parts.push(card.content.replace(/\\n/g, ' '));
+    card.greek_words?.forEach((gw) => {
+      parts.push(`${gw.word}: ${gw.meaning}. ${gw.revelation}`);
+    });
+    card.scripture_connections?.forEach((sc) => {
+      parts.push(`${sc.reference}. ${sc.text}`);
+    });
+    if (card.revelation_key) parts.push(card.revelation_key);
+    if (card.identity_statement) parts.push(card.identity_statement);
+    card.discovery_questions?.forEach((q) => parts.push(q.question));
+    if (card.prayer) parts.push(`${card.prayer.title}. ${card.prayer.content.replace(/\\n/g, ' ')}`);
+    return preprocessNumbersForTTS(sanitizeForTTS(parts.join('. ')));
+  }, [study, page]);
+
+  const stopTTS = useCallback(() => {
+    ttsJobRef.current += 1;
+    Speech.stop();
+    setIsTTSPlaying(false);
+  }, []);
+
+  const handleTTSTap = useCallback(async () => {
+    if (isTTSPlaying) {
+      stopTTS();
+      return;
+    }
+    const text = buildPageText();
+    if (!text) return;
+    ttsJobRef.current += 1;
+    const jobId = ttsJobRef.current;
+    setIsTTSPlaying(true);
+    await Speech.stop();
+    Speech.speak(text, {
+      language: 'es-MX',
+      rate: 0.88,
+      pitch: 0.95,
+      onDone: () => { if (ttsJobRef.current === jobId) setIsTTSPlaying(false); },
+      onError: () => { if (ttsJobRef.current === jobId) setIsTTSPlaying(false); },
+    });
+  }, [isTTSPlaying, buildPageText, stopTTS]);
+
+  // Stop TTS when page changes or component unmounts
+  useEffect(() => { stopTTS(); }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => () => { Speech.stop(); }, []);
+
+  // ────────────────────────────────────────────────────────────────────────────
 
   const checkAndAwardCompletion = useCallback(async () => {
     if (!study || !user || !entry) return;
@@ -504,6 +570,29 @@ export default function StudyReaderScreen() {
         {/* Spacer */}
         <View style={{ flex: 1 }} />
 
+        {/* TTS button */}
+        <Pressable
+          onPress={handleTTSTap}
+          hitSlop={12}
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.6 : 1,
+            width: 34,
+            height: 34,
+            borderRadius: 17,
+            backgroundColor: isTTSPlaying ? ACCENT + '20' : colors.surface,
+            borderWidth: 1,
+            borderColor: isTTSPlaying ? ACCENT + '60' : colors.textMuted + '25',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: 10,
+          })}
+        >
+          {isTTSPlaying
+            ? <Square size={14} color={ACCENT} strokeWidth={2.5} fill={ACCENT} />
+            : <Volume2 size={15} color={colors.textMuted} strokeWidth={2.5} />
+          }
+        </Pressable>
+
         {/* Page counter */}
         <Text style={{
           fontSize: 14,
@@ -569,9 +658,9 @@ export default function StudyReaderScreen() {
           keyboardShouldPersistTaps="handled"
         >
           {page === 0 ? (
-            <KeyVersePage study={study} colors={colors} />
+            <KeyVersePage study={study} colors={colors} sFont={sFont} />
           ) : (
-            <CardPage card={study.cards[page - 1]} colors={colors} />
+            <CardPage card={study.cards[page - 1]} colors={colors} sFont={sFont} />
           )}
           {/* Bottom nav padding */}
           <View style={{ height: 100 }} />
