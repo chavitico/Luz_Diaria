@@ -1206,6 +1206,16 @@ function DailyEngagementBanner({
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+
+  // Screen is hidden (href: null). If somehow focused, navigate to the new devotional.
+  // useFocusEffect (not useEffect) so it only fires when this screen is actually visible —
+  // not when pre-mounted as a background tab, which avoids triggering a double splash.
+  useFocusEffect(
+    useCallback(() => {
+      router.navigate({ pathname: '/(tabs)/hoy-nuevo' });
+    }, [router])
+  );
+
   const colors = useThemeColors();
   const language = useLanguage();
   const { sFont } = useScaledFont();
