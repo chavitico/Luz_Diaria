@@ -1,4 +1,4 @@
-import { generateDevotionalForDate, ensureDevotionalsAhead, ensureNewFormatAhead } from "./devotional-service";
+import { generateDevotionalForDate, ensureDevotionalsAhead, ensureNewFormatAhead, generateNextNewFormatDevotional } from "./devotional-service";
 import { generateWeeklyChallenges } from "./weekly-challenges";
 import { generateTodayDailyPrayer } from "./prayer-service";
 import { generateStreakSnapshots } from "./streak-snapshot-service";
@@ -43,12 +43,12 @@ async function runCronJob(): Promise<void> {
     console.error(`[Cron] Failed to ensure devotionals ahead:`, error);
   }
 
-  // Ensure new-format (RepoDevocional) devotionals are generated for post-Sep-18 dates
+  // Generate exactly 1 new-format devotional per day (next after frontier)
   try {
-    await ensureNewFormatAhead(30);
-    console.log(`[Cron] ensureNewFormatAhead(30) completed`);
+    await generateNextNewFormatDevotional();
+    console.log(`[Cron] generateNextNewFormatDevotional completed`);
   } catch (error) {
-    console.error(`[Cron] Failed to ensure new-format devotionals ahead:`, error);
+    console.error(`[Cron] Failed to generate next new-format devotional:`, error);
   }
 
   // Generate daily prayer (includes community prayer requests)
@@ -109,10 +109,10 @@ export function startDevotionalCron(): void {
     console.error(`[Cron] Startup ensureDevotionalsAhead failed:`, err);
   });
 
-  // On startup: ensure new-format (post-Sep-18) devotionals exist 30 days ahead
-  console.log(`[Cron] Startup: running ensureNewFormatAhead(30)…`);
-  ensureNewFormatAhead(30).catch((err) => {
-    console.error(`[Cron] Startup ensureNewFormatAhead failed:`, err);
+  // On startup: generate next new-format devotional if frontier hasn't moved today
+  console.log(`[Cron] Startup: running generateNextNewFormatDevotional…`);
+  generateNextNewFormatDevotional().catch((err) => {
+    console.error(`[Cron] Startup generateNextNewFormatDevotional failed:`, err);
   });
 
   // Also seed 7 days of historical devotionals (past) in background
