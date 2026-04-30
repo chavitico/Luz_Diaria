@@ -279,6 +279,21 @@ devotionalRouter.post("/seed/:days", async (c) => {
   }
 });
 
+// Ensure N devotionals ahead (admin trigger) — idempotent, skips existing dates
+devotionalRouter.post("/ensure-ahead/:days", async (c) => {
+  try {
+    const days = parseInt(c.req.param("days"), 10);
+    if (isNaN(days) || days < 1 || days > 60) {
+      return c.json({ error: "Days must be between 1 and 60" }, 400);
+    }
+    await ensureDevotionalsAhead(days);
+    return c.json({ success: true, message: `Ensured ${days} devotionals ahead` });
+  } catch (error) {
+    console.error("[API] Error ensuring devotionals ahead:", error);
+    return c.json({ error: "Failed to ensure devotionals ahead" }, 500);
+  }
+});
+
 // Preview endpoint — generates N stories without saving to DB
 // GET /api/devotional/preview?count=5
 devotionalRouter.get("/preview", async (c) => {

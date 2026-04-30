@@ -35,10 +35,10 @@ function getCostaRicaTime(): string {
 async function runCronJob(): Promise<void> {
   console.log(`[Cron] Running at ${getCostaRicaTime()} (Costa Rica time)`);
 
-  // Ensure 7-day rolling window of devotionals is always pre-generated
+  // Ensure 30-day rolling window of devotionals is always pre-generated
   try {
-    await ensureDevotionalsAhead(7);
-    console.log(`[Cron] ensureDevotionalsAhead(7) completed`);
+    await ensureDevotionalsAhead(30);
+    console.log(`[Cron] ensureDevotionalsAhead(30) completed`);
   } catch (error) {
     console.error(`[Cron] Failed to ensure devotionals ahead:`, error);
   }
@@ -95,9 +95,9 @@ export function startDevotionalCron(): void {
     console.log(`[Cron] Daily interval set up for every 24 hours`);
   }, msUntilNextRun);
 
-  // On startup: ensure 7-day queue immediately (idempotent, non-blocking)
-  console.log(`[Cron] Startup: running ensureDevotionalsAhead(7)…`);
-  ensureDevotionalsAhead(7).catch((err) => {
+  // On startup: ensure 30-day queue immediately (idempotent, non-blocking)
+  console.log(`[Cron] Startup: running ensureDevotionalsAhead(30)…`);
+  ensureDevotionalsAhead(30).catch((err) => {
     console.error(`[Cron] Startup ensureDevotionalsAhead failed:`, err);
   });
 

@@ -17,7 +17,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter, useFocusEffect } from 'expo-router';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check, Lock, ChevronUp } from 'lucide-react-native';
+import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check } from 'lucide-react-native';
 import { ShareOptionsSheet, type ShareOption } from '@/components/ShareOptionsSheet';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import { useThemeColors, useLanguage, useUserFavorites, useUser, useAppStore } from '@/lib/store';
@@ -34,13 +34,6 @@ import { PointsToast, usePointsToast } from '@/components/PointsToast';
 import { gamificationApi } from '@/lib/gamification-api';
 
 type FilterType = 'all' | 'favorites';
-
-interface UpcomingItem {
-  date: string;
-  topic: string;
-  topicEs: string;
-  imageUrl: string;
-}
 
 interface DevotionalCardProps {
   devotional: Devotional;
@@ -162,71 +155,6 @@ function DevotionalCard({ devotional, isFavorite, language, colors, onPress, onS
   );
 }
 
-/** Locked card for a future devotional */
-function UpcomingCard({ item, language, colors }: { item: UpcomingItem; language: 'en' | 'es'; colors: ReturnType<typeof useThemeColors> }) {
-  const topic = language === 'es' ? item.topicEs : item.topic;
-
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr + 'T12:00:00');
-    return date.toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  };
-
-  const availableLabel = language === 'es' ? `Disponible el ${formatDate(item.date)}` : `Available ${formatDate(item.date)}`;
-
-  return (
-    <View className="mb-3 mx-5">
-      <View
-        className="rounded-2xl overflow-hidden flex-row"
-        style={{
-          backgroundColor: colors.surface,
-          opacity: 0.6,
-        }}
-      >
-        {/* Blurred thumbnail with lock overlay */}
-        <View style={{ width: 80, height: 80, position: 'relative' }}>
-          <Image
-            source={{ uri: item.imageUrl }}
-            style={{ width: 80, height: 80 }}
-            contentFit="cover"
-            transition={200}
-          />
-          <View style={{
-            ...{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
-            backgroundColor: 'rgba(0,0,0,0.45)',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <Lock size={20} color="#fff" />
-          </View>
-        </View>
-
-        {/* Info */}
-        <View className="flex-1 px-4 justify-center" style={{ paddingVertical: 12 }}>
-          <View className="flex-row items-center mb-1">
-            <Calendar size={11} color={colors.textMuted} />
-            <Text className="text-xs ml-1" style={{ color: colors.textMuted }}>
-              {availableLabel}
-            </Text>
-          </View>
-          {topic ? (
-            <View
-              className="self-start px-2 py-1 rounded-full"
-              style={{ backgroundColor: colors.primary + '15' }}
-            >
-              <Text className="text-xs font-medium" style={{ color: colors.primary }}>
-                {topic}
-              </Text>
-            </View>
-          ) : null}
-        </View>
-      </View>
-    </View>
-  );
-}
 
 export default function LibraryScreen() {
   const { sFont } = useScaledFont();
@@ -276,8 +204,6 @@ export default function LibraryScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-  const [upcomingExpanded, setUpcomingExpanded] = useState(false);
-
   const { data: devotionals, isLoading, isFetching } = useQuery({
     queryKey: ['allDevotionals'],
     queryFn: () => firestoreService.getAllDevotionals(),
@@ -291,13 +217,6 @@ export default function LibraryScreen() {
       queryClient.invalidateQueries({ queryKey: ['allDevotionals'] });
     }, [queryClient])
   );
-
-  const { data: upcomingDevotionals } = useQuery({
-    queryKey: ['upcomingDevotionals'],
-    queryFn: () => firestoreService.getUpcomingDevotionals(),
-    staleTime: 1000 * 60 * 30, // 30 min — they don't change often
-    retry: 1,
-  });
 
   // Extract unique categories from all sources (historical + repo)
   const categories = useMemo(() => {
@@ -313,9 +232,11 @@ export default function LibraryScreen() {
   const repoDates = useMemo(() => new Set(Object.keys(REPO_DEVOCIONALS)), []);
 
   const filteredDevotionals = useMemo(() => {
+    // Only show devotionals up to and including today
+    const repoToday = repoDevotionals.filter((d) => d.date <= today);
     // Merge: repo entries + historical old-format (excluding any dates repo already covers)
     const historical = (devotionals ?? []).filter((d) => !repoDates.has(d.date));
-    const merged = [...repoDevotionals, ...historical].sort((a, b) =>
+    const merged = [...repoToday, ...historical].sort((a, b) =>
       b.date.localeCompare(a.date)
     );
 
@@ -419,15 +340,6 @@ export default function LibraryScreen() {
     ),
     [favorites, language, colors, handleDevotionalPress, handleOpenShareModal, handleToggleFavorite]
   );
-
-  // Upcoming locked cards — exclude dates already covered by repo devotionals
-  const filteredUpcoming = useMemo(
-    () => (upcomingDevotionals ?? []).filter((u) => !repoDates.has(u.date)),
-    [upcomingDevotionals, repoDates]
-  );
-
-  // Upcoming section is only shown in 'all' filter with no active search/category filter
-  const showUpcoming = filter === 'all' && !searchQuery.trim() && selectedCategory === 'all' && filteredUpcoming.length > 0;
 
   return (
     <View className="flex-1" style={{ backgroundColor: colors.background }}>
@@ -559,50 +471,14 @@ export default function LibraryScreen() {
           contentContainerStyle={{ paddingTop: 8, paddingBottom: 120 }}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={
-            <View>
-              {/* Spinner while historical data loads from backend */}
-              {isFetching && !devotionals && (
-                <View style={{ alignItems: 'center', paddingVertical: 16, gap: 8 }}>
-                  <ActivityIndicator size="small" color={colors.primary} />
-                  <Text style={{ fontSize: 12, color: colors.textMuted }}>
-                    {language === 'es' ? 'Cargando historial...' : 'Loading history...'}
-                  </Text>
-                </View>
-              )}
-              {showUpcoming && (
-                <View className="mb-4">
-                  <Pressable
-                    onPress={() => {
-                      setUpcomingExpanded(prev => !prev);
-                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    }}
-                    className="flex-row items-center justify-between mx-5 mb-3 mt-2 px-4 py-3 rounded-2xl"
-                    style={{ backgroundColor: colors.surface }}
-                  >
-                    <View className="flex-row items-center" style={{ gap: 8 }}>
-                      <Lock size={15} color={colors.textMuted} />
-                      <Text className="text-sm font-semibold" style={{ color: colors.textMuted }}>
-                        {language === 'es' ? 'Próximos 7 días' : 'Upcoming 7 days'}
-                      </Text>
-                      <View
-                        className="px-2 py-0.5 rounded-full"
-                        style={{ backgroundColor: colors.primary + '20' }}
-                      >
-                        <Text className="text-xs font-bold" style={{ color: colors.primary }}>
-                          {filteredUpcoming.length}
-                        </Text>
-                      </View>
-                    </View>
-                    {upcomingExpanded
-                      ? <ChevronUp size={16} color={colors.textMuted} />
-                      : <ChevronDown size={16} color={colors.textMuted} />}
-                  </Pressable>
-                  {upcomingExpanded && filteredUpcoming.map(item => (
-                    <UpcomingCard key={item.date} item={item} language={language} colors={colors} />
-                  ))}
-                </View>
-              )}
-            </View>
+            isFetching && !devotionals ? (
+              <View style={{ alignItems: 'center', paddingVertical: 16, gap: 8 }}>
+                <ActivityIndicator size="small" color={colors.primary} />
+                <Text style={{ fontSize: 12, color: colors.textMuted }}>
+                  {language === 'es' ? 'Cargando historial...' : 'Loading history...'}
+                </Text>
+              </View>
+            ) : null
           }
         />
       ) : (

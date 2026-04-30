@@ -1,0 +1,20 @@
+{
+  "backupDate": "2026-04-30",
+  "createdAt": "2026-04-30T00:15:48.458Z",
+  "appEnv": "dev",
+  "counts": {
+    "users": 5,
+    "devotionals": 73,
+    "streakSnapshots": 27,
+    "inventoryItems": 273,
+    "devotionalCompletions": 75,
+    "supportTickets": 38,
+    "prayerRequests": 9,
+    "pointLedgerEntries": 272,
+    "collectionClaims": 11,
+    "userChapterProgress": 5,
+    "weeklyProgress": 68,
+    "userFavorites": 0,
+    "userGifts": 40
+  }
+}
