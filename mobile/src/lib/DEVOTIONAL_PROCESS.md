@@ -114,3 +114,13 @@ Rotar las imágenes secuencialmente para evitar repetición cercana.
 | 2026-05-27 | Dudas             | Marcos 9:24         |
 | 2026-05-28 | Identidad en Cristo | 1 Juan 3:1        |
 | 2026-05-30 | Relaciones        | Colosenses 3:13     |
+| 2026-06-01 | Confianza         | Proverbios 3:5      |
+| 2026-06-02 | Humildad          | Santiago 4:10       |
+| 2026-06-03 | Perseverancia     | Gálatas 6:9         |
+| 2026-06-04 | Gozo              | Nehemías 8:10       |
+| 2026-06-05 | Propósito         | Jeremías 29:11      |
+| 2026-06-06 | Perdón            | 1 Juan 1:9          |
+| 2026-06-07 | Valentía          | Josué 1:9           |
+| 2026-06-08 | Familia           | Josué 24:15         |
+| 2026-06-09 | Generosidad       | 2 Corintios 9:7     |
+| 2026-06-10 | Transformación    | Romanos 12:2        |

@@ -1496,6 +1496,576 @@ export const DEVOTIONAL_2026_05_30_EN: RepoDevocional = {
   tags: ['Broken Relationships'],
 };
 
+// ─── 2026-06-01: Confianza / Trust ───────────────────────────────────────────
+export const DEVOCIONAL_2026_06_01: RepoDevocional = {
+  id: 'proverbios35RVR1960',
+  date: '2026-06-01',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Proverbios 3:5 RVR1960: "Fíate de Jehová de todo tu corazón, y no te apoyes en tu propia prudencia."',
+  reflexion:
+    'Vivimos en un mundo que exige respuestas inmediatas y control total. Queremos saber qué va a pasar, cómo va a salir y cuándo llegará la solución. Pero Dios nos llama a algo radicalmente diferente: confiar en Él con todo el corazón, sin depender de nuestra propia comprensión.\n\nLa confianza no es pasividad. Es fe activa que reconoce que hay un Dios que ve más allá de lo que nuestros ojos pueden ver. Cuando nos apoyamos en nuestra propia prudencia, construimos sobre arena. Cuando nos fiamos de Jehová, construimos sobre roca.',
+  para_meditar: [
+    {
+      cita: 'Proverbios 3:6',
+      texto: 'Reconócelo en todos tus caminos, y él enderezará tus veredas.',
+    },
+    {
+      cita: 'Salmos 56:3',
+      texto: 'En el día que temo, yo en ti confío.',
+    },
+    {
+      cita: 'Isaías 26:3',
+      texto: 'Tú guardarás en completa paz a aquel cuyo pensamiento en ti persevera; porque en ti ha confiado.',
+    },
+  ],
+  oracion:
+    'Señor, reconozco que muchas veces quiero controlar el resultado de las cosas, entender cada paso antes de darlo, resolver todo por mi cuenta. Pero hoy decido poner mi confianza en ti, no en mis propias fuerzas.\n\nToma lo que no entiendo y hazlo tuyo. Toma los caminos que no veo y dirígelos. Quiero aprender a fiarte de todo corazón, incluso cuando no entiendo, incluso cuando no veo. Tú eres fiel, y eso es suficiente. Amén.',
+  tags: ['Confianza'],
+};
+
+export const DEVOTIONAL_2026_06_01_EN: RepoDevocional = {
+  id: 'proverbs35KJV',
+  date: '2026-06-01',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Proverbs 3:5 KJV: "Trust in the LORD with all thine heart; and lean not unto thine own understanding."',
+  reflexion:
+    'We live in a world that demands immediate answers and complete control. We want to know what will happen, how it will turn out, and when the solution will arrive. But God calls us to something radically different: trusting Him with all our heart, without leaning on our own understanding.\n\nTrust is not passivity. It is active faith that acknowledges there is a God who sees beyond what our eyes can see. When we lean on our own understanding, we build on sand. When we trust in the LORD, we build on rock.',
+  para_meditar: [
+    {
+      cita: 'Proverbs 3:6',
+      texto: 'In all thy ways acknowledge him, and he shall direct thy paths.',
+    },
+    {
+      cita: 'Psalm 56:3',
+      texto: 'What time I am afraid, I will trust in thee.',
+    },
+    {
+      cita: 'Isaiah 26:3',
+      texto: 'Thou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee.',
+    },
+  ],
+  oracion:
+    'Lord, I confess that many times I want to control outcomes, understand every step before I take it, and solve everything on my own. But today I choose to place my trust in You, not in my own strength.\n\nTake what I do not understand and make it Yours. Take the paths I cannot see and direct them. I want to learn to trust You with all my heart — even when I do not understand, even when I cannot see. You are faithful, and that is enough. Amen.',
+  tags: ['Trust'],
+};
+
+// ─── 2026-06-02: Humildad / Humility ─────────────────────────────────────────
+export const DEVOCIONAL_2026_06_02: RepoDevocional = {
+  id: 'santiago410RVR1960',
+  date: '2026-06-02',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Santiago 4:10 RVR1960: "Humillaos delante del Señor, y él os exaltará."',
+  reflexion:
+    'La humildad es una de las virtudes más incomprendidas de nuestra era. El mundo nos dice que para ser vistos tenemos que destacar, empujarnos hacia adelante, hacer que nuestra voz sea la más fuerte. Pero Dios tiene una economía diferente: el que se humilla, será exaltado.\n\nHumillarse delante del Señor no significa menospreciarse. Significa reconocer que sin Él no somos nada, y que toda capacidad, todo logro, toda gracia viene de su mano. La humildad es la puerta por donde entra la gracia de Dios.',
+  para_meditar: [
+    {
+      cita: 'Mateo 23:12',
+      texto: 'Porque el que se enaltece será humillado, y el que se humilla será enaltecido.',
+    },
+    {
+      cita: 'Filipenses 2:3',
+      texto: 'Nada hagáis por contienda o por vanagloria; antes bien con humildad, estimando cada uno a los demás como superiores a él mismo.',
+    },
+    {
+      cita: '1 Pedro 5:6',
+      texto: 'Humillaos, pues, bajo la poderosa mano de Dios, para que él os exalte cuando fuere tiempo.',
+    },
+  ],
+  oracion:
+    'Padre, sé que tengo tendencia a querer ser reconocido, a defenderme, a posicionarme. Pero hoy vengo delante de ti recordando que soy barro en manos del alfarero.\n\nEnséñame a caminar con humildad. No para que me vean pequeño, sino para que te vean grande a ti. Que mi vida sea un espejo que refleje tu grandeza, no la mía. Y cuando en tu tiempo me levantes, que sea para tu gloria. Amén.',
+  tags: ['Humildad'],
+};
+
+export const DEVOTIONAL_2026_06_02_EN: RepoDevocional = {
+  id: 'james410KJV',
+  date: '2026-06-02',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'James 4:10 KJV: "Humble yourselves in the sight of the Lord, and he shall lift you up."',
+  reflexion:
+    'Humility is one of the most misunderstood virtues of our era. The world tells us that to be seen we must stand out, push ourselves forward, make our voice the loudest. But God has a different economy: the one who humbles himself will be exalted.\n\nHumbling yourself before the Lord does not mean thinking poorly of yourself. It means recognizing that without Him we are nothing, and that every ability, every achievement, every grace comes from His hand. Humility is the door through which God\'s grace enters.',
+  para_meditar: [
+    {
+      cita: 'Matthew 23:12',
+      texto: 'And whosoever shall exalt himself shall be abased; and he that shall humble himself shall be exalted.',
+    },
+    {
+      cita: 'Philippians 2:3',
+      texto: 'Let nothing be done through strife or vainglory; but in lowliness of mind let each esteem other better than themselves.',
+    },
+    {
+      cita: '1 Peter 5:6',
+      texto: 'Humble yourselves therefore under the mighty hand of God, that he may exalt you in due time.',
+    },
+  ],
+  oracion:
+    'Father, I know I have a tendency to want recognition, to defend myself, to position myself. But today I come before You remembering that I am clay in the hands of the potter.\n\nTeach me to walk with humility — not so that others see me as small, but so that they see You as great. May my life be a mirror that reflects Your greatness, not my own. And when in Your time You lift me up, may it be for Your glory. Amen.',
+  tags: ['Humility'],
+};
+
+// ─── 2026-06-03: Perseverancia / Perseverance ────────────────────────────────
+export const DEVOCIONAL_2026_06_03: RepoDevocional = {
+  id: 'galatas69RVR1960',
+  date: '2026-06-03',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Gálatas 6:9 RVR1960: "No nos cansemos, pues, de hacer bien; porque a su tiempo segaremos, si no desmayamos."',
+  reflexion:
+    'Hay un tipo de cansancio que no viene del cuerpo sino del alma. Es el agotamiento de hacer lo correcto sin ver resultados, de sembrar sin ver la cosecha, de seguir creyendo cuando el cambio tarda. Pablo conocía ese cansancio, y por eso escribió: no nos cansemos de hacer bien.\n\nLa cosecha viene a su tiempo. Esa es la promesa. No a nuestro tiempo, no según nuestros cálculos, sino al tiempo de Dios. La perseverancia no es obstinación, es confianza en que el Dios que prometió es fiel.',
+  para_meditar: [
+    {
+      cita: 'Hebreos 10:36',
+      texto: 'Porque os es necesaria la paciencia, para que habiendo hecho la voluntad de Dios, obtengáis la promesa.',
+    },
+    {
+      cita: 'Santiago 1:4',
+      texto: 'Mas tenga la paciencia su obra completa, para que seáis perfectos y cabales, sin que os falte cosa alguna.',
+    },
+    {
+      cita: 'Romanos 5:3-4',
+      texto: 'Sino que también nos gloriamos en las tribulaciones, sabiendo que la tribulación produce paciencia; y la paciencia, prueba; y la prueba, esperanza.',
+    },
+  ],
+  oracion:
+    'Señor, hay días en que el cansancio me gana. En que me pregunto si vale la pena seguir, si alguien nota el esfuerzo, si la cosecha llegará algún día.\n\nHoy te pido que renueves mis fuerzas. Que me des la gracia de no desmayar cuando el camino se alarga. Recuérdame que no siembro en vano, que cada acto de obediencia tiene su fruto. Y cuando llegue la cosecha, que sea para tu honra. Amén.',
+  tags: ['Perseverancia'],
+};
+
+export const DEVOTIONAL_2026_06_03_EN: RepoDevocional = {
+  id: 'galatians69KJV',
+  date: '2026-06-03',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Galatians 6:9 KJV: "And let us not be weary in well doing: for in due season we shall reap, if we faint not."',
+  reflexion:
+    'There is a kind of weariness that does not come from the body but from the soul. It is the exhaustion of doing what is right without seeing results, of sowing without seeing the harvest, of continuing to believe when change is slow in coming. Paul knew that weariness, which is why he wrote: let us not grow weary in doing good.\n\nThe harvest comes in due season. That is the promise — not on our schedule, not according to our calculations, but in God\'s timing. Perseverance is not stubbornness; it is trust that the God who promised is faithful.',
+  para_meditar: [
+    {
+      cita: 'Hebrews 10:36',
+      texto: 'For ye have need of patience, that, after ye have done the will of God, ye might receive the promise.',
+    },
+    {
+      cita: 'James 1:4',
+      texto: 'But let patience have her perfect work, that ye may be perfect and entire, wanting nothing.',
+    },
+    {
+      cita: 'Romans 5:3-4',
+      texto: 'But we glory in tribulations also: knowing that tribulation worketh patience; and patience, experience; and experience, hope.',
+    },
+  ],
+  oracion:
+    'Lord, there are days when weariness overtakes me — when I wonder if it is worth continuing, if anyone notices the effort, if the harvest will ever arrive.\n\nToday I ask You to renew my strength. Give me the grace not to faint when the road grows long. Remind me that I do not sow in vain, that every act of obedience bears its fruit. And when the harvest comes, may it bring honor to Your name. Amen.',
+  tags: ['Perseverance'],
+};
+
+// ─── 2026-06-04: Gozo / Joy ───────────────────────────────────────────────────
+export const DEVOCIONAL_2026_06_04: RepoDevocional = {
+  id: 'nehemias810RVR1960',
+  date: '2026-06-04',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Nehemías 8:10 RVR1960: "...porque el gozo de Jehová es vuestra fuerza."',
+  reflexion:
+    'El gozo del que habla Nehemías no es una emoción que depende de las circunstancias. El pueblo acababa de escuchar la ley leída en voz alta y muchos lloraban de culpa. Pero Nehemías les dice algo sorprendente: el gozo del Señor es vuestra fortaleza. No la ausencia de problemas. No la comodidad. El gozo.\n\nHay una diferencia entre felicidad y gozo. La felicidad viene y va con lo que pasa. El gozo es una ancla, una decisión de encontrar fuerza en la presencia de Dios incluso cuando todo duele. Es una fortaleza interior que no cede ante las tormentas.',
+  para_meditar: [
+    {
+      cita: 'Juan 15:11',
+      texto: 'Estas cosas os he hablado, para que mi gozo esté en vosotros, y vuestro gozo sea cumplido.',
+    },
+    {
+      cita: 'Salmos 16:11',
+      texto: 'Me mostrarás la senda de la vida; en tu presencia hay plenitud de gozo; delicias a tu diestra para siempre.',
+    },
+    {
+      cita: 'Filipenses 4:4',
+      texto: 'Regocijaos en el Señor siempre. Otra vez digo: ¡Regocijaos!',
+    },
+  ],
+  oracion:
+    'Señor, he confundido gozo con ausencia de problemas. He esperado estar sin dolor para alegrarme. Pero hoy entiendo que el gozo que tú das no espera esas condiciones.\n\nVen a ser mi fortaleza cuando estoy débil. Ven a ser mi alegría cuando todo está oscuro. Que mi gozo no dependa de lo que pasa a mi alrededor sino de saber que tú estás conmigo. Eso es suficiente. Amén.',
+  tags: ['Gozo'],
+};
+
+export const DEVOTIONAL_2026_06_04_EN: RepoDevocional = {
+  id: 'nehemiah810KJV',
+  date: '2026-06-04',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Nehemiah 8:10 KJV: "...for the joy of the LORD is your strength."',
+  reflexion:
+    'The joy Nehemiah speaks of is not an emotion that depends on circumstances. The people had just heard the law read aloud and many were weeping with guilt. But Nehemiah tells them something surprising: the joy of the LORD is your strength. Not the absence of problems. Not comfort. Joy.\n\nThere is a difference between happiness and joy. Happiness comes and goes with what happens around us. Joy is an anchor — a decision to find strength in God\'s presence even when everything hurts. It is an inner fortress that does not yield to storms.',
+  para_meditar: [
+    {
+      cita: 'John 15:11',
+      texto: 'These things have I spoken unto you, that my joy might remain in you, and that your joy might be full.',
+    },
+    {
+      cita: 'Psalm 16:11',
+      texto: 'Thou wilt shew me the path of life: in thy presence is fulness of joy; at thy right hand there are pleasures for evermore.',
+    },
+    {
+      cita: 'Philippians 4:4',
+      texto: 'Rejoice in the Lord alway: and again I say, Rejoice.',
+    },
+  ],
+  oracion:
+    'Lord, I have confused joy with the absence of problems. I have waited to be free from pain before I could rejoice. But today I understand that the joy You give does not wait for those conditions.\n\nCome be my strength when I am weak. Come be my gladness when everything is dark. May my joy not depend on what happens around me, but on knowing that You are with me. That is enough. Amen.',
+  tags: ['Joy'],
+};
+
+// ─── 2026-06-05: Propósito / Purpose ─────────────────────────────────────────
+export const DEVOCIONAL_2026_06_05: RepoDevocional = {
+  id: 'jeremias2911RVR1960',
+  date: '2026-06-05',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Jeremías 29:11 RVR1960: "Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis."',
+  reflexion:
+    'Jeremías escribió estas palabras a un pueblo en el exilio, lejos de su tierra, preguntándose si Dios los había olvidado. Y en medio de ese dolor, Dios les envía un mensaje sorprendente: tengo planes para ustedes, planes de bienestar y no de mal.\n\nEl propósito de Dios no siempre se revela en el camino más fácil. A veces se descubre en el desierto, en el exilio, en la espera. Lo que el mundo llama fracaso, Dios lo puede usar como el punto de partida de algo completamente nuevo.',
+  para_meditar: [
+    {
+      cita: 'Efesios 2:10',
+      texto: 'Porque somos hechura suya, creados en Cristo Jesús para buenas obras, las cuales Dios preparó de antemano para que anduviésemos en ellas.',
+    },
+    {
+      cita: 'Romanos 8:28',
+      texto: 'Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien, esto es, a los que conforme a su propósito son llamados.',
+    },
+    {
+      cita: 'Salmos 138:8',
+      texto: 'Jehová cumplirá su propósito en mí; tu misericordia, oh Jehová, es para siempre.',
+    },
+  ],
+  oracion:
+    'Dios, hay temporadas en mi vida en que no entiendo por qué las cosas pasaron así. En que el camino parece roto o demasiado largo.\n\nPero hoy te pido que me ayudes a confiar en tus planes aunque no los vea completos. Recuérdame que en tus manos no hay accidentes, que cada etapa tiene un propósito. Que lo que estoy viviendo hoy sea semilla del fruto de mañana. Amén.',
+  tags: ['Propósito'],
+};
+
+export const DEVOTIONAL_2026_06_05_EN: RepoDevocional = {
+  id: 'jeremiah2911KJV',
+  date: '2026-06-05',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Jeremiah 29:11 KJV: "For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end."',
+  reflexion:
+    'Jeremiah wrote these words to a people in exile — far from their homeland, wondering if God had forgotten them. And in the midst of that pain, God sends them a surprising message: I have plans for you, plans for welfare and not for evil.\n\nGod\'s purpose is not always revealed on the easiest path. Sometimes it is discovered in the desert, in exile, in the waiting. What the world calls failure, God can use as the starting point of something completely new.',
+  para_meditar: [
+    {
+      cita: 'Ephesians 2:10',
+      texto: 'For we are his workmanship, created in Christ Jesus unto good works, which God hath before ordained that we should walk in them.',
+    },
+    {
+      cita: 'Romans 8:28',
+      texto: 'And we know that all things work together for good to them that love God, to them who are the called according to his purpose.',
+    },
+    {
+      cita: 'Psalm 138:8',
+      texto: 'The LORD will perfect that which concerneth me: thy mercy, O LORD, endureth for ever.',
+    },
+  ],
+  oracion:
+    'God, there are seasons in my life when I do not understand why things happened the way they did — when the path seems broken or far too long.\n\nBut today I ask You to help me trust in Your plans even when I cannot see them fully. Remind me that in Your hands there are no accidents, that every season has a purpose. May what I am living today become the seed of tomorrow\'s fruit. Amen.',
+  tags: ['Purpose'],
+};
+
+// ─── 2026-06-06: Perdón / Forgiveness ────────────────────────────────────────
+export const DEVOCIONAL_2026_06_06: RepoDevocional = {
+  id: 'juan19RVR1960',
+  date: '2026-06-06',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    '1 Juan 1:9 RVR1960: "Si confesamos nuestros pecados, él es fiel y justo para perdonar nuestros pecados, y limpiarnos de toda maldad."',
+  reflexion:
+    'Todos cargamos con el peso de lo que hemos hecho o dejado de hacer. La culpa puede volverse una prisión sutil, haciéndonos creer que ya no somos dignos de estar en la presencia de Dios. Pero el evangelio proclama algo radical: hay limpieza disponible.\n\nCuando confesamos, Dios no examina si merecemos perdón. Su promesa es clara: es fiel y justo para perdonar. No se trata de nuestra dignidad sino de su fidelidad. La confesión no es humillarse ante un juez severo; es correr hacia un Padre que espera con los brazos abiertos.',
+  para_meditar: [
+    {
+      cita: 'Salmos 103:12',
+      texto: 'Cuanto está lejos el oriente del occidente, hizo alejar de nosotros nuestras rebeliones.',
+    },
+    {
+      cita: 'Isaías 43:25',
+      texto: 'Yo, yo soy el que borro tus rebeliones por amor de mí mismo, y no me acordaré de tus pecados.',
+    },
+    {
+      cita: 'Hebreos 4:16',
+      texto: 'Acerquémonos, pues, confiadamente al trono de la gracia, para alcanzar misericordia y hallar gracia para el oportuno socorro.',
+    },
+  ],
+  oracion:
+    'Señor, vengo ante ti con cosas que cargué demasiado tiempo. Errores que repasé en mi mente, vergüenzas que no me atreví a nombrar, decisiones que quisiera haber tomado diferente.\n\nHoy las pongo delante de ti. Creo que eres fiel. Creo que eres justo. Y recibo tu perdón, no porque lo merezca, sino porque lo prometiste. Límpiame y ayúdame a caminar sin ese peso. Amén.',
+  tags: ['Perdón'],
+};
+
+export const DEVOTIONAL_2026_06_06_EN: RepoDevocional = {
+  id: '1john19KJV',
+  date: '2026-06-06',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    '1 John 1:9 KJV: "If we confess our sins, he is faithful and just to forgive us our sins, and to cleanse us from all unrighteousness."',
+  reflexion:
+    'We all carry the weight of what we have done or left undone. Guilt can become a subtle prison, making us believe we are no longer worthy to stand in God\'s presence. But the gospel proclaims something radical: there is cleansing available.\n\nWhen we confess, God does not examine whether we deserve forgiveness. His promise is clear: He is faithful and just to forgive. It is not about our worthiness but about His faithfulness. Confession is not humbling yourself before a severe judge; it is running toward a Father who waits with open arms.',
+  para_meditar: [
+    {
+      cita: 'Psalm 103:12',
+      texto: 'As far as the east is from the west, so far hath he removed our transgressions from us.',
+    },
+    {
+      cita: 'Isaiah 43:25',
+      texto: 'I, even I, am he that blotteth out thy transgressions for mine own sake, and will not remember thy sins.',
+    },
+    {
+      cita: 'Hebrews 4:16',
+      texto: 'Let us therefore come boldly unto the throne of grace, that we may obtain mercy, and find grace to help in time of need.',
+    },
+  ],
+  oracion:
+    'Lord, I come before You with things I carried far too long — mistakes I replayed in my mind, shames I did not dare to name, decisions I wish I had made differently.\n\nToday I lay them before You. I believe You are faithful. I believe You are just. And I receive Your forgiveness — not because I deserve it, but because You promised it. Cleanse me and help me walk without that weight. Amen.',
+  tags: ['Forgiveness'],
+};
+
+// ─── 2026-06-07: Valentía / Courage ──────────────────────────────────────────
+export const DEVOCIONAL_2026_06_07: RepoDevocional = {
+  id: 'josue19RVR1960',
+  date: '2026-06-07',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Josué 1:9 RVR1960: "Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo en dondequiera que vayas."',
+  reflexion:
+    'Josué estaba a punto de cruzar el Jordán y enfrentar lo desconocido. Moisés había muerto. El liderazgo recaía sobre él. Y en ese momento de máxima presión, Dios le dice: esfuérzate y sé valiente. No porque la tarea fuera fácil, sino porque Dios estaría con él.\n\nLa valentía cristiana no es ausencia de miedo. Es fe que actúa aunque el miedo esté presente. El mandato de Dios a Josué venía acompañado de una promesa: Jehová tu Dios estará contigo en dondequiera que vayas. La valentía siempre nace de esa certeza.',
+  para_meditar: [
+    {
+      cita: 'Isaías 41:10',
+      texto: 'No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.',
+    },
+    {
+      cita: '2 Timoteo 1:7',
+      texto: 'Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio.',
+    },
+    {
+      cita: 'Salmos 27:1',
+      texto: 'Jehová es mi luz y mi salvación; ¿a quién temeré? Jehová es la fortaleza de mi vida; ¿de quién me atemorizaré?',
+    },
+  ],
+  oracion:
+    'Señor, hay situaciones en mi vida que me llenan de temor. Conversaciones que evito, decisiones que postergo, pasos que no doy porque el miedo me paraliza.\n\nHoy recibo tu mandato: esfuérzate y sé valiente. No porque sea fácil, sino porque tú estás conmigo. Dame la valentía de dar el siguiente paso, de decir lo que debe decirse, de ir a donde me llamas. Estás conmigo, y eso lo cambia todo. Amén.',
+  tags: ['Valentía'],
+};
+
+export const DEVOTIONAL_2026_06_07_EN: RepoDevocional = {
+  id: 'joshua19KJV',
+  date: '2026-06-07',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Joshua 1:9 KJV: "Have not I commanded thee? Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest."',
+  reflexion:
+    'Joshua was about to cross the Jordan and face the unknown. Moses had died. Leadership now rested on him. And in that moment of maximum pressure, God tells him: be strong and of good courage. Not because the task would be easy, but because God would be with him.\n\nChristian courage is not the absence of fear. It is faith that acts even when fear is present. God\'s command to Joshua came with a promise: the LORD thy God is with thee whithersoever thou goest. Courage always is born from that certainty.',
+  para_meditar: [
+    {
+      cita: 'Isaiah 41:10',
+      texto: 'Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness.',
+    },
+    {
+      cita: '2 Timothy 1:7',
+      texto: 'For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind.',
+    },
+    {
+      cita: 'Psalm 27:1',
+      texto: 'The LORD is my light and my salvation; whom shall I fear? the LORD is the strength of my life; of whom shall I be afraid?',
+    },
+  ],
+  oracion:
+    'Lord, there are situations in my life that fill me with fear — conversations I avoid, decisions I postpone, steps I do not take because fear paralyzes me.\n\nToday I receive Your command: be strong and of good courage. Not because it is easy, but because You are with me. Give me the courage to take the next step, to say what must be said, to go where You call. You are with me, and that changes everything. Amen.',
+  tags: ['Courage'],
+};
+
+// ─── 2026-06-08: Familia / Family ────────────────────────────────────────────
+export const DEVOCIONAL_2026_06_08: RepoDevocional = {
+  id: 'josue2415RVR1960',
+  date: '2026-06-08',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Josué 24:15 RVR1960: "...pero yo y mi casa serviremos a Jehová."',
+  reflexion:
+    'Estas palabras de Josué son más que una declaración histórica. Son una decisión de prioridad, un acto de liderazgo espiritual en el hogar. En un mundo lleno de influencias y distracciones, la familia necesita una dirección clara.\n\nEl hogar es el primer lugar donde la fe se vive o se abandona. No el templo, no la escuela dominical: el hogar. Las conversaciones en la mesa, las reacciones ante el conflicto, la forma en que se habla de Dios en los momentos cotidianos: todo eso forma a las personas que compartimos la vida.',
+  para_meditar: [
+    {
+      cita: 'Deuteronomio 6:6-7',
+      texto: 'Y estas palabras que yo te mando hoy, estarán sobre tu corazón; y las repetirás a tus hijos, y hablarás de ellas estando en tu casa.',
+    },
+    {
+      cita: 'Efesios 6:4',
+      texto: 'Y vosotros, padres, no provoquéis a ira a vuestros hijos, sino criadlos en disciplina y amonestación del Señor.',
+    },
+    {
+      cita: 'Salmos 128:3',
+      texto: 'Tu mujer será como vid que lleva fruto a los lados de tu casa; tus hijos como plantas de olivo alrededor de tu mesa.',
+    },
+  ],
+  oracion:
+    'Señor, te traigo a mi familia hoy. A los que viven conmigo y a los que están lejos. A las relaciones que están bien y a las que están rotas.\n\nAyúdame a ser en mi hogar lo que profeso afuera. Que mi familia no sea el lugar donde bajo la guardia espiritual sino donde la planto más profundo. Que lo que construyamos juntos esté edificado sobre ti. Amén.',
+  tags: ['Familia'],
+};
+
+export const DEVOTIONAL_2026_06_08_EN: RepoDevocional = {
+  id: 'joshua2415KJV',
+  date: '2026-06-08',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Joshua 24:15 KJV: "...but as for me and my house, we will serve the LORD."',
+  reflexion:
+    'Joshua\'s words are more than a historical declaration. They are a decision of priority, an act of spiritual leadership in the home. In a world full of influences and distractions, the family needs a clear direction.\n\nThe home is the first place where faith is lived or abandoned. Not the church, not Sunday school — the home. Conversations at the table, reactions to conflict, the way God is spoken of in everyday moments: all of this shapes the people we share life with.',
+  para_meditar: [
+    {
+      cita: 'Deuteronomy 6:6-7',
+      texto: 'And these words, which I command thee this day, shall be in thine heart: and thou shalt teach them diligently unto thy children, and shalt talk of them when thou sittest in thine house.',
+    },
+    {
+      cita: 'Ephesians 6:4',
+      texto: 'And, ye fathers, provoke not your children to wrath: but bring them up in the nurture and admonition of the Lord.',
+    },
+    {
+      cita: 'Psalm 128:3',
+      texto: 'Thy wife shall be as a fruitful vine by the sides of thine house: thy children like olive plants round about thy table.',
+    },
+  ],
+  oracion:
+    'Lord, I bring my family to You today — those who live with me and those who are far away; relationships that are well and those that are broken.\n\nHelp me to be in my home what I profess outside of it. May my family not be the place where I let my spiritual guard down, but where I plant it deepest. May what we build together be built upon You. Amen.',
+  tags: ['Family'],
+};
+
+// ─── 2026-06-09: Generosidad / Generosity ────────────────────────────────────
+export const DEVOCIONAL_2026_06_09: RepoDevocional = {
+  id: 'corintios97RVR1960',
+  date: '2026-06-09',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    '2 Corintios 9:7 RVR1960: "Cada uno dé como propuso en su corazón: no con tristeza, ni por necesidad, porque Dios ama al dador alegre."',
+  reflexion:
+    'La generosidad no es primero una disciplina económica. Es un estado del corazón. Dios no pide el diezmo porque necesite nuestro dinero, sino porque la generosidad transforma al que da. Un corazón que puede dar libremente es un corazón que no está atado a las cosas de este mundo.\n\nPablo dice que Dios ama al dador alegre. No al dador obligado, ni al que da por apariencias. Al alegre. La generosidad que nace de la gratitud, no del deber, es la que transforma comunidades y refleja el carácter de un Dios que lo dio todo.',
+  para_meditar: [
+    {
+      cita: 'Lucas 6:38',
+      texto: 'Dad, y se os dará; medida buena, apretada, remecida y rebosando darán en vuestro regazo.',
+    },
+    {
+      cita: 'Proverbios 11:25',
+      texto: 'El alma generosa será prosperada; y el que saciare, él también será saciado.',
+    },
+    {
+      cita: 'Marcos 12:44',
+      texto: 'Porque todos han echado de lo que les sobra; pero ésta, de su pobreza echó todo lo que tenía, todo su sustento.',
+    },
+  ],
+  oracion:
+    'Señor, hay una parte de mí que quiere aferrarse, que calcula antes de dar, que guarda más de lo que necesita por miedo al futuro.\n\nHoy pido que liberes mi corazón de la avaricia y del temor. Que pueda dar como tú diste: con gozo, con libertad, sin calcular el retorno. Que mi generosidad sea un reflejo de tu gracia en mi vida. Amén.',
+  tags: ['Generosidad'],
+};
+
+export const DEVOTIONAL_2026_06_09_EN: RepoDevocional = {
+  id: '2corinthians97KJV',
+  date: '2026-06-09',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    '2 Corinthians 9:7 KJV: "Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver."',
+  reflexion:
+    'Generosity is not first a financial discipline. It is a condition of the heart. God does not ask for the tithe because He needs our money, but because generosity transforms the giver. A heart that can give freely is a heart that is not bound to the things of this world.\n\nPaul says God loves a cheerful giver — not a reluctant giver, not one who gives for appearances. Cheerful. The generosity that flows from gratitude, not duty, is what transforms communities and reflects the character of a God who gave everything.',
+  para_meditar: [
+    {
+      cita: 'Luke 6:38',
+      texto: 'Give, and it shall be given unto you; good measure, pressed down, and shaken together, and running over, shall men give into your bosom.',
+    },
+    {
+      cita: 'Proverbs 11:25',
+      texto: 'The liberal soul shall be made fat: and he that watereth shall be watered also himself.',
+    },
+    {
+      cita: 'Mark 12:44',
+      texto: 'For all they did cast in of their abundance; but she of her want did cast in all that she had, even all her living.',
+    },
+  ],
+  oracion:
+    'Lord, there is a part of me that wants to hold on — that calculates before giving, that stores more than I need out of fear of the future.\n\nToday I ask You to free my heart from greed and fear. May I be able to give as You gave: with joy, with freedom, without calculating the return. May my generosity be a reflection of Your grace in my life. Amen.',
+  tags: ['Generosity'],
+};
+
+// ─── 2026-06-10: Transformación / Transformation ─────────────────────────────
+export const DEVOCIONAL_2026_06_10: RepoDevocional = {
+  id: 'romanos122RVR1960',
+  date: '2026-06-10',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Romanos 12:2 RVR1960: "No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento, para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta."',
+  reflexion:
+    'La transformación cristiana no comienza en las acciones sino en la mente. Pablo no dice "haz cosas diferentes", dice "transforma tu entendimiento". Porque somos lo que pensamos, y actuamos conforme a lo que creemos. Si la mente no cambia, la conducta tampoco cambia de verdad.\n\nNo conformarse a este siglo requiere valentía. El mundo tiene una presión constante hacia sus moldes: sus valores, sus prioridades, sus definiciones de éxito y de identidad. La única forma de resistir esa presión es siendo renovados desde adentro, dejando que la Palabra de Dios remodele nuestra forma de ver la vida.',
+  para_meditar: [
+    {
+      cita: '2 Corintios 3:18',
+      texto: 'Por tanto, nosotros todos, mirando a cara descubierta como en un espejo la gloria del Señor, somos transformados de gloria en gloria en la misma imagen, como por el Espíritu del Señor.',
+    },
+    {
+      cita: 'Efesios 4:23',
+      texto: 'Y renovaos en el espíritu de vuestra mente.',
+    },
+    {
+      cita: 'Colosenses 3:2',
+      texto: 'Poned la mira en las cosas de arriba, no en las de la tierra.',
+    },
+  ],
+  oracion:
+    'Padre, hay patrones en mi vida que reconozco como del mundo, no de ti. Maneras de pensar sobre el éxito, el valor de las personas, el propósito de la vida que aprendí del entorno y no de tu Palabra.\n\nHoy te pido que renueves mi entendimiento. Que tu verdad vaya siendo el lente a través del cual veo todo lo demás. Transfórmame de adentro hacia afuera, para que pueda comprobar cuál es tu buena, agradable y perfecta voluntad. Amén.',
+  tags: ['Transformación'],
+};
+
+export const DEVOTIONAL_2026_06_10_EN: RepoDevocional = {
+  id: 'romans122KJV',
+  date: '2026-06-10',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Romans 12:2 KJV: "And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God."',
+  reflexion:
+    'Christian transformation does not begin in actions but in the mind. Paul does not say "do different things," he says "be transformed by the renewing of your mind." Because we are what we think, and we act according to what we believe. If the mind does not change, behavior does not truly change either.\n\nNot being conformed to this world requires courage. The world exerts constant pressure toward its molds: its values, its priorities, its definitions of success and identity. The only way to resist that pressure is to be renewed from within, allowing the Word of God to reshape how we see life.',
+  para_meditar: [
+    {
+      cita: '2 Corinthians 3:18',
+      texto: 'But we all, with open face beholding as in a glass the glory of the Lord, are changed into the same image from glory to glory, even as by the Spirit of the Lord.',
+    },
+    {
+      cita: 'Ephesians 4:23',
+      texto: 'And be renewed in the spirit of your mind.',
+    },
+    {
+      cita: 'Colossians 3:2',
+      texto: 'Set your affection on things above, not on things on the earth.',
+    },
+  ],
+  oracion:
+    'Father, there are patterns in my life that I recognize as belonging to the world, not to You — ways of thinking about success, the value of people, the purpose of life that I learned from my environment and not from Your Word.\n\nToday I ask You to renew my understanding. May Your truth become the lens through which I see everything else. Transform me from the inside out, so that I may prove what is Your good, acceptable, and perfect will. Amen.',
+  tags: ['Transformation'],
+};
+
 // ─── Image pool (same as backend, 12 Unsplash photos) ─────────────────────────
 
 export const REPO_IMAGES = [
@@ -1540,4 +2110,14 @@ export const REPO_DEVOCIONALS: Record<string, { es: RepoDevocional; en: RepoDevo
   '2026-05-27': { es: DEVOCIONAL_2026_05_27,  en: DEVOTIONAL_2026_05_27_EN,  imageUrl: REPO_IMAGES[9]  }, // Mountain sunrise
   '2026-05-28': { es: DEVOCIONAL_2026_05_28,  en: DEVOTIONAL_2026_05_28_EN,  imageUrl: REPO_IMAGES[10] }, // Forest path
   '2026-05-30': { es: DEVOCIONAL_2026_05_30,  en: DEVOTIONAL_2026_05_30_EN,  imageUrl: REPO_IMAGES[11] }, // Valley view
+  '2026-06-01': { es: DEVOCIONAL_2026_06_01,  en: DEVOTIONAL_2026_06_01_EN,  imageUrl: REPO_IMAGES[0]  }, // Sunrise over mountains
+  '2026-06-02': { es: DEVOCIONAL_2026_06_02,  en: DEVOTIONAL_2026_06_02_EN,  imageUrl: REPO_IMAGES[1]  }, // Golden field
+  '2026-06-03': { es: DEVOCIONAL_2026_06_03,  en: DEVOTIONAL_2026_06_03_EN,  imageUrl: REPO_IMAGES[2]  }, // Misty forest
+  '2026-06-04': { es: DEVOCIONAL_2026_06_04,  en: DEVOTIONAL_2026_06_04_EN,  imageUrl: REPO_IMAGES[3]  }, // Sunlight through trees
+  '2026-06-05': { es: DEVOCIONAL_2026_06_05,  en: DEVOTIONAL_2026_06_05_EN,  imageUrl: REPO_IMAGES[4]  }, // Ocean waves
+  '2026-06-06': { es: DEVOCIONAL_2026_06_06,  en: DEVOTIONAL_2026_06_06_EN,  imageUrl: REPO_IMAGES[5]  }, // Flowers
+  '2026-06-07': { es: DEVOCIONAL_2026_06_07,  en: DEVOTIONAL_2026_06_07_EN,  imageUrl: REPO_IMAGES[6]  }, // Mountain valley
+  '2026-06-08': { es: DEVOCIONAL_2026_06_08,  en: DEVOTIONAL_2026_06_08_EN,  imageUrl: REPO_IMAGES[7]  }, // Lake reflection
+  '2026-06-09': { es: DEVOCIONAL_2026_06_09,  en: DEVOTIONAL_2026_06_09_EN,  imageUrl: REPO_IMAGES[8]  }, // Waterfall
+  '2026-06-10': { es: DEVOCIONAL_2026_06_10,  en: DEVOTIONAL_2026_06_10_EN,  imageUrl: REPO_IMAGES[9]  }, // Mountain sunrise
 };

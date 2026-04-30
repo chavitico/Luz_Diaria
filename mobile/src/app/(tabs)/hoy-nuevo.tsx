@@ -520,7 +520,6 @@ export default function HoyNuevoScreen() {
   const viewDate = dateParam ?? today;
   const isRepoDate = Boolean(REPO_DEVOCIONALS[viewDate]);
   const isToday = viewDate === today;
-  console.log('[HoyNuevo] today=', today, 'viewDate=', viewDate, 'isToday=', isToday);
 
   // Fetch from backend for dates not in the static repo
   const { data: backendDev } = useQuery({
