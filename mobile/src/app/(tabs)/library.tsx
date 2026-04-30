@@ -17,7 +17,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter, useFocusEffect } from 'expo-router';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check } from 'lucide-react-native';
+import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check, Lock } from 'lucide-react-native';
 import { ShareOptionsSheet, type ShareOption } from '@/components/ShareOptionsSheet';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import { useThemeColors, useLanguage, useUserFavorites, useUser, useAppStore } from '@/lib/store';
@@ -233,14 +233,25 @@ export default function LibraryScreen() {
 
   const repoDates = useMemo(() => new Set(Object.keys(REPO_DEVOCIONALS)), []);
 
-  const filteredDevotionals = useMemo(() => {
-    // Merge: repo entries + historical old-format (excluding any dates repo already covers)
+  // Full merged list (all dates, sorted descending)
+  const allMerged = useMemo(() => {
     const historical = (devotionals ?? []).filter((d) => !repoDates.has(d.date));
-    const merged = [...repoDevotionals, ...historical].sort((a, b) =>
+    return [...repoDevotionals, ...historical].sort((a, b) =>
       b.date.localeCompare(a.date)
     );
+  }, [devotionals, repoDevotionals, repoDates]);
 
-    return merged.filter((d) => {
+  // Count of future (reserved) devotionals — not yet visible
+  const reservedCount = useMemo(
+    () => allMerged.filter((d) => d.date > today).length,
+    [allMerged, today]
+  );
+
+  const filteredDevotionals = useMemo(() => {
+    // Only today and past are visible
+    const visible = allMerged.filter((d) => d.date <= today);
+
+    return visible.filter((d) => {
       if (filter === 'favorites' && !favorites.includes(d.date)) return false;
 
       if (selectedCategory !== 'all') {
@@ -266,7 +277,7 @@ export default function LibraryScreen() {
 
       return true;
     });
-  }, [devotionals, repoDevotionals, repoDates, filter, favorites, selectedCategory, searchQuery, language]);
+  }, [allMerged, today, filter, favorites, selectedCategory, searchQuery, language]);
 
   const handleDevotionalPress = useCallback((devotional: Devotional) => {
     router.push({ pathname: '/(tabs)/hoy-nuevo', params: { date: devotional.date } });
@@ -461,10 +472,40 @@ export default function LibraryScreen() {
           renderItem={renderItem}
           keyExtractor={(item) => item.date}
           extraData={favorites}
-          contentContainerStyle={{ paddingTop: 8, paddingBottom: 120 }}
+          contentContainerStyle={{ paddingTop: 8, paddingBottom: 24 }}
           showsVerticalScrollIndicator={false}
           onRefresh={() => refetch()}
           refreshing={isFetching}
+          ListFooterComponent={
+            reservedCount > 0 ? (
+              <View
+                className="mx-4 mt-4 mb-28 rounded-2xl overflow-hidden"
+                style={{ backgroundColor: colors.surface }}
+              >
+                <View
+                  className="px-5 py-4 flex-row items-center"
+                  style={{ borderLeftWidth: 3, borderLeftColor: colors.primary }}
+                >
+                  <View
+                    className="w-10 h-10 rounded-full items-center justify-center mr-3"
+                    style={{ backgroundColor: colors.primary + '18' }}
+                  >
+                    <Lock size={18} color={colors.primary} />
+                  </View>
+                  <View className="flex-1">
+                    <Text className="text-base font-bold" style={{ color: colors.text }}>
+                      {reservedCount} {language === 'es' ? 'devocionales reservados' : 'reserved devotionals'}
+                    </Text>
+                    <Text className="text-xs mt-0.5" style={{ color: colors.textMuted }}>
+                      {language === 'es'
+                        ? 'Preparados y listos para los próximos días'
+                        : 'Ready for upcoming days'}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            ) : null
+          }
         />
       ) : (
         <Animated.View

@@ -51,6 +51,7 @@ export default function TabLayout() {
 
   return (
     <Tabs
+      initialRouteName="hoy-nuevo"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
@@ -89,11 +90,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: t.tab_home,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon hasBadge={hasHomeBadge} focused={focused}
-              icon={<Sun size={24} color={color} strokeWidth={focused ? 2.5 : 2} />} />
-          ),
+          href: null,
         }}
       />
       <Tabs.Screen
