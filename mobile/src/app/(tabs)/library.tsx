@@ -204,10 +204,12 @@ export default function LibraryScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-  const { data: devotionals, isLoading, isFetching } = useQuery({
+  const { data: devotionals, isLoading, isFetching, refetch } = useQuery({
     queryKey: ['allDevotionals'],
     queryFn: () => firestoreService.getAllDevotionals(),
-    staleTime: 0, // always consider stale so focus refetch kicks in
+    staleTime: 0,
+    gcTime: 0, // never keep stale data in cache — always fetch fresh on mount
+    refetchOnMount: 'always',
     retry: 1,
   });
 
@@ -461,16 +463,8 @@ export default function LibraryScreen() {
           extraData={favorites}
           contentContainerStyle={{ paddingTop: 8, paddingBottom: 120 }}
           showsVerticalScrollIndicator={false}
-          ListFooterComponent={
-            isFetching && !devotionals ? (
-              <View style={{ alignItems: 'center', paddingVertical: 16, gap: 8 }}>
-                <ActivityIndicator size="small" color={colors.primary} />
-                <Text style={{ fontSize: 12, color: colors.textMuted }}>
-                  {language === 'es' ? 'Cargando historial...' : 'Loading history...'}
-                </Text>
-              </View>
-            ) : null
-          }
+          onRefresh={() => refetch()}
+          refreshing={isFetching}
         />
       ) : (
         <Animated.View
