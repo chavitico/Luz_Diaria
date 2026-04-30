@@ -5,8 +5,8 @@ import { generateStreakSnapshots } from "./streak-snapshot-service";
 import { runDailyBackup } from "./backup-service";
 
 // Costa Rica timezone is UTC-6
-// 4:00 AM Costa Rica = 10:00 AM UTC
-const CRON_HOUR_UTC = 10;
+// 00:00 AM Costa Rica (midnight) = 6:00 AM UTC
+const CRON_HOUR_UTC = 6;
 const CRON_MINUTE = 0;
 
 // Number of historical days to seed on startup
@@ -87,7 +87,7 @@ async function runCronJob(): Promise<void> {
 
 export function startDevotionalCron(): void {
   console.log(`[Cron] Starting devotional cron job`);
-  console.log(`[Cron] Scheduled to run daily at 4:00 AM Costa Rica (10:00 AM UTC)`);
+  console.log(`[Cron] Scheduled to run daily at 00:00 (midnight) Costa Rica (6:00 AM UTC)`);
 
   const nextRun = getNextRunTime();
   const msUntilNextRun = nextRun.getTime() - Date.now();

@@ -851,18 +851,13 @@ export async function generateNewFormatDevotionalForDate(date: string): Promise<
 }
 
 /**
- * Ensures new-format devotionals exist from 2026-09-19 onwards up to today+days.
+ * Extends the new-format devotional buffer by one entry per call.
+ * Starts from 2026-09-19 (day after static files end) and advances 1 day per
+ * daily cron run. On startup after a gap, catches up to today+days.
  * Idempotent — skips existing entries. Safe to call at any time.
  */
 export async function ensureNewFormatAhead(days = 30): Promise<void> {
   const today = getTodayDate();
-  const endDate = addDaysToDate(today, days);
-
-  // Only generate if we're within `days` of when static files run out
-  if (endDate <= STATIC_END_DATE) {
-    console.log(`[NewFormat] No generation needed yet — endDate ${endDate} <= static end ${STATIC_END_DATE}`);
-    return;
-  }
 
   // Find the latest new-format devotional already in DB (after static end)
   const latest = await prisma.devotional.findFirst({
@@ -871,15 +866,16 @@ export async function ensureNewFormatAhead(days = 30): Promise<void> {
     select: { date: true },
   });
 
-  // Start from the day after the latest, or from Sep 19 if nothing exists yet
-  const startDate = latest ? addDaysToDate(latest.date, 1) : '2026-09-19';
+  const frontier = latest?.date ?? STATIC_END_DATE;
+  const startDate = addDaysToDate(frontier, 1); // next date to generate
 
-  if (startDate > endDate) {
-    console.log(`[NewFormat] Buffer full through ${latest?.date} — nothing to generate`);
-    return;
-  }
+  // In steady state: today+days is roughly frontier+1, so endDate = startDate (1 entry).
+  // On first run or catch-up: today+days may be further behind, so endDate = startDate (still 1 entry).
+  // The endDate is always at least startDate, ensuring at least 1 entry per call.
+  const endDateFromToday = addDaysToDate(today, days);
+  const endDate = endDateFromToday > startDate ? endDateFromToday : startDate;
 
-  console.log(`[NewFormat] Filling from ${startDate} to ${endDate}…`);
+  console.log(`[NewFormat] Frontier: ${frontier} → generating ${startDate} to ${endDate}…`);
   let current = startDate;
   while (current <= endDate) {
     try {
@@ -889,7 +885,7 @@ export async function ensureNewFormatAhead(days = 30): Promise<void> {
     }
     current = addDaysToDate(current, 1);
   }
-  console.log(`[NewFormat] ensureNewFormatAhead(${days}) complete`);
+  console.log(`[NewFormat] ensureNewFormatAhead(${days}) complete — frontier now at ${endDate}`);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

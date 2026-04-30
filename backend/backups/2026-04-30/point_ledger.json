@@ -2718,5 +2718,25 @@
     "amount": 10,
     "metadata": "{}",
     "createdAt": "2026-04-29T21:53:02.279Z"
+  },
+  {
+    "id": "cmol3bzks0011m2gmvtat3xa1",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "devotional_2026-04-30",
+    "type": "devotional_complete",
+    "dateId": "2026-04-30",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-04-30T06:16:14.045Z"
+  },
+  {
+    "id": "cmol3c5z9001gm2gm8pn5olrx",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-04-30",
+    "type": "prayer",
+    "dateId": "2026-04-30",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-04-30T06:16:22.342Z"
   }
 ]
