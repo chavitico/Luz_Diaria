@@ -556,7 +556,7 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
       where: { date: { lte: date } },
       orderBy: { date: 'desc' },
       take: 30,
-      select: { story: true, titleEs: true },
+      select: { story: true, title: true, titleEs: true },
     });
 
     // Collect used protagonist names
@@ -566,6 +566,9 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
       if (name && !usedNames.includes(name)) usedNames.push(name);
     }
     console.log(`[Devotional] Used names for ${date}: ${usedNames.join(', ')}`);
+
+    // Collect existing titles for duplicate detection (last 30)
+    const usedTitles = recentDevotionals.flatMap(d => [d.titleEs, d.title].filter(Boolean) as string[]);
 
     // Collect overused title words from last 15 devotionals
     const recentTitles = recentDevotionals.slice(0, 15).map(d => d.titleEs);
@@ -591,7 +594,7 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
 
     const genContext: GenerationContext = { usedNames, overusedTitleWords, toneStyle, titleFormat, contentStructure };
 
-    // Generate with up to 3 retries if protagonist name is a duplicate
+    // Generate with up to 3 retries if protagonist name or title is a duplicate
     let content: DevotionalContent | null = null;
     for (let attempt = 1; attempt <= 3; attempt++) {
       const candidate = await generateDevotionalWithAI(topic, genContext);
@@ -599,12 +602,19 @@ export async function generateDevotionalForDate(date: string): Promise<void> {
       const generatedNameEs = extractProtagonistName(candidate.storyEs ?? '');
       const isDuplicate = generatedName && usedNames.includes(generatedName);
       const isDuplicateEs = generatedNameEs && usedNames.includes(generatedNameEs);
-      if (!isDuplicate && !isDuplicateEs) {
+      const normalize = (s: string) => s.toLowerCase().replace(/[^a-záéíóúñü]/gi, '').trim();
+      const isTitleDuplicate = usedTitles.some(t => normalize(t) === normalize(candidate.title ?? ''));
+      const isTitleEsDuplicate = usedTitles.some(t => normalize(t) === normalize(candidate.titleEs ?? ''));
+      if (!isDuplicate && !isDuplicateEs && !isTitleDuplicate && !isTitleEsDuplicate) {
         content = candidate;
         if (generatedName) console.log(`[Devotional] Attempt ${attempt}: accepted name "${generatedName}"`);
         break;
       }
-      console.log(`[Devotional] Attempt ${attempt}: name "${generatedName ?? generatedNameEs}" already used — retrying`);
+      if (isTitleDuplicate || isTitleEsDuplicate) {
+        console.log(`[Devotional] Attempt ${attempt}: title "${candidate.title ?? candidate.titleEs}" already used — retrying`);
+      } else {
+        console.log(`[Devotional] Attempt ${attempt}: name "${generatedName ?? generatedNameEs}" already used — retrying`);
+      }
     }
     if (!content) {
       // All retries exhausted — use last attempt anyway
