@@ -832,12 +832,14 @@ export async function ensureNewFormatAhead(days = 30): Promise<void> {
   const frontier = latest?.date ?? STATIC_END_DATE;
   const startDate = addDaysToDate(frontier, 1); // next date to generate
 
-  // Always keep `days` entries buffered ahead of the frontier.
-  // Using frontier+days as the target ensures a full rolling window regardless of today's date.
-  // Also consider today+days for catch-up when the server has been offline for a while.
-  const endDateFromFrontier = addDaysToDate(frontier, days);
+  // Target: always have `days` new-format entries available beyond the static bundle.
+  // Minimum = STATIC_END_DATE + days (e.g. Oct 18 for days=30).
+  // Also use today+days so the window rolls forward as days pass in production.
+  // startDate is always included so at least 1 entry is generated per call.
+  const minimumEnd = addDaysToDate(STATIC_END_DATE, days);
   const endDateFromToday = addDaysToDate(today, days);
-  const endDate = endDateFromFrontier > endDateFromToday ? endDateFromFrontier : endDateFromToday;
+  const candidates = [minimumEnd, endDateFromToday, startDate];
+  const endDate = candidates.reduce((max, d) => (d > max ? d : max));
 
   console.log(`[NewFormat] Frontier: ${frontier} → generating ${startDate} to ${endDate}…`);
   let current = startDate;
