@@ -672,12 +672,12 @@ export async function getAllDevotionals() {
  * Idempotent — safe to call at any time.
  */
 // ─── New-format devotional generation (RepoDevocional format) ────────────────
-// Used for all dates after 2026-09-18 (after static files run out).
-// Stores: bibleVerse/bibleVerseEs (KJV/RVR1960 text), bibleReference/bibleReferenceEs,
-// reflection/reflectionEs (2-paragraph reflexion), story/storyEs (JSON para_meditar array),
-// prayer/prayerEs (2-paragraph oracion), topic/topicEs (tag).
+// Source: develop4God/devocionales-json (same repo used for static files).
+// For dates after 2026-09-18 we fetch directly from GitHub instead of generating with AI.
+// Stores: story/storyEs as JSON para_meditar array — detected by backendToRepoDevocional.
 
 const STATIC_END_DATE = '2026-09-18';
+const GITHUB_BASE = 'https://raw.githubusercontent.com/develop4God/devocionales-json/main';
 
 function addDaysToDate(date: string, n: number): string {
   const [y, m, d] = date.split('-').map(Number) as [number, number, number];
@@ -685,114 +685,66 @@ function addDaysToDate(date: string, n: number): string {
   return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, '0')}-${String(dt.getUTCDate()).padStart(2, '0')}`;
 }
 
-interface NewFormatContent {
-  bibleReferenceEs: string;
-  bibleVerseEs: string;
-  bibleReference: string;
-  bibleVerse: string;
-  reflexionEs: string;
+interface GitHubEntry {
+  id: string;
+  date: string;
+  language: string;
+  version: string;
+  versiculo: string;
   reflexion: string;
-  paraMeditarEs: Array<{ cita: string; texto: string }>;
-  paraMeditar: Array<{ cita: string; texto: string }>;
-  oracionEs: string;
+  para_meditar: Array<{ cita: string; texto: string }>;
   oracion: string;
-  topicEs: string;
-  topic: string;
+  tags: string[];
 }
 
-async function generateNewFormatWithAI(topic: { en: string; es: string }): Promise<NewFormatContent> {
-  const prompt = `Eres un escritor devocional cristiano experto. Genera un devocional diario en el nuevo formato limpio y profundo.
-
-Tema: "${topic.es}" (ES) / "${topic.en}" (EN)
-
-IMPORTANTE — VERSÍCULOS REALES:
-- Todos los versículos bíblicos deben ser REALES y EXACTOS de la Biblia.
-- Versión española: Reina-Valera 1960 (RVR1960)
-- Versión inglesa: King James Version (KJV)
-- Los 3 versículos de para_meditar deben ser citas REALES de la Biblia — no las inventes.
-- El texto de cada versículo debe coincidir exactamente con la versión indicada (RVR1960/KJV).
-
-Devuelve ÚNICAMENTE un objeto JSON válido (sin markdown, sin bloques de código):
-
-{
-  "bibleReferenceEs": "Libro Capítulo:Versículo — referencia del versículo principal en español (ej: 'Romanos 8:28')",
-  "bibleVerseEs": "Texto exacto del versículo en RVR1960",
-  "bibleReference": "Book Chapter:Verse — main verse reference in English (eg: 'Romans 8:28')",
-  "bibleVerse": "Exact verse text in KJV",
-  "reflexionEs": "Reflexión espiritual en español — exactamente 2 párrafos separados por \\n\\n. Cada párrafo 60-80 palabras. Profunda, personal, conecta la Escritura con la vida real. Habla de frente al corazón del lector.",
-  "reflexion": "Spiritual reflection in English — exactly 2 paragraphs separated by \\n\\n. Each paragraph 60-80 words. Deep, personal, connects Scripture to real life.",
-  "paraMeditarEs": [
-    {"cita": "Libro Capítulo:Versículo RVR1960", "texto": "Texto exacto del versículo en RVR1960"},
-    {"cita": "Libro Capítulo:Versículo RVR1960", "texto": "Texto exacto del versículo en RVR1960"},
-    {"cita": "Libro Capítulo:Versículo RVR1960", "texto": "Texto exacto del versículo en RVR1960"}
-  ],
-  "paraMeditar": [
-    {"cita": "Book Chapter:Verse KJV", "texto": "Exact verse text in KJV"},
-    {"cita": "Book Chapter:Verse KJV", "texto": "Exact verse text in KJV"},
-    {"cita": "Book Chapter:Verse KJV", "texto": "Exact verse text in KJV"}
-  ],
-  "oracionEs": "Oración en español — exactamente 2 párrafos separados por \\n\\n. Íntima, conversacional con Dios, nombra el peso emocional del tema. 50-70 palabras por párrafo.",
-  "oracion": "Prayer in English — exactly 2 paragraphs separated by \\n\\n. Intimate, conversational with God. 50-70 words per paragraph.",
-  "topicEs": "Una sola palabra o frase corta en español que resume el tema (ej: 'Fe', 'Paciencia', 'Gracia')",
-  "topic": "Single word or short phrase in English summarizing the theme (eg: 'Faith', 'Patience', 'Grace')"
+interface GitHubCache {
+  es: Record<string, GitHubEntry>;
+  en: Record<string, GitHubEntry>;
+  loadedAt: number;
 }
 
-REGLAS CRÍTICAS:
-1. paraMeditarEs y paraMeditar deben tener EXACTAMENTE 3 elementos cada uno.
-2. Los versículos de para_meditar deben ser DIFERENTES al versículo principal.
-3. Los 3 versículos deben ser de libros/pasajes variados — no todos del mismo libro.
-4. El texto de cada versículo debe ser preciso y fiel a la versión (RVR1960 o KJV).
-5. La reflexión debe fluir naturalmente en español — no como traducción.
-6. La oración debe sentirse como una conversación íntima real, no un texto litúrgico.`;
+let githubCache: GitHubCache | null = null;
 
-  const response = await fetch('https://api.openai.com/v1/responses', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({ model: 'gpt-4o', input: prompt }),
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`OpenAI API error: ${response.status} — ${errorText}`);
+async function loadGitHubDevocionales(year: number = 2026): Promise<GitHubCache> {
+  const now = Date.now();
+  if (githubCache && (now - githubCache.loadedAt) < 24 * 60 * 60 * 1000) {
+    return githubCache;
   }
 
-  const data = (await response.json()) as {
-    output?: Array<{ type: string; content?: Array<{ type: string; text?: string }> }>;
-  };
+  console.log(`[NewFormat] Fetching GitHub devocionales for year ${year}…`);
+  const [esRes, enRes] = await Promise.all([
+    fetch(`${GITHUB_BASE}/Devocional_year_${year}.json`),
+    fetch(`${GITHUB_BASE}/Devocional_year_${year}_en_KJV.json`),
+  ]);
 
-  let textContent = '';
-  if (data.output && Array.isArray(data.output)) {
-    for (const item of data.output) {
-      if (item.type === 'message' && item.content) {
-        for (const content of item.content) {
-          if (content.type === 'output_text' && content.text) {
-            textContent = content.text;
-            break;
-          }
-        }
-      }
-    }
+  if (!esRes.ok) throw new Error(`GitHub ES fetch failed: ${esRes.status}`);
+  if (!enRes.ok) throw new Error(`GitHub EN fetch failed: ${enRes.status}`);
+
+  const [esData, enData] = await Promise.all([esRes.json(), enRes.json()]) as [
+    { data: { es: Record<string, GitHubEntry[]> } },
+    { data: { en: Record<string, GitHubEntry[]> } },
+  ];
+
+  const esMap: Record<string, GitHubEntry> = {};
+  const enMap: Record<string, GitHubEntry> = {};
+
+  for (const [date, entries] of Object.entries(esData.data.es)) {
+    if (entries[0]) esMap[date] = entries[0];
+  }
+  for (const [date, entries] of Object.entries(enData.data.en)) {
+    if (entries[0]) enMap[date] = entries[0];
   }
 
-  if (!textContent) throw new Error('No text content in OpenAI response');
+  githubCache = { es: esMap, en: enMap, loadedAt: now };
+  console.log(`[NewFormat] GitHub cache loaded: ${Object.keys(esMap).length} ES + ${Object.keys(enMap).length} EN entries`);
+  return githubCache;
+}
 
-  let cleaned = textContent.trim();
-  if (cleaned.startsWith('```json')) cleaned = cleaned.slice(7);
-  else if (cleaned.startsWith('```')) cleaned = cleaned.slice(3);
-  if (cleaned.endsWith('```')) cleaned = cleaned.slice(0, -3);
-  cleaned = cleaned.trim();
-
-  const parsed = JSON.parse(cleaned) as NewFormatContent;
-  if (!Array.isArray(parsed.paraMeditarEs) || parsed.paraMeditarEs.length !== 3) {
-    throw new Error(`paraMeditarEs must have 3 items, got ${parsed.paraMeditarEs?.length}`);
-  }
-  if (!Array.isArray(parsed.paraMeditar) || parsed.paraMeditar.length !== 3) {
-    throw new Error(`paraMeditar must have 3 items, got ${parsed.paraMeditar?.length}`);
-  }
-  return parsed;
+function extractRefFromVersiculo(versiculo: string): { reference: string; text: string } {
+  // Format: "Book Chapter:Verse VERSION: \"text\""  VERSION = all-caps like RVR1960, KJV
+  const match = versiculo.match(/^(.+?)\s+([A-Z][A-Z0-9]+):\s*"?([\s\S]+?)"?\s*$/);
+  if (match) return { reference: (match[1] ?? '').trim(), text: (match[3] ?? '').trim().replace(/\\"/g, '"') };
+  return { reference: '', text: versiculo };
 }
 
 export async function generateNewFormatDevotionalForDate(date: string): Promise<void> {
@@ -802,52 +754,63 @@ export async function generateNewFormatDevotionalForDate(date: string): Promise<
     return;
   }
 
-  const topic = getTopicForDate(date);
   const imageUrl = getImageForDate(date);
 
-  console.log(`[NewFormat] Generating new-format devotional for ${date}, topic: ${topic.en}…`);
+  // Determine which year file to load based on the date
+  const year = parseInt(date.split('-')[0]!, 10);
+  // The 2026 file covers 2026-08-01 through 2027-07-31, so dates in 2027 also use 2026 file
+  const fileYear = (year === 2027) ? 2026 : year;
 
-  let content: NewFormatContent | null = null;
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    try {
-      content = await generateNewFormatWithAI(topic);
-      break;
-    } catch (err) {
-      console.error(`[NewFormat] Attempt ${attempt} failed for ${date}:`, err);
-      if (attempt === 3) throw err;
-    }
+  let esEntry: GitHubEntry | undefined;
+  let enEntry: GitHubEntry | undefined;
+
+  try {
+    const cache = await loadGitHubDevocionales(fileYear);
+    esEntry = cache.es[date];
+    enEntry = cache.en[date];
+  } catch (err) {
+    console.error(`[NewFormat] GitHub fetch failed for ${date}:`, err);
   }
 
-  if (!content) throw new Error(`Failed to generate new-format devotional for ${date}`);
+  if (esEntry && enEntry) {
+    const { reference: bibleReferenceEs, text: bibleVerseEs } = extractRefFromVersiculo(esEntry.versiculo);
+    const { reference: bibleReference, text: bibleVerse } = extractRefFromVersiculo(enEntry.versiculo);
+    const topic = enEntry.tags[0] ?? 'Faith';
+    const topicEs = esEntry.tags[0] ?? 'Fe';
 
-  await prisma.devotional.upsert({
-    where: { date },
-    update: {},
-    create: {
-      date,
-      topic: content.topic,
-      topicEs: content.topicEs,
-      imageUrl,
-      title: content.topic,
-      titleEs: content.topicEs,
-      bibleVerse: content.bibleVerse,
-      bibleVerseEs: content.bibleVerseEs,
-      bibleReference: content.bibleReference,
-      bibleReferenceEs: content.bibleReferenceEs,
-      reflection: content.reflexion,
-      reflectionEs: content.reflexionEs,
-      story: JSON.stringify(content.paraMeditar),
-      storyEs: JSON.stringify(content.paraMeditarEs),
-      biblicalCharacter: '',
-      biblicalCharacterEs: '',
-      application: '',
-      applicationEs: '',
-      prayer: content.oracion,
-      prayerEs: content.oracionEs,
-    },
-  });
+    await prisma.devotional.upsert({
+      where: { date },
+      update: {},
+      create: {
+        date,
+        topic,
+        topicEs,
+        imageUrl,
+        title: topic,
+        titleEs: topicEs,
+        bibleVerse,
+        bibleVerseEs,
+        bibleReference,
+        bibleReferenceEs,
+        reflection: enEntry.reflexion,
+        reflectionEs: esEntry.reflexion,
+        story: JSON.stringify(enEntry.para_meditar),
+        storyEs: JSON.stringify(esEntry.para_meditar),
+        biblicalCharacter: '',
+        biblicalCharacterEs: '',
+        application: '',
+        applicationEs: '',
+        prayer: enEntry.oracion,
+        prayerEs: esEntry.oracion,
+      },
+    });
 
-  console.log(`[NewFormat] Devotional for ${date} created: "${content.topic}"`);
+    console.log(`[NewFormat] Devotional for ${date} stored from GitHub: "${topic}" (${esEntry.id})`);
+    return;
+  }
+
+  // Fallback: no GitHub data for this date (e.g. after Jul 2027) — skip with warning
+  console.warn(`[NewFormat] No GitHub data found for ${date} — skipping (date may be beyond available files)`);
 }
 
 /**
