@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { View, Text, Platform } from 'react-native';
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
 import { BlurView } from 'expo-blur';
 import { Sun, BookOpen, Palette, Users, BookMarked, Settings2, Library, Scroll } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
@@ -41,6 +41,7 @@ export default function TabLayout() {
   const t = TRANSLATIONS[language];
   const user = useUser();
   const badges = useAppStore((s) => s.notificationBadges);
+  const router = useRouter();
 
   useNotificationBadges(user?.id);
 
@@ -97,6 +98,14 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="hoy-nuevo"
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            // Navigate with empty date so hoy-nuevo always shows today when
+            // the tab button is pressed directly (clears any stale library date)
+            router.navigate({ pathname: '/(tabs)/hoy-nuevo', params: { date: '' } });
+          },
+        }}
         options={{
           title: 'Nuevo',
           tabBarIcon: ({ color, focused }) => (

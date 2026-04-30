@@ -516,8 +516,8 @@ export default function HoyNuevoScreen() {
   const router = useRouter();
   const today = getTodayDate();
   const { date: dateParam } = useLocalSearchParams<{ date?: string }>();
-  // viewDate: the devotional being read (may differ from today for previewing future ones)
-  const viewDate = dateParam ?? today;
+  // viewDate: the devotional being read. Empty string means "reset to today" (set by tab press).
+  const viewDate = (dateParam && dateParam.length > 0) ? dateParam : today;
   const isRepoDate = Boolean(REPO_DEVOCIONALS[viewDate]);
   const isToday = viewDate === today;
 
