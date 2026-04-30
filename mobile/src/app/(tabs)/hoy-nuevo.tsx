@@ -80,20 +80,34 @@ const { width } = Dimensions.get('window');
 function backendToRepoDevocional(d: Devotional, date: string, lang: 'en' | 'es'): RepoDevocional {
   const ref = lang === 'es' ? (d.bibleReferenceEs || d.bibleReference) : d.bibleReference;
   const verse = lang === 'es' ? (d.bibleVerseEs || d.bibleVerse) : d.bibleVerse;
-  const story = lang === 'es' ? (d.storyEs || d.story) : d.story;
-  const biblical = lang === 'es' ? (d.biblicalCharacterEs || d.biblicalCharacter) : d.biblicalCharacter;
+  const storyField = lang === 'es' ? (d.storyEs || d.story) : d.story;
   const tag = lang === 'es' ? (d.topicEs || d.topic) : d.topic;
 
-  const para_meditar: ParaMeditar[] = [];
-  if (story) para_meditar.push({ cita: lang === 'es' ? 'Reflexión de vida' : 'Life Reflection', texto: story });
-  if (biblical) para_meditar.push({ cita: lang === 'es' ? 'Perspectiva bíblica' : 'Biblical Perspective', texto: biblical });
+  // New-format: story field contains JSON array [{cita, texto}, ...]
+  // Old-format: story field contains prose text
+  let para_meditar: ParaMeditar[] = [];
+  const isNewFormat = storyField?.trimStart().startsWith('[');
+  if (isNewFormat) {
+    try {
+      para_meditar = JSON.parse(storyField) as ParaMeditar[];
+    } catch {
+      para_meditar = [];
+    }
+  } else {
+    // Old format fallback: wrap prose fields as pseudo-citations
+    if (storyField) para_meditar.push({ cita: lang === 'es' ? 'Reflexión de vida' : 'Life Reflection', texto: storyField });
+    const biblical = lang === 'es' ? (d.biblicalCharacterEs || d.biblicalCharacter) : d.biblicalCharacter;
+    if (biblical) para_meditar.push({ cita: lang === 'es' ? 'Perspectiva bíblica' : 'Biblical Perspective', texto: biblical });
+  }
+
+  const version = isNewFormat ? (lang === 'es' ? 'RVR1960' : 'KJV') : 'RVR1960';
 
   return {
     id: date,
     date,
     language: lang,
-    version: 'RVR1960',
-    versiculo: `${ref} RVR1960: "${verse}"`,
+    version,
+    versiculo: `${ref} ${version}: "${verse}"`,
     reflexion: lang === 'es' ? (d.reflectionEs || d.reflection) : d.reflection,
     para_meditar,
     oracion: lang === 'es' ? (d.prayerEs || d.prayer) : d.prayer,
