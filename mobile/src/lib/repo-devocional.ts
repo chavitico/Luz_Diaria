@@ -572,6 +572,118 @@ export const DEVOTIONAL_2026_05_06_EN: RepoDevocional = {
   tags: ['Prayer'],
 };
 
+export const DEVOCIONAL_2026_05_07: RepoDevocional = {
+  id: 'romanos1013RVR1960',
+  date: '2026-05-07',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Romanos 10:13 RVR1960: "Porque todo aquel que invocare el nombre del Señor, será salvo."',
+  reflexion:
+    'Hay momentos en los que la desesperación parece tener la última palabra. Cuando las puertas se cierran, las fuerzas se agotan y el futuro luce oscuro, resulta difícil imaginar que algo pueda cambiar. Sin embargo, la salvación no es solo un evento puntual del pasado; es una realidad viva que irrumpe precisamente en los momentos de mayor quebranto.\n\nDios no espera a que estés en tu mejor versión para acercarse. El apóstol Pablo lo deja claro: cualquiera —sin excepción, sin requisitos previos— que clame al Señor recibirá salvación. Esta no es una promesa para los que ya tienen todo resuelto, sino para los que reconocen que no pueden solos. La desesperación, cuando se convierte en clamor, se transforma en el umbral de la esperanza.',
+  para_meditar: [
+    {
+      cita: 'Salmos 34:18',
+      texto: 'Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.',
+    },
+    {
+      cita: 'Romanos 8:38-39',
+      texto: 'Por lo cual estoy seguro de que ni la muerte, ni la vida... ni ninguna otra cosa creada nos podrá separar del amor de Dios, que es en Cristo Jesús Señor nuestro.',
+    },
+    {
+      cita: 'Isaías 43:1',
+      texto: 'No temas, porque yo te redimí; te puse nombre, mío eres tú.',
+    },
+  ],
+  oracion:
+    'Señor, hoy te clamo desde el lugar donde estoy, no desde donde quisiera estar. Mi corazón está cansado y mis fuerzas son pocas. Pero tú prometiste que todo el que te invocare sería salvo, y hoy me acojo a esa promesa.\n\nSálvame del desánimo, de la duda, de la voz que me dice que ya no hay salida. Recuérdame que tu salvación no tiene fecha de vencimiento ni depende de mis méritos. Transforma mi desesperación en esperanza y mi llanto en fortaleza. En el nombre de Jesús, amén.',
+  tags: ['Salvación'],
+};
+
+export const DEVOTIONAL_2026_05_07_EN: RepoDevocional = {
+  id: 'romans1013KJV',
+  date: '2026-05-07',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Romans 10:13 KJV: "For whosoever shall call upon the name of the Lord shall be saved."',
+  reflexion:
+    "There are moments when despair seems to have the final word. When doors close, strength runs out, and the future looks dark, it is hard to imagine that anything can change. Yet salvation is not merely a past event — it is a living reality that breaks in precisely at our most broken moments.\n\nGod does not wait for you to be at your best before drawing near. The apostle Paul makes it clear: anyone — without exception, without prerequisites — who calls on the Lord will receive salvation. This is not a promise for those who have it all figured out, but for those who recognize they cannot make it on their own. Despair, when it becomes a cry, is transformed into the threshold of hope.",
+  para_meditar: [
+    {
+      cita: 'Psalm 34:18',
+      texto: 'The LORD is nigh unto them that are of a broken heart; and saveth such as be of a contrite spirit.',
+    },
+    {
+      cita: 'Romans 8:38-39',
+      texto: 'For I am persuaded, that neither death, nor life... nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord.',
+    },
+    {
+      cita: 'Isaiah 43:1',
+      texto: 'Fear not: for I have redeemed thee, I have called thee by thy name; thou art mine.',
+    },
+  ],
+  oracion:
+    "Lord, today I call out to You from where I am, not from where I wish I were. My heart is weary and my strength is low. But You promised that whoever calls on Your name will be saved, and today I hold on to that promise.\n\nSave me from discouragement, from doubt, from the voice that tells me there is no way out. Remind me that Your salvation has no expiration date and does not depend on my merits. Turn my despair into hope and my tears into strength. In Jesus' name, amen.",
+  tags: ['Salvation'],
+};
+
+export const DEVOCIONAL_2026_05_08: RepoDevocional = {
+  id: 'efesios17RVR1960',
+  date: '2026-05-08',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Efesios 1:7 RVR1960: "En quien tenemos redención por su sangre, el perdón de pecados según las riquezas de su gracia."',
+  reflexion:
+    'Todos llevamos historias que preferiríamos reescribir. Decisiones pasadas, heridas acumuladas, identidades forjadas en el dolor. Nuestra tendencia es cargar esas páginas como condena, como prueba de que somos lo que el mundo —o nosotros mismos— hemos dicho que somos. Pero la redención de Dios no edita superficialmente nuestra historia: la reescribe desde adentro.\n\nLa palabra redención en el griego original evoca la imagen de alguien que paga el precio para liberar a un cautivo. Eso es exactamente lo que Cristo hizo: entró en nuestra historia, pagó lo que nosotros no podíamos pagar, y nos devolvió la autoría de nuestra propia vida. La gracia no borra el pasado, pero le cambia el significado. Lo que antes era vergüenza puede convertirse en testimonio; lo que era cadena, en llamado.',
+  para_meditar: [
+    {
+      cita: 'Colosenses 1:13-14',
+      texto: 'El cual nos ha librado de la potestad de las tinieblas, y trasladado al reino de su amado Hijo, en quien tenemos redención por su sangre, el perdón de pecados.',
+    },
+    {
+      cita: '1 Pedro 1:18-19',
+      texto: 'Sabiendo que fuisteis rescatados de vuestra vana manera de vivir... con la sangre preciosa de Cristo.',
+    },
+    {
+      cita: 'Tito 2:14',
+      texto: 'Quien se dio a sí mismo por nosotros para redimirnos de toda iniquidad y purificar para sí un pueblo propio, celoso de buenas obras.',
+    },
+  ],
+  oracion:
+    'Padre, gracias porque tu gracia no se asusta de mi historia. Hoy traigo ante ti las páginas que me avergüenzan, las decisiones que quisiera borrar, las heridas que todavía duelen.\n\nCreo que en Cristo tengo redención. No como teoría, sino como realidad que puede transformar mi presente. Ayúdame a dejar de leer mi vida solo a través de mis errores y a verla a través de tu gracia. Que lo que hoy parece ruina, en tus manos se convierta en fundamento. En el nombre de Jesús, amén.',
+  tags: ['Redención'],
+};
+
+export const DEVOTIONAL_2026_05_08_EN: RepoDevocional = {
+  id: 'ephesians17KJV',
+  date: '2026-05-08',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Ephesians 1:7 KJV: "In whom we have redemption through his blood, the forgiveness of sins, according to the riches of his grace."',
+  reflexion:
+    "We all carry stories we would rather rewrite. Past decisions, accumulated wounds, identities forged in pain. Our tendency is to carry those pages as a verdict — as proof that we are what the world, or we ourselves, have said we are. But God's redemption does not superficially edit our story: it rewrites it from the inside out.\n\nThe word redemption in the original Greek evokes the image of someone paying the price to free a captive. That is exactly what Christ did: He entered our story, paid what we could not pay, and gave us back the authorship of our own lives. Grace does not erase the past, but it changes its meaning. What was once shame can become testimony; what was a chain can become a calling.",
+  para_meditar: [
+    {
+      cita: 'Colossians 1:13-14',
+      texto: 'Who hath delivered us from the power of darkness, and hath translated us into the kingdom of his dear Son: in whom we have redemption through his blood, even the forgiveness of sins.',
+    },
+    {
+      cita: '1 Peter 1:18-19',
+      texto: 'Forasmuch as ye know that ye were not redeemed with corruptible things... but with the precious blood of Christ.',
+    },
+    {
+      cita: 'Titus 2:14',
+      texto: 'Who gave himself for us, that he might redeem us from all iniquity, and purify unto himself a peculiar people, zealous of good works.',
+    },
+  ],
+  oracion:
+    "Father, thank You that Your grace is not frightened by my story. Today I bring before You the pages that shame me, the decisions I wish I could undo, the wounds that still ache.\n\nI believe that in Christ I have redemption — not as a theory, but as a reality that can transform my present. Help me stop reading my life only through my mistakes and to see it through Your grace. May what looks like ruin today become, in Your hands, a foundation. In Jesus' name, amen.",
+  tags: ['Redemption'],
+};
+
 // ─── Image pool (same as backend, 12 Unsplash photos) ─────────────────────────
 
 export const REPO_IMAGES = [
@@ -600,4 +712,6 @@ export const REPO_DEVOCIONALS: Record<string, { es: RepoDevocional; en: RepoDevo
   '2026-05-04': { es: DEVOCIONAL_2026_05_04,  en: DEVOTIONAL_2026_05_04_EN,  imageUrl: REPO_IMAGES[5]  }, // Flowers
   '2026-05-05': { es: DEVOCIONAL_2026_05_05,  en: DEVOTIONAL_2026_05_05_EN,  imageUrl: REPO_IMAGES[6]  }, // Mountain valley
   '2026-05-06': { es: DEVOCIONAL_2026_05_06,  en: DEVOTIONAL_2026_05_06_EN,  imageUrl: REPO_IMAGES[7]  }, // Lake reflection
+  '2026-05-07': { es: DEVOCIONAL_2026_05_07,  en: DEVOTIONAL_2026_05_07_EN,  imageUrl: REPO_IMAGES[8]  }, // Waterfall
+  '2026-05-08': { es: DEVOCIONAL_2026_05_08,  en: DEVOTIONAL_2026_05_08_EN,  imageUrl: REPO_IMAGES[9]  }, // Mountain sunrise
 };
