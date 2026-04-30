@@ -18,6 +18,7 @@ import Animated, {
   withTiming,
   withDelay,
   withSpring,
+  withSequence,
 } from 'react-native-reanimated';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -69,6 +70,7 @@ import {
   type RepoDevocional,
 } from '@/lib/repo-devocional';
 import type { Devotional } from '@/lib/types';
+import { POINTS } from '@/lib/types';
 import { PRAYER_CATEGORIES } from '@/lib/constants';
 import { markDevotionalCompletedToday } from '@/lib/notifications';
 
@@ -98,6 +100,60 @@ function backendToRepoDevocional(d: Devotional, date: string, lang: 'en' | 'es')
     tags: tag ? [tag] : [],
   };
 }
+function PrayerConfirmButton({
+  colors,
+  language,
+  isPrayerDone,
+  onConfirm,
+}: {
+  colors: ReturnType<typeof useThemeColors>;
+  language: 'en' | 'es';
+  isPrayerDone: boolean;
+  onConfirm: () => void;
+}) {
+  const scale = useSharedValue(1);
+
+  const handlePress = () => {
+    if (isPrayerDone) return;
+    scale.value = withSequence(withSpring(0.95, { damping: 10 }), withSpring(1, { damping: 8 }));
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    onConfirm();
+  };
+
+  const animatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+
+  return (
+    <Animated.View style={[animatedStyle, { marginTop: 16 }]}>
+      <Pressable
+        onPress={handlePress}
+        disabled={isPrayerDone}
+        style={{
+          flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+          paddingVertical: 16, paddingHorizontal: 24, borderRadius: 16,
+          backgroundColor: isPrayerDone ? '#22C55E' : colors.primary,
+          opacity: isPrayerDone ? 0.9 : 1,
+        }}
+      >
+        {isPrayerDone ? (
+          <>
+            <Check size={22} color="#FFFFFF" strokeWidth={3} />
+            <Text style={{ marginLeft: 12, fontWeight: 'bold', fontSize: 16, color: '#FFFFFF' }}>
+              {language === 'es' ? 'Completado' : 'Completed'}
+            </Text>
+          </>
+        ) : (
+          <>
+            <Heart size={22} color={colors.primaryText} />
+            <Text style={{ marginLeft: 12, fontWeight: 'bold', fontSize: 16, color: colors.primaryText }}>
+              {language === 'es' ? 'Hoy hice esta oración' : 'I prayed today'}
+            </Text>
+          </>
+        )}
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 const HERO_HEIGHT = 280;
 const TTS_RATE = 0.88;
 const TTS_PITCH = 0.95;
@@ -532,9 +588,14 @@ export default function HoyNuevoScreen() {
   // ── Favorites ──
   const isFavorite = favorites.includes(viewDate);
   const handleToggleFavorite = useCallback(() => {
-    if (isFavorite) removeFavorite(viewDate); else addFavorite(viewDate);
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-  }, [isFavorite, viewDate, addFavorite, removeFavorite]);
+    if (isFavorite) {
+      removeFavorite(viewDate);
+    } else {
+      if (!favorites.includes(viewDate)) addPoints(POINTS.FAVORITE_DEVOTIONAL);
+      addFavorite(viewDate);
+    }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  }, [isFavorite, viewDate, addFavorite, removeFavorite, favorites, addPoints]);
 
   // ── Share ──
   const [shareVisible, setShareVisible] = useState(false);
@@ -547,6 +608,28 @@ export default function HoyNuevoScreen() {
   const SHARE_MAX = 2;
   const dailyActions = user?.dailyActions ?? {};
   const shareCount = dailyActions.shareDate === today ? (dailyActions.shareCount ?? 0) : 0;
+
+  // ── Prayer confirmation ──
+  const isPrayerDone = dailyActions.prayerDate === today && (dailyActions.prayerDone ?? false);
+
+  const handlePrayerConfirm = useCallback(async () => {
+    if (!user || isPrayerDone || !isToday) return;
+    updateUser({ dailyActions: { ...dailyActions, prayerDate: today, prayerDone: true } });
+    try {
+      const result = await gamificationApi.awardPoints(user.id, 'prayer');
+      if (result.success) {
+        addPoints(result.pointsAwarded);
+        addLedgerEntry({ delta: result.pointsAwarded, kind: 'devotional', title: language === 'es' ? 'Oración confirmada' : 'Prayer confirmed', detail: '' });
+        showToast(result.pointsAwarded, language === 'es' ? 'puntos (Oración)' : 'points (Prayer)');
+      }
+      await gamificationApi.updateChallengeProgress(user.id, 'prayer');
+      queryClient.invalidateQueries({ queryKey: ['challengeProgress', user.id] });
+    } catch {
+      addPoints(POINTS.PRAYER_CONFIRM);
+      addLedgerEntry({ delta: POINTS.PRAYER_CONFIRM, kind: 'devotional', title: language === 'es' ? 'Oración confirmada' : 'Prayer confirmed', detail: '' });
+      showToast(POINTS.PRAYER_CONFIRM, language === 'es' ? 'puntos (Oración)' : 'points (Prayer)');
+    }
+  }, [user, isPrayerDone, isToday, dailyActions, today, updateUser, addPoints, showToast, language, queryClient]);
   const canShare = shareCount < SHARE_MAX;
 
   const handleShareComplete = async () => {
@@ -1073,6 +1156,16 @@ export default function HoyNuevoScreen() {
               </View>
             )}
           </SectionCard>
+
+          {/* Prayer confirmation button — only for today's devotional */}
+          {isToday && (
+            <PrayerConfirmButton
+              colors={colors}
+              language={language}
+              isPrayerDone={isPrayerDone}
+              onConfirm={handlePrayerConfirm}
+            />
+          )}
 
           {/* Tags */}
           {devocional.tags.length > 0 && (
