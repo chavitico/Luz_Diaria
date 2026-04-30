@@ -267,14 +267,7 @@ export default function LibraryScreen() {
   }, [devotionals, repoDevotionals, repoDates, filter, favorites, selectedCategory, searchQuery, language]);
 
   const handleDevotionalPress = useCallback((devotional: Devotional) => {
-    if (devotional.source === 'repo') {
-      router.push({ pathname: '/(tabs)/hoy-nuevo', params: { date: devotional.date } });
-      return;
-    }
-    router.push({
-      pathname: '/devotional/[date]',
-      params: { date: devotional.date },
-    });
+    router.push({ pathname: '/(tabs)/hoy-nuevo', params: { date: devotional.date } });
   }, [router]);
 
   // Open share modal for a devotional

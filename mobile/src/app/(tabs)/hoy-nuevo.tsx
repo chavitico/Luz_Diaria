@@ -54,7 +54,7 @@ import {
 } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
-import { getTodayDate } from '@/lib/firestore';
+import { getTodayDate, firestoreService } from '@/lib/firestore';
 import { pickBestVoice } from '@/lib/voice-picker';
 import { sanitizeForTTS, preprocessNumbersForTTS } from '@/lib/tts-voices';
 import { useScaledFont } from '@/lib/textScale';
@@ -65,11 +65,39 @@ import {
   REPO_DEVOCIONALS,
   repoToDevotional,
   parseVersiculo,
+  type ParaMeditar,
+  type RepoDevocional,
 } from '@/lib/repo-devocional';
+import type { Devotional } from '@/lib/types';
 import { PRAYER_CATEGORIES } from '@/lib/constants';
 import { markDevotionalCompletedToday } from '@/lib/notifications';
 
 const { width } = Dimensions.get('window');
+
+/** Convert a backend-generated Devotional (DB format) to the RepoDevocional format that hoy-nuevo uses */
+function backendToRepoDevocional(d: Devotional, date: string, lang: 'en' | 'es'): RepoDevocional {
+  const ref = lang === 'es' ? (d.bibleReferenceEs || d.bibleReference) : d.bibleReference;
+  const verse = lang === 'es' ? (d.bibleVerseEs || d.bibleVerse) : d.bibleVerse;
+  const story = lang === 'es' ? (d.storyEs || d.story) : d.story;
+  const biblical = lang === 'es' ? (d.biblicalCharacterEs || d.biblicalCharacter) : d.biblicalCharacter;
+  const tag = lang === 'es' ? (d.topicEs || d.topic) : d.topic;
+
+  const para_meditar: ParaMeditar[] = [];
+  if (story) para_meditar.push({ cita: lang === 'es' ? 'Reflexión de vida' : 'Life Reflection', texto: story });
+  if (biblical) para_meditar.push({ cita: lang === 'es' ? 'Perspectiva bíblica' : 'Biblical Perspective', texto: biblical });
+
+  return {
+    id: date,
+    date,
+    language: lang,
+    version: 'RVR1960',
+    versiculo: `${ref} RVR1960: "${verse}"`,
+    reflexion: lang === 'es' ? (d.reflectionEs || d.reflection) : d.reflection,
+    para_meditar,
+    oracion: lang === 'es' ? (d.prayerEs || d.prayer) : d.prayer,
+    tags: tag ? [tag] : [],
+  };
+}
 const HERO_HEIGHT = 280;
 const TTS_RATE = 0.88;
 const TTS_PITCH = 0.95;
@@ -433,8 +461,18 @@ export default function HoyNuevoScreen() {
   const today = getTodayDate();
   const { date: dateParam } = useLocalSearchParams<{ date?: string }>();
   // viewDate: the devotional being read (may differ from today for previewing future ones)
-  const viewDate = (dateParam && REPO_DEVOCIONALS[dateParam]) ? dateParam : today;
+  const viewDate = dateParam ?? today;
+  const isRepoDate = Boolean(REPO_DEVOCIONALS[viewDate]);
   const isToday = viewDate === today;
+
+  // Fetch from backend for dates not in the static repo
+  const { data: backendDev } = useQuery({
+    queryKey: ['devotional', viewDate],
+    queryFn: () => firestoreService.getDevotional(viewDate),
+    enabled: !isRepoDate,
+    staleTime: 1000 * 60 * 30,
+    retry: 1,
+  });
   const { currentToast, showToast, hideToast } = usePointsToast();
   const queryClient = useQueryClient();
   const addPoints = useAppStore((s) => s.addPoints);
@@ -446,9 +484,12 @@ export default function HoyNuevoScreen() {
 
   // Select content based on language and viewDate
   const repoEntry = REPO_DEVOCIONALS[viewDate] ?? { es: SAMPLE_DEVOCIONAL, en: SAMPLE_DEVOCIONAL_EN, imageUrl: REPO_DEFAULT_IMAGE };
-  const devocional = language === 'es' ? repoEntry.es : repoEntry.en;
+  const heroImageUrl = isRepoDate ? repoEntry.imageUrl : (backendDev?.imageUrl ?? REPO_DEFAULT_IMAGE);
+  const devocional = isRepoDate
+    ? (language === 'es' ? repoEntry.es : repoEntry.en)
+    : (backendDev ? backendToRepoDevocional(backendDev, viewDate, language) : (language === 'es' ? SAMPLE_DEVOCIONAL : SAMPLE_DEVOCIONAL_EN));
   const { reference, version, text: verseText } = parseVersiculo(devocional.versiculo);
-  const mappedDevotional = { ...repoToDevotional(devocional, repoEntry.imageUrl), date: viewDate };
+  const mappedDevotional = { ...repoToDevotional(devocional, heroImageUrl), date: viewDate };
   const autoTitle = devocional.tags[0] ?? 'Devocional';
 
   const formattedDate = new Date(viewDate + 'T12:00:00').toLocaleDateString(
@@ -794,7 +835,7 @@ export default function HoyNuevoScreen() {
         {/* ── Hero ── */}
         <View style={{ height: HERO_HEIGHT }}>
           <Image
-            source={{ uri: repoEntry.imageUrl }}
+            source={{ uri: heroImageUrl }}
             style={{ width: '100%', height: '100%' }}
             contentFit="cover"
           />
