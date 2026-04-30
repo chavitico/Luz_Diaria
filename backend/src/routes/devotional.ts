@@ -189,14 +189,11 @@ devotionalRouter.get("/date/:date", async (c) => {
   }
 });
 
-// Get all devotionals (for library) — only returns date <= todayCR to avoid showing future entries
+// Get all devotionals (for library) — returns all including future for review
 devotionalRouter.get("/all", async (c) => {
   try {
-    const today = getCRToday();
     const devotionals = await getAllDevotionals();
-    // Filter out any pre-generated future devotionals
-    const pastAndToday = devotionals.filter((d: { date: string }) => d.date <= today);
-    return c.json(pastAndToday);
+    return c.json(devotionals);
   } catch (error) {
     console.error("[API] Error getting all devotionals:", error);
     return c.json({ error: "Failed to get devotionals" }, 500);

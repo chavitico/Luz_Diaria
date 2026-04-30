@@ -232,11 +232,9 @@ export default function LibraryScreen() {
   const repoDates = useMemo(() => new Set(Object.keys(REPO_DEVOCIONALS)), []);
 
   const filteredDevotionals = useMemo(() => {
-    // Only show devotionals up to and including today
-    const repoToday = repoDevotionals.filter((d) => d.date <= today);
     // Merge: repo entries + historical old-format (excluding any dates repo already covers)
     const historical = (devotionals ?? []).filter((d) => !repoDates.has(d.date));
-    const merged = [...repoToday, ...historical].sort((a, b) =>
+    const merged = [...repoDevotionals, ...historical].sort((a, b) =>
       b.date.localeCompare(a.date)
     );
 
