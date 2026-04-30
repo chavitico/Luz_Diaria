@@ -1090,7 +1090,7 @@ export default function HoyNuevoScreen() {
 
           {isCompleted && <PastoralClosure colors={colors} language={language} />}
 
-          <CommentsSection devotionalDate={today} scrollViewRef={scrollRef as any} />
+          <CommentsSection devotionalDate={dateParam ?? today} scrollViewRef={scrollRef as any} />
         </View>
       </Animated.ScrollView>
 
