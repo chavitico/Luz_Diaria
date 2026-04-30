@@ -1206,6 +1206,12 @@ function DailyEngagementBanner({
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+
+  // This screen is hidden (href: null). Always redirect to the new-format devotional home.
+  useEffect(() => {
+    router.replace({ pathname: '/(tabs)/hoy-nuevo' });
+  }, []);
+
   const colors = useThemeColors();
   const language = useLanguage();
   const { sFont } = useScaledFont();

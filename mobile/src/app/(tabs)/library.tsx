@@ -1,6 +1,7 @@
 // Library Screen - Historical Devotionals
 
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -246,6 +247,44 @@ export default function LibraryScreen() {
     () => allMerged.filter((d) => d.date > today).length,
     [allMerged, today]
   );
+
+  // ── Day-over-day delta tracking ──────────────────────────────────────────
+  const RESERVED_HISTORY_KEY = 'reserved_count_history';
+  interface ReservedHistory { date: string; count: number; prevCount?: number }
+  const [reservedHistory, setReservedHistory] = useState<ReservedHistory | null>(null);
+
+  // Load persisted history on mount
+  useEffect(() => {
+    AsyncStorage.getItem(RESERVED_HISTORY_KEY).then(raw => {
+      if (raw) setReservedHistory(JSON.parse(raw) as ReservedHistory);
+    });
+  }, []);
+
+  // Update history whenever reservedCount or date changes
+  useEffect(() => {
+    if (reservedCount === 0) return; // data not loaded yet
+    setReservedHistory(prev => {
+      let next: ReservedHistory;
+      if (!prev) {
+        // First time ever
+        next = { date: today, count: reservedCount };
+      } else if (prev.date !== today) {
+        // New day — shift: prev becomes prevCount, today is new baseline
+        next = { date: today, count: reservedCount, prevCount: prev.count };
+      } else {
+        // Same day — update count but keep prevCount
+        next = { ...prev, count: reservedCount };
+      }
+      AsyncStorage.setItem(RESERVED_HISTORY_KEY, JSON.stringify(next));
+      return next;
+    });
+  }, [reservedCount, today]);
+
+  // Delta: how many changed vs yesterday (0 = balanced, negative = consuming more than generating)
+  const reservedDelta = reservedHistory?.prevCount != null
+    ? reservedCount - reservedHistory.prevCount
+    : null;
+  // ─────────────────────────────────────────────────────────────────────────
 
   const filteredDevotionals = useMemo(() => {
     // Only today and past are visible
@@ -493,9 +532,34 @@ export default function LibraryScreen() {
                     <Lock size={18} color={colors.primary} />
                   </View>
                   <View className="flex-1">
-                    <Text className="text-base font-bold" style={{ color: colors.text }}>
-                      {reservedCount} {language === 'es' ? 'devocionales reservados' : 'reserved devotionals'}
-                    </Text>
+                    <View className="flex-row items-center">
+                      <Text className="text-base font-bold mr-2" style={{ color: colors.text }}>
+                        {reservedCount} {language === 'es' ? 'devocionales reservados' : 'reserved devotionals'}
+                      </Text>
+                      {reservedDelta !== null && (
+                        <View
+                          className="px-2 py-0.5 rounded-full"
+                          style={{
+                            backgroundColor:
+                              reservedDelta > 0 ? '#22c55e20' :
+                              reservedDelta < 0 ? '#ef444420' :
+                              '#6b728020',
+                          }}
+                        >
+                          <Text
+                            className="text-xs font-bold"
+                            style={{
+                              color:
+                                reservedDelta > 0 ? '#16a34a' :
+                                reservedDelta < 0 ? '#dc2626' :
+                                colors.textMuted,
+                            }}
+                          >
+                            {reservedDelta > 0 ? `+${reservedDelta}` : `${reservedDelta}`}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
                     <Text className="text-xs mt-0.5" style={{ color: colors.textMuted }}>
                       {language === 'es'
                         ? 'Preparados y listos para los próximos días'
