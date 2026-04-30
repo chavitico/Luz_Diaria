@@ -684,6 +684,818 @@ export const DEVOTIONAL_2026_05_08_EN: RepoDevocional = {
   tags: ['Redemption'],
 };
 
+// ─── May 10 — Worship ─────────────────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_10: RepoDevocional = {
+  id: 'colosenses317RVR1960',
+  date: '2026-05-10',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Colosenses 3:17 RVR1960: "Y todo lo que hacéis, sea de palabra o de hecho, hacedlo todo en el nombre del Señor Jesús, dando gracias a Dios Padre por medio de él."',
+  reflexion:
+    'Solemos pensar que la adoración ocurre en un recinto con música y predicación. Pero hay un tipo de adoración que Dios valora profundamente: la que sucede cuando nadie está mirando, cuando lavas los platos, preparas el almuerzo o doblas la ropa. Pablo no dice "algunas cosas" sino "todo lo que hacéis". Esa totalidad es la invitación de Dios a convertir cada momento ordinario en un acto de amor.\n\nLa adoración cotidiana no requiere palabras elaboradas ni circunstancias perfectas. Requiere intención. Cuando haces tu trabajo pensando en agradar a Dios, cuando cuidas a alguien con amor genuino, cuando terminas una tarea con honestidad aunque nadie te vea —estás adorando. El corazón que canta en la cocina es el que ha aprendido que lo sagrado y lo cotidiano no son opuestos: son el mismo territorio.',
+  para_meditar: [
+    {
+      cita: 'Salmo 100:2',
+      texto: 'Servid a Jehová con alegría; venid ante su presencia con regocijo.',
+    },
+    {
+      cita: 'Juan 4:24',
+      texto: 'Dios es Espíritu; y los que le adoran, en espíritu y en verdad es necesario que adoren.',
+    },
+    {
+      cita: 'Romanos 12:1',
+      texto: 'Os ruego por las misericordias de Dios, que presentéis vuestros cuerpos en sacrificio vivo, santo, agradable a Dios, que es vuestro culto racional.',
+    },
+  ],
+  oracion:
+    'Señor, perdóname por limitar mi adoración a ciertos momentos y lugares. Hoy quiero aprender a adorarte en lo ordinario: en el trabajo que realizo, en las personas que sirvo, en los momentos que parecen insignificantes.\n\nQue mi vida entera sea un acto de gratitud hacia ti. Que mis manos, mis palabras y mis decisiones reflejen que te pertenezco. Transforma mis rutinas en liturgia y mi esfuerzo diario en ofrenda. En el nombre de Jesús, amén.',
+  tags: ['Adoración'],
+};
+
+export const DEVOTIONAL_2026_05_10_EN: RepoDevocional = {
+  id: 'colossians317KJV',
+  date: '2026-05-10',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Colossians 3:17 KJV: "And whatsoever ye do in word or deed, do all in the name of the Lord Jesus, giving thanks to God and the Father by him."',
+  reflexion:
+    "We tend to think worship happens inside a building with music and preaching. But there is a kind of worship God values deeply — the kind that happens when no one is watching, when you wash the dishes, cook a meal, or fold the laundry. Paul does not say 'some things' but 'whatsoever ye do.' That totality is God's invitation to turn every ordinary moment into an act of love.\n\nEveryday worship does not require elaborate words or perfect circumstances. It requires intention. When you do your work with a desire to please God, when you care for someone with genuine love, when you finish a task honestly even when no one sees — you are worshipping. The heart that sings in the kitchen is the one that has learned that the sacred and the everyday are not opposites: they are the same territory.",
+  para_meditar: [
+    {
+      cita: 'Psalm 100:2',
+      texto: 'Serve the LORD with gladness: come before his presence with singing.',
+    },
+    {
+      cita: 'John 4:24',
+      texto: 'God is a Spirit: and they that worship him must worship him in spirit and in truth.',
+    },
+    {
+      cita: 'Romans 12:1',
+      texto: 'I beseech you therefore, brethren, by the mercies of God, that ye present your bodies a living sacrifice, holy, acceptable unto God, which is your reasonable service.',
+    },
+  ],
+  oracion:
+    "Lord, forgive me for limiting my worship to certain moments and places. Today I want to learn to worship You in the ordinary: in the work I do, in the people I serve, in the moments that seem insignificant.\n\nMay my whole life be an act of gratitude toward You. May my hands, my words, and my decisions reflect that I belong to You. Transform my routines into liturgy and my daily effort into an offering. In Jesus' name, amen.",
+  tags: ['Worship'],
+};
+
+// ─── May 11 — Prayer ──────────────────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_11: RepoDevocional = {
+  id: 'romanos826RVR1960',
+  date: '2026-05-11',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Romanos 8:26 RVR1960: "Y de igual manera el Espíritu nos ayuda en nuestra debilidad; pues qué hemos de pedir como conviene, no lo sabemos, pero el Espíritu mismo intercede por nosotros con gemidos indecibles."',
+  reflexion:
+    'Hay temporadas en las que no sabemos qué pedirle a Dios. El corazón está tan cargado, o tan vacío, que las palabras no alcanzan. Nos sentamos en silencio frente a Dios y lo único que podemos ofrecer es nuestra presencia rota. En esos momentos, la promesa de Romanos 8 es un ancla: el Espíritu Santo ora por nosotros cuando nosotros no podemos.\n\nDios nunca requirió elocuencia. Lo que busca es honestidad. Un suspiro cansado, un llanto sin explicación, un "no sé cómo más pedirte" —son oraciones tan válidas como las más elaboradas. Cuando el corazón deja de esperar es porque ha olvidado que Dios ya está trabajando en lo que no podemos ver. La oración no mueve a Dios hacia nosotros: nos mueve a nosotros hacia su perspectiva.',
+  para_meditar: [
+    {
+      cita: 'Lamentaciones 3:22-23',
+      texto: 'Por la misericordia de Jehová no hemos sido consumidos, porque nunca decayeron sus misericordias. Nuevas son cada mañana; grande es tu fidelidad.',
+    },
+    {
+      cita: 'Lucas 18:1',
+      texto: 'También les refirió Jesús una parábola sobre la necesidad de orar siempre, y no desmayar.',
+    },
+    {
+      cita: 'Filipenses 4:6-7',
+      texto: 'Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego, con acción de gracias. Y la paz de Dios, que sobrepasa todo entendimiento, guardará vuestros corazones y vuestros pensamientos en Cristo Jesús.',
+    },
+  ],
+  oracion:
+    'Espíritu Santo, gracias porque oras en mí cuando yo no sé cómo. Hoy vengo a ti sin palabras perfectas, sin certezas claras, solo con la necesidad de estar en tu presencia.\n\nAyúdame a no rendirme en la oración cuando no veo respuestas. Recuérdame que tu silencio no es abandono. Que cuando mi corazón ya no puede esperar, sea precisamente entonces cuando confíe más. En el nombre de Jesús, amén.',
+  tags: ['Oración'],
+};
+
+export const DEVOTIONAL_2026_05_11_EN: RepoDevocional = {
+  id: 'romans826KJV',
+  date: '2026-05-11',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Romans 8:26 KJV: "Likewise the Spirit also helpeth our infirmities: for we know not what we should pray for as we ought: but the Spirit itself maketh intercession for us with groanings which cannot be uttered."',
+  reflexion:
+    "There are seasons when we do not know what to ask God for. The heart is so burdened, or so empty, that words fall short. We sit in silence before God and the only thing we can offer is our broken presence. In those moments, the promise of Romans 8 is an anchor: the Holy Spirit prays for us when we cannot.\n\nGod has never required eloquence. What He seeks is honesty. A weary sigh, a tear without explanation, an 'I don't know how to ask You anymore' — these are prayers as valid as the most carefully worded ones. When the heart stops hoping, it is because it has forgotten that God is already working on what we cannot see. Prayer does not move God toward us: it moves us toward His perspective.",
+  para_meditar: [
+    {
+      cita: 'Lamentations 3:22-23',
+      texto: "It is of the LORD's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.",
+    },
+    {
+      cita: 'Luke 18:1',
+      texto: 'And he spake a parable unto them to this end, that men ought always to pray, and not to faint.',
+    },
+    {
+      cita: 'Philippians 4:6-7',
+      texto: 'Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God. And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus.',
+    },
+  ],
+  oracion:
+    "Holy Spirit, thank You for praying in me when I do not know how. Today I come to You without perfect words, without clear certainty, only with the need to be in Your presence.\n\nHelp me not to give up in prayer when I see no answers. Remind me that Your silence is not abandonment. May the very moment my heart can no longer hope be the moment I trust You most. In Jesus' name, amen.",
+  tags: ['Prayer'],
+};
+
+// ─── May 13 — Service ─────────────────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_13: RepoDevocional = {
+  id: 'marcos1045RVR1960',
+  date: '2026-05-13',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Marcos 10:45 RVR1960: "Porque el Hijo del Hombre no vino para ser servido, sino para servir, y para dar su vida en rescate por muchos."',
+  reflexion:
+    'Hay una paradoja en el corazón del servicio cristiano: lo que damos termina transformándonos más a nosotros que a quienes servimos. Cuando Cristo lavó los pies de sus discípulos, no solo les demostró humildad —les reveló que el poder verdadero no domina, sino que desciende. El que sirve con amor genuino está ejerciendo una de las formas más radicales de libertad.\n\nServir no es una obligación que Dios nos impone como carga; es una invitación a participar en su naturaleza. Cuando te inclinas para ayudar a alguien que no puede pagarte, cuando das sin esperar reconocimiento, cuando pones las necesidades de otro antes que las tuyas —algo en ti se libera. Lo que entregamos en amor nunca se pierde: se multiplica de maneras que a veces tardamos en ver.',
+  para_meditar: [
+    {
+      cita: 'Juan 13:14-15',
+      texto: 'Pues si yo, el Señor y el Maestro, he lavado vuestros pies, vosotros también debéis lavaros los pies los unos a los otros. Porque ejemplo os he dado, para que como yo os he hecho, vosotros también hagáis.',
+    },
+    {
+      cita: 'Gálatas 5:13',
+      texto: 'Porque vosotros, hermanos, a libertad fuisteis llamados; solamente que no uséis la libertad como ocasión para la carne, sino servíos por amor los unos a los otros.',
+    },
+    {
+      cita: '1 Pedro 4:10',
+      texto: 'Cada uno según el don que ha recibido, minístrelo a los otros, como buenos administradores de la multiforme gracia de Dios.',
+    },
+  ],
+  oracion:
+    'Señor Jesús, tú que siendo el más grande te hiciste el más pequeño: enséñame el camino del servicio sin cálculo. Quita de mí el deseo de servir solo cuando me conviene o cuando alguien me ve.\n\nQue pueda entregarme hoy en las cosas pequeñas: una palabra de aliento, una mano tendida, un tiempo ofrecido sin prisa. Que lo que entregue hoy en tu nombre toque la vida de quien lo recibe y me transforme a mí en el proceso. En el nombre de Jesús, amén.',
+  tags: ['Servicio'],
+};
+
+export const DEVOTIONAL_2026_05_13_EN: RepoDevocional = {
+  id: 'mark1045KJV',
+  date: '2026-05-13',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Mark 10:45 KJV: "For even the Son of man came not to be ministered unto, but to minister, and to give his life a ransom for many."',
+  reflexion:
+    "There is a paradox at the heart of Christian service: what we give ends up transforming us more than those we serve. When Christ washed his disciples' feet, He was not merely demonstrating humility — He was revealing that true power does not dominate, it descends. The one who serves with genuine love is exercising one of the most radical forms of freedom.\n\nServing is not an obligation God imposes on us as a burden; it is an invitation to participate in His own nature. When you bend down to help someone who cannot repay you, when you give without expecting recognition, when you place another's needs before your own — something in you is set free. What we give in love is never lost: it multiplies in ways we sometimes take time to see.",
+  para_meditar: [
+    {
+      cita: 'John 13:14-15',
+      texto: 'If I then, your Lord and Master, have washed your feet; ye also ought to wash one another\'s feet. For I have given you an example, that ye should do as I have done to you.',
+    },
+    {
+      cita: 'Galatians 5:13',
+      texto: 'For, brethren, ye have been called unto liberty; only use not liberty for an occasion to the flesh, but by love serve one another.',
+    },
+    {
+      cita: '1 Peter 4:10',
+      texto: 'As every man hath received the gift, even so minister the same one to another, as good stewards of the manifold grace of God.',
+    },
+  ],
+  oracion:
+    "Lord Jesus, You who being the greatest made Yourself the least — teach me the way of uncalculating service. Remove from me the desire to serve only when it is convenient or when someone is watching.\n\nMay I give myself today in small things: an encouraging word, an outstretched hand, time offered without hurry. May what I give today in Your name touch the life of the one who receives it, and transform me in the process. In Jesus' name, amen.",
+  tags: ['Service'],
+};
+
+// ─── May 14 — Waiting on God ──────────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_14: RepoDevocional = {
+  id: 'isaias4031RVR1960',
+  date: '2026-05-14',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Isaías 40:31 RVR1960: "pero los que esperan a Jehová tendrán nuevas fuerzas; levantarán alas como las águilas; correrán, y no se cansarán; caminarán, y no se fatigarán."',
+  reflexion:
+    'Esperar es quizás la tarea más difícil que Dios nos encomienda. Vivimos en una cultura que recompensa la velocidad y castiga la pausa. Cuando la respuesta de Dios tarda, solemos interpretar el silencio como ausencia, y la espera como abandono. Pero la Escritura presenta la espera no como un tiempo vacío, sino como un tiempo de formación.\n\nIsaías usa la imagen del águila: ese proceso de renovación de plumas por el que el ave atraviesa antes de volar más alto. La espera en Dios no nos deja iguales; nos rehace. Las nuevas fuerzas que promete no son simplemente energía repuesta, sino una fortaleza construida sobre confianza, sobre haber aprendido que Dios es fiel incluso cuando tarda. Confiar en medio de la espera es el regalo más maduro que podemos ofrecer a Dios.',
+  para_meditar: [
+    {
+      cita: 'Salmo 27:14',
+      texto: 'Aguarda a Jehová; esfuérzate, y aliéntese tu corazón; sí, espera a Jehová.',
+    },
+    {
+      cita: 'Miqueas 7:7',
+      texto: 'Mas yo a Jehová miraré, esperaré al Dios de mi salvación; el Dios mío me oirá.',
+    },
+    {
+      cita: 'Hebreos 6:15',
+      texto: 'Y habiendo esperado con paciencia, alcanzó la promesa.',
+    },
+  ],
+  oracion:
+    'Padre, confieso que la espera me cuesta. Quisiera respuestas rápidas y caminos despejados. Pero hoy decido confiar en que tu tiempo es mejor que el mío.\n\nRenueva mis fuerzas mientras espero. Que este tiempo de pausa no sea pérdida, sino preparación. Que aprenda a descansar en tu fidelidad antes de ver el resultado. Ayúdame a mantener los ojos en ti, no en las circunstancias. En el nombre de Jesús, amén.',
+  tags: ['Espera'],
+};
+
+export const DEVOTIONAL_2026_05_14_EN: RepoDevocional = {
+  id: 'isaiah4031KJV',
+  date: '2026-05-14',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Isaiah 40:31 KJV: "But they that wait upon the LORD shall renew their strength; they shall mount up with wings as eagles; they shall run, and not be weary; and they shall walk, and not faint."',
+  reflexion:
+    "Waiting may be the most difficult task God entrusts to us. We live in a culture that rewards speed and penalizes pause. When God's answer is delayed, we tend to interpret the silence as absence, and the wait as abandonment. But Scripture presents waiting not as an empty time, but as a time of formation.\n\nIsaiah uses the image of the eagle: that process of feather renewal the bird passes through before flying higher. Waiting on God does not leave us the same; it remakes us. The renewed strength He promises is not simply replenished energy, but a strength built on trust — on having learned that God is faithful even when He takes His time. Trusting in the midst of waiting is the most mature gift we can offer to God.",
+  para_meditar: [
+    {
+      cita: 'Psalm 27:14',
+      texto: 'Wait on the LORD: be of good courage, and he shall strengthen thine heart: wait, I say, on the LORD.',
+    },
+    {
+      cita: 'Micah 7:7',
+      texto: 'Therefore I will look unto the LORD; I will wait for the God of my salvation: my God will hear me.',
+    },
+    {
+      cita: 'Hebrews 6:15',
+      texto: 'And so, after he had patiently endured, he obtained the promise.',
+    },
+  ],
+  oracion:
+    "Father, I confess that waiting is hard for me. I want quick answers and clear paths. But today I choose to trust that Your timing is better than mine.\n\nRenew my strength while I wait. May this time of pause not be a loss, but a preparation. May I learn to rest in Your faithfulness before I see the result. Help me keep my eyes on You, not on circumstances. In Jesus' name, amen.",
+  tags: ['Waiting on God'],
+};
+
+// ─── May 15 — Hard Decisions ──────────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_15: RepoDevocional = {
+  id: 'proverbios35RVR1960',
+  date: '2026-05-15',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Proverbios 3:5-6 RVR1960: "Fíate de Jehová de todo tu corazón, y no te apoyes en tu propia prudencia. Reconócelo en todos tus caminos, y él enderezará tus veredas."',
+  reflexion:
+    'Las decisiones difíciles nos revelan cuánto confiamos realmente en Dios. Es fácil reconocerlo en los días tranquilos, pero cuando hay una encrucijada importante —un trabajo, una relación, una mudanza, una ruptura— la tentación es depender solo de nuestra propia lógica, nuestros miedos y nuestros cálculos. Proverbios nos invita a algo más radical: fiarnos de todo corazón.\n\nFiarse no significa no pensar. Significa incluir a Dios en el proceso de pensamiento. Significa orar antes de decidir, buscar consejo sabio, estar dispuesto a que el resultado difiera de lo que esperabas. La promesa es notable: Dios "enderezará tus veredas". No dice que el camino será sencillo, sino que será el correcto. A veces los caminos enderezados pasan por valles antes de llegar a cumbres.',
+  para_meditar: [
+    {
+      cita: 'Santiago 1:5',
+      texto: 'Y si alguno de vosotros tiene falta de sabiduría, pídala a Dios, el cual da a todos abundantemente y sin reproche, y le será dada.',
+    },
+    {
+      cita: 'Salmo 25:4-5',
+      texto: 'Muéstrame, oh Jehová, tus caminos; enséñame tus sendas. Encamíname en tu verdad, y enséñame, porque tú eres el Dios de mi salvación.',
+    },
+    {
+      cita: 'Isaías 30:21',
+      texto: 'Entonces tus oídos oirán a tus espaldas palabra que diga: Este es el camino, andad por él; y no echéis a la mano derecha, ni tampoco torzáis a la mano izquierda.',
+    },
+  ],
+  oracion:
+    'Dios de sabiduría, hoy enfrento decisiones que me superan. Mi mente analiza y el corazón duda. Vengo a ti no porque tenga todo claro, sino porque sé que tú sí lo tienes.\n\nGuíame. Habla con claridad a mi espíritu. Dame discernimiento para reconocer tu voz entre tanto ruido. Y cuando tome la decisión, dame también la paz de saber que no estoy solo en el camino. En el nombre de Jesús, amén.',
+  tags: ['Decisiones'],
+};
+
+export const DEVOTIONAL_2026_05_15_EN: RepoDevocional = {
+  id: 'proverbs35KJV',
+  date: '2026-05-15',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Proverbs 3:5-6 KJV: "Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths."',
+  reflexion:
+    "Difficult decisions reveal how much we truly trust God. It is easy to acknowledge Him on calm days, but when there is an important crossroads — a job, a relationship, a move, a ending — the temptation is to rely solely on our own logic, our fears, and our calculations. Proverbs invites us to something more radical: to trust with all our heart.\n\nTrusting does not mean not thinking. It means including God in the thinking process. It means praying before deciding, seeking wise counsel, being willing to accept an outcome different from what you expected. The promise is remarkable: God 'shall direct thy paths.' It does not say the path will be easy, only that it will be right. Sometimes the directed paths pass through valleys before reaching summits.",
+  para_meditar: [
+    {
+      cita: 'James 1:5',
+      texto: 'If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him.',
+    },
+    {
+      cita: 'Psalm 25:4-5',
+      texto: 'Shew me thy ways, O LORD; teach me thy paths. Lead me in thy truth, and teach me: for thou art the God of my salvation.',
+    },
+    {
+      cita: 'Isaiah 30:21',
+      texto: 'And thine ears shall hear a word behind thee, saying, This is the way, walk ye in it, when ye turn to the right hand, and when ye turn to the left.',
+    },
+  ],
+  oracion:
+    "God of wisdom, today I face decisions that are beyond me. My mind analyzes and my heart hesitates. I come to You not because I have everything figured out, but because I know that You do.\n\nGuide me. Speak clearly to my spirit. Give me discernment to recognize Your voice amid so much noise. And when I make the decision, give me the peace of knowing I am not alone on the path. In Jesus' name, amen.",
+  tags: ['Hard Decisions'],
+};
+
+// ─── May 16 — Spiritual Weariness ────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_16: RepoDevocional = {
+  id: 'mateo1128RVR1960',
+  date: '2026-05-16',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Mateo 11:28 RVR1960: "Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar."',
+  reflexion:
+    'El cansancio espiritual es uno de los estados más solitarios que existen. No es falta de fe, sino el resultado de cargar mucho durante demasiado tiempo. Puede manifestarse como indiferencia ante cosas que antes te llenaban, como la incapacidad de orar, o como la sensación de que Dios está muy lejos. Si alguna vez has sentido eso, Jesús tiene un mensaje directo para ti: ven.\n\nLa invitación de Jesús en Mateo 11 no va dirigida a los fuertes y productivos, sino a los cargados. Él no pide que primero te recuperes para luego acercarte; te invita a acercarte para recuperarte. El descanso que ofrece no es solo físico, sino una restauración del alma: volver a la certeza de que eres amado y que no tienes que ganarte tu lugar. En su presencia, las cargas no desaparecen de golpe, pero se vuelven llevaderas.',
+  para_meditar: [
+    {
+      cita: 'Isaías 40:29',
+      texto: 'El da esfuerzo al cansado, y multiplica las fuerzas al que no tiene ningunas.',
+    },
+    {
+      cita: 'Isaías 41:10',
+      texto: 'No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.',
+    },
+    {
+      cita: 'Salmo 23:2-3',
+      texto: 'En lugares de delicados pastos me hará descansar; junto a aguas de reposo me pastoreará. Confortará mi alma.',
+    },
+  ],
+  oracion:
+    'Jesús, estoy cansado. No solo en el cuerpo, sino en el espíritu. He cargado demasiado tiempo cosas que quizás nunca me correspondió cargar solo.\n\nVengo a ti tal como estás prometiste: cargado. Recíbeme y dame ese descanso que solo tú puedes dar. Recuérdame que tu yugo es fácil y tu carga ligera. Restaura mi alma hoy, no porque lo haya ganado, sino porque eres fiel. En el nombre de Jesús, amén.',
+  tags: ['Descanso'],
+};
+
+export const DEVOTIONAL_2026_05_16_EN: RepoDevocional = {
+  id: 'matthew1128KJV',
+  date: '2026-05-16',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Matthew 11:28 KJV: "Come unto me, all ye that labour and are heavy laden, and I will give you rest."',
+  reflexion:
+    "Spiritual weariness is one of the loneliest states that exists. It is not a lack of faith, but the result of carrying much for too long. It can show up as indifference toward things that once filled you, as an inability to pray, or as the feeling that God is very far away. If you have ever felt that, Jesus has a direct message for you: come.\n\nThe invitation of Jesus in Matthew 11 is not directed at the strong and productive, but at the burdened. He does not ask you to first recover before drawing near; He invites you to draw near in order to recover. The rest He offers is not merely physical, but a restoration of the soul: returning to the certainty that you are loved and that you do not have to earn your place. In His presence, burdens do not vanish all at once, but they become bearable.",
+  para_meditar: [
+    {
+      cita: 'Isaiah 40:29',
+      texto: 'He giveth power to the faint; and to them that have no might he increaseth strength.',
+    },
+    {
+      cita: 'Isaiah 41:10',
+      texto: 'Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness.',
+    },
+    {
+      cita: 'Psalm 23:2-3',
+      texto: 'He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul.',
+    },
+  ],
+  oracion:
+    "Jesus, I am tired. Not only in my body, but in my spirit. I have carried for too long things that perhaps were never mine to carry alone.\n\nI come to You just as You promised: burdened. Receive me and give me the rest that only You can give. Remind me that Your yoke is easy and Your burden is light. Restore my soul today, not because I have earned it, but because You are faithful. In Jesus' name, amen.",
+  tags: ['Spiritual Weariness'],
+};
+
+// ─── May 20 — Spiritual Discipline ───────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_20: RepoDevocional = {
+  id: 'hebreos1211RVR1960',
+  date: '2026-05-20',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Hebreos 12:11 RVR1960: "Es verdad que ninguna disciplina al presente parece ser causa de gozo, sino de tristeza; pero después da fruto apacible de justicia a los que en ella han sido ejercitados."',
+  reflexion:
+    'Rendir partes de nuestra vida a Dios duele porque implica soltar el control. La disciplina espiritual —el ayuno, la obediencia, el silencio, el perdón— a menudo se siente como pérdida antes de sentirse como ganancia. Nuestra cultura promueve la comodidad como meta suprema, pero Jesús nos llama a algo diferente: a cargar nuestra cruz, a negarnos a nosotros mismos, a morir para vivir.\n\nHebreos usa la imagen del atletismo: el entrenamiento nunca es agradable en el momento, pero produce una capacidad que de otra manera no existiría. Dios no nos disciplina para aplastarnos; lo hace porque quiere que llevemos fruto real. El "fruto apacible de justicia" no crece en suelo cómodo. Crece en el terreno de la entrega, del sí pronunciado con esfuerzo, del no dicho a lo que nos destruye.',
+  para_meditar: [
+    {
+      cita: 'Lucas 9:23',
+      texto: 'Y decía a todos: Si alguno quiere venir en pos de mí, niéguese a sí mismo, tome su cruz cada día, y sígame.',
+    },
+    {
+      cita: 'Romanos 12:1',
+      texto: 'Así que, hermanos, os ruego por las misericordias de Dios, que presentéis vuestros cuerpos en sacrificio vivo, santo, agradable a Dios, que es vuestro culto racional.',
+    },
+    {
+      cita: '1 Corintios 9:27',
+      texto: 'Sino que golpeo mi cuerpo, y lo pongo en servidumbre, no sea que habiendo sido heraldo para otros, yo mismo venga a ser eliminado.',
+    },
+  ],
+  oracion:
+    'Padre, confieso que me cuesta rendirme. Hay partes de mí que quiero retener, hábitos que no quiero soltar, áreas donde no te he dado acceso. Hoy te pido valentía para la entrega.\n\nQue la disciplina no me asuste sino que me forme. Que cada "no" a lo que me daña sea un "sí" más profundo a ti. Transforma el proceso de moldearme en algo que pueda abrazar con esperanza, sabiendo que el fruto valdrá el esfuerzo. En el nombre de Jesús, amén.',
+  tags: ['Disciplina'],
+};
+
+export const DEVOTIONAL_2026_05_20_EN: RepoDevocional = {
+  id: 'hebrews1211KJV',
+  date: '2026-05-20',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Hebrews 12:11 KJV: "Now no chastening for the present seemeth to be joyous, but grievous: nevertheless afterward it yieldeth the peaceable fruit of righteousness unto them which are exercised thereby."',
+  reflexion:
+    "Surrendering parts of our life to God hurts because it involves releasing control. Spiritual discipline — fasting, obedience, silence, forgiveness — often feels like loss before it feels like gain. Our culture promotes comfort as the supreme goal, but Jesus calls us to something different: to carry our cross, to deny ourselves, to die in order to live.\n\nHebrews uses the image of athletics: training is never pleasant in the moment, but it produces a capacity that would not otherwise exist. God does not discipline us to crush us; He does it because He wants us to bear real fruit. The 'peaceable fruit of righteousness' does not grow in comfortable soil. It grows in the terrain of surrender, of a yes spoken with effort, of a no said to what destroys us.",
+  para_meditar: [
+    {
+      cita: 'Luke 9:23',
+      texto: 'And he said to them all, If any man will come after me, let him deny himself, and take up his cross daily, and follow me.',
+    },
+    {
+      cita: 'Romans 12:1',
+      texto: 'I beseech you therefore, brethren, by the mercies of God, that ye present your bodies a living sacrifice, holy, acceptable unto God, which is your reasonable service.',
+    },
+    {
+      cita: '1 Corinthians 9:27',
+      texto: 'But I keep under my body, and bring it into subjection: lest that by any means, when I have preached to others, I myself should be a castaway.',
+    },
+  ],
+  oracion:
+    "Father, I confess that surrender is hard for me. There are parts of myself I want to keep, habits I do not want to release, areas where I have not given You access. Today I ask You for the courage to surrender.\n\nMay discipline not frighten me but form me. May every 'no' to what harms me be a deeper 'yes' to You. Transform the process of being shaped into something I can embrace with hope, knowing the fruit will be worth the effort. In Jesus' name, amen.",
+  tags: ['Spiritual Discipline'],
+};
+
+// ─── May 22 — Youth and Identity ─────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_22: RepoDevocional = {
+  id: 'jeremias15RVR1960',
+  date: '2026-05-22',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Jeremías 1:5 RVR1960: "Antes que te formase en el vientre te conocí, y antes que nacieses te santifiqué, te di por profeta a las naciones."',
+  reflexion:
+    'La soledad de no saber quién eres tiene un peso particular en la juventud. Vivimos en una era donde la identidad se construye —o se destruye— en pantallas, en comparaciones, en cuántos likes recibes y qué rol juegas en el grupo. En medio de esa presión, Dios le dice a Jeremías algo que lo precede todo: yo te conocí antes de que existieras.\n\nEsa afirmación no es solo histórica; es personal. Dios te conoce no como concepto abstracto, sino como individuo único, con nombre, con historia, con propósito específico. Tu identidad no se construye desde afuera hacia adentro —desde lo que el mundo opina de ti— sino desde adentro hacia afuera: desde lo que Dios dice que eres. La soledad encuentra su nombre cuando deja de buscar quién eres en los demás y empieza a encontrarlo en Aquel que te formó.',
+  para_meditar: [
+    {
+      cita: 'Salmo 139:14',
+      texto: 'Te alabaré; porque formidables, maravillosas son tus obras; estoy maravillado, y mi alma lo sabe muy bien.',
+    },
+    {
+      cita: 'Efesios 2:10',
+      texto: 'Porque somos hechura suya, creados en Cristo Jesús para buenas obras, las cuales Dios preparó de antemano para que anduviésemos en ellas.',
+    },
+    {
+      cita: '1 Timoteo 4:12',
+      texto: 'Ninguno tenga en poco tu juventud, sino sé ejemplo de los creyentes en palabra, conducta, amor, espíritu, fe y pureza.',
+    },
+  ],
+  oracion:
+    'Dios que me conociste antes de que yo me conociera a mí mismo: ayúdame a anclar mi identidad en ti. Cansa me de buscarme en los ojos de otros y en los espejos rotos del mundo.\n\nQue sepa quién soy porque sé de quién soy. Transforma mi soledad en solitud —ese espacio donde puedo escucharte y descubrir el propósito con que me creaste. En el nombre de Jesús, amén.',
+  tags: ['Identidad'],
+};
+
+export const DEVOTIONAL_2026_05_22_EN: RepoDevocional = {
+  id: 'jeremiah15KJV',
+  date: '2026-05-22',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Jeremiah 1:5 KJV: "Before I formed thee in the belly I knew thee; and before thou camest forth out of the womb I sanctified thee, and I ordained thee a prophet unto the nations."',
+  reflexion:
+    "The loneliness of not knowing who you are carries a particular weight in youth. We live in an era where identity is built — or destroyed — on screens, in comparisons, in how many likes you receive and what role you play in the group. Amid that pressure, God tells Jeremiah something that precedes everything: I knew you before you existed.\n\nThat declaration is not merely historical; it is personal. God knows you not as an abstract concept, but as a unique individual, with a name, a story, a specific purpose. Your identity is not built from the outside in — from what the world thinks of you — but from the inside out: from what God says you are. Loneliness finds its name when it stops looking for who you are in others and starts finding it in the One who formed you.",
+  para_meditar: [
+    {
+      cita: 'Psalm 139:14',
+      texto: 'I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.',
+    },
+    {
+      cita: 'Ephesians 2:10',
+      texto: 'For we are his workmanship, created in Christ Jesus unto good works, which God hath before ordained that we should walk in them.',
+    },
+    {
+      cita: '1 Timothy 4:12',
+      texto: 'Let no man despise thy youth; but be thou an example of the believers, in word, in conversation, in charity, in spirit, in faith, in purity.',
+    },
+  ],
+  oracion:
+    "God who knew me before I knew myself: help me anchor my identity in You. May I grow tired of searching for myself in the eyes of others and in the broken mirrors of the world.\n\nMay I know who I am because I know Whose I am. Transform my loneliness into solitude — that space where I can hear You and discover the purpose for which You created me. In Jesus' name, amen.",
+  tags: ['Identity'],
+};
+
+// ─── May 23 — Grief and Loss ──────────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_23: RepoDevocional = {
+  id: 'salmos568RVR1960',
+  date: '2026-05-23',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Salmos 56:8 RVR1960: "Mis huidas tú has contado; pon mis lágrimas en tu redoma; ¿No están ellas en tu libro?"',
+  reflexion:
+    'El duelo tiene mala prensa en algunos círculos cristianos, como si llorar fuera una señal de poca fe. Pero la Biblia no evita el dolor; lo nombra. David, el hombre conforme al corazón de Dios, llora con toda libertad. Jesús lloró ante la tumba de Lázaro, aunque sabía lo que iba a hacer. El dolor no es lo opuesto de la fe; es el camino por el que a veces transita la fe.\n\nLo que Dios hace con nuestras lágrimas es extraordinario: las guarda. La imagen de la redoma —el recipiente donde se guardaban las lágrimas en el antiguo Oriente— dice que nuestro dolor no es insignificante ni inadvertido. Dios no nos dice "ya supéralo"; nos dice "yo vi cada lágrima". En el dolor más profundo, la oración no siempre tiene palabras; a veces es solo un llanto honesto ante un Dios que lo recibe como ofrenda.',
+  para_meditar: [
+    {
+      cita: '2 Corintios 1:3-4',
+      texto: 'Bendito sea el Dios y Padre de nuestro Señor Jesucristo, Padre de misericordias y Dios de toda consolación, el cual nos consuela en todas nuestras tribulaciones.',
+    },
+    {
+      cita: 'Apocalipsis 21:4',
+      texto: 'Enjugará Dios toda lágrima de los ojos de ellos; y ya no habrá muerte, ni habrá más llanto, ni clamor, ni dolor.',
+    },
+    {
+      cita: 'Juan 16:22',
+      texto: 'También vosotros ahora tenéis tristeza; pero os volveré a ver, y se gozará vuestro corazón, y nadie os quitará vuestro gozo.',
+    },
+  ],
+  oracion:
+    'Padre, hoy no tengo palabras, solo lágrimas. Y si es verdad que las guardas en tu redoma, entonces estás recibiendo una ofrenda de honestidad que no sé dar de otra manera.\n\nConsuélame con tu presencia, no con respuestas fáciles. Acompáñame en este dolor sin apurarte a quitármelo. Y cuando llegue el momento, transforma este duelo en algo que solo tú puedes hacer: en testimonio de tu fidelidad. En el nombre de Jesús, amén.',
+  tags: ['Duelo'],
+};
+
+export const DEVOTIONAL_2026_05_23_EN: RepoDevocional = {
+  id: 'psalm568KJV',
+  date: '2026-05-23',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Psalm 56:8 KJV: "Thou tellest my wanderings: put thou my tears into thy bottle: are they not in thy book?"',
+  reflexion:
+    "Grief has a bad reputation in some Christian circles, as if crying were a sign of weak faith. But the Bible does not avoid pain; it names it. David, the man after God's own heart, weeps with complete freedom. Jesus wept at the tomb of Lazarus, even though He knew what He was about to do. Pain is not the opposite of faith; it is sometimes the road faith travels.\n\nWhat God does with our tears is extraordinary: He keeps them. The image of the bottle — the vessel used to collect tears in the ancient Near East — says that our pain is neither insignificant nor unnoticed. God does not tell us 'just get over it'; He says 'I saw every tear.' In the deepest pain, prayer does not always have words; sometimes it is just an honest weeping before a God who receives it as an offering.",
+  para_meditar: [
+    {
+      cita: '2 Corinthians 1:3-4',
+      texto: 'Blessed be God, even the Father of our Lord Jesus Christ, the Father of mercies, and the God of all comfort; who comforteth us in all our tribulation.',
+    },
+    {
+      cita: 'Revelation 21:4',
+      texto: 'And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain.',
+    },
+    {
+      cita: 'John 16:22',
+      texto: 'And ye now therefore have sorrow: but I will see you again, and your heart shall rejoice, and your joy no man taketh from you.',
+    },
+  ],
+  oracion:
+    "Father, today I have no words, only tears. And if it is true that You keep them in Your bottle, then You are receiving an offering of honesty that I do not know how to give any other way.\n\nComfort me with Your presence, not with easy answers. Stay with me in this pain without rushing to take it away. And when the time comes, transform this grief into something only You can do: a testimony of Your faithfulness. In Jesus' name, amen.",
+  tags: ['Grief and Loss'],
+};
+
+// ─── May 25 — New Beginnings ──────────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_25: RepoDevocional = {
+  id: 'isaias4319RVR1960',
+  date: '2026-05-25',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Isaías 43:19 RVR1960: "He aquí que yo hago cosa nueva; pronto saldrá a luz; ¿no la conoceréis? Otra vez abriré camino en el desierto, y ríos en la soledad."',
+  reflexion:
+    'Los comienzos nuevos asustan, incluso cuando los hemos pedido. Hay algo en el ser humano que se aferra a lo conocido aunque sea doloroso, porque al menos es predecible. Pero Dios tiene una firma característica: hace cosas nuevas. No recicla, no remienda por encima; transforma desde adentro y abre caminos donde parecía no haber ninguno.\n\nLa promesa de Isaías 43:19 es doble: algo nuevo está sucediendo (presente), y hay un camino en el desierto (futuro). Dios no dice que el desierto desaparecerá inmediatamente, pero sí que habrá río en él. Comenzar de nuevo no significa ignorar lo que pasó; significa abrirte a que Dios escriba los próximos capítulos. El corazón que aprende a comenzar de nuevo es el que ha dejado de creer que el pasado define el futuro.',
+  para_meditar: [
+    {
+      cita: '2 Corintios 5:17',
+      texto: 'De modo que si alguno está en Cristo, nueva criatura es; las cosas viejas pasaron; he aquí todas son hechas nuevas.',
+    },
+    {
+      cita: 'Lamentaciones 3:22-23',
+      texto: 'Por la misericordia de Jehová no hemos sido consumidos, porque nunca decayeron sus misericordias. Nuevas son cada mañana; grande es tu fidelidad.',
+    },
+    {
+      cita: 'Filipenses 3:13-14',
+      texto: 'Olvidando ciertamente lo que queda atrás, y extendiéndome a lo que está delante, prosigo a la meta, al premio del supremo llamamiento de Dios en Cristo Jesús.',
+    },
+  ],
+  oracion:
+    'Dios de lo nuevo, hoy vengo con el peso de lo viejo pero con el deseo de comenzar. Hay páginas que quisiera no haber escrito, pero que no puedo borrar. Tú sí puedes redimirlas.\n\nAbre camino donde yo solo veo desierto. Dame la valentía de soltar lo que fue y abrirme a lo que puede ser. Que el miedo al comienzo no me robe la vida que tienes para mí. En el nombre de Jesús, amén.',
+  tags: ['Nuevos Comienzos'],
+};
+
+export const DEVOTIONAL_2026_05_25_EN: RepoDevocional = {
+  id: 'isaiah4319KJV',
+  date: '2026-05-25',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Isaiah 43:19 KJV: "Behold, I will do a new thing; now it shall spring forth; shall ye not know it? I will even make a way in the wilderness, and rivers in the desert."',
+  reflexion:
+    "New beginnings are frightening, even when we have asked for them. Something in the human heart clings to the familiar even when it is painful, because at least it is predictable. But God has a characteristic signature: He does new things. He does not recycle or patch over the surface; He transforms from within and opens paths where there seemed to be none.\n\nThe promise of Isaiah 43:19 is twofold: something new is happening (present), and there is a way in the wilderness (future). God does not say the desert will immediately disappear, but that there will be a river in it. Starting over does not mean ignoring what happened; it means opening yourself to God writing the next chapters. The heart that learns to begin again is the one that has stopped believing the past defines the future.",
+  para_meditar: [
+    {
+      cita: '2 Corinthians 5:17',
+      texto: 'Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new.',
+    },
+    {
+      cita: 'Lamentations 3:22-23',
+      texto: "It is of the LORD's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.",
+    },
+    {
+      cita: 'Philippians 3:13-14',
+      texto: 'Forgetting those things which are behind, and reaching forth unto those things which are before, I press toward the mark for the prize of the high calling of God in Christ Jesus.',
+    },
+  ],
+  oracion:
+    "God of new things, today I come with the weight of the old but with the desire to begin. There are pages I wish I had not written, but cannot erase. You can redeem them.\n\nOpen a way where I see only desert. Give me the courage to release what was and open myself to what can be. May the fear of beginning not rob me of the life You have for me. In Jesus' name, amen.",
+  tags: ['New Beginnings'],
+};
+
+// ─── May 26 — Loneliness ──────────────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_26: RepoDevocional = {
+  id: 'deuteronomio318RVR1960',
+  date: '2026-05-26',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Deuteronomio 31:8 RVR1960: "Y Jehová va delante de ti; él estará contigo, no te dejará, ni te desamparará; no temas ni te intimides."',
+  reflexion:
+    'La soledad de un cuarto vacío no es solo física; es la sensación de que nadie está al tanto de tu mundo interior. Puedes estar rodeado de personas y sentirte completamente solo. Es una de las experiencias más universales y al mismo tiempo más privadas que existen. En esa soledad, Dios hace una promesa que Moisés le repite a Josué en uno de los momentos más vulnerables de la historia de Israel: no te dejaré.\n\nLa promesa no es que la soledad desaparecerá instantáneamente, sino que nunca estás solo en ella. Hay una diferencia enorme entre estar solo y estar acompañado en la soledad. Dios no solo va contigo; va delante de ti. Ya conoce el cuarto vacío al que te diriges. Ya estuvo ahí. Ya preparó su presencia para cuando llegues. La soledad, en manos de Dios, puede convertirse en el lugar donde aprendes a escucharle como en ningún otro.',
+  para_meditar: [
+    {
+      cita: 'Salmo 23:4',
+      texto: 'Aunque ande en valle de sombra de muerte, no temeré mal alguno, porque tú estarás conmigo.',
+    },
+    {
+      cita: 'Mateo 28:20',
+      texto: 'He aquí yo estoy con vosotros todos los días, hasta el fin del mundo.',
+    },
+    {
+      cita: 'Hebreos 13:5',
+      texto: 'No te desampararé, ni te dejaré.',
+    },
+  ],
+  oracion:
+    'Señor, hoy el cuarto se siente vacío. Las personas que quisiera tener cerca están lejos, o simplemente no comprenden. Y en ese vacío, tú eres lo único que queda.\n\nQue ese "lo único" sea suficiente hoy. Que tu presencia llene lo que ninguna persona puede llenar. Transforma mi soledad en el lugar donde más te encuentro. Y si es posible, envíame también la presencia de alguien que me recuerde que no estoy solo. En el nombre de Jesús, amén.',
+  tags: ['Soledad'],
+};
+
+export const DEVOTIONAL_2026_05_26_EN: RepoDevocional = {
+  id: 'deuteronomy318KJV',
+  date: '2026-05-26',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Deuteronomy 31:8 KJV: "And the LORD, he it is that doth go before thee; he will be with thee, he will not fail thee, neither forsake thee: fear not, neither be dismayed."',
+  reflexion:
+    "The loneliness of an empty room is not only physical; it is the feeling that no one is aware of your inner world. You can be surrounded by people and feel completely alone. It is one of the most universal and at the same time most private experiences that exist. In that loneliness, God makes a promise that Moses repeats to Joshua at one of the most vulnerable moments in Israel's history: I will not leave you.\n\nThe promise is not that loneliness will vanish instantly, but that you are never alone in it. There is an enormous difference between being alone and being accompanied in solitude. God does not only go with you; He goes before you. He already knows the empty room you are heading toward. He was already there. He already prepared His presence for when you arrive. Loneliness, in God's hands, can become the place where you learn to hear Him as nowhere else.",
+  para_meditar: [
+    {
+      cita: 'Psalm 23:4',
+      texto: 'Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me.',
+    },
+    {
+      cita: 'Matthew 28:20',
+      texto: 'Lo, I am with you alway, even unto the end of the world.',
+    },
+    {
+      cita: 'Hebrews 13:5',
+      texto: 'I will never leave thee, nor forsake thee.',
+    },
+  ],
+  oracion:
+    "Lord, today the room feels empty. The people I wish were near are far away, or simply do not understand. And in that emptiness, You are all that remains.\n\nMay that 'all that remains' be enough today. May Your presence fill what no person can fill. Transform my loneliness into the place where I find You most. And if it is possible, also send me the presence of someone who reminds me I am not alone. In Jesus' name, amen.",
+  tags: ['Loneliness'],
+};
+
+// ─── May 27 — Doubt and Questions ────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_27: RepoDevocional = {
+  id: 'marcos924RVR1960',
+  date: '2026-05-27',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Marcos 9:24 RVR1960: "E inmediatamente el padre del muchacho clamó y dijo: Creo; ayuda mi incredulidad."',
+  reflexion:
+    'La duda no es lo opuesto de la fe; es parte del camino de la fe. Los que nunca dudan quizás nunca han creído con suficiente profundidad como para que algo les cueste. El padre del evangelio de Marcos es quizás el creyente más honesto de toda la Escritura: en la misma frase declara fe y pide ayuda para su incredulidad. No finge. No actúa. Llega a Jesús tal como está.\n\nLa incertidumbre es incómoda, pero abrazar la fe en medio de ella es un acto de valentía, no de debilidad. Job dudó, Tomás dudó, Juan el Bautista dudó —y ninguno de ellos fue descalificado por eso. Dios no asusta a las preguntas; las recibe. La fe que nunca ha sido probada por la duda es frágil. La fe que ha sobrevivido la noche de la incertidumbre tiene raíces profundas.',
+  para_meditar: [
+    {
+      cita: 'Hebreos 11:1',
+      texto: 'Es, pues, la fe la certeza de lo que se espera, la convicción de lo que no se ve.',
+    },
+    {
+      cita: 'Juan 20:27',
+      texto: 'Luego dijo a Tomás: Pon aquí tu dedo, y mira mis manos; y acerca tu mano, y métela en mi costado; y no seas incrédulo, sino creyente.',
+    },
+    {
+      cita: 'Job 23:10',
+      texto: 'Mas él conoce mi camino; me probará, y saldré como oro.',
+    },
+  ],
+  oracion:
+    'Señor, hoy traigo mis preguntas sin respuesta, mis dudas que no desaparecen solo por ignorarlas. No quiero fingir una fe que no tengo, ni abandonar la fe que sí tengo.\n\nComo el padre del evangelio: creo. Ayuda mi incredulidad. Que la honestidad de mi duda sea también una forma de buscarte. Que en la incertidumbre aprenda a confiar más en quién eres tú que en lo que entiendo yo. En el nombre de Jesús, amén.',
+  tags: ['Dudas'],
+};
+
+export const DEVOTIONAL_2026_05_27_EN: RepoDevocional = {
+  id: 'mark924KJV',
+  date: '2026-05-27',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Mark 9:24 KJV: "And straightway the father of the child cried out, and said with tears, Lord, I believe; help thou mine unbelief."',
+  reflexion:
+    "Doubt is not the opposite of faith; it is part of the journey of faith. Those who never doubt have perhaps never believed deeply enough for something to cost them. The father in Mark's Gospel is perhaps the most honest believer in all of Scripture: in the same sentence he declares faith and asks for help with his unbelief. He does not pretend. He does not perform. He comes to Jesus as he is.\n\nUncertainty is uncomfortable, but embracing faith in the midst of it is an act of courage, not weakness. Job doubted, Thomas doubted, John the Baptist doubted — and none of them was disqualified for it. God is not frightened by questions; He receives them. Faith that has never been tested by doubt is fragile. Faith that has survived the night of uncertainty has deep roots.",
+  para_meditar: [
+    {
+      cita: 'Hebrews 11:1',
+      texto: 'Now faith is the substance of things hoped for, the evidence of things not seen.',
+    },
+    {
+      cita: 'John 20:27',
+      texto: 'Then saith he to Thomas, Reach hither thy finger, and behold my hands; and reach hither thy hand, and thrust it into my side: and be not faithless, but believing.',
+    },
+    {
+      cita: 'Job 23:10',
+      texto: 'But he knoweth the way that I take: when he hath tried me, I shall come forth as gold.',
+    },
+  ],
+  oracion:
+    "Lord, today I bring my unanswered questions, my doubts that do not disappear just by ignoring them. I do not want to fake a faith I do not have, nor abandon the faith I do have.\n\nLike the father in the Gospel: I believe. Help my unbelief. May the honesty of my doubt also be a way of seeking You. May in the uncertainty I learn to trust more in who You are than in what I understand. In Jesus' name, amen.",
+  tags: ['Doubt'],
+};
+
+// ─── May 28 — Identity in Christ ─────────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_28: RepoDevocional = {
+  id: '1juan31RVR1960',
+  date: '2026-05-28',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    '1 Juan 3:1 RVR1960: "Mirad cuál amor nos ha dado el Padre, para que seamos llamados hijos de Dios; por esto el mundo no nos conoce, porque no le conoció a él."',
+  reflexion:
+    'Vivimos buscando validación en los lugares equivocados: el trabajo que define nuestro valor, la pareja que confirma que somos amables, los logros que demuestran que merecemos existir. Esa búsqueda agota porque ningún logro ni ninguna persona puede darte permanentemente lo que solo Dios puede darte: un valor que no depende de tu rendimiento.\n\nJuan queda asombrado: "mirad cuál amor". No lo da por sentado. El hecho de que seamos llamados hijos de Dios no es un dato de rutina sino una revelación que debería detenernos. Tu verdadero valor no se construye; se recibe. No se gana; se hereda. Redescubrir quiénes somos en Cristo no es un ejercicio de autoestima; es un acto de fe: elegir creer lo que Dios dice sobre ti por encima de lo que dice el espejo, el jefe, o la voz interna que nunca está satisfecha.',
+  para_meditar: [
+    {
+      cita: 'Efesios 2:10',
+      texto: 'Porque somos hechura suya, creados en Cristo Jesús para buenas obras, las cuales Dios preparó de antemano para que anduviésemos en ellas.',
+    },
+    {
+      cita: 'Salmo 139:14',
+      texto: 'Te alabaré; porque formidables, maravillosas son tus obras; estoy maravillado, y mi alma lo sabe muy bien.',
+    },
+    {
+      cita: 'Gálatas 3:26',
+      texto: 'Pues todos sois hijos de Dios por la fe en Cristo Jesús.',
+    },
+  ],
+  oracion:
+    'Padre, hoy quiero creer lo que dices sobre mí, aunque me cueste. Hay voces que me dicen que no soy suficiente, que tengo que demostrar más, que mi valor está en lo que produzco.\n\nRecuérdame que antes de cualquier logro, antes de cualquier fracaso, soy tu hijo. Que esa verdad sea más fuerte que cualquier otra. Que pueda vivir desde ese lugar de amor recibido, no de amor por ganar. En el nombre de Jesús, amén.',
+  tags: ['Identidad en Cristo'],
+};
+
+export const DEVOTIONAL_2026_05_28_EN: RepoDevocional = {
+  id: '1john31KJV',
+  date: '2026-05-28',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    '1 John 3:1 KJV: "Behold, what manner of love the Father hath bestowed upon us, that we should be called the sons of God: therefore the world knoweth us not, because it knew him not."',
+  reflexion:
+    "We live searching for validation in the wrong places: the job that defines our worth, the relationship that confirms we are lovable, the achievements that prove we deserve to exist. That search is exhausting because no achievement and no person can permanently give you what only God can give you: a worth that does not depend on your performance.\n\nJohn is astonished: 'Behold, what manner of love.' He does not take it for granted. The fact that we are called children of God is not routine information but a revelation that should stop us. Your true worth is not built; it is received. It is not earned; it is inherited. Rediscovering who we are in Christ is not a self-esteem exercise; it is an act of faith: choosing to believe what God says about you above what the mirror, the boss, or the inner voice that is never satisfied says.",
+  para_meditar: [
+    {
+      cita: 'Ephesians 2:10',
+      texto: 'For we are his workmanship, created in Christ Jesus unto good works, which God hath before ordained that we should walk in them.',
+    },
+    {
+      cita: 'Psalm 139:14',
+      texto: 'I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.',
+    },
+    {
+      cita: 'Galatians 3:26',
+      texto: 'For ye are all the children of God by faith in Christ Jesus.',
+    },
+  ],
+  oracion:
+    "Father, today I want to believe what You say about me, even when it costs me. There are voices telling me I am not enough, that I must prove more, that my worth is in what I produce.\n\nRemind me that before any achievement, before any failure, I am Your child. May that truth be stronger than any other. May I live from that place of received love, not of love yet to be earned. In Jesus' name, amen.",
+  tags: ['Identity in Christ'],
+};
+
+// ─── May 30 — Broken Relationships ───────────────────────────────────────────
+
+export const DEVOCIONAL_2026_05_30: RepoDevocional = {
+  id: 'colosenses313RVR1960',
+  date: '2026-05-30',
+  language: 'es',
+  version: 'RVR1960',
+  versiculo:
+    'Colosenses 3:13 RVR1960: "Soportándoos unos a otros, y perdonándoos unos a otros si alguno tuviere queja contra otro. De la manera que Cristo os perdonó, así también hacedlo vosotros."',
+  reflexion:
+    'Las relaciones rotas son quizás la herida más común y más difícil de sanar. Una traición, una palabra dicha en el momento equivocado, años de silencio acumulado —el daño entre personas puede ser profundo y duradero. Y sin embargo, Dios tiene la costumbre de entrar precisamente en esos espacios quebrados para hacer algo que parecía imposible.\n\nPablo no banaliza el perdón cuando dice "soportándoos unos a otros". Soportar implica que hay algo que cuesta. El perdón cristiano no es fingir que no pasó nada, ni borrar el dolor por decreto. Es un proceso que comienza con una decisión: soltar el derecho a cobrar la deuda. Lo que Dios puede restaurar va más allá de lo que nosotros podemos imaginar. Algunas relaciones se sanan por completo; otras se transforman en algo diferente pero también valioso. Lo que Dios menda, nunca queda igual —queda mejor.',
+  para_meditar: [
+    {
+      cita: 'Efesios 4:32',
+      texto: 'Antes sed benignos unos con otros, misericordiosos, perdonándoos unos a otros, como Dios también os perdonó a vosotros en Cristo.',
+    },
+    {
+      cita: 'Génesis 50:20',
+      texto: 'Vosotros pensasteis mal contra mí, mas Dios lo encaminó a bien.',
+    },
+    {
+      cita: 'Mateo 18:21-22',
+      texto: 'Pedro le dijo: Señor, ¿cuántas veces perdonaré a mi hermano que peque contra mí? ¿Hasta siete? Jesús le dijo: No te digo hasta siete, sino aun hasta setenta veces siete.',
+    },
+  ],
+  oracion:
+    'Señor, hay relaciones en mi vida que están rotas o heridas. Algunas duelen más de lo que puedo expresar. Y en algunas, reconozco que yo también he contribuido al daño.\n\nDame la gracia de perdonar como has perdonado tú: no porque el otro lo merezca, sino porque el perdón me libera a mí también. Sana lo que puede ser sanado. Transforma lo que no puede volver a ser como antes. Y donde hay reconciliación posible, dame el valor de dar el primer paso. En el nombre de Jesús, amén.',
+  tags: ['Relaciones'],
+};
+
+export const DEVOTIONAL_2026_05_30_EN: RepoDevocional = {
+  id: 'colossians313KJV',
+  date: '2026-05-30',
+  language: 'en',
+  version: 'KJV',
+  versiculo:
+    'Colossians 3:13 KJV: "Forbearing one another, and forgiving one another, if any man have a quarrel against any: even as Christ forgave you, so also do ye."',
+  reflexion:
+    "Broken relationships are perhaps the most common and most difficult wound to heal. A betrayal, a word said at the wrong moment, years of accumulated silence — the damage between people can be deep and lasting. And yet, God has a habit of entering precisely those broken spaces to do something that seemed impossible.\n\nPaul does not trivialize forgiveness when he says 'forbearing one another.' Forbearing implies there is something that is costly. Christian forgiveness is not pretending nothing happened, nor erasing pain by decree. It is a process that begins with a decision: releasing the right to collect the debt. What God can restore goes beyond what we can imagine. Some relationships heal completely; others are transformed into something different but also valuable. What God mends never stays the same — it becomes better.",
+  para_meditar: [
+    {
+      cita: 'Ephesians 4:32',
+      texto: 'And be ye kind one to another, tenderhearted, forgiving one another, even as God for Christ\'s sake hath forgiven you.',
+    },
+    {
+      cita: 'Genesis 50:20',
+      texto: 'But as for you, ye thought evil against me; but God meant it unto good.',
+    },
+    {
+      cita: 'Matthew 18:21-22',
+      texto: 'Then came Peter to him, and said, Lord, how oft shall my brother sin against me, and I forgive him? till seven times? Jesus saith unto him, I say not unto thee, Until seven times: but, Until seventy times seven.',
+    },
+  ],
+  oracion:
+    "Lord, there are relationships in my life that are broken or wounded. Some hurt more than I can express. And in some of them, I recognize that I too have contributed to the damage.\n\nGive me the grace to forgive as You have forgiven: not because the other person deserves it, but because forgiveness also sets me free. Heal what can be healed. Transform what cannot go back to what it was. And where reconciliation is possible, give me the courage to take the first step. In Jesus' name, amen.",
+  tags: ['Broken Relationships'],
+};
+
 // ─── Image pool (same as backend, 12 Unsplash photos) ─────────────────────────
 
 export const REPO_IMAGES = [
@@ -714,4 +1526,18 @@ export const REPO_DEVOCIONALS: Record<string, { es: RepoDevocional; en: RepoDevo
   '2026-05-06': { es: DEVOCIONAL_2026_05_06,  en: DEVOTIONAL_2026_05_06_EN,  imageUrl: REPO_IMAGES[7]  }, // Lake reflection
   '2026-05-07': { es: DEVOCIONAL_2026_05_07,  en: DEVOTIONAL_2026_05_07_EN,  imageUrl: REPO_IMAGES[8]  }, // Waterfall
   '2026-05-08': { es: DEVOCIONAL_2026_05_08,  en: DEVOTIONAL_2026_05_08_EN,  imageUrl: REPO_IMAGES[9]  }, // Mountain sunrise
+  '2026-05-10': { es: DEVOCIONAL_2026_05_10,  en: DEVOTIONAL_2026_05_10_EN,  imageUrl: REPO_IMAGES[10] }, // Forest path
+  '2026-05-11': { es: DEVOCIONAL_2026_05_11,  en: DEVOTIONAL_2026_05_11_EN,  imageUrl: REPO_IMAGES[11] }, // Valley view
+  '2026-05-13': { es: DEVOCIONAL_2026_05_13,  en: DEVOTIONAL_2026_05_13_EN,  imageUrl: REPO_IMAGES[0]  }, // Sunrise over mountains
+  '2026-05-14': { es: DEVOCIONAL_2026_05_14,  en: DEVOTIONAL_2026_05_14_EN,  imageUrl: REPO_IMAGES[1]  }, // Golden field
+  '2026-05-15': { es: DEVOCIONAL_2026_05_15,  en: DEVOTIONAL_2026_05_15_EN,  imageUrl: REPO_IMAGES[2]  }, // Misty forest
+  '2026-05-16': { es: DEVOCIONAL_2026_05_16,  en: DEVOTIONAL_2026_05_16_EN,  imageUrl: REPO_IMAGES[3]  }, // Sunlight through trees
+  '2026-05-20': { es: DEVOCIONAL_2026_05_20,  en: DEVOTIONAL_2026_05_20_EN,  imageUrl: REPO_IMAGES[4]  }, // Ocean waves
+  '2026-05-22': { es: DEVOCIONAL_2026_05_22,  en: DEVOTIONAL_2026_05_22_EN,  imageUrl: REPO_IMAGES[5]  }, // Flowers
+  '2026-05-23': { es: DEVOCIONAL_2026_05_23,  en: DEVOTIONAL_2026_05_23_EN,  imageUrl: REPO_IMAGES[6]  }, // Mountain valley
+  '2026-05-25': { es: DEVOCIONAL_2026_05_25,  en: DEVOTIONAL_2026_05_25_EN,  imageUrl: REPO_IMAGES[7]  }, // Lake reflection
+  '2026-05-26': { es: DEVOCIONAL_2026_05_26,  en: DEVOTIONAL_2026_05_26_EN,  imageUrl: REPO_IMAGES[8]  }, // Waterfall
+  '2026-05-27': { es: DEVOCIONAL_2026_05_27,  en: DEVOTIONAL_2026_05_27_EN,  imageUrl: REPO_IMAGES[9]  }, // Mountain sunrise
+  '2026-05-28': { es: DEVOCIONAL_2026_05_28,  en: DEVOTIONAL_2026_05_28_EN,  imageUrl: REPO_IMAGES[10] }, // Forest path
+  '2026-05-30': { es: DEVOCIONAL_2026_05_30,  en: DEVOTIONAL_2026_05_30_EN,  imageUrl: REPO_IMAGES[11] }, // Valley view
 };
