@@ -221,16 +221,16 @@ export default function LibraryScreen() {
     }, [queryClient])
   );
 
-  // Extract unique categories from all sources (historical + repo)
+  // Extract unique categories only from visible (past + today) devotionals
   const categories = useMemo(() => {
-    const all = [...repoDevotionals, ...(devotionals ?? [])];
+    const visible = [...repoDevotionals, ...(devotionals ?? [])].filter((d) => d.date <= today);
     const topicSet = new Set<string>();
-    all.forEach((d) => {
+    visible.forEach((d) => {
       const topic = language === 'es' ? d.topicEs : d.topic;
       if (topic) topicSet.add(topic);
     });
     return Array.from(topicSet).sort();
-  }, [devotionals, repoDevotionals, language]);
+  }, [devotionals, repoDevotionals, language, today]);
 
   const repoDates = useMemo(() => new Set(Object.keys(REPO_DEVOCIONALS)), []);
 
@@ -319,7 +319,7 @@ export default function LibraryScreen() {
   }, [allMerged, today, filter, favorites, selectedCategory, searchQuery, language]);
 
   const handleDevotionalPress = useCallback((devotional: Devotional) => {
-    router.push({ pathname: '/(tabs)/hoy-nuevo', params: { date: devotional.date } });
+    router.push({ pathname: '/(tabs)/hoy-nuevo', params: { date: devotional.date, fromLibrary: '1' } });
   }, [router]);
 
   // Open share modal for a devotional

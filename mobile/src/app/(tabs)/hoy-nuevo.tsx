@@ -529,11 +529,12 @@ export default function HoyNuevoScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const today = getTodayDate();
-  const { date: dateParam } = useLocalSearchParams<{ date?: string }>();
+  const { date: dateParam, fromLibrary } = useLocalSearchParams<{ date?: string; fromLibrary?: string }>();
   // viewDate: the devotional being read. Empty string means "reset to today" (set by tab press).
   const viewDate = (dateParam && dateParam.length > 0) ? dateParam : today;
   const isRepoDate = Boolean(REPO_DEVOCIONALS[viewDate]);
   const isToday = viewDate === today;
+  const openedFromLibrary = fromLibrary === '1';
 
   // Fetch from backend for dates not in the static repo
   const { data: backendDev } = useQuery({
@@ -946,7 +947,7 @@ export default function HoyNuevoScreen() {
             position: 'absolute', top: insets.top + 10, left: 20, right: 20,
             flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
           }}>
-            {isToday ? (
+            {isToday && !openedFromLibrary ? (
               user && user.streakCurrent > 0 ? (
                 <View style={{
                   backgroundColor: 'rgba(249,115,22,0.90)', borderRadius: 20,
