@@ -73,6 +73,16 @@ import type { Devotional } from '@/lib/types';
 import { POINTS } from '@/lib/types';
 import { PRAYER_CATEGORIES } from '@/lib/constants';
 import { markDevotionalCompletedToday } from '@/lib/notifications';
+import { SentenceHighlighter } from '@/components/SentenceHighlighter';
+import { HighlightColorPicker } from '@/components/HighlightColorPicker';
+import {
+  type DevotionalHighlightStore,
+  type SentenceHighlightMap,
+  type HighlightColor,
+  loadDevotionalHighlights,
+  saveDevotionalHighlights,
+  getHighlightBg,
+} from '@/lib/devotional-highlights';
 
 const { width } = Dimensions.get('window');
 
@@ -552,6 +562,39 @@ export default function HoyNuevoScreen() {
   const incrementStreak = useAppStore((s) => s.incrementStreak);
   const updateUser = useAppStore((s) => s.updateUser);
   const hasPendingGiftBadge = useAppStore((s) => s.notificationBadges.hasPendingGift);
+
+  // ── Sentence highlights ──
+  const [hlStore, setHlStore] = useState<DevotionalHighlightStore>({});
+  const [meditarPickerIdx, setMeditarPickerIdx] = useState<number | null>(null);
+  const meditarPickerColor = meditarPickerIdx !== null
+    ? hlStore[`${viewDate}:meditar_${meditarPickerIdx}`]?.['0']
+    : undefined;
+
+  useEffect(() => {
+    loadDevotionalHighlights().then(setHlStore);
+  }, []);
+
+  const handleSentenceHighlight = useCallback((sectionKey: string, idx: number, color: HighlightColor | null) => {
+    setHlStore(prev => {
+      const section = { ...(prev[sectionKey] ?? {}) };
+      if (color === null) delete section[idx.toString()];
+      else section[idx.toString()] = color;
+      const next = { ...prev, [sectionKey]: section };
+      saveDevotionalHighlights(next);
+      return next;
+    });
+  }, []);
+
+  const handleMeditarHighlight = useCallback((cardIdx: number, color: HighlightColor | null) => {
+    const sectionKey = `${viewDate}:meditar_${cardIdx}`;
+    setHlStore(prev => {
+      const section: SentenceHighlightMap = color ? { '0': color } : {};
+      const next: DevotionalHighlightStore = { ...prev, [sectionKey]: section };
+      saveDevotionalHighlights(next);
+      return next;
+    });
+    setMeditarPickerIdx(null);
+  }, [viewDate]);
 
   // Select content based on language and viewDate
   const repoEntry = REPO_DEVOCIONALS[viewDate] ?? { es: SAMPLE_DEVOCIONAL, en: SAMPLE_DEVOCIONAL_EN, imageUrl: REPO_DEFAULT_IMAGE };
@@ -1082,9 +1125,15 @@ export default function HoyNuevoScreen() {
             onPress={() => handleTTSJumpTo(1)}
             colors={colors}
           >
-            <Text style={{ color: colors.text, fontSize: sFont(15), lineHeight: sFont(25), fontWeight: '400', opacity: 0.88 }}>
-              {devocional.reflexion}
-            </Text>
+            <SentenceHighlighter
+              text={devocional.reflexion}
+              highlights={hlStore[`${viewDate}:reflexion`] ?? {}}
+              onHighlightChange={(idx, color) => handleSentenceHighlight(`${viewDate}:reflexion`, idx, color)}
+              fontSize={15}
+              lineHeight={25}
+              textStyle={{ fontWeight: '400', opacity: 0.88 }}
+              language={language}
+            />
           </SectionCard>
 
           {/* Para Meditar */}
@@ -1109,32 +1158,41 @@ export default function HoyNuevoScreen() {
             >
               {devocional.para_meditar.map((v, i) => {
                 const sectionIdx = 2 + i;
-                const highlighted = currentSectionIndex === sectionIdx;
+                const isTTSActive = currentSectionIndex === sectionIdx;
+                const cardColor = hlStore[`${viewDate}:meditar_${i}`]?.['0'];
+                const cardBg = cardColor ? getHighlightBg(cardColor) : undefined;
                 return (
                   <Pressable
                     key={i}
                     onPress={() => handleTTSJumpTo(sectionIdx)}
+                    onLongPress={() => {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                      setMeditarPickerIdx(i);
+                    }}
+                    delayLongPress={400}
                     style={{
                       width: width * 0.72,
-                      backgroundColor: highlighted ? '#f43f5e08' : colors.surface,
+                      backgroundColor: cardBg ?? (isTTSActive ? '#f43f5e08' : colors.surface),
                       borderRadius: 14, padding: 16, marginRight: 12,
                       borderLeftWidth: 4,
-                      borderLeftColor: highlighted ? '#f43f5e' : '#f43f5e60',
-                      borderWidth: highlighted ? 1.5 : 0,
-                      borderColor: highlighted ? '#f43f5e' : 'transparent',
+                      borderLeftColor: isTTSActive ? '#f43f5e' : '#f43f5e60',
+                      borderWidth: isTTSActive ? 1.5 : 0,
+                      borderColor: isTTSActive ? '#f43f5e' : 'transparent',
                       shadowColor: '#000',
                       shadowOffset: { width: 0, height: 2 },
                       shadowOpacity: 0.06, shadowRadius: 6, elevation: 2,
                     }}
                   >
                     <Text style={{
-                      color: '#f43f5e', fontSize: sFont(13), fontWeight: '700',
+                      color: cardColor ? '#1C1917' : '#f43f5e',
+                      fontSize: sFont(13), fontWeight: '700',
                       marginBottom: 8, letterSpacing: 0.3,
                     }}>
                       {v.cita}
                     </Text>
                     <Text style={{
-                      color: colors.text, fontSize: sFont(14), lineHeight: sFont(22),
+                      color: cardColor ? '#1C1917' : colors.text,
+                      fontSize: sFont(14), lineHeight: sFont(22),
                       fontStyle: 'italic', opacity: 0.85,
                     }}>
                       "{v.texto}"
@@ -1154,9 +1212,15 @@ export default function HoyNuevoScreen() {
             onPress={() => handleTTSJumpTo(oracionSectionIndex)}
             colors={colors}
           >
-            <Text style={{ color: colors.text, fontSize: sFont(15), lineHeight: sFont(25), fontStyle: 'italic', opacity: 0.9 }}>
-              {fullPrayerText}
-            </Text>
+            <SentenceHighlighter
+              text={fullPrayerText}
+              highlights={hlStore[`${viewDate}:prayer`] ?? {}}
+              onHighlightChange={(idx, color) => handleSentenceHighlight(`${viewDate}:prayer`, idx, color)}
+              fontSize={15}
+              lineHeight={25}
+              textStyle={{ fontStyle: 'italic', opacity: 0.9 }}
+              language={language}
+            />
             {prayerSummary && prayerSummary.total > 0 && (
               <View style={{
                 marginTop: 12, paddingTop: 10,
@@ -1210,6 +1274,16 @@ export default function HoyNuevoScreen() {
         colors={colors}
         onShareComplete={handleShareComplete}
         showDate={isToday}
+      />
+
+      {/* Para Meditar card highlight picker */}
+      <HighlightColorPicker
+        visible={meditarPickerIdx !== null}
+        currentColor={meditarPickerColor}
+        onSelect={(color) => meditarPickerIdx !== null && handleMeditarHighlight(meditarPickerIdx, color)}
+        onRemove={() => meditarPickerIdx !== null && handleMeditarHighlight(meditarPickerIdx, null)}
+        onClose={() => setMeditarPickerIdx(null)}
+        language={language}
       />
     </View>
   );
