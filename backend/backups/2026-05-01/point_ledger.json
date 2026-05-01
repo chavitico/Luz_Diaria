@@ -2758,5 +2758,15 @@
     "amount": 8,
     "metadata": "{}",
     "createdAt": "2026-05-01T14:09:48.810Z"
+  },
+  {
+    "id": "cmon0s9j7001fm2c0snrwkz0j",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "tts_2026-05-01",
+    "type": "tts_complete",
+    "dateId": "2026-05-01",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-05-01T14:40:26.947Z"
   }
 ]

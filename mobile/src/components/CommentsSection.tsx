@@ -319,7 +319,9 @@ export function CommentsSection({
   const { data: comments = [], isLoading } = useQuery({
     queryKey: ['comments', devotionalDate, userId],
     queryFn: () => getComments(devotionalDate, userId || undefined),
-    staleTime: 30_000,
+    enabled: !!userId,
+    staleTime: 2 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 
   const { mutate: submitComment, isPending: isPosting } = useMutation({
