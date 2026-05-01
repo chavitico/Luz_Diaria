@@ -701,5 +701,24 @@
     "snapshotId": null,
     "createdAt": "2026-03-20T12:05:12.737Z",
     "updatedAt": "2026-03-20T12:05:12.737Z"
+  },
+  {
+    "id": "cmogt4oha0010m2efznam5fz0",
+    "incidentNumber": "LD-20260427-0001",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "type": "feedback",
+    "claimedStreak": 0,
+    "claimedDate": "2026-04-27",
+    "clientClaim": "{\"title\":\"Venta de churros\",\"comment\":\"Me gustaría que vendieran churritos\"}",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmml8uiit0000m2vluztbkjwf",
+    "rating": null,
+    "beforeState": "{\"streakCurrent\":44,\"devotionalsCompleted\":68}",
+    "afterState": "{\"streakCurrent\":44,\"devotionalsCompleted\":68}",
+    "botPreview": "{\"summary\":\"Comentario: \\\"Venta de churros\\\"\",\"userMessageEs\":\"¡Gracias por tomarte el tiempo de escribirnos! 🙏\\n\\nRecibimos tu comentario y lo revisaremos con atención. Si tienes más detalles o preguntas, puedes respondernos aquí mismo. Recibirás una respuesta pronto del equipo.\",\"userMessageEn\":\"Thank you for taking the time to write to us! 🙏\\n\\nWe received your feedback and will review it carefully. If you have more details or questions, you can reply right here. You'll receive a response from the team soon.\",\"action\":\"needs_human\",\"snapshotComparison\":{\"snapshotDate\":null,\"snapshotId\":null,\"snapshotStreak\":null,\"currentStreak\":44,\"claimedStreak\":0,\"diffDays\":null,\"devotionalTodayCR\":false,\"lastDevotionalDate\":null,\"escalationReason\":\"Feedback/sugerencia — requiere revisión del equipo\"}}",
+    "snapshotDate": null,
+    "snapshotId": null,
+    "createdAt": "2026-04-27T06:19:32.206Z",
+    "updatedAt": "2026-04-27T06:20:47.461Z"
   }
 ]
