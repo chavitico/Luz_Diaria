@@ -181,6 +181,7 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
   const [step, setStep] = useState<Step>('my_card');
   const [myCard, setMyCard]     = useState<string | null>(null);
   const [theirCard, setTheirCard] = useState<string | null>(null);
+  const [tradeErrorMsg, setTradeErrorMsg] = useState<string | null>(null);
 
   const es = language === 'es';
 
@@ -240,6 +241,7 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
       toUserId: recipient!.id,
       offeredCardId: myCard!,
       requestedCardId: theirCard!,
+      lang: language,
     }),
     onSuccess: (data) => {
       if (data.success) {
@@ -248,8 +250,9 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
         setStep('success');
       }
     },
-    onError: () => {
+    onError: (err: Error) => {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      setTradeErrorMsg(err.message ?? null);
     },
   });
 
@@ -600,7 +603,7 @@ export function TradeFlowModal({ visible, recipient, onClose }: TradeFlowModalPr
             {tradeIsError && (
               <View style={{ marginTop: 12, padding: 12, borderRadius: 10, backgroundColor: '#F43F5E20' }}>
                 <Text style={{ color: '#F43F5E', fontSize: sFont(13), textAlign: 'center' }}>
-                  {es ? 'Error al enviar. Intenta de nuevo.' : 'Failed to send. Please try again.'}
+                  {tradeErrorMsg ?? (es ? 'Error al enviar. Intenta de nuevo.' : 'Failed to send. Please try again.')}
                 </Text>
               </View>
             )}

@@ -2748,5 +2748,15 @@
     "amount": 50,
     "metadata": "{}",
     "createdAt": "2026-05-01T12:22:01.445Z"
+  },
+  {
+    "id": "cmomzov7t0011m2dw2nfeyrma",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-05-01",
+    "type": "prayer",
+    "dateId": "2026-05-01",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-05-01T14:09:48.810Z"
   }
 ]

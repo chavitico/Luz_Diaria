@@ -3497,12 +3497,12 @@ gamificationRouter.post("/biblical-cards/trades", async (c) => {
       return c.json({ error: "NO_DUPLICATE_REQUESTED", message: "The other user doesn't have a duplicate of the requested card" }, 400);
     }
 
-    // Check for existing pending trade between same users for same cards
-    const existing = await prisma.cardTrade.findFirst({
-      where: { fromUserId, toUserId, offeredCardId, requestedCardId, status: "pending" },
+    // Block if this card is already offered in any other pending trade (prevents double-offering a single duplicate)
+    const alreadyOffered = await prisma.cardTrade.findFirst({
+      where: { fromUserId, offeredCardId, status: "pending" },
     });
-    if (existing) {
-      return c.json({ error: "DUPLICATE_TRADE", message: "A pending trade for these cards already exists" }, 400);
+    if (alreadyOffered) {
+      return c.json({ error: "CARD_ALREADY_IN_TRADE", messageEs: "Este cromo ya está en otro intercambio pendiente. Cancélalo primero.", message: "This card is already offered in a pending trade. Cancel it first." }, 400);
     }
 
     // Limit pending outbound trades per user (max 10)

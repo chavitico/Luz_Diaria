@@ -481,13 +481,20 @@ export const gamificationApi = {
     toUserId: string;
     offeredCardId: string;
     requestedCardId: string;
+    lang?: 'es' | 'en';
   }): Promise<{ success: boolean; trade?: CardTrade; error?: string }> {
+    const { lang, ...body } = params;
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/biblical-cards/trades`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(params),
+      body: JSON.stringify(body),
     });
-    return res.json();
+    const data = await res.json();
+    if (!res.ok) {
+      const msg = lang === 'es' ? (data?.messageEs ?? data?.message) : data?.message;
+      throw new Error(msg ?? data?.error ?? 'Failed to create trade');
+    }
+    return data;
   },
 
   async acceptTrade(tradeId: string, userId: string): Promise<{ success: boolean; receivedCardId?: string; receivedNew?: boolean; error?: string; message?: string }> {
