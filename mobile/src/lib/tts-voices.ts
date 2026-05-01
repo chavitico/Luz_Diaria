@@ -385,3 +385,86 @@ export function applyBiblicalPronunciations(text: string, language: 'en' | 'es' 
 
   return result;
 }
+
+/**
+ * Normalizes Bible references so TTS reads them naturally.
+ * Must be applied BEFORE preprocessNumbersForTTS so chapter/verse digits
+ * are first wrapped in spoken labels, then converted to words.
+ *
+ * Spanish examples:
+ *   "1 Corintios 3:28" → "Primera de Corintios, capítulo 3, versículo 28"
+ *   "2 Timoteo 1:7"    → "Segunda de Timoteo, capítulo 1, versículo 7"
+ *   "Juan 3:16"        → "Juan, capítulo 3, versículo 16"
+ *   "Salmo 51"         → "Salmo, capítulo 51"
+ *
+ * English examples:
+ *   "2 Corinthians 3:5" → "Second Corinthians, chapter 3, verse 5"
+ *   "John 3:16"         → "John, chapter 3, verse 16"
+ */
+export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
+  let result = text;
+
+  if (language === 'es') {
+    const ordinals: Record<string, string> = {
+      '1': 'Primera de', '2': 'Segunda de', '3': 'Tercera de',
+    };
+
+    // Numbered book + chapter:verse first (most specific)
+    result = result.replace(
+      /\b([123])\s+([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d+):(\d+)/g,
+      (_, num, book, ch, vs) => `${ordinals[num]} ${book}, capítulo ${ch}, versículo ${vs}`
+    );
+    // Numbered book + chapter only
+    result = result.replace(
+      /\b([123])\s+([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d+)\b/g,
+      (_, num, book, ch) => `${ordinals[num]} ${book}, capítulo ${ch}`
+    );
+    // Numbered book alone
+    result = result.replace(
+      /\b([123])\s+([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\b/g,
+      (_, num, book) => `${ordinals[num]} ${book}`
+    );
+    // Unnumbered book + chapter:verse
+    result = result.replace(
+      /\b([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d+):(\d+)/g,
+      (_, book, ch, vs) => `${book}, capítulo ${ch}, versículo ${vs}`
+    );
+    // Unnumbered book + chapter only
+    result = result.replace(
+      /\b([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d+)\b/g,
+      (_, book, ch) => `${book}, capítulo ${ch}`
+    );
+  } else {
+    const ordinals: Record<string, string> = {
+      '1': 'First', '2': 'Second', '3': 'Third',
+    };
+
+    // Numbered book + chapter:verse first
+    result = result.replace(
+      /\b([123])\s+([A-Z][a-z]+)\s+(\d+):(\d+)/g,
+      (_, num, book, ch, vs) => `${ordinals[num]} ${book}, chapter ${ch}, verse ${vs}`
+    );
+    // Numbered book + chapter only
+    result = result.replace(
+      /\b([123])\s+([A-Z][a-z]+)\s+(\d+)\b/g,
+      (_, num, book, ch) => `${ordinals[num]} ${book}, chapter ${ch}`
+    );
+    // Numbered book alone
+    result = result.replace(
+      /\b([123])\s+([A-Z][a-z]+)\b/g,
+      (_, num, book) => `${ordinals[num]} ${book}`
+    );
+    // Unnumbered book + chapter:verse
+    result = result.replace(
+      /\b([A-Z][a-z]+)\s+(\d+):(\d+)/g,
+      (_, book, ch, vs) => `${book}, chapter ${ch}, verse ${vs}`
+    );
+    // Unnumbered book + chapter only
+    result = result.replace(
+      /\b([A-Z][a-z]+)\s+(\d+)\b/g,
+      (_, book, ch) => `${book}, chapter ${ch}`
+    );
+  }
+
+  return result;
+}

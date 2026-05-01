@@ -57,7 +57,7 @@ import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
 import { getTodayDate, firestoreService } from '@/lib/firestore';
 import { pickBestVoice } from '@/lib/voice-picker';
-import { sanitizeForTTS, preprocessNumbersForTTS } from '@/lib/tts-voices';
+import { sanitizeForTTS, preprocessNumbersForTTS, normalizeBibleRefForTTS, addTTSPausesForNumberedPoints, applyBiblicalPronunciations } from '@/lib/tts-voices';
 import { useScaledFont } from '@/lib/textScale';
 import {
   SAMPLE_DEVOCIONAL,
@@ -860,16 +860,30 @@ export default function HoyNuevoScreen() {
   const nMeditar = devocional.para_meditar.length;
   const oracionSectionIndex = 2 + nMeditar;
 
+  const ttsProcess = useCallback((raw: string): string => {
+    return applyBiblicalPronunciations(
+      preprocessNumbersForTTS(
+        addTTSPausesForNumberedPoints(
+          normalizeBibleRefForTTS(
+            sanitizeForTTS(raw),
+            language
+          )
+        )
+      ),
+      language
+    );
+  }, [language]);
+
   const buildTTSSections = useCallback((): { key: string; text: string }[] => {
     const sections: { key: string; text: string }[] = [];
-    sections.push({ key: 'verse', text: preprocessNumbersForTTS(sanitizeForTTS(`${verseText}. ${reference}`)) });
-    sections.push({ key: 'reflexion', text: preprocessNumbersForTTS(sanitizeForTTS(devocional.reflexion)) });
+    sections.push({ key: 'verse', text: ttsProcess(`${verseText}. ${reference}`) });
+    sections.push({ key: 'reflexion', text: ttsProcess(devocional.reflexion) });
     devocional.para_meditar.forEach((v, i) => {
-      sections.push({ key: `meditar_${i}`, text: preprocessNumbersForTTS(sanitizeForTTS(`${v.cita}. ${v.texto}`)) });
+      sections.push({ key: `meditar_${i}`, text: ttsProcess(`${v.cita}. ${v.texto}`) });
     });
-    sections.push({ key: 'oracion', text: preprocessNumbersForTTS(sanitizeForTTS(fullPrayerText)) });
+    sections.push({ key: 'oracion', text: ttsProcess(fullPrayerText) });
     return sections;
-  }, [verseText, reference, devocional, fullPrayerText]);
+  }, [verseText, reference, devocional, fullPrayerText, ttsProcess]);
 
   const speakSection = useCallback((
     index: number,
