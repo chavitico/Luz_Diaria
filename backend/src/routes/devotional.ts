@@ -326,3 +326,108 @@ devotionalRouter.get("/preview", async (c) => {
 
   return c.json({ generated: results.length, errors, results });
 });
+
+// Apply a pre-committed migration file (run on PRD after deploy)
+// POST /api/devotional/apply-migration
+// Body: { file: "future-devotionals-2026-09-18-plus.json" } (optional, defaults to that file)
+devotionalRouter.post("/apply-migration", async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({}));
+    const filename = (body as Record<string, string>).file ?? "future-devotionals-2026-09-18-plus.json";
+    const filePath = new URL(`../../migration/${filename}`, import.meta.url).pathname;
+
+    const { readFileSync } = await import("fs");
+    let raw: string;
+    try {
+      raw = readFileSync(filePath, "utf-8");
+    } catch {
+      return c.json({ error: `Migration file not found: ${filename}` }, 404);
+    }
+
+    const migration = JSON.parse(raw) as { devotionals: Array<Record<string, unknown>>; count: number; dateRange: { min: string | null; max: string | null } };
+    let inserted = 0;
+    let skipped = 0;
+    const errors: string[] = [];
+
+    for (const d of migration.devotionals) {
+      const date = d.date as string;
+      if (!date) { errors.push("missing date"); continue; }
+      const exists = await prisma.devotional.findUnique({ where: { date }, select: { id: true } });
+      if (exists) { skipped++; continue; }
+      const { id: _id, sourceKey: _sk, createdAt: _ca, updatedAt: _ua, ...fields } = d;
+      try {
+        await prisma.devotional.create({ data: fields as Parameters<typeof prisma.devotional.create>[0]["data"] });
+        inserted++;
+      } catch (err) {
+        errors.push(`${date}: ${err instanceof Error ? err.message : "unknown"}`);
+      }
+    }
+
+    const totalNow = await prisma.devotional.count();
+    const maxRow = await prisma.devotional.findFirst({ orderBy: { date: "desc" }, select: { date: true } });
+    const today = new Date().toISOString().split("T")[0]!;
+    const futureCount = await prisma.devotional.count({ where: { date: { gt: today } } });
+
+    return c.json({ inserted, skipped, errors, totalInDb: totalNow, maxDate: maxRow?.date, futureCount });
+  } catch (error) {
+    return c.json({ error: "Failed to apply migration" }, 500);
+  }
+});
+
+// Bulk upsert devotionals by date (migration/sync endpoint)
+// POST /api/devotional/bulk-upsert
+// Body: { devotionals: Devotional[] }
+// Only inserts dates that don't exist yet (skip_existing = true by default)
+devotionalRouter.post("/bulk-upsert", async (c) => {
+  try {
+    const body = await c.req.json();
+    const items: Array<Record<string, unknown>> = body.devotionals;
+    if (!Array.isArray(items)) {
+      return c.json({ error: "Expected { devotionals: [] }" }, 400);
+    }
+
+    let inserted = 0;
+    let skipped = 0;
+    const errors: string[] = [];
+
+    for (const item of items) {
+      const date = item.date as string;
+      if (!date) { errors.push(`Missing date on item`); continue; }
+      try {
+        const existing = await prisma.devotional.findUnique({ where: { date } });
+        if (existing) { skipped++; continue; }
+        await prisma.devotional.create({
+          data: {
+            date,
+            title: (item.title as string) ?? "",
+            bibleVerse: (item.bibleVerse as string) ?? "",
+            bibleReference: (item.bibleReference as string) ?? "",
+            reflection: (item.reflection as string) ?? "",
+            story: (item.story as string) ?? "",
+            biblicalCharacter: (item.biblicalCharacter as string) ?? "",
+            application: (item.application as string) ?? "",
+            prayer: (item.prayer as string) ?? "",
+            topic: (item.topic as string) ?? "",
+            titleEs: (item.titleEs as string) ?? "",
+            bibleVerseEs: (item.bibleVerseEs as string) ?? "",
+            bibleReferenceEs: (item.bibleReferenceEs as string) ?? "",
+            reflectionEs: (item.reflectionEs as string) ?? "",
+            storyEs: (item.storyEs as string) ?? "",
+            biblicalCharacterEs: (item.biblicalCharacterEs as string) ?? "",
+            applicationEs: (item.applicationEs as string) ?? "",
+            prayerEs: (item.prayerEs as string) ?? "",
+            topicEs: (item.topicEs as string) ?? "",
+            imageUrl: (item.imageUrl as string) ?? null,
+          },
+        });
+        inserted++;
+      } catch (err) {
+        errors.push(`${date}: ${err instanceof Error ? err.message : "unknown"}`);
+      }
+    }
+
+    return c.json({ inserted, skipped, errors, total: items.length });
+  } catch (error) {
+    return c.json({ error: "Failed to bulk upsert" }, 500);
+  }
+});
