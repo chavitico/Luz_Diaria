@@ -302,7 +302,6 @@ export function CommentsSection({
   const { sFont } = useScaledFont();
   const queryClient = useQueryClient();
   const inputRef = useRef<TextInput>(null);
-  const inputContainerRef = useRef<View>(null);
   const [draft, setDraft] = useState('');
 
   // Compute a send button fill that is GUARANTEED to contrast with the page background.
@@ -359,20 +358,14 @@ export function CommentsSection({
     [removeComment]
   );
 
-  // When input is focused, scroll so the input row is visible above the keyboard
+  // When input is focused, scroll to the bottom so the input is visible above the keyboard.
+  // automaticallyAdjustKeyboardInsets on the parent ScrollView handles the inset;
+  // we just need to make sure we're scrolled to the end.
   const handleInputFocus = useCallback(() => {
-    if (!scrollViewRef?.current || !inputContainerRef.current) return;
-    // Small delay to let the keyboard start appearing
+    if (!scrollViewRef?.current) return;
     setTimeout(() => {
-      inputContainerRef.current?.measureLayout(
-        // @ts-ignore — scrollView node handle
-        scrollViewRef.current as unknown as number,
-        (x, y, width, height) => {
-          scrollViewRef.current?.scrollTo({ y: y + height + 20, animated: true });
-        },
-        () => {} // error cb
-      );
-    }, 150);
+      (scrollViewRef.current as any)?.scrollToEnd?.({ animated: true });
+    }, 350);
   }, [scrollViewRef]);
 
   if (!user) return null;
@@ -456,7 +449,7 @@ export function CommentsSection({
 
       {/* Input area */}
       <View
-        ref={inputContainerRef}
+
         style={{
           flexDirection: 'row',
           alignItems: 'flex-end',

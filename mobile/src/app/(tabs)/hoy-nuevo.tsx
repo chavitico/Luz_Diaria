@@ -971,6 +971,8 @@ export default function HoyNuevoScreen() {
         onScroll={scrollHandler}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
+        automaticallyAdjustKeyboardInsets
+        keyboardDismissMode="interactive"
         contentContainerStyle={{ paddingBottom: insets.bottom + 90 }}
       >
         {/* ── Hero ── */}
