@@ -857,13 +857,24 @@ export async function ensureNewFormatAhead(days = 30): Promise<void> {
 /**
  * Generates exactly ONE new-format devotional: the next date after the current frontier.
  * Used by the daily cron to maintain a rolling buffer (consume 1, produce 1).
+ * Idempotent per calendar day — safe to call from both cron and startup.
  */
 export async function generateNextNewFormatDevotional(): Promise<void> {
+  const today = getTodayDate();
+  const todayStart = new Date(today + 'T00:00:00.000Z');
+
   const latest = await prisma.devotional.findFirst({
     where: { date: { gt: STATIC_END_DATE } },
     orderBy: { date: 'desc' },
-    select: { date: true },
+    select: { date: true, createdAt: true },
   });
+
+  // If the most recent new-format devotional was already created today, skip
+  // This prevents double-generation when startup and midnight cron both run on the same day
+  if (latest?.createdAt && latest.createdAt >= todayStart) {
+    console.log(`[NewFormat] Daily +1 already generated today (frontier: ${latest.date}) — skipping`);
+    return;
+  }
 
   const frontier = latest?.date ?? STATIC_END_DATE;
   const nextDate = addDaysToDate(frontier, 1);
