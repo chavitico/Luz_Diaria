@@ -83,7 +83,7 @@ import {
   preprocessNumbersForTTS,
   applyBiblicalPronunciations,
 } from '@/lib/tts-voices';
-import { firestoreService } from '@/lib/firestore';
+import { firestoreService, getTodayDate } from '@/lib/firestore';
 import type {
   BibleBook,
   BibleChapterData,
@@ -693,13 +693,12 @@ function BibleHomeScreen({
   onSelectRecentHighlight: (item: RecentHighlight) => void;
 }) {
   const { sFont } = useScaledFont();
-  // Reuse the same query key as Home screen — hits cache instantly
-  const { data: devotionalMeta } = useQuery({
-    queryKey: ['todayDevotional'],
-    queryFn: () => firestoreService.getTodayDevotional(),
-    staleTime: 5 * 60 * 1000,
+  const today = getTodayDate();
+  const { data: devotional } = useQuery({
+    queryKey: ['devotional', today],
+    queryFn: () => firestoreService.getDevotional(today),
+    staleTime: 30 * 60 * 1000,
   });
-  const devotional = devotionalMeta?.devotional;
   const verseText = lang === 'es'
     ? (devotional?.bibleVerseEs ?? devotional?.bibleVerse ?? null)
     : (devotional?.bibleVerse ?? null);
