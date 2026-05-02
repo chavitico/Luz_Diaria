@@ -3114,6 +3114,8 @@ export default function StoreScreen() {
   const isDailyPackClaiming = useRef(false);
   // Inner dedup ref — zero re-render overhead, checked before setting state
   const isTokenPurchasing = useRef(false);
+  // When navigating to Album route, set this so useFocusEffect reopens Cromos submenu on back
+  const returnToCromosOnFocus = useRef(false);
   // Failsafe timeout handle — clears stuck transaction state after 2s
   const packFailsafeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -3243,6 +3245,17 @@ export default function StoreScreen() {
   }, [user?.id]);
 
   useFocusEffect(useCallback(() => { loadProfileData(); }, [loadProfileData]));
+
+  // Reopen Cromos submenu when returning from Album route via back
+  useFocusEffect(useCallback(() => {
+    if (returnToCromosOnFocus.current) {
+      returnToCromosOnFocus.current = false;
+      setTimeout(() => {
+        setSubMenuType('cromos');
+        setShowSubMenuModal(true);
+      }, 350);
+    }
+  }, []));
 
   // Handle rename
   const handleRename = async () => {
@@ -5362,6 +5375,7 @@ export default function StoreScreen() {
                 <Pressable
                   onPress={() => {
                     setShowSubMenuModal(false);
+                    returnToCromosOnFocus.current = true;
                     setTimeout(() => router.push('/biblical-cards-album'), 350);
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   }}
@@ -5889,7 +5903,10 @@ export default function StoreScreen() {
       {/* Trade Inbox Modal — accessible from Cromos Bíblicos */}
       <TradeInboxModal
         visible={showTradeInbox}
-        onClose={() => setShowTradeInbox(false)}
+        onClose={() => {
+          setShowTradeInbox(false);
+          setTimeout(() => { setSubMenuType('cromos'); setShowSubMenuModal(true); }, 350);
+        }}
       />
 
       {/* Daily Pack Picker — shown when user taps Reclamar on DailyPackBanner */}
@@ -5964,7 +5981,10 @@ export default function StoreScreen() {
         visible={showPackStore}
         animationType="slide"
         presentationStyle="pageSheet"
-        onRequestClose={() => setShowPackStore(false)}
+        onRequestClose={() => {
+          setShowPackStore(false);
+          setTimeout(() => { setSubMenuType('cromos'); setShowSubMenuModal(true); }, 350);
+        }}
       >
         <View style={{ flex: 1, backgroundColor: colors.background }}>
           {/* Header */}
@@ -5977,7 +5997,10 @@ export default function StoreScreen() {
             borderBottomWidth: 1,
             borderBottomColor: colors.textMuted + '20',
           }}>
-            <Pressable onPress={() => setShowPackStore(false)} style={{ marginRight: 12, padding: 4 }}>
+            <Pressable onPress={() => {
+              setShowPackStore(false);
+              setTimeout(() => { setSubMenuType('cromos'); setShowSubMenuModal(true); }, 350);
+            }} style={{ marginRight: 12, padding: 4 }}>
               <ChevronLeft size={24} color={colors.text} />
             </Pressable>
             <View style={{ flex: 1 }}>
