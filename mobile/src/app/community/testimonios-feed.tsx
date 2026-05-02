@@ -205,6 +205,8 @@ function TestimonyCard({
 
   const translateLabel = language === 'es' ? 'Traducir' : 'Translate';
   const originalLabel = language === 'es' ? 'Ver original' : 'Show original';
+  const [translateError, setTranslateError] = useState<string | null>(null);
+  const translationEnabled = process.env.EXPO_PUBLIC_TRANSLATION_ENABLED === 'true';
 
   const handleTranslate = async () => {
     if (showTranslated) {
@@ -216,6 +218,7 @@ function TestimonyCard({
       return;
     }
     setIsTranslating(true);
+    setTranslateError(null);
     try {
       const res = await fetchWithTimeout(`${BACKEND_URL}/api/translate`, {
         method: 'POST',
@@ -226,9 +229,11 @@ function TestimonyCard({
         const data = await res.json() as { translatedText: string };
         setTranslatedText(data.translatedText);
         setShowTranslated(true);
+      } else {
+        setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
       }
     } catch {
-      // Silently ignore abort/network errors — user can retry
+      setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
     } finally {
       setIsTranslating(false);
     }
@@ -293,29 +298,34 @@ function TestimonyCard({
             userId={userId}
             onOptimisticUpdate={onOptimisticUpdate}
           />
-          <Pressable
-            onPress={handleTranslate}
-            disabled={isTranslating}
-            style={({ pressed }) => ({
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 4,
-              paddingVertical: 4,
-              paddingHorizontal: 8,
-              borderRadius: 10,
-              backgroundColor: showTranslated ? colors.primary + '18' : 'transparent',
-              opacity: pressed ? 0.7 : 1,
-            })}
-          >
-            {isTranslating ? (
-              <ActivityIndicator size="small" color={colors.textMuted} style={{ width: 14, height: 14 }} />
-            ) : (
-              <Globe size={13} color={showTranslated ? colors.primary : colors.textMuted} strokeWidth={2} />
-            )}
-            <Text style={{ fontSize: sFont(12), color: showTranslated ? colors.primary : colors.textMuted, fontWeight: showTranslated ? '600' : '400' }}>
-              {showTranslated ? originalLabel : translateLabel}
-            </Text>
-          </Pressable>
+          {translationEnabled && (
+            <Pressable
+              onPress={handleTranslate}
+              disabled={isTranslating}
+              style={({ pressed }) => ({
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 4,
+                paddingVertical: 4,
+                paddingHorizontal: 8,
+                borderRadius: 10,
+                backgroundColor: showTranslated ? colors.primary + '18' : 'transparent',
+                opacity: pressed ? 0.7 : 1,
+              })}
+            >
+              {isTranslating ? (
+                <ActivityIndicator size="small" color={colors.textMuted} style={{ width: 14, height: 14 }} />
+              ) : (
+                <Globe size={13} color={showTranslated ? colors.primary : colors.textMuted} strokeWidth={2} />
+              )}
+              <Text style={{ fontSize: sFont(12), color: showTranslated ? colors.primary : colors.textMuted, fontWeight: showTranslated ? '600' : '400' }}>
+                {showTranslated ? originalLabel : translateLabel}
+              </Text>
+            </Pressable>
+          )}
+          {translateError && (
+            <Text style={{ fontSize: sFont(11), color: '#ef4444', marginTop: 2 }}>{translateError}</Text>
+          )}
         </View>
       </View>
     </Animated.View>

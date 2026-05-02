@@ -578,6 +578,8 @@ function DropNewsCard({
   const [translatedMessage, setTranslatedMessage] = useState<string | null>(null);
   const [isTranslating, setIsTranslating] = useState(false);
   const [showTranslated, setShowTranslated] = useState(false);
+  const [translateError, setTranslateError] = useState<string | null>(null);
+  const translationEnabled = process.env.EXPO_PUBLIC_TRANSLATION_ENABLED === 'true';
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   const toggle = useCallback(() => {
@@ -597,6 +599,7 @@ function DropNewsCard({
     if (translatedMessage && !showTranslated) { setShowTranslated(true); return; }
     if (showTranslated) { setShowTranslated(false); return; }
     setIsTranslating(true);
+    setTranslateError(null);
     try {
       const res = await fetchWithTimeout(`${BACKEND_URL}/api/translate`, {
         method: 'POST',
@@ -606,9 +609,12 @@ function DropNewsCard({
       if (res.ok) {
         const json = await res.json() as { translatedText?: string };
         if (json.translatedText) { setTranslatedMessage(json.translatedText); setShowTranslated(true); }
+        else { setTranslateError(es ? 'No se pudo traducir por ahora' : 'Could not translate right now'); }
+      } else {
+        setTranslateError(es ? 'No se pudo traducir por ahora' : 'Could not translate right now');
       }
     } catch {
-      // silently fail
+      setTranslateError(es ? 'No se pudo traducir por ahora' : 'Could not translate right now');
     } finally {
       setIsTranslating(false);
     }
@@ -678,32 +684,37 @@ function DropNewsCard({
           </View>
 
           {/* Translate button */}
-          <Pressable
-            onPress={handleTranslate}
-            disabled={isTranslating}
-            style={({ pressed }) => ({
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 5,
-              alignSelf: 'flex-start',
-              paddingHorizontal: 10,
-              paddingVertical: 5,
-              borderRadius: 10,
-              backgroundColor: accentColor + '12',
-              borderWidth: 1,
-              borderColor: accentColor + '30',
-              marginBottom: 16,
-              opacity: pressed ? 0.7 : 1,
-            })}
-          >
-            {isTranslating
-              ? <ActivityIndicator size="small" color={accentColor} />
-              : <Globe size={13} color={accentColor} />
-            }
-            <Text style={{ fontSize: 12, fontWeight: '600', color: accentColor }}>
-              {isTranslating ? (es ? 'Traduciendo…' : 'Translating…') : translateLabel}
-            </Text>
-          </Pressable>
+          {translationEnabled && (
+            <Pressable
+              onPress={handleTranslate}
+              disabled={isTranslating}
+              style={({ pressed }) => ({
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 5,
+                alignSelf: 'flex-start',
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                borderRadius: 10,
+                backgroundColor: accentColor + '12',
+                borderWidth: 1,
+                borderColor: accentColor + '30',
+                marginBottom: translateError ? 4 : 16,
+                opacity: pressed ? 0.7 : 1,
+              })}
+            >
+              {isTranslating
+                ? <ActivityIndicator size="small" color={accentColor} />
+                : <Globe size={13} color={accentColor} />
+              }
+              <Text style={{ fontSize: 12, fontWeight: '600', color: accentColor }}>
+                {isTranslating ? (es ? 'Traduciendo…' : 'Translating…') : translateLabel}
+              </Text>
+            </Pressable>
+          )}
+          {translateError && (
+            <Text style={{ fontSize: 12, color: '#ef4444', marginBottom: 16 }}>{translateError}</Text>
+          )}
 
           {/* Item being gifted */}
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: `${accentColor}10`, borderRadius: 12, padding: 14, borderWidth: 1, borderColor: `${accentColor}25`, marginBottom: 16 }}>
