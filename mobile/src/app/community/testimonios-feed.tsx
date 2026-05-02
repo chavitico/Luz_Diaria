@@ -219,23 +219,45 @@ function TestimonyCard({
     }
     setIsTranslating(true);
     setTranslateError(null);
+    console.log(`[translate/testimonios] iniciando fetch url=${BACKEND_URL}/api/translate lang=${language} textLen=${testimony.text?.length}`);
     try {
       const res = await fetchWithTimeout(`${BACKEND_URL}/api/translate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: testimony.text, targetLanguage: language }),
       }, 20_000);
+      console.log(`[translate/testimonios] response status=${res.status} ok=${res.ok}`);
       if (res.ok) {
-        const data = await res.json() as { translatedText: string };
-        setTranslatedText(data.translatedText);
-        setShowTranslated(true);
+        const rawText = await res.text();
+        console.log(`[translate/testimonios] raw body=${rawText.slice(0, 200)}`);
+        let data: { translatedText?: string };
+        try {
+          data = JSON.parse(rawText);
+        } catch (parseErr) {
+          console.error(`[translate/testimonios] JSON.parse falló:`, parseErr);
+          setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
+          return;
+        }
+        console.log(`[translate/testimonios] translatedText="${data.translatedText?.slice(0, 80)}"`);
+        if (data.translatedText) {
+          setTranslatedText(data.translatedText);
+          setShowTranslated(true);
+          console.log('[translate/testimonios] estado actualizado OK');
+        } else {
+          console.warn('[translate/testimonios] translatedText vacío o undefined');
+          setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
+        }
       } else {
+        const errBody = await res.text().catch(() => '');
+        console.error(`[translate/testimonios] error HTTP status=${res.status} body=${errBody.slice(0, 200)}`);
         setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
       }
-    } catch {
+    } catch (err) {
+      console.error('[translate/testimonios] catch:', err instanceof Error ? err.message : String(err));
       setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
     } finally {
       setIsTranslating(false);
+      console.log('[translate/testimonios] finally — isTranslating=false');
     }
   };
 
