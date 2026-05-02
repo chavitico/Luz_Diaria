@@ -155,20 +155,45 @@ const CONTENT_STRUCTURES = [
   },
 ] as const;
 
-// Devotional images from Unsplash
+// Devotional images from Unsplash — pool of 30 to cycle ~monthly
 const IMAGES = [
+  // ── Original 12 (preserved) ──────────────────────────────────────────────
   "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=800&q=80", // Sunrise over mountains
   "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=800&q=80", // Golden field
   "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=800&q=80", // Misty forest
   "https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=800&q=80", // Sunlight through trees
   "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?w=800&q=80", // Ocean waves
-  "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80", // Flowers
+  "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80", // Flowers in light
   "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80", // Mountain valley
   "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&q=80", // Lake reflection
   "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&q=80", // Waterfall
   "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80", // Mountain sunrise
   "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&q=80", // Forest path
   "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&q=80", // Valley view
+  // ── New: Spiritual & light ────────────────────────────────────────────────
+  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=800&q=80", // Cross silhouette at sunset
+  "https://images.unsplash.com/photo-1531901599143-df5010ab9438?w=800&q=80", // Light rays through forest cathedral
+  "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80", // Hands in prayer
+  // ── New: Stars & cosmos ───────────────────────────────────────────────────
+  "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80", // Milky way over mountains
+  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=800&q=80", // Starry night sky
+  "https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=800&q=80", // Aurora borealis
+  // ── New: Desert & biblical landscapes ────────────────────────────────────
+  "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800&q=80", // Desert sand dunes
+  "https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=800&q=80", // Arid desert landscape
+  "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80", // Ancient olive grove
+  // ── New: Dawn & golden hour ───────────────────────────────────────────────
+  "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&q=80", // Dramatic mountain dawn
+  "https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=800&q=80", // Golden sunrise over fields
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Mountain peaks at first light
+  // ── New: Water & reflection ───────────────────────────────────────────────
+  "https://images.unsplash.com/photo-1458668383970-8ddd3927deed?w=800&q=80", // Mirror-still mountain lake
+  "https://images.unsplash.com/photo-1500259783852-0ca9ce8a64dc?w=800&q=80", // Misty river valley
+  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", // Sea cliff at dawn
+  // ── New: Forest & pastoral ────────────────────────────────────────────────
+  "https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80", // Forest god-rays
+  "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80", // Pastoral rolling hills
+  "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=800&q=80", // Dramatic heavenly clouds
 ];
 
 function getTodayDate(): string {
