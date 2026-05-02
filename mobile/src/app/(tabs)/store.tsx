@@ -15,7 +15,6 @@ import {
   InteractionManager,
   Image,
   Animated as RNAnimated,
-  Share,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -59,8 +58,11 @@ import {
   ChevronRight as ChevronRightSm,
 } from 'lucide-react-native';
 import { TextInput } from 'react-native';
-import { BIBLICAL_CARDS } from '@/lib/biblical-cards';
+import { BIBLICAL_CARDS, ALL_CARD_IDS } from '@/lib/biblical-cards';
 import { preloadCardImages } from '@/lib/card-image-preload';
+import { firestoreService, getTodayDate } from '@/lib/firestore';
+import { ShareSheet } from '@/components/ShareSheet';
+import type { Devotional } from '@/lib/types';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -1254,8 +1256,9 @@ function ProfileHeader({
   activeBadgeId,
   devotionalsCompleted,
   totalShares,
-  collectionsCompleted,
+  cardsPercent,
   onBadgePress,
+  onSharePress,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   user: ReturnType<typeof useUser>;
@@ -1266,8 +1269,9 @@ function ProfileHeader({
   activeBadgeId: string | null;
   devotionalsCompleted: number;
   totalShares: number;
-  collectionsCompleted: number;
+  cardsPercent: number;
   onBadgePress: () => void;
+  onSharePress: () => void;
 }) {
   const { sFont } = useScaledFont();
   const router = useRouter();
@@ -1288,16 +1292,6 @@ function ProfileHeader({
   const avatarData = DEFAULT_AVATARS.find(a => a.id === user?.avatar);
   const avatarEmoji = avatarData?.emoji || '🕊️';
 
-  const handleShareDevotional = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    const today = new Date().toISOString().split('T')[0];
-    const msg = language === 'es'
-      ? `📖 Hoy completé mi devocional diario. ¡Te invito a unirte!\n\nAbre la app Daily Light y lee el devocional de hoy (${today}).`
-      : `📖 I completed today's devotional. Join me!\n\nOpen the Daily Light app and read today's devotional (${today}).`;
-    try {
-      await Share.share({ message: msg });
-    } catch {}
-  };
 
   const statChipStyle = (borderColor: string) => ({
     flex: 1 as const,
@@ -1483,7 +1477,7 @@ function ProfileHeader({
               </Pressable>
 
               {/* Compartidos → share action */}
-              <Pressable onPress={handleShareDevotional} style={{ flex: 1 }}>
+              <Pressable onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); onSharePress(); }} style={{ flex: 1 }}>
                 <LinearGradient
                   colors={['#60A5FA25', '#60A5FA08']}
                   start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
@@ -1511,7 +1505,7 @@ function ProfileHeader({
                 >
                   <Layers size={14} color="#F59E0B" style={{ marginBottom: 4 }} />
                   <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#F59E0B', marginBottom: 3 }}>
-                    {collectionsCompleted}
+                    {cardsPercent}%
                   </Text>
                   <Text style={{ fontSize: sFont(9), fontWeight: '500', color: '#F59E0B99', textAlign: 'center', lineHeight: 12 }}>
                     {language === 'es' ? 'Colecciones' : 'Collections'}
@@ -3322,12 +3316,27 @@ export default function StoreScreen() {
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
 
-  const collectionsCompleted = useMemo(
-    () => Object.values(ITEM_COLLECTIONS).filter(
-      col => col.items.every(itemId => purchasedItems.includes(itemId))
-    ).length,
-    [purchasedItems]
-  );
+  const [showProfileShare, setShowProfileShare] = useState(false);
+
+  const today = getTodayDate();
+  const { data: todayDevotional = null } = useQuery<Devotional | null>({
+    queryKey: ['devotional', today],
+    queryFn: () => firestoreService.getDevotional(today),
+    staleTime: 30 * 60 * 1000,
+    retry: 1,
+  });
+
+  const { data: cardInventory = [] } = useQuery({
+    queryKey: ['biblical-cards', userId],
+    queryFn: () => gamificationApi.getBiblicalCards(userId),
+    enabled: !!userId,
+    staleTime: 10 * 60 * 1000,
+  });
+
+  const cardsPercent = useMemo(() => {
+    const ownedCount = cardInventory.filter((c: { owned: boolean }) => c.owned).length;
+    return ALL_CARD_IDS.length > 0 ? Math.round((ownedCount / ALL_CARD_IDS.length) * 100) : 0;
+  }, [cardInventory]);
 
   // State for synced backend user ID (might be different from local if user was created offline)
   const [syncedBackendUserId, setSyncedBackendUserId] = useState<string | null>(null);
@@ -5062,8 +5071,9 @@ export default function StoreScreen() {
           activeBadgeId={activeBadgeId}
           devotionalsCompleted={user?.devotionalsCompleted ?? 0}
           totalShares={user?.totalShares ?? 0}
-          collectionsCompleted={collectionsCompleted}
+          cardsPercent={cardsPercent}
           onBadgePress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); router.push('/(tabs)/settings'); }}
+          onSharePress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); setShowProfileShare(true); }}
         />
 
         {/* 1. CROMOS BÍBLICOS — hero banner */}
