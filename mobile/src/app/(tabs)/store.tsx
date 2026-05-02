@@ -5299,35 +5299,61 @@ export default function StoreScreen() {
             </Text>
           </View>
 
-          <ScrollView contentContainerStyle={{ padding: 20, gap: 14 }} showsVerticalScrollIndicator={false}>
+          <ScrollView contentContainerStyle={{ padding: 20, gap: 16 }} showsVerticalScrollIndicator={false}>
             {subMenuType === 'cromos' ? (
               <>
+                {/* Hero banner */}
+                <LinearGradient
+                  colors={['#3B0764', '#1E1B4B', '#0F0A2A']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  style={{ borderRadius: 20, padding: 20, overflow: 'hidden', marginBottom: 4 }}
+                >
+                  <Text style={{ position: 'absolute', right: -8, top: -8, fontSize: 90, opacity: 0.12 }}>🃏</Text>
+                  <Text style={{ position: 'absolute', right: 70, bottom: -10, fontSize: 60, opacity: 0.10 }}>✨</Text>
+                  <Text style={{ fontSize: sFont(13), color: 'rgba(216,180,254,0.70)', fontWeight: '700', letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 6 }}>
+                    {language === 'es' ? 'Cromos Bíblicos' : 'Biblical Cards'}
+                  </Text>
+                  <Text style={{ fontSize: sFont(22), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.5, lineHeight: 28 }}>
+                    {language === 'es' ? 'Colecciona · Completa · Intercambia' : 'Collect · Complete · Trade'}
+                  </Text>
+                </LinearGradient>
+
                 {/* Tienda de Sobres */}
                 <Pressable
                   onPress={() => {
                     setShowSubMenuModal(false);
                     setTimeout(() => setShowPackStore(true), 350);
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   }}
+                  style={({ pressed }) => ({ opacity: pressed ? 0.93 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] })}
                 >
                   <LinearGradient
-                    colors={['#1A0A2A', '#0F0518', '#08020F']}
+                    colors={['#6D28D9', '#4C1D95', '#2E1065']}
                     start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(192,132,252,0.25)' }}
+                    style={{
+                      borderRadius: 22, padding: 22, overflow: 'hidden',
+                      shadowColor: '#7C3AED', shadowOffset: { width: 0, height: 6 },
+                      shadowOpacity: 0.45, shadowRadius: 14, elevation: 10,
+                      borderWidth: 1.5, borderColor: 'rgba(167,139,250,0.45)',
+                    }}
                   >
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
-                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(192,132,252,0.12)', borderWidth: 1, borderColor: 'rgba(192,132,252,0.30)', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 22 }}>📦</Text>
+                    <Text style={{ position: 'absolute', right: 14, top: 6, fontSize: 80, opacity: 0.18 }}>📬</Text>
+                    <Text style={{ position: 'absolute', right: 68, bottom: -4, fontSize: 44, opacity: 0.12 }}>✉️</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+                      <View style={{ width: 60, height: 60, borderRadius: 18, backgroundColor: 'rgba(255,255,255,0.15)', borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.28)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 30 }}>📦</Text>
                       </View>
                       <View style={{ flex: 1 }}>
-                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                        <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 4 }}>
                           {language === 'es' ? 'Tienda de Sobres' : 'Pack Store'}
                         </Text>
-                        <Text style={{ fontSize: sFont(12), color: 'rgba(192,132,252,0.70)' }}>
-                          {language === 'es' ? 'Abre sobres de cartas' : 'Open card packs'}
+                        <Text style={{ fontSize: sFont(13), color: 'rgba(216,180,254,0.85)', fontWeight: '500' }}>
+                          {language === 'es' ? 'Abre sobres · Consigue cartas nuevas' : 'Open packs · Get new cards'}
                         </Text>
                       </View>
-                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                      <View style={{ width: 34, height: 34, borderRadius: 12, backgroundColor: 'rgba(255,255,255,0.15)', alignItems: 'center', justifyContent: 'center' }}>
+                        <ChevronRight size={18} color="#FFFFFF" />
+                      </View>
                     </View>
                   </LinearGradient>
                 </Pressable>
@@ -5337,27 +5363,37 @@ export default function StoreScreen() {
                   onPress={() => {
                     setShowSubMenuModal(false);
                     setTimeout(() => router.push('/biblical-cards-album'), 350);
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   }}
+                  style={({ pressed }) => ({ opacity: pressed ? 0.93 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] })}
                 >
                   <LinearGradient
-                    colors={['#0D1E3D', '#071526', '#030C18']}
+                    colors={['#1D4ED8', '#1E3A8A', '#172554']}
                     start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(96,165,250,0.25)' }}
+                    style={{
+                      borderRadius: 22, padding: 22, overflow: 'hidden',
+                      shadowColor: '#3B82F6', shadowOffset: { width: 0, height: 6 },
+                      shadowOpacity: 0.40, shadowRadius: 14, elevation: 10,
+                      borderWidth: 1.5, borderColor: 'rgba(147,197,253,0.40)',
+                    }}
                   >
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
-                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(96,165,250,0.12)', borderWidth: 1, borderColor: 'rgba(96,165,250,0.30)', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 22 }}>📖</Text>
+                    <Text style={{ position: 'absolute', right: 12, top: 4, fontSize: 80, opacity: 0.18 }}>📚</Text>
+                    <Text style={{ position: 'absolute', right: 72, bottom: -4, fontSize: 40, opacity: 0.12 }}>🗂️</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+                      <View style={{ width: 60, height: 60, borderRadius: 18, backgroundColor: 'rgba(255,255,255,0.15)', borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.25)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 30 }}>📖</Text>
                       </View>
                       <View style={{ flex: 1 }}>
-                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                        <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 4 }}>
                           {language === 'es' ? 'Álbum Bíblico' : 'Biblical Album'}
                         </Text>
-                        <Text style={{ fontSize: sFont(12), color: 'rgba(96,165,250,0.70)' }}>
-                          {language === 'es' ? 'Tu colección de cartas' : 'Your card collection'}
+                        <Text style={{ fontSize: sFont(13), color: 'rgba(147,197,253,0.90)', fontWeight: '500' }}>
+                          {language === 'es' ? 'Tu colección completa de cartas' : 'Your complete card collection'}
                         </Text>
                       </View>
-                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                      <View style={{ width: 34, height: 34, borderRadius: 12, backgroundColor: 'rgba(255,255,255,0.15)', alignItems: 'center', justifyContent: 'center' }}>
+                        <ChevronRight size={18} color="#FFFFFF" />
+                      </View>
                     </View>
                   </LinearGradient>
                 </Pressable>
@@ -5367,27 +5403,37 @@ export default function StoreScreen() {
                   onPress={() => {
                     setShowSubMenuModal(false);
                     setTimeout(() => setShowTradeInbox(true), 350);
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   }}
+                  style={({ pressed }) => ({ opacity: pressed ? 0.93 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] })}
                 >
                   <LinearGradient
-                    colors={['#0A2A1A', '#051A0F', '#020F07']}
+                    colors={['#059669', '#065F46', '#022C22']}
                     start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                    style={{ borderRadius: 18, padding: 18, borderWidth: 1, borderColor: 'rgba(52,211,153,0.25)' }}
+                    style={{
+                      borderRadius: 22, padding: 22, overflow: 'hidden',
+                      shadowColor: '#10B981', shadowOffset: { width: 0, height: 6 },
+                      shadowOpacity: 0.40, shadowRadius: 14, elevation: 10,
+                      borderWidth: 1.5, borderColor: 'rgba(110,231,183,0.40)',
+                    }}
                   >
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
-                      <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(52,211,153,0.10)', borderWidth: 1, borderColor: 'rgba(52,211,153,0.28)', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 22 }}>🔄</Text>
+                    <Text style={{ position: 'absolute', right: 12, top: 4, fontSize: 80, opacity: 0.18 }}>🤝</Text>
+                    <Text style={{ position: 'absolute', right: 72, bottom: -4, fontSize: 40, opacity: 0.12 }}>🔄</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+                      <View style={{ width: 60, height: 60, borderRadius: 18, backgroundColor: 'rgba(255,255,255,0.15)', borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.25)', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 30 }}>🔄</Text>
                       </View>
                       <View style={{ flex: 1 }}>
-                        <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#FFFFFF', letterSpacing: -0.2, marginBottom: 2 }}>
+                        <Text style={{ fontSize: sFont(18), fontWeight: '900', color: '#FFFFFF', letterSpacing: -0.3, marginBottom: 4 }}>
                           {language === 'es' ? 'Trueques' : 'Trades'}
                         </Text>
-                        <Text style={{ fontSize: sFont(12), color: 'rgba(52,211,153,0.65)' }}>
-                          {language === 'es' ? 'Intercambia cartas con otros' : 'Trade cards with others'}
+                        <Text style={{ fontSize: sFont(13), color: 'rgba(110,231,183,0.90)', fontWeight: '500' }}>
+                          {language === 'es' ? 'Intercambia cartas con la comunidad' : 'Trade cards with the community'}
                         </Text>
                       </View>
-                      <ChevronRight size={18} color="rgba(255,255,255,0.30)" />
+                      <View style={{ width: 34, height: 34, borderRadius: 12, backgroundColor: 'rgba(255,255,255,0.15)', alignItems: 'center', justifyContent: 'center' }}>
+                        <ChevronRight size={18} color="#FFFFFF" />
+                      </View>
                     </View>
                   </LinearGradient>
                 </Pressable>
