@@ -1,6 +1,6 @@
 // Admin Support Screen — Enhanced ticket viewer with systemSnapshot, botPreview, compensate action
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -999,6 +999,7 @@ function TicketCard({
   const [timelineFetched, setTimelineFetched] = useState(false);
   const [replyText, setReplyText] = useState('');
   const [replySending, setReplySending] = useState(false);
+  const replyInputRef = useRef<TextInput>(null);
 
   const typeInfo = TYPE_LABELS[ticket.type] ?? { label: ticket.type, color: '#94A3B8' };
   const sColor = statusColor(ticket.status);
@@ -1215,6 +1216,32 @@ function TicketCard({
               </Text>
             </Pressable>
           )}
+
+          {/* Reply only — keeps ticket open */}
+          {ticket.status !== 'closed' && (
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                if (!timelineExpanded) {
+                  setTimelineExpanded(true);
+                  fetchTimeline();
+                }
+                setTimeout(() => replyInputRef.current?.focus(), 300);
+              }}
+              style={({ pressed }) => ({
+                flex: 1, minWidth: 100,
+                flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5,
+                paddingVertical: 9, borderRadius: 12,
+                backgroundColor: '#F59E0B15', borderWidth: 1, borderColor: '#F59E0B30',
+                opacity: pressed ? 0.75 : 1,
+              })}
+            >
+              <MessageCircle size={13} color="#F59E0B" />
+              <Text style={{ fontSize: 12, fontWeight: '600', color: '#F59E0B' }}>
+                {es ? 'Responder' : 'Reply'}
+              </Text>
+            </Pressable>
+          )}
         </View>
 
         {/* System Snapshot + Timeline Toggles */}
@@ -1379,59 +1406,60 @@ function TicketCard({
                   ? (es ? 'Admin' : 'Admin')
                   : (es ? 'Sistema' : 'System');
                 return (
-                  <View key={ev.id} style={{ flexDirection: 'row', gap: 10, marginBottom: isLast ? 0 : 4 }}>
-                    {/* Icon + line */}
-                    <View style={{ alignItems: 'center', width: 28 }}>
+                  <View key={ev.id} style={{ flexDirection: 'column', marginBottom: isLast ? 0 : 12 }}>
+                    {/* Actor label + timestamp row */}
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 5 }}>
                       <View style={{
-                        width: 28, height: 28, borderRadius: 14,
-                        backgroundColor: color + '18',
+                        width: 22, height: 22, borderRadius: 11,
+                        backgroundColor: color + '20',
                         alignItems: 'center', justifyContent: 'center',
-                        borderWidth: 1.5,
+                        borderWidth: 1,
                         borderColor: color + '40',
                       }}>
-                        <Icon size={12} color={color} />
+                        <Icon size={11} color={color} />
                       </View>
-                      {!isLast && (
-                        <View style={{
-                          width: 1.5, flex: 1, minHeight: 10,
-                          backgroundColor: colors.textMuted + '25',
-                          marginTop: 3,
-                        }} />
-                      )}
+                      <Text style={{ fontSize: 11, fontWeight: '700', color, letterSpacing: 0.5, textTransform: 'uppercase' }}>
+                        {actorLabel}
+                      </Text>
+                      <Text style={{ fontSize: 11, color: colors.textMuted, marginLeft: 'auto' }}>
+                        {new Date(ev.createdAt).toLocaleString(es ? 'es-CR' : 'en-US', {
+                          month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
+                        })}
+                      </Text>
                     </View>
 
-                    {/* Bubble */}
+                    {/* Bubble — full width, no icon eating space */}
                     <View style={{
-                      flex: 1,
                       backgroundColor: ev.actor === 'ADMIN'
-                        ? '#8B5CF610'
+                        ? '#8B5CF612'
                         : ev.actor === 'USER'
                         ? colors.surface
                         : colors.background,
-                      borderRadius: 12,
-                      padding: 10,
-                      marginBottom: isLast ? 0 : 8,
+                      borderRadius: 14,
+                      paddingHorizontal: 14,
+                      paddingVertical: 12,
                       borderWidth: 1,
                       borderColor: ev.actor === 'ADMIN'
-                        ? '#8B5CF630'
+                        ? '#8B5CF635'
                         : ev.type === 'CLOSED' || ev.type === 'RATING'
-                        ? '#22C55E30'
-                        : colors.textMuted + '15',
+                        ? '#22C55E35'
+                        : colors.textMuted + '20',
+                      borderLeftWidth: 3,
+                      borderLeftColor: color + '60',
                     }}>
-                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
-                        <Text style={{ fontSize: 10, fontWeight: '700', color, letterSpacing: 0.7, textTransform: 'uppercase' }}>
-                          {actorLabel}
-                        </Text>
-                        <Text style={{ fontSize: 10, color: colors.textMuted }}>
-                          {new Date(ev.createdAt).toLocaleString(es ? 'es-CR' : 'en-US', {
-                            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
-                          })}
-                        </Text>
-                      </View>
-                      <Text style={{ fontSize: 12, color: colors.text, lineHeight: 18 }}>
+                      <Text style={{ fontSize: 14, color: colors.text, lineHeight: 21 }}>
                         {ev.message}
                       </Text>
                     </View>
+
+                    {/* Connector line */}
+                    {!isLast && (
+                      <View style={{
+                        width: 1.5, height: 10, marginLeft: 10,
+                        backgroundColor: colors.textMuted + '20',
+                        marginTop: 4,
+                      }} />
+                    )}
                   </View>
                 );
               })}
@@ -1452,6 +1480,7 @@ function TicketCard({
               </Text>
               <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-end' }}>
                 <TextInput
+                  ref={replyInputRef}
                   value={replyText}
                   onChangeText={setReplyText}
                   placeholder={es ? 'Escribe tu respuesta…' : 'Write your reply…'}
@@ -1461,15 +1490,15 @@ function TicketCard({
                     flex: 1,
                     backgroundColor: colors.surface,
                     borderRadius: 14,
-                    paddingHorizontal: 12,
-                    paddingVertical: 10,
+                    paddingHorizontal: 14,
+                    paddingVertical: 12,
                     color: colors.text,
-                    fontSize: 13,
-                    lineHeight: 19,
+                    fontSize: 14,
+                    lineHeight: 20,
                     borderWidth: 1.5,
                     borderColor: replyText.length > 0 ? '#8B5CF660' : colors.textMuted + '25',
-                    minHeight: 44,
-                    maxHeight: 120,
+                    minHeight: 48,
+                    maxHeight: 160,
                     textAlignVertical: 'top',
                   }}
                 />
