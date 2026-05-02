@@ -15,6 +15,7 @@ import {
   InteractionManager,
   Image,
   Animated as RNAnimated,
+  Share,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -54,6 +55,8 @@ import {
   Key,
   Share2,
   Swords,
+  Layers,
+  ChevronRight as ChevronRightSm,
 } from 'lucide-react-native';
 import { TextInput } from 'react-native';
 import { BIBLICAL_CARDS } from '@/lib/biblical-cards';
@@ -1251,6 +1254,8 @@ function ProfileHeader({
   activeBadgeId,
   devotionalsCompleted,
   totalShares,
+  collectionsCompleted,
+  onBadgePress,
 }: {
   colors: ReturnType<typeof useThemeColors>;
   user: ReturnType<typeof useUser>;
@@ -1261,8 +1266,11 @@ function ProfileHeader({
   activeBadgeId: string | null;
   devotionalsCompleted: number;
   totalShares: number;
+  collectionsCompleted: number;
+  onBadgePress: () => void;
 }) {
   const { sFont } = useScaledFont();
+  const router = useRouter();
   const [globalRank, setGlobalRank] = useState<number | null>(null);
 
   useEffect(() => {
@@ -1279,6 +1287,27 @@ function ProfileHeader({
 
   const avatarData = DEFAULT_AVATARS.find(a => a.id === user?.avatar);
   const avatarEmoji = avatarData?.emoji || '🕊️';
+
+  const handleShareDevotional = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    const today = new Date().toISOString().split('T')[0];
+    const msg = language === 'es'
+      ? `📖 Hoy completé mi devocional diario. ¡Te invito a unirte!\n\nAbre la app Daily Light y lee el devocional de hoy (${today}).`
+      : `📖 I completed today's devotional. Join me!\n\nOpen the Daily Light app and read today's devotional (${today}).`;
+    try {
+      await Share.share({ message: msg });
+    } catch {}
+  };
+
+  const statChipStyle = (borderColor: string) => ({
+    flex: 1 as const,
+    alignItems: 'center' as const,
+    paddingVertical: 10,
+    paddingHorizontal: 4,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor,
+  });
 
   return (
     <Animated.View
@@ -1347,7 +1376,7 @@ function ProfileHeader({
                 </View>
               </View>
 
-              {/* Name + Points + Badge */}
+              {/* Name + Points + Streak + Badge */}
               <View style={{ flex: 1 }}>
                 {/* Row 1: username + lock/key icon button */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
@@ -1377,30 +1406,41 @@ function ProfileHeader({
                     }
                   </Pressable>
                 </View>
-                {/* Row 2: Points display */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginBottom: 6 }}>
-                  <Coins size={14} color={colors.primary} />
-                  <Text style={{ fontSize: sFont(15), fontWeight: '700', color: colors.primary }}>
-                    {points} pts
-                  </Text>
+                {/* Row 2: Points + Racha máxima */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                    <Coins size={14} color={colors.primary} />
+                    <Text style={{ fontSize: sFont(15), fontWeight: '700', color: colors.primary }}>
+                      {points} pts
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, paddingHorizontal: 7, paddingVertical: 3, borderRadius: 8, backgroundColor: '#F9731618' }}>
+                    <Text style={{ fontSize: sFont(13) }}>🔥</Text>
+                    <Text style={{ fontSize: sFont(13), fontWeight: '700', color: '#F97316' }}>
+                      {user?.streakBest ?? 0} {language === 'es' ? 'días' : 'days'}
+                    </Text>
+                  </View>
                 </View>
-                {/* Badge — icon + title + description */}
+                {/* Badge — clickeable */}
                 {activeBadgeId && (() => {
                   const badgeData = BADGES[activeBadgeId];
                   if (!badgeData) return null;
                   return (
-                    <View style={{
-                      flexDirection: 'row',
-                      alignItems: 'flex-start',
-                      gap: 8,
-                      marginTop: 2,
-                      paddingVertical: 8,
-                      paddingHorizontal: 10,
-                      borderRadius: 12,
-                      backgroundColor: badgeData.color + '12',
-                      borderWidth: 1,
-                      borderColor: badgeData.color + '30',
-                    }}>
+                    <Pressable
+                      onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); onBadgePress(); }}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'flex-start',
+                        gap: 8,
+                        marginTop: 2,
+                        paddingVertical: 8,
+                        paddingHorizontal: 10,
+                        borderRadius: 12,
+                        backgroundColor: badgeData.color + '12',
+                        borderWidth: 1,
+                        borderColor: badgeData.color + '30',
+                      }}
+                    >
                       <BadgeChip badgeId={activeBadgeId} variant="community" />
                       <View style={{ flex: 1 }}>
                         <Text style={{ fontSize: sFont(13), fontWeight: '700', color: badgeData.color, marginBottom: 2 }} numberOfLines={1}>
@@ -1410,7 +1450,8 @@ function ProfileHeader({
                           {language === 'es' ? badgeData.profileCardEs : badgeData.description}
                         </Text>
                       </View>
-                    </View>
+                      <ChevronRightSm size={14} color="rgba(255,255,255,0.25)" style={{ marginTop: 2 }} />
+                    </Pressable>
                   );
                 })()}
               </View>
@@ -1419,103 +1460,84 @@ function ProfileHeader({
             {/* Divider */}
             <View style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.07)', marginBottom: 14 }} />
 
-            {/* Stats chips row — 3 chips, vertical layout: number + label */}
-            <View style={{ flexDirection: 'row', gap: 8 }}>
-              {/* Devotionals chip */}
-              <LinearGradient
-                colors={['#22C55E25', '#22C55E08']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  paddingVertical: 12,
-                  paddingHorizontal: 6,
-                  borderRadius: 14,
-                  borderWidth: 1,
-                  borderColor: '#22C55E35',
-                }}
+            {/* Action stats row — 4 clickable chips */}
+            <View style={{ flexDirection: 'row', gap: 7 }}>
+              {/* Devocionales completados → library */}
+              <Pressable
+                onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); router.push('/(tabs)/library'); }}
+                style={{ flex: 1 }}
               >
-                <BookOpen size={14} color="#22C55E" style={{ marginBottom: 4 }} />
-                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#22C55E', marginBottom: 3 }}>
-                  {devotionalsCompleted}
-                </Text>
-                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#22C55E99', textAlign: 'center', lineHeight: 13 }}>
-                  {language === 'es' ? 'Devocionales\ncompletados' : 'Devotionals\ncompleted'}
-                </Text>
-              </LinearGradient>
+                <LinearGradient
+                  colors={['#22C55E25', '#22C55E08']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  style={statChipStyle('#22C55E35')}
+                >
+                  <BookOpen size={14} color="#22C55E" style={{ marginBottom: 4 }} />
+                  <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#22C55E', marginBottom: 3 }}>
+                    {devotionalsCompleted}
+                  </Text>
+                  <Text style={{ fontSize: sFont(9), fontWeight: '500', color: '#22C55E99', textAlign: 'center', lineHeight: 12 }}>
+                    {language === 'es' ? 'Devocionales\ncompletados' : 'Devotionals\ncompleted'}
+                  </Text>
+                </LinearGradient>
+              </Pressable>
 
-              {/* Streak chip */}
-              <LinearGradient
-                colors={['#F9731625', '#F9731608']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  paddingVertical: 12,
-                  paddingHorizontal: 6,
-                  borderRadius: 14,
-                  borderWidth: 1,
-                  borderColor: '#F9731635',
-                }}
-              >
-                <Flame size={14} color="#F97316" style={{ marginBottom: 4 }} />
-                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#F97316', marginBottom: 3 }}>
-                  {user?.streakCurrent || 0}
-                </Text>
-                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#F9731699', textAlign: 'center', lineHeight: 13 }}>
-                  {language === 'es' ? 'Racha\nmáxima' : 'Current\nstreak'}
-                </Text>
-              </LinearGradient>
+              {/* Compartidos → share action */}
+              <Pressable onPress={handleShareDevotional} style={{ flex: 1 }}>
+                <LinearGradient
+                  colors={['#60A5FA25', '#60A5FA08']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  style={statChipStyle('#60A5FA35')}
+                >
+                  <Share2 size={14} color="#60A5FA" style={{ marginBottom: 4 }} />
+                  <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#60A5FA', marginBottom: 3 }}>
+                    {totalShares}
+                  </Text>
+                  <Text style={{ fontSize: sFont(9), fontWeight: '500', color: '#60A5FA99', textAlign: 'center', lineHeight: 12 }}>
+                    {language === 'es' ? 'Compartidos' : 'Shared'}
+                  </Text>
+                </LinearGradient>
+              </Pressable>
 
-              {/* Shares chip */}
-              <LinearGradient
-                colors={['#60A5FA25', '#60A5FA08']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  paddingVertical: 12,
-                  paddingHorizontal: 6,
-                  borderRadius: 14,
-                  borderWidth: 1,
-                  borderColor: '#60A5FA35',
-                }}
+              {/* Colecciones → álbum */}
+              <Pressable
+                onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); router.push('/biblical-cards-album'); }}
+                style={{ flex: 1 }}
               >
-                <Share2 size={14} color="#60A5FA" style={{ marginBottom: 4 }} />
-                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#60A5FA', marginBottom: 3 }}>
-                  {totalShares}
-                </Text>
-                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#60A5FA99', textAlign: 'center', lineHeight: 13 }}>
-                  {language === 'es' ? 'Compartidos' : 'Shared'}
-                </Text>
-              </LinearGradient>
+                <LinearGradient
+                  colors={['#F59E0B25', '#F59E0B08']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  style={statChipStyle('#F59E0B35')}
+                >
+                  <Layers size={14} color="#F59E0B" style={{ marginBottom: 4 }} />
+                  <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#F59E0B', marginBottom: 3 }}>
+                    {collectionsCompleted}
+                  </Text>
+                  <Text style={{ fontSize: sFont(9), fontWeight: '500', color: '#F59E0B99', textAlign: 'center', lineHeight: 12 }}>
+                    {language === 'es' ? 'Colecciones' : 'Collections'}
+                  </Text>
+                </LinearGradient>
+              </Pressable>
 
-              {/* Duels won chip */}
-              <LinearGradient
-                colors={['#A78BFA25', '#A78BFA08']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  paddingVertical: 12,
-                  paddingHorizontal: 6,
-                  borderRadius: 14,
-                  borderWidth: 1,
-                  borderColor: '#A78BFA35',
-                }}
+              {/* Ranking trivia bíblica → leaderboard */}
+              <Pressable
+                onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); router.push('/duelo/leaderboard'); }}
+                style={{ flex: 1 }}
               >
-                <Swords size={14} color="#A78BFA" style={{ marginBottom: 4 }} />
-                <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#A78BFA', marginBottom: 3 }}>
-                  {globalRank != null ? `#${globalRank}` : '—'}
-                </Text>
-                <Text style={{ fontSize: sFont(10), fontWeight: '500', color: '#A78BFA99', textAlign: 'center', lineHeight: 13 }}>
-                  {language === 'es' ? 'Ranking\nglobal' : 'Global\nrank'}
-                </Text>
-              </LinearGradient>
+                <LinearGradient
+                  colors={['#A78BFA25', '#A78BFA08']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  style={statChipStyle('#A78BFA35')}
+                >
+                  <Swords size={14} color="#A78BFA" style={{ marginBottom: 4 }} />
+                  <Text style={{ fontSize: sFont(18), fontWeight: '800', color: '#A78BFA', marginBottom: 3 }}>
+                    {globalRank != null ? `#${globalRank}` : '—'}
+                  </Text>
+                  <Text style={{ fontSize: sFont(9), fontWeight: '500', color: '#A78BFA99', textAlign: 'center', lineHeight: 12 }}>
+                    {language === 'es' ? 'Ranking\ntrivia bíblica' : 'Biblical\ntrivia rank'}
+                  </Text>
+                </LinearGradient>
+              </Pressable>
             </View>
           </View>
         </LinearGradient>
@@ -3300,6 +3322,13 @@ export default function StoreScreen() {
   const userId = user?.id || '';
   const purchasedItems = user?.purchasedItems ?? [];
 
+  const collectionsCompleted = useMemo(
+    () => Object.values(ITEM_COLLECTIONS).filter(
+      col => col.items.every(itemId => purchasedItems.includes(itemId))
+    ).length,
+    [purchasedItems]
+  );
+
   // State for synced backend user ID (might be different from local if user was created offline)
   const [syncedBackendUserId, setSyncedBackendUserId] = useState<string | null>(null);
   const effectiveUserId = syncedBackendUserId || userId;
@@ -5033,6 +5062,8 @@ export default function StoreScreen() {
           activeBadgeId={activeBadgeId}
           devotionalsCompleted={user?.devotionalsCompleted ?? 0}
           totalShares={user?.totalShares ?? 0}
+          collectionsCompleted={collectionsCompleted}
+          onBadgePress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); router.push('/(tabs)/settings'); }}
         />
 
         {/* 1. CROMOS BÍBLICOS — hero banner */}
