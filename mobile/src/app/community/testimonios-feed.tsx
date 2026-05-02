@@ -190,16 +190,19 @@ function TestimonyCard({
   index,
   userId,
   onOptimisticUpdate,
+  translatedText,
+  onTranslated,
 }: {
   testimony: Testimony;
   index: number;
   userId: string | undefined;
   onOptimisticUpdate: (id: string, liked: boolean, count: number) => void;
+  translatedText: string | null;
+  onTranslated: (id: string, text: string) => void;
 }) {
   const colors = useThemeColors();
   const { sFont } = useScaledFont();
   const language = useLanguage() as 'es' | 'en';
-  const [translatedText, setTranslatedText] = useState<string | null>(null);
   const [isTranslating, setIsTranslating] = useState(false);
   const [showTranslated, setShowTranslated] = useState(false);
 
@@ -219,45 +222,34 @@ function TestimonyCard({
     }
     setIsTranslating(true);
     setTranslateError(null);
-    console.log(`[translate/testimonios] iniciando fetch url=${BACKEND_URL}/api/translate lang=${language} textLen=${testimony.text?.length}`);
     try {
       const res = await fetchWithTimeout(`${BACKEND_URL}/api/translate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: testimony.text, targetLanguage: language }),
       }, 20_000);
-      console.log(`[translate/testimonios] response status=${res.status} ok=${res.ok}`);
       if (res.ok) {
         const rawText = await res.text();
-        console.log(`[translate/testimonios] raw body=${rawText.slice(0, 200)}`);
         let data: { translatedText?: string };
         try {
           data = JSON.parse(rawText);
-        } catch (parseErr) {
-          console.error(`[translate/testimonios] JSON.parse falló:`, parseErr);
+        } catch {
           setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
           return;
         }
-        console.log(`[translate/testimonios] translatedText="${data.translatedText?.slice(0, 80)}"`);
         if (data.translatedText) {
-          setTranslatedText(data.translatedText);
+          onTranslated(testimony.id, data.translatedText);
           setShowTranslated(true);
-          console.log('[translate/testimonios] estado actualizado OK');
         } else {
-          console.warn('[translate/testimonios] translatedText vacío o undefined');
           setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
         }
       } else {
-        const errBody = await res.text().catch(() => '');
-        console.error(`[translate/testimonios] error HTTP status=${res.status} body=${errBody.slice(0, 200)}`);
         setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
       }
     } catch (err) {
-      console.error('[translate/testimonios] catch:', err instanceof Error ? err.message : String(err));
       setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
     } finally {
       setIsTranslating(false);
-      console.log('[translate/testimonios] finally — isTranslating=false');
     }
   };
 
@@ -608,6 +600,11 @@ export default function TestimoniosFeedScreen() {
   const [refreshing, setRefreshing] = useState(false);
   // Optimistic like state: { [testimonyId]: { liked: boolean; count: number } }
   const [optimisticLikes, setOptimisticLikes] = useState<Record<string, { liked: boolean; count: number }>>({});
+  const [translations, setTranslations] = useState<Record<string, string>>({});
+
+  const handleTranslated = useCallback((id: string, text: string) => {
+    setTranslations(prev => ({ ...prev, [id]: text }));
+  }, []);
 
   const { data, isLoading, refetch } = useQuery<{ testimonies: Testimony[]; total: number }>({
     queryKey: ['testimonies-feed', userId],
@@ -659,8 +656,10 @@ export default function TestimoniosFeedScreen() {
       index={index}
       userId={userId}
       onOptimisticUpdate={handleOptimisticUpdate}
+      translatedText={translations[item.id] ?? null}
+      onTranslated={handleTranslated}
     />
-  ), [userId, handleOptimisticUpdate]);
+  ), [userId, handleOptimisticUpdate, translations, handleTranslated]);
 
   const keyExtractor = useCallback((item: Testimony) => item.id, []);
 
