@@ -5910,6 +5910,15 @@ export default function StoreScreen() {
         </>
       )}
 
+      {/* Devotional Share Sheet — triggered from profile card */}
+      <ShareSheet
+        visible={showProfileShare}
+        onClose={() => setShowProfileShare(false)}
+        devotional={todayDevotional}
+        language={language}
+        colors={colors}
+      />
+
       {/* Chest Reward Modal */}
       <ChestRewardModal
         visible={showChestModal}
