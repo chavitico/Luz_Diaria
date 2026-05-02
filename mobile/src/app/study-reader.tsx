@@ -496,7 +496,7 @@ export default function StudyReaderScreen() {
     if (alreadyDone) return;
 
     const elapsedSeconds = (Date.now() - startTimeRef.current) / 1000;
-    const requiredSeconds = entry.estimated_reading_minutes * 60 * 0.9;
+    const requiredSeconds = entry.estimated_reading_minutes * 60 * 0.62;
     if (elapsedSeconds >= requiredSeconds) {
       await AsyncStorage.setItem(storageKey, '1');
       await gamificationApi.awardPoints(user.id, 'study_complete');
