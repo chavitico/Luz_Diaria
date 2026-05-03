@@ -3883,7 +3883,7 @@ export default function StoreScreen() {
   // isPackTransactionActive (state) disables all pack buttons during the flow.
   const executeTokenPurchase = async (itemId: string, price: number) => {
     console.log('[Store][Lock] executeTokenPurchase called', { itemId, price, isTokenPurchasing: isTokenPurchasing.current, isPackTransactionActive, points, userId });
-    if (!userId || points < price) return;
+    if (!userId || (price > 0 && points < price)) return;
     if (isTokenPurchasing.current) {
       console.log('[Store][Lock] BLOCKED — purchase already in flight');
       return;
@@ -3932,9 +3932,18 @@ export default function StoreScreen() {
             console.log('[Store][Card] no drawn card returned — toast only');
           }
         }
-        setToastAmount(price);
-        setToastPositive(false);
-        setShowPointsToast(true);
+        if (res.usedFreePack) {
+          const remaining = res.freePacksRemaining ?? 0;
+          const suffix = remaining > 0
+            ? (language === 'es' ? ` (te quedan ${remaining})` : ` (${remaining} left)`)
+            : '';
+          setToastMessage((language === 'es' ? '¡Este va gratis!' : 'This one\'s on us!') + suffix);
+          queryClient.invalidateQueries({ queryKey: ['dailyPackStatus', userId] });
+        } else {
+          setToastAmount(price);
+          setToastPositive(false);
+          setShowPointsToast(true);
+        }
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
         queryClient.invalidateQueries({ queryKey: ['backendUser'] });
@@ -3967,6 +3976,13 @@ export default function StoreScreen() {
 
   // Confirmation wrapper for token purchases — shows modal before executing
   const handleTokenPurchase = (itemId: string, price: number) => {
+    const PACK_IDS = ['sobre_biblico', 'pack_pascua', 'pack_milagros', 'pack_heroes'];
+    const hasFree = PACK_IDS.includes(itemId) && (dailyPackStatus?.canClaim ?? false);
+    if (hasFree) {
+      // Skip confirmation — free pack applies automatically
+      executeTokenPurchase(itemId, 0);
+      return;
+    }
     const TOKEN_NAMES: Record<string, { es: string; en: string }> = {
       sobre_biblico:  { es: 'Sobre Bíblico',  en: 'Biblical Pack' },
       pack_pascua:    { es: 'Pack de Pascua',  en: 'Easter Pack' },
@@ -6082,11 +6098,11 @@ export default function StoreScreen() {
               <View style={{ flex: 1 }}>
                 <HeroesPackCard
                   compact
-                  canAfford={points >= 1000}
+                  canAfford={points >= 1000 || (dailyPackStatus?.canClaim ?? false)}
                   disabled={isPackTransactionActive}
                   language={language}
                   onPress={() => {
-                    if (points >= 1000 && !isPackTransactionActive) {
+                    if ((points >= 1000 || (dailyPackStatus?.canClaim ?? false)) && !isPackTransactionActive) {
                       setShowPackStore(false);
                       setTimeout(() => handleTokenPurchase('pack_heroes', 1000), 300);
                     }
@@ -6096,11 +6112,11 @@ export default function StoreScreen() {
               <View style={{ flex: 1 }}>
                 <MilagrosPackCard
                   compact
-                  canAfford={points >= 1000}
+                  canAfford={points >= 1000 || (dailyPackStatus?.canClaim ?? false)}
                   disabled={isPackTransactionActive}
                   language={language}
                   onPress={() => {
-                    if (points >= 1000 && !isPackTransactionActive) {
+                    if ((points >= 1000 || (dailyPackStatus?.canClaim ?? false)) && !isPackTransactionActive) {
                       setShowPackStore(false);
                       setTimeout(() => handleTokenPurchase('pack_milagros', 1000), 300);
                     }
@@ -6113,12 +6129,12 @@ export default function StoreScreen() {
               <View style={{ flex: 1 }}>
                 <EasterPackCard
                   compact
-                  canAfford={points >= 500}
+                  canAfford={points >= 500 || (dailyPackStatus?.canClaim ?? false)}
                   disabled={isPackTransactionActive}
                   isEventActive={true}
                   language={language}
                   onPress={() => {
-                    if (points >= 500 && !isPackTransactionActive) {
+                    if ((points >= 500 || (dailyPackStatus?.canClaim ?? false)) && !isPackTransactionActive) {
                       setShowPackStore(false);
                       setTimeout(() => handleTokenPurchase('pack_pascua', 500), 300);
                     }
@@ -6128,11 +6144,11 @@ export default function StoreScreen() {
               <View style={{ flex: 1 }}>
                 <BiblicalPackCard
                   compact
-                  canAfford={points >= 500}
+                  canAfford={points >= 500 || (dailyPackStatus?.canClaim ?? false)}
                   disabled={isPackTransactionActive}
                   language={language}
                   onPress={() => {
-                    if (points >= 500 && !isPackTransactionActive) {
+                    if ((points >= 500 || (dailyPackStatus?.canClaim ?? false)) && !isPackTransactionActive) {
                       setShowPackStore(false);
                       setTimeout(() => handleTokenPurchase('sobre_biblico', 500), 300);
                     }

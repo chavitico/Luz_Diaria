@@ -971,25 +971,58 @@ gamificationRouter.post(
           }
         }
 
-        // Check if user has enough points
-        if (user.points < item.pricePoints) {
-          throw new Error("INSUFFICIENT_POINTS");
+        // Auto-apply free daily pack if available
+        const PACK_ITEM_IDS = ['sobre_biblico', 'pack_pascua', 'pack_milagros', 'pack_heroes'];
+        const isPack = PACK_ITEM_IDS.includes(itemId);
+        let usedFreePack = false;
+        let freePacksRemaining = 0;
+        let newPoints = user.points;
+
+        if (isPack) {
+          const today = new Date().toISOString().split("T")[0] as string;
+          const isPremium = user.role === 'PREMIUM' || user.role === 'OWNER';
+          const dailyEarnRate = isPremium ? 2 : 1;
+          const dailyActions = parseDailyActions(user.dailyActions);
+          const { available, updatedActions } = computeAvailablePacks(dailyActions, today, dailyEarnRate);
+          if (available > 0) {
+            usedFreePack = true;
+            freePacksRemaining = Math.max(0, available - 1);
+            const newDailyActions: DailyActions = {
+              ...updatedActions,
+              dailyPackDate: today,
+              dailyPackCount: (updatedActions.dailyPackDate === today ? (updatedActions.dailyPackCount ?? 0) : 0) + 1,
+              accumulatedPacks: freePacksRemaining,
+            };
+            await tx.user.update({ where: { id: userId }, data: { dailyActions: JSON.stringify(newDailyActions) } });
+            await tx.userInventory.upsert({
+              where: { userId_itemId: { userId, itemId } },
+              create: { userId, itemId, source: 'gift' },
+              update: { acquiredAt: new Date(), source: 'gift' },
+            });
+          }
         }
 
-        // Deduct points and add to inventory
-        const newPoints = user.points - item.pricePoints;
+        if (!usedFreePack) {
+          // Check if user has enough points
+          if (user.points < item.pricePoints) {
+            throw new Error("INSUFFICIENT_POINTS");
+          }
 
-        await tx.user.update({
-          where: { id: userId },
-          data: { points: newPoints, pointsSpentTotal: { increment: item.pricePoints } },
-        });
+          // Deduct points and add to inventory
+          newPoints = user.points - item.pricePoints;
 
-        // For repeatable consumables, upsert (don't fail if already "owned")
-        await tx.userInventory.upsert({
-          where: { userId_itemId: { userId, itemId } },
-          create: { userId, itemId, source: "store" },
-          update: { acquiredAt: new Date(), source: "store" },
-        });
+          await tx.user.update({
+            where: { id: userId },
+            data: { points: newPoints, pointsSpentTotal: { increment: item.pricePoints } },
+          });
+
+          // For repeatable consumables, upsert (don't fail if already "owned")
+          await tx.userInventory.upsert({
+            where: { userId_itemId: { userId, itemId } },
+            create: { userId, itemId, source: "store" },
+            update: { acquiredAt: new Date(), source: "store" },
+          });
+        }
 
         // === Special: sobre_biblico - draw a random biblical card ===
         // cardsPerPack = 1 (single-card pack, backward-compatible)
@@ -1091,7 +1124,7 @@ gamificationRouter.post(
           drawnCard = drawnCards[0];
         }
 
-        return { item, newPoints, drawnCard, drawnCards };
+        return { item, newPoints, drawnCard, drawnCards, usedFreePack, freePacksRemaining };
       });
 
       return c.json({
@@ -1100,6 +1133,8 @@ gamificationRouter.post(
         newPoints: result.newPoints,
         drawnCard: result.drawnCard ?? null,
         drawnCards: result.drawnCards ?? [],
+        usedFreePack: result.usedFreePack ?? false,
+        freePacksRemaining: result.freePacksRemaining ?? 0,
       });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";

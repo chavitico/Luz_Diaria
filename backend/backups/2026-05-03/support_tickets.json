@@ -691,8 +691,8 @@
     "claimedStreak": 1,
     "claimedDate": "2026-03-20",
     "clientClaim": "{\"claimedStreak\":1}",
-    "status": "needs_human",
-    "resolutionNote": "Sin snapshot disponible para verificación. Revisión manual requerida.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmml8uiit0000m2vluztbkjwf. Racha corregida manualmente: 50→50",
     "rating": null,
     "beforeState": "{\"streakCurrent\":40,\"devotionalsCompleted\":29}",
     "afterState": "{\"streakCurrent\":40,\"devotionalsCompleted\":29}",
@@ -700,7 +700,7 @@
     "snapshotDate": null,
     "snapshotId": null,
     "createdAt": "2026-03-20T12:05:12.737Z",
-    "updatedAt": "2026-03-20T12:05:12.737Z"
+    "updatedAt": "2026-05-03T00:35:19.287Z"
   },
   {
     "id": "cmogt4oha0010m2efznam5fz0",
@@ -729,8 +729,8 @@
     "claimedStreak": 0,
     "claimedDate": "2026-05-02",
     "clientClaim": "{\"title\":\"\",\"comment\":\"23 Jehová es mi pastor; nada me faltará.\\n2 En lugares de delicados pastos me hará descansar;\\nJunto a aguas de reposo me pastoreará.\\n3 Confortará mi alma;\\nMe guiará por sendas de justicia por amor de su nombre.\\n4 Aunque ande en valle de sombra de muerte,\\nNo temeré mal alguno, porque tú estarás conmigo;\\nTu vara y tu cayado me infundirán aliento.\\n5 Aderezas mesa delante de mí en presencia de mis angustiadores;\\nUnges mi cabeza con aceite; mi copa está rebosando.\\n6 Ciertamente el bien y la misericordia me seguirán todos los días de mi vida,\\nY en la casa de Jehová moraré por largos días.\"}",
-    "status": "waiting_user",
-    "resolutionNote": "Feedback recibido: \"(sin título)\". En espera de respuesta del equipo.",
+    "status": "closed",
+    "resolutionNote": "Resuelto manualmente por admin cmml8uiit0000m2vluztbkjwf",
     "rating": null,
     "beforeState": "{\"streakCurrent\":50,\"devotionalsCompleted\":92}",
     "afterState": "{\"streakCurrent\":50,\"devotionalsCompleted\":92}",
@@ -738,6 +738,6 @@
     "snapshotDate": null,
     "snapshotId": null,
     "createdAt": "2026-05-02T22:13:17.826Z",
-    "updatedAt": "2026-05-02T22:16:03.205Z"
+    "updatedAt": "2026-05-03T00:35:12.389Z"
   }
 ]
