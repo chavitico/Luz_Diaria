@@ -499,7 +499,7 @@ export default function StudyReaderScreen() {
     const requiredSeconds = entry.estimated_reading_minutes * 60 * 0.62;
     if (elapsedSeconds >= requiredSeconds) {
       await AsyncStorage.setItem(storageKey, '1');
-      await gamificationApi.awardPoints(user.id, 'study_complete');
+      await gamificationApi.awardPoints(user.id, 'study_complete', { studyId: study.id });
       const completedTitle = language === 'en' ? (entry.title_en ?? entry.title) : entry.title;
       await addLedgerEntry({ kind: 'mission', delta: 300, title: language === 'en' ? 'Biblical Study completed' : 'Estudio Bíblico completado', detail: completedTitle });
       setIsCompleted(true);

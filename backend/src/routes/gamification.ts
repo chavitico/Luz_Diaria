@@ -259,6 +259,10 @@ function computeLedgerId(
       const favoriteDate = (metadata?.devotionalDate as string) ?? dateId;
       return `favorite_${favoriteDate}`;
     }
+    case 'study_complete': {
+      const studyId = (metadata?.studyId as string) ?? dateId;
+      return `study_complete_${studyId}`;
+    }
     default:
       return `${action}_${dateId}`;
   }
@@ -678,6 +682,11 @@ gamificationRouter.post(
 
         case "favorite": {
           pointsAwarded = POINTS_CONFIG.favorite.points;
+          break;
+        }
+
+        case "study_complete": {
+          pointsAwarded = POINTS_CONFIG.study_complete.points;
           break;
         }
       }
@@ -3098,11 +3107,17 @@ gamificationRouter.post(
 
       let session: { id: string; lastSeenAt: Date } | null = null;
 
+      const SESSION_EXPIRY_MS = 8 * 60 * 60 * 1000; // 8 hours
+
       if (sessionId) {
-        session = await prisma.userSession.findFirst({
+        const candidate = await prisma.userSession.findFirst({
           where: { id: sessionId, userId },
           select: { id: true, lastSeenAt: true },
         });
+        // Only reuse if last heartbeat was within 8 hours
+        if (candidate && serverNow.getTime() - candidate.lastSeenAt.getTime() < SESSION_EXPIRY_MS) {
+          session = candidate;
+        }
       }
 
       if (!session) {

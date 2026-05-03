@@ -61,7 +61,7 @@ adminStatsRouter.get("/", async (c) => {
         ...(df ? { createdAt: df } : {}),
       },
     }),
-    prisma.collectionClaim.count({ where: df ? { claimedAt: df } : {} }),
+    prisma.pointLedger.count({ where: { type: 'study_complete', ...(df ? { createdAt: df } : {}) } }),
     prisma.pointLedger.aggregate({
       where: { amount: { gt: 0 }, ...(df ? { createdAt: df } : {}) },
       _sum: { amount: true },
