@@ -84,6 +84,7 @@ import {
   applyBiblicalPronunciations,
 } from '@/lib/tts-voices';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
+import { REPO_DEVOCIONALS, repoToDevotional } from '@/lib/repo-devocional';
 import type {
   BibleBook,
   BibleChapterData,
@@ -694,11 +695,23 @@ function BibleHomeScreen({
 }) {
   const { sFont } = useScaledFont();
   const today = getTodayDate();
-  const { data: devotional } = useQuery({
+  const repoEntry = REPO_DEVOCIONALS[today];
+  const isRepoDate = Boolean(repoEntry);
+
+  // Repo dates: build from static data (same source as hoy-nuevo)
+  const repoDevotional = isRepoDate
+    ? repoToDevotional(lang === 'es' ? repoEntry.es : repoEntry.en, repoEntry.imageUrl)
+    : null;
+
+  // Backend dates: fetch from API
+  const { data: backendDevotional } = useQuery({
     queryKey: ['devotional', today],
     queryFn: () => firestoreService.getDevotional(today),
+    enabled: !isRepoDate,
     staleTime: 30 * 60 * 1000,
   });
+
+  const devotional = repoDevotional ?? backendDevotional ?? null;
   const verseText = lang === 'es'
     ? (devotional?.bibleVerseEs ?? devotional?.bibleVerse ?? null)
     : (devotional?.bibleVerse ?? null);
