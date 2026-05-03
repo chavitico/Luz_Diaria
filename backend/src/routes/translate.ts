@@ -58,38 +58,41 @@ app.post("/", async (c) => {
   const targetLabel = targetLanguage === "es" ? "Spanish" : "English";
   const prompt = `Translate the following testimony to ${targetLabel}. Return ONLY the translated text, no quotes, no explanation:\n\n${text}`;
 
-  // 1. Try primary (Anthropic)
+  // 1. Try primary (Anthropic) — up to 2 attempts
   if (ANTHROPIC_API_KEY) {
-    console.log("[translate] Proveedor: Anthropic");
-    try {
-      const response = await fetch(`${ANTHROPIC_BASE_URL}/v1/messages`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": ANTHROPIC_API_KEY,
-          "anthropic-version": "2023-06-01",
-        },
-        body: JSON.stringify({
-          model: "claude-haiku-4-5",
-          max_tokens: 1024,
-          messages: [{ role: "user", content: prompt }],
-        }),
-      });
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      console.log(`[translate] Proveedor: Anthropic (intento ${attempt})`);
+      try {
+        const response = await fetch(`${ANTHROPIC_BASE_URL}/v1/messages`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": ANTHROPIC_API_KEY,
+            "anthropic-version": "2023-06-01",
+          },
+          body: JSON.stringify({
+            model: "claude-haiku-4-5",
+            max_tokens: 1024,
+            messages: [{ role: "user", content: prompt }],
+          }),
+        });
 
-      if (response.ok) {
-        const data = await response.json() as any;
-        const translatedText = data.content?.[0]?.text?.trim() ?? "";
-        if (translatedText) {
-          console.log("[translate] Anthropic respondió OK");
-          return c.json({ translatedText });
+        if (response.ok) {
+          const data = await response.json() as any;
+          const translatedText = data.content?.[0]?.text?.trim() ?? "";
+          if (translatedText) {
+            console.log(`[translate] Anthropic respondió OK (intento ${attempt})`);
+            return c.json({ translatedText });
+          }
+          console.warn("[translate] Anthropic respondió OK pero sin texto en content[0]");
+        } else {
+          const errBody = await response.text().catch(() => "(sin cuerpo)");
+          console.error(`[translate] Anthropic falló: status=${response.status} body=${errBody}`);
         }
-        console.warn("[translate] Anthropic respondió OK pero sin texto en content[0]");
-      } else {
-        const errBody = await response.text().catch(() => "(sin cuerpo)");
-        console.error(`[translate] Anthropic falló: status=${response.status} body=${errBody}`);
+      } catch (err) {
+        console.error(`[translate] Excepción Anthropic intento ${attempt}:`, err instanceof Error ? err.message : err);
       }
-    } catch (err) {
-      console.error("[translate] Excepción llamando a Anthropic:", err instanceof Error ? err.message : err);
+      if (attempt < 2) await new Promise(r => setTimeout(r, 500));
     }
   }
 

@@ -42,6 +42,7 @@ import { useUser, useAppStore, useLanguage } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 import { useQueryClient } from '@tanstack/react-query';
 import { fetchWithTimeout } from '@/lib/fetch';
+import { translateText } from '@/lib/translate';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -600,45 +601,15 @@ function DropNewsCard({
     if (showTranslated) { setShowTranslated(false); return; }
     setIsTranslating(true);
     setTranslateError(null);
-    console.log(`[translate/novedades] iniciando fetch url=${BACKEND_URL}/api/translate lang=${language} giftId=${drop.userGiftId}`);
     try {
-      const res = await fetchWithTimeout(`${BACKEND_URL}/api/translate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: drop.message, targetLanguage: language }),
-      }, 20_000);
-      console.log(`[translate/novedades] response status=${res.status} ok=${res.ok}`);
-      if (res.ok) {
-        const rawText = await res.text();
-        console.log(`[translate/novedades] raw body=${rawText.slice(0, 200)}`);
-        let json: { translatedText?: string };
-        try {
-          json = JSON.parse(rawText);
-        } catch (parseErr) {
-          console.error(`[translate/novedades] JSON.parse falló:`, parseErr);
-          setTranslateError(es ? 'No se pudo traducir por ahora' : 'Could not translate right now');
-          return;
-        }
-        console.log(`[translate/novedades] translatedText="${json.translatedText?.slice(0, 80)}"`);
-        if (json.translatedText) {
-          setTranslatedMessage(json.translatedText);
-          setShowTranslated(true);
-          console.log('[translate/novedades] estado actualizado OK');
-        } else {
-          console.warn('[translate/novedades] translatedText vacío o undefined');
-          setTranslateError(es ? 'No se pudo traducir por ahora' : 'Could not translate right now');
-        }
-      } else {
-        const errBody = await res.text().catch(() => '');
-        console.error(`[translate/novedades] error HTTP status=${res.status} body=${errBody.slice(0, 200)}`);
-        setTranslateError(es ? 'No se pudo traducir por ahora' : 'Could not translate right now');
-      }
+      const translated = await translateText(drop.message, language as 'es' | 'en');
+      setTranslatedMessage(translated);
+      setShowTranslated(true);
     } catch (err) {
-      console.error('[translate/novedades] catch:', err instanceof Error ? err.message : String(err));
+      console.error('[translate/novedades]', err instanceof Error ? err.message : String(err));
       setTranslateError(es ? 'No se pudo traducir por ahora' : 'Could not translate right now');
     } finally {
       setIsTranslating(false);
-      console.log('[translate/novedades] finally — isTranslating=false');
     }
   };
 

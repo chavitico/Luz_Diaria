@@ -41,6 +41,7 @@ import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 import { fetchWithTimeout } from '@/lib/fetch';
+import { translateText } from '@/lib/translate';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -223,30 +224,11 @@ function TestimonyCard({
     setIsTranslating(true);
     setTranslateError(null);
     try {
-      const res = await fetchWithTimeout(`${BACKEND_URL}/api/translate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: testimony.text, targetLanguage: language }),
-      }, 20_000);
-      if (res.ok) {
-        const rawText = await res.text();
-        let data: { translatedText?: string };
-        try {
-          data = JSON.parse(rawText);
-        } catch {
-          setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
-          return;
-        }
-        if (data.translatedText) {
-          onTranslated(testimony.id, data.translatedText);
-          setShowTranslated(true);
-        } else {
-          setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
-        }
-      } else {
-        setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
-      }
+      const translated = await translateText(testimony.text, language);
+      onTranslated(testimony.id, translated);
+      setShowTranslated(true);
     } catch (err) {
+      console.error('[translate/testimonios]', err instanceof Error ? err.message : String(err));
       setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');
     } finally {
       setIsTranslating(false);

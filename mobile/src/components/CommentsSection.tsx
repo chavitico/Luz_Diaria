@@ -17,6 +17,7 @@ import * as Haptics from 'expo-haptics';
 import { Send, Heart, Trash2, MessageCircle, Globe } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
 import { fetchWithTimeout } from '@/lib/fetch';
+import { translateText } from '@/lib/translate';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 import { relativeLuminance, ensureContrast, contrastRatio } from '@/lib/contrast';
@@ -173,6 +174,8 @@ function CommentRow({
   const [translatedText, setTranslatedText] = useState<string | null>(null);
   const [isTranslating, setIsTranslating] = useState(false);
   const [showTranslated, setShowTranslated] = useState(false);
+  const [translateError, setTranslateError] = useState<string | null>(null);
+  const translationEnabled = process.env.EXPO_PUBLIC_TRANSLATION_ENABLED === 'true';
 
   const timeAgo = (iso: string) => {
     const diff = Date.now() - new Date(iso).getTime();
@@ -208,21 +211,14 @@ function CommentRow({
     if (showTranslated) { setShowTranslated(false); return; }
     if (translatedText) { setShowTranslated(true); return; }
     setIsTranslating(true);
+    setTranslateError(null);
     try {
-      const res = await fetchWithTimeout(`${BACKEND_URL}/api/translate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: comment.text, targetLanguage: language }),
-      }, 20_000);
-      if (res.ok) {
-        const data = await res.json() as { translatedText: string };
-        if (data.translatedText) {
-          setTranslatedText(data.translatedText);
-          setShowTranslated(true);
-        }
-      }
-    } catch {
-      // silently fail
+      const translated = await translateText(comment.text, language);
+      setTranslatedText(translated);
+      setShowTranslated(true);
+    } catch (err) {
+      console.error('[translate/comments]', err instanceof Error ? err.message : String(err));
+      setTranslateError(language === 'es' ? 'No se pudo traducir' : 'Could not translate');
     } finally {
       setIsTranslating(false);
     }
@@ -266,20 +262,25 @@ function CommentRow({
             userId={currentUserId}
             colors={colors}
           />
-          <Pressable
-            onPress={handleTranslate}
-            disabled={isTranslating}
-            hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
-            style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
-          >
-            {isTranslating
-              ? <ActivityIndicator size={10} color={colors.textMuted} />
-              : <Globe size={12} color={showTranslated ? colors.primary : colors.textMuted} strokeWidth={2} />
-            }
-            <Text style={{ fontSize: sFont(11), color: showTranslated ? colors.primary : colors.textMuted }}>
-              {translateLabel}
-            </Text>
-          </Pressable>
+          {translationEnabled && (
+            <Pressable
+              onPress={handleTranslate}
+              disabled={isTranslating}
+              hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
+            >
+              {isTranslating
+                ? <ActivityIndicator size={10} color={colors.textMuted} />
+                : <Globe size={12} color={showTranslated ? colors.primary : colors.textMuted} strokeWidth={2} />
+              }
+              <Text style={{ fontSize: sFont(11), color: showTranslated ? colors.primary : colors.textMuted }}>
+                {translateLabel}
+              </Text>
+            </Pressable>
+          )}
+          {translateError && (
+            <Text style={{ fontSize: sFont(10), color: '#ef4444', marginLeft: 4 }}>{translateError}</Text>
+          )}
         </View>
       </View>
     </Pressable>
