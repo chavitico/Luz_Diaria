@@ -4,34 +4,28 @@ const app = new Hono();
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const ANTHROPIC_BASE_URL = (process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com").replace(/\/$/, "");
-const LIBRETRANSLATE_URL = "https://libretranslate.de/translate";
+const HAIKU_MODEL = process.env.ANTHROPIC_DEFAULT_HAIKU_MODEL || "claude-haiku-4-5-20251001";
 
-async function translateWithLibreTranslate(text: string, targetLanguage: "es" | "en"): Promise<string> {
+async function translateWithMyMemory(text: string, targetLanguage: "es" | "en"): Promise<string> {
   const sourceLang = targetLanguage === "es" ? "en" : "es";
-  console.log(`[translate] Intentando LibreTranslate: ${sourceLang} → ${targetLanguage}`);
-  const response = await fetch(LIBRETRANSLATE_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      q: text,
-      source: sourceLang,
-      target: targetLanguage,
-      format: "text",
-    }),
-  });
+  const langpair = `${sourceLang}|${targetLanguage}`;
+  console.log(`[translate] Intentando MyMemory: ${langpair}`);
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(langpair)}`;
+  const response = await fetch(url);
 
   if (!response.ok) {
     const msg = await response.text().catch(() => "(sin cuerpo)");
-    console.error(`[translate] LibreTranslate falló: status=${response.status} body=${msg}`);
-    throw new Error(`LibreTranslate failed: ${response.status}`);
+    console.error(`[translate] MyMemory falló: status=${response.status} body=${msg}`);
+    throw new Error(`MyMemory failed: ${response.status}`);
   }
 
   const data = await response.json() as any;
-  if (!data.translatedText) {
-    console.error("[translate] LibreTranslate no devolvió translatedText");
-    throw new Error("LibreTranslate returned no text");
+  const translated = data?.responseData?.translatedText;
+  if (!translated) {
+    console.error("[translate] MyMemory no devolvió traducción");
+    throw new Error("MyMemory returned no text");
   }
-  return data.translatedText.trim();
+  return translated.trim();
 }
 
 app.post("/", async (c) => {
@@ -71,7 +65,7 @@ app.post("/", async (c) => {
             "anthropic-version": "2023-06-01",
           },
           body: JSON.stringify({
-            model: "claude-haiku-4-5",
+            model: HAIKU_MODEL,
             max_tokens: 1024,
             messages: [{ role: "user", content: prompt }],
           }),
@@ -99,7 +93,7 @@ app.post("/", async (c) => {
   // 2. Fallback: LibreTranslate (free, no API key required)
   console.log("[translate] Proveedor: LibreTranslate (fallback)");
   try {
-    const translatedText = await translateWithLibreTranslate(text, targetLanguage);
+    const translatedText = await translateWithMyMemory(text, targetLanguage);
     console.log("[translate] LibreTranslate respondió OK");
     return c.json({ translatedText });
   } catch (err) {
