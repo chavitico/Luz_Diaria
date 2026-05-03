@@ -308,7 +308,6 @@ export default function SettingsScreen() {
   const [transferCode, setTransferCode] = useState<string | null>(null);
   const [transferCodeExpiry, setTransferCodeExpiry] = useState<Date | null>(null);
   const [isGeneratingCode, setIsGeneratingCode] = useState(false);
-  const [showAdminHub, setShowAdminHub] = useState(false);
   const [adminTapCount, setAdminTapCount] = useState(0);
   const adminTapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [showDebugMode, setShowDebugMode] = useState(false);
@@ -1446,7 +1445,7 @@ export default function SettingsScreen() {
                 setAdminTapCount(0);
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                 setShowDebugMode(true);
-                setShowAdminHub(true);
+                router.push('/admin');
               } else {
                 adminTapTimer.current = setTimeout(() => setAdminTapCount(0), 3000);
               }
@@ -1557,7 +1556,7 @@ export default function SettingsScreen() {
             <Pressable
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                setShowAdminHub(true);
+                router.push('/admin');
               }}
               style={{ padding: 10, borderRadius: 10, backgroundColor: '#F59E0B', alignItems: 'center' }}
             >
@@ -1594,11 +1593,6 @@ export default function SettingsScreen() {
         onClose={() => setShowProfileShare(false)}
       />
 
-      {/* Admin Hub Modal */}
-      <AdminHubModal
-        visible={showAdminHub}
-        onClose={() => setShowAdminHub(false)}
-      />
 
       {/* Avatar Selection Modal */}
       <Modal

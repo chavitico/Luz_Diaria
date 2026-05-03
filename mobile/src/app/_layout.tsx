@@ -131,6 +131,13 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
+          name="admin/index"
+          options={{
+            presentation: 'card',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="admin/branding"
           options={{
             presentation: 'modal',
