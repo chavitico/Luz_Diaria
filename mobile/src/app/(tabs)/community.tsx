@@ -1555,6 +1555,7 @@ export default function CommunityScreen() {
 
       queryClient.invalidateQueries({ queryKey: ['community-members'] });
     } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') return;
       console.error('[Community] Failed to sync user:', error);
     }
   }, [user?.id, user?.points, user?.streakCurrent, user?.devotionalsCompleted, queryClient]);
