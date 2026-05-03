@@ -84,7 +84,6 @@ import { gamificationApi } from '@/lib/gamification-api';
 import { useScaledFont } from '@/lib/textScale';
 import { useQueryClient } from '@tanstack/react-query';
 import { ShareableProfileCard } from '@/components/ShareableProfileCard';
-import { AdminHubModal } from '@/components/AdminHubModal';
 import { getLedgerEntries, relativeTime, type LedgerEntry } from '@/lib/points-ledger';
 import { CountryPickerModal, getCountryByCode, type Country } from '@/components/CountryPicker';
 import { BadgeChip } from '@/components/BadgeChip';

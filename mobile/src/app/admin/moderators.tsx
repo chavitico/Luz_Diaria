@@ -47,7 +47,9 @@ import {
   UserX,
   ChevronDown,
   ChevronUp,
+  MoreHorizontal,
 } from 'lucide-react-native';
+import * as DropdownMenu from 'zeego/dropdown-menu';
 import { useThemeColors, useUser } from '@/lib/store';
 import { ActionButton } from '@/components/ui/ActionButton';
 import { fetchWithTimeout } from '@/lib/fetch';
@@ -201,8 +203,8 @@ function UserCard({
     setTimeout(() => setCopied(false), 1500);
   };
 
-  const visibleBadges = user.badges.slice(0, 2);
-  const extraBadges   = user.badges.length - 2;
+  const visibleBadges = user.badges.slice(0, 3);
+  const extraBadges   = user.badges.length - 3;
 
   const lastActive = user.lastActiveAt
     ? (() => {
@@ -217,172 +219,177 @@ function UserCard({
   return (
     <Animated.View entering={FadeInDown.duration(220)}>
       <View style={{
-        marginHorizontal: 12, marginBottom: 8, borderRadius: 16,
+        marginHorizontal: 12, marginBottom: 8, borderRadius: 18,
         backgroundColor: colors.surface,
         borderWidth: user.hasIssues ? 1 : 0,
-        borderColor: user.hasIssues ? '#F59E0B50' : 'transparent',
-        overflow: 'hidden',
+        borderColor: user.hasIssues ? '#F59E0B40' : 'transparent',
       }}>
-        <Pressable onPress={() => onViewDetail(user)} style={{ padding: 12, paddingBottom: 8 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+        {/* ── Main card body (tap to view detail) ── */}
+        <Pressable
+          onPress={() => onViewDetail(user)}
+          style={({ pressed }) => ({
+            padding: 14,
+            backgroundColor: pressed ? colors.textMuted + '08' : 'transparent',
+            borderRadius: 18,
+          })}
+        >
+          {/* Header: avatar + info + role + menu */}
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10 }}>
+            {/* Avatar with online dot */}
             <View style={{ position: 'relative' }}>
               <View style={{
-                width: 36, height: 36, borderRadius: 10,
-                backgroundColor: user.role === 'OWNER' ? '#F59E0B18' : user.role === 'MODERATOR' ? '#3B82F618' : colors.background,
+                width: 44, height: 44, borderRadius: 14,
+                backgroundColor: user.role === 'OWNER' ? '#F59E0B15'
+                  : user.role === 'MODERATOR' ? '#3B82F615'
+                  : colors.background,
                 alignItems: 'center', justifyContent: 'center',
               }}>
-                <Text style={{ fontSize: 18 }}>
+                <Text style={{ fontSize: 22 }}>
                   {user.role === 'OWNER' ? '👑' : user.role === 'MODERATOR' ? '🛡️' : '👤'}
                 </Text>
               </View>
               {online && (
                 <View style={{
-                  position: 'absolute', bottom: -2, right: -2,
-                  width: 10, height: 10, borderRadius: 5,
+                  position: 'absolute', bottom: -1, right: -1,
+                  width: 12, height: 12, borderRadius: 6,
                   backgroundColor: '#22C55E',
                   borderWidth: 2, borderColor: colors.surface,
                 }} />
               )}
             </View>
+
+            {/* Name + id + stats */}
             <View style={{ flex: 1 }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text }} numberOfLines={1}>{user.nickname}</Text>
-                {isSelf && <Text style={{ fontSize: 10, color: colors.textMuted, fontWeight: '500' }}>(tú)</Text>}
-                {user.hasIssues && <TriangleAlert size={13} color="#F59E0B" />}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginBottom: 3 }}>
+                <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text, flex: 1 }} numberOfLines={1}>
+                  {user.nickname}
+                </Text>
+                {isSelf && (
+                  <Text style={{ fontSize: 10, color: colors.textMuted, fontWeight: '500' }}>(tú)</Text>
+                )}
+                {user.hasIssues && <TriangleAlert size={12} color="#F59E0B" />}
               </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 2 }}>
+
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                 <Text style={{ fontSize: 11, color: colors.textMuted, fontFamily: 'monospace' }}>…{shortId}</Text>
-                <Pressable onPress={handleCopy} hitSlop={6}>
-                  {copied ? <Check size={11} color="#22C55E" /> : <Copy size={11} color={colors.textMuted + '90'} />}
+                <Pressable onPress={handleCopy} hitSlop={8}>
+                  {copied
+                    ? <Check size={11} color="#22C55E" />
+                    : <Copy size={11} color={colors.textMuted + '80'} />}
                 </Pressable>
               </View>
-            </View>
-            <RoleChip role={user.role} />
-          </View>
 
-          <View style={{ flexDirection: 'row', gap: 14, marginBottom: 6 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
-              <Flame size={12} color="#F97316" />
-              <Text style={{ fontSize: 12, color: colors.text, fontWeight: '600' }}>{user.streakCurrent}</Text>
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
-              <BookOpen size={12} color="#6366F1" />
-              <Text style={{ fontSize: 12, color: colors.text, fontWeight: '600' }}>{user.devotionalsCompleted}</Text>
-              {user.completionsLast7Days > 0 && (
-                <Text style={{ fontSize: 10, color: '#22C55E' }}>(+{user.completionsLast7Days} 7d)</Text>
-              )}
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
-              <Coins size={12} color="#F59E0B" />
-              <Text style={{ fontSize: 12, color: colors.text, fontWeight: '600' }}>
-                {user.points >= 1000 ? `${(user.points / 1000).toFixed(1)}k` : user.points}
-              </Text>
-            </View>
-            {user.countryCode && <Text style={{ fontSize: 12 }}>{countryFlag(user.countryCode)}</Text>}
-            <View style={{ flex: 1, alignItems: 'flex-end', flexDirection: 'row', gap: 3, justifyContent: 'flex-end' }}>
-              <Clock size={11} color={colors.textMuted} />
-              <Text style={{ fontSize: 11, color: colors.textMuted }}>{lastActive}</Text>
-            </View>
-          </View>
-
-          {user.badges.length > 0 && (
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 4 }}>
-              {visibleBadges.map(b => (
-                <View key={b.id} style={{
-                  paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6,
-                  backgroundColor: b.unknown ? '#F59E0B18' : colors.background,
-                  borderWidth: b.unknown ? 1 : 0, borderColor: b.unknown ? '#F59E0B60' : 'transparent',
-                }}>
-                  <Text style={{ fontSize: 10, color: b.unknown ? '#F59E0B' : colors.textMuted, fontWeight: '500' }}>
-                    {b.unknown ? `⚠ ${b.nameEs}` : b.nameEs}
+              {/* Stats row */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 8 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                  <Flame size={12} color="#F97316" />
+                  <Text style={{ fontSize: 12, color: colors.text, fontWeight: '600' }}>{user.streakCurrent}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                  <BookOpen size={12} color="#6366F1" />
+                  <Text style={{ fontSize: 12, color: colors.text, fontWeight: '600' }}>{user.devotionalsCompleted}</Text>
+                  {user.completionsLast7Days > 0 && (
+                    <Text style={{ fontSize: 10, color: '#22C55E' }}>+{user.completionsLast7Days}</Text>
+                  )}
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                  <Coins size={12} color="#F59E0B" />
+                  <Text style={{ fontSize: 12, color: colors.text, fontWeight: '600' }}>
+                    {user.points >= 1000 ? `${(user.points / 1000).toFixed(1)}k` : user.points}
                   </Text>
                 </View>
-              ))}
-              {extraBadges > 0 && (
-                <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, backgroundColor: colors.background }}>
-                  <Text style={{ fontSize: 10, color: colors.textMuted }}>+{extraBadges}</Text>
+                {user.countryCode && <Text style={{ fontSize: 12 }}>{countryFlag(user.countryCode)}</Text>}
+              </View>
+
+              {/* Last active + badges */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 6, flexWrap: 'wrap' }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                  <Clock size={10} color={colors.textMuted} />
+                  <Text style={{ fontSize: 10, color: colors.textMuted }}>{lastActive}</Text>
                 </View>
+                {visibleBadges.map((b) => (
+                  <View key={b.id} style={{
+                    paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6,
+                    backgroundColor: b.unknown ? '#F59E0B15' : colors.background,
+                    borderWidth: b.unknown ? 1 : 0,
+                    borderColor: b.unknown ? '#F59E0B50' : 'transparent',
+                  }}>
+                    <Text style={{ fontSize: 10, color: b.unknown ? '#F59E0B' : colors.textMuted, fontWeight: '500' }}>
+                      {b.unknown ? `⚠ ${b.nameEs}` : b.nameEs}
+                    </Text>
+                  </View>
+                ))}
+                {extraBadges > 0 && (
+                  <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, backgroundColor: colors.background }}>
+                    <Text style={{ fontSize: 10, color: colors.textMuted }}>+{extraBadges}</Text>
+                  </View>
+                )}
+              </View>
+            </View>
+
+            {/* Role chip + ⋯ menu (right column) */}
+            <View style={{ alignItems: 'flex-end', gap: 8 }}>
+              <RoleChip role={user.role} />
+              {isOwner ? (
+                <DropdownMenu.Root>
+                  <DropdownMenu.Trigger>
+                    <Pressable
+                      style={{ padding: 6, borderRadius: 8, backgroundColor: colors.background }}
+                      hitSlop={8}
+                    >
+                      {togglingId === user.id
+                        ? <ActivityIndicator size="small" color={colors.primary} />
+                        : <MoreHorizontal size={16} color={colors.textMuted} />}
+                    </Pressable>
+                  </DropdownMenu.Trigger>
+                  <DropdownMenu.Content>
+                    {!isSelf && user.role !== 'OWNER' && (
+                      <DropdownMenu.Item
+                        key="toggle-mod"
+                        onSelect={() => onToggleMod(user)}
+                      >
+                        <DropdownMenu.ItemTitle>
+                          {user.role === 'MODERATOR' ? 'Quitar Mod' : 'Hacer Mod'}
+                        </DropdownMenu.ItemTitle>
+                        <DropdownMenu.ItemIcon
+                          ios={{ name: user.role === 'MODERATOR' ? 'shield.slash' : 'shield.fill' }}
+                          androidIconName="security"
+                        />
+                      </DropdownMenu.Item>
+                    )}
+                    <DropdownMenu.Item key="compensate" onSelect={() => onCompensate(user)}>
+                      <DropdownMenu.ItemTitle>Compensar</DropdownMenu.ItemTitle>
+                      <DropdownMenu.ItemIcon ios={{ name: 'gift.fill' }} androidIconName="card_giftcard" />
+                    </DropdownMenu.Item>
+                    <DropdownMenu.Item key="rename" onSelect={() => onForceRename(user)}>
+                      <DropdownMenu.ItemTitle>Renombrar</DropdownMenu.ItemTitle>
+                      <DropdownMenu.ItemIcon ios={{ name: 'pencil' }} androidIconName="edit" />
+                    </DropdownMenu.Item>
+                    {user.hasIssues && (
+                      <DropdownMenu.Item key="fix-badges" onSelect={() => onFixBadges(user)}>
+                        <DropdownMenu.ItemTitle>Fix Badges ⚠</DropdownMenu.ItemTitle>
+                        <DropdownMenu.ItemIcon ios={{ name: 'wrench.fill' }} androidIconName="build" />
+                      </DropdownMenu.Item>
+                    )}
+                    <DropdownMenu.Separator key="sep" />
+                    <DropdownMenu.Item key="view" onSelect={() => onViewDetail(user)}>
+                      <DropdownMenu.ItemTitle>Ver detalle</DropdownMenu.ItemTitle>
+                      <DropdownMenu.ItemIcon ios={{ name: 'person.fill' }} androidIconName="person" />
+                    </DropdownMenu.Item>
+                  </DropdownMenu.Content>
+                </DropdownMenu.Root>
+              ) : (
+                <Pressable
+                  onPress={() => onViewDetail(user)}
+                  style={{ padding: 6, borderRadius: 8, backgroundColor: colors.background }}
+                  hitSlop={8}
+                >
+                  <Users size={15} color={colors.primary} />
+                </Pressable>
               )}
             </View>
-          )}
+          </View>
         </Pressable>
-
-        <View style={{ flexDirection: 'row', borderTopWidth: 1, borderTopColor: colors.background }}>
-          {isOwner && !isSelf && user.role !== 'OWNER' && (
-            <Pressable
-              onPress={() => onToggleMod(user)}
-              disabled={togglingId === user.id}
-              style={({ pressed }) => ({
-                flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                gap: 4, paddingVertical: 9,
-                backgroundColor: pressed ? (user.role === 'MODERATOR' ? '#EF444410' : '#3B82F610') : 'transparent',
-                borderRightWidth: 1, borderRightColor: colors.background,
-              })}
-            >
-              {togglingId === user.id
-                ? <ActivityIndicator size="small" color={colors.primary} />
-                : <>
-                    {user.role === 'MODERATOR' ? <ShieldOff size={14} color="#EF4444" /> : <Shield size={14} color="#3B82F6" />}
-                    <Text style={{ fontSize: 11, fontWeight: '600', color: user.role === 'MODERATOR' ? '#EF4444' : '#3B82F6' }}>
-                      {user.role === 'MODERATOR' ? 'Quitar Mod' : 'Hacer Mod'}
-                    </Text>
-                  </>}
-            </Pressable>
-          )}
-          {isOwner && (
-            <Pressable
-              onPress={() => onCompensate(user)}
-              style={({ pressed }) => ({
-                flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                gap: 4, paddingVertical: 9,
-                backgroundColor: pressed ? '#8B5CF610' : 'transparent',
-                borderRightWidth: 1, borderRightColor: colors.background,
-              })}
-            >
-              <Gift size={14} color="#8B5CF6" />
-              <Text style={{ fontSize: 11, fontWeight: '600', color: '#8B5CF6' }}>Compensar</Text>
-            </Pressable>
-          )}
-          {isOwner && user.hasIssues && (
-            <Pressable
-              onPress={() => onFixBadges(user)}
-              style={({ pressed }) => ({
-                flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                gap: 4, paddingVertical: 9,
-                backgroundColor: pressed ? '#F59E0B10' : 'transparent',
-                borderRightWidth: 1, borderRightColor: colors.background,
-              })}
-            >
-              <Wrench size={14} color="#F59E0B" />
-              <Text style={{ fontSize: 11, fontWeight: '600', color: '#F59E0B' }}>Fix Badges</Text>
-            </Pressable>
-          )}
-          {isOwner && (
-            <Pressable
-              onPress={() => onForceRename(user)}
-              style={({ pressed }) => ({
-                flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                gap: 4, paddingVertical: 9,
-                backgroundColor: pressed ? '#EC489910' : 'transparent',
-                borderRightWidth: 1, borderRightColor: colors.background,
-              })}
-            >
-              <Pencil size={14} color="#EC4899" />
-              <Text style={{ fontSize: 11, fontWeight: '600', color: '#EC4899' }}>Renombrar</Text>
-            </Pressable>
-          )}
-          <Pressable
-            onPress={() => onViewDetail(user)}
-            style={({ pressed }) => ({
-              flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-              gap: 4, paddingVertical: 9,
-              backgroundColor: pressed ? colors.primary + '10' : 'transparent',
-            })}
-          >
-            <Users size={14} color={colors.primary} />
-            <Text style={{ fontSize: 11, fontWeight: '600', color: colors.primary }}>Ver</Text>
-          </Pressable>
-        </View>
       </View>
     </Animated.View>
   );
