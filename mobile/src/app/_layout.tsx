@@ -712,6 +712,8 @@ function AppContent() {
         itemName={confirmPurchaseRequest?.itemName ?? ''}
         cost={confirmPurchaseRequest?.cost ?? 0}
         description={confirmPurchaseRequest?.description}
+        isFree={confirmPurchaseRequest?.isFree}
+        freePacksRemaining={confirmPurchaseRequest?.freePacksRemaining}
         onConfirm={() => {
           const cb = confirmPurchaseRequest?.onConfirm;
           clearConfirmPurchaseRequest();

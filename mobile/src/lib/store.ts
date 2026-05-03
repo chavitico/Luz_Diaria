@@ -80,9 +80,11 @@ interface AppState {
     itemName: string;
     cost: number;
     description?: string;
+    isFree?: boolean;
+    freePacksRemaining?: number;
     onConfirm: () => void;
   } | null;
-  requestConfirmPurchase: (req: { itemName: string; cost: number; description?: string; onConfirm: () => void }) => void;
+  requestConfirmPurchase: (req: { itemName: string; cost: number; description?: string; isFree?: boolean; freePacksRemaining?: number; onConfirm: () => void }) => void;
   clearConfirmPurchaseRequest: () => void;
 
   // Notification badge counts — non-persisted, polled at runtime.

@@ -3978,11 +3978,6 @@ export default function StoreScreen() {
   const handleTokenPurchase = (itemId: string, price: number) => {
     const PACK_IDS = ['sobre_biblico', 'pack_pascua', 'pack_milagros', 'pack_heroes'];
     const hasFree = PACK_IDS.includes(itemId) && (dailyPackStatus?.canClaim ?? false);
-    if (hasFree) {
-      // Skip confirmation — free pack applies automatically
-      executeTokenPurchase(itemId, 0);
-      return;
-    }
     const TOKEN_NAMES: Record<string, { es: string; en: string }> = {
       sobre_biblico:  { es: 'Sobre Bíblico',  en: 'Biblical Pack' },
       pack_pascua:    { es: 'Pack de Pascua',  en: 'Easter Pack' },
@@ -3992,6 +3987,17 @@ export default function StoreScreen() {
     };
     const names = TOKEN_NAMES[itemId] ?? { es: itemId, en: itemId };
     const itemName = language === 'es' ? names.es : names.en;
+    if (hasFree) {
+      const remaining = Math.max(0, (dailyPackStatus?.remaining ?? 1) - 1);
+      requestConfirmPurchase({
+        itemName,
+        cost: 0,
+        isFree: true,
+        freePacksRemaining: remaining,
+        onConfirm: () => executeTokenPurchase(itemId, 0),
+      });
+      return;
+    }
     requestConfirmPurchase({ itemName, cost: price, onConfirm: () => executeTokenPurchase(itemId, price) });
   };
 

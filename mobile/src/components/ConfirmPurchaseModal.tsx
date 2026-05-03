@@ -4,7 +4,7 @@
 import React from 'react';
 import { View, Text, Modal, Pressable, StyleSheet } from 'react-native';
 import * as Haptics from 'expo-haptics';
-import { Coins, ShoppingBag } from 'lucide-react-native';
+import { Coins, ShoppingBag, Gift } from 'lucide-react-native';
 import { useThemeColors, useLanguage } from '@/lib/store';
 
 interface ConfirmPurchaseModalProps {
@@ -12,6 +12,8 @@ interface ConfirmPurchaseModalProps {
   itemName: string;
   cost: number;
   description?: string;
+  isFree?: boolean;
+  freePacksRemaining?: number;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -21,6 +23,8 @@ export function ConfirmPurchaseModal({
   itemName,
   cost,
   description,
+  isFree = false,
+  freePacksRemaining,
   onConfirm,
   onCancel,
 }: ConfirmPurchaseModalProps) {
@@ -58,14 +62,22 @@ export function ConfirmPurchaseModal({
 
             {/* Icon */}
             <View style={[styles.iconWrap, {
-              backgroundColor: isDark ? 'rgba(255,215,0,0.12)' : 'rgba(255,160,0,0.10)',
+              backgroundColor: isFree
+                ? (isDark ? 'rgba(52,211,153,0.15)' : 'rgba(16,185,129,0.12)')
+                : (isDark ? 'rgba(255,215,0,0.12)' : 'rgba(255,160,0,0.10)'),
             }]}>
-              <ShoppingBag size={26} color="#F5A623" />
+              {isFree
+                ? <Gift size={26} color="#10B981" />
+                : <ShoppingBag size={26} color="#F5A623" />
+              }
             </View>
 
             {/* Title */}
-            <Text style={[styles.title, { color: colors.text }]}>
-              {es ? '¿Confirmar compra?' : 'Confirm purchase?'}
+            <Text style={[styles.title, { color: isFree ? '#10B981' : colors.text }]}>
+              {isFree
+                ? (es ? '¡Sobre gratis!' : 'Free pack!')
+                : (es ? '¿Confirmar compra?' : 'Confirm purchase?')
+              }
             </Text>
 
             {/* Item name */}
@@ -74,15 +86,39 @@ export function ConfirmPurchaseModal({
             </Text>
 
             {/* Cost badge */}
-            <View style={[styles.costBadge, {
-              backgroundColor: isDark ? 'rgba(245,166,35,0.14)' : 'rgba(245,166,35,0.12)',
-              borderColor: isDark ? 'rgba(245,166,35,0.30)' : 'rgba(245,166,35,0.35)',
-            }]}>
-              <Coins size={15} color="#F5A623" />
-              <Text style={styles.costText}>
-                {cost.toLocaleString()} {es ? 'puntos' : 'points'}
+            {isFree ? (
+              <View style={[styles.costBadge, {
+                backgroundColor: isDark ? 'rgba(52,211,153,0.14)' : 'rgba(16,185,129,0.10)',
+                borderColor: isDark ? 'rgba(52,211,153,0.35)' : 'rgba(16,185,129,0.30)',
+              }]}>
+                <Gift size={14} color="#10B981" />
+                <Text style={[styles.costText, { color: '#10B981' }]}>
+                  {es ? 'GRATIS' : 'FREE'}
+                </Text>
+              </View>
+            ) : (
+              <View style={[styles.costBadge, {
+                backgroundColor: isDark ? 'rgba(245,166,35,0.14)' : 'rgba(245,166,35,0.12)',
+                borderColor: isDark ? 'rgba(245,166,35,0.30)' : 'rgba(245,166,35,0.35)',
+              }]}>
+                <Coins size={15} color="#F5A623" />
+                <Text style={styles.costText}>
+                  {cost.toLocaleString()} {es ? 'puntos' : 'points'}
+                </Text>
+              </View>
+            )}
+
+            {/* Free packs remaining info */}
+            {isFree && freePacksRemaining !== undefined && (
+              <Text style={[styles.description, { color: colors.textMuted }]}>
+                {freePacksRemaining === 0
+                  ? (es ? 'Este es tu último sobre gratis disponible' : 'This is your last available free pack')
+                  : (es
+                    ? `Te quedarán ${freePacksRemaining} sobre${freePacksRemaining !== 1 ? 's' : ''} gratis después de este`
+                    : `${freePacksRemaining} free pack${freePacksRemaining !== 1 ? 's' : ''} remaining after this`)
+                }
               </Text>
-            </View>
+            )}
 
             {/* Optional description */}
             {!!description && (
@@ -116,12 +152,23 @@ export function ConfirmPurchaseModal({
                 style={({ pressed }) => [
                   styles.btn,
                   styles.confirmBtn,
-                  { backgroundColor: btnBg, opacity: pressed ? 0.6 : 1 },
+                  {
+                    backgroundColor: isFree
+                      ? (isDark ? 'rgba(52,211,153,0.18)' : 'rgba(16,185,129,0.13)')
+                      : btnBg,
+                    opacity: pressed ? 0.6 : 1,
+                  },
                 ]}
               >
-                <Coins size={14} color="#F5A623" style={{ marginRight: 4 }} />
-                <Text style={[styles.btnText, styles.confirmBtnText, { color: '#F5A623' }]}>
-                  {es ? 'Confirmar compra' : 'Confirm purchase'}
+                {isFree
+                  ? <Gift size={14} color="#10B981" style={{ marginRight: 4 }} />
+                  : <Coins size={14} color="#F5A623" style={{ marginRight: 4 }} />
+                }
+                <Text style={[styles.btnText, styles.confirmBtnText, { color: isFree ? '#10B981' : '#F5A623' }]}>
+                  {isFree
+                    ? (es ? '¡Abrir gratis!' : 'Open for free!')
+                    : (es ? 'Confirmar compra' : 'Confirm purchase')
+                  }
                 </Text>
               </Pressable>
             </View>
