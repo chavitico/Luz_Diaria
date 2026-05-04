@@ -277,6 +277,13 @@ export function preprocessNumbersForTTS(text: string): string {
 export function sanitizeForTTS(text: string): string {
   let result = text;
 
+  // Remove emojis and other symbols that TTS should not read
+  result = result.replace(/[\u{1F300}-\u{1FFFF}]/gu, '');
+  result = result.replace(/[\u{2600}-\u{27BF}]/gu, '');
+  result = result.replace(/[\u{FE00}-\u{FE0F}]/gu, '');
+  result = result.replace(/[\u{1F000}-\u{1F02F}]/gu, '');
+  result = result.replace(/[*_~`#|<>\\]/g, '');
+
   // Remove footnote/cross-reference markers like (A), (B), (C), ...
   result = result.replace(/\([A-Z]\)/g, '');
 

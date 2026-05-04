@@ -27,7 +27,7 @@ import { ArrowLeft, ChevronRight, ChevronLeft, Volume2, Square, CheckCircle2 } f
 import { useThemeColors, useUser, useLanguage } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
-import { sanitizeForTTS, preprocessNumbersForTTS } from '@/lib/tts-voices';
+import { sanitizeForTTS, preprocessNumbersForTTS, normalizeBibleRefForTTS, applyBiblicalPronunciations, addTTSPausesForNumberedPoints } from '@/lib/tts-voices';
 import { useScaledFont } from '@/lib/textScale';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
 import type { Study, StudyCard } from '@/lib/studies/types';
@@ -432,13 +432,25 @@ export default function StudyReaderScreen() {
 
   // ─── TTS ────────────────────────────────────────────────────────────────────
 
+  const ttsProcess = useCallback((raw: string): string => {
+    return applyBiblicalPronunciations(
+      preprocessNumbersForTTS(
+        addTTSPausesForNumberedPoints(
+          normalizeBibleRefForTTS(
+            sanitizeForTTS(raw),
+            language
+          )
+        )
+      ),
+      language
+    );
+  }, [language]);
+
   const buildPageText = useCallback((): string => {
     if (!study) return '';
     if (page === 0) {
       const verses = (study.scripture_passage?.verses ?? []).map((v) => `${v.number}. ${v.text}`).join(' ');
-      return preprocessNumbersForTTS(sanitizeForTTS(
-        `${study.key_verse.text}. ${study.key_verse.reference}. ${verses}`
-      ));
+      return ttsProcess(`${study.key_verse.text}. ${study.key_verse.reference}. ${verses}`);
     }
     const card = study.cards[page - 1];
     const parts: string[] = [card.title];
@@ -454,8 +466,8 @@ export default function StudyReaderScreen() {
     if (card.identity_statement) parts.push(card.identity_statement);
     card.discovery_questions?.forEach((q) => parts.push(q.question));
     if (card.prayer) parts.push(`${card.prayer.title}. ${card.prayer.content.replace(/\\n/g, ' ')}`);
-    return preprocessNumbersForTTS(sanitizeForTTS(parts.join('. ')));
-  }, [study, page]);
+    return ttsProcess(parts.join('. '));
+  }, [study, page, ttsProcess]);
 
   const stopTTS = useCallback(() => {
     ttsJobRef.current += 1;
