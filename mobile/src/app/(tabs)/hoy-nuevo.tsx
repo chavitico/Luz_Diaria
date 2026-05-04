@@ -770,9 +770,17 @@ export default function HoyNuevoScreen() {
       }
     } catch {}
 
-    // Streak + devotionalsCompleted — same logic as HOY, shares the same lastActiveDate key
+    // Update weekly challenge progress for devotional completion (only on fresh completion)
     const lastActive = user.lastActiveDate;
     const alreadyCountedToday = lastActive === today;
+    if (!alreadyCountedToday) {
+      try {
+        await gamificationApi.updateChallengeProgress(user.id, 'devotional_complete');
+        queryClient.invalidateQueries({ queryKey: ['challengeProgress', user.id] });
+      } catch {}
+    }
+
+    // Streak + devotionalsCompleted — same logic as HOY, shares the same lastActiveDate key
     const yesterdayStr = getYesterdayDate();
 
     let newStreakCurrent = user.streakCurrent;
