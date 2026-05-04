@@ -1133,6 +1133,21 @@ gamificationRouter.post(
           drawnCard = drawnCards[0];
         }
 
+        // Track pack opening in PointLedger for accurate dashboard counts
+        if (isPack) {
+          const today = new Date().toISOString().split("T")[0] as string;
+          await tx.pointLedger.create({
+            data: {
+              userId,
+              ledgerId: `pack_open_${itemId}_${Date.now()}`,
+              type: 'pack_open',
+              dateId: today,
+              amount: 0,
+              metadata: JSON.stringify({ packType: itemId, source: usedFreePack ? 'free' : 'store' }),
+            },
+          });
+        }
+
         return { item, newPoints, drawnCard, drawnCards, usedFreePack, freePacksRemaining };
       });
 
@@ -3896,6 +3911,18 @@ gamificationRouter.post(
         await tx.user.update({
           where: { id: userId },
           data: { dailyActions: JSON.stringify(newDailyActions) },
+        });
+
+        // Track daily pack opening in PointLedger for accurate dashboard counts
+        await tx.pointLedger.create({
+          data: {
+            userId,
+            ledgerId: `pack_open_${packType}_${Date.now()}`,
+            type: 'pack_open',
+            dateId: today,
+            amount: 0,
+            metadata: JSON.stringify({ packType, source: 'daily_free' }),
+          },
         });
 
         return {

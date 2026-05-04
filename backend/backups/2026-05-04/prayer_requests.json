@@ -90,21 +90,6 @@
     "updatedAt": "2026-03-10T01:13:43.481Z"
   },
   {
-    "id": "cmmnp7tdl000xm2703qklg716",
-    "userId": "cmml8uiit0000m2vluztbkjwf",
-    "periodId": "active",
-    "mode": "daily",
-    "categoryKey": "peace",
-    "nickname": "Chavitico",
-    "avatarId": "avatar_adv_elijah_fire",
-    "frameId": "frame_v2_jade",
-    "titleId": "title_renewed_strength",
-    "displayNameOptIn": true,
-    "expiresAt": "2026-03-14T16:44:58.614Z",
-    "createdAt": "2026-03-12T16:44:58.618Z",
-    "updatedAt": "2026-03-12T16:44:58.618Z"
-  },
-  {
     "id": "cmmo5op8b002sm2atcmcx1eug",
     "userId": "cmmo5fltc001um2atni8c6y21",
     "periodId": "active",
@@ -133,5 +118,20 @@
     "expiresAt": "2026-03-18T05:45:23.082Z",
     "createdAt": "2026-03-16T05:45:23.090Z",
     "updatedAt": "2026-03-16T05:45:23.090Z"
+  },
+  {
+    "id": "cmoju24dz001dm2julvk8z56x",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "periodId": "active",
+    "mode": "daily",
+    "categoryKey": "peace",
+    "nickname": "ChaViTico",
+    "avatarId": "avatar_adv_jonah_whale",
+    "frameId": "frame_corona",
+    "titleId": "title_lord_my_light",
+    "displayNameOptIn": true,
+    "expiresAt": "2026-05-01T09:08:50.997Z",
+    "createdAt": "2026-04-29T09:08:51.000Z",
+    "updatedAt": "2026-04-29T09:08:51.000Z"
   }
 ]

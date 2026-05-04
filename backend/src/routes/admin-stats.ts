@@ -70,23 +70,14 @@ adminStatsRouter.get("/", async (c) => {
       where: { amount: { lt: 0 }, ...(df ? { createdAt: df } : {}) },
       _sum: { amount: true },
     }),
-    prisma.userInventory.count({
-      where: {
-        ...(df ? { acquiredAt: df } : {}),
-        OR: [
-          { itemId: { contains: "sobre" } },
-          { itemId: { startsWith: "pack_" } },
-        ],
-      },
+    prisma.pointLedger.count({
+      where: { type: 'pack_open', ...(df ? { createdAt: df } : {}) },
     }),
-    prisma.userInventory.count({
+    prisma.pointLedger.count({
       where: {
-        source: "gift",
-        ...(df ? { acquiredAt: df } : {}),
-        OR: [
-          { itemId: { contains: "sobre" } },
-          { itemId: { startsWith: "pack_" } },
-        ],
+        type: 'pack_open',
+        metadata: { contains: '"free"' },
+        ...(df ? { createdAt: df } : {}),
       },
     }),
     prisma.user.findMany({
