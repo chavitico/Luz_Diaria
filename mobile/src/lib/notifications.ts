@@ -374,9 +374,10 @@ export async function initializeNotifications(language: 'en' | 'es' = 'es'): Pro
 
     if (settings.enabled) {
       const hasPermission = await requestNotificationPermissions();
+      console.log('[Notifications] Init — permission:', hasPermission, 'hour:', settings.hour);
       if (hasPermission) {
         await scheduleDailyNotification(settings.hour, settings.minute, language);
-        if (__DEV__) console.log('[Notifications] Reinitialized daily notification');
+        console.log('[Notifications] Reinitialized daily notification');
         // Smart suppress: if user opens before notification time
         await handleSmartNotificationOnOpen(language);
       }
