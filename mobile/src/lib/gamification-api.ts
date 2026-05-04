@@ -336,6 +336,15 @@ export const gamificationApi = {
   },
 
   // Points
+  async syncStudies(userId: string, completedStudyIds: string[]): Promise<void> {
+    if (!completedStudyIds.length) return;
+    await fetchWithTimeout(`${BACKEND_URL}/api/gamification/sync-studies`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, completedStudyIds }),
+    });
+  },
+
   async awardPoints(userId: string, action: PointAction, metadata?: any): Promise<PointsResult> {
     const res = await fetchWithTimeout(`${BACKEND_URL}/api/gamification/points/award`, {
       method: 'POST',

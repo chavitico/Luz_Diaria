@@ -3948,3 +3948,37 @@ gamificationRouter.post(
     }
   }
 );
+
+// POST /sync-studies - Sync completed study IDs from client to ensure server-side tracking is accurate
+gamificationRouter.post(
+  "/sync-studies",
+  zValidator("json", z.object({ userId: z.string(), completedStudyIds: z.array(z.string()) })),
+  async (c) => {
+    const { userId, completedStudyIds } = c.req.valid("json");
+    if (!completedStudyIds.length) return c.json({ synced: 0 });
+
+    const today = new Date().toISOString().split("T")[0] as string;
+    let synced = 0;
+
+    for (const studyId of completedStudyIds) {
+      const ledgerId = `study_complete_${studyId}`;
+      const existing = await prisma.pointLedger.findUnique({
+        where: { userId_ledgerId: { userId, ledgerId } },
+      });
+      if (existing) continue;
+      await prisma.pointLedger.create({
+        data: {
+          userId,
+          ledgerId,
+          type: "study_complete",
+          dateId: today,
+          amount: 0,
+          metadata: JSON.stringify({ studyId, source: "sync" }),
+        },
+      });
+      synced++;
+    }
+
+    return c.json({ synced });
+  }
+);

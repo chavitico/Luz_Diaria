@@ -11,8 +11,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Clock, BookOpen, ChevronRight, CheckCircle2 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useThemeColors, useLanguage } from '@/lib/store';
+import { useThemeColors, useLanguage, useUser } from '@/lib/store';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
+import { gamificationApi } from '@/lib/gamification-api';
 
 type Filter = 'all' | 'pending' | 'completed';
 
@@ -21,6 +22,7 @@ export default function EstudiosScreen() {
   const language = useLanguage();
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const user = useUser();
 
   const [completedIds, setCompletedIds] = useState<Set<string>>(new Set());
   const [filter, setFilter] = useState<Filter>('all');
@@ -35,11 +37,15 @@ export default function EstudiosScreen() {
         )
       );
       if (!active) return;
-      setCompletedIds(new Set(entries.filter((e) => e.done).map((e) => e.id)));
+      const done = entries.filter((e) => e.done);
+      setCompletedIds(new Set(done.map((e) => e.id)));
+      if (user?.id && done.length > 0) {
+        gamificationApi.syncStudies(user.id, done.map((e) => e.id)).catch(() => {});
+      }
     };
     load();
     return () => { active = false; };
-  }, []);
+  }, [user?.id]);
 
   const filteredStudies = STUDIES_CATALOG.filter((s) => {
     if (filter === 'completed') return completedIds.has(s.id);

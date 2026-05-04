@@ -2808,5 +2808,15 @@
     "amount": 10,
     "metadata": "{\"matchId\":\"cmoqfjfuj0015m2nkozv2r1jq\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
     "createdAt": "2026-05-03T23:57:11.322Z"
+  },
+  {
+    "id": "cmoqgfi4q0013m2qffs81dc5k",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "pack_open_sobre_biblico_1777854103945",
+    "type": "pack_open",
+    "dateId": "2026-05-04",
+    "amount": 0,
+    "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"free\"}",
+    "createdAt": "2026-05-04T00:21:43.946Z"
   }
 ]
