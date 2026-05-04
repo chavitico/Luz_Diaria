@@ -2818,5 +2818,45 @@
     "amount": 0,
     "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"free\"}",
     "createdAt": "2026-05-04T00:21:43.946Z"
+  },
+  {
+    "id": "cmorauoyi0013m21l5hlp8750",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_woman_at_well_001",
+    "type": "study_complete",
+    "dateId": "2026-05-04",
+    "amount": 0,
+    "metadata": "{\"studyId\":\"woman_at_well_001\",\"source\":\"sync\"}",
+    "createdAt": "2026-05-04T14:33:21.114Z"
+  },
+  {
+    "id": "cmorauoyl0015m21l1bu9y75d",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_triumphal_entry_001",
+    "type": "study_complete",
+    "dateId": "2026-05-04",
+    "amount": 0,
+    "metadata": "{\"studyId\":\"triumphal_entry_001\",\"source\":\"sync\"}",
+    "createdAt": "2026-05-04T14:33:21.117Z"
+  },
+  {
+    "id": "cmorauoyn0017m21l1d164gz3",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_breath_new_adam_001",
+    "type": "study_complete",
+    "dateId": "2026-05-04",
+    "amount": 0,
+    "metadata": "{\"studyId\":\"breath_new_adam_001\",\"source\":\"sync\"}",
+    "createdAt": "2026-05-04T14:33:21.119Z"
+  },
+  {
+    "id": "cmorax2wr0019m21l77l20hjc",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "devotional_2026-05-04",
+    "type": "devotional_complete",
+    "dateId": "2026-05-04",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-05-04T14:35:12.508Z"
   }
 ]
