@@ -74,6 +74,7 @@ import { POINTS } from '@/lib/types';
 import { PRAYER_CATEGORIES } from '@/lib/constants';
 import { markDevotionalCompletedToday } from '@/lib/notifications';
 import { SentenceHighlighter } from '@/components/SentenceHighlighter';
+import BibleDisclaimerFooter from '@/components/BibleDisclaimerFooter';
 import { HighlightColorPicker } from '@/components/HighlightColorPicker';
 import {
   type DevotionalHighlightStore,
@@ -1283,6 +1284,8 @@ export default function HoyNuevoScreen() {
               ))}
             </View>
           )}
+
+          <BibleDisclaimerFooter topics={devocional.tags} language={language} />
 
           {isCompleted && <PastoralClosure colors={colors} language={language} />}
 

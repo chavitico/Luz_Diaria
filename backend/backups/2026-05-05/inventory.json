@@ -1655,8 +1655,8 @@
     "id": "cmmo0bwf3000nm22nd7h4n3w3",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "itemId": "sobre_biblico",
-    "acquiredAt": "2026-03-12T23:11:25.104Z",
-    "source": "store"
+    "acquiredAt": "2026-05-04T00:21:43.944Z",
+    "source": "gift"
   },
   {
     "id": "cmmo1ifsx000nm2cl6yyam9yj",
@@ -1865,8 +1865,8 @@
     "id": "cmogmwdop0011m2b1pk1qh47j",
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "itemId": "pack_heroes",
-    "acquiredAt": "2026-04-28T18:34:50.370Z",
-    "source": "store"
+    "acquiredAt": "2026-05-03T00:51:56.204Z",
+    "source": "gift"
   },
   {
     "id": "cmohis26g001cm29mydi923z4",
@@ -1894,6 +1894,20 @@
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "itemId": "title_lord_my_light",
     "acquiredAt": "2026-04-28T21:38:45.127Z",
+    "source": "store"
+  },
+  {
+    "id": "cmojb9l2g0011m2ll78tzmufq",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_desierto_suave",
+    "acquiredAt": "2026-04-29T00:22:46.504Z",
+    "source": "store"
+  },
+  {
+    "id": "cmoju4l5w001jm2julczn70cj",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "itemId": "theme_trono_azul",
+    "acquiredAt": "2026-04-29T09:10:46.053Z",
     "source": "store"
   }
 ]

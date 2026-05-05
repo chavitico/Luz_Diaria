@@ -2648,5 +2648,215 @@
     "amount": -500,
     "metadata": "{\"itemId\":\"avatar_v2_cruz_radiante\",\"receiverUserId\":\"cmmm76y270019m2o96a4bj4lb\"}",
     "createdAt": "2026-04-27T22:21:08.184Z"
+  },
+  {
+    "id": "cmojd136k001dm2dx6mmx9uza",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_2026-04-29",
+    "type": "study_complete",
+    "dateId": "2026-04-29",
+    "amount": 0,
+    "metadata": "{}",
+    "createdAt": "2026-04-29T01:12:09.309Z"
+  },
+  {
+    "id": "cmojncimp0013m2bmennpsats",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmojnbpfv0011m2bmtaxrlr1q",
+    "type": "duel_loss",
+    "dateId": "2026-04-29",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmojnbpfv0011m2bmtaxrlr1q\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-04-29T06:00:58.705Z"
+  },
+  {
+    "id": "cmoju24e0001fm2juhono3866",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_request_2026-04-29",
+    "type": "prayer_request",
+    "dateId": "2026-04-29",
+    "amount": 10,
+    "metadata": "{\"categoryKey\":\"peace\"}",
+    "createdAt": "2026-04-29T09:08:51.000Z"
+  },
+  {
+    "id": "cmoju27fl001hm2juthgomcep",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayed_community_2026-04-29",
+    "type": "prayed_community",
+    "dateId": "2026-04-29",
+    "amount": 5,
+    "metadata": "{}",
+    "createdAt": "2026-04-29T09:08:54.945Z"
+  },
+  {
+    "id": "cmojufs6v0011m23mgi8d9csk",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-04-29",
+    "type": "prayer",
+    "dateId": "2026-04-29",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-04-29T09:19:28.376Z"
+  },
+  {
+    "id": "cmokjfe8o0011m2xophuq0fqz",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "devotional_2026-04-29",
+    "type": "devotional_complete",
+    "dateId": "2026-04-29",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-04-29T20:59:00.697Z"
+  },
+  {
+    "id": "cmoklcvgn001dm2m786pa0gw9",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "share_2026-04-29_1",
+    "type": "share",
+    "dateId": "2026-04-29",
+    "amount": 10,
+    "metadata": "{}",
+    "createdAt": "2026-04-29T21:53:02.279Z"
+  },
+  {
+    "id": "cmol3bzks0011m2gmvtat3xa1",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "devotional_2026-04-30",
+    "type": "devotional_complete",
+    "dateId": "2026-04-30",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-04-30T06:16:14.045Z"
+  },
+  {
+    "id": "cmol3c5z9001gm2gm8pn5olrx",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-04-30",
+    "type": "prayer",
+    "dateId": "2026-04-30",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-04-30T06:16:22.342Z"
+  },
+  {
+    "id": "cmomvu8yt0012m27lylvy0dv7",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "devotional_2026-05-01",
+    "type": "devotional_complete",
+    "dateId": "2026-05-01",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-05-01T12:22:01.445Z"
+  },
+  {
+    "id": "cmomzov7t0011m2dw2nfeyrma",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "prayer_2026-05-01",
+    "type": "prayer",
+    "dateId": "2026-05-01",
+    "amount": 8,
+    "metadata": "{}",
+    "createdAt": "2026-05-01T14:09:48.810Z"
+  },
+  {
+    "id": "cmon0s9j7001fm2c0snrwkz0j",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "tts_2026-05-01",
+    "type": "tts_complete",
+    "dateId": "2026-05-01",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-05-01T14:40:26.947Z"
+  },
+  {
+    "id": "cmooxeq970011m2rc5lr7031g",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_2026-05-02",
+    "type": "study_complete",
+    "dateId": "2026-05-02",
+    "amount": 0,
+    "metadata": "{}",
+    "createdAt": "2026-05-02T22:41:28.940Z"
+  },
+  {
+    "id": "cmopr5a7j0011m27rqmw7d9cj",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "devotional_2026-05-03",
+    "type": "devotional_complete",
+    "dateId": "2026-05-03",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-05-03T12:33:56.719Z"
+  },
+  {
+    "id": "cmoqfdqgk0011m2nkhrttf6fh",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_good_shepherd_001",
+    "type": "study_complete",
+    "dateId": "2026-05-03",
+    "amount": 300,
+    "metadata": "{\"studyId\":\"good_shepherd_001\"}",
+    "createdAt": "2026-05-03T23:52:21.813Z"
+  },
+  {
+    "id": "cmoqfjxui0017m2nki8o7w2c8",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmoqfjfuj0015m2nkozv2r1jq",
+    "type": "duel_loss",
+    "dateId": "2026-05-03",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmoqfjfuj0015m2nkozv2r1jq\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-03T23:57:11.322Z"
+  },
+  {
+    "id": "cmoqgfi4q0013m2qffs81dc5k",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "pack_open_sobre_biblico_1777854103945",
+    "type": "pack_open",
+    "dateId": "2026-05-04",
+    "amount": 0,
+    "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"free\"}",
+    "createdAt": "2026-05-04T00:21:43.946Z"
+  },
+  {
+    "id": "cmorauoyi0013m21l5hlp8750",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_woman_at_well_001",
+    "type": "study_complete",
+    "dateId": "2026-05-04",
+    "amount": 0,
+    "metadata": "{\"studyId\":\"woman_at_well_001\",\"source\":\"sync\"}",
+    "createdAt": "2026-05-04T14:33:21.114Z"
+  },
+  {
+    "id": "cmorauoyl0015m21l1bu9y75d",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_triumphal_entry_001",
+    "type": "study_complete",
+    "dateId": "2026-05-04",
+    "amount": 0,
+    "metadata": "{\"studyId\":\"triumphal_entry_001\",\"source\":\"sync\"}",
+    "createdAt": "2026-05-04T14:33:21.117Z"
+  },
+  {
+    "id": "cmorauoyn0017m21l1d164gz3",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_breath_new_adam_001",
+    "type": "study_complete",
+    "dateId": "2026-05-04",
+    "amount": 0,
+    "metadata": "{\"studyId\":\"breath_new_adam_001\",\"source\":\"sync\"}",
+    "createdAt": "2026-05-04T14:33:21.119Z"
+  },
+  {
+    "id": "cmorax2wr0019m21l77l20hjc",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "devotional_2026-05-04",
+    "type": "devotional_complete",
+    "dateId": "2026-05-04",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-05-04T14:35:12.508Z"
   }
 ]

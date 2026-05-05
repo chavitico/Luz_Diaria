@@ -72,6 +72,7 @@ import {
 } from '@/lib/tts-voices';
 import { pickBestVoice, type PickedVoice } from '@/lib/voice-picker';
 import { CommentsSection } from '@/components/CommentsSection';
+import BibleDisclaimerFooter from '@/components/BibleDisclaimerFooter';
 
 // Bible book translations from English to Spanish
 const BIBLE_BOOK_TRANSLATIONS: Record<string, string> = {
@@ -1240,6 +1241,11 @@ export default function DevotionalDetailScreen() {
               isHighlighted={currentSectionIndex === 5}
               sectionIndex={5}
               onPress={() => handleTTSJumpToSection(5)}
+            />
+
+            <BibleDisclaimerFooter
+              topics={language === 'es' ? (devotional.topicEs || devotional.topic) : devotional.topic}
+              language={language}
             />
 
             {/* Comments — persistent discussion thread */}

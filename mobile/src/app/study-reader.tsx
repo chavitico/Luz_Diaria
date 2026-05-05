@@ -24,6 +24,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { ArrowLeft, ChevronRight, ChevronLeft, Volume2, Square, CheckCircle2 } from 'lucide-react-native';
+import BibleDisclaimerFooter from '@/components/BibleDisclaimerFooter';
 import { useThemeColors, useUser, useLanguage } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
@@ -696,6 +697,11 @@ export default function StudyReaderScreen() {
               <KeyVersePage study={study} colors={colors} sFont={sFont} lang={language} />
             ) : (
               <CardPage card={study.cards[page - 1]} colors={colors} sFont={sFont} lang={language} />
+            )}
+            {isLastPage && (
+              <View style={{ paddingHorizontal: 24, paddingBottom: 16 }}>
+                <BibleDisclaimerFooter topics={study.title} version={study.version} language={language} />
+              </View>
             )}
             <View style={{ height: 100 }} />
           </ScrollView>
