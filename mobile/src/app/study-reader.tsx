@@ -47,10 +47,7 @@ function formatContent(text: string): string {
 
 function KeyVersePage({ study, colors, sFont, lang }: { study: Study; colors: ReturnType<typeof useThemeColors>; sFont: (n: number) => number; lang: 'en' | 'es' }) {
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ padding: 24, paddingTop: 16, paddingBottom: 40 }}
-    >
+    <View style={{ padding: 24, paddingTop: 16, paddingBottom: 40 }}>
       {/* Verse card */}
       <View style={{
         backgroundColor: colors.surface,
@@ -150,7 +147,7 @@ function KeyVersePage({ study, colors, sFont, lang }: { study: Study; colors: Re
           ))}
         </View>
       )}
-    </ScrollView>
+    </View>
   );
 }
 
@@ -160,10 +157,7 @@ function CardPage({ card, colors, sFont, lang }: { card: StudyCard; colors: Retu
   const isDiscovery = card.type === 'discovery_activation';
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ padding: 24, paddingTop: 16, paddingBottom: 40 }}
-    >
+    <View style={{ padding: 24, paddingTop: 16, paddingBottom: 40 }}>
       {/* Icon + title + subtitle */}
       <View style={{ marginBottom: 20 }}>
         <Text style={{ fontSize: sFont(36), marginBottom: 12 }}>{card.icon}</Text>
@@ -389,7 +383,7 @@ function CardPage({ card, colors, sFont, lang }: { card: StudyCard; colors: Retu
           </Text>
         </View>
       )}
-    </ScrollView>
+    </View>
   );
 }
 
