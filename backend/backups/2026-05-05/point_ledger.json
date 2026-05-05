@@ -2878,5 +2878,45 @@
     "amount": 8,
     "metadata": "{}",
     "createdAt": "2026-05-05T15:19:54.840Z"
+  },
+  {
+    "id": "cmoswm9ke0013m2lhyaj2q26p",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmoswlfxs0011m2lhcxwkfd23",
+    "type": "duel_loss",
+    "dateId": "2026-05-05",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmoswlfxs0011m2lhcxwkfd23\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-05T17:30:25.646Z"
+  },
+  {
+    "id": "cmoswmrdb0017m2lhdoja1dub",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "pack_open_sobre_biblico_1778002248719",
+    "type": "pack_open",
+    "dateId": "2026-05-05",
+    "amount": 0,
+    "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"free\"}",
+    "createdAt": "2026-05-05T17:30:48.720Z"
+  },
+  {
+    "id": "cmoswn9ys001bm2lhc4jcsijp",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "pack_open_sobre_biblico_1778002272820",
+    "type": "pack_open",
+    "dateId": "2026-05-05",
+    "amount": 0,
+    "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"free\"}",
+    "createdAt": "2026-05-05T17:31:12.820Z"
+  },
+  {
+    "id": "cmosy3snn0011m2dim85l69mh",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "study_complete_morning_star_001",
+    "type": "study_complete",
+    "dateId": "2026-05-05",
+    "amount": 300,
+    "metadata": "{\"studyId\":\"morning_star_001\"}",
+    "createdAt": "2026-05-05T18:12:03.156Z"
   }
 ]

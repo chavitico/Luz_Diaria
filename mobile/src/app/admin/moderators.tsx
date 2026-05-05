@@ -447,6 +447,11 @@ function UserDetailModal({
   const [showStreakConfirm, setShowStreakConfirm] = useState(false);
   const pendingSaveRef = useRef<(() => Promise<void>) | null>(null);
 
+  // Activity train
+  const [activityDays, setActivityDays] = useState<{ date: string; active: boolean }[]>([]);
+  const [activityFilter, setActivityFilter] = useState<7 | 30 | 90>(30);
+  const [activityLoading, setActivityLoading] = useState(false);
+
   // ── Fetch detail ────────────────────────────────────────────────────────────
   const fetchDetail = useCallback(async () => {
     if (!userId) return;
@@ -493,6 +498,17 @@ function UserDetailModal({
     } catch { /* non-critical */ } finally { setChallengesLoading(false); }
   }, [myId]);
 
+  const fetchActivity = useCallback(async (uid: string, days: 7 | 30 | 90) => {
+    setActivityLoading(true);
+    try {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/admin/users/${uid}/activity?days=${days}`, { headers: { 'X-User-Id': myId } });
+      if (res.ok) {
+        const data = await res.json() as { days: { date: string; active: boolean }[] };
+        setActivityDays(data.days ?? []);
+      }
+    } catch { /* non-critical */ } finally { setActivityLoading(false); }
+  }, [myId]);
+
   useEffect(() => {
     if (userId) {
       setEditMode(false);
@@ -501,11 +517,14 @@ function UserDetailModal({
       setChallengesExpanded(false);
       setDangerExpanded(false);
       setDeleteConfirmText('');
+      setActivityDays([]);
+      setActivityFilter(30);
       fetchDetail();
       fetchBadgeCatalog();
       fetchChallenges(userId);
+      fetchActivity(userId, 30);
     }
-  }, [userId, fetchDetail, fetchBadgeCatalog, fetchChallenges]);
+  }, [userId, fetchDetail, fetchBadgeCatalog, fetchChallenges, fetchActivity]);
 
   // ── Toggle edit mode ────────────────────────────────────────────────────────
   const handleToggleEdit = () => {
@@ -831,6 +850,85 @@ function UserDetailModal({
                     <FieldRow label="Creado" editMode={false} colors={colors} readValue={new Date(detail.createdAt).toLocaleDateString('es')} input={null} />
                     <FieldRow label="Último activo" editMode={false} colors={colors}
                       readValue={detail.lastActiveAt ? new Date(detail.lastActiveAt).toLocaleDateString('es') : '—'} input={null} isLast />
+                  </View>
+
+                  {/* ── Activity Train section ── */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                    <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1, textTransform: 'uppercase' }}>
+                      Tren de Ingreso
+                    </Text>
+                    <View style={{ flexDirection: 'row', gap: 4 }}>
+                      {([7, 30, 90] as const).map(d => (
+                        <Pressable
+                          key={d}
+                          onPress={() => {
+                            setActivityFilter(d);
+                            if (userId) fetchActivity(userId, d);
+                          }}
+                          style={{
+                            paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8,
+                            backgroundColor: activityFilter === d ? colors.primary : colors.surface,
+                            borderWidth: 1,
+                            borderColor: activityFilter === d ? colors.primary : colors.textMuted + '30',
+                          }}
+                        >
+                          <Text style={{ fontSize: 11, fontWeight: '700', color: activityFilter === d ? '#FFF' : colors.textMuted }}>
+                            {d}d
+                          </Text>
+                        </Pressable>
+                      ))}
+                    </View>
+                  </View>
+
+                  <View style={{ backgroundColor: colors.surface, borderRadius: 16, padding: 14, marginBottom: 20 }}>
+                    {activityLoading ? (
+                      <ActivityIndicator size="small" color={colors.primary} />
+                    ) : activityDays.length === 0 ? (
+                      <Text style={{ fontSize: 12, color: colors.textMuted, fontStyle: 'italic', textAlign: 'center' }}>Sin datos de sesión</Text>
+                    ) : (
+                      <>
+                        {/* Summary */}
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
+                          <Text style={{ fontSize: 12, color: colors.textMuted }}>
+                            Activo <Text style={{ fontWeight: '700', color: colors.primary }}>{activityDays.filter(d => d.active).length}</Text>/{activityDays.length} días
+                          </Text>
+                          <Text style={{ fontSize: 12, color: colors.textMuted }}>
+                            {Math.round((activityDays.filter(d => d.active).length / activityDays.length) * 100)}%
+                          </Text>
+                        </View>
+                        {/* Train grid — wrap rows of 7 */}
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 3 }}>
+                          {activityDays.map((day, i) => {
+                            const isToday = day.date === new Date().toISOString().slice(0, 10);
+                            return (
+                              <View
+                                key={i}
+                                style={{
+                                  width: 28, height: 28, borderRadius: 6,
+                                  backgroundColor: day.active ? '#16A34A20' : colors.background,
+                                  borderWidth: isToday ? 2 : 1,
+                                  borderColor: day.active ? '#16A34A60' : colors.textMuted + '25',
+                                  alignItems: 'center', justifyContent: 'center',
+                                }}
+                              >
+                                {day.active
+                                  ? <Check size={13} color="#16A34A" strokeWidth={3} />
+                                  : <X size={11} color={colors.textMuted + '60'} strokeWidth={2.5} />
+                                }
+                              </View>
+                            );
+                          })}
+                        </View>
+                        {/* Day labels */}
+                        <View style={{ flexDirection: 'row', marginTop: 6 }}>
+                          {(['L', 'M', 'X', 'J', 'V', 'S', 'D']).map((label, i) => (
+                            <View key={i} style={{ width: 31, alignItems: 'center' }}>
+                              <Text style={{ fontSize: 9, color: colors.textMuted, fontWeight: '600' }}>{label}</Text>
+                            </View>
+                          ))}
+                        </View>
+                      </>
+                    )}
                   </View>
 
                   {/* ── Badges section ── */}

@@ -918,6 +918,49 @@ adminRouter.post(
   }
 );
 
+// ─── GET /api/admin/users/:id/activity — daily login history (OWNER) ────────
+adminRouter.get(
+  "/users/:id/activity",
+  requireRole("OWNER"),
+  async (c) => {
+    try {
+      const targetId = c.req.param("id");
+      const days = Math.min(parseInt(c.req.query("days") ?? "30", 10) || 30, 365);
+
+      const since = new Date();
+      since.setDate(since.getDate() - days + 1);
+      since.setHours(0, 0, 0, 0);
+
+      const sessions = await prisma.userSession.findMany({
+        where: { userId: targetId, startedAt: { gte: since } },
+        select: { startedAt: true },
+      });
+
+      // Group by date string "YYYY-MM-DD" in UTC
+      const activeDates = new Set<string>();
+      for (const s of sessions) {
+        const d = s.startedAt;
+        const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
+        activeDates.add(key);
+      }
+
+      // Build full array of days
+      const result: { date: string; active: boolean }[] = [];
+      for (let i = 0; i < days; i++) {
+        const d = new Date(since);
+        d.setDate(since.getDate() + i);
+        const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
+        result.push({ date: key, active: activeDates.has(key) });
+      }
+
+      return c.json({ days: result, totalActive: activeDates.size });
+    } catch (err) {
+      console.error("[AdminUsers] Error fetching activity:", err);
+      return c.json({ error: "Failed to fetch activity" }, 500);
+    }
+  }
+);
+
 // ─── DELETE /api/admin/users/:id — hard delete (OWNER only, irreversible) ─────
 adminRouter.delete(
   "/users/:id",
