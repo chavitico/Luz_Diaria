@@ -61,6 +61,7 @@ interface AdminStats {
   nuevosUsuarios: number;
   totalUsers: number;
   visitas: number;
+  visitasUnicas: number;
   tiempoAppSeconds: number;
   devocionales: number;
   duelosPersona: number;
@@ -485,6 +486,7 @@ export default function AdminDashboard() {
               <MetricCard
                 icon={Activity} label="Visitas / Sesiones"
                 value={stats ? formatBigNumber(stats.visitas) : '—'}
+                subLabel={stats ? `${stats.visitasUnicas} usuarios únicos` : undefined}
                 color="#10B981" loading={statsLoading} colors={colors}
               />
             </View>

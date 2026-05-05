@@ -28,6 +28,7 @@ adminStatsRouter.get("/", async (c) => {
   const [
     nuevosUsuarios,
     visitas,
+    visitasUnicasRaw,
     tiempoResult,
     devocionales,
     duelosPersona,
@@ -42,10 +43,16 @@ adminStatsRouter.get("/", async (c) => {
   ] = await Promise.all([
     prisma.user.count({ where: df ? { createdAt: df } : {} }),
     prisma.userSession.count({ where: df ? { startedAt: df } : {} }),
+    prisma.userSession.findMany({
+      where: df ? { startedAt: df } : {},
+      select: { userId: true },
+      distinct: ['userId'],
+    }),
     prisma.userSession.aggregate({
       where: df ? { startedAt: df } : {},
       _sum: { totalSeconds: true },
     }),
+
     prisma.devotionalCompletion.count({ where: df ? { completedAt: df } : {} }),
     prisma.duelMatch.count({
       where: {
@@ -95,12 +102,15 @@ adminStatsRouter.get("/", async (c) => {
     prisma.user.count(),
   ]);
 
+  const visitasUnicas = visitasUnicasRaw.length;
+
   return c.json({
     period,
     stats: {
       nuevosUsuarios,
       totalUsers,
       visitas,
+      visitasUnicas,
       tiempoAppSeconds: tiempoResult._sum.totalSeconds ?? 0,
       devocionales,
       duelosPersona,
