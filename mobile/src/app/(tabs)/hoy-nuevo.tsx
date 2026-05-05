@@ -1285,7 +1285,7 @@ export default function HoyNuevoScreen() {
             </View>
           )}
 
-          <BibleDisclaimerFooter topics={devocional.tags} language={language} />
+          <BibleDisclaimerFooter topics={devocional.tags} version={version || 'RVR1960'} language={language} />
 
           {isCompleted && <PastoralClosure colors={colors} language={language} />}
 

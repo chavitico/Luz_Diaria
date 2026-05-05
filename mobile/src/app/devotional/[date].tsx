@@ -1245,6 +1245,7 @@ export default function DevotionalDetailScreen() {
 
             <BibleDisclaimerFooter
               topics={language === 'es' ? (devotional.topicEs || devotional.topic) : devotional.topic}
+              version={devotional.version ?? 'RVR1960'}
               language={language}
             />
 

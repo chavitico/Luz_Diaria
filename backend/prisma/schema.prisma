@@ -29,6 +29,7 @@ model Devotional {
   prayerEs            String
   topicEs             String
   imageUrl            String
+  version             String   @default("RVR1960")
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 }

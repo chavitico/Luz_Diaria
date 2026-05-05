@@ -38,6 +38,7 @@ export interface Devotional {
   prayerEs: string;
   topic: string;
   topicEs: string;
+  version?: string;
   source?: 'repo'; // present on new-format devocionals from develop4God/devocionales-json
 }
 

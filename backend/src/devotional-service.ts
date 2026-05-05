@@ -827,6 +827,7 @@ export async function generateNewFormatDevotionalForDate(date: string): Promise<
         applicationEs: '',
         prayer: enEntry.oracion,
         prayerEs: esEntry.oracion,
+        version: esEntry.version ?? 'RVR1960',
       },
     });
 
