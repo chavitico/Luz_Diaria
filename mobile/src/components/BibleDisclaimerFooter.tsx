@@ -8,8 +8,8 @@ interface Props {
   language?: 'en' | 'es';
 }
 
-const COPYRIGHT_ES = 'El texto bíblico Reina-Valera 1960® es propiedad de las Sociedades Bíblicas en América Latina; su difusión y distribución es de dominio público. Publicado con autorización de las Sociedades Bíblicas Unidas.';
-const COPYRIGHT_EN = 'The Reina-Valera 1960® Bible text is property of the Bible Societies in Latin America; its distribution is public domain. Published with permission of the United Bible Societies.';
+const COPYRIGHT_ES = 'El texto bíblico Reina-Valera 1960® es propiedad de las Sociedades Bíblicas en América Latina; su difusión y distribución es de dominio público.';
+const COPYRIGHT_EN = 'The Reina-Valera 1960® Bible text is property of the Bible Societies in Latin America; its distribution is public domain.';
 
 export default function BibleDisclaimerFooter({ topics, version = 'RVR1960', language = 'es' }: Props) {
   const colors = useThemeColors();
