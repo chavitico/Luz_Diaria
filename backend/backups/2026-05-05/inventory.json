@@ -1923,5 +1923,33 @@
     "itemId": "avatar_v2_valentia",
     "acquiredAt": "2026-05-05T19:35:17.512Z",
     "source": "store"
+  },
+  {
+    "id": "cmot1txgw0018m2lwad3prgzy",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-05-05T19:56:21.296Z",
+    "source": "achievement"
+  },
+  {
+    "id": "cmot1wbel001mm2lw1itfdo68",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "itemId": "avatar_v3_olivo_gracia",
+    "acquiredAt": "2026-05-05T19:58:12.669Z",
+    "source": "store"
+  },
+  {
+    "id": "cmot1xj80001qm2lwwcrmvlcj",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-05-05T19:59:47.675Z",
+    "source": "store"
+  },
+  {
+    "id": "cmot1yy6f002cm2lwbkmjvbz5",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "itemId": "pack_heroes",
+    "acquiredAt": "2026-05-05T20:00:38.752Z",
+    "source": "store"
   }
 ]

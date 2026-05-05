@@ -31,7 +31,7 @@ import { SPIRITUAL_TITLES, DEFAULT_AVATARS } from '@/lib/constants';
 import { countryCodeToFlag } from '@/components/CountryPicker';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
-const HUMAN_SEARCH_TIMEOUT_MS = 7000;
+const HUMAN_SEARCH_TIMEOUT_MS = 15000;
 const POLL_INTERVAL_MS = 1000;
 
 type LobbyPhase = 'searching' | 'found_human' | 'found_bot' | 'starting';

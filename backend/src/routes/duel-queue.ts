@@ -10,9 +10,16 @@ import { prisma } from "../prisma";
 
 const queueRouter = new Hono();
 
-const RATING_TOLERANCE = 150;  // ±150 rating tolerance for matching
 const QUEUE_TTL_MS     = 3 * 60 * 1000; // 3 min before queue entry expires
 const DAILY_REWARD_CAP = 10;
+
+// Rating tolerance expands over time: ±200 → ±400 → unlimited
+function getRatingTolerance(waitingSinceMs: number): number {
+  const waited = Date.now() - waitingSinceMs;
+  if (waited >= 5000) return 9999; // any opponent after 5s
+  if (waited >= 3000) return 400;
+  return 200;
+}
 
 // ─── Helper: try to match a player ────────────────────────────────────────────
 // Returns match data if matched, null if added to queue.
@@ -40,18 +47,24 @@ async function tryMatch(
       },
     });
 
-    // 2. Find best available opponent (similar rating, waiting longest)
-    const opponent = await tx.duelQueue.findFirst({
+    // 2. Find best available opponent — prefer closest rating,
+    //    but use each waiting player's own tolerance based on how long they've waited.
+    const waitingOpponents = await tx.duelQueue.findMany({
       where: {
         status: "waiting",
         userId: { not: userId },
-        duelRating: {
-          gte: duelRating - RATING_TOLERANCE,
-          lte: duelRating + RATING_TOLERANCE,
-        },
       },
       orderBy: { joinedAt: "asc" }, // oldest first (fairness)
     });
+
+    // Pick the first opponent whose tolerance (based on wait time) covers our rating,
+    // or whose rating is within our own tolerance.
+    const myTolerance = 200; // joiner always uses base tolerance
+    const opponent = waitingOpponents.find((op) => {
+      const opTolerance = getRatingTolerance(op.joinedAt.getTime());
+      const ratingDiff = Math.abs(op.duelRating - duelRating);
+      return ratingDiff <= Math.max(myTolerance, opTolerance);
+    }) ?? null;
 
     if (opponent) {
       // Use the waiting player's questions (they've been waiting longer)

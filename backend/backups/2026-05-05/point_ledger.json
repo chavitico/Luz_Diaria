@@ -2938,5 +2938,205 @@
     "amount": -340,
     "metadata": "{\"itemId\":\"frame_v2_tierra_santa\",\"itemName\":\"Tierra Santa\"}",
     "createdAt": "2026-05-05T19:01:12.189Z"
+  },
+  {
+    "id": "cmot1twvp0013m2lwlt7bh0fa",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "devotional_2026-05-05",
+    "type": "devotional_complete",
+    "dateId": "2026-05-05",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-05-05T19:56:20.534Z"
+  },
+  {
+    "id": "cmot1uhnw001am2lwxurwmmhu",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "tts_2026-05-05",
+    "type": "tts_complete",
+    "dateId": "2026-05-05",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-05-05T19:56:47.469Z"
+  },
+  {
+    "id": "cmot1v9xv001km2lwiem2i6ht",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "promo_cielo",
+    "type": "promo",
+    "dateId": "2026-05-05",
+    "amount": 10000,
+    "metadata": "{\"codeId\":\"cielo\",\"displayCode\":\"Cielo\"}",
+    "createdAt": "2026-05-05T19:57:24.115Z"
+  },
+  {
+    "id": "cmot1wbel001om2lwlec66u6b",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "store_purchase_avatar_v3_olivo_gracia_1778011092669",
+    "type": "store_purchase",
+    "dateId": "2026-05-05",
+    "amount": -1200,
+    "metadata": "{\"itemId\":\"avatar_v3_olivo_gracia\",\"itemName\":\"Olivo de Gracia\"}",
+    "createdAt": "2026-05-05T19:58:12.670Z"
+  },
+  {
+    "id": "cmot1xj81001um2lw2swodeaz",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "pack_open_sobre_biblico_1778011149457",
+    "type": "pack_open",
+    "dateId": "2026-05-05",
+    "amount": 0,
+    "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"free\"}",
+    "createdAt": "2026-05-05T19:59:09.457Z"
+  },
+  {
+    "id": "cmot1y2w8001ym2lwtu3uzc4f",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "store_purchase_sobre_biblico_1778011174951",
+    "type": "store_purchase",
+    "dateId": "2026-05-05",
+    "amount": -1000,
+    "metadata": "{\"itemId\":\"sobre_biblico\",\"itemName\":\"Sobre Bíblico\"}",
+    "createdAt": "2026-05-05T19:59:34.952Z"
+  },
+  {
+    "id": "cmot1y2w90022m2lwgrfx7w3f",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "pack_open_sobre_biblico_1778011174953",
+    "type": "pack_open",
+    "dateId": "2026-05-05",
+    "amount": 0,
+    "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"store\"}",
+    "createdAt": "2026-05-05T19:59:34.953Z"
+  },
+  {
+    "id": "cmot1ycpp0026m2lwan3398gz",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "store_purchase_sobre_biblico_1778011187677",
+    "type": "store_purchase",
+    "dateId": "2026-05-05",
+    "amount": -1000,
+    "metadata": "{\"itemId\":\"sobre_biblico\",\"itemName\":\"Sobre Bíblico\"}",
+    "createdAt": "2026-05-05T19:59:47.677Z"
+  },
+  {
+    "id": "cmot1ycpq002am2lw8mvr1sb7",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "pack_open_sobre_biblico_1778011187678",
+    "type": "pack_open",
+    "dateId": "2026-05-05",
+    "amount": 0,
+    "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"store\"}",
+    "createdAt": "2026-05-05T19:59:47.678Z"
+  },
+  {
+    "id": "cmot1yy6g002em2lwo4p3wuyy",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "store_purchase_pack_heroes_1778011215496",
+    "type": "store_purchase",
+    "dateId": "2026-05-05",
+    "amount": -1000,
+    "metadata": "{\"itemId\":\"pack_heroes\",\"itemName\":\"Sobre de Héroes de la Fe\"}",
+    "createdAt": "2026-05-05T20:00:15.496Z"
+  },
+  {
+    "id": "cmot1yy6i002km2lwfhn9vm9a",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "pack_open_pack_heroes_1778011215498",
+    "type": "pack_open",
+    "dateId": "2026-05-05",
+    "amount": 0,
+    "metadata": "{\"packType\":\"pack_heroes\",\"source\":\"store\"}",
+    "createdAt": "2026-05-05T20:00:15.498Z"
+  },
+  {
+    "id": "cmot1zg4h002om2lwavgqbbup",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "store_purchase_pack_heroes_1778011238753",
+    "type": "store_purchase",
+    "dateId": "2026-05-05",
+    "amount": -1000,
+    "metadata": "{\"itemId\":\"pack_heroes\",\"itemName\":\"Sobre de Héroes de la Fe\"}",
+    "createdAt": "2026-05-05T20:00:38.753Z"
+  },
+  {
+    "id": "cmot1zg4j002wm2lwxj9r3hq1",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "pack_open_pack_heroes_1778011238755",
+    "type": "pack_open",
+    "dateId": "2026-05-05",
+    "amount": 0,
+    "metadata": "{\"packType\":\"pack_heroes\",\"source\":\"store\"}",
+    "createdAt": "2026-05-05T20:00:38.755Z"
+  },
+  {
+    "id": "cmot251zz002ym2lwd8go259d",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "study_complete_morning_star_001",
+    "type": "study_complete",
+    "dateId": "2026-05-05",
+    "amount": 300,
+    "metadata": "{\"studyId\":\"morning_star_001\"}",
+    "createdAt": "2026-05-05T20:05:00.383Z"
+  },
+  {
+    "id": "cmot28ffa0034m2lwon21qdzn",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "duel_cmot27z830031m2lwbypzam7c",
+    "type": "duel_loss",
+    "dateId": "2026-05-05",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmot27z830031m2lwbypzam7c\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-05T20:07:37.750Z"
+  },
+  {
+    "id": "cmot28frc0036m2lweh8608dq",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmot27zi50032m2lw1mpu7rbe",
+    "type": "duel_loss",
+    "dateId": "2026-05-05",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmot27zi50032m2lw1mpu7rbe\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-05T20:07:38.184Z"
+  },
+  {
+    "id": "cmot297qk003cm2lwropcjetj",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "duel_cmot28x4q003am2lwhkzi15qf",
+    "type": "duel_loss",
+    "dateId": "2026-05-05",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmot28x4q003am2lwhkzi15qf\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-05T20:08:14.445Z"
+  },
+  {
+    "id": "cmot29emn003em2lwtb676nmp",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmot28wqz0039m2lwjenemb7c",
+    "type": "duel_loss",
+    "dateId": "2026-05-05",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmot28wqz0039m2lwjenemb7c\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-05T20:08:23.375Z"
+  },
+  {
+    "id": "cmot2bhgs003km2lwrz7s40l9",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmot2b6ux003hm2lwg3xpcjll",
+    "type": "duel_loss",
+    "dateId": "2026-05-05",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmot2b6ux003hm2lwg3xpcjll\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-05T20:10:00.365Z"
+  },
+  {
+    "id": "cmot2ddf5003mm2lwvvru6j8l",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "ledgerId": "duel_cmot2b77q003im2lwfj7vk5k1",
+    "type": "duel_loss",
+    "dateId": "2026-05-05",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmot2b77q003im2lwfj7vk5k1\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-05T20:11:28.434Z"
   }
 ]
