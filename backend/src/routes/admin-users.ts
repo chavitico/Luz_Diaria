@@ -927,29 +927,41 @@ adminRouter.get(
       const targetId = c.req.param("id");
       const days = Math.min(parseInt(c.req.query("days") ?? "30", 10) || 30, 365);
 
-      const since = new Date();
-      since.setDate(since.getDate() - days + 1);
-      since.setHours(0, 0, 0, 0);
+      // Range: from start-of-day (N-1) days ago through now
+      const now = new Date();
+      const rangeStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - days + 1));
 
+      // Fetch all sessions that OVERLAP the range:
+      // session started before end-of-range AND lastSeen after start-of-range
       const sessions = await prisma.userSession.findMany({
-        where: { userId: targetId, startedAt: { gte: since } },
-        select: { startedAt: true },
+        where: {
+          userId: targetId,
+          startedAt: { lte: now },
+          lastSeenAt: { gte: rangeStart },
+        },
+        select: { startedAt: true, lastSeenAt: true },
       });
 
-      // Group by date string "YYYY-MM-DD" in UTC
+      // For each session, mark every UTC day between startedAt and lastSeenAt as active
       const activeDates = new Set<string>();
+      const utcDay = (d: Date) =>
+        `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
+
       for (const s of sessions) {
-        const d = s.startedAt;
-        const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
-        activeDates.add(key);
+        const cursor = new Date(Date.UTC(s.startedAt.getUTCFullYear(), s.startedAt.getUTCMonth(), s.startedAt.getUTCDate()));
+        const endDay = new Date(Date.UTC(s.lastSeenAt.getUTCFullYear(), s.lastSeenAt.getUTCMonth(), s.lastSeenAt.getUTCDate()));
+        while (cursor <= endDay) {
+          activeDates.add(utcDay(cursor));
+          cursor.setUTCDate(cursor.getUTCDate() + 1);
+        }
       }
 
-      // Build full array of days
+      // Build full array of days in range
       const result: { date: string; active: boolean }[] = [];
       for (let i = 0; i < days; i++) {
-        const d = new Date(since);
-        d.setDate(since.getDate() + i);
-        const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
+        const d = new Date(rangeStart);
+        d.setUTCDate(rangeStart.getUTCDate() + i);
+        const key = utcDay(d);
         result.push({ date: key, active: activeDates.has(key) });
       }
 

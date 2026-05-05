@@ -896,37 +896,48 @@ function UserDetailModal({
                             {Math.round((activityDays.filter(d => d.active).length / activityDays.length) * 100)}%
                           </Text>
                         </View>
-                        {/* Train grid — wrap rows of 7 */}
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 3 }}>
-                          {activityDays.map((day, i) => {
-                            const isToday = day.date === new Date().toISOString().slice(0, 10);
-                            return (
-                              <View
-                                key={i}
-                                style={{
-                                  width: 28, height: 28, borderRadius: 6,
-                                  backgroundColor: day.active ? '#16A34A20' : colors.background,
-                                  borderWidth: isToday ? 2 : 1,
-                                  borderColor: day.active ? '#16A34A60' : colors.textMuted + '25',
-                                  alignItems: 'center', justifyContent: 'center',
-                                }}
-                              >
-                                {day.active
-                                  ? <Check size={13} color="#16A34A" strokeWidth={3} />
-                                  : <X size={11} color={colors.textMuted + '60'} strokeWidth={2.5} />
-                                }
-                              </View>
-                            );
-                          })}
-                        </View>
-                        {/* Day labels */}
-                        <View style={{ flexDirection: 'row', marginTop: 6 }}>
-                          {(['L', 'M', 'X', 'J', 'V', 'S', 'D']).map((label, i) => (
-                            <View key={i} style={{ width: 31, alignItems: 'center' }}>
-                              <Text style={{ fontSize: 9, color: colors.textMuted, fontWeight: '600' }}>{label}</Text>
+                        {/* Train grid */}
+                        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }}>
+                          <View>
+                            <View style={{ flexDirection: 'row', gap: 3 }}>
+                              {activityDays.map((day, i) => {
+                                const todayUtc = new Date().toISOString().slice(0, 10);
+                                const isToday = day.date === todayUtc;
+                                return (
+                                  <View
+                                    key={i}
+                                    style={{
+                                      width: 28, height: 28, borderRadius: 6,
+                                      backgroundColor: day.active ? '#16A34A20' : colors.background,
+                                      borderWidth: isToday ? 2 : 1,
+                                      borderColor: isToday ? colors.primary : day.active ? '#16A34A60' : colors.textMuted + '25',
+                                      alignItems: 'center', justifyContent: 'center',
+                                    }}
+                                  >
+                                    {day.active
+                                      ? <Check size={13} color="#16A34A" strokeWidth={3} />
+                                      : <X size={11} color={colors.textMuted + '60'} strokeWidth={2.5} />
+                                    }
+                                  </View>
+                                );
+                              })}
                             </View>
-                          ))}
-                        </View>
+                            {/* Day labels — show actual weekday for each date */}
+                            <View style={{ flexDirection: 'row', gap: 3, marginTop: 4 }}>
+                              {activityDays.map((day, i) => {
+                                const d = new Date(day.date + 'T12:00:00Z');
+                                const labels = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
+                                return (
+                                  <View key={i} style={{ width: 28, alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 8, color: colors.textMuted, fontWeight: '600' }}>
+                                      {labels[d.getUTCDay()]}
+                                    </Text>
+                                  </View>
+                                );
+                              })}
+                            </View>
+                          </View>
+                        </ScrollView>
                       </>
                     )}
                   </View>
