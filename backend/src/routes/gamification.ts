@@ -1136,16 +1136,29 @@ gamificationRouter.post(
         // Track pack opening in PointLedger for accurate dashboard counts
         if (isPack) {
           const today = new Date().toISOString().split("T")[0] as string;
+          const ts = Date.now();
           await tx.pointLedger.create({
             data: {
               userId,
-              ledgerId: `pack_open_${itemId}_${Date.now()}`,
+              ledgerId: `pack_open_${itemId}_${ts}`,
               type: 'pack_open',
               dateId: today,
               amount: 0,
               metadata: JSON.stringify({ packType: itemId, source: usedFreePack ? 'free' : 'store' }),
             },
           });
+          if (!usedFreePack && item.pricePoints > 0) {
+            await tx.pointLedger.create({
+              data: {
+                userId,
+                ledgerId: `store_purchase_${itemId}_${ts}`,
+                type: 'store_purchase',
+                dateId: today,
+                amount: -item.pricePoints,
+                metadata: JSON.stringify({ itemId, itemName: item.nameEs }),
+              },
+            });
+          }
         }
 
         return { item, newPoints, drawnCard, drawnCards, usedFreePack, freePacksRemaining };
@@ -1247,6 +1260,20 @@ gamificationRouter.post(
               userId,
               itemId: item.id,
               source: `bundle:${bundleId}`,
+            },
+          });
+        }
+
+        if (bundlePrice > 0) {
+          const today = new Date().toISOString().split("T")[0] as string;
+          await tx.pointLedger.create({
+            data: {
+              userId,
+              ledgerId: `bundle_purchase_${bundleId}_${Date.now()}`,
+              type: 'store_purchase',
+              dateId: today,
+              amount: -bundlePrice,
+              metadata: JSON.stringify({ bundleId }),
             },
           });
         }
