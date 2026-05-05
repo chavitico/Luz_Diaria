@@ -2918,5 +2918,25 @@
     "amount": 300,
     "metadata": "{\"studyId\":\"morning_star_001\"}",
     "createdAt": "2026-05-05T18:12:03.156Z"
+  },
+  {
+    "id": "ab6cc76905e176c7",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "store_purchase_avatar_v2_valentia_backfill",
+    "type": "store_purchase",
+    "dateId": "2026-05-05",
+    "amount": -1800,
+    "metadata": "{\"itemId\":\"avatar_v2_valentia\",\"itemName\":\"Valentia\"}",
+    "createdAt": "2026-05-05T19:35:17.512Z"
+  },
+  {
+    "id": "38d99e9c5fa7846a",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "store_purchase_frame_v2_tierra_santa_backfill",
+    "type": "store_purchase",
+    "dateId": "2026-05-05",
+    "amount": -340,
+    "metadata": "{\"itemId\":\"frame_v2_tierra_santa\",\"itemName\":\"Tierra Santa\"}",
+    "createdAt": "2026-05-05T19:01:12.189Z"
   }
 ]

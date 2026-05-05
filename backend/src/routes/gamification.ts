@@ -1031,6 +1031,20 @@ gamificationRouter.post(
             create: { userId, itemId, source: "store" },
             update: { acquiredAt: new Date(), source: "store" },
           });
+
+          if (item.pricePoints > 0) {
+            const today = new Date().toISOString().split("T")[0] as string;
+            await tx.pointLedger.create({
+              data: {
+                userId,
+                ledgerId: `store_purchase_${itemId}_${Date.now()}`,
+                type: 'store_purchase',
+                dateId: today,
+                amount: -item.pricePoints,
+                metadata: JSON.stringify({ itemId, itemName: item.nameEs }),
+              },
+            });
+          }
         }
 
         // === Special: sobre_biblico - draw a random biblical card ===
@@ -1147,18 +1161,6 @@ gamificationRouter.post(
               metadata: JSON.stringify({ packType: itemId, source: usedFreePack ? 'free' : 'store' }),
             },
           });
-          if (!usedFreePack && item.pricePoints > 0) {
-            await tx.pointLedger.create({
-              data: {
-                userId,
-                ledgerId: `store_purchase_${itemId}_${ts}`,
-                type: 'store_purchase',
-                dateId: today,
-                amount: -item.pricePoints,
-                metadata: JSON.stringify({ itemId, itemName: item.nameEs }),
-              },
-            });
-          }
         }
 
         return { item, newPoints, drawnCard, drawnCards, usedFreePack, freePacksRemaining };
