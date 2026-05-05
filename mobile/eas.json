@@ -15,11 +15,11 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_BACKEND_URL": "https://unsealed-thirstily.vibecode.run",
-        "EXPO_PUBLIC_VIBECODE_BACKEND_URL": "https://unsealed-thirstily.vibecode.run",
         "EXPO_PUBLIC_APP_ENV": "prod",
         "EXPO_PUBLIC_TRANSLATION_ENABLED": "true",
-        "BACKEND_URL": "https://unsealed-thirstily.vibecode.run"
+        "BACKEND_URL": "https://unsealed-thirstily.vibecode.run",
+        "EXPO_PUBLIC_BACKEND_URL": "https://unsealed-thirstily.vibecode.run",
+        "EXPO_PUBLIC_VIBECODE_BACKEND_URL": "https://unsealed-thirstily.vibecode.run"
       },
       "ios": {
         "distribution": "store"
