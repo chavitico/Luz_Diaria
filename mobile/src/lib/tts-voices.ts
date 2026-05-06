@@ -302,6 +302,9 @@ export function sanitizeForTTS(text: string): string {
   // (The modal formats them as "25 " but TTS might receive them raw)
   result = result.replace(/\[\d+\]\s?/g, '');
 
+  // Remove Strong's concordance entries: (H1234 שָׁלוֹם shalom) or (G3056 λόγος logos)
+  result = result.replace(/\([HGhg]\d+[^)]*\)/g, '');
+
   // Trim trailing spaces/tabs from each line before handling newlines
   result = result.replace(/[ \t]+$/gm, '');
   // Line breaks without sentence-ending punctuation → add period + long pause
@@ -446,12 +449,12 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
 
     // Numbered book + chapter:verse first (most specific)
     result = result.replace(
-      /\b([123])\s+([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d+):(\d+)/g,
+      /\b([123])\s+([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d{1,3}):(\d{1,3})/g,
       (_, num, book, ch, vs) => `${ordinals[num]} ${book}, capítulo ${ch}, versículo ${vs}`
     );
     // Numbered book + chapter only
     result = result.replace(
-      /\b([123])\s+([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d+)\b/g,
+      /\b([123])\s+([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d{1,3})\b/g,
       (_, num, book, ch) => `${ordinals[num]} ${book}, capítulo ${ch}`
     );
     // Numbered book alone
@@ -461,12 +464,12 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
     );
     // Unnumbered book + chapter:verse
     result = result.replace(
-      /\b([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d+):(\d+)/g,
+      /\b([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d{1,3}):(\d{1,3})/g,
       (_, book, ch, vs) => `${book}, capítulo ${ch}, versículo ${vs}`
     );
-    // Unnumbered book + chapter only
+    // Unnumbered book + chapter only (1-3 digits — excludes 4-digit years)
     result = result.replace(
-      /\b([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d+)\b/g,
+      /\b([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d{1,3})\b/g,
       (_, book, ch) => `${book}, capítulo ${ch}`
     );
   } else {
@@ -476,12 +479,12 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
 
     // Numbered book + chapter:verse first
     result = result.replace(
-      /\b([123])\s+([A-Z][a-z]+)\s+(\d+):(\d+)/g,
+      /\b([123])\s+([A-Z][a-z]+)\s+(\d{1,3}):(\d{1,3})/g,
       (_, num, book, ch, vs) => `${ordinals[num]} ${book}, chapter ${ch}, verse ${vs}`
     );
     // Numbered book + chapter only
     result = result.replace(
-      /\b([123])\s+([A-Z][a-z]+)\s+(\d+)\b/g,
+      /\b([123])\s+([A-Z][a-z]+)\s+(\d{1,3})\b/g,
       (_, num, book, ch) => `${ordinals[num]} ${book}, chapter ${ch}`
     );
     // Numbered book alone
@@ -491,12 +494,12 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
     );
     // Unnumbered book + chapter:verse
     result = result.replace(
-      /\b([A-Z][a-z]+)\s+(\d+):(\d+)/g,
+      /\b([A-Z][a-z]+)\s+(\d{1,3}):(\d{1,3})/g,
       (_, book, ch, vs) => `${book}, chapter ${ch}, verse ${vs}`
     );
-    // Unnumbered book + chapter only
+    // Unnumbered book + chapter only (1-3 digits — excludes 4-digit years)
     result = result.replace(
-      /\b([A-Z][a-z]+)\s+(\d+)\b/g,
+      /\b([A-Z][a-z]+)\s+(\d{1,3})\b/g,
       (_, book, ch) => `${book}, chapter ${ch}`
     );
   }
