@@ -305,6 +305,10 @@ export function sanitizeForTTS(text: string): string {
   // Remove Strong's concordance entries: (H1234 שָׁלוֹם shalom) or (G3056 λόγος logos)
   result = result.replace(/\([HGhg]\d+[^)]*\)/g, '');
 
+  // Expand BC/AD era notation before number processing handles the digits
+  result = result.replace(/(\d+)\s*[aA]\.[cC]\.?/g, '$1 antes de Cristo');
+  result = result.replace(/(\d+)\s*[dD]\.[cC]\.?/g, '$1 después de Cristo');
+
   // Trim trailing spaces/tabs from each line before handling newlines
   result = result.replace(/[ \t]+$/gm, '');
   // Line breaks without sentence-ending punctuation → add period + long pause
