@@ -205,11 +205,13 @@ export function getPreviewText(language: 'en' | 'es'): string {
  * The ellipsis creates a natural pause when spoken by TTS engines.
  */
 export function addTTSPausesForNumberedPoints(text: string): string {
-  // Pattern matches:
-  // - End of a sentence (. or !) followed by whitespace
-  // - Then a number followed by a period (e.g., "2.", "3.")
-  // We insert a pause (ellipsis) before the number
-  return text.replace(/([.!])\s+(\d+\.)/g, '$1 ... $2');
+  let result = text;
+  // Case 1: sentence-ending punctuation before next numbered item
+  result = result.replace(/([.!?…])\s+(\d+\.)/g, '$1 ... $2');
+  // Case 2: word ends without punctuation before next numbered item
+  // e.g. "primer punto 2. segundo" → "primer punto. ... 2. segundo"
+  result = result.replace(/([a-záéíóúüñA-ZÁÉÍÓÚÜÑ])\s+(\d+\.\s)/g, '$1. ... $2');
+  return result;
 }
 
 // Map of small numbers to Spanish words for natural TTS reading
