@@ -18,7 +18,12 @@ adminStatsRouter.get("/", async (c) => {
   const now = new Date();
   let since: Date | undefined;
 
-  if (period === "day") since = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  if (period === "day") {
+    // Midnight of today in Costa Rica time (UTC-6): CR midnight = 06:00 UTC
+    const crNow = new Date(now.getTime() - 6 * 60 * 60 * 1000);
+    const crDateStr = crNow.toISOString().split("T")[0];
+    since = new Date(crDateStr + "T06:00:00.000Z");
+  }
   else if (period === "week") since = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
   else if (period === "month") since = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
   else if (period === "year") since = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
