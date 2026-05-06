@@ -311,6 +311,11 @@ export function sanitizeForTTS(text: string): string {
   // Any remaining newlines → space
   result = result.replace(/\r?\n/g, ' ');
 
+  // Long pause after ellipsis + closing quote (…' or …") — quote stays attached, pause follows
+  result = result.replace(/…(['''"""])/g, '…$1 ...');
+  // Long pause after standalone ellipsis not already followed by pause dots
+  result = result.replace(/…(?!['''""\s]*\.)/g, '… ...');
+
   // Collapse multiple spaces
   result = result.replace(/\s{2,}/g, ' ').trim();
 
