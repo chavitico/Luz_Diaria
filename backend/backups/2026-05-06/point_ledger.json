@@ -3148,5 +3148,15 @@
     "amount": 10,
     "metadata": "{\"matchId\":\"cmot2orsf0013m2844hwc844s\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
     "createdAt": "2026-05-05T20:21:20.482Z"
+  },
+  {
+    "id": "cmoum8et70016m28assaxben0",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "devotional_2026-05-06",
+    "type": "devotional_complete",
+    "dateId": "2026-05-06",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-05-06T22:15:15.451Z"
   }
 ]

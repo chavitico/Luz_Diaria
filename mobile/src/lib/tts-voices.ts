@@ -300,10 +300,29 @@ export function sanitizeForTTS(text: string): string {
   // (The modal formats them as "25 " but TTS might receive them raw)
   result = result.replace(/\[\d+\]\s?/g, '');
 
-  // Collapse multiple spaces / newlines
+  // Trim trailing spaces/tabs from each line before handling newlines
+  result = result.replace(/[ \t]+$/gm, '');
+  // Line breaks not preceded by sentence-ending punctuation → add pause period
+  result = result.replace(/([^.!?…\r\n])\r?\n/g, '$1. ');
+  // Remaining newlines (already after punctuation) → space
+  result = result.replace(/\r?\n/g, ' ');
+
+  // Collapse multiple spaces
   result = result.replace(/\s{2,}/g, ' ').trim();
 
   return result;
+}
+
+/**
+ * Converts ALL-CAPS words to lowercase so TTS engines read them as words,
+ * not abbreviations. E.g. "NO" → "no" (avoids being read as "Noroeste").
+ * Applied after Bible reference normalization so ref patterns still match.
+ */
+export function normalizeEmphasisCapsForTTS(text: string): string {
+  return text.replace(
+    /(?<![a-záéíóúüñA-ZÁÉÍÓÚÜÑ])[A-ZÁÉÍÓÚÜÑ]{2,}(?![a-záéíóúüñA-ZÁÉÍÓÚÜÑ])/gu,
+    (match) => match.toLowerCase()
+  );
 }
 
 /**

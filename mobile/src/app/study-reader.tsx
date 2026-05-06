@@ -28,7 +28,7 @@ import BibleDisclaimerFooter from '@/components/BibleDisclaimerFooter';
 import { useThemeColors, useUser, useLanguage } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
-import { sanitizeForTTS, preprocessNumbersForTTS, normalizeBibleRefForTTS, applyBiblicalPronunciations, addTTSPausesForNumberedPoints } from '@/lib/tts-voices';
+import { sanitizeForTTS, preprocessNumbersForTTS, normalizeBibleRefForTTS, applyBiblicalPronunciations, addTTSPausesForNumberedPoints, normalizeEmphasisCapsForTTS } from '@/lib/tts-voices';
 import { useScaledFont } from '@/lib/textScale';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
 import type { Study, StudyCard } from '@/lib/studies/types';
@@ -431,9 +431,11 @@ export default function StudyReaderScreen() {
     return applyBiblicalPronunciations(
       preprocessNumbersForTTS(
         addTTSPausesForNumberedPoints(
-          normalizeBibleRefForTTS(
-            sanitizeForTTS(raw),
-            language
+          normalizeEmphasisCapsForTTS(
+            normalizeBibleRefForTTS(
+              sanitizeForTTS(raw),
+              language
+            )
           )
         )
       ),

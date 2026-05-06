@@ -57,7 +57,7 @@ import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
 import { getTodayDate, firestoreService } from '@/lib/firestore';
 import { pickBestVoice } from '@/lib/voice-picker';
-import { sanitizeForTTS, preprocessNumbersForTTS, normalizeBibleRefForTTS, addTTSPausesForNumberedPoints, applyBiblicalPronunciations } from '@/lib/tts-voices';
+import { sanitizeForTTS, preprocessNumbersForTTS, normalizeBibleRefForTTS, addTTSPausesForNumberedPoints, applyBiblicalPronunciations, normalizeEmphasisCapsForTTS } from '@/lib/tts-voices';
 import { useScaledFont } from '@/lib/textScale';
 import {
   SAMPLE_DEVOCIONAL,
@@ -873,9 +873,11 @@ export default function HoyNuevoScreen() {
     return applyBiblicalPronunciations(
       preprocessNumbersForTTS(
         addTTSPausesForNumberedPoints(
-          normalizeBibleRefForTTS(
-            sanitizeForTTS(raw),
-            language
+          normalizeEmphasisCapsForTTS(
+            normalizeBibleRefForTTS(
+              sanitizeForTTS(raw),
+              language
+            )
           )
         )
       ),
