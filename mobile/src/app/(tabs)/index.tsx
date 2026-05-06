@@ -11,6 +11,7 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   Platform,
+  AppState,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from 'expo-router';
@@ -1326,10 +1327,9 @@ export default function HomeScreen() {
   const shareStatus = isDailyActionAvailable(dailyActions.shareDate, dailyActions.shareCount, DAILY_LIMITS.SHARE_MAX, today);
 
   // Initialize completion state based on whether user already completed today's devotional
+  // Also resets to false when the date changes (e.g., app left open overnight)
   useEffect(() => {
-    if (user?.lastActiveDate === today) {
-      setIsCompleted(true);
-    }
+    setIsCompleted(user?.lastActiveDate === today);
   }, [user?.lastActiveDate, today]);
 
   // Initialize TTS completion tracking
@@ -1374,14 +1374,28 @@ export default function HomeScreen() {
     });
   }, [language]);
 
-  // Time tracking (hidden from user - internal control only)
+  // Time tracking — pauses when app goes to background to avoid phantom completions
   useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setTimeSpent((prev) => prev + 1);
-    }, 1000);
+    const startTimer = () => {
+      if (timerRef.current) return;
+      timerRef.current = setInterval(() => setTimeSpent((prev) => prev + 1), 1000);
+    };
+    const stopTimer = () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+
+    startTimer();
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') startTimer();
+      else stopTimer();
+    });
 
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      stopTimer();
+      sub.remove();
     };
   }, []);
 
