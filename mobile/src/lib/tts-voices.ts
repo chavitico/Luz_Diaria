@@ -282,6 +282,7 @@ export function sanitizeForTTS(text: string): string {
   // Remove emojis and other symbols that TTS should not read
   result = result.replace(/[\u{1F300}-\u{1FFFF}]/gu, '');
   result = result.replace(/[\u{2600}-\u{27BF}]/gu, '');
+  result = result.replace(/[\u{2B00}-\u{2BFF}]/gu, ''); // ⭐ U+2B50 and similar
   result = result.replace(/[\u{FE00}-\u{FE0F}]/gu, '');
   result = result.replace(/[\u{1F000}-\u{1F02F}]/gu, '');
   result = result.replace(/[*_~`#|<>\\]/g, '');
@@ -447,6 +448,10 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
   let result = text;
 
   if (language === 'es') {
+    // Verse shorthand: v.12 → versículo 12, vv.12 → versículos 12
+    result = result.replace(/\bvv\.(\d{1,3})\b/g, 'versículos $1');
+    result = result.replace(/\bv\.(\d{1,3})\b/g, 'versículo $1');
+
     const ordinals: Record<string, string> = {
       '1': 'Primera de', '2': 'Segunda de', '3': 'Tercera de',
     };
@@ -477,6 +482,10 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
       (_, book, ch) => `${book}, capítulo ${ch}`
     );
   } else {
+    // Verse shorthand: v.12 → verse 12, vv.12 → verses 12
+    result = result.replace(/\bvv\.(\d{1,3})\b/g, 'verses $1');
+    result = result.replace(/\bv\.(\d{1,3})\b/g, 'verse $1');
+
     const ordinals: Record<string, string> = {
       '1': 'First', '2': 'Second', '3': 'Third',
     };
