@@ -302,9 +302,11 @@ export function sanitizeForTTS(text: string): string {
 
   // Trim trailing spaces/tabs from each line before handling newlines
   result = result.replace(/[ \t]+$/gm, '');
-  // Line breaks not preceded by sentence-ending punctuation → add pause period
-  result = result.replace(/([^.!?…\r\n])\r?\n/g, '$1. ');
-  // Remaining newlines (already after punctuation) → space
+  // Line breaks without sentence-ending punctuation → add period + long pause
+  result = result.replace(/([^.!?…\r\n])\r?\n/g, '$1. ... ');
+  // Line breaks WITH punctuation → also add long pause so both feel equal
+  result = result.replace(/([.!?…])\r?\n/g, '$1 ... ');
+  // Any remaining newlines → space
   result = result.replace(/\r?\n/g, ' ');
 
   // Collapse multiple spaces
