@@ -448,5 +448,41 @@
     "userId": "cmml8uiit0000m2vluztbkjwf",
     "devotionalDate": "2026-04-29",
     "completedAt": "2026-04-29T06:06:17.103Z"
+  },
+  {
+    "id": "cmol3bzr20012m2gmyz6jpd2p",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "devotionalDate": "2026-04-30",
+    "completedAt": "2026-04-30T06:16:14.270Z"
+  },
+  {
+    "id": "cmomvu93v0013m27lhvxzvvyg",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "devotionalDate": "2026-05-01",
+    "completedAt": "2026-05-01T12:22:01.627Z"
+  },
+  {
+    "id": "cmopr5af10012m27ryypzupbi",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "devotionalDate": "2026-05-03",
+    "completedAt": "2026-05-03T12:33:56.989Z"
+  },
+  {
+    "id": "cmorax50j001am21ljid0dufg",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "devotionalDate": "2026-05-04",
+    "completedAt": "2026-05-04T14:35:15.236Z"
+  },
+  {
+    "id": "cmosqmoxt0016m27klmdb4dmk",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "devotionalDate": "2026-05-05",
+    "completedAt": "2026-05-05T14:42:47.873Z"
+  },
+  {
+    "id": "cmot1txgi0016m2lwdkjkkqtj",
+    "userId": "cmoru66oo0010m286ptrm8z0z",
+    "devotionalDate": "2026-05-05",
+    "completedAt": "2026-05-05T19:56:21.283Z"
   }
 ]
