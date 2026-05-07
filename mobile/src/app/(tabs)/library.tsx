@@ -249,40 +249,54 @@ export default function LibraryScreen() {
   );
 
   // ── Day-over-day delta tracking ──────────────────────────────────────────
-  const RESERVED_HISTORY_KEY = 'reserved_count_history';
-  interface ReservedHistory { date: string; count: number; prevCount?: number }
+  const RESERVED_HISTORY_KEY = 'reserved_count_history_v2';
+  interface ReservedHistory {
+    current: { date: string; count: number };
+    prev?: { date: string; count: number };
+  }
   const [reservedHistory, setReservedHistory] = useState<ReservedHistory | null>(null);
+  const dataLoaded = allMerged.length > 0;
 
-  // Load persisted history on mount
+  // Load persisted history on mount (with migration from old format)
   useEffect(() => {
     AsyncStorage.getItem(RESERVED_HISTORY_KEY).then(raw => {
-      if (raw) setReservedHistory(JSON.parse(raw) as ReservedHistory);
+      if (raw) { setReservedHistory(JSON.parse(raw) as ReservedHistory); return; }
+      // Migrate from old key if present
+      AsyncStorage.getItem('reserved_count_history').then(oldRaw => {
+        if (!oldRaw) return;
+        const old = JSON.parse(oldRaw) as { date: string; count: number; prevCount?: number };
+        const migrated: ReservedHistory = {
+          current: { date: old.date, count: old.count },
+          ...(old.prevCount != null ? { prev: { date: 'prev', count: old.prevCount } } : {}),
+        };
+        AsyncStorage.setItem(RESERVED_HISTORY_KEY, JSON.stringify(migrated));
+        setReservedHistory(migrated);
+      });
     });
   }, []);
 
-  // Update history whenever reservedCount or date changes
+  // Update history whenever reservedCount or date changes (only after data loads)
   useEffect(() => {
-    if (reservedCount === 0) return; // data not loaded yet
+    if (!dataLoaded) return;
     setReservedHistory(prev => {
       let next: ReservedHistory;
       if (!prev) {
-        // First time ever
-        next = { date: today, count: reservedCount };
-      } else if (prev.date !== today) {
-        // New day — shift: prev becomes prevCount, today is new baseline
-        next = { date: today, count: reservedCount, prevCount: prev.count };
+        next = { current: { date: today, count: reservedCount } };
+      } else if (prev.current.date !== today) {
+        // New day — shift current to prev
+        next = { current: { date: today, count: reservedCount }, prev: prev.current };
       } else {
-        // Same day — update count but keep prevCount
-        next = { ...prev, count: reservedCount };
+        // Same day — update count, preserve prev
+        next = { current: { date: today, count: reservedCount }, prev: prev.prev };
       }
       AsyncStorage.setItem(RESERVED_HISTORY_KEY, JSON.stringify(next));
       return next;
     });
-  }, [reservedCount, today]);
+  }, [reservedCount, today, dataLoaded]);
 
-  // Delta: how many changed vs yesterday (0 = balanced, negative = consuming more than generating)
-  const reservedDelta = reservedHistory?.prevCount != null
-    ? reservedCount - reservedHistory.prevCount
+  // Delta: how many changed vs yesterday
+  const reservedDelta = reservedHistory?.prev != null
+    ? reservedCount - reservedHistory.prev.count
     : null;
   // ─────────────────────────────────────────────────────────────────────────
 
