@@ -811,10 +811,13 @@ export const gamificationApi = {
   },
 
   async getPrayerDisplayOptIn(userId: string): Promise<{ prayerDisplayOptIn: boolean }> {
-    const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`);
-    if (res.status === 404) return { prayerDisplayOptIn: true };
-    if (!res.ok) throw new Error('Failed to get prayer display opt-in status');
-    return res.json();
+    try {
+      const res = await fetchWithTimeout(`${BACKEND_URL}/api/prayer/display-opt-in/${userId}`);
+      if (!res.ok) return { prayerDisplayOptIn: true };
+      return res.json();
+    } catch {
+      return { prayerDisplayOptIn: true };
+    }
   },
 
   // ─── Country ────────────────────────────────────────────────────────────────

@@ -3158,5 +3158,15 @@
     "amount": 50,
     "metadata": "{}",
     "createdAt": "2026-05-06T22:15:15.451Z"
+  },
+  {
+    "id": "cmoutm32i0027m28na8hyw07o",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "pack_open_pack_milagros_1778118110730",
+    "type": "pack_open",
+    "dateId": "2026-05-07",
+    "amount": 0,
+    "metadata": "{\"packType\":\"pack_milagros\",\"source\":\"free\"}",
+    "createdAt": "2026-05-07T01:41:50.730Z"
   }
 ]
