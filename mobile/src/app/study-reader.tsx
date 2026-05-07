@@ -1,15 +1,14 @@
 // study-reader.tsx — Full-screen paginated biblical study reader
-// Pages: 1 = key verse, 2..N = study cards
-// Navigation: tap "Siguiente" / "Anterior" or swipe
+// Pages: 0 = key verse, 1..N = study cards
+// TTS: block-by-block reading, tap any block to start from there
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import {
   View,
   Text,
   ScrollView,
   Pressable,
   Platform,
-  Dimensions,
 } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -28,122 +27,160 @@ import BibleDisclaimerFooter from '@/components/BibleDisclaimerFooter';
 import { useThemeColors, useUser, useLanguage } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
-import { sanitizeForTTS, preprocessNumbersForTTS, normalizeBibleRefForTTS, applyBiblicalPronunciations, addTTSPausesForNumberedPoints, normalizeEmphasisCapsForTTS } from '@/lib/tts-voices';
+import {
+  sanitizeForTTS,
+  preprocessNumbersForTTS,
+  normalizeBibleRefForTTS,
+  applyBiblicalPronunciations,
+  addTTSPausesForNumberedPoints,
+  normalizeEmphasisCapsForTTS,
+} from '@/lib/tts-voices';
 import { useScaledFont } from '@/lib/textScale';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
 import type { Study, StudyCard } from '@/lib/studies/types';
 
-const { width: SCREEN_W } = Dimensions.get('window');
+const ACCENT = '#16A34A';
 
-const ACCENT = '#16A34A'; // green accent matching the images
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+interface StudyTTSBlock {
+  id: string;
+  text: string;
+  pageIndex: number;
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function formatContent(text: string): string {
   return text.replace(/\\n/g, '\n');
 }
 
-// ─── Key Verse Page (Page 1) ──────────────────────────────────────────────────
+// ─── Block Wrapper ────────────────────────────────────────────────────────────
+// Makes any content block tappable and highlights the one currently being read.
 
-function KeyVersePage({ study, colors, sFont, lang }: { study: Study; colors: ReturnType<typeof useThemeColors>; sFont: (n: number) => number; lang: 'en' | 'es' }) {
+function TTSBlock({
+  id,
+  activeBlockId,
+  onTap,
+  children,
+  style,
+}: {
+  id: string;
+  activeBlockId: string | null;
+  onTap: (id: string) => void;
+  children: React.ReactNode;
+  style?: object;
+}) {
+  const isActive = activeBlockId === id;
+  return (
+    <Pressable
+      onPress={() => onTap(id)}
+      style={({ pressed }) => [
+        style,
+        isActive && {
+          backgroundColor: ACCENT + '0C',
+          borderRadius: 12,
+          borderWidth: 1,
+          borderColor: ACCENT + '40',
+          padding: 2,
+        },
+        pressed && { opacity: 0.72 },
+      ]}
+    >
+      {children}
+    </Pressable>
+  );
+}
+
+// ─── Key Verse Page (Page 0) ──────────────────────────────────────────────────
+
+function KeyVersePage({
+  study,
+  colors,
+  sFont,
+  lang,
+  activeBlockId,
+  onBlockTap,
+}: {
+  study: Study;
+  colors: ReturnType<typeof useThemeColors>;
+  sFont: (n: number) => number;
+  lang: 'en' | 'es';
+  activeBlockId: string | null;
+  onBlockTap: (id: string) => void;
+}) {
   return (
     <View style={{ padding: 24, paddingTop: 16, paddingBottom: 40 }}>
-      {/* Verse card */}
-      <View style={{
-        backgroundColor: colors.surface,
-        borderRadius: 20,
-        padding: 24,
-        borderWidth: 1,
-        borderColor: ACCENT + '25',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.06,
-        shadowRadius: 8,
-        elevation: 2,
-      }}>
-        {/* VERSÍCULO CLAVE chip */}
+      {/* Key verse card */}
+      <TTSBlock id="kv" activeBlockId={activeBlockId} onTap={onBlockTap}>
         <View style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 6,
-          marginBottom: 18,
+          backgroundColor: colors.surface,
+          borderRadius: 20,
+          padding: 24,
+          borderWidth: 1,
+          borderColor: ACCENT + '25',
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.06,
+          shadowRadius: 8,
+          elevation: 2,
         }}>
-          <View style={{
-            width: 6, height: 6, borderRadius: 3,
-            backgroundColor: ACCENT,
-          }} />
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 18 }}>
+            <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: ACCENT }} />
+            <Text style={{ fontSize: 10, fontWeight: '800', color: ACCENT, letterSpacing: 1.2, textTransform: 'uppercase' }}>
+              {lang === 'en' ? 'Key Verse' : 'Versículo Clave'}
+            </Text>
+          </View>
           <Text style={{
-            fontSize: 10,
-            fontWeight: '800',
-            color: ACCENT,
-            letterSpacing: 1.2,
-            textTransform: 'uppercase',
+            fontSize: sFont(22),
+            fontWeight: '600',
+            color: colors.text,
+            lineHeight: sFont(34),
+            fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+            marginBottom: 20,
           }}>
-            {lang === 'en' ? 'Key Verse' : 'Versículo Clave'}
+            "{study.key_verse.text}"
           </Text>
+          <View>
+            <Text style={{ fontSize: sFont(16), fontWeight: '800', color: ACCENT }}>
+              {study.key_verse.reference.toUpperCase()}
+            </Text>
+            <Text style={{ fontSize: sFont(12), color: colors.textMuted, marginTop: 2 }}>
+              {study.version}
+            </Text>
+          </View>
         </View>
+      </TTSBlock>
 
-        {/* Verse text */}
-        <Text style={{
-          fontSize: sFont(22),
-          fontWeight: '600',
-          color: colors.text,
-          lineHeight: sFont(34),
-          fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-          marginBottom: 20,
-        }}>
-          "{study.key_verse.text}"
-        </Text>
-
-        {/* Reference */}
-        <View>
-          <Text style={{ fontSize: sFont(16), fontWeight: '800', color: ACCENT }}>
-            {study.key_verse.reference.toUpperCase()}
-          </Text>
-          <Text style={{ fontSize: sFont(12), color: colors.textMuted, marginTop: 2 }}>
-            {study.version}
-          </Text>
-        </View>
-      </View>
-
-      {/* Scripture passage */}
+      {/* Scripture passage — each verse is its own tappable block */}
       {(study.scripture_passage?.verses?.length ?? 0) > 0 && (
         <View style={{ marginTop: 24 }}>
           <Text style={{
-            fontSize: sFont(11),
-            fontWeight: '700',
-            color: colors.textMuted,
-            textTransform: 'uppercase',
-            letterSpacing: 1,
-            marginBottom: 12,
+            fontSize: sFont(11), fontWeight: '700', color: colors.textMuted,
+            textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12,
           }}>
             {lang === 'en' ? 'Passage: ' : 'Pasaje: '}{study.scripture_passage?.reference}
           </Text>
           {study.scripture_passage?.verses?.map((v) => (
-            <View key={v.number} style={{
-              flexDirection: 'row',
-              gap: 10,
-              marginBottom: 12,
-            }}>
-              <Text style={{
-                fontSize: sFont(12),
-                fontWeight: '700',
-                color: ACCENT,
-                minWidth: 20,
-                marginTop: 2,
-              }}>
-                {v.number}
-              </Text>
-              <Text style={{
-                flex: 1,
-                fontSize: sFont(15),
-                color: colors.text,
-                lineHeight: sFont(24),
-                fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-              }}>
-                {v.text}
-              </Text>
-            </View>
+            <TTSBlock
+              key={v.number}
+              id={`v:${v.number}`}
+              activeBlockId={activeBlockId}
+              onTap={onBlockTap}
+              style={{ marginBottom: 8 }}
+            >
+              <View style={{ flexDirection: 'row', gap: 10, paddingVertical: 4, paddingHorizontal: 4 }}>
+                <Text style={{ fontSize: sFont(12), fontWeight: '700', color: ACCENT, minWidth: 20, marginTop: 2 }}>
+                  {v.number}
+                </Text>
+                <Text style={{
+                  flex: 1, fontSize: sFont(15), color: colors.text,
+                  lineHeight: sFont(24), fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+                }}>
+                  {v.text}
+                </Text>
+              </View>
+            </TTSBlock>
           ))}
         </View>
       )}
@@ -151,240 +188,277 @@ function KeyVersePage({ study, colors, sFont, lang }: { study: Study; colors: Re
   );
 }
 
-// ─── Card Page (Pages 2+) ─────────────────────────────────────────────────────
+// ─── Card Page (Pages 1+) ─────────────────────────────────────────────────────
 
-function CardPage({ card, colors, sFont, lang }: { card: StudyCard; colors: ReturnType<typeof useThemeColors>; sFont: (n: number) => number; lang: 'en' | 'es' }) {
+function CardPage({
+  card,
+  cardIdx,
+  colors,
+  sFont,
+  lang,
+  activeBlockId,
+  onBlockTap,
+}: {
+  card: StudyCard;
+  cardIdx: number;
+  colors: ReturnType<typeof useThemeColors>;
+  sFont: (n: number) => number;
+  lang: 'en' | 'es';
+  activeBlockId: string | null;
+  onBlockTap: (id: string) => void;
+}) {
   const isDiscovery = card.type === 'discovery_activation';
+  const cid = `c${cardIdx}`;
 
   return (
     <View style={{ padding: 24, paddingTop: 16, paddingBottom: 40 }}>
-      {/* Icon + title + subtitle */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={{ fontSize: sFont(36), marginBottom: 12 }}>{card.icon}</Text>
-        <Text style={{
-          fontSize: sFont(22),
-          fontWeight: '800',
-          color: colors.text,
-          lineHeight: sFont(28),
-          letterSpacing: -0.3,
-          marginBottom: 6,
-        }}>
-          {card.title}
-        </Text>
-        {card.subtitle && (
+      {/* Title + subtitle + content — single tappable block */}
+      <TTSBlock id={`${cid}:header`} activeBlockId={activeBlockId} onTap={onBlockTap} style={{ marginBottom: 20 }}>
+        <View>
+          <Text style={{ fontSize: sFont(36), marginBottom: 12 }}>{card.icon}</Text>
           <Text style={{
-            fontSize: sFont(14),
-            color: ACCENT,
-            fontWeight: '600',
-            lineHeight: sFont(20),
+            fontSize: sFont(22), fontWeight: '800', color: colors.text,
+            lineHeight: sFont(28), letterSpacing: -0.3, marginBottom: 6,
           }}>
-            {card.subtitle}
+            {card.title}
           </Text>
-        )}
-      </View>
+          {card.subtitle && (
+            <Text style={{ fontSize: sFont(14), color: ACCENT, fontWeight: '600', lineHeight: sFont(20) }}>
+              {card.subtitle}
+            </Text>
+          )}
+          {card.content && (
+            <Text style={{
+              fontSize: sFont(15), color: colors.text, lineHeight: sFont(26),
+              fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+              marginTop: 12, whiteSpace: 'pre-wrap',
+            } as any}>
+              {formatContent(card.content)}
+            </Text>
+          )}
+        </View>
+      </TTSBlock>
 
-      {/* Main content */}
-      {card.content && (
-        <Text style={{
-          fontSize: sFont(15),
-          color: colors.text,
-          lineHeight: sFont(26),
-          fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-          marginBottom: 20,
-          whiteSpace: 'pre-wrap',
-        } as any}>
-          {formatContent(card.content)}
-        </Text>
-      )}
-
-      {/* Greek words section */}
+      {/* Greek words — each word is its own tappable block */}
       {card.greek_words && card.greek_words.length > 0 && (
         <View style={{ marginBottom: 20, gap: 12 }}>
           {card.greek_words.map((gw, i) => (
-            <View key={i} style={{
-              backgroundColor: colors.surface,
-              borderRadius: 14,
-              padding: 16,
-              borderWidth: 1,
-              borderColor: '#0369A1' + '25',
-            }}>
-              <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
-                <Text style={{
-                  fontSize: sFont(16),
-                  fontWeight: '800',
-                  color: '#0369A1',
-                }}>
-                  {gw.word}
-                </Text>
-                <Text style={{
-                  fontSize: sFont(18),
-                  color: '#0369A1',
-                  fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-                }}>
-                  {gw.transliteration}
-                </Text>
-                <View style={{
-                  backgroundColor: '#0369A1' + '18',
-                  borderRadius: 6,
-                  paddingHorizontal: 7,
-                  paddingVertical: 2,
-                }}>
-                  <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#0369A1' }}>
-                    {gw.strong}
+            <TTSBlock key={i} id={`${cid}:gw:${i}`} activeBlockId={activeBlockId} onTap={onBlockTap}>
+              <View style={{
+                backgroundColor: colors.surface, borderRadius: 14, padding: 16,
+                borderWidth: 1, borderColor: '#0369A1' + '25',
+              }}>
+                <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+                  <Text style={{ fontSize: sFont(16), fontWeight: '800', color: '#0369A1' }}>{gw.word}</Text>
+                  <Text style={{ fontSize: sFont(18), color: '#0369A1', fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif' }}>
+                    {gw.transliteration}
                   </Text>
+                  <View style={{ backgroundColor: '#0369A1' + '18', borderRadius: 6, paddingHorizontal: 7, paddingVertical: 2 }}>
+                    <Text style={{ fontSize: sFont(11), fontWeight: '700', color: '#0369A1' }}>{gw.strong}</Text>
+                  </View>
                 </View>
+                <Text style={{ fontSize: sFont(14), color: colors.text, marginBottom: 6 }}>{gw.meaning}</Text>
+                <Text style={{ fontSize: sFont(13), color: colors.textMuted, fontStyle: 'italic', lineHeight: sFont(20) }}>
+                  {gw.revelation}
+                </Text>
               </View>
-              <Text style={{ fontSize: sFont(14), color: colors.text, marginBottom: 6 }}>
-                {gw.meaning}
-              </Text>
-              <Text style={{ fontSize: sFont(13), color: colors.textMuted, fontStyle: 'italic', lineHeight: sFont(20) }}>
-                {gw.revelation}
-              </Text>
-            </View>
+            </TTSBlock>
           ))}
         </View>
       )}
 
-      {/* Scripture connections */}
+      {/* Scripture connections — each reference is its own tappable block */}
       {card.scripture_connections && card.scripture_connections.length > 0 && (
         <View style={{ marginBottom: 20, gap: 8 }}>
-          <Text style={{
-            fontSize: 11,
-            fontWeight: '700',
-            color: colors.textMuted,
-            textTransform: 'uppercase',
-            letterSpacing: 1,
-            marginBottom: 4,
-          }}>
+          <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>
             {lang === 'en' ? 'References' : 'Referencias'}
           </Text>
           {card.scripture_connections.map((sc, i) => (
-            <View key={i} style={{
-              backgroundColor: ACCENT + '10',
-              borderRadius: 10,
-              paddingHorizontal: 14,
-              paddingVertical: 10,
-              borderLeftWidth: 3,
-              borderLeftColor: ACCENT,
-            }}>
-              <Text style={{ fontSize: sFont(13), fontWeight: '700', color: ACCENT, marginBottom: 2 }}>
-                {sc.reference}
-              </Text>
-              <Text style={{ fontSize: sFont(13), color: colors.text }}>{sc.text}</Text>
-            </View>
+            <TTSBlock key={i} id={`${cid}:sc:${i}`} activeBlockId={activeBlockId} onTap={onBlockTap}>
+              <View style={{
+                backgroundColor: ACCENT + '10', borderRadius: 10,
+                paddingHorizontal: 14, paddingVertical: 10,
+                borderLeftWidth: 3, borderLeftColor: ACCENT,
+              }}>
+                <Text style={{ fontSize: sFont(13), fontWeight: '700', color: ACCENT, marginBottom: 2 }}>{sc.reference}</Text>
+                <Text style={{ fontSize: sFont(13), color: colors.text }}>{sc.text}</Text>
+              </View>
+            </TTSBlock>
           ))}
         </View>
       )}
 
-      {/* Discovery questions */}
+      {/* Discovery questions — each question is its own tappable block */}
       {isDiscovery && card.discovery_questions && (
         <View style={{ gap: 14, marginBottom: 20 }}>
           {card.discovery_questions.map((q, i) => (
-            <View key={i} style={{
-              backgroundColor: colors.surface,
-              borderRadius: 14,
-              padding: 16,
-              borderWidth: 1,
-              borderColor: colors.textMuted + '20',
-            }}>
-              <Text style={{
-                fontSize: 11,
-                fontWeight: '800',
-                color: ACCENT,
-                textTransform: 'uppercase',
-                letterSpacing: 0.8,
-                marginBottom: 8,
+            <TTSBlock key={i} id={`${cid}:dq:${i}`} activeBlockId={activeBlockId} onTap={onBlockTap}>
+              <View style={{
+                backgroundColor: colors.surface, borderRadius: 14, padding: 16,
+                borderWidth: 1, borderColor: colors.textMuted + '20',
               }}>
-                {q.category}
-              </Text>
-              <Text style={{
-                fontSize: sFont(15),
-                color: colors.text,
-                lineHeight: sFont(24),
-                fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-              }}>
-                {q.question}
-              </Text>
-            </View>
+                <Text style={{ fontSize: 11, fontWeight: '800', color: ACCENT, textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 8 }}>
+                  {q.category}
+                </Text>
+                <Text style={{
+                  fontSize: sFont(15), color: colors.text, lineHeight: sFont(24),
+                  fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+                }}>
+                  {q.question}
+                </Text>
+              </View>
+            </TTSBlock>
           ))}
         </View>
       )}
 
       {/* Prayer */}
       {isDiscovery && card.prayer && (
-        <View style={{
-          backgroundColor: ACCENT + '0D',
-          borderRadius: 16,
-          padding: 20,
-          borderWidth: 1,
-          borderColor: ACCENT + '30',
-          marginBottom: 8,
-        }}>
-          <Text style={{
-            fontSize: 12,
-            fontWeight: '800',
-            color: ACCENT,
-            textTransform: 'uppercase',
-            letterSpacing: 1,
-            marginBottom: 12,
+        <TTSBlock id={`${cid}:prayer`} activeBlockId={activeBlockId} onTap={onBlockTap} style={{ marginBottom: 8 }}>
+          <View style={{
+            backgroundColor: ACCENT + '0D', borderRadius: 16, padding: 20,
+            borderWidth: 1, borderColor: ACCENT + '30',
           }}>
-            🙏 {card.prayer.title}
-          </Text>
-          <Text style={{
-            fontSize: sFont(15),
-            color: colors.text,
-            lineHeight: sFont(26),
-            fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
-          }}>
-            {formatContent(card.prayer.content)}
-          </Text>
-        </View>
+            <Text style={{ fontSize: 12, fontWeight: '800', color: ACCENT, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>
+              🙏 {card.prayer.title}
+            </Text>
+            <Text style={{
+              fontSize: sFont(15), color: colors.text, lineHeight: sFont(26),
+              fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif',
+            }}>
+              {formatContent(card.prayer.content)}
+            </Text>
+          </View>
+        </TTSBlock>
       )}
 
       {/* Revelation key */}
       {card.revelation_key && (
-        <View style={{
-          backgroundColor: ACCENT + '12',
-          borderRadius: 14,
-          padding: 16,
-          borderLeftWidth: 4,
-          borderLeftColor: ACCENT,
-          marginTop: 8,
-        }}>
-          <Text style={{
-            fontSize: sFont(14),
-            fontWeight: '700',
-            color: colors.text,
-            lineHeight: sFont(22),
-            fontStyle: 'italic',
+        <TTSBlock id={`${cid}:rk`} activeBlockId={activeBlockId} onTap={onBlockTap} style={{ marginTop: 8 }}>
+          <View style={{
+            backgroundColor: ACCENT + '12', borderRadius: 14, padding: 16,
+            borderLeftWidth: 4, borderLeftColor: ACCENT,
           }}>
-            ✨ {card.revelation_key}
-          </Text>
-        </View>
+            <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text, lineHeight: sFont(22), fontStyle: 'italic' }}>
+              ✨ {card.revelation_key}
+            </Text>
+          </View>
+        </TTSBlock>
       )}
 
       {/* Identity statement */}
       {card.identity_statement && (
-        <View style={{
-          backgroundColor: '#7C3AED' + '12',
-          borderRadius: 14,
-          padding: 16,
-          borderLeftWidth: 4,
-          borderLeftColor: '#7C3AED',
-          marginTop: 12,
-        }}>
-          <Text style={{
-            fontSize: sFont(14),
-            fontWeight: '700',
-            color: colors.text,
-            lineHeight: sFont(22),
+        <TTSBlock id={`${cid}:is`} activeBlockId={activeBlockId} onTap={onBlockTap} style={{ marginTop: 12 }}>
+          <View style={{
+            backgroundColor: '#7C3AED' + '12', borderRadius: 14, padding: 16,
+            borderLeftWidth: 4, borderLeftColor: '#7C3AED',
           }}>
-            {card.identity_statement}
-          </Text>
-        </View>
+            <Text style={{ fontSize: sFont(14), fontWeight: '700', color: colors.text, lineHeight: sFont(22) }}>
+              {card.identity_statement}
+            </Text>
+          </View>
+        </TTSBlock>
       )}
     </View>
   );
+}
+
+// ─── Block Builder ────────────────────────────────────────────────────────────
+// Converts a Study into a flat ordered array of TTS blocks across all pages.
+
+function buildAllBlocks(
+  study: Study,
+  ttsProcess: (s: string) => string,
+): StudyTTSBlock[] {
+  const blocks: StudyTTSBlock[] = [];
+
+  // Page 0: key verse card
+  blocks.push({
+    id: 'kv',
+    text: ttsProcess(`${study.key_verse.text}. ${study.key_verse.reference}.`),
+    pageIndex: 0,
+  });
+
+  // Page 0: each passage verse individually
+  study.scripture_passage?.verses?.forEach((v) => {
+    blocks.push({
+      id: `v:${v.number}`,
+      text: ttsProcess(`${v.number}. ${v.text}`),
+      pageIndex: 0,
+    });
+  });
+
+  // Pages 1+: study cards
+  study.cards.forEach((card, cardIdx) => {
+    const pageIndex = cardIdx + 1;
+    const cid = `c${cardIdx}`;
+
+    // Title + subtitle + content as one block
+    const headerParts: string[] = [card.title];
+    if (card.subtitle) headerParts.push(card.subtitle);
+    if (card.content) headerParts.push(card.content.replace(/\\n/g, ' '));
+    blocks.push({
+      id: `${cid}:header`,
+      text: ttsProcess(headerParts.join('. ')),
+      pageIndex,
+    });
+
+    // Each greek word
+    card.greek_words?.forEach((gw, i) => {
+      blocks.push({
+        id: `${cid}:gw:${i}`,
+        text: ttsProcess(`${gw.word}: ${gw.meaning}. ${gw.revelation}`),
+        pageIndex,
+      });
+    });
+
+    // Each scripture connection
+    card.scripture_connections?.forEach((sc, i) => {
+      blocks.push({
+        id: `${cid}:sc:${i}`,
+        text: ttsProcess(`${sc.reference}. ${sc.text}`),
+        pageIndex,
+      });
+    });
+
+    // Each discovery question
+    card.discovery_questions?.forEach((q, i) => {
+      blocks.push({
+        id: `${cid}:dq:${i}`,
+        text: ttsProcess(q.question),
+        pageIndex,
+      });
+    });
+
+    // Prayer
+    if (card.prayer) {
+      blocks.push({
+        id: `${cid}:prayer`,
+        text: ttsProcess(`${card.prayer.title}. ${card.prayer.content.replace(/\\n/g, ' ')}`),
+        pageIndex,
+      });
+    }
+
+    // Revelation key
+    if (card.revelation_key) {
+      blocks.push({
+        id: `${cid}:rk`,
+        text: ttsProcess(card.revelation_key),
+        pageIndex,
+      });
+    }
+
+    // Identity statement
+    if (card.identity_statement) {
+      blocks.push({
+        id: `${cid}:is`,
+        text: ttsProcess(card.identity_statement),
+        pageIndex,
+      });
+    }
+  });
+
+  return blocks;
 }
 
 // ─── Main Reader ──────────────────────────────────────────────────────────────
@@ -398,8 +472,6 @@ export default function StudyReaderScreen() {
   const user = useUser();
 
   const language = useLanguage();
-  const [isTTSPlaying, setIsTTSPlaying] = useState(false);
-  const ttsJobRef = useRef(0);
 
   const entry = STUDIES_CATALOG.find((s) => s.id === id);
   const study: Study | null = entry
@@ -407,25 +479,32 @@ export default function StudyReaderScreen() {
     : null;
 
   const [page, setPage] = useState(0); // 0 = key verse, 1..N = cards
-  const [isCompleted, setIsCompleted] = useState(false);
+  const pageRef = useRef(0);
+  useEffect(() => { pageRef.current = page; }, [page]);
 
+  const [isCompleted, setIsCompleted] = useState(false);
   const startTimeRef = useRef<number>(Date.now());
 
-  // Load completion status from storage on mount
   useEffect(() => {
     if (!study) return;
     AsyncStorage.getItem(`study_complete:${study.id}`).then((val) => {
       if (val) setIsCompleted(true);
     });
   }, [study?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const translateX = useSharedValue(0);
   const opacity = useSharedValue(1);
-
   const scrollRef = useRef<ScrollView>(null);
-
   const totalPages = study ? 1 + study.cards.length : 1;
 
-  // ─── TTS ────────────────────────────────────────────────────────────────────
+  // ─── TTS State ──────────────────────────────────────────────────────────────
+
+  const [isTTSPlaying, setIsTTSPlaying] = useState(false);
+  const [currentTTSBlockId, setCurrentTTSBlockId] = useState<string | null>(null);
+  const ttsJobRef = useRef(0);
+  const isSpeakingRef = useRef(false);
+
+  // ─── TTS Pipeline ──────────────────────────────────────────────────────────
 
   const ttsProcess = useCallback((raw: string): string => {
     return applyBiblicalPronunciations(
@@ -443,77 +522,16 @@ export default function StudyReaderScreen() {
     );
   }, [language]);
 
-  const buildPageText = useCallback((): string => {
-    if (!study) return '';
-    if (page === 0) {
-      const verses = (study.scripture_passage?.verses ?? []).map((v) => `${v.number}. ${v.text}`).join(' ');
-      return ttsProcess(`${study.key_verse.text}. ${study.key_verse.reference}. ${verses}`);
-    }
-    const card = study.cards[page - 1];
-    const parts: string[] = [card.title];
-    if (card.subtitle) parts.push(card.subtitle);
-    if (card.content) parts.push(card.content.replace(/\\n/g, ' '));
-    card.greek_words?.forEach((gw) => {
-      parts.push(`${gw.word}: ${gw.meaning}. ${gw.revelation}`);
-    });
-    card.scripture_connections?.forEach((sc) => {
-      parts.push(`${sc.reference}. ${sc.text}`);
-    });
-    if (card.revelation_key) parts.push(card.revelation_key);
-    if (card.identity_statement) parts.push(card.identity_statement);
-    card.discovery_questions?.forEach((q) => parts.push(q.question));
-    if (card.prayer) parts.push(`${card.prayer.title}. ${card.prayer.content.replace(/\\n/g, ' ')}`);
-    return ttsProcess(parts.join('. '));
-  }, [study, page, ttsProcess]);
+  // Build flat block list once per study/language
+  const allBlocks = useMemo(() => {
+    if (!study) return [];
+    return buildAllBlocks(study, ttsProcess);
+  }, [study, ttsProcess]);
 
-  const stopTTS = useCallback(() => {
-    ttsJobRef.current += 1;
-    Speech.stop();
-    setIsTTSPlaying(false);
-  }, []);
+  const allBlocksRef = useRef<StudyTTSBlock[]>(allBlocks);
+  useEffect(() => { allBlocksRef.current = allBlocks; }, [allBlocks]);
 
-  const handleTTSTap = useCallback(async () => {
-    if (isTTSPlaying) {
-      stopTTS();
-      return;
-    }
-    const text = buildPageText();
-    if (!text) return;
-    ttsJobRef.current += 1;
-    const jobId = ttsJobRef.current;
-    setIsTTSPlaying(true);
-    await Speech.stop();
-    Speech.speak(text, {
-      language: language === 'en' ? 'en-US' : 'es-MX',
-      rate: 0.88,
-      pitch: 0.95,
-      onDone: () => { if (ttsJobRef.current === jobId) setIsTTSPlaying(false); },
-      onError: () => { if (ttsJobRef.current === jobId) setIsTTSPlaying(false); },
-    });
-  }, [isTTSPlaying, buildPageText, stopTTS]);
-
-  // Stop TTS when page changes or component unmounts
-  useEffect(() => { stopTTS(); }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => () => { Speech.stop(); }, []);
-
-  // ────────────────────────────────────────────────────────────────────────────
-
-  const checkAndAwardCompletion = useCallback(async () => {
-    if (!study || !user || !entry) return;
-    const storageKey = `study_complete:${study.id}`;
-    const alreadyDone = await AsyncStorage.getItem(storageKey);
-    if (alreadyDone) return;
-
-    const elapsedSeconds = (Date.now() - startTimeRef.current) / 1000;
-    const requiredSeconds = entry.estimated_reading_minutes * 60 * 0.62;
-    if (elapsedSeconds >= requiredSeconds) {
-      await AsyncStorage.setItem(storageKey, '1');
-      await gamificationApi.awardPoints(user.id, 'study_complete', { studyId: study.id });
-      const completedTitle = language === 'en' ? (entry.title_en ?? entry.title) : entry.title;
-      await addLedgerEntry({ kind: 'mission', delta: 300, title: language === 'en' ? 'Biblical Study completed' : 'Estudio Bíblico completado', detail: completedTitle });
-      setIsCompleted(true);
-    }
-  }, [study, user, entry]);
+  // ─── Page Transitions ──────────────────────────────────────────────────────
 
   const showNextPage = useCallback((nextPage: number, offset: number) => {
     setPage(nextPage);
@@ -529,21 +547,134 @@ export default function StudyReaderScreen() {
     });
   }, [opacity, showNextPage]);
 
+  // ─── TTS Engine ────────────────────────────────────────────────────────────
+
+  const stopTTS = useCallback(() => {
+    ttsJobRef.current += 1;
+    isSpeakingRef.current = false;
+    Speech.stop();
+    setIsTTSPlaying(false);
+    setCurrentTTSBlockId(null);
+  }, []);
+
+  const speakBlockByIndex = useCallback((
+    blockIdx: number,
+    blocks: StudyTTSBlock[],
+    jobId: number,
+  ) => {
+    if (blockIdx >= blocks.length || jobId !== ttsJobRef.current || !isSpeakingRef.current) {
+      isSpeakingRef.current = false;
+      setIsTTSPlaying(false);
+      setCurrentTTSBlockId(null);
+      return;
+    }
+
+    const block = blocks[blockIdx];
+
+    // Skip empty blocks silently
+    if (!block.text.trim()) {
+      setTimeout(() => speakBlockByIndex(blockIdx + 1, blocks, jobId), 80);
+      return;
+    }
+
+    setCurrentTTSBlockId(block.id);
+
+    // Auto-advance page when TTS crosses into a new page
+    if (pageRef.current !== block.pageIndex) {
+      scrollRef.current?.scrollTo({ y: 0, animated: false });
+      const offset = block.pageIndex > pageRef.current ? -30 : 30;
+      showNextPage(block.pageIndex, offset);
+    }
+
+    Speech.speak(block.text, {
+      language: language === 'en' ? 'en-US' : 'es-MX',
+      rate: 0.88,
+      pitch: 0.95,
+      onDone: () => {
+        setTimeout(() => {
+          if (jobId === ttsJobRef.current && isSpeakingRef.current) {
+            speakBlockByIndex(blockIdx + 1, blocks, jobId);
+          }
+        }, 200);
+      },
+      onError: () => {
+        setTimeout(() => {
+          if (jobId === ttsJobRef.current && isSpeakingRef.current) {
+            speakBlockByIndex(blockIdx + 1, blocks, jobId);
+          }
+        }, 200);
+      },
+    });
+  }, [language, showNextPage]);
+
+  const startTTSFromBlock = useCallback(async (blockId: string) => {
+    const blocks = allBlocksRef.current;
+    const blockIdx = blocks.findIndex((b) => b.id === blockId);
+    if (blockIdx === -1) return;
+
+    ttsJobRef.current += 1;
+    const jobId = ttsJobRef.current;
+    isSpeakingRef.current = true;
+    setIsTTSPlaying(true);
+
+    await Speech.stop();
+    speakBlockByIndex(blockIdx, blocks, jobId);
+  }, [speakBlockByIndex]);
+
+  // Header TTS button: start from first block of current page, or stop
+  const handleHeaderTTSTap = useCallback(() => {
+    if (isTTSPlaying) {
+      stopTTS();
+      return;
+    }
+    const firstBlock = allBlocksRef.current.find((b) => b.pageIndex === pageRef.current);
+    if (firstBlock) startTTSFromBlock(firstBlock.id);
+  }, [isTTSPlaying, stopTTS, startTTSFromBlock]);
+
+  // Stop TTS on unmount
+  useEffect(() => () => { Speech.stop(); }, []);
+
+  // ─── Completion ─────────────────────────────────────────────────────────────
+
+  const checkAndAwardCompletion = useCallback(async () => {
+    if (!study || !user || !entry) return;
+    const storageKey = `study_complete:${study.id}`;
+    const alreadyDone = await AsyncStorage.getItem(storageKey);
+    if (alreadyDone) return;
+
+    const elapsedSeconds = (Date.now() - startTimeRef.current) / 1000;
+    const requiredSeconds = entry.estimated_reading_minutes * 60 * 0.62;
+    if (elapsedSeconds >= requiredSeconds) {
+      await AsyncStorage.setItem(storageKey, '1');
+      await gamificationApi.awardPoints(user.id, 'study_complete', { studyId: study.id });
+      const completedTitle = language === 'en' ? (entry.title_en ?? entry.title) : entry.title;
+      await addLedgerEntry({
+        kind: 'mission',
+        delta: 300,
+        title: language === 'en' ? 'Biblical Study completed' : 'Estudio Bíblico completado',
+        detail: completedTitle,
+      });
+      setIsCompleted(true);
+    }
+  }, [study, user, entry, language]);
+
+  // ─── Manual Navigation (stops TTS) ─────────────────────────────────────────
+
   const goNext = useCallback(() => {
     if (!study || page >= totalPages - 1) return;
+    stopTTS();
     scrollRef.current?.scrollTo({ y: 0, animated: false });
     const nextPage = page + 1;
     animateTo(nextPage, 'forward');
-    if (nextPage === totalPages - 1) {
-      checkAndAwardCompletion();
-    }
-  }, [study, page, totalPages, animateTo, checkAndAwardCompletion]);
+    if (nextPage === totalPages - 1) checkAndAwardCompletion();
+  }, [study, page, totalPages, animateTo, checkAndAwardCompletion, stopTTS]);
 
   const goPrev = useCallback(() => {
     if (page <= 0) return;
+    stopTTS();
     scrollRef.current?.scrollTo({ y: 0, animated: false });
     animateTo(page - 1, 'back');
-  }, [page, animateTo]);
+  }, [page, animateTo, stopTTS]);
 
   const pageStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -573,7 +704,6 @@ export default function StudyReaderScreen() {
         borderBottomWidth: 0.5,
         borderBottomColor: colors.textMuted + '20',
       }}>
-        {/* Back to list */}
         <Pressable
           onPress={() => router.back()}
           hitSlop={12}
@@ -591,12 +721,11 @@ export default function StudyReaderScreen() {
           </Text>
         </Pressable>
 
-        {/* Spacer */}
         <View style={{ flex: 1 }} />
 
-        {/* TTS button */}
+        {/* TTS button: plays from top of current page, or stops */}
         <Pressable
-          onPress={handleTTSTap}
+          onPress={handleHeaderTTSTap}
           hitSlop={12}
           style={({ pressed }) => ({
             opacity: pressed ? 0.6 : 1,
@@ -617,51 +746,24 @@ export default function StudyReaderScreen() {
           }
         </Pressable>
 
-        {/* Page counter */}
-        <Text style={{
-          fontSize: 14,
-          fontWeight: '700',
-          color: colors.textMuted,
-        }}>
+        <Text style={{ fontSize: 14, fontWeight: '700', color: colors.textMuted }}>
           {page + 1}/{totalPages}
         </Text>
       </View>
 
       {/* Progress bar */}
-      <View style={{
-        height: 2,
-        backgroundColor: colors.textMuted + '20',
-      }}>
-        <View style={{
-          height: 2,
-          backgroundColor: ACCENT,
-          width: `${((page + 1) / totalPages) * 100}%`,
-        }} />
+      <View style={{ height: 2, backgroundColor: colors.textMuted + '20' }}>
+        <View style={{ height: 2, backgroundColor: ACCENT, width: `${((page + 1) / totalPages) * 100}%` }} />
       </View>
 
-      {/* Study title + green left bar */}
+      {/* Study title */}
       <View style={{
-        flexDirection: 'row',
-        paddingHorizontal: 16,
-        paddingTop: 14,
-        paddingBottom: 10,
-        alignItems: 'flex-start',
-        gap: 10,
+        flexDirection: 'row', paddingHorizontal: 16, paddingTop: 14,
+        paddingBottom: 10, alignItems: 'flex-start', gap: 10,
       }}>
-        <View style={{
-          width: 4,
-          height: '100%',
-          backgroundColor: ACCENT,
-          borderRadius: 2,
-          alignSelf: 'stretch',
-        }} />
+        <View style={{ width: 4, height: '100%', backgroundColor: ACCENT, borderRadius: 2, alignSelf: 'stretch' }} />
         <View style={{ flex: 1 }}>
-          <Text style={{
-            fontSize: 15,
-            fontWeight: '800',
-            color: colors.text,
-            lineHeight: 20,
-          }}>
+          <Text style={{ fontSize: 15, fontWeight: '800', color: colors.text, lineHeight: 20 }}>
             {study.title}
           </Text>
           <Text style={{ fontSize: 12, color: colors.textMuted, marginTop: 1 }}>
@@ -670,7 +772,6 @@ export default function StudyReaderScreen() {
         </View>
       </View>
 
-      {/* Thin divider */}
       <View style={{ height: 0.5, backgroundColor: colors.textMuted + '18', marginHorizontal: 16 }} />
 
       {/* Page content with swipe gesture */}
@@ -690,9 +791,24 @@ export default function StudyReaderScreen() {
             keyboardShouldPersistTaps="handled"
           >
             {page === 0 ? (
-              <KeyVersePage study={study} colors={colors} sFont={sFont} lang={language} />
+              <KeyVersePage
+                study={study}
+                colors={colors}
+                sFont={sFont}
+                lang={language}
+                activeBlockId={currentTTSBlockId}
+                onBlockTap={startTTSFromBlock}
+              />
             ) : (
-              <CardPage card={study.cards[page - 1]} colors={colors} sFont={sFont} lang={language} />
+              <CardPage
+                card={study.cards[page - 1]}
+                cardIdx={page - 1}
+                colors={colors}
+                sFont={sFont}
+                lang={language}
+                activeBlockId={currentTTSBlockId}
+                onBlockTap={startTTSFromBlock}
+              />
             )}
             {isLastPage && (
               <View style={{ paddingHorizontal: 24, paddingBottom: 16 }}>
@@ -706,35 +822,20 @@ export default function StudyReaderScreen() {
 
       {/* Bottom nav bar */}
       <View style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        paddingBottom: insets.bottom + 12,
-        paddingTop: 12,
-        paddingHorizontal: 24,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: colors.background,
-        borderTopWidth: 0.5,
+        position: 'absolute', bottom: 0, left: 0, right: 0,
+        paddingBottom: insets.bottom + 12, paddingTop: 12, paddingHorizontal: 24,
+        flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+        backgroundColor: colors.background, borderTopWidth: 0.5,
         borderTopColor: colors.textMuted + '20',
       }}>
-        {/* Prev — hidden on first page */}
         {!isFirstPage ? (
           <Pressable
             onPress={goPrev}
             style={({ pressed }) => ({
               opacity: pressed ? 0.6 : 1,
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 4,
-              paddingVertical: 10,
-              paddingHorizontal: 14,
-              borderRadius: 22,
-              backgroundColor: colors.surface,
-              borderWidth: 1,
-              borderColor: colors.textMuted + '25',
+              flexDirection: 'row', alignItems: 'center', gap: 4,
+              paddingVertical: 10, paddingHorizontal: 14, borderRadius: 22,
+              backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.textMuted + '25',
             })}
           >
             <ChevronLeft size={16} color={colors.textMuted} strokeWidth={2.5} />
@@ -746,36 +847,23 @@ export default function StudyReaderScreen() {
           <View style={{ width: 100 }} />
         )}
 
-        {/* Dot indicators */}
         <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
           {Array.from({ length: totalPages }).map((_, i) => (
-            <View
-              key={i}
-              style={{
-                width: i === page ? 20 : 6,
-                height: 6,
-                borderRadius: 3,
-                backgroundColor: i === page ? ACCENT : colors.textMuted + '40',
-              }}
-            />
+            <View key={i} style={{
+              width: i === page ? 20 : 6, height: 6, borderRadius: 3,
+              backgroundColor: i === page ? ACCENT : colors.textMuted + '40',
+            }} />
           ))}
         </View>
 
-        {/* Next — hidden on last page; show Completado badge instead */}
         {!isLastPage ? (
           <Pressable
             onPress={goNext}
             style={({ pressed }) => ({
               opacity: pressed ? 0.6 : 1,
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 4,
-              paddingVertical: 10,
-              paddingHorizontal: 14,
-              borderRadius: 22,
-              backgroundColor: colors.surface,
-              borderWidth: 1,
-              borderColor: colors.textMuted + '25',
+              flexDirection: 'row', alignItems: 'center', gap: 4,
+              paddingVertical: 10, paddingHorizontal: 14, borderRadius: 22,
+              backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.textMuted + '25',
             })}
           >
             <Text style={{ fontSize: 14, fontWeight: '700', color: colors.textMuted }}>
@@ -785,15 +873,9 @@ export default function StudyReaderScreen() {
           </Pressable>
         ) : isCompleted ? (
           <View style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 5,
-            paddingVertical: 8,
-            paddingHorizontal: 12,
-            borderRadius: 22,
-            backgroundColor: ACCENT + '15',
-            borderWidth: 1,
-            borderColor: ACCENT + '40',
+            flexDirection: 'row', alignItems: 'center', gap: 5,
+            paddingVertical: 8, paddingHorizontal: 12, borderRadius: 22,
+            backgroundColor: ACCENT + '15', borderWidth: 1, borderColor: ACCENT + '40',
           }}>
             <CheckCircle2 size={14} color={ACCENT} strokeWidth={2.5} />
             <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>
@@ -804,7 +886,6 @@ export default function StudyReaderScreen() {
           <View style={{ width: 100 }} />
         )}
       </View>
-
     </View>
   );
 }
