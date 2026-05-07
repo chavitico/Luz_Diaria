@@ -44,7 +44,7 @@ import {
   Inbox,
   Sparkles,
 } from 'lucide-react-native';
-import { useThemeColors, useLanguage, useUser } from '@/lib/store';
+import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
 import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi, CardTrade } from '@/lib/gamification-api';
 import { BIBLICAL_CARDS, RARITY_CONFIG } from '@/lib/biblical-cards';
@@ -597,6 +597,8 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
   const user = useUser();
   const { sFont } = useScaledFont();
   const queryClient = useQueryClient();
+  const patchNotificationBadges = useAppStore((s) => s.patchNotificationBadges);
+  const pendingTradesCount = useAppStore((s) => s.notificationBadges.pendingTradesCount);
 
   const es = language === 'es';
   type TradeFilter = 'all' | 'pending' | 'sent' | 'received' | 'rejected';
@@ -670,6 +672,7 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
     onSuccess: (result, tradeId) => {
       console.log('[Trade] trade_accept_response', { tradeId, success: true, receivedNew: result.receivedNew });
       inflightTrades.current.delete(tradeId);
+      patchNotificationBadges({ pendingTradesCount: Math.max(0, pendingTradesCount - 1) });
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       setPendingTradeId(null);
       // Clear any prior error for this trade
@@ -716,6 +719,7 @@ export function TradeInboxModal({ visible, onClose }: TradeInboxModalProps) {
     mutationFn: (tradeId: string) => gamificationApi.rejectTrade(tradeId, user!.id),
     onSuccess: (_r, tradeId) => {
       inflightTrades.current.delete(tradeId);
+      patchNotificationBadges({ pendingTradesCount: Math.max(0, pendingTradesCount - 1) });
       Haptics.selectionAsync();
       setPendingTradeId(null);
       queryClient.invalidateQueries({ queryKey: ['trades', user?.id] });

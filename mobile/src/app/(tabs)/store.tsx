@@ -3096,6 +3096,7 @@ export default function StoreScreen() {
   const newGiftItemIds = useAppStore((s) => s.newGiftItemIds);
   const clearNewGiftItem = useAppStore((s) => s.clearNewGiftItem);
   const resumeTick = useAppStore((s) => s.resumeTick);
+  const patchNotificationBadges = useAppStore((s) => s.patchNotificationBadges);
   const t = TRANSLATIONS[language];
   const queryClient = useQueryClient();
 
@@ -4037,6 +4038,7 @@ export default function StoreScreen() {
         ? res.drawnCards
         : res.drawnCard ? [res.drawnCard] : [];
       if (res.success && cards.length > 0) {
+        patchNotificationBadges({ dailyPackAvailable: false });
         refetchDailyPack();
         queryClient.invalidateQueries({ queryKey: ['biblical-cards'] });
         queryClient.invalidateQueries({ queryKey: ['backendUser'] });

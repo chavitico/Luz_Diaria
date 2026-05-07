@@ -267,6 +267,7 @@ function AppContent() {
   const language = useLanguage();
   const user = useAppStore(s => s.user);
   const addNewGiftItem = useAppStore(s => s.addNewGiftItem);
+  const patchNotificationBadges = useAppStore(s => s.patchNotificationBadges);
   const heartbeatSessionId = useAppStore(s => s.heartbeatSessionId);
   const setHeartbeatSessionId = useAppStore(s => s.setHeartbeatSessionId);
   const updateUser = useAppStore(s => s.updateUser);
@@ -583,13 +584,13 @@ function AppContent() {
   const handleClaimGift = useCallback(async () => {
     if (!pendingGift || !user?.id) return;
     await gamificationApi.claimGift(user.id, pendingGift.giftDropId);
-    // Mark item as new so the store can show a badge
+    patchNotificationBadges({ hasPendingGift: false });
     if (pendingGift.rewardId) {
       addNewGiftItem(pendingGift.rewardId);
     }
     setShowGiftModal(false);
     setPendingGift(null);
-  }, [pendingGift, user?.id, addNewGiftItem]);
+  }, [pendingGift, user?.id, addNewGiftItem, patchNotificationBadges]);
 
   const handleLaterGift = useCallback(() => {
     setShowGiftModal(false);

@@ -1190,6 +1190,7 @@ export default function NovederadesScreen() {
   const es = language === 'es';
   const queryClient = useQueryClient();
   const addNewGiftItem = useAppStore((s) => s.addNewGiftItem);
+  const patchNotificationBadges = useAppStore((s) => s.patchNotificationBadges);
   const [pendingTickets, setPendingTickets] = useState<FeedbackTicket[]>([]);
   const [userDrops, setUserDrops] = useState<UserDrop[]>([]);
 
@@ -1230,6 +1231,7 @@ export default function NovederadesScreen() {
   const handleClaimDrop = useCallback(async (drop: UserDrop) => {
     if (!user?.id) return;
     await gamificationApi.claimGift(user.id, drop.giftDropId);
+    patchNotificationBadges({ hasPendingGift: false });
     if (drop.rewardId) addNewGiftItem(drop.rewardId);
     queryClient.invalidateQueries({ queryKey: ['allStoreItems'] });
     queryClient.invalidateQueries({ queryKey: ['backendUser'] });
@@ -1237,7 +1239,7 @@ export default function NovederadesScreen() {
       .then(r => r.json())
       .then((data: { gifts?: UserDrop[] }) => setUserDrops(data.gifts ?? []))
       .catch(() => {});
-  }, [user?.id, addNewGiftItem, queryClient]);
+  }, [user?.id, addNewGiftItem, patchNotificationBadges, queryClient]);
 
   return (
     <View style={{ flex: 1, backgroundColor: '#F8F9FA' }}>

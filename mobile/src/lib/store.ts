@@ -104,6 +104,14 @@ interface AppState {
     recentCommentLikesCount: number;
     pendingSupportCount: number;
   }) => void;
+  patchNotificationBadges: (patch: Partial<{
+    pendingTradesCount: number;
+    hasPendingGift: boolean;
+    unseenStoreGiftsCount: number;
+    dailyPackAvailable: boolean;
+    recentCommentLikesCount: number;
+    pendingSupportCount: number;
+  }>) => void;
 }
 
 const initialUserSettings: UserSettings = {
@@ -303,6 +311,7 @@ export const useAppStore = create<AppState>()(
       clearConfirmPurchaseRequest: () => set({ confirmPurchaseRequest: null }),
 
       setNotificationBadges: (badges) => set({ notificationBadges: badges }),
+      patchNotificationBadges: (patch) => set((state) => ({ notificationBadges: { ...state.notificationBadges, ...patch } })),
 
       reset: () => set({
         user: null,
