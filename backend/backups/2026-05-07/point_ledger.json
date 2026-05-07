@@ -3228,5 +3228,55 @@
     "amount": 6,
     "metadata": "{}",
     "createdAt": "2026-05-07T15:27:55.475Z"
+  },
+  {
+    "id": "cmovnqb430018m2uoh101g2vh",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "store_purchase_sobre_biblico_1778168696258",
+    "type": "store_purchase",
+    "dateId": "2026-05-07",
+    "amount": -1000,
+    "metadata": "{\"itemId\":\"sobre_biblico\",\"itemName\":\"Sobre Bíblico\"}",
+    "createdAt": "2026-05-07T15:44:56.259Z"
+  },
+  {
+    "id": "cmovnqb44001am2uoqg4ande1",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "pack_open_sobre_biblico_1778168696260",
+    "type": "pack_open",
+    "dateId": "2026-05-07",
+    "amount": 0,
+    "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"store\"}",
+    "createdAt": "2026-05-07T15:44:56.260Z"
+  },
+  {
+    "id": "cmovnsfef001fm2uo70cb59q3",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmovns61w001dm2uo44nco1pw",
+    "type": "duel_win",
+    "dateId": "2026-05-07",
+    "amount": 40,
+    "metadata": "{\"matchId\":\"cmovns61w001dm2uo44nco1pw\",\"outcome\":\"win\",\"capReached\":false,\"ratingChange\":25}",
+    "createdAt": "2026-05-07T15:46:35.127Z"
+  },
+  {
+    "id": "cmovnudbo001jm2uoa48fkyot",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmovntdqk001hm2uocb9ub8ke",
+    "type": "duel_loss",
+    "dateId": "2026-05-07",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmovntdqk001hm2uocb9ub8ke\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-07T15:48:05.748Z"
+  },
+  {
+    "id": "cmovny6md001nm2uof910xsdr",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "duel_cmovnvq7n001lm2uocmqy156e",
+    "type": "duel_loss",
+    "dateId": "2026-05-07",
+    "amount": 10,
+    "metadata": "{\"matchId\":\"cmovnvq7n001lm2uocmqy156e\",\"outcome\":\"loss\",\"capReached\":false,\"ratingChange\":-15}",
+    "createdAt": "2026-05-07T15:51:03.686Z"
   }
 ]
