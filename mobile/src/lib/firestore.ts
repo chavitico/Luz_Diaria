@@ -141,22 +141,36 @@ export const firestoreService = {
 
   // Get all devotionals for library from backend API
   async getAllDevotionals(): Promise<Devotional[]> {
-    try {
-      const response = await fetchWithTimeout(`${BACKEND_URL}/api/devotional/all`);
+    const TRANSIENT_STATUSES = [502, 503, 504];
+    const MAX_RETRIES = 3;
 
-      if (!response.ok) {
-        console.error('[Firestore] Failed to fetch all devotionals:', response.status);
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const response = await fetchWithTimeout(`${BACKEND_URL}/api/devotional/all`);
+
+        if (!response.ok) {
+          if (TRANSIENT_STATUSES.includes(response.status) && attempt < MAX_RETRIES) {
+            await new Promise(r => setTimeout(r, 1000 * Math.pow(2, attempt)));
+            continue;
+          }
+          console.error('[Firestore] Failed to fetch all devotionals:', response.status);
+          return [FALLBACK_DEVOTIONAL];
+        }
+
+        const devotionals = await response.json() as Devotional[];
+        return devotionals;
+      } catch (error) {
+        if (error instanceof Error && error.name === 'AbortError') return [FALLBACK_DEVOTIONAL];
+        if (attempt < MAX_RETRIES) {
+          await new Promise(r => setTimeout(r, 1000 * Math.pow(2, attempt)));
+          continue;
+        }
+        console.error('[Firestore] Error fetching all devotionals:', error);
         return [FALLBACK_DEVOTIONAL];
       }
-
-      const devotionals = await response.json() as Devotional[];
-      return devotionals;
-    } catch (error) {
-      // AbortError means the request was cancelled (component unmount / React Query cleanup) — not a real error
-      if (error instanceof Error && error.name === 'AbortError') return [FALLBACK_DEVOTIONAL];
-      console.error('[Firestore] Error fetching all devotionals:', error);
-      return [FALLBACK_DEVOTIONAL];
     }
+
+    return [FALLBACK_DEVOTIONAL];
   },
 
   // Get upcoming (future) devotionals for locked preview section in library
