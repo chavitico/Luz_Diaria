@@ -448,9 +448,9 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
   let result = text;
 
   if (language === 'es') {
-    // Verse shorthand: v.12 → versículo 12, vv.12 → versículos 12
-    result = result.replace(/\bvv\.(\d{1,3})\b/g, 'versículos $1');
-    result = result.replace(/\bv\.(\d{1,3})\b/g, 'versículo $1');
+    // Verse shorthand: v.12 / v. 12 / V.12 → versículo 12  (vv. → plural)
+    result = result.replace(/\b[Vv]{2}\.\s*(\d{1,3})\b/g, 'versículos $1');
+    result = result.replace(/\b[Vv]\.\s*(\d{1,3})\b/g, 'versículo $1');
 
     const ordinals: Record<string, string> = {
       '1': 'Primera de', '2': 'Segunda de', '3': 'Tercera de',
@@ -482,9 +482,9 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
       (_, book, ch) => `${book}, capítulo ${ch}`
     );
   } else {
-    // Verse shorthand: v.12 → verse 12, vv.12 → verses 12
-    result = result.replace(/\bvv\.(\d{1,3})\b/g, 'verses $1');
-    result = result.replace(/\bv\.(\d{1,3})\b/g, 'verse $1');
+    // Verse shorthand: v.12 / v. 12 / V.12 → verse 12  (vv. → plural)
+    result = result.replace(/\b[Vv]{2}\.\s*(\d{1,3})\b/g, 'verses $1');
+    result = result.replace(/\b[Vv]\.\s*(\d{1,3})\b/g, 'verse $1');
 
     const ordinals: Record<string, string> = {
       '1': 'First', '2': 'Second', '3': 'Third',
