@@ -456,6 +456,18 @@ export function applyBiblicalPronunciations(text: string, language: 'en' | 'es' 
  *   "2 Corinthians 3:5" → "Second Corinthians, chapter 3, verse 5"
  *   "John 3:16"         → "John, chapter 3, verse 16"
  */
+// Words that look like capitalized book names but are structural labels, not Bible books.
+// These must not be converted to "Libro, capítulo N" / "Book, chapter N".
+const NON_BOOK_WORDS_ES = new Set([
+  'Parte', 'Sección', 'Seccion', 'Lección', 'Leccion', 'Capítulo', 'Capitulo',
+  'Tema', 'Día', 'Dia', 'Semana', 'Unidad', 'Módulo', 'Modulo', 'Paso',
+  'Fase', 'Etapa', 'Serie', 'Clase', 'Punto', 'Estudio', 'Sesión', 'Sesion',
+]);
+const NON_BOOK_WORDS_EN = new Set([
+  'Part', 'Section', 'Lesson', 'Chapter', 'Day', 'Week', 'Unit', 'Module',
+  'Step', 'Phase', 'Stage', 'Series', 'Class', 'Point', 'Study', 'Session',
+]);
+
 export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): string {
   let result = text;
 
@@ -486,12 +498,12 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
     // Unnumbered book + chapter:verse
     result = result.replace(
       /\b([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d{1,3}):(\d{1,3})/g,
-      (_, book, ch, vs) => `${book}, capítulo ${ch}, versículo ${vs}`
+      (match, book, ch, vs) => NON_BOOK_WORDS_ES.has(book) ? match : `${book}, capítulo ${ch}, versículo ${vs}`
     );
     // Unnumbered book + chapter only (1-3 digits — excludes 4-digit years)
     result = result.replace(
       /\b([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d{1,3})\b/g,
-      (_, book, ch) => `${book}, capítulo ${ch}`
+      (match, book, ch) => NON_BOOK_WORDS_ES.has(book) ? match : `${book}, capítulo ${ch}`
     );
 
     // Inline verse numbers embedded in multi-verse passages
@@ -526,12 +538,12 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
     // Unnumbered book + chapter:verse
     result = result.replace(
       /\b([A-Z][a-z]+)\s+(\d{1,3}):(\d{1,3})/g,
-      (_, book, ch, vs) => `${book}, chapter ${ch}, verse ${vs}`
+      (match, book, ch, vs) => NON_BOOK_WORDS_EN.has(book) ? match : `${book}, chapter ${ch}, verse ${vs}`
     );
     // Unnumbered book + chapter only (1-3 digits — excludes 4-digit years)
     result = result.replace(
       /\b([A-Z][a-z]+)\s+(\d{1,3})\b/g,
-      (_, book, ch) => `${book}, chapter ${ch}`
+      (match, book, ch) => NON_BOOK_WORDS_EN.has(book) ? match : `${book}, chapter ${ch}`
     );
 
     // Inline verse numbers embedded in multi-verse passages
