@@ -299,9 +299,8 @@ export function sanitizeForTTS(text: string): string {
   result = result.replace(/Reina[- ]Valera/gi, '');
   result = result.replace(/Nueva Versión Internacional/gi, '');
 
-  // Remove dangling square-bracket verse numbers that TTS might read oddly: [25] → ""
-  // (The modal formats them as "25 " but TTS might receive them raw)
-  result = result.replace(/\[\d+\]\s?/g, '');
+  // Remove bracket annotations: [25], [138†], [138†source] — verse numbers, footnotes, citations
+  result = result.replace(/\[\d+[^\]]*\]\s?/g, '');
 
   // Remove Strong's concordance entries: (H1234 שָׁלוֹם shalom) or (G3056 λόγος logos)
   result = result.replace(/\([HGhg]\d+[^)]*\)/g, '');
