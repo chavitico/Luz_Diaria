@@ -493,6 +493,12 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
       /\b([A-ZÁÉÍÓÚÜ][a-záéíóúüñ]+)\s+(\d{1,3})\b/g,
       (_, book, ch) => `${book}, capítulo ${ch}`
     );
+
+    // Inline verse numbers embedded in multi-verse passages
+    // e.g. "33 Mas buscad..." → "versículo 33 Mas buscad..."
+    // e.g. "añadidas. 34 Así que..." → "añadidas. versículo 34 Así que..."
+    result = result.replace(/(["«\u201C\u2018])(\d{1,3})(?=\s+[A-ZÁÉÍÓÚÜ])/g, '$1versículo $2');
+    result = result.replace(/([.!?]\s+)(\d{1,3})(?=\s+[A-ZÁÉÍÓÚÜ])/g, '$1versículo $2');
   } else {
     // Verse shorthand: v.12 / v. 12 / V.12 → verse 12  (vv. → plural)
     result = result.replace(/\b[Vv]{2}\.\s*(\d{1,3})\b/g, 'verses $1');
@@ -527,6 +533,10 @@ export function normalizeBibleRefForTTS(text: string, language: 'en' | 'es'): st
       /\b([A-Z][a-z]+)\s+(\d{1,3})\b/g,
       (_, book, ch) => `${book}, chapter ${ch}`
     );
+
+    // Inline verse numbers embedded in multi-verse passages
+    result = result.replace(/(["«\u201C\u2018])(\d{1,3})(?=\s+[A-Z])/g, '$1verse $2');
+    result = result.replace(/([.!?]\s+)(\d{1,3})(?=\s+[A-Z])/g, '$1verse $2');
   }
 
   return result;
