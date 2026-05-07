@@ -103,14 +103,16 @@ const PERIODS: { key: Period; label: string }[] = [
 // ── Tab display config ─────────────────────────────────────────────────────────
 
 const TAB_CONFIG: Record<string, { label: string; emoji: string; color: string }> = {
-  devotional: { label: 'Devocional Hoy', emoji: '📖', color: '#F59E0B' },
-  bible:      { label: 'Biblia',         emoji: '✝️',  color: '#3B82F6' },
-  studies:    { label: 'Estudios',       emoji: '🎓', color: '#10B981' },
-  library:    { label: 'Biblioteca',     emoji: '📚', color: '#8B5CF6' },
-  community:  { label: 'Comunidad',      emoji: '🤝', color: '#EC4899' },
-  prayer:     { label: 'Oración',        emoji: '🙏', color: '#6366F1' },
-  store:      { label: 'Tienda',         emoji: '🛒', color: '#F97316' },
-  settings:   { label: 'Ajustes',        emoji: '⚙️',  color: '#6B7280' },
+  devotional:   { label: 'Devocional Hoy',    emoji: '📖', color: '#F59E0B' },
+  bible:        { label: 'Biblia',             emoji: '✝️',  color: '#3B82F6' },
+  studies:      { label: 'Estudios',           emoji: '🎓', color: '#10B981' },
+  library:      { label: 'Biblioteca',         emoji: '📚', color: '#8B5CF6' },
+  community:    { label: 'Comunidad',          emoji: '🤝', color: '#EC4899' },
+  prayer:       { label: 'Oración',            emoji: '🙏', color: '#6366F1' },
+  store:        { label: 'Tienda (otros)',      emoji: '🛒', color: '#F97316' },
+  store_album:  { label: 'Tienda · Álbum Cromos', emoji: '🃏', color: '#FB923C' },
+  store_trivia: { label: 'Tienda · Trivia Bíblica', emoji: '⚡', color: '#FBBF24' },
+  settings:     { label: 'Ajustes',            emoji: '⚙️',  color: '#6B7280' },
 };
 
 // ── Module definitions ─────────────────────────────────────────────────────────

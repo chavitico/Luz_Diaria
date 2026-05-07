@@ -55,6 +55,7 @@ import {
 } from '@/lib/store';
 import { gamificationApi } from '@/lib/gamification-api';
 import { addLedgerEntry } from '@/lib/points-ledger';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { getTodayDate, firestoreService } from '@/lib/firestore';
 import { pickBestVoice } from '@/lib/voice-picker';
 import { sanitizeForTTS, preprocessNumbersForTTS, normalizeBibleRefForTTS, addTTSPausesForNumberedPoints, applyBiblicalPronunciations, normalizeEmphasisCapsForTTS } from '@/lib/tts-voices';
@@ -535,6 +536,7 @@ export default function HoyNuevoScreen() {
   const colors = useThemeColors();
   const language = useLanguage();
   const user = useUser();
+  useTabTimeTracking('devotional', user?.id);
   const favorites = useUserFavorites();
   const { sFont } = useScaledFont();
   const insets = useSafeAreaInsets();

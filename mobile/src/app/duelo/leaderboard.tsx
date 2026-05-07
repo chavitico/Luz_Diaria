@@ -18,6 +18,7 @@ import { ChevronLeft, Trophy, Crown, Flame, Star } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useQuery } from '@tanstack/react-query';
 import { useUser, useLanguage } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import { SPIRITUAL_TITLES, DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 import { countryCodeToFlag } from '@/components/CountryPicker';
@@ -429,6 +430,7 @@ export default function DueloLeaderboard() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const user = useUser();
+  useTabTimeTracking('store_trivia', user?.id);
   const lang = useLanguage() as 'es' | 'en';
   const t = T[lang];
   const [tab, setTab] = useState<'global' | 'local'>('global');

@@ -29,6 +29,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { useLanguage, useUser, useAppStore } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { useScaledFont } from '@/lib/textScale';
 import { gamificationApi } from '@/lib/gamification-api';
 import { BIBLICAL_CARDS, ALL_CARD_IDS, type BiblicalCard, RARITY_CONFIG, type CardRarity, getEventSetCards, SECRET_REWARD_IDS } from '@/lib/biblical-cards';
@@ -862,6 +863,7 @@ export default function BiblicalCardsAlbumScreen() {
   const router = useRouter();
   const user = useUser();
   const userId = user?.id ?? '';
+  useTabTimeTracking('store_album', user?.id);
 
   // Which collection is open (null = hub)
   const [activeCollection, setActiveCollection] = useState<ActiveCollection>(null);
