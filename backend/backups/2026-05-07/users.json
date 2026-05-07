@@ -8,12 +8,12 @@
     "titleId": "title_lord_my_light",
     "themeId": "theme_trono_azul",
     "selectedMusicId": "music_free_1",
-    "points": 24306,
-    "streakCurrent": 48,
-    "streakBest": 48,
-    "devotionalsCompleted": 90,
-    "totalTimeSeconds": 350447,
-    "lastActiveAt": "2026-04-30T18:00:00.000Z",
+    "points": 20148,
+    "streakCurrent": 54,
+    "streakBest": 54,
+    "devotionalsCompleted": 96,
+    "totalTimeSeconds": 408363,
+    "lastActiveAt": "2026-05-06T22:15:15.710Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-04-30T08:27:16.813Z"
+    "updatedAt": "2026-05-07T00:06:32.541Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -123,5 +123,30 @@
     "deviceId": null,
     "createdAt": "2026-03-13T20:48:55.501Z",
     "updatedAt": "2026-03-16T05:12:58.785Z"
+  },
+  {
+    "id": "cmoru66oo0010m286ptrm8z0z",
+    "nickname": "Davidzinho",
+    "role": "USER",
+    "avatarId": "avatar_heart",
+    "frameId": null,
+    "titleId": null,
+    "themeId": "theme_amanecer",
+    "selectedMusicId": "music_free_1",
+    "points": 5186,
+    "streakCurrent": 1,
+    "streakBest": 0,
+    "devotionalsCompleted": 1,
+    "totalTimeSeconds": 1653,
+    "lastActiveAt": "2026-05-05T18:00:00.000Z",
+    "communityOptIn": false,
+    "prayerDisplayOptIn": true,
+    "supportCount": 0,
+    "countryCode": "CR",
+    "showCountry": true,
+    "activeBadgeId": "badge_companero_oracion",
+    "deviceId": null,
+    "createdAt": "2026-05-04T23:34:10.009Z",
+    "updatedAt": "2026-05-05T20:22:19.185Z"
   }
 ]

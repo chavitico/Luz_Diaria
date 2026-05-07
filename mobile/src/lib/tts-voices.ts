@@ -336,10 +336,17 @@ export function sanitizeForTTS(text: string): string {
  * Applied after Bible reference normalization so ref patterns still match.
  */
 export function normalizeEmphasisCapsForTTS(text: string): string {
-  return text.replace(
+  let result = text;
+  // Single-letter Spanish conjunctions that TTS reads as letter names → lowercase
+  // "Y" → "y" (and), "O" → "o" (or) — must be standalone words
+  result = result.replace(/\bY\b/g, 'y');
+  result = result.replace(/\bO\b/g, 'o');
+  // ALL-CAPS words (2+ letters) → lowercase so TTS reads them as words, not abbreviations
+  result = result.replace(
     /(?<![a-záéíóúüñA-ZÁÉÍÓÚÜÑ])[A-ZÁÉÍÓÚÜÑ]{2,}(?![a-záéíóúüñA-ZÁÉÍÓÚÜÑ])/gu,
     (match) => match.toLowerCase()
   );
+  return result;
 }
 
 /**
