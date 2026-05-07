@@ -645,7 +645,7 @@
     "currentCount": 0,
     "completed": false,
     "claimed": false,
-    "updatedAt": "2026-05-07T15:51:03.689Z"
+    "updatedAt": "2026-05-07T16:02:50.720Z"
   },
   {
     "id": "cmot1tx6p0015m2lw8siiqr8x",
@@ -682,5 +682,41 @@
     "completed": false,
     "claimed": false,
     "updatedAt": "2026-05-05T20:11:28.438Z"
+  },
+  {
+    "id": "cmovp38xb001dm2oqxpkdjxec",
+    "userId": "cmovp31ul0019m2oqsbrb6hjh",
+    "challengeId": "cmop09a4k0000m2g4nikg8830",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-05-07T16:22:59.568Z"
+  },
+  {
+    "id": "cmovp38xe001hm2oq9ya8nozk",
+    "userId": "cmovp31ul0019m2oqsbrb6hjh",
+    "challengeId": "cmop09a550003m2g49b2he2py",
+    "currentCount": 0,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-05-07T16:23:51.359Z"
+  },
+  {
+    "id": "cmovp38xi001jm2oqrgwsfg7d",
+    "userId": "cmovp31ul0019m2oqsbrb6hjh",
+    "challengeId": "cmop09a4r0002m2g4z5x22p4t",
+    "currentCount": 1,
+    "completed": true,
+    "claimed": true,
+    "updatedAt": "2026-05-07T16:25:14.138Z"
+  },
+  {
+    "id": "cmovp38xc001fm2oqs44vhr3q",
+    "userId": "cmovp31ul0019m2oqsbrb6hjh",
+    "challengeId": "cmop09a4p0001m2g4a7lrqdr2",
+    "currentCount": 1,
+    "completed": false,
+    "claimed": false,
+    "updatedAt": "2026-05-07T16:24:52.676Z"
   }
 ]

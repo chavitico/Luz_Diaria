@@ -1951,5 +1951,19 @@
     "itemId": "pack_heroes",
     "acquiredAt": "2026-05-05T20:00:38.752Z",
     "source": "store"
+  },
+  {
+    "id": "cmovp4jp0001tm2oq8jjgpzxl",
+    "userId": "cmovp31ul0019m2oqsbrb6hjh",
+    "itemId": "sobre_biblico",
+    "acquiredAt": "2026-05-07T16:24:00.181Z",
+    "source": "gift"
+  },
+  {
+    "id": "cmovp5oj60024m2oqzb7cpzjc",
+    "userId": "cmovp31ul0019m2oqsbrb6hjh",
+    "itemId": "badge_companero_oracion",
+    "acquiredAt": "2026-05-07T16:24:53.107Z",
+    "source": "achievement"
   }
 ]
