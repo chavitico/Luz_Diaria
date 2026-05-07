@@ -20,7 +20,7 @@ import Animated, {
 import * as Speech from 'expo-speech';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter, useFocusEffect } from 'expo-router';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { ArrowLeft, ChevronRight, ChevronLeft, Volume2, Square, CheckCircle2 } from 'lucide-react-native';
 import BibleDisclaimerFooter from '@/components/BibleDisclaimerFooter';
@@ -35,6 +35,7 @@ import {
   addTTSPausesForNumberedPoints,
   normalizeEmphasisCapsForTTS,
 } from '@/lib/tts-voices';
+import { trackTTSUsed } from '@/lib/metrics';
 import { useScaledFont } from '@/lib/textScale';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
 import type { Study, StudyCard } from '@/lib/studies/types';
@@ -612,6 +613,8 @@ export default function StudyReaderScreen() {
     const blockIdx = blocks.findIndex((b) => b.id === blockId);
     if (blockIdx === -1) return;
 
+    trackTTSUsed(user?.id, 'studies');
+
     ttsJobRef.current += 1;
     const jobId = ttsJobRef.current;
     isSpeakingRef.current = true;
@@ -619,7 +622,7 @@ export default function StudyReaderScreen() {
 
     await Speech.stop();
     speakBlockByIndex(blockIdx, blocks, jobId);
-  }, [speakBlockByIndex]);
+  }, [speakBlockByIndex, user?.id]);
 
   // Header TTS button: start from first block of current page, or stop
   const handleHeaderTTSTap = useCallback(() => {
@@ -631,8 +634,18 @@ export default function StudyReaderScreen() {
     if (firstBlock) startTTSFromBlock(firstBlock.id);
   }, [isTTSPlaying, stopTTS, startTTSFromBlock]);
 
-  // Stop TTS on unmount
-  useEffect(() => () => { Speech.stop(); }, []);
+  // Stop TTS when screen loses focus (back navigation, tab switch, app background)
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        ttsJobRef.current += 1;
+        isSpeakingRef.current = false;
+        Speech.stop();
+        setIsTTSPlaying(false);
+        setCurrentTTSBlockId(null);
+      };
+    }, [])
+  );
 
   // ─── Completion ─────────────────────────────────────────────────────────────
 

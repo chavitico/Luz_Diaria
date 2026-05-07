@@ -22,6 +22,7 @@ import { Heart, Calendar, BookOpen, Share2, X, Search, ChevronDown, Check, Lock 
 import { ShareOptionsSheet, type ShareOption } from '@/components/ShareOptionsSheet';
 import { firestoreService, getTodayDate } from '@/lib/firestore';
 import { useThemeColors, useLanguage, useUserFavorites, useUser, useAppStore } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { useScaledFont } from '@/lib/textScale';
 import { TRANSLATIONS } from '@/lib/constants';
 import { POINTS } from '@/lib/types';
@@ -166,6 +167,7 @@ export default function LibraryScreen() {
   const language = useLanguage();
   const favorites = useUserFavorites();
   const user = useUser();
+  useTabTimeTracking('library', user?.id);
   const t = TRANSLATIONS[language];
 
   const today = getTodayDate();

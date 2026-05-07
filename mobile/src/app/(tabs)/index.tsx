@@ -101,6 +101,7 @@ import {
   preprocessNumbersForTTS,
 } from '@/lib/tts-voices';
 import { pickBestVoice, type PickedVoice } from '@/lib/voice-picker';
+import { trackTTSUsed, useTabTimeTracking } from '@/lib/metrics';
 import { VoiceFallbackBanner } from '@/components/VoiceFallbackBanner';
 import { VoiceSetupModal, VOICE_SETUP_SHOWN_KEY } from '@/components/VoiceSetupModal';
 import { CommentsSection } from '@/components/CommentsSection';
@@ -1247,20 +1248,7 @@ export default function HomeScreen() {
   const [showCompletionThankYou, setShowCompletionThankYou] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Passive metrics: track time spent on Home screen (internal, no UI)
-  const homeScreenEntryRef = useRef<number | null>(null);
-  useFocusEffect(
-    useCallback(() => {
-      homeScreenEntryRef.current = Date.now();
-      return () => {
-        if (homeScreenEntryRef.current) {
-          const secs = Math.floor((Date.now() - homeScreenEntryRef.current) / 1000);
-          console.log(`[Metrics] Home screen time: ${secs}s`);
-          homeScreenEntryRef.current = null;
-        }
-      };
-    }, [])
-  );
+  useTabTimeTracking('devotional', user?.id);
 
   // Clear comment-likes badge when user visits this tab
   const currentCommentLikesCount = useAppStore((s) => s.notificationBadges.recentCommentLikesCount);
@@ -1826,8 +1814,9 @@ export default function HomeScreen() {
     setIsTTSPlaying(true);
     isTTSPlayingRef.current = true;
     currentSectionsRef.current = sections;
+    trackTTSUsed(user?.id, 'devotional');
     speakSection(0, sections, jobId);
-  }, [isTTSPlaying, buildDevotionalText, speakSection]);
+  }, [isTTSPlaying, buildDevotionalText, speakSection, user?.id]);
 
   const handleTTSPause = useCallback(async () => {
     speechJobIdRef.current += 1; // invalidate active job

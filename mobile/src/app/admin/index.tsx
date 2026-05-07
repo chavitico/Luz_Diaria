@@ -40,6 +40,8 @@ import {
   TrendingUp,
   Activity,
   BarChart3,
+  Volume2,
+  Layers,
 } from 'lucide-react-native';
 import { useThemeColors, useUser } from '@/lib/store';
 import { useAdminRole } from '@/hooks/useAdminRole';
@@ -71,6 +73,13 @@ interface AdminStats {
   puntosConsumidos: number;
   sobresTotal: number;
   sobresGratis: number;
+  ttsUsers: number;
+}
+
+interface TabMetricItem {
+  screen: string;
+  users: number;
+  totalSeconds: number;
 }
 
 interface OnlineUser {
@@ -90,6 +99,19 @@ const PERIODS: { key: Period; label: string }[] = [
   { key: 'year', label: 'Año' },
   { key: 'all', label: 'Siempre' },
 ];
+
+// ── Tab display config ─────────────────────────────────────────────────────────
+
+const TAB_CONFIG: Record<string, { label: string; emoji: string; color: string }> = {
+  devotional: { label: 'Devocional Hoy', emoji: '📖', color: '#F59E0B' },
+  bible:      { label: 'Biblia',         emoji: '✝️',  color: '#3B82F6' },
+  studies:    { label: 'Estudios',       emoji: '🎓', color: '#10B981' },
+  library:    { label: 'Biblioteca',     emoji: '📚', color: '#8B5CF6' },
+  community:  { label: 'Comunidad',      emoji: '🤝', color: '#EC4899' },
+  prayer:     { label: 'Oración',        emoji: '🙏', color: '#6366F1' },
+  store:      { label: 'Tienda',         emoji: '🛒', color: '#F97316' },
+  settings:   { label: 'Ajustes',        emoji: '⚙️',  color: '#6B7280' },
+};
 
 // ── Module definitions ─────────────────────────────────────────────────────────
 
@@ -300,6 +322,9 @@ export default function AdminDashboard() {
   // Owner tools state
   const [generatingSnapshots, setGeneratingSnapshots] = useState(false);
   const [devCacheExpanded, setDevCacheExpanded] = useState(false);
+  const [featureUsageExpanded, setFeatureUsageExpanded] = useState(false);
+  const [tabMetrics, setTabMetrics] = useState<TabMetricItem[]>([]);
+  const [tabMetricsLoading, setTabMetricsLoading] = useState(false);
   const [cachedDates, setCachedDates] = useState<string[]>([]);
   const [lastPrefetch, setLastPrefetch] = useState<number | null>(null);
   const [forcePrefetching, setForcePrefetching] = useState(false);
@@ -345,16 +370,42 @@ export default function AdminDashboard() {
     setLastPrefetch(ts);
   }, []);
 
+  const loadTabMetrics = useCallback(async () => {
+    if (!user?.id || !isOwner) return;
+    setTabMetricsLoading(true);
+    try {
+      const res = await fetchWithTimeout(
+        `${BACKEND_URL}/api/admin/stats/tabs?period=${period}`,
+        { headers: { 'X-User-Id': user.id } }
+      );
+      if (res.ok) {
+        const data = await res.json() as { items: TabMetricItem[] };
+        setTabMetrics(data.items ?? []);
+      }
+    } catch {
+      // silent
+    } finally {
+      setTabMetricsLoading(false);
+    }
+  }, [user?.id, isOwner, period]);
+
   useEffect(() => {
     if (isOwner && devCacheExpanded) loadDevCacheInfo();
   }, [isOwner, devCacheExpanded, loadDevCacheInfo]);
 
+  useEffect(() => {
+    if (isOwner && featureUsageExpanded) loadTabMetrics();
+  }, [isOwner, featureUsageExpanded, period, loadTabMetrics]);
+
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
     reload();
-    await loadStats();
+    await Promise.all([
+      loadStats(),
+      featureUsageExpanded ? loadTabMetrics() : Promise.resolve(),
+    ]);
     setRefreshing(false);
-  }, [reload, loadStats]);
+  }, [reload, loadStats, loadTabMetrics, featureUsageExpanded]);
 
   const handleNavigate = useCallback((route: string) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -535,7 +586,7 @@ export default function AdminDashboard() {
             </View>
 
             {/* Row 5 */}
-            <View style={{ flexDirection: 'row', gap: 10, marginBottom: 4 }}>
+            <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
               <MetricCard
                 icon={TrendingUp} label="Puntos asignados"
                 value={stats ? formatBigNumber(stats.puntosAsignados) : '—'}
@@ -546,6 +597,19 @@ export default function AdminDashboard() {
                 value={stats ? formatBigNumber(stats.puntosConsumidos) : '—'}
                 color="#F43F5E" loading={statsLoading} colors={colors}
               />
+            </View>
+
+            {/* Row 6: TTS usage */}
+            <View style={{ flexDirection: 'row', gap: 10, marginBottom: 4 }}>
+              <MetricCard
+                icon={Volume2} label="Usaron TTS (audio)"
+                value={stats ? formatBigNumber(stats.ttsUsers) : '—'}
+                subLabel={stats && stats.visitasUnicas > 0
+                  ? `${Math.round((stats.ttsUsers / stats.visitasUnicas) * 100)}% de visitantes únicos`
+                  : undefined}
+                color="#06B6D4" loading={statsLoading} colors={colors}
+              />
+              <View style={{ flex: 1 }} />
             </View>
           </Animated.View>
         )}
@@ -609,6 +673,87 @@ export default function AdminDashboard() {
             );
           })}
         </Animated.View>
+
+        {/* ── Uso de funciones ── */}
+        {isOwner && (
+          <Animated.View entering={FadeInDown.duration(250).delay(180)} style={{ paddingHorizontal: 16, marginTop: 24 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12, paddingHorizontal: 4 }}>
+              <Layers size={14} color={colors.textMuted} />
+              <Text style={{ fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                Uso de funciones
+              </Text>
+            </View>
+
+            <Pressable
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setFeatureUsageExpanded((p) => !p);
+              }}
+              style={({ pressed }) => ({
+                flexDirection: 'row', alignItems: 'center',
+                paddingVertical: 14, paddingHorizontal: 16,
+                borderRadius: 16,
+                marginBottom: featureUsageExpanded ? 0 : 0,
+                backgroundColor: pressed ? '#6366F115' : colors.surface,
+                borderBottomLeftRadius: featureUsageExpanded ? 0 : 16,
+                borderBottomRightRadius: featureUsageExpanded ? 0 : 16,
+              })}
+            >
+              <View style={{ width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: '#6366F120', marginRight: 12 }}>
+                <BarChart3 size={20} color="#6366F1" />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 14, fontWeight: '600', color: colors.text }}>Tiempo por sección</Text>
+                <Text style={{ fontSize: 12, color: colors.textMuted }}>
+                  {featureUsageExpanded ? 'Toca para ocultar' : 'Toca para ver el detalle'}
+                </Text>
+              </View>
+              {tabMetricsLoading && <ActivityIndicator size="small" color="#6366F1" />}
+            </Pressable>
+
+            {featureUsageExpanded && (
+              <View style={{
+                backgroundColor: colors.surface, borderRadius: 16, marginBottom: 0,
+                borderTopLeftRadius: 0, borderTopRightRadius: 0,
+                paddingHorizontal: 16, paddingVertical: 14, gap: 12,
+              }}>
+                {tabMetrics.length === 0 && !tabMetricsLoading ? (
+                  <Text style={{ fontSize: 13, color: colors.textMuted, fontStyle: 'italic', textAlign: 'center', paddingVertical: 8 }}>
+                    Sin datos para este período
+                  </Text>
+                ) : (() => {
+                  const maxUsers = Math.max(...tabMetrics.map(t => t.users), 1);
+                  return tabMetrics.map((item) => {
+                    const cfg = TAB_CONFIG[item.screen] ?? { label: item.screen, emoji: '📱', color: '#6B7280' };
+                    const barPct = (item.users / maxUsers) * 100;
+                    const mins = Math.round(item.totalSeconds / 60);
+                    return (
+                      <View key={item.screen}>
+                        {/* Label row */}
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
+                          <Text style={{ fontSize: 13, fontWeight: '600', color: colors.text }}>
+                            {cfg.emoji} {cfg.label}
+                          </Text>
+                          <Text style={{ fontSize: 12, fontWeight: '700', color: cfg.color }}>
+                            {item.users} {item.users === 1 ? 'persona' : 'personas'} · {mins < 1 ? '<1' : mins} min
+                          </Text>
+                        </View>
+                        {/* Bar */}
+                        <View style={{ height: 6, borderRadius: 3, backgroundColor: colors.textMuted + '20' }}>
+                          <View style={{
+                            height: 6, borderRadius: 3,
+                            backgroundColor: cfg.color,
+                            width: `${barPct}%`,
+                          }} />
+                        </View>
+                      </View>
+                    );
+                  });
+                })()}
+              </View>
+            )}
+          </Animated.View>
+        )}
 
         {/* ── Owner Tools ── */}
         {isOwner && (

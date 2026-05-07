@@ -75,6 +75,7 @@ import {
   useRequestPackReveal,
   useRequestConfirmPurchase,
 } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { useScaledFont } from '@/lib/textScale';
 import { ActionButton } from '@/components/ui/ActionButton';
 import { GiftSendModal, type GiftSendItem } from '@/components/GiftSendModal';
@@ -3088,6 +3089,7 @@ export default function StoreScreen() {
   const language = useLanguage();
   const points = useUserPoints();
   const user = useUser();
+  useTabTimeTracking('store', user?.id);
   const router = useRouter();
   const { openCategory, t: openCategoryT } = useLocalSearchParams<{ openCategory?: string; t?: string }>();
   const updateUser = useAppStore((s) => s.updateUser);

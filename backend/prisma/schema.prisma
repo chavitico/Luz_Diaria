@@ -612,6 +612,20 @@ model CardTrade {
   @@index([status])
 }
 
+// App event log — lightweight analytics (TTS usage, tab screen time)
+model AppEvent {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   // "tts_used" | "tab_time"
+  screen    String   // "devotional" | "bible" | "studies" | "library" | "community" | "prayer" | "store" | "settings"
+  seconds   Int      @default(0)
+  dateId    String   // YYYY-MM-DD (CR timezone)
+  createdAt DateTime @default(now())
+
+  @@index([type, dateId])
+  @@index([userId, type, dateId])
+}
+
 // Duelo de Sabiduría — Bible trivia duel matches
 model DuelMatch {
   id              String    @id @default(cuid())

@@ -49,6 +49,7 @@ import {
   XCircle,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import logger from '@/lib/logger';
 import { useScaledFont } from '@/lib/textScale';
 import { TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, SPIRITUAL_TITLES } from '@/lib/constants';
@@ -1413,6 +1414,7 @@ export default function CommunityScreen() {
   const language = useLanguage();
   const { sFont } = useScaledFont();
   const user = useUser();
+  useTabTimeTracking('community', user?.id);
   const queryClient = useQueryClient();
   const router = useRouter();
   const t = TRANSLATIONS[language];

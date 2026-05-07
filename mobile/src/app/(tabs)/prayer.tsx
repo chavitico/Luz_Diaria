@@ -29,6 +29,7 @@ import {
   Lock,
 } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, useAppStore } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { useScaledFont } from '@/lib/textScale';
 import { PRAYER_CATEGORIES, AVATAR_FRAMES, SPIRITUAL_TITLES, DEFAULT_AVATARS } from '@/lib/constants';
 import { gamificationApi, PrayerRequestDisplay } from '@/lib/gamification-api';
@@ -916,6 +917,8 @@ export default function PrayerScreen() {
   const colors = useThemeColors();
   const language = useLanguage();
   const queryClient = useQueryClient();
+  const user = useUser();
+  useTabTimeTracking('prayer', user?.id);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(async () => {

@@ -65,6 +65,7 @@ import {
   useUserSettings,
   useAppStore,
 } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { APP_BRANDING, TRANSLATIONS, DEFAULT_AVATARS, AVATAR_FRAMES, BADGES, RARITY_COLORS } from '@/lib/constants';
 import { fetchWithTimeout } from '@/lib/fetch';
 
@@ -282,6 +283,7 @@ export default function SettingsScreen() {
   const colors = useThemeColors();
   const language = useLanguage();
   const user = useUser();
+  useTabTimeTracking('settings', user?.id);
   const isDarkMode = useIsDarkMode();
   const settings = useUserSettings();
   const router = useRouter();

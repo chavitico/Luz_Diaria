@@ -12,6 +12,7 @@ import { useRouter } from 'expo-router';
 import { Clock, BookOpen, ChevronRight, CheckCircle2 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useThemeColors, useLanguage, useUser } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { STUDIES_CATALOG } from '@/lib/studies/catalog';
 import { gamificationApi } from '@/lib/gamification-api';
 
@@ -23,6 +24,7 @@ export default function EstudiosScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const user = useUser();
+  useTabTimeTracking('studies', user?.id);
 
   const [completedIds, setCompletedIds] = useState<Set<string>>(new Set());
   const [filter, setFilter] = useState<Filter>('all');

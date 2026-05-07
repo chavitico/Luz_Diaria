@@ -51,7 +51,8 @@ import {
   FlaskConical,
 } from 'lucide-react-native';
 
-import { useThemeColors, useLanguage } from '@/lib/store';
+import { useThemeColors, useLanguage, useUser } from '@/lib/store';
+import { trackTTSUsed, useTabTimeTracking } from '@/lib/metrics';
 import { useScaledFont } from '@/lib/textScale';
 import { useRouter, useFocusEffect } from 'expo-router';
 import { consumeStrongNavTarget } from '@/lib/strong/navigationBridge';
@@ -1048,6 +1049,8 @@ export default function BibleScreen() {
   const language = useLanguage();
   const lang = (language as 'en' | 'es') || 'es';
   const router = useRouter();
+  const user = useUser();
+  useTabTimeTracking('bible', user?.id);
 
   // Navigation state
   const [view, setView] = useState<BibleNavView>('home');
@@ -1420,9 +1423,10 @@ export default function BibleScreen() {
     autoDisableStrongForTTS();
     setIsSpeaking(true);
     isSpeakingRef.current = true;
+    trackTTSUsed(user?.id, 'bible');
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     speakVerseByIndex(startIdx, chapterData.verses, jobId);
-  }, [chapterData, speakVerseByIndex, autoDisableStrongForTTS]);
+  }, [chapterData, speakVerseByIndex, autoDisableStrongForTTS, user?.id]);
 
   const handleTTS = useCallback(async () => {
     if (isSpeaking) {
