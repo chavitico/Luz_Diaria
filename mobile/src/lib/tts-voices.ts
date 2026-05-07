@@ -319,6 +319,11 @@ export function sanitizeForTTS(text: string): string {
   // Any remaining newlines → space
   result = result.replace(/\r?\n/g, ' ');
 
+  // Dash used as pause separator → replace with pause marker
+  // Em/en dash always signal a pause; spaced hyphen ( - ) also signals a pause
+  result = result.replace(/\s*[—–]\s*/g, ' ... ');
+  result = result.replace(/\s+-\s+/g, ' ... ');
+
   // Long pause after ellipsis + closing quote (…' or …") — quote stays attached, pause follows
   result = result.replace(/…(['''"""])/g, '…$1 ...');
   // Long pause after standalone ellipsis not already followed by pause dots
