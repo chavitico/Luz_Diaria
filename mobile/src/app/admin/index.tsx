@@ -724,26 +724,41 @@ export default function AdminDashboard() {
                     Sin datos para este período
                   </Text>
                 ) : (() => {
+                  const STORE_SUBS = new Set(['store_album', 'store_trivia']);
+                  // Sort: non-sub items by users desc, then inject subs after 'store'
+                  const mainItems = tabMetrics.filter(t => !STORE_SUBS.has(t.screen)).sort((a, b) => b.users - a.users);
+                  const subItems = tabMetrics.filter(t => STORE_SUBS.has(t.screen));
+                  const ordered: typeof tabMetrics = [];
+                  for (const item of mainItems) {
+                    ordered.push(item);
+                    if (item.screen === 'store') {
+                      ordered.push(...subItems.sort((a, b) => b.totalSeconds - a.totalSeconds));
+                    }
+                  }
                   const maxUsers = Math.max(...tabMetrics.map(t => t.users), 1);
-                  return tabMetrics.map((item) => {
+                  return ordered.map((item) => {
+                    const isSub = STORE_SUBS.has(item.screen);
                     const cfg = TAB_CONFIG[item.screen] ?? { label: item.screen, emoji: '📱', color: '#6B7280' };
                     const barPct = (item.users / maxUsers) * 100;
                     const mins = Math.round(item.totalSeconds / 60);
                     return (
-                      <View key={item.screen}>
+                      <View key={item.screen} style={isSub ? { marginLeft: 16, marginTop: -4 } : {}}>
+                        {isSub && (
+                          <View style={{ width: 2, height: 8, backgroundColor: cfg.color + '60', marginLeft: 6, marginBottom: 2 }} />
+                        )}
                         {/* Label row */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
-                          <Text style={{ fontSize: 13, fontWeight: '600', color: colors.text }}>
-                            {cfg.emoji} {cfg.label}
+                          <Text style={{ fontSize: isSub ? 12 : 13, fontWeight: '600', color: isSub ? colors.textMuted : colors.text }}>
+                            {isSub ? '↳ ' : ''}{cfg.emoji} {isSub ? cfg.label.split('·')[1]?.trim() ?? cfg.label : cfg.label}
                           </Text>
-                          <Text style={{ fontSize: 12, fontWeight: '700', color: cfg.color }}>
+                          <Text style={{ fontSize: isSub ? 11 : 12, fontWeight: '700', color: cfg.color }}>
                             {item.users} {item.users === 1 ? 'persona' : 'personas'} · {mins < 1 ? '<1' : mins} min
                           </Text>
                         </View>
                         {/* Bar */}
-                        <View style={{ height: 6, borderRadius: 3, backgroundColor: colors.textMuted + '20' }}>
+                        <View style={{ height: isSub ? 4 : 6, borderRadius: 3, backgroundColor: colors.textMuted + '20' }}>
                           <View style={{
-                            height: 6, borderRadius: 3,
+                            height: isSub ? 4 : 6, borderRadius: 3,
                             backgroundColor: cfg.color,
                             width: `${barPct}%`,
                           }} />

@@ -22,6 +22,7 @@ import { ChevronLeft, Swords, Trophy, Flame, BarChart2 } from 'lucide-react-nati
 import * as Haptics from 'expo-haptics';
 import { useQuery } from '@tanstack/react-query';
 import { useUser, useEquippedFrame, useLanguage } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { IllustratedAvatar } from '@/components/IllustratedAvatar';
 import { SPIRITUAL_TITLES, DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 
@@ -71,6 +72,7 @@ export default function DueloPregame() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const user = useUser();
+  useTabTimeTracking('store_trivia', user?.id);
   const equippedFrameId = useEquippedFrame();
   const lang = useLanguage() as 'es' | 'en';
   const t = T[lang];

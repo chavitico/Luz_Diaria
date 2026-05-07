@@ -20,6 +20,7 @@ import Animated, {
 import { Check, X, Clock, Swords, Trophy, Star } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useUser, useAppStore, useLanguage } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { preloadDuelSounds, unloadDuelSounds, playSound, setSfxEnabled } from '@/lib/audio';
 import { addLedgerEntry } from '@/lib/points-ledger';
 import { fetchWithTimeout } from '@/lib/fetch';
@@ -277,6 +278,7 @@ export default function DueloGame() {
   }>();
   const insets = useSafeAreaInsets();
   const user = useUser();
+  useTabTimeTracking('store_trivia', user?.id);
   const updateUser = useAppStore(s => s.updateUser);
   const sfxEnabled = useAppStore(s => s.user?.settings?.sfxEnabled ?? true);
   const lang = useLanguage() as 'es' | 'en';

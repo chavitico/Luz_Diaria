@@ -3218,5 +3218,15 @@
     "amount": 0,
     "metadata": "{\"packType\":\"sobre_biblico\",\"source\":\"store\"}",
     "createdAt": "2026-05-07T15:05:55.657Z"
+  },
+  {
+    "id": "cmovn4fgz0017m2ywmyczpm7y",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "tts_2026-05-07",
+    "type": "tts_complete",
+    "dateId": "2026-05-07",
+    "amount": 6,
+    "metadata": "{}",
+    "createdAt": "2026-05-07T15:27:55.475Z"
   }
 ]

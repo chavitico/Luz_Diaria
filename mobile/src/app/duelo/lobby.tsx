@@ -21,6 +21,7 @@ import Animated, {
 import { X, Swords } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useUser, useAppStore, useLanguage } from '@/lib/store';
+import { useTabTimeTracking } from '@/lib/metrics';
 import { preloadDuelSounds, playSound, setSfxEnabled } from '@/lib/audio';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { getRandomDuelQuestions } from '@/lib/duel-questions';
@@ -216,6 +217,7 @@ export default function DueloLobby() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const user = useUser();
+  useTabTimeTracking('store_trivia', user?.id);
   const sfxEnabled = useAppStore(s => s.user?.settings?.sfxEnabled ?? true);
   const lang = useLanguage() as 'es' | 'en';
   const t = T[lang];
