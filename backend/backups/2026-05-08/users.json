@@ -12,7 +12,7 @@
     "streakCurrent": 56,
     "streakBest": 56,
     "devotionalsCompleted": 98,
-    "totalTimeSeconds": 425684,
+    "totalTimeSeconds": 425921,
     "lastActiveAt": "2026-05-08T18:00:00.000Z",
     "communityOptIn": true,
     "prayerDisplayOptIn": true,
@@ -22,7 +22,7 @@
     "activeBadgeId": "badge_fundador",
     "deviceId": null,
     "createdAt": "2026-03-10T23:31:11.814Z",
-    "updatedAt": "2026-05-08T15:03:26.209Z"
+    "updatedAt": "2026-05-08T15:10:39.902Z"
   },
   {
     "id": "cmmm73mlb000am2o9etdf038g",
@@ -158,12 +158,12 @@
     "titleId": null,
     "themeId": "theme_amanecer",
     "selectedMusicId": "music_free_1",
-    "points": 110,
-    "streakCurrent": 1,
-    "streakBest": 0,
-    "devotionalsCompleted": 1,
-    "totalTimeSeconds": 118,
-    "lastActiveAt": "2026-05-07T16:24:52.713Z",
+    "points": 160,
+    "streakCurrent": 2,
+    "streakBest": 2,
+    "devotionalsCompleted": 2,
+    "totalTimeSeconds": 265,
+    "lastActiveAt": "2026-05-08T15:10:18.275Z",
     "communityOptIn": false,
     "prayerDisplayOptIn": true,
     "supportCount": 0,
@@ -172,6 +172,6 @@
     "activeBadgeId": "badge_companero_oracion",
     "deviceId": null,
     "createdAt": "2026-05-07T16:22:50.398Z",
-    "updatedAt": "2026-05-07T18:13:05.436Z"
+    "updatedAt": "2026-05-08T15:10:43.895Z"
   }
 ]
