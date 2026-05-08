@@ -3318,5 +3318,15 @@
     "amount": 50,
     "metadata": "{}",
     "createdAt": "2026-05-07T16:24:52.262Z"
+  },
+  {
+    "id": "cmox0tkdb001am28x5qfxp0sf",
+    "userId": "cmml8uiit0000m2vluztbkjwf",
+    "ledgerId": "devotional_2026-05-08",
+    "type": "devotional_complete",
+    "dateId": "2026-05-08",
+    "amount": 50,
+    "metadata": "{}",
+    "createdAt": "2026-05-08T14:39:09.407Z"
   }
 ]

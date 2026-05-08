@@ -43,6 +43,7 @@ import { gamificationApi } from '@/lib/gamification-api';
 import { useQueryClient } from '@tanstack/react-query';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { translateText } from '@/lib/translate';
+import { trackTranslatorUsed } from '@/lib/metrics';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -573,6 +574,7 @@ function DropNewsCard({
   onClaim: (drop: UserDrop) => Promise<void>;
   onGoToStore: () => void;
 }) {
+  const currentUser = useUser();
   const [expanded, setExpanded] = useState(false);
   const [claiming, setClaiming] = useState(false);
   const [claimed, setClaimed] = useState(drop.status !== 'PENDING');
@@ -605,6 +607,7 @@ function DropNewsCard({
       const translated = await translateText(drop.message, language as 'es' | 'en');
       setTranslatedMessage(translated);
       setShowTranslated(true);
+      trackTranslatorUsed(currentUser?.id, 'novedades');
     } catch (err) {
       console.error('[translate/novedades]', err instanceof Error ? err.message : String(err));
       setTranslateError(es ? 'No se pudo traducir por ahora' : 'Could not translate right now');

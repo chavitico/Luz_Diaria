@@ -144,12 +144,22 @@ adminStatsRouter.get("/tabs", async (c) => {
   const period = c.req.query("period") ?? "all";
   const { df } = periodFilter(period);
 
-  const records = await prisma.appEvent.findMany({
-    where: { type: "tab_time", ...(df ? { createdAt: df } : {}) },
-    select: { screen: true, userId: true, seconds: true },
-  });
+  const [records, ttsRecords, translatorRecords] = await Promise.all([
+    prisma.appEvent.findMany({
+      where: { type: "tab_time", ...(df ? { createdAt: df } : {}) },
+      select: { screen: true, userId: true, seconds: true },
+    }),
+    prisma.appEvent.findMany({
+      where: { type: "tts_used", ...(df ? { createdAt: df } : {}) },
+      select: { userId: true },
+    }),
+    prisma.appEvent.findMany({
+      where: { type: "translator_used", ...(df ? { createdAt: df } : {}) },
+      select: { userId: true },
+    }),
+  ]);
 
-  // Aggregate: unique users + total seconds per screen
+  // Aggregate tab_time: unique users + total seconds per screen
   const agg = new Map<string, { userIds: Set<string>; totalSeconds: number }>();
   for (const r of records) {
     const entry = agg.get(r.screen) ?? { userIds: new Set<string>(), totalSeconds: 0 };
@@ -158,11 +168,15 @@ adminStatsRouter.get("/tabs", async (c) => {
     agg.set(r.screen, entry);
   }
 
-  // Collect all unique user IDs across all screens
+  // Collect all unique user IDs across all screens + tts + translator
   const allUserIds = new Set<string>();
   for (const data of agg.values()) {
     for (const uid of data.userIds) allUserIds.add(uid);
   }
+  const ttsUserIds = new Set(ttsRecords.map((r) => r.userId));
+  const translatorUserIds = new Set(translatorRecords.map((r) => r.userId));
+  for (const uid of ttsUserIds) allUserIds.add(uid);
+  for (const uid of translatorUserIds) allUserIds.add(uid);
 
   // Fetch nicknames for all users in one query
   const userRecords = await prisma.user.findMany({
@@ -171,14 +185,37 @@ adminStatsRouter.get("/tabs", async (c) => {
   });
   const nicknameMap = new Map(userRecords.map((u) => [u.id, u.nickname]));
 
-  const items = Array.from(agg.entries())
-    .map(([screen, data]) => ({
-      screen,
-      users: data.userIds.size,
-      totalSeconds: data.totalSeconds,
-      userNames: Array.from(data.userIds).map((uid) => nicknameMap.get(uid) ?? uid),
-    }))
-    .sort((a, b) => b.users - a.users);
+  const items: Array<{ screen: string; users: number; totalSeconds: number; userNames: string[]; isCount?: boolean }> =
+    Array.from(agg.entries())
+      .map(([screen, data]) => ({
+        screen,
+        users: data.userIds.size,
+        totalSeconds: data.totalSeconds,
+        userNames: Array.from(data.userIds).map((uid) => nicknameMap.get(uid) ?? uid),
+      }))
+      .sort((a, b) => b.users - a.users);
+
+  // Append TTS as a count-based item
+  if (ttsRecords.length > 0) {
+    items.push({
+      screen: "tts",
+      users: ttsUserIds.size,
+      totalSeconds: ttsRecords.length,
+      userNames: Array.from(ttsUserIds).map((uid) => nicknameMap.get(uid) ?? uid),
+      isCount: true,
+    });
+  }
+
+  // Append Translator as a count-based item
+  if (translatorRecords.length > 0) {
+    items.push({
+      screen: "translator",
+      users: translatorUserIds.size,
+      totalSeconds: translatorRecords.length,
+      userNames: Array.from(translatorUserIds).map((uid) => nicknameMap.get(uid) ?? uid),
+      isCount: true,
+    });
+  }
 
   return c.json({ period, items });
 });

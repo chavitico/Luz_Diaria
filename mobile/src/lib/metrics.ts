@@ -6,9 +6,10 @@ import { useCallback, useRef } from 'react';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
-// Module-level dedup set — prevents flooding TTS events per session.
+// Module-level dedup sets — prevent flooding events per session.
 // Reset on every app launch (memory only).
 const _trackedTTS = new Set<string>();
+const _trackedTranslator = new Set<string>();
 
 function getCRDateId(): string {
   const now = new Date();
@@ -35,6 +36,18 @@ export function trackTTSUsed(
   if (_trackedTTS.has(key)) return;
   _trackedTTS.add(key);
   post({ userId, type: 'tts_used', screen, seconds: 0, dateId: getCRDateId() });
+}
+
+// Call once per fresh translation. Deduped per user+screen per app session.
+export function trackTranslatorUsed(
+  userId: string | undefined,
+  screen: 'devotional' | 'novedades' | 'testimonios'
+): void {
+  if (!userId) return;
+  const key = `${userId}:${screen}`;
+  if (_trackedTranslator.has(key)) return;
+  _trackedTranslator.add(key);
+  post({ userId, type: 'translator_used', screen, seconds: 0, dateId: getCRDateId() });
 }
 
 // Add to any tab/screen component. Records time spent on that screen.

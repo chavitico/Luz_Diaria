@@ -18,6 +18,7 @@ import { Send, Heart, Trash2, MessageCircle, Globe } from 'lucide-react-native';
 import { useThemeColors, useLanguage, useUser, getContrastText } from '@/lib/store';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { translateText } from '@/lib/translate';
+import { trackTranslatorUsed } from '@/lib/metrics';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 import { relativeLuminance, ensureContrast, contrastRatio } from '@/lib/contrast';
@@ -216,6 +217,7 @@ function CommentRow({
       const translated = await translateText(comment.text, language);
       setTranslatedText(translated);
       setShowTranslated(true);
+      trackTranslatorUsed(currentUserId, 'devotional');
     } catch (err) {
       console.error('[translate/comments]', err instanceof Error ? err.message : String(err));
       setTranslateError(language === 'es' ? 'No se pudo traducir' : 'Could not translate');

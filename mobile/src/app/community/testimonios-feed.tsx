@@ -42,6 +42,7 @@ import { useScaledFont } from '@/lib/textScale';
 import { DEFAULT_AVATARS, AVATAR_FRAMES } from '@/lib/constants';
 import { fetchWithTimeout } from '@/lib/fetch';
 import { translateText } from '@/lib/translate';
+import { trackTranslatorUsed } from '@/lib/metrics';
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_VIBECODE_BACKEND_URL || 'http://localhost:3000';
 
@@ -227,6 +228,7 @@ function TestimonyCard({
       const translated = await translateText(testimony.text, language);
       onTranslated(testimony.id, translated);
       setShowTranslated(true);
+      trackTranslatorUsed(userId, 'testimonios');
     } catch (err) {
       console.error('[translate/testimonios]', err instanceof Error ? err.message : String(err));
       setTranslateError(language === 'es' ? 'No se pudo traducir por ahora' : 'Could not translate right now');

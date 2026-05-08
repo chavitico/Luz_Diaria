@@ -14,7 +14,7 @@ metricsRouter.post(
     "json",
     z.object({
       userId: z.string(),
-      type: z.enum(["tts_used", "tab_time"]),
+      type: z.enum(["tts_used", "tab_time", "translator_used"]),
       screen: z.string().max(50),
       seconds: z.number().int().min(0).max(86400).default(0),
       dateId: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),

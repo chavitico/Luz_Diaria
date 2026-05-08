@@ -40,7 +40,6 @@ import {
   TrendingUp,
   Activity,
   BarChart3,
-  Volume2,
   Layers,
 } from 'lucide-react-native';
 import { useThemeColors, useUser } from '@/lib/store';
@@ -81,6 +80,7 @@ interface TabMetricItem {
   users: number;
   totalSeconds: number;
   userNames?: string[];
+  isCount?: boolean;
 }
 
 interface OnlineUser {
@@ -114,6 +114,8 @@ const TAB_CONFIG: Record<string, { label: string; emoji: string; color: string }
   store_album:  { label: 'Tienda · Álbum Cromos', emoji: '🃏', color: '#FB923C' },
   store_trivia: { label: 'Tienda · Trivia Bíblica', emoji: '⚡', color: '#FBBF24' },
   settings:     { label: 'Ajustes',            emoji: '⚙️',  color: '#6B7280' },
+  tts:          { label: 'Audio (TTS)',         emoji: '🔊', color: '#06B6D4' },
+  translator:   { label: 'Traductor',           emoji: '🌐', color: '#8B5CF6' },
 };
 
 // ── Module definitions ─────────────────────────────────────────────────────────
@@ -603,18 +605,6 @@ export default function AdminDashboard() {
               />
             </View>
 
-            {/* Row 6: TTS usage */}
-            <View style={{ flexDirection: 'row', gap: 10, marginBottom: 4 }}>
-              <MetricCard
-                icon={Volume2} label="Usaron TTS (audio)"
-                value={stats ? formatBigNumber(stats.ttsUsers) : '—'}
-                subLabel={stats && stats.visitasUnicas > 0
-                  ? `${Math.round((stats.ttsUsers / stats.visitasUnicas) * 100)}% de visitantes únicos`
-                  : undefined}
-                color="#06B6D4" loading={statsLoading} colors={colors}
-              />
-              <View style={{ flex: 1 }} />
-            </View>
           </Animated.View>
         )}
 
@@ -727,9 +717,11 @@ export default function AdminDashboard() {
                   </Text>
                 ) : (() => {
                   const STORE_SUBS = new Set(['store_album', 'store_trivia']);
-                  // Sort: non-sub items by users desc, then inject subs after 'store'
-                  const mainItems = tabMetrics.filter(t => !STORE_SUBS.has(t.screen)).sort((a, b) => b.users - a.users);
+                  const COUNT_SCREENS = new Set(['tts', 'translator']);
+                  // Sort: non-sub, non-count items by users desc, then inject subs after 'store'
+                  const mainItems = tabMetrics.filter(t => !STORE_SUBS.has(t.screen) && !COUNT_SCREENS.has(t.screen)).sort((a, b) => b.users - a.users);
                   const subItems = tabMetrics.filter(t => STORE_SUBS.has(t.screen));
+                  const countItems = tabMetrics.filter(t => COUNT_SCREENS.has(t.screen)).sort((a, b) => b.users - a.users);
                   const ordered: typeof tabMetrics = [];
                   for (const item of mainItems) {
                     ordered.push(item);
@@ -738,7 +730,8 @@ export default function AdminDashboard() {
                     }
                   }
                   const maxUsers = Math.max(...tabMetrics.map(t => t.users), 1);
-                  return ordered.map((item) => {
+
+                  const renderItem = (item: typeof tabMetrics[0]) => {
                     const isSub = STORE_SUBS.has(item.screen);
                     const cfg = TAB_CONFIG[item.screen] ?? { label: item.screen, emoji: '📱', color: '#6B7280' };
                     const barPct = (item.users / maxUsers) * 100;
@@ -750,7 +743,6 @@ export default function AdminDashboard() {
                         {isSub && (
                           <View style={{ width: 2, height: 8, backgroundColor: cfg.color + '60', marginLeft: 6, marginBottom: 2 }} />
                         )}
-                        {/* Label row — tappable */}
                         <Pressable
                           onPress={() => {
                             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -770,62 +762,50 @@ export default function AdminDashboard() {
                             {isSub ? '↳ ' : ''}{cfg.emoji} {isSub ? cfg.label.split('·')[1]?.trim() ?? cfg.label : cfg.label}
                           </Text>
                           <Text style={{ fontSize: isSub ? 11 : 12, fontWeight: '700', color: cfg.color }}>
-                            {item.users} {item.users === 1 ? 'persona' : 'personas'} · {mins < 1 ? '<1' : mins} min
+                            {item.users} {item.users === 1 ? 'persona' : 'personas'} · {item.isCount ? `${item.totalSeconds} ${item.totalSeconds === 1 ? 'vez' : 'veces'}` : `${mins < 1 ? '<1' : mins} min`}
                           </Text>
                         </Pressable>
-                        {/* Bar */}
                         <View style={{ height: isSub ? 4 : 6, borderRadius: 3, backgroundColor: colors.textMuted + '20', marginBottom: isExpanded ? 8 : 0 }}>
-                          <View style={{
-                            height: isSub ? 4 : 6, borderRadius: 3,
-                            backgroundColor: cfg.color,
-                            width: `${barPct}%`,
-                          }} />
+                          <View style={{ height: isSub ? 4 : 6, borderRadius: 3, backgroundColor: cfg.color, width: `${barPct}%` }} />
                         </View>
-                        {/* Expanded: user names */}
                         {isExpanded && names.length > 0 && (
                           <View style={{
-                            backgroundColor: cfg.color + '10',
-                            borderRadius: 10,
-                            borderLeftWidth: 3,
-                            borderLeftColor: cfg.color + '80',
-                            paddingHorizontal: 10,
-                            paddingVertical: 8,
-                            gap: 4,
-                            marginBottom: 4,
+                            backgroundColor: cfg.color + '10', borderRadius: 10,
+                            borderLeftWidth: 3, borderLeftColor: cfg.color + '80',
+                            paddingHorizontal: 10, paddingVertical: 8, gap: 4, marginBottom: 4,
                           }}>
                             {names.map((name, idx) => (
-                              <Text key={idx} style={{ fontSize: 12, color: colors.text, fontWeight: '500' }}>
-                                · {name}
-                              </Text>
+                              <Text key={idx} style={{ fontSize: 12, color: colors.text, fontWeight: '500' }}>· {name}</Text>
                             ))}
                             <Pressable
                               onPress={() => {
                                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                                setExpandedScreens(prev => {
-                                  const next = new Set(prev);
-                                  next.delete(item.screen);
-                                  return next;
-                                });
+                                setExpandedScreens(prev => { const next = new Set(prev); next.delete(item.screen); return next; });
                               }}
-                              style={({ pressed }) => ({
-                                marginTop: 4,
-                                alignSelf: 'flex-end',
-                                paddingHorizontal: 10,
-                                paddingVertical: 4,
-                                borderRadius: 8,
-                                backgroundColor: cfg.color + '20',
-                                opacity: pressed ? 0.6 : 1,
-                              })}
+                              style={({ pressed }) => ({ marginTop: 4, alignSelf: 'flex-end', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8, backgroundColor: cfg.color + '20', opacity: pressed ? 0.6 : 1 })}
                             >
-                              <Text style={{ fontSize: 11, fontWeight: '700', color: cfg.color }}>
-                                Colapsar ↑
-                              </Text>
+                              <Text style={{ fontSize: 11, fontWeight: '700', color: cfg.color }}>Colapsar ↑</Text>
                             </Pressable>
                           </View>
                         )}
                       </View>
                     );
-                  });
+                  };
+
+                  return (
+                    <>
+                      {ordered.map(renderItem)}
+                      {countItems.length > 0 && (
+                        <>
+                          <View style={{ height: 1, backgroundColor: colors.textMuted + '20', marginVertical: 8 }} />
+                          <Text style={{ fontSize: 10, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 8 }}>
+                            Funciones especiales
+                          </Text>
+                          {countItems.map(renderItem)}
+                        </>
+                      )}
+                    </>
+                  );
                 })()}
               </View>
             )}
