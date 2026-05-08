@@ -150,19 +150,33 @@ adminStatsRouter.get("/tabs", async (c) => {
   });
 
   // Aggregate: unique users + total seconds per screen
-  const agg = new Map<string, { users: Set<string>; totalSeconds: number }>();
+  const agg = new Map<string, { userIds: Set<string>; totalSeconds: number }>();
   for (const r of records) {
-    const entry = agg.get(r.screen) ?? { users: new Set<string>(), totalSeconds: 0 };
-    entry.users.add(r.userId);
+    const entry = agg.get(r.screen) ?? { userIds: new Set<string>(), totalSeconds: 0 };
+    entry.userIds.add(r.userId);
     entry.totalSeconds += r.seconds;
     agg.set(r.screen, entry);
   }
 
+  // Collect all unique user IDs across all screens
+  const allUserIds = new Set<string>();
+  for (const data of agg.values()) {
+    for (const uid of data.userIds) allUserIds.add(uid);
+  }
+
+  // Fetch nicknames for all users in one query
+  const userRecords = await prisma.user.findMany({
+    where: { id: { in: Array.from(allUserIds) } },
+    select: { id: true, nickname: true },
+  });
+  const nicknameMap = new Map(userRecords.map((u) => [u.id, u.nickname]));
+
   const items = Array.from(agg.entries())
     .map(([screen, data]) => ({
       screen,
-      users: data.users.size,
+      users: data.userIds.size,
       totalSeconds: data.totalSeconds,
+      userNames: Array.from(data.userIds).map((uid) => nicknameMap.get(uid) ?? uid),
     }))
     .sort((a, b) => b.users - a.users);
 

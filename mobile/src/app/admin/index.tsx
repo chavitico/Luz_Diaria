@@ -80,6 +80,7 @@ interface TabMetricItem {
   screen: string;
   users: number;
   totalSeconds: number;
+  userNames?: string[];
 }
 
 interface OnlineUser {
@@ -327,6 +328,7 @@ export default function AdminDashboard() {
   const [featureUsageExpanded, setFeatureUsageExpanded] = useState(false);
   const [tabMetrics, setTabMetrics] = useState<TabMetricItem[]>([]);
   const [tabMetricsLoading, setTabMetricsLoading] = useState(false);
+  const [expandedScreens, setExpandedScreens] = useState<Set<string>>(new Set());
   const [cachedDates, setCachedDates] = useState<string[]>([]);
   const [lastPrefetch, setLastPrefetch] = useState<number | null>(null);
   const [forcePrefetching, setForcePrefetching] = useState(false);
@@ -741,28 +743,86 @@ export default function AdminDashboard() {
                     const cfg = TAB_CONFIG[item.screen] ?? { label: item.screen, emoji: '📱', color: '#6B7280' };
                     const barPct = (item.users / maxUsers) * 100;
                     const mins = Math.round(item.totalSeconds / 60);
+                    const isExpanded = expandedScreens.has(item.screen);
+                    const names = item.userNames ?? [];
                     return (
                       <View key={item.screen} style={isSub ? { marginLeft: 16, marginTop: -4 } : {}}>
                         {isSub && (
                           <View style={{ width: 2, height: 8, backgroundColor: cfg.color + '60', marginLeft: 6, marginBottom: 2 }} />
                         )}
-                        {/* Label row */}
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
+                        {/* Label row — tappable */}
+                        <Pressable
+                          onPress={() => {
+                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                            setExpandedScreens(prev => {
+                              const next = new Set(prev);
+                              if (next.has(item.screen)) next.delete(item.screen);
+                              else next.add(item.screen);
+                              return next;
+                            });
+                          }}
+                          style={({ pressed }) => ({
+                            flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4,
+                            opacity: pressed ? 0.7 : 1,
+                          })}
+                        >
                           <Text style={{ fontSize: isSub ? 12 : 13, fontWeight: '600', color: isSub ? colors.textMuted : colors.text }}>
                             {isSub ? '↳ ' : ''}{cfg.emoji} {isSub ? cfg.label.split('·')[1]?.trim() ?? cfg.label : cfg.label}
                           </Text>
                           <Text style={{ fontSize: isSub ? 11 : 12, fontWeight: '700', color: cfg.color }}>
                             {item.users} {item.users === 1 ? 'persona' : 'personas'} · {mins < 1 ? '<1' : mins} min
                           </Text>
-                        </View>
+                        </Pressable>
                         {/* Bar */}
-                        <View style={{ height: isSub ? 4 : 6, borderRadius: 3, backgroundColor: colors.textMuted + '20' }}>
+                        <View style={{ height: isSub ? 4 : 6, borderRadius: 3, backgroundColor: colors.textMuted + '20', marginBottom: isExpanded ? 8 : 0 }}>
                           <View style={{
                             height: isSub ? 4 : 6, borderRadius: 3,
                             backgroundColor: cfg.color,
                             width: `${barPct}%`,
                           }} />
                         </View>
+                        {/* Expanded: user names */}
+                        {isExpanded && names.length > 0 && (
+                          <View style={{
+                            backgroundColor: cfg.color + '10',
+                            borderRadius: 10,
+                            borderLeftWidth: 3,
+                            borderLeftColor: cfg.color + '80',
+                            paddingHorizontal: 10,
+                            paddingVertical: 8,
+                            gap: 4,
+                            marginBottom: 4,
+                          }}>
+                            {names.map((name, idx) => (
+                              <Text key={idx} style={{ fontSize: 12, color: colors.text, fontWeight: '500' }}>
+                                · {name}
+                              </Text>
+                            ))}
+                            <Pressable
+                              onPress={() => {
+                                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                                setExpandedScreens(prev => {
+                                  const next = new Set(prev);
+                                  next.delete(item.screen);
+                                  return next;
+                                });
+                              }}
+                              style={({ pressed }) => ({
+                                marginTop: 4,
+                                alignSelf: 'flex-end',
+                                paddingHorizontal: 10,
+                                paddingVertical: 4,
+                                borderRadius: 8,
+                                backgroundColor: cfg.color + '20',
+                                opacity: pressed ? 0.6 : 1,
+                              })}
+                            >
+                              <Text style={{ fontSize: 11, fontWeight: '700', color: cfg.color }}>
+                                Colapsar ↑
+                              </Text>
+                            </Pressable>
+                          </View>
+                        )}
                       </View>
                     );
                   });
