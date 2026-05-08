@@ -3,7 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useScaledFont } from '@/lib/textScale';
-import type { Season } from '@/lib/types';
+import type { Season } from '@/lib/gamification-api';
 
 function SeasonBanner({ season, language, onPress }: { season: Season; language: 'en' | 'es'; onPress?: () => void }) {
   const { sFont } = useScaledFont();

@@ -57,7 +57,7 @@ function CromosCard({
   // Use the constant for latest pack
   const LATEST_PACK_NAME_ES = LATEST_BIBLICAL_PACK.nameEs;
   const LATEST_PACK_NAME_EN = LATEST_BIBLICAL_PACK.nameEn;
-  const latestPackImage = LATEST_BIBLICAL_PACK.image;
+  const latestPackImage = LATEST_BIBLICAL_PACK.image as number;
 
   // Ticker text — repeated so it scrolls seamlessly
   const tickerUnit = language === 'es'
