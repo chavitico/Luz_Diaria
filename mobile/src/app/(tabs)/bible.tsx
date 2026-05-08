@@ -1174,12 +1174,11 @@ export default function BibleScreen() {
   // ── Chapter loader ────────────────────────────────────────────────
   const loadChapter = useCallback(async (book: BibleBook, chapter: number, targetVerse?: number, versionOverride?: BibleVersion) => {
     // Stop any running TTS when navigating to a new chapter
-    if (isSpeakingRef.current) {
-      isSpeakingRef.current = false;
-      Speech.stop();
-      setIsSpeaking(false);
-      setCurrentTTSVerse(-1);
-    }
+    ttsJobRef.current += 1;
+    isSpeakingRef.current = false;
+    Speech.stop();
+    setIsSpeaking(false);
+    setCurrentTTSVerse(-1);
     const version = versionOverride ?? selectedVersion;
     setSelectedBook(book);
     setSelectedChapter(chapter);
@@ -1287,7 +1286,11 @@ export default function BibleScreen() {
   }, [lastRead, loadChapter]);
 
   const handleBack = useCallback(() => {
-    if (isSpeaking) { Speech.stop(); setIsSpeaking(false); }
+    ttsJobRef.current += 1;
+    isSpeakingRef.current = false;
+    Speech.stop();
+    setIsSpeaking(false);
+    setCurrentTTSVerse(-1);
     if (view === 'verses') {
       setView('chapters');
       setChapterData(null);
@@ -1310,7 +1313,11 @@ export default function BibleScreen() {
     if (!vInfo?.available) return;
     if (!selectedBook || !selectedChapter) return;
 
-    if (isSpeaking) { Speech.stop(); setIsSpeaking(false); }
+    ttsJobRef.current += 1;
+    isSpeakingRef.current = false;
+    Speech.stop();
+    setIsSpeaking(false);
+    setCurrentTTSVerse(-1);
 
     setSelectedVersion(newVersion);
     setVersionSwitching(true);
