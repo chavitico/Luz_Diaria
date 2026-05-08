@@ -1219,6 +1219,17 @@ export default function BibleScreen() {
     loadChapter(book, chapter, verse);
   }, [loadChapter]);
 
+  // Stop TTS whenever this tab loses focus (tab switch, back navigation, etc.)
+  useFocusEffect(useCallback(() => {
+    return () => {
+      ttsJobRef.current += 1;
+      isSpeakingRef.current = false;
+      Speech.stop();
+      setIsSpeaking(false);
+      setCurrentTTSVerse(-1);
+    };
+  }, []));
+
   // Handle navigation triggered from strong-occurrences screen via navigationBridge
   useFocusEffect(useCallback(() => {
     const nav = consumeStrongNavTarget();
