@@ -2445,3 +2445,9 @@ export const TRANSLATIONS = {
     prayer_display_opt_in_desc: 'Si está desactivado, aparecerás como "Un hermano/a"',
   },
 } as const;
+
+export const LATEST_BIBLICAL_PACK = {
+  nameEs: 'Héroes de la Fe',
+  nameEn: 'Heroes of Faith',
+  image: require('../../assets/packs/pack_heroes_pack.png') as ReturnType<typeof require>,
+};
